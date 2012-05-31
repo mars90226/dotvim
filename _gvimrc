@@ -1,0 +1,3 @@
+colorscheme molokai
+set guifont=Monaco:h12:cANSI
+winsize 84 25
