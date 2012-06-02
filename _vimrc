@@ -1,3 +1,8 @@
+" pathogen
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+" pathogen
+
 set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
@@ -36,10 +41,6 @@ function! C_CPPMAP()
 	nmap <leader>cp :cp<cr>
 	nmap <leader>cw :cw 10<cr>
 endfunction
-
-" pathogen
-call pathogen#infect()
-" pathogen
 
 " taglist
 let Tlist_Ctags_Cmd = 'ctags'
@@ -114,6 +115,14 @@ nnoremap <silent> <leader>fr     :FufRenewCache<CR>
 let g:user_zen_leader_key = '<c-e>'
 " zencoding
 
+" nerdtree
+nnoremap <silent> <F5> :NERDTree<CR>
+" nerdtree
+
+" powerline
+"let g:Powerline_symbols = 'fancy'
+" powerline
+
 set nu
 set autoindent
 set hlsearch&
@@ -129,6 +138,9 @@ filetype on
 filetype plugin on
 filetype indent on
 colorscheme torte
+
+" Source the vimrc file after saving it
+autocmd bufwritepost .vimrc source $MYVIMRC
 
 " ru
 augroup filetypedetect
