@@ -34,7 +34,7 @@
 if &cp || exists("g:loaded_cecutil")
  finish
 endif
-let g:loaded_cecutil = "v18Z"
+let g:loaded_cecutil = "v18h"
 let s:keepcpo        = &cpo
 set cpo&vim
 "DechoRemOn
