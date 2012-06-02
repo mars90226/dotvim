@@ -56,6 +56,9 @@ nmap <C-J> <C-W>j
 nmap <C-K> <C-W>k
 nmap <C-L> <C-W>l
 
+" Win32
+nmap <Leader>x :execute ':! "'.expand('%').'"'<CR>
+
 " Tabular
 nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
@@ -140,7 +143,8 @@ filetype indent on
 colorscheme torte
 
 " Source the vimrc file after saving it
-autocmd bufwritepost .vimrc source $MYVIMRC
+" autocmd bufwritepost _vimrc source $MYVIMRC
+" autocmd bufwritepost _vimrc source $MYGVIMRC
 
 " ru
 augroup filetypedetect

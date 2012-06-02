@@ -1,8 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Vim 7.3'
 let g:netrw_dirhist_2='C:/ProgramData/Microsoft/Windows/Start Menu/Programs'
 let g:netrw_dirhist_3='C:/ProgramData/Microsoft/Windows/Start Menu'
 let g:netrw_dirhist_4='C:/ProgramData/Microsoft/Windows'
 let g:netrw_dirhist_5='C:/ProgramData/Microsoft'
 let g:netrw_dirhist_6='C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Vim 7.3'
+let g:netrw_dirhist_7='D:\download\Book\web design\CSS\CSS - The Missing Manual Tutorials\04'
