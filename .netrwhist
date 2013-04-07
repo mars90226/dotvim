@@ -1,9 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Vim 7.3'
-let g:netrw_dirhist_2='C:/ProgramData/Microsoft/Windows/Start Menu/Programs'
-let g:netrw_dirhist_3='C:/ProgramData/Microsoft/Windows/Start Menu'
-let g:netrw_dirhist_4='C:/ProgramData/Microsoft/Windows'
-let g:netrw_dirhist_5='C:/ProgramData/Microsoft'
-let g:netrw_dirhist_6='C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Vim 7.3'
-let g:netrw_dirhist_7='D:\download\Book\web design\CSS\CSS - The Missing Manual Tutorials\04'
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='C:/Users/mars'
+let g:netrw_dirhist_2='D:\programming\web\test'
+let g:netrw_dirhist_3='D:\download\homework-related\NOW\Computer Architecture\hw4'
+let g:netrw_dirhist_4='D:/programming/c/system_programming/hw1'
+let g:netrw_dirhist_5='D:/programming/ruby/quiz/Texas Holdem'
