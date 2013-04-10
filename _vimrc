@@ -240,7 +240,9 @@ let g:tagbar_expand = 1
 let g:EasyMotion_leader_key = '<Space>'
 " EasyMotion
 
-set noballooneval
+if has("balloon_eval")
+	set noballooneval
+endif
 set nu
 set autoindent
 set hlsearch&
