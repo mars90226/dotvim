@@ -21,6 +21,9 @@
 'delimitMate_smart_matchpairs'	delimitMate.txt	/*'delimitMate_smart_matchpairs'*
 'delimitMate_smart_quotes'	delimitMate.txt	/*'delimitMate_smart_quotes'*
 'loaded_delimitMate'	delimitMate.txt	/*'loaded_delimitMate'*
+,b	camelcasemotion.txt	/*,b*
+,e	camelcasemotion.txt	/*,e*
+,w	camelcasemotion.txt	/*,w*
 :DelimitMateReload	delimitMate.txt	/*:DelimitMateReload*
 :DelimitMateSwitch	delimitMate.txt	/*:DelimitMateSwitch*
 :DelimitMateTest	delimitMate.txt	/*:DelimitMateTest*
@@ -59,6 +62,17 @@ AnsiEsc-history	AnsiEsc.txt	/*AnsiEsc-history*
 AnsiEsc-manual	AnsiEsc.txt	/*AnsiEsc-manual*
 AnsiEsc.txt	AnsiEsc.txt	/*AnsiEsc.txt*
 VimwikiWeblinkHandler	vimwiki.txt	/*VimwikiWeblinkHandler*
+camelcasemotion-configuration	camelcasemotion.txt	/*camelcasemotion-configuration*
+camelcasemotion-dependencies	camelcasemotion.txt	/*camelcasemotion-dependencies*
+camelcasemotion-description	camelcasemotion.txt	/*camelcasemotion-description*
+camelcasemotion-history	camelcasemotion.txt	/*camelcasemotion-history*
+camelcasemotion-ideas	camelcasemotion.txt	/*camelcasemotion-ideas*
+camelcasemotion-installation	camelcasemotion.txt	/*camelcasemotion-installation*
+camelcasemotion-known-problems	camelcasemotion.txt	/*camelcasemotion-known-problems*
+camelcasemotion-todo	camelcasemotion.txt	/*camelcasemotion-todo*
+camelcasemotion-usage	camelcasemotion.txt	/*camelcasemotion-usage*
+camelcasemotion.txt	camelcasemotion.txt	/*camelcasemotion.txt*
+camelcasemotion.vim	camelcasemotion.txt	/*camelcasemotion.vim*
 cecutil	cecutil.txt	/*cecutil*
 cecutil-cmd	cecutil.txt	/*cecutil-cmd*
 cecutil-contents	cecutil.txt	/*cecutil-contents*
