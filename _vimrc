@@ -132,7 +132,11 @@ nnoremap <silent> <leader>au     :AcpUnlock<CR>
 
 " nerdtree
 let NERDTreeWinPos = "right"
-nnoremap <silent> <F5> :NERDTree<CR>
+"nnoremap <silent> <F5> :NERDTreeToggle<CR>
+" nerdtreetabs
+nnoremap <silent> <F5> :NERDTreeTabsToggle<CR>
+nnoremap <silent> <F6> :NERDTreeMirrorToggle<CR>
+let g:nerdtree_tabs_open_on_gui_startup = 0
 " nerdtree
 
 " powerline
@@ -239,6 +243,16 @@ let g:tagbar_expand = 1
 " EasyMotion
 let g:EasyMotion_leader_key = '<Space>'
 " EasyMotion
+
+" C++ Syntax Support
+au BufNewFile,BufRead *.cpp set syntax=cpp11
+" C++ Syntax Support
+
+" CamelCaseMotion
+map ,mw <Plug>CamelCaseMotion_w
+map ,mb <Plug>CamelCaseMotion_b
+map ,me <Plug>CamelCaseMotion_e
+
 
 if has("balloon_eval")
 	set noballooneval
