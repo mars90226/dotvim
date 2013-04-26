@@ -1,6 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='C:/Users/mars'
 let g:netrw_dirhist_2='D:\programming\web\test'
 let g:netrw_dirhist_3='D:\download\homework-related\NOW\Computer Architecture\hw4'
 let g:netrw_dirhist_4='D:/programming/c/system_programming/hw1'
+let g:netrw_dirhist_5='D:/programming/ruby/quiz/Texas Holdem'
