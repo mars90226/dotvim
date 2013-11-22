@@ -1,4 +1,5 @@
-colorscheme molokai
+set background=light
+colorscheme solarized
 set guifont=Monaco:h12:cANSI
 winsize 83 27
 au BufRead,BufNewFile *.rb setlocal balloondelay=1000000

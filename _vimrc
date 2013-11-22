@@ -58,6 +58,7 @@ nmap <C-L> <C-W>l
 
 " Win32
 nmap <Leader>x :execute ':! "'.expand('%').'"'<CR>
+nmap <Leader>X :!start cmd /K cd /D %:p:h<CR>
 
 " Tabular
 nmap <Leader>a= :Tabularize /=<CR>
@@ -134,6 +135,7 @@ nnoremap <silent> <leader>au     :AcpUnlock<CR>
 let NERDTreeWinPos = "right"
 "nnoremap <silent> <F5> :NERDTreeToggle<CR>
 " nerdtreetabs
+nnoremap <silent> <F4> :NERDTreeFind<CR>
 nnoremap <silent> <F5> :NERDTreeTabsToggle<CR>
 nnoremap <silent> <F6> :NERDTreeMirrorToggle<CR>
 let g:nerdtree_tabs_open_on_gui_startup = 0
@@ -233,6 +235,7 @@ inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 " vim gitgutter
 nmap <silent> ]h :<C-U>execute v:count1 . "GitGutterNextHunk"<CR>
 nmap <silent> [h :<C-U>execute v:count1 . "GitGutterPrevHunk"<CR>
+nmap <silent> <leader>gt :GitGutterToggle<CR>
 " vim gitgutter
 
 " tagbar
@@ -252,7 +255,25 @@ au BufNewFile,BufRead *.cpp set syntax=cpp11
 map ,mw <Plug>CamelCaseMotion_w
 map ,mb <Plug>CamelCaseMotion_b
 map ,me <Plug>CamelCaseMotion_e
+" CamelCaseMotion
 
+" vim-easy-align
+vnoremap <silent> <CR> :EasyAlign<CR>
+" vim-easy-align
+
+" vim-ruby-xmpfilter
+nmap <leader>rr <Plug>(xmpfilter-run)
+xmap <leader>rr <Plug>(xmpfilter-run)
+imap <leader>rr <Plug>(xmpfilter-run)
+
+nmap <leader>rm <Plug>(xmpfilter-mark)
+xmap <leader>rm <Plug>(xmpfilter-mark)
+imap <leader>rm <Plug>(xmpfilter-mark)"
+" vim-ruby-xmpfilter
+
+" background toggle
+nmap <leader>bg :let &background = ( &background == "dark" ? "light" : "dark" )<CR>
+" background toggle
 
 if has("balloon_eval")
 	set noballooneval
@@ -265,6 +286,7 @@ set incsearch
 set smartcase
 set tabstop=4
 set shiftwidth=4
+set expandtab
 set t_Co=256
 set wildmenu
 set foldlevelstart=99
