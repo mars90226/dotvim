@@ -1,5 +1,6 @@
 " pathogen
-call pathogen#runtime_append_all_bundles()
+"call pathogen#runtime_append_all_bundles()
+call pathogen#infect()
 call pathogen#helptags()
 " pathogen
 
@@ -10,36 +11,36 @@ behave mswin
 
 set diffexpr=MyDiff()
 function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  let eq = ''
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      let cmd = '""' . $VIMRUNTIME . '\diff"'
-      let eq = '"'
+    let opt = '-a --binary '
+    if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+    if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+    let arg1 = v:fname_in
+    if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+    let arg2 = v:fname_new
+    if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+    let arg3 = v:fname_out
+    if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+    let eq = ''
+    if $VIMRUNTIME =~ ' '
+        if &sh =~ '\\<cmd'
+            let cmd = '""' . $VIMRUNTIME . '\diff"'
+            let eq = '"'
+        else
+            let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+        endif
     else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+        let cmd = $VIMRUNTIME . '\diff'
     endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+    silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
 
 let mapleader=","
 autocmd FileType c,cpp :call C_CPPMAP()
 function! C_CPPMAP()
-	map <buffer> <leader><space> :w<cr>:make<cr>
-	nmap <leader>cn :cn<cr>
-	nmap <leader>cp :cp<cr>
-	nmap <leader>cw :cw 10<cr>
+    map <buffer> <leader><space> :w<cr>:make<cr>
+    nmap <leader>cn :cn<cr>
+    nmap <leader>cp :cp<cr>
+    nmap <leader>cw :cw 10<cr>
 endfunction
 
 " taglist
@@ -57,7 +58,8 @@ nmap <C-K> <C-W>k
 nmap <C-L> <C-W>l
 
 " Win32
-nmap <Leader>x :execute ':! "'.expand('%').'"'<CR>
+"nmap <Leader>x :execute ':! "'.expand('%').'"'<CR>
+nmap <Leader>x :!start cmd /c "%:p"<CR>
 nmap <Leader>X :!start cmd /K cd /D %:p:h<CR>
 
 " Tabular
@@ -116,8 +118,11 @@ nnoremap <silent> <leader>fr     :FufRenewCache<CR>
 " fuzzyfinder
 
 " zencoding
-let g:user_zen_leader_key = '<c-e>'
+"let g:user_zen_leader_key = '<c-e>'
 " zencoding
+" emmet
+let g:user_emmet_leader_key = '<c-e>'
+" emmet
 
 " AutoComplPop
 let g:acp_behaviorSnipmateLength = -1
@@ -159,19 +164,19 @@ let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 1
 " Sets minimum char length of syntax keyword.
 let g:neocomplcache_min_syntax_length = 3
-" buffer file name pattern that locks neocomplcache. e.g. ku.vim or fuzzyfinder 
+" buffer file name pattern that locks neocomplcache. e.g. ku.vim or fuzzyfinder
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 " Define file-type dependent dictionaries.
 let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-    \ }
+            \ 'default' : '',
+            \ 'vimshell' : $HOME.'/.vimshell_hist',
+            \ 'scheme' : $HOME.'/.gosh_completions'
+            \ }
 
 " Define keyword, for minor languages
 if !exists('g:neocomplcache_keyword_patterns')
-  let g:neocomplcache_keyword_patterns = {}
+    let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
@@ -212,9 +217,9 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-" Enable heavy omni completion, which require computational power and may stall the vim. 
+" Enable heavy omni completion, which require computational power and may stall the vim.
 if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
+    let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
@@ -276,8 +281,9 @@ nmap <leader>bg :let &background = ( &background == "dark" ? "light" : "dark" )<
 " background toggle
 
 if has("balloon_eval")
-	set noballooneval
+    set noballooneval
 endif
+set directory=.,$TEMP
 set nu
 set autoindent
 set hlsearch&
@@ -290,6 +296,7 @@ set expandtab
 set t_Co=256
 set wildmenu
 set foldlevelstart=99
+let $TMP="C:/tmp"
 filetype on
 filetype plugin on
 filetype indent on
@@ -301,19 +308,20 @@ colorscheme torte
 
 " ru
 augroup filetypedetect
-	au! BufRead,BufNewFile *.ru setfiletype ruby
+    au! BufRead,BufNewFile *.ru setfiletype ruby
 augroup END
 
 " ruby
 augroup ruby
-	au BufRead,BufNewFile *.rb set fdm=syntax
+    " avoid performance problem
+    "au BufRead,BufNewFile *.rb set fdm=syntax
 augroup END
 
 nmap <F7> :call ToggleFoldBetweenManualAndSyntax()<CR>
 function! ToggleFoldBetweenManualAndSyntax()
-	if &foldmethod == 'manual'
-		set foldmethod=syntax
-	else
-		set foldmethod=manual
-	endif
+    if &foldmethod == 'manual'
+        set foldmethod=syntax
+    else
+        set foldmethod=manual
+    endif
 endfunction
