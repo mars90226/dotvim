@@ -11,36 +11,36 @@ behave mswin
 
 set diffexpr=MyDiff()
 function MyDiff()
-    let opt = '-a --binary '
-    if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-    if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-    let arg1 = v:fname_in
-    if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-    let arg2 = v:fname_new
-    if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-    let arg3 = v:fname_out
-    if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-    let eq = ''
-    if $VIMRUNTIME =~ ' '
-        if &sh =~ '\\<cmd'
-            let cmd = '""' . $VIMRUNTIME . '\diff"'
-            let eq = '"'
-        else
-            let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-        endif
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
     else
-        let cmd = $VIMRUNTIME . '\diff'
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
     endif
-    silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
 
 let mapleader=","
 autocmd FileType c,cpp :call C_CPPMAP()
 function! C_CPPMAP()
-    map <buffer> <leader><space> :w<cr>:make<cr>
-    nmap <leader>cn :cn<cr>
-    nmap <leader>cp :cp<cr>
-    nmap <leader>cw :cw 10<cr>
+  map <buffer> <leader><space> :w<cr>:make<cr>
+  nmap <leader>cn :cn<cr>
+  nmap <leader>cp :cp<cr>
+  nmap <leader>cw :cw 10<cr>
 endfunction
 
 " taglist
@@ -169,14 +169,14 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 " Define file-type dependent dictionaries.
 let g:neocomplcache_dictionary_filetype_lists = {
-            \ 'default' : '',
-            \ 'vimshell' : $HOME.'/.vimshell_hist',
-            \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
+      \ 'default' : '',
+      \ 'vimshell' : $HOME.'/.vimshell_hist',
+      \ 'scheme' : $HOME.'/.gosh_completions'
+      \ }
 
 " Define keyword, for minor languages
 if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
+  let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
@@ -219,7 +219,7 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Enable heavy omni completion, which require computational power and may stall the vim.
 if !exists('g:neocomplcache_omni_patterns')
-    let g:neocomplcache_omni_patterns = {}
+  let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
@@ -280,8 +280,20 @@ imap <leader>rm <Plug>(xmpfilter-mark)"
 nmap <leader>bg :let &background = ( &background == "dark" ? "light" : "dark" )<CR>
 " background toggle
 
+" vim-latex
+let g:tex_flavor='latex'
+let g:Tex_DefaultTargetFormat='pdf'
+let g:Tex_ViewRule_pdf='D:/Program Files (x86)/SumatraPDF/SumatraPDF.exe'
+let g:Tex_CompileRule_pdf = 'xelatex --synctex=-1 -src-specials -interaction=nonstopmode $*'
+function CompileXeLaTeXAndView()
+  call Tex_RunLaTeX()
+  call Tex_ViewLaTeX()
+endfunction
+map <Leader>lx :<C-U>call CompileXeLaTeXAndView()<CR>
+" vim-latex
+
 if has("balloon_eval")
-    set noballooneval
+  set noballooneval
 endif
 set directory=.,$TEMP
 set nu
@@ -290,11 +302,13 @@ set hlsearch&
 set ignorecase
 set incsearch
 set smartcase
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set smarttab
 set expandtab
+set shellslash
+set grepprg=grep\ -nH\ $*
 set t_Co=256
 set wildmenu
 set foldlevelstart=99
@@ -310,20 +324,20 @@ colorscheme torte
 
 " ru
 augroup filetypedetect
-    au! BufRead,BufNewFile *.ru setfiletype ruby
+  au! BufRead,BufNewFile *.ru setfiletype ruby
 augroup END
 
 " ruby
 augroup ruby
-    " avoid performance problem
-    "au BufRead,BufNewFile *.rb set fdm=syntax
+  " avoid performance problem
+  "au BufRead,BufNewFile *.rb set fdm=syntax
 augroup END
 
 nmap <F7> :call ToggleFoldBetweenManualAndSyntax()<CR>
 function! ToggleFoldBetweenManualAndSyntax()
-    if &foldmethod == 'manual'
-        set foldmethod=syntax
-    else
-        set foldmethod=manual
-    endif
+  if &foldmethod == 'manual'
+    set foldmethod=syntax
+  else
+    set foldmethod=manual
+  endif
 endfunction
