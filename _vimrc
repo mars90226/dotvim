@@ -341,3 +341,7 @@ function! ToggleFoldBetweenManualAndSyntax()
     set foldmethod=manual
   endif
 endfunction
+
+let g:lasttab = 1
+nmap <M-1> :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
