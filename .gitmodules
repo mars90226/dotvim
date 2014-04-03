@@ -61,3 +61,6 @@
 [submodule "bundle/node"]
 	path = bundle/node
 	url = https://github.com/moll/vim-node.git
+[submodule "bundle/gundo"]
+	path = bundle/gundo
+	url = http://github.com/sjl/gundo.vim.git

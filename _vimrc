@@ -292,6 +292,10 @@ endfunction
 map <Leader>lx :<C-U>call CompileXeLaTeXAndView()<CR>
 " vim-latex
 
+" Gundo
+nnoremap <F9> :GundoToggle<CR>
+" Gundo
+
 if has("balloon_eval")
   set noballooneval
 endif
