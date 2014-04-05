@@ -238,6 +238,29 @@ inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDow
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 " completion setting
 
+" neosnippet
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+" neosnippet
+
 " vim gitgutter
 nmap <silent> ]h :<C-U>execute v:count1 . "GitGutterNextHunk"<CR>
 nmap <silent> [h :<C-U>execute v:count1 . "GitGutterPrevHunk"<CR>
@@ -300,6 +323,19 @@ nnoremap <F9> :GundoToggle<CR>
 " colorv
 nnoremap <silent> <leader>cN :ColorVName<CR>
 " colorv
+
+" VimShell
+nnoremap <silent> <leader>v :VimShell<CR>
+" VimShell
+
+" Unite
+let g:unite_source_history_yank_enable = 1
+" nnoremap <space>p :Unite file_rec/async<CR>
+nnoremap <space>p :Unite -start-insert file_rec<CR>
+nnoremap <space>/ :Unite grep:.<CR>
+nnoremap <space>y :Unite history/yank<CR>
+nnoremap <space>s :Unite -quick-match tab<CR>
+" Unite
 
 if has("balloon_eval")
   set noballooneval
