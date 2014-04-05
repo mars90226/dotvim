@@ -52,10 +52,11 @@ map <F12> :TlistToggle<CR>
 
 map <C-W><C-A> :redraw!<CR>
 
-nmap <C-H> <C-W>h
-nmap <C-J> <C-W>j
-nmap <C-K> <C-W>k
-nmap <C-L> <C-W>l
+" Pair up with 'set winaltkeys=no' in _gvimrc
+nmap <M-h> <C-W>h
+nmap <M-j> <C-W>j
+nmap <M-k> <C-W>k
+nmap <M-l> <C-W>l
 
 " Win32
 "nmap <Leader>x :execute ':! "'.expand('%').'"'<CR>

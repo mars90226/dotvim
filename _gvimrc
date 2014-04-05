@@ -1,3 +1,4 @@
+set winaltkeys=no
 set background=light
 colorscheme solarized
 set guifont=Monaco:h12:cANSI
