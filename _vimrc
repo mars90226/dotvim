@@ -296,6 +296,10 @@ map <Leader>lx :<C-U>call CompileXeLaTeXAndView()<CR>
 nnoremap <F9> :GundoToggle<CR>
 " Gundo
 
+" colorv
+nnoremap <silent> <leader>cN :ColorVName<CR>
+" colorv
+
 if has("balloon_eval")
   set noballooneval
 endif

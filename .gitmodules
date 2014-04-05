@@ -64,3 +64,9 @@
 [submodule "bundle/gundo"]
 	path = bundle/gundo
 	url = http://github.com/sjl/gundo.vim.git
+[submodule "bundle/colorv"]
+	path = bundle/colorv
+	url = https://github.com/Rykka/colorv.vim.git
+[submodule "bundle/webapi-vim"]
+	path = bundle/webapi-vim
+	url = https://github.com/mattn/webapi-vim.git
