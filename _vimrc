@@ -1,6 +1,6 @@
 " pathogen
 "call pathogen#runtime_append_all_bundles()
-let g:pathogen_disabled = ['vim-airline']
+"let g:pathogen_disabled = ['vim-airline']
 call pathogen#infect()
 call pathogen#helptags()
 " pathogen
