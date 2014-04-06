@@ -336,7 +336,10 @@ nnoremap <silent> <leader>cN :ColorVName<CR>
 " colorv
 
 " VimShell
-nnoremap <silent> <leader>v :VimShell<CR>
+nnoremap <silent> <leader>vv :VimShell<CR>
+nnoremap <silent> <leader>vc :VimShellCurrentDir<CR>
+nnoremap <silent> <leader>vb :VimShellBufferDir<CR>
+nnoremap <silent> <leader>vt :VimShellTab<CR>
 " VimShell
 
 " Unite
