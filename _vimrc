@@ -1,5 +1,6 @@
 " pathogen
 "call pathogen#runtime_append_all_bundles()
+let g:pathogen_disabled = ['vim-airline']
 call pathogen#infect()
 call pathogen#helptags()
 " pathogen
@@ -155,6 +156,10 @@ let g:nerdtree_tabs_open_on_gui_startup = 0
 
 " powerline
 "let g:Powerline_symbols = 'fancy'
+"set rtp+=$VIM/vimfiles/bundle/powerline/powerline/bindings/vim
+"python from powerline.vim import setup as powerline_setup
+"python powerline_setup()
+"python del powerline_setup
 set laststatus=2
 " powerline
 
@@ -339,9 +344,14 @@ let g:unite_source_history_yank_enable = 1
 " nnoremap <space>p :Unite file_rec/async<CR>
 nnoremap <space>p :Unite -start-insert file_rec<CR>
 nnoremap <space>/ :Unite grep:.<CR>
+nnoremap <space>? :Unite grep:.:-r<CR>
 nnoremap <space>y :Unite history/yank<CR>
 nnoremap <space>s :Unite -quick-match tab<CR>
 " Unite
+
+" Syntastic
+let g:syntastic_ruby_checkers = ['mri', 'rubylint']
+" Syntastic
 
 if has("balloon_eval")
   set noballooneval
