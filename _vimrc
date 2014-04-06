@@ -57,6 +57,12 @@ nmap <M-h> <C-W>h
 nmap <M-j> <C-W>j
 nmap <M-k> <C-W>k
 nmap <M-l> <C-W>l
+set encoding=utf8 " make sure mapping is correct in UTF-8
+nmap <M-h> <C-W>h
+nmap <M-j> <C-W>j
+nmap <M-k> <C-W>k
+nmap <M-l> <C-W>l
+set encoding=cp950
 
 " Win32
 "nmap <Leader>x :execute ':! "'.expand('%').'"'<CR>
@@ -389,4 +395,7 @@ endfunction
 
 let g:lasttab = 1
 nmap <M-1> :exe "tabn ".g:lasttab<CR>
+set encoding=utf8 " make sure mapping is correct in UTF-8
+nmap <M-1> :exe "tabn ".g:lasttab<CR>
+set encoding=cp950
 au TabLeave * let g:lasttab = tabpagenr()
