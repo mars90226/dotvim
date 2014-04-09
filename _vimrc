@@ -350,6 +350,7 @@ nnoremap <space>/ :Unite grep:.<CR>
 nnoremap <space>? :Unite grep:.:-r<CR>
 nnoremap <space>y :Unite history/yank<CR>
 nnoremap <space>s :Unite -quick-match tab<CR>
+nnoremap <space>S :Unite source<CR>
 nnoremap <space>m :Unite file_mru<CR>
 nnoremap <space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 " Unite
