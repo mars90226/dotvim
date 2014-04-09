@@ -350,10 +350,13 @@ nnoremap <space>/ :Unite grep:.<CR>
 nnoremap <space>? :Unite grep:.:-r<CR>
 nnoremap <space>y :Unite history/yank<CR>
 nnoremap <space>s :Unite -quick-match tab<CR>
+nnoremap <space>m :Unite file_mru<CR>
+nnoremap <space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 " Unite
 
 " Syntastic
 let g:syntastic_ruby_checkers = ['mri', 'rubylint']
+let g:syntastic_tex_checkers = ['lacheck']
 " Syntastic
 
 if has("balloon_eval")

@@ -88,3 +88,6 @@
 [submodule "bundle/vim-jade"]
 	path = bundle/vim-jade
 	url = https://github.com/digitaltoad/vim-jade.git
+[submodule "bundle/neomru"]
+	path = bundle/neomru
+	url = https://github.com/Shougo/neomru.vim.git
