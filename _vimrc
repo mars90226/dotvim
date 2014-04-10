@@ -345,7 +345,8 @@ nnoremap <silent> <leader>vt :VimShellTab<CR>
 " Unite
 let g:unite_source_history_yank_enable = 1
 " nnoremap <space>p :Unite file_rec/async<CR>
-nnoremap <space>p :Unite -start-insert file_rec<CR>
+nnoremap <space>p :Unite file<CR>
+nnoremap <space>P :Unite -start-insert file_rec<CR>
 nnoremap <space>/ :Unite grep:.<CR>
 nnoremap <space>? :Unite grep:.:-r<CR>
 nnoremap <space>y :Unite history/yank<CR>
