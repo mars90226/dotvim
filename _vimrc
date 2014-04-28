@@ -69,6 +69,7 @@ set encoding=cp950
 "nmap <Leader>x :execute ':! "'.expand('%').'"'<CR>
 nmap <Leader>x :!start cmd /c "%:p"<CR>
 nmap <Leader>X :!start cmd /K cd /D %:p:h<CR>
+nmap <Leader>E :!start explorer %:p:h:gs?\/?\\?<CR>
 
 " Tabular
 nmap <Leader>a= :Tabularize /=<CR>
