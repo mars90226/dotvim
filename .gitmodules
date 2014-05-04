@@ -94,3 +94,6 @@
 [submodule "bundle/vim-scala"]
 	path = bundle/vim-scala
 	url = https://github.com/derekwyatt/vim-scala.git
+[submodule "bundle/vim-seeing-is-believing"]
+	path = bundle/vim-seeing-is-believing
+	url = https://github.com/hwartig/vim-seeing-is-believing.git
