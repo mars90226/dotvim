@@ -98,5 +98,5 @@
 	path = bundle/vim-seeing-is-believing
 	url = https://github.com/hwartig/vim-seeing-is-believing.git
 [submodule "bundle\\vim-slim"]
-	path = bundle\\vim-slim
+	path = bundle/vim-slim
 	url = git://github.com/slim-template/vim-slim.git
