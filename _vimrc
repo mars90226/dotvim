@@ -65,6 +65,18 @@ nmap <M-k> <C-W>k
 nmap <M-l> <C-W>l
 set encoding=cp950
 
+" Move in insert mode
+imap <M-h> <C-O>h
+imap <M-j> <C-O>j
+imap <M-k> <C-O>k
+imap <M-l> <C-O>l
+set encoding=utf8 " make sure mapping is correct in UTF-8
+nmap <M-h> <C-O>h
+nmap <M-j> <C-O>j
+nmap <M-k> <C-O>k
+nmap <M-l> <C-O>l
+set encoding=cp950
+
 " Win32
 "nmap <Leader>x :execute ':! "'.expand('%').'"'<CR>
 nmap <Leader>x :!start cmd /c "%:p"<CR>
