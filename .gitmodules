@@ -103,3 +103,6 @@
 [submodule "bundle/rust.vim"]
 	path = bundle/rust.vim
 	url = https://github.com/wting/rust.vim.git
+[submodule "bundle/bundle/fsharp"]
+	path = bundle/bundle/fsharp
+	url = git://github.com/kongo2002/fsharp-vim.git
