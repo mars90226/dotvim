@@ -69,12 +69,12 @@ set encoding=cp950
 imap <M-h> <C-O>h
 imap <M-j> <C-O>j
 imap <M-k> <C-O>k
-imap <M-l> <C-O>l
+imap <M-l> <C-O>a
 set encoding=utf8 " make sure mapping is correct in UTF-8
 nmap <M-h> <C-O>h
 nmap <M-j> <C-O>j
 nmap <M-k> <C-O>k
-nmap <M-l> <C-O>l
+nmap <M-l> <C-O>a
 set encoding=cp950
 
 " Win32
