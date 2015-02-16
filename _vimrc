@@ -66,19 +66,19 @@ nmap <M-l> <C-W>l
 set encoding=cp950
 
 " Move in insert mode
-imap <M-h> <C-O>h
-imap <M-j> <C-O>j
-imap <M-k> <C-O>k
-imap <M-l> <C-O>a
+imap <M-h> <Left>
+imap <M-j> <Down>
+imap <M-k> <Up>
+imap <M-l> <Right>
 set encoding=utf8 " make sure mapping is correct in UTF-8
-imap <M-h> <C-O>h
-imap <M-j> <C-O>j
-imap <M-k> <C-O>k
-imap <M-l> <C-O>a
+imap <M-h> <Left>
+imap <M-j> <Down>
+imap <M-k> <Up>
+imap <M-l> <Right>
 set encoding=cp950
 
 " add mapping to delete in insert mode
-inoremap <C-b> <C-O>x
+inoremap <C-b> <Right><BS>
 
 " Win32
 "nmap <Leader>x :execute ':! "'.expand('%').'"'<CR>
