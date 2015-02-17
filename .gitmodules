@@ -106,3 +106,6 @@
 [submodule "bundle/fsharp"]
 	path = bundle/fsharp
 	url = git://github.com/kongo2002/fsharp-vim.git
+[submodule "bundle/vim-volt-syntax"]
+	path = bundle/vim-volt-syntax
+	url = https://github.com/etaoins/vim-volt-syntax.git
