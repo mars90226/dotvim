@@ -393,6 +393,8 @@ set softtabstop=2
 set smarttab
 set expandtab
 set shellslash
+set list
+set listchars=tab:\|\ 
 set grepprg=grep\ -nH\ $*
 set t_Co=256
 set wildmenu
