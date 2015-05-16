@@ -115,3 +115,6 @@
 [submodule "bundle/delimitMate"]
 	path = bundle/delimitMate
 	url = https://github.com/Raimondi/delimitMate.git
+[submodule "bundle/racer"]
+	path = bundle/racer
+	url = https://github.com/phildawes/racer.git

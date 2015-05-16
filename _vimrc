@@ -377,6 +377,12 @@ let g:syntastic_ruby_checkers = ['mri', 'rubylint']
 let g:syntastic_tex_checkers = ['lacheck']
 " Syntastic
 
+" racer
+set hidden
+let g:racer_cmd = "D:/download/git/racer/target/release/racer"
+let $RUST_SRC_PATH = "D:/download/git/rust/src/"
+" racer
+
 if has("balloon_eval")
   set noballooneval
 endif
