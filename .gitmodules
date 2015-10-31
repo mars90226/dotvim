@@ -115,3 +115,6 @@
 [submodule "bundle/racer"]
 	path = bundle/racer
 	url = https://github.com/phildawes/racer.git
+[submodule "bundle/vim-easymotion"]
+	path = bundle/vim-easymotion
+	url = https://github.com/easymotion/vim-easymotion.git
