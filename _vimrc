@@ -409,6 +409,8 @@ set grepprg=grep\ -nH\ $*
 set t_Co=256
 set wildmenu
 set foldlevelstart=99
+set ssop-=options
+set ssop-=folds
 let $TMP="C:/tmp"
 filetype on
 filetype plugin on
