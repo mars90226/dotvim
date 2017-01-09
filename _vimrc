@@ -1,6 +1,6 @@
 " pathogen
 "call pathogen#runtime_append_all_bundles()
-"let g:pathogen_disabled = ['vim-airline']
+"let g:pathogen_disabled = ['vim_airline']
 call pathogen#infect()
 call pathogen#helptags()
 " pathogen
@@ -10,7 +10,7 @@ source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
 
-set diffexpr=MyDiff()
+"set diffexpr=MyDiff()
 function MyDiff()
   let opt = '-a --binary '
   if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
@@ -21,18 +21,23 @@ function MyDiff()
   if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
   let arg3 = v:fname_out
   if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  let eq = ''
   if $VIMRUNTIME =~ ' '
-    if &sh =~ '\\<cmd'
-      let cmd = '""' . $VIMRUNTIME . '\diff"'
-      let eq = '"'
+    if &sh =~ '\<cmd'
+      if empty(&shellxquote)
+        let l:shxq_sav = ''
+        set shellxquote&
+      endif
+      let cmd = '"' . $VIMRUNTIME . '\diff"'
     else
       let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
     endif
   else
     let cmd = $VIMRUNTIME . '\diff'
   endif
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
+  if exists('l:shxq_sav')
+    let &shellxquote=l:shxq_sav
+  endif
 endfunction
 
 let mapleader=","
@@ -302,6 +307,12 @@ nmap <silent> <leader>gt :GitGutterToggle<CR>
 nmap <F8> :TagbarToggle<CR>
 let g:tagbar_expand = 1
 " tagbar
+
+" cscope
+nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
+  \:!cscope -b -i cscope.files -f cscope.out<CR>
+  \:cs kill -1<CR>:cs add cscope.out<CR>
+" cscope
 
 " EasyMotion
 let g:EasyMotion_leader_key = '<Space>'
