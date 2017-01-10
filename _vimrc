@@ -1,6 +1,6 @@
 " pathogen
 "call pathogen#runtime_append_all_bundles()
-"let g:pathogen_disabled = ['vim_airline']
+let g:pathogen_disabled = ['racer']
 call pathogen#infect()
 call pathogen#helptags()
 " pathogen
@@ -381,7 +381,7 @@ nnoremap <space>P :Unite -start-insert file_rec<CR>
 nnoremap <space>/ :Unite grep:.<CR>
 nnoremap <space>? :Unite grep:.:-r<CR>
 nnoremap <space>y :Unite history/yank<CR>
-nnoremap <space>s :Unite -quick-match tab<CR>
+nnoremap <space><space>s :Unite -quick-match tab<CR>
 nnoremap <space>S :Unite source<CR>
 nnoremap <space>m :Unite file_mru<CR>
 nnoremap <space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
@@ -408,11 +408,11 @@ set hlsearch&
 set ignorecase
 set incsearch
 set smartcase
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set smarttab
-set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+"set smarttab
+set noexpandtab
 set shellslash
 set list
 set listchars=tab:\|\ 
