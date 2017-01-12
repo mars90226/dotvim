@@ -1,5 +1,6 @@
 " pathogen
 "call pathogen#runtime_append_all_bundles()
+"let g:pathogen_disabled = ['racer']
 let g:pathogen_disabled = ['racer']
 call pathogen#infect()
 call pathogen#helptags()
@@ -266,7 +267,7 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 " neocomplcache end
 
 " completion setting
-inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+"inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
@@ -311,8 +312,7 @@ let g:tagbar_expand = 1
 " cscope
 nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
   \:!cscope -b -i cscope.files -f cscope.out<CR>
-  \:cs kill -1<CR>
-  \:cs add cscope.out<CR>
+  \:cs kill -1<CR>:cs add cscope.out<CR>
 " cscope
 
 " EasyMotion
