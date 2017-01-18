@@ -1,6 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='D:/programming/web/jewel_breaker'
 let g:netrw_dirhist_2='C:/Ruby200/lib/ruby/gems/2.0.0/gems/rake-10.0.3'
 let g:netrw_dirhist_3='D:/programming/web/chat_record'
 let g:netrw_dirhist_4='D:/programming/web/customer-management'
+let g:netrw_dirhist_5='/synosrc/packages/source/rspamd/src/lua'

@@ -189,6 +189,16 @@ let g:nerdtree_tabs_open_on_gui_startup = 0
 set laststatus=2
 " powerline
 
+" vim-airline
+let g:airline_powerline_fonts = 1
+
+let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_tab_nr = 0
+let g:airline#extensions#tabline#fnamemod = ':p:.'
+let g:airline#extensions#tabline#fnamecollapse = 1
+" vim-airline
+
 " neocomplcache begin
 " Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
 let g:acp_enableAtStartup = 0
