@@ -197,6 +197,9 @@ let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tab_nr = 0
 let g:airline#extensions#tabline#fnamemod = ':p:.'
 let g:airline#extensions#tabline#fnamecollapse = 1
+
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
 " vim-airline
 
 " neocomplcache begin
