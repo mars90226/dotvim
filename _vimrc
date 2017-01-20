@@ -458,8 +458,9 @@ let $RUST_SRC_PATH = "D:/download/git/rust/src/"
 " racer
 
 " vim-indent-guides
-highlight IndentGuidesOdd ctermbg=243
-highlight IndentGuidesEven ctermbg=240
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :highlight IndentGuidesOdd ctermbg=243
+autocmd VimEnter,Colorscheme * :highlight IndentGuidesEven ctermbg=240
 " vim-indent-guides
 
 if has("balloon_eval")
