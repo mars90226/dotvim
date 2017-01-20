@@ -457,6 +457,11 @@ let g:racer_cmd = "D:/download/git/racer/target/release/racer"
 let $RUST_SRC_PATH = "D:/download/git/rust/src/"
 " racer
 
+" vim-indent-guides
+highlight IndentGuidesOdd ctermbg=243
+highlight IndentGuidesEven ctermbg=240
+" vim-indent-guides
+
 if has("balloon_eval")
   set noballooneval
 endif
