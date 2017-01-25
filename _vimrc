@@ -518,10 +518,13 @@ function! ToggleFoldBetweenManualAndSyntax()
 endfunction
 
 let g:lasttab = 1
-nmap <M-1> :exe "tabn ".g:lasttab<CR>
 if has("win32") || has("win64")
   set encoding=utf8 " make sure mapping is correct in UTF-8
   nmap <M-1> :exe "tabn ".g:lasttab<CR>
   set encoding=cp950
+  nmap <M-1> :exe "tabn ".g:lasttab<CR>
+else
+  set <M-1>=1
+  nmap <M-1> :exe "tabn ".g:lasttab<CR>
 endif
 au TabLeave * let g:lasttab = tabpagenr()
