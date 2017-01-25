@@ -508,6 +508,12 @@ augroup ruby
   "au BufRead,BufNewFile *.rb set fdm=syntax
 augroup END
 
+" filetype detection
+autocmd BufNewFile,BufReadPost *maillog* :set filetype=messages
+autocmd BufNewFile,BufReadPost *conf.local :set filetype=conf
+autocmd BufNewFile,BufReadPost *conf.local.override :set filetype=conf
+" filetype detection
+
 nmap <F7> :call ToggleFoldBetweenManualAndSyntax()<CR>
 function! ToggleFoldBetweenManualAndSyntax()
   if &foldmethod == 'manual'
