@@ -445,6 +445,15 @@ function! s:unite_my_settings()"{{{
 	imap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
 	nmap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
 endfunction"}}}
+
+if executable('rg')
+	let g:unite_source_grep_command = 'rg'
+	let g:unite_source_grep_default_opts = '--hidden --no-heading --vimgrep -S'
+	let g:unite_source_grep_recursive_opt = ''
+
+	nnoremap <space>/ :Unite grep:. -wrap<CR>
+	nnoremap <space>? :Unite grep:. -wrap<CR>
+endif
 " Unite
 
 " Syntastic
