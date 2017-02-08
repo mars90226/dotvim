@@ -497,6 +497,7 @@ set wildmenu
 set foldlevelstart=99
 set ssop-=options
 set ssop-=folds
+set rtp+=~/.fzf
 let $TMP="C:/tmp"
 filetype on
 filetype plugin on
