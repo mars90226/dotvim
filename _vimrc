@@ -499,6 +499,7 @@ set grepprg=grep\ -nH\ $*
 set t_Co=256
 set wildmenu
 set foldlevelstart=99
+set mouse=a
 set ssop-=options
 set ssop-=folds
 set rtp+=~/.fzf
