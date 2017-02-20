@@ -11,6 +11,9 @@ source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
 
+" add key mapping for suspend
+nmap <Space><C-Z> :sus<cr>
+
 "set diffexpr=MyDiff()
 function MyDiff()
   let opt = '-a --binary '
