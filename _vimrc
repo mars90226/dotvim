@@ -512,6 +512,9 @@ filetype plugin on
 filetype indent on
 "colorscheme torte
 
+" Make Visual highlight more contrast
+highlight Visual ctermbg=23
+
 " Source the vimrc file after saving it
 " autocmd bufwritepost _vimrc source $MYVIMRC
 " autocmd bufwritepost _vimrc source $MYGVIMRC
