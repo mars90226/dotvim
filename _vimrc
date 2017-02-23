@@ -174,7 +174,7 @@ nnoremap <silent> <leader>au     :AcpUnlock<CR>
 " delimitMate
 
 " nerdtree
-let NERDTreeWinPos = "right"
+"let NERDTreeWinPos = "right"
 "nnoremap <silent> <F5> :NERDTreeToggle<CR>
 " nerdtreetabs
 nnoremap <silent> <F4> :NERDTreeFind<CR>
