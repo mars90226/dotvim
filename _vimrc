@@ -483,7 +483,7 @@ autocmd VimEnter,Colorscheme * :highlight IndentGuidesEven ctermbg=240
 if has("balloon_eval")
   set noballooneval
 endif
-set directory=.,$TEMP
+"set directory=.,$TEMP
 set nu
 set autoindent
 set hlsearch&
