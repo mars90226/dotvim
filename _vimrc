@@ -536,7 +536,7 @@ autocmd BufNewFile,BufReadPost *conf.local :set filetype=conf
 autocmd BufNewFile,BufReadPost *conf.local.override :set filetype=conf
 " filetype detection
 
-nmap <F7> :call ToggleFoldBetweenManualAndSyntax()<CR>
+nnoremap <F7> :call ToggleFoldBetweenManualAndSyntax()<CR>
 function! ToggleFoldBetweenManualAndSyntax()
   if &foldmethod == 'manual'
     set foldmethod=syntax
@@ -544,6 +544,8 @@ function! ToggleFoldBetweenManualAndSyntax()
     set foldmethod=manual
   endif
 endfunction
+
+nnoremap <Space><F7> :set spell!<CR>
 
 let g:lasttab = 1
 if has("win32") || has("win64")
