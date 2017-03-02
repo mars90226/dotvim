@@ -379,7 +379,7 @@ map <Leader>lx :<C-U>call CompileXeLaTeXAndView()<CR>
 " Gundo
 if has('python3')
 	let g:gundo_prefer_python3 = 1
-end
+endif
 nnoremap <F9> :GundoToggle<CR>
 " Gundo
 
