@@ -377,6 +377,9 @@ map <Leader>lx :<C-U>call CompileXeLaTeXAndView()<CR>
 " vim-latex
 
 " Gundo
+if has('python3')
+	let g:gundo_prefer_python3 = 1
+end
 nnoremap <F9> :GundoToggle<CR>
 " Gundo
 
