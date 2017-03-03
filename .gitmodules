@@ -130,3 +130,6 @@
 [submodule "bundle/unite-tag"]
 	path = bundle/unite-tag
 	url = git@github.com:tsukkee/unite-tag.git
+[submodule "bundle/vim-grepper"]
+	path = bundle/vim-grepper
+	url = git@github.com:mhinz/vim-grepper.git
