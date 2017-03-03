@@ -566,7 +566,9 @@ if has("win32") || has("win64")
   set encoding=cp950
   nmap <M-1> :exe "tabn ".g:lasttab<CR>
 else
-  set <M-1>=1
+  if !has("nvim")
+    set <M-1>=1
+  endif
   nmap <M-1> :exe "tabn ".g:lasttab<CR>
 endif
 au TabLeave * let g:lasttab = tabpagenr()
