@@ -410,6 +410,8 @@ nnoremap <space><space>s :Unite -quick-match tab<CR>
 nnoremap <space>S :Unite source<CR>
 nnoremap <space>m :Unite file_mru<CR>
 nnoremap <space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+nnoremap <space>uj :Unite jump<CR>
+
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
 	" Overwrite settings.
