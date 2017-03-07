@@ -193,7 +193,9 @@ set laststatus=2
 " powerline
 
 " vim-airline
-let g:airline_powerline_fonts = 1
+if !has("win32") && !has("win64")
+  let g:airline_powerline_fonts = 1
+endif
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
