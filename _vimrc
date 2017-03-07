@@ -154,6 +154,11 @@ nnoremap <silent> <leader>fe     :FufEditDataFile<CR>
 nnoremap <silent> <leader>fr     :FufRenewCache<CR>
 " fuzzyfinder
 
+" CtrlP
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
+                        \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
+" CtrlP
+
 " zencoding
 "let g:user_zen_leader_key = '<c-e>'
 " zencoding
@@ -536,6 +541,7 @@ set grepprg=grep\ -nH\ $*
 set t_Co=256
 set wildmenu
 set foldlevelstart=99
+set scrolloff=0
 set mouse=a
 set ssop-=options
 set ssop-=folds
