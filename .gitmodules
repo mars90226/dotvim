@@ -133,3 +133,9 @@
 [submodule "bundle/vim-grepper"]
 	path = bundle/vim-grepper
 	url = git@github.com:mhinz/vim-grepper.git
+[submodule "bundle/ctrlp-extensions.vim"]
+	path = bundle/ctrlp-extensions.vim
+	url = git@github.com:sgur/ctrlp-extensions.vim.git
+[submodule "bundle/ctrlp-funky"]
+	path = bundle/ctrlp-funky
+	url = git@github.com:tacahiroy/ctrlp-funky.git
