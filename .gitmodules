@@ -139,3 +139,9 @@
 [submodule "bundle/ctrlp-funky"]
 	path = bundle/ctrlp-funky
 	url = git@github.com:tacahiroy/ctrlp-funky.git
+[submodule "bundle/ctrlp-hackernews"]
+	path = bundle/ctrlp-hackernews
+	url = git@github.com:mattn/ctrlp-hackernews.git
+[submodule "bundle/open-browser.vim"]
+	path = bundle/open-browser.vim
+	url = git@github.com:tyru/open-browser.vim.git
