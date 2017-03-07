@@ -145,3 +145,24 @@
 [submodule "bundle/open-browser.vim"]
 	path = bundle/open-browser.vim
 	url = git@github.com:tyru/open-browser.vim.git
+[submodule "bundle/ctrlp-py-matcher"]
+	path = bundle/ctrlp-py-matcher
+	url = git@github.com:FelikZ/ctrlp-py-matcher.git
+[submodule "bundle/unite-outline"]
+	path = bundle/unite-outline
+	url = git@github.com:h1mesuke/unite-outline.git
+[submodule "bundle/unite-session"]
+	path = bundle/unite-session
+	url = git@github.com:Shougo/unite-session.git
+[submodule "bundle/vim-unite-giti"]
+	path = bundle/vim-unite-giti
+	url = git@github.com:kmnk/vim-unite-giti.git
+[submodule "bundle/unite-workflow"]
+	path = bundle/unite-workflow
+	url = git@github.com:blindFS/unite-workflow.git
+[submodule "bundle/gist-vim"]
+	path = bundle/gist-vim
+	url = git@github.com:mattn/gist-vim.git
+[submodule "bundle/github-issues.vim"]
+	path = bundle/github-issues.vim
+	url = git@github.com:jaxbot/github-issues.vim.git
