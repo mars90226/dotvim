@@ -410,7 +410,8 @@ nnoremap <space><space>s :Unite -quick-match tab<CR>
 nnoremap <space>S :Unite source<CR>
 nnoremap <space>m :Unite file_mru<CR>
 nnoremap <space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
-nnoremap <space>uj :Unite jump<CR>
+nnoremap <space>uj :Unite jump -start-insert<CR>
+nnoremap <space>uo :Unite output -start-insert<CR>
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
@@ -480,6 +481,7 @@ let g:sytastic_check_on_wq = 0
 
 let g:syntastic_ruby_checkers = ['mri', 'rubylint']
 let g:syntastic_tex_checkers = ['lacheck']
+nnoremap <Space><F8> :SyntasticToggleMode<CR>
 " Syntastic
 
 " racer
