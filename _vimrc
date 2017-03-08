@@ -12,7 +12,9 @@ call pathogen#helptags()
 " pathogen
 
 set nocompatible
-source $VIMRUNTIME/vimrc_example.vim
+if exists(":packadd") != 0
+  source $VIMRUNTIME/vimrc_example.vim
+endif
 source $VIMRUNTIME/mswin.vim
 behave mswin
 
