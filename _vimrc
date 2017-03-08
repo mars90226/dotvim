@@ -538,7 +538,7 @@ endif
 "set directory=.,$TEMP
 set nu
 set autoindent
-set hlsearch&
+set nohlsearch
 set ignorecase
 set incsearch
 set smartcase
