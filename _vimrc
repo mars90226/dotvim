@@ -166,6 +166,10 @@ let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                         \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 " CtrlP
 
+" Vim-CtrlP-CmdPalette
+let g:ctrlp_cmdpalette_execute = 1
+" Vim-CtrlP-CmdPalette
+
 " zencoding
 "let g:user_zen_leader_key = '<c-e>'
 " zencoding

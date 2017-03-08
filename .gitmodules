@@ -166,3 +166,6 @@
 [submodule "bundle/github-issues.vim"]
 	path = bundle/github-issues.vim
 	url = git@github.com:jaxbot/github-issues.vim.git
+[submodule "bundle/vim-ctrlp-cmdpalette"]
+	path = bundle/vim-ctrlp-cmdpalette
+	url = git@github.com:fisadev/vim-ctrlp-cmdpalette.git
