@@ -166,6 +166,3 @@
 [submodule "bundle/vim-ctrlp-cmdpalette"]
 	path = bundle/vim-ctrlp-cmdpalette
 	url = git@github.com:fisadev/vim-ctrlp-cmdpalette.git
-[submodule "bundle/unite-outline"]
-	path = bundle/unite-outline
-	url = git@github.com:Shougo/unite-outline.git
