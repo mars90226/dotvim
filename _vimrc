@@ -1,7 +1,12 @@
 " pathogen
 "call pathogen#runtime_append_all_bundles()
 "let g:pathogen_disabled = ['racer']
-let g:pathogen_disabled = ['racer']
+
+if has("python")
+  let g:pathogen_disabled = ['racer']
+else
+  let g:pathogen_disabled = ['racer', 'github-issues.vim']
+end
 call pathogen#infect()
 call pathogen#helptags()
 " pathogen
