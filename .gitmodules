@@ -169,6 +169,3 @@
 [submodule "bundle/unite-outline"]
 	path = bundle/unite-outline
 	url = git@github.com:Shougo/unite-outline.git
-[submodule "bundle/denite.nvim"]
-	path = bundle/denite.nvim
-	url = git@github.com:Shougo/denite.nvim.git
