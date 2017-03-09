@@ -169,3 +169,6 @@
 [submodule "bundle/vim-ctrlp-cmdpalette"]
 	path = bundle/vim-ctrlp-cmdpalette
 	url = git@github.com:fisadev/vim-ctrlp-cmdpalette.git
+[submodule "bundle/far.vim"]
+	path = bundle/far.vim
+	url = git@github.com:brooth/far.vim.git
