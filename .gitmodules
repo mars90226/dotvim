@@ -181,3 +181,6 @@
 [submodule "bundle/gj"]
 	path = bundle/gj
 	url = git@github.com:fcamel/gj.git
+[submodule "bundle/vim-javascript-syntax"]
+	path = bundle/vim-javascript-syntax
+	url = git@github.com:jelera/vim-javascript-syntax.git

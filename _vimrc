@@ -1,4 +1,3 @@
-" pathogen
 "call pathogen#runtime_append_all_bundles()
 "let g:pathogen_disabled = ['racer']
 
@@ -533,6 +532,10 @@ let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 0
 " vim-grepper
 
+" neovim terminal key mapping
+tnoremap <Esc><Esc> <C-\><C-n>
+" neovim terminal key mapping
+
 if has("balloon_eval")
   set noballooneval
 endif
@@ -564,10 +567,25 @@ let $TMP="C:/tmp"
 filetype on
 filetype plugin on
 filetype indent on
-"colorscheme torte
+set background=dark
+colorscheme Tomorrow-Night
+
+" vim-color-solarized
+let g:solarized_termcolors=256
+let g:solarized_termtrans =1
+let g:solarized_degrade   =1
+let g:solarized_bold      =0
+let g:solarized_underline =0
+let g:solarized_italic    =0
+let g:solarized_contrast  ="high"
+let g:solarized_visibility="low"
+let g:solarized_hitrail   =0
+let g:solarized_menu      =0
+"colorscheme solarized
+" vim-color-solarized
 
 " Make Visual highlight more contrast
-highlight Visual ctermbg=23
+"highlight Visual ctermbg=23
 
 " Source the vimrc file after saving it
 " autocmd bufwritepost _vimrc source $MYVIMRC
