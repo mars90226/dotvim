@@ -560,8 +560,9 @@ set wildmenu
 set foldlevelstart=99
 set scrolloff=0
 set mouse=a
-set ssop-=options
-set ssop-=folds
+set sessionoptions-=options
+set sessionoptions-=folds
+set sessionoptions-=blank
 set rtp+=~/.fzf
 let $TMP="C:/tmp"
 filetype on
