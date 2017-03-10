@@ -569,7 +569,14 @@ filetype on
 filetype plugin on
 filetype indent on
 set background=dark
-colorscheme Tomorrow-Night
+
+if !has("win32") && !has("win64")
+    let uname = system("uname -a")
+    " avoid using colorscheme on Synology DSM
+    if uname !~ "synology"
+        colorscheme Tomorrow-Night
+    endif
+endif
 
 " vim-color-solarized
 let g:solarized_termcolors=256
