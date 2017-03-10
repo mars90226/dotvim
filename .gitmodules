@@ -175,3 +175,9 @@
 [submodule "bundle/vim-esearch"]
 	path = bundle/vim-esearch
 	url = git@github.com:eugen0329/vim-esearch.git
+[submodule "bundle/ack.vim"]
+	path = bundle/ack.vim
+	url = git@github.com:mileszs/ack.vim.git
+[submodule "bundle/gj"]
+	path = bundle/gj
+	url = git@github.com:fcamel/gj.git
