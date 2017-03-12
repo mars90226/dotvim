@@ -1,3 +1,4 @@
+" pathogen
 "call pathogen#runtime_append_all_bundles()
 "let g:pathogen_disabled = ['racer']
 
@@ -161,6 +162,7 @@ nnoremap <silent> <leader>fr     :FufRenewCache<CR>
 " fuzzyfinder
 
 " CtrlP
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                         \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 " CtrlP
@@ -533,7 +535,9 @@ let g:grepper.quickfix      = 0
 " vim-grepper
 
 " neovim terminal key mapping
-tnoremap <Esc><Esc> <C-\><C-n>
+if has("nvim")
+  tnoremap <Esc><Esc> <C-\><C-n>
+endif
 " neovim terminal key mapping
 
 if has("balloon_eval")
