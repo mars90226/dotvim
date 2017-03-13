@@ -503,6 +503,8 @@ let g:sytastic_check_on_wq = 0
 
 let g:syntastic_ruby_checkers = ['mri', 'rubylint']
 let g:syntastic_tex_checkers = ['lacheck']
+let g:syntastic_c_checkers = ['gcc']
+let g:syntastic_cpp_checkers = ['gcc']
 nnoremap <Space><F8> :SyntasticToggleMode<CR>
 " Syntastic
 
@@ -536,7 +538,7 @@ let g:grepper.quickfix      = 0
 
 " neovim terminal key mapping
 if has("nvim")
-  tnoremap <Esc><Esc> <C-\><C-n>
+  tnoremap <Space><F1> <C-\><C-n>
 endif
 " neovim terminal key mapping
 
