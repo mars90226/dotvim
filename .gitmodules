@@ -150,7 +150,7 @@
 	url = git@github.com:FelikZ/ctrlp-py-matcher.git
 [submodule "bundle/unite-outline"]
 	path = bundle/unite-outline
-	url = git@github.com:h1mesuke/unite-outline.git
+	url = git@github.com:Shougo/unite-outline.git
 [submodule "bundle/unite-session"]
 	path = bundle/unite-session
 	url = git@github.com:Shougo/unite-session.git
