@@ -228,6 +228,19 @@ let g:airline_solarized_bg='dark'
 " YouCompleteMe
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
+
+nnoremap <Leader>yi :YcmCompleter GoToInclude<CR>
+nnoremap <Leader>yg :YcmCompleter GoTo<CR>
+nnoremap <Leader>yG :YcmCompleter GoToImprecise<CR>
+nnoremap <Leader>yr :YcmCompleter GoToReferences<CR>
+nnoremap <Leader>yt :YcmCompleter GetType<CR>
+nnoremap <Leader>yT :YcmCompleter GetTypeImprecise<CR>
+nnoremap <Leader>yp :YcmCompleter GetParent<CR>
+nnoremap <Leader>yd :YcmCompleter GetDoc<CR>
+nnoremap <Leader>yd :YcmCompleter GetDocImprecise<CR>
+nnoremap <Leader>yf :YcmCompleter FixIt<CR>
+
+nnoremap <Leader>yR :YcmRestartServer<CR>
 " YouCompleteMe
 
 "" neocomplcache begin
@@ -548,6 +561,11 @@ let g:grepper.quickfix      = 0
 " neovim terminal key mapping
 if has("nvim")
   tnoremap <Space><F1> <C-\><C-n>
+
+  tnoremap <M-h> <C-\><C-n><C-w>h
+  tnoremap <M-j> <C-\><C-n><C-w>j
+  tnoremap <M-k> <C-\><C-n><C-w>k
+  tnoremap <M-l> <C-\><C-n><C-w>l
 endif
 " neovim terminal key mapping
 
