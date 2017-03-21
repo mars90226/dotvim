@@ -240,6 +240,39 @@ nnoremap <Leader>yd :YcmCompleter GetDoc<CR>
 nnoremap <Leader>yd :YcmCompleter GetDocImprecise<CR>
 nnoremap <Leader>yf :YcmCompleter FixIt<CR>
 
+nnoremap <Leader>ysi :split <bar> YcmCompleter GoToInclude<CR>
+nnoremap <Leader>ysg :split <bar> YcmCompleter GoTo<CR>
+nnoremap <Leader>ysG :split <bar> YcmCompleter GoToImprecise<CR>
+nnoremap <Leader>ysr :split <bar> YcmCompleter GoToReferences<CR>
+nnoremap <Leader>yst :split <bar> YcmCompleter GetType<CR>
+nnoremap <Leader>ysT :split <bar> YcmCompleter GetTypeImprecise<CR>
+nnoremap <Leader>ysp :split <bar> YcmCompleter GetParent<CR>
+nnoremap <Leader>ysd :split <bar> YcmCompleter GetDoc<CR>
+nnoremap <Leader>ysd :split <bar> YcmCompleter GetDocImprecise<CR>
+nnoremap <Leader>ysf :split <bar> YcmCompleter FixIt<CR>
+
+nnoremap <Leader>yvi :vsplit <bar> YcmCompleter GoToInclude<CR>
+nnoremap <Leader>yvg :vsplit <bar> YcmCompleter GoTo<CR>
+nnoremap <Leader>yvG :vsplit <bar> YcmCompleter GoToImprecise<CR>
+nnoremap <Leader>yvr :vsplit <bar> YcmCompleter GoToReferences<CR>
+nnoremap <Leader>yvt :vsplit <bar> YcmCompleter GetType<CR>
+nnoremap <Leader>yvT :vsplit <bar> YcmCompleter GetTypeImprecise<CR>
+nnoremap <Leader>yvp :vsplit <bar> YcmCompleter GetParent<CR>
+nnoremap <Leader>yvd :vsplit <bar> YcmCompleter GetDoc<CR>
+nnoremap <Leader>yvd :vsplit <bar> YcmCompleter GetDocImprecise<CR>
+nnoremap <Leader>yvf :vsplit <bar> YcmCompleter FixIt<CR>
+
+nnoremap <Leader>yxi :tab split <bar> YcmCompleter GoToInclude<CR>
+nnoremap <Leader>yxg :tab split <bar> YcmCompleter GoTo<CR>
+nnoremap <Leader>yxG :tab split <bar> YcmCompleter GoToImprecise<CR>
+nnoremap <Leader>yxr :tab split <bar> YcmCompleter GoToReferences<CR>
+nnoremap <Leader>yxt :tab split <bar> YcmCompleter GetType<CR>
+nnoremap <Leader>yxT :tab split <bar> YcmCompleter GetTypeImprecise<CR>
+nnoremap <Leader>yxp :tab split <bar> YcmCompleter GetParent<CR>
+nnoremap <Leader>yxd :tab split <bar> YcmCompleter GetDoc<CR>
+nnoremap <Leader>yxd :tab split <bar> YcmCompleter GetDocImprecise<CR>
+nnoremap <Leader>yxf :tab split <bar> YcmCompleter FixIt<CR>
+
 nnoremap <Leader>yR :YcmRestartServer<CR>
 " YouCompleteMe
 
@@ -652,6 +685,7 @@ augroup END
 autocmd BufNewFile,BufReadPost *maillog* :set filetype=messages
 autocmd BufNewFile,BufReadPost *conf.local :set filetype=conf
 autocmd BufNewFile,BufReadPost *conf.local.override :set filetype=conf
+autocmd BufNewFile,BufReadPost Makefile.inc :set filetype=make
 " filetype detection
 
 nnoremap <F7> :call ToggleFoldBetweenManualAndSyntax()<CR>
