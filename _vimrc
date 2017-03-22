@@ -228,6 +228,10 @@ let g:airline_solarized_bg='dark'
 " YouCompleteMe
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
+let g:ycm_key_invoke_completion = '<M-/>'
+
+nnoremap <Leader>yy :let g:ycm_auto_trigger=0<CR>
+nnoremap <Leader>yY :let g:ycm_auto_trigger=1<CR>
 
 nnoremap <Leader>yi :YcmCompleter GoToInclude<CR>
 nnoremap <Leader>yg :YcmCompleter GoTo<CR>
@@ -237,7 +241,7 @@ nnoremap <Leader>yt :YcmCompleter GetType<CR>
 nnoremap <Leader>yT :YcmCompleter GetTypeImprecise<CR>
 nnoremap <Leader>yp :YcmCompleter GetParent<CR>
 nnoremap <Leader>yd :YcmCompleter GetDoc<CR>
-nnoremap <Leader>yd :YcmCompleter GetDocImprecise<CR>
+nnoremap <Leader>yD :YcmCompleter GetDocImprecise<CR>
 nnoremap <Leader>yf :YcmCompleter FixIt<CR>
 
 nnoremap <Leader>ysi :split <bar> YcmCompleter GoToInclude<CR>
@@ -248,7 +252,7 @@ nnoremap <Leader>yst :split <bar> YcmCompleter GetType<CR>
 nnoremap <Leader>ysT :split <bar> YcmCompleter GetTypeImprecise<CR>
 nnoremap <Leader>ysp :split <bar> YcmCompleter GetParent<CR>
 nnoremap <Leader>ysd :split <bar> YcmCompleter GetDoc<CR>
-nnoremap <Leader>ysd :split <bar> YcmCompleter GetDocImprecise<CR>
+nnoremap <Leader>ysD :split <bar> YcmCompleter GetDocImprecise<CR>
 nnoremap <Leader>ysf :split <bar> YcmCompleter FixIt<CR>
 
 nnoremap <Leader>yvi :vsplit <bar> YcmCompleter GoToInclude<CR>
@@ -259,7 +263,7 @@ nnoremap <Leader>yvt :vsplit <bar> YcmCompleter GetType<CR>
 nnoremap <Leader>yvT :vsplit <bar> YcmCompleter GetTypeImprecise<CR>
 nnoremap <Leader>yvp :vsplit <bar> YcmCompleter GetParent<CR>
 nnoremap <Leader>yvd :vsplit <bar> YcmCompleter GetDoc<CR>
-nnoremap <Leader>yvd :vsplit <bar> YcmCompleter GetDocImprecise<CR>
+nnoremap <Leader>yvD :vsplit <bar> YcmCompleter GetDocImprecise<CR>
 nnoremap <Leader>yvf :vsplit <bar> YcmCompleter FixIt<CR>
 
 nnoremap <Leader>yxi :tab split <bar> YcmCompleter GoToInclude<CR>
@@ -270,7 +274,7 @@ nnoremap <Leader>yxt :tab split <bar> YcmCompleter GetType<CR>
 nnoremap <Leader>yxT :tab split <bar> YcmCompleter GetTypeImprecise<CR>
 nnoremap <Leader>yxp :tab split <bar> YcmCompleter GetParent<CR>
 nnoremap <Leader>yxd :tab split <bar> YcmCompleter GetDoc<CR>
-nnoremap <Leader>yxd :tab split <bar> YcmCompleter GetDocImprecise<CR>
+nnoremap <Leader>yxD :tab split <bar> YcmCompleter GetDocImprecise<CR>
 nnoremap <Leader>yxf :tab split <bar> YcmCompleter FixIt<CR>
 
 nnoremap <Leader>yR :YcmRestartServer<CR>
@@ -591,17 +595,6 @@ let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 0
 " vim-grepper
 
-" neovim terminal key mapping
-if has("nvim")
-  tnoremap <Space><F1> <C-\><C-n>
-
-  tnoremap <M-h> <C-\><C-n><C-w>h
-  tnoremap <M-j> <C-\><C-n><C-w>j
-  tnoremap <M-k> <C-\><C-n><C-w>k
-  tnoremap <M-l> <C-\><C-n><C-w>l
-endif
-" neovim terminal key mapping
-
 if has("balloon_eval")
   set noballooneval
 endif
@@ -712,3 +705,16 @@ else
   nmap <M-1> :exe "tabn ".g:lasttab<CR>
 endif
 au TabLeave * let g:lasttab = tabpagenr()
+
+" neovim terminal key mapping
+if has("nvim")
+  tnoremap <Space><F1> <C-\><C-n>
+
+  tnoremap <M-h> <C-\><C-n><C-w>h
+  tnoremap <M-j> <C-\><C-n><C-w>j
+  tnoremap <M-k> <C-\><C-n><C-w>k
+  tnoremap <M-l> <C-\><C-n><C-w>l
+
+  tnoremap <M-1> <C-\><C-n>:exe "tabn ".g:lasttab<CR>
+endif
+" neovim terminal key mapping
