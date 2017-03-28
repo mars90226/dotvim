@@ -187,3 +187,6 @@
 [submodule "bundle/YouCompleteMe"]
 	path = bundle/YouCompleteMe
 	url = git@github.com:Valloric/YouCompleteMe.git
+[submodule "bundle/ranger.vim"]
+	path = bundle/ranger.vim
+	url = git@github.com:francoiscabrol/ranger.vim.git

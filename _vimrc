@@ -597,6 +597,14 @@ let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 0
 " vim-grepper
 
+" ranger
+let g:ranger_map_keys = 0
+nnoremap <Space>rr :Ranger<CR>
+nnoremap <Space>rs :split <bar> Ranger<CR>
+nnoremap <Space>rv :vsplit <bar> Ranger<CR>
+nnoremap <Space>rt :tab split <bar> Ranger<CR>
+" ranger
+
 if has("balloon_eval")
   set noballooneval
 endif
