@@ -97,6 +97,12 @@ if has("win32") || has("win64")
   set encoding=cp950
 endif
 
+" Quickly adjust window size
+map <C-w><Space>- <C-w>10-
+map <C-w><Space>+ <C-w>10+
+map <C-w><Space>< <C-w>10<
+map <C-w><Space>> <C-w>10>
+
 " add mapping to delete in insert mode
 inoremap <C-b> <Right><BS>
 
