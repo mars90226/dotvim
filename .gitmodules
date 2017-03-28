@@ -190,3 +190,6 @@
 [submodule "bundle/ranger.vim"]
 	path = bundle/ranger.vim
 	url = git@github.com:francoiscabrol/ranger.vim.git
+[submodule "bundle/vim-orgmode"]
+	path = bundle/vim-orgmode
+	url = git@github.com:jceb/vim-orgmode.git
