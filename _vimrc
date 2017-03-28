@@ -278,6 +278,7 @@ nnoremap <Leader>yxD :tab split <bar> YcmCompleter GetDocImprecise<CR>
 nnoremap <Leader>yxf :tab split <bar> YcmCompleter FixIt<CR>
 
 nnoremap <Leader>yR :YcmRestartServer<CR>
+nnoremap <Leader>yI :YcmDiags<CR>
 " YouCompleteMe
 
 "" neocomplcache begin
@@ -489,6 +490,7 @@ nnoremap <space>m :Unite file_mru<CR>
 nnoremap <space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 nnoremap <space>uj :Unite jump -start-insert<CR>
 nnoremap <space>uo :Unite output -start-insert<CR>
+nnoremap <space>ud :Unite directory<CR>
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
