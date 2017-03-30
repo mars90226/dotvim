@@ -18,6 +18,10 @@ endif
 source $VIMRUNTIME/mswin.vim
 behave mswin
 
+if !has("win32") && !has("win64")
+	cunmap <C-A>
+endif
+
 " add key mapping for suspend
 nmap <Space><C-Z> :sus<cr>
 
@@ -643,6 +647,7 @@ set background=dark
 filetype on
 filetype plugin on
 filetype indent on
+colorscheme Tomorrow-Night
 
 if has("win32") || has("win64")
   let $TMP="C:/tmp"
@@ -652,9 +657,10 @@ endif
 
 if !has("win32") && !has("win64")
   let uname = system("uname -a")
-  " avoid using colorscheme on Synology DSM
-  if uname !~ "synology"
-    colorscheme Tomorrow-Night
+  " disable Background Color Erase (BC) by clearing the `t_ut` on Synology DSM
+  " see https://sunaku.github.io/vim-256color-bce.html
+  if uname =~ "synology"
+    set t_ut=
   endif
 endif
 
