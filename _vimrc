@@ -19,7 +19,7 @@ source $VIMRUNTIME/mswin.vim
 behave mswin
 
 if !has("win32") && !has("win64")
-	cunmap <C-A>
+  cunmap <C-A>
 endif
 
 " add key mapping for suspend
@@ -72,6 +72,14 @@ map <F12> :TlistToggle<CR>
 " taglist
 
 map <C-W><C-A> :redraw!<CR>
+
+" Fix meta key in vim
+if !has("nvim")
+  set <M-h>=h
+  set <M-j>=j
+  set <M-k>=k
+  set <M-l>=l
+endif
 
 " Pair up with 'set winaltkeys=no' in _gvimrc
 nmap <M-h> <C-W>h
@@ -236,6 +244,9 @@ let g:airline_solarized_bg='dark'
 " vim-airline
 
 " YouCompleteMe
+if !has("nvim")
+  set <M-/>=/
+endif
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_key_invoke_completion = '<M-/>'
@@ -465,7 +476,7 @@ map <Leader>lx :<C-U>call CompileXeLaTeXAndView()<CR>
 
 " Gundo
 if has('python3')
-	let g:gundo_prefer_python3 = 1
+  let g:gundo_prefer_python3 = 1
 endif
 nnoremap <F9> :GundoToggle<CR>
 " Gundo
@@ -487,9 +498,9 @@ nnoremap <space>l :Unite -start-insert line<CR>
 nnoremap <space>p :Unite file<CR>
 nnoremap <space>P :Unite -start-insert file_rec<CR>
 "if has("win32") || has("win64")
-	"nnoremap <space>P :Unite -start-insert file_rec<CR>
+  "nnoremap <space>P :Unite -start-insert file_rec<CR>
 "else
-	"nnoremap <space>P :Unite -start-insert file_rec/async<CR>
+  "nnoremap <space>P :Unite -start-insert file_rec/async<CR>
 "endif
 nnoremap <space>/ :Unite grep:.<CR>
 nnoremap <space>? :Unite grep:.:-r<CR>
@@ -504,57 +515,57 @@ nnoremap <space>ud :Unite directory<CR>
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
-	" Overwrite settings.
+  " Overwrite settings.
 
-	imap <buffer> jj      <Plug>(unite_insert_leave)
-	"imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
+  imap <buffer> jj      <Plug>(unite_insert_leave)
+  "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
 
-	imap <buffer><expr> j unite#smart_map('j', '')
-	imap <buffer> <TAB>   <Plug>(unite_select_next_line)
-	imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-	imap <buffer> '     <Plug>(unite_quick_match_default_action)
-	nmap <buffer> '     <Plug>(unite_quick_match_default_action)
-	imap <buffer><expr> x
-				\ unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
-	nmap <buffer> x     <Plug>(unite_quick_match_choose_action)
-	nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
-	imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
-	imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
-	nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
-	nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
-	nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
-	imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
-	nnoremap <silent><buffer><expr> l
-				\ unite#smart_map('l', unite#do_action('default'))
+  imap <buffer><expr> j unite#smart_map('j', '')
+  imap <buffer> <TAB>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
+  imap <buffer> '     <Plug>(unite_quick_match_default_action)
+  nmap <buffer> '     <Plug>(unite_quick_match_default_action)
+  imap <buffer><expr> x
+        \ unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
+  nmap <buffer> x     <Plug>(unite_quick_match_choose_action)
+  nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
+  imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
+  imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
+  nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
+  nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
+  nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+  imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+  nnoremap <silent><buffer><expr> l
+        \ unite#smart_map('l', unite#do_action('default'))
 
-	let unite = unite#get_current_unite()
-	if unite.profile_name ==# 'search'
-		nnoremap <silent><buffer><expr> r     unite#do_action('replace')
-	else
-		nnoremap <silent><buffer><expr> r     unite#do_action('rename')
-	endif
+  let unite = unite#get_current_unite()
+  if unite.profile_name ==# 'search'
+    nnoremap <silent><buffer><expr> r     unite#do_action('replace')
+  else
+    nnoremap <silent><buffer><expr> r     unite#do_action('rename')
+  endif
 
-	nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
-	nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
-				\ empty(unite#mappings#get_current_filters()) ?
-				\ ['sorter_reverse'] : [])
+  nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
+  nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
+        \ empty(unite#mappings#get_current_filters()) ?
+        \ ['sorter_reverse'] : [])
 
-	" Runs "split" action by <C-s>.
-	imap <silent><buffer><expr> <C-s>     unite#do_action('split')
-	nmap <silent><buffer><expr> <C-s>     unite#do_action('split')
+  " Runs "split" action by <C-s>.
+  imap <silent><buffer><expr> <C-s>     unite#do_action('split')
+  nmap <silent><buffer><expr> <C-s>     unite#do_action('split')
 
-	" Runs "vsplit" action by <C-v>.
-	imap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
-	nmap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
+  " Runs "vsplit" action by <C-v>.
+  imap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
+  nmap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
 endfunction"}}}
 
 if executable('rg')
-	let g:unite_source_grep_command = 'rg'
-	let g:unite_source_grep_default_opts = '--hidden --no-heading --vimgrep -S'
-	let g:unite_source_grep_recursive_opt = ''
+  let g:unite_source_grep_command = 'rg'
+  let g:unite_source_grep_default_opts = '--hidden --no-heading --vimgrep -S'
+  let g:unite_source_grep_recursive_opt = ''
 
-	nnoremap <space>/ :Unite grep:. -wrap<CR>
-	nnoremap <space>? :Unite grep:. -wrap<CR>
+  nnoremap <space>/ :Unite grep:. -wrap<CR>
+  nnoremap <space>? :Unite grep:. -wrap<CR>
 endif
 " Unite
 
