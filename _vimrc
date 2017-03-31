@@ -180,7 +180,9 @@ nnoremap <silent> <leader>fr     :FufRenewCache<CR>
 " fuzzyfinder
 
 " CtrlP
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+if has("python")
+  let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+endif
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                         \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 " CtrlP
