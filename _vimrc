@@ -84,40 +84,42 @@ map <F12> :TlistToggle<CR>
 
 map <C-W><C-A> :redraw!<CR>
 
-" Fix meta key in vim
-if !has("nvim")
-  set <M-h>=h
-  set <M-j>=j
-  set <M-k>=k
-  set <M-l>=l
-endif
-
-" Pair up with 'set winaltkeys=no' in _gvimrc
-nmap <M-h> <C-W>h
-nmap <M-j> <C-W>j
-nmap <M-k> <C-W>k
-nmap <M-l> <C-W>l
-if has("win32") || has("win64")
-  set encoding=utf8 " make sure mapping is correct in UTF-8
+if s:uname !~ "synology"
+  " Fix meta key in vim
+  if !has("nvim")
+    set <M-h>=h
+    set <M-j>=j
+    set <M-k>=k
+    set <M-l>=l
+  endif
+  
+  " Pair up with 'set winaltkeys=no' in _gvimrc
   nmap <M-h> <C-W>h
   nmap <M-j> <C-W>j
   nmap <M-k> <C-W>k
   nmap <M-l> <C-W>l
-  set encoding=cp950
-endif
+  if has("win32") || has("win64")
+    set encoding=utf8 " make sure mapping is correct in UTF-8
+    nmap <M-h> <C-W>h
+    nmap <M-j> <C-W>j
+    nmap <M-k> <C-W>k
+    nmap <M-l> <C-W>l
+    set encoding=cp950
+  endif
 
-" Move in insert mode
-imap <M-h> <Left>
-imap <M-j> <Down>
-imap <M-k> <Up>
-imap <M-l> <Right>
-if has("win32") || has("win64")
-  set encoding=utf8 " make sure mapping is correct in UTF-8
+  " Move in insert mode
   imap <M-h> <Left>
   imap <M-j> <Down>
   imap <M-k> <Up>
   imap <M-l> <Right>
-  set encoding=cp950
+  if has("win32") || has("win64")
+    set encoding=utf8 " make sure mapping is correct in UTF-8
+    imap <M-h> <Left>
+    imap <M-j> <Down>
+    imap <M-k> <Up>
+    imap <M-l> <Right>
+    set encoding=cp950
+  endif
 endif
 
 " Quickly adjust window size
@@ -278,16 +280,16 @@ if s:uname =~ "synology"
 
   " Define file-type dependent dictionaries.
   let g:neocomplcache_dictionary_filetype_lists = {
-  "\ 'default' : '',
-  "\ 'vimshell' : $HOME.'/.vimshell_hist',
-  "\ 'scheme' : $HOME.'/.gosh_completions'
-  "\ }
+  \ 'default' : '',
+  \ 'vimshell' : $HOME.'/.vimshell_hist',
+  \ 'scheme' : $HOME.'/.gosh_completions'
+  \ }
 
   " Define keyword, for minor languages
   if !exists('g:neocomplcache_keyword_patterns')
     "let g:neocomplcache_keyword_patterns = {}
   endif
-  let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+  "let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
   " Plugin key-mappings.
   imap <C-k>     <Plug>(neocomplcache_snippets_expand)
@@ -309,10 +311,10 @@ if s:uname =~ "synology"
   inoremap <expr><C-y>  neocomplcache#close_popup()
   inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
-  AutoComplPop like behavior.
+  " AutoComplPop like behavior.
   let g:neocomplcache_enable_auto_select = 1
 
-  Shell like behavior(not recommended).
+  " Shell like behavior(not recommended).
   set completeopt+=longest
   let g:neocomplcache_enable_auto_select = 1
   let g:neocomplcache_disable_auto_complete = 1
@@ -322,7 +324,7 @@ if s:uname =~ "synology"
 
   " Enable heavy omni completion, which require computational power and may stall the vim.
   if !exists('g:neocomplcache_omni_patterns')
-    "let g:neocomplcache_omni_patterns = {}
+    let g:neocomplcache_omni_patterns = {}
   endif
   let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
   "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
