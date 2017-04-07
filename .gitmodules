@@ -196,3 +196,6 @@
 [submodule "bundle/vim-abolish"]
 	path = bundle/vim-abolish
 	url = git@github.com:tpope/vim-abolish.git
+[submodule "bundle/tern_for_vim"]
+	path = bundle/tern_for_vim
+	url = git@github.com:ternjs/tern_for_vim.git
