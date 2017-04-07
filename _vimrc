@@ -122,6 +122,10 @@ if s:uname !~ "synology"
   endif
 endif
 
+" Quickly switch tab
+nnoremap <C-j> gT
+nnoremap <C-k> gt
+
 " Quickly adjust window size
 map <C-w><Space>- <C-w>10-
 map <C-w><Space>+ <C-w>10+
