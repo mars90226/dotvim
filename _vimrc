@@ -475,7 +475,59 @@ nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.
 
 " EasyMotion
 let g:EasyMotion_leader_key = '<Space>'
+map <Plug>(easymotion-prefix)f <Plug>(easymotion-bd-f)
+nmap <Plug>(easymotion-prefix)f <Plug>(easymotion-overwin-f)
+
+nmap <Plug>(easymotion-prefix)s <Plug>(easymotion-overwin-f2)
+
+map <Plug>(easymotion-prefix)L <Plug>(easymotion-bd-jk)
+nmap <Plug>(easymotion-prefix)L <Plug>(easymotion-overwin-line)
+
+map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
+nmap <Plug>(easymotion-prefix)w <Plug>(easymotion-overwin-w)
 " EasyMotion
+
+" incsearch
+map / <Plug>(incsearch-forward)
+map ? <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+" :h g:incsearch#auto_nohlsearch
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+" incsearch
+
+" incsearch-fuzzy
+map z/ <Plug>(incsearch-fuzzy-/)
+map z? <Plug>(incsearch-fuzzy-?)
+map zg/ <Plug>(incsearch-fuzzy-stay)
+" incsearch-fuzzy
+
+" incsearch-easymotion
+map <Leader>/ <Plug>(incsearch-easymotion-/)
+map <Leader>? <Plug>(incsearch-easymotion-?)
+map <Leader>g/ <Plug>(incsearch-easymotion-stay)
+" incsearch-easymotion
+
+" incsearch.vim x fuzzy x vim-easymotion
+function! s:config_easyfuzzymotion(...) abort
+  return extend(copy({
+  \   'converters': [incsearch#config#fuzzy#converter()],
+  \   'modules': [incsearch#config#easymotion#module()],
+  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
+  \   'is_expr': 0,
+  \   'is_stay': 1
+  \ }), get(a:, 1, {}))
+endfunction
+
+noremap <silent><expr> <Leader><Leader>/ incsearch#go(<SID>config_easyfuzzymotion())
+" incsearch.vim x fuzzy x vim-easymotion
 
 " C++ Syntax Support
 au BufNewFile,BufRead *.cpp set syntax=cpp11
@@ -504,18 +556,6 @@ imap <leader>rm <Plug>(xmpfilter-mark)"
 " background toggle
 nmap <leader>bg :let &background = ( &background == "dark" ? "light" : "dark" )<CR>
 " background toggle
-
-" vim-latex
-let g:tex_flavor='latex'
-let g:Tex_DefaultTargetFormat='pdf'
-let g:Tex_ViewRule_pdf='D:/Program Files (x86)/SumatraPDF/SumatraPDF.exe'
-let g:Tex_CompileRule_pdf = 'xelatex --synctex=-1 -src-specials -interaction=nonstopmode $*'
-function CompileXeLaTeXAndView()
-  call Tex_RunLaTeX()
-  call Tex_ViewLaTeX()
-endfunction
-map <Leader>lx :<C-U>call CompileXeLaTeXAndView()<CR>
-" vim-latex
 
 " Gundo
 if has('python3')
@@ -613,6 +653,7 @@ endif
 " Unite
 
 " gj
+nmap <Leader>g <Nop>
 nnoremap <Leader>gg :Ack!<CR>
 " gj
 
