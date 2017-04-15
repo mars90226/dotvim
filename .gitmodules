@@ -208,3 +208,6 @@
 [submodule "bundle/incsearch-easymotion.vim"]
 	path = bundle/incsearch-easymotion.vim
 	url = git@github.com:haya14busa/incsearch-easymotion.vim.git
+[submodule "bundle/vim-rooter"]
+	path = bundle/vim-rooter
+	url = git@github.com:airblade/vim-rooter.git

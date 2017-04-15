@@ -710,6 +710,10 @@ nnoremap <Space>rv :vsplit <bar> Ranger<CR>
 nnoremap <Space>rt :tab split <bar> Ranger<CR>
 " ranger
 
+" vim-rooter
+let g:rooter_manual_only = 1
+" vim-rooter
+
 if has("balloon_eval")
   set noballooneval
 endif
