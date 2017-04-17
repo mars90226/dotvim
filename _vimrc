@@ -595,6 +595,7 @@ nnoremap <space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR
 nnoremap <space>uj :Unite jump -start-insert<CR>
 nnoremap <space>uo :Unite output -start-insert<CR>
 nnoremap <space>ud :Unite directory<CR>
+nnoremap <space>uc :Unite change<CR>
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
