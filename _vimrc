@@ -338,9 +338,6 @@ if s:uname =~ "synology"
   " neocomplcache end
 else
   " YouCompleteMe
-  if !has("nvim")
-    set <M-/>=/
-  endif
   let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
   let g:ycm_confirm_extra_conf = 0
   let g:ycm_key_invoke_completion = '<M-/>'
@@ -491,6 +488,14 @@ nmap <Plug>(easymotion-prefix)w <Plug>(easymotion-overwin-w)
 map / <Plug>(incsearch-forward)
 map ? <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
+
+" Search within visual selection
+if !has("nvim")
+  set <M-/>=/
+  set <M-?>=?
+endif
+vmap <M-/> <Esc><Plug>(incsearch-forward)\%V
+vmap <M-?> <Esc><Plug>(incsearch-backward)\%V
 
 " :h g:incsearch#auto_nohlsearch
 set hlsearch
