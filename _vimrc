@@ -92,7 +92,7 @@ if s:uname !~ "synology"
     set <M-k>=k
     set <M-l>=l
   endif
-  
+
   " Pair up with 'set winaltkeys=no' in _gvimrc
   nmap <M-h> <C-W>h
   nmap <M-j> <C-W>j
@@ -875,3 +875,11 @@ function! DeleteInactiveBufs()
     echomsg nWipeouts . ' buffer(s) wiped out'
 endfunction
 command! Bdi :call DeleteInactiveBufs()
+
+function! TrimWhitespace()
+    let l:save = winsaveview()
+    %s/\s\+$//e
+    call winrestview(l:save)
+endfunction
+command! TrimWhitespace call TrimWhitespace()
+"autocmd BufWritePre * :call TrimWhitespace()
