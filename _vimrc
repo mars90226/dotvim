@@ -754,6 +754,10 @@ filetype plugin on
 filetype indent on
 colorscheme Tomorrow-Night
 
+if has("nvim")
+  set inccommand=split
+endif
+
 " Prevent CTRL-F to abort the selection (in visual mode)
 " This is caused by $VIM/_vimrc ':behave mswin' which sets 'keymodel' to
 " include 'stopsel' which means that non-shifted special keys stop selection.
