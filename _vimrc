@@ -432,6 +432,10 @@ nmap <silent> [h :<C-U>execute v:count1 . "GitGutterPrevHunk"<CR>
 nmap <silent> <leader>gt :GitGutterToggle<CR>
 " vim gitgutter
 
+" fugitive-gitlab
+let g:fugitive_gitlab_domains = ['https://git.synology.com']
+" fugitive-gitlab
+
 " tagbar
 nmap <F8> :TagbarToggle<CR>
 let g:tagbar_expand = 1

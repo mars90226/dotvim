@@ -211,3 +211,9 @@
 [submodule "bundle/vim-rooter"]
 	path = bundle/vim-rooter
 	url = git@github.com:airblade/vim-rooter.git
+[submodule "bundle/fugitive-gitlab.vim"]
+	path = bundle/fugitive-gitlab.vim
+	url = git@github.com:shumphrey/fugitive-gitlab.vim.git
+[submodule "bundle/vim-fubitive"]
+	path = bundle/vim-fubitive
+	url = git@github.com:tommcdo/vim-fubitive.git
