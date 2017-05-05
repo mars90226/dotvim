@@ -26,10 +26,13 @@ set nocompatible
 if exists(":packadd") != 0
   source $VIMRUNTIME/vimrc_example.vim
 endif
-source $VIMRUNTIME/mswin.vim
-behave mswin
 
-if !has("win32") && !has("win64")
+if s:uname !~ "synology"
+  source $VIMRUNTIME/mswin.vim
+  behave mswin
+endif
+
+if !has("win32") && !has("win64") && s:uname !~ "synology"
   cunmap <C-A>
 endif
 
