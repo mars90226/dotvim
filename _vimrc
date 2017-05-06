@@ -89,7 +89,7 @@ map <C-W><C-A> :redraw!<CR>
 
 if s:uname !~ "synology"
   " Fix meta key in vim
-  if !has("nvim")
+  if !has("nvim") && !has("win32") && !has("win64")
     set <M-h>=h
     set <M-j>=j
     set <M-k>=k
@@ -497,7 +497,7 @@ map ? <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 " Search within visual selection
-if !has("nvim")
+if !has("nvim") && !has("win32") && !has("win64")
   set <M-/>=/
   set <M-?>=?
 endif
