@@ -1,6 +1,12 @@
 set winaltkeys=no
 set background=light
 colorscheme Tomorrow-Night
-set guifont=Monaco:h12:cANSI
+
+if has("nvim")
+  GuiFont Monaco:h12
+else
+  set guifont=Monaco:h12:cANSI
+end
+
 winsize 83 27
 au BufRead,BufNewFile *.rb setlocal balloondelay=1000000
