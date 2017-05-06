@@ -16,7 +16,7 @@ endif
 
 if !has("python")
   call add(g:pathogen_disabled, 'github-issues.vim')
-end
+endif
 
 call pathogen#infect()
 call pathogen#helptags()
