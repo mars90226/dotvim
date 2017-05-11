@@ -441,6 +441,7 @@ let g:fugitive_gitlab_domains = ['https://git.synology.com']
 
 " tagbar
 nmap <F8> :TagbarToggle<CR>
+let g:tagbar_map_showproto='<Leader><Space>'
 let g:tagbar_expand = 1
 let g:tagbar_type_go = {
 	\ 'ctagstype' : 'go',
