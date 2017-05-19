@@ -827,6 +827,7 @@ autocmd BufNewFile,BufReadPost *maillog* :set filetype=messages
 autocmd BufNewFile,BufReadPost *conf.local :set filetype=conf
 autocmd BufNewFile,BufReadPost *conf.local.override :set filetype=conf
 autocmd BufNewFile,BufReadPost Makefile.inc :set filetype=make
+autocmd BufNewFile,BufReadPost *.gdbinit :set filetype=gdb
 " filetype detection
 
 nnoremap <F7> :call ToggleFoldBetweenManualAndSyntax()<CR>
