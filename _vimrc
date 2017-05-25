@@ -348,10 +348,13 @@ else
   nnoremap <Leader>yy :let g:ycm_auto_trigger=0<CR>
   nnoremap <Leader>yY :let g:ycm_auto_trigger=1<CR>
 
-  nnoremap <Leader>yi :YcmCompleter GoToInclude<CR>
+  nnoremap <Leader>yr :YcmRestartServer<CR>
+  nnoremap <Leader>yi :YcmDiags<CR>
+
+  nnoremap <Leader>yI :YcmCompleter GoToInclude<CR>
   nnoremap <Leader>yg :YcmCompleter GoTo<CR>
   nnoremap <Leader>yG :YcmCompleter GoToImprecise<CR>
-  nnoremap <Leader>yr :YcmCompleter GoToReferences<CR>
+  nnoremap <Leader>yR :YcmCompleter GoToReferences<CR>
   nnoremap <Leader>yt :YcmCompleter GetType<CR>
   nnoremap <Leader>yT :YcmCompleter GetTypeImprecise<CR>
   nnoremap <Leader>yp :YcmCompleter GetParent<CR>
@@ -359,10 +362,10 @@ else
   nnoremap <Leader>yD :YcmCompleter GetDocImprecise<CR>
   nnoremap <Leader>yf :YcmCompleter FixIt<CR>
 
-  nnoremap <Leader>ysi :split <bar> YcmCompleter GoToInclude<CR>
+  nnoremap <Leader>ysI :split <bar> YcmCompleter GoToInclude<CR>
   nnoremap <Leader>ysg :split <bar> YcmCompleter GoTo<CR>
   nnoremap <Leader>ysG :split <bar> YcmCompleter GoToImprecise<CR>
-  nnoremap <Leader>ysr :split <bar> YcmCompleter GoToReferences<CR>
+  nnoremap <Leader>ysR :split <bar> YcmCompleter GoToReferences<CR>
   nnoremap <Leader>yst :split <bar> YcmCompleter GetType<CR>
   nnoremap <Leader>ysT :split <bar> YcmCompleter GetTypeImprecise<CR>
   nnoremap <Leader>ysp :split <bar> YcmCompleter GetParent<CR>
@@ -370,10 +373,10 @@ else
   nnoremap <Leader>ysD :split <bar> YcmCompleter GetDocImprecise<CR>
   nnoremap <Leader>ysf :split <bar> YcmCompleter FixIt<CR>
 
-  nnoremap <Leader>yvi :vsplit <bar> YcmCompleter GoToInclude<CR>
+  nnoremap <Leader>yvI :vsplit <bar> YcmCompleter GoToInclude<CR>
   nnoremap <Leader>yvg :vsplit <bar> YcmCompleter GoTo<CR>
   nnoremap <Leader>yvG :vsplit <bar> YcmCompleter GoToImprecise<CR>
-  nnoremap <Leader>yvr :vsplit <bar> YcmCompleter GoToReferences<CR>
+  nnoremap <Leader>yvR :vsplit <bar> YcmCompleter GoToReferences<CR>
   nnoremap <Leader>yvt :vsplit <bar> YcmCompleter GetType<CR>
   nnoremap <Leader>yvT :vsplit <bar> YcmCompleter GetTypeImprecise<CR>
   nnoremap <Leader>yvp :vsplit <bar> YcmCompleter GetParent<CR>
@@ -381,19 +384,16 @@ else
   nnoremap <Leader>yvD :vsplit <bar> YcmCompleter GetDocImprecise<CR>
   nnoremap <Leader>yvf :vsplit <bar> YcmCompleter FixIt<CR>
 
-  nnoremap <Leader>yxi :tab split <bar> YcmCompleter GoToInclude<CR>
+  nnoremap <Leader>yxI :tab split <bar> YcmCompleter GoToInclude<CR>
   nnoremap <Leader>yxg :tab split <bar> YcmCompleter GoTo<CR>
   nnoremap <Leader>yxG :tab split <bar> YcmCompleter GoToImprecise<CR>
-  nnoremap <Leader>yxr :tab split <bar> YcmCompleter GoToReferences<CR>
+  nnoremap <Leader>yxR :tab split <bar> YcmCompleter GoToReferences<CR>
   nnoremap <Leader>yxt :tab split <bar> YcmCompleter GetType<CR>
   nnoremap <Leader>yxT :tab split <bar> YcmCompleter GetTypeImprecise<CR>
   nnoremap <Leader>yxp :tab split <bar> YcmCompleter GetParent<CR>
   nnoremap <Leader>yxd :tab split <bar> YcmCompleter GetDoc<CR>
   nnoremap <Leader>yxD :tab split <bar> YcmCompleter GetDocImprecise<CR>
   nnoremap <Leader>yxf :tab split <bar> YcmCompleter FixIt<CR>
-
-  nnoremap <Leader>yR :YcmRestartServer<CR>
-  nnoremap <Leader>yI :YcmDiags<CR>
   " YouCompleteMe
 endif
 
