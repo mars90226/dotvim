@@ -78,13 +78,6 @@ function! C_CPPMAP()
   nmap <leader>cw :cw 10<cr>
 endfunction
 
-" taglist
-let Tlist_Ctags_Cmd = 'ctags'
-let Tlist_Show_One_File = 1
-let Tlist_Exit_OnlyWindow = 1
-map <F12> :TlistToggle<CR>
-" taglist
-
 map <C-W><C-A> :redraw!<CR>
 
 if s:uname !~ "synology"
