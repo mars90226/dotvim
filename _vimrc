@@ -474,15 +474,16 @@ nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.
 " EasyMotion
 let g:EasyMotion_leader_key = '<Space>'
 map <Plug>(easymotion-prefix)f <Plug>(easymotion-bd-f)
-nmap <Plug>(easymotion-prefix)f <Plug>(easymotion-overwin-f)
-
-nmap <Plug>(easymotion-prefix)s <Plug>(easymotion-overwin-f2)
-
+map <Plug>(easymotion-prefix)s <Plug>(easymotion-bd-f2)
 map <Plug>(easymotion-prefix)L <Plug>(easymotion-bd-jk)
-nmap <Plug>(easymotion-prefix)L <Plug>(easymotion-overwin-line)
-
 map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
-nmap <Plug>(easymotion-prefix)w <Plug>(easymotion-overwin-w)
+
+if s:uname !~ "synology"
+	nmap <Plug>(easymotion-prefix)f <Plug>(easymotion-overwin-f)
+	nmap <Plug>(easymotion-prefix)s <Plug>(easymotion-overwin-f2)
+	nmap <Plug>(easymotion-prefix)L <Plug>(easymotion-overwin-line)
+	nmap <Plug>(easymotion-prefix)w <Plug>(easymotion-overwin-w)
+endif
 " EasyMotion
 
 " incsearch
