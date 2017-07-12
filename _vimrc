@@ -226,6 +226,10 @@ nnoremap <silent> <F6> :NERDTreeMirrorToggle<CR>
 let g:nerdtree_tabs_open_on_gui_startup = 0
 " nerdtree
 
+" netrw
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro' " add line number
+" netrw
+
 " powerline
 "let g:Powerline_symbols = 'fancy'
 "set rtp+=$VIM/vimfiles/bundle/powerline/powerline/bindings/vim
