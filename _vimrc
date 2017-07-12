@@ -648,6 +648,10 @@ function! s:unite_my_settings()"{{{
   " Runs "vsplit" action by <C-v>.
   imap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
   nmap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
+
+  " Runs "persist_open" action by <C-p>.
+  imap <silent><buffer><expr> <C-p>     unite#do_action('persist_open')
+  nmap <silent><buffer><expr> <C-p>     unite#do_action('persist_open')
 endfunction"}}}
 
 if executable('rg')
