@@ -730,6 +730,10 @@ nnoremap <Space>rt :tab split <bar> Ranger<CR>
 let g:rooter_manual_only = 1
 " vim-rooter
 
+" fzf-vim
+command! -bar -bang Helptags call fzf#vim#helptags(<bang>0)
+" fzf-vim
+
 if has("balloon_eval")
   set noballooneval
 endif
