@@ -37,7 +37,7 @@ if !has("win32") && !has("win64") && s:uname !~ "synology"
 endif
 
 " add key mapping for suspend
-nmap <Space><C-Z> :sus<cr>
+nnoremap <Space><C-z> :suspend<cr>
 
 "set diffexpr=MyDiff()
 function MyDiff()
@@ -708,6 +708,11 @@ let g:grepper.next_tool     = '<leader>g'
 let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 0
 " vim-grepper
+
+" ctrlsf.vim
+nnoremap <Space><C-f> :CtrlSF 
+nnoremap <F5> :CtrlSFToggle<CR>
+" ctrlsf.vim
 
 " ranger
 let g:ranger_map_keys = 0
