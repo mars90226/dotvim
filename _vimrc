@@ -216,18 +216,9 @@ let g:user_emmet_leader_key = '<c-e>'
 "inoremap <silent> <C-Y> <Plug>delimitMateS-Tab
 " delimitMate
 
-" nerdtree
-"let NERDTreeWinPos = "right"
-"nnoremap <silent> <F5> :NERDTreeToggle<CR>
-" nerdtreetabs
-nnoremap <silent> <F4> :NERDTreeFind<CR>
-nnoremap <silent> <F5> :NERDTreeTabsToggle<CR>
-nnoremap <silent> <F6> :NERDTreeMirrorToggle<CR>
-let g:nerdtree_tabs_open_on_gui_startup = 0
-" nerdtree
-
 " netrw
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro' " add line number
+nnoremap <silent> <F4> :Lexplore<CR>
 " netrw
 
 " powerline
