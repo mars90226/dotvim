@@ -754,6 +754,7 @@ set wildmenu
 set foldlevelstart=99
 set scrolloff=0
 set mouse=a
+set sessionoptions+=localoptions
 set sessionoptions-=options
 set sessionoptions-=folds
 set sessionoptions-=blank
