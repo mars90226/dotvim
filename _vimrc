@@ -216,6 +216,10 @@ let g:user_emmet_leader_key = '<c-e>'
 "inoremap <silent> <C-Y> <Plug>delimitMateS-Tab
 " delimitMate
 
+" eraseSubword
+let g:EraseSubword_insertMap = '<C-E><C-E>'
+" eraseSubword
+
 " netrw
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro' " add line number
 nnoremap <silent> <F4> :Lexplore<CR>
