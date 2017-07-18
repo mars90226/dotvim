@@ -247,3 +247,6 @@
 [submodule "bundle/ctrlsf.vim"]
 	path = bundle/ctrlsf.vim
 	url = git@github.com:dyng/ctrlsf.vim.git
+[submodule "bundle/eraseSubword"]
+	path = bundle/eraseSubword
+	url = git@github.com:vim-scripts/eraseSubword.git
