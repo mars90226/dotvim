@@ -232,9 +232,6 @@
 [submodule "bundle/vim-unimpaired"]
 	path = bundle/vim-unimpaired
 	url = git@github.com:tpope/vim-unimpaired.git
-[submodule "bundle/vimoutliner"]
-	path = bundle/vimoutliner
-	url = git@github.com:vimoutliner/vimoutliner.git
 [submodule "bundle/vim-rails"]
 	path = bundle/vim-rails
 	url = git@github.com:tpope/vim-rails.git
