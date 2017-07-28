@@ -873,6 +873,9 @@ if has("nvim")
   tnoremap <M-k> <C-\><C-n><C-w>k
   tnoremap <M-l> <C-\><C-n><C-w>l
 
+  tnoremap <M-S-j> <C-\><C-n>gTi
+  tnoremap <M-S-k> <C-\><C-n>gti
+
   tnoremap <M-1> <C-\><C-n>:exe "tabn ".g:lasttab<CR>
 endif
 " neovim terminal key mapping
