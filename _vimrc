@@ -225,6 +225,10 @@ let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro' " add line number
 nnoremap <silent> <F4> :Lexplore<CR>
 " netrw
 
+" Vinegar
+nmap <silent> _ <Plug>VinegarVerticalSplitUp
+" Vinegar
+
 " powerline
 "let g:Powerline_symbols = 'fancy'
 "set rtp+=$VIM/vimfiles/bundle/powerline/powerline/bindings/vim
