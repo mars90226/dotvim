@@ -870,12 +870,16 @@ au TabLeave * let g:lasttab = tabpagenr()
 
 " neovim terminal key mapping
 if has("nvim")
+  " For quick terminal access
+  nnoremap <Space><F2> :tabe term://$SHELL <bar> startinsert<CR>
+  tnoremap <Space><F2> <C-\><C-n>:tabe term://$SHELL <bar> startinsert<CR>
+
   tnoremap <Space><F1> <C-\><C-n>
 
-  tnoremap <M-h> <C-\><C-n><C-w>h
-  tnoremap <M-j> <C-\><C-n><C-w>j
-  tnoremap <M-k> <C-\><C-n><C-w>k
-  tnoremap <M-l> <C-\><C-n><C-w>l
+  tnoremap <M-S-h> <C-\><C-n><C-w>h
+  tnoremap <M-S-j> <C-\><C-n><C-w>j
+  tnoremap <M-S-k> <C-\><C-n><C-w>k
+  tnoremap <M-S-l> <C-\><C-n><C-w>l
 
   tnoremap <M-S-j> <C-\><C-n>gTi
   tnoremap <M-S-k> <C-\><C-n>gti
