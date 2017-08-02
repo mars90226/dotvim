@@ -881,8 +881,8 @@ if has("nvim")
   tnoremap <M-S-k> <C-\><C-n><C-w>k
   tnoremap <M-S-l> <C-\><C-n><C-w>l
 
-  tnoremap <M-S-j> <C-\><C-n>gTi
-  tnoremap <M-S-k> <C-\><C-n>gti
+  tnoremap <M-C-j> <C-\><C-n>gTi
+  tnoremap <M-C-k> <C-\><C-n>gti
 
   tnoremap <M-1> <C-\><C-n>:exe "tabn ".g:lasttab<CR>
 endif
