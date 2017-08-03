@@ -738,6 +738,10 @@ let g:rooter_manual_only = 1
 command! -bar -bang Helptags call fzf#vim#helptags(<bang>0)
 " fzf-vim
 
+" vimwiki
+nnoremap <Leader>wg :VimwikiToggleListItem<CR>
+" vimwiki
+
 if has("balloon_eval")
   set noballooneval
 endif
