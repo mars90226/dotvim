@@ -558,7 +558,8 @@ nnoremap <space>S :Unite source<CR>
 nnoremap <space>m :Unite file_mru<CR>
 nnoremap <space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 nnoremap <space>uj :Unite jump -start-insert<CR>
-nnoremap <space>uo :Unite output -start-insert<CR>
+nnoremap <space>uo :Unite outline<CR>
+nnoremap <space>uO :Unite output -start-insert<CR>
 nnoremap <space>ud :Unite directory<CR>
 nnoremap <space>uC :Unite change<CR>
 nnoremap <space>uc :UniteWithCurrentDir
