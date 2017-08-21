@@ -813,12 +813,27 @@ autocmd BufNewFile,BufReadPost *.gdbinit :set filetype=gdb
 autocmd BufNewFile,BufReadPost *.build :set filetype=cerr
 " filetype detection
 
+nnoremap <F6> :call ToggleIndentBetweenTabAndSpace()<CR>
+function! ToggleIndentBetweenTabAndSpace()
+  if &expandtab
+    setlocal noexpandtab
+    setlocal tabstop=4
+    setlocal softtabstop=4
+    setlocal shiftwidth=4
+  else
+    setlocal expandtab
+    setlocal tabstop=2
+    setlocal softtabstop=2
+    setlocal shiftwidth=2
+  endif
+endfunction
+
 nnoremap <F7> :call ToggleFoldBetweenManualAndSyntax()<CR>
 function! ToggleFoldBetweenManualAndSyntax()
   if &foldmethod == 'manual'
-    set foldmethod=syntax
+    setlocal foldmethod=syntax
   else
-    set foldmethod=manual
+    setlocal foldmethod=manual
   endif
 endfunction
 
