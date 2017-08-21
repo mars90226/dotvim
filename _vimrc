@@ -146,52 +146,6 @@ nmap <Leader>athen :Tabularize /then<CR>
 vmap <Leader>athen :Tabularize /then<CR>
 " Tabular
 
-" fuzzyfinder
-let g:fuf_modesDisable = []
-let g:fuf_mrufile_maxItem = 400
-let g:fuf_mrucmd_maxItem = 400
-nnoremap <silent> <leader>fj     :FufBuffer<CR>
-nnoremap <silent> <leader>fk     :FufFileWithCurrentBufferDir<CR>
-nnoremap <silent> <leader>fK     :FufFileWithFullCwd<CR>
-nnoremap <silent> <leader>f<C-k> :FufFile<CR>
-nnoremap <silent> <leader>fl     :FufCoverageFileChange<CR>
-nnoremap <silent> <leader>fL     :FufCoverageFileChange<CR>
-nnoremap <silent> <leader>f<C-l> :FufCoverageFileRegister<CR>
-nnoremap <silent> <leader>fd     :FufDirWithCurrentBufferDir<CR>
-nnoremap <silent> <leader>fD     :FufDirWithFullCwd<CR>
-nnoremap <silent> <leader>f<C-d> :FufDir<CR>
-nnoremap <silent> <leader>fn     :FufMruFile<CR>
-nnoremap <silent> <leader>fN     :FufMruFileInCwd<CR>
-nnoremap <silent> <leader>fm     :FufMruCmd<CR>
-nnoremap <silent> <leader>fu     :FufBookmarkFile<CR>
-nnoremap <silent> <leader>f<C-u> :FufBookmarkFileAdd<CR>
-vnoremap <silent> <leader>f<C-u> :FufBookmarkFileAddAsSelectedText<CR>
-nnoremap <silent> <leader>fi     :FufBookmarkDir<CR>
-nnoremap <silent> <leader>f<C-i> :FufBookmarkDirAdd<CR>
-nnoremap <silent> <leader>ft     :FufTag<CR>
-nnoremap <silent> <leader>fT     :FufTag!<CR>
-nnoremap <silent> <leader>f<C-]> :FufTagWithCursorWord!<CR>
-nnoremap <silent> <leader>f,     :FufBufferTag<CR>
-nnoremap <silent> <leader>f<     :FufBufferTag!<CR>
-vnoremap <silent> <leader>f,     :FufBufferTagWithSelectedText!<CR>
-vnoremap <silent> <leader>f<     :FufBufferTagWithSelectedText<CR>
-nnoremap <silent> <leader>f}     :FufBufferTagWithCursorWord!<CR>
-nnoremap <silent> <leader>f.     :FufBufferTagAll<CR>
-nnoremap <silent> <leader>f>     :FufBufferTagAll!<CR>
-vnoremap <silent> <leader>f.     :FufBufferTagAllWithSelectedText!<CR>
-vnoremap <silent> <leader>f>     :FufBufferTagAllWithSelectedText<CR>
-nnoremap <silent> <leader>f]     :FufBufferTagAllWithCursorWord!<CR>
-nnoremap <silent> <leader>fg     :FufTaggedFile<CR>
-nnoremap <silent> <leader>fG     :FufTaggedFile!<CR>
-nnoremap <silent> <leader>fo     :FufJumpList<CR>
-nnoremap <silent> <leader>fp     :FufChangeList<CR>
-nnoremap <silent> <leader>fq     :FufQuickfix<CR>
-nnoremap <silent> <leader>fy     :FufLine<CR>
-nnoremap <silent> <leader>fh     :FufHelp<CR>
-nnoremap <silent> <leader>fe     :FufEditDataFile<CR>
-nnoremap <silent> <leader>fr     :FufRenewCache<CR>
-" fuzzyfinder
-
 " CtrlP
 if has("python")
   let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
@@ -588,7 +542,8 @@ nnoremap <silent> <leader>vt :VimShellTab<CR>
 " Unite
 let g:unite_source_history_yank_enable = 1
 nnoremap <space>l :Unite -start-insert line<CR>
-nnoremap <space>p :Unite file<CR>
+nnoremap <space>p :Unite
+        \ -buffer-name=files buffer bookmark file<CR>
 nnoremap <space>P :Unite -start-insert file_rec<CR>
 "if has("win32") || has("win64")
 "nnoremap <space>P :Unite -start-insert file_rec<CR>
@@ -605,7 +560,17 @@ nnoremap <space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR
 nnoremap <space>uj :Unite jump -start-insert<CR>
 nnoremap <space>uo :Unite output -start-insert<CR>
 nnoremap <space>ud :Unite directory<CR>
-nnoremap <space>uc :Unite change<CR>
+nnoremap <space>uC :Unite change<CR>
+nnoremap <space>uc :UniteWithCurrentDir
+        \ -buffer-name=files buffer bookmark file<CR>
+nnoremap <space>ub :UniteWithBufferDir
+        \ -buffer-name=files -prompt=%\  buffer bookmark file<CR>
+nnoremap <space>ur :Unite
+        \ -buffer-name=register register<CR>
+nnoremap <space>uf :Unite
+        \ -buffer-name=resume resume<CR>
+nnoremap <space>uma :Unite mapping<CR>
+nnoremap <space>ume :Unite output:message<CR>
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
