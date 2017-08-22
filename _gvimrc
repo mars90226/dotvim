@@ -8,5 +8,6 @@ else
   set guifont=Monaco:h12:cANSI
 end
 
-winsize 83 27
+set lines=32
+set columns=100
 au BufRead,BufNewFile *.rb setlocal balloondelay=1000000
