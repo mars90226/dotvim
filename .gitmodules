@@ -247,3 +247,6 @@
 [submodule "bundle/bclose.vim"]
 	path = bundle/bclose.vim
 	url = git@github.com:rbgrouleff/bclose.vim.git
+[submodule "bundle/supertab"]
+	path = bundle/supertab
+	url = git@github.com:ervandew/supertab.git
