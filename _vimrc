@@ -625,6 +625,12 @@ let g:rooter_manual_only = 1
 
 " fzf-vim
 command! -bar -bang Helptags call fzf#vim#helptags(<bang>0)
+
+let g:rg_command = '
+    \ rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --color "always"
+    \ -g "*.{js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst,lua,pm}"
+    \ -g "!{.config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
+command! -bang -nargs=* Rg call fzf#vim#grep(g:rg_command.shellescape(<q-args>), 1, <bang>0)
 " fzf-vim
 
 " vimwiki
