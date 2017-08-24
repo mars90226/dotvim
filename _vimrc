@@ -353,6 +353,9 @@ nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.
 
 " EasyMotion
 let g:EasyMotion_leader_key = '<Space>'
+let g:EasyMotion_smartcase = 1
+
+nmap ; <Plug>(easymotion-s2)
 map <Plug>(easymotion-prefix)f <Plug>(easymotion-bd-f)
 map <Plug>(easymotion-prefix)s <Plug>(easymotion-bd-f2)
 map <Plug>(easymotion-prefix)L <Plug>(easymotion-bd-jk)
@@ -639,7 +642,7 @@ command! -bar -bang Helptags call fzf#vim#helptags(<bang>0)
 
 let g:rg_command = '
     \ rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --color "always"
-    \ -g "*.{js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst,lua,pm}"
+    \ -g "*.{js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst,lua,pm,vim}"
     \ -g "!{.config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
 command! -bang -nargs=* Rg call fzf#vim#grep(g:rg_command.shellescape(<q-args>), 1, <bang>0)
 command! Mru call fzf#run(fzf#wrap({
@@ -653,6 +656,23 @@ function! s:all_files()
   \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/\\|\\[unite\\]\\|\[Preview\\]\\|__Tagbar__'"),
   \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
 endfunction
+
+map <leader>fa :execute 'Ag ' . input('Ag: ')<CR>
+map <leader>fb :Buffers<CR>
+map <leader>fc :BCommits<CR>
+map <leader>fC :Commits<CR>
+map <leader>ff :Files<CR>
+map <leader>fF :Filetypes<CR>
+map <leader>fg :GFiles<CR>
+map <leader>fh :History<CR>
+map <leader>fl :BLines<CR>
+map <leader>fL :Lines<CR>
+map <leader>fm :Mru<CR>
+map <leader>fr :execute 'Rg ' . input('Rg: ')<CR>
+map <leader>ft :BTags<CR>
+map <leader>fT :Tags<CR>
+map <leader>fw :Windows<CR>
+
 " fzf-vim
 
 " vimwiki
