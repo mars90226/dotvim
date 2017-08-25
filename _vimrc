@@ -43,38 +43,8 @@ endif
 " add key mapping for suspend
 nnoremap <Space><C-z> :suspend<cr>
 
-"set diffexpr=MyDiff()
-function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      if empty(&shellxquote)
-        let l:shxq_sav = ''
-        set shellxquote&
-      endif
-      let cmd = '"' . $VIMRUNTIME . '\diff"'
-    else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
-  if exists('l:shxq_sav')
-    let &shellxquote=l:shxq_sav
-  endif
-endfunction
-
 let mapleader=","
-autocmd FileType c,cpp :call C_CPPMAP()
+autocmd FileType c,cpp call C_CPPMAP()
 function! C_CPPMAP()
   map <buffer> <leader><space> :w<cr>:make<cr>
   nmap <leader>cn :cn<cr>
@@ -142,10 +112,10 @@ nmap <Leader>X :!start cmd /K cd /D %:p:h<CR>
 nmap <Leader>E :exec "!start explorer \"".expand("%:p:h:gs?\\??:gs?/?\\?")."\""<CR>
 
 " Tabular
-nmap <Leader>a= :Tabularize /=<CR>
-vmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>a: :Tabularize /:\zs<CR>
+nmap <Leader>a=    :Tabularize /=<CR>
+vmap <Leader>a=    :Tabularize /=<CR>
+nmap <Leader>a:    :Tabularize /:\zs<CR>
+vmap <Leader>a:    :Tabularize /:\zs<CR>
 nmap <Leader>athen :Tabularize /then<CR>
 vmap <Leader>athen :Tabularize /then<CR>
 " Tabular
@@ -170,16 +140,12 @@ let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
 let g:ctrlp_cmdpalette_execute = 1
 " Vim-CtrlP-CmdPalette
 
-" zencoding
-"let g:user_zen_leader_key = '<c-e>'
-" zencoding
 " emmet
 let g:user_emmet_leader_key = '<c-e>'
 " emmet
 
-
 " delimitMate
-"inoremap <silent> <C-Y> <Plug>delimitMateS-Tab
+imap <silent> <C-Y> <Plug>delimitMateS-Tab
 " delimitMate
 
 " eraseSubword
@@ -195,35 +161,26 @@ nnoremap <silent> <F4> :Lexplore<CR>
 nmap <silent> _ <Plug>VinegarVerticalSplitUp
 " Vinegar
 
-" powerline
-"let g:Powerline_symbols = 'fancy'
-"set rtp+=$VIM/vimfiles/bundle/powerline/powerline/bindings/vim
-"python from powerline.vim import setup as powerline_setup
-"python powerline_setup()
-"python del powerline_setup
-set laststatus=2
-" powerline
-
 " vim-airline
+set laststatus=2
 if !has("win32") && !has("win64")
   let g:airline_powerline_fonts = 1
 endif
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
-let g:airline#extensions#tabline#show_tab_nr = 1
-let g:airline#extensions#tabline#fnamemod = ':p:.'
+let g:airline#extensions#tabline#enabled       = 1
+let g:airline#extensions#tabline#show_buffers  = 1
+let g:airline#extensions#tabline#tab_nr_type   = 1 " tab number
+let g:airline#extensions#tabline#show_tab_nr   = 1
+let g:airline#extensions#tabline#fnamemod      = ':p:.'
 let g:airline#extensions#tabline#fnamecollapse = 1
 
-let g:airline_theme='solarized'
-let g:airline_solarized_bg='dark'
+let g:airline_theme = 'tomorrow'
 " vim-airline
 
 if s:uname !~ "synology"
   " YouCompleteMe
   let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-  let g:ycm_confirm_extra_conf = 0
+  let g:ycm_confirm_extra_conf    = 0
   let g:ycm_key_invoke_completion = '<M-/>'
 
   nnoremap <Leader>yy :let g:ycm_auto_trigger=0<CR>
@@ -289,9 +246,9 @@ inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
 " neosnippet
 " Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
@@ -322,35 +279,35 @@ let g:fugitive_gitlab_domains = ['https://git.synology.com']
 
 " tagbar
 nmap <F8> :TagbarToggle<CR>
-let g:tagbar_map_showproto='<Leader><Space>'
+let g:tagbar_map_showproto = '<Leader><Space>'
 let g:tagbar_expand = 1
 let g:tagbar_type_go = {
-	\ 'ctagstype' : 'go',
-	\ 'kinds'     : [
-		\ 'p:package',
-		\ 'i:imports:1',
-		\ 'c:constants',
-		\ 'v:variables',
-		\ 't:types',
-		\ 'n:interfaces',
-		\ 'w:fields',
-		\ 'e:embedded',
-		\ 'm:methods',
-		\ 'r:constructor',
-		\ 'f:functions'
-	\ ],
-	\ 'sro' : '.',
-	\ 'kind2scope' : {
-		\ 't' : 'ctype',
-		\ 'n' : 'ntype'
-	\ },
-	\ 'scope2kind' : {
-		\ 'ctype' : 't',
-		\ 'ntype' : 'n'
-	\ },
-	\ 'ctagsbin'  : 'gotags',
-	\ 'ctagsargs' : '-sort -silent'
-\ }
+      \ 'ctagstype' : 'go',
+      \ 'kinds'     : [
+      \ 'p:package',
+      \ 'i:imports:1',
+      \ 'c:constants',
+      \ 'v:variables',
+      \ 't:types',
+      \ 'n:interfaces',
+      \ 'w:fields',
+      \ 'e:embedded',
+      \ 'm:methods',
+      \ 'r:constructor',
+      \ 'f:functions'
+      \ ],
+      \ 'sro' : '.',
+      \ 'kind2scope' : {
+      \ 't' : 'ctype',
+      \ 'n' : 'ntype'
+      \ },
+      \ 'scope2kind' : {
+      \ 'ctype' : 't',
+      \ 'ntype' : 'n'
+      \ },
+      \ 'ctagsbin'  : 'gotags',
+      \ 'ctagsargs' : '-sort -silent'
+      \ }
 " tagbar
 
 " cscope
@@ -370,16 +327,16 @@ map <Plug>(easymotion-prefix)L <Plug>(easymotion-bd-jk)
 map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
 
 if s:uname !~ "synology"
-	nmap <Plug>(easymotion-prefix)f <Plug>(easymotion-overwin-f)
-	nmap <Plug>(easymotion-prefix)s <Plug>(easymotion-overwin-f2)
-	nmap <Plug>(easymotion-prefix)L <Plug>(easymotion-overwin-line)
-	nmap <Plug>(easymotion-prefix)w <Plug>(easymotion-overwin-w)
+  nmap <Plug>(easymotion-prefix)f <Plug>(easymotion-overwin-f)
+  nmap <Plug>(easymotion-prefix)s <Plug>(easymotion-overwin-f2)
+  nmap <Plug>(easymotion-prefix)L <Plug>(easymotion-overwin-line)
+  nmap <Plug>(easymotion-prefix)w <Plug>(easymotion-overwin-w)
 endif
 " EasyMotion
 
 " incsearch
-map / <Plug>(incsearch-forward)
-map ? <Plug>(incsearch-backward)
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 " Search within visual selection
@@ -402,14 +359,14 @@ map g# <Plug>(incsearch-nohl-g#)
 " incsearch
 
 " incsearch-fuzzy
-map z/ <Plug>(incsearch-fuzzy-/)
-map z? <Plug>(incsearch-fuzzy-?)
+map z/  <Plug>(incsearch-fuzzy-/)
+map z?  <Plug>(incsearch-fuzzy-?)
 map zg/ <Plug>(incsearch-fuzzy-stay)
 " incsearch-fuzzy
 
 " incsearch-easymotion
-map <Leader>/ <Plug>(incsearch-easymotion-/)
-map <Leader>? <Plug>(incsearch-easymotion-?)
+map <Leader>/  <Plug>(incsearch-easymotion-/)
+map <Leader>?  <Plug>(incsearch-easymotion-?)
 map <Leader>g/ <Plug>(incsearch-easymotion-stay)
 " incsearch-easymotion
 
@@ -426,10 +383,6 @@ endfunction
 
 noremap <silent><expr> <Leader><Leader>/ incsearch#go(<SID>config_easyfuzzymotion())
 " incsearch.vim x fuzzy x vim-easymotion
-
-" C++ Syntax Support
-au BufNewFile,BufRead *.cpp set syntax=cpp11
-" C++ Syntax Support
 
 " CamelCaseMotion
 map ,mw <Plug>CamelCaseMotion_w
@@ -479,15 +432,9 @@ nnoremap <space>l :Unite -start-insert line<CR>
 nnoremap <space>p :Unite
         \ -buffer-name=files buffer bookmark file<CR>
 nnoremap <space>P :Unite -start-insert file_rec<CR>
-"if has("win32") || has("win64")
-"nnoremap <space>P :Unite -start-insert file_rec<CR>
-"else
-"nnoremap <space>P :Unite -start-insert file_rec/async<CR>
-"endif
 nnoremap <space>/ :Unite grep:.<CR>
 nnoremap <space>? :Unite grep:.:-r<CR>
 nnoremap <space>y :Unite history/yank<CR>
-nnoremap <space><space>s :Unite -quick-match tab<CR>
 nnoremap <space>S :Unite source<CR>
 nnoremap <space>m :Unite file_mru<CR>
 nnoremap <space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
@@ -504,11 +451,12 @@ nnoremap <space>ur :Unite
         \ -buffer-name=register register<CR>
 nnoremap <space>uf :Unite
         \ -buffer-name=resume resume<CR>
+nnoremap <space>us :Unite -quick-match tab<CR>
 nnoremap <space>uma :Unite mapping<CR>
 nnoremap <space>ume :Unite output:message<CR>
 
 autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()"{{{
+function! s:unite_my_settings() "{{{
   " Overwrite settings.
 
   imap <buffer> jj      <Plug>(unite_insert_leave)
@@ -555,7 +503,7 @@ function! s:unite_my_settings()"{{{
   " Runs "persist_open" action by <C-p>.
   imap <silent><buffer><expr> <C-p>     unite#do_action('persist_open')
   nmap <silent><buffer><expr> <C-p>     unite#do_action('persist_open')
-endfunction"}}}
+endfunction "}}}
 
 if executable('rg')
   let g:unite_source_grep_command = 'rg'
@@ -578,14 +526,14 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:sytastic_check_on_wq = 0
+let g:syntastic_auto_loc_list            = 1
+let g:syntastic_check_on_open            = 1
+let g:sytastic_check_on_wq               = 0
 
 let g:syntastic_ruby_checkers = ['mri', 'rubylint']
-let g:syntastic_tex_checkers = ['lacheck']
-let g:syntastic_c_checkers = ['gcc']
-let g:syntastic_cpp_checkers = ['gcc']
+let g:syntastic_tex_checkers  = ['lacheck']
+let g:syntastic_c_checkers    = ['gcc']
+let g:syntastic_cpp_checkers  = ['gcc']
 nnoremap <Space><F8> :SyntasticToggleMode<CR>
 " Syntastic
 
@@ -597,8 +545,8 @@ let $RUST_SRC_PATH = "D:/download/git/rust/src/"
 
 " vim-indent-guides
 let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :highlight IndentGuidesOdd ctermbg=243
-autocmd VimEnter,Colorscheme * :highlight IndentGuidesEven ctermbg=240
+autocmd VimEnter,Colorscheme * highlight IndentGuidesOdd ctermbg=243
+autocmd VimEnter,Colorscheme * highlight IndentGuidesEven ctermbg=240
 " vim-indent-guides
 
 " vim-grepper
@@ -683,7 +631,6 @@ map <leader>fr :execute 'Rg ' . input('Rg: ')<CR>
 map <leader>ft :BTags<CR>
 map <leader>fT :Tags<CR>
 map <leader>fw :Windows<CR>
-
 " fzf-vim
 
 " vimwiki
@@ -703,7 +650,7 @@ set smartcase
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-"set smarttab
+set smarttab
 set noexpandtab
 set shellslash
 set list
@@ -746,53 +693,22 @@ if s:uname =~ "synology"
   set t_ut=
 endif
 
-" vim-color-solarized
-let g:solarized_termcolors=256
-let g:solarized_termtrans =1
-let g:solarized_degrade   =1
-let g:solarized_bold      =0
-let g:solarized_underline =0
-let g:solarized_italic    =0
-let g:solarized_contrast  ="high"
-let g:solarized_visibility="low"
-let g:solarized_hitrail   =0
-let g:solarized_menu      =0
-"colorscheme solarized
-" vim-color-solarized
-
-" Make Visual highlight more contrast
-"highlight Visual ctermbg=23
-
-" Source the vimrc file after saving it
-" autocmd bufwritepost _vimrc source $MYVIMRC
-" autocmd bufwritepost _vimrc source $MYGVIMRC
-
 " Enable omni completion. Not required if they are already set elsewhere in .vimrc
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" ru
-augroup filetypedetect
-  au! BufRead,BufNewFile *.ru setfiletype ruby
-augroup END
-
-" ruby
-augroup ruby
-  " avoid performance problem
-  "au BufRead,BufNewFile *.rb set fdm=syntax
-augroup END
+autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 
 " filetype detection
-autocmd BufNewFile,BufReadPost *maillog* :set filetype=messages
-autocmd BufNewFile,BufReadPost *conf :set filetype=conf
-autocmd BufNewFile,BufReadPost *conf.local :set filetype=conf
-autocmd BufNewFile,BufReadPost *conf.local.override :set filetype=conf
-autocmd BufNewFile,BufReadPost Makefile.inc :set filetype=make
-autocmd BufNewFile,BufReadPost *.gdbinit :set filetype=gdb
-autocmd BufNewFile,BufReadPost *.build :set filetype=cerr
+autocmd BufNewFile,BufReadPost *maillog*            set filetype=messages
+autocmd BufNewFile,BufReadPost *conf                set filetype=conf
+autocmd BufNewFile,BufReadPost *conf.local          set filetype=conf
+autocmd BufNewFile,BufReadPost *conf.local.override set filetype=conf
+autocmd BufNewFile,BufReadPost Makefile.inc         set filetype=make
+autocmd BufNewFile,BufReadPost *.gdbinit            set filetype=gdb
+autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
+autocmd BufNewFile,BufReadPost *.ru                 set filetype=ruby
 " filetype detection
 
 nnoremap <F6> :call ToggleIndentBetweenTabAndSpace()<CR>
