@@ -656,6 +656,8 @@ function! s:all_files()
   \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/\\|\\[unite\\]\\|\[Preview\\]\\|__Tagbar__'"),
   \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
 endfunction
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
 
 map <leader>fa :execute 'Ag ' . input('Ag: ')<CR>
 map <leader>fb :Buffers<CR>
@@ -664,6 +666,7 @@ map <leader>fC :Commits<CR>
 map <leader>ff :Files<CR>
 map <leader>fF :Filetypes<CR>
 map <leader>fg :GFiles<CR>
+map <leader>fG :execute 'GGrep ' . input('Git grep: ')<CR>
 map <leader>fh :History<CR>
 map <leader>fl :BLines<CR>
 map <leader>fL :Lines<CR>
