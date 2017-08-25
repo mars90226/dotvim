@@ -12,7 +12,7 @@ let g:pathogen_disabled = ['racer']
 
 " Choose autocompletion plugin
 
-if s:uname =~ "synology"
+if s:uname =~ "synology" || s:uname =~ "windows"
   call add(g:pathogen_disabled, 'YouCompleteMe')
 else
   call add(g:pathogen_disabled, 'supertab')
@@ -636,6 +636,14 @@ map <leader>fw :Windows<CR>
 " vimwiki
 nnoremap <Leader>wg :VimwikiToggleListItem<CR>
 " vimwiki
+
+" xterm-256 in Windows
+if !has("gui_running") && s:uname =~ "windows"
+    set term=xterm
+    let &t_AB="\e[48;5;%dm"
+    let &t_AF="\e[38;5;%dm"
+endif
+" xterm-256 in Windows
 
 if has("balloon_eval")
   set noballooneval
