@@ -247,3 +247,9 @@
 [submodule "bundle/supertab"]
 	path = bundle/supertab
 	url = git@github.com:ervandew/supertab.git
+[submodule "bundle/targets.vim"]
+	path = bundle/targets.vim
+	url = git@github.com:wellle/targets.vim.git
+[submodule "bundle/textobj-word-column.vim"]
+	path = bundle/textobj-word-column.vim
+	url = git@github.com:coderifous/textobj-word-column.vim.git
