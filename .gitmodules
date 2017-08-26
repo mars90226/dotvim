@@ -256,3 +256,6 @@
 [submodule "bundle/vim-pathogen"]
 	path = bundle/vim-pathogen
 	url = git@github.com:tpope/vim-pathogen.git
+[submodule "bundle/vim-scriptease"]
+	path = bundle/vim-scriptease
+	url = git@github.com:tpope/vim-scriptease.git
