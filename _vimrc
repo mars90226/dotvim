@@ -6,6 +6,7 @@ else
 endif
 
 " pathogen
+runtime bundle/vim-pathogen/autoload/pathogen.vim
 let g:pathogen_disabled = ['racer']
 
 " Choose autocompletion plugin

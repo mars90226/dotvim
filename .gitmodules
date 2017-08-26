@@ -253,3 +253,6 @@
 [submodule "bundle/textobj-word-column.vim"]
 	path = bundle/textobj-word-column.vim
 	url = git@github.com:coderifous/textobj-word-column.vim.git
+[submodule "bundle/vim-pathogen"]
+	path = bundle/vim-pathogen
+	url = git@github.com:tpope/vim-pathogen.git
