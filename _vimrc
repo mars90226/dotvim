@@ -51,6 +51,8 @@ if s:uname !~ "synology"
     set <M-j>=j
     set <M-k>=k
     set <M-l>=l
+    set <M-n>=n
+    set <M-p>=p
   endif
 
   " Pair up with 'set winaltkeys=no' in _gvimrc
@@ -80,6 +82,10 @@ if s:uname !~ "synology"
     imap <M-l> <Right>
     set encoding&
   endif
+
+  " Saner command-line history
+  cnoremap <M-n> <Down>
+  cnoremap <M-p> <Up>
 endif
 
 " Quickly switch tab
@@ -311,6 +317,10 @@ let g:EasyMotion_leader_key = '<Space>'
 let g:EasyMotion_smartcase = 1
 
 nmap ; <Plug>(easymotion-s2)
+
+map <Space><Space>w <Plug>(easymotion-bd-wl)
+map <Space><Space>f <Plug>(easymotion-bd-fl)
+
 map <Plug>(easymotion-prefix)f <Plug>(easymotion-bd-f)
 map <Plug>(easymotion-prefix)s <Plug>(easymotion-bd-f2)
 map <Plug>(easymotion-prefix)L <Plug>(easymotion-bd-jk)
@@ -535,7 +545,7 @@ let $RUST_SRC_PATH = "D:/download/git/rust/src/"
 
 " vim-indent-guides
 let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * highlight IndentGuidesOdd ctermbg=243
+autocmd VimEnter,Colorscheme * highlight IndentGuidesOdd  ctermbg=243
 autocmd VimEnter,Colorscheme * highlight IndentGuidesEven ctermbg=240
 " vim-indent-guides
 
@@ -640,7 +650,8 @@ if has("balloon_eval")
 endif
 set backupdir^=~/.vimtmp
 set directory^=~/.vimtmp
-set nu
+set belloff=all " disable all bell
+set number
 set autoindent
 set nohlsearch
 set ignorecase
@@ -664,7 +675,7 @@ set sessionoptions+=localoptions
 set sessionoptions-=options
 set sessionoptions-=folds
 set sessionoptions-=blank
-set rtp+=~/.fzf
+set runtimepath+=~/.fzf
 set background=dark
 filetype on
 filetype plugin on
