@@ -648,7 +648,8 @@ endif
 if has("balloon_eval")
   set noballooneval
 endif
-"set directory=.,$TEMP
+set backupdir^=~/.vimtmp
+set directory^=~/.vimtmp
 set nu
 set autoindent
 set nohlsearch
