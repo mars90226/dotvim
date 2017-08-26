@@ -1,18 +1,16 @@
-" pathogen
-"call pathogen#runtime_append_all_bundles()
-"
-
+" Detect operating system
 if has("win32") || has("win64")
   let s:uname = "windows"
 else
   let s:uname = system("uname -a")
 endif
 
+" pathogen
 let g:pathogen_disabled = ['racer']
 
 " Choose autocompletion plugin
 
-if s:uname =~ "synology" || s:uname =~ "windows"
+if s:uname =~ "windows" || s:uname =~ "synology"
   call add(g:pathogen_disabled, 'YouCompleteMe')
 else
   call add(g:pathogen_disabled, 'supertab')
@@ -31,32 +29,24 @@ if exists(":packadd") != 0
   source $VIMRUNTIME/vimrc_example.vim
 endif
 
+" source mswin.vim
 if s:uname !~ "synology"
   source $VIMRUNTIME/mswin.vim
   behave mswin
-endif
 
-if !has("win32") && !has("win64") && s:uname !~ "synology"
-  cunmap <C-A>
+  if s:uname !~ "windows"
+    cunmap <C-a>
+  endif
 endif
 
 " add key mapping for suspend
-nnoremap <Space><C-z> :suspend<cr>
+nnoremap <Space><C-z> :suspend<CR>
 
 let mapleader=","
-autocmd FileType c,cpp call C_CPPMAP()
-function! C_CPPMAP()
-  map <buffer> <leader><space> :w<cr>:make<cr>
-  nmap <leader>cn :cn<cr>
-  nmap <leader>cp :cp<cr>
-  nmap <leader>cw :cw 10<cr>
-endfunction
-
-map <C-W><C-A> :redraw!<CR>
 
 if s:uname !~ "synology"
   " Fix meta key in vim
-  if !has("nvim") && !has("win32") && !has("win64")
+  if !has("nvim") && s:uname !~ "windows"
     set <M-h>=h
     set <M-j>=j
     set <M-k>=k
@@ -64,17 +54,17 @@ if s:uname !~ "synology"
   endif
 
   " Pair up with 'set winaltkeys=no' in _gvimrc
-  nmap <M-h> <C-W>h
-  nmap <M-j> <C-W>j
-  nmap <M-k> <C-W>k
-  nmap <M-l> <C-W>l
-  if has("win32") || has("win64")
+  nmap <M-h> <C-w>h
+  nmap <M-j> <C-w>j
+  nmap <M-k> <C-w>k
+  nmap <M-l> <C-w>l
+  if s:uname =~ "windows"
     set encoding=utf8 " make sure mapping is correct in UTF-8
-    nmap <M-h> <C-W>h
-    nmap <M-j> <C-W>j
-    nmap <M-k> <C-W>k
-    nmap <M-l> <C-W>l
-    set encoding=cp950
+    nmap <M-h> <C-w>h
+    nmap <M-j> <C-w>j
+    nmap <M-k> <C-w>k
+    nmap <M-l> <C-w>l
+    set encoding&
   endif
 
   " Move in insert mode
@@ -82,13 +72,13 @@ if s:uname !~ "synology"
   imap <M-j> <Down>
   imap <M-k> <Up>
   imap <M-l> <Right>
-  if has("win32") || has("win64")
+  if s:uname =~ "windows"
     set encoding=utf8 " make sure mapping is correct in UTF-8
     imap <M-h> <Left>
     imap <M-j> <Down>
     imap <M-k> <Up>
     imap <M-l> <Right>
-    set encoding=cp950
+    set encoding&
   endif
 endif
 
@@ -141,15 +131,15 @@ let g:ctrlp_cmdpalette_execute = 1
 " Vim-CtrlP-CmdPalette
 
 " emmet
-let g:user_emmet_leader_key = '<c-e>'
+let g:user_emmet_leader_key = '<C-e>'
 " emmet
 
 " delimitMate
-imap <silent> <C-Y> <Plug>delimitMateS-Tab
+imap <silent> <C-y> <Plug>delimitMateS-Tab
 " delimitMate
 
 " eraseSubword
-let g:EraseSubword_insertMap = '<C-E><C-E>'
+let g:EraseSubword_insertMap = '<C-e><C-e>'
 " eraseSubword
 
 " netrw
@@ -163,7 +153,7 @@ nmap <silent> _ <Plug>VinegarVerticalSplitUp
 
 " vim-airline
 set laststatus=2
-if !has("win32") && !has("win64")
+if s:uname !~ "windows"
   let g:airline_powerline_fonts = 1
 endif
 
@@ -200,38 +190,38 @@ if s:uname !~ "synology"
   nnoremap <Leader>yD :YcmCompleter GetDocImprecise<CR>
   nnoremap <Leader>yf :YcmCompleter FixIt<CR>
 
-  nnoremap <Leader>ysI :split <bar> YcmCompleter GoToInclude<CR>
-  nnoremap <Leader>ysg :split <bar> YcmCompleter GoTo<CR>
-  nnoremap <Leader>ysG :split <bar> YcmCompleter GoToImprecise<CR>
-  nnoremap <Leader>ysR :split <bar> YcmCompleter GoToReferences<CR>
-  nnoremap <Leader>yst :split <bar> YcmCompleter GetType<CR>
-  nnoremap <Leader>ysT :split <bar> YcmCompleter GetTypeImprecise<CR>
-  nnoremap <Leader>ysp :split <bar> YcmCompleter GetParent<CR>
-  nnoremap <Leader>ysd :split <bar> YcmCompleter GetDoc<CR>
-  nnoremap <Leader>ysD :split <bar> YcmCompleter GetDocImprecise<CR>
-  nnoremap <Leader>ysf :split <bar> YcmCompleter FixIt<CR>
+  nnoremap <Leader>ysI :split <Bar> YcmCompleter GoToInclude<CR>
+  nnoremap <Leader>ysg :split <Bar> YcmCompleter GoTo<CR>
+  nnoremap <Leader>ysG :split <Bar> YcmCompleter GoToImprecise<CR>
+  nnoremap <Leader>ysR :split <Bar> YcmCompleter GoToReferences<CR>
+  nnoremap <Leader>yst :split <Bar> YcmCompleter GetType<CR>
+  nnoremap <Leader>ysT :split <Bar> YcmCompleter GetTypeImprecise<CR>
+  nnoremap <Leader>ysp :split <Bar> YcmCompleter GetParent<CR>
+  nnoremap <Leader>ysd :split <Bar> YcmCompleter GetDoc<CR>
+  nnoremap <Leader>ysD :split <Bar> YcmCompleter GetDocImprecise<CR>
+  nnoremap <Leader>ysf :split <Bar> YcmCompleter FixIt<CR>
 
-  nnoremap <Leader>yvI :vsplit <bar> YcmCompleter GoToInclude<CR>
-  nnoremap <Leader>yvg :vsplit <bar> YcmCompleter GoTo<CR>
-  nnoremap <Leader>yvG :vsplit <bar> YcmCompleter GoToImprecise<CR>
-  nnoremap <Leader>yvR :vsplit <bar> YcmCompleter GoToReferences<CR>
-  nnoremap <Leader>yvt :vsplit <bar> YcmCompleter GetType<CR>
-  nnoremap <Leader>yvT :vsplit <bar> YcmCompleter GetTypeImprecise<CR>
-  nnoremap <Leader>yvp :vsplit <bar> YcmCompleter GetParent<CR>
-  nnoremap <Leader>yvd :vsplit <bar> YcmCompleter GetDoc<CR>
-  nnoremap <Leader>yvD :vsplit <bar> YcmCompleter GetDocImprecise<CR>
-  nnoremap <Leader>yvf :vsplit <bar> YcmCompleter FixIt<CR>
+  nnoremap <Leader>yvI :vsplit <Bar> YcmCompleter GoToInclude<CR>
+  nnoremap <Leader>yvg :vsplit <Bar> YcmCompleter GoTo<CR>
+  nnoremap <Leader>yvG :vsplit <Bar> YcmCompleter GoToImprecise<CR>
+  nnoremap <Leader>yvR :vsplit <Bar> YcmCompleter GoToReferences<CR>
+  nnoremap <Leader>yvt :vsplit <Bar> YcmCompleter GetType<CR>
+  nnoremap <Leader>yvT :vsplit <Bar> YcmCompleter GetTypeImprecise<CR>
+  nnoremap <Leader>yvp :vsplit <Bar> YcmCompleter GetParent<CR>
+  nnoremap <Leader>yvd :vsplit <Bar> YcmCompleter GetDoc<CR>
+  nnoremap <Leader>yvD :vsplit <Bar> YcmCompleter GetDocImprecise<CR>
+  nnoremap <Leader>yvf :vsplit <Bar> YcmCompleter FixIt<CR>
 
-  nnoremap <Leader>yxI :tab split <bar> YcmCompleter GoToInclude<CR>
-  nnoremap <Leader>yxg :tab split <bar> YcmCompleter GoTo<CR>
-  nnoremap <Leader>yxG :tab split <bar> YcmCompleter GoToImprecise<CR>
-  nnoremap <Leader>yxR :tab split <bar> YcmCompleter GoToReferences<CR>
-  nnoremap <Leader>yxt :tab split <bar> YcmCompleter GetType<CR>
-  nnoremap <Leader>yxT :tab split <bar> YcmCompleter GetTypeImprecise<CR>
-  nnoremap <Leader>yxp :tab split <bar> YcmCompleter GetParent<CR>
-  nnoremap <Leader>yxd :tab split <bar> YcmCompleter GetDoc<CR>
-  nnoremap <Leader>yxD :tab split <bar> YcmCompleter GetDocImprecise<CR>
-  nnoremap <Leader>yxf :tab split <bar> YcmCompleter FixIt<CR>
+  nnoremap <Leader>yxI :tab split <Bar> YcmCompleter GoToInclude<CR>
+  nnoremap <Leader>yxg :tab split <Bar> YcmCompleter GoTo<CR>
+  nnoremap <Leader>yxG :tab split <Bar> YcmCompleter GoToImprecise<CR>
+  nnoremap <Leader>yxR :tab split <Bar> YcmCompleter GoToReferences<CR>
+  nnoremap <Leader>yxt :tab split <Bar> YcmCompleter GetType<CR>
+  nnoremap <Leader>yxT :tab split <Bar> YcmCompleter GetTypeImprecise<CR>
+  nnoremap <Leader>yxp :tab split <Bar> YcmCompleter GetParent<CR>
+  nnoremap <Leader>yxd :tab split <Bar> YcmCompleter GetDoc<CR>
+  nnoremap <Leader>yxD :tab split <Bar> YcmCompleter GetDocImprecise<CR>
+  nnoremap <Leader>yxf :tab split <Bar> YcmCompleter FixIt<CR>
   " YouCompleteMe
 endif
 
@@ -251,12 +241,12 @@ smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+imap <expr><Tab> neosnippet#expandable_or_jumpable() ?
       \ "\<Plug>(neosnippet_expand_or_jump)"
-      \: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+      \: pumvisible() ? "\<C-n>" : "\<Tab>"
+smap <expr><Tab> neosnippet#expandable_or_jumpable() ?
       \ "\<Plug>(neosnippet_expand_or_jump)"
-      \: "\<TAB>"
+      \: "\<Tab>"
 
 " For snippet_complete marker.
 if has('conceal')
@@ -268,9 +258,9 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 " neosnippet
 
 " vim gitgutter
-nmap <silent> ]h :<C-U>execute v:count1 . "GitGutterNextHunk"<CR>
-nmap <silent> [h :<C-U>execute v:count1 . "GitGutterPrevHunk"<CR>
-nmap <silent> <leader>gt :GitGutterToggle<CR>
+nmap <silent> ]h :<C-u>execute v:count1 . "GitGutterNextHunk"<CR>
+nmap <silent> [h :<C-u>execute v:count1 . "GitGutterPrevHunk"<CR>
+nmap <silent> <Leader>gt :GitGutterToggle<CR>
 " vim gitgutter
 
 " fugitive-gitlab
@@ -340,7 +330,7 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 " Search within visual selection
-if !has("nvim") && !has("win32") && !has("win64")
+if !has("nvim") && s:uname !~ "windows"
   set <M-/>=/
   set <M-?>=?
 endif
@@ -395,17 +385,17 @@ vnoremap <silent> <CR> :EasyAlign<CR>
 " vim-easy-align
 
 " vim-ruby-xmpfilter
-nmap <leader>rr <Plug>(xmpfilter-run)
-xmap <leader>rr <Plug>(xmpfilter-run)
-imap <leader>rr <Plug>(xmpfilter-run)
+nmap <Leader>rr <Plug>(xmpfilter-run)
+xmap <Leader>rr <Plug>(xmpfilter-run)
+imap <Leader>rr <Plug>(xmpfilter-run)
 
-nmap <leader>rm <Plug>(xmpfilter-mark)
-xmap <leader>rm <Plug>(xmpfilter-mark)
-imap <leader>rm <Plug>(xmpfilter-mark)"
+nmap <Leader>rm <Plug>(xmpfilter-mark)
+xmap <Leader>rm <Plug>(xmpfilter-mark)
+imap <Leader>rm <Plug>(xmpfilter-mark)"
 " vim-ruby-xmpfilter
 
 " background toggle
-nmap <leader>bg :let &background = ( &background == "dark" ? "light" : "dark" )<CR>
+nmap <Leader>bg :let &background = ( &background == "dark" ? "light" : "dark" )<CR>
 " background toggle
 
 " Gundo
@@ -416,44 +406,44 @@ nnoremap <F9> :GundoToggle<CR>
 " Gundo
 
 " colorv
-nnoremap <silent> <leader>cN :ColorVName<CR>
+nnoremap <silent> <Leader>cN :ColorVName<CR>
 " colorv
 
 " VimShell
-nnoremap <silent> <leader>vv :VimShell<CR>
-nnoremap <silent> <leader>vc :VimShellCurrentDir<CR>
-nnoremap <silent> <leader>vb :VimShellBufferDir<CR>
-nnoremap <silent> <leader>vt :VimShellTab<CR>
+nnoremap <silent> <Leader>vv :VimShell<CR>
+nnoremap <silent> <Leader>vc :VimShellCurrentDir<CR>
+nnoremap <silent> <Leader>vb :VimShellBufferDir<CR>
+nnoremap <silent> <Leader>vt :VimShellTab<CR>
 " VimShell
 
 " Unite
 let g:unite_source_history_yank_enable = 1
-nnoremap <space>l :Unite -start-insert line<CR>
-nnoremap <space>p :Unite
+nnoremap <Space>l :Unite -start-insert line<CR>
+nnoremap <Space>p :Unite
         \ -buffer-name=files buffer bookmark file<CR>
-nnoremap <space>P :Unite -start-insert file_rec<CR>
-nnoremap <space>/ :Unite grep:.<CR>
-nnoremap <space>? :Unite grep:.:-r<CR>
-nnoremap <space>y :Unite history/yank<CR>
-nnoremap <space>S :Unite source<CR>
-nnoremap <space>m :Unite file_mru<CR>
-nnoremap <space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
-nnoremap <space>uj :Unite jump -start-insert<CR>
-nnoremap <space>uo :Unite outline<CR>
-nnoremap <space>uO :Unite output -start-insert<CR>
-nnoremap <space>ud :Unite directory<CR>
-nnoremap <space>uC :Unite change<CR>
-nnoremap <space>uc :UniteWithCurrentDir
+nnoremap <Space>P :Unite -start-insert file_rec<CR>
+nnoremap <Space>/ :Unite grep:.<CR>
+nnoremap <Space>? :Unite grep:.:-r<CR>
+nnoremap <Space>y :Unite history/yank<CR>
+nnoremap <Space>S :Unite source<CR>
+nnoremap <Space>m :Unite file_mru<CR>
+nnoremap <Space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+nnoremap <Space>uj :Unite jump -start-insert<CR>
+nnoremap <Space>uo :Unite outline<CR>
+nnoremap <Space>uO :Unite output -start-insert<CR>
+nnoremap <Space>ud :Unite directory<CR>
+nnoremap <Space>uC :Unite change<CR>
+nnoremap <Space>uc :UniteWithCurrentDir
         \ -buffer-name=files buffer bookmark file<CR>
-nnoremap <space>ub :UniteWithBufferDir
+nnoremap <Space>ub :UniteWithBufferDir
         \ -buffer-name=files -prompt=%\  buffer bookmark file<CR>
-nnoremap <space>ur :Unite
+nnoremap <Space>ur :Unite
         \ -buffer-name=register register<CR>
-nnoremap <space>uf :Unite
+nnoremap <Space>uf :Unite
         \ -buffer-name=resume resume<CR>
-nnoremap <space>us :Unite -quick-match tab<CR>
-nnoremap <space>uma :Unite mapping<CR>
-nnoremap <space>ume :Unite output:message<CR>
+nnoremap <Space>us :Unite -quick-match tab<CR>
+nnoremap <Space>uma :Unite mapping<CR>
+nnoremap <Space>ume :Unite output:message<CR>
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings() "{{{
@@ -463,7 +453,7 @@ function! s:unite_my_settings() "{{{
   "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
 
   imap <buffer><expr> j unite#smart_map('j', '')
-  imap <buffer> <TAB>   <Plug>(unite_select_next_line)
+  imap <buffer> <Tab>   <Plug>(unite_select_next_line)
   imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
   imap <buffer> '     <Plug>(unite_quick_match_default_action)
   nmap <buffer> '     <Plug>(unite_quick_match_default_action)
@@ -510,8 +500,8 @@ if executable('rg')
   let g:unite_source_grep_default_opts = '--hidden --no-heading --vimgrep -S'
   let g:unite_source_grep_recursive_opt = ''
 
-  nnoremap <space>/ :Unite grep:. -wrap<CR>
-  nnoremap <space>? :Unite grep:. -wrap<CR>
+  nnoremap <Space>/ :Unite grep:. -wrap<CR>
+  nnoremap <Space>? :Unite grep:. -wrap<CR>
 endif
 " Unite
 
@@ -550,17 +540,17 @@ autocmd VimEnter,Colorscheme * highlight IndentGuidesEven ctermbg=240
 " vim-indent-guides
 
 " vim-grepper
-nnoremap <leader>g :Grepper -tool git<cr>
-nnoremap <leader>G :Grepper -tool ag<cr>
+nnoremap <Leader>g :Grepper -tool git<CR>
+nnoremap <Leader>G :Grepper -tool ag<CR>
 
-nmap gs <plug>(GrepperOperator)
-xmap gs <plug>(GrepperOperator)
+nmap gs <Plug>(GrepperOperator)
+xmap gs <Plug>(GrepperOperator)
 
 " Optional. The default behaviour should work for most users.
 let g:grepper               = {}
 let g:grepper.tools         = ['git', 'ag', 'rg']
 let g:grepper.jump          = 1
-let g:grepper.next_tool     = '<leader>g'
+let g:grepper.next_tool     = '<Leader>g'
 let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 0
 " vim-grepper
@@ -573,9 +563,9 @@ nnoremap <F5> :CtrlSFToggle<CR>
 " ranger
 let g:ranger_map_keys = 0
 nnoremap <Space>rr :Ranger<CR>
-nnoremap <Space>rs :split <bar> Ranger<CR>
-nnoremap <Space>rv :vsplit <bar> Ranger<CR>
-nnoremap <Space>rt :tab split <bar> Ranger<CR>
+nnoremap <Space>rs :split     <Bar> Ranger<CR>
+nnoremap <Space>rv :vsplit    <Bar> Ranger<CR>
+nnoremap <Space>rt :tab split <Bar> Ranger<CR>
 " ranger
 
 " vim-rooter
@@ -584,15 +574,15 @@ let g:rooter_manual_only = 1
 
 " fzf-vim
 " Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
+nmap <Leader><Tab> <Plug>(fzf-maps-n)
+xmap <Leader><Tab> <Plug>(fzf-maps-x)
+omap <Leader><Tab> <Plug>(fzf-maps-o)
 
 " Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
+imap <C-x><C-k> <Plug>(fzf-complete-word)
+imap <C-x><C-f> <Plug>(fzf-complete-path)
+imap <C-x><C-j> <Plug>(fzf-complete-file-ag)
+imap <C-x><C-l> <Plug>(fzf-complete-line)
 
 command! -bar -bang Helptags call fzf#vim#helptags(<bang>0)
 
@@ -615,22 +605,22 @@ endfunction
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
 
-map <leader>fa :execute 'Ag ' . input('Ag: ')<CR>
-map <leader>fb :Buffers<CR>
-map <leader>fc :BCommits<CR>
-map <leader>fC :Commits<CR>
-map <leader>ff :Files<CR>
-map <leader>fF :Filetypes<CR>
-map <leader>fg :GFiles<CR>
-map <leader>fG :execute 'GGrep ' . input('Git grep: ')<CR>
-map <leader>fh :History<CR>
-map <leader>fl :BLines<CR>
-map <leader>fL :Lines<CR>
-map <leader>fm :Mru<CR>
-map <leader>fr :execute 'Rg ' . input('Rg: ')<CR>
-map <leader>ft :BTags<CR>
-map <leader>fT :Tags<CR>
-map <leader>fw :Windows<CR>
+map <Leader>fa :execute 'Ag ' . input('Ag: ')<CR>
+map <Leader>fb :Buffers<CR>
+map <Leader>fc :BCommits<CR>
+map <Leader>fC :Commits<CR>
+map <Leader>ff :Files<CR>
+map <Leader>fF :Filetypes<CR>
+map <Leader>fg :GFiles<CR>
+map <Leader>fG :execute 'GGrep ' . input('Git grep: ')<CR>
+map <Leader>fh :History<CR>
+map <Leader>fl :BLines<CR>
+map <Leader>fL :Lines<CR>
+map <Leader>fm :Mru<CR>
+map <Leader>fr :execute 'Rg ' . input('Rg: ')<CR>
+map <Leader>ft :BTags<CR>
+map <Leader>fT :Tags<CR>
+map <Leader>fw :Windows<CR>
 " fzf-vim
 
 " vimwiki
@@ -690,7 +680,7 @@ endif
 " include 'stopsel' which means that non-shifted special keys stop selection.
 set keymodel=startsel
 
-if has("win32") || has("win64")
+if s:uname =~ "windows"
   let $TMP="C:/tmp"
 else
   let $TMP="/tmp"
@@ -747,24 +737,22 @@ endfunction
 nnoremap <Space><F7> :set spell!<CR>
 
 let g:lasttab = 1
-if has("win32") || has("win64")
+if !has("nvim") && s:uname !~ "windows"
+  set <M-1>=1
+endif
+nmap <M-1> :exe "tabn ".g:lasttab<CR>
+if s:uname =~ "windows"
   set encoding=utf8 " make sure mapping is correct in UTF-8
   nmap <M-1> :exe "tabn ".g:lasttab<CR>
-  set encoding=cp950
-  nmap <M-1> :exe "tabn ".g:lasttab<CR>
-else
-  if !has("nvim")
-    set <M-1>=1
-  endif
-  nmap <M-1> :exe "tabn ".g:lasttab<CR>
+  set encoding&
 endif
 au TabLeave * let g:lasttab = tabpagenr()
 
 " neovim terminal key mapping
 if has("nvim")
   " For quick terminal access
-  nnoremap <Space><F2> :tabe term://$SHELL <bar> startinsert<CR>
-  tnoremap <Space><F2> <C-\><C-n>:tabe term://$SHELL <bar> startinsert<CR>
+  nnoremap <Space><F2> :tabe term://$SHELL <Bar> startinsert<CR>
+  tnoremap <Space><F2> <C-\><C-n>:tabe term://$SHELL <Bar> startinsert<CR>
 
   tnoremap <Space><F1> <C-\><C-n>
 
