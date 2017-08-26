@@ -259,3 +259,21 @@
 [submodule "bundle/vim-scriptease"]
 	path = bundle/vim-scriptease
 	url = git@github.com:tpope/vim-scriptease.git
+[submodule "bundle/vim-repeat"]
+	path = bundle/vim-repeat
+	url = git@github.com:tpope/vim-repeat.git
+[submodule "bundle/vim-plugin-AnsiEsc"]
+	path = bundle/vim-plugin-AnsiEsc
+	url = git@github.com:powerman/vim-plugin-AnsiEsc.git
+[submodule "bundle/CamelCaseMotion"]
+	path = bundle/CamelCaseMotion
+	url = git@github.com:bkad/CamelCaseMotion.git
+[submodule "bundle/a.vim"]
+	path = bundle/a.vim
+	url = git@github.com:vim-scripts/a.vim.git
+[submodule "bundle/vimwiki"]
+	path = bundle/vimwiki
+	url = git@github.com:vimwiki/vimwiki.git
+[submodule "bundle/cscope_macros.vim"]
+	path = bundle/cscope_macros.vim
+	url = git@github.com:vim-scripts/cscope_macros.vim.git

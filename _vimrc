@@ -395,6 +395,7 @@ noremap <silent><expr> <Leader><Leader>/ incsearch#go(<SID>config_easyfuzzymotio
 map ,mw <Plug>CamelCaseMotion_w
 map ,mb <Plug>CamelCaseMotion_b
 map ,me <Plug>CamelCaseMotion_e
+map ,mge <Plug>CamelCaseMotion_ge
 " CamelCaseMotion
 
 " vim-easy-align
@@ -449,6 +450,7 @@ nnoremap <Space>uj :Unite jump -start-insert<CR>
 nnoremap <Space>uo :Unite outline<CR>
 nnoremap <Space>uO :Unite output -start-insert<CR>
 nnoremap <Space>ud :Unite directory<CR>
+nnoremap <Space>uD :UniteWithBufferDir directory<CR>
 nnoremap <Space>uC :Unite change<CR>
 nnoremap <Space>uc :UniteWithCurrentDir
         \ -buffer-name=files buffer bookmark file<CR>
