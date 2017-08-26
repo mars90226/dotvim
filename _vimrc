@@ -86,6 +86,12 @@ if s:uname !~ "synology"
   " Saner command-line history
   cnoremap <M-n> <Down>
   cnoremap <M-p> <Up>
+  if s:uname =~ "windows"
+    set encoding=utf8 " make sure mapping is correct in UTF-8
+	cnoremap <M-n> <Down>
+	cnoremap <M-p> <Up>
+    set encoding&
+  endif
 endif
 
 " Quickly switch tab
@@ -538,9 +544,10 @@ nnoremap <Space><F8> :SyntasticToggleMode<CR>
 " Syntastic
 
 " racer
-set hidden
-let g:racer_cmd = "D:/download/git/racer/target/release/racer"
-let $RUST_SRC_PATH = "D:/download/git/rust/src/"
+if !pathogen#is_disabled("racer")
+  set hidden
+  let g:racer_cmd = $RACER_CMD
+endif
 " racer
 
 " vim-indent-guides
