@@ -1,3 +1,7 @@
+" Bootstrap {{{
+" ====================================================================
+let g:mapleader=","
+
 " Detect operating system
 if has("win32") || has("win64")
   let s:uname = "windows"
@@ -5,12 +9,16 @@ else
   let s:uname = system("uname -a")
 endif
 
-" pathogen
+" Set Encoding
+if s:uname =~ "windows"
+	set encoding=utf8
+endif
+
+" pathogen {{{
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 let g:pathogen_disabled = ['racer']
 
 " Choose autocompletion plugin
-
 if s:uname =~ "windows" || s:uname =~ "synology"
   call add(g:pathogen_disabled, 'YouCompleteMe')
 else
@@ -23,8 +31,9 @@ endif
 
 call pathogen#infect()
 call pathogen#helptags()
-" pathogen
+" }}}
 
+" Vim basic setting
 set nocompatible
 if exists(":packadd") != 0
   source $VIMRUNTIME/vimrc_example.vim
@@ -39,133 +48,14 @@ if s:uname !~ "synology"
     cunmap <C-a>
   endif
 endif
+" }}}
 
-" add key mapping for suspend
-nnoremap <Space><C-z> :suspend<CR>
+" Plugin Settings Begin {{{
+" }}}
 
-let mapleader=","
-
-if s:uname !~ "synology"
-  " Fix meta key in vim
-  if !has("nvim") && s:uname !~ "windows"
-    set <M-h>=h
-    set <M-j>=j
-    set <M-k>=k
-    set <M-l>=l
-    set <M-n>=n
-    set <M-p>=p
-  endif
-
-  " Pair up with 'set winaltkeys=no' in _gvimrc
-  nmap <M-h> <C-w>h
-  nmap <M-j> <C-w>j
-  nmap <M-k> <C-w>k
-  nmap <M-l> <C-w>l
-  if s:uname =~ "windows"
-    set encoding=utf8 " make sure mapping is correct in UTF-8
-    nmap <M-h> <C-w>h
-    nmap <M-j> <C-w>j
-    nmap <M-k> <C-w>k
-    nmap <M-l> <C-w>l
-    set encoding&
-  endif
-
-  " Move in insert mode
-  imap <M-h> <Left>
-  imap <M-j> <Down>
-  imap <M-k> <Up>
-  imap <M-l> <Right>
-  if s:uname =~ "windows"
-    set encoding=utf8 " make sure mapping is correct in UTF-8
-    imap <M-h> <Left>
-    imap <M-j> <Down>
-    imap <M-k> <Up>
-    imap <M-l> <Right>
-    set encoding&
-  endif
-
-  " Saner command-line history
-  cnoremap <M-n> <Down>
-  cnoremap <M-p> <Up>
-  if s:uname =~ "windows"
-    set encoding=utf8 " make sure mapping is correct in UTF-8
-	cnoremap <M-n> <Down>
-	cnoremap <M-p> <Up>
-    set encoding&
-  endif
-endif
-
-" Quickly switch tab
-nnoremap <C-j> gT
-nnoremap <C-k> gt
-
-" Quickly adjust window size
-map <C-w><Space>- <C-w>10-
-map <C-w><Space>+ <C-w>10+
-map <C-w><Space>< <C-w>10<
-map <C-w><Space>> <C-w>10>
-
-" add mapping to delete in insert mode
-inoremap <C-b> <Right><BS>
-
-" Win32
-"nmap <Leader>x :execute ':! "'.expand('%').'"'<CR>
-nmap <Leader>x :!start cmd /c "%:p"<CR>
-nmap <Leader>X :!start cmd /K cd /D %:p:h<CR>
-nmap <Leader>E :exec "!start explorer \"".expand("%:p:h:gs?\\??:gs?/?\\?")."\""<CR>
-
-" Tabular
-nmap <Leader>a=    :Tabularize /=<CR>
-vmap <Leader>a=    :Tabularize /=<CR>
-nmap <Leader>a:    :Tabularize /:\zs<CR>
-vmap <Leader>a:    :Tabularize /:\zs<CR>
-nmap <Leader>athen :Tabularize /then<CR>
-vmap <Leader>athen :Tabularize /then<CR>
-" Tabular
-
-" EasyAlign
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-" EasyAlign
-
-" CtrlP
-if has("python")
-  let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-endif
-let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
-      \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
-" CtrlP
-
-" Vim-CtrlP-CmdPalette
-let g:ctrlp_cmdpalette_execute = 1
-" Vim-CtrlP-CmdPalette
-
-" emmet
-let g:user_emmet_leader_key = '<C-e>'
-" emmet
-
-" delimitMate
-imap <silent> <C-y> <Plug>delimitMateS-Tab
-" delimitMate
-
-" eraseSubword
-let g:EraseSubword_insertMap = '<C-e><C-e>'
-" eraseSubword
-
-" netrw
-let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro' " add line number
-nnoremap <silent> <F4> :Lexplore<CR>
-" netrw
-
-" Vinegar
-nmap <silent> _ <Plug>VinegarVerticalSplitUp
-" Vinegar
-
-" vim-airline
-set laststatus=2
+" Appearance {{{
+" ====================================================================
+" vim-airline {{{
 if s:uname !~ "windows"
   let g:airline_powerline_fonts = 1
 endif
@@ -178,10 +68,19 @@ let g:airline#extensions#tabline#fnamemod      = ':p:.'
 let g:airline#extensions#tabline#fnamecollapse = 1
 
 let g:airline_theme = 'tomorrow'
-" vim-airline
+" }}}
 
-if s:uname !~ "synology"
-  " YouCompleteMe
+" vim-indent-guides {{{
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * highlight IndentGuidesOdd  ctermbg=243
+autocmd VimEnter,Colorscheme * highlight IndentGuidesEven ctermbg=240
+" }}}
+" }}}
+
+" Completion {{{
+" ====================================================================
+" YouCompleteMe {{{
+if !pathogen#is_disabled("YouCompleteMe")
   let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
   let g:ycm_confirm_extra_conf    = 0
   let g:ycm_key_invoke_completion = '<M-/>'
@@ -235,23 +134,23 @@ if s:uname !~ "synology"
   nnoremap <Leader>yxd :tab split <Bar> YcmCompleter GetDoc<CR>
   nnoremap <Leader>yxD :tab split <Bar> YcmCompleter GetDocImprecise<CR>
   nnoremap <Leader>yxf :tab split <Bar> YcmCompleter FixIt<CR>
-  " YouCompleteMe
 endif
+" }}}
 
-" completion setting
+" completion setting {{{
 "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
-" completion setting
+" }}}
 
-" neosnippet
+" neosnippet {{{
 " Plugin key-mappings.
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
+imap <C-l> <Plug>(neosnippet_expand_or_jump)
+smap <C-l> <Plug>(neosnippet_expand_or_jump)
+xmap <C-l> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><Tab> neosnippet#expandable_or_jumpable() ?
@@ -268,173 +167,33 @@ endif
 
 " Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
-" neosnippet
+" }}}
+" }}}
 
-" vim gitgutter
-nmap <silent> ]h :<C-u>execute v:count1 . "GitGutterNextHunk"<CR>
-nmap <silent> [h :<C-u>execute v:count1 . "GitGutterPrevHunk"<CR>
-nmap <silent> <Leader>gt :GitGutterToggle<CR>
-" vim gitgutter
-
-" fugitive-gitlab
-let g:fugitive_gitlab_domains = ['https://git.synology.com']
-" fugitive-gitlab
-
-" tagbar
-nmap <F8> :TagbarToggle<CR>
-let g:tagbar_map_showproto = '<Leader><Space>'
-let g:tagbar_expand = 1
-let g:tagbar_type_go = {
-      \ 'ctagstype' : 'go',
-      \ 'kinds'     : [
-      \ 'p:package',
-      \ 'i:imports:1',
-      \ 'c:constants',
-      \ 'v:variables',
-      \ 't:types',
-      \ 'n:interfaces',
-      \ 'w:fields',
-      \ 'e:embedded',
-      \ 'm:methods',
-      \ 'r:constructor',
-      \ 'f:functions'
-      \ ],
-      \ 'sro' : '.',
-      \ 'kind2scope' : {
-      \ 't' : 'ctype',
-      \ 'n' : 'ntype'
-      \ },
-      \ 'scope2kind' : {
-      \ 'ctype' : 't',
-      \ 'ntype' : 'n'
-      \ },
-      \ 'ctagsbin'  : 'gotags',
-      \ 'ctagsargs' : '-sort -silent'
-      \ }
-" tagbar
-
-" cscope
-nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
-      \:!cscope -b -i cscope.files -f cscope.out<CR>
-      \:cs kill -1<CR>:cs add cscope.out<CR>
-" cscope
-
-" EasyMotion
-let g:EasyMotion_leader_key = '<Space>'
-let g:EasyMotion_smartcase = 1
-
-nmap ; <Plug>(easymotion-s2)
-
-map <Space><Space>w <Plug>(easymotion-bd-wl)
-map <Space><Space>f <Plug>(easymotion-bd-fl)
-
-map <Plug>(easymotion-prefix)f <Plug>(easymotion-bd-f)
-map <Plug>(easymotion-prefix)s <Plug>(easymotion-bd-f2)
-map <Plug>(easymotion-prefix)L <Plug>(easymotion-bd-jk)
-map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
-
-if s:uname !~ "synology"
-  nmap <Plug>(easymotion-prefix)f <Plug>(easymotion-overwin-f)
-  nmap <Plug>(easymotion-prefix)s <Plug>(easymotion-overwin-f2)
-  nmap <Plug>(easymotion-prefix)L <Plug>(easymotion-overwin-line)
-  nmap <Plug>(easymotion-prefix)w <Plug>(easymotion-overwin-w)
+" File Navigation {{{
+" ====================================================================
+" CtrlP {{{
+if has("python")
+  let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 endif
-" EasyMotion
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
+      \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
+" }}}
 
-" incsearch
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
+" Vim-CtrlP-CmdPalette {{{
+let g:ctrlp_cmdpalette_execute = 1
+" }}}
 
-" Search within visual selection
-if !has("nvim") && s:uname !~ "windows"
-  set <M-/>=/
-  set <M-?>=?
-endif
-vmap <M-/> <Esc><Plug>(incsearch-forward)\%V
-vmap <M-?> <Esc><Plug>(incsearch-backward)\%V
+" netrw {{{
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro' " add line number
+nnoremap <silent> <F4> :Lexplore<CR>
+" }}}
 
-" :h g:incsearch#auto_nohlsearch
-set hlsearch
-let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
-" incsearch
+" Vinegar {{{
+nmap <silent> _ <Plug>VinegarVerticalSplitUp
+" }}}
 
-" incsearch-fuzzy
-map z/  <Plug>(incsearch-fuzzy-/)
-map z?  <Plug>(incsearch-fuzzy-?)
-map zg/ <Plug>(incsearch-fuzzy-stay)
-" incsearch-fuzzy
-
-" incsearch-easymotion
-map <Leader>/  <Plug>(incsearch-easymotion-/)
-map <Leader>?  <Plug>(incsearch-easymotion-?)
-map <Leader>g/ <Plug>(incsearch-easymotion-stay)
-" incsearch-easymotion
-
-" incsearch.vim x fuzzy x vim-easymotion
-function! s:config_easyfuzzymotion(...) abort
-  return extend(copy({
-  \   'converters': [incsearch#config#fuzzy#converter()],
-  \   'modules': [incsearch#config#easymotion#module()],
-  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
-  \   'is_expr': 0,
-  \   'is_stay': 1
-  \ }), get(a:, 1, {}))
-endfunction
-
-noremap <silent><expr> <Leader><Leader>/ incsearch#go(<SID>config_easyfuzzymotion())
-" incsearch.vim x fuzzy x vim-easymotion
-
-" CamelCaseMotion
-map ,mw <Plug>CamelCaseMotion_w
-map ,mb <Plug>CamelCaseMotion_b
-map ,me <Plug>CamelCaseMotion_e
-map ,mge <Plug>CamelCaseMotion_ge
-" CamelCaseMotion
-
-" vim-easy-align
-vnoremap <silent> <CR> :EasyAlign<CR>
-" vim-easy-align
-
-" vim-ruby-xmpfilter
-nmap <Leader>rr <Plug>(xmpfilter-run)
-xmap <Leader>rr <Plug>(xmpfilter-run)
-imap <Leader>rr <Plug>(xmpfilter-run)
-
-nmap <Leader>rm <Plug>(xmpfilter-mark)
-xmap <Leader>rm <Plug>(xmpfilter-mark)
-imap <Leader>rm <Plug>(xmpfilter-mark)"
-" vim-ruby-xmpfilter
-
-" background toggle
-nmap <Leader>bg :let &background = ( &background == "dark" ? "light" : "dark" )<CR>
-" background toggle
-
-" Gundo
-if has('python3')
-  let g:gundo_prefer_python3 = 1
-endif
-nnoremap <F9> :GundoToggle<CR>
-" Gundo
-
-" colorv
-nnoremap <silent> <Leader>cN :ColorVName<CR>
-" colorv
-
-" VimShell
-nnoremap <silent> <Leader>vv :VimShell<CR>
-nnoremap <silent> <Leader>vc :VimShellCurrentDir<CR>
-nnoremap <silent> <Leader>vb :VimShellBufferDir<CR>
-nnoremap <silent> <Leader>vt :VimShellTab<CR>
-" VimShell
-
-" Unite
+" Unite {{{
 let g:unite_source_history_yank_enable = 1
 nnoremap <Space>l :Unite -start-insert line<CR>
 nnoremap <Space>p :Unite
@@ -522,44 +281,14 @@ if executable('rg')
   nnoremap <Space>/ :Unite grep:. -wrap<CR>
   nnoremap <Space>? :Unite grep:. -wrap<CR>
 endif
-" Unite
+" }}}
 
-" gj
+" gj {{{
 nmap <Leader>g <Nop>
 nnoremap <Leader>gg :Ack!<CR>
-" gj
+" }}}
 
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list            = 1
-let g:syntastic_check_on_open            = 1
-let g:sytastic_check_on_wq               = 0
-
-let g:syntastic_ruby_checkers = ['mri', 'rubylint']
-let g:syntastic_tex_checkers  = ['lacheck']
-let g:syntastic_c_checkers    = ['gcc']
-let g:syntastic_cpp_checkers  = ['gcc']
-nnoremap <Space><F8> :SyntasticToggleMode<CR>
-" Syntastic
-
-" racer
-if !pathogen#is_disabled("racer")
-  set hidden
-  let g:racer_cmd = $RACER_CMD
-endif
-" racer
-
-" vim-indent-guides
-let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * highlight IndentGuidesOdd  ctermbg=243
-autocmd VimEnter,Colorscheme * highlight IndentGuidesEven ctermbg=240
-" vim-indent-guides
-
-" vim-grepper
+" vim-grepper {{{
 nnoremap <Leader>g :Grepper -tool git<CR>
 nnoremap <Leader>G :Grepper -tool ag<CR>
 
@@ -573,26 +302,22 @@ let g:grepper.jump          = 1
 let g:grepper.next_tool     = '<Leader>g'
 let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 0
-" vim-grepper
+" }}}
 
-" ctrlsf.vim
-nnoremap <Space><C-f> :CtrlSF 
+" ctrlsf.vim {{{
+nnoremap <Space><C-f> :CtrlSF
 nnoremap <F5> :CtrlSFToggle<CR>
-" ctrlsf.vim
+" }}}
 
-" ranger
+" ranger {{{
 let g:ranger_map_keys = 0
 nnoremap <Space>rr :Ranger<CR>
 nnoremap <Space>rs :split     <Bar> Ranger<CR>
 nnoremap <Space>rv :vsplit    <Bar> Ranger<CR>
 nnoremap <Space>rt :tab split <Bar> Ranger<CR>
-" ranger
+" }}}
 
-" vim-rooter
-let g:rooter_manual_only = 1
-" vim-rooter
-
-" fzf-vim
+" fzf-vim {{{
 " Mapping selecting mappings
 nmap <Leader><Tab> <Plug>(fzf-maps-n)
 xmap <Leader><Tab> <Plug>(fzf-maps-x)
@@ -641,96 +366,472 @@ map <Leader>fr :execute 'Rg ' . input('Rg: ')<CR>
 map <Leader>ft :BTags<CR>
 map <Leader>fT :Tags<CR>
 map <Leader>fw :Windows<CR>
-" fzf-vim
+" }}}
+" }}}
 
-" vimwiki
-nnoremap <Leader>wg :VimwikiToggleListItem<CR>
-" vimwiki
+" Text Navigation {{{
+" ====================================================================
+" EasyMotion {{{
+let g:EasyMotion_leader_key = '<Space>'
+let g:EasyMotion_smartcase = 1
 
-" xterm-256 in Windows
-if !has("gui_running") && s:uname =~ "windows"
-    set term=xterm
-    let &t_AB="\e[48;5;%dm"
-    let &t_AF="\e[38;5;%dm"
+nmap ; <Plug>(easymotion-s2)
+
+map <Space><Space>w <Plug>(easymotion-bd-wl)
+map <Space><Space>f <Plug>(easymotion-bd-fl)
+
+map <Plug>(easymotion-prefix)f <Plug>(easymotion-bd-f)
+map <Plug>(easymotion-prefix)s <Plug>(easymotion-bd-f2)
+map <Plug>(easymotion-prefix)L <Plug>(easymotion-bd-jk)
+map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
+
+if s:uname !~ "synology"
+  nmap <Plug>(easymotion-prefix)f <Plug>(easymotion-overwin-f)
+  nmap <Plug>(easymotion-prefix)s <Plug>(easymotion-overwin-f2)
+  nmap <Plug>(easymotion-prefix)L <Plug>(easymotion-overwin-line)
+  nmap <Plug>(easymotion-prefix)w <Plug>(easymotion-overwin-w)
 endif
-" xterm-256 in Windows
+" }}}
 
+" incsearch {{{
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+" Search within visual selection
+if !has("nvim") && s:uname !~ "windows"
+  set <M-/>=/
+  set <M-?>=?
+endif
+vmap <M-/> <Esc><Plug>(incsearch-forward)\%V
+vmap <M-?> <Esc><Plug>(incsearch-backward)\%V
+if s:uname =~ "windows"
+  set encoding& " make sure mapping is correct in default encoding
+  vmap <M-/> <Esc><Plug>(incsearch-forward)\%V
+  vmap <M-?> <Esc><Plug>(incsearch-backward)\%V
+  set encoding=utf8
+endif
+
+" :h g:incsearch#auto_nohlsearch
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+" }}}
+
+" incsearch-fuzzy {{{
+map z/  <Plug>(incsearch-fuzzy-/)
+map z?  <Plug>(incsearch-fuzzy-?)
+map zg/ <Plug>(incsearch-fuzzy-stay)
+" }}}
+
+" incsearch-easymotion {{{
+map <Leader>/  <Plug>(incsearch-easymotion-/)
+map <Leader>?  <Plug>(incsearch-easymotion-?)
+map <Leader>g/ <Plug>(incsearch-easymotion-stay)
+" }}}
+
+" incsearch.vim x fuzzy x vim-easymotion {{{
+function! s:config_easyfuzzymotion(...) abort
+  return extend(copy({
+  \   'converters': [incsearch#config#fuzzy#converter()],
+  \   'modules': [incsearch#config#easymotion#module()],
+  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
+  \   'is_expr': 0,
+  \   'is_stay': 1
+  \ }), get(a:, 1, {}))
+endfunction
+
+noremap <silent><expr> <Leader><Leader>/ incsearch#go(<SID>config_easyfuzzymotion())
+" }}}
+
+" CamelCaseMotion {{{
+map ,mw <Plug>CamelCaseMotion_w
+map ,mb <Plug>CamelCaseMotion_b
+map ,me <Plug>CamelCaseMotion_e
+map ,mge <Plug>CamelCaseMotion_ge
+" }}}
+" }}}
+
+" Text Manipulation {{{
+" ====================================================================
+" Tabular {{{
+nmap <Leader>a=    :Tabularize /=<CR>
+vmap <Leader>a=    :Tabularize /=<CR>
+nmap <Leader>a:    :Tabularize /:\zs<CR>
+vmap <Leader>a:    :Tabularize /:\zs<CR>
+nmap <Leader>athen :Tabularize /then<CR>
+vmap <Leader>athen :Tabularize /then<CR>
+" }}}
+
+" EasyAlign {{{
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" }}}
+
+" delimitMate {{{
+imap <silent> <C-y> <Plug>delimitMateS-Tab
+" }}}
+
+" eraseSubword {{{
+let g:EraseSubword_insertMap = '<C-e><C-e>'
+" }}}
+" }}}
+
+" Languages {{{
+" ====================================================================
+" emmet {{{
+let g:user_emmet_leader_key = '<C-e>'
+" }}}
+
+" tagbar {{{
+nmap <F8> :TagbarToggle<CR>
+let g:tagbar_map_showproto = '<Leader><Space>'
+let g:tagbar_expand = 1
+let g:tagbar_type_go = {
+      \ 'ctagstype' : 'go',
+      \ 'kinds'     : [
+      \ 'p:package',
+      \ 'i:imports:1',
+      \ 'c:constants',
+      \ 'v:variables',
+      \ 't:types',
+      \ 'n:interfaces',
+      \ 'w:fields',
+      \ 'e:embedded',
+      \ 'm:methods',
+      \ 'r:constructor',
+      \ 'f:functions'
+      \ ],
+      \ 'sro' : '.',
+      \ 'kind2scope' : {
+      \ 't' : 'ctype',
+      \ 'n' : 'ntype'
+      \ },
+      \ 'scope2kind' : {
+      \ 'ctype' : 't',
+      \ 'ntype' : 'n'
+      \ },
+      \ 'ctagsbin'  : 'gotags',
+      \ 'ctagsargs' : '-sort -silent'
+      \ }
+" }}}
+
+" cscope {{{
+nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
+      \:!cscope -b -i cscope.files -f cscope.out<CR>
+      \:cs kill -1<CR>:cs add cscope.out<CR>
+" }}}
+
+" vim-ruby-xmpfilter {{{
+nmap <Leader>rr <Plug>(xmpfilter-run)
+xmap <Leader>rr <Plug>(xmpfilter-run)
+imap <Leader>rr <Plug>(xmpfilter-run)
+
+nmap <Leader>rm <Plug>(xmpfilter-mark)
+xmap <Leader>rm <Plug>(xmpfilter-mark)
+imap <Leader>rm <Plug>(xmpfilter-mark)"
+" }}}
+
+" Syntastic {{{
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list            = 1
+let g:syntastic_check_on_open            = 1
+let g:sytastic_check_on_wq               = 0
+
+let g:syntastic_ruby_checkers = ['mri', 'rubylint']
+let g:syntastic_tex_checkers  = ['lacheck']
+let g:syntastic_c_checkers    = ['gcc']
+let g:syntastic_cpp_checkers  = ['gcc']
+nnoremap <Space><F8> :SyntasticToggleMode<CR>
+" }}}
+
+" racer {{{
+if !pathogen#is_disabled("racer")
+  let g:racer_cmd = $RACER_CMD
+endif
+" }}}
+" }}}
+
+" Git {{{
+" ====================================================================
+" vim-fugitive {{{
+nnoremap <silent> <Leader>gs :Gstatus<CR>
+nnoremap <silent> <Leader>gd :Gdiff<CR>
+nnoremap <silent> <Leader>gc :Gcommit<CR>
+nnoremap <silent> <Leader>gb :Gblame<CR>
+nnoremap <silent> <Leader>ge :Gedit<CR>
+nnoremap <silent> <Leader>gE :Gedit<space>
+nnoremap <silent> <Leader>gr :Gread<CR>
+nnoremap <silent> <Leader>gR :Gread<space>
+nnoremap <silent> <Leader>gw :Gwrite<CR>
+nnoremap <silent> <Leader>gW :Gwrite!<CR>
+nnoremap <silent> <Leader>gq :Gwq<CR>
+nnoremap <silent> <Leader>gQ :Gwq!<CR>
+
+function! ReviewLastCommit()
+  if exists('b:git_dir')
+    Gtabedit HEAD^{}
+    nnoremap <buffer> <silent> q :<C-U>bdelete<CR>
+  else
+    echo 'No git a git repository:' expand('%:p')
+  endif
+endfunction
+nnoremap <silent> <Leader>g` :call ReviewLastCommit()<CR>
+
+augroup fugitiveSettings
+  autocmd!
+  autocmd FileType gitcommit setlocal nolist
+  autocmd BufReadPost fugitive://* setlocal bufhidden=delete
+augroup END
+" }}}
+
+" fugitive-gitlab {{{
+let g:fugitive_gitlab_domains = ['https://git.synology.com']
+" }}}
+
+" vim gitgutter {{{
+nmap <silent> ]h :<C-u>execute v:count1 . "GitGutterNextHunk"<CR>
+nmap <silent> [h :<C-u>execute v:count1 . "GitGutterPrevHunk"<CR>
+nnoremap <silent> <Leader>gu :GitGutterRevertHunk<CR>
+nnoremap <silent> <Leader>gp :GitGutterPreviewHunk<CR><c-w>j
+nnoremap cog :GitGutterToggle<CR>
+nnoremap <Leader>gt :GitGutterAll<CR>
+" }}}
+" }}}
+
+" Utility {{{
+" ====================================================================
+" Gundo {{{
+if has('python3')
+  let g:gundo_prefer_python3 = 1
+endif
+nnoremap <F9> :GundoToggle<CR>
+" }}}
+
+" vim-unimpaired {{{
+nnoremap coe :set expandtab!<CR>
+" }}}
+
+" vim-characterize {{{
+nmap gA <Plug>(characterize)
+" }}}
+
+" vim-peekaboo {{{
+let g:peekaboo_delay = 400
+" }}}
+
+" colorv {{{
+nnoremap <silent> <Leader>cN :ColorVName<CR>
+" }}}
+
+" VimShell {{{
+nnoremap <silent> <Leader>vv :VimShell<CR>
+nnoremap <silent> <Leader>vc :VimShellCurrentDir<CR>
+nnoremap <silent> <Leader>vb :VimShellBufferDir<CR>
+nnoremap <silent> <Leader>vt :VimShellTab<CR>
+" }}}
+
+" vim-rooter {{{
+let g:rooter_manual_only = 1
+" }}}
+
+" vimwiki {{{
+nnoremap <Leader>wg :VimwikiToggleListItem<CR>
+" }}}
+" }}}
+
+" Plugin Settings End {{{
+" }}}
+
+" General Settings {{{
+" ====================================================================
+set number
+set hidden
+set lazyredraw
+set mouse=a
+
+set scrolloff=0
+
+set diffopt=filler,vertical
+
+" ignore pattern for wildmenu
+set wildmenu
+set wildignore+=*.a,*.o,*.pyc,*~,*.swp,*.tmp
+set wildmode=list:longest,full
+
+" show hidden characters
+set list
+set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
+
+set laststatus=2
+set showcmd
+
+" no distraction
 if has("balloon_eval")
   set noballooneval
 endif
+set belloff=all
+
+" move backup directory
 set backupdir^=~/.vimtmp
 set directory^=~/.vimtmp
-set belloff=all " disable all bell
-set number
-set autoindent
-set nohlsearch
-set ignorecase
-set incsearch
-set smartcase
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set smarttab
-set noexpandtab
-set shellslash
-set list
-set listchars=tab:\|\ 
-set grepprg=grep\ -nH\ $*
-set t_Co=256
-set wildmenu
-set foldlevelstart=99
-set scrolloff=0
-set mouse=a
+
+" session options
 set sessionoptions+=localoptions
 set sessionoptions-=options
 set sessionoptions-=folds
 set sessionoptions-=blank
+
+" fzf {{{
 set runtimepath+=~/.fzf
-set background=dark
+" }}}
+
+" filetype
 filetype on
 filetype plugin on
 filetype indent on
-colorscheme Tomorrow-Night
+
+" misc
+set shellslash
+set grepprg=grep\ -nH\ $*
+set t_Co=256
+set foldlevelstart=99
+" }}}
+
+" Indention {{{
+" ====================================================================
+set smarttab
+set noexpandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+" }}}
+
+" Search {{{
+" ====================================================================
+set nohlsearch
+set ignorecase
+set incsearch
+set smartcase
 
 if has("nvim")
   set inccommand=split
 endif
+" }}}
 
-" Prevent CTRL-F to abort the selection (in visual mode)
-" This is caused by $VIM/_vimrc ':behave mswin' which sets 'keymodel' to
-" include 'stopsel' which means that non-shifted special keys stop selection.
-set keymodel=startsel
+" Colors and Highlights {{{
+" ====================================================================
+set background=dark
+colorscheme Tomorrow-Night
+" }}}
 
-if s:uname =~ "windows"
-  let $TMP="C:/tmp"
-else
-  let $TMP="/tmp"
+" Key Mappings {{{
+" ====================================================================
+" Add key mapping for suspend
+nnoremap <Space><C-z> :suspend<CR>
+
+" Quickly switch window {{{
+if s:uname !~ "synology"
+  " Fix meta key in vim
+  if !has("nvim") && s:uname !~ "windows"
+    set <M-h>=h
+    set <M-j>=j
+    set <M-k>=k
+    set <M-l>=l
+  endif
+
+  " Pair up with 'set winaltkeys=no' in _gvimrc
+  nmap <M-h> <C-w>h
+  nmap <M-j> <C-w>j
+  nmap <M-k> <C-w>k
+  nmap <M-l> <C-w>l
+  if s:uname =~ "windows"
+    set encoding& " make sure mapping is correct in default encoding
+    nmap <M-h> <C-w>h
+    nmap <M-j> <C-w>j
+    nmap <M-k> <C-w>k
+    nmap <M-l> <C-w>l
+    set encoding=utf8
+  endif
+
+  " Move in insert mode
+  imap <M-h> <Left>
+  imap <M-j> <Down>
+  imap <M-k> <Up>
+  imap <M-l> <Right>
+  if s:uname =~ "windows"
+    set encoding& " make sure mapping is correct in default encoding
+    imap <M-h> <Left>
+    imap <M-j> <Down>
+    imap <M-k> <Up>
+    imap <M-l> <Right>
+    set encoding=utf8
+  endif
 endif
+" }}}
 
-" disable Background Color Erase (BC) by clearing the `t_ut` on Synology DSM
-" see https://sunaku.github.io/vim-256color-bce.html
-if s:uname =~ "synology"
-  set t_ut=
+" Saner command-line history {{{
+if s:uname !~ "synology"
+  " Fix meta key in vim
+  if !has("nvim") && s:uname !~ "windows"
+    set <M-n>=n
+    set <M-p>=p
+  endif
+
+  cnoremap <M-n> <Down>
+  cnoremap <M-p> <Up>
+  if s:uname =~ "windows"
+    set encoding& " make sure mapping is correct in default encoding
+    cnoremap <M-n> <Down>
+    cnoremap <M-p> <Up>
+    set encoding=utf8
+  endif
 endif
+" }}}
 
-" Enable omni completion. Not required if they are already set elsewhere in .vimrc
-autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+" Quickly switch tab
+nnoremap <C-j> gT
+nnoremap <C-k> gt
 
-" filetype detection
-autocmd BufNewFile,BufReadPost *maillog*            set filetype=messages
-autocmd BufNewFile,BufReadPost *conf                set filetype=conf
-autocmd BufNewFile,BufReadPost *conf.local          set filetype=conf
-autocmd BufNewFile,BufReadPost *conf.local.override set filetype=conf
-autocmd BufNewFile,BufReadPost Makefile.inc         set filetype=make
-autocmd BufNewFile,BufReadPost *.gdbinit            set filetype=gdb
-autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
-autocmd BufNewFile,BufReadPost *.ru                 set filetype=ruby
-" filetype detection
+nnoremap <Leader>1 1gt
+nnoremap <Leader>2 2gt
+nnoremap <Leader>3 3gt
+nnoremap <Leader>4 4gt
+nnoremap <Leader>5 5gt
+nnoremap <Leader>6 6gt
+nnoremap <Leader>7 7gt
+nnoremap <Leader>8 8gt
+nnoremap <Leader>9 9gt
 
+" Quickly adjust window size
+map <C-w><Space>- <C-w>10-
+map <C-w><Space>+ <C-w>10+
+map <C-w><Space>< <C-w>10<
+map <C-w><Space>> <C-w>10>
+
+" Add mapping to delete in insert mode
+inoremap <C-b> <Right><BS>
+
+" Win32
+"nmap <Leader>x :execute ':! "'.expand('%').'"'<CR>
+nmap <Leader>x :!start cmd /c "%:p"<CR>
+nmap <Leader>X :!start cmd /K cd /D %:p:h<CR>
+nmap <Leader>E :execute '!start explorer "' . expand("%:p:h:gs?\\??:gs?/?\\?") . '"'<CR>
+
+" Custom function {{{
 nnoremap <F6> :call ToggleIndentBetweenTabAndSpace()<CR>
 function! ToggleIndentBetweenTabAndSpace()
   if &expandtab
@@ -755,40 +856,20 @@ function! ToggleFoldBetweenManualAndSyntax()
   endif
 endfunction
 
-nnoremap <Space><F7> :set spell!<CR>
-
-let g:lasttab = 1
+let g:last_tab = 1
 if !has("nvim") && s:uname !~ "windows"
   set <M-1>=1
 endif
-nmap <M-1> :exe "tabn ".g:lasttab<CR>
+nmap <M-1> :execute "tabn " . g:last_tab<CR>
 if s:uname =~ "windows"
-  set encoding=utf8 " make sure mapping is correct in UTF-8
-  nmap <M-1> :exe "tabn ".g:lasttab<CR>
-  set encoding&
+  set encoding& " make sure mapping is correct in default encoding
+  nmap <M-1> :execute "tabn " . g:last_tab<CR>
+  set encoding=utf8
 endif
-au TabLeave * let g:lasttab = tabpagenr()
+au TabLeave * let g:last_tab = tabpagenr()
+" }}}
 
-" neovim terminal key mapping
-if has("nvim")
-  " For quick terminal access
-  nnoremap <Space><F2> :tabe term://$SHELL <Bar> startinsert<CR>
-  tnoremap <Space><F2> <C-\><C-n>:tabe term://$SHELL <Bar> startinsert<CR>
-
-  tnoremap <Space><F1> <C-\><C-n>
-
-  tnoremap <M-S-h> <C-\><C-n><C-w>h
-  tnoremap <M-S-j> <C-\><C-n><C-w>j
-  tnoremap <M-S-k> <C-\><C-n><C-w>k
-  tnoremap <M-S-l> <C-\><C-n><C-w>l
-
-  tnoremap <M-C-j> <C-\><C-n>gTi
-  tnoremap <M-C-k> <C-\><C-n>gti
-
-  tnoremap <M-1> <C-\><C-n>:exe "tabn ".g:lasttab<CR>
-endif
-" neovim terminal key mapping
-
+" Custom command {{{
 function! DeleteInactiveBufs()
     "From tabpagebuflist() help, get a list of all buffers in all tabs
     let tablist = []
@@ -817,3 +898,92 @@ function! TrimWhitespace()
 endfunction
 command! TrimWhitespace call TrimWhitespace()
 "autocmd BufWritePre * :call TrimWhitespace()
+" }}}
+" }}}
+
+" Terminal {{{
+" ====================================================================
+" xterm-256 in Windows {{{
+if !has("gui_running") && s:uname =~ "windows"
+    set term=xterm
+    let &t_AB="\e[48;5;%dm"
+    let &t_AF="\e[38;5;%dm"
+endif
+" }}}
+
+" neovim terminal key mapping
+if has("nvim")
+  " For quick terminal access
+  nnoremap <silent> <Leader>tt :tabnew<CR>:terminal<CR>
+  nnoremap <silent> <Leader>ts :new<CR>:terminal<CR>
+  nnoremap <silent> <Leader>tv :vnew<CR>:terminal<CR>
+
+  tnoremap <Space><F1> <C-\><C-n>
+  tnoremap <Space><F2> <C-\><C-n>:tabnew<CR>:terminal<CR>
+
+  " Quickly switch window in terminal
+  tnoremap <M-S-h> <C-\><C-n><C-w>h
+  tnoremap <M-S-j> <C-\><C-n><C-w>j
+  tnoremap <M-S-k> <C-\><C-n><C-w>k
+  tnoremap <M-S-l> <C-\><C-n><C-w>l
+
+  " Quickly switch tab in terminal
+  tnoremap <M-C-j> <C-\><C-n>gTi
+  tnoremap <M-C-k> <C-\><C-n>gti
+
+  tnoremap <M-1> <C-\><C-n>:exe "tabn " . g:last_tab<CR>
+endif
+" }}}
+
+" Autocommands {{{
+" ====================================================================
+augroup vimGeneralCallbacks
+  autocmd!
+  if s:uname =~ "windows"
+    autocmd BufWritePost _vimrc nested source $MYVIMRC
+  else
+    autocmd BufWritePost .vimrc nested source $MYVIMRC
+  endif
+augroup END
+
+augroup fileTypeSpecific
+  autocmd!
+
+  " Rack
+  autocmd BufNewFile,BufReadPost *.ru                 set filetype=ruby
+
+  autocmd BufNewFile,BufReadPost *maillog*            set filetype=messages
+  autocmd BufNewFile,BufReadPost *conf                set filetype=conf
+  autocmd BufNewFile,BufReadPost *conf.local          set filetype=conf
+  autocmd BufNewFile,BufReadPost *conf.local.override set filetype=conf
+  autocmd BufNewFile,BufReadPost Makefile.inc         set filetype=make
+  autocmd BufNewFile,BufReadPost *.gdbinit            set filetype=gdb
+
+  " Custom build log syntax
+  autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
+augroup END
+
+augroup quickfixSettings
+  autocmd!
+  autocmd FileType qf
+        \ nnoremap <buffer> <silent> q :close<CR> |
+        \ map <buffer> <silent> <F4> :close<CR> |
+        \ map <buffer> <silent> <F8> :close<CR>
+augroup END
+" }}}
+
+" Fix and Workarounds {{{
+" ====================================================================
+" Prevent CTRL-F to abort the selection (in visual mode)
+" This is caused by $VIM/_vimrc ':behave mswin' which sets 'keymodel' to
+" include 'stopsel' which means that non-shifted special keys stop selection.
+set keymodel=startsel
+
+" disable Background Color Erase (BC) by clearing the `t_ut` on Synology DSM
+" see https://sunaku.github.io/vim-256color-bce.html
+if s:uname =~ "synology"
+  set t_ut=
+endif
+" }}}
+
+" vim: set sw=2 ts=2 sws=2 et foldlevel=0 foldmethod=marker:
