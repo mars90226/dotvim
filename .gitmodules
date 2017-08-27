@@ -283,3 +283,9 @@
 [submodule "bundle/vim-peekaboo"]
 	path = bundle/vim-peekaboo
 	url = git@github.com:junegunn/vim-peekaboo.git
+[submodule "bundle/auto-pairs"]
+	path = bundle/auto-pairs
+	url = git@github.com:jiangmiao/auto-pairs.git
+[submodule "bundle/editorconfig-vim"]
+	path = bundle/editorconfig-vim
+	url = git@github.com:editorconfig/editorconfig-vim.git

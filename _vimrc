@@ -337,10 +337,11 @@ let g:rg_command = '
     \ -g "!{.config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
 command! -bang -nargs=* Rg call fzf#vim#grep(g:rg_command.shellescape(<q-args>), 1, <bang>0)
 command! Mru call fzf#run(fzf#wrap({
-\ 'source':  reverse(s:all_files()),
-\ 'options': '-m -x +s',
-\ 'down':    '40%' }))
+      \ 'source':  reverse(s:all_files()),
+      \ 'options': '-m -x +s',
+      \ 'down':    '40%' }))
 
+" TODO use neomru
 function! s:all_files()
   return extend(
   \ filter(copy(v:oldfiles),
@@ -474,10 +475,6 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
-" }}}
-
-" delimitMate {{{
-imap <silent> <C-y> <Plug>delimitMateS-Tab
 " }}}
 
 " eraseSubword {{{
