@@ -4,9 +4,6 @@
 [submodule "bundle/ctrlp.vim"]
 	path = bundle/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
-[submodule "bundle/git-vim"]
-	path = bundle/git-vim
-	url = https://github.com/motemen/git-vim.git
 [submodule "bundle/html5.vim"]
 	path = bundle/html5.vim
 	url = https://github.com/othree/html5.vim.git
@@ -277,3 +274,12 @@
 [submodule "bundle/cscope_macros.vim"]
 	path = bundle/cscope_macros.vim
 	url = git@github.com:vim-scripts/cscope_macros.vim.git
+[submodule "bundle/clever-f.vim"]
+	path = bundle/clever-f.vim
+	url = git@github.com:rhysd/clever-f.vim.git
+[submodule "bundle/vim-characterize"]
+	path = bundle/vim-characterize
+	url = git@github.com:tpope/vim-characterize.git
+[submodule "bundle/vim-peekaboo"]
+	path = bundle/vim-peekaboo
+	url = git@github.com:junegunn/vim-peekaboo.git
