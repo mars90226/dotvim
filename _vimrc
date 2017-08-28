@@ -48,9 +48,11 @@ if s:uname !~ "synology"
     cunmap <C-a>
   endif
 
-  unmap <C-f>
-  iunmap <C-f>
-  cunmap <C-f>
+  if has("gui")
+    unmap <C-f>
+    iunmap <C-f>
+    cunmap <C-f>
+  endif
 endif
 " }}}
 
