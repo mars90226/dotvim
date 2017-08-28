@@ -215,6 +215,8 @@ nnoremap <Space>uc :UniteWithCurrentDir
         \ -buffer-name=files buffer bookmark file<CR>
 nnoremap <Space>ub :UniteWithBufferDir
         \ -buffer-name=files -prompt=%\  buffer bookmark file<CR>
+nnoremap <Space>up :UniteWithProjectDir
+        \ -buffer-name=files -prompt=%\  buffer bookmark file<CR>
 nnoremap <Space>ur :Unite
         \ -buffer-name=register register<CR>
 nnoremap <Space>uf :Unite
