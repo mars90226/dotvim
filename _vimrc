@@ -11,7 +11,7 @@ endif
 
 " Set Encoding
 if s:uname =~ "windows"
-	set encoding=utf8
+  set encoding=utf8
 endif
 
 " pathogen {{{
@@ -305,7 +305,7 @@ let g:grepper.quickfix      = 0
 " }}}
 
 " ctrlsf.vim {{{
-nnoremap <Space><C-f> :CtrlSF
+nnoremap <Space><C-f> :execute 'CtrlSF ' . input('CtrlSF: ')<CR>
 nnoremap <F5> :CtrlSFToggle<CR>
 " }}}
 
@@ -658,6 +658,7 @@ set number
 set hidden
 set lazyredraw
 set mouse=a
+set modeline
 
 set scrolloff=0
 
@@ -670,7 +671,7 @@ set wildmode=list:longest,full
 
 " show hidden characters
 set list
-set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
+set listchars=tab:\|\ ,extends:›,precedes:‹,nbsp:·,trail:·
 
 set laststatus=2
 set showcmd
@@ -983,4 +984,4 @@ if s:uname =~ "synology"
 endif
 " }}}
 
-" vim: set sw=2 ts=2 sws=2 et foldlevel=0 foldmethod=marker:
+" vim: set sw=2 ts=2 sts=2 et foldlevel=0 foldmethod=marker:
