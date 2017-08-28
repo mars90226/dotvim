@@ -47,6 +47,10 @@ if s:uname !~ "synology"
   if s:uname !~ "windows"
     cunmap <C-a>
   endif
+
+  unmap <C-f>
+  iunmap <C-f>
+  cunmap <C-f>
 endif
 " }}}
 
