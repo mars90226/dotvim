@@ -1,6 +1,6 @@
 set winaltkeys=no
-set background=light
-colorscheme Tomorrow-Night
+set background=dark
+colorscheme seoul256
 
 if has("nvim")
   GuiFont Monaco:h12
