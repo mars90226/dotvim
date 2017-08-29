@@ -75,7 +75,7 @@ let g:airline#extensions#tabline#show_tab_nr   = 1
 let g:airline#extensions#tabline#fnamemod      = ':p:.'
 let g:airline#extensions#tabline#fnamecollapse = 1
 
-let g:airline_theme = 'tomorrow'
+let g:airline_theme = 'zenburn'
 " }}}
 
 " vim-indent-guides {{{
@@ -194,11 +194,19 @@ let g:ctrlp_cmdpalette_execute = 1
 
 " netrw {{{
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro' " add line number
-nnoremap <silent> <F4> :Lexplore<CR>
 " }}}
 
 " Vinegar {{{
 nmap <silent> _ <Plug>VinegarVerticalSplitUp
+" }}}
+
+" vimfiler {{{
+let g:vimfiler_as_default_explorer = 1
+nnoremap <F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit<CR>
+" }}}
+
+" vim-choosewin {{{
+nmap + <Plug>(choosewin)
 " }}}
 
 " Unite {{{
@@ -206,6 +214,11 @@ let g:unite_source_history_yank_enable = 1
 nnoremap <Space>l :Unite -start-insert line<CR>
 nnoremap <Space>p :Unite
         \ -buffer-name=files buffer bookmark file<CR>
+if has("nvim")
+  nnoremap <Space>P :Unite -start-insert file_rec/neovim<CR>
+else
+  nnoremap <Space>P :Unite -start-insert file_rec<CR>
+endif
 nnoremap <Space>P :Unite -start-insert file_rec<CR>
 nnoremap <Space>/ :Unite grep:.<CR>
 nnoremap <Space>? :Unite grep:.:-r<CR>
@@ -223,8 +236,9 @@ nnoremap <Space>uc :UniteWithCurrentDir
         \ -buffer-name=files buffer bookmark file<CR>
 nnoremap <Space>ub :UniteWithBufferDir
         \ -buffer-name=files -prompt=%\  buffer bookmark file<CR>
+nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>up :UniteWithProjectDir
-        \ -buffer-name=files -prompt=%\  buffer bookmark file<CR>
+        \ -buffer-name=files -prompt=&\  buffer bookmark file<CR>
 nnoremap <Space>ur :Unite
         \ -buffer-name=register register<CR>
 nnoremap <Space>uf :Unite
@@ -373,10 +387,12 @@ map <Leader>fh :History<CR>
 map <Leader>fl :BLines<CR>
 map <Leader>fL :Lines<CR>
 map <Leader>fm :Mru<CR>
+map <Leader>fM :Commands<CR>
 map <Leader>fr :execute 'Rg ' . input('Rg: ')<CR>
 map <Leader>ft :BTags<CR>
 map <Leader>fT :Tags<CR>
 map <Leader>fw :Windows<CR>
+map <Leader>f` :Marks<CR>
 " }}}
 " }}}
 
@@ -747,7 +763,7 @@ endif
 " Colors and Highlights {{{
 " ====================================================================
 set background=dark
-colorscheme Tomorrow-Night
+colorscheme seoul256
 " }}}
 
 " Key Mappings {{{

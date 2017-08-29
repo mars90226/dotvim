@@ -295,3 +295,18 @@
 [submodule "bundle/gv.vim"]
 	path = bundle/gv.vim
 	url = git@github.com:junegunn/gv.vim.git
+[submodule "bundle/vimfiler.vim"]
+	path = bundle/vimfiler.vim
+	url = git@github.com:Shougo/vimfiler.vim.git
+[submodule "bundle/neossh.vim"]
+	path = bundle/neossh.vim
+	url = git@github.com:Shougo/neossh.vim.git
+[submodule "bundle/vim-choosewin"]
+	path = bundle/vim-choosewin
+	url = git@github.com:t9md/vim-choosewin.git
+[submodule "bundle/seoul256.vim"]
+	path = bundle/seoul256.vim
+	url = git@github.com:junegunn/seoul256.vim.git
+[submodule "bundle/gruvbox"]
+	path = bundle/gruvbox
+	url = git@github.com:morhetz/gruvbox.git
