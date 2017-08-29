@@ -482,6 +482,10 @@ map ,mb <Plug>CamelCaseMotion_b
 map ,me <Plug>CamelCaseMotion_e
 map ,mge <Plug>CamelCaseMotion_ge
 " }}}
+
+" clever-f.vim {{{
+let g:clever_f_smart_case = 1
+" }}}
 " }}}
 
 " Text Manipulation {{{
@@ -501,6 +505,10 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+" }}}
+
+" auto-pairs {{{
+let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '<':'>'}
 " }}}
 
 " eraseSubword {{{
@@ -553,14 +561,20 @@ nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.
       \:cs kill -1<CR>:cs add cscope.out<CR>
 " }}}
 
-" vim-ruby-xmpfilter {{{
-nmap <Leader>rr <Plug>(xmpfilter-run)
-xmap <Leader>rr <Plug>(xmpfilter-run)
-imap <Leader>rr <Plug>(xmpfilter-run)
+" vim-seeing-is-believing {{{
+augroup seeingIsBelievingSettings
+  autocmd!
 
-nmap <Leader>rm <Plug>(xmpfilter-mark)
-xmap <Leader>rm <Plug>(xmpfilter-mark)
-imap <Leader>rm <Plug>(xmpfilter-mark)"
+  autocmd FileType ruby nmap <buffer> <Leader>r<CR> <Plug>(seeing-is-believing-mark-and-run)
+  autocmd FileType ruby xmap <buffer> <Leader>r<CR> <Plug>(seeing-is-believing-mark-and-run)
+
+  autocmd FileType ruby nmap <buffer> <Leader>rm <Plug>(seeing-is-believing-mark)
+  autocmd FileType ruby xmap <buffer> <Leader>rm <Plug>(seeing-is-believing-mark)
+  autocmd FileType ruby imap <buffer> <Leader>rm <Plug>(seeing-is-believing-mark)
+
+  autocmd FileType ruby nmap <buffer> <Leader>rr <Plug>(seeing-is-believing-run)
+  autocmd FileType ruby imap <buffer> <Leader>rr <Plug>(seeing-is-believing-run)
+augroup END
 " }}}
 
 " Syntastic {{{
