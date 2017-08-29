@@ -45,15 +45,15 @@ if s:uname !~ "synology"
   behave mswin
 
   if s:uname !~ "windows"
-    unmap <C-a>
-    iunmap <C-a>
-    cunmap <C-a>
+    silent! unmap <C-a>
+    silent! iunmap <C-a>
+    silent! cunmap <C-a>
   endif
 
   if has("gui")
-    unmap <C-f>
-    iunmap <C-f>
-    cunmap <C-f>
+    silent! unmap <C-f>
+    silent! iunmap <C-f>
+    silent! cunmap <C-f>
   endif
 endif
 " }}}
