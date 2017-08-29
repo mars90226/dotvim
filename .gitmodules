@@ -292,3 +292,6 @@
 [submodule "bundle/splitjoin.vim"]
 	path = bundle/splitjoin.vim
 	url = git@github.com:AndrewRadev/splitjoin.vim.git
+[submodule "bundle/gv.vim"]
+	path = bundle/gv.vim
+	url = git@github.com:junegunn/gv.vim.git
