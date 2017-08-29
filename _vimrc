@@ -45,6 +45,8 @@ if s:uname !~ "synology"
   behave mswin
 
   if s:uname !~ "windows"
+    unmap <C-a>
+    iunmap <C-a>
     cunmap <C-a>
   endif
 
@@ -293,12 +295,12 @@ endif
 
 " gj {{{
 nmap <Leader>g <Nop>
-nnoremap <Leader>gg :Ack!<CR>
+nnoremap <Leader>gj :Ack!<CR>
 " }}}
 
 " vim-grepper {{{
-nnoremap <Leader>g :Grepper -tool git<CR>
-nnoremap <Leader>G :Grepper -tool ag<CR>
+nnoremap <Leader>gg :Grepper -tool git<CR>
+nnoremap <Leader>ga :Grepper -tool ag<CR>
 
 nmap gs <Plug>(GrepperOperator)
 xmap gs <Plug>(GrepperOperator)
@@ -690,9 +692,12 @@ if has("balloon_eval")
 endif
 set belloff=all
 
-" move backup directory
+" move temporary files
 set backupdir^=~/.vimtmp
 set directory^=~/.vimtmp
+if v:version >= 703
+  set undodir^=~/.vimtmp
+endif
 
 " session options
 set sessionoptions+=localoptions
@@ -724,6 +729,7 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set autoindent
+set pastetoggle=<F10>
 " }}}
 
 " Search {{{
