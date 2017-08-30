@@ -402,7 +402,7 @@ map <Leader>f` :Marks<CR>
 let g:EasyMotion_leader_key = '<Space>'
 let g:EasyMotion_smartcase = 1
 
-nmap ; <Plug>(easymotion-s2)
+map ; <Plug>(easymotion-s2)
 
 map <Space><Space>w <Plug>(easymotion-bd-wl)
 map <Space><Space>f <Plug>(easymotion-bd-fl)
