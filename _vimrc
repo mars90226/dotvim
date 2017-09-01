@@ -400,6 +400,8 @@ map <Leader>ft :BTags<CR>
 map <Leader>fT :Tags<CR>
 map <Leader>fw :Windows<CR>
 map <Leader>f` :Marks<CR>
+map <Leader>f: :History:<CR>
+map <Leader>f/ :History/<CR>
 " }}}
 " }}}
 
