@@ -980,8 +980,8 @@ if has("nvim")
   tnoremap <M-S-l> <C-\><C-n><C-w>l
 
   " Quickly switch tab in terminal
-  tnoremap <M-C-j> <C-\><C-n>gTi
-  tnoremap <M-C-k> <C-\><C-n>gti
+  tnoremap <M-C-j> <C-\><C-n>gT
+  tnoremap <M-C-k> <C-\><C-n>gt
 
   tnoremap <M-1> <C-\><C-n>:exe "tabn " . g:last_tab<CR>
 endif
@@ -1022,6 +1022,14 @@ augroup quickfixSettings
         \ map <buffer> <silent> <F4> :close<CR> |
         \ map <buffer> <silent> <F8> :close<CR>
 augroup END
+
+if has("nvim")
+  augroup terminalSettings
+    autocmd!
+    autocmd BufEnter term://* startinsert
+    autocmd TermClose term://* call nvim_input('<CR>')
+  augroup END
+endif
 " }}}
 
 " Fix and Workarounds {{{
