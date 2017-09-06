@@ -619,6 +619,7 @@ nnoremap <silent> <Leader>gc :Gcommit<CR>
 nnoremap <silent> <Leader>gb :Gblame<CR>
 nnoremap <silent> <Leader>ge :Gedit<CR>
 nnoremap <silent> <Leader>gE :Gedit<space>
+nnoremap <silent> <Leader>gl :Glog<CR>
 nnoremap <silent> <Leader>gr :Gread<CR>
 nnoremap <silent> <Leader>gR :Gread<space>
 nnoremap <silent> <Leader>gw :Gwrite<CR>
