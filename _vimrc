@@ -382,26 +382,40 @@ endfunction
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
 
-map <Leader>fa :execute 'Ag ' . input('Ag: ')<CR>
-map <Leader>fb :Buffers<CR>
-map <Leader>fc :BCommits<CR>
-map <Leader>fC :Commits<CR>
-map <Leader>ff :Files<CR>
-map <Leader>fF :Filetypes<CR>
-map <Leader>fg :GFiles<CR>
-map <Leader>fG :execute 'GGrep ' . input('Git grep: ')<CR>
-map <Leader>fh :History<CR>
-map <Leader>fl :BLines<CR>
-map <Leader>fL :Lines<CR>
-map <Leader>fm :Mru<CR>
-map <Leader>fM :Commands<CR>
-map <Leader>fr :execute 'Rg ' . input('Rg: ')<CR>
-map <Leader>ft :BTags<CR>
-map <Leader>fT :Tags<CR>
-map <Leader>fw :Windows<CR>
-map <Leader>f` :Marks<CR>
-map <Leader>f: :History:<CR>
-map <Leader>f/ :History/<CR>
+function! SearchVisualSelectionWithRg() range
+    let old_reg = getreg('"')
+    let old_regtype = getregtype('"')
+    let old_clipboard = &clipboard
+    set clipboard&
+    normal! ""gvy
+    let selection = getreg('"')
+    call setreg('"', old_reg, old_regtype)
+    let &clipboard = old_clipboard
+    execute 'Rg ' selection
+endfunction
+
+nnoremap <Leader>fa :execute 'Ag ' . input('Ag: ')<CR>
+nnoremap <Leader>fb :Buffers<CR>
+nnoremap <Leader>fc :BCommits<CR>
+nnoremap <Leader>fC :Commits<CR>
+nnoremap <Leader>ff :Files<CR>
+nnoremap <Leader>fF :Filetypes<CR>
+nnoremap <Leader>fg :GFiles<CR>
+nnoremap <Leader>fG :execute 'GGrep ' . input('Git grep: ')<CR>
+nnoremap <Leader>fh :History<CR>
+nnoremap <Leader>fk :execute 'Rg ' . expand('<cword>')<CR>
+vnoremap <Leader>fk :call SearchVisualSelectionWithRg()<CR>
+nnoremap <Leader>fl :BLines<CR>
+nnoremap <Leader>fL :Lines<CR>
+nnoremap <Leader>fm :Mru<CR>
+nnoremap <Leader>fM :Commands<CR>
+nnoremap <Leader>fr :execute 'Rg ' . input('Rg: ')<CR>
+nnoremap <Leader>ft :BTags<CR>
+nnoremap <Leader>fT :Tags<CR>
+nnoremap <Leader>fw :Windows<CR>
+nnoremap <Leader>f` :Marks<CR>
+nnoremap <Leader>f: :History:<CR>
+nnoremap <Leader>f/ :History/<CR>
 " }}}
 " }}}
 
