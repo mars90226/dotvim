@@ -534,7 +534,13 @@ nmap ga <Plug>(EasyAlign)
 " }}}
 
 " auto-pairs {{{
-let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '<':'>'}
+let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
+
+augroup autoPairsFileTypeSpecific
+  autocmd!
+
+  autocmd Filetype xml let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '<': '>'}
+augroup END
 " }}}
 
 " eraseSubword {{{
