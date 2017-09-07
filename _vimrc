@@ -382,16 +382,17 @@ endfunction
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
 
-function! SearchVisualSelectionWithRg() range
-    let old_reg = getreg('"')
-    let old_regtype = getregtype('"')
-    let old_clipboard = &clipboard
-    set clipboard&
-    normal! ""gvy
-    let selection = getreg('"')
-    call setreg('"', old_reg, old_regtype)
-    let &clipboard = old_clipboard
-    execute 'Rg ' selection
+function! s:get_visual_selection()
+    " Why is this not a built-in Vim script function?!
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
 endfunction
 
 nnoremap <Leader>fa :execute 'Ag ' . input('Ag: ')<CR>
@@ -404,7 +405,9 @@ nnoremap <Leader>fg :GFiles<CR>
 nnoremap <Leader>fG :execute 'GGrep ' . input('Git grep: ')<CR>
 nnoremap <Leader>fh :History<CR>
 nnoremap <Leader>fk :execute 'Rg ' . expand('<cword>')<CR>
-vnoremap <Leader>fk :call SearchVisualSelectionWithRg()<CR>
+nnoremap <Leader>fK :execute 'Rg \b' . expand('<cword>') . '\b'<CR>
+vnoremap <Leader>fk :<C-u>execute 'Rg ' . <SID>get_visual_selection()<CR>
+vnoremap <Leader>fK :<C-u>execute 'Rg \b' . <SID>get_visual_selection() . '\b'<CR>
 nnoremap <Leader>fl :BLines<CR>
 nnoremap <Leader>fL :Lines<CR>
 nnoremap <Leader>fm :Mru<CR>
