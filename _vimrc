@@ -235,28 +235,29 @@ nnoremap <Space>d :Unite directory:
 nnoremap <Space>m :Unite file_mru<CR>
 nnoremap <Space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 nnoremap <Space>ua :Unite apropos -start-insert<CR>
+nnoremap <Space>ub :UniteWithBufferDir
+        \ -buffer-name=files -prompt=%\  buffer bookmark file<CR>
+nnoremap <Space>uc :UniteWithCurrentDir
+        \ -buffer-name=files buffer bookmark file<CR>
+nnoremap <Space>uC :Unite change<CR>
+nnoremap <Space>ud :Unite directory<CR>
+nnoremap <Space>uD :UniteWithBufferDir directory<CR>
+nnoremap <Space>uf :Unite
+        \ -buffer-name=resume resume<CR>
 nnoremap <Space>uj :Unite jump -start-insert<CR>
 nnoremap <Space>uk :execute 'Unite grep:.::' . expand('<cword>') . ' -wrap'<CR>
 nnoremap <Space>uK :execute 'Unite grep:.::\\b' . expand('<cword>') . '\\b -wrap'<CR>
 vnoremap <Space>uk :<C-u>execute 'Unite grep:.::' . <SID>get_visual_selection() . ' -wrap'<CR>
 vnoremap <Space>uK :<C-u>execute 'Unite grep:.::\\b' . <SID>get_visual_selection() . '\\b -wrap'<CR>
+nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>uo :Unite outline<CR>
 nnoremap <Space>uO :Unite output -start-insert<CR>
-nnoremap <Space>ud :Unite directory<CR>
-nnoremap <Space>uD :UniteWithBufferDir directory<CR>
-nnoremap <Space>uC :Unite change<CR>
-nnoremap <Space>uc :UniteWithCurrentDir
-        \ -buffer-name=files buffer bookmark file<CR>
-nnoremap <Space>ub :UniteWithBufferDir
-        \ -buffer-name=files -prompt=%\  buffer bookmark file<CR>
-nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>up :UniteWithProjectDir
         \ -buffer-name=files -prompt=&\  buffer bookmark file<CR>
 nnoremap <Space>ur :Unite
         \ -buffer-name=register register<CR>
-nnoremap <Space>uf :Unite
-        \ -buffer-name=resume resume<CR>
 nnoremap <Space>us :Unite -quick-match tab<CR>
+nnoremap <Space>uu :UniteResume<CR>
 nnoremap <Space>uma :Unite mapping<CR>
 nnoremap <Space>ume :Unite output:message<CR>
 
