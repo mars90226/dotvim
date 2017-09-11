@@ -307,3 +307,6 @@
 [submodule "bundle/gruvbox"]
 	path = bundle/gruvbox
 	url = git@github.com:morhetz/gruvbox.git
+[submodule "bundle/vim-dirdiff"]
+	path = bundle/vim-dirdiff
+	url = git@github.com:will133/vim-dirdiff.git
