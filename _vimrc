@@ -203,6 +203,11 @@ nmap <silent> _ <Plug>VinegarVerticalSplitUp
 " vimfiler {{{
 let g:vimfiler_as_default_explorer = 1
 nnoremap <F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit<CR>
+autocmd FileType vimfiler call s:vimfiler_my_settings()
+function! s:vimfiler_my_settings()
+  " Runs "tabopen" action by <C-t>.
+  nmap <silent><buffer><expr> <C-t>     vimfiler#do_action('tabopen')
+endfunction
 " }}}
 
 " vim-choosewin {{{
@@ -686,6 +691,17 @@ nnoremap <silent> <Leader>gp :GitGutterPreviewHunk<CR><c-w>j
 nnoremap cog :GitGutterToggle<CR>
 nnoremap <Leader>gt :GitGutterAll<CR>
 " }}}
+
+" gv.vim
+function! s:gv_expand()
+  let line = getline('.')
+  GV --name-status
+  call search('\V'.line, 'c')
+  normal! zz
+endfunction
+
+autocmd! FileType GV nnoremap <buffer> <silent> + :call <sid>gv_expand()<cr>
+" gv.vim
 " }}}
 
 " Utility {{{
@@ -726,6 +742,10 @@ let g:rooter_manual_only = 1
 
 " vimwiki {{{
 nnoremap <Leader>wg :VimwikiToggleListItem<CR>
+" }}}
+
+" AnsiEsc.vim {{{
+nnoremap coa :AnsiEsc<CR>
 " }}}
 " }}}
 
@@ -906,6 +926,10 @@ map <C-w><Space>> <C-w>10>
 
 " Add mapping to delete in insert mode
 inoremap <C-b> <Right><BS>
+
+" Quit
+nnoremap <Leader>q :q<CR>
+nnoremap <Leader>Q :qa!<CR>
 
 " Win32
 "nmap <Leader>x :execute ':! "'.expand('%').'"'<CR>
