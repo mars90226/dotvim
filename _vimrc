@@ -1079,12 +1079,16 @@ augroup fileTypeSpecific
   " Rack
   autocmd BufNewFile,BufReadPost *.ru                 set filetype=ruby
 
+  " gdb
+  autocmd BufNewFile,BufReadPost *.gdbinit            set filetype=gdb
+
+  " Custom filetype
   autocmd BufNewFile,BufReadPost *maillog*            set filetype=messages
   autocmd BufNewFile,BufReadPost *conf                set filetype=conf
   autocmd BufNewFile,BufReadPost *conf.local          set filetype=conf
   autocmd BufNewFile,BufReadPost *conf.local.override set filetype=conf
+  autocmd BufNewFile,BufReadPost */rspamd/*.inc       set filetype=conf
   autocmd BufNewFile,BufReadPost Makefile.inc         set filetype=make
-  autocmd BufNewFile,BufReadPost *.gdbinit            set filetype=gdb
 
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
