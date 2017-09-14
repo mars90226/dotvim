@@ -310,3 +310,6 @@
 [submodule "bundle/vim-dirdiff"]
 	path = bundle/vim-dirdiff
 	url = git@github.com:will133/vim-dirdiff.git
+[submodule "bundle/vinfo"]
+	path = bundle/vinfo
+	url = git@github.com:alx741/vinfo.git
