@@ -207,6 +207,15 @@ autocmd FileType vimfiler call s:vimfiler_my_settings()
 function! s:vimfiler_my_settings()
   " Runs "tabopen" action by <C-t>.
   nmap <silent><buffer><expr> <C-t>     vimfiler#do_action('tabopen')
+
+  " Runs "choose" action by <C-c>.
+  nmap <silent><buffer><expr> <C-c>     vimfiler#do_action('choose')
+
+  " Fix backspace not work problem
+  nmap <silent><buffer>       <C-h>     <Plug>(vimfiler_switch_to_parent_directory)
+
+  " Toggle no_quit with <C-n>
+  nmap <silent><buffer>       <C-n>     :let b:vimfiler.context.quit = !b:vimfiler.context.quit<CR>
 endfunction
 " }}}
 
