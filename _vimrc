@@ -913,6 +913,7 @@ if s:uname !~ "synology"
 endif
 " }}}
 
+" Tab key mapping {{{
 " Quickly switch tab
 nnoremap <C-j> gT
 nnoremap <C-k> gt
@@ -926,6 +927,17 @@ nnoremap <Leader>6 6gt
 nnoremap <Leader>7 7gt
 nnoremap <Leader>8 8gt
 nnoremap <Leader>9 9gt
+
+nnoremap QQ :call <SID>QuitTab()<CR>
+nnoremap gl :tablast<CR>
+function! s:QuitTab()
+  try
+    tabclose
+  catch /E784/ " Can't close last tab
+    qall
+  endtry
+endfunction
+" }}}
 
 " Quickly adjust window size
 map <C-w><Space>- <C-w>10-
