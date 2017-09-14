@@ -432,13 +432,14 @@ vnoremap <Leader>fK :<C-u>execute 'Rg \b' . <SID>get_visual_selection() . '\b'<C
 nnoremap <Leader>fl :BLines<CR>
 nnoremap <Leader>fL :Lines<CR>
 nnoremap <Leader>fm :Mru<CR>
-nnoremap <Leader>fM :Commands<CR>
+nnoremap <Leader>fM :Maps<CR>
 nnoremap <Leader>fr :execute 'Rg ' . input('Rg: ')<CR>
 nnoremap <Leader>ft :BTags<CR>
 nnoremap <Leader>fT :Tags<CR>
 nnoremap <Leader>fw :Windows<CR>
 nnoremap <Leader>f` :Marks<CR>
 nnoremap <Leader>f: :History:<CR>
+nnoremap <Leader>f; :Commands<CR>
 nnoremap <Leader>f/ :History/<CR>
 " }}}
 " }}}
