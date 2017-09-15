@@ -568,6 +568,12 @@ augroup END
 " eraseSubword {{{
 let g:EraseSubword_insertMap = '<C-e><C-e>'
 " }}}
+
+" NERDCommenter {{{
+let g:NERDCustomDelimiters = {
+  \ 'pfmain': { 'left': '#' }
+  \ }
+" }}}
 " }}}
 
 " Languages {{{
