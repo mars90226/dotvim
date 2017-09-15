@@ -203,6 +203,20 @@ nmap <silent> _ <Plug>VinegarVerticalSplitUp
 " vimfiler {{{
 let g:vimfiler_as_default_explorer = 1
 nnoremap <F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit<CR>
+autocmd FileType vimfiler call s:vimfiler_my_settings()
+function! s:vimfiler_my_settings()
+  " Runs "tabopen" action by <C-t>.
+  nmap <silent><buffer><expr> <C-t>     vimfiler#do_action('tabopen')
+
+  " Runs "choose" action by <C-c>.
+  nmap <silent><buffer><expr> <C-c>     vimfiler#do_action('choose')
+
+  " Fix backspace not work problem
+  nmap <silent><buffer>       <C-h>     <Plug>(vimfiler_switch_to_parent_directory)
+
+  " Toggle no_quit with <C-n>
+  nmap <silent><buffer>       <C-n>     :let b:vimfiler.context.quit = !b:vimfiler.context.quit<CR>
+endfunction
 " }}}
 
 " vim-choosewin {{{
@@ -213,6 +227,7 @@ let g:choosewin_color_other = { 'gui': ['#757575', '#BFBFBF'], 'cterm': [241, 24
 let g:choosewin_color_overlay_current = { 'gui': ['#7FBF00', '#121813'], 'cterm': [10, 15, 'bold'] }
 let g:choosewin_color_overlay = { 'gui': ['#007173', '#DEDFBD'], 'cterm': [23, 187, 'bold'] }
 nmap + <Plug>(choosewin)
+nmap <Leader>= <Plug>(choosewin)
 " }}}
 
 " Unite {{{
@@ -230,26 +245,33 @@ nnoremap <Space>/ :Unite grep:.<CR>
 nnoremap <Space>? :Unite grep:.:-r<CR>
 nnoremap <Space>y :Unite history/yank<CR>
 nnoremap <Space>S :Unite source<CR>
+nnoremap <Space>d :Unite directory:
 nnoremap <Space>m :Unite file_mru<CR>
 nnoremap <Space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
-nnoremap <Space>uj :Unite jump -start-insert<CR>
-nnoremap <Space>uo :Unite outline<CR>
-nnoremap <Space>uO :Unite output -start-insert<CR>
-nnoremap <Space>ud :Unite directory<CR>
-nnoremap <Space>uD :UniteWithBufferDir directory<CR>
-nnoremap <Space>uC :Unite change<CR>
-nnoremap <Space>uc :UniteWithCurrentDir
-        \ -buffer-name=files buffer bookmark file<CR>
+nnoremap <Space>ua :Unite apropos -start-insert<CR>
 nnoremap <Space>ub :UniteWithBufferDir
         \ -buffer-name=files -prompt=%\  buffer bookmark file<CR>
+nnoremap <Space>uc :UniteWithCurrentDir
+        \ -buffer-name=files buffer bookmark file<CR>
+nnoremap <Space>uC :Unite change<CR>
+nnoremap <Space>ud :Unite directory<CR>
+nnoremap <Space>uD :UniteWithBufferDir directory<CR>
+nnoremap <Space>uf :Unite
+        \ -buffer-name=resume resume<CR>
+nnoremap <Space>uj :Unite jump -start-insert<CR>
+nnoremap <Space>uk :execute 'Unite grep:.::' . expand('<cword>') . ' -wrap'<CR>
+nnoremap <Space>uK :execute 'Unite grep:.::\\b' . expand('<cword>') . '\\b -wrap'<CR>
+vnoremap <Space>uk :<C-u>execute 'Unite grep:.::' . <SID>get_visual_selection() . ' -wrap'<CR>
+vnoremap <Space>uK :<C-u>execute 'Unite grep:.::\\b' . <SID>get_visual_selection() . '\\b -wrap'<CR>
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
+nnoremap <Space>uo :Unite outline<CR>
+nnoremap <Space>uO :Unite output -start-insert<CR>
 nnoremap <Space>up :UniteWithProjectDir
         \ -buffer-name=files -prompt=&\  buffer bookmark file<CR>
 nnoremap <Space>ur :Unite
         \ -buffer-name=register register<CR>
-nnoremap <Space>uf :Unite
-        \ -buffer-name=resume resume<CR>
 nnoremap <Space>us :Unite -quick-match tab<CR>
+nnoremap <Space>uu :UniteResume<CR>
 nnoremap <Space>uma :Unite mapping<CR>
 nnoremap <Space>ume :Unite output:message<CR>
 
@@ -381,24 +403,44 @@ endfunction
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
 
-map <Leader>fa :execute 'Ag ' . input('Ag: ')<CR>
-map <Leader>fb :Buffers<CR>
-map <Leader>fc :BCommits<CR>
-map <Leader>fC :Commits<CR>
-map <Leader>ff :Files<CR>
-map <Leader>fF :Filetypes<CR>
-map <Leader>fg :GFiles<CR>
-map <Leader>fG :execute 'GGrep ' . input('Git grep: ')<CR>
-map <Leader>fh :History<CR>
-map <Leader>fl :BLines<CR>
-map <Leader>fL :Lines<CR>
-map <Leader>fm :Mru<CR>
-map <Leader>fM :Commands<CR>
-map <Leader>fr :execute 'Rg ' . input('Rg: ')<CR>
-map <Leader>ft :BTags<CR>
-map <Leader>fT :Tags<CR>
-map <Leader>fw :Windows<CR>
-map <Leader>f` :Marks<CR>
+function! s:get_visual_selection()
+    " Why is this not a built-in Vim script function?!
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
+endfunction
+
+nnoremap <Leader>fa :execute 'Ag ' . input('Ag: ')<CR>
+nnoremap <Leader>fb :Buffers<CR>
+nnoremap <Leader>fc :BCommits<CR>
+nnoremap <Leader>fC :Commits<CR>
+nnoremap <Leader>ff :Files<CR>
+nnoremap <Leader>fF :Filetypes<CR>
+nnoremap <Leader>fg :GFiles<CR>
+nnoremap <Leader>fG :execute 'GGrep ' . input('Git grep: ')<CR>
+nnoremap <Leader>fh :History<CR>
+nnoremap <Leader>fk :execute 'Rg ' . expand('<cword>')<CR>
+nnoremap <Leader>fK :execute 'Rg \b' . expand('<cword>') . '\b'<CR>
+vnoremap <Leader>fk :<C-u>execute 'Rg ' . <SID>get_visual_selection()<CR>
+vnoremap <Leader>fK :<C-u>execute 'Rg \b' . <SID>get_visual_selection() . '\b'<CR>
+nnoremap <Leader>fl :BLines<CR>
+nnoremap <Leader>fL :Lines<CR>
+nnoremap <Leader>fm :Mru<CR>
+nnoremap <Leader>fM :Maps<CR>
+nnoremap <Leader>fr :execute 'Rg ' . input('Rg: ')<CR>
+nnoremap <Leader>ft :BTags<CR>
+nnoremap <Leader>fT :Tags<CR>
+nnoremap <Leader>fw :Windows<CR>
+nnoremap <Leader>f` :Marks<CR>
+nnoremap <Leader>f: :History:<CR>
+nnoremap <Leader>f; :Commands<CR>
+nnoremap <Leader>f/ :History/<CR>
 " }}}
 " }}}
 
@@ -514,7 +556,13 @@ nmap ga <Plug>(EasyAlign)
 " }}}
 
 " auto-pairs {{{
-let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '<':'>'}
+let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
+
+augroup autoPairsFileTypeSpecific
+  autocmd!
+
+  autocmd Filetype xml let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '<': '>'}
+augroup END
 " }}}
 
 " eraseSubword {{{
@@ -616,6 +664,7 @@ nnoremap <silent> <Leader>gc :Gcommit<CR>
 nnoremap <silent> <Leader>gb :Gblame<CR>
 nnoremap <silent> <Leader>ge :Gedit<CR>
 nnoremap <silent> <Leader>gE :Gedit<space>
+nnoremap <silent> <Leader>gl :Glog<CR>
 nnoremap <silent> <Leader>gr :Gread<CR>
 nnoremap <silent> <Leader>gR :Gread<space>
 nnoremap <silent> <Leader>gw :Gwrite<CR>
@@ -652,6 +701,17 @@ nnoremap <silent> <Leader>gp :GitGutterPreviewHunk<CR><c-w>j
 nnoremap cog :GitGutterToggle<CR>
 nnoremap <Leader>gt :GitGutterAll<CR>
 " }}}
+
+" gv.vim
+function! s:gv_expand()
+  let line = getline('.')
+  GV --name-status
+  call search('\V'.line, 'c')
+  normal! zz
+endfunction
+
+autocmd! FileType GV nnoremap <buffer> <silent> + :call <sid>gv_expand()<cr>
+" gv.vim
 " }}}
 
 " Utility {{{
@@ -692,6 +752,10 @@ let g:rooter_manual_only = 1
 
 " vimwiki {{{
 nnoremap <Leader>wg :VimwikiToggleListItem<CR>
+" }}}
+
+" AnsiEsc.vim {{{
+nnoremap coa :AnsiEsc<CR>
 " }}}
 " }}}
 
@@ -850,6 +914,7 @@ if s:uname !~ "synology"
 endif
 " }}}
 
+" Tab key mapping {{{
 " Quickly switch tab
 nnoremap <C-j> gT
 nnoremap <C-k> gt
@@ -864,6 +929,17 @@ nnoremap <Leader>7 7gt
 nnoremap <Leader>8 8gt
 nnoremap <Leader>9 9gt
 
+nnoremap QQ :call <SID>QuitTab()<CR>
+nnoremap gl :tablast<CR>
+function! s:QuitTab()
+  try
+    tabclose
+  catch /E784/ " Can't close last tab
+    qall
+  endtry
+endfunction
+" }}}
+
 " Quickly adjust window size
 map <C-w><Space>- <C-w>10-
 map <C-w><Space>+ <C-w>10+
@@ -872,6 +948,10 @@ map <C-w><Space>> <C-w>10>
 
 " Add mapping to delete in insert mode
 inoremap <C-b> <Right><BS>
+
+" Quit
+nnoremap <Leader>q :q<CR>
+nnoremap <Leader>Q :qa!<CR>
 
 " Win32
 "nmap <Leader>x :execute ':! "'.expand('%').'"'<CR>
@@ -976,8 +1056,8 @@ if has("nvim")
   tnoremap <M-S-l> <C-\><C-n><C-w>l
 
   " Quickly switch tab in terminal
-  tnoremap <M-C-j> <C-\><C-n>gTi
-  tnoremap <M-C-k> <C-\><C-n>gti
+  tnoremap <M-C-j> <C-\><C-n>gT
+  tnoremap <M-C-k> <C-\><C-n>gt
 
   tnoremap <M-1> <C-\><C-n>:exe "tabn " . g:last_tab<CR>
 endif
@@ -1000,12 +1080,16 @@ augroup fileTypeSpecific
   " Rack
   autocmd BufNewFile,BufReadPost *.ru                 set filetype=ruby
 
+  " gdb
+  autocmd BufNewFile,BufReadPost *.gdbinit            set filetype=gdb
+
+  " Custom filetype
   autocmd BufNewFile,BufReadPost *maillog*            set filetype=messages
   autocmd BufNewFile,BufReadPost *conf                set filetype=conf
   autocmd BufNewFile,BufReadPost *conf.local          set filetype=conf
   autocmd BufNewFile,BufReadPost *conf.local.override set filetype=conf
+  autocmd BufNewFile,BufReadPost */rspamd/*.inc       set filetype=conf
   autocmd BufNewFile,BufReadPost Makefile.inc         set filetype=make
-  autocmd BufNewFile,BufReadPost *.gdbinit            set filetype=gdb
 
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
@@ -1018,6 +1102,14 @@ augroup quickfixSettings
         \ map <buffer> <silent> <F4> :close<CR> |
         \ map <buffer> <silent> <F8> :close<CR>
 augroup END
+
+if has("nvim")
+  augroup terminalSettings
+    autocmd!
+    autocmd BufEnter term://* startinsert
+    autocmd TermClose term://* call nvim_input('<CR>')
+  augroup END
+endif
 " }}}
 
 " Fix and Workarounds {{{

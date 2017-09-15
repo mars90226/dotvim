@@ -16,9 +16,6 @@
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
-[submodule "bundle/vim-arguentative"]
-	path = bundle/vim-arguentative
-	url = https://github.com/PeterRincker/vim-argumentative.git
 [submodule "bundle/vim-easy-align"]
 	path = bundle/vim-easy-align
 	url = https://github.com/junegunn/vim-easy-align.git
@@ -310,3 +307,9 @@
 [submodule "bundle/gruvbox"]
 	path = bundle/gruvbox
 	url = git@github.com:morhetz/gruvbox.git
+[submodule "bundle/vim-dirdiff"]
+	path = bundle/vim-dirdiff
+	url = git@github.com:will133/vim-dirdiff.git
+[submodule "bundle/vinfo"]
+	path = bundle/vinfo
+	url = git@github.com:alx741/vinfo.git
