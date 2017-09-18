@@ -3,9 +3,9 @@ set background=dark
 colorscheme seoul256
 
 if has("nvim")
-  GuiFont Fira\ Mono\ for\ Powerline:h12
+  GuiFont Fira\ Code:h12
 else
-  set guifont=Fira\ Mono\ for\ Powerline:h12:cANSI
+  set guifont=Fira\ Code:h12:cANSI
 end
 
 set lines=43
