@@ -313,3 +313,6 @@
 [submodule "bundle/vinfo"]
 	path = bundle/vinfo
 	url = git@github.com:alx741/vinfo.git
+[submodule "bundle/vinarise.vim"]
+	path = bundle/vinarise.vim
+	url = git@github.com:Shougo/vinarise.vim.git
