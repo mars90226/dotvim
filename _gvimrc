@@ -8,6 +8,6 @@ else
   set guifont=Fira\ Mono\ for\ Powerline:h12:cANSI
 end
 
-set lines=32
+set lines=43
 set columns=100
 au BufRead,BufNewFile *.rb setlocal balloondelay=1000000
