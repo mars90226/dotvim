@@ -316,3 +316,6 @@
 [submodule "bundle/denite.nvim"]
 	path = bundle/denite.nvim
 	url = git@github.com:Shougo/denite.nvim.git
+[submodule "bundle/vinarise.vim"]
+	path = bundle/vinarise.vim
+	url = git@github.com:Shougo/vinarise.vim.git

@@ -3,11 +3,11 @@ set background=dark
 colorscheme seoul256
 
 if has("nvim")
-  GuiFont Fira\ Mono\ for\ Powerline:h12
+  GuiFont Fira\ Code:h12
 else
-  set guifont=Fira\ Mono\ for\ Powerline:h12:cANSI
+  set guifont=Fira\ Code:h12:cANSI
 end
 
-set lines=32
+set lines=43
 set columns=100
 au BufRead,BufNewFile *.rb setlocal balloondelay=1000000

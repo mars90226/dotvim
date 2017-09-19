@@ -955,6 +955,18 @@ map <C-w><Space>> <C-w>10>
 " Add mapping to delete in insert mode
 inoremap <C-b> <Right><BS>
 
+" Create new line in insert mode
+if s:uname !~ "synology"
+  " Fix meta key in vim
+  if !has("nvim") && s:uname !~ "windows"
+    set <M-o>=o
+    set <M-S-o>=O
+  endif
+
+  imap <M-o> <C-o>o
+  imap <M-S-o> <C-o>O
+endif
+
 " Quit
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :qa!<CR>
