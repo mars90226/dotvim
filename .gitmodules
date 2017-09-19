@@ -313,3 +313,6 @@
 [submodule "bundle/vinfo"]
 	path = bundle/vinfo
 	url = git@github.com:alx741/vinfo.git
+[submodule "bundle/denite.nvim"]
+	path = bundle/denite.nvim
+	url = git@github.com:Shougo/denite.nvim.git
