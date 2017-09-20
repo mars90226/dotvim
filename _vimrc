@@ -29,6 +29,10 @@ if !has("python")
   call add(g:pathogen_disabled, 'github-issues.vim')
 endif
 
+if !((v:version >= 800 || has("nvim")) && has("python3"))
+  call add(g:pathogen_disabled, 'denite.nvim')
+end
+
 call pathogen#infect()
 call pathogen#helptags()
 " }}}
@@ -240,12 +244,9 @@ if has("nvim")
 else
   nnoremap <Space>P :Unite -start-insert file_rec<CR>
 endif
-nnoremap <Space>P :Unite -start-insert file_rec<CR>
 nnoremap <Space>/ :Unite grep:.<CR>
-nnoremap <Space>? :Unite grep:.:-r<CR>
 nnoremap <Space>y :Unite history/yank<CR>
 nnoremap <Space>S :Unite source<CR>
-nnoremap <Space>d :Unite directory:
 nnoremap <Space>m :Unite file_mru<CR>
 nnoremap <Space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 nnoremap <Space>ua :Unite apropos -start-insert<CR>
@@ -256,6 +257,7 @@ nnoremap <Space>uc :UniteWithCurrentDir
 nnoremap <Space>uC :Unite change<CR>
 nnoremap <Space>ud :Unite directory<CR>
 nnoremap <Space>uD :UniteWithBufferDir directory<CR>
+nnoremap <Space>u<C-d> :execute 'Unite directory:' . input('dir: ')<CR>
 nnoremap <Space>uf :Unite
         \ -buffer-name=resume resume<CR>
 nnoremap <Space>uj :Unite jump -start-insert<CR>
@@ -331,7 +333,30 @@ if executable('rg')
   let g:unite_source_grep_recursive_opt = ''
 
   nnoremap <Space>/ :Unite grep:. -wrap<CR>
-  nnoremap <Space>? :Unite grep:. -wrap<CR>
+endif
+" }}}
+
+" Denite {{{
+if !pathogen#is_disabled("denite.nvim")
+  nnoremap <Space>db :DeniteBufferDir -buffer-name=files buffer file<CR>
+  nnoremap <Space>dc :Denite change<CR>
+  nnoremap <Space>dd :Denite directory_rec<CR>
+  nnoremap <Space>dj :Denite jump<CR>
+  nnoremap <Space>dk :execute 'Denite grep:.::' . expand('<cword>')<CR>
+  nnoremap <Space>dK :execute 'Denite grep:.::\\b' . expand('<cword>') . '\\b'<CR>
+  vnoremap <Space>dk :<C-u>execute 'Denite grep:.::' . <SID>get_visual_selection()<CR>
+  vnoremap <Space>dK :<C-u>execute 'Denite grep:.::\\b' . <SID>get_visual_selection() . '\\b'<CR>
+  nnoremap <Space>dl :Denite line<CR>
+  nnoremap <Space>dm :Denite file_mru<CR>
+  nnoremap <Space>do :Denite outline<CR>
+  nnoremap <Space>dO :execute 'Denite output:' . input('output: ')<CR>
+  nnoremap <Space>dp :Denite -buffer-name=files buffer file<CR>
+  nnoremap <Space>dP :Denite -buffer-name=files file_rec<CR>
+  nnoremap <Space>d<C-p> :DeniteProjectDir -buffer-name=files buffer file<CR>
+  nnoremap <Space>dr :Denite register<CR>
+  nnoremap <Space>d: :Denite command_history<CR>
+  nnoremap <Space>d; :Denite command<CR>
+  nnoremap <Space>d/ :Denite grep:.<CR>
 endif
 " }}}
 
