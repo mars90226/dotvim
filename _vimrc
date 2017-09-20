@@ -1169,9 +1169,9 @@ endif
 augroup vimGeneralCallbacks
   autocmd!
   if s:uname =~ "windows"
-    autocmd BufWritePost _vimrc nested source $MYVIMRC
+    autocmd BufWritePost _vimrc nested source $MYVIMRC | normal! zzzv
   else
-    autocmd BufWritePost .vimrc nested source $MYVIMRC
+    autocmd BufWritePost .vimrc nested source $MYVIMRC | normal! zzzv
   endif
 augroup END
 
