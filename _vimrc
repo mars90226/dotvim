@@ -222,7 +222,7 @@ function! s:vimfiler_my_settings()
   nmap <silent><buffer>       <C-n>     :let b:vimfiler.context.quit = !b:vimfiler.context.quit<CR>
 
   " Unmap <Space>, use ` instead
-  nunmap <buffer> <Space>
+  silent! nunmap <buffer> <Space>
   nmap <silent><buffer>       `         <Plug>(vimfiler_toggle_mark_current_line)
 endfunction
 " }}}
@@ -331,7 +331,7 @@ function! s:unite_my_settings() "{{{
   nmap <silent><buffer><expr> <C-p>     unite#do_action('persist_open')
 
   " Unmap <Space>, use ` instead
-  nunmap <buffer> <Space>
+  silent! nunmap <buffer> <Space>
   nmap <silent><buffer> ` <Plug>(unite_toggle_mark_current_candidate)
 endfunction "}}}
 
