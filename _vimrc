@@ -966,65 +966,64 @@ colorscheme seoul256
 
 " Key Mappings {{{
 " ====================================================================
+" Quickly escape insert mode
+inoremap jk <Esc>
+
 " Add key mapping for suspend
 nnoremap <Space><C-z> :suspend<CR>
 
 " Quickly switch window {{{
-if s:uname !~ "synology"
-  " Fix meta key in vim
-  if !has("nvim") && s:uname !~ "windows"
-    set <M-h>=h
-    set <M-j>=j
-    set <M-k>=k
-    set <M-l>=l
-  endif
+" Fix meta key in vim
+if !has("nvim") && s:uname !~ "windows"
+  set <M-h>=h
+  set <M-j>=j
+  set <M-k>=k
+  set <M-l>=l
+endif
 
-  " Pair up with 'set winaltkeys=no' in _gvimrc
+" Pair up with 'set winaltkeys=no' in _gvimrc
+nmap <M-h> <C-w>h
+nmap <M-j> <C-w>j
+nmap <M-k> <C-w>k
+nmap <M-l> <C-w>l
+if s:uname =~ "windows"
+  set encoding& " make sure mapping is correct in default encoding
   nmap <M-h> <C-w>h
   nmap <M-j> <C-w>j
   nmap <M-k> <C-w>k
   nmap <M-l> <C-w>l
-  if s:uname =~ "windows"
-    set encoding& " make sure mapping is correct in default encoding
-    nmap <M-h> <C-w>h
-    nmap <M-j> <C-w>j
-    nmap <M-k> <C-w>k
-    nmap <M-l> <C-w>l
-    set encoding=utf8
-  endif
+  set encoding=utf8
+endif
 
-  " Move in insert mode
+" Move in insert mode
+imap <M-h> <Left>
+imap <M-j> <Down>
+imap <M-k> <Up>
+imap <M-l> <Right>
+if s:uname =~ "windows"
+  set encoding& " make sure mapping is correct in default encoding
   imap <M-h> <Left>
   imap <M-j> <Down>
   imap <M-k> <Up>
   imap <M-l> <Right>
-  if s:uname =~ "windows"
-    set encoding& " make sure mapping is correct in default encoding
-    imap <M-h> <Left>
-    imap <M-j> <Down>
-    imap <M-k> <Up>
-    imap <M-l> <Right>
-    set encoding=utf8
-  endif
+  set encoding=utf8
 endif
 " }}}
 
 " Saner command-line history {{{
-if s:uname !~ "synology"
-  " Fix meta key in vim
-  if !has("nvim") && s:uname !~ "windows"
-    set <M-n>=n
-    set <M-p>=p
-  endif
+" Fix meta key in vim
+if !has("nvim") && s:uname !~ "windows"
+  set <M-n>=n
+  set <M-p>=p
+endif
 
+cnoremap <M-n> <Down>
+cnoremap <M-p> <Up>
+if s:uname =~ "windows"
+  set encoding& " make sure mapping is correct in default encoding
   cnoremap <M-n> <Down>
   cnoremap <M-p> <Up>
-  if s:uname =~ "windows"
-    set encoding& " make sure mapping is correct in default encoding
-    cnoremap <M-n> <Down>
-    cnoremap <M-p> <Up>
-    set encoding=utf8
-  endif
+  set encoding=utf8
 endif
 " }}}
 
@@ -1063,17 +1062,16 @@ map <C-w><Space>> <C-w>10>
 " Add mapping to delete in insert mode
 inoremap <C-b> <Right><BS>
 
-" Create new line in insert mode
-if s:uname !~ "synology"
-  " Fix meta key in vim
-  if !has("nvim") && s:uname !~ "windows"
-    set <M-o>=o
-    set <M-S-o>=O
-  endif
-
-  imap <M-o> <C-o>o
-  imap <M-S-o> <C-o>O
+" Create new line in insert mode {{{
+" Fix meta key in vim
+if !has("nvim") && s:uname !~ "windows"
+  set <M-o>=o
+  set <M-S-o>=O
 endif
+
+imap <M-o> <C-o>o
+imap <M-S-o> <C-o>O
+" }}}
 
 " Quit
 nnoremap <Leader>q :q<CR>
