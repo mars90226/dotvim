@@ -369,6 +369,12 @@ if !pathogen#is_disabled("denite.nvim")
   " Change mappings
   call denite#custom#map(
         \ 'insert',
+        \ '<C-r>',
+        \ '<denite:toggle_matchers:matcher_substring>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
+        \ 'insert',
         \ '<C-y>',
         \ '<denite:input_command_line>',
         \ 'noremap'
@@ -415,6 +421,25 @@ if !pathogen#is_disabled("denite.nvim")
         \ '<denite:do_action:vsplit>',
         \ 'noremap'
         \)
+
+  if executable('rg')
+    call denite#custom#var('file_rec', 'command', 
+          \ ['rg', '--files', '--glob', '!.git'])
+    call denite#custom#var('grep', 'command', ['rg', '--threads', '1'])
+    call denite#custom#var('grep', 'recursive_opts', [])
+    call denite#custom#var('grep', 'final_opts', [])
+    call denite#custom#var('grep', 'separator', ['--'])
+    call denite#custom#var('grep', 'default_opts', 
+          \ ['--vimgrep', '--no-heading'])
+  elseif executable('ag')
+    call denite#custome#var('file_rec', 'command',
+          \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+  endif
+
+  if has('nvim')
+    call denite#custom#source('file_rec,grep', 'matchers',
+          \ ['matcher_cpsm'])
+  end
 endif
 " }}}
 
@@ -1191,6 +1216,7 @@ augroup fileTypeSpecific
   autocmd BufNewFile,BufReadPost *conf.local.override set filetype=conf
   autocmd BufNewFile,BufReadPost */rspamd/*.inc       set filetype=conf
   autocmd BufNewFile,BufReadPost Makefile.inc         set filetype=make
+  autocmd BufNewFile,BufReadPost depends              set filetype=dosini
 
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
