@@ -18,12 +18,26 @@ endif
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 let g:pathogen_disabled = ['racer']
 
-" Choose autocompletion plugin
+" Choose autocompletion plugin {{{
+" YouCompleteMe, supertab, deoplete.nvim
 if s:uname =~ "windows" || s:uname =~ "synology"
+  " supertab
   call add(g:pathogen_disabled, 'YouCompleteMe')
+  call add(g:pathogen_disabled, 'deoplete.nvim')
+elseif has("nvim")
+  " deoplete.nvim
+  call add(g:pathogen_disabled, 'YouCompleteMe')
+  call add(g:pathogen_disabled, 'supertab')
 else
+  " YouCompleteMe
+  call add(g:pathogen_disabled, 'deoplete.nvim')
   call add(g:pathogen_disabled, 'supertab')
 endif
+
+if pathogen#is_disabled("deoplete.nvim")
+  call add(g:pathogen_disabled, 'clang_complete')
+endif
+" }}}
 
 if !has("python")
   call add(g:pathogen_disabled, 'github-issues.vim')
@@ -146,6 +160,14 @@ if !pathogen#is_disabled("YouCompleteMe")
   nnoremap <Leader>yxd :tab split <Bar> YcmCompleter GetDoc<CR>
   nnoremap <Leader>yxD :tab split <Bar> YcmCompleter GetDocImprecise<CR>
   nnoremap <Leader>yxf :tab split <Bar> YcmCompleter FixIt<CR>
+endif
+" }}}
+
+" deoplete.nvim {{{
+if !pathogen#is_disabled("deoplete.nvim") && has("nvim")
+  let g:deoplete#enable_at_startup = 1
+
+  let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
 endif
 " }}}
 
