@@ -284,8 +284,7 @@ nnoremap <Space>uC :Unite change<CR>
 nnoremap <Space>ud :Unite directory<CR>
 nnoremap <Space>uD :UniteWithBufferDir directory<CR>
 nnoremap <Space>u<C-d> :execute 'Unite directory:' . input('dir: ')<CR>
-nnoremap <Space>uf :Unite
-        \ -buffer-name=resume resume<CR>
+nnoremap <Space>uf :Unite function -start-insert<CR>
 nnoremap <Space>uj :Unite jump -start-insert<CR>
 nnoremap <Space>uk :execute 'Unite grep:.::' . expand('<cword>') . ' -wrap'<CR>
 nnoremap <Space>uK :execute 'Unite grep:.::\\b' . expand('<cword>') . '\\b -wrap'<CR>
@@ -300,6 +299,8 @@ nnoremap <Space>ur :Unite
         \ -buffer-name=register register<CR>
 nnoremap <Space>us :Unite -quick-match tab<CR>
 nnoremap <Space>uu :UniteResume<CR>
+nnoremap <Space>uU :Unite
+        \ -buffer-name=resume resume<CR>
 nnoremap <Space>uma :Unite mapping<CR>
 nnoremap <Space>ume :Unite output:message<CR>
 
