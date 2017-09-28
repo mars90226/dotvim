@@ -931,9 +931,11 @@ set belloff=all
 
 " move temporary files
 set backupdir^=~/.vimtmp
-set directory^=~/.vimtmp
-if v:version >= 703
-  set undodir^=~/.vimtmp
+if !has("nvim") " neovim has default folders for these files
+  set directory^=~/.vimtmp
+  if v:version >= 703
+    set undodir^=~/.vimtmp
+  endif
 endif
 
 " session options
