@@ -24,7 +24,7 @@ if s:uname =~ "windows" || s:uname =~ "synology"
   " supertab
   call add(g:pathogen_disabled, 'YouCompleteMe')
   call add(g:pathogen_disabled, 'deoplete.nvim')
-elseif has("nvim")
+elseif has("nvim") && has("python3")
   " deoplete.nvim
   call add(g:pathogen_disabled, 'YouCompleteMe')
   call add(g:pathogen_disabled, 'supertab')
