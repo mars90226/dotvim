@@ -328,3 +328,6 @@
 [submodule "bundle/neosnippet-snippets"]
 	path = bundle/neosnippet-snippets
 	url = git@github.com:Shougo/neosnippet-snippets.git
+[submodule "bundle/ale"]
+	path = bundle/ale
+	url = git@github.com:w0rp/ale.git

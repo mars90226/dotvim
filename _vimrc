@@ -39,6 +39,14 @@ if pathogen#is_disabled("deoplete.nvim")
 endif
 " }}}
 
+" Choose Lint plugin
+" syntastic, ale
+"if v:version >= 800 || has("nvim")
+  "call add(g:pathogen_disabled, 'syntastic')
+"else
+  call add(g:pathogen_disabled, 'ale')
+"end
+
 if !has("python")
   call add(g:pathogen_disabled, 'github-issues.vim')
 endif
@@ -46,6 +54,7 @@ endif
 if !((v:version >= 800 || has("nvim")) && has("python3"))
   call add(g:pathogen_disabled, 'denite.nvim')
 end
+
 
 call pathogen#infect()
 call pathogen#helptags()
@@ -769,20 +778,30 @@ augroup END
 " }}}
 
 " Syntastic {{{
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+if !pathogen#is_disabled("syntastic")
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list            = 1
-let g:syntastic_check_on_open            = 1
-let g:syntastic_check_on_wq              = 0
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list            = 1
+  let g:syntastic_check_on_open            = 1
+  let g:syntastic_check_on_wq              = 0
 
-let g:syntastic_ruby_checkers = ['mri', 'rubylint']
-let g:syntastic_tex_checkers  = ['lacheck']
-let g:syntastic_c_checkers    = ['gcc']
-let g:syntastic_cpp_checkers  = ['gcc']
-nnoremap <Space><F8> :SyntasticToggleMode<CR>
+  let g:syntastic_ruby_checkers = ['mri', 'rubylint']
+  let g:syntastic_tex_checkers  = ['lacheck']
+  let g:syntastic_c_checkers    = ['gcc']
+  let g:syntastic_cpp_checkers  = ['gcc']
+  nnoremap <Space><F8> :SyntasticToggleMode<CR>
+end
+" }}}
+
+" ale {{{
+if !pathogen#is_disabled("ale")
+  let g:ale_linters = {
+        \ 'cpp': ['g++']
+        \}
+end
 " }}}
 
 " racer {{{
