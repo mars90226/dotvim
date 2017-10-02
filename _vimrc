@@ -34,8 +34,9 @@ else
   call add(g:pathogen_disabled, 'supertab')
 endif
 
+call add(g:pathogen_disabled, 'clang_complete')
 if pathogen#is_disabled("deoplete.nvim")
-  call add(g:pathogen_disabled, 'clang_complete')
+  call add(g:pathogen_disabled, 'deoplete-clang')
 endif
 " }}}
 
@@ -176,7 +177,9 @@ endif
 if !pathogen#is_disabled("deoplete.nvim") && has("nvim")
   let g:deoplete#enable_at_startup = 1
 
-  let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
+  let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-3.8/lib/libclang.so.1"
+  let g:deoplete#sources#clang#clang_header = "/usr/lib/llvm-3.8/lib/clang"
+  "let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
 endif
 " }}}
 
