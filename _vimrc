@@ -584,6 +584,7 @@ nnoremap <Leader>f` :Marks<CR>
 nnoremap <Leader>f: :History:<CR>
 nnoremap <Leader>f; :Commands<CR>
 nnoremap <Leader>f/ :History/<CR>
+nnoremap <Leader>f] :execute 'Tags ' . expand('<cword>')<CR>
 " }}}
 " }}}
 
