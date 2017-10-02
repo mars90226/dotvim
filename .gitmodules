@@ -334,3 +334,6 @@
 [submodule "bundle/deoplete-clang"]
 	path = bundle/deoplete-clang
 	url = git@github.com:zchee/deoplete-clang.git
+[submodule "bundle/vim-lastplace"]
+	path = bundle/vim-lastplace
+	url = git@github.com:farmergreg/vim-lastplace.git
