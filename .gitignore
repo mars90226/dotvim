@@ -8,3 +8,6 @@ tags-ja
 
 # netrw history file
 *.netrwhist
+
+# vim-plug folder
+plugged
