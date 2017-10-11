@@ -247,14 +247,14 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 " File Navigation {{{
 " ====================================================================
 " CtrlP {{{
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'sgur/ctrlp-extensions.vim'
-Plug 'tacahiroy/ctrlp-funky'
-Plug 'mattn/ctrlp-hackernews'
-Plug 'fisadev/vim-ctrlp-cmdpalette'
+Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
+Plug 'sgur/ctrlp-extensions.vim', { 'on': 'CtrlP' }
+Plug 'tacahiroy/ctrlp-funky', { 'on': 'CtrlP' }
+Plug 'mattn/ctrlp-hackernews', { 'on': 'CtrlP' }
+Plug 'fisadev/vim-ctrlp-cmdpalette', { 'on': 'CtrlP' }
 
 if has("python")
-  Plug 'FelikZ/ctrlp-py-matcher'
+  Plug 'FelikZ/ctrlp-py-matcher', { 'on': 'CtrlP' }
 
   let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 endif
@@ -262,6 +262,8 @@ endif
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
       \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_cmdpalette_execute = 1
+
+nnoremap <C-p> :CtrlP<CR>
 " }}}
 
 " netrw {{{
@@ -310,8 +312,8 @@ let g:tagbar_type_go = {
 " }}}
 
 " vimfiler {{{
-Plug 'Shougo/vimfiler.vim'
-Plug 'Shougo/neossh.vim'
+Plug 'Shougo/vimfiler.vim', { 'on': ['VimFiler', 'VimFilerSplit', 'VimFilerExplorer'] }
+Plug 'Shougo/neossh.vim', { 'on': ['VimFiler', 'VimFilerSplit', 'VimFilerExplorer'] }
 
 let g:vimfiler_as_default_explorer = 1
 nnoremap <F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit<CR>
@@ -491,15 +493,18 @@ if !s:is_disabled_plugin('denite.nvim')
 endif
 " }}}
 
+" Ack {{{
+Plug 'mileszs/ack.vim', { 'on': ['Ack', 'AckFile'] }
+" }}}
+
 " gj {{{
-Plug 'mileszs/ack.vim'
-Plug 'fcamel/gj'
+Plug 'fcamel/gj', { 'on': 'Gj' }
 
 nnoremap <Leader>gj :Gj! <C-R>=expand("<cword>")<CR>
 " }}}
 
 " vim-grepper {{{
-Plug 'mhinz/vim-grepper'
+Plug 'mhinz/vim-grepper', { 'on': 'Grepper' }
 
 nnoremap <Leader>gg :Grepper -tool git<CR>
 nnoremap <Leader>ga :Grepper -tool ag<CR>
@@ -938,7 +943,7 @@ nnoremap <Leader>gt :GitGutterAll<CR>
 " }}}
 
 " gv.vim {{{
-Plug 'junegunn/gv.vim'
+Plug 'junegunn/gv.vim', { 'on': 'GV' }
 
 function! s:gv_expand()
   let line = getline('.')
@@ -1004,17 +1009,17 @@ let g:rooter_manual_only = 1
 " }}}
 
 " vimwiki {{{
-Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki', { 'for': 'vimwiki' }
 
 nnoremap <Leader>wg :VimwikiToggleListItem<CR>
 " }}}
 
 " orgmode {{{
-Plug 'jceb/vim-orgmode'
+Plug 'jceb/vim-orgmode', { 'for': 'org' }
 " }}}
 
 " vimoutliner {{{
-Plug 'vimoutliner/vimoutliner'
+Plug 'vimoutliner/vimoutliner', { 'for': 'votl' }
 " }}}
 
 " AnsiEsc.vim {{{
