@@ -1102,6 +1102,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'alx741/vinfo', { 'on': 'Vinfo' }
 Plug 'mattn/webapi-vim'
 Plug 'tpope/vim-scriptease'
+Plug 'kana/vim-arpeggio'
 " }}}
 
 " Plugin Settings End {{{
@@ -1305,7 +1306,8 @@ colorscheme seoul256
 " Key Mappings {{{
 " ====================================================================
 " Quickly escape insert mode
-inoremap jk <Esc>
+call arpeggio#load()
+Arpeggio inoremap jk <Esc>
 
 " Add key mapping for suspend
 nnoremap <Space><C-z> :suspend<CR>
