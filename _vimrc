@@ -376,6 +376,7 @@ Plug 'blindFS/unite-workflow'
 Plug 'kmnk/vim-unite-giti'
 Plug 'Shougo/vinarise.vim'
 Plug 'Shougo/neomru.vim'
+Plug 'Shougo/neoyank.vim'
 
 let g:unite_source_history_yank_enable = 1
 nnoremap <Space>l :Unite -start-insert line<CR>
