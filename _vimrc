@@ -15,7 +15,7 @@ if s:os =~ "windows"
 endif
 
 " plugin choosing {{{
-let g:plugin_disabled = ['racer']
+let g:plugin_disabled = []
 
 function! s:disable_plugin(plugin)
   call add(g:plugin_disabled, a:plugin)
@@ -189,12 +189,16 @@ if !s:is_disabled_plugin('deoplete.nvim')
   Plug 'Shougo/neoinclude.vim'
   Plug 'Shougo/neco-syntax'
   Plug 'Shougo/neco-vim'
+  Plug 'sebastianmarkow/deoplete-rust', { 'for': ['rust'] }
 
   let g:deoplete#enable_at_startup = 1
 
   let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-3.8/lib/libclang.so.1"
   let g:deoplete#sources#clang#clang_header = "/usr/lib/llvm-3.8/lib/clang"
   "let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
+
+  let g:deoplete#sources#rust#racer_binary = expand("$HOME/.cargo/bin/racer")
+  let g:deoplete#sources#rust#rust_source_path = expand("$HOME/rust/src")
 endif
 " }}}
 
@@ -930,14 +934,6 @@ if !s:is_disabled_plugin('ale')
         \ 'cpp': ['g++']
         \}
 end
-" }}}
-
-" racer {{{
-if !s:is_disabled_plugin('racer')
-  Plug 'phildawes/racer', { 'for': 'rust' }
-
-  let g:racer_cmd = $RACER_CMD
-endif
 " }}}
 
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
