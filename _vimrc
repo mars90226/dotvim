@@ -238,6 +238,10 @@ endif
 " Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
 " }}}
+
+" tmux-complete.vim {{{
+Plug 'wellle/tmux-complete.vim'
+" }}}
 " }}}
 
 " File Navigation {{{
