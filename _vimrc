@@ -382,9 +382,11 @@ nnoremap <Space>u<C-d> :execute 'Unite directory:' . input('dir: ')<CR>
 nnoremap <Space>uf :Unite function -start-insert<CR>
 nnoremap <Space>uj :Unite jump -start-insert<CR>
 nnoremap <Space>uk :execute 'Unite grep:.::' . expand('<cword>') . ' -wrap'<CR>
-nnoremap <Space>uK :execute 'Unite grep:.::\\b' . expand('<cword>') . '\\b -wrap'<CR>
+nnoremap <Space>uK :execute 'Unite grep:.::' . expand('<cWORD>') . ' -wrap'<CR>
+nnoremap <Space>u8 :execute 'Unite grep:.::\\b' . expand('<cword>') . '\\b -wrap'<CR>
+nnoremap <Space>u* :execute 'Unite grep:.::\\b' . expand('<cWORD>') . '\\b -wrap'<CR>
 vnoremap <Space>uk :<C-u>execute 'Unite grep:.::' . <SID>get_visual_selection() . ' -wrap'<CR>
-vnoremap <Space>uK :<C-u>execute 'Unite grep:.::\\b' . <SID>get_visual_selection() . '\\b -wrap'<CR>
+vnoremap <Space>u8 :<C-u>execute 'Unite grep:.::\\b' . <SID>get_visual_selection() . '\\b -wrap'<CR>
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>uo :Unite outline<CR>
 nnoremap <Space>uO :Unite output -start-insert<CR>
@@ -471,9 +473,11 @@ if !s:is_disabled_plugin('denite.nvim')
   nnoremap <Space>dd :Denite directory_rec<CR>
   nnoremap <Space>dj :Denite jump<CR>
   nnoremap <Space>dk :execute 'Denite grep:.::' . expand('<cword>')<CR>
-  nnoremap <Space>dK :execute 'Denite grep:.::\\b' . expand('<cword>') . '\\b'<CR>
+  nnoremap <Space>dK :execute 'Denite grep:.::' . expand('<cWORD>')<CR>
+  nnoremap <Space>d8 :execute 'Denite grep:.::\\b' . expand('<cword>') . '\\b'<CR>
+  nnoremap <Space>d* :execute 'Denite grep:.::\\b' . expand('<cWORD>') . '\\b'<CR>
   vnoremap <Space>dk :<C-u>execute 'Denite grep:.::' . <SID>get_visual_selection()<CR>
-  vnoremap <Space>dK :<C-u>execute 'Denite grep:.::\\b' . <SID>get_visual_selection() . '\\b'<CR>
+  vnoremap <Space>d8 :<C-u>execute 'Denite grep:.::\\b' . <SID>get_visual_selection() . '\\b'<CR>
   nnoremap <Space>dl :Denite line<CR>
   nnoremap <Space>dm :Denite file_mru<CR>
   nnoremap <Space>do :Denite outline<CR>
@@ -539,6 +543,25 @@ nnoremap <Space>rt :tab split <Bar> Ranger<CR>
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+if has("nvim") || has("gui_running")
+  let $FZF_DEFAULT_OPTS .= ' --inline-info'
+endif
+
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
 " Mapping selecting mappings
 nmap <Leader><Tab> <Plug>(fzf-maps-n)
 xmap <Leader><Tab> <Plug>(fzf-maps-x)
@@ -595,9 +618,11 @@ nnoremap <Leader>fg :GFiles<CR>
 nnoremap <Leader>fG :execute 'GGrep ' . input('Git grep: ')<CR>
 nnoremap <Leader>fh :History<CR>
 nnoremap <Leader>fk :execute 'Rg ' . expand('<cword>')<CR>
-nnoremap <Leader>fK :execute 'Rg \b' . expand('<cword>') . '\b'<CR>
+nnoremap <Leader>fK :execute 'Rg ' . expand('<cWORD>')<CR>
+nnoremap <Leader>f8 :execute 'Rg \b' . expand('<cword>') . '\b'<CR>
+nnoremap <Leader>f* :execute 'Rg \b' . expand('<cWORD>') . '\b'<CR>
 vnoremap <Leader>fk :<C-u>execute 'Rg ' . <SID>get_visual_selection()<CR>
-vnoremap <Leader>fK :<C-u>execute 'Rg \b' . <SID>get_visual_selection() . '\b'<CR>
+vnoremap <Leader>f8 :<C-u>execute 'Rg \b' . <SID>get_visual_selection() . '\b'<CR>
 nnoremap <Leader>fl :BLines<CR>
 nnoremap <Leader>fL :Lines<CR>
 nnoremap <Leader>fm :Mru<CR>
@@ -611,6 +636,17 @@ nnoremap <Leader>f: :History:<CR>
 nnoremap <Leader>f; :Commands<CR>
 nnoremap <Leader>f/ :History/<CR>
 nnoremap <Leader>f] :execute 'Tags ' . expand('<cword>')<CR>
+
+if has("nvim")
+  function! s:fzf_statusline()
+    highlight fzf1 ctermfg=242 ctermbg=236
+    highlight fzf2 ctermfg=143
+    highlight fzf3 ctermfg=15 ctermbg=239
+    setlocal statusline=%#fzf1#\ >\ %#fzf2#fzf%#fzf3#
+  endfunction
+
+  autocmd! User FzfStatusLine call <SID>fzf_statusline()
+endif
 " }}}
 
 Plug 'vim-scripts/a.vim', { 'on': 'A' }
@@ -1468,11 +1504,8 @@ endif
 " ====================================================================
 augroup vimGeneralCallbacks
   autocmd!
-  if s:os =~ "windows"
-    autocmd BufWritePost _vimrc nested source $MYVIMRC | normal! zzzv
-  else
-    autocmd BufWritePost .vimrc nested source $MYVIMRC | normal! zzzv
-  endif
+  autocmd BufWritePost _vimrc nested source $MYVIMRC | normal! zzzv
+  autocmd BufWritePost .vimrc nested source $MYVIMRC | normal! zzzv
 augroup END
 
 augroup fileTypeSpecific
