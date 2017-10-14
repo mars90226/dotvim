@@ -82,6 +82,8 @@ endif
 " vim-airline {{{
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'https://gist.github.com/jbkopecky/a2f66baa8519747b388f2a1617159c07',
+    \ { 'as': 'vim-airline-seoul256', 'do': 'mkdir -p autoload/airline/themes; cp -f *.vim autoload/airline/themes' }
 
 if s:os !~ "windows"
   let g:airline_powerline_fonts = 1
@@ -94,6 +96,8 @@ let g:airline#extensions#tabline#show_tab_nr   = 1
 let g:airline#extensions#tabline#fnamemod      = ':p:.'
 let g:airline#extensions#tabline#fnamecollapse = 1
 
+" TODO Fix the colors the match seoul256 theme
+"let g:airline_theme = 'seoul256'
 let g:airline_theme = 'zenburn'
 " }}}
 
