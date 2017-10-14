@@ -40,11 +40,6 @@ else
   call s:disable_plugin('deoplete.nvim')
   call s:disable_plugin('supertab')
 endif
-
-call s:disable_plugin('clang_complete')
-if s:is_disabled_plugin('deoplete.nvim')
-  call s:disable_plugin('deoplete-clang')
-endif
 " }}}
 
 " Choose Lint plugin
@@ -187,12 +182,12 @@ endif
 if !s:is_disabled_plugin('deoplete.nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-  if !s:is_disabled_plugin('clang_complete')
-    Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
-  endif
-  if !s:is_disabled_plugin('deoplete-clang')
-    Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
-  endif
+  " Currently prefer deoplete-clang over clang_complete
+  "Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
+  Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
+  Plug 'Shougo/neoinclude.vim'
+  Plug 'Shougo/neco-syntax'
+  Plug 'Shougo/neco-vim'
 
   let g:deoplete#enable_at_startup = 1
 
