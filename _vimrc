@@ -392,6 +392,7 @@ nnoremap <Space>y :Unite history/yank<CR>
 nnoremap <Space>S :Unite source<CR>
 nnoremap <Space>m :Unite file_mru<CR>
 nnoremap <Space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+nnoremap <Space>a :execute 'Unite anzu:' . input ('anzu: ')<CR>
 nnoremap <Space>ua :Unite apropos -start-insert<CR>
 nnoremap <Space>ub :UniteWithBufferDir
         \ -buffer-name=files -prompt=%\  buffer bookmark file<CR>
@@ -718,14 +719,23 @@ map z#  <Plug>(incsearch-nohl0)<Plug>(asterisk-z#)
 map gz# <Plug>(incsearch-nohl0)<Plug>(asterisk-gz#)
 " }}}
 
+" vim-anzu {{{
+Plug 'osyo-manga/vim-anzu'
+
+map n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
+map N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
+" }}}
+
 " incsearch {{{
 Plug 'haya14busa/incsearch.vim'
 
 " :h g:incsearch#auto_nohlsearch
 set hlsearch
 let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
+
+" Replace by vim-anzu
+"map n  <Plug>(incsearch-nohl-n)
+"map N  <Plug>(incsearch-nohl-N)
 
 " Replace by vim-asterisk
 "map *  <Plug>(incsearch-nohl-*)
