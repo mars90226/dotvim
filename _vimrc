@@ -311,6 +311,12 @@ let g:tagbar_type_go = {
       \ }
 " }}}
 
+" vim-rtags {{{
+"if s:os !~ "windows" && s:os !~ "synology"
+  "Plug 'lyuts/vim-rtags'
+"endif
+" }}}
+
 " vimfiler {{{
 Plug 'Shougo/vimfiler.vim', { 'on': ['VimFiler', 'VimFilerSplit', 'VimFilerExplorer'] }
 Plug 'Shougo/neossh.vim', { 'on': ['VimFiler', 'VimFilerSplit', 'VimFilerExplorer'] }
