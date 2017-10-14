@@ -683,8 +683,33 @@ if s:os !~ "synology"
 endif
 " }}}
 
+" vim-asterisk {{{
+Plug 'haya14busa/vim-asterisk'
+
+map *   <Plug>(incsearch-nohl)<Plug>(asterisk-*)
+map #   <Plug>(incsearch-nohl)<Plug>(asterisk-#)
+map g*  <Plug>(incsearch-nohl)<Plug>(asterisk-g*)
+map g#  <Plug>(incsearch-nohl)<Plug>(asterisk-g#)
+map z*  <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
+map gz* <Plug>(incsearch-nohl0)<Plug>(asterisk-gz*)
+map z#  <Plug>(incsearch-nohl0)<Plug>(asterisk-z#)
+map gz# <Plug>(incsearch-nohl0)<Plug>(asterisk-gz#)
+" }}}
+
 " incsearch {{{
 Plug 'haya14busa/incsearch.vim'
+
+" :h g:incsearch#auto_nohlsearch
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+
+" Replace by vim-asterisk
+"map *  <Plug>(incsearch-nohl-*)
+"map #  <Plug>(incsearch-nohl-#)
+"map g* <Plug>(incsearch-nohl-g*)
+"map g# <Plug>(incsearch-nohl-g#)
 
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
@@ -703,16 +728,6 @@ if s:os =~ "windows"
   vmap <M-?> <Esc><Plug>(incsearch-backward)\%V
   set encoding=utf8
 endif
-
-" :h g:incsearch#auto_nohlsearch
-set hlsearch
-let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
 " }}}
 
 " incsearch-fuzzy {{{
@@ -1032,6 +1047,12 @@ nnoremap <silent> <Leader>vv :VimShell<CR>
 nnoremap <silent> <Leader>vc :VimShellCurrentDir<CR>
 nnoremap <silent> <Leader>vb :VimShellBufferDir<CR>
 nnoremap <silent> <Leader>vt :VimShellTab<CR>
+" }}}
+
+" deol.nvim {{{
+if has("nvim")
+  Plug 'Shougo/deol.nvim'
+endif
 " }}}
 
 " vim-rooter {{{
