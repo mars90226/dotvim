@@ -9,6 +9,13 @@ else
   let s:os = system("uname -a")
 endif
 
+" Set $VIMHOME
+if s:os =~ "windows"
+  let $VIMHOME = $VIM."/vimfiles"
+else
+  let $VIMHOME = $HOME."/.vim"
+endif
+
 " Set Encoding
 if s:os =~ "windows"
   set encoding=utf8
@@ -61,7 +68,7 @@ end
 
 " Autoinstall vim-plug {{{
 " TODO Add Windows support
-if empty(glob('~/.vim/autoload/plug.vim'))
+if empty(glob($VIMHOME.'/autoload/plug.vim'))
   silent! !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://rawgithubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
@@ -70,11 +77,7 @@ endif
 
 " Plugin Settings Begin {{{
 " vim-plug
-if s:os =~ "windows"
-  call plug#begin('~/vimfiles/plugged')
-else
-  call plug#begin('~/.vim/plugged')
-endif
+call plug#begin($VIMHOME.'/plugged')
 " }}}
 
 " Appearance {{{
@@ -201,8 +204,8 @@ if !s:is_disabled_plugin('deoplete.nvim')
   let g:deoplete#sources#clang#clang_header = "/usr/lib/llvm-3.8/lib/clang"
   "let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
 
-  let g:deoplete#sources#rust#racer_binary = expand("$HOME/.cargo/bin/racer")
-  let g:deoplete#sources#rust#rust_source_path = expand("$HOME/rust/src")
+  let g:deoplete#sources#rust#racer_binary = $HOME."/.cargo/bin/racer"
+  let g:deoplete#sources#rust#rust_source_path = $HOME."/rust/src"
 endif
 " }}}
 
