@@ -4,13 +4,13 @@ let g:mapleader=","
 
 " Detect operating system
 if has("win32") || has("win64")
-  let s:uname = "windows"
+  let s:os = "windows"
 else
-  let s:uname = system("uname -a")
+  let s:os = system("uname -a")
 endif
 
 " Set Encoding
-if s:uname =~ "windows"
+if s:os =~ "windows"
   set encoding=utf8
 endif
 
@@ -27,7 +27,7 @@ endfunction
 
 " Choose autocompletion plugin {{{
 " YouCompleteMe, supertab, deoplete.nvim
-if s:uname =~ "windows" || s:uname =~ "synology"
+if s:os =~ "windows" || s:os =~ "synology"
   " supertab
   call s:disable_plugin('YouCompleteMe')
   call s:disable_plugin('deoplete.nvim')
@@ -60,6 +60,7 @@ end
 " }}}
 
 " Autoinstall vim-plug {{{
+" TODO Add Windows support
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent! !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://rawgithubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -69,7 +70,7 @@ endif
 
 " Plugin Settings Begin {{{
 " vim-plug
-if s:uname =~ "windows"
+if s:os =~ "windows"
   call plug#begin('~/vimfiles/plugged')
 else
   call plug#begin('~/.vim/plugged')
@@ -82,7 +83,7 @@ endif
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-if s:uname !~ "windows"
+if s:os !~ "windows"
   let g:airline_powerline_fonts = 1
 endif
 
@@ -638,7 +639,7 @@ map <Plug>(easymotion-prefix)s <Plug>(easymotion-bd-f2)
 map <Plug>(easymotion-prefix)L <Plug>(easymotion-bd-jk)
 map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
 
-if s:uname !~ "synology"
+if s:os !~ "synology"
   nmap <Plug>(easymotion-prefix)f <Plug>(easymotion-overwin-f)
   nmap <Plug>(easymotion-prefix)s <Plug>(easymotion-overwin-f2)
   nmap <Plug>(easymotion-prefix)L <Plug>(easymotion-overwin-line)
@@ -654,13 +655,13 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 " Search within visual selection
-if !has("nvim") && s:uname !~ "windows"
+if !has("nvim") && s:os !~ "windows"
   set <M-/>=/
   set <M-?>=?
 endif
 vmap <M-/> <Esc><Plug>(incsearch-forward)\%V
 vmap <M-?> <Esc><Plug>(incsearch-backward)\%V
-if s:uname =~ "windows"
+if s:os =~ "windows"
   set encoding& " make sure mapping is correct in default encoding
   vmap <M-/> <Esc><Plug>(incsearch-forward)\%V
   vmap <M-?> <Esc><Plug>(incsearch-backward)\%V
@@ -1138,11 +1139,11 @@ if exists(":packadd") != 0
 endif
 
 " source mswin.vim
-if s:uname !~ "synology"
+if s:os !~ "synology"
   source $VIMRUNTIME/mswin.vim
   behave mswin
 
-  if s:uname !~ "windows"
+  if s:os !~ "windows"
     silent! unmap <C-a>
     silent! iunmap <C-a>
     silent! cunmap <C-a>
@@ -1250,7 +1251,7 @@ nnoremap <Space><C-z> :suspend<CR>
 
 " Quickly switch window {{{
 " Fix meta key in vim
-if !has("nvim") && s:uname !~ "windows"
+if !has("nvim") && s:os !~ "windows"
   set <M-h>=h
   set <M-j>=j
   set <M-k>=k
@@ -1262,7 +1263,7 @@ nmap <M-h> <C-w>h
 nmap <M-j> <C-w>j
 nmap <M-k> <C-w>k
 nmap <M-l> <C-w>l
-if s:uname =~ "windows"
+if s:os =~ "windows"
   set encoding& " make sure mapping is correct in default encoding
   nmap <M-h> <C-w>h
   nmap <M-j> <C-w>j
@@ -1276,7 +1277,7 @@ imap <M-h> <Left>
 imap <M-j> <Down>
 imap <M-k> <Up>
 imap <M-l> <Right>
-if s:uname =~ "windows"
+if s:os =~ "windows"
   set encoding& " make sure mapping is correct in default encoding
   imap <M-h> <Left>
   imap <M-j> <Down>
@@ -1288,14 +1289,14 @@ endif
 
 " Saner command-line history {{{
 " Fix meta key in vim
-if !has("nvim") && s:uname !~ "windows"
+if !has("nvim") && s:os !~ "windows"
   set <M-n>=n
   set <M-p>=p
 endif
 
 cnoremap <M-n> <Down>
 cnoremap <M-p> <Up>
-if s:uname =~ "windows"
+if s:os =~ "windows"
   set encoding& " make sure mapping is correct in default encoding
   cnoremap <M-n> <Down>
   cnoremap <M-p> <Up>
@@ -1340,7 +1341,7 @@ inoremap <C-b> <Right><BS>
 
 " Create new line in insert mode {{{
 " Fix meta key in vim
-if !has("nvim") && s:uname !~ "windows"
+if !has("nvim") && s:os !~ "windows"
   set <M-o>=o
   set <M-S-o>=O
 endif
@@ -1385,11 +1386,11 @@ function! ToggleFoldBetweenManualAndSyntax()
 endfunction
 
 let g:last_tab = 1
-if !has("nvim") && s:uname !~ "windows"
+if !has("nvim") && s:os !~ "windows"
   set <M-1>=1
 endif
 nmap <M-1> :execute "tabn " . g:last_tab<CR>
-if s:uname =~ "windows"
+if s:os =~ "windows"
   set encoding& " make sure mapping is correct in default encoding
   nmap <M-1> :execute "tabn " . g:last_tab<CR>
   set encoding=utf8
@@ -1432,7 +1433,7 @@ command! TrimWhitespace call TrimWhitespace()
 " Terminal {{{
 " ====================================================================
 " xterm-256 in Windows {{{
-if !has("gui_running") && s:uname =~ "windows"
+if !has("gui_running") && s:os =~ "windows"
     set term=xterm
     let &t_AB="\e[48;5;%dm"
     let &t_AF="\e[38;5;%dm"
@@ -1467,7 +1468,7 @@ endif
 " ====================================================================
 augroup vimGeneralCallbacks
   autocmd!
-  if s:uname =~ "windows"
+  if s:os =~ "windows"
     autocmd BufWritePost _vimrc nested source $MYVIMRC | normal! zzzv
   else
     autocmd BufWritePost .vimrc nested source $MYVIMRC | normal! zzzv
@@ -1522,7 +1523,7 @@ set keymodel=startsel
 
 " disable Background Color Erase (BC) by clearing the `t_ut` on Synology DSM
 " see https://sunaku.github.io/vim-256color-bce.html
-if s:uname =~ "synology"
+if s:os =~ "synology"
   set t_ut=
 endif
 " }}}
