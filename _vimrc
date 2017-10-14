@@ -527,10 +527,11 @@ nnoremap <Leader>gj :Gj! <C-R>=expand("<cword>")<CR>
 " }}}
 
 " vim-grepper {{{
-Plug 'mhinz/vim-grepper', { 'on': 'Grepper' }
+Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<Plug>(GrepperOperator)'] }
 
 nnoremap <Leader>gg :Grepper -tool git<CR>
 nnoremap <Leader>ga :Grepper -tool ag<CR>
+nnoremap gss        :Grepper -tool rg<CR>
 
 nmap gs <Plug>(GrepperOperator)
 xmap gs <Plug>(GrepperOperator)
@@ -1290,7 +1291,15 @@ filetype indent on
 
 " misc
 set shellslash
-set grepprg=grep\ -nH\ $*
+" set appropriate grep programs
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+elseif executable("ag")
+  set grepprg=ag\ --nogroup\ --nocolor
+else
+  set grepprg=grep\ -nH\ $*
+endif
 set t_Co=256
 set foldlevelstart=99
 " }}}
