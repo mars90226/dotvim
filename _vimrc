@@ -1130,13 +1130,12 @@ if has("nvim")
   let g:neoterm_automap_keys = ',tt'
 
   nnoremap <silent> <Space>` :execute 'T ' . input("Terminal: ")<CR>
+  nnoremap <silent> <Leader>` :Ttoggle<CR>
   nnoremap <silent> <Space><F3> :TREPLSendFile<CR>
   nnoremap <silent> <F3> :TREPLSendLine<CR>
   vnoremap <silent> <F3> :TREPLSendSelection<CR>
 
   " Useful maps
-  " toggle terminal
-  nnoremap <silent> <Leader>to :Topen<CR><C-o>:stopinsert<CR>
   " hide/close terminal
   nnoremap <silent> <Leader>th :Tclose<CR>
   " clear terminal
@@ -1630,7 +1629,7 @@ augroup END
 if has("nvim")
   augroup terminalSettings
     autocmd!
-    autocmd BufEnter term://* startinsert
+    autocmd WinEnter term://* startinsert
     autocmd TermClose term://* call nvim_input('<CR>')
   augroup END
 endif
