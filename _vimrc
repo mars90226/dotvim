@@ -377,6 +377,7 @@ Plug 'kmnk/vim-unite-giti'
 Plug 'Shougo/vinarise.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/neoyank.vim'
+Plug 'Shougo/unite-help'
 
 let g:unite_source_history_yank_enable = 1
 nnoremap <Space>l :Unite -start-insert line<CR>
@@ -403,6 +404,7 @@ nnoremap <Space>ud :Unite directory<CR>
 nnoremap <Space>uD :UniteWithBufferDir directory<CR>
 nnoremap <Space>u<C-d> :execute 'Unite directory:' . input('dir: ')<CR>
 nnoremap <Space>uf :Unite function -start-insert<CR>
+nnoremap <Space>uh :Unite help<CR>
 nnoremap <Space>uj :Unite jump -start-insert<CR>
 nnoremap <Space>uk :execute 'Unite grep:.::' . expand('<cword>') . ' -wrap'<CR>
 nnoremap <Space>uK :execute 'Unite grep:.::' . expand('<cWORD>') . ' -wrap'<CR>
