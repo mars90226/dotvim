@@ -641,6 +641,7 @@ nnoremap <Leader>fF :Filetypes<CR>
 nnoremap <Leader>fg :GFiles<CR>
 nnoremap <Leader>fG :execute 'GGrep ' . input('Git grep: ')<CR>
 nnoremap <Leader>fh :History<CR>
+nnoremap <Leader>fH :Helptags<CR>
 nnoremap <Leader>fk :execute 'Rg ' . expand('<cword>')<CR>
 nnoremap <Leader>fK :execute 'Rg ' . expand('<cWORD>')<CR>
 nnoremap <Leader>f8 :execute 'Rg \b' . expand('<cword>') . '\b'<CR>
@@ -657,7 +658,9 @@ nnoremap <Leader>fT :Tags<CR>
 nnoremap <Leader>fw :Windows<CR>
 nnoremap <Leader>f` :Marks<CR>
 nnoremap <Leader>f: :History:<CR>
+vnoremap <Leader>f: :<C-u>History:<CR>
 nnoremap <Leader>f; :Commands<CR>
+vnoremap <Leader>f; :<C-u>Commands<CR>
 nnoremap <Leader>f/ :History/<CR>
 nnoremap <Leader>f] :execute 'Tags ' . expand('<cword>')<CR>
 
