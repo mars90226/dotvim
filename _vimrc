@@ -1122,6 +1122,30 @@ let g:lastplace_ignore_buftype = "quickfix,nofile,help"
 let g:lastplace_open_folds = 0
 " }}}
 
+" neoterm {{{
+if has("nvim")
+  Plug 'kassio/neoterm'
+
+  let g:neoterm_position = 'horizontal'
+  let g:neoterm_automap_keys = ',tt'
+
+  nnoremap <silent> <Space>` :execute 'T ' . input("Terminal: ")<CR>
+  nnoremap <silent> <Space><F3> :TREPLSendFile<CR>
+  nnoremap <silent> <F3> :TREPLSendLine<CR>
+  vnoremap <silent> <F3> :TREPLSendSelection<CR>
+
+  " Useful maps
+  " toggle terminal
+  nnoremap <silent> <Leader>to :Topen<CR><C-o>:stopinsert<CR>
+  " hide/close terminal
+  nnoremap <silent> <Leader>th :Tclose<CR>
+  " clear terminal
+  nnoremap <silent> <Leader>tl :Tclear<CR>
+  " kills the current job (send a <c-c>)
+  nnoremap <silent> <Leader>tc :Tkill<CR>
+endif
+" }}}
+
 Plug 'vim-scripts/dbext.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'tpope/vim-abolish'
@@ -1132,6 +1156,7 @@ Plug 'alx741/vinfo', { 'on': 'Vinfo' }
 Plug 'mattn/webapi-vim'
 Plug 'tpope/vim-scriptease'
 Plug 'kana/vim-arpeggio'
+Plug 'kopischke/vim-fetch'
 " }}}
 
 " Plugin Settings End {{{
@@ -1543,12 +1568,12 @@ endif
 " neovim terminal key mapping
 if has("nvim")
   " For quick terminal access
-  nnoremap <silent> <Leader>tt :tabnew<CR>:terminal<CR>
-  nnoremap <silent> <Leader>ts :new<CR>:terminal<CR>
-  nnoremap <silent> <Leader>tv :vnew<CR>:terminal<CR>
+  nnoremap <silent> <Leader>tT :tabnew<CR>:terminal<CR>i
+  nnoremap <silent> <Leader>ts :new<CR>:terminal<CR>i
+  nnoremap <silent> <Leader>tv :vnew<CR>:terminal<CR>i
 
   tnoremap <Space><F1> <C-\><C-n>
-  tnoremap <Space><F2> <C-\><C-n>:tabnew<CR>:terminal<CR>
+  tnoremap <Space><F2> <C-\><C-n>:tabnew<CR>:terminal<CR>i
 
   " Quickly switch window in terminal
   tnoremap <M-S-h> <C-\><C-n><C-w>h
