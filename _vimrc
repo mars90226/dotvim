@@ -972,6 +972,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'tommcdo/vim-fubitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'idanarye/vim-merginal', { 'branch': 'develop' }
 
 nnoremap <silent> <Leader>gs :Gstatus<CR>
 nnoremap <silent> <Leader>gd :Gdiff<CR>
@@ -986,6 +987,7 @@ nnoremap <silent> <Leader>gw :Gwrite<CR>
 nnoremap <silent> <Leader>gW :Gwrite!<CR>
 nnoremap <silent> <Leader>gq :Gwq<CR>
 nnoremap <silent> <Leader>gQ :Gwq!<CR>
+nnoremap <silent> <Leader>gm :Merginal<CR>
 
 function! ReviewLastCommit()
   if exists('b:git_dir')
