@@ -1122,7 +1122,7 @@ let g:lastplace_open_folds = 0
 
 Plug 'vim-scripts/dbext.vim'
 Plug 'tyru/open-browser.vim'
-Plug 'tpope/vim-abolish', { 'on': 'S' }
+Plug 'tpope/vim-abolish'
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
