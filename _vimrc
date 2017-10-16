@@ -1242,6 +1242,10 @@ if !s:is_disabled_plugin('denite.nvim')
   end
 endif
 " }}}
+
+" Arpeggio {{{
+call arpeggio#load()
+" }}}
 " }}}
 
 " General Settings {{{
@@ -1367,7 +1371,6 @@ colorscheme seoul256
 " Key Mappings {{{
 " ====================================================================
 " Quickly escape insert mode
-call arpeggio#load()
 Arpeggio inoremap jk <Esc>
 
 " Add key mapping for suspend
