@@ -329,8 +329,8 @@ let g:tagbar_type_go = {
 " }}}
 
 " vimfiler {{{
-Plug 'Shougo/vimfiler.vim', { 'on': ['VimFiler', 'VimFilerSplit', 'VimFilerExplorer'] }
-Plug 'Shougo/neossh.vim', { 'on': ['VimFiler', 'VimFilerSplit', 'VimFilerExplorer'] }
+Plug 'Shougo/vimfiler.vim'
+Plug 'Shougo/neossh.vim'
 
 let g:vimfiler_as_default_explorer = 1
 nnoremap <F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit<CR>
