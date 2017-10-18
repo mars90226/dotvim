@@ -924,7 +924,6 @@ if !s:is_disabled_plugin('syntastic')
   set statusline+=%{SyntasticStatuslineFlag()}
   set statusline+=%*
 
-  let g:syntastic_mode_map = { 'mode': 'passive' }
   let g:syntastic_always_populate_loc_list = 1
   let g:syntastic_auto_loc_list            = 2
   let g:syntastic_check_on_open            = 1
@@ -936,18 +935,7 @@ if !s:is_disabled_plugin('syntastic')
   let g:syntastic_cpp_checkers  = ['gcc']
 
   let g:syntastic_ignore_files = ['\m^/usr/include/', '\m\c\.h$']
-  "nnoremap <Space><F8> :SyntasticToggleMode<CR>
-  autocmd BufNewFile,BufReadPost * let b:syntastic_on = v:false
-  nnoremap <Space><F8> :call <SID>syntastic_toggle_check()<CR>
-  function! s:syntastic_toggle_check()
-    if b:syntastic_on
-      let b:syntastic_on = v:false
-      call SyntasticLoclistHide()
-    else
-      let b:syntastic_on = v:true
-      call SyntasticCheck()
-    endif
-  endfunction
+  nnoremap <Space><F8> :SyntasticCheck<CR>
 end
 " }}}
 
