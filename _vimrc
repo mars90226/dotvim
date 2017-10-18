@@ -444,8 +444,8 @@ function! s:unite_my_settings() "{{{
   nmap <buffer> x     <Plug>(unite_quick_match_choose_action)
   nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
   imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
-  imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
-  nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
+  imap <buffer> <C-y>     <Plug>(unite_input_directory)
+  nmap <buffer> <C-y>     <Plug>(unite_input_directory)
   nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
   nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
   imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
@@ -472,9 +472,9 @@ function! s:unite_my_settings() "{{{
   imap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
   nmap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
 
-  " Runs "persist_open" action by <C-p>.
-  imap <silent><buffer><expr> <C-p>     unite#do_action('persist_open')
-  nmap <silent><buffer><expr> <C-p>     unite#do_action('persist_open')
+  " Runs "persist_open" action by P.
+  imap <silent><buffer><expr> P         unite#do_action('persist_open')
+  nmap <silent><buffer><expr> P         unite#do_action('persist_open')
 
   " Unmap <Space>, use ` instead
   silent! nunmap <buffer> <Space>
