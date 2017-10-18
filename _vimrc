@@ -1609,6 +1609,9 @@ augroup fileTypeSpecific
   " gdb
   autocmd BufNewFile,BufReadPost *.gdbinit            set filetype=gdb
 
+  " gitcommit
+  autocmd FileType gitcommit setlocal spell
+
   " Custom filetype
   autocmd BufNewFile,BufReadPost *maillog*            set filetype=messages
   autocmd BufNewFile,BufReadPost *conf                set filetype=conf
