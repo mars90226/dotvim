@@ -1157,6 +1157,7 @@ Plug 'mattn/webapi-vim'
 Plug 'tpope/vim-scriptease'
 Plug 'kana/vim-arpeggio'
 Plug 'kopischke/vim-fetch'
+Plug 'Valloric/ListToggle'
 " }}}
 
 " Plugin Settings End {{{
@@ -1224,13 +1225,13 @@ if !s:is_disabled_plugin('denite.nvim')
         \)
 
   if executable('rg')
-    call denite#custom#var('file_rec', 'command', 
+    call denite#custom#var('file_rec', 'command',
           \ ['rg', '--files', '--glob', '!.git'])
     call denite#custom#var('grep', 'command', ['rg', '--threads', '1'])
     call denite#custom#var('grep', 'recursive_opts', [])
     call denite#custom#var('grep', 'final_opts', [])
     call denite#custom#var('grep', 'separator', ['--'])
-    call denite#custom#var('grep', 'default_opts', 
+    call denite#custom#var('grep', 'default_opts',
           \ ['--vimgrep', '--no-heading'])
   elseif executable('ag')
     call denite#custome#var('file_rec', 'command',
@@ -1479,8 +1480,8 @@ imap <M-S-o> <C-o>O
 " }}}
 
 " Quit
-nnoremap <Leader>q :q<CR>
-nnoremap <Leader>Q :qa!<CR>
+nnoremap <Space>q :q<CR>
+nnoremap <Space>Q :qa!<CR>
 
 " Win32
 "nmap <Leader>x :execute ':! "'.expand('%').'"'<CR>
