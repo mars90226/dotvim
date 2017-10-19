@@ -591,6 +591,7 @@ let g:fzf_colors =
 
 " Mapping selecting mappings
 nmap <Leader><Tab> <Plug>(fzf-maps-n)
+imap <Leader><Tab> <Plug>(fzf-maps-i)
 xmap <Leader><Tab> <Plug>(fzf-maps-x)
 omap <Leader><Tab> <Plug>(fzf-maps-o)
 
@@ -601,6 +602,7 @@ imap <C-x><C-j> <Plug>(fzf-complete-file-ag)
 imap <C-x><C-l> <Plug>(fzf-complete-line)
 
 command! -bar -bang Helptags call fzf#vim#helptags(<bang>0)
+command! -bang -nargs=+ -complete=dir LLocate call fzf#vim#locate(<q-args>, <bang>0)
 
 let g:rg_command = '
     \ rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --color "always"
@@ -655,6 +657,7 @@ nnoremap <Leader>fl :BLines<CR>
 nnoremap <Leader>fL :Lines<CR>
 nnoremap <Leader>fm :Mru<CR>
 nnoremap <Leader>fM :Maps<CR>
+nnoremap <Leader>fo :execute 'LLocate ' . input('Locate: ')<CR>
 nnoremap <Leader>fr :execute 'Rg ' . input('Rg: ')<CR>
 nnoremap <Leader>ft :BTags<CR>
 nnoremap <Leader>fT :Tags<CR>
