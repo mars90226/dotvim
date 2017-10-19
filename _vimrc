@@ -1471,6 +1471,9 @@ imap <M-o> <C-o>o
 imap <M-S-o> <C-o>O
 " }}}
 
+" Save
+nnoremap <C-s> :update<CR>
+
 " Quit
 nnoremap <Space>q :q<CR>
 nnoremap <Space>Q :qa!<CR>
