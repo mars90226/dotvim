@@ -600,6 +600,7 @@ imap <C-x><C-k> <Plug>(fzf-complete-word)
 imap <C-x><C-f> <Plug>(fzf-complete-path)
 imap <C-x><C-j> <Plug>(fzf-complete-file-ag)
 imap <C-x><C-l> <Plug>(fzf-complete-line)
+inoremap <expr> <C-x><C-d> fzf#vim#complete#path('fd -t d')
 
 command! -bar -bang Helptags call fzf#vim#helptags(<bang>0)
 command! -bang -nargs=+ -complete=dir LLocate call fzf#vim#locate(<q-args>, <bang>0)
@@ -1331,6 +1332,10 @@ else
 endif
 set t_Co=256
 set foldlevelstart=99
+
+" Complete
+set dictionary=/usr/share/dict/words
+
 " }}}
 
 " Indention {{{
@@ -1606,7 +1611,7 @@ augroup fileTypeSpecific
   autocmd BufNewFile,BufReadPost *.gdbinit            set filetype=gdb
 
   " gitcommit
-  autocmd FileType gitcommit setlocal spell
+  autocmd FileType gitcommit setlocal spell complete+=k
 
   " Custom filetype
   autocmd BufNewFile,BufReadPost *maillog*            set filetype=messages
