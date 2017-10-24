@@ -924,9 +924,10 @@ augroup END
 if !s:is_disabled_plugin('syntastic')
   Plug 'vim-syntastic/syntastic'
 
-  set statusline+=%#warningmsg#
-  set statusline+=%{SyntasticStatuslineFlag()}
-  set statusline+=%*
+  " Automatically setup by airline
+  "set statusline+=%#warningmsg#
+  "set statusline+=%{SyntasticStatuslineFlag()}
+  "set statusline+=%*
 
   let g:syntastic_always_populate_loc_list = 1
   let g:syntastic_auto_loc_list            = 2
