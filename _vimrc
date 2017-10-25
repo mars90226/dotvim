@@ -1463,7 +1463,7 @@ map <C-w><Space>< <C-w>10<
 map <C-w><Space>> <C-w>10>
 
 " Add mapping to delete in insert mode
-inoremap <C-b> <Right><BS>
+inoremap <C-b> <Del>
 
 " Create new line in insert mode {{{
 " Fix meta key in vim
