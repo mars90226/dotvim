@@ -1563,10 +1563,12 @@ command! TrimWhitespace call TrimWhitespace()
 " ====================================================================
 " xterm-256 in Windows {{{
 if !has("gui_running") && s:os =~ "windows"
-    set term=xterm
-    let &t_AB="\e[48;5;%dm"
-    let &t_AF="\e[38;5;%dm"
-    colorscheme seoul256
+  set term=xterm
+  set mouse=a
+  set t_Co=256
+  let &t_AB="\e[48;5;%dm"
+  let &t_AF="\e[38;5;%dm"
+  colorscheme seoul256
 endif
 " }}}
 
@@ -1658,4 +1660,11 @@ if s:os =~ "synology"
 endif
 " }}}
 
+" Backspace in ConEmu will translate to 0x07F when using xterm
+" https://conemu.github.io/en/VimXterm.html
+" https://github.com/Maximus5/ConEmu/issues/641
+if !empty($ConEmuBuild)
+  let &t_kb = nr2char(127)
+  let &t_kD = "^[[3~"
+endif
 " vim: set sw=2 ts=2 sts=2 et foldlevel=0 foldmethod=marker:
