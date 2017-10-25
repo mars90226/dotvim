@@ -1566,6 +1566,7 @@ if !has("gui_running") && s:os =~ "windows"
     set term=xterm
     let &t_AB="\e[48;5;%dm"
     let &t_AF="\e[38;5;%dm"
+    colorscheme seoul256
 endif
 " }}}
 
