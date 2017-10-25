@@ -952,7 +952,7 @@ if !s:is_disabled_plugin('ale')
 end
 " }}}
 
-Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
+Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'moll/vim-node'
 Plug 'tpope/vim-rails'
 Plug 'etaoins/vim-volt-syntax'
