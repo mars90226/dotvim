@@ -957,6 +957,7 @@ Plug 'moll/vim-node'
 Plug 'tpope/vim-rails'
 Plug 'etaoins/vim-volt-syntax'
 Plug 'sheerun/vim-polyglot'
+Plug 'scrooloose/vim-slumlord'
 " }}}
 
 " Git {{{
