@@ -409,8 +409,8 @@ nnoremap <Space>uk :execute 'Unite grep:.::' . expand('<cword>') . ' -wrap'<CR>
 nnoremap <Space>uK :execute 'Unite grep:.::' . expand('<cWORD>') . ' -wrap'<CR>
 nnoremap <Space>u8 :execute 'Unite grep:.::\\b' . expand('<cword>') . '\\b -wrap'<CR>
 nnoremap <Space>u* :execute 'Unite grep:.::\\b' . expand('<cWORD>') . '\\b -wrap'<CR>
-vnoremap <Space>uk :<C-u>execute 'Unite grep:.::' . <SID>get_visual_selection() . ' -wrap'<CR>
-vnoremap <Space>u8 :<C-u>execute 'Unite grep:.::\\b' . <SID>get_visual_selection() . '\\b -wrap'<CR>
+vnoremap <Space>uk :<C-u>execute 'Unite grep:.::' . <SID>escape_colon_and_backslash(<SID>get_visual_selection()) . ' -wrap'<CR>
+vnoremap <Space>u8 :<C-u>execute 'Unite grep:.::\\b' . <SID>escape_colon_and_backslash(<SID>get_visual_selection()) . '\\b -wrap'<CR>
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>uo :Unite outline<CR>
 nnoremap <Space>uO :Unite output -start-insert<CR>
@@ -479,6 +479,14 @@ function! s:unite_my_settings() "{{{
   nmap <silent><buffer> ` <Plug>(unite_toggle_mark_current_candidate)
 endfunction "}}}
 
+function! s:escape_colon_and_backslash(expr)
+  let l:expr = a:expr
+  let l:expr = substitute(l:expr, '\\', '\\\\', 'g')
+  let l:expr = substitute(l:expr, ':', '\\:', 'g')
+
+  return l:expr
+endfunction
+
 if executable('rg')
   let g:unite_source_grep_command = 'rg'
   let g:unite_source_grep_default_opts = '--hidden --no-heading --vimgrep -S'
@@ -500,8 +508,8 @@ if !s:is_disabled_plugin('denite.nvim')
   nnoremap <Space>dK :execute 'Denite grep:.::' . expand('<cWORD>')<CR>
   nnoremap <Space>d8 :execute 'Denite grep:.::\\b' . expand('<cword>') . '\\b'<CR>
   nnoremap <Space>d* :execute 'Denite grep:.::\\b' . expand('<cWORD>') . '\\b'<CR>
-  vnoremap <Space>dk :<C-u>execute 'Denite grep:.::' . <SID>get_visual_selection()<CR>
-  vnoremap <Space>d8 :<C-u>execute 'Denite grep:.::\\b' . <SID>get_visual_selection() . '\\b'<CR>
+  vnoremap <Space>dk :<C-u>execute 'Denite grep:.::' . <SID>escape_colon_and_backslash(<SID>get_visual_selection())<CR>
+  vnoremap <Space>d8 :<C-u>execute 'Denite grep:.::\\b' . <SID>escape_colon_and_backslash(<SID>get_visual_selection()) . '\\b'<CR>
   nnoremap <Space>dl :Denite line<CR>
   nnoremap <Space>dm :Denite file_mru<CR>
   nnoremap <Space>do :Denite outline<CR>
