@@ -1666,5 +1666,8 @@ endif
 if !empty($ConEmuBuild)
   let &t_kb = nr2char(127)
   let &t_kD = "^[[3~"
+
+  " Disable Background Color Erase
+  set t_ut=
 endif
 " vim: set sw=2 ts=2 sts=2 et foldlevel=0 foldmethod=marker:
