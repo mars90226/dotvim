@@ -503,6 +503,7 @@ if !s:is_disabled_plugin('denite.nvim')
   nnoremap <Space>db :DeniteBufferDir -buffer-name=files buffer file<CR>
   nnoremap <Space>dc :Denite change<CR>
   nnoremap <Space>dd :Denite directory_rec<CR>
+  nnoremap <Space>dD :Denite directory_mru<CR>
   nnoremap <Space>dj :Denite jump<CR>
   nnoremap <Space>dk :execute 'Denite grep:.::' . expand('<cword>')<CR>
   nnoremap <Space>dK :execute 'Denite grep:.::' . expand('<cWORD>')<CR>
