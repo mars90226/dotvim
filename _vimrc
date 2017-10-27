@@ -1498,6 +1498,9 @@ nmap <Leader>x :!start cmd /c "%:p"<CR>
 nmap <Leader>X :!start cmd /K cd /D %:p:h<CR>
 nmap <Leader>E :execute '!start explorer "' . expand("%:p:h:gs?\\??:gs?/?\\?") . '"'<CR>
 
+" Easier file status
+nnoremap <Space><C-g> 2<C-g>
+
 " Custom function {{{
 nnoremap <F6> :call ToggleIndentBetweenTabAndSpace()<CR>
 function! ToggleIndentBetweenTabAndSpace()
