@@ -380,8 +380,7 @@ Plug 'Shougo/unite-help'
 
 let g:unite_source_history_yank_enable = 1
 nnoremap <Space>l :Unite -start-insert line<CR>
-nnoremap <Space>p :Unite
-        \ -buffer-name=files buffer bookmark file<CR>
+nnoremap <Space>p :Unite -buffer-name=files buffer bookmark file<CR>
 if has("nvim")
   nnoremap <Space>P :Unite -start-insert file_rec/neovim<CR>
 else
@@ -394,10 +393,8 @@ nnoremap <Space>m :Unite file_mru<CR>
 nnoremap <Space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 nnoremap <Space>a :execute 'Unite anzu:' . input ('anzu: ')<CR>
 nnoremap <Space>ua :Unite apropos -start-insert<CR>
-nnoremap <Space>ub :UniteWithBufferDir
-        \ -buffer-name=files -prompt=%\  buffer bookmark file<CR>
-nnoremap <Space>uc :UniteWithCurrentDir
-        \ -buffer-name=files buffer bookmark file<CR>
+nnoremap <Space>ub :UniteWithBufferDir -buffer-name=files -prompt=%\  buffer bookmark file<CR>
+nnoremap <Space>uc :UniteWithCurrentDir -buffer-name=files buffer bookmark file<CR>
 nnoremap <Space>uC :Unite change<CR>
 nnoremap <Space>ud :Unite directory<CR>
 nnoremap <Space>uD :UniteWithBufferDir directory<CR>
@@ -414,14 +411,11 @@ vnoremap <Space>u8 :<C-u>execute 'Unite grep:.::\\b' . <SID>escape_colon_and_bac
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>uo :Unite outline<CR>
 nnoremap <Space>uO :Unite output -start-insert<CR>
-nnoremap <Space>up :UniteWithProjectDir
-        \ -buffer-name=files -prompt=&\  buffer bookmark file<CR>
-nnoremap <Space>ur :Unite
-        \ -buffer-name=register register<CR>
+nnoremap <Space>up :UniteWithProjectDir -buffer-name=files -prompt=&\  buffer bookmark file<CR>
+nnoremap <Space>ur :Unite -buffer-name=register register<CR>
 nnoremap <Space>us :Unite -quick-match tab<CR>
 nnoremap <Space>uu :UniteResume<CR>
-nnoremap <Space>uU :Unite
-        \ -buffer-name=resume resume<CR>
+nnoremap <Space>uU :Unite -buffer-name=resume resume<CR>
 nnoremap <Space>uma :Unite mapping<CR>
 nnoremap <Space>ume :Unite output:message<CR>
 
@@ -766,18 +760,8 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 " Search within visual selection
-if !has("nvim") && s:os !~ "windows"
-  set <M-/>=/
-  set <M-?>=?
-endif
 vmap <M-/> <Esc><Plug>(incsearch-forward)\%V
 vmap <M-?> <Esc><Plug>(incsearch-backward)\%V
-if s:os =~ "windows"
-  set encoding& " make sure mapping is correct in default encoding
-  vmap <M-/> <Esc><Plug>(incsearch-forward)\%V
-  vmap <M-?> <Esc><Plug>(incsearch-backward)\%V
-  set encoding=utf8
-endif
 " }}}
 
 " incsearch-fuzzy {{{
@@ -1385,58 +1369,21 @@ Arpeggio inoremap jk <Esc>
 nnoremap <Space><C-z> :suspend<CR>
 
 " Quickly switch window {{{
-" Fix meta key in vim
-if !has("nvim") && s:os !~ "windows"
-  set <M-h>=h
-  set <M-j>=j
-  set <M-k>=k
-  set <M-l>=l
-endif
-
-" Pair up with 'set winaltkeys=no' in _gvimrc
-nmap <M-h> <C-w>h
-nmap <M-j> <C-w>j
-nmap <M-k> <C-w>k
-nmap <M-l> <C-w>l
-if s:os =~ "windows"
-  set encoding& " make sure mapping is correct in default encoding
-  nmap <M-h> <C-w>h
-  nmap <M-j> <C-w>j
-  nmap <M-k> <C-w>k
-  nmap <M-l> <C-w>l
-  set encoding=utf8
-endif
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
 
 " Move in insert mode
-imap <M-h> <Left>
-imap <M-j> <Down>
-imap <M-k> <Up>
-imap <M-l> <Right>
-if s:os =~ "windows"
-  set encoding& " make sure mapping is correct in default encoding
-  imap <M-h> <Left>
-  imap <M-j> <Down>
-  imap <M-k> <Up>
-  imap <M-l> <Right>
-  set encoding=utf8
-endif
+inoremap <M-h> <Left>
+inoremap <M-j> <Down>
+inoremap <M-k> <Up>
+inoremap <M-l> <Right>
 " }}}
 
 " Saner command-line history {{{
-" Fix meta key in vim
-if !has("nvim") && s:os !~ "windows"
-  set <M-n>=n
-  set <M-p>=p
-endif
-
 cnoremap <M-n> <Down>
 cnoremap <M-p> <Up>
-if s:os =~ "windows"
-  set encoding& " make sure mapping is correct in default encoding
-  cnoremap <M-n> <Down>
-  cnoremap <M-p> <Up>
-  set encoding=utf8
-endif
 " }}}
 
 " Tab key mapping {{{
@@ -1466,23 +1413,17 @@ endfunction
 " }}}
 
 " Quickly adjust window size
-map <C-w><Space>- <C-w>10-
-map <C-w><Space>+ <C-w>10+
-map <C-w><Space>< <C-w>10<
-map <C-w><Space>> <C-w>10>
+nnoremap <C-w><Space>- <C-w>10-
+nnoremap <C-w><Space>+ <C-w>10+
+nnoremap <C-w><Space>< <C-w>10<
+nnoremap <C-w><Space>> <C-w>10>
 
 " Add mapping to delete in insert mode
 inoremap <C-b> <Del>
 
 " Create new line in insert mode {{{
-" Fix meta key in vim
-if !has("nvim") && s:os !~ "windows"
-  set <M-o>=o
-  set <M-S-o>=O
-endif
-
-imap <M-o> <C-o>o
-imap <M-S-o> <C-o>O
+inoremap <M-o> <C-o>o
+inoremap <M-S-o> <C-o>O
 " }}}
 
 " Save
@@ -1493,10 +1434,13 @@ nnoremap <Space>q :q<CR>
 nnoremap <Space>Q :qa!<CR>
 
 " Win32
-"nmap <Leader>x :execute ':! "'.expand('%').'"'<CR>
-nmap <Leader>x :!start cmd /c "%:p"<CR>
-nmap <Leader>X :!start cmd /K cd /D %:p:h<CR>
-nmap <Leader>E :execute '!start explorer "' . expand("%:p:h:gs?\\??:gs?/?\\?") . '"'<CR>
+"nnoremap <Leader>x :execute ':! "'.expand('%').'"'<CR>
+nnoremap <Leader>x :!start cmd /c "%:p"<CR>
+nnoremap <Leader>X :!start cmd /K cd /D %:p:h<CR>
+nnoremap <Leader>E :execute '!start explorer "' . expand("%:p:h:gs?\\??:gs?/?\\?") . '"'<CR>
+
+" Easier file status
+nnoremap <Space><C-g> 2<C-g>
 
 " Easier file status
 nnoremap <Space><C-g> 2<C-g>
@@ -1527,15 +1471,7 @@ function! ToggleFoldBetweenManualAndSyntax()
 endfunction
 
 let g:last_tab = 1
-if !has("nvim") && s:os !~ "windows"
-  set <M-1>=1
-endif
 nmap <M-1> :execute "tabn " . g:last_tab<CR>
-if s:os =~ "windows"
-  set encoding& " make sure mapping is correct in default encoding
-  nmap <M-1> :execute "tabn " . g:last_tab<CR>
-  set encoding=utf8
-endif
 au TabLeave * let g:last_tab = tabpagenr()
 " }}}
 
@@ -1575,12 +1511,32 @@ command! TrimWhitespace call TrimWhitespace()
 " ====================================================================
 " xterm-256 in Windows {{{
 if !has("gui_running") && s:os =~ "windows"
-  set term=xterm
+  if !has("nvim")
+    set term=xterm
+  endif
   set mouse=a
   set t_Co=256
   let &t_AB="\e[48;5;%dm"
   let &t_AF="\e[38;5;%dm"
   colorscheme seoul256
+endif
+" }}}
+
+" Pair up with 'set winaltkeys=no' in _gvimrc
+" Fix meta key in vim
+" terminal meta key fix {{{
+if !has("nvim") && !has("gui_running") && s:os !~ "windows"
+  set <M-h>=h |
+  set <M-j>=j |
+  set <M-k>=k |
+  set <M-l>=l |
+  set <M-o>=o |
+  set <M-p>=p |
+  set <M-n>=n |
+  set <M-/>=/ |
+  set <M-?>=? |
+  set <M-1>=1 |
+  set <M-S-o>=O
 endif
 " }}}
 
@@ -1648,6 +1604,27 @@ augroup quickfixSettings
         \ map <buffer> <silent> <F4> :close<CR> |
         \ map <buffer> <silent> <F8> :close<CR>
 augroup END
+
+if s:os =~ "windows" && !has("gui_running")
+  " Windows Terminal keycode will change after startup
+  " Maybe it's related to ConEmu
+  " This fix will not work after reload .vimrc/_vimrc
+  augroup WindowsTerminalKeyFix
+    autocmd!
+    autocmd VimEnter *
+          \ set <M-h>=h |
+          \ set <M-j>=j |
+          \ set <M-k>=k |
+          \ set <M-l>=l |
+          \ set <M-o>=o |
+          \ set <M-p>=p |
+          \ set <M-n>=n |
+          \ set <M-/>=/ |
+          \ set <M-?>=? |
+          \ set <M-1>=1 |
+          \ set <M-S-o>=O
+  augroup END
+endif
 
 if has("nvim")
   augroup terminalSettings
