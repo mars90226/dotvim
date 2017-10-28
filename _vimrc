@@ -377,6 +377,8 @@ Plug 'Shougo/vinarise.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/neoyank.vim'
 Plug 'Shougo/unite-help'
+Plug 'thinca/vim-unite-history'
+Plug 'hewes/unite-gtags'
 
 let g:unite_source_history_yank_enable = 1
 nnoremap <Space>l :Unite -start-insert line<CR>
@@ -401,6 +403,13 @@ nnoremap <Space>uD :UniteWithBufferDir directory<CR>
 nnoremap <Space>u<C-d> :execute 'Unite directory:' . input('dir: ')<CR>
 nnoremap <Space>uf :Unite function -start-insert<CR>
 nnoremap <Space>uh :Unite help<CR>
+nnoremap <Space>ugc :Unite gtags/context<CR>
+nnoremap <Space>ugd :Unite gtags/def<CR>
+nnoremap <Space>ugf :Unite gtags/file<CR>
+nnoremap <Space>ugg :Unite gtags/grep<CR>
+nnoremap <Space>ugp :Unite gtags/path<CR>
+nnoremap <Space>ugr :Unite gtags/ref<CR>
+nnoremap <Space>ugx :Unite gtags/completion<CR>
 nnoremap <Space>uj :Unite jump -start-insert<CR>
 nnoremap <Space>uk :execute 'Unite grep:.::' . expand('<cword>') . ' -wrap'<CR>
 nnoremap <Space>uK :execute 'Unite grep:.::' . expand('<cWORD>') . ' -wrap'<CR>
@@ -416,8 +425,12 @@ nnoremap <Space>ur :Unite -buffer-name=register register<CR>
 nnoremap <Space>us :Unite -quick-match tab<CR>
 nnoremap <Space>uu :UniteResume<CR>
 nnoremap <Space>uU :Unite -buffer-name=resume resume<CR>
+nnoremap <Space>uw :Unite window<CR>
 nnoremap <Space>uma :Unite mapping<CR>
 nnoremap <Space>ume :Unite output:message<CR>
+nnoremap <Space>u: :Unite history/command<CR>
+nnoremap <Space>u; :Unite command<CR>
+nnoremap <Space>u/ :Unite history/search<CR>
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings() "{{{
@@ -498,6 +511,7 @@ if !s:is_disabled_plugin('denite.nvim')
   nnoremap <Space>dc :Denite change<CR>
   nnoremap <Space>dd :Denite directory_rec<CR>
   nnoremap <Space>dD :Denite directory_mru<CR>
+  nnoremap <Space>dh :Denite help<CR>
   nnoremap <Space>dj :Denite jump<CR>
   nnoremap <Space>dk :execute 'Denite grep:.::' . expand('<cword>')<CR>
   nnoremap <Space>dK :execute 'Denite grep:.::' . expand('<cWORD>')<CR>
