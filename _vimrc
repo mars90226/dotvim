@@ -477,9 +477,9 @@ function! s:unite_my_settings() "{{{
   imap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
   nmap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
 
-  " Runs "persist_open" action by P.
-  imap <silent><buffer><expr> P         unite#do_action('persist_open')
-  nmap <silent><buffer><expr> P         unite#do_action('persist_open')
+  " Runs "persist_open" action by <C-]>.
+  imap <silent><buffer><expr> <C-]>     unite#do_action('persist_open')
+  nmap <silent><buffer><expr> <C-]>     unite#do_action('persist_open')
 
   " Unmap <Space>, use ` instead
   silent! nunmap <buffer> <Space>
@@ -1013,8 +1013,8 @@ let g:fugitive_gitlab_domains = ['https://git.synology.com']
 " vim-gitgutter {{{
 Plug 'airblade/vim-gitgutter'
 
-nnoremap <silent> ]h :<C-u>execute v:count1 . "GitGutterNextHunk"<CR>
-nnoremap <silent> [h :<C-u>execute v:count1 . "GitGutterPrevHunk"<CR>
+nmap <silent> [h <Plug>GitGutterPrevHunk
+nmap <silent> ]h <Plug>GitGutterNextHunk
 nnoremap <silent> <Leader>gu :GitGutterRevertHunk<CR>
 nnoremap <silent> <Leader>gp :GitGutterPreviewHunk<CR><c-w>j
 nnoremap cog :GitGutterToggle<CR>
