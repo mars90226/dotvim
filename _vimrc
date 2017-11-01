@@ -403,6 +403,7 @@ nnoremap <Space>uD :UniteWithBufferDir directory<CR>
 nnoremap <Space>u<C-d> :execute 'Unite directory:' . input('dir: ')<CR>
 nnoremap <Space>uf :Unite function -start-insert<CR>
 nnoremap <Space>uh :Unite help<CR>
+nnoremap <Space>uH :Unite history/unite<CR>
 nnoremap <Space>ugc :Unite gtags/context<CR>
 nnoremap <Space>ugd :Unite gtags/def<CR>
 nnoremap <Space>ugf :Unite gtags/file<CR>
