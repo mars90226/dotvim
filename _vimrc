@@ -945,8 +945,19 @@ if !s:is_disabled_plugin('syntastic')
   let g:syntastic_c_checkers    = ['gcc']
   let g:syntastic_cpp_checkers  = ['gcc']
 
-  let g:syntastic_ignore_files = ['\m^/usr/include/', '\m\c\.h$']
+  let g:syntastic_ignore_files = ['\m^/usr/include/', '\m^/synosrc/packages/build_env/', '\m\c\.h$']
   nnoremap <Space><F8> :SyntasticCheck<CR>
+  command! -bar SyntasticCheckHeader call <SID>SyntasticCheckHeader()
+  function! s:SyntasticCheckHeader()
+    let header_pattern_index = index(g:syntastic_ignore_files, '\m\c\.h$')
+    if header_pattern_index >= 0
+      call remove(g:syntastic_ignore_files, header_pattern_index)
+    endif
+
+    let g:syntastic_c_check_header = 1
+    let g:syntastic_cpp_check_header = 1
+    SyntasticCheck
+  endfunction
 end
 " }}}
 
