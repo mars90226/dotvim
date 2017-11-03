@@ -379,6 +379,7 @@ Plug 'Shougo/neoyank.vim'
 Plug 'Shougo/unite-help'
 Plug 'thinca/vim-unite-history'
 Plug 'hewes/unite-gtags'
+Plug 'osyo-manga/unite-quickfix'
 
 let g:unite_source_history_yank_enable = 1
 nnoremap <Space>l :Unite -start-insert line<CR>
@@ -419,9 +420,11 @@ nnoremap <Space>u* :execute 'Unite grep:.::\\b' . expand('<cWORD>') . '\\b -wrap
 vnoremap <Space>uk :<C-u>execute 'Unite grep:.::' . <SID>escape_colon_and_backslash(<SID>get_visual_selection()) . ' -wrap'<CR>
 vnoremap <Space>u8 :<C-u>execute 'Unite grep:.::\\b' . <SID>escape_colon_and_backslash(<SID>get_visual_selection()) . '\\b -wrap'<CR>
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
+nnoremap <Space>uL :Unite location_list<CR>
 nnoremap <Space>uo :Unite outline<CR>
 nnoremap <Space>uO :Unite output -start-insert<CR>
 nnoremap <Space>up :UniteWithProjectDir -buffer-name=files -prompt=&\  buffer bookmark file<CR>
+nnoremap <Space>uq :Unite quickfix<CR>
 nnoremap <Space>ur :Unite -buffer-name=register register<CR>
 nnoremap <Space>us :Unite -quick-match tab<CR>
 nnoremap <Space>uu :UniteResume<CR>
