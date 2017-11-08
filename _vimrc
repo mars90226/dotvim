@@ -292,8 +292,8 @@ nnoremap <F8> :TagbarToggle<CR>
 let g:tagbar_map_showproto = '<Leader><Space>'
 let g:tagbar_expand = 1
 let g:tagbar_type_go = {
-      \ 'ctagstype' : 'go',
-      \ 'kinds'     : [
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
       \ 'p:package',
       \ 'i:imports:1',
       \ 'c:constants',
@@ -305,19 +305,27 @@ let g:tagbar_type_go = {
       \ 'm:methods',
       \ 'r:constructor',
       \ 'f:functions'
-      \ ],
-      \ 'sro' : '.',
-      \ 'kind2scope' : {
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
       \ 't' : 'ctype',
       \ 'n' : 'ntype'
-      \ },
-      \ 'scope2kind' : {
+    \ },
+    \ 'scope2kind' : {
       \ 'ctype' : 't',
       \ 'ntype' : 'n'
-      \ },
-      \ 'ctagsbin'  : 'gotags',
-      \ 'ctagsargs' : '-sort -silent'
-      \ }
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+    \ }
+let g:tagbar_type_ps1 = {
+    \ 'ctagstype' : 'powershell',
+    \ 'kinds'     : [
+      \ 'f:function',
+      \ 'i:filter',
+      \ 'a:alias'
+    \ ]
+    \ }
 " }}}
 
 " vim-rtags {{{
