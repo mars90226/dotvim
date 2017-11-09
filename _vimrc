@@ -353,9 +353,6 @@ function! s:vimfiler_my_settings()
   " Runs "choose" action by <C-c>.
   nmap <silent><buffer><expr> <C-c>     vimfiler#do_action('choose')
 
-  " Fix backspace not work problem
-  nmap <silent><buffer>       <C-h>     <Plug>(vimfiler_switch_to_parent_directory)
-
   " Toggle no_quit with <C-n>
   nmap <silent><buffer>       <C-n>     :let b:vimfiler.context.quit = !b:vimfiler.context.quit<CR>
 
