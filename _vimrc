@@ -204,6 +204,22 @@ if !s:is_disabled_plugin('deoplete.nvim')
 
   let g:deoplete#sources#rust#racer_binary = $HOME."/.cargo/bin/racer"
   let g:deoplete#sources#rust#rust_source_path = $HOME."/rust/src"
+
+  " <Tab>: completion.
+  inoremap <silent><expr> <Tab>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<Tab>" :
+        \ deoplete#manual_complete()
+  function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1] =~ '\s'
+  endfunction "}}}
+
+  " <S-Tab>: completion back.
+  inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+  inoremap <expr><C-g><C-g> deoplete#refresh()
+  inoremap <silent><expr><C-l> deoplete#complete_common_string()
 endif
 " }}}
 
@@ -227,17 +243,9 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
 " Plugin key-mappings.
-imap <C-l> <Plug>(neosnippet_expand_or_jump)
-smap <C-l> <Plug>(neosnippet_expand_or_jump)
-xmap <C-l> <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-imap <expr><Tab> neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-      \: pumvisible() ? "\<C-n>" : "\<Tab>"
-smap <expr><Tab> neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-      \: "\<Tab>"
+imap <C-j> <Plug>(neosnippet_expand_or_jump)
+smap <C-j> <Plug>(neosnippet_expand_or_jump)
+xmap <C-j> <Plug>(neosnippet_expand_target)
 
 " For snippet_complete marker.
 if has('conceal')
