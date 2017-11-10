@@ -461,7 +461,6 @@ function! s:unite_my_settings() "{{{
   "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
 
   imap <buffer><expr> j unite#smart_map('j', '')
-  imap <buffer> <Tab>   <Plug>(unite_select_next_line)
   imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
   imap <buffer> '     <Plug>(unite_quick_match_default_action)
   nmap <buffer> '     <Plug>(unite_quick_match_default_action)
@@ -477,6 +476,10 @@ function! s:unite_my_settings() "{{{
   imap <buffer> <C-r><C-r>     <Plug>(unite_narrowing_input_history)
   nnoremap <silent><buffer><expr> l
         \ unite#smart_map('l', unite#do_action('default'))
+
+  " Move cursor in insert mode
+  imap <buffer> <C-j>     <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>     <Plug>(unite_select_previous_line)
 
   let unite = unite#get_current_unite()
   if unite.profile_name ==# 'search'
