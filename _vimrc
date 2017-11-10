@@ -1599,8 +1599,8 @@ if has("nvim")
   nnoremap <silent> <Leader>ts :new<CR>:terminal<CR>i
   nnoremap <silent> <Leader>tv :vnew<CR>:terminal<CR>i
 
-  tnoremap <Space><F1> <C-\><C-n>
-  tnoremap <Space><F2> <C-\><C-n>:tabnew<CR>:terminal<CR>i
+  tnoremap <M-F1> <C-\><C-n>
+  tnoremap <M-F2> <C-\><C-n>:tabnew<CR>:terminal<CR>i
 
   " Quickly switch window in terminal
   tnoremap <M-S-h> <C-\><C-n><C-w>h
