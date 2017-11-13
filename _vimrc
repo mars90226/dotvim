@@ -1595,7 +1595,7 @@ endif
 " neovim terminal key mapping
 if has("nvim")
   " For quick terminal access
-  nnoremap <silent> <Leader>tT :tabnew<CR>:terminal<CR>i
+  nnoremap <silent> <Leader>tt :tabnew<CR>:terminal<CR>i
   nnoremap <silent> <Leader>ts :new<CR>:terminal<CR>i
   nnoremap <silent> <Leader>tv :vnew<CR>:terminal<CR>i
 
