@@ -1681,7 +1681,8 @@ endif
 if has("nvim")
   augroup terminalSettings
     autocmd!
-    autocmd WinEnter term://* startinsert
+    autocmd BufWinEnter,WinEnter term://* startinsert
+    autocmd BufLeave term://* stopinsert
     autocmd TermClose term://* call nvim_input('<CR>')
   augroup END
 endif
