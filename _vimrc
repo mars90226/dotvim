@@ -1133,17 +1133,17 @@ nnoremap <Leader>R :Rooter<CR>
 " }}}
 
 " vimwiki {{{
-Plug 'vimwiki/vimwiki', { 'for': 'vimwiki' }
+Plug 'vimwiki/vimwiki'
 
 nnoremap <Leader>wg :VimwikiToggleListItem<CR>
 " }}}
 
 " orgmode {{{
-Plug 'jceb/vim-orgmode', { 'for': 'org' }
+Plug 'jceb/vim-orgmode'
 " }}}
 
 " vimoutliner {{{
-Plug 'vimoutliner/vimoutliner', { 'for': 'votl' }
+Plug 'vimoutliner/vimoutliner'
 " }}}
 
 " AnsiEsc.vim {{{
