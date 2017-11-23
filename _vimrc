@@ -474,6 +474,7 @@ function! s:unite_my_settings() "{{{
   nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
   nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
   imap <buffer> <C-r><C-r>     <Plug>(unite_narrowing_input_history)
+  imap <buffer> <C-x><C-x>     <Plug>(unite_complete)
   nnoremap <silent><buffer><expr> l
         \ unite#smart_map('l', unite#do_action('default'))
 
