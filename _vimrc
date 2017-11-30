@@ -1188,6 +1188,7 @@ Plug 'vim-scripts/dbext.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'tpope/vim-abolish'
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }
+Plug 'AndrewRadev/linediff.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'alx741/vinfo', { 'on': 'Vinfo' }
