@@ -896,12 +896,8 @@ Plug 'vim-scripts/eraseSubword'
 let g:EraseSubword_insertMap = '<C-e><C-e>'
 " }}}
 
-" NERDCommenter {{{
-Plug 'scrooloose/nerdcommenter'
-
-let g:NERDCustomDelimiters = {
-  \ 'pfmain': { 'left': '#' }
-  \ }
+" tcomment_vim {{{
+Plug 'tomtom/tcomment_vim'
 " }}}
 
 Plug 'editorconfig/editorconfig-vim'
