@@ -743,8 +743,8 @@ let g:EasyMotion_smartcase = 1
 
 map ; <Plug>(easymotion-s2)
 
-map <Space><Space>w <Plug>(easymotion-bd-wl)
-map <Space><Space>f <Plug>(easymotion-bd-fl)
+map <Leader><Leader>w <Plug>(easymotion-bd-wl)
+map <Leader><Leader>f <Plug>(easymotion-bd-fl)
 
 map <Plug>(easymotion-prefix)f <Plug>(easymotion-bd-f)
 map <Plug>(easymotion-prefix)s <Plug>(easymotion-bd-f2)
