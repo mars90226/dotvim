@@ -1396,7 +1396,7 @@ set pastetoggle=<F10>
 
 " Search {{{
 " ====================================================================
-set nohlsearch
+set hlsearch
 set ignorecase
 set incsearch
 set smartcase
