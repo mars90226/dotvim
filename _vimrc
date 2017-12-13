@@ -1256,6 +1256,18 @@ if !s:is_disabled_plugin('denite.nvim')
         \ 'noremap'
         \)
   call denite#custom#map(
+        \ 'insert',
+        \ '<A-j>',
+        \ '<denite:scroll_page_forwards>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
+        \ 'insert',
+        \ '<A-k>',
+        \ '<denite:scroll_page_backwards>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
         \ 'normal',
         \ '<C-s>',
         \ '<denite:do_action:split>',
@@ -1265,6 +1277,30 @@ if !s:is_disabled_plugin('denite.nvim')
         \ 'normal',
         \ '<C-v>',
         \ '<denite:do_action:vsplit>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
+        \ 'normal',
+        \ '<A-h>',
+        \ '<denite:wincmd:h>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
+        \ 'normal',
+        \ '<A-j>',
+        \ '<denite:wincmd:j>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
+        \ 'normal',
+        \ '<A-k>',
+        \ '<denite:wincmd:k>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
+        \ 'normal',
+        \ '<A-l>',
+        \ '<denite:wincmd:l>',
         \ 'noremap'
         \)
 
