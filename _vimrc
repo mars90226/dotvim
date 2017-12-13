@@ -1250,6 +1250,12 @@ if !s:is_disabled_plugin('denite.nvim')
         \ 'noremap'
         \)
   call denite#custom#map(
+        \ 'insert',
+        \ '<A-p>',
+        \ '<denite:do_action:preview>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
         \ 'normal',
         \ '<C-s>',
         \ '<denite:do_action:split>',
