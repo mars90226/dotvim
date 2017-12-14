@@ -1634,8 +1634,11 @@ if !has("nvim") && !has("gui_running") && s:os !~ "windows"
 endif
 " }}}
 
-" neovim terminal key mapping
+" neovim terminal key mapping and settings
 if has("nvim")
+  " Set terminal buffer size to unlimited
+  set scrollback=-1
+
   " For quick terminal access
   nnoremap <silent> <Leader>tt :tabnew<CR>:terminal<CR>i
   nnoremap <silent> <Leader>ts :new<CR>:terminal<CR>i
