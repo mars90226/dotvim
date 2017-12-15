@@ -11,3 +11,6 @@ tags-ja
 
 # vim-plug folder
 plugged
+
+# old vim-plug file
+autoload/plug.vim.old
