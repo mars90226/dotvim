@@ -1640,6 +1640,7 @@ if has("nvim")
   set scrollback=-1
 
   " For quick terminal access
+  nnoremap <silent> <Leader>tr :terminal<CR>i
   nnoremap <silent> <Leader>tt :tabnew<CR>:terminal<CR>i
   nnoremap <silent> <Leader>ts :new<CR>:terminal<CR>i
   nnoremap <silent> <Leader>tv :vnew<CR>:terminal<CR>i
