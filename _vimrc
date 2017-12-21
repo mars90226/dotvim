@@ -195,15 +195,33 @@ if !s:is_disabled_plugin('deoplete.nvim')
   Plug 'Shougo/neco-syntax'
   Plug 'Shougo/neco-vim'
   Plug 'sebastianmarkow/deoplete-rust', { 'for': ['rust'] }
+  " Disabled for now
+  " Plug 'autozimu/LanguageClient-neovim', {
+  "   \ 'branch': 'next',
+  "   \ 'do': './install.sh'
+  "   \ }
 
   let g:deoplete#enable_at_startup = 1
 
+  " deoplete_clang
   let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-3.8/lib/libclang.so.1"
   let g:deoplete#sources#clang#clang_header = "/usr/lib/llvm-3.8/lib/clang"
+
+  " clang_complete
   "let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
 
+  " deoplete_rust
   let g:deoplete#sources#rust#racer_binary = $HOME."/.cargo/bin/racer"
-  let g:deoplete#sources#rust#rust_source_path = $HOME."/rust/src"
+  let g:deoplete#sources#rust#rust_source_path = "/code/rust/src"
+
+  " LanguageClient-neovim
+  " let g:LanguageClient_serverCommands = {
+  "     \ 'c': ['cquery', '--language-server'],
+  "     \ 'cpp': ['cquery', '--language-server'],
+  "     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+  "     \ }
+  " let g:LanguageClient_loadSettings = 1
+  " let g:LanguageClient_settingsPath = $VIMHOME."/settings.json"
 
   " <Tab>: completion.
   inoremap <silent><expr> <Tab>
