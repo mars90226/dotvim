@@ -1214,6 +1214,7 @@ Plug 'kana/vim-arpeggio'
 Plug 'kopischke/vim-fetch'
 Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-eunuch'
+Plug 'DougBeney/pickachu'
 " }}}
 
 " Plugin Settings End {{{
