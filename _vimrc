@@ -716,6 +716,7 @@ vnoremap <Leader>fk :<C-u>execute 'Rg ' . <SID>get_visual_selection()<CR>
 vnoremap <Leader>f8 :<C-u>execute 'Rg \b' . <SID>get_visual_selection() . '\b'<CR>
 nnoremap <Leader>fl :BLines<CR>
 nnoremap <Leader>fL :Lines<CR>
+nnoremap <Leader>f<C-l> :execute 'BLines ' . expand('<cword>')<CR>
 nnoremap <Leader>fm :Mru<CR>
 nnoremap <Leader>fM :Maps<CR>
 nnoremap <Leader>fo :execute 'LLocate ' . input('Locate: ')<CR>
