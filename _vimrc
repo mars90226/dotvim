@@ -1411,6 +1411,7 @@ if !has("nvim") " neovim has default folders for these files
   set directory^=~/.vimtmp
   if v:version >= 703
     set undodir^=~/.vimtmp
+    set undofile " enable persistent-undo
   endif
 endif
 
