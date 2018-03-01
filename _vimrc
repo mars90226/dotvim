@@ -1150,7 +1150,7 @@ nnoremap <Leader>R :Rooter<CR>
 " }}}
 
 " vimwiki {{{
-Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 nnoremap <Leader>wg :VimwikiToggleListItem<CR>
 " }}}
