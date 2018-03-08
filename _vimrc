@@ -448,10 +448,10 @@ nnoremap <Space>ugp :Unite gtags/path<CR>
 nnoremap <Space>ugr :Unite gtags/ref<CR>
 nnoremap <Space>ugx :Unite gtags/completion<CR>
 nnoremap <Space>uj :Unite jump -start-insert<CR>
-nnoremap <Space>uk :execute 'Unite grep:.::' . expand('<cword>') . ' -wrap'<CR>
-nnoremap <Space>uK :execute 'Unite grep:.::' . expand('<cWORD>') . ' -wrap'<CR>
-nnoremap <Space>u8 :execute 'Unite grep:.::\\b' . expand('<cword>') . '\\b -wrap'<CR>
-nnoremap <Space>u* :execute 'Unite grep:.::\\b' . expand('<cWORD>') . '\\b -wrap'<CR>
+nnoremap <Space>uk :execute 'Unite grep:.::' . <SID>escape_symbol(expand('<cword>')) . ' -wrap'<CR>
+nnoremap <Space>uK :execute 'Unite grep:.::' . <SID>escape_symbol(expand('<cWORD>')) . ' -wrap'<CR>
+nnoremap <Space>u8 :execute 'Unite grep:.::\\b' . <SID>escape_symbol(expand('<cword>')) . '\\b -wrap'<CR>
+nnoremap <Space>u* :execute 'Unite grep:.::\\b' . <SID>escape_symbol(expand('<cWORD>')) . '\\b -wrap'<CR>
 vnoremap <Space>uk :<C-u>execute 'Unite grep:.::' . <SID>escape_symbol(<SID>get_visual_selection()) . ' -wrap'<CR>
 vnoremap <Space>u8 :<C-u>execute 'Unite grep:.::\\b' . <SID>escape_symbol(<SID>get_visual_selection()) . '\\b -wrap'<CR>
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
@@ -559,10 +559,10 @@ if !s:is_disabled_plugin('denite.nvim')
   nnoremap <Space>dD :Denite directory_mru<CR>
   nnoremap <Space>dh :Denite help<CR>
   nnoremap <Space>dj :Denite jump<CR>
-  nnoremap <Space>dk :execute 'Denite grep:.::' . expand('<cword>')<CR>
-  nnoremap <Space>dK :execute 'Denite grep:.::' . expand('<cWORD>')<CR>
-  nnoremap <Space>d8 :execute 'Denite grep:.::\\b' . expand('<cword>') . '\\b'<CR>
-  nnoremap <Space>d* :execute 'Denite grep:.::\\b' . expand('<cWORD>') . '\\b'<CR>
+  nnoremap <Space>dk :execute 'Denite grep:.::' . <SID>escape_symbol(expand('<cword>'))<CR>
+  nnoremap <Space>dK :execute 'Denite grep:.::' . <SID>escape_symbol(expand('<cWORD>'))<CR>
+  nnoremap <Space>d8 :execute 'Denite grep:.::\\b' . <SID>escape_symbol(expand('<cword>')) . '\\b'<CR>
+  nnoremap <Space>d* :execute 'Denite grep:.::\\b' . <SID>escape_symbol(expand('<cWORD>')) . '\\b'<CR>
   vnoremap <Space>dk :<C-u>execute 'Denite grep:.::' . <SID>escape_symbol(<SID>get_visual_selection())<CR>
   vnoremap <Space>d8 :<C-u>execute 'Denite grep:.::\\b' . <SID>escape_symbol(<SID>get_visual_selection()) . '\\b'<CR>
   nnoremap <Space>dl :Denite line<CR>
