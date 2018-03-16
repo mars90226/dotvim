@@ -659,14 +659,15 @@ endfunction
 let g:fzf_action = {
   \ 'ctrl-q': function('s:build_quickfix_list'),
   \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
 " Mapping selecting mappings
-nmap <Leader><Tab> <Plug>(fzf-maps-n)
-imap <Leader><Tab> <Plug>(fzf-maps-i)
-xmap <Leader><Tab> <Plug>(fzf-maps-x)
-omap <Leader><Tab> <Plug>(fzf-maps-o)
+nmap <Space><Tab> <Plug>(fzf-maps-n)
+imap <Space><Tab> <Plug>(fzf-maps-i)
+xmap <Space><Tab> <Plug>(fzf-maps-x)
+omap <Space><Tab> <Plug>(fzf-maps-o)
 
 " Insert mode completion
 imap <C-x><C-k> <Plug>(fzf-complete-word)
@@ -711,39 +712,39 @@ function! s:get_visual_selection()
     return join(lines, "\n")
 endfunction
 
-nnoremap <Leader>fa :execute 'Ag ' . input('Ag: ')<CR>
-nnoremap <Leader>fb :Buffers<CR>
-nnoremap <Leader>fc :BCommits<CR>
-nnoremap <Leader>fC :Commits<CR>
-nnoremap <Leader>ff :Files<CR>
-nnoremap <Leader>fF :Filetypes<CR>
-nnoremap <Leader>fg :GFiles<CR>
-nnoremap <Leader>fG :execute 'GGrep ' . input('Git grep: ')<CR>
-nnoremap <Leader>fh :History<CR>
-nnoremap <Leader>fH :Helptags<CR>
-nnoremap <Leader>fk :execute 'Rg ' . expand('<cword>')<CR>
-nnoremap <Leader>fK :execute 'Rg ' . expand('<cWORD>')<CR>
-nnoremap <Leader>f8 :execute 'Rg \b' . expand('<cword>') . '\b'<CR>
-nnoremap <Leader>f* :execute 'Rg \b' . expand('<cWORD>') . '\b'<CR>
-vnoremap <Leader>fk :<C-u>execute 'Rg ' . <SID>get_visual_selection()<CR>
-vnoremap <Leader>f8 :<C-u>execute 'Rg \b' . <SID>get_visual_selection() . '\b'<CR>
-nnoremap <Leader>fl :BLines<CR>
-nnoremap <Leader>fL :Lines<CR>
-nnoremap <Leader>f<C-l> :execute 'BLines ' . expand('<cword>')<CR>
-nnoremap <Leader>fm :Mru<CR>
-nnoremap <Leader>fM :Maps<CR>
-nnoremap <Leader>fo :execute 'LLocate ' . input('Locate: ')<CR>
-nnoremap <Leader>fr :execute 'Rg ' . input('Rg: ')<CR>
-nnoremap <Leader>ft :BTags<CR>
-nnoremap <Leader>fT :Tags<CR>
-nnoremap <Leader>fw :Windows<CR>
-nnoremap <Leader>f` :Marks<CR>
-nnoremap <Leader>f: :History:<CR>
-vnoremap <Leader>f: :<C-u>History:<CR>
-nnoremap <Leader>f; :Commands<CR>
-vnoremap <Leader>f; :<C-u>Commands<CR>
-nnoremap <Leader>f/ :History/<CR>
-nnoremap <Leader>f] :execute 'Tags ' . expand('<cword>')<CR>
+nnoremap <Space>fa :execute 'Ag ' . input('Ag: ')<CR>
+nnoremap <Space>fb :Buffers<CR>
+nnoremap <Space>fc :BCommits<CR>
+nnoremap <Space>fC :Commits<CR>
+nnoremap <Space>ff :Files<CR>
+nnoremap <Space>fF :Filetypes<CR>
+nnoremap <Space>fg :GFiles<CR>
+nnoremap <Space>fG :execute 'GGrep ' . input('Git grep: ')<CR>
+nnoremap <Space>fh :History<CR>
+nnoremap <Space>fH :Helptags<CR>
+nnoremap <Space>fk :execute 'Rg ' . expand('<cword>')<CR>
+nnoremap <Space>fK :execute 'Rg ' . expand('<cWORD>')<CR>
+nnoremap <Space>f8 :execute 'Rg \b' . expand('<cword>') . '\b'<CR>
+nnoremap <Space>f* :execute 'Rg \b' . expand('<cWORD>') . '\b'<CR>
+vnoremap <Space>fk :<C-u>execute 'Rg ' . <SID>get_visual_selection()<CR>
+vnoremap <Space>f8 :<C-u>execute 'Rg \b' . <SID>get_visual_selection() . '\b'<CR>
+nnoremap <Space>fl :BLines<CR>
+nnoremap <Space>fL :Lines<CR>
+nnoremap <Space>f<C-l> :execute 'BLines ' . expand('<cword>')<CR>
+nnoremap <Space>fm :Mru<CR>
+nnoremap <Space>fM :Maps<CR>
+nnoremap <Space>fo :execute 'LLocate ' . input('Locate: ')<CR>
+nnoremap <Space>fr :execute 'Rg ' . input('Rg: ')<CR>
+nnoremap <Space>ft :BTags<CR>
+nnoremap <Space>fT :Tags<CR>
+nnoremap <Space>fw :Windows<CR>
+nnoremap <Space>f` :Marks<CR>
+nnoremap <Space>f: :History:<CR>
+vnoremap <Space>f: :<C-u>History:<CR>
+nnoremap <Space>f; :Commands<CR>
+vnoremap <Space>f; :<C-u>Commands<CR>
+nnoremap <Space>f/ :History/<CR>
+nnoremap <Space>f] :execute 'Tags ' . expand('<cword>')<CR>
 
 if has("nvim")
   function! s:fzf_statusline()
@@ -778,13 +779,13 @@ map ; <Plug>(easymotion-s2)
 map <Leader><Leader>w <Plug>(easymotion-bd-wl)
 map <Leader><Leader>f <Plug>(easymotion-bd-fl)
 
-map <Plug>(easymotion-prefix)f <Plug>(easymotion-bd-f)
+map <Leader>f <Plug>(easymotion-bd-f)
 map <Plug>(easymotion-prefix)s <Plug>(easymotion-bd-f2)
 map <Plug>(easymotion-prefix)L <Plug>(easymotion-bd-jk)
 map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
 
 if s:os !~ "synology"
-  nmap <Plug>(easymotion-prefix)f <Plug>(easymotion-overwin-f)
+  nmap <Leader>f <Plug>(easymotion-overwin-f)
   nmap <Plug>(easymotion-prefix)s <Plug>(easymotion-overwin-f2)
   nmap <Plug>(easymotion-prefix)L <Plug>(easymotion-overwin-line)
   nmap <Plug>(easymotion-prefix)w <Plug>(easymotion-overwin-w)
