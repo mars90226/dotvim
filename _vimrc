@@ -720,8 +720,8 @@ nnoremap <Space>ff :Files<CR>
 nnoremap <Space>fF :Filetypes<CR>
 nnoremap <Space>fg :GFiles<CR>
 nnoremap <Space>fG :execute 'GGrep ' . input('Git grep: ')<CR>
-nnoremap <Space>fh :History<CR>
-nnoremap <Space>fH :Helptags<CR>
+nnoremap <Space>fh :Helptags<CR>
+nnoremap <Space>fH :History<CR>
 nnoremap <Space>fk :execute 'Rg ' . expand('<cword>')<CR>
 nnoremap <Space>fK :execute 'Rg ' . expand('<cWORD>')<CR>
 nnoremap <Space>f8 :execute 'Rg \b' . expand('<cword>') . '\b'<CR>
