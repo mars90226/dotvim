@@ -456,8 +456,8 @@ vnoremap <Space>uk :<C-u>execute 'Unite grep:.::' . <SID>escape_symbol(<SID>get_
 vnoremap <Space>u8 :<C-u>execute 'Unite grep:.::\\b' . <SID>escape_symbol(<SID>get_visual_selection()) . '\\b -wrap'<CR>
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>uL :Unite location_list<CR>
-nnoremap <Space>uo :Unite outline<CR>
-nnoremap <Space>uO :Unite output -start-insert<CR>
+nnoremap <Space>uo :Unite output -start-insert<CR>
+nnoremap <Space>uO :Unite outline<CR>
 nnoremap <Space>up :UniteWithProjectDir -buffer-name=files -prompt=&\  buffer bookmark file<CR>
 nnoremap <Space>uq :Unite quickfix<CR>
 nnoremap <Space>ur :Unite -buffer-name=register register<CR>
@@ -567,8 +567,8 @@ if !s:is_disabled_plugin('denite.nvim')
   vnoremap <Space>d8 :<C-u>execute 'Denite grep:.::\\b' . <SID>escape_symbol(<SID>get_visual_selection()) . '\\b'<CR>
   nnoremap <Space>dl :Denite line<CR>
   nnoremap <Space>dm :Denite file_mru<CR>
-  nnoremap <Space>do :Denite outline<CR>
-  nnoremap <Space>dO :execute 'Denite output:' . input('output: ')<CR>
+  nnoremap <Space>do :execute 'Denite output:' . input('output: ')<CR>
+  nnoremap <Space>dO :Denite outline<CR>
   nnoremap <Space>dp :Denite -buffer-name=files buffer file<CR>
   nnoremap <Space>dP :Denite -buffer-name=files file_rec<CR>
   nnoremap <Space>d<C-p> :DeniteProjectDir -buffer-name=files buffer file<CR>
