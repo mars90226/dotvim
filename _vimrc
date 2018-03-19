@@ -1625,6 +1625,7 @@ function! DeleteInactiveBufs()
     echomsg nWipeouts . ' buffer(s) wiped out'
 endfunction
 command! Bdi :call DeleteInactiveBufs()
+nnoremap <Leader>D :Bdi<CR>
 
 function! TrimWhitespace()
     let l:save = winsaveview()
