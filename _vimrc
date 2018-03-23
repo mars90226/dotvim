@@ -665,7 +665,7 @@ let g:fzf_action = {
 
 " Mapping selecting mappings
 nmap <Space><Tab> <Plug>(fzf-maps-n)
-imap <Space><Tab> <Plug>(fzf-maps-i)
+imap <M-`> <Plug>(fzf-maps-i)
 xmap <Space><Tab> <Plug>(fzf-maps-x)
 omap <Space><Tab> <Plug>(fzf-maps-o)
 
