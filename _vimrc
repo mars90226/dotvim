@@ -191,6 +191,7 @@ if !s:is_disabled_plugin('deoplete.nvim')
   " Currently prefer deoplete-clang over clang_complete
   "Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
   Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
+  " Plug 'tweekmonster/deoplete-clang2', { 'for': ['c', 'cpp'] }
   Plug 'Shougo/neoinclude.vim'
   Plug 'Shougo/neco-syntax'
   Plug 'Shougo/neco-vim'
