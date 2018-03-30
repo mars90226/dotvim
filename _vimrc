@@ -778,20 +778,21 @@ let g:EasyMotion_smartcase = 1
 
 map ; <Plug>(easymotion-s2)
 
-map <Leader><Leader>w <Plug>(easymotion-bd-wl)
-map <Leader><Leader>f <Plug>(easymotion-bd-fl)
+map \w <Plug>(easymotion-bd-wl)
+map \f <Plug>(easymotion-bd-fl)
 
 map <Leader>f <Plug>(easymotion-bd-f)
 map <Plug>(easymotion-prefix)s <Plug>(easymotion-bd-f2)
 map <Plug>(easymotion-prefix)L <Plug>(easymotion-bd-jk)
 map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
 
-if s:os !~ "synology"
-  nmap <Leader>f <Plug>(easymotion-overwin-f)
-  nmap <Plug>(easymotion-prefix)s <Plug>(easymotion-overwin-f2)
-  nmap <Plug>(easymotion-prefix)L <Plug>(easymotion-overwin-line)
-  nmap <Plug>(easymotion-prefix)w <Plug>(easymotion-overwin-w)
-endif
+" overwin is slow, disabled
+" if s:os !~ "synology"
+"   nmap <Leader>f <Plug>(easymotion-overwin-f)
+"   nmap <Plug>(easymotion-prefix)s <Plug>(easymotion-overwin-f2)
+"   nmap <Plug>(easymotion-prefix)L <Plug>(easymotion-overwin-line)
+"   nmap <Plug>(easymotion-prefix)w <Plug>(easymotion-overwin-w)
+" endif
 " }}}
 
 " vim-asterisk {{{
@@ -867,7 +868,7 @@ function! s:config_easyfuzzymotion(...) abort
   \ }), get(a:, 1, {}))
 endfunction
 
-noremap <silent><expr> <Leader><Leader>/ incsearch#go(<SID>config_easyfuzzymotion())
+noremap <silent><expr> \/ incsearch#go(<SID>config_easyfuzzymotion())
 " }}}
 
 " CamelCaseMotion {{{
