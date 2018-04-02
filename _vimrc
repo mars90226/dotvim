@@ -514,6 +514,10 @@ function! s:unite_my_settings() "{{{
         \ empty(unite#mappings#get_current_filters()) ?
         \ ['sorter_reverse'] : [])
 
+  " Runs "switch" action by <M-s>.
+  imap <silent><buffer><expr> <M-s>     unite#do_action('switch')
+  nmap <silent><buffer><expr> <M-s>     unite#do_action('switch')
+
   " Runs "split" action by <C-s>.
   imap <silent><buffer><expr> <C-s>     unite#do_action('split')
   nmap <silent><buffer><expr> <C-s>     unite#do_action('split')
@@ -1302,6 +1306,18 @@ if !s:is_disabled_plugin('denite.nvim')
         \ 'insert',
         \ '<A-k>',
         \ '<denite:scroll_page_backwards>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
+        \ 'normal',
+        \ '<M-s>',
+        \ '<denite:do_action:switch>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
+        \ 'insert',
+        \ '<M-s>',
+        \ '<denite:do_action:switch>',
         \ 'noremap'
         \)
   call denite#custom#map(
