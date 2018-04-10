@@ -551,6 +551,7 @@ if executable('rg')
   let g:unite_source_grep_recursive_opt = ''
 
   nnoremap <Space>/ :Unite grep:. -wrap<CR>
+  nnoremap <Space>g/ :execute "Unite grep:.:-g\\ '" . input('glob: ') . "'"<CR>
 endif
 " }}}
 
@@ -583,6 +584,10 @@ if !s:is_disabled_plugin('denite.nvim')
   nnoremap <Space>d: :Denite command_history<CR>
   nnoremap <Space>d; :Denite command<CR>
   nnoremap <Space>d/ :Denite grep:.<CR>
+
+  if executable('rg')
+    nnoremap <Space>dg/ :execute "Denite grep:.:-g\\ '" . input('glob: ') . "'"<CR>
+  endif
 endif
 " }}}
 
