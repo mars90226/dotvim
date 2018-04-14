@@ -124,6 +124,16 @@ Plug 'altercation/vim-colors-solarized'
 
 " Completion {{{
 " ====================================================================
+
+" completion setting {{{
+inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+" }}}
+
 " YouCompleteMe {{{
 if !s:is_disabled_plugin('YouCompleteMe')
   Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang_completer' }
@@ -202,7 +212,10 @@ if !s:is_disabled_plugin('deoplete.nvim')
   "   \ 'do': './install.sh'
   "   \ }
 
+  " Use deoplete.
   let g:deoplete#enable_at_startup = 1
+  " Use smartcase.
+  let g:deoplete#enable_smart_case = 1
 
   " deoplete_clang
   let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-3.8/lib/libclang.so.1"
@@ -237,6 +250,10 @@ if !s:is_disabled_plugin('deoplete.nvim')
   " <S-Tab>: completion back.
   inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+  " <C-h>, <BS>: close popup and delete backword char.
+  inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+
   inoremap <expr><C-g><C-g> deoplete#refresh()
   inoremap <silent><expr><C-l> deoplete#complete_common_string()
 endif
@@ -248,21 +265,20 @@ if !s:is_disabled_plugin('supertab')
 endif
 " }}}
 
-" completion setting {{{
-"inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
-inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
-" }}}
-
 " neosnippet {{{
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'honza/vim-snippets'
+
+let g:neosnippet#snippets_directory = $VIMHOME.'/plugged/neosnippet-snippets/neosnippets'
+let g:neosnippet#snippets_directory = $VIMHOME.'/plugged/vim-snippets/snippets'
 
 " Plugin key-mappings.
-imap <C-j> <Plug>(neosnippet_expand_or_jump)
+" <C-j>: expand or jump or select completion
+imap <silent><expr> <C-j>
+      \ pumvisible() && !neosnippet#expandable_or_jumpable() ?
+      \ "\<C-y>" :
+      \ "\<Plug>(neosnippet_expand_or_jump)"
 smap <C-j> <Plug>(neosnippet_expand_or_jump)
 xmap <C-j> <Plug>(neosnippet_expand_target)
 
