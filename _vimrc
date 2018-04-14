@@ -125,6 +125,7 @@ Plug 'altercation/vim-colors-solarized'
 " Completion {{{
 " ====================================================================
 
+" FIXME Completion popup still appear after select completion.
 " completion setting {{{
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
