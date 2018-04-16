@@ -127,7 +127,7 @@ Plug 'altercation/vim-colors-solarized'
 
 " FIXME Completion popup still appear after select completion.
 " completion setting {{{
-inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+" inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
@@ -218,7 +218,7 @@ if !s:is_disabled_plugin('deoplete.nvim')
   " Use smartcase.
   let g:deoplete#enable_smart_case = 1
   " Disable auto_complete
-  let g:deoplete#disable_auto_complete = 1
+  " let g:deoplete#disable_auto_complete = 1
 
   " deoplete_clang
   let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-3.8/lib/libclang.so.1"
@@ -256,6 +256,9 @@ if !s:is_disabled_plugin('deoplete.nvim')
   " <C-h>, <BS>: close popup and delete backword char.
   inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+
+  inoremap <expr> <Esc> pumvisible() ? deoplete#smart_close_popup() : "\<Esc>"
+  inoremap <expr> <C-e><C-e> deoplete#smart_close_popup()
 
   inoremap <expr><C-g><C-g> deoplete#refresh()
   inoremap <silent><expr><C-l> deoplete#complete_common_string()
@@ -957,7 +960,7 @@ augroup END
 " eraseSubword {{{
 Plug 'vim-scripts/eraseSubword'
 
-let g:EraseSubword_insertMap = '<C-e><C-e>'
+let g:EraseSubword_insertMap = '<C-b>'
 " }}}
 
 " tcomment_vim {{{
@@ -1589,9 +1592,6 @@ nnoremap <C-w><Space>- <C-w>10-
 nnoremap <C-w><Space>+ <C-w>10+
 nnoremap <C-w><Space>< <C-w>10<
 nnoremap <C-w><Space>> <C-w>10>
-
-" Add mapping to delete in insert mode
-inoremap <C-b> <Del>
 
 " Create new line in insert mode {{{
 inoremap <M-o> <C-o>o
