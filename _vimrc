@@ -217,6 +217,8 @@ if !s:is_disabled_plugin('deoplete.nvim')
   let g:deoplete#enable_at_startup = 1
   " Use smartcase.
   let g:deoplete#enable_smart_case = 1
+  " Disable auto_complete
+  let g:deoplete#disable_auto_complete = 1
 
   " deoplete_clang
   let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-3.8/lib/libclang.so.1"
