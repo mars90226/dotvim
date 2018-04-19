@@ -793,6 +793,7 @@ endif
 
 Plug 'vim-scripts/a.vim', { 'on': 'A' }
 Plug 'brooth/far.vim', { 'on': ['Far', 'Farp', 'F'] }
+Plug 'ludovicchabant/vim-gutentags'
 " }}}
 
 " Text Navigation {{{
@@ -1643,7 +1644,12 @@ function! ToggleFoldBetweenManualAndSyntax()
 endfunction
 
 let g:last_tab = 1
-nmap <M-1> :execute "tabn " . g:last_tab<CR>
+function! s:last_tab()
+  execute "tabn " . g:last_tab
+endfunction
+nnoremap <M-1> :call <SID>last_tab()<CR>
+
+command! -bar LastTab call <SID>last_tab()
 au TabLeave * let g:last_tab = tabpagenr()
 " }}}
 
@@ -1737,7 +1743,8 @@ if has("nvim")
   tnoremap <M-C-j> <C-\><C-n>gT
   tnoremap <M-C-k> <C-\><C-n>gt
 
-  tnoremap <M-1> <C-\><C-n>:exe "tabn " . g:last_tab<CR>
+  " Quickly switch to last tab in terminal
+  tnoremap <M-1> <C-\><C-n>:call <SID>last_tab()<CR>
 endif
 " }}}
 
