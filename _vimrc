@@ -732,13 +732,12 @@ command! -bang -nargs=* GGrep
   \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
 
 function! s:tselect_sink(line)
-  let list = matchlist(a:line, '^\%(\s\+\S\+\)\{4}\s\+\(\S\+\)')
+  let list = matchlist(a:line, '^\%(\s\+\S\+\)\{4}\s\+\(\S\+\)') " # pri kind tag file
   call execute("edit " . list[1])
 endfunction
 
 function! s:get_tselect(query)
-  let lines = split(execute("tselect " . a:query, "silent!"), "\n")
-  return lines
+  return split(execute("tselect " . a:query, "silent!"), "\n")
 endfunction
 command! -nargs=1 Tselect call fzf#run(fzf#wrap({
       \ 'source': s:get_tselect(<q-args>),
@@ -746,7 +745,23 @@ command! -nargs=1 Tselect call fzf#run(fzf#wrap({
       \ 'option': '-m -x +s',
       \ 'down':   '40%'}))
 " TODO Add expect keys
-" TODO Add Jumps command
+" TODO Add Jumps command preview
+function! s:jump_sink(line)
+  let list = matchlist(a:line, '^\s\+\S\+\s\+\(\S\+\)\s\+\(\S\+\)\s\+\(.*\)') " jump line col file/text
+  if list[3] !~ '\s'
+    call execute("edit " . list[3])
+  endif
+  call cursor(list[1], list[2])
+endfunction
+
+function! s:jumps()
+  return split(execute("jumps", "silent!"), "\n")
+endfunction
+command! Jump call fzf#run(fzf#wrap({
+      \ 'source': s:jumps(),
+      \ 'sink':   function('s:jump_sink'),
+      \ 'option': '-m -x +s',
+      \ 'down':   '40%'}))
 
 function! s:get_visual_selection()
     " Why is this not a built-in Vim script function?!
@@ -772,6 +787,7 @@ nnoremap <Space>fg :GFiles<CR>
 nnoremap <Space>fG :execute 'GGrep ' . input('Git grep: ')<CR>
 nnoremap <Space>fh :Helptags<CR>
 nnoremap <Space>fH :History<CR>
+nnoremap <Space>fj :Jump<CR>
 nnoremap <Space>fk :execute 'Rg ' . expand('<cword>')<CR>
 nnoremap <Space>fK :execute 'Rg ' . expand('<cWORD>')<CR>
 nnoremap <Space>f8 :execute 'Rg \b' . expand('<cword>') . '\b'<CR>
