@@ -731,6 +731,23 @@ endfunction
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
 
+function! s:tselect_sink(line)
+  let list = matchlist(a:line, '^\%(\s\+\S\+\)\{4}\s\+\(\S\+\)')
+  call execute("edit " . list[1])
+endfunction
+
+function! s:get_tselect(query)
+  let lines = split(execute("tselect " . a:query, "silent!"), "\n")
+  return lines
+endfunction
+command! -nargs=1 Tselect call fzf#run(fzf#wrap({
+      \ 'source': s:get_tselect(<q-args>),
+      \ 'sink':   function('s:tselect_sink'),
+      \ 'option': '-m -x +s',
+      \ 'down':   '40%'}))
+" TODO Add expect keys
+" TODO Add Jumps command
+
 function! s:get_visual_selection()
     " Why is this not a built-in Vim script function?!
     let [line_start, column_start] = getpos("'<")[1:2]
@@ -748,6 +765,7 @@ nnoremap <Space>fa :execute 'Ag ' . input('Ag: ')<CR>
 nnoremap <Space>fb :Buffers<CR>
 nnoremap <Space>fc :BCommits<CR>
 nnoremap <Space>fC :Commits<CR>
+nnoremap <Space>fd :execute 'Tags ' . expand('<cword>')<CR>
 nnoremap <Space>ff :Files<CR>
 nnoremap <Space>fF :Filetypes<CR>
 nnoremap <Space>fg :GFiles<CR>
@@ -777,7 +795,7 @@ vnoremap <Space>f: :<C-u>History:<CR>
 nnoremap <Space>f; :Commands<CR>
 vnoremap <Space>f; :<C-u>Commands<CR>
 nnoremap <Space>f/ :History/<CR>
-nnoremap <Space>f] :execute 'Tags ' . expand('<cword>')<CR>
+nnoremap <Space>f] :execute 'Tselect ' . expand('<cword>')<CR>
 
 if has("nvim")
   function! s:fzf_statusline()
