@@ -1172,6 +1172,10 @@ endfunction
 autocmd! FileType GV nnoremap <buffer> <silent> + :call <sid>gv_expand()<cr>
 " }}}
 
+" vim-tig {{{
+Plug 'codeindulgence/vim-tig', { 'on': ['Tig', 'Tig!'] }
+" }}}
+
 Plug 'mattn/gist-vim'
 " }}}
 
