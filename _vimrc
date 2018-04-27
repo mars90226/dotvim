@@ -1269,8 +1269,8 @@ let g:lastplace_open_folds = 0
 if has("nvim")
   Plug 'kassio/neoterm'
 
-  let g:neoterm_position = 'horizontal'
-  let g:neoterm_automap_keys = ',tt'
+  let g:neoterm_default_mod = 'botright'
+  let g:neoterm_automap_keys = ',T'
 
   nnoremap <silent> <Space>` :execute 'T ' . input("Terminal: ")<CR>
   nnoremap <silent> <Leader>` :Ttoggle<CR>
