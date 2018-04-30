@@ -51,11 +51,11 @@ endif
 
 " Choose Lint plugin
 " syntastic, ale
-"if v:version >= 800 || has("nvim")
-  "call add(g:pathogen_disabled, 'syntastic')
-"else
+if v:version >= 800 || has("nvim")
+  call s:disable_plugin('syntastic')
+else
   call s:disable_plugin('ale')
-"end
+end
 
 if !has("python")
   call s:disable_plugin('github-issues.vim')
@@ -1307,6 +1307,7 @@ Plug 'kopischke/vim-fetch'
 Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-eunuch'
 Plug 'DougBeney/pickachu', { 'on': 'Pick' }
+Plug 'embear/vim-localvimrc'
 " }}}
 
 " Plugin Settings End {{{
