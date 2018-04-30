@@ -540,6 +540,10 @@ function! s:unite_my_settings() "{{{
   imap <silent><buffer><expr> <M-s>     unite#do_action('switch')
   nmap <silent><buffer><expr> <M-s>     unite#do_action('switch')
 
+  " Runs "tabswitch" action by <M-t>.
+  imap <silent><buffer><expr> <M-t>     unite#do_action('tabswitch')
+  nmap <silent><buffer><expr> <M-t>     unite#do_action('tabswitch')
+
   " Runs "split" action by <C-s>.
   imap <silent><buffer><expr> <C-s>     unite#do_action('split')
   nmap <silent><buffer><expr> <C-s>     unite#do_action('split')
@@ -1376,14 +1380,26 @@ if !s:is_disabled_plugin('denite.nvim')
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<M-s>',
+        \ '<A-s>',
         \ '<denite:do_action:switch>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<M-s>',
+        \ '<A-s>',
         \ '<denite:do_action:switch>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
+        \ 'normal',
+        \ '<A-t>',
+        \ '<denite:do_action:tabswitch>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
+        \ 'insert',
+        \ '<A-t>',
+        \ '<denite:do_action:tabswitch>',
         \ 'noremap'
         \)
   call denite#custom#map(
