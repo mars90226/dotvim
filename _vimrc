@@ -1292,6 +1292,12 @@ if has("nvim")
 endif
 " }}}
 
+" vim-localvimrc {{{
+Plug 'embear/vim-localvimrc'
+
+let g:localvimrc_whitelist = '/synosrc/packages/source/.*'
+" }}}
+
 Plug 'vim-scripts/dbext.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'tpope/vim-abolish'
@@ -1307,7 +1313,6 @@ Plug 'kopischke/vim-fetch'
 Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-eunuch'
 Plug 'DougBeney/pickachu', { 'on': 'Pick' }
-Plug 'embear/vim-localvimrc'
 " }}}
 
 " Plugin Settings End {{{
