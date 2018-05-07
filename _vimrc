@@ -1298,7 +1298,7 @@ Plug 'embear/vim-localvimrc'
 let g:localvimrc_whitelist = '/synosrc/packages/source/.*'
 " }}}
 
-Plug 'vim-scripts/dbext.vim'
+Plug 'tpope/vim-dadbod'
 Plug 'tyru/open-browser.vim'
 Plug 'tpope/vim-abolish'
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }
