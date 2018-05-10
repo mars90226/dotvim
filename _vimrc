@@ -815,7 +815,8 @@ vnoremap <Space>f: :<C-u>History:<CR>
 nnoremap <Space>f; :Commands<CR>
 vnoremap <Space>f; :<C-u>Commands<CR>
 nnoremap <Space>f/ :History/<CR>
-nnoremap <Space>f] :execute 'Tselect ' . expand('<cword>')<CR>
+nnoremap <Space>f] :execute 'Tags ' . expand('<cword>')<CR>
+nnoremap <Space>f} :execute 'Tselect ' . expand('<cword>')<CR>
 
 if has("nvim")
   function! s:fzf_statusline()
