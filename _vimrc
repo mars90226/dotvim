@@ -1445,6 +1445,18 @@ if !s:is_disabled_plugin('denite.nvim')
         \ '<denite:wincmd:l>',
         \ 'noremap'
         \)
+  call denite#custom#map(
+        \ 'normal',
+        \ '<C-n>',
+        \ '<denite:jump_to_next_source>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
+        \ 'normal',
+        \ '<C-p>',
+        \ '<denite:jump_to_previous_source>',
+        \ 'noremap'
+        \)
 
   if executable('rg')
     call denite#custom#var('file_rec', 'command',
