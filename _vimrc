@@ -1818,6 +1818,9 @@ if has("nvim")
 
   " Quickly switch to last tab in terminal
   tnoremap <M-1> <C-\><C-n>:call <SID>last_tab()<CR>
+
+  " Quickly paste from register
+  tnoremap <expr> <M-r> '<C-\><C-n>"' . nr2char(getchar()) . 'pi'
 endif
 " }}}
 
