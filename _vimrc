@@ -199,9 +199,9 @@ endif
 if !s:is_disabled_plugin('deoplete.nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-  " Currently prefer deoplete-clang over clang_complete
-  "Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'] }
-  Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
+  " Currently prefer clang_complete over deoplete-clang
+  Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'], 'do': 'make install' }
+  " Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
   " Plug 'tweekmonster/deoplete-clang2', { 'for': ['c', 'cpp'] }
   Plug 'Shougo/neoinclude.vim'
   Plug 'Shougo/neco-syntax'
@@ -221,11 +221,16 @@ if !s:is_disabled_plugin('deoplete.nvim')
   " let g:deoplete#disable_auto_complete = 1
 
   " deoplete_clang
-  let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-3.8/lib/libclang.so.1"
-  let g:deoplete#sources#clang#clang_header = "/usr/lib/llvm-3.8/lib/clang"
+  " let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-3.8/lib/libclang.so.1"
+  " let g:deoplete#sources#clang#clang_header = "/usr/lib/llvm-3.8/lib/clang"
 
   " clang_complete
-  "let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
+  let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
+
+  let g:clang_complete_auto = 0
+  let g:clang_auto_select = 0
+  let g:clang_omnicppcomplete_compliance = 0
+  let g:clang_make_default_keymappings = 0
 
   " deoplete_rust
   let g:deoplete#sources#rust#racer_binary = $HOME."/.cargo/bin/racer"
@@ -989,6 +994,7 @@ xmap <Space>ga <Plug>(LiveEasyAlign)
 Plug 'jiangmiao/auto-pairs'
 
 let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
+" let g:AutoPairsMapCR = 0
 
 augroup autoPairsFileTypeSpecific
   autocmd!
