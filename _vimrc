@@ -1302,7 +1302,7 @@ endif
 " vim-localvimrc {{{
 Plug 'embear/vim-localvimrc'
 
-let g:localvimrc_whitelist = '/synosrc/packages/source/.*'
+let g:localvimrc_whitelist = ['/synosrc/packages/source/.*', '/synosrc/origin/source/.*']
 " }}}
 
 Plug 'tpope/vim-dadbod'
