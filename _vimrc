@@ -791,7 +791,6 @@ nnoremap <Space>fc :BCommits<CR>
 nnoremap <Space>fC :Commits<CR>
 nnoremap <Space>fd :execute 'Tags ' . expand('<cword>')<CR>
 nnoremap <Space>ff :Files<CR>
-nnoremap <Space>fF :Filetypes<CR>
 nnoremap <Space>fg :GFiles<CR>
 nnoremap <Space>fG :execute 'GGrep ' . input('Git grep: ')<CR>
 nnoremap <Space>fh :Helptags<CR>
@@ -814,6 +813,7 @@ nnoremap <Space>fs :GFiles?<CR>
 nnoremap <Space>ft :BTags<CR>
 nnoremap <Space>fT :Tags<CR>
 nnoremap <Space>fw :Windows<CR>
+nnoremap <Space>fy :Filetypes<CR>
 nnoremap <Space>f` :Marks<CR>
 nnoremap <Space>f: :History:<CR>
 vnoremap <Space>f: :<C-u>History:<CR>
