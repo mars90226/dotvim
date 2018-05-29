@@ -720,11 +720,18 @@ inoremap <expr> <C-x><C-d> fzf#vim#complete#path('fd -t d')
 command! -bar -bang Helptags call fzf#vim#helptags(<bang>0)
 command! -bang -nargs=+ -complete=dir LLocate call fzf#vim#locate(<q-args>, <bang>0)
 
-let g:rg_command = '
-    \ rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --color "always"
-    \ -g "*.{js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst,lua,pm,vim,sh,h,hpp}"
-    \ -g "!{.config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
-command! -bang -nargs=* Rg call fzf#vim#grep(g:rg_command.shellescape(<q-args>), 1, <bang>0)
+" let g:rg_command = '
+"     \ rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --color "always"
+"     \ -g "*.{js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst,lua,pm,vim,sh,h,hpp}"
+"     \ -g "!{.config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
+let g:rg_command = 'rg --column --line-number --no-heading --ignore-case --color=always '
+let g:rg_all_command = 'rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --color=always '
+command! -bang -nargs=* Rg call fzf#vim#grep(
+      \ <bang>0 ? g:rg_all_command.shellescape(<q-args>)
+      \         : g:rg_command.shellescape(<q-args>), 1,
+      \ <bang>0 ? fzf#vim#with_preview('up:60%')
+      \         : fzf#vim#with_preview('right:50%:hidden', '?'),
+      \ <bang>0)
 command! Mru call fzf#run(fzf#wrap({
       \ 'source':  reverse(s:all_files()),
       \ 'options': '-m -x +s',
@@ -809,6 +816,7 @@ nnoremap <Space>fm :Mru<CR>
 nnoremap <Space>fM :Maps<CR>
 nnoremap <Space>fo :execute 'LLocate ' . input('Locate: ')<CR>
 nnoremap <Space>fr :execute 'Rg ' . input('Rg: ')<CR>
+nnoremap <Space>fR :execute 'Rg! ' . input('Rg: ')<CR>
 nnoremap <Space>fs :GFiles?<CR>
 nnoremap <Space>ft :BTags<CR>
 nnoremap <Space>fT :Tags<CR>
