@@ -310,11 +310,11 @@ Plug 'wellle/tmux-complete.vim'
 " File Navigation {{{
 " ====================================================================
 " CtrlP {{{
-Plug 'ctrlpvim/ctrlp.vim', { 'on': ['CtrlP', 'CtrlPCmdline'] }
+Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
 Plug 'sgur/ctrlp-extensions.vim', { 'on': 'CtrlP' }
 Plug 'tacahiroy/ctrlp-funky', { 'on': 'CtrlP' }
 Plug 'mattn/ctrlp-hackernews', { 'on': 'CtrlP' }
-Plug 'fisadev/vim-ctrlp-cmdpalette', { 'on': ['CtrlP', 'CtrlPCmdPalette'] }
+Plug 'fisadev/vim-ctrlp-cmdpalette', { 'on': 'CtrlP' }
 
 if has("python")
   Plug 'FelikZ/ctrlp-py-matcher', { 'on': 'CtrlP' }
