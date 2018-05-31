@@ -310,14 +310,15 @@ Plug 'wellle/tmux-complete.vim'
 " File Navigation {{{
 " ====================================================================
 " CtrlP {{{
-Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
-Plug 'sgur/ctrlp-extensions.vim', { 'on': 'CtrlP' }
-Plug 'tacahiroy/ctrlp-funky', { 'on': 'CtrlP' }
-Plug 'mattn/ctrlp-hackernews', { 'on': 'CtrlP' }
-Plug 'fisadev/vim-ctrlp-cmdpalette', { 'on': 'CtrlP' }
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'sgur/ctrlp-extensions.vim'
+Plug 'tacahiroy/ctrlp-funky'
+Plug 'mattn/ctrlp-hackernews'
+Plug 'fisadev/vim-ctrlp-cmdpalette'
+Plug 'ivalkeen/vim-ctrlp-tjump'
 
 if has("python")
-  Plug 'FelikZ/ctrlp-py-matcher', { 'on': 'CtrlP' }
+  Plug 'FelikZ/ctrlp-py-matcher'
 
   let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 endif
@@ -329,6 +330,8 @@ let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
 nnoremap <C-p> :CtrlP<CR>
 nnoremap <Space>cp :CtrlPCmdPalette<CR>
 nnoremap <Space>cm :CtrlPCmdline<CR>
+nnoremap <Space>c] :CtrlPtjump<CR>
+vnoremap <Space>c] :CtrlPtjumpVisual<CR>
 
 if executable('fd')
   let g:ctrlp_user_command = 'fd --type f --no-ignore --hidden --follow --exclude .git --exclude node_modules "" %s'
