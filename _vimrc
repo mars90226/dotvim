@@ -328,6 +328,7 @@ let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
 " let g:ctrlp_cmdpalette_execute = 1
 
 nnoremap <C-p> :CtrlP<CR>
+nnoremap <Space>cf :CtrlPFunky<CR>
 nnoremap <Space>cp :CtrlPCmdPalette<CR>
 nnoremap <Space>cm :CtrlPCmdline<CR>
 nnoremap <Space>c] :CtrlPtjump<CR>
