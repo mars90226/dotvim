@@ -1258,7 +1258,7 @@ Plug 'airblade/vim-rooter', { 'on': 'Rooter' }
 
 let g:rooter_manual_only = 1
 let g:rooter_use_lcd = 1
-nnoremap <Leader>R :Rooter<CR>
+nnoremap <Leader>r :Rooter<CR>
 " }}}
 
 " vimwiki {{{
@@ -1707,8 +1707,8 @@ nnoremap <Leader>E :execute '!start explorer "' . expand("%:p:h:gs?\\??:gs?/?\\?
 " Easier file status
 nnoremap <Space><C-g> 2<C-g>
 
-" Easier file status
-nnoremap <Space><C-g> 2<C-g>
+" Move working directory up
+nnoremap <Leader>u :cd ..<CR>
 
 " Custom function {{{
 nnoremap <F6> :call ToggleIndentBetweenTabAndSpace()<CR>
