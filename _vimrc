@@ -1888,7 +1888,7 @@ augroup quickfixSettings
         \ map <buffer> <silent> <F8> :close<CR>
 augroup END
 
-if s:os =~ "windows" && !has("gui_running")
+if s:os =~ "windows" && !has("gui_running") && !has("nvim")
   " Windows Terminal keycode will change after startup
   " Maybe it's related to ConEmu
   " This fix will not work after reload .vimrc/_vimrc
