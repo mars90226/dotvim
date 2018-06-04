@@ -1629,7 +1629,9 @@ endif
 " Colors and Highlights {{{
 " ====================================================================
 set background=dark
-colorscheme seoul256
+if !exists("g:gui_oni")
+  colorscheme seoul256
+endif
 " }}}
 
 " Key Mappings {{{
@@ -1785,10 +1787,8 @@ command! TrimWhitespace call TrimWhitespace()
 " Terminal {{{
 " ====================================================================
 " xterm-256 in Windows {{{
-if !has("gui_running") && s:os =~ "windows"
-  if !has("nvim")
-    set term=xterm
-  endif
+if !has("nvim") && !has("gui_running") && s:os =~ "windows"
+  set term=xterm
   set mouse=a
   set t_Co=256
   let &t_AB="\e[48;5;%dm"
