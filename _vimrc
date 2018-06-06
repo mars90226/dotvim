@@ -74,6 +74,7 @@ if empty(glob($VIMHOME.'/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall
 endif
 " }}}
+" }}}
 
 " Plugin Settings Begin {{{
 " vim-plug
@@ -227,6 +228,7 @@ if !s:is_disabled_plugin('deoplete.nvim')
   " clang_complete
   let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
 
+  let g:clang_use_library = 1
   let g:clang_complete_auto = 0
   let g:clang_auto_select = 0
   let g:clang_omnicppcomplete_compliance = 0
@@ -1126,8 +1128,8 @@ end
 " }}}
 
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
-Plug 'moll/vim-node'
-Plug 'tpope/vim-rails'
+Plug 'moll/vim-node', { 'for': [] }
+Plug 'tpope/vim-rails', { 'for': [] }
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/vim-slumlord'
 " }}}
@@ -1345,6 +1347,12 @@ call plug#end()
 " }}}
 
 " Post-loaded Plugin Settings {{{
+" Deoplete {{{
+if !s:is_disabled_plugin('deoplete.nvim')
+  call deoplete#custom#option('auto_complete_delay', 200)
+endif
+" }}}
+
 " Denite {{{
 if !s:is_disabled_plugin('denite.nvim')
   " Change mappings
@@ -1510,7 +1518,7 @@ call arpeggio#load()
 " General Settings {{{
 " ====================================================================
 
-" Vim basic setting
+" Vim basic setting {{{
 set nocompatible
 if exists(":packadd") != 0
   source $VIMRUNTIME/vimrc_example.vim
@@ -1540,6 +1548,7 @@ set hidden
 set lazyredraw
 set mouse=a
 set modeline
+set updatetime=100
 
 set scrolloff=0
 
@@ -1931,7 +1940,6 @@ set keymodel=startsel
 if s:os =~ "synology"
   set t_ut=
 endif
-" }}}
 
 " Backspace in ConEmu will translate to 0x07F when using xterm
 " https://conemu.github.io/en/VimXterm.html
@@ -1943,4 +1951,6 @@ if !empty($ConEmuBuild)
   " Disable Background Color Erase
   set t_ut=
 endif
+" }}}
+
 " vim: set sw=2 ts=2 sts=2 et foldlevel=0 foldmethod=marker:
