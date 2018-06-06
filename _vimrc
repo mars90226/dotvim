@@ -107,6 +107,7 @@ let g:airline_theme = 'zenburn'
 Plug 'Yggdroot/indentLine', { 'on': ['IndentLinesEnable', 'IndentLinesToggle'] }
 
 let g:indentLine_color_term = 243
+let g:indentLine_color_gui = '#AAAAAA'
 
 nnoremap <Space>il :IndentLinesToggle<CR>
 
