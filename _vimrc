@@ -882,6 +882,9 @@ map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
 nmap <Leader>; <Plug>(easymotion-next)
 nmap <Leader>, <Plug>(easymotion-prev)
 
+map <Plug>(easymotion-prefix)J <Plug>(easymotion-eol-j)
+map <Plug>(easymotion-prefix)K <Plug>(easymotion-eol-k)
+
 " overwin is slow, disabled
 " if s:os !~ "synology"
 "   nmap <Leader>f <Plug>(easymotion-overwin-f)
