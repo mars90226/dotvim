@@ -103,16 +103,14 @@ let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline_theme = 'zenburn'
 " }}}
 
-" vim-indent-guides {{{
-Plug 'nathanaelkane/vim-indent-guides', { 'on': 'IndentGuidesToggle' }
-autocmd! User vim-indent-guides call s:vim_indent_guides_settings()
-function! s:vim_indent_guides_settings()
-  let g:indent_guides_auto_colors = 0
-  autocmd VimEnter,Colorscheme * highlight IndentGuidesOdd  ctermbg=243
-  autocmd VimEnter,Colorscheme * highlight IndentGuidesEven ctermbg=240
-endfunction
+" indentLine {{{
+Plug 'Yggdroot/indentLine', { 'on': ['IndentLinesEnable', 'IndentLinesToggle'] }
 
-nnoremap <Leader>ig :IndentGuidesToggle<CR>
+let g:indentLine_color_term = 243
+
+nnoremap <Space>il :IndentLinesToggle<CR>
+
+autocmd! User indentLine doautocmd indentLine Syntax
 " }}}
 
 " Colors {{{
