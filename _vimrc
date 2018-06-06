@@ -973,10 +973,10 @@ noremap <silent><expr> \/ incsearch#go(<SID>config_easyfuzzymotion())
 " CamelCaseMotion {{{
 Plug 'bkad/CamelCaseMotion'
 
-map ,mw <Plug>CamelCaseMotion_w
-map ,mb <Plug>CamelCaseMotion_b
-map ,me <Plug>CamelCaseMotion_e
-map ,mge <Plug>CamelCaseMotion_ge
+map <Leader>mw <Plug>CamelCaseMotion_w
+map <Leader>mb <Plug>CamelCaseMotion_b
+map <Leader>me <Plug>CamelCaseMotion_e
+map <Leader>mge <Plug>CamelCaseMotion_ge
 " }}}
 
 " clever-f.vim {{{
@@ -990,17 +990,6 @@ Plug 'wellle/targets.vim'
 
 " Text Manipulation {{{
 " ====================================================================
-" Tabular {{{
-Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
-
-nnoremap <Leader>a=    :Tabularize /=<CR>
-vnoremap <Leader>a=    :Tabularize /=<CR>
-nnoremap <Leader>a:    :Tabularize /:\zs<CR>
-vnoremap <Leader>a:    :Tabularize /:\zs<CR>
-nnoremap <Leader>athen :Tabularize /then<CR>
-vnoremap <Leader>athen :Tabularize /then<CR>
-" }}}
-
 " EasyAlign {{{
 Plug 'junegunn/vim-easy-align'
 
