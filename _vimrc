@@ -1228,6 +1228,7 @@ endif
 Plug 'tpope/vim-unimpaired'
 
 nnoremap coe :set expandtab!<CR>
+nnoremap cop :set paste!<CR>
 " }}}
 
 " vim-characterize {{{
