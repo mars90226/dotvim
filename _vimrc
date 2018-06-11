@@ -221,11 +221,11 @@ if !s:is_disabled_plugin('deoplete.nvim')
   " let g:deoplete#disable_auto_complete = 1
 
   " deoplete_clang
-  let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-3.8/lib/libclang.so.1"
-  let g:deoplete#sources#clang#clang_header = "/usr/lib/llvm-3.8/lib/clang"
+  let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-5.0/lib/libclang.so.1"
+  let g:deoplete#sources#clang#clang_header = "/usr/lib/llvm-5.0/lib/clang"
 
   " clang_complete
-  " let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
+  " let g:clang_library_path='/usr/lib/llvm-5.0/lib/libclang.so.1'
   "
   " let g:clang_debug = 1
   " let g:clang_use_library = 1
