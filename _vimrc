@@ -334,7 +334,7 @@ nnoremap <Space>cf :CtrlPFunky<CR>
 nnoremap <Space>cp :CtrlPCmdPalette<CR>
 nnoremap <Space>cm :CtrlPCmdline<CR>
 nnoremap <Space>c] :CtrlPtjump<CR>
-vnoremap <Space>c] :CtrlPtjumpVisual<CR>
+xnoremap <Space>c] :CtrlPtjumpVisual<CR>
 
 if executable('fd')
   let g:ctrlp_user_command = 'fd --type f --no-ignore --hidden --follow --exclude .git --exclude node_modules "" %s'
@@ -488,8 +488,8 @@ nnoremap <Space>uk :execute 'Unite grep:.::' . <SID>escape_symbol(expand('<cword
 nnoremap <Space>uK :execute 'Unite grep:.::' . <SID>escape_symbol(expand('<cWORD>')) . ' -wrap'<CR>
 nnoremap <Space>u8 :execute 'Unite grep:.::\\b' . <SID>escape_symbol(expand('<cword>')) . '\\b -wrap'<CR>
 nnoremap <Space>u* :execute 'Unite grep:.::\\b' . <SID>escape_symbol(expand('<cWORD>')) . '\\b -wrap'<CR>
-vnoremap <Space>uk :<C-u>execute 'Unite grep:.::' . <SID>escape_symbol(<SID>get_visual_selection()) . ' -wrap'<CR>
-vnoremap <Space>u8 :<C-u>execute 'Unite grep:.::\\b' . <SID>escape_symbol(<SID>get_visual_selection()) . '\\b -wrap'<CR>
+xnoremap <Space>uk :<C-u>execute 'Unite grep:.::' . <SID>escape_symbol(<SID>get_visual_selection()) . ' -wrap'<CR>
+xnoremap <Space>u8 :<C-u>execute 'Unite grep:.::\\b' . <SID>escape_symbol(<SID>get_visual_selection()) . '\\b -wrap'<CR>
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>uL :Unite location_list<CR>
 nnoremap <Space>uo :Unite output -start-insert<CR>
@@ -608,8 +608,8 @@ if !s:is_disabled_plugin('denite.nvim')
   nnoremap <Space>dK :execute 'Denite grep:.::' . <SID>escape_symbol(expand('<cWORD>'))<CR>
   nnoremap <Space>d8 :execute 'Denite grep:.::\\b' . <SID>escape_symbol(expand('<cword>')) . '\\b'<CR>
   nnoremap <Space>d* :execute 'Denite grep:.::\\b' . <SID>escape_symbol(expand('<cWORD>')) . '\\b'<CR>
-  vnoremap <Space>dk :<C-u>execute 'Denite grep:.::' . <SID>escape_symbol(<SID>get_visual_selection())<CR>
-  vnoremap <Space>d8 :<C-u>execute 'Denite grep:.::\\b' . <SID>escape_symbol(<SID>get_visual_selection()) . '\\b'<CR>
+  xnoremap <Space>dk :<C-u>execute 'Denite grep:.::' . <SID>escape_symbol(<SID>get_visual_selection())<CR>
+  xnoremap <Space>d8 :<C-u>execute 'Denite grep:.::\\b' . <SID>escape_symbol(<SID>get_visual_selection()) . '\\b'<CR>
   nnoremap <Space>dl :Denite line<CR>
   nnoremap <Space>dm :Denite file_mru<CR>
   nnoremap <Space>do :execute 'Denite output:' . input('output: ')<CR>
@@ -815,8 +815,8 @@ nnoremap <Space>fk :execute 'Rg ' . expand('<cword>')<CR>
 nnoremap <Space>fK :execute 'Rg ' . expand('<cWORD>')<CR>
 nnoremap <Space>f8 :execute 'Rg \b' . expand('<cword>') . '\b'<CR>
 nnoremap <Space>f* :execute 'Rg \b' . expand('<cWORD>') . '\b'<CR>
-vnoremap <Space>fk :<C-u>execute 'Rg ' . <SID>get_visual_selection()<CR>
-vnoremap <Space>f8 :<C-u>execute 'Rg \b' . <SID>get_visual_selection() . '\b'<CR>
+xnoremap <Space>fk :<C-u>execute 'Rg ' . <SID>get_visual_selection()<CR>
+xnoremap <Space>f8 :<C-u>execute 'Rg \b' . <SID>get_visual_selection() . '\b'<CR>
 nnoremap <Space>fl :BLines<CR>
 nnoremap <Space>fL :Lines<CR>
 nnoremap <Space>f<C-l> :execute 'BLines ' . expand('<cword>')<CR>
@@ -832,12 +832,14 @@ nnoremap <Space>fw :Windows<CR>
 nnoremap <Space>fy :Filetypes<CR>
 nnoremap <Space>f` :Marks<CR>
 nnoremap <Space>f: :History:<CR>
-vnoremap <Space>f: :<C-u>History:<CR>
+xnoremap <Space>f: :<C-u>History:<CR>
 nnoremap <Space>f; :Commands<CR>
-vnoremap <Space>f; :<C-u>Commands<CR>
+xnoremap <Space>f; :<C-u>Commands<CR>
 nnoremap <Space>f/ :History/<CR>
 nnoremap <Space>f] :execute 'Tags ' . expand('<cword>')<CR>
 nnoremap <Space>f} :execute 'Tselect ' . expand('<cword>')<CR>
+
+nnoremap <Space>ss :History:<CR>mks vim sessions 
 
 if has("nvim")
   function! s:fzf_statusline()
@@ -883,6 +885,8 @@ nmap <Leader>, <Plug>(easymotion-prev)
 
 map <Plug>(easymotion-prefix)J <Plug>(easymotion-eol-j)
 map <Plug>(easymotion-prefix)K <Plug>(easymotion-eol-k)
+
+map <Plug>(easymotion-prefix); <Plug>(easymotion-jumptoanywhere)
 
 " overwin is slow, disabled
 " if s:os !~ "synology"
@@ -935,8 +939,8 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 " Search within visual selection
-vmap <M-/> <Esc><Plug>(incsearch-forward)\%V
-vmap <M-?> <Esc><Plug>(incsearch-backward)\%V
+xmap <M-/> <Esc><Plug>(incsearch-forward)\%V
+xmap <M-?> <Esc><Plug>(incsearch-backward)\%V
 " }}}
 
 " incsearch-fuzzy {{{
@@ -1116,6 +1120,9 @@ if !s:is_disabled_plugin('ale')
   let g:ale_linters = {
         \ 'cpp': ['g++']
         \}
+
+  nmap ]a <Plug>(ale_next_wrap)
+  nmap [a <Plug>(ale_previous_wrap)
 end
 " }}}
 
@@ -1124,6 +1131,7 @@ Plug 'moll/vim-node', { 'for': [] }
 Plug 'tpope/vim-rails', { 'for': [] }
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/vim-slumlord'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 " }}}
 
 " Git {{{
@@ -1299,7 +1307,7 @@ if has("nvim")
   nnoremap <silent> <Leader>` :Ttoggle<CR>
   nnoremap <silent> <Space><F3> :TREPLSendFile<CR>
   nnoremap <silent> <F3> :TREPLSendLine<CR>
-  vnoremap <silent> <F3> :TREPLSendSelection<CR>
+  xnoremap <silent> <F3> :TREPLSendSelection<CR>
 
   " Useful maps
   " hide/close terminal
@@ -1613,7 +1621,8 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set autoindent
-set pastetoggle=<F10>
+" Use cop instead
+" set pastetoggle=<F10>
 " }}}
 
 " Search {{{
@@ -1751,6 +1760,17 @@ nnoremap <M-1> :call <SID>last_tab()<CR>
 
 command! -bar LastTab call <SID>last_tab()
 au TabLeave * let g:last_tab = tabpagenr()
+
+" Zoom
+function! s:zoom()
+  if winnr('$') > 1
+    tab split
+  elseif len(filter(map(range(tabpagenr('$')), 'tabpagebuflist(v:val + 1)'),
+                  \ 'index(v:val, '.bufnr('').') >= 0')) > 1
+    tabclose
+  endif
+endfunction
+nnoremap <silent> <Leader>z :call <SID>zoom()<cr>
 " }}}
 
 " Custom command {{{
