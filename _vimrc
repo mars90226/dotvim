@@ -855,7 +855,9 @@ endif
 
 Plug 'vim-scripts/a.vim', { 'on': 'A' }
 Plug 'brooth/far.vim', { 'on': ['Far', 'Farp', 'F'] }
-Plug 'ludovicchabant/vim-gutentags'
+if has('job') || (has('nvim') && exists('*jobwait'))
+  Plug 'ludovicchabant/vim-gutentags'
+endif
 " }}}
 
 " Text Navigation {{{
