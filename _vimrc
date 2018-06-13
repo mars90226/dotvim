@@ -824,7 +824,7 @@ nnoremap <Space>fm :Mru<CR>
 nnoremap <Space>fM :Maps<CR>
 nnoremap <Space>fo :execute 'LLocate ' . input('Locate: ')<CR>
 nnoremap <Space>fr :execute 'Rg ' . input('Rg: ')<CR>
-nnoremap <Space>fR :execute 'Rg! ' . input('Rg: ')<CR>
+nnoremap <Space>fR :execute 'Rg! ' . input('Rg!: ')<CR>
 nnoremap <Space>fs :GFiles?<CR>
 nnoremap <Space>ft :BTags<CR>
 nnoremap <Space>fT :Tags<CR>
