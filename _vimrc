@@ -1201,7 +1201,7 @@ function! s:gv_expand()
   normal! zz
 endfunction
 
-autocmd! FileType GV nnoremap <buffer> <silent> + :call <sid>gv_expand()<cr>
+autocmd! FileType GV nnoremap <buffer> <silent> + :call <SID>gv_expand()<CR>
 " }}}
 
 " vim-tig {{{
@@ -1772,7 +1772,18 @@ function! s:zoom()
     tabclose
   endif
 endfunction
-nnoremap <silent> <Leader>z :call <SID>zoom()<cr>
+nnoremap <silent> <Leader>z :call <SID>zoom()<CR>
+
+" toggle parent folder tag
+function! s:toggle_parent_folder_tag()
+  let s:parent_folder_tag_pattern = "./tags;"
+  if index(split(&tags, ','), s:parent_folder_tag_pattern) != -1
+    execute 'set tags-=' . s:parent_folder_tag_pattern
+  else
+    execute 'set tags+=' . s:parent_folder_tag_pattern
+  endif
+endfunction
+nnoremap <silent> <Leader>p :call <SID>toggle_parent_folder_tag()<CR>
 " }}}
 
 " Custom command {{{
