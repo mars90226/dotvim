@@ -1949,7 +1949,11 @@ if has("nvim")
     autocmd!
     autocmd BufWinEnter,WinEnter term://* startinsert
     autocmd BufLeave term://* stopinsert
-    autocmd TermClose term://* call nvim_input('<CR>')
+    " Ignore fzf as fzf will close terminal automatically
+    autocmd TermClose term://*
+          \ if (bufname('%') !~ "fzf") |
+          \   call nvim_input('<CR>')  |
+          \ endif
   augroup END
 endif
 " }}}
