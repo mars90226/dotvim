@@ -848,8 +848,20 @@ if has("nvim")
     highlight fzf3 ctermfg=15 ctermbg=239
     setlocal statusline=%#fzf1#\ >\ %#fzf2#fzf%#fzf3#
   endfunction
-
   autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
+  function! s:project_tags()
+    let s:origin_tags = &tags
+    set tags-=./tags;
+    augroup project_tags_callback
+      autocmd!
+      autocmd TermClose term://*fzf*
+            \ let &tags = s:origin_tags |
+            \ autocmd! project_tags_callback
+    augroup END
+    Tags
+  endfunction
+  nnoremap <Space>fp :call <SID>project_tags()<CR>
 endif
 " }}}
 
