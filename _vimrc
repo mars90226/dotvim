@@ -802,6 +802,7 @@ endfunction
 
 nnoremap <Space>fa :execute 'Ag ' . input('Ag: ')<CR>
 nnoremap <Space>fb :Buffers<CR>
+nnoremap <Space>fB :Files %:h<CR>
 nnoremap <Space>fc :BCommits<CR>
 nnoremap <Space>fC :Commits<CR>
 nnoremap <Space>fd :execute 'Tags ' . expand('<cword>')<CR>
