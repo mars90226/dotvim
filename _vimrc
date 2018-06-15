@@ -1147,6 +1147,7 @@ Plug 'tpope/vim-rails', { 'for': [] }
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/vim-slumlord'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'hotchpotch/perldoc-vim', { 'for': 'perl' }
 " }}}
 
 " Git {{{
