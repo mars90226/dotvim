@@ -114,6 +114,11 @@ nnoremap <Space>il :IndentLinesToggle<CR>
 autocmd! User indentLine doautocmd indentLine Syntax
 " }}}
 
+" vim-devicons {{{
+" Disable for now as Fira Code nerd fonts is not patched
+Plug 'ryanoasis/vim-devicons', { 'for': [] }
+" }}}
+
 " Colors {{{
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
@@ -199,7 +204,7 @@ endif
 if !s:is_disabled_plugin('deoplete.nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-  " Currently prefer deoplete-clang over clang_complete 
+  " Currently prefer deoplete-clang over clang_complete
   " Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'], 'do': 'make install' }
   Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
   " Plug 'tweekmonster/deoplete-clang2', { 'for': ['c', 'cpp'] }
@@ -1051,6 +1056,8 @@ Plug 'tpope/vim-surround'
 
 " Text Objects {{{
 " ====================================================================
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-function'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'coderifous/textobj-word-column.vim'
 " }}}
@@ -1220,6 +1227,13 @@ autocmd! FileType GV nnoremap <buffer> <silent> + :call <SID>gv_expand()<CR>
 
 " vim-tig {{{
 Plug 'codeindulgence/vim-tig', { 'on': ['Tig', 'Tig!'] }
+" }}}
+
+" Gina {{{
+Plug 'lambdalisue/gina.vim'
+
+nnoremap <Space>gb :Gina blame<CR>
+xnoremap <Space>gb :Gina blame<CR>
 " }}}
 
 Plug 'mattn/gist-vim'
@@ -1525,6 +1539,13 @@ if !s:is_disabled_plugin('denite.nvim')
           \ ['matcher_cpsm'])
   end
 endif
+" }}}
+
+" Gina {{{
+  call gina#custom#mapping#nmap(
+          \ '/\%(blame\|commit\|status\|branch\|ls\|grep\|changes\|tag\)',
+          \ 'q', ':<C-u> q<CR>', {'noremap': 1, 'silent': 1},
+          \)
 " }}}
 
 " Arpeggio {{{
