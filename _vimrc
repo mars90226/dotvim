@@ -1945,6 +1945,7 @@ augroup fileTypeSpecific
   autocmd BufNewFile,BufReadPost */rspamd/*.inc       set filetype=conf
   autocmd BufNewFile,BufReadPost Makefile.inc         set filetype=make
   autocmd BufNewFile,BufReadPost depends              set filetype=dosini
+  autocmd BufNewFile,BufReadPost .tmux.conf           set filetype=tmux
 
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
