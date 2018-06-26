@@ -871,6 +871,10 @@ if has("nvim")
 endif
 " }}}
 
+" vifm {{{
+Plug 'vifm/vifm.vim'
+" }}}
+
 Plug 'vim-scripts/a.vim', { 'on': 'A' }
 Plug 'brooth/far.vim', { 'on': ['Far', 'Farp', 'F'] }
 if has('job') || (has('nvim') && exists('*jobwait'))
