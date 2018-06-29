@@ -509,6 +509,7 @@ nnoremap <Space>uU :Unite -buffer-name=resume resume<CR>
 nnoremap <Space>uw :Unite window<CR>
 nnoremap <Space>uma :Unite mapping<CR>
 nnoremap <Space>ume :Unite output:message<CR>
+nnoremap <Space>ump :Unite output:map<CR>
 nnoremap <Space>u: :Unite history/command<CR>
 nnoremap <Space>u; :Unite command<CR>
 nnoremap <Space>u/ :Unite history/search<CR>
@@ -906,6 +907,7 @@ map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
 
 nmap <Leader>; <Plug>(easymotion-next)
 nmap <Leader>, <Plug>(easymotion-prev)
+nmap <Leader>. <Plug>(easymotion-repeat)
 
 map <Plug>(easymotion-prefix)J <Plug>(easymotion-eol-j)
 map <Plug>(easymotion-prefix)K <Plug>(easymotion-eol-k)
@@ -1601,7 +1603,8 @@ set hidden
 set lazyredraw
 set mouse=a
 set modeline
-set updatetime=100
+" Reset to default to prevent frequently trigger CursorHold event
+" set updatetime=100
 
 set scrolloff=0
 
@@ -1823,6 +1826,7 @@ function! s:zoom()
   endif
 endfunction
 nnoremap <silent> <Leader>z :call <SID>zoom()<CR>
+vnoremap <silent> <Leader>z y:tabnew<CR>pkdd
 
 " toggle parent folder tag
 function! s:toggle_parent_folder_tag()
