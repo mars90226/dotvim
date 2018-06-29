@@ -737,8 +737,8 @@ command! -bang -nargs=+ -complete=dir LLocate call fzf#vim#locate(<q-args>, <ban
 "     \ rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --color "always"
 "     \ -g "*.{js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst,lua,pm,vim,sh,h,hpp}"
 "     \ -g "!{.config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
-let g:rg_command = 'rg --column --line-number --no-heading --ignore-case --color=always '
-let g:rg_all_command = 'rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --color=always '
+let g:rg_command = 'rg --column --line-number --no-heading --smart-case --color=always '
+let g:rg_all_command = 'rg --column --line-number --no-heading --smart-case --no-ignore --hidden --follow --color=always '
 command! -bang -nargs=* Rg call fzf#vim#grep(
       \ <bang>0 ? g:rg_all_command.shellescape(<q-args>)
       \         : g:rg_command.shellescape(<q-args>), 1,
