@@ -952,6 +952,18 @@ function! s:AnzuToggleUpdate()
     g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 0
   endif
 endfunction
+
+augroup anzuDisableUpdateOnLargeFile
+  autocmd!
+
+  " Disabled on file larger than 10MB
+  autocmd BufWinEnter,WinEnter *
+        \ if getfsize(expand(@%)) > 10 * 1024 * 1024 |
+        \   let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 0 |
+        \ else |
+        \   let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 2 |
+        \ endif
+augroup END
 " }}}
 
 " incsearch {{{
