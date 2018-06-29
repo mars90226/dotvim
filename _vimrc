@@ -939,6 +939,17 @@ Plug 'osyo-manga/vim-anzu'
 
 map n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
 map N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
+
+command! AnzuToggleUpdate let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 0
+function! s:AnzuToggleUpdate()
+  let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus
+        \ = get(g:, 'anzu_enable_CursorHold_AnzuUpdateSearchStatus', 2)
+  if g:anzu_enable_CursorHold_AnzuUpdateSearchStatus == 0
+    g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 2
+  else
+    g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 0
+  endif
+endfunction
 " }}}
 
 " incsearch {{{
