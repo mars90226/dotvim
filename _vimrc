@@ -1615,8 +1615,7 @@ set hidden
 set lazyredraw
 set mouse=a
 set modeline
-" Reset to default to prevent frequently trigger CursorHold event
-" set updatetime=100
+set updatetime=100
 
 set scrolloff=0
 
