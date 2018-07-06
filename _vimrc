@@ -610,6 +610,7 @@ if !s:is_disabled_plugin('denite.nvim')
   nnoremap <Space>dD :Denite directory_mru<CR>
   nnoremap <Space>dh :Denite help<CR>
   nnoremap <Space>dj :Denite jump<CR>
+  nnoremap <Space>di :Denite grep:.::!<CR>
   nnoremap <Space>dk :execute 'Denite grep:.::' . <SID>escape_symbol(expand('<cword>'))<CR>
   nnoremap <Space>dK :execute 'Denite grep:.::' . <SID>escape_symbol(expand('<cWORD>'))<CR>
   nnoremap <Space>d8 :execute 'Denite grep:.::\\b' . <SID>escape_symbol(expand('<cword>')) . '\\b'<CR>
