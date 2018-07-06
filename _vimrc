@@ -1245,6 +1245,8 @@ nnoremap <Leader>gt :GitGutterAll<CR>
 " gv.vim {{{
 Plug 'junegunn/gv.vim', { 'on': 'GV' }
 
+command! GVA GV --all
+
 function! s:gv_expand()
   let line = getline('.')
   GV --name-status
