@@ -1240,6 +1240,11 @@ nnoremap <silent> <Leader>gu :GitGutterRevertHunk<CR>
 nnoremap <silent> <Leader>gp :GitGutterPreviewHunk<CR><c-w>j
 nnoremap cog :GitGutterToggle<CR>
 nnoremap <Leader>gt :GitGutterAll<CR>
+
+omap ih <Plug>GitGutterTextObjectInnerPending
+omap ah <Plug>GitGutterTextObjectOuterPending
+xmap ih <Plug>GitGutterTextObjectInnerVisual
+xmap ah <Plug>GitGutterTextObjectOuterVisual
 " }}}
 
 " gv.vim {{{
