@@ -1424,10 +1424,17 @@ endif
 " Denite {{{
 if !s:is_disabled_plugin('denite.nvim')
   " Change mappings
+  " Insert mode
   call denite#custom#map(
         \ 'insert',
-        \ '<C-r>',
+        \ '<A-g>',
         \ '<denite:toggle_matchers:matcher_substring>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
+        \ 'insert',
+        \ '<A-r>',
+        \ '<denite:change_sorters:sorter_reverse>',
         \ 'noremap'
         \)
   call denite#custom#map(
@@ -1482,6 +1489,14 @@ if !s:is_disabled_plugin('denite.nvim')
         \ 'insert',
         \ '<A-k>',
         \ '<denite:scroll_page_backwards>',
+        \ 'noremap'
+        \)
+
+  " Normal mode
+  call denite#custom#map(
+        \ 'normal',
+        \ 'r',
+        \ '<denite:do_action:quickfix>',
         \ 'noremap'
         \)
   call denite#custom#map(
@@ -1889,6 +1904,17 @@ function! TrimWhitespace()
 endfunction
 command! TrimWhitespace call TrimWhitespace()
 "autocmd BufWritePre * :call TrimWhitespace()
+
+function! s:getchar() abort
+  redraw | echo 'Press any key: '
+  let c = getchar()
+  while c ==# "\<CursorHold>"
+    redraw | echo 'Press any key: '
+    let c = getchar()
+  endwhile
+  redraw | echomsg printf('Raw: "%s" | Char: "%s"', c, nr2char(c))
+endfunction
+command! GetChar call s:getchar()
 " }}}
 " }}}
 
