@@ -1816,6 +1816,9 @@ nnoremap <Space><C-g> 2<C-g>
 " Move working directory up
 nnoremap <Leader>u :cd ..<CR>
 
+" Move working directory to current buffer's parent folder
+nnoremap <Leader>cb :cd %:h<CR>
+
 " Custom function {{{
 nnoremap <F6> :call ToggleIndentBetweenTabAndSpace()<CR>
 function! ToggleIndentBetweenTabAndSpace()
