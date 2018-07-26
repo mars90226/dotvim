@@ -470,6 +470,7 @@ nnoremap <Space>y :Unite history/yank<CR>
 nnoremap <Space>S :Unite source<CR>
 nnoremap <Space>m :Unite file_mru<CR>
 nnoremap <Space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+nnoremap <Space>o :Unite outline<CR>
 nnoremap <Space>a :execute 'Unite anzu:' . input ('anzu: ')<CR>
 nnoremap <Space>ua :Unite apropos -start-insert<CR>
 nnoremap <Space>ub :UniteWithBufferDir -buffer-name=files -prompt=%\  buffer bookmark file<CR>
