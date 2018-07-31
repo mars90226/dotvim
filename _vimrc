@@ -1171,6 +1171,7 @@ if !s:is_disabled_plugin('ale')
   Plug 'w0rp/ale'
 
   let g:ale_linters = {
+        \ 'c': ['gcc'],
         \ 'cpp': ['g++']
         \}
 
@@ -1390,7 +1391,7 @@ endif
 " vim-localvimrc {{{
 Plug 'embear/vim-localvimrc'
 
-let g:localvimrc_whitelist = ['/synosrc/packages/source/.*', '/synosrc/origin/source/.*']
+let g:localvimrc_whitelist = ['/synosrc/[^/]*/source/.*']
 " }}}
 
 Plug 'tpope/vim-dadbod'
