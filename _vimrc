@@ -1967,6 +1967,7 @@ if has("nvim")
 
   tnoremap <M-F1> <C-\><C-n>
   tnoremap <M-F2> <C-\><C-n>:tabnew<CR>:terminal<CR>i
+  tnoremap \\q <C-\><C-n>
 
   " Quickly switch window in terminal
   tnoremap <M-S-h> <C-\><C-n><C-w>h
