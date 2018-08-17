@@ -1920,6 +1920,10 @@ function! s:getchar() abort
   redraw | echomsg printf('Raw: "%s" | Char: "%s"', c, nr2char(c))
 endfunction
 command! GetChar call s:getchar()
+
+if s:os !~ "windows"
+  command! Args echo system("ps -o command= -p " . getpid())
+endif
 " }}}
 " }}}
 
