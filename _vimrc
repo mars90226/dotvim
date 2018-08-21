@@ -429,6 +429,10 @@ function! s:vimfiler_my_settings()
 endfunction
 " }}}
 
+" " Defx {{{
+" Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+" " }}}
+
 " vim-choosewin {{{
 Plug 't9md/vim-choosewin'
 
