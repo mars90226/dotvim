@@ -580,6 +580,10 @@ function! s:unite_my_settings() "{{{
   imap <silent><buffer><expr> <C-]>     unite#do_action('persist_open')
   nmap <silent><buffer><expr> <C-]>     unite#do_action('persist_open')
 
+  " Runs "grep" action by <M-g>.
+  imap <silent><buffer><expr> <M-g>     unite#do_action('grep')
+  nmap <silent><buffer><expr> <M-g>     unite#do_action('grep')
+
   " Unmap <Space>, use ` instead
   silent! nunmap <buffer> <Space>
   nmap <silent><buffer> ` <Plug>(unite_toggle_mark_current_candidate)
@@ -1396,6 +1400,12 @@ endif
 Plug 'embear/vim-localvimrc'
 
 let g:localvimrc_whitelist = ['/synosrc/[^/]*/source/.*']
+" }}}
+
+" vim-qfreplace {{{
+Plug 'thinca/vim-qfreplace'
+
+autocmd! FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
 " }}}
 
 Plug 'tpope/vim-dadbod'
