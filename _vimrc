@@ -2030,6 +2030,7 @@ augroup fileTypeSpecific
   autocmd BufNewFile,BufReadPost *conf                set filetype=conf
   autocmd BufNewFile,BufReadPost *conf.local          set filetype=conf
   autocmd BufNewFile,BufReadPost *conf.local.override set filetype=conf
+  autocmd BufNewFile,BufReadPost *.cf                 set filetype=conf
   autocmd BufNewFile,BufReadPost */rspamd/*.inc       set filetype=conf
   autocmd BufNewFile,BufReadPost Makefile.inc         set filetype=make
   autocmd BufNewFile,BufReadPost depends              set filetype=dosini
