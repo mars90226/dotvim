@@ -470,6 +470,7 @@ else
   nnoremap <Space>P :Unite -start-insert file_rec<CR>
 endif
 nnoremap <Space>/ :Unite grep:.<CR>
+nnoremap <Space>? :execute 'Unite grep:.:' . <SID>escape_symbol(input('Option: '))<CR>
 nnoremap <Space>y :Unite history/yank<CR>
 nnoremap <Space>S :Unite source<CR>
 nnoremap <Space>m :Unite file_mru<CR>
@@ -605,7 +606,8 @@ if executable('rg')
   let g:unite_source_grep_recursive_opt = ''
 
   nnoremap <Space>/ :Unite grep:. -wrap<CR>
-  nnoremap <Space>g/ :execute "Unite grep:.:-g\\ '" . input('glob: ') . "'"<CR>
+  nnoremap <Space>? :execute 'Unite grep:.:' . <SID>escape_symbol(input('Option: ')) . ' -wrap'<CR>
+  nnoremap <Space>g/ :execute "Unite grep:.:-g\\ '" . input('glob: ') . "' -wrap"<CR>
 endif
 " }}}
 
@@ -639,6 +641,7 @@ if !s:is_disabled_plugin('denite.nvim')
   nnoremap <Space>d: :Denite command_history<CR>
   nnoremap <Space>d; :Denite command<CR>
   nnoremap <Space>d/ :Denite grep:.<CR>
+  nnoremap <Space>d? :execute 'Denite grep:.:' . <SID>escape_symbol(input('Option: '))<CR>
 
   if executable('rg')
     nnoremap <Space>dg/ :execute "Denite grep:.:-g\\ '" . input('glob: ') . "'"<CR>
@@ -756,6 +759,21 @@ command! -bang -nargs=* Rg call fzf#vim#grep(
       \ <bang>0 ? fzf#vim#with_preview('up:60%')
       \         : fzf#vim#with_preview('right:50%:hidden', '?'),
       \ <bang>0)
+
+" Rg with option, using ':' to separate option and query
+command! -bang -nargs=* RgWithOption call s:rg_with_option(<q-args>, <bang>0)
+function! s:rg_with_option(command, bang)
+  let command_parts = split(a:command, ':')
+  let option = command_parts[0]
+  let query = join(command_parts[1:], ':')
+  call fzf#vim#grep(
+        \ a:bang ? g:rg_all_command.option.' '.shellescape(query)
+        \         : g:rg_command.option.' '.shellescape(query), 1,
+        \ a:bang ? fzf#vim#with_preview('up:60%')
+        \         : fzf#vim#with_preview('right:50%:hidden', '?'),
+        \ a:bang)
+endfunction
+
 command! Mru call fzf#run(fzf#wrap({
       \ 'source':  reverse(s:all_files()),
       \ 'options': '-m -x +s',
@@ -842,6 +860,8 @@ nnoremap <Space>fM :Maps<CR>
 nnoremap <Space>fo :execute 'LLocate ' . input('Locate: ')<CR>
 nnoremap <Space>fr :execute 'Rg ' . input('Rg: ')<CR>
 nnoremap <Space>fR :execute 'Rg! ' . input('Rg!: ')<CR>
+nnoremap <Space>f4 :execute 'RgWithOption ' . input('Option: ') . ':' . input('Rg: ')<CR>
+nnoremap <Space>f$ :execute 'RgWithOption! ' . input('Option: ') . ':' . input('Rg!: ')<CR>
 nnoremap <Space>fs :GFiles?<CR>
 nnoremap <Space>ft :BTags<CR>
 nnoremap <Space>fT :Tags<CR>
