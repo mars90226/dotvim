@@ -637,7 +637,8 @@ if !s:is_disabled_plugin('denite.nvim')
   nnoremap <Space>d<C-p> :DeniteProjectDir -buffer-name=files buffer file<CR>
   nnoremap <Space>dr :Denite register<CR>
   nnoremap <Space>dt :Denite tag<CR>
-  nnoremap <Space>du :Denite -resume -refresh<CR>
+  nnoremap <Space>du :Denite -resume<CR>
+  nnoremap <Space>dU :Denite -resume -refresh<CR>
   nnoremap <Space>d: :Denite command_history<CR>
   nnoremap <Space>d; :Denite command<CR>
   nnoremap <Space>d/ :Denite grep:.<CR>
