@@ -2023,6 +2023,18 @@ if has("nvim")
 
   " Quickly paste from register
   tnoremap <expr> <M-r> '<C-\><C-n>"' . nr2char(getchar()) . 'pi'
+
+  " Search keyword with Google using surfraw
+  if executable('sr')
+    command! -nargs=1 GoogleKeyword call <SID>google_keyword(<q-args>)
+    function! s:google_keyword(keyword)
+      new
+      terminal
+      startinsert
+      call nvim_input('sr google ' . a:keyword . "\n")
+    endfunction
+    nnoremap <Leader>k :execute 'GoogleKeyword ' . expand('<cword>')<CR>
+  endif
 endif
 " }}}
 
