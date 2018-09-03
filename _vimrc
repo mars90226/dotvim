@@ -1216,6 +1216,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/vim-slumlord'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'mars90226/perldoc-vim'
+Plug 'gyim/vim-boxdraw'
 " }}}
 
 " Git {{{
