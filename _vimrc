@@ -22,30 +22,49 @@ if s:os =~ "windows"
 endif
 
 " plugin choosing {{{
+" enabled plugin management {{{
 let g:plugin_disabled = []
 
 function! s:disable_plugin(plugin)
   call add(g:plugin_disabled, a:plugin)
 endfunction
 
+function! s:disable_plugins(plugins)
+  let g:plugin_disabled += a:plugins
+endfunction
+
+function! s:enable_plugin(plugin)
+  let l:idx = index(g:plugin_disabled, a:plugin)
+
+  if l:idx != -1
+    call remove(g:plugin_disabled, l:idx)
+  end
+endfunction
+
 function! s:is_disabled_plugin(plugin)
   return index(g:plugin_disabled, a:plugin) != -1
 endfunction
 
+function! s:is_enabled_plugin(plugin)
+  return index(g:plugin_disabled, a:plugin) == -1
+endfunction
+" }}}
+
 " Choose autocompletion plugin {{{
-" YouCompleteMe, supertab, deoplete.nvim
-if s:os =~ "windows" || s:os =~ "synology"
-  " supertab
-  call s:disable_plugin('YouCompleteMe')
-  call s:disable_plugin('deoplete.nvim')
-elseif has("nvim") && has("python3")
+" deoplete.nvim, completor.vim, supertab, YouCompleteMe
+call s:disable_plugins(['deoplete.nvim', 'completor.vim', 'supertab', 'YouCompleteMe'])
+if has("nvim") && has("python3")
   " deoplete.nvim
-  call s:disable_plugin('YouCompleteMe')
-  call s:disable_plugin('supertab')
+  call s:enable_plugin('deoplete.nvim')
+elseif has("python") || has("python3")
+  " completor.vim
+  call s:enable_plugin('completor.vim')
+elseif s:os =~ "windows" || s:os =~ "synology"
+  " supertab
+  call s:enable_plugin('supertab')
 else
   " YouCompleteMe
-  call s:disable_plugin('deoplete.nvim')
-  call s:disable_plugin('supertab')
+  call s:enable_plugin('YouCompleteMe')
 endif
 " }}}
 
@@ -138,70 +157,12 @@ inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
-" }}}
-
-" YouCompleteMe {{{
-if !s:is_disabled_plugin('YouCompleteMe')
-  Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang_completer' }
-
-  let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-  let g:ycm_confirm_extra_conf    = 0
-  let g:ycm_key_invoke_completion = '<M-/>'
-
-  nnoremap <Leader>yy :let g:ycm_auto_trigger=0<CR>
-  nnoremap <Leader>yY :let g:ycm_auto_trigger=1<CR>
-
-  nnoremap <Leader>yr :YcmRestartServer<CR>
-  nnoremap <Leader>yi :YcmDiags<CR>
-
-  nnoremap <Leader>yI :YcmCompleter GoToInclude<CR>
-  nnoremap <Leader>yg :YcmCompleter GoTo<CR>
-  nnoremap <Leader>yG :YcmCompleter GoToImprecise<CR>
-  nnoremap <Leader>yR :YcmCompleter GoToReferences<CR>
-  nnoremap <Leader>yt :YcmCompleter GetType<CR>
-  nnoremap <Leader>yT :YcmCompleter GetTypeImprecise<CR>
-  nnoremap <Leader>yp :YcmCompleter GetParent<CR>
-  nnoremap <Leader>yd :YcmCompleter GetDoc<CR>
-  nnoremap <Leader>yD :YcmCompleter GetDocImprecise<CR>
-  nnoremap <Leader>yf :YcmCompleter FixIt<CR>
-
-  nnoremap <Leader>ysI :split <Bar> YcmCompleter GoToInclude<CR>
-  nnoremap <Leader>ysg :split <Bar> YcmCompleter GoTo<CR>
-  nnoremap <Leader>ysG :split <Bar> YcmCompleter GoToImprecise<CR>
-  nnoremap <Leader>ysR :split <Bar> YcmCompleter GoToReferences<CR>
-  nnoremap <Leader>yst :split <Bar> YcmCompleter GetType<CR>
-  nnoremap <Leader>ysT :split <Bar> YcmCompleter GetTypeImprecise<CR>
-  nnoremap <Leader>ysp :split <Bar> YcmCompleter GetParent<CR>
-  nnoremap <Leader>ysd :split <Bar> YcmCompleter GetDoc<CR>
-  nnoremap <Leader>ysD :split <Bar> YcmCompleter GetDocImprecise<CR>
-  nnoremap <Leader>ysf :split <Bar> YcmCompleter FixIt<CR>
-
-  nnoremap <Leader>yvI :vsplit <Bar> YcmCompleter GoToInclude<CR>
-  nnoremap <Leader>yvg :vsplit <Bar> YcmCompleter GoTo<CR>
-  nnoremap <Leader>yvG :vsplit <Bar> YcmCompleter GoToImprecise<CR>
-  nnoremap <Leader>yvR :vsplit <Bar> YcmCompleter GoToReferences<CR>
-  nnoremap <Leader>yvt :vsplit <Bar> YcmCompleter GetType<CR>
-  nnoremap <Leader>yvT :vsplit <Bar> YcmCompleter GetTypeImprecise<CR>
-  nnoremap <Leader>yvp :vsplit <Bar> YcmCompleter GetParent<CR>
-  nnoremap <Leader>yvd :vsplit <Bar> YcmCompleter GetDoc<CR>
-  nnoremap <Leader>yvD :vsplit <Bar> YcmCompleter GetDocImprecise<CR>
-  nnoremap <Leader>yvf :vsplit <Bar> YcmCompleter FixIt<CR>
-
-  nnoremap <Leader>yxI :tab split <Bar> YcmCompleter GoToInclude<CR>
-  nnoremap <Leader>yxg :tab split <Bar> YcmCompleter GoTo<CR>
-  nnoremap <Leader>yxG :tab split <Bar> YcmCompleter GoToImprecise<CR>
-  nnoremap <Leader>yxR :tab split <Bar> YcmCompleter GoToReferences<CR>
-  nnoremap <Leader>yxt :tab split <Bar> YcmCompleter GetType<CR>
-  nnoremap <Leader>yxT :tab split <Bar> YcmCompleter GetTypeImprecise<CR>
-  nnoremap <Leader>yxp :tab split <Bar> YcmCompleter GetParent<CR>
-  nnoremap <Leader>yxd :tab split <Bar> YcmCompleter GetDoc<CR>
-  nnoremap <Leader>yxD :tab split <Bar> YcmCompleter GetDocImprecise<CR>
-  nnoremap <Leader>yxf :tab split <Bar> YcmCompleter FixIt<CR>
-endif
+inoremap <expr> <Tab>      pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab>    pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " }}}
 
 " deoplete.nvim {{{
-if !s:is_disabled_plugin('deoplete.nvim')
+if s:is_enabled_plugin('deoplete.nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
   " Currently prefer deoplete-clang over clang_complete
@@ -277,9 +238,79 @@ if !s:is_disabled_plugin('deoplete.nvim')
 endif
 " }}}
 
+" completor.vim {{{
+if s:is_enabled_plugin('completor.vim')
+  Plug 'maralla/completor.vim'
+
+  if s:os !~ "windows" && s:os !~ "synology"
+    let g:completor_clang_binary = "/usr/lib/llvm-5.0/lib/clang"
+  end
+endif
+" }}}
+
 " supertab {{{
-if !s:is_disabled_plugin('supertab')
+if s:is_enabled_plugin('supertab')
   Plug 'ervandew/supertab'
+endif
+" }}}
+
+" YouCompleteMe {{{
+if s:is_enabled_plugin('YouCompleteMe')
+  Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang_completer' }
+
+  let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+  let g:ycm_confirm_extra_conf    = 0
+  let g:ycm_key_invoke_completion = '<M-/>'
+
+  nnoremap <Leader>yy :let g:ycm_auto_trigger=0<CR>
+  nnoremap <Leader>yY :let g:ycm_auto_trigger=1<CR>
+
+  nnoremap <Leader>yr :YcmRestartServer<CR>
+  nnoremap <Leader>yi :YcmDiags<CR>
+
+  nnoremap <Leader>yI :YcmCompleter GoToInclude<CR>
+  nnoremap <Leader>yg :YcmCompleter GoTo<CR>
+  nnoremap <Leader>yG :YcmCompleter GoToImprecise<CR>
+  nnoremap <Leader>yR :YcmCompleter GoToReferences<CR>
+  nnoremap <Leader>yt :YcmCompleter GetType<CR>
+  nnoremap <Leader>yT :YcmCompleter GetTypeImprecise<CR>
+  nnoremap <Leader>yp :YcmCompleter GetParent<CR>
+  nnoremap <Leader>yd :YcmCompleter GetDoc<CR>
+  nnoremap <Leader>yD :YcmCompleter GetDocImprecise<CR>
+  nnoremap <Leader>yf :YcmCompleter FixIt<CR>
+
+  nnoremap <Leader>ysI :split <Bar> YcmCompleter GoToInclude<CR>
+  nnoremap <Leader>ysg :split <Bar> YcmCompleter GoTo<CR>
+  nnoremap <Leader>ysG :split <Bar> YcmCompleter GoToImprecise<CR>
+  nnoremap <Leader>ysR :split <Bar> YcmCompleter GoToReferences<CR>
+  nnoremap <Leader>yst :split <Bar> YcmCompleter GetType<CR>
+  nnoremap <Leader>ysT :split <Bar> YcmCompleter GetTypeImprecise<CR>
+  nnoremap <Leader>ysp :split <Bar> YcmCompleter GetParent<CR>
+  nnoremap <Leader>ysd :split <Bar> YcmCompleter GetDoc<CR>
+  nnoremap <Leader>ysD :split <Bar> YcmCompleter GetDocImprecise<CR>
+  nnoremap <Leader>ysf :split <Bar> YcmCompleter FixIt<CR>
+
+  nnoremap <Leader>yvI :vsplit <Bar> YcmCompleter GoToInclude<CR>
+  nnoremap <Leader>yvg :vsplit <Bar> YcmCompleter GoTo<CR>
+  nnoremap <Leader>yvG :vsplit <Bar> YcmCompleter GoToImprecise<CR>
+  nnoremap <Leader>yvR :vsplit <Bar> YcmCompleter GoToReferences<CR>
+  nnoremap <Leader>yvt :vsplit <Bar> YcmCompleter GetType<CR>
+  nnoremap <Leader>yvT :vsplit <Bar> YcmCompleter GetTypeImprecise<CR>
+  nnoremap <Leader>yvp :vsplit <Bar> YcmCompleter GetParent<CR>
+  nnoremap <Leader>yvd :vsplit <Bar> YcmCompleter GetDoc<CR>
+  nnoremap <Leader>yvD :vsplit <Bar> YcmCompleter GetDocImprecise<CR>
+  nnoremap <Leader>yvf :vsplit <Bar> YcmCompleter FixIt<CR>
+
+  nnoremap <Leader>yxI :tab split <Bar> YcmCompleter GoToInclude<CR>
+  nnoremap <Leader>yxg :tab split <Bar> YcmCompleter GoTo<CR>
+  nnoremap <Leader>yxG :tab split <Bar> YcmCompleter GoToImprecise<CR>
+  nnoremap <Leader>yxR :tab split <Bar> YcmCompleter GoToReferences<CR>
+  nnoremap <Leader>yxt :tab split <Bar> YcmCompleter GetType<CR>
+  nnoremap <Leader>yxT :tab split <Bar> YcmCompleter GetTypeImprecise<CR>
+  nnoremap <Leader>yxp :tab split <Bar> YcmCompleter GetParent<CR>
+  nnoremap <Leader>yxd :tab split <Bar> YcmCompleter GetDoc<CR>
+  nnoremap <Leader>yxD :tab split <Bar> YcmCompleter GetDocImprecise<CR>
+  nnoremap <Leader>yxf :tab split <Bar> YcmCompleter FixIt<CR>
 endif
 " }}}
 
@@ -612,7 +643,7 @@ endif
 " }}}
 
 " Denite {{{
-if !s:is_disabled_plugin('denite.nvim')
+if s:is_enabled_plugin('denite.nvim')
   Plug 'Shougo/denite.nvim'
 
   nnoremap <Space>db :DeniteBufferDir -buffer-name=files buffer file<CR>
@@ -1161,7 +1192,7 @@ augroup END
 " }}}
 
 " Syntastic {{{
-if !s:is_disabled_plugin('syntastic')
+if s:is_enabled_plugin('syntastic')
   Plug 'vim-syntastic/syntastic'
 
   " Automatically setup by airline
@@ -1196,7 +1227,7 @@ end
 " }}}
 
 " ale {{{
-if !s:is_disabled_plugin('ale')
+if s:is_enabled_plugin('ale')
   Plug 'w0rp/ale'
 
   let g:ale_linters = {
@@ -1454,13 +1485,13 @@ call plug#end()
 
 " Post-loaded Plugin Settings {{{
 " Deoplete {{{
-if !s:is_disabled_plugin('deoplete.nvim')
+if s:is_enabled_plugin('deoplete.nvim')
   " call deoplete#custom#option('auto_complete_delay', 200)
 endif
 " }}}
 
 " Denite {{{
-if !s:is_disabled_plugin('denite.nvim')
+if s:is_enabled_plugin('denite.nvim')
   " Change mappings
   " Insert mode
   call denite#custom#map(
