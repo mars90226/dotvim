@@ -1800,6 +1800,8 @@ endif
 set background=dark
 if !exists("g:gui_oni")
   colorscheme seoul256
+  highlight Pmenu ctermfg=187 ctermbg=239
+  highlight PmenuSel ctermbg=95
 endif
 " }}}
 
@@ -2004,6 +2006,8 @@ if !has("nvim") && !has("gui_running") && s:os =~ "windows"
   let &t_AB="\e[48;5;%dm"
   let &t_AF="\e[38;5;%dm"
   colorscheme seoul256
+  highlight Pmenu ctermfg=187 ctermbg=239
+  highlight PmenuSel ctermbg=95
 endif
 " }}}
 
