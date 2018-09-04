@@ -1328,10 +1328,11 @@ autocmd! FileType GV nnoremap <buffer> <silent> + :call <SID>gv_expand()<CR>
 " vim-tig {{{
 Plug 'codeindulgence/vim-tig', { 'on': ['Tig', 'Tig!'] }
 
-nnoremap \tr :Tig<CR>
-nnoremap \tt :tabnew <Bar> Tig<CR>
-nnoremap \ts :new    <Bar> Tig<CR>
-nnoremap \tv :vnew   <Bar> Tig<CR>
+" Add '' to open tig main view
+nnoremap \tr :Tig ''<CR>
+nnoremap \tt :tabnew <Bar> Tig ''<CR>
+nnoremap \ts :new    <Bar> Tig ''<CR>
+nnoremap \tv :vnew   <Bar> Tig ''<CR>
 " }}}
 
 " Gina {{{
