@@ -1327,6 +1327,11 @@ autocmd! FileType GV nnoremap <buffer> <silent> + :call <SID>gv_expand()<CR>
 
 " vim-tig {{{
 Plug 'codeindulgence/vim-tig', { 'on': ['Tig', 'Tig!'] }
+
+nnoremap \tr :Tig<CR>
+nnoremap \tt :tabnew <Bar> Tig<CR>
+nnoremap \ts :new    <Bar> Tig<CR>
+nnoremap \tv :vnew   <Bar> Tig<CR>
 " }}}
 
 " Gina {{{
@@ -2036,9 +2041,9 @@ if has("nvim")
 
   " For quick terminal access
   nnoremap <silent> <Leader>tr :terminal<CR>i
-  nnoremap <silent> <Leader>tt :tabnew<CR>:terminal<CR>i
-  nnoremap <silent> <Leader>ts :new<CR>:terminal<CR>i
-  nnoremap <silent> <Leader>tv :vnew<CR>:terminal<CR>i
+  nnoremap <silent> <Leader>tt :tabnew <Bar> :terminal<CR>i
+  nnoremap <silent> <Leader>ts :new    <Bar> :terminal<CR>i
+  nnoremap <silent> <Leader>tv :vnew   <Bar> :terminal<CR>i
 
   tnoremap <M-F1> <C-\><C-n>
   tnoremap <M-F2> <C-\><C-n>:tabnew<CR>:terminal<CR>i
@@ -2100,6 +2105,7 @@ augroup fileTypeSpecific
   autocmd BufNewFile,BufReadPost *conf.local          set filetype=conf
   autocmd BufNewFile,BufReadPost *conf.local.override set filetype=conf
   autocmd BufNewFile,BufReadPost *.cf                 set filetype=conf
+  autocmd BufNewFile,BufReadPost .gitignore           set filetype=conf
   autocmd BufNewFile,BufReadPost */rspamd/*.inc       set filetype=conf
   autocmd BufNewFile,BufReadPost */upstart/*conf      set filetype=upstart
   autocmd BufNewFile,BufReadPost Makefile.inc         set filetype=make
