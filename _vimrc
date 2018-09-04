@@ -2101,7 +2101,8 @@ augroup fileTypeSpecific
   autocmd FileType gitcommit setlocal spell complete+=k
 
   " Custom filetype
-  autocmd BufNewFile,BufReadPost *maillog*            set filetype=messages
+  autocmd BufNewFile,BufReadPost *maillog             set filetype=messages
+  autocmd BufNewFile,BufReadPost *maillog.*.xz        set filetype=messages
   autocmd BufNewFile,BufReadPost *conf                set filetype=conf
   autocmd BufNewFile,BufReadPost *conf.local          set filetype=conf
   autocmd BufNewFile,BufReadPost *conf.local.override set filetype=conf
