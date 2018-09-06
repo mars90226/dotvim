@@ -158,7 +158,11 @@ inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 inoremap <expr> <Tab>      pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab>    pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Workaround of supertab bug
+if s:is_disabled_plugin('supertab')
+  inoremap <expr> <S-Tab>    pumvisible() ? "\<C-p>" : "\<S-Tab>"
+endif
 " }}}
 
 " deoplete.nvim {{{
