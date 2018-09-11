@@ -1242,6 +1242,20 @@ if s:is_enabled_plugin('ale')
 
   nmap ]a <Plug>(ale_next_wrap)
   nmap [a <Plug>(ale_previous_wrap)
+  nmap ]A <Plug>(ale_first)
+  nmap [A <Plug>(ale_last)
+  nmap <Leader>aa <Plug>(ale_toggle_buffer)
+  nmap <Leader>aA <Plug>(ale_toggle)
+  nmap <Leader>ad <Plug>(ale_detail)
+  nmap <Leader>af <Plug>(ale_fix)
+  nmap <Leader>ag <Plug>(ale_go_to_definition)
+  nmap <Leader>aG <Plug>(ale_go_to_definition_in_tab)
+  nmap <Leader>ah <Plug>(ale_hover)
+  nmap <Leader>ai :ALEInfo<CR>
+  nmap <Leader>al <Plug>(ale_lint)
+  nmap <Leader>ar <Plug>(ale_reset_buffer)
+  nmap <Leader>aR <Plug>(ale_reset)
+  nmap <Leader>aS :ALEStopAllLSPs<CR>
 end
 " }}}
 
@@ -1363,6 +1377,9 @@ endif
 
 " vim-unimpaired {{{
 Plug 'tpope/vim-unimpaired'
+
+" Ignore [a, ]a, [A, ]A for ale
+let g:nremap = {"[a": "", "]a": "", "[A": "", "]A": ""}
 
 nnoremap coe :set expandtab!<CR>
 nnoremap cop :set paste!<CR>
