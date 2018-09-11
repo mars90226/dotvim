@@ -2136,6 +2136,7 @@ augroup fileTypeSpecific
   autocmd BufNewFile,BufReadPost Makefile.inc         set filetype=make
   autocmd BufNewFile,BufReadPost depends              set filetype=dosini
   autocmd BufNewFile,BufReadPost .tmux.conf           set filetype=tmux
+  autocmd BufNewFile,BufReadPost resource             set filetype=json
 
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
