@@ -1172,9 +1172,9 @@ Plug 'vim-scripts/cscope_macros.vim'
 nnoremap <F11> :call <SID>generate_cscope_files()<CR>
 function! s:generate_cscope_files()
   !find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
-  !cscope -b -i cscope.files -f cscope.out<CR>
-  cscope kill -1<CR>
-  cscope add cscope.out<CR>
+  !cscope -b -i cscope.files -f cscope.out
+  cscope kill -1
+  cscope add cscope.out
 endfunction
 " }}}
 
