@@ -881,7 +881,7 @@ nnoremap <Space>ff :Files<CR>
 nnoremap <Space>fg :GFiles<CR>
 nnoremap <Space>fG :execute 'GGrep ' . input('Git grep: ')<CR>
 nnoremap <Space>fh :Helptags<CR>
-nnoremap <Space>fH :History<CR>
+nnoremap <Space>fi :History<CR>
 nnoremap <Space>fj :Jump<CR>
 nnoremap <Space>fk :execute 'Rg ' . expand('<cword>')<CR>
 nnoremap <Space>fK :execute 'Rg ' . expand('<cWORD>')<CR>
