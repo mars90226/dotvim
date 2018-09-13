@@ -862,21 +862,36 @@ command! Jump call fzf#run(fzf#wrap({
       \ 'option': '-m -x +s',
       \ 'down':   '40%'}))
 
+" Borrow from fzf-vim
+let s:TYPE = {'dict': type({}), 'funcref': type(function('call')), 'string': type(''), 'list': type([])}
+function! s:action_for(key, ...)
+  let default = a:0 ? a:1 : ''
+  let Cmd = get(g:fzf_action, a:key, default)
+  return type(Cmd) == s:TYPE.string ? Cmd : default
+endfunction
+
+function! s:cscope_sink(lines) 
+  if len(a:lines) < 2
+    return
+  end
+  let data = split(a:lines[1])
+  let file = split(data[0], ":")
+  let cmd = s:action_for(a:lines[0], 'e')
+  execute cmd . ' +' . file[1] . ' ' . file[0]
+endfunction
 
 function! Cscope(option, query)
+  let expect_keys = join(keys(g:fzf_action), ',')
   let color = '{ x = $1; $1 = ""; z = $3; $3 = ""; printf "\033[34m%s\033[0m:\033[31m%s\033[0m\011\033[37m%s\033[0m\n", x,z,$0; }'
   let opts = {
   \ 'source':  "cscope -dL" . a:option . " " . a:query . " | awk '" . color . "'",
+  \ 'sink*': function('s:cscope_sink'),
   \ 'options': ['--ansi', '--prompt', '> ',
   \             '--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
-  \             '--color', 'fg:188,fg+:222,bg+:#3a3a3a,hl+:104'],
+  \             '--color', 'fg:188,fg+:222,bg+:#3a3a3a,hl+:104',
+  \             '--expect=' . expect_keys],
   \ 'down': '40%'
   \ }
-  function! opts.sink(lines) 
-    let data = split(a:lines)
-    let file = split(data[0], ":")
-    execute 'e ' . '+' . file[1] . ' ' . file[0]
-  endfunction
   call fzf#run(opts)
 endfunction
 
@@ -1591,7 +1606,7 @@ endif
 " Denite {{{
 if s:is_enabled_plugin('denite.nvim')
   " Change mappings
-  " Insert mode
+  " Insert mode {{{
   call denite#custom#map(
         \ 'insert',
         \ '<A-g>',
@@ -1658,8 +1673,9 @@ if s:is_enabled_plugin('denite.nvim')
         \ '<denite:scroll_page_backwards>',
         \ 'noremap'
         \)
+  " }}}
 
-  " Normal mode
+  " Normal mode {{{
   call denite#custom#map(
         \ 'normal',
         \ 'r',
@@ -1738,6 +1754,7 @@ if s:is_enabled_plugin('denite.nvim')
         \ '<denite:jump_to_previous_source>',
         \ 'noremap'
         \)
+  " }}}
 
   if executable('rg')
     call denite#custom#var('file_rec', 'command',
