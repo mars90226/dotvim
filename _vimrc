@@ -1167,7 +1167,7 @@ let g:user_emmet_leader_key = '<C-e>'
 " }}}
 
 " cscope-macros.vim {{{
-Plug 'vim-scripts/cscope_macros.vim'
+Plug 'mars90226/cscope_macros.vim'
 
 nnoremap <F11> :call <SID>generate_cscope_files()<CR>
 function! s:generate_cscope_files()
