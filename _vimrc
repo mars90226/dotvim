@@ -787,6 +787,15 @@ inoremap <expr> <C-x><C-d> fzf#vim#complete#path('fd -t d')
 command! -bar -bang Helptags call fzf#vim#helptags(<bang>0)
 command! -bang -nargs=+ -complete=dir LLocate call fzf#vim#locate(<q-args>, <bang>0)
 
+" Borrow from fzf-vim
+" For using g:fzf_action in custom sink function
+let s:TYPE = {'dict': type({}), 'funcref': type(function('call')), 'string': type(''), 'list': type([])}
+function! s:action_for(key, ...)
+  let default = a:0 ? a:1 : ''
+  let Cmd = get(g:fzf_action, a:key, default)
+  return type(Cmd) == s:TYPE.string ? Cmd : default
+endfunction
+
 " let g:rg_command = '
 "     \ rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --color "always"
 "     \ -g "*.{js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst,lua,pm,vim,sh,h,hpp}"
@@ -862,14 +871,8 @@ command! Jump call fzf#run(fzf#wrap({
       \ 'option': '-m -x +s',
       \ 'down':   '40%'}))
 
-" Borrow from fzf-vim
-let s:TYPE = {'dict': type({}), 'funcref': type(function('call')), 'string': type(''), 'list': type([])}
-function! s:action_for(key, ...)
-  let default = a:0 ? a:1 : ''
-  let Cmd = get(g:fzf_action, a:key, default)
-  return type(Cmd) == s:TYPE.string ? Cmd : default
-endfunction
-
+" Cscope functions {{{
+" Borrow from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
 function! s:cscope_sink(lines) 
   if len(a:lines) < 2
     return
@@ -926,6 +929,7 @@ function! CscopeQuery(option)
     echom "Cancelled Search!"
   endif
 endfunction
+" }}}
 
 if has("nvim")
   function! s:fzf_statusline()
