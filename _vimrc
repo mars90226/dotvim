@@ -829,10 +829,10 @@ command! Mru call fzf#run(fzf#wrap({
       \ 'options': '-m -x +s',
       \ 'down':    '40%' }))
 
-" TODO use neomru
+" use neomru
 function! s:all_files()
   return extend(
-  \ filter(copy(v:oldfiles),
+  \ filter(readfile(g:neomru#file_mru_path)[1:],
   \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/\\|\\[unite\\]\\|\[Preview\\]\\|__Tagbar__\\|term://'"),
   \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
 endfunction
