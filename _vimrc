@@ -850,25 +850,37 @@ endfunction
 command! -nargs=1 Tselect call fzf#run(fzf#wrap({
       \ 'source': s:get_tselect(<q-args>),
       \ 'sink':   function('s:tselect_sink'),
-      \ 'option': '-m -x +s',
+      \ 'options': '-m -x +s',
       \ 'down':   '40%'}))
-" TODO Add expect keys
+
 " TODO Add Jumps command preview
-function! s:jump_sink(line)
-  let list = matchlist(a:line, '^\s\+\S\+\s\+\(\S\+\)\s\+\(\S\+\)\s\+\(.*\)') " jump line col file/text
-  if list[3] !~ '\s'
-    call execute("edit " . list[3])
+function! s:jump_sink(lines)
+  if len(a:lines) < 2
+    return
+  endif
+  let cmd = s:action_for(a:lines[0], 'e')
+  let list = matchlist(a:lines[1], '^\s\+\S\+\s\+\(\S\+\)\s\+\(\S\+\)\s\+\(.*\)') " jump line col file/text
+  if len(list) < 4
+    return
+  end
+
+  " Tell if list[3] is a file
+  let lines = getbufline(list[3], list[1])
+  if empty(lines)
+    execute cmd
+  else
+    execute cmd . ' ' . list[3]
   endif
   call cursor(list[1], list[2])
 endfunction
 
 function! s:jumps()
-  return split(execute("jumps", "silent!"), "\n")
+  return split(execute("jumps", "silent!"), "\n")[1:]
 endfunction
 command! Jump call fzf#run(fzf#wrap({
       \ 'source': s:jumps(),
-      \ 'sink':   function('s:jump_sink'),
-      \ 'option': '-m -x +s',
+      \ 'sink*':   function('s:jump_sink'),
+      \ 'options': '-m -x +s --expect=' . join(keys(g:fzf_action), ','),
       \ 'down':   '40%'}))
 
 " Cscope functions {{{
