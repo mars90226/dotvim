@@ -1348,6 +1348,10 @@ if s:is_enabled_plugin('ale')
 end
 " }}}
 
+" markdown-preview.vim {{{
+Plug 'iamcco/markdown-preview.vim'
+" }}}
+
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'moll/vim-node', { 'for': [] }
 Plug 'tpope/vim-rails', { 'for': [] }
