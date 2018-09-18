@@ -850,7 +850,7 @@ endfunction
 command! -nargs=1 Tselect call fzf#run(fzf#wrap({
       \ 'source': s:get_tselect(<q-args>),
       \ 'sink':   function('s:tselect_sink'),
-      \ 'options': '-m -x +s',
+      \ 'options': '+s',
       \ 'down':   '40%'}))
 
 " TODO Add Jumps command preview
@@ -880,7 +880,7 @@ endfunction
 command! Jump call fzf#run(fzf#wrap({
       \ 'source': s:jumps(),
       \ 'sink*':   function('s:jump_sink'),
-      \ 'options': '-m -x +s --expect=' . join(keys(g:fzf_action), ','),
+      \ 'options': '+s --expect=' . join(keys(g:fzf_action), ','),
       \ 'down':   '40%'}))
 
 " Cscope functions {{{
@@ -889,10 +889,11 @@ function! s:cscope_sink(lines)
   if len(a:lines) < 2
     return
   end
-  let data = split(a:lines[1])
-  let file = split(data[0], ":")
   let cmd = s:action_for(a:lines[0], 'e')
-  execute cmd . ' +' . file[1] . ' ' . file[0]
+  for result in a:lines[1:]
+    let [filename, line_number] = split(split(result)[0], ":")
+    execute cmd . ' +' . line_number . ' ' . filename
+  endfor
 endfunction
 
 function! Cscope(option, query)
