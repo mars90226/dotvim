@@ -567,7 +567,7 @@ function! s:unite_my_settings() "{{{
 
   imap <buffer><expr> j unite#smart_map('j', '')
   imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-  imap <buffer> '     <Plug>(unite_quick_match_default_action)
+  imap <buffer> <C-\>'     <Plug>(unite_quick_match_default_action)
   nmap <buffer> '     <Plug>(unite_quick_match_default_action)
   imap <buffer><expr> x
         \ unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
@@ -576,12 +576,17 @@ function! s:unite_my_settings() "{{{
   imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
   imap <buffer> <C-y>     <Plug>(unite_input_directory)
   nmap <buffer> <C-y>     <Plug>(unite_input_directory)
-  nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
+  nmap <buffer> <M-a>     <Plug>(unite_toggle_auto_preview)
+  nmap <buffer> <M-c>     <Plug>(unite_print_candidate)
   nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
   imap <buffer> <C-r><C-r>     <Plug>(unite_narrowing_input_history)
   imap <buffer> <C-x><C-x>     <Plug>(unite_complete)
-  nnoremap <silent><buffer><expr> l
-        \ unite#smart_map('l', unite#do_action('default'))
+  " nnoremap <silent><buffer><expr> l
+  "       \ unite#smart_map('l', unite#do_action('default'))
+
+  " Restore tab switch mapping
+  nnoremap <buffer> <C-j>     gT
+  nnoremap <buffer> <C-k>     gt
 
   " Move cursor in insert mode
   imap <buffer> <C-j>     <Plug>(unite_select_next_line)
@@ -621,6 +626,9 @@ function! s:unite_my_settings() "{{{
   " Runs "persist_open" action by <C-]>.
   imap <silent><buffer><expr> <C-]>     unite#do_action('persist_open')
   nmap <silent><buffer><expr> <C-]>     unite#do_action('persist_open')
+
+  " Simulate "persist_tabopen" action by <M-]>.
+  nmap <silent><buffer> <M-]>           <Plug>(unite_smart_preview)<C-w>k<C-w>T
 
   " Runs "grep" action by <M-g>.
   imap <silent><buffer><expr> <M-g>     unite#do_action('grep')
@@ -2176,15 +2184,22 @@ endif
 " Fix meta key in vim
 " terminal meta key fix {{{
 if !has("nvim") && !has("gui_running") && s:os !~ "windows"
+  set <M-a>=a |
+  set <M-c>=c |
   set <M-h>=h |
+  set <M-g>=g |
   set <M-j>=j |
   set <M-k>=k |
   set <M-l>=l |
+  set <M-n>=n |
   set <M-o>=o |
   set <M-p>=p |
-  set <M-n>=n |
+  set <M-s>=s |
+  set <M-t>=t |
   set <M-/>=/ |
   set <M-?>=? |
+  set <M-]>=] |
+  set <M-`>=` |
   set <M-1>=1 |
   set <M-S-o>=O
 endif
@@ -2290,15 +2305,22 @@ if s:os =~ "windows" && !has("gui_running") && !has("nvim")
   augroup WindowsTerminalKeyFix
     autocmd!
     autocmd VimEnter *
+          \ set <M-a>=a |
+          \ set <M-c>=c |
           \ set <M-h>=h |
+          \ set <M-g>=g |
           \ set <M-j>=j |
           \ set <M-k>=k |
           \ set <M-l>=l |
+          \ set <M-n>=n |
           \ set <M-o>=o |
           \ set <M-p>=p |
-          \ set <M-n>=n |
+          \ set <M-s>=s |
+          \ set <M-t>=t |
           \ set <M-/>=/ |
           \ set <M-?>=? |
+          \ set <M-]>=] |
+          \ set <M-`>=` |
           \ set <M-1>=1 |
           \ set <M-S-o>=O
   augroup END
