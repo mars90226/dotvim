@@ -615,6 +615,9 @@ function! s:unite_my_settings() "{{{
   imap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
   nmap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
 
+  " Runs "tabopen" action by <C-t>.
+  nmap <silent><buffer><expr> <C-t>     unite#do_action('tabopen')
+
   " Runs "persist_open" action by <C-]>.
   imap <silent><buffer><expr> <C-]>     unite#do_action('persist_open')
   nmap <silent><buffer><expr> <C-]>     unite#do_action('persist_open')
@@ -1725,6 +1728,12 @@ if s:is_enabled_plugin('denite.nvim')
         \ 'insert',
         \ '<A-t>',
         \ '<denite:do_action:tabswitch>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
+        \ 'normal',
+        \ '<C-t>',
+        \ '<denite:do_action:tabopen>',
         \ 'noremap'
         \)
   call denite#custom#map(
