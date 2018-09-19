@@ -966,7 +966,7 @@ if has("nvim")
   endfunction
   autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
-  function! s:project_tags()
+  function! s:project_tags(query)
     let s:origin_tags = &tags
     set tags-=./tags;
     augroup project_tags_callback
@@ -975,9 +975,9 @@ if has("nvim")
             \ let &tags = s:origin_tags |
             \ autocmd! project_tags_callback
     augroup END
-    Tags
+    execute 'Tags ' . a:query
   endfunction
-  command! ProjectTags call <SID>project_tags()
+  command! -nargs=1 ProjectTags call <SID>project_tags(<q-args>)
 endif
 " }}}
 
@@ -987,7 +987,7 @@ nnoremap <Space>fb :Buffers<CR>
 nnoremap <Space>fB :Files %:h<CR>
 nnoremap <Space>fc :BCommits<CR>
 nnoremap <Space>fC :Commits<CR>
-nnoremap <Space>fd :execute 'Tags ' . expand('<cword>')<CR>
+nnoremap <Space>fd :execute "Tags '" . expand('<cword>')<CR>
 nnoremap <Space>ff :Files<CR>
 nnoremap <Space>fg :GFiles<CR>
 nnoremap <Space>fG :execute 'GGrep ' . input('Git grep: ')<CR>
@@ -1021,7 +1021,7 @@ xnoremap <Space>f: :<C-u>History:<CR>
 nnoremap <Space>f; :Commands<CR>
 xnoremap <Space>f; :<C-u>Commands<CR>
 nnoremap <Space>f/ :History/<CR>
-nnoremap <Space>f] :execute 'Tags ' . expand('<cword>')<CR>
+nnoremap <Space>f] :execute "Tags '" . expand('<cword>')<CR>
 nnoremap <Space>f} :execute 'Tselect ' . expand('<cword>')<CR>
 
 nnoremap <Space>ss :History:<CR>mks vim sessions 
@@ -1049,7 +1049,7 @@ nnoremap <silent> <Leader><Leader>ca :call CscopeQuery('9')<CR>
 " }}}
 
 if has("nvim")
-  nnoremap <Space>fp :ProjectTags<CR>
+  nnoremap <Space>fp :execute "ProjectTags '" . expand('<cword>')<CR>
 endif
 " }}}
 " }}}
