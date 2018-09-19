@@ -880,7 +880,7 @@ function! s:jump_sink(lines)
 endfunction
 
 function! s:jumps()
-  return split(execute("jumps", "silent!"), "\n")[1:]
+  return filter(split(execute("jumps", "silent!"), "\n")[1:], 'v:val != ">"')
 endfunction
 command! Jump call fzf#run(fzf#wrap({
       \ 'source': s:jumps(),
