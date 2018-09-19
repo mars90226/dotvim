@@ -862,19 +862,21 @@ function! s:jump_sink(lines)
     return
   endif
   let cmd = s:action_for(a:lines[0], 'e')
-  let list = matchlist(a:lines[1], '^\s\+\S\+\s\+\(\S\+\)\s\+\(\S\+\)\s\+\(.*\)') " jump line col file/text
-  if len(list) < 4
-    return
-  end
+  for result in a:lines[1:]
+    let list = matchlist(result, '^\s\+\S\+\s\+\(\S\+\)\s\+\(\S\+\)\s\+\(.*\)') " jump line col file/text
+    if len(list) < 4
+      return
+    end
 
-  " Tell if list[3] is a file
-  let lines = getbufline(list[3], list[1])
-  if empty(lines)
-    execute cmd
-  else
-    execute cmd . ' ' . list[3]
-  endif
-  call cursor(list[1], list[2])
+    " Tell if list[3] is a file
+    let lines = getbufline(list[3], list[1])
+    if empty(lines)
+      execute cmd
+    else
+      execute cmd . ' ' . list[3]
+    endif
+    call cursor(list[1], list[2])
+  endfor
 endfunction
 
 function! s:jumps()
@@ -883,7 +885,7 @@ endfunction
 command! Jump call fzf#run(fzf#wrap({
       \ 'source': s:jumps(),
       \ 'sink*':   function('s:jump_sink'),
-      \ 'options': '+s --expect=' . join(keys(g:fzf_action), ','),
+      \ 'options': '-m +s --expect=' . join(keys(g:fzf_action), ','),
       \ 'down':   '40%'}))
 
 " Cscope functions {{{
