@@ -506,8 +506,8 @@ if has("nvim")
 else
   nnoremap <Space>P :Unite -start-insert file_rec<CR>
 endif
-nnoremap <Space>/ :Unite grep:.<CR>
-nnoremap <Space>? :execute 'Unite grep:.:' . <SID>escape_symbol(input('Option: '))<CR>
+nnoremap <Space>/ :Unite -buffer-name=grep%`bufnr("%")` grep:.<CR>
+nnoremap <Space>? :execute 'Unite -buffer-name=grep%`bufnr("%")` grep:.:' . <SID>escape_symbol(input('Option: '))<CR>
 nnoremap <Space>y :Unite history/yank<CR>
 nnoremap <Space>S :Unite source<CR>
 nnoremap <Space>m :Unite file_mru<CR>
@@ -532,12 +532,12 @@ nnoremap <Space>ugp :Unite gtags/path<CR>
 nnoremap <Space>ugr :Unite gtags/ref<CR>
 nnoremap <Space>ugx :Unite gtags/completion<CR>
 nnoremap <Space>uj :Unite jump -start-insert<CR>
-nnoremap <Space>uk :execute 'Unite grep:.::' . <SID>escape_symbol(expand('<cword>')) . ' -wrap'<CR>
-nnoremap <Space>uK :execute 'Unite grep:.::' . <SID>escape_symbol(expand('<cWORD>')) . ' -wrap'<CR>
-nnoremap <Space>u8 :execute 'Unite grep:.::\\b' . <SID>escape_symbol(expand('<cword>')) . '\\b -wrap'<CR>
-nnoremap <Space>u* :execute 'Unite grep:.::\\b' . <SID>escape_symbol(expand('<cWORD>')) . '\\b -wrap'<CR>
-xnoremap <Space>uk :<C-u>execute 'Unite grep:.::' . <SID>escape_symbol(<SID>get_visual_selection()) . ' -wrap'<CR>
-xnoremap <Space>u8 :<C-u>execute 'Unite grep:.::\\b' . <SID>escape_symbol(<SID>get_visual_selection()) . '\\b -wrap'<CR>
+nnoremap <Space>uk :execute 'Unite -buffer-name=keyword%`bufnr("%")` grep:.::' . <SID>escape_symbol(expand('<cword>')) . ' -wrap'<CR>
+nnoremap <Space>uK :execute 'Unite -buffer-name=keyword%`bufnr("%")` grep:.::' . <SID>escape_symbol(expand('<cWORD>')) . ' -wrap'<CR>
+nnoremap <Space>u8 :execute 'Unite -buffer-name=keyword%`bufnr("%")` grep:.::\\b' . <SID>escape_symbol(expand('<cword>')) . '\\b -wrap'<CR>
+nnoremap <Space>u* :execute 'Unite -buffer-name=keyword%`bufnr("%")` grep:.::\\b' . <SID>escape_symbol(expand('<cWORD>')) . '\\b -wrap'<CR>
+xnoremap <Space>uk :<C-u>execute 'Unite -buffer-name=keyword%`bufnr("%")` grep:.::' . <SID>escape_symbol(<SID>get_visual_selection()) . ' -wrap'<CR>
+xnoremap <Space>u8 :<C-u>execute 'Unite -buffer-name=keyword%`bufnr("%")` grep:.::\\b' . <SID>escape_symbol(<SID>get_visual_selection()) . '\\b -wrap'<CR>
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>uL :Unite location_list<CR>
 nnoremap <Space>uo :Unite output -start-insert<CR>
@@ -646,9 +646,9 @@ if executable('rg')
   let g:unite_source_grep_default_opts = '--hidden --no-heading --vimgrep -S'
   let g:unite_source_grep_recursive_opt = ''
 
-  nnoremap <Space>/ :Unite grep:. -wrap<CR>
-  nnoremap <Space>? :execute 'Unite grep:.:' . <SID>escape_symbol(input('Option: ')) . ' -wrap'<CR>
-  nnoremap <Space>g/ :execute "Unite grep:.:-g\\ '" . input('glob: ') . "' -wrap"<CR>
+  nnoremap <Space>/ :Unite -buffer-name=grep%`bufnr("%")` grep:. -wrap<CR>
+  nnoremap <Space>? :execute 'Unite -buffer-name=grep%`bufnr("%")` grep:.:' . <SID>escape_symbol(input('Option: ')) . ' -wrap'<CR>
+  nnoremap <Space>g/ :execute "Unite -buffer-name=grep%`bufnr('%')` grep:.:-g\\ '" . input('glob: ') . "' -wrap"<CR>
 endif
 " }}}
 
@@ -662,13 +662,13 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>dD :Denite directory_mru<CR>
   nnoremap <Space>dh :Denite help<CR>
   nnoremap <Space>dj :Denite jump<CR>
-  nnoremap <Space>di :Denite grep:.::!<CR>
-  nnoremap <Space>dk :execute 'Denite grep:.::' . <SID>escape_symbol(expand('<cword>'))<CR>
-  nnoremap <Space>dK :execute 'Denite grep:.::' . <SID>escape_symbol(expand('<cWORD>'))<CR>
-  nnoremap <Space>d8 :execute 'Denite grep:.::\\b' . <SID>escape_symbol(expand('<cword>')) . '\\b'<CR>
-  nnoremap <Space>d* :execute 'Denite grep:.::\\b' . <SID>escape_symbol(expand('<cWORD>')) . '\\b'<CR>
-  xnoremap <Space>dk :<C-u>execute 'Denite grep:.::' . <SID>escape_symbol(<SID>get_visual_selection())<CR>
-  xnoremap <Space>d8 :<C-u>execute 'Denite grep:.::\\b' . <SID>escape_symbol(<SID>get_visual_selection()) . '\\b'<CR>
+  nnoremap <Space>di :Denite -buffer-name=grep%`bufnr("%")` grep:.::!<CR>
+  nnoremap <Space>dk :execute 'Denite -buffer-name=keyword%`bufnr("%")` grep:.::' . <SID>escape_symbol(expand('<cword>'))<CR>
+  nnoremap <Space>dK :execute 'Denite -buffer-name=keyword%`bufnr("%")` grep:.::' . <SID>escape_symbol(expand('<cWORD>'))<CR>
+  nnoremap <Space>d8 :execute 'Denite -buffer-name=keyword%`bufnr("%")` grep:.::\\b' . <SID>escape_symbol(expand('<cword>')) . '\\b'<CR>
+  nnoremap <Space>d* :execute 'Denite -buffer-name=keyword%`bufnr("%")` grep:.::\\b' . <SID>escape_symbol(expand('<cWORD>')) . '\\b'<CR>
+  xnoremap <Space>dk :<C-u>execute 'Denite -buffer-name=keyword%`bufnr("%")` grep:.::' . <SID>escape_symbol(<SID>get_visual_selection())<CR>
+  xnoremap <Space>d8 :<C-u>execute 'Denite -buffer-name=keyword%`bufnr("%")` grep:.::\\b' . <SID>escape_symbol(<SID>get_visual_selection()) . '\\b'<CR>
   nnoremap <Space>dl :Denite line<CR>
   nnoremap <Space>dm :Denite file_mru<CR>
   nnoremap <Space>do :execute 'Denite output:' . input('output: ')<CR>
@@ -682,11 +682,11 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>dU :Denite -resume -refresh<CR>
   nnoremap <Space>d: :Denite command_history<CR>
   nnoremap <Space>d; :Denite command<CR>
-  nnoremap <Space>d/ :Denite grep:.<CR>
-  nnoremap <Space>d? :execute 'Denite grep:.:' . <SID>escape_symbol(input('Option: '))<CR>
+  nnoremap <Space>d/ :Denite -buffer-name=grep%`bufnr("%")` grep:.<CR>
+  nnoremap <Space>d? :execute 'Denite -buffer-name=grep%`bufnr("%")` grep:.:' . <SID>escape_symbol(input('Option: '))<CR>
 
   if executable('rg')
-    nnoremap <Space>dg/ :execute "Denite grep:.:-g\\ '" . input('glob: ') . "'"<CR>
+    nnoremap <Space>dg/ :execute "Denite -buffer-name=grep%`bufnr('%')` grep:.:-g\\ '" . input('glob: ') . "'"<CR>
   endif
 endif
 " }}}
