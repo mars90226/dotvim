@@ -1570,11 +1570,11 @@ Plug 'thinca/vim-qfreplace'
 autocmd! FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
 " }}}
 
-Plug 'tpope/vim-dadbod'
+Plug 'tpope/vim-dadbod', { 'on': 'DB' }
 Plug 'tyru/open-browser.vim'
-Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert'] }
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }
-Plug 'AndrewRadev/linediff.vim'
+Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'alx741/vinfo', { 'on': 'Vinfo' }
@@ -1803,15 +1803,18 @@ endif
 " source mswin.vim
 if s:os !~ "synology"
   source $VIMRUNTIME/mswin.vim
+  " TODO Fix this in Linux
   behave mswin
 
   if s:os !~ "windows"
+    " Unmap CTRL-a for selecting all
     silent! unmap <C-a>
     silent! iunmap <C-a>
     silent! cunmap <C-a>
   endif
 
   if has("gui")
+    " Fix CTRL-f in gui will popup find window problem
     silent! unmap <C-f>
     silent! iunmap <C-f>
     silent! cunmap <C-f>
