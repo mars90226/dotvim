@@ -550,6 +550,8 @@ nnoremap <Space>ump :Unite output:map<CR>
 nnoremap <Space>u: :Unite history/command<CR>
 nnoremap <Space>u; :Unite command<CR>
 nnoremap <Space>u/ :Unite history/search<CR>
+
+nnoremap <Space><F1> :Unite output:map<CR>
 " }}}
 
 autocmd FileType unite call s:unite_my_settings()
