@@ -709,25 +709,6 @@ Plug 'fcamel/gj', { 'on': 'Gj' }
 nnoremap <Leader>gj :Gj! <C-R>=expand("<cword>")<CR>
 " }}}
 
-" vim-grepper {{{
-Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<Plug>(GrepperOperator)'] }
-
-nnoremap <Leader>gg :Grepper -tool git<CR>
-nnoremap <Leader>ga :Grepper -tool ag<CR>
-nnoremap gss        :Grepper -tool rg<CR>
-
-nmap gs <Plug>(GrepperOperator)
-xmap gs <Plug>(GrepperOperator)
-
-" Optional. The default behaviour should work for most users.
-let g:grepper               = {}
-let g:grepper.tools         = ['git', 'ag', 'rg']
-let g:grepper.jump          = 1
-let g:grepper.next_tool     = '<Leader>g'
-let g:grepper.simple_prompt = 1
-let g:grepper.quickfix      = 0
-" }}}
-
 " ctrlsf.vim {{{
 Plug 'dyng/ctrlsf.vim', { 'on': 'CtrlSF' }
 
