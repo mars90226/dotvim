@@ -1572,6 +1572,10 @@ Plug 'thinca/vim-qfreplace'
 autocmd! FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
 " }}}
 
+" vim-caser {{{
+Plug 'arthurxavierx/vim-caser'
+" }}}
+
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
 Plug 'tyru/open-browser.vim'
 Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert'] }
