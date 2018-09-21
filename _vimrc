@@ -434,12 +434,6 @@ let g:tagbar_type_ps1 = {
     \ }
 " }}}
 
-" vim-rtags {{{
-"if s:os !~ "windows" && s:os !~ "synology"
-  "Plug 'lyuts/vim-rtags'
-"endif
-" }}}
-
 " vimfiler {{{
 Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/neossh.vim'
@@ -697,16 +691,6 @@ if s:is_enabled_plugin('denite.nvim')
     nnoremap <Space>dg/ :execute "Denite -buffer-name=grep%`bufnr('%')` grep:.:-g\\ '" . input('glob: ') . "'"<CR>
   endif
 endif
-" }}}
-
-" Ack {{{
-Plug 'mileszs/ack.vim', { 'on': ['Ack', 'AckFile'] }
-" }}}
-
-" gj {{{
-Plug 'fcamel/gj', { 'on': 'Gj' }
-
-nnoremap <Leader>gj :Gj! <C-R>=expand("<cword>")<CR>
 " }}}
 
 " ctrlsf.vim {{{
@@ -1039,11 +1023,14 @@ endif
 Plug 'vifm/vifm.vim'
 " }}}
 
-Plug 'vim-scripts/a.vim', { 'on': 'A' }
-Plug 'brooth/far.vim', { 'on': ['Far', 'Farp', 'F'] }
+" vim-gutentags {{{
 if has('job') || (has('nvim') && exists('*jobwait'))
   Plug 'ludovicchabant/vim-gutentags'
 endif
+" }}}
+
+Plug 'vim-scripts/a.vim', { 'on': 'A' }
+Plug 'brooth/far.vim', { 'on': ['Far', 'Farp', 'F'] }
 " }}}
 
 " Text Navigation {{{
@@ -1192,12 +1179,6 @@ map <Leader>mw <Plug>CamelCaseMotion_w
 map <Leader>mb <Plug>CamelCaseMotion_b
 map <Leader>me <Plug>CamelCaseMotion_e
 map <Leader>mge <Plug>CamelCaseMotion_ge
-" }}}
-
-" clever-f.vim {{{
-Plug 'rhysd/clever-f.vim'
-
-let g:clever_f_smart_case = 1
 " }}}
 
 Plug 'wellle/targets.vim'
