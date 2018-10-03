@@ -803,7 +803,7 @@ function! s:rg_with_option(command, bang)
 endfunction
 
 command! Mru call fzf#run(fzf#wrap({
-      \ 'source':  reverse(s:all_files()),
+      \ 'source':  s:all_files(),
       \ 'options': '-m -x +s',
       \ 'down':    '40%' }))
 
