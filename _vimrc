@@ -866,7 +866,7 @@ endfunction
 command! Jump call fzf#run(fzf#wrap({
       \ 'source': s:jumps(),
       \ 'sink*':   function('s:jump_sink'),
-      \ 'options': '-m +s --expect=' . join(keys(g:fzf_action), ','),
+      \ 'options': '--tac -m +s --expect=' . join(keys(g:fzf_action), ','),
       \ 'down':   '40%'}))
 
 " Cscope functions {{{
