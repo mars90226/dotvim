@@ -2261,6 +2261,7 @@ augroup fileTypeSpecific
   autocmd BufNewFile,BufReadPost *.upstart            set filetype=upstart
   autocmd BufNewFile,BufReadPost Makefile.inc         set filetype=make
   autocmd BufNewFile,BufReadPost depends              set filetype=dosini
+  autocmd BufNewFile,BufReadPost depends-virtual-*    set filetype=dosini
   autocmd BufNewFile,BufReadPost .tmux.conf           set filetype=tmux
   autocmd BufNewFile,BufReadPost resource             set filetype=json
 
