@@ -1484,6 +1484,7 @@ nmap gA <Plug>(characterize)
 " vim-peekaboo {{{
 Plug 'junegunn/vim-peekaboo'
 
+let g:peekaboo_window = 'vertical botright ' . float2nr(&columns * 0.3) . 'new'
 let g:peekaboo_delay = 400
 " }}}
 
