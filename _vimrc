@@ -690,6 +690,7 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>dt :Denite tag<CR>
   nnoremap <Space>du :Denite -resume<CR>
   nnoremap <Space>dU :Denite -resume -refresh<CR>
+  nnoremap <Space>dy :Denite neoyank<CR>
   nnoremap <Space>d: :Denite command_history<CR>
   nnoremap <Space>d; :Denite command<CR>
   nnoremap <Space>d/ :Denite -buffer-name=grep%`bufnr("%")` grep:.<CR>
