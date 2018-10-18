@@ -1002,6 +1002,7 @@ nnoremap <Space>ft :BTags<CR>
 nnoremap <Space>fT :Tags<CR>
 nnoremap <Space>fw :Windows<CR>
 nnoremap <Space>fy :Filetypes<CR>
+nnoremap <Space>f' :Registers<CR>
 nnoremap <Space>f` :Marks<CR>
 nnoremap <Space>f: :History:<CR>
 xnoremap <Space>f: :<C-u>History:<CR>
