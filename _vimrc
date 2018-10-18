@@ -769,9 +769,6 @@ imap <C-x><C-l> <Plug>(fzf-complete-line)
 inoremap <expr> <C-x><C-d> fzf#vim#complete#path('fd -t d')
 
 " fzf functions & commands {{{
-command! -bar -bang Helptags call fzf#vim#helptags(<bang>0)
-command! -bang -nargs=+ -complete=dir LLocate call fzf#vim#locate(<q-args>, <bang>0)
-
 " Borrow from fzf-vim
 " For using g:fzf_action in custom sink function
 let s:TYPE = {'dict': type({}), 'funcref': type(function('call')), 'string': type(''), 'list': type([])}
@@ -780,6 +777,15 @@ function! s:action_for(key, ...)
   let Cmd = get(g:fzf_action, a:key, default)
   return type(Cmd) == s:TYPE.string ? Cmd : default
 endfunction
+
+command! -bar -bang Helptags call fzf#vim#helptags(<bang>0)
+command! -bang -nargs=+ -complete=dir LLocate call fzf#vim#locate(<q-args>, <bang>0)
+
+command! -bang -nargs=? -complete=dir Files
+      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+command! -bang -nargs=? GFiles
+      \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 " let g:rg_command = '
 "     \ rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --color "always"
