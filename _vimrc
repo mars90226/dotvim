@@ -811,7 +811,7 @@ endfunction
 
 command! Mru call fzf#run(fzf#wrap({
       \ 'source':  s:all_files(),
-      \ 'options': '-m -x +s',
+      \ 'options': '-m +s',
       \ 'down':    '40%' }))
 
 " use neomru
@@ -862,13 +862,26 @@ function! s:jump_sink(lines)
 endfunction
 
 function! s:jumps()
-  return filter(split(execute("jumps", "silent!"), "\n")[1:], 'v:val != ">"')
+  return reverse(filter(split(execute("jumps", "silent!"), "\n")[1:], 'v:val != ">"'))
 endfunction
 command! Jump call fzf#run(fzf#wrap({
-      \ 'source': s:jumps(),
+      \ 'source':  s:jumps(),
       \ 'sink*':   function('s:jump_sink'),
-      \ 'options': '--tac -m +s --expect=' . join(keys(g:fzf_action), ','),
-      \ 'down':   '40%'}))
+      \ 'options': '-m +s --expect=' . join(keys(g:fzf_action), ','),
+      \ 'down':    '40%'}))
+
+function! s:registers_sink(line)
+  execute 'norm ' . a:line[0:1] . 'p'
+endfunction
+
+function! s:registers()
+  return split(execute("registers", "silent!"), "\n")[1:]
+endfunction
+command! Registers call fzf#run(fzf#wrap({
+      \ 'source': s:registers(),
+      \ 'sink': function('s:registers_sink'),
+      \ 'options': '+s',
+      \ 'down': '40%'}))
 
 " Cscope functions {{{
 " Borrow from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
