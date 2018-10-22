@@ -1066,6 +1066,7 @@ Plug 'brooth/far.vim', { 'on': ['Far', 'Farp', 'F'] }
 " ====================================================================
 " matchit {{{
 runtime macros/matchit.vim
+Plug 'voithos/vim-python-matchit'
 " }}}
 
 " EasyMotion {{{
