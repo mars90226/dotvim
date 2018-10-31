@@ -908,7 +908,7 @@ function! Cscope(option, query)
   let opts = {
   \ 'source':  "cscope -dL" . a:option . " " . a:query . " | awk '" . color . "'",
   \ 'sink*': function('s:cscope_sink'),
-  \ 'options': ['--ansi', '--prompt', '> ',
+  \ 'options': ['--ansi', '--prompt', '> ', '--select-1',
   \             '--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
   \             '--color', 'fg:188,fg+:222,bg+:#3a3a3a,hl+:104',
   \             '--expect=' . expect_keys],
