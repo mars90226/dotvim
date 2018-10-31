@@ -377,6 +377,7 @@ let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
 
 nnoremap <C-p> :CtrlP<CR>
 nnoremap <Space>cf :CtrlPFunky<CR>
+nnoremap <Space>cF :execute 'CtrlPFunky ' . expand('<cword>')<CR>
 nnoremap <Space>cp :CtrlPCmdPalette<CR>
 nnoremap <Space>cm :CtrlPCmdline<CR>
 nnoremap <Space>c] :CtrlPtjump<CR>
@@ -908,7 +909,7 @@ function! Cscope(option, query)
   let opts = {
   \ 'source':  "cscope -dL" . a:option . " " . a:query . " | awk '" . color . "'",
   \ 'sink*': function('s:cscope_sink'),
-  \ 'options': ['--ansi', '--prompt', '> ', '--select-1',
+  \ 'options': ['--ansi', '--prompt', '> ',
   \             '--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
   \             '--color', 'fg:188,fg+:222,bg+:#3a3a3a,hl+:104',
   \             '--expect=' . expect_keys],
@@ -1015,8 +1016,9 @@ xnoremap <Space>f: :<C-u>History:<CR>
 nnoremap <Space>f; :Commands<CR>
 xnoremap <Space>f; :<C-u>Commands<CR>
 nnoremap <Space>f/ :History/<CR>
-nnoremap <Space>f] :execute "Tags '" . expand('<cword>')<CR>
-nnoremap <Space>f} :execute 'Tselect ' . expand('<cword>')<CR>
+nnoremap <Space>f] :execute "BTags '" . expand('<cword>')<CR>
+nnoremap <Space>f} :execute "Tags '" . expand('<cword>')<CR>
+nnoremap <Space>f<C-]> :execute 'Tselect ' . expand('<cword>')<CR>
 
 nnoremap <Space>ss :History:<CR>mks vim sessions 
 
