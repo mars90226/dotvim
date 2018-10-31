@@ -83,6 +83,13 @@ endif
 if !((v:version >= 800 || has("nvim")) && has("python3"))
   call s:disable_plugin('denite.nvim')
 end
+
+" Choose markdown-preview plugin
+if has("nvim")
+  call s:disable_plugin('markdown-preview.vim')
+else
+  call s:disable_plugin('markdown-preview.nvim')
+endif
 " }}}
 
 " Autoinstall vim-plug {{{
@@ -1373,7 +1380,15 @@ end
 " }}}
 
 " markdown-preview.vim {{{
-Plug 'iamcco/markdown-preview.vim'
+if s:is_enabled_plugin('markdown-preview.vim')
+  Plug 'iamcco/markdown-preview.vim'
+endif
+" }}}
+
+" markdown-preview.nvim {{{
+if s:is_enabled_plugin('markdown-preview.nvim')
+  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+endif
 " }}}
 
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
