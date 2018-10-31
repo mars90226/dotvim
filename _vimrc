@@ -1050,6 +1050,10 @@ endif
 " }}}
 " }}}
 
+" skim {{{
+Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
+" }}}
+
 " vifm {{{
 Plug 'vifm/vifm.vim'
 " }}}
