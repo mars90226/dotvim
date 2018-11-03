@@ -1418,6 +1418,7 @@ Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'moll/vim-node', { 'for': [] }
 Plug 'tpope/vim-rails', { 'for': [] }
 Plug 'sheerun/vim-polyglot'
+Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/vim-slumlord'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'mars90226/perldoc-vim'
