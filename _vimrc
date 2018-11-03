@@ -2064,6 +2064,10 @@ nnoremap <C-w><Space>+ <C-w>10+
 nnoremap <C-w><Space>< <C-w>10<
 nnoremap <C-w><Space>> <C-w>10>
 
+" Move tab
+nnoremap <Leader>t< :tabmove -1<CR>
+nnoremap <Leader>t> :tabmove +1<CR>
+
 " Create new line in insert mode {{{
 inoremap <M-o> <C-o>o
 inoremap <M-S-o> <C-o>O
