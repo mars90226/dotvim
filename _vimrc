@@ -897,6 +897,28 @@ command! Registers call fzf#run(fzf#wrap({
       \ 'options': '+s',
       \ 'down': '40%'}))
 
+function! s:directory_ancestors_sink(line)
+  execute 'lcd ' . a:line
+endfunction
+
+function! s:directory_ancestors()
+  let current_dir = fnamemodify(expand('%:p'), ':h')
+  let ancestors = []
+
+  for path_part in split(current_dir, '/')
+    let last_path = empty(ancestors) ? '' : ancestors[-1]
+    let current_path = last_path . '/' . path_part
+    call add(ancestors, current_path)
+  endfor
+
+  return reverse(ancestors)
+endfunction
+command! DirectoryAncestors call fzf#run(fzf#wrap({
+      \ 'source': s:directory_ancestors(),
+      \ 'sink': function('s:directory_ancestors_sink'),
+      \ 'options': '+s',
+      \ 'down': '40%'}))
+
 " Cscope functions {{{
 " Borrow from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
 function! s:cscope_sink(lines) 
@@ -1014,6 +1036,7 @@ nnoremap <Space>f$ :execute 'RgWithOption! ' . input('Option: ') . ':' . input('
 nnoremap <Space>fs :GFiles?<CR>
 nnoremap <Space>ft :BTags<CR>
 nnoremap <Space>fT :Tags<CR>
+nnoremap <Space>fu :DirectoryAncestors<CR>
 nnoremap <Space>fw :Windows<CR>
 nnoremap <Space>fy :Filetypes<CR>
 nnoremap <Space>f' :Registers<CR>
