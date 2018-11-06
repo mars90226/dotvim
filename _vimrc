@@ -50,6 +50,17 @@ function! s:is_enabled_plugin(plugin)
 endfunction
 " }}}
 
+" return empty string when no python support found
+function! s:python_version()
+  if has("python3")
+    return substitute(split(execute('py3 import sys; print(sys.version)'), ' ')[0], '^\n', '', '')
+  elseif has("python")
+    return substitute(split(execute('py import sys; print(sys.version)'), ' ')[0], '^\n', '', '')
+  else
+    return ""
+  endif
+endfunction
+
 " Choose autocompletion plugin {{{
 " deoplete.nvim, completor.vim, supertab, YouCompleteMe
 call s:disable_plugins(['deoplete.nvim', 'completor.vim', 'supertab', 'YouCompleteMe'])
@@ -91,6 +102,14 @@ else
   call s:disable_plugin('markdown-preview.nvim')
 endif
 " }}}
+
+" Choose file explorer
+" Defx requires python 3.6
+if has("nvim") && s:python_version() =~ "^3.6"
+  call s:disable_plugin("vimfiler")
+else
+  call s:disable_plugin("defx")
+endif
 
 " Autoinstall vim-plug {{{
 " TODO Add Windows support
@@ -449,31 +468,138 @@ let g:tagbar_type_ps1 = {
 " }}}
 
 " vimfiler {{{
-Plug 'Shougo/vimfiler.vim'
-Plug 'Shougo/neossh.vim'
+if s:is_enabled_plugin("vimfiler")
+  Plug 'Shougo/vimfiler.vim'
+  Plug 'Shougo/neossh.vim'
 
-let g:vimfiler_as_default_explorer = 1
-nnoremap <F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit<CR>
-nnoremap <Space><F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit -find<CR>
-autocmd FileType vimfiler call s:vimfiler_my_settings()
-function! s:vimfiler_my_settings()
-  " Runs "tabopen" action by <C-t>.
-  nmap <silent><buffer><expr> <C-t>     vimfiler#do_action('tabopen')
+  let g:vimfiler_as_default_explorer = 1
+  nnoremap <F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit<CR>
+  nnoremap <Space><F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit -find<CR>
+  autocmd FileType vimfiler call s:vimfiler_my_settings()
+  function! s:vimfiler_my_settings()
+    " Runs "tabopen" action by <C-t>.
+    nmap <silent><buffer><expr> <C-t>     vimfiler#do_action('tabopen')
 
-  " Runs "choose" action by <C-c>.
-  nmap <silent><buffer><expr> <C-c>     vimfiler#do_action('choose')
+    " Runs "choose" action by <C-c>.
+    nmap <silent><buffer><expr> <C-c>     vimfiler#do_action('choose')
 
-  " Toggle no_quit with <C-n>
-  nmap <silent><buffer>       <C-n>     :let b:vimfiler.context.quit = !b:vimfiler.context.quit<CR>
+    " Toggle no_quit with <C-n>
+    nmap <silent><buffer>       <C-n>     :let b:vimfiler.context.quit = !b:vimfiler.context.quit<CR>
 
-  " Unmap <Space>, use ` instead
-  silent! nunmap <buffer> <Space>
-  nmap <silent><buffer>       `         <Plug>(vimfiler_toggle_mark_current_line)
-endfunction
+    " Unmap <Space>, use ` instead
+    silent! nunmap <buffer> <Space>
+    nmap <silent><buffer>       `         <Plug>(vimfiler_toggle_mark_current_line)
+  endfunction
+endif
 " }}}
 
-" " Defx {{{
-" Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+" Defx {{{
+if s:is_enabled_plugin("defx")
+  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+
+  " Defx as default explorer, borrow from vimfiler {{{
+  augroup defx_default_explorer
+    autocmd BufEnter,VimEnter,BufNew,BufWinEnter,BufRead,BufCreate
+          \ * call s:browse_check(expand('<amatch>'))
+  augroup END
+
+  function! s:browse_check(path) abort
+    if a:path == '' || bufnr('%') != expand('<abuf>')
+      return
+    endif
+
+    " Disable netrw.
+    augroup FileExplorer
+      autocmd!
+    augroup END
+
+    let path = a:path
+    " For ":edit ~".
+    if fnamemodify(path, ':t') ==# '~'
+      let path = '~'
+    endif
+
+    if &filetype ==# 'vimfiler' && line('$') != 1
+      return
+    endif
+
+    if isdirectory(expand(path))
+      call defx#util#call_defx('Defx', path)
+    endif
+  endfunction
+
+  function! s:expand(path) abort
+    return s:substitute_path_separator(
+          \ (a:path =~# '^\~') ? fnamemodify(a:path, ':p') :
+          \ (a:path =~# '^\$\h\w*') ? substitute(a:path,
+          \             '^\$\h\w*', '\=eval(submatch(0))', '') :
+          \ a:path)
+  endfunction
+
+  function! s:substitute_path_separator(path) abort
+    return s:is_windows ? substitute(a:path, '\\', '/', 'g') : a:path
+  endfunction
+  " }}}
+
+  nnoremap <F4> :Defx -split=vertical -winwidth=35 -direction=topleft -toggle<CR>
+  nnoremap <Space><F4> :Defx -split=vertical -winwidth=35 -direction=topleft -toggle `expand('%:p:h')` -search=`expand('%:p')`<CR>
+
+  autocmd FileType defx call s:defx_my_settings()
+  function! s:defx_my_settings() abort
+    " Define mappings
+    nnoremap <silent><buffer><expr> <CR>
+          \ defx#do_action('drop')
+    nnoremap <silent><buffer><expr> c
+          \ defx#do_action('copy')
+    nnoremap <silent><buffer><expr> m
+          \ defx#do_action('move')
+    nnoremap <silent><buffer><expr> p
+          \ defx#do_action('paste')
+    nnoremap <silent><buffer><expr> l
+          \ defx#do_action('open')
+    nnoremap <silent><buffer><expr> E
+          \ defx#do_action('open', 'vsplit')
+    nnoremap <silent><buffer><expr> P
+          \ defx#do_action('open', 'pedit')
+    nnoremap <silent><buffer><expr> K
+          \ defx#do_action('new_directory')
+    nnoremap <silent><buffer><expr> N
+          \ defx#do_action('new_file')
+    nnoremap <silent><buffer><expr> d
+          \ defx#do_action('remove_trash')
+    nnoremap <silent><buffer><expr> r
+          \ defx#do_action('rename')
+    nnoremap <silent><buffer><expr> x
+          \ defx#do_action('execute_system')
+    nnoremap <silent><buffer><expr> .
+          \ defx#do_action('toggle_ignored_files')
+    nnoremap <silent><buffer><expr> yy
+          \ defx#do_action('yank_path')
+    nnoremap <silent><buffer><expr> h
+          \ defx#do_action('cd', ['..'])
+    nnoremap <silent><buffer><expr> ~
+          \ defx#do_action('cd')
+    nnoremap <silent><buffer><expr> \
+          \ defx#do_action('cd', getcwd())
+    nnoremap <silent><buffer><expr> q
+          \ defx#do_action('quit')
+    nnoremap <silent><buffer><expr> `
+          \ defx#do_action('toggle_select') . 'j'
+    nnoremap <silent><buffer><expr> *
+          \ defx#do_action('toggle_select_all')
+    nnoremap <silent><buffer><expr> j
+          \ line('.') == line('$') ? 'gg' : 'j'
+    nnoremap <silent><buffer><expr> k
+          \ line('.') == 1 ? 'G' : 'k'
+    nnoremap <silent><buffer><expr> <C-l>
+          \ defx#do_action('redraw')
+    nnoremap <silent><buffer><expr> <C-g>
+          \ defx#do_action('print')
+    nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
+          \ ':<C-u>wincmd w<CR>' :
+          \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
+  endfunction
+endif
 " " }}}
 
 " vim-choosewin {{{
@@ -554,7 +680,8 @@ nnoremap <Space>up :UniteWithProjectDir -buffer-name=files -prompt=&\  buffer bo
 nnoremap <Space>uq :Unite quickfix<CR>
 nnoremap <Space>ur :Unite -buffer-name=register register<CR>
 nnoremap <Space>us :Unite -quick-match tab<CR>
-nnoremap <Space>ut :Unite tag<CR>
+nnoremap <Space>ut :Unite -start-insert tab<CR>
+nnoremap <Space>uT :Unite tag<CR>
 nnoremap <Space>uu :UniteResume<CR>
 nnoremap <Space>uU :Unite -buffer-name=resume resume<CR>
 nnoremap <Space>uw :Unite window<CR>
@@ -1842,12 +1969,12 @@ if s:is_enabled_plugin('denite.nvim')
   if executable('rg')
     call denite#custom#var('file_rec', 'command',
           \ ['rg', '--files', '--glob', '!.git'])
-    call denite#custom#var('grep', 'command', ['rg', '--threads', '1'])
+    call denite#custom#var('grep', 'command', ['rg'])
     call denite#custom#var('grep', 'recursive_opts', [])
     call denite#custom#var('grep', 'final_opts', [])
     call denite#custom#var('grep', 'separator', ['--'])
     call denite#custom#var('grep', 'default_opts',
-          \ ['--vimgrep', '--no-heading'])
+          \ ['--vimgrep', '--no-heading', '-i'])
   elseif executable('ag')
     call denite#custome#var('file_rec', 'command',
           \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
@@ -2305,8 +2432,8 @@ endif
 " ====================================================================
 augroup vimGeneralCallbacks
   autocmd!
-  autocmd BufWritePost _vimrc nested source $MYVIMRC | normal! zzzv
-  autocmd BufWritePost .vimrc nested source $MYVIMRC | normal! zzzv
+  autocmd BufWritePost _vimrc nested source $MYVIMRC | e | normal! zzzv
+  autocmd BufWritePost .vimrc nested source $MYVIMRC | e | normal! zzzv
 augroup END
 
 augroup fileTypeSpecific
