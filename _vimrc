@@ -1547,7 +1547,7 @@ Plug 'tpope/vim-rails', { 'for': [] }
 Plug 'sheerun/vim-polyglot'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/vim-slumlord'
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'mars90226/perldoc-vim'
 Plug 'gyim/vim-boxdraw'
 " }}}
