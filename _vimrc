@@ -1541,13 +1541,20 @@ if s:is_enabled_plugin('markdown-preview.nvim')
 endif
 " }}}
 
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+" vim-polyglot {{{
+Plug 'sheerun/vim-polyglot'
+
+" Avoid conflict with vim-go, must after vim-go loaded
+let g:polyglot_disabled = ['go']
+" }}}
+
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'moll/vim-node', { 'for': [] }
 Plug 'tpope/vim-rails', { 'for': [] }
-Plug 'sheerun/vim-polyglot'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/vim-slumlord'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'mars90226/perldoc-vim'
 Plug 'gyim/vim-boxdraw'
 " }}}
