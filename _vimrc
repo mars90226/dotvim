@@ -557,6 +557,8 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('paste')
     nnoremap <silent><buffer><expr> l
           \ defx#do_action('open')
+    nnoremap <silent><buffer><expr> S
+          \ defx#do_action('open', 'botright split')
     nnoremap <silent><buffer><expr> E
           \ defx#do_action('open', 'vsplit')
     nnoremap <silent><buffer><expr> P
@@ -1137,6 +1139,7 @@ nnoremap <Space>fb :Buffers<CR>
 nnoremap <Space>fB :Files %:h<CR>
 nnoremap <Space>fc :BCommits<CR>
 nnoremap <Space>fC :Commits<CR>
+" TODO change to directory mru
 nnoremap <Space>fd :execute "Tags '" . expand('<cword>')<CR>
 nnoremap <Space>ff :Files<CR>
 nnoremap <Space>fg :GFiles<CR>
@@ -1752,6 +1755,7 @@ if has("nvim")
 
   let g:neoterm_default_mod = 'botright'
   let g:neoterm_automap_keys = ',T'
+  let g:neoterm_size = &lines / 2
 
   nnoremap <silent> <Space>` :execute 'T ' . input("Terminal: ")<CR>
   nnoremap <silent> <Leader>` :Ttoggle<CR>
@@ -2403,6 +2407,7 @@ if has("nvim")
 
   tnoremap <M-F1> <C-\><C-n>
   tnoremap <M-F2> <C-\><C-n>:tabnew<CR>:terminal<CR>i
+  tnoremap <M-F3> <C-\><C-n>:Windows<CR>
   tnoremap \\q <C-\><C-n>
 
   " Quickly switch window in terminal
