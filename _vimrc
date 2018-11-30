@@ -425,7 +425,7 @@ nmap <silent> _ <Plug>VinegarVerticalSplitUp
 " }}}
 
 " tagbar {{{
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'majutsushi/tagbar', { 'on': ['TagbarToggle', 'TagbarOpenAutoClose'] }
 
 nnoremap <F8> :TagbarToggle<CR>
 let g:tagbar_map_showproto = '<Leader><Space>'
@@ -1130,6 +1130,18 @@ if has("nvim")
     execute 'Tags ' . a:query
   endfunction
   command! -nargs=1 ProjectTags call <SID>project_tags(<q-args>)
+
+  function! s:tagbar_tags()
+    TagbarOpenAutoClose
+    augroup tagbar_tags_callback
+      autocmd!
+      autocmd TermClose term://*fzf*
+            \ call nvim_input('<CR>') |
+            \ autocmd! tagbar_tags_callback
+    augroup END
+    BLines
+  endfunction
+  command!  TagbarTags call <SID>tagbar_tags()
 endif
 " }}}
 
@@ -1206,6 +1218,7 @@ nnoremap <silent> <Leader><Leader>ca :call CscopeQuery('9')<CR>
 
 if has("nvim")
   nnoremap <Space>fp :execute "ProjectTags '" . expand('<cword>')<CR>
+  nnoremap <Space><F8> :TagbarTags<CR>
 endif
 " }}}
 " }}}
@@ -1489,7 +1502,7 @@ if s:is_enabled_plugin('syntastic')
   let g:syntastic_cpp_checkers  = ['gcc']
 
   let g:syntastic_ignore_files = ['\m^/usr/include/', '\m^/synosrc/packages/build_env/', '\m\c\.h$']
-  nnoremap <Space><F8> :SyntasticCheck<CR>
+  nnoremap <Space><F7> :SyntasticCheck<CR>
   command! -bar SyntasticCheckHeader call <SID>SyntasticCheckHeader()
   function! s:SyntasticCheckHeader()
     let header_pattern_index = index(g:syntastic_ignore_files, '\m\c\.h$')
