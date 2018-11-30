@@ -1510,7 +1510,8 @@ if s:is_enabled_plugin('ale')
 
   let g:ale_linters = {
         \ 'c': ['gcc'],
-        \ 'cpp': ['g++']
+        \ 'cpp': ['g++'],
+        \ 'javascript': ['eslint']
         \}
 
   nmap ]a <Plug>(ale_next_wrap)
