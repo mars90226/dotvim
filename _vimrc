@@ -2482,6 +2482,7 @@ augroup fileTypeSpecific
   autocmd BufNewFile,BufReadPost *conf.local.override set filetype=conf
   autocmd BufNewFile,BufReadPost *.cf                 set filetype=conf
   autocmd BufNewFile,BufReadPost .gitignore           set filetype=conf
+  autocmd BufNewFile,BufReadPost */conf/template/*    set filetype=conf
   autocmd BufNewFile,BufReadPost */rspamd/*.inc       set filetype=conf
   autocmd BufNewFile,BufReadPost */upstart/*conf      set filetype=upstart
   autocmd BufNewFile,BufReadPost *.upstart            set filetype=upstart
