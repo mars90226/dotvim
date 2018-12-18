@@ -1689,6 +1689,7 @@ Plug 'tpope/vim-unimpaired'
 let g:nremap = {"[a": "", "]a": "", "[A": "", "]A": ""}
 
 nnoremap coe :set expandtab!<CR>
+nnoremap com :set modifiable!<CR>
 nnoremap cop :set paste!<CR>
 " }}}
 
@@ -2248,6 +2249,10 @@ nnoremap <Leader>u :cd ..<CR>
 " Move working directory to current buffer's parent folder
 nnoremap <Leader>cb :cd %:h<CR>
 
+" Quick yank cursor word
+nnoremap y" ""yiw
+nnoremap y+ "+yiw
+
 " Custom function {{{
 nnoremap <F6> :call ToggleIndentBetweenTabAndSpace()<CR>
 function! ToggleIndentBetweenTabAndSpace()
@@ -2321,7 +2326,7 @@ nnoremap <silent> <Leader>p :call <SID>toggle_parent_folder_tag()<CR>
 " }}}
 
 " Custom command {{{
-function! DeleteInactiveBufs()
+function! DeleteInactiveBufs(bang)
     "From tabpagebuflist() help, get a list of all buffers in all tabs
     let tablist = []
     for i in range(tabpagenr('$'))
@@ -2334,13 +2339,18 @@ function! DeleteInactiveBufs()
     for i in range(1, bufnr('$'))
         if bufexists(i) && !getbufvar(i,"&mod") && index(tablist, i) == -1
         "bufno exists AND isn't modified AND isn't in the list of buffers open in windows and tabs
-            silent exec 'bwipeout' i
+            if a:bang
+              silent exec 'bwipeout!' i
+            else
+              silent exec 'bwipeout' i
+            endif
             let nWipeouts = nWipeouts + 1
+
         endif
     endfor
     echomsg nWipeouts . ' buffer(s) wiped out'
 endfunction
-command! Bdi :call DeleteInactiveBufs()
+command! -bang Bdi :call DeleteInactiveBufs(<bang>0)
 nnoremap <Leader>D :Bdi<CR>
 
 function! TrimWhitespace()
