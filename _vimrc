@@ -567,6 +567,8 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('new_directory')
     nnoremap <silent><buffer><expr> N
           \ defx#do_action('new_file')
+    nnoremap <silent><buffer><expr> M
+          \ defx#do_action('new_multiple_files')
     nnoremap <silent><buffer><expr> d
           \ defx#do_action('remove_trash')
     nnoremap <silent><buffer><expr> r
