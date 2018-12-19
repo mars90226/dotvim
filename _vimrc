@@ -151,10 +151,20 @@ let g:airline_theme = 'zenburn'
 " indentLine {{{
 Plug 'Yggdroot/indentLine', { 'on': ['IndentLinesEnable', 'IndentLinesToggle'] }
 
+let g:indentLine_enabled = 0
 let g:indentLine_color_term = 243
 let g:indentLine_color_gui = '#AAAAAA'
 
+function! s:toggle_indentline_enabled()
+  if g:indentLine_enabled == 0
+    let g:indentLine_enabled = 1
+  else
+    let g:indentLine_enabled = 0
+  endif
+endfunction
+
 nnoremap <Space>il :IndentLinesToggle<CR>
+nnoremap <Space>iL :call <SID>toggle_indentline_enabled()<CR>
 
 autocmd! User indentLine doautocmd indentLine Syntax
 " }}}
