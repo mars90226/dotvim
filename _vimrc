@@ -1641,7 +1641,7 @@ xmap ah <Plug>GitGutterTextObjectOuterVisual
 " gv.vim {{{
 Plug 'junegunn/gv.vim', { 'on': 'GV' }
 
-command! GVA GV --all
+command! -nargs=* GVA GV --all <args>
 
 function! s:gv_expand()
   let line = getline('.')
