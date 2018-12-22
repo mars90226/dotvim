@@ -2012,7 +2012,7 @@ if s:is_enabled_plugin('denite.nvim')
     call denite#custom#var('grep', 'final_opts', [])
     call denite#custom#var('grep', 'separator', ['--'])
     call denite#custom#var('grep', 'default_opts',
-          \ ['--vimgrep', '--no-heading', '-i'])
+          \ ['--vimgrep', '--no-heading', '-S'])
   elseif executable('ag')
     call denite#custome#var('file_rec', 'command',
           \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
@@ -2444,7 +2444,6 @@ if has("nvim")
   tnoremap <M-F1> <C-\><C-n>
   tnoremap <M-F2> <C-\><C-n>:tabnew<CR>:terminal<CR>i
   tnoremap <M-F3> <C-\><C-n>:Windows<CR>
-  tnoremap \\q <C-\><C-n>
 
   " Quickly switch window in terminal
   tnoremap <M-S-h> <C-\><C-n><C-w>h
@@ -2461,6 +2460,9 @@ if has("nvim")
 
   " Quickly paste from register
   tnoremap <expr> <M-r> '<C-\><C-n>"' . nr2char(getchar()) . 'pi'
+
+  " Quickly suspend neovim
+  tnoremap <M-C-z> <C-\><C-n>:suspend<CR>
 
   " Search keyword with Google using surfraw
   if executable('sr')
