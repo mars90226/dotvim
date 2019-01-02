@@ -2114,6 +2114,13 @@ set sessionoptions-=options
 set sessionoptions-=folds
 set sessionoptions-=blank
 
+" syntax
+" Check if syntax is on and only switch on syntax when it's off
+" due to fugitive Gblame bug that lose highlight after `syntax on`
+if !exists('syntax_on')
+  syntax on
+endif
+
 " filetype
 filetype on
 filetype plugin on
