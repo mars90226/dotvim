@@ -573,6 +573,8 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('open', 'vsplit')
     nnoremap <silent><buffer><expr> P
           \ defx#do_action('open', 'pedit')
+    nnoremap <silent><buffer><expr> T
+          \ defx#do_action('open', 'tab split')
     nnoremap <silent><buffer><expr> K
           \ defx#do_action('new_directory')
     nnoremap <silent><buffer><expr> N
