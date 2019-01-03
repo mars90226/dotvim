@@ -1542,6 +1542,17 @@ if s:is_enabled_plugin('ale')
         \ 'cpp': ['g++'],
         \ 'javascript': ['eslint']
         \}
+  let g:ale_fixers = {
+        \ 'javascript': [ 'eslint' ],
+        \ 'css': [
+        \   'prettier',
+        \   'stylelint'
+        \ ],
+        \ 'scss': [
+        \   'prettier',
+        \   'stylelint'
+        \ ]
+        \}
 
   nmap ]a <Plug>(ale_next_wrap)
   nmap [a <Plug>(ale_previous_wrap)
