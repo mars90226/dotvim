@@ -561,6 +561,8 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('drop')
     nnoremap <silent><buffer><expr> c
           \ defx#do_action('copy')
+    nnoremap <silent><buffer><expr> !
+          \ defx#do_action('execute_command')
     nnoremap <silent><buffer><expr> m
           \ defx#do_action('move')
     nnoremap <silent><buffer><expr> p
@@ -1861,6 +1863,18 @@ if s:is_enabled_plugin('denite.nvim')
         \ 'insert',
         \ '<A-r>',
         \ '<denite:change_sorters:sorter_reverse>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
+        \ 'insert',
+        \ '<A-o>',
+        \ '<denite:do_action:open>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
+        \ 'insert',
+        \ '<A-d>',
+        \ '<denite:do_action:cd>',
         \ 'noremap'
         \)
   call denite#custom#map(
