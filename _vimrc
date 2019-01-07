@@ -2441,6 +2441,8 @@ function! s:getchar() abort
 endfunction
 command! GetChar call s:getchar()
 
+command! ReloadVimrc source $HOME/.vimrc
+
 if s:os !~ "windows"
   command! Args echo system("ps -o command= -p " . getpid())
 endif
