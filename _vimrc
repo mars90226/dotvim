@@ -432,6 +432,8 @@ let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro' " add line number
 Plug 'tpope/vim-vinegar'
 
 nmap <silent> _ <Plug>VinegarVerticalSplitUp
+nmap <silent> <Space>- <Plug>VinegarSplitUp
+nmap <silent> <Space>_ <Plug>VinegarTabUp
 " }}}
 
 " tagbar {{{
@@ -569,7 +571,11 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('paste')
     nnoremap <silent><buffer><expr> l
           \ defx#do_action('open')
+    nnoremap <silent><buffer><expr> C
+          \ defx#do_action('toggle_columns', 'mark:filename:type:size:time')
     nnoremap <silent><buffer><expr> S
+          \ defx#do_action('toggle_sort', 'Time')
+    nnoremap <silent><buffer><expr> B
           \ defx#do_action('open', 'botright split')
     nnoremap <silent><buffer><expr> E
           \ defx#do_action('open', 'vsplit')
@@ -2053,6 +2059,15 @@ if s:is_enabled_plugin('denite.nvim')
 endif
 " }}}
 
+" Defx {{{
+if s:is_enabled_plugin("defx")
+  call defx#custom#column('mark', {
+        \ 'directory_icon': '▾',
+        \ 'readonly_icon': '✗',
+        \ 'selected_icon': '✓',
+        \ })
+endif
+" }}}
 " Gina {{{
   call gina#custom#mapping#nmap(
           \ '/\%(blame\|commit\|status\|branch\|ls\|grep\|changes\|tag\)',
