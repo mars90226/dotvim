@@ -1164,7 +1164,7 @@ if has("nvim")
     augroup END
     BLines
   endfunction
-  command!  TagbarTags call <SID>tagbar_tags()
+  command! TagbarTags call <SID>tagbar_tags()
 endif
 " }}}
 
@@ -1324,14 +1324,12 @@ Plug 'osyo-manga/vim-anzu'
 map n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
 map N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
 
-command! AnzuToggleUpdate let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 0
+command! AnzuToggleUpdate call <SID>AnzuToggleUpdate()
 function! s:AnzuToggleUpdate()
-  let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus
-        \ = get(g:, 'anzu_enable_CursorHold_AnzuUpdateSearchStatus', 2)
   if g:anzu_enable_CursorHold_AnzuUpdateSearchStatus == 0
-    g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 2
+    let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 2
   else
-    g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 0
+    let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 0
   endif
 endfunction
 
@@ -1435,6 +1433,15 @@ Plug 'jiangmiao/auto-pairs'
 
 let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
 " let g:AutoPairsMapCR = 0
+
+function! s:AutoPairsToggleMultilineClose()
+  if g:AutoPairsMultilineClose == 0
+    let g:AutoPairsMultilineClose = 1
+  else
+    let g:AutoPairsMultilineClose = 0
+  endif
+endfunction
+command! AutoPairsToggleMultilineClose call <SID>AutoPairsToggleMultilineClose()
 
 augroup autoPairsFileTypeSpecific
   autocmd!
