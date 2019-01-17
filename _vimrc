@@ -1287,8 +1287,8 @@ map <Plug>(easymotion-prefix)s <Plug>(easymotion-bd-f2)
 map <Plug>(easymotion-prefix)L <Plug>(easymotion-bd-jk)
 map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
 
-nmap <Leader>; <Plug>(easymotion-next)
-nmap <Leader>, <Plug>(easymotion-prev)
+nmap <Leader>' <Plug>(easymotion-next)
+nmap <Leader>; <Plug>(easymotion-prev)
 nmap <Leader>. <Plug>(easymotion-repeat)
 
 map <Plug>(easymotion-prefix)J <Plug>(easymotion-eol-j)
@@ -1458,6 +1458,32 @@ let g:EraseSubword_insertMap = '<C-b>'
 
 " tcomment_vim {{{
 Plug 'tomtom/tcomment_vim'
+" }}}
+
+" vim-subversive {{{
+Plug 'svermeulen/vim-subversive'
+
+nmap s <Plug>(SubversiveSubstitute)
+nmap ss <Plug>(SubversiveSubstituteLine)
+nmap sS <Plug>(SubversiveSubstituteToEndOfLine)
+
+nmap <Leader>s <Plug>(SubversiveSubstituteRange)
+xmap <Leader>s <Plug>(SubversiveSubstituteRange)
+nmap <Leader>ss <Plug>(SubversiveSubstituteWordRange)
+
+nmap <Leader>cr <Plug>(SubversiveSubstituteRangeConfirm)
+xmap <Leader>cr <Plug>(SubversiveSubstituteRangeConfirm)
+nmap <Leader>crr <Plug>(SubversiveSubstituteWordRangeConfirm)
+
+nmap <Leader><Leader>s <Plug>(SubversiveSubvertRange)
+xmap <Leader><Leader>s <Plug>(SubversiveSubvertRange)
+nmap <Leader><Leader>ss <Plug>(SubversiveSubvertWordRange)
+
+" ie = inner entire buffer
+onoremap ie :exec "normal! ggVG"<CR>
+
+" iv = current viewable text in the buffer
+onoremap iv :exec "normal! HVL"<CR>
 " }}}
 
 Plug 'editorconfig/editorconfig-vim'
@@ -1863,7 +1889,7 @@ Plug 'arthurxavierx/vim-caser'
 
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
 Plug 'tyru/open-browser.vim'
-Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert'] }
+Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert', 'S'] }
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
 Plug 'terryma/vim-multiple-cursors'
