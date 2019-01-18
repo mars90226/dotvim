@@ -1912,7 +1912,7 @@ call plug#end()
 " Post-loaded Plugin Settings {{{
 " deoplete.nvim {{{
 if s:is_enabled_plugin('deoplete.nvim')
-  call deoplete#custom#option('auto_refresh_delay', 50)
+  " call deoplete#custom#option('auto_refresh_delay', 20)
 endif
 " }}}
 
