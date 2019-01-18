@@ -185,8 +185,8 @@ Plug 'altercation/vim-colors-solarized'
 " Completion {{{
 " ====================================================================
 
-" FIXME Completion popup still appear after select completion.
 " completion setting {{{
+" FIXME Completion popup still appear after select completion.
 " inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
@@ -2118,6 +2118,7 @@ if s:is_enabled_plugin("defx")
         \ })
 endif
 " }}}
+
 " Gina {{{
   call gina#custom#mapping#nmap(
           \ '/\%(blame\|commit\|status\|branch\|ls\|grep\|changes\|tag\)',
