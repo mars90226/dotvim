@@ -184,7 +184,6 @@ Plug 'altercation/vim-colors-solarized'
 
 " Completion {{{
 " ====================================================================
-
 " completion setting {{{
 " FIXME Completion popup still appear after select completion.
 " inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
@@ -426,6 +425,15 @@ endif
 
 " netrw {{{
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro' " add line number
+
+augroup netrw_mapping
+  autocmd!
+  autocmd FileType netrw call s:netrw_mapping()
+augroup END
+
+function! s:netrw_mapping()
+  nmap <buffer> <BS> <Plug>VinegarUp
+endfunction
 " }}}
 
 " Vinegar {{{
@@ -509,52 +517,80 @@ endif
 if s:is_enabled_plugin("defx")
   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 
-  " Defx as default explorer, borrow from vimfiler {{{
-  augroup defx_default_explorer
-    autocmd BufEnter,VimEnter,BufNew,BufWinEnter,BufRead,BufCreate
-          \ * call s:browse_check(expand('<amatch>'))
+  " " Defx as default explorer, borrowed from vimfiler {{{
+  " FIXME Defx buffer opened through this method will core dump if open terminal or use fzf's :Files
+  " This combines with `set hidden` will cause core dump.
+  "
+  " let s:is_windows = has('win16') || has('win32') || has('win64') || has('win95')
+  "
+  " augroup defx_default_explorer
+  "   autocmd BufEnter,VimEnter,BufNew,BufWinEnter,BufRead,BufCreate
+  "         \ * call s:browse_check(expand('<amatch>'))
+  " augroup END
+  "
+  " function! s:browse_check(path) abort
+  "   if a:path == '' || bufnr('%') != expand('<abuf>')
+  "     return
+  "   endif
+  "
+  "   " Disable netrw.
+  "   augroup FileExplorer
+  "     autocmd!
+  "   augroup END
+  "
+  "   let path = a:path
+  "   " For ":edit ~".
+  "   if fnamemodify(path, ':t') ==# '~'
+  "     let path = '~'
+  "   endif
+  "
+  "   if &filetype ==# 'defx' && line('$') != 1
+  "     return
+  "   endif
+  "
+  "   if isdirectory(s:expand(path))
+  "     call defx#util#call_defx('Defx', path)
+  "   endif
+  " endfunction
+  "
+  " function! s:expand(path) abort
+  "   return s:substitute_path_separator(
+  "         \ (a:path =~# '^\~') ? fnamemodify(a:path, ':p') :
+  "         \ (a:path =~# '^\$\h\w*') ? substitute(a:path,
+  "         \             '^\$\h\w*', '\=eval(submatch(0))', '') :
+  "         \ a:path)
+  " endfunction
+  "
+  " function! s:substitute_path_separator(path) abort
+  "   return s:is_windows ? substitute(a:path, '\\', '/', 'g') : a:path
+  " endfunction
+  " " }}}
+
+  augroup netrw_mapping_for_defx
+    autocmd!
+    autocmd FileType netrw call s:netrw_mapping_for_defx()
   augroup END
-
-  function! s:browse_check(path) abort
-    if a:path == '' || bufnr('%') != expand('<abuf>')
-      return
-    endif
-
-    " Disable netrw.
-    augroup FileExplorer
-      autocmd!
-    augroup END
-
-    let path = a:path
-    " For ":edit ~".
-    if fnamemodify(path, ':t') ==# '~'
-      let path = '~'
-    endif
-
-    if &filetype ==# 'vimfiler' && line('$') != 1
-      return
-    endif
-
-    if isdirectory(expand(path))
-      call defx#util#call_defx('Defx', path)
-    endif
+  function! s:netrw_mapping_for_defx()
+    " Cannot override Vinegar '-' mapping, so use '+' instead
+    nnoremap + :call <SID>opendir('Defx')<CR>
   endfunction
 
-  function! s:expand(path) abort
-    return s:substitute_path_separator(
-          \ (a:path =~# '^\~') ? fnamemodify(a:path, ':p') :
-          \ (a:path =~# '^\$\h\w*') ? substitute(a:path,
-          \             '^\$\h\w*', '\=eval(submatch(0))', '') :
-          \ a:path)
+  " Borrowed from vinegar
+  function! s:opendir(cmd) abort
+    if expand('%') =~# '^$\|^term:[\/][\/]'
+      execute a:cmd ' .'
+    else
+      execute a:cmd . ' ' . expand('%:h')
+    endif
   endfunction
-
-  function! s:substitute_path_separator(path) abort
-    return s:is_windows ? substitute(a:path, '\\', '/', 'g') : a:path
-  endfunction
-  " }}}
 
   nnoremap <F4> :Defx -split=vertical -winwidth=35 -direction=topleft -toggle<CR>
   nnoremap <Space><F4> :Defx -split=vertical -winwidth=35 -direction=topleft -toggle `expand('%:p:h')` -search=`expand('%:p')`<CR>
+  nnoremap - :call <SID>opendir('Defx')<CR>
+  nnoremap + :call <SID>opendir('Defx')<CR>
+  nnoremap _ :call <SID>opendir('Defx -split=vertical')<CR>
+  nnoremap <Space>- :call <SID>opendir('Defx -split=horizontal')<CR>
+  nnoremap <Space>_ :call <SID>opendir('Defx -split=tab')<CR>
 
   autocmd FileType defx call s:defx_my_settings()
   function! s:defx_my_settings() abort
@@ -624,19 +660,22 @@ if s:is_enabled_plugin("defx")
           \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
   endfunction
 endif
-" " }}}
+" }}}
 
 " vim-choosewin {{{
-Plug 't9md/vim-choosewin'
+if s:is_enabled_plugin("vimfiler")
+  " Only used in vimfiler
+  Plug 't9md/vim-choosewin'
 
-" seoul256 colors
-let g:choosewin_color_label_current = { 'gui': ['#7FBF00', '#121813'], 'cterm': [10, 15, 'bold'] }
-let g:choosewin_color_label = { 'gui': ['#719872', ''], 'cterm': [65, 0] }
-let g:choosewin_color_other = { 'gui': ['#757575', '#BFBFBF'], 'cterm': [241, 249] }
-let g:choosewin_color_overlay_current = { 'gui': ['#7FBF00', '#121813'], 'cterm': [10, 15, 'bold'] }
-let g:choosewin_color_overlay = { 'gui': ['#007173', '#DEDFBD'], 'cterm': [23, 187, 'bold'] }
-nmap + <Plug>(choosewin)
-nmap <Leader>= <Plug>(choosewin)
+  " seoul256 colors
+  let g:choosewin_color_label_current = { 'gui': ['#7FBF00', '#121813'], 'cterm': [10, 15, 'bold'] }
+  let g:choosewin_color_label = { 'gui': ['#719872', ''], 'cterm': [65, 0] }
+  let g:choosewin_color_other = { 'gui': ['#757575', '#BFBFBF'], 'cterm': [241, 249] }
+  let g:choosewin_color_overlay_current = { 'gui': ['#7FBF00', '#121813'], 'cterm': [10, 15, 'bold'] }
+  let g:choosewin_color_overlay = { 'gui': ['#007173', '#DEDFBD'], 'cterm': [23, 187, 'bold'] }
+  nmap + <Plug>(choosewin)
+  nmap <Leader>= <Plug>(choosewin)
+endif
 " }}}
 
 " Unite {{{
@@ -2133,7 +2172,6 @@ call arpeggio#load()
 
 " General Settings {{{
 " ====================================================================
-
 " Vim basic setting {{{
 set nocompatible
 if exists(":packadd") != 0
