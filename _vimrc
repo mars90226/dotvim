@@ -592,6 +592,38 @@ if s:is_enabled_plugin("defx")
   nnoremap <Space>- :call <SID>opendir('Defx -split=horizontal')<CR>
   nnoremap <Space>_ :call <SID>opendir('Defx -split=tab')<CR>
 
+  function! s:defx_fzf_files(context) abort
+    let path = a:context.targets[0]
+    if !isdirectory(path)
+      let path = fnamemodify(path, ':h')
+    endif
+
+    execute 'Files ' . path
+  endfunction
+
+  function! s:defx_fzf_rg_internal(context, cmd, prompt) abort
+    let old_pwd = execute('pwd')
+    let path = a:context.targets[0]
+    if !isdirectory(path)
+      let path = fnamemodify(path, ':h')
+    endif
+
+    augroup defx_fzf_rg_callback
+      autocmd!
+      autocmd TermClose term:://*fzf*
+            \ execute 'lcd ' . old_pwd |
+            \ autocmd! defx_fzf_rg_callback
+    augroup END
+    execute 'lcd ' . path
+    execute a:cmd . ' ' . input(a:prompt . ': ')
+  endfunction
+  function! s:defx_fzf_rg(context) abort
+    call s:defx_fzf_rg_internal(a:context, 'Rg', 'Rg')
+  endfunction
+  function! s:defx_fzf_rg_bang(context) abort
+    call s:defx_fzf_rg_internal(a:context, 'Rg!', 'Rg!')
+  endfunction
+
   autocmd FileType defx call s:defx_my_settings()
   function! s:defx_my_settings() abort
     " Define mappings
@@ -658,6 +690,12 @@ if s:is_enabled_plugin("defx")
     nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
           \ ':<C-u>wincmd w<CR>' :
           \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
+    nnoremap <silent><buffer><expr> \f
+          \ defx#do_action('call', '<SID>defx_fzf_files')
+    nnoremap <silent><buffer><expr> \r
+          \ defx#do_action('call', '<SID>defx_fzf_rg')
+    nnoremap <silent><buffer><expr> \R
+          \ defx#do_action('call', '<SID>defx_fzf_rg_bang')
   endfunction
 endif
 " }}}
