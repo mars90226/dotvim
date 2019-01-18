@@ -2112,7 +2112,7 @@ endif
 " Defx {{{
 if s:is_enabled_plugin("defx")
   call defx#custom#column('mark', {
-        \ 'directory_icon': '▾',
+        \ 'directory_icon': '▸',
         \ 'readonly_icon': '✗',
         \ 'selected_icon': '✓',
         \ })
