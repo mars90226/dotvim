@@ -610,7 +610,7 @@ if s:is_enabled_plugin("defx")
 
     augroup defx_fzf_rg_callback
       autocmd!
-      autocmd TermClose term:://*fzf*
+      autocmd TermClose term://*fzf*
             \ execute 'lcd ' . old_pwd |
             \ autocmd! defx_fzf_rg_callback
     augroup END
@@ -624,8 +624,22 @@ if s:is_enabled_plugin("defx")
     call s:defx_fzf_rg_internal(a:context, 'Rg!', 'Rg!')
   endfunction
 
+  function! s:defx_fzf_directory_ancestors_sink(line) abort
+    execute 'lcd ' . a:line
+    call defx#call_action('cd', getcwd())
+  endfunction
+  function! s:defx_fzf_directory_ancestors(context) abort
+    let path = a:context.targets[0]
+
+    call fzf#run(fzf#wrap({
+          \ 'source': s:directory_ancestors_internal(path),
+          \ 'sink': function('s:defx_fzf_directory_ancestors_sink'),
+          \ 'options': '+s',
+          \ 'down': '40%'}))
+  endfunction
+
   autocmd FileType defx call s:defx_my_settings()
-  function! s:defx_my_settings() abort
+  function! s:defx_my_settings() abort " {{{
     " Define mappings
     nnoremap <silent><buffer><expr> <CR>
           \ defx#do_action('drop')
@@ -706,7 +720,9 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('call', '<SID>defx_fzf_rg')
     nnoremap <silent><buffer><expr> \R
           \ defx#do_action('call', '<SID>defx_fzf_rg_bang')
-  endfunction
+    nnoremap <silent><buffer><expr> \<BS>
+          \ defx#do_action('call', '<SID>defx_fzf_directory_ancestors')
+  endfunction " }}}
 endif
 " }}}
 
@@ -742,6 +758,9 @@ Plug 'hewes/unite-gtags'
 Plug 'osyo-manga/unite-quickfix'
 
 let g:unite_source_history_yank_enable = 1
+
+" for unite-workflow
+let g:github_user = "mars90226"
 
 " Unite key mappings {{{
 nnoremap <Space>l :Unite -start-insert line<CR>
@@ -1136,12 +1155,8 @@ command! Registers call fzf#run(fzf#wrap({
       \ 'options': '+s',
       \ 'down': '40%'}))
 
-function! s:directory_ancestors_sink(line)
-  execute 'lcd ' . a:line
-endfunction
-
-function! s:directory_ancestors()
-  let current_dir = fnamemodify(expand('%:p'), ':h')
+function! s:directory_ancestors_internal(path)
+  let current_dir = fnamemodify(a:path, ':p:h')
   let ancestors = []
 
   for path_part in split(current_dir, '/')
@@ -1151,6 +1166,14 @@ function! s:directory_ancestors()
   endfor
 
   return reverse(ancestors)
+endfunction
+
+function! s:directory_ancestors_sink(line)
+  execute 'lcd ' . a:line
+endfunction
+
+function! s:directory_ancestors()
+  return s:directory_ancestors_internal(expand('%'))
 endfunction
 command! DirectoryAncestors call fzf#run(fzf#wrap({
       \ 'source': s:directory_ancestors(),
