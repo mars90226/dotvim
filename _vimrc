@@ -2511,6 +2511,29 @@ function! s:toggle_parent_folder_tag()
   endif
 endfunction
 nnoremap <silent> <Leader>p :call <SID>toggle_parent_folder_tag()<CR>
+
+" display file size
+function! s:file_size(path)
+  let path = expand(a:path)
+  if isdirectory(path)
+    echomsg path . " is directory!"
+    return
+  endif
+
+  let file_size = getfsize(path)
+  let gb = file_size / (1024 * 1024 * 1024)
+  let mb = file_size / (1024 * 1024) % 1024
+  let kb = file_size / (1024) % 1024
+  let byte = file_size % 1024
+
+  echomsg path . " size is "
+        \ . (gb > 0 ? gb . "GB, " : "")
+        \ . (mb > 0 ? mb . "MB, " : "")
+        \ . (kb > 0 ? kb . "KB, " : "")
+        \ . byte . "byte"
+endfunction
+command! -nargs=1 FileSize call <SID>file_size(<q-args>)
+
 " }}}
 
 " Custom command {{{
