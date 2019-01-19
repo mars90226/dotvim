@@ -1714,7 +1714,10 @@ if executable('cargo')
     endif
   endfunction
 
-Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+  Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+
+  " Manually execute :ComposerStart instead
+  let g:markdown_composer_autostart = 0
 endif
 " }}}
 
