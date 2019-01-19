@@ -673,6 +673,8 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('cd')
     nnoremap <silent><buffer><expr> \
           \ defx#do_action('cd', getcwd())
+    nnoremap <silent><buffer><expr> cd
+          \ defx#do_action('change_vim_cwd')
     nnoremap <silent><buffer><expr> q
           \ defx#do_action('quit')
     nnoremap <silent><buffer><expr> `
@@ -687,6 +689,14 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('redraw')
     nnoremap <silent><buffer><expr> <C-g>
           \ defx#do_action('print')
+    nnoremap <silent><buffer><expr> <C-t><C-r>
+          \ defx#do_action('change_vim_cwd') . ":terminal<CR>i"
+    nnoremap <silent><buffer><expr> <C-t><C-t>
+          \ defx#do_action('change_vim_cwd') . ":tabnew <Bar> :terminal<CR>i"
+    nnoremap <silent><buffer><expr> <C-t><C-s>
+          \ defx#do_action('change_vim_cwd') . ":new    <Bar> :terminal<CR>i"
+    nnoremap <silent><buffer><expr> <C-t><C-v>
+          \ defx#do_action('change_vim_cwd') . ":vnew   <Bar> :terminal<CR>i"
     nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
           \ ':<C-u>wincmd w<CR>' :
           \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
