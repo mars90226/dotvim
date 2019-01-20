@@ -1065,6 +1065,18 @@ command! -bar  -bang                  Helptags call fzf#vim#helptags(<bang>0)
 command! -bang -nargs=+ -complete=dir LLocate  call fzf#vim#locate(<q-args>, <bang>0)
 command! -bang -nargs=? -complete=dir Files    call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 command! -bang -nargs=?               GFiles   call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
+command! -bar  -bang                  Windows  call fzf#vim#windows(<SID>fzf_windows_preview(), <bang>0)
+
+function! s:fzf_windows_preview() abort
+  let options = fzf#vim#with_preview()
+  let preview_script = remove(options.options, -1)[0:-4]
+  let get_filename_script = expand($VIMHOME . '/bin/fzf_windows_preview.sh')
+  let final_script = preview_script . ' "$(' . get_filename_script . ' {})"'
+
+  call remove(options.options, -1) " remove --preview
+  call extend(options.options, ['--preview', final_script])
+  return options
+endfunction
 
 " let g:rg_command = '
 "     \ rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --color "always"
