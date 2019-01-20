@@ -764,6 +764,22 @@ let g:unite_source_history_yank_enable = 1
 " for unite-workflow
 let g:github_user = "mars90226"
 
+" Escape colon, backslash and space
+function! s:escape_symbol(expr)
+  let l:expr = a:expr
+  let l:expr = substitute(l:expr, '\\', '\\\\', 'g')
+  let l:expr = substitute(l:expr, ':', '\\:', 'g')
+  let l:expr = substitute(l:expr, ' ', '\\ ', 'g')
+
+  return l:expr
+endfunction
+
+function! s:unite_grep(query, buffer_name_prefix, option, is_word) abort
+  let escaped_query = s:escape_symbol(a:query)
+  let final_query = a:is_word ? '\\b' . escaped_query . '\\b' : escaped_query
+  execute 'Unite -buffer-name=' . a:buffer_name_prefix . '%`bufnr("%")` -wrap grep:.:' . a:option . ':' . final_query
+endfunction
+
 " Unite key mappings {{{
 nnoremap <Space>l :Unite -start-insert line<CR>
 nnoremap <Space>p :Unite -buffer-name=files buffer bookmark file<CR>
@@ -798,12 +814,12 @@ nnoremap <Space>ugp :Unite gtags/path<CR>
 nnoremap <Space>ugr :Unite gtags/ref<CR>
 nnoremap <Space>ugx :Unite gtags/completion<CR>
 nnoremap <Space>uj :Unite jump -start-insert<CR>
-nnoremap <Space>uk :execute 'Unite -buffer-name=keyword%`bufnr("%")` grep:.::' . <SID>escape_symbol(expand('<cword>')) . ' -wrap'<CR>
-nnoremap <Space>uK :execute 'Unite -buffer-name=keyword%`bufnr("%")` grep:.::' . <SID>escape_symbol(expand('<cWORD>')) . ' -wrap'<CR>
-nnoremap <Space>u8 :execute 'Unite -buffer-name=keyword%`bufnr("%")` grep:.::\\b' . <SID>escape_symbol(expand('<cword>')) . '\\b -wrap'<CR>
-nnoremap <Space>u* :execute 'Unite -buffer-name=keyword%`bufnr("%")` grep:.::\\b' . <SID>escape_symbol(expand('<cWORD>')) . '\\b -wrap'<CR>
-xnoremap <Space>uk :<C-u>execute 'Unite -buffer-name=keyword%`bufnr("%")` grep:.::' . <SID>escape_symbol(<SID>get_visual_selection()) . ' -wrap'<CR>
-xnoremap <Space>u8 :<C-u>execute 'Unite -buffer-name=keyword%`bufnr("%")` grep:.::\\b' . <SID>escape_symbol(<SID>get_visual_selection()) . '\\b -wrap'<CR>
+nnoremap <Space>uk :call <SID>unite_grep(expand('<cword>'), 'keyword', '', v:false)<CR>
+nnoremap <Space>uK :call <SID>unite_grep(expand('<cWORD>'), 'keyword', '', v:false)<CR>
+nnoremap <Space>u8 :call <SID>unite_grep(expand('<cword>'), 'keyword', '', v:true)<CR>
+nnoremap <Space>u* :call <SID>unite_grep(expand('<cWORD>'), 'keyword', '', v:true)<CR>
+xnoremap <Space>uk :<C-u>call <SID>unite_grep(<SID>get_visual_selection(), 'keyword', '', v:false)<CR>
+xnoremap <Space>u8 :<C-u>call <SID>unite_grep(<SID>get_visual_selection(), 'keyword', '', v:true)<CR>
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>uL :Unite location_list<CR>
 nnoremap <Space>uo :Unite output -start-insert<CR>
@@ -825,6 +841,16 @@ nnoremap <Space>u; :Unite command<CR>
 nnoremap <Space>u/ :Unite history/search<CR>
 
 nnoremap <Space><F1> :Unite output:map<CR>
+
+if executable('rg')
+  let g:unite_source_grep_command = 'rg'
+  let g:unite_source_grep_default_opts = '--hidden --no-heading --vimgrep -S'
+  let g:unite_source_grep_recursive_opt = ''
+
+  nnoremap <Space>/ :call <SID>unite_grep('', 'grep', '', v:false)<CR>
+  nnoremap <Space>? :call <SID>unite_grep('', 'grep', <SID>escape_symbol(input('Option: ')), v:false)<CR>
+  nnoremap <Space>g/ :call <SID>unite_grep('', 'grep', "-g\\ '" . input('glob: ') . "'", v:false)<CR>
+endif
 " }}}
 
 autocmd FileType unite call s:unite_my_settings()
@@ -907,31 +933,17 @@ function! s:unite_my_settings() "{{{
   silent! nunmap <buffer> <Space>
   nmap <silent><buffer> ` <Plug>(unite_toggle_mark_current_candidate)
 endfunction "}}}
-
-" Escape colon, backslash and space
-function! s:escape_symbol(expr)
-  let l:expr = a:expr
-  let l:expr = substitute(l:expr, '\\', '\\\\', 'g')
-  let l:expr = substitute(l:expr, ':', '\\:', 'g')
-  let l:expr = substitute(l:expr, ' ', '\\ ', 'g')
-
-  return l:expr
-endfunction
-
-if executable('rg')
-  let g:unite_source_grep_command = 'rg'
-  let g:unite_source_grep_default_opts = '--hidden --no-heading --vimgrep -S'
-  let g:unite_source_grep_recursive_opt = ''
-
-  nnoremap <Space>/ :Unite -buffer-name=grep%`bufnr("%")` grep:. -wrap<CR>
-  nnoremap <Space>? :execute 'Unite -buffer-name=grep%`bufnr("%")` grep:.:' . <SID>escape_symbol(input('Option: ')) . ' -wrap'<CR>
-  nnoremap <Space>g/ :execute "Unite -buffer-name=grep%`bufnr('%')` grep:.:-g\\ '" . input('glob: ') . "' -wrap"<CR>
-endif
 " }}}
 
 " Denite {{{
 if s:is_enabled_plugin('denite.nvim')
   Plug 'Shougo/denite.nvim'
+
+  function! s:denite_grep(query, buffer_name_prefix, option, is_word) abort
+    let escaped_query = s:escape_symbol(a:query)
+    let final_query = a:is_word ? '\\b' . escaped_query . '\\b' : escaped_query
+    execute 'Denite -buffer-name=' . a:buffer_name_prefix . '%`bufnr("%")` -auto-resume grep:.:' . a:option . ':' . final_query
+  endfunction
 
   " Override Unite key mapping {{{
   nnoremap <Space>p :Denite -buffer-name=files -auto-resume buffer file<CR>
@@ -945,13 +957,13 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>df :Denite filetype<CR>
   nnoremap <Space>dh :Denite help<CR>
   nnoremap <Space>dj :Denite jump<CR>
-  nnoremap <Space>di :Denite -buffer-name=grep%`bufnr("%")` -auto-resume grep:.::!<CR>
-  nnoremap <Space>dk :execute 'Denite -buffer-name=keyword%`bufnr("%")` -auto-resume grep:.::' . <SID>escape_symbol(expand('<cword>'))<CR>
-  nnoremap <Space>dK :execute 'Denite -buffer-name=keyword%`bufnr("%")` -auto-resume grep:.::' . <SID>escape_symbol(expand('<cWORD>'))<CR>
-  nnoremap <Space>d8 :execute 'Denite -buffer-name=keyword%`bufnr("%")` -auto-resume grep:.::\\b' . <SID>escape_symbol(expand('<cword>')) . '\\b'<CR>
-  nnoremap <Space>d* :execute 'Denite -buffer-name=keyword%`bufnr("%")` -auto-resume grep:.::\\b' . <SID>escape_symbol(expand('<cWORD>')) . '\\b'<CR>
-  xnoremap <Space>dk :<C-u>execute 'Denite -buffer-name=keyword%`bufnr("%")` -auto-resume grep:.::' . <SID>escape_symbol(<SID>get_visual_selection())<CR>
-  xnoremap <Space>d8 :<C-u>execute 'Denite -buffer-name=keyword%`bufnr("%")` -auto-resume grep:.::\\b' . <SID>escape_symbol(<SID>get_visual_selection()) . '\\b'<CR>
+  nnoremap <Space>di :call <SID>denite_grep('!', 'grep', '', v:false)<CR>
+  nnoremap <Space>dk :call <SID>denite_grep(expand('<cword>'), 'keyword', '', v:false)<CR>
+  nnoremap <Space>dK :call <SID>denite_grep(expand('<cWORD>'), 'keyword', '', v:false)<CR>
+  nnoremap <Space>d8 :call <SID>denite_grep(expand('<cword>'), 'keyword', '', v:true)<CR>
+  nnoremap <Space>d* :call <SID>denite_grep(expand('<cWORD>'), 'keyword', '', v:true)<CR>
+  xnoremap <Space>dk :<C-u>call <SID>denite_grep(<SID>get_visual_selection(), 'keyword', '', v:false)<CR>
+  xnoremap <Space>d8 :<C-u>call <SID>denite_grep(<SID>get_visual_selection(), 'keyword', '', v:true)<CR>
   nnoremap <Space>dl :Denite -auto-highlight line<CR>
   nnoremap <Space>dL :Denite line:buffers<CR>
   nnoremap <Space>dm :Denite file_mru<CR>
@@ -968,11 +980,11 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>dy :Denite neoyank<CR>
   nnoremap <Space>d: :Denite command_history<CR>
   nnoremap <Space>d; :Denite command<CR>
-  nnoremap <Space>d/ :Denite -buffer-name=grep%`bufnr("%")` -auto-resume grep:.<CR>
-  nnoremap <Space>d? :execute 'Denite -buffer-name=grep%`bufnr("%")` -auto-resume grep:.:' . <SID>escape_symbol(input('Option: '))<CR>
+  nnoremap <Space>d/ :call <SID>denite_grep('', 'grep', '', v:false)<CR>
+  nnoremap <Space>d? :call <SID>denite_grep('', 'grep', <SID>escape_symbol(input('Option: ')), v:false)<CR>
 
   if executable('rg')
-    nnoremap <Space>dg/ :execute "Denite -buffer-name=grep%`bufnr('%')` -auto-resume grep:.:-g\\ '" . input('glob: ') . "'"<CR>
+    nnoremap <Space>dg/ :call <SID>denite_grep('', 'grep', "-g\\ '" . input('glob: ') . "'", v:false)<CR>
   endif
 endif
 " }}}
