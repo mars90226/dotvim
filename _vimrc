@@ -220,10 +220,6 @@ if s:is_enabled_plugin('deoplete.nvim')
 
   " Use deoplete.
   let g:deoplete#enable_at_startup = 1
-  " Use smartcase.
-  let g:deoplete#enable_smart_case = 1
-  " Disable auto_complete
-  " let g:deoplete#disable_auto_complete = 1
 
   " deoplete_clang
   let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-5.0/lib/libclang.so.1"
@@ -268,9 +264,6 @@ if s:is_enabled_plugin('deoplete.nvim')
   " <C-h>, <BS>: close popup and delete backword char.
   inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
-
-  inoremap <expr> <Esc> pumvisible() ? deoplete#smart_close_popup() : "\<Esc>"
-  inoremap <expr> <C-e><C-e> deoplete#smart_close_popup()
 
   inoremap <expr><C-g><C-g> deoplete#refresh()
   inoremap <silent><expr><C-l> deoplete#complete_common_string()
@@ -2049,7 +2042,8 @@ call plug#end()
 " Post-loaded Plugin Settings {{{
 " deoplete.nvim {{{
 if s:is_enabled_plugin('deoplete.nvim')
-  " call deoplete#custom#option('auto_refresh_delay', 20)
+  " Use smartcase.
+  call deoplete#custom#option('smart_case', v:true)
 endif
 " }}}
 
