@@ -691,6 +691,8 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('cd', getcwd())
     nnoremap <silent><buffer><expr> cd
           \ defx#do_action('change_vim_cwd')
+    nnoremap <silent><buffer><expr> \c
+          \ defx#do_action('cd', input('cd: '))
     nnoremap <silent><buffer><expr> q
           \ defx#do_action('quit')
     nnoremap <silent><buffer><expr> `
