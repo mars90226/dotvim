@@ -586,36 +586,28 @@ if s:is_enabled_plugin("defx")
   nnoremap <Space>_ :call <SID>opendir('Defx -split=tab')<CR>
 
   " Defx custom functions {{{
-  function! s:defx_fzf_files(context) abort
+  function! s:defx_get_folder(context) abort
     let path = a:context.targets[0]
-    if !isdirectory(path)
-      let path = fnamemodify(path, ':h')
-    endif
+    return isdirectory(path) ? path : fnamemodify(path, ':h')
+  endfunction
+
+  function! s:defx_fzf_files(context) abort
+    let path = s:defx_get_folder(context)
 
     execute 'Files ' . path
   endfunction
 
-  function! s:defx_fzf_rg_internal(context, cmd, prompt) abort
-    let old_pwd = execute('pwd')
-    let path = a:context.targets[0]
-    if !isdirectory(path)
-      let path = fnamemodify(path, ':h')
-    endif
+  function! s:defx_fzf_rg_internal(context, prompt, bang) abort
+    let path = s:defx_get_folder(context)
 
-    augroup defx_fzf_rg_callback
-      autocmd!
-      autocmd TermClose term://*fzf*
-            \ execute 'lcd ' . old_pwd |
-            \ autocmd! defx_fzf_rg_callback
-    augroup END
-    execute 'lcd ' . path
-    execute a:cmd . ' ' . input(a:prompt . ': ')
+    let cmd = a:bang ? 'RgWithOption!' : 'RgWithOption'
+    execute cmd . ' ' . path . '::' . input(a:prompt . ': ')
   endfunction
   function! s:defx_fzf_rg(context) abort
-    call s:defx_fzf_rg_internal(a:context, 'Rg', 'Rg')
+    call s:defx_fzf_rg_internal(a:context, 'Rg', v:false)
   endfunction
   function! s:defx_fzf_rg_bang(context) abort
-    call s:defx_fzf_rg_internal(a:context, 'Rg!', 'Rg!')
+    call s:defx_fzf_rg_internal(a:context, 'Rg!', v:true)
   endfunction
 
   function! s:defx_fzf_directory_ancestors_sink(line) abort
@@ -623,7 +615,7 @@ if s:is_enabled_plugin("defx")
     call defx#call_action('cd', getcwd())
   endfunction
   function! s:defx_fzf_directory_ancestors(context) abort
-    let path = a:context.targets[0]
+    let path = s:defx_get_folder(context)
 
     call fzf#run(fzf#wrap({
           \ 'source': s:directory_ancestors_internal(path),
@@ -1095,12 +1087,13 @@ command! -bang -nargs=* Rg call fzf#vim#grep(
 " Rg with option, using ':' to separate option and query
 command! -bang -nargs=* RgWithOption call s:rg_with_option(<q-args>, <bang>0)
 function! s:rg_with_option(command, bang)
-  let command_parts = split(a:command, ':')
-  let option = command_parts[0]
-  let query = join(command_parts[1:], ':')
+  let command_parts = split(a:command, ':', 1)
+  let folder = command_parts[0]
+  let option = command_parts[1]
+  let query = join(command_parts[2:], ':')
   call fzf#vim#grep(
-        \ a:bang ? g:rg_all_command.option.' '.shellescape(query)
-        \         : g:rg_command.option.' '.shellescape(query), 1,
+        \ a:bang ? g:rg_all_command.option.' '.shellescape(query).' '.folder
+        \         : g:rg_command.option.' '.shellescape(query).' '.folder, 1,
         \ a:bang ? fzf#vim#with_preview('up:60%')
         \         : fzf#vim#with_preview('right:50%:hidden', '?'),
         \ a:bang)
@@ -1331,8 +1324,8 @@ nnoremap <Space>fM :Maps<CR>
 nnoremap <Space>fo :execute 'LLocate ' . input('Locate: ')<CR>
 nnoremap <Space>fr :execute 'Rg ' . input('Rg: ')<CR>
 nnoremap <Space>fR :execute 'Rg! ' . input('Rg!: ')<CR>
-nnoremap <Space>f4 :execute 'RgWithOption ' . input('Option: ') . ':' . input('Rg: ')<CR>
-nnoremap <Space>f$ :execute 'RgWithOption! ' . input('Option: ') . ':' . input('Rg!: ')<CR>
+nnoremap <Space>f4 :execute 'RgWithOption .:' . input('Option: ') . ':' . input('Rg: ')<CR>
+nnoremap <Space>f$ :execute 'RgWithOption! .:' . input('Option: ') . ':' . input('Rg!: ')<CR>
 nnoremap <Space>fs :GFiles?<CR>
 nnoremap <Space>ft :BTags<CR>
 nnoremap <Space>fT :Tags<CR>
