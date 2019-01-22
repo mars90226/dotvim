@@ -2021,6 +2021,12 @@ autocmd! FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
 Plug 'arthurxavierx/vim-caser'
 " }}}
 
+" vim-highlightedyank {{{
+Plug 'machakann/vim-highlightedyank'
+
+let g:highlightedyank_highlight_duration = 500
+" }}}
+
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
 Plug 'tyru/open-browser.vim'
 Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert', 'S'] }
