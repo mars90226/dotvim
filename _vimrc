@@ -711,6 +711,10 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('call', '<SID>defx_fzf_rg_bang')
     nnoremap <silent><buffer><expr> \<BS>
           \ defx#do_action('call', '<SID>defx_fzf_directory_ancestors')
+
+    " Use Unite because using Denite will change other Denite buffers
+    nnoremap <silent><buffer> g?
+          \ :Unite -buffer-name=defx_map_help output:map\ <buffer><CR>
   endfunction " }}}
 endif
 " }}}
