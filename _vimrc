@@ -595,13 +595,13 @@ if s:is_enabled_plugin("defx")
   endfunction
 
   function! s:defx_fzf_files(context) abort
-    let path = s:defx_get_folder(context)
+    let path = s:defx_get_folder(a:context)
 
     execute 'Files ' . path
   endfunction
 
   function! s:defx_fzf_rg_internal(context, prompt, bang) abort
-    let path = s:defx_get_folder(context)
+    let path = s:defx_get_folder(a:context)
 
     let cmd = a:bang ? 'RgWithOption!' : 'RgWithOption'
     execute cmd . ' ' . path . '::' . input(a:prompt . ': ')
@@ -618,7 +618,7 @@ if s:is_enabled_plugin("defx")
     call defx#call_action('cd', getcwd())
   endfunction
   function! s:defx_fzf_directory_ancestors(context) abort
-    let path = s:defx_get_folder(context)
+    let path = s:defx_get_folder(a:context)
 
     call fzf#run(fzf#wrap({
           \ 'source': s:directory_ancestors_internal(path),
