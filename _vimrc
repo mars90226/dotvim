@@ -626,6 +626,36 @@ if s:is_enabled_plugin("defx")
           \ 'options': '+s',
           \ 'down': '40%'}))
   endfunction
+
+  function! s:defx_execute_internal(context, split) abort
+    let path = a:context.targets[0]
+    let cmd = input('Command: ')
+
+    if empty(cmd)
+      return
+    endif
+
+    if cmd =~ '{}'
+      " replace all '{}' to path
+      let cmd = substitute(cmd, '{}', path, 'g')
+    else
+      let cmd = cmd . ' ' . path
+    endif
+
+    execute a:split . ' | :terminal ' . cmd
+  endfunction
+  function! s:defx_execute(context) abort
+    call s:defx_execute_internal(a:context, '')
+  endfunction
+  function! s:defx_execute_tab(context) abort
+    call s:defx_execute_internal(a:context, 'tabnew')
+  endfunction
+  function! s:defx_execute_split(context) abort
+    call s:defx_execute_internal(a:context, 'new')
+  endfunction
+  function! s:defx_execute_vertical(context) abort
+    call s:defx_execute_internal(a:context, 'vnew')
+  endfunction
   " }}}
 
   autocmd FileType defx call s:defx_my_settings()
@@ -714,6 +744,14 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('call', '<SID>defx_fzf_rg_bang')
     nnoremap <silent><buffer><expr> \<BS>
           \ defx#do_action('call', '<SID>defx_fzf_directory_ancestors')
+    nnoremap <silent><buffer><expr> \xr
+          \ defx#do_action('call', '<SID>defx_execute')
+    nnoremap <silent><buffer><expr> \xt
+          \ defx#do_action('call', '<SID>defx_execute_tab')
+    nnoremap <silent><buffer><expr> \xs
+          \ defx#do_action('call', '<SID>defx_execute_split')
+    nnoremap <silent><buffer><expr> \xv
+          \ defx#do_action('call', '<SID>defx_execute_vertical')
 
     " Use Unite because using Denite will change other Denite buffers
     nnoremap <silent><buffer> g?
