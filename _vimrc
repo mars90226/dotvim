@@ -2681,6 +2681,7 @@ function! DeleteInactiveBufs(bang)
 endfunction
 command! -bang Bdi :call DeleteInactiveBufs(<bang>0)
 nnoremap <Leader>D :Bdi<CR>
+nnoremap <Leader><C-d> :Bdi!<CR>
 
 function! TrimWhitespace()
     let l:save = winsaveview()
