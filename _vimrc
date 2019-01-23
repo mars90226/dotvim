@@ -509,6 +509,9 @@ endif
 " Defx {{{
 if s:is_enabled_plugin("defx")
   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'kristijanhusak/defx-git'
+  " Font not supported
+  " Plug 'kristijanhusak/defx-icons'
 
   " " Defx as default explorer, borrowed from vimfiler {{{
   " FIXME Defx buffer opened through this method will core dump if open terminal or use fzf's :Files
@@ -2266,6 +2269,9 @@ if s:is_enabled_plugin("defx")
         \ 'directory_icon': '▸',
         \ 'readonly_icon': '✗',
         \ 'selected_icon': '✓',
+        \ })
+  call defx#custom#option('_', {
+        \ 'columns': 'git:mark:filename:type'
         \ })
 endif
 " }}}
