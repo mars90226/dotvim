@@ -1325,7 +1325,7 @@ if has("nvim")
     augroup END
     execute 'Tags ' . a:query
   endfunction
-  command! -nargs=1 ProjectTags call <SID>project_tags(<q-args>)
+  command! -nargs=* ProjectTags call <SID>project_tags(<q-args>)
 
   function! s:tagbar_tags()
     TagbarOpenAutoClose
@@ -1413,7 +1413,8 @@ nnoremap <silent> <Leader><Leader>ca :call CscopeQuery('9')<CR>
 " }}}
 
 if has("nvim")
-  nnoremap <Space>fp :execute "ProjectTags '" . expand('<cword>')<CR>
+  nnoremap <Space>fp :ProjectTags<CR>
+  nnoremap <Space>fP :execute "ProjectTags '" . expand('<cword>')<CR>
   nnoremap <Space><F8> :TagbarTags<CR>
 endif
 " }}}
