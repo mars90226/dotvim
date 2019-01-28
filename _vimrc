@@ -1089,7 +1089,8 @@ imap <C-x><C-l> <Plug>(fzf-complete-line)
 inoremap <expr> <C-x><C-d> fzf#vim#complete#path('fd -t d')
 
 " fzf functions & commands {{{
-" Borrow from fzf-vim
+" fzf utility functions borrowed from fzf.vim {{{
+
 " For using g:fzf_action in custom sink function
 let s:TYPE = {'dict': type({}), 'funcref': type(function('call')), 'string': type(''), 'list': type([])}
 function! s:action_for(key, ...)
@@ -1097,6 +1098,45 @@ function! s:action_for(key, ...)
   let Cmd = get(g:fzf_action, a:key, default)
   return type(Cmd) == s:TYPE.string ? Cmd : default
 endfunction
+
+" For using colors in fzf
+function! s:get_color(attr, ...)
+  let gui = has('termguicolors') && &termguicolors
+  let fam = gui ? 'gui' : 'cterm'
+  let pat = gui ? '^#[a-f0-9]\+' : '^[0-9]\+$'
+  for group in a:000
+    let code = synIDattr(synIDtrans(hlID(group)), a:attr, fam)
+    if code =~? pat
+      return code
+    endif
+  endfor
+  return ''
+endfunction
+
+let s:ansi = {'black': 30, 'red': 31, 'green': 32, 'yellow': 33, 'blue': 34, 'magenta': 35, 'cyan': 36}
+
+function! s:csi(color, fg)
+  let prefix = a:fg ? '38;' : '48;'
+  if a:color[0] == '#'
+    return prefix.'2;'.join(map([a:color[1:2], a:color[3:4], a:color[5:6]], 'str2nr(v:val, 16)'), ';')
+  endif
+  return prefix.'5;'.a:color
+endfunction
+
+function! s:ansi(str, group, default, ...)
+  let fg = s:get_color('fg', a:group)
+  let bg = s:get_color('bg', a:group)
+  let color = (empty(fg) ? s:ansi[a:default] : s:csi(fg, 1)) .
+        \ (empty(bg) ? '' : ';'.s:csi(bg, 0))
+  return printf("\x1b[%s%sm%s\x1b[m", color, a:0 ? ';1' : '', a:str)
+endfunction
+
+for s:color_name in keys(s:ansi)
+  execute "function! s:".s:color_name."(str, ...)\n"
+        \ "  return s:ansi(a:str, get(a:, 1, ''), '".s:color_name."')\n"
+        \ "endfunction"
+endfor
+" }}}
 
 command! -bar  -bang                  Helptags call fzf#vim#helptags(<bang>0)
 command! -bang -nargs=+ -complete=dir LLocate  call fzf#vim#locate(<q-args>, <bang>0)
@@ -1244,6 +1284,41 @@ command! DirectoryAncestors call fzf#run(fzf#wrap({
       \ 'options': '+s',
       \ 'down': '40%'}))
 
+" Borrowed from s:buffer_line_handler from fzf.vim
+function! s:screen_line_handler(lines)
+  execute split(a:lines[0], '\t')[0]
+endfunction
+
+" Borrowed from s:buffer_lines from fzf.vim
+function! s:screen_lines_source(start, end, query)
+  let linefmt = s:yellow(" %4d ", "LineNr")."\t%s"
+  let fmtexpr = 'printf(linefmt, v:key + 1, v:val)'
+  let lines = getline(1, '$')
+  if empty(a:query)
+    let formatted_lines = map(lines, fmtexpr)
+    return formatted_lines[a:start-1 : a:end-1]
+  end
+  let formatted_lines = map(lines, 'v:val =~ a:query ? '.fmtexpr.' : ""')
+  return filter(formatted_lines[a:start-1 : a:end-1], 'len(v:val)')
+endfunction
+function! s:screen_lines(...)
+  let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
+
+  let save_cursor = getcurpos()
+  normal H
+  let start = getpos('.')[1]
+  normal L
+  let end = getpos('.')[1]
+  call setpos('.', save_cursor)
+
+  call fzf#run(fzf#wrap({
+        \ 'source':  s:screen_lines_source(start, end, query),
+        \ 'sink*':   function('s:screen_line_handler'),
+        \ 'options': ['--tiebreak=index', '--prompt', 'ScreenLines> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1']
+        \ }))
+endfunction
+command! -nargs=? ScreenLines :call <SID>screen_lines(<q-args>)
+
 " Cscope functions {{{
 " Borrow from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
 function! s:cscope_sink(lines) 
@@ -1388,6 +1463,8 @@ nnoremap <Space>f] :execute "BTags '" . expand('<cword>')<CR>
 nnoremap <Space>f} :execute "Tags '" . expand('<cword>')<CR>
 nnoremap <Space>f<C-]> :execute 'Tselect ' . expand('<cword>')<CR>
 
+nnoremap <Space>sl :ScreenLines<CR>
+nnoremap <Space>sL :execute 'ScreenLines ' . expand('<cword>')<CR>
 nnoremap <Space>ss :History:<CR>mks vim sessions 
 
 " fzf & cscope key mappings {{{
@@ -1574,6 +1651,7 @@ function! s:config_easyfuzzymotion(...) abort
 endfunction
 
 noremap <silent><expr> \/ incsearch#go(<SID>config_easyfuzzymotion())
+noremap <silent><expr> Z/ incsearch#go(<SID>config_easyfuzzymotion())
 " }}}
 
 " CamelCaseMotion {{{
