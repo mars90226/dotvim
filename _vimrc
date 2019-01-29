@@ -744,6 +744,8 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('call', '<SID>defx_fzf_rg_bang')
     nnoremap <silent><buffer><expr> \<BS>
           \ defx#do_action('call', '<SID>defx_fzf_directory_ancestors')
+    nnoremap <silent><buffer><expr> \x
+          \ defx#do_action('call', '<SID>defx_execute') " Add this mapping to prevent from executing 'x' mapping
     nnoremap <silent><buffer><expr> \xr
           \ defx#do_action('call', '<SID>defx_execute')
     nnoremap <silent><buffer><expr> \xt
@@ -826,7 +828,7 @@ nnoremap <Space>y :Unite history/yank<CR>
 nnoremap <Space>S :Unite source<CR>
 nnoremap <Space>m :Unite file_mru<CR>
 nnoremap <Space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
-nnoremap <Space>o :Unite outline<CR>
+nnoremap <Space>o :Unite outline -start-insert<CR>
 nnoremap <Space>a :execute 'Unite anzu:' . input ('anzu: ')<CR>
 nnoremap <Space>ua :Unite apropos -start-insert<CR>
 nnoremap <Space>ub :UniteWithBufferDir -buffer-name=files -prompt=%\  buffer bookmark file<CR>
@@ -868,8 +870,8 @@ nnoremap <Space>uw :Unite window<CR>
 nnoremap <Space>uma :Unite mapping<CR>
 nnoremap <Space>ume :Unite output:message<CR>
 nnoremap <Space>ump :Unite output:map<CR>
-nnoremap <Space>u: :Unite history/command<CR>
-nnoremap <Space>u; :Unite command<CR>
+nnoremap <Space>u: :Unite history/command -start-insert<CR>
+nnoremap <Space>u; :Unite command -start-insert<CR>
 nnoremap <Space>u/ :Unite history/search<CR>
 
 nnoremap <Space><F1> :Unite output:map<CR>
@@ -981,6 +983,8 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>p :Denite -buffer-name=files -auto-resume buffer file<CR>
   nnoremap <Space>P :Denite -buffer-name=files -auto-resume file_rec<CR>
   " }}}
+
+  nnoremap <Space>O :Denite outline<CR>
 
   nnoremap <Space>db :DeniteBufferDir -buffer-name=files -auto-resume buffer file<CR>
   nnoremap <Space>dc :Denite change<CR>
