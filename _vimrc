@@ -1071,13 +1071,22 @@ function! s:build_quickfix_list(lines)
   copen
   cclose
 endfunction
+function! s:copy_results(lines)
+  let joined_lines = join(a:lines, "\n")
+  if len(a:lines) > 1
+    let joined_lines .= "\n"
+  endif
+  let @+ = joined_lines
+endfunction
 let g:fzf_action = {
   \ 'ctrl-q': function('s:build_quickfix_list'),
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit',
-  \ 'alt-v': 'rightbelow vsplit' }
+  \ 'alt-v': 'rightbelow vsplit',
+  \ 'alt-c': function('s:copy_results'),
+  \ }
 
 " Mapping selecting mappings
 nmap <Space><Tab> <Plug>(fzf-maps-n)
