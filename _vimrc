@@ -584,6 +584,7 @@ if s:is_enabled_plugin("defx")
   nnoremap <Space><F4> :Defx -split=vertical -winwidth=35 -direction=topleft -toggle `expand('%:p:h')` -search=`expand('%:p')`<CR>
   nnoremap - :call <SID>opendir('Defx')<CR>
   nnoremap + :call <SID>opendir('Defx')<CR>
+  nnoremap \- :call <SID>opendir('Defx')<CR>
   nnoremap _ :call <SID>opendir('Defx -split=vertical')<CR>
   nnoremap <Space>- :call <SID>opendir('Defx -split=horizontal')<CR>
   nnoremap <Space>_ :call <SID>opendir('Defx -split=tab')<CR>
