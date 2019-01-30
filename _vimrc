@@ -1765,7 +1765,15 @@ Plug 'tpope/vim-surround'
 " Text Objects {{{
 " ====================================================================
 Plug 'kana/vim-textobj-user'
+
+" vim-textobj-function {{{
 Plug 'kana/vim-textobj-function'
+
+" Search in function
+map <Space>sf vaf<M-/>
+
+" }}}
+
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'coderifous/textobj-word-column.vim'
 " }}}
