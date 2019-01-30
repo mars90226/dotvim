@@ -2653,6 +2653,9 @@ nnoremap <Leader>cb :cd %:h<CR>
 nnoremap y" ""yiw
 nnoremap y+ "+yiw
 
+" Copy unnamed register to system clipboard
+nnoremap <Space>sr :let @+ = @"<CR>
+
 " Custom function {{{
 nnoremap <F6> :call ToggleIndentBetweenTabAndSpace()<CR>
 function! ToggleIndentBetweenTabAndSpace()
