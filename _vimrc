@@ -1003,7 +1003,7 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>dl :Denite -auto-highlight line<CR>
   nnoremap <Space>dL :Denite line:buffers<CR>
   nnoremap <Space>dm :Denite file_mru<CR>
-  nnoremap <Space>do :execute 'Denite output:' . input('output: ')<CR>
+  nnoremap <Space>do :execute 'Denite output:' . <SID>escape_symbol(input('output: '))<CR>
   nnoremap <Space>dO :Denite outline<CR>
   nnoremap <Space>dp :Denite -buffer-name=files -auto-resume buffer file<CR>
   nnoremap <Space>dP :Denite -buffer-name=files -auto-resume file_rec<CR>
