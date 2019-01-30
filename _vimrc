@@ -1546,6 +1546,7 @@ map ; <Plug>(easymotion-s2)
 
 map \w <Plug>(easymotion-bd-wl)
 map \f <Plug>(easymotion-bd-fl)
+map \s <Plug>(easymotion-sl2)
 
 map <Leader>f <Plug>(easymotion-bd-f)
 map <Plug>(easymotion-prefix)s <Plug>(easymotion-bd-f2)
