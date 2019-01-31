@@ -2221,13 +2221,19 @@ if s:is_enabled_plugin('denite.nvim')
   " Insert mode {{{
   call denite#custom#map(
         \ 'insert',
+        \ '<A-f>',
+        \ '<denite:toggle_matchers:matcher_fuzzy>',
+        \ 'noremap'
+        \)
+  call denite#custom#map(
+        \ 'insert',
         \ '<A-g>',
         \ '<denite:toggle_matchers:matcher_substring>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<C-^>',
+        \ '<A-`>',
         \ '<denite:toggle_matchers:matcher_regexp>',
         \ 'noremap'
         \)
