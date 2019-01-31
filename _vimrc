@@ -1687,6 +1687,13 @@ map <Leader>mw <Plug>CamelCaseMotion_w
 map <Leader>mb <Plug>CamelCaseMotion_b
 map <Leader>me <Plug>CamelCaseMotion_e
 map <Leader>mge <Plug>CamelCaseMotion_ge
+
+omap <silent> imw <Plug>CamelCaseMotion_iw
+xmap <silent> imw <Plug>CamelCaseMotion_iw
+omap <silent> imb <Plug>CamelCaseMotion_ib
+xmap <silent> imb <Plug>CamelCaseMotion_ib
+omap <silent> ime <Plug>CamelCaseMotion_ie
+xmap <silent> ime <Plug>CamelCaseMotion_ie
 " }}}
 
 Plug 'wellle/targets.vim'
