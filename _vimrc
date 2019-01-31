@@ -858,7 +858,7 @@ xnoremap <Space>u8 :<C-u>call <SID>unite_grep(<SID>get_visual_selection(), 'keyw
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>uL :Unite location_list<CR>
 nnoremap <Space>uo :Unite output -start-insert<CR>
-nnoremap <Space>uO :Unite outline<CR>
+nnoremap <Space>uO :Unite outline -start-insert<CR>
 nnoremap <Space>up :UniteWithProjectDir -buffer-name=files -prompt=&\  buffer bookmark file<CR>
 nnoremap <Space>uq :Unite quickfix<CR>
 nnoremap <Space>ur :Unite -buffer-name=register register<CR>
@@ -973,6 +973,11 @@ endfunction "}}}
 " Denite {{{
 if s:is_enabled_plugin('denite.nvim')
   Plug 'Shougo/denite.nvim'
+  Plug 'neoclide/denite-extra'
+
+  let g:session_directory = $HOME.'/vim-sessions/'
+  let g:denite_source_session_path = $HOME.'/vim-sessions/'
+  let g:project_folders = ['/synosrc/packages/source']
 
   function! s:denite_grep(query, buffer_name_prefix, option, is_word) abort
     let escaped_query = s:escape_symbol(a:query)
@@ -987,6 +992,7 @@ if s:is_enabled_plugin('denite.nvim')
 
   nnoremap <Space>O :Denite outline<CR>
 
+  nnoremap <Space>da :Denite location_list<CR>
   nnoremap <Space>db :DeniteBufferDir -buffer-name=files -auto-resume buffer file<CR>
   nnoremap <Space>dc :Denite change<CR>
   nnoremap <Space>dd :Denite directory_rec<CR>
@@ -994,6 +1000,7 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>df :Denite filetype<CR>
   nnoremap <Space>dh :Denite help<CR>
   nnoremap <Space>dj :Denite jump<CR>
+  nnoremap <Space>dJ :Denite project<CR>
   nnoremap <Space>di :call <SID>denite_grep('!', 'grep', '', v:false)<CR>
   nnoremap <Space>dk :call <SID>denite_grep(expand('<cword>'), 'keyword', '', v:false)<CR>
   nnoremap <Space>dK :call <SID>denite_grep(expand('<cWORD>'), 'keyword', '', v:false)<CR>
@@ -1006,14 +1013,18 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>dm :Denite file_mru<CR>
   nnoremap <Space>do :execute 'Denite output:' . <SID>escape_symbol(input('output: '))<CR>
   nnoremap <Space>dO :Denite outline<CR>
+  nnoremap <Space>d<C-o> :Denite unite:outline<CR>
   nnoremap <Space>dp :Denite -buffer-name=files -auto-resume buffer file<CR>
   nnoremap <Space>dP :Denite -buffer-name=files -auto-resume file_rec<CR>
   nnoremap <Space>d<C-p> :DeniteProjectDir -buffer-name=files -auto-resume buffer file<CR>
+  nnoremap <Space>dq :Denite quickfix<CR>
   nnoremap <Space>dr :Denite register<CR>
+  nnoremap <Space>ds :Denite session<CR>
   nnoremap <Space>dt :Denite tag<CR>
   nnoremap <Space>du :Denite -resume -refresh<CR>
   nnoremap <Space>dU :Denite -resume -refresh -buffer-name=grep%`bufnr("%")`<CR>
   nnoremap <Space>d<C-u> :Denite -resume -refresh -buffer-name=keyword%`bufnr("%")`<CR>
+  nnoremap <Space>dx :Denite defx/history<CR>
   nnoremap <Space>dy :Denite neoyank<CR>
   nnoremap <Space>d: :Denite command_history<CR>
   nnoremap <Space>d; :Denite command<CR>
