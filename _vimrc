@@ -23,31 +23,36 @@ endif
 
 " plugin choosing {{{
 " enabled plugin management {{{
-let g:plugin_disabled = []
+let s:plugin_disabled = []
 
 function! s:disable_plugin(plugin)
-  call add(g:plugin_disabled, a:plugin)
+  call add(s:plugin_disabled, a:plugin)
 endfunction
 
 function! s:disable_plugins(plugins)
-  let g:plugin_disabled += a:plugins
+  let s:plugin_disabled += a:plugins
 endfunction
 
 function! s:enable_plugin(plugin)
-  let l:idx = index(g:plugin_disabled, a:plugin)
+  let l:idx = index(s:plugin_disabled, a:plugin)
 
   if l:idx != -1
-    call remove(g:plugin_disabled, l:idx)
+    call remove(s:plugin_disabled, l:idx)
   end
 endfunction
 
 function! s:is_disabled_plugin(plugin)
-  return index(g:plugin_disabled, a:plugin) != -1
+  return index(s:plugin_disabled, a:plugin) != -1
 endfunction
 
 function! s:is_enabled_plugin(plugin)
-  return index(g:plugin_disabled, a:plugin) == -1
+  return index(s:plugin_disabled, a:plugin) == -1
 endfunction
+
+function! s:get_disabled_plugins()
+  echomsg s:plugin_disabled
+endfunction
+command! ListDisabledPlugins call <SID>get_disabled_plugins()
 " }}}
 
 " return empty string when no python support found
@@ -61,27 +66,36 @@ function! s:python_version()
   endif
 endfunction
 
+" check if current vim/neovim has async function
+function! s:has_async()
+  return v:version >= 800 || has("nvim")
+endfunction
+
+function! s:has_linux_build_env()
+  return s:os !~ "windows" && s:os !~ "synology"
+endfunction
+
 " Choose autocompletion plugin {{{
-" deoplete.nvim, completor.vim, supertab, YouCompleteMe
-call s:disable_plugins(['deoplete.nvim', 'completor.vim', 'supertab', 'YouCompleteMe'])
-if has("nvim") && has("python3")
+" deoplete.nvim, completor.vim, YouCompleteMe, supertab
+call s:disable_plugins(['deoplete.nvim', 'completor.vim', 'YouCompleteMe', 'supertab'])
+if s:has_async() && has("python3")
   " deoplete.nvim
   call s:enable_plugin('deoplete.nvim')
 elseif has("python") || has("python3")
   " completor.vim
   call s:enable_plugin('completor.vim')
-elseif s:os =~ "windows" || s:os =~ "synology"
-  " supertab
-  call s:enable_plugin('supertab')
-else
+elseif s:has_linux_build_env()
   " YouCompleteMe
   call s:enable_plugin('YouCompleteMe')
+else
+  " supertab
+  call s:enable_plugin('supertab')
 endif
 " }}}
 
 " Choose Lint plugin
 " syntastic, ale
-if v:version >= 800 || has("nvim")
+if s:has_async()
   call s:disable_plugin('syntastic')
 else
   call s:disable_plugin('ale')
@@ -91,7 +105,7 @@ if !has("python")
   call s:disable_plugin('github-issues.vim')
 endif
 
-if !((v:version >= 800 || has("nvim")) && has("python3"))
+if !(s:has_async() && has("python3"))
   call s:disable_plugin('denite.nvim')
 end
 
@@ -202,7 +216,13 @@ endif
 
 " deoplete.nvim {{{
 if s:is_enabled_plugin('deoplete.nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  if has("nvim")
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+  endif
 
   " Currently prefer deoplete-clang over clang_complete
   " Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'], 'do': 'make install' }
@@ -274,15 +294,9 @@ endif
 if s:is_enabled_plugin('completor.vim')
   Plug 'maralla/completor.vim'
 
-  if s:os !~ "windows" && s:os !~ "synology"
+  if s:has_linux_build_env()
     let g:completor_clang_binary = "/usr/lib/llvm-5.0/lib/clang"
   end
-endif
-" }}}
-
-" supertab {{{
-if s:is_enabled_plugin('supertab')
-  Plug 'ervandew/supertab'
 endif
 " }}}
 
@@ -343,6 +357,12 @@ if s:is_enabled_plugin('YouCompleteMe')
   nnoremap <Leader>yxd :tab split <Bar> YcmCompleter GetDoc<CR>
   nnoremap <Leader>yxD :tab split <Bar> YcmCompleter GetDocImprecise<CR>
   nnoremap <Leader>yxf :tab split <Bar> YcmCompleter FixIt<CR>
+endif
+" }}}
+
+" supertab {{{
+if s:is_enabled_plugin('supertab')
+  Plug 'ervandew/supertab'
 endif
 " }}}
 
