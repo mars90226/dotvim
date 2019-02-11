@@ -588,7 +588,7 @@ if s:is_enabled_plugin("defx")
   augroup END
   function! s:netrw_mapping_for_defx()
     " Cannot override Vinegar '-' mapping, so use '+' instead
-    nnoremap + :call <SID>opendir('Defx')<CR>
+    nmap + c:call <SID>opendir('Defx')<CR>
   endfunction
 
   " Borrowed from vinegar
@@ -1117,6 +1117,7 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit',
   \ 'alt-v': 'rightbelow vsplit',
+  \ 'alt-x': 'Defx',
   \ 'alt-c': function('s:copy_results'),
   \ }
 
