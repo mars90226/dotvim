@@ -50,7 +50,7 @@ function! s:is_enabled_plugin(plugin)
 endfunction
 
 function! s:get_disabled_plugins()
-  echomsg s:plugin_disabled
+  echo s:plugin_disabled
 endfunction
 command! ListDisabledPlugins call <SID>get_disabled_plugins()
 " }}}
