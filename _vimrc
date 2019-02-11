@@ -1738,10 +1738,10 @@ xmap <Space>ga <Plug>(LiveEasyAlign)
 Plug 'jiangmiao/auto-pairs'
 
 let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
-let g:AutoPairsMapCR = 0
+" let g:AutoPairsMapCR = 0
 
 " Custom <CR> map to avoid enter <CR> when popup is opened
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>" . AutoPairsReturn()
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>" . AutoPairsReturn()
 
 function! s:AutoPairsToggleMultilineClose()
   if g:AutoPairsMultilineClose == 0
