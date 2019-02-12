@@ -686,6 +686,8 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('drop')
     nnoremap <silent><buffer><expr> c
           \ defx#do_action('copy')
+    nnoremap <silent><buffer><expr> cc
+          \ defx#do_action('copy')
     nnoremap <silent><buffer><expr> !
           \ defx#do_action('execute_command')
     nnoremap <silent><buffer><expr> m
