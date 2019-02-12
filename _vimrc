@@ -1559,7 +1559,24 @@ if has('job') || (has('nvim') && exists('*jobwait'))
 endif
 " }}}
 
-Plug 'vim-scripts/a.vim', { 'on': 'A' }
+" alternate.vim {{{
+Plug 'pchynoweth/a.vim'
+
+augroup AlternateSettings
+  autocmd!
+  autocmd VimEnter * call <SID>alternate_settings()
+augroup END
+function! s:alternate_settings()
+  " ReactJS
+  let g:alternateExtensionsDict["javascript.jsx"] = {}
+  let g:alternateExtensionsDict["javascript.jsx"]["js"] = "css,scss"
+  let g:alternateExtensionsDict["css"] = {}
+  let g:alternateExtensionsDict["css"]["css"] = "js"
+  let g:alternateExtensionsDict["scss"] = {}
+  let g:alternateExtensionsDict["scss"]["scss"] = "js"
+endfunction
+" }}}
+
 Plug 'brooth/far.vim', { 'on': ['Far', 'Farp', 'F'] }
 " }}}
 
