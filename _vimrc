@@ -777,6 +777,8 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('call', '<SID>defx_execute_split')
     nnoremap <silent><buffer><expr> \xv
           \ defx#do_action('call', '<SID>defx_execute_vertical')
+    nnoremap <silent><buffer>       \d
+          \ :Denite defx/dirmark<CR>
 
     " Use Unite because using Denite will change other Denite buffers
     nnoremap <silent><buffer> g?
@@ -996,6 +998,7 @@ endfunction "}}}
 if s:is_enabled_plugin('denite.nvim')
   Plug 'Shougo/denite.nvim'
   Plug 'neoclide/denite-extra'
+  Plug 'kmnk/denite-dirmark'
 
   let g:session_directory = $HOME.'/vim-sessions/'
   let g:denite_source_session_path = $HOME.'/vim-sessions/'
@@ -1008,14 +1011,14 @@ if s:is_enabled_plugin('denite.nvim')
   endfunction
 
   " Override Unite key mapping {{{
-  nnoremap <Space>p :Denite -buffer-name=files -auto-resume buffer file<CR>
+  nnoremap <Space>p :Denite -buffer-name=files -auto-resume buffer dirmark file<CR>
   nnoremap <Space>P :Denite -buffer-name=files -auto-resume file_rec<CR>
   " }}}
 
   nnoremap <Space>O :Denite outline<CR>
 
   nnoremap <Space>da :Denite location_list<CR>
-  nnoremap <Space>db :DeniteBufferDir -buffer-name=files -auto-resume buffer file<CR>
+  nnoremap <Space>db :DeniteBufferDir -buffer-name=files -auto-resume buffer dirmark file<CR>
   nnoremap <Space>dc :Denite change<CR>
   nnoremap <Space>dd :Denite directory_rec<CR>
   nnoremap <Space>dD :Denite directory_mru<CR>
@@ -1036,9 +1039,9 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>do :execute 'Denite output:' . <SID>escape_symbol(input('output: '))<CR>
   nnoremap <Space>dO :Denite outline<CR>
   nnoremap <Space>d<C-o> :Denite unite:outline<CR>
-  nnoremap <Space>dp :Denite -buffer-name=files -auto-resume buffer file<CR>
+  nnoremap <Space>dp :Denite -buffer-name=files -auto-resume buffer dirmark file<CR>
   nnoremap <Space>dP :Denite -buffer-name=files -auto-resume file_rec<CR>
-  nnoremap <Space>d<C-p> :DeniteProjectDir -buffer-name=files -auto-resume buffer file<CR>
+  nnoremap <Space>d<C-p> :DeniteProjectDir -buffer-name=files -auto-resume buffer dirmark file<CR>
   nnoremap <Space>dq :Denite quickfix<CR>
   nnoremap <Space>dr :Denite register<CR>
   nnoremap <Space>ds :Denite session<CR>
