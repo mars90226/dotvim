@@ -408,10 +408,10 @@ Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'ivalkeen/vim-ctrlp-tjump'
 
 " Cause Denite error, disabled for now
-" Plug 'raghur/fruzzy', { 'do': { -> fruzzy#install() } }
+Plug 'raghur/fruzzy', { 'do': { -> fruzzy#install() } }
 
-" let g:fruzzy#usenative = 1
-" let g:ctrlp_match_func = { 'match': 'fruzzy#ctrlp#matcher' }
+let g:fruzzy#usenative = 1
+let g:ctrlp_match_func = { 'match': 'fruzzy#ctrlp#matcher' }
 
 if has("python")
   Plug 'FelikZ/ctrlp-py-matcher'
@@ -2272,7 +2272,7 @@ if s:is_enabled_plugin('denite.nvim')
   call denite#custom#map(
         \ 'insert',
         \ '<A-f>',
-        \ '<denite:toggle_matchers:matcher_fuzzy>',
+        \ '<denite:toggle_matchers:matcher_fruzzy>',
         \ 'noremap'
         \)
   call denite#custom#map(
@@ -2462,11 +2462,7 @@ if s:is_enabled_plugin('denite.nvim')
           \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
   endif
 
-  " call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
-  if has('nvim')
-    call denite#custom#source('file_rec,grep', 'matchers',
-          \ ['matcher_cpsm'])
-  end
+  call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 endif
 " }}}
 
