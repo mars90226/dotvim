@@ -608,6 +608,7 @@ if s:is_enabled_plugin("defx")
   nnoremap _ :call <SID>opendir('Defx -split=vertical')<CR>
   nnoremap <Space>- :call <SID>opendir('Defx -split=horizontal')<CR>
   nnoremap <Space>_ :call <SID>opendir('Defx -split=tab')<CR>
+  nnoremap \. :Defx .<CR>
 
   " Defx custom functions {{{
   function! s:defx_get_folder(context) abort
