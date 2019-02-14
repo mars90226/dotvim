@@ -1919,7 +1919,7 @@ if s:is_enabled_plugin('ale')
   let g:ale_linters = {
         \ 'c': ['gcc'],
         \ 'cpp': ['g++'],
-        \ 'javascript': ['eslint']
+        \ 'javascript': ['eslint', 'jshint']
         \}
   let g:ale_fixers = {
         \ 'javascript': [ 'eslint' ],
