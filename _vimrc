@@ -2528,6 +2528,7 @@ set lazyredraw
 set mouse=a
 set modeline
 set updatetime=100
+set cursorline
 
 set scrolloff=0
 
