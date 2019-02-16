@@ -68,7 +68,8 @@ endfunction
 
 " check if current vim/neovim has async function
 function! s:has_async()
-  return v:version >= 800 || has("nvim")
+  " return v:version >= 800 || has("nvim")
+  return has("nvim")
 endfunction
 
 function! s:has_linux_build_env()
