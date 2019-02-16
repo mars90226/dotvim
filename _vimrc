@@ -2883,7 +2883,7 @@ function! s:getchar() abort
 endfunction
 command! GetChar call s:getchar()
 
-command! ReloadVimrc source $HOME/.vimrc
+command! ReloadVimrc source $MYVIMRC
 
 if s:os !~ "windows"
   command! Args echo system("ps -o command= -p " . getpid())
