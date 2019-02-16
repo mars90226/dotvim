@@ -2500,9 +2500,6 @@ call arpeggio#load()
 " ====================================================================
 " Vim basic setting {{{
 set nocompatible
-if exists(":packadd") != 0
-  source $VIMRUNTIME/vimrc_example.vim
-endif
 
 " source mswin.vim
 if s:os !~ "synology"
@@ -2533,6 +2530,7 @@ set mouse=a
 set modeline
 set updatetime=100
 set cursorline
+set ruler " show the cursor position all the time
 
 set scrolloff=0
 
@@ -2557,6 +2555,7 @@ endif
 set belloff=all
 
 " move temporary files
+set backup " keep a backup file (restore to previous version)
 set backupdir^=~/.vimtmp
 if !has("nvim") " neovim has default folders for these files
   set directory^=~/.vimtmp
@@ -2635,10 +2634,20 @@ if !exists("g:gui_oni")
   highlight Pmenu ctermfg=187 ctermbg=239
   highlight PmenuSel ctermbg=95
 endif
+
+" highlighting strings inside C comments.
+let c_comment_strings=1
 " }}}
 
 " Key Mappings {{{
 " ====================================================================
+" Don't use Ex mode, use Q for formatting
+nnoremap Q gq
+
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
+
 " Quickly escape insert mode
 Arpeggio inoremap jk <Esc>
 
@@ -2819,6 +2828,14 @@ command! -nargs=1 FileSize call <SID>file_size(<q-args>)
 " }}}
 
 " Custom command {{{
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_ | diffthis
+                 \ | wincmd p | diffthis
+endif
+
 function! DeleteInactiveBufs(bang)
     "From tabpagebuflist() help, get a list of all buffers in all tabs
     let tablist = []
@@ -2964,6 +2981,18 @@ endif
 
 " Autocommands {{{
 " ====================================================================
+" Put these in an autocmd group, so that we can delete them easily.
+augroup lastPositionSetting
+  autocmd!
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid or when inside an event handler
+  autocmd BufReadPost *
+    \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+    \   execute "normal! g`\"" |
+    \ endif
+augroup END
+
 augroup vimGeneralCallbacks
   autocmd!
   autocmd BufWritePost _vimrc nested source $MYVIMRC | e | normal! zzzv
@@ -2972,6 +3001,9 @@ augroup END
 
 augroup fileTypeSpecific
   autocmd!
+
+  " For all text files set 'textwidth' to 78 characters.
+  autocmd FileType text setlocal textwidth=78
 
   " Rack
   autocmd BufNewFile,BufReadPost *.ru                 set filetype=ruby
