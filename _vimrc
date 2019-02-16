@@ -68,7 +68,10 @@ endfunction
 
 " check if current vim/neovim has async function
 function! s:has_async()
-  " return v:version >= 800 || has("nvim")
+  return v:version >= 800 || has("nvim")
+endfunction
+
+function! s:has_rpc()
   return has("nvim")
 endfunction
 
@@ -79,7 +82,7 @@ endfunction
 " Choose autocompletion plugin {{{
 " deoplete.nvim, completor.vim, YouCompleteMe, supertab
 call s:disable_plugins(['deoplete.nvim', 'completor.vim', 'YouCompleteMe', 'supertab'])
-if s:has_async() && has("python3")
+if s:has_async() && s:has_rpc() && has("python3")
   " deoplete.nvim
   call s:enable_plugin('deoplete.nvim')
 elseif has("python") || has("python3")
@@ -106,7 +109,7 @@ if !has("python")
   call s:disable_plugin('github-issues.vim')
 endif
 
-if !(s:has_async() && has("python3"))
+if !(s:has_async() && s:has_rpc() && has("python3"))
   call s:disable_plugin('denite.nvim')
 end
 
