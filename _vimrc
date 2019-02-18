@@ -1998,7 +1998,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sheerun/vim-polyglot'
 
 " Avoid conflict with vim-go, must after vim-go loaded
-let g:polyglot_disabled = ['go']
+let g:polyglot_disabled = ['git', 'go']
 " }}}
 
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
