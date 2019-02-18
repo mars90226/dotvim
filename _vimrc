@@ -119,6 +119,10 @@ if has("nvim")
 else
   call s:disable_plugin('markdown-preview.nvim')
 endif
+
+if !exists("##TextYankPost")
+  call s:disable_plugin('vim-highlightedyank')
+endif
 " }}}
 
 " Choose file explorer
@@ -2235,9 +2239,11 @@ Plug 'arthurxavierx/vim-caser'
 " }}}
 
 " vim-highlightedyank {{{
-Plug 'machakann/vim-highlightedyank'
+if s:enable_plugin('vim-highlightedyank')
+  Plug 'machakann/vim-highlightedyank'
 
-let g:highlightedyank_highlight_duration = 500
+  let g:highlightedyank_highlight_duration = 200
+endif
 " }}}
 
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
