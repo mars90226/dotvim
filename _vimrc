@@ -10,6 +10,7 @@ else
 endif
 
 " Set $VIMHOME
+" TODO May migrate to $HOME as ensure each user can have his/her own setting
 if s:os =~ "windows"
   let $VIMHOME = $VIM."/vimfiles"
 else
