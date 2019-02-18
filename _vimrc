@@ -134,7 +134,6 @@ else
 endif
 
 " Autoinstall vim-plug {{{
-" TODO Add Windows support
 if empty(glob($VIMHOME.'/autoload/plug.vim'))
   silent! !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://rawgithubusercontent.com/junegunn/vim-plug/master/plug.vim
