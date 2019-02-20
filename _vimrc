@@ -2017,9 +2017,15 @@ augroup tern_for_vim_settings
 augroup END
 
 function! s:tern_for_vim_settings()
-  nnoremap <Leader>ed :TernDef<CR>
-  nnoremap <Leader>ec :TernDoc<CR>
+  nnoremap <Leader>eD :TernDoc<CR>
+  nnoremap <Leader>eb :TernDocBrowse<CR>
   nnoremap <Leader>et :TernType<CR>
+  " To avoid accidentally delete
+  nnoremap <Leader>ed :TernDef<CR>
+  nnoremap <Leader>edd :TernDef<CR>
+  nnoremap <Leader>edp :TernDefPreview<CR>
+  nnoremap <Leader>eds :TernDefSplit<CR>
+  nnoremap <Leader>edt :TernDefTab<CR>
   nnoremap <Leader>er :TernRefs<CR>
   nnoremap <Leader>eR :TernRename<CR>
 endfunction
