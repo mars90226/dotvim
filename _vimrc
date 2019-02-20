@@ -240,6 +240,10 @@ if s:is_enabled_plugin('deoplete.nvim')
   Plug 'Shougo/neco-syntax'
   Plug 'Shougo/neco-vim'
   Plug 'sebastianmarkow/deoplete-rust', { 'for': ['rust'] }
+
+  " tern_for_vim will install tern
+  Plug 'carlitux/deoplete-ternjs' ", { 'do': 'npm install -g tern' }
+
   " Disabled for now
   " Plug 'autozimu/LanguageClient-neovim', {
   "   \ 'branch': 'next',
@@ -275,6 +279,9 @@ if s:is_enabled_plugin('deoplete.nvim')
   "     \ }
   " let g:LanguageClient_loadSettings = 1
   " let g:LanguageClient_settingsPath = $VIMHOME."/settings.json"
+
+  " deoplete-ternjs
+  let g:deoplete#sources#ternjs#tern_bin = $VIMHOME . "/plugged/tern_for_vim/node_modules/tern/bin/tern"
 
   " <Tab>: completion.
   inoremap <silent><expr> <Tab>
