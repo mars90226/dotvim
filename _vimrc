@@ -1251,6 +1251,10 @@ function! s:rg_with_option(command, bang)
         \ a:bang)
 endfunction
 
+let g:fd_command = 'fd --no-ignore --hidden --follow'
+command! -bang -nargs=? -complete=dir AllFiles call fzf#vim#files(<q-args>,
+      \ extend({ 'source': g:fd_command }, fzf#vim#with_preview()), <bang>0)
+
 command! Mru call fzf#run(fzf#wrap({
       \ 'source':  s:all_files(),
       \ 'options': '-m +s',
@@ -1485,6 +1489,7 @@ endif
 
 " fzf key mappings {{{
 nnoremap <Space>fa :execute 'Ag ' . input('Ag: ')<CR>
+nnoremap <Space>fA :AllFiles<CR>
 nnoremap <Space>fb :Buffers<CR>
 nnoremap <Space>fB :Files %:h<CR>
 nnoremap <Space>fc :BCommits<CR>
