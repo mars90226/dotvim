@@ -2246,6 +2246,13 @@ if s:enable_plugin('vim-highlightedyank')
 endif
 " }}}
 
+" " nvim-gdb {{{
+" Disabled for now as neovim's neovim_gdb.vim seems not exists
+" if has("nvim")
+"   Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+" endif
+" " }}}
+
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
 Plug 'tyru/open-browser.vim'
 Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert', 'S'] }
