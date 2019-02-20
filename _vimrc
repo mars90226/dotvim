@@ -2255,7 +2255,7 @@ Plug 'arthurxavierx/vim-caser'
 " }}}
 
 " vim-highlightedyank {{{
-if s:enable_plugin('vim-highlightedyank')
+if s:is_enabled_plugin('vim-highlightedyank')
   Plug 'machakann/vim-highlightedyank'
 
   let g:highlightedyank_highlight_duration = 200
