@@ -866,8 +866,8 @@ nnoremap <Space>o :Unite outline -start-insert<CR>
 nnoremap <Space>a :execute 'Unite anzu:' . input ('anzu: ')<CR>
 nnoremap <Space>ua :Unite apropos -start-insert<CR>
 nnoremap <Space>ub :UniteWithBufferDir -buffer-name=files -prompt=%\  buffer bookmark file<CR>
-nnoremap <Space>uc :UniteWithCurrentDir -buffer-name=files buffer bookmark file<CR>
-nnoremap <Space>uC :Unite change<CR>
+nnoremap <Space>uc :Unite -auto-preview change<CR>
+nnoremap <Space>uC :UniteWithCurrentDir -buffer-name=files buffer bookmark file<CR>
 nnoremap <Space>ud :Unite directory<CR>
 nnoremap <Space>uD :UniteWithBufferDir directory<CR>
 nnoremap <Space>u<C-d> :execute 'Unite directory:' . input('dir: ')<CR>
@@ -881,7 +881,7 @@ nnoremap <Space>ugg :Unite gtags/grep<CR>
 nnoremap <Space>ugp :Unite gtags/path<CR>
 nnoremap <Space>ugr :Unite gtags/ref<CR>
 nnoremap <Space>ugx :Unite gtags/completion<CR>
-nnoremap <Space>uj :Unite jump -start-insert<CR>
+nnoremap <Space>uj :Unite -auto-preview jump<CR>
 nnoremap <Space>uk :call <SID>unite_grep(expand('<cword>'), 'keyword', '', v:false)<CR>
 nnoremap <Space>uK :call <SID>unite_grep(expand('<cWORD>'), 'keyword', '', v:false)<CR>
 nnoremap <Space>u8 :call <SID>unite_grep(expand('<cword>'), 'keyword', '', v:true)<CR>
@@ -1028,12 +1028,12 @@ if s:is_enabled_plugin('denite.nvim')
 
   nnoremap <Space>da :Denite location_list<CR>
   nnoremap <Space>db :DeniteBufferDir -buffer-name=files -auto-resume buffer dirmark file<CR>
-  nnoremap <Space>dc :Denite change<CR>
+  nnoremap <Space>dc :Denite -auto-preview change<CR>
   nnoremap <Space>dd :Denite directory_rec<CR>
   nnoremap <Space>dD :Denite directory_mru<CR>
   nnoremap <Space>df :Denite filetype<CR>
   nnoremap <Space>dh :Denite help<CR>
-  nnoremap <Space>dj :Denite jump<CR>
+  nnoremap <Space>dj :Denite -auto-preview jump<CR>
   nnoremap <Space>dJ :Denite project<CR>
   nnoremap <Space>di :call <SID>denite_grep('!', 'grep', '', v:false)<CR>
   nnoremap <Space>dk :call <SID>denite_grep(expand('<cword>'), 'keyword', '', v:false)<CR>
