@@ -864,7 +864,8 @@ nnoremap <Space>m :Unite file_mru<CR>
 nnoremap <Space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 nnoremap <Space>o :Unite outline -start-insert<CR>
 nnoremap <Space>a :execute 'Unite anzu:' . input ('anzu: ')<CR>
-nnoremap <Space>ua :Unite apropos -start-insert<CR>
+nnoremap <Space>ua :Unite location_list<CR>
+nnoremap <Space>uA :Unite apropos -start-insert<CR>
 nnoremap <Space>ub :UniteWithBufferDir -buffer-name=files -prompt=%\  buffer bookmark file<CR>
 nnoremap <Space>uc :Unite -auto-preview change<CR>
 nnoremap <Space>uC :UniteWithCurrentDir -buffer-name=files buffer bookmark file<CR>
@@ -889,7 +890,6 @@ nnoremap <Space>u* :call <SID>unite_grep(expand('<cWORD>'), 'keyword', '', v:tru
 xnoremap <Space>uk :<C-u>call <SID>unite_grep(<SID>get_visual_selection(), 'keyword', '', v:false)<CR>
 xnoremap <Space>u8 :<C-u>call <SID>unite_grep(<SID>get_visual_selection(), 'keyword', '', v:true)<CR>
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
-nnoremap <Space>uL :Unite location_list<CR>
 nnoremap <Space>uo :Unite output -start-insert<CR>
 nnoremap <Space>uO :Unite outline -start-insert<CR>
 nnoremap <Space>up :UniteWithProjectDir -buffer-name=files -prompt=&\  buffer bookmark file<CR>
