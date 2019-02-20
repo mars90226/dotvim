@@ -2001,7 +2001,23 @@ Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['git', 'go']
 " }}}
 
+" tern_for_vim {{{
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
+
+augroup tern_for_vim_settings
+  autocmd!
+  autocmd FileType javascript call s:tern_for_vim_settings()
+augroup END
+
+function! s:tern_for_vim_settings()
+  nnoremap <Leader>ed :TernDef<CR>
+  nnoremap <Leader>ec :TernDoc<CR>
+  nnoremap <Leader>et :TernType<CR>
+  nnoremap <Leader>er :TernRefs<CR>
+  nnoremap <Leader>eR :TernRename<CR>
+endfunction
+" }}}
+
 Plug 'moll/vim-node', { 'for': [] }
 Plug 'tpope/vim-rails', { 'for': [] }
 Plug 'rust-lang/rust.vim'
