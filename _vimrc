@@ -1390,6 +1390,14 @@ function! s:screen_lines(...)
 endfunction
 command! -nargs=? ScreenLines :call <SID>screen_lines(<q-args>)
 
+function! s:cursor_files()
+  let cursor_file = expand('<cword>')
+
+  Files
+  call feedkeys(cursor_file)
+endfunction
+command! CursorFiles :call <SID>cursor_files()
+
 " Cscope functions {{{
 " Borrow from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
 function! s:cscope_sink(lines) 
@@ -1513,6 +1521,7 @@ nnoremap <Space>fL :Lines<CR>
 nnoremap <Space>f<C-l> :execute 'BLines ' . expand('<cword>')<CR>
 nnoremap <Space>fm :Mru<CR>
 nnoremap <Space>fM :Maps<CR>
+nnoremap <Space>fn :CursorFiles<CR>
 nnoremap <Space>fo :execute 'LLocate ' . input('Locate: ')<CR>
 nnoremap <Space>fr :execute 'Rg ' . input('Rg: ')<CR>
 nnoremap <Space>fR :execute 'Rg! ' . input('Rg!: ')<CR>
