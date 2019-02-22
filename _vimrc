@@ -2782,8 +2782,10 @@ nnoremap <Leader>u :cd ..<CR>
 nnoremap <Leader>cb :cd %:h<CR>
 
 " Quick yank cursor word
-nnoremap y" ""yiw
-nnoremap y+ "+yiw
+nnoremap y' ""yiw
+nnoremap y" ""yiW
+nnoremap y= "+yiw
+nnoremap y+ "+yiW
 
 " Copy unnamed register to system clipboard
 nnoremap <Space>sr :let @+ = @"<CR>
