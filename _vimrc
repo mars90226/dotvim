@@ -1157,6 +1157,9 @@ inoremap <expr> <C-x><C-d> fzf#vim#complete#path('fd -t d')
 
 " fzf functions & commands {{{
 " fzf utility functions borrowed from fzf.vim {{{
+function! s:warn(message)
+  echohl WarningMsg | echom a:message | echohl None
+endfunction
 
 " For using g:fzf_action in custom sink function
 let s:TYPE = {'dict': type({}), 'funcref': type(function('call')), 'string': type(''), 'list': type([])}
@@ -1227,8 +1230,9 @@ endfunction
 "     \ -g "*.{js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst,lua,pm,vim,sh,h,hpp}"
 "     \ -g "!{.config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
 " Manually specify ignore file as ripgrep 0.9.0 will not respect to .gitignore outside of git repository
-let g:rg_command = 'rg --column --line-number --no-heading --smart-case --color=always --ignore-file ' . $HOME . '/.gitignore '
-let g:rg_all_command = 'rg --column --line-number --no-heading --smart-case --no-ignore --hidden --follow --color=always '
+let g:rg_base_command = 'rg --column --line-number --no-heading --smart-case --color=always --follow --with-filename '
+let g:rg_command = g:rg_base_command . '--ignore-file ' . $HOME . '/.gitignore '
+let g:rg_all_command = g:rg_base_command . '--no-ignore --hidden '
 command! -bang -nargs=* Rg call fzf#vim#grep(
       \ <bang>0 ? g:rg_all_command.shellescape(<q-args>)
       \         : g:rg_command.shellescape(<q-args>), 1,
@@ -1245,9 +1249,9 @@ function! s:rg_with_option(command, bang)
   let query = join(command_parts[2:], ':')
   call fzf#vim#grep(
         \ a:bang ? g:rg_all_command.option.' '.shellescape(query).' '.folder
-        \         : g:rg_command.option.' '.shellescape(query).' '.folder, 1,
+        \        : g:rg_command.option.' '.shellescape(query).' '.folder, 1,
         \ a:bang ? fzf#vim#with_preview('up:60%')
-        \         : fzf#vim#with_preview('right:50%:hidden', '?'),
+        \        : fzf#vim#with_preview('right:50%:hidden', '?'),
         \ a:bang)
 endfunction
 
@@ -1255,13 +1259,12 @@ let g:fd_command = 'fd --no-ignore --hidden --follow'
 command! -bang -nargs=? -complete=dir AllFiles call fzf#vim#files(<q-args>,
       \ extend({ 'source': g:fd_command }, fzf#vim#with_preview()), <bang>0)
 
-let g:git_diff_tree_command = 'git diff-tree --no-commit-id --name-only -r'
+let g:git_diff_tree_command = 'git diff-tree --no-commit-id --name-only -r '
 command! -bang -nargs=* -complete=dir GitDiffFiles call s:git_diff_tree(<bang>0, <f-args>)
 " s:git_diff_tree([bang], [commit], [folder])
 function! s:git_diff_tree(...)
   if a:0 > 3
-    echo 'Invalid argument number'
-    return
+    return s:warn('Invalid argument number')
   endif
 
   let bang   = a:0 >= 1 ? a:1 : 0
@@ -1271,8 +1274,34 @@ function! s:git_diff_tree(...)
   call fzf#vim#files(
         \ folder,
         \ extend({
-        \   'source': g:git_diff_tree_command . ' ' . commit
+        \   'source': g:git_diff_tree_command . commit
         \ }, fzf#vim#with_preview()),
+        \ bang)
+endfunction
+
+let g:rg_git_diff_tree_command = 'git -C %s diff-tree -z --no-commit-id --name-only -r %s | xargs -0 ' . g:rg_base_command . ' -- %s'
+command! -bang -nargs=* -complete=dir RgGitDiffFiles call s:rg_git_diff_tree(<bang>0, <f-args>)
+" s:rg_git_diff_tree([bang], [pattern], [commit], [folder])
+function! s:rg_git_diff_tree(...)
+  if a:0 > 4
+    return s:warn('Invalid argument number')
+  endif
+
+  let bang    = a:0 >= 1 ? a:1 : 0
+  let pattern = a:0 >= 2 ? a:2 : '.'
+  let commit  = a:0 >= 3 ? a:3 : 'HEAD'
+  let folder  = a:0 == 4 ? a:4 : '.'
+
+  if !FugitiveIsGitDir(folder)
+    return s:warn('Not a git directory')
+  endif
+
+  let command = printf(g:rg_git_diff_tree_command, folder, commit, shellescape(pattern))
+
+  call fzf#vim#grep(
+        \ command, 1,
+        \ bang ? fzf#vim#with_preview('up:60%')
+        \      : fzf#vim#with_preview('right:50%:hidden', '?'),
         \ bang)
 endfunction
 
