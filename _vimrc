@@ -1255,6 +1255,27 @@ let g:fd_command = 'fd --no-ignore --hidden --follow'
 command! -bang -nargs=? -complete=dir AllFiles call fzf#vim#files(<q-args>,
       \ extend({ 'source': g:fd_command }, fzf#vim#with_preview()), <bang>0)
 
+let g:git_diff_tree_command = 'git diff-tree --no-commit-id --name-only -r'
+command! -bang -nargs=* -complete=dir GitDiffFiles call s:git_diff_tree(<bang>0, <f-args>)
+" s:git_diff_tree([bang], [commit], [folder])
+function! s:git_diff_tree(...)
+  if a:0 > 3
+    echo 'Invalid argument number'
+    return
+  endif
+
+  let bang   = a:0 >= 1 ? a:1 : 0
+  let commit = a:0 >= 2 ? a:2 : 'HEAD'
+  let folder = a:0 == 3 ? a:3 : ''
+
+  call fzf#vim#files(
+        \ folder,
+        \ extend({
+        \   'source': g:git_diff_tree_command . ' ' . commit
+        \ }, fzf#vim#with_preview()),
+        \ bang)
+endfunction
+
 command! Mru call fzf#run(fzf#wrap({
       \ 'source':  s:all_files(),
       \ 'options': '-m +s',
