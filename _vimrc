@@ -1474,13 +1474,11 @@ function! s:screen_lines(...)
 endfunction
 command! -nargs=? ScreenLines :call <SID>screen_lines(<q-args>)
 
-function! s:cursor_files()
-  let cursor_file = expand('<cword>')
-
+function! s:files_with_query(query)
   Files
-  call feedkeys(cursor_file)
+  call feedkeys(a:query)
 endfunction
-command! CursorFiles :call <SID>cursor_files()
+command! -nargs=1 FilesWithQuery :call s:files_with_query(<q-args>)
 
 " Cscope functions {{{
 " Borrow from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
@@ -1605,9 +1603,9 @@ nnoremap <Space>fl :BLines<CR>
 nnoremap <Space>fL :Lines<CR>
 nnoremap <Space>f<C-l> :execute 'BLines ' . expand('<cword>')<CR>
 nnoremap <Space>fm :Mru<CR>
-nnoremap <Space>fn :CursorFiles<CR>
-nnoremap <Space>fo :execute 'LLocate ' . input('Locate: ')<CR>
 nnoremap <Space>fM :DirectoryMru<CR>
+nnoremap <Space>fn :execute 'FilesWithQuery ' . expand('<cword>')<CR>
+nnoremap <Space>fN :execute 'FilesWithQuery ' . expand('<cWORD>')<CR>
 nnoremap <Space>fo :execute 'Locate ' . input('Locate: ')<CR>
 nnoremap <Space>fr :execute 'Rg ' . input('Rg: ')<CR>
 nnoremap <Space>fR :execute 'Rg! ' . input('Rg!: ')<CR>
