@@ -1130,7 +1130,7 @@ function! s:copy_results(lines)
   if len(a:lines) > 1
     let joined_lines .= "\n"
   endif
-  let @+ = joined_lines
+  let @" = joined_lines
 endfunction
 let g:fzf_action = {
   \ 'ctrl-q': function('s:build_quickfix_list'),
@@ -1141,11 +1141,12 @@ let g:fzf_action = {
   \ 'alt-v': 'rightbelow vsplit',
   \ 'alt-x': 'Defx',
   \ 'alt-c': function('s:copy_results'),
+  \ 'alt-e': 'cd',
   \ }
 
 " Mapping selecting mappings
 nmap <Space><Tab> <Plug>(fzf-maps-n)
-imap <M-`> <Plug>(fzf-maps-i)
+imap <M-`>        <Plug>(fzf-maps-i)
 xmap <Space><Tab> <Plug>(fzf-maps-x)
 omap <Space><Tab> <Plug>(fzf-maps-o)
 
@@ -1210,10 +1211,10 @@ endfor
 " }}}
 
 command! -bar  -bang                  Helptags call fzf#vim#helptags(<bang>0)
-command! -bang -nargs=+ -complete=dir LLocate  call fzf#vim#locate(<q-args>, <bang>0)
 command! -bang -nargs=? -complete=dir Files    call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 command! -bang -nargs=?               GFiles   call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
-command! -bar  -bang                  Windows  call fzf#vim#windows(<SID>fzf_windows_preview(), <bang>0)
+command! -bang -nargs=?               History  call fzf#vim#history(fzf#vim#with_preview(), <bang>0)
+command! -bar  -bang                  Windows  call fzf#vim#windows(s:fzf_windows_preview(), <bang>0)
 
 function! s:fzf_windows_preview() abort
   let options = fzf#vim#with_preview()
@@ -1313,17 +1314,43 @@ function! s:rg_git_diff_tree(...)
 endfunction
 
 command! Mru call fzf#run(fzf#wrap({
-      \ 'source':  s:all_files(),
+      \ 'source':  s:mru_files(),
       \ 'options': '-m +s',
       \ 'down':    '40%' }))
-
 " use neomru
-function! s:all_files()
+function! s:mru_files()
   return extend(
   \ filter(readfile(g:neomru#file_mru_path)[1:],
   \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/\\|\\[unite\\]\\|\[Preview\\]\\|__Tagbar__\\|term://'"),
   \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
 endfunction
+
+command! DirectoryMru call fzf#run(fzf#wrap({
+      \ 'source':  s:mru_directories(),
+      \ 'options': '+m +s',
+      \ 'down':    '40%' }))
+" use neomru
+function! s:mru_directories()
+  return extend(
+  \ readfile(g:neomru#directory_mru_path)[1:],
+  \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), "fnamemodify(bufname(v:val), ':p:h')"))
+endfunction
+
+command! DirectoryMruFiles call s:directory_mru_files()
+function! s:directory_mru_files()
+  call fzf#run(fzf#wrap({
+      \ 'source':  s:mru_directories(),
+      \ 'sink':    function('s:directory_mru_files_sink'),
+      \ 'options': '+m +s',
+      \ 'down':    '40%' }))
+endfunction
+function! s:directory_mru_files_sink(line)
+  execute 'Files ' . a:line
+  " To enter terminal mode, this is a workaround that autocommand exit the
+  " terminal mode when previous fzf session end.
+  call feedkeys('i')
+endfunction
+
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
 
@@ -1559,9 +1586,10 @@ nnoremap <Space>fb :Buffers<CR>
 nnoremap <Space>fB :Files %:h<CR>
 nnoremap <Space>fc :BCommits<CR>
 nnoremap <Space>fC :Commits<CR>
-" TODO change to directory mru
-nnoremap <Space>fd :execute "Tags '" . expand('<cword>')<CR>
+nnoremap <Space>fd :DirectoryMru<CR>
 nnoremap <Space>ff :Files<CR>
+nnoremap <Space>fF :DirectoryMruFiles<CR>
+nnoremap <Space>f<C-f> :execute 'Files ' . expand('<cfile>')<CR>
 nnoremap <Space>fg :GFiles<CR>
 nnoremap <Space>fG :execute 'GGrep ' . input('Git grep: ')<CR>
 nnoremap <Space>fh :Helptags<CR>
@@ -1577,9 +1605,10 @@ nnoremap <Space>fl :BLines<CR>
 nnoremap <Space>fL :Lines<CR>
 nnoremap <Space>f<C-l> :execute 'BLines ' . expand('<cword>')<CR>
 nnoremap <Space>fm :Mru<CR>
-nnoremap <Space>fM :Maps<CR>
 nnoremap <Space>fn :CursorFiles<CR>
 nnoremap <Space>fo :execute 'LLocate ' . input('Locate: ')<CR>
+nnoremap <Space>fM :DirectoryMru<CR>
+nnoremap <Space>fo :execute 'Locate ' . input('Locate: ')<CR>
 nnoremap <Space>fr :execute 'Rg ' . input('Rg: ')<CR>
 nnoremap <Space>fR :execute 'Rg! ' . input('Rg!: ')<CR>
 nnoremap <Space>f4 :execute 'RgWithOption .:' . input('Option: ') . ':' . input('Rg: ')<CR>
