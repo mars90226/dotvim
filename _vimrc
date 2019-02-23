@@ -1271,6 +1271,11 @@ function! s:git_diff_tree(...)
   let commit = a:0 >= 2 ? a:2 : 'HEAD'
   let folder = a:0 == 3 ? a:3 : ''
 
+  let git_dir = FugitiveExtractGitDir(expand(folder))
+  if empty(git_dir)
+    return s:warn('not in git repo')
+  endif
+
   call fzf#vim#files(
         \ folder,
         \ extend({
@@ -1292,8 +1297,9 @@ function! s:rg_git_diff_tree(...)
   let commit  = a:0 >= 3 ? a:3 : 'HEAD'
   let folder  = a:0 == 4 ? a:4 : '.'
 
-  if !FugitiveIsGitDir(folder)
-    return s:warn('Not a git directory')
+  let git_dir = FugitiveExtractGitDir(expand(folder))
+  if empty(git_dir)
+    return s:warn('not in git repo')
   endif
 
   let command = printf(g:rg_git_diff_tree_command, folder, commit, shellescape(pattern))
