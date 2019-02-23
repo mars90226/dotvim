@@ -867,8 +867,8 @@ nnoremap <Space>/ :Unite -buffer-name=grep%`bufnr("%")` grep:.<CR>
 nnoremap <Space>? :execute 'Unite -buffer-name=grep%`bufnr("%")` grep:.:' . <SID>escape_symbol(input('Option: '))<CR>
 nnoremap <Space>y :Unite history/yank<CR>
 nnoremap <Space>S :Unite source<CR>
-nnoremap <Space>m :Unite file_mru<CR>
-nnoremap <Space>M :Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+nnoremap <Space>m :Unite -start-insert file_mru<CR>
+nnoremap <Space>M :Unite -buffer-name=files -default-action=lcd -start-insert directory_mru<CR>
 nnoremap <Space>o :Unite outline -start-insert<CR>
 nnoremap <Space>a :execute 'Unite anzu:' . input ('anzu: ')<CR>
 nnoremap <Space>ua :Unite location_list<CR>
@@ -1052,6 +1052,7 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>dl :Denite -auto-highlight line<CR>
   nnoremap <Space>dL :Denite line:buffers<CR>
   nnoremap <Space>dm :Denite file_mru<CR>
+  nnoremap <Space>dM :Denite directory_mru<CR>
   nnoremap <Space>do :execute 'Denite output:' . <SID>escape_symbol(input('output: '))<CR>
   nnoremap <Space>dO :Denite outline<CR>
   nnoremap <Space>d<C-o> :Denite unite:outline<CR>
