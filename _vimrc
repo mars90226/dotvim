@@ -53,7 +53,7 @@ endfunction
 function! s:get_disabled_plugins()
   echo s:plugin_disabled
 endfunction
-command! ListDisabledPlugins call <SID>get_disabled_plugins()
+command! ListDisabledPlugins call s:get_disabled_plugins()
 " }}}
 
 " return empty string when no python support found
@@ -1472,7 +1472,7 @@ function! s:screen_lines(...)
         \ 'options': ['--tiebreak=index', '--prompt', 'ScreenLines> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1']
         \ }))
 endfunction
-command! -nargs=? ScreenLines :call <SID>screen_lines(<q-args>)
+command! -nargs=? ScreenLines :call s:screen_lines(<q-args>)
 
 function! s:files_with_query(query)
   Files
@@ -1561,7 +1561,7 @@ if has("nvim")
     augroup END
     execute 'Tags ' . a:query
   endfunction
-  command! -nargs=* ProjectTags call <SID>project_tags(<q-args>)
+  command! -nargs=* ProjectTags call s:project_tags(<q-args>)
 
   function! s:tagbar_tags()
     TagbarOpenAutoClose
@@ -1573,7 +1573,7 @@ if has("nvim")
     augroup END
     BLines
   endfunction
-  command! TagbarTags call <SID>tagbar_tags()
+  command! TagbarTags call s:tagbar_tags()
 endif
 " }}}
 
@@ -1758,7 +1758,7 @@ Plug 'osyo-manga/vim-anzu'
 map n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
 map N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
 
-command! AnzuToggleUpdate call <SID>AnzuToggleUpdate()
+command! AnzuToggleUpdate call s:AnzuToggleUpdate()
 function! s:AnzuToggleUpdate()
   if g:anzu_enable_CursorHold_AnzuUpdateSearchStatus == 0
     let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 2
@@ -2012,7 +2012,7 @@ if s:is_enabled_plugin('syntastic')
 
   let g:syntastic_ignore_files = ['\m^/usr/include/', '\m^/synosrc/packages/build_env/', '\m\c\.h$']
   nnoremap <Space><F7> :SyntasticCheck<CR>
-  command! -bar SyntasticCheckHeader call <SID>SyntasticCheckHeader()
+  command! -bar SyntasticCheckHeader call s:SyntasticCheckHeader()
   function! s:SyntasticCheckHeader()
     let header_pattern_index = index(g:syntastic_ignore_files, '\m\c\.h$')
     if header_pattern_index >= 0
@@ -2905,7 +2905,7 @@ function! s:last_tab()
 endfunction
 nnoremap <M-1> :call <SID>last_tab()<CR>
 
-command! -bar LastTab call <SID>last_tab()
+command! -bar LastTab call s:last_tab()
 au TabLeave * let g:last_tab = tabpagenr()
 
 " get_visual_selection
@@ -2965,7 +2965,7 @@ function! s:file_size(path)
         \ . (kb > 0 ? kb . "KB, " : "")
         \ . byte . "byte"
 endfunction
-command! -nargs=1 FileSize call <SID>file_size(<q-args>)
+command! -nargs=1 FileSize call s:file_size(<q-args>)
 
 " }}}
 
@@ -3109,7 +3109,7 @@ if has("nvim")
 
   " Search keyword with Google using surfraw
   if executable('sr')
-    command! -nargs=1 GoogleKeyword call <SID>google_keyword(<q-args>)
+    command! -nargs=1 GoogleKeyword call s:google_keyword(<q-args>)
     function! s:google_keyword(keyword)
       new
       terminal
