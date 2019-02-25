@@ -1327,7 +1327,7 @@ endfunction
 
 command! DirectoryMru call fzf#run(fzf#wrap({
       \ 'source':  s:mru_directories(),
-      \ 'options': '+m +s',
+      \ 'options': '+s',
       \ 'down':    '40%' }))
 " use neomru
 function! s:mru_directories()
@@ -1341,11 +1341,26 @@ function! s:directory_mru_files()
   call fzf#run(fzf#wrap({
       \ 'source':  s:mru_directories(),
       \ 'sink':    function('s:directory_mru_files_sink'),
-      \ 'options': '+m +s',
+      \ 'options': '+s',
       \ 'down':    '40%' }))
 endfunction
 function! s:directory_mru_files_sink(line)
   execute 'Files ' . a:line
+  " To enter terminal mode, this is a workaround that autocommand exit the
+  " terminal mode when previous fzf session end.
+  call feedkeys('i')
+endfunction
+
+command! DirectoryMruRg call s:directory_mru_rg()
+function! s:directory_mru_rg()
+  call fzf#run(fzf#wrap({
+      \ 'source':  s:mru_directories(),
+      \ 'sink':    function('s:directory_mru_rg_sink'),
+      \ 'options': '+s',
+      \ 'down':    '40%' }))
+endfunction
+function! s:directory_mru_rg_sink(line)
+  execute 'RgWithOption ' . a:line . '::' . input('Rg: ')
   " To enter terminal mode, this is a workaround that autocommand exit the
   " terminal mode when previous fzf session end.
   call feedkeys('i')
@@ -1590,6 +1605,7 @@ nnoremap <Space>fF :DirectoryMruFiles<CR>
 nnoremap <Space>f<C-f> :execute 'Files ' . expand('<cfile>')<CR>
 nnoremap <Space>fg :GFiles<CR>
 nnoremap <Space>fG :execute 'GGrep ' . input('Git grep: ')<CR>
+nnoremap <Space>f<C-g> :DirectoryMruRg<CR>
 nnoremap <Space>fh :Helptags<CR>
 nnoremap <Space>fi :History<CR>
 nnoremap <Space>fj :Jump<CR>
