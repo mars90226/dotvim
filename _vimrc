@@ -1214,8 +1214,21 @@ endfor
 command! -bar  -bang                  Helptags call fzf#vim#helptags(<bang>0)
 command! -bang -nargs=? -complete=dir Files    call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 command! -bang -nargs=?               GFiles   call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
-command! -bang -nargs=?               History  call fzf#vim#history(fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=*               History  call s:history(<q-args>, <bang>0)
 command! -bar  -bang                  Windows  call fzf#vim#windows(s:fzf_windows_preview(), <bang>0)
+
+" borrowed from fzf.vim {{{
+function! s:history(arg, bang)
+  let bang = a:bang || a:arg[len(a:arg)-1] == '!'
+  if a:arg[0] == ':'
+    call fzf#vim#command_history(bang)
+  elseif a:arg[0] == '/'
+    call fzf#vim#search_history(bang)
+  else
+    call fzf#vim#history(fzf#vim#with_preview(), bang)
+  endif
+endfunction
+" }}}
 
 function! s:fzf_windows_preview() abort
   let options = fzf#vim#with_preview()
