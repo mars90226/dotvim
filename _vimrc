@@ -1335,7 +1335,22 @@ command! Mru call fzf#run(fzf#wrap({
 function! s:mru_files()
   return extend(
   \ filter(readfile(g:neomru#file_mru_path)[1:],
-  \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/\\|\\[unite\\]\\|\[Preview\\]\\|__Tagbar__\\|term://'"),
+  \   "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/\\|\\[unite\\]\\|\[Preview\\]\\|__Tagbar__\\|term://'"),
+  \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
+endfunction
+
+command! ProjectMru call fzf#run(fzf#wrap({
+      \ 'source':  s:project_mru_files(),
+      \ 'options': '-m +s',
+      \ 'down':    '40%' }))
+" use neomru
+function! s:project_mru_files()
+  " cannot use \V to escape the special characters in filepath as it only
+  " render the string literal after it to "very nomagic"
+  return extend(
+  \ filter(filter(readfile(g:neomru#file_mru_path)[1:],
+  \     "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/\\|\\[unite\\]\\|\[Preview\\]\\|__Tagbar__\\|term://'"),
+  \   "v:val =~ '^' . getcwd()"),
   \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
 endfunction
 
@@ -1634,6 +1649,7 @@ nnoremap <Space>fL :Lines<CR>
 nnoremap <Space>f<C-l> :execute 'BLines ' . expand('<cword>')<CR>
 nnoremap <Space>fm :Mru<CR>
 nnoremap <Space>fM :DirectoryMru<CR>
+nnoremap <Space>f<C-m> :ProjectMru<CR>
 nnoremap <Space>fn :execute 'FilesWithQuery ' . expand('<cword>')<CR>
 nnoremap <Space>fN :execute 'FilesWithQuery ' . expand('<cWORD>')<CR>
 nnoremap <Space>fo :execute 'Locate ' . input('Locate: ')<CR>
@@ -2133,7 +2149,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sheerun/vim-polyglot'
 
 " Avoid conflict with vim-go, must after vim-go loaded
-let g:polyglot_disabled = ['git', 'go']
+let g:polyglot_disabled = ['git', 'go', 'jsx']
 " }}}
 
 " tern_for_vim {{{
@@ -2161,7 +2177,8 @@ endfunction
 
 Plug 'moll/vim-node', { 'for': [] }
 Plug 'tpope/vim-rails', { 'for': [] }
-Plug 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'amadeus/vim-jsx', { 'for': 'jsx' }
 Plug 'scrooloose/vim-slumlord'
 Plug 'mars90226/perldoc-vim'
 Plug 'gyim/vim-boxdraw'
