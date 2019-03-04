@@ -1720,6 +1720,8 @@ Plug 'vifm/vifm.vim'
 " vim-gutentags {{{
 if has('job') || (has('nvim') && exists('*jobwait'))
   Plug 'ludovicchabant/vim-gutentags'
+
+  let g:gutentags_ctags_exclude = ['.git', 'node_modules']
 endif
 " }}}
 
