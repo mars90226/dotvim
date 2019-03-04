@@ -2149,7 +2149,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sheerun/vim-polyglot'
 
 " Avoid conflict with vim-go, must after vim-go loaded
-let g:polyglot_disabled = ['git', 'go', 'jsx']
+let g:polyglot_disabled = ['go', 'jsx']
 " }}}
 
 " tern_for_vim {{{
