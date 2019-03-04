@@ -1652,6 +1652,7 @@ nnoremap <Space>fM :DirectoryMru<CR>
 nnoremap <Space>f<C-m> :ProjectMru<CR>
 nnoremap <Space>fn :execute 'FilesWithQuery ' . expand('<cword>')<CR>
 nnoremap <Space>fN :execute 'FilesWithQuery ' . expand('<cWORD>')<CR>
+nnoremap <Space>f% :execute 'FilesWithQuery ' . expand('%:t:r')<CR>
 nnoremap <Space>fo :execute 'Locate ' . input('Locate: ')<CR>
 nnoremap <Space>fr :execute 'Rg ' . input('Rg: ')<CR>
 nnoremap <Space>fR :execute 'Rg! ' . input('Rg!: ')<CR>
