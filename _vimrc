@@ -2152,7 +2152,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sheerun/vim-polyglot'
 
 " Avoid conflict with vim-go, must after vim-go loaded
-let g:polyglot_disabled = ['go', 'jsx']
+let g:polyglot_disabled = ['go']
 " }}}
 
 " tern_for_vim {{{
@@ -2181,7 +2181,7 @@ endfunction
 Plug 'moll/vim-node', { 'for': [] }
 Plug 'tpope/vim-rails', { 'for': [] }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'amadeus/vim-jsx', { 'for': 'jsx' }
+" Plug 'amadeus/vim-jsx', { 'for': 'jsx' } " It's included in vim-polyglot
 Plug 'scrooloose/vim-slumlord'
 Plug 'mars90226/perldoc-vim'
 Plug 'gyim/vim-boxdraw'
@@ -2747,7 +2747,9 @@ set belloff=all
 " move temporary files
 set backup " keep a backup file (restore to previous version)
 set backupdir^=~/.vimtmp
-if !has("nvim") " neovim has default folders for these files
+if has("nvim")
+  set undofile
+else " neovim has default folders for these files
   set directory^=~/.vimtmp
   if v:version >= 703
     set undodir^=~/.vimtmp
