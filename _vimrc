@@ -1042,7 +1042,7 @@ function! s:unite_my_settings() "{{{
   nmap <silent><buffer><expr> <C-]>     unite#do_action('persist_open')
 
   " Simulate "persist_tabopen" action by <M-]>.
-  nmap <silent><buffer> <M-]>           <Plug>(unite_smart_preview)<C-w>k<C-w>T
+  nmap <silent><buffer><expr> <M-]>     unite#do_action('persist_open') . "\<C-w>j:tab split<CR>gT<C-o>zzzv"
 
   " Runs "grep" action by <M-g>.
   imap <silent><buffer><expr> <M-g>     unite#do_action('grep')
