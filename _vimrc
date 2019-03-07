@@ -852,10 +852,52 @@ function! s:escape_symbol(expr)
   return l:expr
 endfunction
 
+" TODO Not 100% accurate pattern, increase accuracy
+let g:type_pattern_options = {
+      \ 'c-family':   ['\v\.%(c|cpp|h|hpp)$',                 '-tc -tcpp'],
+      \ 'config':     ['\v\.%(cfg|conf|config|ini)$',         '-tconfig'],
+      \ 'css':        ['\v\.%(css|scss)$',                    '-tcss'],
+      \ 'csv':        ['\.csv$',                              '-tcsv'],
+      \ 'go':         ['\.go$',                               '-tgo'],
+      \ 'html':       ['\.html$',                             '-thtml'],
+      \ 'javascript': ['\v\.%(js|jsx)$',                      '-tjs'],
+      \ 'json':       ['\.json$',                             '-tjson'],
+      \ 'log':        ['\.log$',                              '-tlog'],
+      \ 'lua':        ['\.lua$',                              '-tlua'],
+      \ 'perl':       ['\v\.%(pl|pm|t)',                      '-tperl'],
+      \ 'python':     ['\.py$',                               '-tpy'],
+      \ 'ruby':       ['\v%(\.rb|Gemfile|Rakefile)$',         '-truby'],
+      \ 'rust':       ['\.rs$',                               '-trust'],
+      \ 'shell':      ['\v\.%(bash|bashrc|sh|bash_aliases)$', "-g '{*.sh,.bashrc,.bash_*}'"],
+      \ 'sql':        ['\.sql$',                              '-tsql'],
+      \ 'txt':        ['\.txt$',                              '-ttxt'],
+      \ 'vim':        ['\v%(\.vim|\.vimrc|_vimrc)$',          "-g '{*.vim,_vimrc}'"],
+      \ 'yaml':       ['\v\.%(yaml|yml)$',                    '-tyaml'],
+      \ 'wiki':       ['\.wiki$',                             '-twiki'],
+      \ }
+
+" TODO Use ripgrep type list
+" TODO Change to global function?
+" TODO Detect non-file buffer
+function! s:rg_current_type_option() abort
+  let filename = expand('%:t')
+
+  for [type, value] in items(g:type_pattern_options)
+    let pattern = value[0]
+    let option = value[1]
+    if filename =~ pattern
+      return option
+    endif
+  endfor
+
+  return ''
+endfunction
+
 function! s:unite_grep(query, buffer_name_prefix, option, is_word) abort
   let escaped_query = s:escape_symbol(a:query)
+  let escaped_option = s:escape_symbol(a:option)
   let final_query = a:is_word ? '\\b' . escaped_query . '\\b' : escaped_query
-  execute 'Unite -buffer-name=' . a:buffer_name_prefix . '%`bufnr("%")` -wrap grep:.:' . a:option . ':' . final_query
+  execute 'Unite -buffer-name=' . a:buffer_name_prefix . '%`bufnr("%")` -wrap grep:.:' . escaped_option . ':' . final_query
 endfunction
 
 " Unite key mappings {{{
@@ -866,8 +908,8 @@ if has("nvim")
 else
   nnoremap <Space>P :Unite -start-insert file_rec<CR>
 endif
-nnoremap <Space>/ :Unite -buffer-name=grep%`bufnr("%")` grep:.<CR>
-nnoremap <Space>? :execute 'Unite -buffer-name=grep%`bufnr("%")` grep:.:' . <SID>escape_symbol(input('Option: '))<CR>
+nnoremap <Space>/ :call <SID>unite_grep('', 'grep', '', v:false)<CR>
+nnoremap <Space>? :call <SID>unite_grep('', 'grep', input('Option: '), v:false)<CR>
 nnoremap <Space>y :Unite history/yank<CR>
 nnoremap <Space>S :Unite source<CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
@@ -925,9 +967,8 @@ if executable('rg')
   let g:unite_source_grep_default_opts = '--hidden --no-heading --vimgrep -S'
   let g:unite_source_grep_recursive_opt = ''
 
-  nnoremap <Space>/ :call <SID>unite_grep('', 'grep', '', v:false)<CR>
-  nnoremap <Space>? :call <SID>unite_grep('', 'grep', <SID>escape_symbol(input('Option: ')), v:false)<CR>
-  nnoremap <Space>g/ :call <SID>unite_grep('', 'grep', "-g\\ '" . input('glob: ') . "'", v:false)<CR>
+  nnoremap <Space>g/ :call <SID>unite_grep('', 'grep', <SID>rg_current_type_option(), v:false)<CR>
+  nnoremap <Space>g? :call <SID>unite_grep('', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
 endif
 " }}}
 
@@ -1025,8 +1066,9 @@ if s:is_enabled_plugin('denite.nvim')
 
   function! s:denite_grep(query, buffer_name_prefix, option, is_word) abort
     let escaped_query = s:escape_symbol(a:query)
+    let escaped_option = s:escape_symbol(a:option)
     let final_query = a:is_word ? '\\b' . escaped_query . '\\b' : escaped_query
-    execute 'Denite -buffer-name=' . a:buffer_name_prefix . '%`bufnr("%")` -auto-resume grep:.:' . a:option . ':' . final_query
+    execute 'Denite -buffer-name=' . a:buffer_name_prefix . '%`bufnr("%")` -auto-resume grep:.:' . final_query . ':' . final_query
   endfunction
 
   " Override Unite key mapping {{{
@@ -1074,10 +1116,11 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>d: :Denite command_history<CR>
   nnoremap <Space>d; :Denite command<CR>
   nnoremap <Space>d/ :call <SID>denite_grep('', 'grep', '', v:false)<CR>
-  nnoremap <Space>d? :call <SID>denite_grep('', 'grep', <SID>escape_symbol(input('Option: ')), v:false)<CR>
+  nnoremap <Space>d? :call <SID>denite_grep('', 'grep', input('Option: '), v:false)<CR>
 
   if executable('rg')
-    nnoremap <Space>dg/ :call <SID>denite_grep('', 'grep', "-g\\ '" . input('glob: ') . "'", v:false)<CR>
+    nnoremap <Space>dg/ :call <SID>denite_grep('', 'grep', <SID>rg_current_type_option(), v:false)<CR>
+    nnoremap <Space>dg? :call <SID>denite_grep('', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
   endif
 endif
 " }}}
@@ -1660,6 +1703,7 @@ nnoremap <Space>fr :execute 'Rg ' . input('Rg: ')<CR>
 nnoremap <Space>fR :execute 'Rg! ' . input('Rg!: ')<CR>
 nnoremap <Space>f4 :execute 'RgWithOption .:' . input('Option: ') . ':' . input('Rg: ')<CR>
 nnoremap <Space>f$ :execute 'RgWithOption! .:' . input('Option: ') . ':' . input('Rg!: ')<CR>
+nnoremap <Space>f? :execute 'RgWithOption .:' . <SID>rg_current_type_option() . ':' . input('Rg: ')<CR>
 nnoremap <Space>fs :GFiles?<CR>
 nnoremap <Space>ft :BTags<CR>
 nnoremap <Space>fT :Tags<CR>
