@@ -1045,7 +1045,12 @@ function! s:unite_my_settings() "{{{
   nmap <silent><buffer><expr> <C-]>     unite#do_action('persist_open')
 
   " Simulate "persist_tabopen" action by <M-]>.
+  imap <silent><buffer><expr> <M-]>     unite#do_action('persist_open') . "\<C-w>j:tab split<CR>gT<C-o>zzzv<C-w>k"
   nmap <silent><buffer><expr> <M-]>     unite#do_action('persist_open') . "\<C-w>j:tab split<CR>gT<C-o>zzzv<C-w>k"
+
+  " Simulate "persist_tabopen_switch" action by <M-[>.
+  imap <silent><buffer><expr> <M-[>     unite#do_action('persist_open') . "\<C-w>j:tab split<CR>gT<C-o>zzzvgt"
+  nmap <silent><buffer><expr> <M-[>     unite#do_action('persist_open') . "\<C-w>j:tab split<CR>gT<C-o>zzzvgt"
 
   " Runs "grep" action by <M-g>.
   imap <silent><buffer><expr> <M-g>     unite#do_action('grep')
