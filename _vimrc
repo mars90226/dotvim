@@ -442,6 +442,7 @@ let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
 nnoremap <C-p> :CtrlP<CR>
 nnoremap <Space>cf :CtrlPFunky<CR>
 nnoremap <Space>cF :execute 'CtrlPFunky ' . expand('<cword>')<CR>
+xnoremap <Space>cF :<C-u>execute 'CtrlPFunky ' . <SID>get_visual_selection()<CR>
 nnoremap <Space>cp :CtrlPCmdPalette<CR>
 nnoremap <Space>cm :CtrlPCmdline<CR>
 nnoremap <Space>c] :CtrlPtjump<CR>
@@ -1715,6 +1716,7 @@ nnoremap <Space>f<C-m> :ProjectMru<CR>
 nnoremap <Space>fn :execute 'FilesWithQuery ' . expand('<cword>')<CR>
 nnoremap <Space>fN :execute 'FilesWithQuery ' . expand('<cWORD>')<CR>
 nnoremap <Space>f% :execute 'FilesWithQuery ' . expand('%:t:r')<CR>
+xnoremap <Space>fn :<C-u>execute 'FilesWithQuery ' . <SID>get_visual_selection()<CR>
 nnoremap <Space>fo :execute 'Locate ' . input('Locate: ')<CR>
 nnoremap <Space>fr :execute 'Rg ' . input('Rg: ')<CR>
 nnoremap <Space>fR :execute 'Rg! ' . input('Rg!: ')<CR>
@@ -1735,11 +1737,15 @@ nnoremap <Space>f; :Commands<CR>
 xnoremap <Space>f; :<C-u>Commands<CR>
 nnoremap <Space>f/ :History/<CR>
 nnoremap <Space>f] :execute "BTags '" . expand('<cword>')<CR>
+xnoremap <Space>f] :<C-u>execute "BTags '" . <SID>get_visual_selection()<CR>
 nnoremap <Space>f} :execute "Tags '" . expand('<cword>')<CR>
+xnoremap <Space>f} :<C-u>execute "Tags '" . <SID>get_visual_selection()<CR>
 nnoremap <Space>f<C-]> :execute 'Tselect ' . expand('<cword>')<CR>
+xnoremap <Space>f<C-]> :<C-u>execute 'Tselect ' . <SID>get_visual_selection()<CR>
 
 nnoremap <Space>sl :ScreenLines<CR>
 nnoremap <Space>sL :execute 'ScreenLines ' . expand('<cword>')<CR>
+xnoremap <Space>sL :<C-u>execute 'ScreenLines ' . <SID>get_visual_selection()<CR>
 nnoremap <Space>ss :History:<CR>mks vim sessions 
 
 " fzf & cscope key mappings {{{
@@ -1752,6 +1758,16 @@ nnoremap <silent> <Leader>ce :call Cscope('6', expand('<cword>'))<CR>
 nnoremap <silent> <Leader>cf :call Cscope('7', expand('<cword>'))<CR>
 nnoremap <silent> <Leader>ci :call Cscope('8', expand('<cword>'))<CR>
 nnoremap <silent> <Leader>ca :call Cscope('9', expand('<cword>'))<CR>
+
+xnoremap <silent> <Leader>cs :<C-u>call Cscope('0', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cg :<C-u>call Cscope('1', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cd :<C-u>call Cscope('2', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cc :<C-u>call Cscope('3', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>ct :<C-u>call Cscope('4', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>ce :<C-u>call Cscope('6', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cf :<C-u>call Cscope('7', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>ci :<C-u>call Cscope('8', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>ca :<C-u>call Cscope('9', <SID>get_visual_selection())<CR>
 
 nnoremap <silent> <Leader><Leader>cs :call CscopeQuery('0')<CR>
 nnoremap <silent> <Leader><Leader>cg :call CscopeQuery('1')<CR>
@@ -1767,6 +1783,7 @@ nnoremap <silent> <Leader><Leader>ca :call CscopeQuery('9')<CR>
 if has("nvim")
   nnoremap <Space>fp :ProjectTags<CR>
   nnoremap <Space>fP :execute "ProjectTags '" . expand('<cword>')<CR>
+  xnoremap <Space>fP :<C-u>execute "ProjectTags '" . <SID>get_visual_selection()<CR>
   nnoremap <Space><F8> :TagbarTags<CR>
 endif
 " }}}
