@@ -898,7 +898,9 @@ function! s:unite_grep(query, buffer_name_prefix, option, is_word) abort
   let escaped_query = s:escape_symbol(a:query)
   let escaped_option = s:escape_symbol(a:option)
   let final_query = a:is_word ? '\\b' . escaped_query . '\\b' : escaped_query
-  execute 'Unite -buffer-name=' . a:buffer_name_prefix . '%`bufnr("%")` -wrap grep:.:' . escaped_option . ':' . final_query
+  let buffer_name = a:buffer_name_prefix . '%' . bufnr('%')
+
+  execute 'Unite -buffer-name=' . buffer_name . ' -wrap grep:.:' . escaped_option . ':' . final_query
 endfunction
 
 " Unite key mappings {{{
@@ -1069,7 +1071,9 @@ if s:is_enabled_plugin('denite.nvim')
     let escaped_query = s:escape_symbol(a:query)
     let escaped_option = s:escape_symbol(a:option)
     let final_query = a:is_word ? '\\b' . escaped_query . '\\b' : escaped_query
-    execute 'Denite -buffer-name=' . a:buffer_name_prefix . '%`bufnr("%")` -auto-resume grep:.:' . final_query . ':' . final_query
+    let buffer_name = a:buffer_name_prefix . '%' . bufnr('%')
+
+    execute 'Denite -buffer-name=' . buffer_name . ' -auto-resume grep:.:' . final_query . ':' . final_query
   endfunction
 
   " Override Unite key mapping {{{
