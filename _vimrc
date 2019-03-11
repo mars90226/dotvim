@@ -1769,10 +1769,6 @@ if has("nvim")
   nnoremap <Space>fP :execute "ProjectTags '" . expand('<cword>')<CR>
   nnoremap <Space><F8> :TagbarTags<CR>
 endif
-
-" Command line mapping
-cnoremap <expr> <C-g><C-f> <SID>files_in_commandline()
-cnoremap <expr> <C-g><C-t> <SID>rg_current_type_option()
 " }}}
 " }}}
 
@@ -2992,6 +2988,12 @@ nnoremap y+ "+yiW
 
 " Copy unnamed register to system clipboard
 nnoremap <Space>sr :let @+ = @"<CR>
+
+" Command line mapping
+cnoremap <expr> <C-g><C-f> <SID>files_in_commandline()
+cnoremap <expr> <C-g><C-t> <SID>rg_current_type_option()
+" <C-]> and <C-%> is the same key
+cnoremap <expr> <C-g><C-]> expand('%:t:r')
 
 " Custom function {{{
 nnoremap <F6> :call ToggleIndentBetweenTabAndSpace()<CR>
