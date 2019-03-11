@@ -1440,6 +1440,23 @@ function! s:directory_mru_rg_sink(line)
   call feedkeys('i')
 endfunction
 
+" Intend to be mapped in command
+function! s:files_in_commandline()
+  " Use tmux to avoid opening terminal in neovim
+  let g:fzf_prefer_tmux = 1
+  call fzf#vim#files(
+        \ '',
+        \ extend({
+        \   'sink': function('s:files_in_commandline_sink'),
+        \ }, fzf#vim#with_preview()),
+        \ 0)
+  let g:fzf_prefer_tmux = 0
+  return s:files_in_commandline_result
+endfunction
+function! s:files_in_commandline_sink(line)
+  let s:files_in_commandline_result = a:line
+endfunction
+
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
 
@@ -1752,6 +1769,9 @@ if has("nvim")
   nnoremap <Space>fP :execute "ProjectTags '" . expand('<cword>')<CR>
   nnoremap <Space><F8> :TagbarTags<CR>
 endif
+
+" Command line mapping
+cnoremap <expr> <C-g><C-f> <SID>files_in_commandline()
 " }}}
 " }}}
 
