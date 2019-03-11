@@ -1772,6 +1772,7 @@ endif
 
 " Command line mapping
 cnoremap <expr> <C-g><C-f> <SID>files_in_commandline()
+cnoremap <expr> <C-g><C-t> <SID>rg_current_type_option()
 " }}}
 " }}}
 
