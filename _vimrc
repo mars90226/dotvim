@@ -1468,6 +1468,16 @@ function! s:directory_mru_rg_sink(line)
   call feedkeys('i')
 endfunction
 
+let g:fd_dir_command = 'fd --type directory --no-ignore --hidden --follow --exclude .git --exclude node_modules'
+command! DirectoryRg call s:directory_rg()
+function! s:directory_rg()
+  call fzf#run(fzf#wrap({
+        \ 'source':  g:fd_dir_command,
+        \ 'sink':    function('s:directory_mru_rg_sink'),
+        \ 'options': '-s',
+        \ 'down':    '40%' }))
+endfunction
+
 " Intend to be mapped in command
 function! s:files_in_commandline()
   " Use tmux to avoid opening terminal in neovim
@@ -1718,13 +1728,11 @@ nnoremap <Space>fb :Buffers<CR>
 nnoremap <Space>fB :Files %:h<CR>
 nnoremap <Space>fc :BCommits<CR>
 nnoremap <Space>fC :Commits<CR>
-nnoremap <Space>fd :DirectoryMru<CR>
 nnoremap <Space>ff :Files<CR>
-nnoremap <Space>fF :DirectoryMruFiles<CR>
+nnoremap <Space>fF :DirectoryRg<CR>
 nnoremap <Space>f<C-f> :execute 'Files ' . expand('<cfile>')<CR>
 nnoremap <Space>fg :GFiles<CR>
 nnoremap <Space>fG :execute 'GGrep ' . input('Git grep: ')<CR>
-nnoremap <Space>f<C-g> :DirectoryMruRg<CR>
 nnoremap <Space>fh :Helptags<CR>
 nnoremap <Space>fi :History<CR>
 nnoremap <Space>fj :Jump<CR>
@@ -1769,6 +1777,11 @@ nnoremap <Space>f} :execute "Tags '" . expand('<cword>')<CR>
 xnoremap <Space>f} :<C-u>execute "Tags '" . <SID>get_visual_selection()<CR>
 nnoremap <Space>f<C-]> :execute 'Tselect ' . expand('<cword>')<CR>
 xnoremap <Space>f<C-]> :<C-u>execute 'Tselect ' . <SID>get_visual_selection()<CR>
+
+" DirectoryMru
+nnoremap <Space><C-d><C-d> :DirectoryMru<CR>
+nnoremap <Space><C-d><C-f> :DirectoryMruFiles<CR>
+nnoremap <Space><C-d><C-r> :DirectoryMruRg<CR>
 
 nnoremap <Space>sl :ScreenLines<CR>
 nnoremap <Space>sL :execute 'ScreenLines ' . expand('<cword>')<CR>
