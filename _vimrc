@@ -755,6 +755,8 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('yank_path')
     nnoremap <silent><buffer><expr> h
           \ defx#do_action('cd', ['..'])
+    nnoremap <silent><buffer><expr> <BS>
+          \ defx#do_action('cd', ['..'])
     nnoremap <silent><buffer><expr> ~
           \ defx#do_action('cd')
     nnoremap <silent><buffer><expr> \
