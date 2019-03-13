@@ -931,7 +931,6 @@ else
 endif
 nnoremap <Space>/ :call <SID>unite_grep('', 'grep', '', v:false)<CR>
 nnoremap <Space>? :call <SID>unite_grep('', 'grep', input('Option: '), v:false)<CR>
-nnoremap <Space>y :Unite history/yank<CR>
 nnoremap <Space>S :Unite source<CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
 nnoremap <Space>M :Unite -buffer-name=files -default-action=lcd -start-insert directory_mru<CR>
@@ -974,6 +973,7 @@ nnoremap <Space>uT :Unite tag<CR>
 nnoremap <Space>uu :UniteResume<CR>
 nnoremap <Space>uU :Unite -buffer-name=resume resume<CR>
 nnoremap <Space>uw :Unite window<CR>
+nnoremap <Space>uy :Unite history/yank<CR>
 nnoremap <Space>uma :Unite mapping<CR>
 nnoremap <Space>ume :Unite output:message<CR>
 nnoremap <Space>ump :Unite output:map<CR>
@@ -3054,6 +3054,10 @@ nnoremap y' ""yiw
 nnoremap y" ""yiW
 nnoremap y= "+yiw
 nnoremap y+ "+yiW
+
+" Quick yank filename
+nnoremap <Leader>y5 :let @" = expand('%:t:r')<CR>
+nnoremap <Leader>y% :let @" = @%<CR>
 
 " Copy unnamed register to system clipboard
 nnoremap <Space>sr :let @+ = @"<CR>
