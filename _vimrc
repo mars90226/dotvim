@@ -624,7 +624,7 @@ if s:is_enabled_plugin("defx")
   nnoremap \-          :call <SID>opendir('Defx')<CR>
   nnoremap _           :call <SID>opendir('Defx -split=vertical')<CR>
   nnoremap <Space>-    :call <SID>opendir('Defx -split=horizontal')<CR>
-  nnoremap <Space>_    :call <SID>opendir('Defx -split=tab')<CR>
+  nnoremap <Space>_    :call <SID>opendir('Defx -split=tab -buffer-name=tab')<CR>
   nnoremap \.          :Defx .<CR>
 
   " Defx custom functions {{{
@@ -700,8 +700,15 @@ if s:is_enabled_plugin("defx")
   autocmd FileType defx call s:defx_my_settings()
   function! s:defx_my_settings() abort " {{{
     " Define mappings
-    nnoremap <silent><buffer><expr> <CR>
-          \ defx#do_action('drop')
+    if bufname('%') =~ 'tab'
+      nnoremap <silent><buffer><expr> <CR>
+            \ defx#do_action('open')
+    else
+      nnoremap <silent><buffer><expr> <CR>
+            \ defx#is_directory() ?
+            \ defx#do_action('open') :
+            \ defx#do_action('drop')
+    endif
     nnoremap <silent><buffer><expr> c
           \ defx#do_action('copy')
     nnoremap <silent><buffer><expr> cc
@@ -758,10 +765,13 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('change_vim_cwd')
     nnoremap <silent><buffer><expr> \c
           \ defx#do_action('cd', expand(input('cd: ')))
-    nnoremap <silent><buffer><expr> q
-          \ defx#do_action('quit')
-    nnoremap <silent><nowait><buffer><expr> Q
-          \ defx#do_action('quit') . ":quit<CR>"
+    if bufname('%') =~ 'tab'
+      nnoremap <silent><buffer><expr> q
+            \ defx#do_action('quit') . ":quit<CR>"
+    else
+      nnoremap <silent><buffer><expr> q
+            \ defx#do_action('quit')
+    endif
     nnoremap <silent><buffer><expr> `
           \ defx#do_action('toggle_select') . 'j'
     nnoremap <silent><buffer><expr> *
