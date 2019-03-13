@@ -2854,7 +2854,9 @@ set diffopt=filler,vertical
 
 " completion menu
 set pumheight=40
-set pumblend=0
+if exists('&pumblend')
+  set pumblend=0
+endif
 
 " ignore pattern for wildmenu
 set wildmenu
