@@ -726,6 +726,10 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('open', 'pedit')
     nnoremap <silent><buffer><expr> T
           \ defx#do_action('open', 'tab split')
+    nnoremap <silent><buffer><expr> o
+          \ defx#do_action('open_or_close_tree')
+    nnoremap <silent><buffer><expr> O
+          \ defx#do_action('open_tree_recursive')
     nnoremap <silent><buffer><expr> K
           \ defx#do_action('new_directory')
     nnoremap <silent><buffer><expr> N
@@ -756,6 +760,8 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('cd', expand(input('cd: ')))
     nnoremap <silent><buffer><expr> q
           \ defx#do_action('quit')
+    nnoremap <silent><nowait><buffer><expr> Q
+          \ defx#do_action('quit') . ":quit<CR>"
     nnoremap <silent><buffer><expr> `
           \ defx#do_action('toggle_select') . 'j'
     nnoremap <silent><buffer><expr> *
@@ -2752,13 +2758,17 @@ endif
 
 " Defx {{{
 if s:is_enabled_plugin("defx")
-  call defx#custom#column('mark', {
+  call defx#custom#column('filename', {
         \ 'directory_icon': '▸',
+        \ 'opened_icon': '▾',
+        \ 'root_icon': ' ',
+        \ })
+  call defx#custom#column('mark', {
         \ 'readonly_icon': '✗',
         \ 'selected_icon': '✓',
         \ })
   call defx#custom#option('_', {
-        \ 'columns': 'git:mark:filename:type'
+        \ 'columns': 'git:mark:filename:type:size:time'
         \ })
 endif
 " }}}
