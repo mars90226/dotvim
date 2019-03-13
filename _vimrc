@@ -617,15 +617,15 @@ if s:is_enabled_plugin("defx")
     endif
   endfunction
 
-  nnoremap <F4> :Defx -split=vertical -winwidth=35 -direction=topleft -toggle<CR>
+  nnoremap <F4>        :Defx -split=vertical -winwidth=35 -direction=topleft -toggle<CR>
   nnoremap <Space><F4> :Defx -split=vertical -winwidth=35 -direction=topleft -toggle `expand('%:p:h')` -search=`expand('%:p')`<CR>
-  nnoremap - :call <SID>opendir('Defx')<CR>
-  nnoremap + :call <SID>opendir('Defx')<CR>
-  nnoremap \- :call <SID>opendir('Defx')<CR>
-  nnoremap _ :call <SID>opendir('Defx -split=vertical')<CR>
-  nnoremap <Space>- :call <SID>opendir('Defx -split=horizontal')<CR>
-  nnoremap <Space>_ :call <SID>opendir('Defx -split=tab')<CR>
-  nnoremap \. :Defx .<CR>
+  nnoremap -           :call <SID>opendir('Defx')<CR>
+  nnoremap +           :call <SID>opendir('Defx')<CR>
+  nnoremap \-          :call <SID>opendir('Defx')<CR>
+  nnoremap _           :call <SID>opendir('Defx -split=vertical')<CR>
+  nnoremap <Space>-    :call <SID>opendir('Defx -split=horizontal')<CR>
+  nnoremap <Space>_    :call <SID>opendir('Defx -split=tab')<CR>
+  nnoremap \.          :Defx .<CR>
 
   " Defx custom functions {{{
   function! s:defx_get_folder(context) abort
@@ -2540,6 +2540,8 @@ Plug 'kopischke/vim-fetch'
 Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-eunuch'
 Plug 'DougBeney/pickachu', { 'on': 'Pick' }
+Plug 'tweekmonster/helpful.vim'
+Plug 'tweekmonster/startuptime.vim'
 " }}}
 
 " Plugin Settings End {{{
