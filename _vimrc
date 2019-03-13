@@ -2817,13 +2817,17 @@ set hidden
 set lazyredraw
 set mouse=a
 set modeline
-set updatetime=100
+set updatetime=100 " default: 4000
 set cursorline
 set ruler " show the cursor position all the time
 
 set scrolloff=0
 
 set diffopt=filler,vertical
+
+" completion menu
+set pumheight=40
+set pumblend=0
 
 " ignore pattern for wildmenu
 set wildmenu
@@ -2868,6 +2872,8 @@ set sessionoptions-=blank
 if !exists('g:syntax_on')
   syntax on
 endif
+" lowering the value to improve performance on long line
+set synmaxcol=1500  " default: 3000, 0: unlimited
 
 " filetype
 filetype on
@@ -3056,7 +3062,9 @@ function! ToggleFoldBetweenManualAndSyntax()
   endif
 endfunction
 
-let g:last_tab = 1
+if !exists("g:last_tab")
+  let g:last_tab = 1
+endif
 function! s:last_tab()
   execute "tabn " . g:last_tab
 endfunction
@@ -3233,7 +3241,7 @@ endif
 " neovim terminal key mapping and settings
 if has("nvim")
   " Set terminal buffer size to unlimited
-  set scrollback=-1
+  set scrollback=100000
 
   " For quick terminal access
   nnoremap <silent> <Leader>tr :terminal<CR>i
