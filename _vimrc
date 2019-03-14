@@ -1513,6 +1513,7 @@ command! -nargs=1 Tselect call fzf#run(fzf#wrap({
       \ 'down':   '40%'}))
 
 " TODO Add Jumps command preview
+" TODO Use <C-o> & <C-i> to actually jump back and forth
 function! s:jump_sink(lines)
   if len(a:lines) < 2
     return
