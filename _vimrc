@@ -2556,6 +2556,17 @@ endif
 "   Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 " endif
 " " }}}
+" goyo.vim {{{
+Plug 'junegunn/goyo.vim'
+
+nnoremap <Leader>gy :Goyo<CR>
+" }}}
+
+" limelight.vim {{{
+Plug 'junegunn/limelight.vim'
+
+nnoremap <Leader><C-l> :Limelight!!<CR>
+" }}}
 
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
 Plug 'tyru/open-browser.vim'
