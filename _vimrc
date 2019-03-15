@@ -2550,12 +2550,6 @@ if s:is_enabled_plugin('vim-highlightedyank')
 endif
 " }}}
 
-" " nvim-gdb {{{
-" Disabled for now as neovim's neovim_gdb.vim seems not exists
-" if has("nvim")
-"   Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
-" endif
-" " }}}
 " goyo.vim {{{
 Plug 'junegunn/goyo.vim'
 
@@ -2585,8 +2579,15 @@ Plug 'tpope/vim-eunuch'
 Plug 'DougBeney/pickachu', { 'on': 'Pick' }
 Plug 'tweekmonster/helpful.vim'
 Plug 'tweekmonster/startuptime.vim'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
+
+" " nvim-gdb {{{
+" Disabled for now as neovim's neovim_gdb.vim seems not exists
+" if has("nvim")
+"   Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+" endif
+
+" " }}}
+
 " }}}
 
 " Plugin Settings End {{{
