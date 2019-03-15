@@ -2574,6 +2574,8 @@ Plug 'tpope/vim-eunuch'
 Plug 'DougBeney/pickachu', { 'on': 'Pick' }
 Plug 'tweekmonster/helpful.vim'
 Plug 'tweekmonster/startuptime.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 " }}}
 
 " Plugin Settings End {{{
