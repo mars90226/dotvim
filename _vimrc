@@ -2267,7 +2267,13 @@ if executable('cargo')
 endif
 " }}}
 
+" vim-go {{{
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+let g:go_decls_mode = 'fzf'
+
+" TODO Add key mappings for vim-go commands
+" }}}
 
 " vim-polyglot {{{
 Plug 'sheerun/vim-polyglot'
