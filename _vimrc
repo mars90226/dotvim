@@ -743,7 +743,7 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('new_file')
     nnoremap <silent><buffer><expr> M
           \ defx#do_action('new_multiple_files')
-    nnoremap <silent><buffer><expr> d
+    nnoremap <silent><buffer><nowait><expr> d
           \ defx#do_action('remove_trash')
     nnoremap <silent><buffer><expr> r
           \ defx#do_action('rename')
