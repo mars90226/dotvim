@@ -3045,10 +3045,13 @@ nnoremap <C-w><Space>> <C-w>10>
 nnoremap <Leader>t< :tabmove -1<CR>
 nnoremap <Leader>t> :tabmove +1<CR>
 
-" Create new line in insert mode {{{
+" Create new line in insert mode
 inoremap <M-o> <C-o>o
 inoremap <M-S-o> <C-o>O
-" }}}
+
+" Create new line without indent & prefix
+nnoremap <M-o> o <C-u>
+nnoremap <M-O> O <C-u>
 
 " Save
 nnoremap <C-s> :update<CR>
