@@ -1123,15 +1123,17 @@ if s:is_enabled_plugin('denite.nvim')
   execute 'nnoremap <Space>u<C-p> ' . s:unite_project_file
 
   nnoremap <Space>p :Denite -buffer-name=files -auto-resume buffer dirmark file<CR>
-  nnoremap <Space>P :Denite -buffer-name=files -auto-resume file_rec<CR>
+  nnoremap <Space>P :Denite -buffer-name=files -auto-resume file/rec<CR>
   " }}}
+
+  " TODO Denite quickfix seems not working
 
   nnoremap <Space>O :Denite outline<CR>
 
   nnoremap <Space>da :Denite location_list<CR>
   nnoremap <Space>db :DeniteBufferDir -buffer-name=files -auto-resume buffer dirmark file<CR>
   nnoremap <Space>dc :Denite -auto-preview change<CR>
-  nnoremap <Space>dd :Denite directory_rec<CR>
+  nnoremap <Space>dd :Denite directory/rec<CR>
   nnoremap <Space>dD :Denite directory_mru<CR>
   nnoremap <Space>df :Denite filetype<CR>
   nnoremap <Space>dh :Denite help<CR>
@@ -1152,7 +1154,7 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>dO :Denite outline<CR>
   nnoremap <Space>d<C-o> :Denite unite:outline<CR>
   nnoremap <Space>dp :Denite -buffer-name=files -auto-resume buffer dirmark file<CR>
-  nnoremap <Space>dP :Denite -buffer-name=files -auto-resume file_rec<CR>
+  nnoremap <Space>dP :Denite -buffer-name=files -auto-resume file/rec<CR>
   nnoremap <Space>d<C-p> :DeniteProjectDir -buffer-name=files -auto-resume buffer dirmark file<CR>
   nnoremap <Space>dq :Denite quickfix<CR>
   nnoremap <Space>dr :Denite register<CR>
