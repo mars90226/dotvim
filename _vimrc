@@ -2884,7 +2884,13 @@ endif
 " ignore pattern for wildmenu
 set wildmenu
 set wildignore+=*.a,*.o,*.pyc,*~,*.swp,*.tmp
-set wildmode=list:longest,full
+if has("nvim")
+  set wildmode=full
+  set wildoptions+=pum
+else
+  set wildmode=list:longest,full
+endif
+set wildoptions+=tagfile
 
 " show hidden characters
 set list
