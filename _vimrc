@@ -1090,6 +1090,8 @@ function! s:unite_my_settings() "{{{
   " Unmap <Space>, use ` instead
   silent! nunmap <buffer> <Space>
   nmap <silent><buffer> ` <Plug>(unite_toggle_mark_current_candidate)
+  silent! xunmap <buffer> <Space>
+  xmap <silent><buffer> ` <Plug>(unite_toggle_mark_selected_candidates)
 endfunction "}}}
 " }}}
 
