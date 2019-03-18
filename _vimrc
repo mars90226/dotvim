@@ -784,6 +784,8 @@ if s:is_enabled_plugin("defx")
           \ line('.') == 1 ? 'G' : 'k'
     nnoremap <silent><buffer><expr> <C-l>
           \ defx#do_action('redraw')
+    xnoremap <silent><buffer><expr> <CR>
+          \ defx#do_action('toggle_select_visual')
     nnoremap <silent><buffer><expr> <C-g>
           \ defx#do_action('print')
     nnoremap <silent><buffer><expr> <C-t><C-r>
