@@ -246,9 +246,9 @@ if s:is_enabled_plugin('deoplete.nvim')
 
   " TODO Move this out of deoplete.nvim section
   " Dock mode display error
-  " if has("nvim")
-  "   Plug 'ncm2/float-preview.nvim'
-  " endif
+  if has("nvim")
+    Plug 'ncm2/float-preview.nvim'
+  endif
 
   " Disabled for now
   " Plug 'autozimu/LanguageClient-neovim', {
@@ -290,9 +290,11 @@ if s:is_enabled_plugin('deoplete.nvim')
   let g:deoplete#sources#ternjs#tern_bin = $VIMHOME . "/plugged/tern_for_vim/node_modules/tern/bin/tern"
 
   " float-preview.nvim
-  " if has("nvim")
-  "   let g:float_preview#docked = 0
-  " endif
+  if has("nvim")
+    set completeopt-=preview
+
+    let g:float_preview#docked = 0
+  endif
 
   " <Tab>: completion.
   inoremap <silent><expr> <Tab>
