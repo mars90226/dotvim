@@ -297,6 +297,8 @@ if s:is_enabled_plugin('deoplete.nvim')
     let g:float_preview#docked = 0
   endif
 
+  " TODO Set python & python3 for jedi
+
   " <Tab>: completion.
   inoremap <silent><expr> <Tab>
         \ pumvisible() ? "\<C-n>" :
