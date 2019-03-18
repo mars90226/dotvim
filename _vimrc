@@ -3094,6 +3094,20 @@ cnoremap <expr> <C-g><C-t> <SID>rg_current_type_option()
 " <C-]> and <C-%> is the same key
 cnoremap <expr> <C-g><C-]> expand('%:t:r')
 
+" Quickfix & Locaiton List {{{
+augroup quickfixSettings
+  autocmd!
+  autocmd FileType qf call s:quickfix_settings()
+augroup END
+
+function! s:quickfix_settings()
+  nnoremap <buffer> <silent> q :close<CR>
+  nnoremap <buffer> <silent> <C-t> :set switchbuf+=newtab<CR><CR>:set switchbuf-=newtab<CR>
+  nnoremap <buffer> <silent> <C-s> :set switchbuf+=split<CR><CR>:set switchbuf-=split<CR>
+  nnoremap <buffer> <silent> <C-v> :set switchbuf+=vsplit<CR><CR>:set switchbuf-=vsplit<CR>
+endfunction
+" }}}
+
 " Custom function {{{
 nnoremap <F6> :call ToggleIndentBetweenTabAndSpace()<CR>
 function! ToggleIndentBetweenTabAndSpace()
@@ -3399,14 +3413,6 @@ augroup fileTypeSpecific
 
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
-augroup END
-
-augroup quickfixSettings
-  autocmd!
-  autocmd FileType qf
-        \ nnoremap <buffer> <silent> q :close<CR> |
-        \ map <buffer> <silent> <F4> :close<CR> |
-        \ map <buffer> <silent> <F8> :close<CR>
 augroup END
 
 if s:os =~ "windows" && !has("gui_running") && !has("nvim")
