@@ -241,6 +241,7 @@ if s:is_enabled_plugin('deoplete.nvim')
   Plug 'Shougo/neco-vim'
   Plug 'sebastianmarkow/deoplete-rust', { 'for': ['rust'] }
   Plug 'deoplete-plugins/deoplete-jedi'
+  Plug 'deoplete-plugins/deoplete-zsh'
 
   " tern_for_vim will install tern
   Plug 'carlitux/deoplete-ternjs' ", { 'do': 'npm install -g tern' }
