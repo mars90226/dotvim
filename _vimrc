@@ -3390,6 +3390,7 @@ if has("nvim")
   nnoremap <silent> <Leader>ts :new    <Bar> :terminal<CR>i
   nnoremap <silent> <Leader>tv :vnew   <Bar> :terminal<CR>i
 
+  " Quick terminal function
   tnoremap <M-F1> <C-\><C-n>
   tnoremap <M-F2> <C-\><C-n>:tabnew<CR>:terminal<CR>i
   tnoremap <M-F3> <C-\><C-n>:Windows<CR>
@@ -3405,13 +3406,39 @@ if has("nvim")
   tnoremap <M-C-k> <C-\><C-n>gt
 
   " Quickly switch to last tab in terminal
-  tnoremap <M-1> <C-\><C-n>:call <SID>last_tab()<CR>
+  tnoremap <M-1> <C-\><C-n>:LastTab<CR>
 
   " Quickly paste from register
   tnoremap <expr> <M-r> '<C-\><C-n>"' . nr2char(getchar()) . 'pi'
 
   " Quickly suspend neovim
   tnoremap <M-C-z> <C-\><C-n>:suspend<CR>
+
+  " For nested neovim {{{
+    " Quick terminal function
+    tnoremap <M-q>1 <C-\><C-\><C-n>
+    tnoremap <M-q>2 <C-\><C-\><C-n>:tabnew<CR>:terminal<CR>i
+    tnoremap <M-q>3 <C-\><C-\><C-n>:Windows<CR>
+
+    " Quickly switch window in terminal
+    tnoremap <M-q><M-h> <C-\><C-\><C-n><C-w>h
+    tnoremap <M-q><M-j> <C-\><C-\><C-n><C-w>j
+    tnoremap <M-q><M-k> <C-\><C-\><C-n><C-w>k
+    tnoremap <M-q><M-l> <C-\><C-\><C-n><C-w>l
+
+    " Quickly switch tab in terminal
+    tnoremap <M-q><C-j> <C-\><C-\><C-n>gT
+    tnoremap <M-q><C-k> <C-\><C-\><C-n>gt
+
+    " Quickly switch to last tab in terminal
+    tnoremap <M-q><M-1> <C-\><C-\><C-n>:LastTab<CR>
+
+    " Quickly paste from register
+    tnoremap <expr> <M-q><M-r> '<C-\><C-\><C-n>"' . nr2char(getchar()) . 'pi'
+
+    " Quickly suspend neovim
+    tnoremap <M-q><C-z> <C-\><C-\><C-n>:suspend<CR>
+  " }}}
 
   " Search keyword with Google using surfraw
   if executable('sr')
