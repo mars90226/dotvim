@@ -2341,15 +2341,15 @@ Plug 'davidhalter/jedi-vim'
 
 let g:jedi#completions_enabled = 1
 
-let g:jedi#goto_command = "<Leader>jg"
-let g:jedi#goto_assignments_command = "<Leader>ja"
-let g:jedi#goto_definitions_command = "<Leader>jd"
-let g:jedi#documentation_command = "<C-x><C-k>"
-let g:jedi#usages_command = "<Leader>jc"
-let g:jedi#completions_command = "<C-x><C-x>"
-let g:jedi#rename_command = "<Leader>jr"
+let g:jedi#goto_command             = "<C-x><C-g>"
+let g:jedi#goto_assignments_command = "<C-x>a"
+let g:jedi#goto_definitions_command = "<C-x><C-d>"
+let g:jedi#documentation_command    = "<C-x><C-k>"
+let g:jedi#usages_command           = "<C-x>c"
+let g:jedi#completions_command      = "<C-x><C-x>"
+let g:jedi#rename_command           = "<C-x><C-r>"
 
-nnoremap <Leader>j<C-l> :call jedi#remove_usages()<CR>
+nnoremap <C-x><C-l> :call jedi#remove_usages()<CR>
 " }}}
 
 Plug 'moll/vim-node', { 'for': [] }
