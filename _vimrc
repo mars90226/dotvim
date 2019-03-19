@@ -3415,6 +3415,8 @@ if has("nvim")
   tnoremap <M-C-z> <C-\><C-n>:suspend<CR>
 
   " For nested neovim {{{
+    " Use <M-q> as prefix
+
     " Quick terminal function
     tnoremap <M-q>1 <C-\><C-\><C-n>
     tnoremap <M-q>2 <C-\><C-\><C-n>:tabnew<CR>:terminal<CR>i
