@@ -3232,7 +3232,8 @@ function! s:toggle_parent_folder_tag()
     execute 'set tags+=' . s:parent_folder_tag_pattern
   endif
 endfunction
-nnoremap <silent> <Leader>p :call <SID>toggle_parent_folder_tag()<CR>
+command! ToggleParentFolderTag call s:toggle_parent_folder_tag()
+nnoremap <silent> <Leader>p :ToggleParentFolderTag<CR>
 
 " display file size
 function! s:file_size(path)
