@@ -2426,8 +2426,8 @@ Plug 'airblade/vim-gitgutter'
 
 nmap <silent> [h <Plug>GitGutterPrevHunk
 nmap <silent> ]h <Plug>GitGutterNextHunk
-nnoremap <silent> <Leader>gu :GitGutterRevertHunk<CR>
-nnoremap <silent> <Leader>gp :GitGutterPreviewHunk<CR><c-w>j
+nmap <silent> <Leader>gu <Plug>GitGutterUndoHunk
+nmap <silent> <Leader>gp <Plug>GitGutterPreviewHunk<C-w>j
 nnoremap cog :GitGutterToggle<CR>
 nnoremap <Leader>gt :GitGutterAll<CR>
 
