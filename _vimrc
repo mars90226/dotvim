@@ -788,6 +788,8 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('cd', ['..'])
     nnoremap <silent><buffer><expr> ~
           \ defx#do_action('cd')
+    nnoremap <silent><buffer><expr> gr
+          \ defx#do_action('cd', '/')
     nnoremap <silent><buffer><expr> \
           \ defx#do_action('cd', getcwd())
     nnoremap <silent><buffer><expr> \\
