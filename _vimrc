@@ -2345,9 +2345,10 @@ let g:jedi#goto_assignments_command = "<Leader>ja"
 let g:jedi#goto_definitions_command = "<Leader>jd"
 let g:jedi#documentation_command = "<C-x><C-k>"
 let g:jedi#usages_command = "<Leader>jc"
-let g:jedi#usages_command = "<Leader>jc"
 let g:jedi#completions_command = "<C-x><C-x>"
 let g:jedi#rename_command = "<Leader>jr"
+
+nnoremap <Leader>j<C-l> :call jedi#remove_usages()<CR>
 " }}}
 
 Plug 'moll/vim-node', { 'for': [] }
