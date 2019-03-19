@@ -653,7 +653,19 @@ if s:is_enabled_plugin("defx")
   function! s:defx_fzf_files(context) abort
     let path = s:defx_get_folder(a:context)
 
-    execute 'Files ' . path
+    call fzf#vim#files(
+          \ path,
+          \ extend({
+          \   'sink': function('s:defx_fzf_files_sink'),
+          \ }, fzf#vim#with_preview()),
+          \ 0)
+  endfunction
+  function! s:defx_fzf_files_sink(line)
+    if isdirectory(a:line)
+      call defx#call_action('cd', a:line)
+    else
+      execute 'edit ' . a:line
+    endif
   endfunction
 
   function! s:defx_fzf_rg_internal(context, prompt, bang) abort
