@@ -660,6 +660,7 @@ if s:is_enabled_plugin("defx")
           \ }, fzf#vim#with_preview()),
           \ 0)
   endfunction
+  " TODO May need to escape a:line
   function! s:defx_fzf_files_sink(line)
     if isdirectory(a:line)
       call defx#call_action('cd', a:line)
