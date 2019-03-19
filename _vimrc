@@ -2358,6 +2358,7 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'scrooloose/vim-slumlord'
 Plug 'mars90226/perldoc-vim'
 Plug 'gyim/vim-boxdraw'
+Plug 'fs111/pydoc.vim'
 " }}}
 
 " Git {{{
