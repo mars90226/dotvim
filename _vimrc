@@ -1256,6 +1256,7 @@ omap <Space><Tab> <Plug>(fzf-maps-o)
 " Insert mode completion
 imap <C-x><C-k> <Plug>(fzf-complete-word)
 imap <C-x><C-f> <Plug>(fzf-complete-path)
+" <C-j> is <NL>
 imap <C-x><C-j> <Plug>(fzf-complete-file-ag)
 imap <C-x><C-l> <Plug>(fzf-complete-line)
 inoremap <expr> <C-x><C-d> fzf#vim#complete#path('fd -t d')
@@ -2334,6 +2335,21 @@ function! s:tern_for_vim_settings()
 endfunction
 " }}}
 
+" jedi-vim {{{
+Plug 'davidhalter/jedi-vim'
+
+let g:jedi#completions_enabled = 1
+
+let g:jedi#goto_command = "<Leader>jg"
+let g:jedi#goto_assignments_command = "<Leader>ja"
+let g:jedi#goto_definitions_command = "<Leader>jd"
+let g:jedi#documentation_command = "<C-x><C-k>"
+let g:jedi#usages_command = "<Leader>jc"
+let g:jedi#usages_command = "<Leader>jc"
+let g:jedi#completions_command = "<C-x><C-x>"
+let g:jedi#rename_command = "<Leader>jr"
+" }}}
+
 Plug 'moll/vim-node', { 'for': [] }
 Plug 'tpope/vim-rails', { 'for': [] }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -3387,7 +3403,7 @@ if has("nvim")
       startinsert
       call nvim_input('sr google ' . a:keyword . "\n")
     endfunction
-    nnoremap <Leader>k :execute 'GoogleKeyword ' . expand('<cword>')<CR>
+    nnoremap <Leader>kk :execute 'GoogleKeyword ' . expand('<cword>')<CR>
   endif
 endif
 " }}}
