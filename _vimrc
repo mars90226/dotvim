@@ -2947,7 +2947,8 @@ set wildmenu
 set wildignore+=*.a,*.o,*.pyc,*~,*.swp,*.tmp
 if has("nvim")
   set wildmode=full
-  set wildoptions+=pum
+  " FIXME Should check wildoptions=pum exists, but currently can't be done
+  silent! set wildoptions+=pum
 else
   set wildmode=list:longest,full
 endif
