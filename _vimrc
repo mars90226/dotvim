@@ -1149,6 +1149,7 @@ if s:is_enabled_plugin('denite.nvim')
   " }}}
 
   " TODO Denite quickfix seems not working
+  " TODO Add Denite tselect source
 
   nnoremap <Space>O :Denite outline<CR>
 
@@ -1545,18 +1546,22 @@ endfunction
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
 
-function! s:tselect_sink(line)
-  let list = matchlist(a:line, '^\%(\s\+\S\+\)\{4}\s\+\(\S\+\)') " # pri kind tag file
-  call execute("edit " . list[1])
+function! s:tselect_sink(lines)
+  if len(a:lines) < 2
+    return
+  endif
+  let cmd = s:action_for(a:lines[0], 'e')
+  let list = matchlist(a:lines[1], '\v^%(\s+\S+){4}\s+(\S+)') " # pri kind tag file
+  execute cmd . ' ' . list[1]
 endfunction
 
 function! s:get_tselect(query)
-  return split(execute("tselect " . a:query, "silent!"), "\n")
+  return filter(split(execute("tselect " . a:query, "silent!"), "\n"), 'v:val =~ "^\\s\\+\\d"')
 endfunction
 command! -nargs=1 Tselect call fzf#run(fzf#wrap({
       \ 'source': s:get_tselect(<q-args>),
-      \ 'sink':   function('s:tselect_sink'),
-      \ 'options': '+s',
+      \ 'sink*':   function('s:tselect_sink'),
+      \ 'options': '+s --expect=' . join(keys(g:fzf_action), ','),
       \ 'down':   '40%'}))
 
 " TODO Add Jumps command preview
