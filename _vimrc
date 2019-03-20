@@ -643,7 +643,7 @@ if s:is_enabled_plugin("defx")
   nnoremap <Space>-    :call <SID>opendir('Defx -split=horizontal')<CR>
   nnoremap <Space>_    :call <SID>opendir('Defx -split=tab -buffer-name=tab')<CR>
   nnoremap \.          :Defx .<CR>
-  nnoremap \>          :Defx -split=tab .<CR>
+  nnoremap \>          :Defx -split=tab -buffer-name=tab .<CR>
 
   " Defx custom functions {{{
   function! s:defx_get_folder(context) abort
