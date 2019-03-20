@@ -2364,7 +2364,15 @@ let g:jedi#usages_command           = "<C-x>c"
 let g:jedi#completions_command      = "<C-x><C-x>"
 let g:jedi#rename_command           = "<C-x><C-r>"
 
-nnoremap <C-x><C-l> :call jedi#remove_usages()<CR>
+augroup jedi_vim_settings
+  autocmd!
+  autocmd FileType python call s:jedi_vim_settings()
+augroup END
+
+function! s:jedi_vim_settings()
+  nnoremap <C-x><C-l> :call jedi#remove_usages()<CR>
+  nnoremap <C-x><C-t> :tab split <Bar> call jedi#remove_usages()<CR>
+endfunction
 " }}}
 
 Plug 'moll/vim-node', { 'for': [] }
