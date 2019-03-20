@@ -2371,7 +2371,7 @@ augroup END
 
 function! s:jedi_vim_settings()
   nnoremap <C-x><C-l> :call jedi#remove_usages()<CR>
-  nnoremap <C-x><C-t> :tab split <Bar> call jedi#remove_usages()<CR>
+  nnoremap <C-x><C-t> :tab split <Bar> call jedi#goto()<CR>
 endfunction
 " }}}
 
