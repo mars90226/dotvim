@@ -3383,24 +3383,52 @@ endif
 " Fix meta key in vim
 " terminal meta key fix {{{
 if !has("nvim") && !has("gui_running") && s:os !~ "windows"
-  set <M-a>=a |
-  set <M-c>=c |
-  set <M-h>=h |
-  set <M-g>=g |
-  set <M-j>=j |
-  set <M-k>=k |
-  set <M-l>=l |
-  set <M-n>=n |
-  set <M-o>=o |
-  set <M-p>=p |
-  set <M-s>=s |
-  set <M-t>=t |
-  set <M-/>=/ |
-  set <M-?>=? |
-  set <M-]>=] |
-  set <M-`>=` |
-  set <M-1>=1 |
-  set <M-S-o>=O
+  if s:os =~ "windows"
+    " Windows Terminal keycode will change after startup
+    " Maybe it's related to ConEmu
+    " This fix will not work after reload .vimrc/_vimrc
+    augroup WindowsTerminalKeyFix
+      autocmd!
+      autocmd VimEnter *
+            \ set <M-a>=a |
+            \ set <M-c>=c |
+            \ set <M-h>=h |
+            \ set <M-g>=g |
+            \ set <M-j>=j |
+            \ set <M-k>=k |
+            \ set <M-l>=l |
+            \ set <M-n>=n |
+            \ set <M-o>=o |
+            \ set <M-p>=p |
+            \ set <M-s>=s |
+            \ set <M-t>=t |
+            \ set <M-/>=/ |
+            \ set <M-?>=? |
+            \ set <M-]>=] |
+            \ set <M-`>=` |
+            \ set <M-1>=1 |
+            \ set <M-S-o>=O
+    augroup END
+  else
+    set <M-a>=a |
+    set <M-c>=c |
+    set <M-h>=h |
+    set <M-g>=g |
+    set <M-j>=j |
+    set <M-k>=k |
+    set <M-l>=l |
+    set <M-n>=n |
+    set <M-o>=o |
+    set <M-p>=p |
+    set <M-s>=s |
+    set <M-t>=t |
+    set <M-/>=/ |
+    set <M-?>=? |
+    set <M-]>=] |
+    set <M-`>=` |
+    set <M-1>=1 |
+    set <M-S-o>=O
+  endif
 endif
 " }}}
 
@@ -3467,7 +3495,30 @@ if has("nvim")
     tnoremap <M-q><C-z> <C-\><C-\><C-n>:suspend<CR>
   " }}}
 
-  " Search keyword with Google using surfraw
+  augroup terminalSettings
+    autocmd!
+    autocmd TermOpen * call s:terminal_settings()
+    autocmd BufWinEnter,WinEnter term://* startinsert
+    autocmd BufLeave term://* stopinsert
+    " Ignore fzf as fzf will close terminal automatically
+    autocmd TermClose term://*
+          \ if (bufname('%') !~ "fzf") && (bufname('%') !~ "ranger") |
+          \   call nvim_input('<CR>')  |
+          \ endif
+  augroup END
+
+  function! s:terminal_settings()
+    setlocal bufhidden=hide
+    setlocal nolist
+    setlocal nowrap
+    setlocal nofoldenable
+    setlocal foldcolumn=0
+    setlocal colorcolumn=
+    setlocal nonumber
+    setlocal norelativenumber
+  endfunction
+
+  " Search keyword with Google using surfraw {{{
   if executable('sr')
     command! -nargs=1 GoogleKeyword call s:google_keyword(<q-args>)
     function! s:google_keyword(keyword)
@@ -3478,6 +3529,7 @@ if has("nvim")
     endfunction
     nnoremap <Leader>kk :execute 'GoogleKeyword ' . expand('<cword>')<CR>
   endif
+  " }}}
 endif
 " }}}
 
@@ -3538,47 +3590,6 @@ augroup fileTypeSpecific
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
 augroup END
-
-if s:os =~ "windows" && !has("gui_running") && !has("nvim")
-  " Windows Terminal keycode will change after startup
-  " Maybe it's related to ConEmu
-  " This fix will not work after reload .vimrc/_vimrc
-  augroup WindowsTerminalKeyFix
-    autocmd!
-    autocmd VimEnter *
-          \ set <M-a>=a |
-          \ set <M-c>=c |
-          \ set <M-h>=h |
-          \ set <M-g>=g |
-          \ set <M-j>=j |
-          \ set <M-k>=k |
-          \ set <M-l>=l |
-          \ set <M-n>=n |
-          \ set <M-o>=o |
-          \ set <M-p>=p |
-          \ set <M-s>=s |
-          \ set <M-t>=t |
-          \ set <M-/>=/ |
-          \ set <M-?>=? |
-          \ set <M-]>=] |
-          \ set <M-`>=` |
-          \ set <M-1>=1 |
-          \ set <M-S-o>=O
-  augroup END
-endif
-
-if has("nvim")
-  augroup terminalSettings
-    autocmd!
-    autocmd BufWinEnter,WinEnter term://* startinsert
-    autocmd BufLeave term://* stopinsert
-    " Ignore fzf as fzf will close terminal automatically
-    autocmd TermClose term://*
-          \ if (bufname('%') !~ "fzf") && (bufname('%') !~ "ranger") |
-          \   call nvim_input('<CR>')  |
-          \ endif
-  augroup END
-endif
 " }}}
 
 " Fix and Workarounds {{{
