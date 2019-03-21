@@ -106,6 +106,14 @@ else
   call s:disable_plugin('ale')
 end
 
+" Choose file explorer
+" Defx requires python 3.6
+if has("nvim") && s:python_version() =~ "^3.6"
+  call s:disable_plugin("vimfiler")
+else
+  call s:disable_plugin("defx")
+endif
+
 if !has("python")
   call s:disable_plugin('github-issues.vim')
 endif
@@ -124,15 +132,11 @@ endif
 if !exists("##TextYankPost")
   call s:disable_plugin('vim-highlightedyank')
 endif
-" }}}
 
-" Choose file explorer
-" Defx requires python 3.6
-if has("nvim") && s:python_version() =~ "^3.6"
-  call s:disable_plugin("vimfiler")
-else
-  call s:disable_plugin("defx")
+if $NVIM_TERMINAL == "yes"
+  call s:disable_plugin('git-p.nvim')
 endif
+" }}}
 
 " Autoinstall vim-plug {{{
 if empty(glob($VIMHOME.'/autoload/plug.vim'))
@@ -2487,10 +2491,13 @@ xnoremap <Space>gb :Gina blame<CR>
 " }}}
 
 " git-p.nvim {{{
-Plug 'iamcco/sran.nvim', { 'do': { -> sran#util#install() } }
-Plug 'iamcco/git-p.nvim'
+" Disable git-p.nvim in nested neovim due to channel error
+if s:is_enabled_plugin('git-p.nvim')
+  Plug 'iamcco/sran.nvim', { 'do': { -> sran#util#install() } }
+  Plug 'iamcco/git-p.nvim'
 
-nmap <Leader>gp <Plug>(git-p-diff-preview)
+  nmap <Leader>gp <Plug>(git-p-diff-preview)
+endif
 " }}}
 
 Plug 'mattn/gist-vim'
