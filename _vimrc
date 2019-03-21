@@ -2440,8 +2440,6 @@ Plug 'airblade/vim-gitgutter'
 
 nmap <silent> [h <Plug>GitGutterPrevHunk
 nmap <silent> ]h <Plug>GitGutterNextHunk
-nmap <silent> <Leader>gu <Plug>GitGutterUndoHunk
-nmap <silent> <Leader>gp <Plug>GitGutterPreviewHunk<C-w>j
 nnoremap cog :GitGutterToggle<CR>
 nnoremap <Leader>gt :GitGutterAll<CR>
 
@@ -2481,6 +2479,13 @@ Plug 'lambdalisue/gina.vim'
 
 nnoremap <Space>gb :Gina blame<CR>
 xnoremap <Space>gb :Gina blame<CR>
+" }}}
+
+" git-p.nvim {{{
+Plug 'iamcco/sran.nvim', { 'do': { -> sran#util#install() } }
+Plug 'iamcco/git-p.nvim'
+
+nmap <Leader>gp <Plug>(git-p-diff-preview)
 " }}}
 
 Plug 'mattn/gist-vim'
