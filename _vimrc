@@ -1265,9 +1265,9 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit',
   \ 'alt-v': 'rightbelow vsplit',
-  \ 'alt-x': 'DefxOpenSink',
   \ 'alt-c': function('s:copy_results'),
   \ 'alt-e': 'cd',
+  \ 'alt-/': 'DefxOpenSink',
   \ }
 
 " Mapping selecting mappings
