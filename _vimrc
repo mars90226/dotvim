@@ -657,18 +657,23 @@ if s:is_enabled_plugin("defx")
     call fzf#vim#files(
           \ path,
           \ extend({
-          \   'sink': function('s:defx_fzf_files_sink'),
+          \   'sink': function('s:fzf_open_file_or_directory_in_defx_sink'),
           \ }, fzf#vim#with_preview()),
           \ 0)
   endfunction
   " TODO May need to escape a:line
-  function! s:defx_fzf_files_sink(line)
+  function! s:fzf_open_file_or_directory_in_defx_sink(line)
     if isdirectory(a:line)
-      call defx#call_action('cd', a:line)
+      if &filetype == 'defx'
+        call defx#call_action('cd', a:line)
+      else
+        execute 'Defx ' . a:line
+      endif
     else
       execute 'edit ' . a:line
     endif
   endfunction
+  command! -nargs=1 -complete=file DefxOpenSink :call s:fzf_open_file_or_directory_in_defx_sink(<q-args>)
 
   function! s:defx_fzf_rg_internal(context, prompt, bang) abort
     let path = s:defx_get_folder(a:context)
@@ -1260,7 +1265,7 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit',
   \ 'alt-v': 'rightbelow vsplit',
-  \ 'alt-x': 'Defx',
+  \ 'alt-x': 'DefxOpenSink',
   \ 'alt-c': function('s:copy_results'),
   \ 'alt-e': 'cd',
   \ }
