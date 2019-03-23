@@ -1563,7 +1563,9 @@ function! s:tselect_sink(lines)
     return
   endif
   let cmd = s:action_for(a:lines[0], 'e')
-  let list = matchlist(a:lines[1], '\v^%(\s+\S+){4}\s+(\S+)') " # pri kind tag file
+  " # [pri] kind tag file
+  " This will capture last component
+  let list = matchlist(a:lines[1], '\v^%(\s+\S+)*\s+(\S+)') 
   execute cmd . ' ' . list[1]
 endfunction
 
