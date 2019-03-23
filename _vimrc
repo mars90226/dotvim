@@ -430,7 +430,9 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 " }}}
 
 " tmux-complete.vim {{{
-Plug 'wellle/tmux-complete.vim'
+if executable('tmux')
+  Plug 'wellle/tmux-complete.vim'
+endif
 " }}}
 " }}}
 
