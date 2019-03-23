@@ -2527,6 +2527,7 @@ let g:nremap = {"[a": "", "]a": "", "[A": "", "]A": ""}
 
 nnoremap coe :set expandtab!<CR>
 nnoremap com :set modifiable!<CR>
+nnoremap coo :set readonly!<CR>
 nnoremap cop :set paste!<CR>
 " }}}
 
