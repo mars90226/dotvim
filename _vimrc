@@ -10,12 +10,13 @@ else
 endif
 
 " Set $VIMHOME
-" TODO May migrate to $HOME as ensure each user can have his/her own setting
-if s:os =~ "windows"
-  let $VIMHOME = $VIM."/vimfiles"
-else
-  let $VIMHOME = $HOME."/.vim"
-endif
+" if s:os =~ "windows"
+"   let $VIMHOME = $VIM."/vimfiles"
+" else
+"   let $VIMHOME = $HOME."/.vim"
+" endif
+" Use directory junction in Windows to link $HOME."/.vim" to $VIM."/vimfiles"
+let $VIMHOME = $HOME."/.vim"
 
 " Set Encoding
 if s:os =~ "windows"
