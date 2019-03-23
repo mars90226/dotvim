@@ -664,23 +664,32 @@ if s:is_enabled_plugin("defx")
     call fzf#vim#files(
           \ path,
           \ extend({
-          \   'sink': function('s:fzf_open_file_or_directory_in_defx_sink'),
+          \   'sink': { line -> s:defx_open(line, 'edit') },
           \ }, fzf#vim#with_preview()),
           \ 0)
   endfunction
   " TODO May need to escape a:line
-  function! s:fzf_open_file_or_directory_in_defx_sink(line)
-    if isdirectory(a:line)
-      if &filetype == 'defx'
-        call defx#call_action('cd', a:line)
+  function! s:defx_open(target, action)
+    let s:defx_action = {
+          \ 'tab split': '-split=tab',
+          \ 'split': '-split=horizontal',
+          \ 'vsplit': '-split=vertical',
+          \ }
+
+    if isdirectory(a:target)
+      if &filetype == 'defx' && a:action == 'edit'
+        call defx#call_action('cd', a:target)
       else
-        execute 'Defx ' . a:line
+        execute 'Defx ' . get(s:defx_action, a:action, '') . ' ' . a:target
       endif
     else
-      execute 'edit ' . a:line
+      execute a:action . ' ' . a:target
     endif
   endfunction
-  command! -nargs=1 -complete=file DefxOpenSink :call s:fzf_open_file_or_directory_in_defx_sink(<q-args>)
+  command! -nargs=1 -complete=file DefxOpenSink       :call s:defx_open(<q-args>, 'edit')
+  command! -nargs=1 -complete=file DefxSplitOpenSink  :call s:defx_open(<q-args>, 'split')
+  command! -nargs=1 -complete=file DefxVSplitOpenSink :call s:defx_open(<q-args>, 'vsplit')
+  command! -nargs=1 -complete=file DefxTabOpenSink    :call s:defx_open(<q-args>, 'tab split')
 
   function! s:defx_fzf_rg_internal(context, prompt, bang) abort
     let path = s:defx_get_folder(a:context)
@@ -1265,17 +1274,31 @@ function! s:copy_results(lines)
   endif
   let @" = joined_lines
 endfunction
-let g:fzf_action = {
-  \ 'ctrl-q': function('s:build_quickfix_list'),
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit',
-  \ 'alt-v': 'rightbelow vsplit',
-  \ 'alt-c': function('s:copy_results'),
-  \ 'alt-e': 'cd',
-  \ 'alt-/': 'DefxOpenSink',
-  \ }
+
+if s:is_enabled_plugin('defx')
+  let g:fzf_action = {
+        \ 'ctrl-q': function('s:build_quickfix_list'),
+        \ 'ctrl-t': 'DefxTabOpenSink',
+        \ 'ctrl-s': 'DefxSplitOpenSink',
+        \ 'ctrl-x': 'DefxSplitOpenSink',
+        \ 'ctrl-v': 'DefxVSplitOpenSink',
+        \ 'alt-v': 'rightbelow vsplit',
+        \ 'alt-c': function('s:copy_results'),
+        \ 'alt-e': 'cd',
+        \ 'alt-/': 'DefxOpenSink',
+        \ }
+else
+  let g:fzf_action = {
+        \ 'ctrl-q': function('s:build_quickfix_list'),
+        \ 'ctrl-t': 'tab split',
+        \ 'ctrl-s': 'split',
+        \ 'ctrl-x': 'split',
+        \ 'ctrl-v': 'vsplit',
+        \ 'alt-v': 'rightbelow vsplit',
+        \ 'alt-c': function('s:copy_results'),
+        \ 'alt-e': 'cd',
+        \ }
+endif
 
 " Mapping selecting mappings
 nmap <Space><Tab> <Plug>(fzf-maps-n)
