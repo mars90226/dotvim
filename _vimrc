@@ -660,12 +660,14 @@ if s:is_enabled_plugin("defx")
 
   function! s:defx_fzf_files(context) abort
     let path = s:defx_get_folder(a:context)
+    let preview_options = fzf#vim#with_preview()['options']
 
     call fzf#vim#files(
           \ path,
-          \ extend({
-          \   'sink': { line -> s:defx_open(line, 'edit') },
-          \ }, fzf#vim#with_preview()),
+          \ {
+          \   'sink*': function('s:fzf_files_sink'),
+          \   'options': extend(['-m', '--expect', join(keys(g:fzf_action), ',')], preview_options),
+          \ },
           \ 0)
   endfunction
   " TODO May need to escape a:line
@@ -1395,6 +1397,21 @@ function! s:fzf_windows_preview() abort
   call remove(options.options, -1) " remove --preview
   call extend(options.options, ['--preview', final_script])
   return options
+endfunction
+
+function! s:fzf_files_sink(lines)
+  echom string(a:lines)
+  if len(a:lines) < 2
+    return
+  endif
+  let cmd = s:action_for(a:lines[0], 'edit')
+  for target in a:lines[1:]
+    if type(cmd) == type(function('call'))
+      cmd(target)
+    else
+      execute cmd . ' ' . target
+    endif
+  endfor
 endfunction
 
 " let g:rg_command = '
