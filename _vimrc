@@ -1070,8 +1070,8 @@ function! s:unite_my_settings() "{{{
   imap <buffer> <C-Z>     <Plug>(unite_toggle_transpose_window)
   imap <buffer> <C-Y>     <Plug>(unite_input_directory)
   nmap <buffer> <C-Y>     <Plug>(unite_input_directory)
-  nmap <buffer> <M-A>     <Plug>(unite_toggle_auto_preview)
-  nmap <buffer> <M-C>     <Plug>(unite_print_candidate)
+  nmap <buffer> <M-a>     <Plug>(unite_toggle_auto_preview)
+  nmap <buffer> <M-c>     <Plug>(unite_print_candidate)
   nmap <buffer> <C-R>     <Plug>(unite_narrowing_input_history)
   imap <buffer> <C-R><C-R>     <Plug>(unite_narrowing_input_history)
   imap <buffer> <C-X><C-X>     <Plug>(unite_complete)
@@ -1098,13 +1098,13 @@ function! s:unite_my_settings() "{{{
         \ empty(unite#mappings#get_current_filters()) ?
         \ ['sorter_reverse'] : [])
 
-  " Runs "switch" action by <M-S>.
-  imap <silent><buffer><expr> <M-S>     unite#do_action('switch')
-  nmap <silent><buffer><expr> <M-S>     unite#do_action('switch')
+  " Runs "switch" action by <M-s>.
+  imap <silent><buffer><expr> <M-s>     unite#do_action('switch')
+  nmap <silent><buffer><expr> <M-s>     unite#do_action('switch')
 
-  " Runs "tabswitch" action by <M-T>.
-  imap <silent><buffer><expr> <M-T>     unite#do_action('tabswitch')
-  nmap <silent><buffer><expr> <M-T>     unite#do_action('tabswitch')
+  " Runs "tabswitch" action by <M-t>.
+  imap <silent><buffer><expr> <M-t>     unite#do_action('tabswitch')
+  nmap <silent><buffer><expr> <M-t>     unite#do_action('tabswitch')
 
   " Runs "split" action by <C-S>.
   imap <silent><buffer><expr> <C-S>     unite#do_action('split')
@@ -1129,9 +1129,9 @@ function! s:unite_my_settings() "{{{
   imap <silent><buffer><expr> <M-[>     unite#do_action('persist_open') . "\<C-W>j:tab split<CR>gT<C-O>zzzvgt"
   nmap <silent><buffer><expr> <M-[>     unite#do_action('persist_open') . "\<C-W>j:tab split<CR>gT<C-O>zzzvgt"
 
-  " Runs "grep" action by <M-G>.
-  imap <silent><buffer><expr> <M-G>     unite#do_action('grep')
-  nmap <silent><buffer><expr> <M-G>     unite#do_action('grep')
+  " Runs "grep" action by <M-g>.
+  imap <silent><buffer><expr> <M-g>     unite#do_action('grep')
+  nmap <silent><buffer><expr> <M-g>     unite#do_action('grep')
 
   " Unmap <Space>, use ` instead
   silent! nunmap <buffer> <Space>
@@ -2774,13 +2774,13 @@ if s:is_enabled_plugin('denite.nvim')
   " Insert mode {{{
   call denite#custom#map(
         \ 'insert',
-        \ '<A-F>',
+        \ '<A-f>',
         \ '<denite:toggle_matchers:matcher_fruzzy>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-G>',
+        \ '<A-g>',
         \ '<denite:toggle_matchers:matcher_substring>',
         \ 'noremap'
         \)
@@ -2792,73 +2792,73 @@ if s:is_enabled_plugin('denite.nvim')
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-R>',
+        \ '<A-r>',
         \ '<denite:change_sorters:sorter_reverse>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-O>',
+        \ '<A-o>',
         \ '<denite:do_action:open>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-D>',
+        \ '<A-d>',
         \ '<denite:do_action:cd>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<C-Y>',
+        \ '<C-y>',
         \ '<denite:input_command_line>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<C-J>',
+        \ '<C-j>',
         \ '<denite:move_to_next_line>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<C-K>',
+        \ '<C-k>',
         \ '<denite:move_to_previous_line>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<C-T>',
+        \ '<C-t>',
         \ '<denite:do_action:tabopen>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<C-S>',
+        \ '<C-s>',
         \ '<denite:do_action:split>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<C-V>',
+        \ '<C-v>',
         \ '<denite:do_action:vsplit>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-P>',
+        \ '<A-p>',
         \ '<denite:do_action:preview>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-J>',
+        \ '<A-j>',
         \ '<denite:scroll_page_forwards>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-K>',
+        \ '<A-k>',
         \ '<denite:scroll_page_backwards>',
         \ 'noremap'
         \)
@@ -2873,79 +2873,79 @@ if s:is_enabled_plugin('denite.nvim')
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<A-S>',
+        \ '<A-s>',
         \ '<denite:do_action:switch>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-S>',
+        \ '<A-s>',
         \ '<denite:do_action:switch>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<A-T>',
+        \ '<A-t>',
         \ '<denite:do_action:tabswitch>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-T>',
+        \ '<A-t>',
         \ '<denite:do_action:tabswitch>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<C-T>',
+        \ '<C-t>',
         \ '<denite:do_action:tabopen>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<C-S>',
+        \ '<C-s>',
         \ '<denite:do_action:split>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<C-V>',
+        \ '<C-v>',
         \ '<denite:do_action:vsplit>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<A-H>',
+        \ '<A-h>',
         \ '<denite:wincmd:h>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<A-J>',
+        \ '<A-j>',
         \ '<denite:wincmd:j>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<A-K>',
+        \ '<A-k>',
         \ '<denite:wincmd:k>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<A-L>',
+        \ '<A-l>',
         \ '<denite:wincmd:l>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<C-N>',
+        \ '<C-n>',
         \ '<denite:jump_to_next_source>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<C-P>',
+        \ '<C-p>',
         \ '<denite:jump_to_previous_source>',
         \ 'noremap'
         \)
@@ -3179,21 +3179,21 @@ Arpeggio inoremap jk <Esc>
 nnoremap <Space><C-Z> :suspend<CR>
 
 " Quickly switch window {{{
-nnoremap <M-H> <C-W>h
-nnoremap <M-J> <C-W>j
-nnoremap <M-K> <C-W>k
-nnoremap <M-L> <C-W>l
+nnoremap <M-h> <C-W>h
+nnoremap <M-j> <C-W>j
+nnoremap <M-k> <C-W>k
+nnoremap <M-l> <C-W>l
 
 " Move in insert mode
-inoremap <M-H> <Left>
-inoremap <M-J> <Down>
-inoremap <M-K> <Up>
-inoremap <M-L> <Right>
+inoremap <M-h> <Left>
+inoremap <M-j> <Down>
+inoremap <M-k> <Up>
+inoremap <M-l> <Right>
 " }}}
 
 " Saner command-line history {{{
-cnoremap <M-N> <Down>
-cnoremap <M-P> <Up>
+cnoremap <M-n> <Down>
+cnoremap <M-p> <Up>
 " }}}
 
 " Tab key mapping {{{
@@ -3223,12 +3223,12 @@ nnoremap <Leader>t< :tabmove -1<CR>
 nnoremap <Leader>t> :tabmove +1<CR>
 
 " Create new line in insert mode
-inoremap <M-O> <C-O>o
-inoremap <M-S-O> <C-O>O
+inoremap <M-o> <C-O>o
+inoremap <M-S-o> <C-O>O
 
 " Create new line without indent & prefix
-nnoremap <M-O> o <C-U>
-nnoremap <M-O> O <C-U>
+nnoremap <M-o> o <C-U>
+nnoremap <M-S-o> O <C-U>
 
 " Save
 nnoremap <C-S> :update<CR>
@@ -3472,44 +3472,44 @@ if !has("nvim") && !has("gui_running") && s:os !~ "windows"
     augroup WindowsTerminalKeyFix
       autocmd!
       autocmd VimEnter *
-            \ set <M-A>=a |
-            \ set <M-C>=c |
-            \ set <M-H>=h |
-            \ set <M-G>=g |
-            \ set <M-J>=j |
-            \ set <M-K>=k |
-            \ set <M-L>=l |
-            \ set <M-N>=n |
-            \ set <M-O>=o |
-            \ set <M-P>=p |
-            \ set <M-S>=s |
-            \ set <M-T>=t |
+            \ set <M-a>=a |
+            \ set <M-c>=c |
+            \ set <M-h>=h |
+            \ set <M-g>=g |
+            \ set <M-j>=j |
+            \ set <M-k>=k |
+            \ set <M-l>=l |
+            \ set <M-n>=n |
+            \ set <M-o>=o |
+            \ set <M-p>=p |
+            \ set <M-s>=s |
+            \ set <M-t>=t |
             \ set <M-/>=/ |
             \ set <M-?>=? |
             \ set <M-]>=] |
             \ set <M-`>=` |
             \ set <M-1>=1 |
-            \ set <M-S-O>=O
+            \ set <M-S-o>=O
     augroup END
   else
-    set <M-A>=a |
-    set <M-C>=c |
-    set <M-H>=h |
-    set <M-G>=g |
-    set <M-J>=j |
-    set <M-K>=k |
-    set <M-L>=l |
-    set <M-N>=n |
-    set <M-O>=o |
-    set <M-P>=p |
-    set <M-S>=s |
-    set <M-T>=t |
+    set <M-a>=a |
+    set <M-c>=c |
+    set <M-h>=h |
+    set <M-g>=g |
+    set <M-j>=j |
+    set <M-k>=k |
+    set <M-l>=l |
+    set <M-n>=n |
+    set <M-o>=o |
+    set <M-p>=p |
+    set <M-s>=s |
+    set <M-t>=t |
     set <M-/>=/ |
     set <M-?>=? |
     set <M-]>=] |
     set <M-`>=` |
     set <M-1>=1 |
-    set <M-S-O>=O
+    set <M-S-o>=O
   endif
 endif
 " }}}
@@ -3531,10 +3531,10 @@ if has("nvim")
   tnoremap <M-F3> <C-\><C-N>:Windows<CR>
 
   " Quickly switch window in terminal
-  tnoremap <M-S-H> <C-\><C-N><C-W>h
-  tnoremap <M-S-J> <C-\><C-N><C-W>j
-  tnoremap <M-S-K> <C-\><C-N><C-W>k
-  tnoremap <M-S-L> <C-\><C-N><C-W>l
+  tnoremap <M-S-h> <C-\><C-N><C-W>h
+  tnoremap <M-S-j> <C-\><C-N><C-W>j
+  tnoremap <M-S-k> <C-\><C-N><C-W>k
+  tnoremap <M-S-l> <C-\><C-N><C-W>l
 
   " Quickly switch tab in terminal
   tnoremap <M-C-J> <C-\><C-N>gT
@@ -3544,37 +3544,37 @@ if has("nvim")
   tnoremap <M-1> <C-\><C-N>:LastTab<CR>
 
   " Quickly paste from register
-  tnoremap <expr> <M-R> '<C-\><C-N>"' . nr2char(getchar()) . 'pi'
+  tnoremap <expr> <M-r> '<C-\><C-N>"' . nr2char(getchar()) . 'pi'
 
   " Quickly suspend neovim
   tnoremap <M-C-Z> <C-\><C-N>:suspend<CR>
 
   " For nested neovim {{{
-    " Use <M-Q> as prefix
+    " Use <M-q> as prefix
 
     " Quick terminal function
-    tnoremap <M-Q>1 <C-\><C-\><C-N>
-    tnoremap <M-Q>2 <C-\><C-\><C-N>:tabnew<CR>:terminal<CR>i
-    tnoremap <M-Q>3 <C-\><C-\><C-N>:Windows<CR>
+    tnoremap <M-q>1 <C-\><C-\><C-N>
+    tnoremap <M-q>2 <C-\><C-\><C-N>:tabnew<CR>:terminal<CR>i
+    tnoremap <M-q>3 <C-\><C-\><C-N>:Windows<CR>
 
     " Quickly switch window in terminal
-    tnoremap <M-Q><M-H> <C-\><C-\><C-N><C-W>h
-    tnoremap <M-Q><M-J> <C-\><C-\><C-N><C-W>j
-    tnoremap <M-Q><M-K> <C-\><C-\><C-N><C-W>k
-    tnoremap <M-Q><M-L> <C-\><C-\><C-N><C-W>l
+    tnoremap <M-q><M-h> <C-\><C-\><C-N><C-W>h
+    tnoremap <M-q><M-j> <C-\><C-\><C-N><C-W>j
+    tnoremap <M-q><M-k> <C-\><C-\><C-N><C-W>k
+    tnoremap <M-q><M-l> <C-\><C-\><C-N><C-W>l
 
     " Quickly switch tab in terminal
-    tnoremap <M-Q><C-J> <C-\><C-\><C-N>gT
-    tnoremap <M-Q><C-K> <C-\><C-\><C-N>gt
+    tnoremap <M-q><C-J> <C-\><C-\><C-N>gT
+    tnoremap <M-q><C-K> <C-\><C-\><C-N>gt
 
     " Quickly switch to last tab in terminal
-    tnoremap <M-Q><M-1> <C-\><C-\><C-N>:LastTab<CR>
+    tnoremap <M-q><M-1> <C-\><C-\><C-N>:LastTab<CR>
 
     " Quickly paste from register
-    tnoremap <expr> <M-Q><M-R> '<C-\><C-\><C-N>"' . nr2char(getchar()) . 'pi'
+    tnoremap <expr> <M-q><M-r> '<C-\><C-\><C-N>"' . nr2char(getchar()) . 'pi'
 
     " Quickly suspend neovim
-    tnoremap <M-Q><C-Z> <C-\><C-\><C-N>:suspend<CR>
+    tnoremap <M-q><C-Z> <C-\><C-\><C-N>:suspend<CR>
   " }}}
 
   augroup terminalSettings
