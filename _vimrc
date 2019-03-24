@@ -688,11 +688,11 @@ if s:is_enabled_plugin("defx")
       execute a:action . ' ' . a:target
     endif
   endfunction
-  command! -nargs=1 -complete=file DefxOpenSink            :call s:defx_open(<q-args>, 'edit')
-  command! -nargs=1 -complete=file DefxSplitOpenSink       :call s:defx_open(<q-args>, 'split')
-  command! -nargs=1 -complete=file DefxVSplitOpenSink      :call s:defx_open(<q-args>, 'vsplit')
-  command! -nargs=1 -complete=file DefxTabOpenSink         :call s:defx_open(<q-args>, 'tab split')
-  command! -nargs=1 -complete=file DefxRightVSplitOpenSink :call s:defx_open(<q-args>, 'rightbelow vsplit')
+  command! -nargs=1 -complete=file DefxOpenSink            call s:defx_open(<q-args>, 'edit')
+  command! -nargs=1 -complete=file DefxSplitOpenSink       call s:defx_open(<q-args>, 'split')
+  command! -nargs=1 -complete=file DefxVSplitOpenSink      call s:defx_open(<q-args>, 'vsplit')
+  command! -nargs=1 -complete=file DefxTabOpenSink         call s:defx_open(<q-args>, 'tab split')
+  command! -nargs=1 -complete=file DefxRightVSplitOpenSink call s:defx_open(<q-args>, 'rightbelow vsplit')
 
   function! s:defx_fzf_rg_internal(context, prompt, bang) abort
     let path = s:defx_get_folder(a:context)
@@ -1714,13 +1714,13 @@ function! s:screen_lines(...)
         \ 'options': ['--tiebreak=index', '--prompt', 'ScreenLines> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1']
         \ }))
 endfunction
-command! -nargs=? ScreenLines :call s:screen_lines(<q-args>)
+command! -nargs=? ScreenLines call s:screen_lines(<q-args>)
 
 function! s:files_with_query(query)
   Files
   call feedkeys(a:query)
 endfunction
-command! -nargs=1 FilesWithQuery :call s:files_with_query(<q-args>)
+command! -nargs=1 FilesWithQuery call s:files_with_query(<q-args>)
 
 " Cscope functions {{{
 " Borrow from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
@@ -1735,7 +1735,7 @@ function! s:cscope_sink(lines)
   endfor
 endfunction
 
-function! Cscope(option, query)
+function! s:cscope(option, query)
   let expect_keys = join(keys(g:fzf_action), ',')
   let color = '{ x = $1; $1 = ""; z = $3; $3 = ""; printf "\033[34m%s\033[0m:\033[31m%s\033[0m\011\033[37m%s\033[0m\n", x,z,$0; }'
   let opts = {
@@ -1750,7 +1750,7 @@ function! Cscope(option, query)
   call fzf#run(opts)
 endfunction
 
-function! CscopeQuery(option)
+function! s:cscope_query(option)
   call inputsave()
   if a:option == '0'
     let query = input('C Symbol: ')
@@ -1776,7 +1776,7 @@ function! CscopeQuery(option)
   endif
   call inputrestore()
   if query != ""
-    call Cscope(a:option, query)
+    call s:cscope(a:option, query)
   else
     echom "Cancelled Search!"
   endif
@@ -1911,35 +1911,35 @@ xnoremap <Space>sL :<C-u>execute 'ScreenLines ' . <SID>get_visual_selection()<CR
 nnoremap <Space>ss :History:<CR>mks vim sessions 
 
 " fzf & cscope key mappings {{{
-nnoremap <silent> <Leader>cs :call Cscope('0', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cg :call Cscope('1', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cd :call Cscope('2', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cc :call Cscope('3', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>ct :call Cscope('4', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>ce :call Cscope('6', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cf :call Cscope('7', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>ci :call Cscope('8', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>ca :call Cscope('9', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>cs :call <SID>cscope('0', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>cg :call <SID>cscope('1', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>cd :call <SID>cscope('2', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>cc :call <SID>cscope('3', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>ct :call <SID>cscope('4', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>ce :call <SID>cscope('6', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>cf :call <SID>cscope('7', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>ci :call <SID>cscope('8', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>ca :call <SID>cscope('9', expand('<cword>'))<CR>
 
-xnoremap <silent> <Leader>cs :<C-u>call Cscope('0', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>cg :<C-u>call Cscope('1', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>cd :<C-u>call Cscope('2', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>cc :<C-u>call Cscope('3', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>ct :<C-u>call Cscope('4', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>ce :<C-u>call Cscope('6', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>cf :<C-u>call Cscope('7', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>ci :<C-u>call Cscope('8', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>ca :<C-u>call Cscope('9', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cs :<C-u>call <SID>cscope('0', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cg :<C-u>call <SID>cscope('1', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cd :<C-u>call <SID>cscope('2', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cc :<C-u>call <SID>cscope('3', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>ct :<C-u>call <SID>cscope('4', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>ce :<C-u>call <SID>cscope('6', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cf :<C-u>call <SID>cscope('7', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>ci :<C-u>call <SID>cscope('8', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>ca :<C-u>call <SID>cscope('9', <SID>get_visual_selection())<CR>
 
-nnoremap <silent> <Leader><Leader>cs :call CscopeQuery('0')<CR>
-nnoremap <silent> <Leader><Leader>cg :call CscopeQuery('1')<CR>
-nnoremap <silent> <Leader><Leader>cd :call CscopeQuery('2')<CR>
-nnoremap <silent> <Leader><Leader>cc :call CscopeQuery('3')<CR>
-nnoremap <silent> <Leader><Leader>ct :call CscopeQuery('4')<CR>
-nnoremap <silent> <Leader><Leader>ce :call CscopeQuery('6')<CR>
-nnoremap <silent> <Leader><Leader>cf :call CscopeQuery('7')<CR>
-nnoremap <silent> <Leader><Leader>ci :call CscopeQuery('8')<CR>
-nnoremap <silent> <Leader><Leader>ca :call CscopeQuery('9')<CR>
+nnoremap <silent> <Leader><Leader>cs :call <SID>cscope_query('0')<CR>
+nnoremap <silent> <Leader><Leader>cg :call <SID>cscope_query('1')<CR>
+nnoremap <silent> <Leader><Leader>cd :call <SID>cscope_query('2')<CR>
+nnoremap <silent> <Leader><Leader>cc :call <SID>cscope_query('3')<CR>
+nnoremap <silent> <Leader><Leader>ct :call <SID>cscope_query('4')<CR>
+nnoremap <silent> <Leader><Leader>ce :call <SID>cscope_query('6')<CR>
+nnoremap <silent> <Leader><Leader>cf :call <SID>cscope_query('7')<CR>
+nnoremap <silent> <Leader><Leader>ci :call <SID>cscope_query('8')<CR>
+nnoremap <silent> <Leader><Leader>ca :call <SID>cscope_query('9')<CR>
 " }}}
 
 if has("nvim")
@@ -2495,7 +2495,7 @@ nnoremap <silent> <Leader>gq :Gwq<CR>
 nnoremap <silent> <Leader>gQ :Gwq!<CR>
 nnoremap <silent> <Leader>gm :Merginal<CR>
 
-function! ReviewLastCommit()
+function! s:review_last_commit()
   if exists('b:git_dir')
     Gtabedit HEAD^{}
     nnoremap <buffer> <silent> q :<C-U>bdelete<CR>
@@ -2503,7 +2503,7 @@ function! ReviewLastCommit()
     echo 'No git a git repository:' expand('%:p')
   endif
 endfunction
-nnoremap <silent> <Leader>g` :call ReviewLastCommit()<CR>
+nnoremap <silent> <Leader>g` :call <SID>review_last_commit()<CR>
 
 augroup fugitiveSettings
   autocmd!
@@ -3286,8 +3286,8 @@ endfunction
 " }}}
 
 " Custom function {{{
-nnoremap <F6> :call ToggleIndentBetweenTabAndSpace()<CR>
-function! ToggleIndentBetweenTabAndSpace()
+nnoremap <F6> :call <SID>toggle_indent_between_tab_and_space()<CR>
+function! s:toggle_indent_between_tab_and_space()
   if &expandtab
     setlocal noexpandtab
     setlocal tabstop=4
@@ -3301,8 +3301,8 @@ function! ToggleIndentBetweenTabAndSpace()
   endif
 endfunction
 
-nnoremap <F7> :call ToggleFoldBetweenManualAndSyntax()<CR>
-function! ToggleFoldBetweenManualAndSyntax()
+nnoremap <F7> :call <SID>toggle_fold_between_manual_and_syntax()<CR>
+function! s:toggle_fold_between_manual_and_syntax()
   if &foldmethod == 'manual'
     setlocal foldmethod=syntax
   else
@@ -3317,7 +3317,6 @@ function! s:last_tab()
   execute "tabn " . g:last_tab
 endfunction
 nnoremap <M-1> :call <SID>last_tab()<CR>
-
 command! -bar LastTab call s:last_tab()
 au TabLeave * let g:last_tab = tabpagenr()
 
@@ -3392,7 +3391,7 @@ if !exists(":DiffOrig")
                  \ | wincmd p | diffthis
 endif
 
-function! DeleteInactiveBufs(bang)
+function! s:delete_inactive_buffers(bang)
     "From tabpagebuflist() help, get a list of all buffers in all tabs
     let tablist = []
     for i in range(tabpagenr('$'))
@@ -3416,17 +3415,17 @@ function! DeleteInactiveBufs(bang)
     endfor
     echomsg nWipeouts . ' buffer(s) wiped out'
 endfunction
-command! -bang Bdi :call DeleteInactiveBufs(<bang>0)
+command! -bang Bdi call s:delete_inactive_buffers(<bang>0)
 nnoremap <Leader>D :Bdi<CR>
 nnoremap <Leader><C-d> :Bdi!<CR>
 
-function! TrimWhitespace()
+function! s:trim_whitespace()
     let l:save = winsaveview()
     %s/\s\+$//e
     call winrestview(l:save)
 endfunction
-command! TrimWhitespace call TrimWhitespace()
-"autocmd BufWritePre * :call TrimWhitespace()
+command! TrimWhitespace call s:trim_whitespace()
+"autocmd BufWritePre * call TrimWhitespace()
 
 function! s:getchar() abort
   redraw | echo 'Press any key: '
