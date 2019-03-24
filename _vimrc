@@ -656,13 +656,19 @@ if s:is_enabled_plugin("defx")
   nnoremap \>          :Defx -split=tab -buffer-name=tab .<CR>
 
   " Defx custom functions {{{
+  " Currently not used
   function! s:defx_get_folder(context) abort
     let path = a:context.targets[0]
     return isdirectory(path) ? path : fnamemodify(path, ':h')
   endfunction
 
+  function! s:defx_get_current_path() abort
+    return b:defx['paths'][0]
+  endfunction
+
   function! s:defx_fzf_files(context) abort
-    let path = s:defx_get_folder(a:context)
+    " let path = s:defx_get_folder(a:context)
+    let path = s:defx_get_current_path()
 
     call s:use_defx_fzf_action({ -> fzf#vim#files(path, fzf#vim#with_preview(), 0)})
   endfunction
@@ -695,7 +701,8 @@ if s:is_enabled_plugin("defx")
   command! -nargs=1 -complete=file DefxRightVSplitOpenSink call s:defx_open(<q-args>, 'rightbelow vsplit')
 
   function! s:defx_fzf_rg_internal(context, prompt, bang) abort
-    let path = s:defx_get_folder(a:context)
+    " let path = s:defx_get_folder(a:context)
+    let path = s:defx_get_current_path()
 
     let cmd = a:bang ? 'RgWithOption!' : 'RgWithOption'
     execute cmd . ' ' . path . '::' . input(a:prompt . ': ')
@@ -712,7 +719,8 @@ if s:is_enabled_plugin("defx")
     call defx#call_action('cd', getcwd())
   endfunction
   function! s:defx_fzf_directory_ancestors(context) abort
-    let path = s:defx_get_folder(a:context)
+    " let path = s:defx_get_folder(a:context)
+    let path = s:defx_get_current_path()
 
     call fzf#run(fzf#wrap({
           \ 'source': s:directory_ancestors_internal(path),
