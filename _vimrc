@@ -213,17 +213,17 @@ Plug 'altercation/vim-colors-solarized'
 " ====================================================================
 " completion setting {{{
 " FIXME Completion popup still appear after select completion.
-" inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
-inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
-inoremap <expr> <Tab>      pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <Esc>      pumvisible() ? "\<C-E>" : "\<Esc>"
+inoremap <expr> <CR>       pumvisible() ? "\<C-Y>" : "\<CR>"
+inoremap <expr> <Down>     pumvisible() ? "\<C-N>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-P>" : "\<Up>"
+inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-P>\<C-N>" : "\<PageDown>"
+inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-P>\<C-N>" : "\<PageUp>"
+inoremap <expr> <Tab>      pumvisible() ? "\<C-N>" : "\<Tab>"
 
 " Workaround of supertab bug
 if s:is_disabled_plugin('supertab')
-  inoremap <expr> <S-Tab>    pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap <expr> <S-Tab>    pumvisible() ? "\<C-P>" : "\<S-Tab>"
 endif
 " }}}
 
@@ -310,7 +310,7 @@ if s:is_enabled_plugin('deoplete.nvim')
 
   " <Tab>: completion.
   inoremap <silent><expr> <Tab>
-        \ pumvisible() ? "\<C-n>" :
+        \ pumvisible() ? "\<C-N>" :
         \ <SID>check_back_space() ? "\<Tab>" :
         \ deoplete#manual_complete()
   function! s:check_back_space() abort "{{{
@@ -319,14 +319,14 @@ if s:is_enabled_plugin('deoplete.nvim')
   endfunction "}}}
 
   " <S-Tab>: completion back.
-  inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
+  inoremap <expr><S-Tab> pumvisible() ? "\<C-P>" : "\<C-H>"
 
-  " <C-h>, <BS>: close popup and delete backword char.
-  inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-  inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+  " <C-H>, <BS>: close popup and delete backword char.
+  inoremap <expr><C-H> deoplete#smart_close_popup()."\<C-H>"
+  inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-H>"
 
-  inoremap <expr><C-g><C-g> deoplete#refresh()
-  inoremap <silent><expr><C-l> deoplete#complete_common_string()
+  inoremap <expr><C-G><C-G> deoplete#refresh()
+  inoremap <silent><expr><C-L> deoplete#complete_common_string()
 endif
 " }}}
 
@@ -415,13 +415,13 @@ let g:neosnippet#snippets_directory = $VIMHOME.'/plugged/neosnippet-snippets/neo
 let g:neosnippet#snippets_directory = $VIMHOME.'/plugged/vim-snippets/snippets'
 
 " Plugin key-mappings.
-" <C-j>: expand or jump or select completion
-imap <silent><expr> <C-j>
+" <C-J>: expand or jump or select completion
+imap <silent><expr> <C-J>
       \ pumvisible() && !neosnippet#expandable_or_jumpable() ?
-      \ "\<C-y>" :
+      \ "\<C-Y>" :
       \ "\<Plug>(neosnippet_expand_or_jump)"
-smap <C-j> <Plug>(neosnippet_expand_or_jump)
-xmap <C-j> <Plug>(neosnippet_expand_target)
+smap <C-J> <Plug>(neosnippet_expand_or_jump)
+xmap <C-J> <Plug>(neosnippet_expand_target)
 
 " For snippet_complete marker.
 if has('conceal')
@@ -466,10 +466,10 @@ let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
       \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 " let g:ctrlp_cmdpalette_execute = 1
 
-nnoremap <C-p> :CtrlP<CR>
+nnoremap <C-P> :CtrlP<CR>
 nnoremap <Space>cf :CtrlPFunky<CR>
 nnoremap <Space>cF :execute 'CtrlPFunky ' . expand('<cword>')<CR>
-xnoremap <Space>cF :<C-u>execute 'CtrlPFunky ' . <SID>get_visual_selection()<CR>
+xnoremap <Space>cF :<C-U>execute 'CtrlPFunky ' . <SID>get_visual_selection()<CR>
 nnoremap <Space>cp :CtrlPCmdPalette<CR>
 nnoremap <Space>cm :CtrlPCmdline<CR>
 nnoremap <Space>c] :CtrlPtjump<CR>
@@ -554,14 +554,14 @@ if s:is_enabled_plugin("vimfiler")
   nnoremap <Space><F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit -find<CR>
   autocmd FileType vimfiler call s:vimfiler_my_settings()
   function! s:vimfiler_my_settings()
-    " Runs "tabopen" action by <C-t>.
-    nmap <silent><buffer><expr> <C-t>     vimfiler#do_action('tabopen')
+    " Runs "tabopen" action by <C-T>.
+    nmap <silent><buffer><expr> <C-T>     vimfiler#do_action('tabopen')
 
-    " Runs "choose" action by <C-c>.
-    nmap <silent><buffer><expr> <C-c>     vimfiler#do_action('choose')
+    " Runs "choose" action by <C-C>.
+    nmap <silent><buffer><expr> <C-C>     vimfiler#do_action('choose')
 
-    " Toggle no_quit with <C-n>
-    nmap <silent><buffer>       <C-n>     :let b:vimfiler.context.quit = !b:vimfiler.context.quit<CR>
+    " Toggle no_quit with <C-N>
+    nmap <silent><buffer>       <C-N>     :let b:vimfiler.context.quit = !b:vimfiler.context.quit<CR>
 
     " Unmap <Space>, use ` instead
     silent! nunmap <buffer> <Space>
@@ -839,23 +839,23 @@ if s:is_enabled_plugin("defx")
           \ line('.') == line('$') ? 'gg' : 'j'
     nnoremap <silent><buffer><expr> k
           \ line('.') == 1 ? 'G' : 'k'
-    nnoremap <silent><buffer><expr> <C-l>
+    nnoremap <silent><buffer><expr> <C-L>
           \ defx#do_action('redraw')
     xnoremap <silent><buffer><expr> <CR>
           \ defx#do_action('toggle_select_visual')
-    nnoremap <silent><buffer><expr> <C-g>
+    nnoremap <silent><buffer><expr> <C-G>
           \ defx#do_action('print')
-    nnoremap <silent><buffer><expr> <C-t><C-r>
+    nnoremap <silent><buffer><expr> <C-T><C-R>
           \ defx#do_action('change_vim_cwd') . ":terminal<CR>i"
-    nnoremap <silent><buffer><expr> <C-t><C-t>
+    nnoremap <silent><buffer><expr> <C-T><C-T>
           \ defx#do_action('change_vim_cwd') . ":tabnew <Bar> :terminal<CR>i"
-    nnoremap <silent><buffer><expr> <C-t><C-s>
+    nnoremap <silent><buffer><expr> <C-T><C-S>
           \ defx#do_action('change_vim_cwd') . ":new    <Bar> :terminal<CR>i"
-    nnoremap <silent><buffer><expr> <C-t><C-v>
+    nnoremap <silent><buffer><expr> <C-T><C-V>
           \ defx#do_action('change_vim_cwd') . ":vnew   <Bar> :terminal<CR>i"
     nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
-          \ ':<C-u>wincmd w<CR>' :
-          \ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
+          \ ':<C-U>wincmd w<CR>' :
+          \ ':<C-U>Defx -buffer-name=temp -split=vertical<CR>'
     nnoremap <silent><buffer><expr> \f
           \ defx#do_action('call', '<SID>defx_fzf_files')
     nnoremap <silent><buffer><expr> \r
@@ -1002,7 +1002,7 @@ nnoremap <Space>uc :Unite -auto-preview change<CR>
 nnoremap <Space>uC :UniteWithCurrentDir -buffer-name=files buffer bookmark file<CR>
 nnoremap <Space>ud :Unite directory<CR>
 nnoremap <Space>uD :UniteWithBufferDir directory<CR>
-nnoremap <Space>u<C-d> :execute 'Unite directory:' . input('dir: ')<CR>
+nnoremap <Space>u<C-D> :execute 'Unite directory:' . input('dir: ')<CR>
 nnoremap <Space>uf :Unite function -start-insert<CR>
 nnoremap <Space>uh :Unite help<CR>
 nnoremap <Space>uH :Unite history/unite<CR>
@@ -1018,8 +1018,8 @@ nnoremap <Space>uk :call <SID>unite_grep(expand('<cword>'), 'keyword', '', v:fal
 nnoremap <Space>uK :call <SID>unite_grep(expand('<cWORD>'), 'keyword', '', v:false)<CR>
 nnoremap <Space>u8 :call <SID>unite_grep(expand('<cword>'), 'keyword', '', v:true)<CR>
 nnoremap <Space>u* :call <SID>unite_grep(expand('<cWORD>'), 'keyword', '', v:true)<CR>
-xnoremap <Space>uk :<C-u>call <SID>unite_grep(<SID>get_visual_selection(), 'keyword', '', v:false)<CR>
-xnoremap <Space>u8 :<C-u>call <SID>unite_grep(<SID>get_visual_selection(), 'keyword', '', v:true)<CR>
+xnoremap <Space>uk :<C-U>call <SID>unite_grep(<SID>get_visual_selection(), 'keyword', '', v:false)<CR>
+xnoremap <Space>u8 :<C-U>call <SID>unite_grep(<SID>get_visual_selection(), 'keyword', '', v:true)<CR>
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>uo :Unite output -start-insert<CR>
 nnoremap <Space>uO :Unite outline -start-insert<CR>
@@ -1057,34 +1057,34 @@ function! s:unite_my_settings() "{{{
   " Overwrite settings.
 
   imap <buffer> jj      <Plug>(unite_insert_leave)
-  "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
+  "imap <buffer> <C-W>     <Plug>(unite_delete_backward_path)
 
   imap <buffer><expr> j unite#smart_map('j', '')
-  imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
+  imap <buffer> <C-W>     <Plug>(unite_delete_backward_path)
   imap <buffer> <C-\>'     <Plug>(unite_quick_match_default_action)
   nmap <buffer> '     <Plug>(unite_quick_match_default_action)
   imap <buffer><expr> x
         \ unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
   nmap <buffer> x     <Plug>(unite_quick_match_choose_action)
-  nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
-  imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
-  imap <buffer> <C-y>     <Plug>(unite_input_directory)
-  nmap <buffer> <C-y>     <Plug>(unite_input_directory)
-  nmap <buffer> <M-a>     <Plug>(unite_toggle_auto_preview)
-  nmap <buffer> <M-c>     <Plug>(unite_print_candidate)
-  nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
-  imap <buffer> <C-r><C-r>     <Plug>(unite_narrowing_input_history)
-  imap <buffer> <C-x><C-x>     <Plug>(unite_complete)
+  nmap <buffer> <C-Z>     <Plug>(unite_toggle_transpose_window)
+  imap <buffer> <C-Z>     <Plug>(unite_toggle_transpose_window)
+  imap <buffer> <C-Y>     <Plug>(unite_input_directory)
+  nmap <buffer> <C-Y>     <Plug>(unite_input_directory)
+  nmap <buffer> <M-A>     <Plug>(unite_toggle_auto_preview)
+  nmap <buffer> <M-C>     <Plug>(unite_print_candidate)
+  nmap <buffer> <C-R>     <Plug>(unite_narrowing_input_history)
+  imap <buffer> <C-R><C-R>     <Plug>(unite_narrowing_input_history)
+  imap <buffer> <C-X><C-X>     <Plug>(unite_complete)
   " nnoremap <silent><buffer><expr> l
   "       \ unite#smart_map('l', unite#do_action('default'))
 
   " Restore tab switch mapping
-  nnoremap <buffer> <C-j>     gT
-  nnoremap <buffer> <C-k>     gt
+  nnoremap <buffer> <C-J>     gT
+  nnoremap <buffer> <C-K>     gt
 
   " Move cursor in insert mode
-  imap <buffer> <C-j>     <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>     <Plug>(unite_select_previous_line)
+  imap <buffer> <C-J>     <Plug>(unite_select_next_line)
+  imap <buffer> <C-K>     <Plug>(unite_select_previous_line)
 
   let unite = unite#get_current_unite()
   if unite.profile_name ==# 'search'
@@ -1098,40 +1098,40 @@ function! s:unite_my_settings() "{{{
         \ empty(unite#mappings#get_current_filters()) ?
         \ ['sorter_reverse'] : [])
 
-  " Runs "switch" action by <M-s>.
-  imap <silent><buffer><expr> <M-s>     unite#do_action('switch')
-  nmap <silent><buffer><expr> <M-s>     unite#do_action('switch')
+  " Runs "switch" action by <M-S>.
+  imap <silent><buffer><expr> <M-S>     unite#do_action('switch')
+  nmap <silent><buffer><expr> <M-S>     unite#do_action('switch')
 
-  " Runs "tabswitch" action by <M-t>.
-  imap <silent><buffer><expr> <M-t>     unite#do_action('tabswitch')
-  nmap <silent><buffer><expr> <M-t>     unite#do_action('tabswitch')
+  " Runs "tabswitch" action by <M-T>.
+  imap <silent><buffer><expr> <M-T>     unite#do_action('tabswitch')
+  nmap <silent><buffer><expr> <M-T>     unite#do_action('tabswitch')
 
-  " Runs "split" action by <C-s>.
-  imap <silent><buffer><expr> <C-s>     unite#do_action('split')
-  nmap <silent><buffer><expr> <C-s>     unite#do_action('split')
+  " Runs "split" action by <C-S>.
+  imap <silent><buffer><expr> <C-S>     unite#do_action('split')
+  nmap <silent><buffer><expr> <C-S>     unite#do_action('split')
 
-  " Runs "vsplit" action by <C-v>.
-  imap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
-  nmap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
+  " Runs "vsplit" action by <C-V>.
+  imap <silent><buffer><expr> <C-V>     unite#do_action('vsplit')
+  nmap <silent><buffer><expr> <C-V>     unite#do_action('vsplit')
 
-  " Runs "tabopen" action by <C-t>.
-  nmap <silent><buffer><expr> <C-t>     unite#do_action('tabopen')
+  " Runs "tabopen" action by <C-T>.
+  nmap <silent><buffer><expr> <C-T>     unite#do_action('tabopen')
 
   " Runs "persist_open" action by <C-]>.
   imap <silent><buffer><expr> <C-]>     unite#do_action('persist_open')
   nmap <silent><buffer><expr> <C-]>     unite#do_action('persist_open')
 
   " Simulate "persist_tabopen" action by <M-]>.
-  imap <silent><buffer><expr> <M-]>     unite#do_action('persist_open') . "\<C-w>j:tab split<CR>gT<C-o>zzzv<C-w>k"
-  nmap <silent><buffer><expr> <M-]>     unite#do_action('persist_open') . "\<C-w>j:tab split<CR>gT<C-o>zzzv<C-w>k"
+  imap <silent><buffer><expr> <M-]>     unite#do_action('persist_open') . "\<C-W>j:tab split<CR>gT<C-O>zzzv<C-W>k"
+  nmap <silent><buffer><expr> <M-]>     unite#do_action('persist_open') . "\<C-W>j:tab split<CR>gT<C-O>zzzv<C-W>k"
 
   " Simulate "persist_tabopen_switch" action by <M-[>.
-  imap <silent><buffer><expr> <M-[>     unite#do_action('persist_open') . "\<C-w>j:tab split<CR>gT<C-o>zzzvgt"
-  nmap <silent><buffer><expr> <M-[>     unite#do_action('persist_open') . "\<C-w>j:tab split<CR>gT<C-o>zzzvgt"
+  imap <silent><buffer><expr> <M-[>     unite#do_action('persist_open') . "\<C-W>j:tab split<CR>gT<C-O>zzzvgt"
+  nmap <silent><buffer><expr> <M-[>     unite#do_action('persist_open') . "\<C-W>j:tab split<CR>gT<C-O>zzzvgt"
 
-  " Runs "grep" action by <M-g>.
-  imap <silent><buffer><expr> <M-g>     unite#do_action('grep')
-  nmap <silent><buffer><expr> <M-g>     unite#do_action('grep')
+  " Runs "grep" action by <M-G>.
+  imap <silent><buffer><expr> <M-G>     unite#do_action('grep')
+  nmap <silent><buffer><expr> <M-G>     unite#do_action('grep')
 
   " Unmap <Space>, use ` instead
   silent! nunmap <buffer> <Space>
@@ -1166,7 +1166,7 @@ if s:is_enabled_plugin('denite.nvim')
   let s:unite_project_file = maparg('<Space>up', 'n')
   execute 'nnoremap <Space>up ' . s:unite_file
   execute 'nnoremap <Space>uP ' . s:unite_file_rec
-  execute 'nnoremap <Space>u<C-p> ' . s:unite_project_file
+  execute 'nnoremap <Space>u<C-P> ' . s:unite_project_file
 
   nnoremap <Space>p :Denite -buffer-name=files -auto-resume buffer dirmark file<CR>
   nnoremap <Space>P :Denite -buffer-name=files -auto-resume file/rec<CR>
@@ -1191,25 +1191,25 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>dK :call <SID>denite_grep(expand('<cWORD>'), 'keyword', '', v:false)<CR>
   nnoremap <Space>d8 :call <SID>denite_grep(expand('<cword>'), 'keyword', '', v:true)<CR>
   nnoremap <Space>d* :call <SID>denite_grep(expand('<cWORD>'), 'keyword', '', v:true)<CR>
-  xnoremap <Space>dk :<C-u>call <SID>denite_grep(<SID>get_visual_selection(), 'keyword', '', v:false)<CR>
-  xnoremap <Space>d8 :<C-u>call <SID>denite_grep(<SID>get_visual_selection(), 'keyword', '', v:true)<CR>
+  xnoremap <Space>dk :<C-U>call <SID>denite_grep(<SID>get_visual_selection(), 'keyword', '', v:false)<CR>
+  xnoremap <Space>d8 :<C-U>call <SID>denite_grep(<SID>get_visual_selection(), 'keyword', '', v:true)<CR>
   nnoremap <Space>dl :Denite -auto-highlight line<CR>
   nnoremap <Space>dL :Denite line:buffers<CR>
   nnoremap <Space>dm :Denite file_mru<CR>
   nnoremap <Space>dM :Denite directory_mru<CR>
   nnoremap <Space>do :execute 'Denite output:' . <SID>escape_symbol(input('output: '))<CR>
   nnoremap <Space>dO :Denite outline<CR>
-  nnoremap <Space>d<C-o> :Denite unite:outline<CR>
+  nnoremap <Space>d<C-O> :Denite unite:outline<CR>
   nnoremap <Space>dp :Denite -buffer-name=files -auto-resume buffer dirmark file<CR>
   nnoremap <Space>dP :Denite -buffer-name=files -auto-resume file/rec<CR>
-  nnoremap <Space>d<C-p> :DeniteProjectDir -buffer-name=files -auto-resume buffer dirmark file<CR>
+  nnoremap <Space>d<C-P> :DeniteProjectDir -buffer-name=files -auto-resume buffer dirmark file<CR>
   nnoremap <Space>dq :Denite quickfix<CR>
   nnoremap <Space>dr :Denite register<CR>
   nnoremap <Space>ds :Denite session<CR>
   nnoremap <Space>dt :Denite tag<CR>
   nnoremap <Space>du :Denite -resume -refresh<CR>
   nnoremap <Space>dU :Denite -resume -refresh -buffer-name=grep%`bufnr("%")`<CR>
-  nnoremap <Space>d<C-u> :Denite -resume -refresh -buffer-name=keyword%`bufnr("%")`<CR>
+  nnoremap <Space>d<C-U> :Denite -resume -refresh -buffer-name=keyword%`bufnr("%")`<CR>
   nnoremap <Space>dx :Denite defx/history<CR>
   nnoremap <Space>dy :Denite neoyank<CR>
   nnoremap <Space>d: :Denite command_history<CR>
@@ -1227,7 +1227,7 @@ endif
 " ctrlsf.vim {{{
 Plug 'dyng/ctrlsf.vim', { 'on': 'CtrlSF' }
 
-nnoremap <Space><C-f> :execute 'CtrlSF ' . input('CtrlSF: ')<CR>
+nnoremap <Space><C-F> :execute 'CtrlSF ' . input('CtrlSF: ')<CR>
 nnoremap <F5> :CtrlSFToggle<CR>
 " }}}
 
@@ -1299,12 +1299,12 @@ xmap <Space><Tab> <Plug>(fzf-maps-x)
 omap <Space><Tab> <Plug>(fzf-maps-o)
 
 " Insert mode completion
-imap <C-x><C-k> <Plug>(fzf-complete-word)
-imap <C-x><C-f> <Plug>(fzf-complete-path)
-" <C-j> is <NL>
-imap <C-x><C-j> <Plug>(fzf-complete-file-ag)
-imap <C-x><C-l> <Plug>(fzf-complete-line)
-inoremap <expr> <C-x><C-d> fzf#vim#complete#path('fd -t d')
+imap <C-X><C-K> <Plug>(fzf-complete-word)
+imap <C-X><C-F> <Plug>(fzf-complete-path)
+" <C-J> is <NL>
+imap <C-X><C-J> <Plug>(fzf-complete-file-ag)
+imap <C-X><C-L> <Plug>(fzf-complete-line)
+inoremap <expr> <C-X><C-D> fzf#vim#complete#path('fd -t d')
 
 " fzf functions & commands {{{
 " fzf utility functions borrowed from fzf.vim {{{
@@ -1610,7 +1610,7 @@ command! -nargs=1 Tselect call fzf#run(fzf#wrap({
       \ 'down':   '40%'}))
 
 " TODO Add Jumps command preview
-" TODO Use <C-o> & <C-i> to actually jump back and forth
+" TODO Use <C-O> & <C-I> to actually jump back and forth
 function! s:jump_sink(lines)
   if len(a:lines) < 2
     return
@@ -1852,7 +1852,7 @@ nnoremap <Space>fc :BCommits<CR>
 nnoremap <Space>fC :Commits<CR>
 nnoremap <Space>ff :Files<CR>
 nnoremap <Space>fF :DirectoryRg<CR>
-nnoremap <Space>f<C-f> :execute 'Files ' . expand('<cfile>')<CR>
+nnoremap <Space>f<C-F> :execute 'Files ' . expand('<cfile>')<CR>
 nnoremap <Space>fg :GFiles<CR>
 nnoremap <Space>fG :execute 'GGrep ' . input('Git grep: ')<CR>
 nnoremap <Space>fh :Helptags<CR>
@@ -1862,18 +1862,18 @@ nnoremap <Space>fk :execute 'Rg ' . expand('<cword>')<CR>
 nnoremap <Space>fK :execute 'Rg ' . expand('<cWORD>')<CR>
 nnoremap <Space>f8 :execute 'Rg \b' . expand('<cword>') . '\b'<CR>
 nnoremap <Space>f* :execute 'Rg \b' . expand('<cWORD>') . '\b'<CR>
-xnoremap <Space>fk :<C-u>execute 'Rg ' . <SID>get_visual_selection()<CR>
-xnoremap <Space>f8 :<C-u>execute 'Rg \b' . <SID>get_visual_selection() . '\b'<CR>
+xnoremap <Space>fk :<C-U>execute 'Rg ' . <SID>get_visual_selection()<CR>
+xnoremap <Space>f8 :<C-U>execute 'Rg \b' . <SID>get_visual_selection() . '\b'<CR>
 nnoremap <Space>fl :BLines<CR>
 nnoremap <Space>fL :Lines<CR>
-nnoremap <Space>f<C-l> :execute 'BLines ' . expand('<cword>')<CR>
+nnoremap <Space>f<C-L> :execute 'BLines ' . expand('<cword>')<CR>
 nnoremap <Space>fm :Mru<CR>
 nnoremap <Space>fM :DirectoryMru<CR>
-nnoremap <Space>f<C-m> :ProjectMru<CR>
+nnoremap <Space>f<C-M> :ProjectMru<CR>
 nnoremap <Space>fn :execute 'FilesWithQuery ' . expand('<cword>')<CR>
 nnoremap <Space>fN :execute 'FilesWithQuery ' . expand('<cWORD>')<CR>
 nnoremap <Space>f% :execute 'FilesWithQuery ' . expand('%:t:r')<CR>
-xnoremap <Space>fn :<C-u>execute 'FilesWithQuery ' . <SID>get_visual_selection()<CR>
+xnoremap <Space>fn :<C-U>execute 'FilesWithQuery ' . <SID>get_visual_selection()<CR>
 nnoremap <Space>fo :execute 'Locate ' . input('Locate: ')<CR>
 nnoremap <Space>fr :execute 'Rg ' . input('Rg: ')<CR>
 nnoremap <Space>fR :execute 'Rg! ' . input('Rg!: ')<CR>
@@ -1889,25 +1889,25 @@ nnoremap <Space>fy :Filetypes<CR>
 nnoremap <Space>f' :Registers<CR>
 nnoremap <Space>f` :Marks<CR>
 nnoremap <Space>f: :History:<CR>
-xnoremap <Space>f: :<C-u>History:<CR>
+xnoremap <Space>f: :<C-U>History:<CR>
 nnoremap <Space>f; :Commands<CR>
-xnoremap <Space>f; :<C-u>Commands<CR>
+xnoremap <Space>f; :<C-U>Commands<CR>
 nnoremap <Space>f/ :History/<CR>
 nnoremap <Space>f] :execute "BTags '" . expand('<cword>')<CR>
-xnoremap <Space>f] :<C-u>execute "BTags '" . <SID>get_visual_selection()<CR>
+xnoremap <Space>f] :<C-U>execute "BTags '" . <SID>get_visual_selection()<CR>
 nnoremap <Space>f} :execute "Tags '" . expand('<cword>')<CR>
-xnoremap <Space>f} :<C-u>execute "Tags '" . <SID>get_visual_selection()<CR>
+xnoremap <Space>f} :<C-U>execute "Tags '" . <SID>get_visual_selection()<CR>
 nnoremap <Space>f<C-]> :execute 'Tselect ' . expand('<cword>')<CR>
-xnoremap <Space>f<C-]> :<C-u>execute 'Tselect ' . <SID>get_visual_selection()<CR>
+xnoremap <Space>f<C-]> :<C-U>execute 'Tselect ' . <SID>get_visual_selection()<CR>
 
 " DirectoryMru
-nnoremap <Space><C-d><C-d> :DirectoryMru<CR>
-nnoremap <Space><C-d><C-f> :DirectoryMruFiles<CR>
-nnoremap <Space><C-d><C-r> :DirectoryMruRg<CR>
+nnoremap <Space><C-D><C-D> :DirectoryMru<CR>
+nnoremap <Space><C-D><C-F> :DirectoryMruFiles<CR>
+nnoremap <Space><C-D><C-R> :DirectoryMruRg<CR>
 
 nnoremap <Space>sl :ScreenLines<CR>
 nnoremap <Space>sL :execute 'ScreenLines ' . expand('<cword>')<CR>
-xnoremap <Space>sL :<C-u>execute 'ScreenLines ' . <SID>get_visual_selection()<CR>
+xnoremap <Space>sL :<C-U>execute 'ScreenLines ' . <SID>get_visual_selection()<CR>
 nnoremap <Space>ss :History:<CR>mks vim sessions 
 
 " fzf & cscope key mappings {{{
@@ -1921,15 +1921,15 @@ nnoremap <silent> <Leader>cf :call <SID>cscope('7', expand('<cword>'))<CR>
 nnoremap <silent> <Leader>ci :call <SID>cscope('8', expand('<cword>'))<CR>
 nnoremap <silent> <Leader>ca :call <SID>cscope('9', expand('<cword>'))<CR>
 
-xnoremap <silent> <Leader>cs :<C-u>call <SID>cscope('0', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>cg :<C-u>call <SID>cscope('1', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>cd :<C-u>call <SID>cscope('2', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>cc :<C-u>call <SID>cscope('3', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>ct :<C-u>call <SID>cscope('4', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>ce :<C-u>call <SID>cscope('6', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>cf :<C-u>call <SID>cscope('7', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>ci :<C-u>call <SID>cscope('8', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>ca :<C-u>call <SID>cscope('9', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cs :<C-U>call <SID>cscope('0', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cg :<C-U>call <SID>cscope('1', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cd :<C-U>call <SID>cscope('2', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cc :<C-U>call <SID>cscope('3', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>ct :<C-U>call <SID>cscope('4', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>ce :<C-U>call <SID>cscope('6', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cf :<C-U>call <SID>cscope('7', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>ci :<C-U>call <SID>cscope('8', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>ca :<C-U>call <SID>cscope('9', <SID>get_visual_selection())<CR>
 
 nnoremap <silent> <Leader><Leader>cs :call <SID>cscope_query('0')<CR>
 nnoremap <silent> <Leader><Leader>cg :call <SID>cscope_query('1')<CR>
@@ -1945,7 +1945,7 @@ nnoremap <silent> <Leader><Leader>ca :call <SID>cscope_query('9')<CR>
 if has("nvim")
   nnoremap <Space>fp :ProjectTags<CR>
   nnoremap <Space>fP :execute "ProjectTags '" . expand('<cword>')<CR>
-  xnoremap <Space>fP :<C-u>execute "ProjectTags '" . <SID>get_visual_selection()<CR>
+  xnoremap <Space>fP :<C-U>execute "ProjectTags '" . <SID>get_visual_selection()<CR>
   nnoremap <Space><F8> :TagbarTags<CR>
 endif
 " }}}
@@ -2176,7 +2176,7 @@ let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
 " let g:AutoPairsMapCR = 0
 
 " Custom <CR> map to avoid enter <CR> when popup is opened
-" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>" . AutoPairsReturn()
+" inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>" . AutoPairsReturn()
 
 function! s:AutoPairsToggleMultilineClose()
   if g:AutoPairsMultilineClose == 0
@@ -2197,7 +2197,7 @@ augroup END
 " eraseSubword {{{
 Plug 'vim-scripts/eraseSubword'
 
-let g:EraseSubword_insertMap = '<C-b>'
+let g:EraseSubword_insertMap = '<C-B>'
 " }}}
 
 " tcomment_vim {{{
@@ -2257,7 +2257,7 @@ Plug 'coderifous/textobj-word-column.vim'
 " emmet {{{
 Plug 'mattn/emmet-vim'
 
-let g:user_emmet_leader_key = '<C-e>'
+let g:user_emmet_leader_key = '<C-E>'
 " }}}
 
 " cscope-macros.vim {{{
@@ -2440,13 +2440,13 @@ if executable('jedi')
 
   let g:jedi#completions_enabled = 1
 
-  let g:jedi#goto_command             = "<C-x><C-g>"
-  let g:jedi#goto_assignments_command = "<C-x>a"
-  let g:jedi#goto_definitions_command = "<C-x><C-d>"
-  let g:jedi#documentation_command    = "<C-x><C-k>"
-  let g:jedi#usages_command           = "<C-x>c"
-  let g:jedi#completions_command      = "<C-x><C-x>"
-  let g:jedi#rename_command           = "<C-x><C-r>"
+  let g:jedi#goto_command             = "<C-X><C-G>"
+  let g:jedi#goto_assignments_command = "<C-X>a"
+  let g:jedi#goto_definitions_command = "<C-X><C-D>"
+  let g:jedi#documentation_command    = "<C-X><C-K>"
+  let g:jedi#usages_command           = "<C-X>c"
+  let g:jedi#completions_command      = "<C-X><C-X>"
+  let g:jedi#rename_command           = "<C-X><C-R>"
 
   augroup jedi_vim_settings
     autocmd!
@@ -2454,8 +2454,8 @@ if executable('jedi')
   augroup END
 
   function! s:jedi_vim_settings()
-    nnoremap <C-x><C-l> :call jedi#remove_usages()<CR>
-    nnoremap <C-x><C-t> :tab split <Bar> call jedi#goto()<CR>
+    nnoremap <C-X><C-L> :call jedi#remove_usages()<CR>
+    nnoremap <C-X><C-T> :tab split <Bar> call jedi#goto()<CR>
   endfunction
 endif
 " }}}
@@ -2700,7 +2700,7 @@ let g:localvimrc_whitelist = ['/synosrc/[^/]*/source/.*']
 " vim-qfreplace {{{
 Plug 'thinca/vim-qfreplace'
 
-autocmd! FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
+autocmd! FileType qf nnoremap <buffer> r :<C-U>Qfreplace<CR>
 " }}}
 
 " vim-caser {{{
@@ -2724,7 +2724,7 @@ nnoremap <Leader>gy :Goyo<CR>
 " limelight.vim {{{
 Plug 'junegunn/limelight.vim'
 
-nnoremap <Leader><C-l> :Limelight!!<CR>
+nnoremap <Leader><C-L> :Limelight!!<CR>
 " }}}
 
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
@@ -2774,13 +2774,13 @@ if s:is_enabled_plugin('denite.nvim')
   " Insert mode {{{
   call denite#custom#map(
         \ 'insert',
-        \ '<A-f>',
+        \ '<A-F>',
         \ '<denite:toggle_matchers:matcher_fruzzy>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-g>',
+        \ '<A-G>',
         \ '<denite:toggle_matchers:matcher_substring>',
         \ 'noremap'
         \)
@@ -2792,73 +2792,73 @@ if s:is_enabled_plugin('denite.nvim')
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-r>',
+        \ '<A-R>',
         \ '<denite:change_sorters:sorter_reverse>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-o>',
+        \ '<A-O>',
         \ '<denite:do_action:open>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-d>',
+        \ '<A-D>',
         \ '<denite:do_action:cd>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<C-y>',
+        \ '<C-Y>',
         \ '<denite:input_command_line>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<C-j>',
+        \ '<C-J>',
         \ '<denite:move_to_next_line>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<C-k>',
+        \ '<C-K>',
         \ '<denite:move_to_previous_line>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<C-t>',
+        \ '<C-T>',
         \ '<denite:do_action:tabopen>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<C-s>',
+        \ '<C-S>',
         \ '<denite:do_action:split>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<C-v>',
+        \ '<C-V>',
         \ '<denite:do_action:vsplit>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-p>',
+        \ '<A-P>',
         \ '<denite:do_action:preview>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-j>',
+        \ '<A-J>',
         \ '<denite:scroll_page_forwards>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-k>',
+        \ '<A-K>',
         \ '<denite:scroll_page_backwards>',
         \ 'noremap'
         \)
@@ -2873,79 +2873,79 @@ if s:is_enabled_plugin('denite.nvim')
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<A-s>',
+        \ '<A-S>',
         \ '<denite:do_action:switch>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-s>',
+        \ '<A-S>',
         \ '<denite:do_action:switch>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<A-t>',
+        \ '<A-T>',
         \ '<denite:do_action:tabswitch>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'insert',
-        \ '<A-t>',
+        \ '<A-T>',
         \ '<denite:do_action:tabswitch>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<C-t>',
+        \ '<C-T>',
         \ '<denite:do_action:tabopen>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<C-s>',
+        \ '<C-S>',
         \ '<denite:do_action:split>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<C-v>',
+        \ '<C-V>',
         \ '<denite:do_action:vsplit>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<A-h>',
+        \ '<A-H>',
         \ '<denite:wincmd:h>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<A-j>',
+        \ '<A-J>',
         \ '<denite:wincmd:j>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<A-k>',
+        \ '<A-K>',
         \ '<denite:wincmd:k>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<A-l>',
+        \ '<A-L>',
         \ '<denite:wincmd:l>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<C-n>',
+        \ '<C-N>',
         \ '<denite:jump_to_next_source>',
         \ 'noremap'
         \)
   call denite#custom#map(
         \ 'normal',
-        \ '<C-p>',
+        \ '<C-P>',
         \ '<denite:jump_to_previous_source>',
         \ 'noremap'
         \)
@@ -2989,7 +2989,7 @@ endif
 " Gina {{{
   call gina#custom#mapping#nmap(
           \ '/\%(blame\|commit\|status\|branch\|ls\|grep\|changes\|tag\)',
-          \ 'q', ':<C-u> q<CR>', {'noremap': 1, 'silent': 1},
+          \ 'q', ':<C-U> q<CR>', {'noremap': 1, 'silent': 1},
           \)
 " }}}
 
@@ -3011,19 +3011,19 @@ if s:os !~ "synology"
 
   if has("gui")
     " Fix CTRL-f in gui will popup find window problem
-    silent! unmap <C-f>
-    silent! iunmap <C-f>
-    silent! cunmap <C-f>
+    silent! unmap <C-F>
+    silent! iunmap <C-F>
+    silent! cunmap <C-F>
   endif
 
   " Unmap CTRL-a for selecting all
-  silent! unmap <C-a>
-  silent! iunmap <C-a>
-  silent! cunmap <C-a>
+  silent! unmap <C-A>
+  silent! iunmap <C-A>
+  silent! cunmap <C-A>
 
   " Unmap CTRL-z for undo
-  silent! unmap <C-z>
-  silent! iunmap <C-z>
+  silent! unmap <C-Z>
+  silent! iunmap <C-Z>
 endif
 " }}}
 
@@ -3167,39 +3167,39 @@ nnoremap Q gq
 
 " CTRL-u in insert mode deletes a lot.  Use CTRL-g u to first break undo,
 " so that you can undo CTRL-u after inserting a line break.
-inoremap <C-u> <C-g>u<C-u>
+inoremap <C-U> <C-G>u<C-U>
 
 " CTRL-l clear hlsearch
-nnoremap <C-l> <C-l>:nohlsearch<CR>
+nnoremap <C-L> <C-L>:nohlsearch<CR>
 
 " Quickly escape insert mode
 Arpeggio inoremap jk <Esc>
 
 " Add key mapping for suspend
-nnoremap <Space><C-z> :suspend<CR>
+nnoremap <Space><C-Z> :suspend<CR>
 
 " Quickly switch window {{{
-nnoremap <M-h> <C-w>h
-nnoremap <M-j> <C-w>j
-nnoremap <M-k> <C-w>k
-nnoremap <M-l> <C-w>l
+nnoremap <M-H> <C-W>h
+nnoremap <M-J> <C-W>j
+nnoremap <M-K> <C-W>k
+nnoremap <M-L> <C-W>l
 
 " Move in insert mode
-inoremap <M-h> <Left>
-inoremap <M-j> <Down>
-inoremap <M-k> <Up>
-inoremap <M-l> <Right>
+inoremap <M-H> <Left>
+inoremap <M-J> <Down>
+inoremap <M-K> <Up>
+inoremap <M-L> <Right>
 " }}}
 
 " Saner command-line history {{{
-cnoremap <M-n> <Down>
-cnoremap <M-p> <Up>
+cnoremap <M-N> <Down>
+cnoremap <M-P> <Up>
 " }}}
 
 " Tab key mapping {{{
 " Quickly switch tab
-nnoremap <C-j> gT
-nnoremap <C-k> gt
+nnoremap <C-J> gT
+nnoremap <C-K> gt
 
 nnoremap QQ :call <SID>QuitTab()<CR>
 nnoremap g4 :tablast<CR>
@@ -3213,25 +3213,25 @@ endfunction
 " }}}
 
 " Quickly adjust window size
-nnoremap <C-w><Space>- <C-w>10-
-nnoremap <C-w><Space>+ <C-w>10+
-nnoremap <C-w><Space>< <C-w>10<
-nnoremap <C-w><Space>> <C-w>10>
+nnoremap <C-W><Space>- <C-W>10-
+nnoremap <C-W><Space>+ <C-W>10+
+nnoremap <C-W><Space>< <C-W>10<
+nnoremap <C-W><Space>> <C-W>10>
 
 " Move tab
 nnoremap <Leader>t< :tabmove -1<CR>
 nnoremap <Leader>t> :tabmove +1<CR>
 
 " Create new line in insert mode
-inoremap <M-o> <C-o>o
-inoremap <M-S-o> <C-o>O
+inoremap <M-O> <C-O>o
+inoremap <M-S-O> <C-O>O
 
 " Create new line without indent & prefix
-nnoremap <M-o> o <C-u>
-nnoremap <M-O> O <C-u>
+nnoremap <M-O> o <C-U>
+nnoremap <M-O> O <C-U>
 
 " Save
-nnoremap <C-s> :update<CR>
+nnoremap <C-S> :update<CR>
 
 " Quit
 nnoremap <Space>q :q<CR>
@@ -3244,7 +3244,7 @@ nnoremap <Leader>X :!start cmd /K cd /D %:p:h<CR>
 nnoremap <Leader>E :execute '!start explorer "' . expand("%:p:h:gs?\\??:gs?/?\\?") . '"'<CR>
 
 " Easier file status
-nnoremap <Space><C-g> 2<C-g>
+nnoremap <Space><C-G> 2<C-G>
 
 " Move working directory up
 nnoremap <Leader>u :cd ..<CR>
@@ -3266,10 +3266,10 @@ nnoremap <Leader>y% :let @" = @%<CR>
 nnoremap <Space>sr :let @+ = @"<CR>
 
 " Command line mapping
-cnoremap <expr> <C-g><C-f> <SID>files_in_commandline()
-cnoremap <expr> <C-g><C-t> <SID>rg_current_type_option()
+cnoremap <expr> <C-G><C-F> <SID>files_in_commandline()
+cnoremap <expr> <C-G><C-T> <SID>rg_current_type_option()
 " <C-]> and <C-%> is the same key
-cnoremap <expr> <C-g><C-]> expand('%:t:r')
+cnoremap <expr> <C-G><C-]> expand('%:t:r')
 
 " Quickfix & Locaiton List {{{
 augroup quickfixSettings
@@ -3279,9 +3279,9 @@ augroup END
 
 function! s:quickfix_settings()
   nnoremap <buffer> <silent> q :close<CR>
-  nnoremap <buffer> <silent> <C-t> :set switchbuf+=newtab<CR><CR>:set switchbuf-=newtab<CR>
-  nnoremap <buffer> <silent> <C-s> :set switchbuf+=split<CR><CR>:set switchbuf-=split<CR>
-  nnoremap <buffer> <silent> <C-v> :set switchbuf+=vsplit<CR><CR>:set switchbuf-=vsplit<CR>
+  nnoremap <buffer> <silent> <C-T> :set switchbuf+=newtab<CR><CR>:set switchbuf-=newtab<CR>
+  nnoremap <buffer> <silent> <C-S> :set switchbuf+=split<CR><CR>:set switchbuf-=split<CR>
+  nnoremap <buffer> <silent> <C-V> :set switchbuf+=vsplit<CR><CR>:set switchbuf-=vsplit<CR>
 endfunction
 " }}}
 
@@ -3417,7 +3417,7 @@ function! s:delete_inactive_buffers(bang)
 endfunction
 command! -bang Bdi call s:delete_inactive_buffers(<bang>0)
 nnoremap <Leader>D :Bdi<CR>
-nnoremap <Leader><C-d> :Bdi!<CR>
+nnoremap <Leader><C-D> :Bdi!<CR>
 
 function! s:trim_whitespace()
     let l:save = winsaveview()
@@ -3472,44 +3472,44 @@ if !has("nvim") && !has("gui_running") && s:os !~ "windows"
     augroup WindowsTerminalKeyFix
       autocmd!
       autocmd VimEnter *
-            \ set <M-a>=a |
-            \ set <M-c>=c |
-            \ set <M-h>=h |
-            \ set <M-g>=g |
-            \ set <M-j>=j |
-            \ set <M-k>=k |
-            \ set <M-l>=l |
-            \ set <M-n>=n |
-            \ set <M-o>=o |
-            \ set <M-p>=p |
-            \ set <M-s>=s |
-            \ set <M-t>=t |
+            \ set <M-A>=a |
+            \ set <M-C>=c |
+            \ set <M-H>=h |
+            \ set <M-G>=g |
+            \ set <M-J>=j |
+            \ set <M-K>=k |
+            \ set <M-L>=l |
+            \ set <M-N>=n |
+            \ set <M-O>=o |
+            \ set <M-P>=p |
+            \ set <M-S>=s |
+            \ set <M-T>=t |
             \ set <M-/>=/ |
             \ set <M-?>=? |
             \ set <M-]>=] |
             \ set <M-`>=` |
             \ set <M-1>=1 |
-            \ set <M-S-o>=O
+            \ set <M-S-O>=O
     augroup END
   else
-    set <M-a>=a |
-    set <M-c>=c |
-    set <M-h>=h |
-    set <M-g>=g |
-    set <M-j>=j |
-    set <M-k>=k |
-    set <M-l>=l |
-    set <M-n>=n |
-    set <M-o>=o |
-    set <M-p>=p |
-    set <M-s>=s |
-    set <M-t>=t |
+    set <M-A>=a |
+    set <M-C>=c |
+    set <M-H>=h |
+    set <M-G>=g |
+    set <M-J>=j |
+    set <M-K>=k |
+    set <M-L>=l |
+    set <M-N>=n |
+    set <M-O>=o |
+    set <M-P>=p |
+    set <M-S>=s |
+    set <M-T>=t |
     set <M-/>=/ |
     set <M-?>=? |
     set <M-]>=] |
     set <M-`>=` |
     set <M-1>=1 |
-    set <M-S-o>=O
+    set <M-S-O>=O
   endif
 endif
 " }}}
@@ -3526,55 +3526,55 @@ if has("nvim")
   nnoremap <silent> <Leader>tv :vnew   <Bar> :terminal<CR>i
 
   " Quick terminal function
-  tnoremap <M-F1> <C-\><C-n>
-  tnoremap <M-F2> <C-\><C-n>:tabnew<CR>:terminal<CR>i
-  tnoremap <M-F3> <C-\><C-n>:Windows<CR>
+  tnoremap <M-F1> <C-\><C-N>
+  tnoremap <M-F2> <C-\><C-N>:tabnew<CR>:terminal<CR>i
+  tnoremap <M-F3> <C-\><C-N>:Windows<CR>
 
   " Quickly switch window in terminal
-  tnoremap <M-S-h> <C-\><C-n><C-w>h
-  tnoremap <M-S-j> <C-\><C-n><C-w>j
-  tnoremap <M-S-k> <C-\><C-n><C-w>k
-  tnoremap <M-S-l> <C-\><C-n><C-w>l
+  tnoremap <M-S-H> <C-\><C-N><C-W>h
+  tnoremap <M-S-J> <C-\><C-N><C-W>j
+  tnoremap <M-S-K> <C-\><C-N><C-W>k
+  tnoremap <M-S-L> <C-\><C-N><C-W>l
 
   " Quickly switch tab in terminal
-  tnoremap <M-C-j> <C-\><C-n>gT
-  tnoremap <M-C-k> <C-\><C-n>gt
+  tnoremap <M-C-J> <C-\><C-N>gT
+  tnoremap <M-C-K> <C-\><C-N>gt
 
   " Quickly switch to last tab in terminal
-  tnoremap <M-1> <C-\><C-n>:LastTab<CR>
+  tnoremap <M-1> <C-\><C-N>:LastTab<CR>
 
   " Quickly paste from register
-  tnoremap <expr> <M-r> '<C-\><C-n>"' . nr2char(getchar()) . 'pi'
+  tnoremap <expr> <M-R> '<C-\><C-N>"' . nr2char(getchar()) . 'pi'
 
   " Quickly suspend neovim
-  tnoremap <M-C-z> <C-\><C-n>:suspend<CR>
+  tnoremap <M-C-Z> <C-\><C-N>:suspend<CR>
 
   " For nested neovim {{{
-    " Use <M-q> as prefix
+    " Use <M-Q> as prefix
 
     " Quick terminal function
-    tnoremap <M-q>1 <C-\><C-\><C-n>
-    tnoremap <M-q>2 <C-\><C-\><C-n>:tabnew<CR>:terminal<CR>i
-    tnoremap <M-q>3 <C-\><C-\><C-n>:Windows<CR>
+    tnoremap <M-Q>1 <C-\><C-\><C-N>
+    tnoremap <M-Q>2 <C-\><C-\><C-N>:tabnew<CR>:terminal<CR>i
+    tnoremap <M-Q>3 <C-\><C-\><C-N>:Windows<CR>
 
     " Quickly switch window in terminal
-    tnoremap <M-q><M-h> <C-\><C-\><C-n><C-w>h
-    tnoremap <M-q><M-j> <C-\><C-\><C-n><C-w>j
-    tnoremap <M-q><M-k> <C-\><C-\><C-n><C-w>k
-    tnoremap <M-q><M-l> <C-\><C-\><C-n><C-w>l
+    tnoremap <M-Q><M-H> <C-\><C-\><C-N><C-W>h
+    tnoremap <M-Q><M-J> <C-\><C-\><C-N><C-W>j
+    tnoremap <M-Q><M-K> <C-\><C-\><C-N><C-W>k
+    tnoremap <M-Q><M-L> <C-\><C-\><C-N><C-W>l
 
     " Quickly switch tab in terminal
-    tnoremap <M-q><C-j> <C-\><C-\><C-n>gT
-    tnoremap <M-q><C-k> <C-\><C-\><C-n>gt
+    tnoremap <M-Q><C-J> <C-\><C-\><C-N>gT
+    tnoremap <M-Q><C-K> <C-\><C-\><C-N>gt
 
     " Quickly switch to last tab in terminal
-    tnoremap <M-q><M-1> <C-\><C-\><C-n>:LastTab<CR>
+    tnoremap <M-Q><M-1> <C-\><C-\><C-N>:LastTab<CR>
 
     " Quickly paste from register
-    tnoremap <expr> <M-q><M-r> '<C-\><C-\><C-n>"' . nr2char(getchar()) . 'pi'
+    tnoremap <expr> <M-Q><M-R> '<C-\><C-\><C-N>"' . nr2char(getchar()) . 'pi'
 
     " Quickly suspend neovim
-    tnoremap <M-q><C-z> <C-\><C-\><C-n>:suspend<CR>
+    tnoremap <M-Q><C-Z> <C-\><C-\><C-N>:suspend<CR>
   " }}}
 
   augroup terminalSettings
