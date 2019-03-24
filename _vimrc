@@ -663,15 +663,8 @@ if s:is_enabled_plugin("defx")
 
   function! s:defx_fzf_files(context) abort
     let path = s:defx_get_folder(a:context)
-    let preview_options = fzf#vim#with_preview()['options']
 
-    call fzf#vim#files(
-          \ path,
-          \ {
-          \   'sink*': function('s:fzf_files_sink'),
-          \   'options': extend(['-m', '--expect', join(keys(g:fzf_action), ',')], preview_options),
-          \ },
-          \ 0)
+    call s:use_defx_fzf_action({ -> fzf#vim#files(path, fzf#vim#with_preview(), 0)})
   endfunction
   " TODO May need to escape a:line
   function! s:defx_open(target, action)
@@ -684,6 +677,10 @@ if s:is_enabled_plugin("defx")
     if isdirectory(a:target)
       if &filetype == 'defx' && a:action == 'edit'
         call defx#call_action('cd', a:target)
+      elseif a:action == 'rightbelow vsplit'
+        " Implement rightbelow vsplit using primitive command
+        rightbelow vsplit
+        execute 'Defx ' . a:target
       else
         execute 'Defx ' . get(s:defx_action, a:action, '') . ' ' . a:target
       endif
@@ -691,10 +688,11 @@ if s:is_enabled_plugin("defx")
       execute a:action . ' ' . a:target
     endif
   endfunction
-  command! -nargs=1 -complete=file DefxOpenSink       :call s:defx_open(<q-args>, 'edit')
-  command! -nargs=1 -complete=file DefxSplitOpenSink  :call s:defx_open(<q-args>, 'split')
-  command! -nargs=1 -complete=file DefxVSplitOpenSink :call s:defx_open(<q-args>, 'vsplit')
-  command! -nargs=1 -complete=file DefxTabOpenSink    :call s:defx_open(<q-args>, 'tab split')
+  command! -nargs=1 -complete=file DefxOpenSink            :call s:defx_open(<q-args>, 'edit')
+  command! -nargs=1 -complete=file DefxSplitOpenSink       :call s:defx_open(<q-args>, 'split')
+  command! -nargs=1 -complete=file DefxVSplitOpenSink      :call s:defx_open(<q-args>, 'vsplit')
+  command! -nargs=1 -complete=file DefxTabOpenSink         :call s:defx_open(<q-args>, 'tab split')
+  command! -nargs=1 -complete=file DefxRightVSplitOpenSink :call s:defx_open(<q-args>, 'rightbelow vsplit')
 
   function! s:defx_fzf_rg_internal(context, prompt, bang) abort
     let path = s:defx_get_folder(a:context)
@@ -1280,30 +1278,19 @@ function! s:copy_results(lines)
   let @" = joined_lines
 endfunction
 
-if s:is_enabled_plugin('defx')
-  let g:fzf_action = {
-        \ 'ctrl-q': function('s:build_quickfix_list'),
-        \ 'ctrl-t': 'DefxTabOpenSink',
-        \ 'ctrl-s': 'DefxSplitOpenSink',
-        \ 'ctrl-x': 'DefxSplitOpenSink',
-        \ 'ctrl-v': 'DefxVSplitOpenSink',
-        \ 'alt-v': 'rightbelow vsplit',
-        \ 'alt-c': function('s:copy_results'),
-        \ 'alt-e': 'cd',
-        \ 'alt-/': 'DefxOpenSink',
-        \ }
-else
-  let g:fzf_action = {
-        \ 'ctrl-q': function('s:build_quickfix_list'),
-        \ 'ctrl-t': 'tab split',
-        \ 'ctrl-s': 'split',
-        \ 'ctrl-x': 'split',
-        \ 'ctrl-v': 'vsplit',
-        \ 'alt-v': 'rightbelow vsplit',
-        \ 'alt-c': function('s:copy_results'),
-        \ 'alt-e': 'cd',
-        \ }
-endif
+let g:misc_fzf_action = {
+      \ 'ctrl-q': function('s:build_quickfix_list'),
+      \ 'alt-c':  function('s:copy_results'),
+      \ 'alt-e':  'cd',
+      \ }
+let g:default_fzf_action = extend({
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-x': 'split',
+      \ 'ctrl-v': 'vsplit',
+      \ 'alt-v':  'rightbelow vsplit',
+      \ }, g:misc_fzf_action)
+let g:fzf_action = g:default_fzf_action
 
 " Mapping selecting mappings
 nmap <Space><Tab> <Plug>(fzf-maps-n)
@@ -1402,6 +1389,7 @@ function! s:fzf_windows_preview() abort
   return options
 endfunction
 
+" Currently not used
 function! s:fzf_files_sink(lines)
   echom string(a:lines)
   if len(a:lines) < 2
@@ -1828,6 +1816,30 @@ if has("nvim")
     BLines
   endfunction
   command! TagbarTags call s:tagbar_tags()
+endif
+
+if s:is_enabled_plugin('defx')
+  let g:defx_fzf_action = extend({
+        \ 'enter':  'DefxOpenSink',
+        \ 'ctrl-t': 'DefxTabOpenSink',
+        \ 'ctrl-s': 'DefxSplitOpenSink',
+        \ 'ctrl-x': 'DefxSplitOpenSink',
+        \ 'ctrl-v': 'DefxVSplitOpenSink',
+        \ 'alt-v':  'DefxRightVSplitOpenSink',
+        \ }, g:misc_fzf_action)
+
+  function! s:use_defx_fzf_action(function)
+    let g:fzf_action = g:defx_fzf_action
+    augroup use_defx_fzf_action_callback
+      autocmd!
+      autocmd TermClose term://*fzf*
+            \ let g:fzf_action = g:default_fzf_action |
+            \ autocmd! use_defx_fzf_action_callback
+    augroup END
+    call a:function()
+  endfunction
+  command! -bang -nargs=? -complete=dir Files    call s:use_defx_fzf_action({ -> fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)})
+  command! -bang -nargs=?               GFiles   call s:use_defx_fzf_action({ -> fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)})
 endif
 " }}}
 
