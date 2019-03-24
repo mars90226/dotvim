@@ -2100,7 +2100,7 @@ function! s:clear_incsearch_nohlsearch()
   nohlsearch
 
   " clear incsearch-nohlsearch
-  autocmd! incsearch-auto-nohlsearch
+  silent! autocmd! incsearch-auto-nohlsearch
   " autocmd! incsearch-auto-nohlsearch-on-insert-leave
 endfunction
 " }}}
@@ -3600,9 +3600,7 @@ if has("nvim")
     setlocal norelativenumber
 
     " Due to autocmd implementation, there is no way to stop highlighting in autocmd.
-    " clear incsearch-nohlsearch
-    autocmd! incsearch-auto-nohlsearch
-    " autocmd! incsearch-auto-nohlsearch-on-insert-leave
+    call s:clear_incsearch_nohlsearch()
   endfunction
 
   " Search keyword with Google using surfraw {{{
