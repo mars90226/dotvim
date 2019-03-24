@@ -108,8 +108,8 @@ else
 end
 
 " Choose file explorer
-" Defx requires python 3.6
-if has("nvim") && s:python_version() =~ "^3.6"
+" Defx requires python 3.6.1+
+if has("nvim") && s:python_version() >= "3.6.1"
   call s:disable_plugin("vimfiler")
 else
   call s:disable_plugin("defx")
@@ -928,6 +928,7 @@ let g:unite_source_history_yank_enable = 1
 " for unite-workflow
 let g:github_user = "mars90226"
 
+" Unite custom function {{{
 " Escape colon, backslash and space
 function! s:escape_symbol(expr)
   let l:expr = a:expr
@@ -987,6 +988,7 @@ function! s:unite_grep(query, buffer_name_prefix, option, is_word) abort
 
   execute 'Unite -buffer-name=' . buffer_name . ' -wrap grep:.:' . escaped_option . ':' . final_query
 endfunction
+" }}}
 
 " Unite key mappings {{{
 nnoremap <Space>l :Unite -start-insert line<CR>
