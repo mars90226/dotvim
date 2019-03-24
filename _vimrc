@@ -255,7 +255,8 @@ if s:is_enabled_plugin('deoplete.nvim')
 
   " TODO Move this out of deoplete.nvim section
   " Dock mode display error
-  if has("nvim")
+  " Check if nvim has float-window support
+  if has("nvim") && exists('*nvim_open_win')
     Plug 'ncm2/float-preview.nvim'
   endif
 
