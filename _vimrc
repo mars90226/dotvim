@@ -245,7 +245,9 @@ if s:is_enabled_plugin('deoplete.nvim')
   Plug 'Shougo/neco-syntax'
   Plug 'Shougo/neco-vim'
   Plug 'sebastianmarkow/deoplete-rust', { 'for': ['rust'] }
-  Plug 'deoplete-plugins/deoplete-jedi'
+  if executable('jedi')
+    Plug 'deoplete-plugins/deoplete-jedi'
+  endif
   Plug 'deoplete-plugins/deoplete-zsh'
 
   " tern_for_vim will install tern
@@ -2412,27 +2414,29 @@ endfunction
 " }}}
 
 " jedi-vim {{{
-Plug 'davidhalter/jedi-vim'
+if executable('jedi')
+  Plug 'davidhalter/jedi-vim'
 
-let g:jedi#completions_enabled = 1
+  let g:jedi#completions_enabled = 1
 
-let g:jedi#goto_command             = "<C-x><C-g>"
-let g:jedi#goto_assignments_command = "<C-x>a"
-let g:jedi#goto_definitions_command = "<C-x><C-d>"
-let g:jedi#documentation_command    = "<C-x><C-k>"
-let g:jedi#usages_command           = "<C-x>c"
-let g:jedi#completions_command      = "<C-x><C-x>"
-let g:jedi#rename_command           = "<C-x><C-r>"
+  let g:jedi#goto_command             = "<C-x><C-g>"
+  let g:jedi#goto_assignments_command = "<C-x>a"
+  let g:jedi#goto_definitions_command = "<C-x><C-d>"
+  let g:jedi#documentation_command    = "<C-x><C-k>"
+  let g:jedi#usages_command           = "<C-x>c"
+  let g:jedi#completions_command      = "<C-x><C-x>"
+  let g:jedi#rename_command           = "<C-x><C-r>"
 
-augroup jedi_vim_settings
-  autocmd!
-  autocmd FileType python call s:jedi_vim_settings()
-augroup END
+  augroup jedi_vim_settings
+    autocmd!
+    autocmd FileType python call s:jedi_vim_settings()
+  augroup END
 
-function! s:jedi_vim_settings()
-  nnoremap <C-x><C-l> :call jedi#remove_usages()<CR>
-  nnoremap <C-x><C-t> :tab split <Bar> call jedi#goto()<CR>
-endfunction
+  function! s:jedi_vim_settings()
+    nnoremap <C-x><C-l> :call jedi#remove_usages()<CR>
+    nnoremap <C-x><C-t> :tab split <Bar> call jedi#goto()<CR>
+  endfunction
+endif
 " }}}
 
 Plug 'moll/vim-node', { 'for': [] }
