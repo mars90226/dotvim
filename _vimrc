@@ -3009,19 +3009,21 @@ if s:os !~ "synology"
   " TODO Fix this in Linux
   behave mswin
 
-  if s:os !~ "windows"
-    " Unmap CTRL-a for selecting all
-    silent! unmap <C-a>
-    silent! iunmap <C-a>
-    silent! cunmap <C-a>
-  endif
-
   if has("gui")
     " Fix CTRL-f in gui will popup find window problem
     silent! unmap <C-f>
     silent! iunmap <C-f>
     silent! cunmap <C-f>
   endif
+
+  " Unmap CTRL-a for selecting all
+  silent! unmap <C-a>
+  silent! iunmap <C-a>
+  silent! cunmap <C-a>
+
+  " Unmap CTRL-z for undo
+  silent! unmap <C-z>
+  silent! iunmap <C-z>
 endif
 " }}}
 
