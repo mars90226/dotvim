@@ -2095,6 +2095,14 @@ map g/ <Plug>(incsearch-stay)
 " Search within visual selection
 xmap <M-/> <Esc><Plug>(incsearch-forward)\%V
 xmap <M-?> <Esc><Plug>(incsearch-backward)\%V
+
+function! s:clear_incsearch_nohlsearch()
+  nohlsearch
+
+  " clear incsearch-nohlsearch
+  autocmd! incsearch-auto-nohlsearch
+  " autocmd! incsearch-auto-nohlsearch-on-insert-leave
+endfunction
 " }}}
 
 " incsearch-fuzzy {{{
@@ -2236,7 +2244,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-function'
 
 " Search in function
-map <Space>sf vaf<M-/>
+map <Space>sf :call <SID>clear_incsearch_nohlsearch()<CR>vaf<M-/>
 
 " }}}
 
@@ -3155,9 +3163,12 @@ let c_comment_strings=1
 " Don't use Ex mode, use Q for formatting
 nnoremap Q gq
 
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
+" CTRL-u in insert mode deletes a lot.  Use CTRL-g u to first break undo,
+" so that you can undo CTRL-u after inserting a line break.
+inoremap <C-u> <C-g>u<C-u>
+
+" CTRL-l clear hlsearch
+nnoremap <C-l> <C-l>:nohlsearch<CR>
 
 " Quickly escape insert mode
 Arpeggio inoremap jk <Esc>
@@ -3586,6 +3597,11 @@ if has("nvim")
     setlocal colorcolumn=
     setlocal nonumber
     setlocal norelativenumber
+
+    " Due to autocmd implementation, there is no way to stop highlighting in autocmd.
+    " clear incsearch-nohlsearch
+    autocmd! incsearch-auto-nohlsearch
+    " autocmd! incsearch-auto-nohlsearch-on-insert-leave
   endfunction
 
   " Search keyword with Google using surfraw {{{
