@@ -678,15 +678,12 @@ if s:is_enabled_plugin("defx")
           \ 'tab split': '-split=tab',
           \ 'split': '-split=horizontal',
           \ 'vsplit': '-split=vertical',
+          \ 'rightbelow vsplit': '-split=vertical -direction=botright',
           \ }
 
     if isdirectory(a:target)
       if &filetype == 'defx' && a:action == 'edit'
         call defx#call_action('cd', a:target)
-      elseif a:action == 'rightbelow vsplit'
-        " Implement rightbelow vsplit using primitive command
-        rightbelow vsplit
-        execute 'Defx ' . a:target
       else
         execute 'Defx ' . get(s:defx_action, a:action, '') . ' ' . a:target
       endif
@@ -2981,6 +2978,10 @@ endif
 
 " Defx {{{
 if s:is_enabled_plugin("defx")
+  call defx#custom#option('_', {
+        \ 'columns': 'git:mark:filename:type:size:time',
+        \ 'show_ignored_files': 1,
+        \ })
   call defx#custom#column('filename', {
         \ 'directory_icon': '▸',
         \ 'opened_icon': '▾',
@@ -2990,9 +2991,7 @@ if s:is_enabled_plugin("defx")
         \ 'readonly_icon': '✗',
         \ 'selected_icon': '✓',
         \ })
-  call defx#custom#option('_', {
-        \ 'columns': 'git:mark:filename:type:size:time'
-        \ })
+  call defx#custom#column('time', {'format': '%Y/%m/%d %H:%M'})
 endif
 " }}}
 
