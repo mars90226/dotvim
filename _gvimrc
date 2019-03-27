@@ -1,3 +1,5 @@
+set langmenu=en_US.UTF-8
+
 set winaltkeys=no
 set background=dark
 colorscheme seoul256

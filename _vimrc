@@ -3038,6 +3038,11 @@ if s:os !~ "synology"
 endif
 " }}}
 
+" Language
+" Always use English to avoid plugin not catching exception due to translation
+" E.g. vim-subversive tries to catch 'Unknown Exception'
+language C
+
 set number
 set hidden
 set lazyredraw
