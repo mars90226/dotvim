@@ -1982,7 +1982,8 @@ Plug 'vifm/vifm.vim'
 if s:is_enabled_plugin('vim-gutentags')
   Plug 'ludovicchabant/vim-gutentags'
 
-  let g:gutentags_modules = ['ctags', 'cscope']
+  " Don't update cscope, workload is too heavy
+  let g:gutentags_modules = ['ctags']
   let g:gutentags_ctags_exclude = ['.git', 'node_modules']
 endif
 " }}}
