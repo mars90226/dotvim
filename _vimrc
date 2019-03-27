@@ -28,7 +28,11 @@ endif
 let s:plugin_disabled = []
 
 function! s:disable_plugin(plugin)
-  call add(s:plugin_disabled, a:plugin)
+  let l:idx = index(s:plugin_disabled, a:plugin)
+
+  if l:idx == -1
+    call add(s:plugin_disabled, a:plugin)
+  endif
 endfunction
 
 function! s:disable_plugins(plugins)
@@ -134,8 +138,13 @@ if !exists("##TextYankPost")
   call s:disable_plugin('vim-highlightedyank')
 endif
 
+if !(has('job') || (has('nvim') && exists('*jobwait')))
+  call s:disable_plugin('vim-gutentags')
+endif
+
 if $NVIM_TERMINAL == "yes"
   call s:disable_plugin('git-p.nvim')
+  call s:disable_plugin('vim-gutentags')
 endif
 " }}}
 
@@ -1970,9 +1979,10 @@ Plug 'vifm/vifm.vim'
 " }}}
 
 " vim-gutentags {{{
-if has('job') || (has('nvim') && exists('*jobwait'))
+if s:is_enabled_plugin('vim-gutentags')
   Plug 'ludovicchabant/vim-gutentags'
 
+  let g:gutentags_modules = ['ctags', 'cscope']
   let g:gutentags_ctags_exclude = ['.git', 'node_modules']
 endif
 " }}}
