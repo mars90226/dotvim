@@ -2427,17 +2427,16 @@ augroup tern_for_vim_settings
 augroup END
 
 function! s:tern_for_vim_settings()
-  nnoremap <Leader>eD :TernDoc<CR>
-  nnoremap <Leader>eb :TernDocBrowse<CR>
-  nnoremap <Leader>et :TernType<CR>
+  nnoremap <C-X><C-K> :TernDoc<CR>
+  nnoremap <C-X><C-B> :TernDocBrowse<CR>
+  nnoremap <C-X><C-T> :TernType<CR>
   " To avoid accidentally delete
-  nnoremap <Leader>ed :TernDef<CR>
-  nnoremap <Leader>edd :TernDef<CR>
-  nnoremap <Leader>edp :TernDefPreview<CR>
-  nnoremap <Leader>eds :TernDefSplit<CR>
-  nnoremap <Leader>edt :TernDefTab<CR>
-  nnoremap <Leader>er :TernRefs<CR>
-  nnoremap <Leader>eR :TernRename<CR>
+  nnoremap <C-X><C-D> :TernDef<CR>
+  nnoremap <C-X><C-P> :TernDefPreview<CR>
+  nnoremap <C-X><C-S> :TernDefSplit<CR>
+  nnoremap <C-X><C-N> :TernDefTab<CR>
+  nnoremap <C-X>c :TernRefs<CR>
+  nnoremap <C-X><C-R> :TernRename<CR>
 endfunction
 " }}}
 
@@ -2462,7 +2461,7 @@ if executable('jedi')
 
   function! s:jedi_vim_settings()
     nnoremap <C-X><C-L> :call jedi#remove_usages()<CR>
-    nnoremap <C-X><C-T> :tab split <Bar> call jedi#goto()<CR>
+    nnoremap <C-X><C-N> :tab split <Bar> call jedi#goto()<CR>
   endfunction
 endif
 " }}}
