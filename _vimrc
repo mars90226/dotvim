@@ -680,12 +680,15 @@ if s:is_enabled_plugin("defx")
           \ 'vsplit': '-split=vertical',
           \ 'rightbelow vsplit': '-split=vertical -direction=botright',
           \ }
+    let s:defx_additional_argument = {
+          \ 'tab split': '-buffer-name=tab',
+          \ }
 
     if isdirectory(a:target)
       if &filetype == 'defx' && a:action == 'edit'
         call defx#call_action('cd', a:target)
       else
-        execute 'Defx ' . get(s:defx_action, a:action, '') . ' ' . a:target
+        execute 'Defx ' . get(s:defx_action, a:action, '') . ' ' . get(s:defx_additional_argument, a:action , '') . ' ' . a:target
       endif
     else
       execute a:action . ' ' . a:target
