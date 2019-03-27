@@ -1042,7 +1042,7 @@ nnoremap <Space>uT :Unite tag<CR>
 nnoremap <Space>uu :UniteResume<CR>
 nnoremap <Space>uU :Unite -buffer-name=resume resume<CR>
 nnoremap <Space>uw :Unite window<CR>
-nnoremap <Space>uy :Unite history/yank<CR>
+nnoremap <Space>uy :Unite history/yank -start-insert<CR>
 nnoremap <Space>uma :Unite mapping<CR>
 nnoremap <Space>ume :Unite output:message<CR>
 nnoremap <Space>ump :Unite output:map<CR>
