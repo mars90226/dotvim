@@ -1,6 +1,6 @@
 " Bootstrap {{{
 " ====================================================================
-let g:mapleader=","
+let g:mapleader = ","
 
 " Detect operating system
 if has("win32") || has("win64")
@@ -283,7 +283,7 @@ if s:is_enabled_plugin('deoplete.nvim')
   let g:deoplete#sources#clang#clang_header = "/usr/lib/llvm-5.0/lib/clang"
 
   " clang_complete
-  " let g:clang_library_path='/usr/lib/llvm-5.0/lib/libclang.so.1'
+  " let g:clang_library_path = '/usr/lib/llvm-5.0/lib/libclang.so.1'
   "
   " let g:clang_debug = 1
   " let g:clang_use_library = 1
@@ -357,8 +357,8 @@ if s:is_enabled_plugin('YouCompleteMe')
   let g:ycm_confirm_extra_conf    = 0
   let g:ycm_key_invoke_completion = '<M-/>'
 
-  nnoremap <Leader>yy :let g:ycm_auto_trigger=0<CR>
-  nnoremap <Leader>yY :let g:ycm_auto_trigger=1<CR>
+  nnoremap <Leader>yy :let g:ycm_auto_trigger = 0<CR>
+  nnoremap <Leader>yY :let g:ycm_auto_trigger = 1<CR>
 
   nnoremap <Leader>yr :YcmRestartServer<CR>
   nnoremap <Leader>yi :YcmDiags<CR>
@@ -3194,7 +3194,7 @@ if !exists('g:loaded_color')
 endif
 
 " highlighting strings inside C comments.
-let c_comment_strings=1
+let c_comment_strings = 1
 " }}}
 
 " Key Mappings {{{
@@ -3490,8 +3490,8 @@ if !has("nvim") && !has("gui_running") && s:os =~ "windows"
   set term=xterm
   set mouse=a
   set t_Co=256
-  let &t_AB="\e[48;5;%dm"
-  let &t_AF="\e[38;5;%dm"
+  let &t_AB = "\e[48;5;%dm"
+  let &t_AF = "\e[38;5;%dm"
   colorscheme seoul256
   highlight Pmenu ctermfg=187 ctermbg=239
   highlight PmenuSel ctermbg=95
