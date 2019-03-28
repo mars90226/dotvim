@@ -1456,7 +1456,9 @@ endfunction
 
 let g:fd_command = 'fd --no-ignore --hidden --follow'
 command! -bang -nargs=? -complete=dir AllFiles call fzf#vim#files(<q-args>,
-      \ extend({ 'source': g:fd_command }, fzf#vim#with_preview()), <bang>0)
+      \ <bang>0 ? extend({ 'source': g:fd_command }, fzf#vim#with_preview('up:60%'))
+      \         : extend({ 'source': g:fd_command }, fzf#vim#with_preview()),
+      \ <bang>0)
 
 let g:git_diff_tree_command = 'git diff-tree --no-commit-id --name-only -r '
 command! -bang -nargs=* -complete=dir GitDiffFiles call s:git_diff_tree(<bang>0, <f-args>)
