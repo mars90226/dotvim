@@ -1162,7 +1162,7 @@ endfunction "}}}
 
 " Denite {{{
 if s:is_enabled_plugin('denite.nvim')
-  Plug 'Shougo/denite.nvim'
+  Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'neoclide/denite-extra'
   Plug 'kmnk/denite-dirmark'
 
@@ -3052,7 +3052,11 @@ endif
 " Language
 " Always use English to avoid plugin not catching exception due to translation
 " E.g. vim-subversive tries to catch 'Unknown Exception'
-language C
+if !has('nvim')
+  " neovim current seems not using system locale
+  " And language C seems to break :Denite file
+  language C
+endif
 
 set number
 set hidden
