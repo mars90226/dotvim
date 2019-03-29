@@ -1332,11 +1332,25 @@ function! s:warn(message)
 endfunction
 
 " For using g:fzf_action in custom sink function
+" Don't return function, as function in g:fzf_action will only accept a:lines
+" or a:line, which is probably not what the caller want.
 let s:TYPE = {'dict': type({}), 'funcref': type(function('call')), 'string': type(''), 'list': type([])}
 function! s:action_for(key, ...)
   let default = a:0 ? a:1 : ''
   let Cmd = get(g:fzf_action, a:key, default)
   return type(Cmd) == s:TYPE.string ? Cmd : default
+endfunction
+
+" For filling quickfix in custom sink function
+function! s:fill_quickfix(list, ...)
+  if len(a:list) > 1
+    call setqflist(a:list)
+    copen
+    wincmd p
+    if a:0
+      execute a:1
+    endif
+  endif
 endfunction
 
 " For using colors in fzf
@@ -1749,10 +1763,16 @@ function! s:cscope_sink(lines)
   if len(a:lines) < 2
     return
   end
-  let cmd = s:action_for(a:lines[0], 'e')
+  let cmd = s:action_for(a:lines[0], 'edit')
+  let qfl = []
   for result in a:lines[1:]
+    let text = join(split(result)[1:])
     let [filename, line_number] = split(split(result)[0], ":")
-    execute cmd . ' +' . line_number . ' ' . filename
+    call add(qfl, {'filename': filename, 'lnum': line_number, 'text': text})
+  endfor
+  call s:fill_quickfix(qfl)
+  for qf in qfl
+    execute cmd . ' +' . qf.lnum . ' ' . qf.filename
   endfor
 endfunction
 
