@@ -1800,6 +1800,7 @@ function! s:cscope_sink(lines)
   call s:fill_quickfix(qfl)
   for qf in qfl
     execute cmd . ' +' . qf.lnum . ' ' . qf.filename
+    normal! zzzv
   endfor
 endfunction
 
