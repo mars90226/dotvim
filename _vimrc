@@ -1628,20 +1628,47 @@ function! s:tselect_sink(lines)
   if len(a:lines) < 2
     return
   endif
-  let cmd = s:action_for(a:lines[0], 'e')
-  " # [pri] kind tag file
-  " This will capture last component
-  let list = matchlist(a:lines[1], '\v^%(\s+\S+)*\s+(\S+)') 
-  execute cmd . ' ' . list[1]
+  let cmd = s:action_for(a:lines[0], 'edit')
+  let qfl = []
+  for target in a:lines[1:]
+    let infos = split(target, "\t")
+    " # [pri] kind tag file
+    " This will capture last component
+    let filename = matchlist(infos[0], '\v^%(\s+\S+)*\s+(\S+)')[1]
+    let pattern = substitute(infos[-1], '^\s*\(.\{-}\)\s*$', '\1', '')
+    execute cmd . ' ' . filename
+    execute '/\V' . pattern
+    call add(qfl, {'filename': expand('%'), 'lnum': line('.'), 'text': getline('.')})
+    normal! zzzv
+  endfor
+  call s:fill_quickfix(qfl, 'clast')
+  normal! zzzv
 endfunction
 
 function! s:get_tselect(query)
-  return filter(split(execute("tselect " . a:query, "silent!"), "\n"), 'v:val =~ "^\\s\\+\\d"')
+  let tselect_output = split(execute("tselect " . a:query, "silent!"), "\n")[1:-2]
+  let tselect_candidates = []
+  let tselect_current_candidate = []
+  for line in tselect_output
+    if line =~ '^\s\+\d'
+      if !empty(tselect_current_candidate)
+        call add(tselect_candidates, join(tselect_current_candidate, "\t"))
+        let tselect_current_candidate = []
+      endif
+    endif
+
+    call add(tselect_current_candidate, line)
+  endfor
+  if !empty(tselect_current_candidate)
+    call add(tselect_candidates, join(tselect_current_candidate, "\t"))
+  endif
+
+  return tselect_candidates
 endfunction
 command! -nargs=1 Tselect call fzf#run(fzf#wrap({
       \ 'source': s:get_tselect(<q-args>),
       \ 'sink*':   function('s:tselect_sink'),
-      \ 'options': '+s --expect=' . join(keys(g:fzf_action), ','),
+      \ 'options': '-m +s --expect=' . join(keys(g:fzf_action), ','),
       \ 'down':   '40%'}))
 
 " TODO Add Jumps command preview
