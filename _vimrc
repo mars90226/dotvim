@@ -1861,7 +1861,7 @@ if has("nvim")
   endfunction
   autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
-  function! s:project_tags(query)
+  function! s:project_tags(query, ...)
     let s:origin_tags = &tags
     set tags-=./tags;
     augroup project_tags_callback
@@ -1870,9 +1870,13 @@ if has("nvim")
             \ let &tags = s:origin_tags |
             \ autocmd! project_tags_callback
     augroup END
-    execute 'Tags ' . a:query
+    call call('fzf#vim#tags', [a:query] + a:000)
   endfunction
-  command! -nargs=* ProjectTags call s:project_tags(<q-args>)
+  command! -bang -nargs=* ProjectTags call s:project_tags(<q-args>, <bang>0)
+  " Too bad fzf cannot toggle case sensitive interactively
+  command! -bang -nargs=* BTagsCaseSentitive       call fzf#vim#buffer_tags(<q-args>, { 'options': ['+i'] }, <bang>0)
+  command! -bang -nargs=* TagsCaseSentitive        call fzf#vim#tags(<q-args>,        { 'options': ['+i'] }, <bang>0)
+  command! -bang -nargs=* ProjectTagsCaseSentitive call s:project_tags(<q-args>,      { 'options': ['+i'] }, <bang>0)
 
   function! s:tagbar_tags()
     TagbarOpenAutoClose
@@ -2013,6 +2017,7 @@ nnoremap <silent> <Leader><Leader>ca :call <SID>cscope_query('9')<CR>
 
 if has("nvim")
   nnoremap <Space>fp :ProjectTags<CR>
+  nnoremap <Space>sp :ProjectTagsCaseSentitive<CR>
   nnoremap <Space>fP :execute "ProjectTags '" . expand('<cword>')<CR>
   xnoremap <Space>fP :<C-U>execute "ProjectTags '" . <SID>get_visual_selection()<CR>
   nnoremap <Space><F8> :TagbarTags<CR>
