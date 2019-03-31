@@ -86,9 +86,12 @@ function! s:has_linux_build_env()
 endfunction
 
 " Choose autocompletion plugin {{{
-" deoplete.nvim, completor.vim, YouCompleteMe, supertab
-call s:disable_plugins(['deoplete.nvim', 'completor.vim', 'YouCompleteMe', 'supertab'])
-if s:has_async() && s:has_rpc() && has("python3")
+" coc.nvim, deoplete.nvim, completor.vim, YouCompleteMe, supertab
+call s:disable_plugins(['coc.nvim', 'deoplete.nvim', 'completor.vim', 'YouCompleteMe', 'supertab'])
+if s:has_async() && s:has_rpc() && executable('node') && executable('yarn')
+  " coc.nvim
+  call s:enable_plugin('coc.nvim')
+elseif s:has_async() && s:has_rpc() && has("python3")
   " deoplete.nvim
   call s:enable_plugin('deoplete.nvim')
 elseif has("python") || has("python3")
@@ -233,6 +236,105 @@ inoremap <expr> <Tab>      pumvisible() ? "\<C-N>" : "\<Tab>"
 " Workaround of supertab bug
 if s:is_disabled_plugin('supertab')
   inoremap <expr> <S-Tab>    pumvisible() ? "\<C-P>" : "\<S-Tab>"
+endif
+" }}}
+
+" coc.nvim {{{
+if s:is_enabled_plugin('coc.nvim')
+  Plug 'neoclide/coc.nvim', { 'do': { -> coc#util#install() } }
+
+  " <Tab>: completion.
+  inoremap <silent><expr> <Tab>
+        \ pumvisible() ? "\<C-N>" :
+        \ <SID>check_back_space() ? "\<Tab>" :
+        \ coc#refresh()
+  function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1] =~ '\s'
+  endfunction "}}}
+
+  " <S-Tab>: completion back.
+  inoremap <expr><S-Tab> pumvisible() ? "\<C-P>" : "\<C-H>"
+
+  " <M-Space>: trigger completion
+  inoremap <silent><expr> <M-Space> coc#refresh()
+
+  " <CR>: confirm completion, or insert <CR> with new undo chain
+  inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
+
+  " Due to diff mode key mappings that need nnoremap, calling function
+  " directly
+  nnoremap <silent><expr> [c &diff ? "[c" : CocActionAsync('diagnosticPrevious')
+  nnoremap <silent><expr> ]c &diff ? "]c" : CocActionAsync('diagnosticNext')
+
+  " mapppings for gotos
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+
+  " K: show documentation in preview window
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+  function! s:show_documentation()
+    if &filetype == 'vim'
+      execute 'help ' . expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
+  endfunction
+
+  " Highlight symbol under cursor on CursorHold
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+
+  " mappings for rename current word
+  nmap <Space>cr <Plug>(coc-rename)
+
+  " mappings for format selected region
+  nmap <Space>cf <Plug>(coc-format-selected)
+  xmap <Space>cf <Plug>(coc-format-selected)
+
+  augroup coc_settings
+    autocmd!
+    " Setup formatexpr
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  augroup END
+
+  " mappings for do codeAction of selected region
+  nmap <Space>ca <Plug>(coc-codeaction-selected)
+  xmap <Space>ca <Plug>(coc-codeaction-selected)
+
+  " mappings for do codeAction of current line
+  nmap <Space>cc <Plug>(coc-codeaction)
+  " mappings for fix autofix problem of current line
+  nmap <Space>cx <Plug>(coc-fix-current)
+
+  " :Format for format current buffer
+  command! -nargs=0 Format :call CocAction('format')
+
+  " :Fold for fold current buffer
+  command! -nargs=? Fold :call CocAction('fold', <f-args>)
+
+  " TODO Add airline support
+
+  " Show all diagnostics
+  nnoremap <silent> <Space>ca :CocList diagnostics<CR>
+  " Manage extensions
+  nnoremap <silent> <Space>ce :CocList extensions<CR>
+  " Show commands
+  nnoremap <silent> <Space>c; :CocList commands<CR>
+  " Find symbol of cuRrent docu
+  nnoremap <silent> <Space>co :CocList outline<CR>
+  " Search workspace Symbols
+  nnoremap <silent> <Space>cs :CocList -I symbols<CR>
+  " Do default action for next 
+  nnoremap <silent> <Space>cj :CocNext<CR>
+  " Do default action for previtem.
+  nnoremap <silent> <Space>ck :CocPrev<CR>
+  " Resume latest coc list
+  nnoremap <silent> <Space>cu :CocListResume<CR>
 endif
 " }}}
 
@@ -476,9 +578,9 @@ let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
 " let g:ctrlp_cmdpalette_execute = 1
 
 nnoremap <C-P> :CtrlP<CR>
-nnoremap <Space>cf :CtrlPFunky<CR>
-nnoremap <Space>cF :execute 'CtrlPFunky ' . expand('<cword>')<CR>
-xnoremap <Space>cF :<C-U>execute 'CtrlPFunky ' . <SID>get_visual_selection()<CR>
+nnoremap <Space>cO :CtrlPFunky<CR>
+nnoremap <Space>cK :execute 'CtrlPFunky ' . expand('<cword>')<CR>
+xnoremap <Space>cK :<C-U>execute 'CtrlPFunky ' . <SID>get_visual_selection()<CR>
 nnoremap <Space>cp :CtrlPCmdPalette<CR>
 nnoremap <Space>cm :CtrlPCmdline<CR>
 nnoremap <Space>c] :CtrlPtjump<CR>
@@ -2405,10 +2507,16 @@ end
 if s:is_enabled_plugin('ale')
   Plug 'w0rp/ale'
 
+  " let g:ale_linters = {
+  "       \ 'c': ['gcc', 'ccls'],
+  "       \ 'cpp': ['g++', 'ccls'],
+  "       \ 'javascript': ['eslint', 'jshint', 'flow', 'flow-language-server']
+  "       \}
+  " Disable language server in ale, prefer coc.nvim
   let g:ale_linters = {
         \ 'c': ['gcc'],
         \ 'cpp': ['g++'],
-        \ 'javascript': ['eslint', 'jshint', 'flow', 'flow-language-server']
+        \ 'javascript': ['eslint', 'jshint']
         \}
   let g:ale_fixers = {
         \ 'javascript': [ 'eslint' ],
