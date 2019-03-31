@@ -2408,7 +2408,7 @@ if s:is_enabled_plugin('ale')
   let g:ale_linters = {
         \ 'c': ['gcc'],
         \ 'cpp': ['g++'],
-        \ 'javascript': ['eslint', 'jshint']
+        \ 'javascript': ['eslint', 'jshint', 'flow', 'flow-language-server']
         \}
   let g:ale_fixers = {
         \ 'javascript': [ 'eslint' ],
@@ -2421,6 +2421,9 @@ if s:is_enabled_plugin('ale')
         \   'stylelint'
         \ ]
         \}
+  " Depend on project whether to use flow locally
+  " let g:ale_javascript_flow_use_global = 1
+  " let g:ale_javascript_flow_ls_use_global = 1
 
   nmap ]a <Plug>(ale_next_wrap)
   nmap [a <Plug>(ale_previous_wrap)
@@ -2435,9 +2438,11 @@ if s:is_enabled_plugin('ale')
   nmap <Leader>ah <Plug>(ale_hover)
   nmap <Leader>ai :ALEInfo<CR>
   nmap <Leader>al <Plug>(ale_lint)
-  nmap <Leader>ar <Plug>(ale_reset_buffer)
-  nmap <Leader>aR <Plug>(ale_reset)
+  nmap <Leader>ar <Plug>(ale_find_references)
+  nmap <Leader>as :execute 'ALESymbolSearch ' . input('Symbol: ')<CR>
   nmap <Leader>aS :ALEStopAllLSPs<CR>
+  nmap <Leader>at <Plug>(ale_go_to_type_definition)
+  nmap <Leader>aT <Plug>(ale_go_to_type_definition_in_tab)
 end
 " }}}
 
