@@ -2949,6 +2949,12 @@ call plug#end()
 " }}}
 
 " Post-loaded Plugin Settings {{{
+" coc.nvim {{{
+if s:is_enabled_plugin('coc.nvim')
+  call coc#add_extension('coc-json', 'coc-tsserver')
+endif
+" }}}
+
 " deoplete.nvim {{{
 if s:is_enabled_plugin('deoplete.nvim')
   " Use smartcase.
