@@ -145,6 +145,10 @@ if !(has('job') || (has('nvim') && exists('*jobwait')))
   call s:disable_plugin('vim-gutentags')
 endif
 
+if !s:has_linux_build_env()
+  call s:disable_plugin('git-p.nvim')
+endif
+
 if $NVIM_TERMINAL == "yes"
   call s:disable_plugin('git-p.nvim')
   call s:disable_plugin('vim-gutentags')
@@ -372,7 +376,7 @@ if s:is_enabled_plugin('deoplete.nvim')
   " TODO Move this out of deoplete.nvim section
   " Dock mode display error
   " Check if nvim has float-window support
-  if has("nvim") && exists('*nvim_open_win')
+  if has("nvim") && exists('*nvim_open_win') && exists('##CompleteChanged')
     Plug 'ncm2/float-preview.nvim'
   endif
 
