@@ -1327,6 +1327,7 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>dq :Denite quickfix<CR>
   nnoremap <Space>dr :Denite register<CR>
   nnoremap <Space>ds :Denite session<CR>
+  nnoremap <Space>d<Space> :Denite source<CR>
   nnoremap <Space>dt :Denite tag<CR>
   nnoremap <Space>du :Denite -resume -refresh<CR>
   nnoremap <Space>dU :Denite -resume -refresh -buffer-name=grep%`bufnr("%")`<CR>
