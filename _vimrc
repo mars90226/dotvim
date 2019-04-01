@@ -241,7 +241,10 @@ endif
 
 " coc.nvim {{{
 if s:is_enabled_plugin('coc.nvim')
+  Plug 'Shougo/neco-vim'
+  Plug 'neoclide/coc-neco'
   Plug 'neoclide/coc.nvim', { 'do': { -> coc#util#install() } }
+  Plug 'neoclide/coc-denite'
 
   " <Tab>: completion.
   inoremap <silent><expr> <Tab>
@@ -335,6 +338,8 @@ if s:is_enabled_plugin('coc.nvim')
   nnoremap <silent> <Space>ck :CocPrev<CR>
   " Resume latest coc list
   nnoremap <silent> <Space>cu :CocListResume<CR>
+  " Show lists
+  nnoremap <silent> <Space>cl :CocList lists<CR>
 endif
 " }}}
 
@@ -2779,6 +2784,7 @@ Plug 'tpope/vim-unimpaired'
 " Ignore [a, ]a, [A, ]A for ale
 let g:nremap = {"[a": "", "]a": "", "[A": "", "]A": ""}
 
+nnoremap coc :set termguicolors!<CR>
 nnoremap coe :set expandtab!<CR>
 nnoremap com :set modifiable!<CR>
 nnoremap coo :set readonly!<CR>
@@ -2952,7 +2958,24 @@ call plug#end()
 " Post-loaded Plugin Settings {{{
 " coc.nvim {{{
 if s:is_enabled_plugin('coc.nvim')
-  call coc#add_extension('coc-json', 'coc-tsserver')
+  " Common source
+  call coc#add_extension('coc-dictionary')
+  call coc#add_extension('coc-tag')
+  call coc#add_extension('coc-emoji')
+  call coc#add_extension('coc-syntax')
+  call coc#add_extension('coc-neosnippet')
+  call coc#add_extension('coc-highlight')
+  call coc#add_extension('coc-emmet')
+
+  " Language server
+  call coc#add_extension('coc-json')
+  call coc#add_extension('coc-tsserver')
+  call coc#add_extension('coc-python')
+  " Not work right now
+  " call coc#add_extension('coc-ccls')
+
+  " Misc
+  call coc#add_extension('coc-prettier')
 endif
 " }}}
 

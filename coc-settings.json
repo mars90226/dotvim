@@ -1,4 +1,5 @@
 {
+  "suggest.timeout": 1000,
   "languageserver": {
     "ccls": {
       "command": "ccls",
@@ -10,5 +11,6 @@
          }
        }
     }
-  }
+  },
+  "coc.source.neosnippet.disableSyntaxes": ["string", "comment"]
 }
