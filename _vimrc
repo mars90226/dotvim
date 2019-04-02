@@ -327,7 +327,7 @@ if s:is_enabled_plugin('coc.nvim')
   " TODO Add airline support
 
   " Show all diagnostics
-  nnoremap <silent> <Space>ca :CocList diagnostics<CR>
+  nnoremap <silent> <Space>cd :CocList diagnostics<CR>
   " Manage extensions
   nnoremap <silent> <Space>ce :CocList extensions<CR>
   " Show commands
