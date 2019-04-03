@@ -1900,12 +1900,12 @@ command! DirectoryAncestors call fzf#run(fzf#wrap({
       \ 'down': '40%'}))
 
 " Borrowed from s:buffer_line_handler from fzf.vim
-function! s:screen_line_handler(lines)
+function! s:range_lines_handler(lines)
   execute split(a:lines[0], '\t')[0]
 endfunction
 
 " Borrowed from s:buffer_lines from fzf.vim
-function! s:screen_lines_source(start, end, query)
+function! s:range_lines_source(start, end, query)
   let linefmt = s:yellow(" %4d ", "LineNr")."\t%s"
   let fmtexpr = 'printf(linefmt, v:key + 1, v:val)'
   let lines = getline(1, '$')
@@ -1916,6 +1916,14 @@ function! s:screen_lines_source(start, end, query)
   let formatted_lines = map(lines, 'v:val =~ a:query ? '.fmtexpr.' : ""')
   return filter(formatted_lines[a:start-1 : a:end-1], 'len(v:val)')
 endfunction
+function! s:range_lines(prompt, start, end, query)
+  call fzf#run(fzf#wrap({
+        \ 'source':  s:range_lines_source(a:start, a:end, a:query),
+        \ 'sink*':   function('s:range_lines_handler'),
+        \ 'options': ['--tiebreak=index', '--prompt', a:prompt . '> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1']
+        \ }))
+endfunction
+command! -nargs=? -range SelectLines call s:range_lines('SelectLines', <line1>, <line2>, <q-args>)
 function! s:screen_lines(...)
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
 
@@ -1926,11 +1934,7 @@ function! s:screen_lines(...)
   let end = getpos('.')[1]
   call setpos('.', save_cursor)
 
-  call fzf#run(fzf#wrap({
-        \ 'source':  s:screen_lines_source(start, end, query),
-        \ 'sink*':   function('s:screen_line_handler'),
-        \ 'options': ['--tiebreak=index', '--prompt', 'ScreenLines> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1']
-        \ }))
+  call s:range_lines('ScreenLines', start, end, query)
 endfunction
 command! -nargs=? ScreenLines call s:screen_lines(<q-args>)
 
@@ -2134,10 +2138,12 @@ nnoremap <Space><C-D><C-D> :DirectoryMru<CR>
 nnoremap <Space><C-D><C-F> :DirectoryMruFiles<CR>
 nnoremap <Space><C-D><C-R> :DirectoryMruRg<CR>
 
+nmap     <Space>sf vaf:SelectLines<CR>
+xnoremap <Space>sf :SelectLines<CR>
 nnoremap <Space>sl :ScreenLines<CR>
 nnoremap <Space>sL :execute 'ScreenLines ' . expand('<cword>')<CR>
 xnoremap <Space>sL :<C-U>execute 'ScreenLines ' . <SID>get_visual_selection()<CR>
-nnoremap <Space>ss :History:<CR>mks vim sessions 
+nnoremap <Space>ss :History:<CR>mks vim sessions
 
 " fzf & cscope key mappings {{{
 nnoremap <silent> <Leader>cs :call <SID>cscope('0', expand('<cword>'))<CR>
@@ -2476,7 +2482,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-function'
 
 " Search in function
-map <Space>sf :call <SID>clear_incsearch_nohlsearch()<CR>vaf<M-/>
+map <Space>sF :call <SID>clear_incsearch_nohlsearch()<CR>vaf<M-/>
 
 " }}}
 
