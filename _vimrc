@@ -1594,6 +1594,11 @@ function! s:fzf_files_sink(lines)
   endfor
 endfunction
 
+let g:fzf_preview_command = 'cat {}'
+if executable('bat')
+  let g:fzf_preview_command = 'bat --style=numbers --color=always {}'
+endif
+
 " let g:rg_command = '
 "     \ rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --color "always"
 "     \ -g "*.{js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst,lua,pm,vim,sh,h,hpp}"
@@ -1917,10 +1922,15 @@ function! s:range_lines_source(start, end, query)
   return filter(formatted_lines[a:start-1 : a:end-1], 'len(v:val)')
 endfunction
 function! s:range_lines(prompt, start, end, query)
+  let options = ['--tiebreak=index', '--prompt', a:prompt . '> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1']
+  let file = expand('%')
+  let preview_command = systemlist($VIMHOME.'/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . a:start)[0]
+  let final_options = extend(options, ['--preview-window', 'right', '--preview', preview_command])
+
   call fzf#run(fzf#wrap({
         \ 'source':  s:range_lines_source(a:start, a:end, a:query),
         \ 'sink*':   function('s:range_lines_handler'),
-        \ 'options': ['--tiebreak=index', '--prompt', a:prompt . '> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1']
+        \ 'options': final_options,
         \ }))
 endfunction
 command! -nargs=? -range SelectLines call s:range_lines('SelectLines', <line1>, <line2>, <q-args>)
