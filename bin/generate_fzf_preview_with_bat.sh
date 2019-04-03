@@ -1,5 +1,8 @@
 #/bin/bash
 
+# generate fzf preview command with bat
+# require fzf 0.18.0 & bat 0.10.0
+
 file="$1"
 preview_top="$2"
 fzf_preview_command='bat --style=numbers --color=always'
