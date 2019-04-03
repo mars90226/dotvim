@@ -282,6 +282,8 @@ if s:is_enabled_plugin('coc.nvim')
 
   " K: show documentation in preview window
   nnoremap <silent> K :call <SID>show_documentation()<CR>
+  " Remap for K
+  nnoremap gK K
 
   function! s:show_documentation()
     if &filetype == 'vim'
