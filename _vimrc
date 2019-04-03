@@ -2582,6 +2582,11 @@ if s:is_enabled_plugin('ale')
   " Depend on project whether to use flow locally
   " let g:ale_javascript_flow_use_global = 1
   " let g:ale_javascript_flow_ls_use_global = 1
+  let g:ale_pattern_options = {
+        \ 'configure': {
+        \   'ale_enabled': 0
+        \ }
+        \}
 
   nmap ]a <Plug>(ale_next_wrap)
   nmap [a <Plug>(ale_previous_wrap)
