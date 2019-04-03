@@ -1553,6 +1553,7 @@ command! -bang -nargs=? -complete=dir Files    call fzf#vim#files(<q-args>, fzf#
 command! -bang -nargs=?               GFiles   call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
 command! -bang -nargs=*               History  call s:history(<q-args>, <bang>0)
 command! -bar  -bang                  Windows  call fzf#vim#windows(s:fzf_windows_preview(), <bang>0)
+command! -bar  -bang                  BLines   call fzf#vim#buffer_lines(<q-args>, s:fzf_buffer_lines_preview(), <bang>0)
 
 " borrowed from fzf.vim {{{
 function! s:history(arg, bang)
@@ -1576,6 +1577,14 @@ function! s:fzf_windows_preview() abort
   call remove(options.options, -1) " remove --preview
   call extend(options.options, ['--preview', final_script])
   return options
+endfunction
+
+function! s:fzf_buffer_lines_preview() abort
+  let file = expand('%')
+  let preview_top = 1
+  let preview_command = systemlist($VIMHOME . '/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . preview_top)[0]
+
+  return { 'options': ['--preview-window', 'right:50%:hidden', '--preview', preview_command] }
 endfunction
 
 " Currently not used
@@ -1924,8 +1933,8 @@ endfunction
 function! s:range_lines(prompt, start, end, query)
   let options = ['--tiebreak=index', '--prompt', a:prompt . '> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1']
   let file = expand('%')
-  let preview_command = systemlist($VIMHOME.'/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . a:start)[0]
-  let final_options = extend(options, ['--preview-window', 'right', '--preview', preview_command])
+  let preview_command = systemlist($VIMHOME . '/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . a:start)[0]
+  let final_options = extend(options, ['--preview-window', 'right:50%:hidden', '--preview', preview_command])
 
   call fzf#run(fzf#wrap({
         \ 'source':  s:range_lines_source(a:start, a:end, a:query),
