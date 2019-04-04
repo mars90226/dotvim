@@ -4020,7 +4020,17 @@ augroup fileTypeSpecific
 
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
+
+  " FileType settings
+  autocmd FileType vim call s:filetype_vim_settings()
 augroup END
+
+function! s:filetype_vim_settings()
+  setlocal shiftwidth=2
+  setlocal tabstop=2
+  setlocal softtabstop=2
+  setlocal expandtab
+endfunction
 " }}}
 
 " Fix and Workarounds {{{
