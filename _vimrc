@@ -306,7 +306,7 @@ if s:is_enabled_plugin('coc.nvim')
   augroup coc_settings
     autocmd!
     " Setup formatexpr
-    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    autocmd FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
     " Update signature help on jump placeholder
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
   augroup END
@@ -798,7 +798,7 @@ if s:is_enabled_plugin("defx")
   augroup END
   function! s:netrw_mapping_for_defx()
     " Cannot override Vinegar '-' mapping, so use '+' instead
-    nmap + c:call <SID>opendir('Defx')<CR>
+    nmap <silent><buffer> + c:call <SID>opendir('Defx')<CR>
   endfunction
 
   " Borrowed from vinegar
@@ -2538,17 +2538,20 @@ Plug 'hwartig/vim-seeing-is-believing', { 'for': 'ruby' }
 
 augroup seeingIsBelievingSettings
   autocmd!
-
-  autocmd FileType ruby nmap <buffer> <Leader>r<CR> <Plug>(seeing-is-believing-mark-and-run)
-  autocmd FileType ruby xmap <buffer> <Leader>r<CR> <Plug>(seeing-is-believing-mark-and-run)
-
-  autocmd FileType ruby nmap <buffer> <Leader>rm <Plug>(seeing-is-believing-mark)
-  autocmd FileType ruby xmap <buffer> <Leader>rm <Plug>(seeing-is-believing-mark)
-  autocmd FileType ruby imap <buffer> <Leader>rm <Plug>(seeing-is-believing-mark)
-
-  autocmd FileType ruby nmap <buffer> <Leader>rr <Plug>(seeing-is-believing-run)
-  autocmd FileType ruby imap <buffer> <Leader>rr <Plug>(seeing-is-believing-run)
+  autocmd FileType ruby call s:seeing_is_believing_settings()
 augroup END
+
+function! s:seeing_is_believing_settings()
+  nmap <silent><buffer> <Leader>r<CR> <Plug>(seeing-is-believing-mark-and-run)
+  xmap <silent><buffer> <Leader>r<CR> <Plug>(seeing-is-believing-mark-and-run)
+
+  nmap <silent><buffer> <Leader>rm <Plug>(seeing-is-believing-mark)
+  xmap <silent><buffer> <Leader>rm <Plug>(seeing-is-believing-mark)
+  imap <silent><buffer> <Leader>rm <Plug>(seeing-is-believing-mark)
+
+  nmap <silent><buffer> <Leader>rr <Plug>(seeing-is-believing-run)
+  imap <silent><buffer> <Leader>rr <Plug>(seeing-is-believing-run)
+endfunction
 " }}}
 
 " Syntastic {{{
@@ -2697,16 +2700,16 @@ augroup tern_for_vim_settings
 augroup END
 
 function! s:tern_for_vim_settings()
-  nnoremap <C-X><C-K> :TernDoc<CR>
-  nnoremap <C-X><C-B> :TernDocBrowse<CR>
-  nnoremap <C-X><C-T> :TernType<CR>
+  nnoremap <silent><buffer> <C-X><C-K> :TernDoc<CR>
+  nnoremap <silent><buffer> <C-X><C-B> :TernDocBrowse<CR>
+  nnoremap <silent><buffer> <C-X><C-T> :TernType<CR>
   " To avoid accidentally delete
-  nnoremap <C-X><C-D> :TernDef<CR>
-  nnoremap <C-X><C-P> :TernDefPreview<CR>
-  nnoremap <C-X><C-S> :TernDefSplit<CR>
-  nnoremap <C-X><C-N> :TernDefTab<CR>
-  nnoremap <C-X>c :TernRefs<CR>
-  nnoremap <C-X><C-R> :TernRename<CR>
+  nnoremap <silent><buffer> <C-X><C-D> :TernDef<CR>
+  nnoremap <silent><buffer> <C-X><C-P> :TernDefPreview<CR>
+  nnoremap <silent><buffer> <C-X><C-S> :TernDefSplit<CR>
+  nnoremap <silent><buffer> <C-X><C-N> :TernDefTab<CR>
+  nnoremap <silent><buffer> <C-X>c :TernRefs<CR>
+  nnoremap <silent><buffer> <C-X><C-R> :TernRename<CR>
 endfunction
 " }}}
 
@@ -2730,8 +2733,8 @@ if executable('jedi')
   augroup END
 
   function! s:jedi_vim_settings()
-    nnoremap <C-X><C-L> :call jedi#remove_usages()<CR>
-    nnoremap <C-X><C-N> :tab split <Bar> call jedi#goto()<CR>
+    nnoremap <silent><buffer> <C-X><C-L> :call jedi#remove_usages()<CR>
+    nnoremap <silent><buffer> <C-X><C-N> :tab split <Bar> call jedi#goto()<CR>
   endfunction
 endif
 " }}}
@@ -2816,7 +2819,14 @@ function! s:gv_expand()
   normal! zz
 endfunction
 
-autocmd! FileType GV nnoremap <buffer> <silent> + :call <SID>gv_expand()<CR>
+augroup gv_settings
+  autocmd!
+  autocmd FileType GV call s:gv_settings()
+augroup END
+
+function! s:gv_settings()
+  nnoremap <silent><buffer> + :call <SID>gv_expand()<CR>
+endfunction
 " }}}
 
 " vim-tig {{{
@@ -2977,7 +2987,14 @@ let g:localvimrc_whitelist = ['/synosrc/[^/]*/source/.*']
 " vim-qfreplace {{{
 Plug 'thinca/vim-qfreplace'
 
-autocmd! FileType qf nnoremap <buffer> r :<C-U>Qfreplace<CR>
+augroup qfreplace_settings
+  autocmd!
+  autocmd! FileType qf call s:qfreplace_settings()
+augroup END
+
+function! s:qfreplace_settings()
+  nnoremap <silent><buffer> r :<C-U>Qfreplace<CR>
+endfunction
 " }}}
 
 " vim-caser {{{
@@ -3595,10 +3612,10 @@ augroup quickfixSettings
 augroup END
 
 function! s:quickfix_settings()
-  nnoremap <buffer> <silent> q :close<CR>
-  nnoremap <buffer> <silent> <C-T> :set switchbuf+=newtab<CR><CR>:set switchbuf-=newtab<CR>
-  nnoremap <buffer> <silent> <C-S> :set switchbuf+=split<CR><CR>:set switchbuf-=split<CR>
-  nnoremap <buffer> <silent> <C-V> :set switchbuf+=vsplit<CR><CR>:set switchbuf-=vsplit<CR>
+  nnoremap <silent><buffer> q :close<CR>
+  nnoremap <silent><buffer> <C-T> :set switchbuf+=newtab<CR><CR>:set switchbuf-=newtab<CR>
+  nnoremap <silent><buffer> <C-S> :set switchbuf+=split<CR><CR>:set switchbuf-=split<CR>
+  nnoremap <silent><buffer> <C-V> :set switchbuf+=vsplit<CR><CR>:set switchbuf-=vsplit<CR>
 endfunction
 " }}}
 
