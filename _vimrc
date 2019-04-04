@@ -3072,6 +3072,7 @@ if s:is_enabled_plugin('coc.nvim')
   call coc#add_extension('coc-python')
   " Not work right now
   " call coc#add_extension('coc-ccls')
+  call coc#add_extension('coc-rls')
 
   " Misc
   call coc#add_extension('coc-prettier')
