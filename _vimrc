@@ -931,12 +931,12 @@ if s:is_enabled_plugin("defx")
     " Define mappings
     if bufname('%') =~ 'tab'
       nnoremap <silent><buffer><expr> <CR>
-            \ defx#do_action('open')
+            \ defx#async_action('open')
     else
       nnoremap <silent><buffer><expr> <CR>
             \ defx#is_directory() ?
-            \ defx#do_action('open') :
-            \ defx#do_action('drop')
+            \ defx#async_action('open') :
+            \ defx#async_action('drop')
     endif
     nnoremap <silent><buffer><expr> c
           \ defx#do_action('copy')
@@ -949,7 +949,7 @@ if s:is_enabled_plugin("defx")
     nnoremap <silent><buffer><expr> p
           \ defx#do_action('paste')
     nnoremap <silent><buffer><expr> l
-          \ defx#do_action('open')
+          \ defx#async_action('open')
     nnoremap <silent><buffer><expr> C
           \ defx#do_action('toggle_columns', 'mark:filename:type:size:time')
     nnoremap <silent><buffer><expr> S
@@ -963,9 +963,9 @@ if s:is_enabled_plugin("defx")
     nnoremap <silent><buffer><expr> T
           \ defx#do_action('open', 'tab split')
     nnoremap <silent><buffer><expr> o
-          \ defx#do_action('open_or_close_tree')
+          \ defx#async_action('open_or_close_tree')
     nnoremap <silent><buffer><expr> O
-          \ defx#do_action('open_tree_recursive')
+          \ defx#async_action('open_tree_recursive')
     nnoremap <silent><buffer><expr> K
           \ defx#do_action('new_directory')
     nnoremap <silent><buffer><expr> N
@@ -983,11 +983,11 @@ if s:is_enabled_plugin("defx")
     nnoremap <silent><buffer><expr> yy
           \ defx#do_action('yank_path')
     nnoremap <silent><buffer><expr> h
-          \ defx#do_action('cd', ['..'])
+          \ defx#async_action('cd', ['..'])
     nnoremap <silent><buffer><expr> <BS>
-          \ defx#do_action('cd', ['..'])
+          \ defx#async_action('cd', ['..'])
     nnoremap <silent><buffer><expr> ~
-          \ defx#do_action('cd')
+          \ defx#async_action('cd')
     nnoremap <silent><buffer><expr> gr
           \ defx#do_action('cd', '/')
     nnoremap <silent><buffer><expr> gv
