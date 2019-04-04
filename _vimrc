@@ -4064,6 +4064,10 @@ function! s:filetype_vim_settings()
   setlocal tabstop=2
   setlocal softtabstop=2
   setlocal expandtab
+
+  if bufname('%') == '.vimrc' || bufname('%') == '_vimrc'
+    setlocal foldmethod=marker
+  endif
 endfunction
 " }}}
 
@@ -4092,4 +4096,4 @@ if !empty($ConEmuBuild)
 endif
 " }}}
 
-" vim: set sw=2 ts=2 sts=2 et foldlevel=0 foldmethod=marker:
+" vim: set sw=2 ts=2 sts=2 et foldlevel=0
