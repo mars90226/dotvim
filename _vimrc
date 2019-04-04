@@ -1221,6 +1221,11 @@ nnoremap <Space>u: :Unite history/command -start-insert<CR>
 nnoremap <Space>u; :Unite command -start-insert<CR>
 nnoremap <Space>u/ :Unite history/search<CR>
 
+nnoremap <silent> ]u :<C-U>execute v:count1 . 'UniteNext'<CR>
+nnoremap <silent> [u :<C-U>execute v:count1 . 'UnitePrevious'<CR>
+nnoremap <silent> [U :UniteFirst<CR>
+nnoremap <silent> ]U :UniteLast<CR>
+
 nnoremap <Space><F1> :Unite output:map<CR>
 
 if executable('rg')
@@ -1332,15 +1337,22 @@ if s:is_enabled_plugin('denite.nvim')
   let g:denite_source_session_path = $HOME.'/vim-sessions/'
   let g:project_folders = ['/synosrc/packages/source']
 
+  " Denite only has 1 active buffer per tab
+  " buffer-name should be tab-based
+  function! s:denite_get_buffer_name(prefix) abort
+    return a:prefix . '%' . tabpagenr()
+  endfunction
+
   function! s:denite_grep(query, buffer_name_prefix, option, is_word) abort
     let escaped_query = s:escape_symbol(a:query)
     let escaped_option = s:escape_symbol(a:option)
     let final_query = a:is_word ? '\\b' . escaped_query . '\\b' : escaped_query
-    let buffer_name = a:buffer_name_prefix . '%' . bufnr('%')
+    let buffer_name = s:denite_get_buffer_name(a:buffer_name_prefix)
 
     execute 'Denite -buffer-name=' . buffer_name . ' -auto-resume grep:.:' . final_query . ':' . final_query
   endfunction
 
+  " Denite key mappings {{{
   " Override Unite key mapping {{{
   let s:unite_file = maparg('<Space>p', 'n')
   let s:unite_file_rec = maparg('<Space>P', 'n')
@@ -1349,8 +1361,8 @@ if s:is_enabled_plugin('denite.nvim')
   execute 'nnoremap <Space>uP ' . s:unite_file_rec
   execute 'nnoremap <Space>u<C-P> ' . s:unite_project_file
 
-  nnoremap <Space>p :Denite -buffer-name=files -auto-resume buffer dirmark file<CR>
-  nnoremap <Space>P :Denite -buffer-name=files -auto-resume file/rec<CR>
+  nnoremap <Space>p :Denite -auto-resume buffer dirmark file<CR>
+  nnoremap <Space>P :Denite -auto-resume file/rec<CR>
   " }}}
 
   " TODO Denite quickfix seems not working
@@ -1359,7 +1371,7 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>O :Denite outline<CR>
 
   nnoremap <Space>da :Denite location_list<CR>
-  nnoremap <Space>db :DeniteBufferDir -buffer-name=files -auto-resume buffer dirmark file<CR>
+  nnoremap <Space>db :DeniteBufferDir -auto-resume buffer dirmark file<CR>
   nnoremap <Space>dc :Denite -auto-preview change<CR>
   nnoremap <Space>dd :Denite directory/rec<CR>
   nnoremap <Space>dD :Denite directory_mru<CR>
@@ -1381,17 +1393,17 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>do :execute 'Denite output:' . <SID>escape_symbol(input('output: '))<CR>
   nnoremap <Space>dO :Denite outline<CR>
   nnoremap <Space>d<C-O> :Denite unite:outline<CR>
-  nnoremap <Space>dp :Denite -buffer-name=files -auto-resume buffer dirmark file<CR>
-  nnoremap <Space>dP :Denite -buffer-name=files -auto-resume file/rec<CR>
-  nnoremap <Space>d<C-P> :DeniteProjectDir -buffer-name=files -auto-resume buffer dirmark file<CR>
+  nnoremap <Space>dp :Denite -auto-resume buffer dirmark file<CR>
+  nnoremap <Space>dP :Denite -auto-resume file/rec<CR>
+  nnoremap <Space>d<C-P> :DeniteProjectDir -auto-resume buffer dirmark file<CR>
   nnoremap <Space>dq :Denite quickfix<CR>
   nnoremap <Space>dr :Denite register<CR>
   nnoremap <Space>ds :Denite session<CR>
   nnoremap <Space>d<Space> :Denite source<CR>
   nnoremap <Space>dt :Denite tag<CR>
-  nnoremap <Space>du :Denite -resume -refresh<CR>
-  nnoremap <Space>dU :Denite -resume -refresh -buffer-name=grep%`bufnr("%")`<CR>
-  nnoremap <Space>d<C-U> :Denite -resume -refresh -buffer-name=keyword%`bufnr("%")`<CR>
+  nnoremap <Space>du :Denite -resume<CR>
+  nnoremap <Space>dU :Denite -resume -buffer-name=`call(g:sid.'denite_get_buffer_name', ['grep'])`<CR>
+  nnoremap <Space>d<C-U> :Denite -resume -refresh -buffer-name=`call(g:sid.'denite_get_buffer_name', ['grep'])`<CR>
   nnoremap <Space>dx :Denite defx/history<CR>
   nnoremap <Space>dy :Denite neoyank<CR>
   nnoremap <Space>d: :Denite command_history<CR>
@@ -1399,10 +1411,16 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>d/ :call <SID>denite_grep('', 'grep', '', v:false)<CR>
   nnoremap <Space>d? :call <SID>denite_grep('', 'grep', input('Option: '), v:false)<CR>
 
+  nnoremap <silent> [d :Denite -resume -immediately -cursor-pos=-1<CR>
+  nnoremap <silent> ]d :Denite -resume -immediately -cursor-pos=+1<CR>
+  nnoremap <silent> [D :Denite -resume -immediately -cursor-pos=-1 -buffer-name=`call(g:sid.'denite_get_buffer_name', ['grep'])`<CR>
+  nnoremap <silent> ]D :Denite -resume -immediately -cursor-pos=+1 -buffer-name=`call(g:sid.'denite_get_buffer_name', ['grep'])`<CR>
+
   if executable('rg')
     nnoremap <Space>dg/ :call <SID>denite_grep('', 'grep', <SID>rg_current_type_option(), v:false)<CR>
     nnoremap <Space>dg? :call <SID>denite_grep('', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
   endif
+  " }}}
 endif
 " }}}
 
@@ -2120,7 +2138,7 @@ nnoremap <Space>fC :Commits<CR>
 nnoremap <Space>ff :Files<CR>
 nnoremap <Space>fF :DirectoryRg<CR>
 nnoremap <Space>f<C-F> :execute 'Files ' . expand('<cfile>')<CR>
-nnoremap <Space>fg :GFiles<CR>
+nnoremap <Space>fg :GFiles -co --exclude-standard<CR>
 nnoremap <Space>fG :execute 'GGrep ' . input('Git grep: ')<CR>
 nnoremap <Space>fh :Helptags<CR>
 nnoremap <Space>fi :History<CR>
@@ -3281,7 +3299,7 @@ if s:is_enabled_plugin('denite.nvim')
   " }}}
 
   if executable('rg')
-    call denite#custom#var('file_rec', 'command',
+    call denite#custom#var('file/rec', 'command',
           \ ['rg', '--files', '--glob', '!.git'])
     call denite#custom#var('grep', 'command', ['rg'])
     call denite#custom#var('grep', 'recursive_opts', [])
@@ -3290,11 +3308,17 @@ if s:is_enabled_plugin('denite.nvim')
     call denite#custom#var('grep', 'default_opts',
           \ ['--vimgrep', '--no-heading', '-S'])
   elseif executable('ag')
-    call denite#custome#var('file_rec', 'command',
+    call denite#custome#var('file/rec', 'command',
           \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
   endif
 
+  " Denite options
   call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
+
+  call denite#custom#option('_', {
+        \ 'auto_accel': v:true,
+        \ 'prompt': '>',
+        \ })
 endif
 " }}}
 
@@ -3572,6 +3596,9 @@ nnoremap <Leader>t> :tabmove +1<CR>
 inoremap <M-o> <C-O>o
 inoremap <M-S-o> <C-O>O
 
+" Go to matched bracket in insert mode
+imap <M-5> <C-O>%
+
 " Create new line without indent & prefix
 nnoremap <M-o> o <C-U>
 nnoremap <M-S-o> O <C-U>
@@ -3632,6 +3659,12 @@ endfunction
 " }}}
 
 " Custom function {{{
+function! s:SID_PREFIX() abort
+  return matchstr(expand('<sfile>'),
+        \ '<SNR>\d\+_\zeSID_PREFIX$')
+endfunction
+let g:sid = s:SID_PREFIX()
+
 nnoremap <F6> :call <SID>toggle_indent_between_tab_and_space()<CR>
 function! s:toggle_indent_between_tab_and_space()
   if &expandtab
