@@ -347,45 +347,49 @@ if s:is_enabled_plugin('coc.nvim')
   " Show lists
   nnoremap <silent> <Space>cl :CocList lists<CR>
 
-  " ccls navigate commands
-  nnoremap <silent> xl :call CocLocations('ccls', '$ccls/navigate', { 'direction': 'D' })<CR>
-  nnoremap <silent> xk :call CocLocations('ccls', '$ccls/navigate', { 'direction': 'L' })<CR>
-  nnoremap <silent> xj :call CocLocations('ccls', '$ccls/navigate', { 'direction': 'R' })<CR>
-  nnoremap <silent> xh :call CocLocations('ccls', '$ccls/navigate', { 'direction': 'U' })<CR>
+  augroup coc_ccls_settings
+    autocmd!
+    autocmd FileType c,cpp call s:coc_ccls_settings()
+  augroup END
 
-  " TODO Add mapping for hierarchy
+  function! s:coc_ccls_settings()
+    " ccls navigate commands
+    nnoremap <silent><buffer> <C-X>l :call CocLocations('ccls', '$ccls/navigate', { 'direction': 'D' })<CR>
+    nnoremap <silent><buffer> <C-X>k :call CocLocations('ccls', '$ccls/navigate', { 'direction': 'L' })<CR>
+    nnoremap <silent><buffer> <C-X>j :call CocLocations('ccls', '$ccls/navigate', { 'direction': 'R' })<CR>
+    nnoremap <silent><buffer> <C-X>h :call CocLocations('ccls', '$ccls/navigate', { 'direction': 'U' })<CR>
 
-  " ccls inheritance
-  " bases
-  nnoremap <silent> xb :call CocLocations('ccls', '$ccls/inheritance')<CR>
-  " bases of up to 3 levels
-  nnoremap <silent> xB :call CocLocations('ccls', '$ccls/inheritance', { 'levels': 3 })<CR>
-  " derived
-  nnoremap <silent> xd :call CocLocations('ccls', '$ccls/inheritance', { 'derived': v:true })<CR>
-  " derived of up to 3 levels
-  nnoremap <silent> xD :call CocLocations('ccls', '$ccls/inheritance', { 'derived': v:true, 'levels': 3 })<CR>
+    " TODO Add mapping for hierarchy
 
-  " ccls caller
-  nnoremap <silent> xc :call CocLocations('ccls', '$ccls/call')<CR>
-  " ccls callee
-  nnoremap <silent> xC :call CocLocations('ccls', '$ccls/call', { 'callee': v:true })<CR>
+    " ccls inheritance
+    " bases
+    nnoremap <silent><buffer> <C-X>b :call CocLocations('ccls', '$ccls/inheritance')<CR>
+    " bases of up to 3 levels
+    nnoremap <silent><buffer> <C-X>B :call CocLocations('ccls', '$ccls/inheritance', { 'levels': 3 })<CR>
+    " derived
+    nnoremap <silent><buffer> <C-X>d :call CocLocations('ccls', '$ccls/inheritance', { 'derived': v:true })<CR>
+    " derived of up to 3 levels
+    nnoremap <silent><buffer> <C-X>D :call CocLocations('ccls', '$ccls/inheritance', { 'derived': v:true, 'levels': 3 })<CR>
 
-  " ccls member
-  " member variables / variables in a namespace
-  nnoremap <silent> xm :call CocLocations('ccls', '$ccls/member')<CR>
-  " member functions / functions in a namespace
-  nnoremap <silent> xf :call CocLocations('ccls', '$ccls/member', { 'kind': 3 })<CR>
-  " member classes / types in a namespace
-  nnoremap <silent> xs :call CocLocations('ccls', '$ccls/member', { 'kind': 2 })<CR>
+    " ccls caller
+    nnoremap <silent><buffer> <C-X>c :call CocLocations('ccls', '$ccls/call')<CR>
+    " ccls callee
+    nnoremap <silent><buffer> <C-X>C :call CocLocations('ccls', '$ccls/call', { 'callee': v:true })<CR>
 
-  " ccls vars
-  " vars field, local, parameter
-  nnoremap <silent> xv :call CocLocations('ccls', '$ccls/vars')<CR>
-  " vars field
-  nnoremap <silent> xV :call CocLocations('ccls', '$ccls/vars', { 'kind': 1 })<CR>
+    " ccls member
+    " member variables / variables in a namespace
+    nnoremap <silent><buffer> <C-X>m :call CocLocations('ccls', '$ccls/member')<CR>
+    " member functions / functions in a namespace
+    nnoremap <silent><buffer> <C-X>f :call CocLocations('ccls', '$ccls/member', { 'kind': 3 })<CR>
+    " member classes / types in a namespace
+    nnoremap <silent><buffer> <C-X>s :call CocLocations('ccls', '$ccls/member', { 'kind': 2 })<CR>
 
-  " remap x
-  nnoremap xx x
+    " ccls vars
+    " vars field, local, parameter
+    nnoremap <silent><buffer> <C-X>v :call CocLocations('ccls', '$ccls/vars')<CR>
+    " vars field
+    nnoremap <silent><buffer> <C-X>V :call CocLocations('ccls', '$ccls/vars', { 'kind': 1 })<CR>
+  endfunction
 endif
 " }}}
 
