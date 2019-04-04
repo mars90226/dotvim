@@ -1554,7 +1554,7 @@ endfor
 
 command! -bar  -bang                  Helptags call fzf#vim#helptags(<bang>0)
 command! -bang -nargs=? -complete=dir Files    call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-command! -bang -nargs=?               GFiles   call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=?               GFiles   call s:fzf_gitfiles(<q-args>, <bang>0)
 command! -bang -nargs=*               History  call s:history(<q-args>, <bang>0)
 command! -bar  -bang                  Windows  call fzf#vim#windows(s:fzf_windows_preview(), <bang>0)
 command! -bar  -bang                  BLines   call fzf#vim#buffer_lines(<q-args>, s:fzf_buffer_lines_preview(), <bang>0)
@@ -1571,6 +1571,14 @@ function! s:history(arg, bang)
   endif
 endfunction
 " }}}
+
+function! s:fzf_gitfiles(args, bang) abort
+  if a:args != '?'
+    return call('fzf#vim#gitfiles', [a:args, fzf#vim#with_preview(), a:bang])
+  else
+    return call('fzf#vim#gitfiles', [a:args, a:bang])
+  endif
+endfunction
 
 function! s:fzf_windows_preview() abort
   let options = fzf#vim#with_preview()
@@ -2094,8 +2102,8 @@ if s:is_enabled_plugin('defx')
     augroup END
     call a:function()
   endfunction
-  command! -bang -nargs=? -complete=dir Files    call s:use_defx_fzf_action({ -> fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)})
-  command! -bang -nargs=?               GFiles   call s:use_defx_fzf_action({ -> fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)})
+  command! -bang -nargs=? -complete=dir Files    call s:use_defx_fzf_action({ -> fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0) })
+  command! -bang -nargs=?               GFiles   call s:use_defx_fzf_action({ -> s:fzf_gitfiles(<q-args>, <bang>0) })
 endif
 " }}}
 
