@@ -2386,12 +2386,16 @@ map g/ <Plug>(incsearch-stay)
 xmap <M-/> <Esc><Plug>(incsearch-forward)\%V
 xmap <M-?> <Esc><Plug>(incsearch-backward)\%V
 
+augroup incsearch_settings
+  autocmd!
+  autocmd BufWinLeave,WinLeave * call s:clear_incsearch_nohlsearch()
+augroup END
+
 function! s:clear_incsearch_nohlsearch()
   nohlsearch
 
   " clear incsearch-nohlsearch
   silent! autocmd! incsearch-auto-nohlsearch
-  " autocmd! incsearch-auto-nohlsearch-on-insert-leave
 endfunction
 " }}}
 
@@ -3956,7 +3960,7 @@ if has("nvim")
     tnoremap <M-q><C-Z> <C-\><C-\><C-N>:suspend<CR>
   " }}}
 
-  augroup terminalSettings
+  augroup terminal_settings
     autocmd!
     autocmd TermOpen * call s:terminal_settings()
     autocmd BufWinEnter,WinEnter term://* startinsert
@@ -3977,9 +3981,6 @@ if has("nvim")
     setlocal colorcolumn=
     setlocal nonumber
     setlocal norelativenumber
-
-    " Due to autocmd implementation, there is no way to stop highlighting in autocmd.
-    call s:clear_incsearch_nohlsearch()
   endfunction
 
   " Search keyword with Google using surfraw {{{
