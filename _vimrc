@@ -819,6 +819,7 @@ if s:is_enabled_plugin("defx")
   nnoremap <Space>-    :call <SID>opendir('Defx -split=horizontal')<CR>
   nnoremap <Space>_    :call <SID>opendir('Defx -split=tab -buffer-name=tab')<CR>
   nnoremap \.          :Defx .<CR>
+  nnoremap <Space>=    :Defx -split=vertical .<CR>
   nnoremap <Space>+    :Defx -split=tab -buffer-name=tab .<CR>
 
   " Defx custom functions {{{
@@ -1042,6 +1043,8 @@ if s:is_enabled_plugin("defx")
           \ defx#do_action('call', '<SID>defx_fzf_directory_ancestors')
     nnoremap <silent><buffer><expr> \x
           \ defx#do_action('call', '<SID>defx_execute') " Add this mapping to prevent from executing 'x' mapping
+    nnoremap <silent><buffer><expr> \xx
+          \ defx#do_action('call', '<SID>defx_execute')
     nnoremap <silent><buffer><expr> \xr
           \ defx#do_action('call', '<SID>defx_execute')
     nnoremap <silent><buffer><expr> \xt
