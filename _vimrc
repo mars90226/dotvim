@@ -1950,6 +1950,10 @@ command! DirectoryAncestors call fzf#run(fzf#wrap({
 function! s:range_lines_handler(lines)
   execute split(a:lines[0], '\t')[0]
 endfunction
+function! s:range_lines_center_handler(lines)
+  execute split(a:lines[0], '\t')[0]
+  normal! zzzv
+endfunction
 
 " Borrowed from s:buffer_lines from fzf.vim
 function! s:range_lines_source(start, end, query)
@@ -1963,19 +1967,20 @@ function! s:range_lines_source(start, end, query)
   let formatted_lines = map(lines, 'v:val =~ a:query ? '.fmtexpr.' : ""')
   return filter(formatted_lines[a:start-1 : a:end-1], 'len(v:val)')
 endfunction
-function! s:range_lines(prompt, start, end, query)
+function! s:range_lines(prompt, center, start, end, query)
   let options = ['--tiebreak=index', '--prompt', a:prompt . '> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1']
   let file = expand('%')
   let preview_command = systemlist($VIMHOME . '/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . a:start)[0]
   let final_options = extend(options, ['--preview-window', 'right:50%:hidden', '--preview', preview_command])
+  let Sink = a:center ? function('s:range_lines_center_handler') : function('s:range_lines_handler')
 
   call fzf#run(fzf#wrap({
         \ 'source':  s:range_lines_source(a:start, a:end, a:query),
-        \ 'sink*':   function('s:range_lines_handler'),
+        \ 'sink*':   Sink,
         \ 'options': final_options,
         \ }))
 endfunction
-command! -nargs=? -range SelectLines call s:range_lines('SelectLines', <line1>, <line2>, <q-args>)
+command! -nargs=? -range SelectLines call s:range_lines('SelectLines', 1, <line1>, <line2>, <q-args>)
 function! s:screen_lines(...)
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
 
@@ -1986,7 +1991,7 @@ function! s:screen_lines(...)
   let end = getpos('.')[1]
   call setpos('.', save_cursor)
 
-  call s:range_lines('ScreenLines', start, end, query)
+  call s:range_lines('ScreenLines', 0, start, end, query)
 endfunction
 command! -nargs=? ScreenLines call s:screen_lines(<q-args>)
 
