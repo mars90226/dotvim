@@ -286,7 +286,7 @@ if s:is_enabled_plugin('coc.nvim')
   nnoremap gK K
 
   function! s:show_documentation()
-    if &filetype == 'vim'
+    if &filetype == 'vim' || &filetype == 'help'
       execute 'help ' . expand('<cword>')
     else
       call CocAction('doHover')
