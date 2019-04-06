@@ -3426,9 +3426,12 @@ else
 endif
 set wildoptions+=tagfile
 
+" fillchars
+set fillchars=diff:⣿,fold:-,vert:│
+
 " show hidden characters
 set list
-set listchars=tab:\|\ ,extends:›,precedes:‹,nbsp:·,trail:·
+set listchars=tab:▸\ ,trail:•,extends:»,precedes:«,nbsp:␣
 
 set laststatus=2
 set showcmd
@@ -3470,6 +3473,20 @@ else
   set grepprg=grep\ -nH\ $*
 endif
 set t_Co=256
+
+" Fold
+" Borrowed from https://superuser.com/questions/990296/how-to-change-the-way-that-vim-displays-collapsed-folded-lines
+function! NeatFoldText()
+    let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+    let lines_count = v:foldend - v:foldstart + 1
+    let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+    let foldchar = matchstr(&fillchars, 'fold:\zs.')
+    let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+    let foldtextend = lines_count_text . repeat(foldchar, 8)
+    let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+    return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
+endfunction
+set foldtext=NeatFoldText()
 set foldlevelstart=99
 
 " Complete
