@@ -3636,11 +3636,21 @@ nnoremap <C-S> :update<CR>
 nnoremap <Space>q :q<CR>
 nnoremap <Space>Q :qa!<CR>
 
-" Win32
-"nnoremap <Leader>x :execute ':! "'.expand('%').'"'<CR>
-nnoremap <Leader>x :!start cmd /c "%:p"<CR>
-nnoremap <Leader>X :!start cmd /K cd /D %:p:h<CR>
-nnoremap <Leader>E :execute '!start explorer "' . expand("%:p:h:gs?\\??:gs?/?\\?") . '"'<CR>
+" Quick execute
+if s:os =~ "windows"
+  " Win32
+  "nnoremap <Leader>x :execute ':! "'.expand('%').'"'<CR>
+  nnoremap <Leader>x :!start cmd /c "%:p"<CR>
+  nnoremap <Leader>X :!start cmd /K cd /D %:p:h<CR>
+  nnoremap <Leader>E :execute '!start explorer "' . expand("%:p:h:gs?\\??:gs?/?\\?") . '"'<CR>
+else
+  " Linux
+  nnoremap <Leader>x :!xdg-open "%:p"<CR>
+
+  if has('nvim')
+    nnoremap <Leader>x :terminal xdg-open "%:p"<CR>
+  endif
+endif
 
 " Easier file status
 nnoremap <Space><C-G> 2<C-G>
