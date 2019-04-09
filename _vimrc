@@ -3680,8 +3680,10 @@ nnoremap y+ "+yiW
 nnoremap <Leader>y5 :let @" = expand('%:t:r')<CR>
 nnoremap <Leader>y% :let @" = @%<CR>
 
-" Quick copy tab
+" Quick split
 nnoremap <Leader>yt :tab split<CR>
+nnoremap <Leader>ys :split<CR>
+nnoremap <Leader>yv :vertical split<CR>
 
 " Copy unnamed register to system clipboard
 nnoremap <Space>sr :let @+ = @"<CR>
