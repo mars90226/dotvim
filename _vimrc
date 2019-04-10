@@ -2932,10 +2932,10 @@ Plug 'tpope/vim-unimpaired'
 " Ignore [a, ]a, [A, ]A for ale
 let g:nremap = {"[a": "", "]a": "", "[A": "", "]A": ""}
 
-nnoremap \[u  <Plug>unimpaired_url_encode
-nnoremap \[uu <Plug>unimpaired_line_url_encode
-nnoremap \]u  <Plug>unimpaired_url_decode
-nnoremap \]uu <Plug>unimpaired_line_url_decode
+nmap \[u  <Plug>unimpaired_url_encode
+nmap \[uu <Plug>unimpaired_line_url_encode
+nmap \]u  <Plug>unimpaired_url_decode
+nmap \]uu <Plug>unimpaired_line_url_decode
 
 nnoremap coc :set termguicolors!<CR>
 nnoremap coe :set expandtab!<CR>
