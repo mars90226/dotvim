@@ -1244,11 +1244,6 @@ nnoremap <Space>u: :Unite history/command -start-insert<CR>
 nnoremap <Space>u; :Unite command -start-insert<CR>
 nnoremap <Space>u/ :Unite history/search<CR>
 
-nnoremap <silent> ]u :<C-U>execute v:count1 . 'UniteNext'<CR>
-nnoremap <silent> [u :<C-U>execute v:count1 . 'UnitePrevious'<CR>
-nnoremap <silent> [U :UniteFirst<CR>
-nnoremap <silent> ]U :UniteLast<CR>
-
 nnoremap <Space><F1> :Unite output:map<CR>
 
 if executable('rg')
@@ -2937,6 +2932,11 @@ Plug 'tpope/vim-unimpaired'
 " Ignore [a, ]a, [A, ]A for ale
 let g:nremap = {"[a": "", "]a": "", "[A": "", "]A": ""}
 
+nnoremap \[u  <Plug>unimpaired_url_encode
+nnoremap \[uu <Plug>unimpaired_line_url_encode
+nnoremap \]u  <Plug>unimpaired_url_decode
+nnoremap \]uu <Plug>unimpaired_line_url_decode
+
 nnoremap coc :set termguicolors!<CR>
 nnoremap coe :set expandtab!<CR>
 nnoremap com :set modifiable!<CR>
@@ -3145,6 +3145,15 @@ if s:is_enabled_plugin('deoplete.nvim')
   " Use smartcase.
   call deoplete#custom#option('smart_case', v:true)
 endif
+" }}}
+
+" Unite {{{
+" Avoid remapped by unimpaired
+" TODO Move all plugin settings to post-loaded settings
+nnoremap <silent><nowait> ]u :<C-U>execute v:count1 . 'UniteNext'<CR>
+nnoremap <silent><nowait> [u :<C-U>execute v:count1 . 'UnitePrevious'<CR>
+nnoremap <silent> [U :UniteFirst<CR>
+nnoremap <silent> ]U :UniteLast<CR>
 " }}}
 
 " Denite {{{
