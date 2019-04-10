@@ -41,6 +41,11 @@ if s:os =~ "windows"
   set encoding=utf8
 endif
 
+" Set nvim version
+if has("nvim")
+  let s:nvim_version = systemlist("nvim --version")[0]
+endif
+
 " plugin choosing {{{
 " enabled plugin management {{{
 let s:plugin_disabled = []
@@ -4010,7 +4015,12 @@ if has("nvim")
     autocmd!
     autocmd TermOpen * call s:terminal_settings()
     autocmd BufWinEnter,WinEnter term://* startinsert
-    autocmd BufLeave term://* stopinsert
+
+    " NVIM v0.4.0-555-gd928b036d make :stopinsert leave terminal mode
+    if s:nvim_version < 'NVIM v0.4.0-555-gd928b036d'
+      autocmd BufLeave term://* stopinsert
+    endif
+
     " Ignore fzf as fzf will close terminal automatically
     autocmd TermClose term://*
           \ if (bufname('%') !~ "fzf") && (bufname('%') !~ "ranger") |
