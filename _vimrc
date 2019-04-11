@@ -4033,9 +4033,10 @@ if has("nvim")
       autocmd BufLeave term://* stopinsert
     endif
 
-    " Ignore fzf as fzf will close terminal automatically
+    " Ignore various filetypes as those will close terminal automatically
+    " Igore fzf, ranger, coc
     autocmd TermClose term://*
-          \ if (bufname('%') !~ "fzf") && (bufname('%') !~ "ranger") |
+          \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
           \   call nvim_input('<CR>')  |
           \ endif
   augroup END
