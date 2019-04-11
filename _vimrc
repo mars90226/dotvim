@@ -4023,10 +4023,13 @@ if has("nvim")
   augroup terminal_settings
     autocmd!
     autocmd TermOpen * call s:terminal_settings()
-    autocmd BufWinEnter,WinEnter term://* startinsert
 
     " NVIM v0.4.0-555-gd928b036d make :stopinsert leave terminal mode
+    " which also makes :startinsert not needed.
+    " FIXME: Unite will call :stopinsert that makes next terminal leave
+    " terminal mode
     if s:nvim_version < 'NVIM v0.4.0-555-gd928b036d'
+      autocmd BufWinEnter,WinEnter term://* startinsert
       autocmd BufLeave term://* stopinsert
     endif
 
