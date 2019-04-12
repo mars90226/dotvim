@@ -15,9 +15,11 @@ endif
 " Change Menu language
 " This should happen before loading plugins to avoid deleting plugins' menus
 if has('gui')
-  set langmenu=en_US.UTF-8
-  source $VIMRUNTIME/delmenu.vim
-  source $VIMRUNTIME/menu.vim
+  if &langmenu != 'en_US.UTF-8'
+    set langmenu=en_US.UTF-8
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+  endif
 endif
 
 " Detect operating system
