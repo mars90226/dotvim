@@ -685,7 +685,8 @@ endfunction
 " Vinegar {{{
 Plug 'tpope/vim-vinegar'
 
-nmap <silent> _ <Plug>VinegarVerticalSplitUp
+nmap <silent> \-       <Plug>VinegarUp
+nmap <silent> _        <Plug>VinegarVerticalSplitUp
 nmap <silent> <Space>- <Plug>VinegarSplitUp
 nmap <silent> <Space>_ <Plug>VinegarTabUp
 " }}}
