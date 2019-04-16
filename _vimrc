@@ -4032,10 +4032,10 @@ if has("nvim")
     " FIXME: Unite will call :stopinsert that makes next terminal leave
     " terminal mode
     " issue: https://github.com/neovim/neovim/issues/9889
-    " if s:nvim_version < 'NVIM v0.4.0-555-gd928b036d'
-      autocmd BufWinEnter,WinEnter term://* startinsert
-      " autocmd BufLeave term://* stopinsert
-    " endif
+    autocmd BufWinEnter,WinEnter term://* startinsert
+    if s:nvim_version < 'NVIM v0.4.0-555-gd928b036d'
+      autocmd BufLeave term://* stopinsert
+    endif
 
     " Ignore various filetypes as those will close terminal automatically
     " Igore fzf, ranger, coc
