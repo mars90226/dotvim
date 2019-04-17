@@ -4130,6 +4130,7 @@ augroup fileTypeSpecific
 
   " FileType settings
   autocmd FileType vim call s:filetype_vim_settings()
+  autocmd FileType python call s:filetype_python_settings()
 augroup END
 
 function! s:filetype_vim_settings()
@@ -4141,6 +4142,13 @@ function! s:filetype_vim_settings()
   if bufname('%') == '.vimrc' || bufname('%') == '_vimrc'
     setlocal foldmethod=marker
   endif
+endfunction
+
+function! s:filetype_python_settings()
+  setlocal shiftwidth=4
+  setlocal tabstop=4
+  setlocal softtabstop=4
+  setlocal expandtab
 endfunction
 " }}}
 
