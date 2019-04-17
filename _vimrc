@@ -110,6 +110,18 @@ function! s:has_linux_build_env()
   return s:os !~ "windows" && s:os !~ "synology"
 endfunction
 
+function! s:has_jedi()
+  if has("python3")
+    call system('pip3 show -qq jedi')
+    return !v:shell_error
+  elseif has("python")
+    call system('pip show -qq jedi')
+    return !v:shell_error
+  else
+    return 0
+  endif
+endfunction
+
 " Choose autocompletion plugin {{{
 " coc.nvim, deoplete.nvim, completor.vim, YouCompleteMe, supertab
 call s:disable_plugins(['coc.nvim', 'deoplete.nvim', 'completor.vim', 'YouCompleteMe', 'supertab'])
@@ -436,7 +448,7 @@ if s:is_enabled_plugin('deoplete.nvim')
   Plug 'Shougo/neco-syntax'
   Plug 'Shougo/neco-vim'
   Plug 'sebastianmarkow/deoplete-rust', { 'for': ['rust'] }
-  if executable('jedi')
+  if s:has_jedi()
     Plug 'deoplete-plugins/deoplete-jedi'
   endif
   Plug 'deoplete-plugins/deoplete-zsh'
@@ -2773,7 +2785,7 @@ endfunction
 " }}}
 
 " jedi-vim {{{
-if executable('jedi')
+if s:has_jedi()
   Plug 'davidhalter/jedi-vim'
 
   let g:jedi#completions_enabled = 1
@@ -4149,6 +4161,9 @@ function! s:filetype_python_settings()
   setlocal tabstop=4
   setlocal softtabstop=4
   setlocal expandtab
+
+  nnoremap <silent><buffer> K :call <SID>show_documentation()<CR>
+  nnoremap gK :execute 'Pydoc ' . expand('<cword>')<CR>
 endfunction
 " }}}
 
