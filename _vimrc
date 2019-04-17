@@ -3369,10 +3369,10 @@ endif
 " Defx {{{
 if s:is_enabled_plugin("defx")
   call defx#custom#option('_', {
-        \ 'columns': 'git:mark:filename:type:size:time',
+        \ 'columns': 'git:mark:indent:icon:filename:type:size:time',
         \ 'show_ignored_files': 1,
         \ })
-  call defx#custom#column('filename', {
+  call defx#custom#column('icon', {
         \ 'directory_icon': '▸',
         \ 'opened_icon': '▾',
         \ 'root_icon': ' ',
