@@ -1029,6 +1029,8 @@ if s:is_enabled_plugin("defx")
           \ defx#async_action('cd')
     nnoremap <silent><buffer><expr> gr
           \ defx#do_action('cd', '/')
+    nnoremap <silent><buffer><expr> gl
+          \ defx#do_action('cd', '/usr/lib/')
     nnoremap <silent><buffer><expr> gv
           \ defx#do_action('cd', $VIMRUNTIME)
     nnoremap <silent><buffer><expr> \
