@@ -2864,6 +2864,24 @@ augroup fugitiveSettings
 augroup END
 
 let g:fugitive_gitlab_domains = ['https://git.synology.com']
+
+command! -nargs=? GitDiffCommit call s:git_diff_commit(<f-args>)
+function! s:git_diff_commit(commit)
+  if exists('b:git_dir')
+    let files = systemlist('git diff --name-only ' . a:commit . '^!')
+    let current_tabnr = tabpagenr()
+    for file in files
+      execute 'tabedit ' . file
+    endfor
+    let last_tabnr = tabpagenr()
+    let range = current_tabnr + 1 . ',' . last_tabnr
+
+    execute range . 'tabdo Gedit ' . a:commit . '^:%'
+    execute range . 'tabdo Gdiff ' . a:commit
+  else
+    echo 'No git a git repository:' expand('%:p')
+  endif
+endfunction
 " }}}
 
 " vim-gitgutter {{{
