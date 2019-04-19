@@ -2917,6 +2917,7 @@ augroup END
 
 function! s:gv_settings()
   nnoremap <silent><buffer> + :call <SID>gv_expand()<CR>
+  nnoremap <silent><buffer> <Leader>gd :call <SID>git_diff_commit(gv#sha())<CR>
 endfunction
 " }}}
 
