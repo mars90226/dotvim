@@ -4059,16 +4059,8 @@ if has("nvim")
   augroup terminal_settings
     autocmd!
     autocmd TermOpen * call s:terminal_settings()
-
-    " NVIM v0.4.0-555-gd928b036d make :stopinsert leave terminal mode
-    " which also makes :startinsert not needed.
-    " FIXME: Unite will call :stopinsert that makes next terminal leave
-    " terminal mode
-    " issue: https://github.com/neovim/neovim/issues/9889
     autocmd BufWinEnter,WinEnter term://* startinsert
-    if s:nvim_version < 'NVIM v0.4.0-555-gd928b036d'
-      autocmd BufLeave term://* stopinsert
-    endif
+    autocmd BufLeave term://* stopinsert
 
     " Ignore various filetypes as those will close terminal automatically
     " Igore fzf, ranger, coc
