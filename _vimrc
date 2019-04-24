@@ -371,13 +371,13 @@ if s:is_enabled_plugin('coc.nvim')
   nnoremap <silent> <Space>ce :CocList extensions<CR>
   " Show commands
   nnoremap <silent> <Space>c; :CocList commands<CR>
-  " Find symbol of cuRrent docu
+  " Find symbol of current document
   nnoremap <silent> <Space>co :CocList outline<CR>
-  " Search workspace Symbols
+  " Search workspace symbols
   nnoremap <silent> <Space>cs :CocList -I symbols<CR>
-  " Do default action for next 
+  " Do default action for next item.
   nnoremap <silent> <Space>cj :CocNext<CR>
-  " Do default action for previtem.
+  " Do default action for prevous item.
   nnoremap <silent> <Space>ck :CocPrev<CR>
   " Resume latest coc list
   nnoremap <silent> <Space>cu :CocListResume<CR>
@@ -2039,7 +2039,7 @@ command! -nargs=1 FilesWithQuery call s:files_with_query(<q-args>)
 
 " Cscope functions {{{
 " Borrow from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
-function! s:cscope_sink(lines) 
+function! s:cscope_sink(lines)
   if len(a:lines) < 2
     return
   end
