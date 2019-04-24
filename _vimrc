@@ -3750,7 +3750,7 @@ cnoremap <expr> <C-G><C-]> expand('%:t:r')
 " :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
 " TODO Move this to 'after' folder
 if has('nvim')
-  nnoremap <Leader>mn :execute 'Man ' . input('Man: ')<CR>
+  nnoremap <Leader>mn :Man 
 endif
 
 " Quickfix & Locaiton List {{{
