@@ -2206,6 +2206,7 @@ nnoremap <Space>fR :execute 'Rg! ' . input('Rg!: ')<CR>
 nnoremap <Space>f4 :execute 'RgWithOption .:' . input('Option: ') . ':' . input('Rg: ')<CR>
 nnoremap <Space>f$ :execute 'RgWithOption! .:' . input('Option: ') . ':' . input('Rg!: ')<CR>
 nnoremap <Space>f? :execute 'RgWithOption .:' . <SID>rg_current_type_option() . ':' . input('Rg: ')<CR>
+nnoremap <Space>f5 :execute 'RgWithOption ' . expand('%:h') . '::' . input('Rg: ')<CR>
 nnoremap <Space>fs :GFiles?<CR>
 nnoremap <Space>ft :BTags<CR>
 nnoremap <Space>fT :Tags<CR>
@@ -3744,6 +3745,11 @@ cnoremap <expr> <C-G><C-F> <SID>files_in_commandline()
 cnoremap <expr> <C-G><C-T> <SID>rg_current_type_option()
 " <C-]> and <C-%> is the same key
 cnoremap <expr> <C-G><C-]> expand('%:t:r')
+
+" Man
+if exists(':Man') == 2
+  nnoremap <Leader>mn :execute 'Man ' . input('Man: ')<CR>
+endif
 
 " Quickfix & Locaiton List {{{
 augroup quickfixSettings
