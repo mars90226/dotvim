@@ -3747,7 +3747,9 @@ cnoremap <expr> <C-G><C-T> <SID>rg_current_type_option()
 cnoremap <expr> <C-G><C-]> expand('%:t:r')
 
 " Man
-if exists(':Man') == 2
+" :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
+" TODO Move this to 'after' folder
+if has('nvim')
   nnoremap <Leader>mn :execute 'Man ' . input('Man: ')<CR>
 endif
 
