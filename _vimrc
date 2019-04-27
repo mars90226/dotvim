@@ -3474,7 +3474,7 @@ set ruler " show the cursor position all the time
 
 set scrolloff=0
 
-set diffopt=filler,vertical
+set diffopt=filler,hiddenoff,vertical
 
 " completion menu
 set pumheight=40
