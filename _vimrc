@@ -2490,6 +2490,13 @@ omap <silent> ime <Plug>CamelCaseMotion_ie
 xmap <silent> ime <Plug>CamelCaseMotion_ie
 " }}}
 
+" vim-edgemotion {{{
+Plug 'haya14busa/vim-edgemotion'
+
+map <Space><Space>j <Plug>(edgemotion-j)
+map <Space><Space>k <Plug>(edgemotion-k)
+" }}}
+
 Plug 'wellle/targets.vim'
 " }}}
 
