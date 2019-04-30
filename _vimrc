@@ -1203,6 +1203,7 @@ endfunction
 " }}}
 
 " Unite key mappings {{{
+" Unite don't auto-preview file as it's slow
 nnoremap <Space>l :Unite -start-insert line<CR>
 nnoremap <Space>p :Unite -buffer-name=files buffer bookmark file<CR>
 if has("nvim")
@@ -1219,9 +1220,9 @@ nnoremap <Space>o :Unite outline -start-insert<CR>
 nnoremap <Space>a :execute 'Unite anzu:' . input ('anzu: ')<CR>
 nnoremap <Space>ua :Unite location_list<CR>
 nnoremap <Space>uA :Unite apropos -start-insert<CR>
-nnoremap <Space>ub :UniteWithBufferDir -buffer-name=files -prompt=%\  buffer bookmark file<CR>
+nnoremap <Space>ub :UniteWithBufferDir -buffer-name=files -prompt=%\  file<CR>
 nnoremap <Space>uc :Unite -auto-preview change<CR>
-nnoremap <Space>uC :UniteWithCurrentDir -buffer-name=files buffer bookmark file<CR>
+nnoremap <Space>uC :UniteWithCurrentDir -buffer-name=files file<CR>
 nnoremap <Space>ud :Unite directory<CR>
 nnoremap <Space>uD :UniteWithBufferDir directory<CR>
 nnoremap <Space>u<C-D> :execute 'Unite directory:' . input('dir: ')<CR>
@@ -1245,7 +1246,7 @@ xnoremap <Space>u8 :<C-U>call <SID>unite_grep(<SID>get_visual_selection(), 'keyw
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>uo :Unite output -start-insert<CR>
 nnoremap <Space>uO :Unite outline -start-insert<CR>
-nnoremap <Space>up :UniteWithProjectDir -buffer-name=files -prompt=&\  buffer bookmark file<CR>
+nnoremap <Space>up :UniteWithProjectDir -buffer-name=files -prompt=&\  file<CR>
 nnoremap <Space>uq :Unite quickfix<CR>
 nnoremap <Space>ur :Unite -buffer-name=register register<CR>
 nnoremap <Space>us :Unite -quick-match tab<CR>
@@ -1408,17 +1409,18 @@ if s:is_enabled_plugin('denite.nvim')
 
   " TODO Denite quickfix seems not working
   " TODO Add Denite tselect source
+  " Denite don't use auto-preview file because it's slow
 
   nnoremap <Space>O :Denite outline<CR>
 
   nnoremap <Space>da :Denite location_list<CR>
-  nnoremap <Space>db :DeniteBufferDir -auto-resume buffer dirmark file<CR>
-  nnoremap <Space>dc :Denite -auto-preview change<CR>
+  nnoremap <Space>db :DeniteBufferDir -auto-resume file<CR>
+  nnoremap <Space>dc :Denite -auto-action=preview change<CR>
   nnoremap <Space>dd :Denite directory/rec<CR>
   nnoremap <Space>dD :Denite directory_mru<CR>
   nnoremap <Space>df :Denite filetype<CR>
   nnoremap <Space>dh :Denite help<CR>
-  nnoremap <Space>dj :Denite -auto-preview jump<CR>
+  nnoremap <Space>dj :Denite -auto-action=preview jump<CR>
   nnoremap <Space>dJ :Denite project<CR>
   nnoremap <Space>di :call <SID>denite_grep('!', 'grep', '', v:false)<CR>
   nnoremap <Space>dk :call <SID>denite_grep(expand('<cword>'), 'keyword', '', v:false)<CR>
@@ -1427,7 +1429,7 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>d* :call <SID>denite_grep(expand('<cWORD>'), 'keyword', '', v:true)<CR>
   xnoremap <Space>dk :<C-U>call <SID>denite_grep(<SID>get_visual_selection(), 'keyword', '', v:false)<CR>
   xnoremap <Space>d8 :<C-U>call <SID>denite_grep(<SID>get_visual_selection(), 'keyword', '', v:true)<CR>
-  nnoremap <Space>dl :Denite -auto-highlight line<CR>
+  nnoremap <Space>dl :Denite -auto-action=highlight line<CR>
   nnoremap <Space>dL :Denite line:buffers<CR>
   nnoremap <Space>dm :Denite file_mru<CR>
   nnoremap <Space>dM :Denite directory_mru<CR>
@@ -1436,7 +1438,7 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>d<C-O> :Denite unite:outline<CR>
   nnoremap <Space>dp :Denite -auto-resume buffer dirmark file<CR>
   nnoremap <Space>dP :Denite -auto-resume file/rec<CR>
-  nnoremap <Space>d<C-P> :DeniteProjectDir -auto-resume buffer dirmark file<CR>
+  nnoremap <Space>d<C-P> :DeniteProjectDir -auto-resume file<CR>
   nnoremap <Space>dq :Denite quickfix<CR>
   nnoremap <Space>dr :Denite register<CR>
   nnoremap <Space>ds :Denite session<CR>
