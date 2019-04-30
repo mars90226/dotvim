@@ -3420,8 +3420,10 @@ if s:is_enabled_plugin('denite.nvim')
         \ 'reversed': 1,
         \ 'prompt': '❯',
         \ 'prompt_highlight': 'Function',
-        \ 'highlight_mode_normal': 'PmenuSel',
+        \ 'highlight_mode_normal': 'Visual',
         \ 'highlight_mode_insert': 'CursorLine',
+        \ 'highlight_matched_char': 'Special',
+        \ 'highlight_matched_range': 'Normal',
         \ 'vertical_preview': 1,
         \ })
 endif
