@@ -3417,7 +3417,12 @@ if s:is_enabled_plugin('denite.nvim')
 
   call denite#custom#option('_', {
         \ 'auto_accel': v:true,
-        \ 'prompt': '>',
+        \ 'reversed': 1,
+        \ 'prompt': '❯',
+        \ 'prompt_highlight': 'Function',
+        \ 'highlight_mode_normal': 'PmenuSel',
+        \ 'highlight_mode_insert': 'CursorLine',
+        \ 'vertical_preview': 1,
         \ })
 endif
 " }}}
