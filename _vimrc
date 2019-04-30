@@ -679,7 +679,7 @@ nnoremap <Space>c] :CtrlPtjump<CR>
 xnoremap <Space>c] :CtrlPtjumpVisual<CR>
 
 if executable('fd')
-  let g:ctrlp_user_command = 'fd --type f --no-ignore --hidden --follow --exclude .git --exclude node_modules "" %s'
+  let g:ctrlp_user_command = 'fd --type f --no-ignore-vcs --hidden --follow --ignore-file ' . $HOME . '/.ignore "" %s'
 endif
 " }}}
 
@@ -1264,6 +1264,11 @@ nnoremap <Space>u/ :Unite history/search<CR>
 
 nnoremap <Space><F1> :Unite output:map<CR>
 
+if executable('fd')
+  let g:unite_source_rec_async_command =
+        \ ['fd', '--type', 'file', '--follow', '--hidden', '--exclude', '.git', '']
+endif
+
 if executable('rg')
   let g:unite_source_grep_command = 'rg'
   let g:unite_source_grep_default_opts = '--hidden --no-heading --vimgrep -S'
@@ -1685,7 +1690,7 @@ endif
 "     \ -g "!{.config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
 " Manually specify ignore file as ripgrep 0.9.0 will not respect to .gitignore outside of git repository
 let g:rg_base_command = 'rg --column --line-number --no-heading --smart-case --color=always --follow --with-filename '
-let g:rg_command = g:rg_base_command . '--ignore-file ' . $HOME . '/.gitignore '
+let g:rg_command = g:rg_base_command . '--ignore-file ' . $HOME . '/.gitignore ' " TODO Use '.ignore'?
 let g:rg_all_command = g:rg_base_command . '--no-ignore --hidden '
 command! -bang -nargs=* Rg call fzf#vim#grep(
       \ <bang>0 ? g:rg_all_command.shellescape(<q-args>)
@@ -1835,7 +1840,7 @@ function! s:directory_mru_rg_sink(line)
   call feedkeys('i')
 endfunction
 
-let g:fd_dir_command = 'fd --type directory --no-ignore --hidden --follow --exclude .git --exclude node_modules'
+let g:fd_dir_command = 'fd --type directory --no-ignore-vcs --hidden --follow --ignore-file ' . $HOME . '/.ignore'
 command! DirectoryRg call s:directory_rg()
 function! s:directory_rg()
   call fzf#run(fzf#wrap({
@@ -2297,7 +2302,7 @@ if s:is_enabled_plugin('vim-gutentags')
 
   " Don't update cscope, workload is too heavy
   let g:gutentags_modules = ['ctags']
-  let g:gutentags_ctags_exclude = ['.git', 'node_modules']
+  let g:gutentags_ctags_exclude = ['.git', 'node_modules', '.ccls-cache']
 endif
 " }}}
 
@@ -3035,7 +3040,7 @@ nnoremap <Leader>r :Rooter<CR>
 " }}}
 
 " vimwiki {{{
-Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+Plug 'vimwiki/vimwiki'
 
 nnoremap <Leader>wg :VimwikiToggleListItem<CR>
 " }}}
@@ -3386,18 +3391,25 @@ if s:is_enabled_plugin('denite.nvim')
         \)
   " }}}
 
-  if executable('rg')
+  " Use fd for file/rec and ripgrep for grep
+  if executable('fd')
+    call denite#custom#var('file/rec', 'command',
+        \ ['fd', '--type', 'file', '--follow', '--hidden', '--exclude', '.git', ''])
+  elseif executable('rg')
     call denite#custom#var('file/rec', 'command',
           \ ['rg', '--files', '--glob', '!.git'])
+  elseif executable('ag')
+    call denite#custome#var('file/rec', 'command',
+          \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+  endif
+
+  if executable('rg')
     call denite#custom#var('grep', 'command', ['rg'])
     call denite#custom#var('grep', 'recursive_opts', [])
     call denite#custom#var('grep', 'final_opts', [])
     call denite#custom#var('grep', 'separator', ['--'])
     call denite#custom#var('grep', 'default_opts',
           \ ['--vimgrep', '--no-heading', '-S'])
-  elseif executable('ag')
-    call denite#custome#var('file/rec', 'command',
-          \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
   endif
 
   " Denite options
