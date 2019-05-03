@@ -306,10 +306,11 @@ if s:is_enabled_plugin('coc.nvim')
   " <CR>: confirm completion, or insert <CR> with new undo chain
   inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 
-  " Due to diff mode key mappings that need nnoremap, calling function
-  " directly
-  nnoremap <silent><expr> [c &diff ? "[c" : CocActionAsync('diagnosticPrevious')
-  nnoremap <silent><expr> ]c &diff ? "]c" : CocActionAsync('diagnosticNext')
+  " Define mapping for diff mode to avoid recursive mapping
+  nnoremap <silent> <Plug>(diff-prev) [c
+  nnoremap <silent> <Plug>(diff-next) ]c
+  nmap <silent><expr> [c &diff ? "\<Plug>(diff-prev)" : "\<Plug>(coc-diagnostic-prev)"
+  nmap <silent><expr> ]c &diff ? "\<Plug>(diff-next)" : "\<Plug>(coc-diagnostic-next)"
 
   " mapppings for gotos
   nmap <silent> gd <Plug>(coc-definition)
