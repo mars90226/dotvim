@@ -1392,7 +1392,7 @@ if s:is_enabled_plugin('denite.nvim')
     let final_query = a:is_word ? '\\b' . escaped_query . '\\b' : escaped_query
     let buffer_name = s:denite_get_buffer_name(a:buffer_name_prefix)
 
-    execute 'Denite -buffer-name=' . buffer_name . ' -auto-resume grep:.:' . final_query . ':' . final_query
+    execute 'Denite -buffer-name=' . buffer_name . ' -auto-resume grep:.:' . escaped_option . ':' . final_query
   endfunction
 
   " Denite key mappings {{{
