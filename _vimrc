@@ -3776,6 +3776,9 @@ cnoremap <expr> <C-G><C-F> <SID>files_in_commandline()
 cnoremap <expr> <C-G><C-T> <SID>rg_current_type_option()
 " <C-]> and <C-%> is the same key
 cnoremap <expr> <C-G><C-]> expand('%:t:r')
+" For grepping word
+cnoremap <expr> <C-G><C-W> "\\b" . expand('<cword>') . "\\b"
+cnoremap <expr> <C-G><C-A> "\\b" . expand('<cWORD>') . "\\b"
 
 " Man
 " :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
