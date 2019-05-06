@@ -3913,33 +3913,47 @@ if !exists(":DiffOrig")
                  \ | wincmd p | diffthis
 endif
 
-function! s:delete_inactive_buffers(bang)
+function! s:delete_inactive_buffers(wipeout, bang)
     "From tabpagebuflist() help, get a list of all buffers in all tabs
-    let tablist = []
-    for i in range(tabpagenr('$'))
-        call extend(tablist, tabpagebuflist(i + 1))
+    let visible_buffers = {}
+    for t in range(tabpagenr('$'))
+      for b in tabpagebuflist(t + 1)
+        let visible_buffers[b] = 1
+      endfor
     endfor
 
     "Below originally inspired by Hara Krishna Dara and Keith Roberts
     "http://tech.groups.yahoo.com/group/vim/message/56425
-    let nWipeouts = 0
-    for i in range(1, bufnr('$'))
-        if bufexists(i) && !getbufvar(i,"&mod") && index(tablist, i) == -1
-        "bufno exists AND isn't modified AND isn't in the list of buffers open in windows and tabs
+    let wipeout_count = 0
+    if a:wipeout
+      let cmd = 'bwipeout'
+    else
+      let cmd = 'bdelete'
+    endif
+    for b in range(1, bufnr('$'))
+        if buflisted(b) && !getbufvar(b,"&mod") && !has_key(visible_buffers, b)
+        "bufno listed AND isn't modified AND isn't in the list of buffers open in windows and tabs
             if a:bang
-              silent exec 'bwipeout!' i
+              silent exec cmd . '!' b
             else
-              silent exec 'bwipeout' i
+              silent exec cmd b
             endif
-            let nWipeouts = nWipeouts + 1
-
+            let wipeout_count = wipeout_count + 1
         endif
     endfor
-    echomsg nWipeouts . ' buffer(s) wiped out'
+
+    if a:wipeout
+      echomsg wipeout_count . ' buffer(s) wiped out'
+    else
+      echomsg wipeout_count . ' buffer(s) deleted'
+    endif
 endfunction
-command! -bang Bdi call s:delete_inactive_buffers(<bang>0)
+command! -bang Bdi call s:delete_inactive_buffers(0, <bang>0)
+command! -bang Bwi call s:delete_inactive_buffers(1, <bang>0)
 nnoremap <Leader>D :Bdi<CR>
 nnoremap <Leader><C-D> :Bdi!<CR>
+nnoremap <Leader>Q :Bwi<CR>
+nnoremap <Leader><C-Q> :Bwi!<CR>
 
 function! s:trim_whitespace()
     let l:save = winsaveview()
