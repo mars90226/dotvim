@@ -3489,6 +3489,10 @@ if s:os !~ "synology"
   " Unmap CTRL-Z for undo
   silent! unmap <C-Z>
   silent! iunmap <C-Z>
+
+  " Unmap CTRL-Z for redo
+  silent! unmap <C-Y>
+  silent! iunmap <C-Y>
 endif
 " }}}
 
