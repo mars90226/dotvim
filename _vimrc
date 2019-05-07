@@ -3475,18 +3475,18 @@ if s:os !~ "synology"
   behave mswin
 
   if has("gui")
-    " Fix CTRL-f in gui will popup find window problem
+    " Fix CTRL-F in gui will popup find window problem
     silent! unmap <C-F>
     silent! iunmap <C-F>
     silent! cunmap <C-F>
   endif
 
-  " Unmap CTRL-a for selecting all
+  " Unmap CTRL-A for selecting all
   silent! unmap <C-A>
   silent! iunmap <C-A>
   silent! cunmap <C-A>
 
-  " Unmap CTRL-z for undo
+  " Unmap CTRL-Z for undo
   silent! unmap <C-Z>
   silent! iunmap <C-Z>
 endif
@@ -3653,11 +3653,11 @@ let c_comment_strings = 1
 " Don't use Ex mode, use Q for formatting
 nnoremap Q gq
 
-" CTRL-u in insert mode deletes a lot.  Use CTRL-g u to first break undo,
-" so that you can undo CTRL-u after inserting a line break.
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
-" CTRL-l clear hlsearch
+" CTRL-L clear hlsearch
 nnoremap <C-L> <C-L>:nohlsearch<CR>
 
 " Quickly escape insert mode
