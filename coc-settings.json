@@ -24,5 +24,6 @@
       }
     }
   },
-  "coc.source.neosnippet.disableSyntaxes": ["string", "comment"]
+  "coc.source.neosnippet.disableSyntaxes": ["string", "comment"],
+  "python.linting.pylintEnabled": false
 }
