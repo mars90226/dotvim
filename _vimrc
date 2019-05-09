@@ -2048,7 +2048,7 @@ endfunction
 command! -nargs=1 FilesWithQuery call s:files_with_query(<q-args>)
 
 " Cscope functions {{{
-" Borrow from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
+" Borrowed from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
 function! s:cscope_sink(lines)
   if len(a:lines) < 2
     return
@@ -2880,8 +2880,14 @@ nnoremap <silent> <Leader>g` :call <SID>review_last_commit()<CR>
 augroup fugitiveSettings
   autocmd!
   autocmd FileType gitcommit setlocal nolist
+  autocmd FileType fugitive call s:fugitive_settings()
   autocmd BufReadPost fugitive://* setlocal bufhidden=delete
 augroup END
+
+function! s:fugitive_settings()
+  nnoremap <buffer> <silent> Su :GitDispatch stash -u<CR>
+  nnoremap <buffer> <silent> Sp :GitDispatch stash pop<CR>
+endfunction
 
 let g:fugitive_gitlab_domains = ['https://git.synology.com']
 
@@ -2901,6 +2907,31 @@ function! s:git_diff_commit(commit)
   else
     echo 'No git a git repository:' expand('%:p')
   endif
+endfunction
+
+" Borrowed from vim-fugitive {{{
+let s:common_efm = ''
+      \ . '%+Egit:%.%#,'
+      \ . '%+Eusage:%.%#,'
+      \ . '%+Eerror:%.%#,'
+      \ . '%+Efatal:%.%#,'
+      \ . '%-G%.%#%\e[K%.%#,'
+      \ . '%-G%.%#%\r%.%\+'
+" }}}
+
+" Borrowed and modified from vim-fugitive s:Dispatch
+command! -nargs=* GitDispatch call s:git_dispatch(<q-args>)
+function! s:git_dispatch(command)
+  let [mp, efm, cc] = [&l:mp, &l:efm, get(b:, 'current_compiler', '')]
+  try
+    let b:current_compiler = 'git'
+    let &l:errorformat = s:common_efm
+    let &l:makeprg = 'git ' . a:command
+    Make!
+  finally
+    let [&l:mp, &l:efm, b:current_compiler] = [mp, efm, cc]
+    if empty(cc) | unlet! b:current_compiler | endif
+  endtry
 endfunction
 " }}}
 
@@ -3136,6 +3167,12 @@ nnoremap <Leader>gy :Goyo<CR>
 Plug 'junegunn/limelight.vim'
 
 nnoremap <Leader><C-L> :Limelight!!<CR>
+" }}}
+
+" vim-dispatch {{{
+Plug 'tpope/vim-dispatch'
+
+nnoremap <Leader>co :Copen<CR>
 " }}}
 
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
