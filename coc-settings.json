@@ -25,5 +25,5 @@
     }
   },
   "coc.source.neosnippet.disableSyntaxes": ["string", "comment"],
-  "python.linting.pylintEnabled": false
+  "python.linting.pylintEnabled": true
 }
