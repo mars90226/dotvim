@@ -1431,7 +1431,7 @@ if s:is_enabled_plugin('denite.nvim')
   xnoremap <Space>dk :<C-U>call <SID>denite_grep(<SID>get_visual_selection(), 'keyword', '', v:false)<CR>
   xnoremap <Space>d8 :<C-U>call <SID>denite_grep(<SID>get_visual_selection(), 'keyword', '', v:true)<CR>
   nnoremap <Space>dl :Denite -auto-action=highlight line<CR>
-  nnoremap <Space>dL :Denite line:buffers<CR>
+  nnoremap <Space>dL :Denite -default-action=switch line:buffers<CR>
   nnoremap <Space>dm :Denite file_mru<CR>
   nnoremap <Space>dM :Denite directory_mru<CR>
   nnoremap <Space>do :execute 'Denite output:' . <SID>escape_symbol(input('output: '))<CR>
