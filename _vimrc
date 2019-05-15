@@ -1949,6 +1949,7 @@ function! s:jump_sink(lines)
   endfor
 endfunction
 
+
 function! s:jumps()
   return reverse(filter(split(execute("jumps", "silent!"), "\n")[1:], 'v:val != ">"'))
 endfunction
@@ -1957,7 +1958,6 @@ command! Jump call fzf#run(fzf#wrap({
       \ 'sink*':   function('s:jump_sink'),
       \ 'options': '-m +s --expect=' . join(keys(g:fzf_action), ','),
       \ 'down':    '40%'}))
-
 function! s:registers_sink(line)
   execute 'norm ' . a:line[0:1] . 'p'
 endfunction
@@ -2051,6 +2051,26 @@ function! s:files_with_query(query)
   call feedkeys(a:query)
 endfunction
 command! -nargs=1 FilesWithQuery call s:files_with_query(<q-args>)
+
+" TODO Add sign text and highlight
+function! s:current_placed_signs_source()
+  let linefmt = s:yellow(" %4d ", "LineNr")."\t%s"
+  let fmtexpr = 'printf(linefmt, v:val[0], v:val[1])'
+  let current_placed_signs = split(execute("sign place buffer=" . bufnr('%'), "silent!"), "\n")[2:]
+  let line_numbers = map(current_placed_signs, "str2nr(matchstr(v:val, '\\d\\+', 9))")
+  let uniq_line_numbers = uniq(line_numbers) " Remove duplicate line numbers as both GitGutter and GitP will place sign on same lines
+  let lines = map(uniq_line_numbers, "[v:val, getline(v:val)]")
+  let formatted_lines = map(lines, fmtexpr)
+  return formatted_lines
+endfunction
+function! s:current_placed_signs()
+  call fzf#run(fzf#wrap({
+        \ 'source':  s:current_placed_signs_source(),
+        \ 'sink*':   function('s:range_lines_center_handler'),
+        \ 'options': ['--tiebreak=index', '--prompt', 'Signs> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1'],
+        \ }))
+endfunction
+command! CurrentPlacedSigns call s:current_placed_signs()
 
 " Cscope functions {{{
 " Borrowed from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
@@ -2191,6 +2211,7 @@ nnoremap <Space>fb :Buffers<CR>
 nnoremap <Space>fB :Files %:h<CR>
 nnoremap <Space>fc :BCommits<CR>
 nnoremap <Space>fC :Commits<CR>
+nnoremap <Space>fd :CurrentPlacedSigns<CR>
 nnoremap <Space>ff :Files<CR>
 nnoremap <Space>fF :DirectoryRg<CR>
 nnoremap <Space>f<C-F> :execute 'Files ' . expand('<cfile>')<CR>
