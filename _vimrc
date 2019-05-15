@@ -3611,7 +3611,10 @@ elseif executable("ag")
 else
   set grepprg=grep\ -nH\ $*
 endif
-set t_Co=256
+
+if !has("nvim")
+  set t_Co=256
+endif
 
 " Fold
 " Borrowed from https://superuser.com/questions/990296/how-to-change-the-way-that-vim-displays-collapsed-folded-lines
@@ -4288,14 +4291,14 @@ set keymodel=startsel
 
 " disable Background Color Erase (BC) by clearing the `t_ut` on Synology DSM
 " see https://sunaku.github.io/vim-256color-bce.html
-if s:os =~ "synology"
+if s:os =~ "synology" && !has("nvim")
   set t_ut=
 endif
 
 " Backspace in ConEmu will translate to 0x07F when using xterm
 " https://conemu.github.io/en/VimXterm.html
 " https://github.com/Maximus5/ConEmu/issues/641
-if !empty($ConEmuBuild)
+if !empty($ConEmuBuild) && !has("nvim")
   let &t_kb = nr2char(127)
   let &t_kD = "^[[3~"
 
