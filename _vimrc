@@ -1397,12 +1397,17 @@ if s:is_enabled_plugin('denite.nvim')
 
   " Denite key mappings {{{
   " Override Unite key mapping {{{
-  let s:unite_file = maparg('<Space>p', 'n')
-  let s:unite_file_rec = maparg('<Space>P', 'n')
-  let s:unite_project_file = maparg('<Space>up', 'n')
-  execute 'nnoremap <Space>up ' . s:unite_file
-  execute 'nnoremap <Space>uP ' . s:unite_file_rec
-  execute 'nnoremap <Space>u<C-P> ' . s:unite_project_file
+  function! s:remap(old_key, new_key, mode)
+    let mapping = maparg(a:old_key, a:mode)
+
+    if !empty(mapping)
+      execute a:mode . 'unmap ' . a:old_key
+      execute a:mode . 'noremap ' . a:new_key . ' ' . mapping
+    endif
+  endfunction
+  call s:remap('<Space>p', '<Space>up', 'n') " Unite file
+  call s:remap('<Space>P', '<Space>uP', 'n') " Unite file/rec
+  call s:remap('<Space>up', '<Space>u<C-P>', 'n') " UniteWithProjectDir file
 
   nnoremap <Space>p :Denite -auto-resume buffer dirmark file<CR>
   nnoremap <Space>P :Denite -auto-resume file/rec<CR>
