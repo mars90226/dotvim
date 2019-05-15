@@ -852,7 +852,7 @@ if s:is_enabled_plugin("defx")
   nnoremap <F4>        :Defx -split=vertical -winwidth=35 -direction=topleft -toggle<CR>
   nnoremap <Space><F4> :Defx -split=vertical -winwidth=35 -direction=topleft -toggle `expand('%:p:h')` -search=`expand('%:p')`<CR>
   nnoremap -           :call <SID>opendir('Defx')<CR>
-  nnoremap +           :call <SID>opendir('Defx')<CR>
+  nnoremap ++          :call <SID>opendir('Defx')<CR>
   nnoremap \-          :call <SID>opendir('Defx')<CR>
   nnoremap _           :call <SID>opendir('Defx -split=vertical')<CR>
   nnoremap <Space>-    :call <SID>opendir('Defx -split=horizontal')<CR>
@@ -1115,7 +1115,7 @@ if s:is_enabled_plugin("vimfiler")
   let g:choosewin_color_other = { 'gui': ['#757575', '#BFBFBF'], 'cterm': [241, 249] }
   let g:choosewin_color_overlay_current = { 'gui': ['#7FBF00', '#121813'], 'cterm': [10, 15, 'bold'] }
   let g:choosewin_color_overlay = { 'gui': ['#007173', '#DEDFBD'], 'cterm': [23, 187, 'bold'] }
-  nmap + <Plug>(choosewin)
+  nmap ++ <Plug>(choosewin)
   nmap <Leader>= <Plug>(choosewin)
 endif
 " }}}
@@ -3810,6 +3810,10 @@ nnoremap y' ""yiw
 nnoremap y" ""yiW
 nnoremap y= "+yiw
 nnoremap y+ "+yiW
+nnoremap =y "+y
+xnoremap =y "+y
+nnoremap +p "+p
+nnoremap +P "+P
 
 " Quick yank filename
 nnoremap <Leader>y5 :let @" = expand('%:t:r')<CR>
