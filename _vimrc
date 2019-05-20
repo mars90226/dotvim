@@ -1458,12 +1458,18 @@ if s:is_enabled_plugin('denite.nvim')
       execute a:mode . 'noremap ' . a:new_key . ' ' . mapping
     endif
   endfunction
-  call s:remap('<Space>p', '<Space>up', 'n') " Unite file
-  call s:remap('<Space>P', '<Space>uP', 'n') " Unite file/rec
   call s:remap('<Space>up', '<Space>u<C-P>', 'n') " UniteWithProjectDir file
+  call s:remap('<Space>P', '<Space>uP', 'n') " Unite file/rec
+  call s:remap('<Space>p', '<Space>up', 'n') " Unite file
+  call s:remap('<Space>ul', '<Space>uL', 'n') " UniteWithCursorWord line
+  call s:remap('<Space>l', '<Space>ul', 'n') " Unite line
 
   nnoremap <Space>p :Denite -auto-resume buffer dirmark file<CR>
   nnoremap <Space>P :Denite -auto-resume file/rec<CR>
+  nnoremap <Space><C-P> :DeniteProjectDir -auto-resume file<CR>
+  nnoremap <Space>l :Denite -auto-action=highlight line<CR>
+  nnoremap <Space>L :Denite -default-action=switch line:buffers<CR>
+  nnoremap <Space>dl :DeniteCursorWord -auto-action=preview -split=no line<CR>
   " }}}
 
   " TODO Denite quickfix seems not working
@@ -1488,16 +1494,11 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>d* :call <SID>denite_grep(expand('<cWORD>'), 'keyword', '', v:true)<CR>
   xnoremap <Space>dk :<C-U>call <SID>denite_grep(<SID>get_visual_selection(), 'keyword', '', v:false)<CR>
   xnoremap <Space>d8 :<C-U>call <SID>denite_grep(<SID>get_visual_selection(), 'keyword', '', v:true)<CR>
-  nnoremap <Space>dl :Denite -auto-action=highlight line<CR>
-  nnoremap <Space>dL :Denite -default-action=switch line:buffers<CR>
   nnoremap <Space>dm :Denite file_mru<CR>
   nnoremap <Space>dM :Denite directory_mru<CR>
   nnoremap <Space>do :execute 'Denite output:' . <SID>escape_symbol(input('output: '))<CR>
   nnoremap <Space>dO :Denite outline<CR>
   nnoremap <Space>d<C-O> :Denite unite:outline<CR>
-  nnoremap <Space>dp :Denite -auto-resume buffer dirmark file<CR>
-  nnoremap <Space>dP :Denite -auto-resume file/rec<CR>
-  nnoremap <Space>d<C-P> :DeniteProjectDir -auto-resume file<CR>
   nnoremap <Space>dq :Denite quickfix<CR>
   nnoremap <Space>dr :Denite register<CR>
   nnoremap <Space>ds :Denite session<CR>
