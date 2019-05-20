@@ -3485,8 +3485,6 @@ if s:is_enabled_plugin('denite.nvim')
 
   " Denite options
   call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
-  " Workaround for crash when using native fruzzy matcher on command_history source
-  call denite#custom#source('command_history', 'matchers', ['matcher/fuzzy'])
 
   call denite#custom#option('_', {
         \ 'auto_accel': v:true,
