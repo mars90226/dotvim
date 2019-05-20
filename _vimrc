@@ -122,6 +122,18 @@ function! s:has_jedi()
   endif
 endfunction
 
+function! s:is_full_fledged()
+  return $VIM_FULL_FLEDGED == "yes"
+endfunction
+
+" Choose statusline plugin
+" airline, lightline
+if s:is_full_fledged()
+  call s:disable_plugin('lightline.vim')
+else
+  call s:disable_plugin('vim-airline')
+endif
+
 " Choose autocompletion plugin {{{
 " coc.nvim, deoplete.nvim, completor.vim, YouCompleteMe, supertab
 call s:disable_plugins(['coc.nvim', 'deoplete.nvim', 'completor.vim', 'YouCompleteMe', 'supertab'])
@@ -209,23 +221,64 @@ call plug#begin($VIMHOME.'/plugged')
 " Appearance {{{
 " ====================================================================
 " vim-airline {{{
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'https://gist.github.com/jbkopecky/a2f66baa8519747b388f2a1617159c07',
-    \ { 'as': 'vim-airline-seoul256', 'do': 'mkdir -p autoload/airline/themes; cp -f *.vim autoload/airline/themes' }
+if s:is_enabled_plugin('vim-airline')
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'https://gist.github.com/jbkopecky/a2f66baa8519747b388f2a1617159c07',
+        \ { 'as': 'vim-airline-seoul256', 'do': 'mkdir -p autoload/airline/themes; cp -f *.vim autoload/airline/themes' }
 
-let g:airline_powerline_fonts = 1
+  let g:airline_powerline_fonts = 1
 
-let g:airline#extensions#tabline#enabled       = 1
-let g:airline#extensions#tabline#show_buffers  = 1
-let g:airline#extensions#tabline#tab_nr_type   = 1 " tab number
-let g:airline#extensions#tabline#show_tab_nr   = 1
-let g:airline#extensions#tabline#fnamemod      = ':p:.'
-let g:airline#extensions#tabline#fnamecollapse = 1
+  let g:airline#extensions#tabline#enabled       = 1
+  let g:airline#extensions#tabline#show_buffers  = 1
+  let g:airline#extensions#tabline#tab_nr_type   = 1 " tab number
+  let g:airline#extensions#tabline#show_tab_nr   = 1
+  let g:airline#extensions#tabline#fnamemod      = ':p:.'
+  let g:airline#extensions#tabline#fnamecollapse = 1
 
-" TODO Fix the colors the match seoul256 theme
-"let g:airline_theme = 'seoul256'
-let g:airline_theme = 'zenburn'
+  let g:airline_theme = 'gruvbox'
+endif
+" }}}
+
+" lightline.vim {{{
+if s:is_enabled_plugin('lightline.vim')
+  Plug 'itchyny/lightline.vim'
+  Plug 'maximbaz/lightline-ale'
+  Plug 'shinchu/lightline-gruvbox.vim'
+
+  let g:lightline = {}
+  let g:lightline.colorscheme = 'gruvbox'
+  let g:lightline.component_expand = {
+        \ 'linter_checking': 'lightline#ale#checking',
+        \ 'linter_warnings': 'lightline#ale#warnings',
+        \ 'linter_errors': 'lightline#ale#errors',
+        \ 'linter_ok': 'lightline#ale#ok',
+        \ }
+  let g:lightline.component_type = {
+        \ 'linter_checking': 'left',
+        \ 'linter_warnings': 'warning',
+        \ 'linter_errors': 'error',
+        \ 'linter_ok': 'left',
+        \ }
+  let g:lightline.component_function = {
+        \ 'anzu': 'anzu#search_status',
+        \ 'myfilename': 'LightlineFilename',
+        \ 'myreadonly': 'LightlineReadonly',
+        \ 'gitbranch': 'fugitive#head',
+        \ }
+  let g:lightline.active = {
+        \ 'left': [ ['mode', 'paste'], ['gitbranch', 'myfilename', 'modified', 'myreadonly'] ],
+        \ 'right': [ [ 'lineinfo', 'percent' ], [ 'filetype', 'fileformat', 'fileencoding' ], [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ] ]
+        \ }
+
+  function! LightlineFilename()
+    return expand('%:r')
+  endfunction
+
+  function! LightlineReadonly()
+    return &readonly ? '' : ''
+  endfunction
+endif
 " }}}
 
 " indentLine {{{
@@ -2676,7 +2729,7 @@ function! s:seeing_is_believing_settings()
 endfunction
 " }}}
 
-" Syntastic {{{
+" syntastic {{{
 if s:is_enabled_plugin('syntastic')
   Plug 'vim-syntastic/syntastic'
 
@@ -3712,7 +3765,7 @@ if !exists('g:loaded_color')
   set background=dark
 
   if !exists("g:gui_oni")
-    colorscheme seoul256
+    colorscheme gruvbox
   endif
 
   highlight Pmenu ctermfg=187 ctermbg=239
@@ -4070,7 +4123,7 @@ if !has("nvim") && !has("gui_running") && s:os =~ "windows"
   set t_Co=256
   let &t_AB = "\e[48;5;%dm"
   let &t_AF = "\e[38;5;%dm"
-  colorscheme seoul256
+  colorscheme gruvbox
   highlight Pmenu ctermfg=187 ctermbg=239
   highlight PmenuSel ctermbg=95
 endif
