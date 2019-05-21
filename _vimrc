@@ -291,14 +291,15 @@ if s:is_enabled_plugin('lightline.vim')
 
   function! LightlineFilename()
     let fname = expand('%:t')
-    let fpath = expand('%:r')
+    let fpath = expand('%')
     return fname =~ '__Tagbar__' ? g:lightline.fname :
           \ fname == '__Gundo__' ? '' :
           \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
           \ &ft == 'unite' ? unite#get_status_string() :
           \ &ft == 'help' ? fname :
           \ ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-          \ ('' != fname ? fpath : '[No Name]') .
+          \ (fpath =~? '^fugitive:' ? fnamemodify(fugitive#Real(fpath), ':.') . ' [git]' :
+          \ '' != fname ? fpath : '[No Name]') .
           \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
   endfunction
 
