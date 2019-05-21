@@ -296,6 +296,7 @@ if s:is_enabled_plugin('lightline.vim')
           \ fname == '__Gundo__' ? '' :
           \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
           \ &ft == 'unite' ? unite#get_status_string() :
+          \ &ft == 'help' ? fname :
           \ ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
           \ ('' != fname ? fpath : '[No Name]') .
           \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
