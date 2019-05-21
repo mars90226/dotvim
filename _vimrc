@@ -246,8 +246,13 @@ if s:is_enabled_plugin('lightline.vim')
   Plug 'maximbaz/lightline-ale'
   Plug 'shinchu/lightline-gruvbox.vim'
 
+  let s:lightline_width_threshold = 70
+
   let g:lightline = {}
   let g:lightline.colorscheme = 'gruvbox'
+  let g:lightline.component = {
+        \ 'truncate': '%<',
+        \ }
   let g:lightline.component_expand = {
         \ 'linter_checking': 'lightline#ale#checking',
         \ 'linter_warnings': 'lightline#ale#warnings',
@@ -261,22 +266,75 @@ if s:is_enabled_plugin('lightline.vim')
         \ 'linter_ok': 'left',
         \ }
   let g:lightline.component_function = {
-        \ 'anzu': 'anzu#search_status',
-        \ 'myfilename': 'LightlineFilename',
-        \ 'myreadonly': 'LightlineReadonly',
-        \ 'gitbranch': 'fugitive#head',
+        \ 'fugitive': 'LightlineFugitive',
+        \ 'filename': 'LightlineFilename',
+        \ 'fileformat': 'LightlineFileformat',
+        \ 'filetype': 'LightlineFiletype',
+        \ 'fileencoding': 'LightlineFileencoding',
+        \ 'mode': 'LightlineMode',
         \ }
   let g:lightline.active = {
-        \ 'left': [ ['mode', 'paste'], ['gitbranch', 'myfilename', 'modified', 'myreadonly'] ],
-        \ 'right': [ [ 'lineinfo', 'percent' ], [ 'filetype', 'fileformat', 'fileencoding' ], [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ] ]
+        \ 'left': [
+        \   [ 'mode', 'paste' ],
+        \   [ 'truncate', 'fugitive', 'filename' ] ],
+        \ 'right': [
+        \   [ 'lineinfo', 'percent' ],
+        \   [ 'filetype', 'fileformat', 'fileencoding' ],
+        \   [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ] ]
+        \ }
+  let g:lightline.inactive = {
+        \ 'left': [
+        \   ['filename'] ],
+        \ 'right': [
+        \   ['lineinfo', 'percent'] ]
         \ }
 
   function! LightlineFilename()
-    return expand('%:r')
+    let fname = expand('%:t')
+    let fpath = expand('%:r')
+    return fname =~ '__Tagbar__' ? g:lightline.fname :
+          \ fname == '__Gundo__' ? '' :
+          \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+          \ &ft == 'unite' ? unite#get_status_string() :
+          \ ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
+          \ ('' != fname ? fpath : '[No Name]') .
+          \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
   endfunction
 
   function! LightlineReadonly()
-    return &readonly ? '' : ''
+    return &ft !~? 'help' && &readonly ? '' : ''
+  endfunction
+
+  function! LightlineModified()
+    return &modifiable && &modified ? '+' : ''
+  endfunction
+
+  function! LightlineFugitive()
+    let head = fugitive#head()
+    return head !=# '' ? ' ' . head : ''
+  endfunction
+
+  function! LightlineFileformat()
+    return winwidth(0) > s:lightline_width_threshold ? &fileformat : ''
+  endfunction
+
+  function! LightlineFiletype()
+    return winwidth(0) > s:lightline_width_threshold ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+  endfunction
+
+  function! LightlineFileencoding()
+    return winwidth(0) > s:lightline_width_threshold ? (&fileencoding !=# '' ? &fileencoding : &encoding) : ''
+  endfunction
+
+  function! LightlineMode()
+    let fname = expand('%:t')
+    return fname =~ '__Tagbar__' ? 'Tagbar' :
+          \ fname == '__Gundo__' ? 'Gundo' :
+          \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
+          \ &ft == 'unite' ? 'Unite' :
+          \ &ft == 'vimfiler' ? 'VimFiler' :
+          \ &ft == 'fugitive' ? 'Fugitive' :
+          \ lightline#mode()
   endfunction
 endif
 " }}}
@@ -800,12 +858,25 @@ let g:tagbar_type_ps1 = {
       \ 'a:alias'
     \ ]
     \ }
+
+if s:is_enabled_plugin('lightline.vim')
+  let g:tagbar_status_func = 'TagbarStatusFunc'
+
+  function! TagbarStatusFunc(current, sort, fname, ...) abort
+    let g:lightline.fname = a:fname
+    return lightline#statusline(0)
+  endfunction
+endif
 " }}}
 
 " vimfiler {{{
 if s:is_enabled_plugin("vimfiler")
   Plug 'Shougo/vimfiler.vim'
   Plug 'Shougo/neossh.vim'
+
+  if s:is_enabled_plugin('lightline.vim')
+    let g:vimfiler_force_overwrite_statusline = 0
+  endif
 
   let g:vimfiler_as_default_explorer = 1
   nnoremap <F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit<CR>
@@ -1192,6 +1263,10 @@ let g:unite_source_history_yank_enable = 1
 
 " for unite-workflow
 let g:github_user = "mars90226"
+
+if s:is_enabled_plugin('lightline.vim')
+  let g:unite_force_overwrite_statusline = 0
+endif
 
 " Unite custom function {{{
 " Escape colon, backslash and space
