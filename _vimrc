@@ -1659,12 +1659,25 @@ function! s:copy_results(lines)
   endif
   let @" = joined_lines
 endfunction
+function! s:open_terminal(lines)
+  let path = a:lines[0]
+  let folder = isdirectory(path) ? path : fnamemodify(path, ':p:h')
+  tabe
+  execute 'lcd ' . folder
+  terminal
+  " To enter terminal mode, this is a workaround that autocommand exit the
+  " terminal mode when previous fzf session end.
+  call feedkeys('i')
+endfunction
 
 let g:misc_fzf_action = {
       \ 'ctrl-q': function('s:build_quickfix_list'),
       \ 'alt-c':  function('s:copy_results'),
       \ 'alt-e':  'cd',
       \ }
+if has('nvim')
+  let g:misc_fzf_action['alt-t'] = function('s:open_terminal')
+endif
 let g:default_fzf_action = extend({
       \ 'ctrl-t': 'tab split',
       \ 'ctrl-s': 'split',
