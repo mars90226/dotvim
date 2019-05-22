@@ -4015,6 +4015,9 @@ if has('nvim')
   nnoremap <Leader>mn :Man 
 endif
 
+" sdcv
+nnoremap <Leader>sd :execute '!sdcv ' . expand('<cword>')<CR>
+
 " Quickfix & Locaiton List {{{
 augroup quickfixSettings
   autocmd!
