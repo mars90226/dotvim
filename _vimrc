@@ -1572,7 +1572,7 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>da :Denite location_list<CR>
   nnoremap <Space>db :DeniteBufferDir -auto-resume file<CR>
   nnoremap <Space>dc :Denite -auto-action=preview change<CR>
-  nnoremap <Space>dd :Denite directory/rec<CR>
+  nnoremap <Space>dd :Denite directory_rec<CR>
   nnoremap <Space>dD :Denite directory_mru<CR>
   nnoremap <Space>df :Denite filetype<CR>
   nnoremap <Space>dh :Denite help<CR>
@@ -1849,6 +1849,10 @@ let g:fzf_preview_command = 'cat {}'
 if executable('bat')
   let g:fzf_preview_command = 'bat --style=numbers --color=always {}'
 endif
+let g:fzf_dir_preview_command = 'ls -la --color=always {}'
+if executable('exa')
+  let g:fzf_dir_preview_command = 'exa -lag --color=always {}'
+endif
 
 " let g:rg_command = '
 "     \ rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --color "always"
@@ -2007,6 +2011,17 @@ function! s:directory_mru_rg_sink(line)
 endfunction
 
 let g:fd_dir_command = 'fd --type directory --no-ignore-vcs --hidden --follow --ignore-file ' . $HOME . '/.ignore'
+command! Directories call s:directories(<q-args>, <bang>0)
+function! s:directories(path, bang)
+  call s:use_defx_fzf_action({ ->
+        \ fzf#vim#files(a:path,
+        \   {
+        \     'source': g:fd_dir_command,
+        \     'options': ['--preview-window', 'right', '--preview', g:fzf_dir_preview_command],
+        \   },
+        \ a:bang)})
+endfunction
+
 command! DirectoryRg call s:directory_rg()
 function! s:directory_rg()
   call fzf#run(fzf#wrap({
@@ -2369,7 +2384,7 @@ nnoremap <Space>fb :Buffers<CR>
 nnoremap <Space>fB :Files %:h<CR>
 nnoremap <Space>fc :BCommits<CR>
 nnoremap <Space>fC :Commits<CR>
-nnoremap <Space>fd :CurrentPlacedSigns<CR>
+nnoremap <Space>fd :Directories<CR>
 nnoremap <Space>ff :Files<CR>
 nnoremap <Space>fF :DirectoryRg<CR>
 nnoremap <Space>f<C-F> :execute 'Files ' . expand('<cfile>')<CR>
@@ -2402,6 +2417,7 @@ nnoremap <Space>f$ :execute 'RgWithOption! .:' . input('Option: ') . ':' . input
 nnoremap <Space>f? :execute 'RgWithOption .:' . <SID>rg_current_type_option() . ':' . input('Rg: ')<CR>
 nnoremap <Space>f5 :execute 'RgWithOption ' . expand('%:h') . '::' . input('Rg: ')<CR>
 nnoremap <Space>fs :GFiles?<CR>
+nnoremap <Space>fS :CurrentPlacedSigns<CR>
 nnoremap <Space>ft :BTags<CR>
 nnoremap <Space>fT :Tags<CR>
 nnoremap <Space>fu :DirectoryAncestors<CR>
