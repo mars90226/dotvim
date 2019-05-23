@@ -3634,6 +3634,7 @@ if s:is_enabled_plugin('denite.nvim')
 
   " Denite options
   call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
+  call denite#custom#source('grep', 'converters', ['converter/abbr_word'])
 
   call denite#custom#option('_', {
         \ 'auto_accel': v:true,
