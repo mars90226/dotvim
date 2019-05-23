@@ -294,8 +294,9 @@ if s:is_enabled_plugin('lightline.vim')
     let fpath = expand('%')
     return fname =~ '__Tagbar__' ? g:lightline.fname :
           \ fname == '__Gundo__' ? '' :
-          \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+          \ &ft == 'qf' ? w:quickfix_title :
           \ &ft == 'unite' ? unite#get_status_string() :
+          \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
           \ &ft == 'help' ? fname :
           \ ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
           \ (fpath =~? '^fugitive:' ? fnamemodify(fugitive#Real(fpath), ':.') . ' [git]' :
@@ -313,7 +314,8 @@ if s:is_enabled_plugin('lightline.vim')
 
   function! LightlineFugitive()
     let head = fugitive#head()
-    return head !=# '' ? ' ' . head : ''
+    return &ft == 'qf' ? '' : 
+          \ head !=# '' ? ' ' . head : ''
   endfunction
 
   function! LightlineFileformat()
@@ -333,11 +335,23 @@ if s:is_enabled_plugin('lightline.vim')
     return fname =~ '__Tagbar__' ? 'Tagbar' :
           \ fname == '__Gundo__' ? 'Gundo' :
           \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
+          \ &ft == 'qf' ? LightlineQuickfixMode() :
           \ &ft == 'unite' ? 'Unite' :
           \ &ft == 'vimfiler' ? 'VimFiler' :
           \ &ft == 'fugitive' ? 'Fugitive' :
           \ lightline#mode()
   endfunction
+
+  " Borrowed from vim-airline {{{
+  function! LightlineQuickfixMode()
+    let dict = getwininfo(win_getid())
+    if len(dict) > 0 && get(dict[0], 'quickfix', 0) && !get(dict[0], 'loclist', 0)
+      return 'Quickfix'
+    elseif len(dict) > 0 && get(dict[0], 'quickfix', 0) && get(dict[0], 'loclist', 0)
+      return 'Location'
+    endif
+  endfunction
+  " }}}
 endif
 " }}}
 
