@@ -1974,11 +1974,19 @@ function! s:project_mru_files()
 endfunction
 
 command! DirectoryMru call s:directory_mru()
-function! s:directory_mru()
-  call fzf#run(fzf#wrap({
+function! s:directory_mru(...)
+  let Sink = a:0 && type(a:1) == type(function('call')) ? a:1 : ''
+  let args = {
         \ 'source':  s:mru_directories(),
-        \ 'options': '+s',
-        \ 'down':    '40%' }))
+        \ 'options': ['+s', '--preview-window', 'right', '--preview', g:fzf_dir_preview_command],
+        \ 'down':    '40%'
+        \ }
+
+  if empty(Sink)
+    call fzf#run(fzf#wrap(args))
+  else
+    call fzf#run(fzf#wrap(extend(args, { 'sink': Sink })))
+  endif
 endfunction
 " use neomru
 function! s:mru_directories()
@@ -1989,11 +1997,7 @@ endfunction
 
 command! DirectoryMruFiles call s:directory_mru_files()
 function! s:directory_mru_files()
-  call fzf#run(fzf#wrap({
-      \ 'source':  s:mru_directories(),
-      \ 'sink':    function('s:directory_mru_files_sink'),
-      \ 'options': '+s',
-      \ 'down':    '40%' }))
+  call s:directory_mru(function('s:directory_mru_files_sink'))
 endfunction
 function! s:directory_mru_files_sink(line)
   execute 'Files ' . a:line
@@ -2004,11 +2008,7 @@ endfunction
 
 command! DirectoryMruRg call s:directory_mru_rg()
 function! s:directory_mru_rg()
-  call fzf#run(fzf#wrap({
-      \ 'source':  s:mru_directories(),
-      \ 'sink':    function('s:directory_mru_rg_sink'),
-      \ 'options': '+s',
-      \ 'down':    '40%' }))
+  call s:directory_mru(function('s:directory_mru_rg_sink'))
 endfunction
 function! s:directory_mru_rg_sink(line)
   execute 'RgWithOption ' . a:line . '::' . input('Rg: ')
@@ -2381,8 +2381,10 @@ if s:is_enabled_plugin('defx')
   command! -bang -nargs=? -complete=dir Files    call s:use_defx_fzf_action({ -> s:fzf_files(<q-args>, <bang>0) })
   command! -bang -nargs=?               GFiles   call s:use_defx_fzf_action({ -> s:fzf_gitfiles(<q-args>, <bang>0) })
 
-  command! DirectoryMru call s:use_defx_fzf_action(function('s:directory_mru'))
-  command! Directories  call s:use_defx_fzf_action({ -> s:directories(<q-args>, <bang>0) })
+  command! DirectoryMru      call s:use_defx_fzf_action(function('s:directory_mru'))
+  command! DirectoryMruFiles call s:use_defx_fzf_action(function('s:directory_mru_files'))
+  command! DirectoryMruRg    call s:use_defx_fzf_action(function('s:directory_mru_rg'))
+  command! Directories       call s:use_defx_fzf_action({ -> s:directories(<q-args>, <bang>0) })
 endif
 " }}}
 
