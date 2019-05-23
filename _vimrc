@@ -1783,7 +1783,7 @@ endfor
 " }}}
 
 command! -bar  -bang                  Helptags call fzf#vim#helptags(<bang>0)
-command! -bang -nargs=? -complete=dir Files    call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=? -complete=dir Files    call s:fzf_files(<q-args>, <bang>0)
 command! -bang -nargs=?               GFiles   call s:fzf_gitfiles(<q-args>, <bang>0)
 command! -bang -nargs=*               History  call s:history(<q-args>, <bang>0)
 command! -bar  -bang                  Windows  call fzf#vim#windows(s:fzf_windows_preview(), <bang>0)
@@ -1801,6 +1801,10 @@ function! s:history(arg, bang)
   endif
 endfunction
 " }}}
+
+function! s:fzf_files(path, bang)
+  call fzf#vim#files(a:path, fzf#vim#with_preview(), a:bang)
+endfunction
 
 function! s:fzf_gitfiles(args, bang) abort
   if a:args != '?'
@@ -1969,10 +1973,13 @@ function! s:project_mru_files()
   \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
 endfunction
 
-command! DirectoryMru call fzf#run(fzf#wrap({
-      \ 'source':  s:mru_directories(),
-      \ 'options': '+s',
-      \ 'down':    '40%' }))
+command! DirectoryMru call s:directory_mru()
+function! s:directory_mru()
+  call fzf#run(fzf#wrap({
+        \ 'source':  s:mru_directories(),
+        \ 'options': '+s',
+        \ 'down':    '40%' }))
+endfunction
 " use neomru
 function! s:mru_directories()
   return extend(
@@ -2013,13 +2020,12 @@ endfunction
 let g:fd_dir_command = 'fd --type directory --no-ignore-vcs --hidden --follow --ignore-file ' . $HOME . '/.ignore'
 command! Directories call s:directories(<q-args>, <bang>0)
 function! s:directories(path, bang)
-  call s:use_defx_fzf_action({ ->
-        \ fzf#vim#files(a:path,
-        \   {
-        \     'source': g:fd_dir_command,
-        \     'options': ['--preview-window', 'right', '--preview', g:fzf_dir_preview_command],
-        \   },
-        \ a:bang)})
+ call fzf#vim#files(a:path,
+        \ {
+        \   'source': g:fd_dir_command,
+        \   'options': ['--preview-window', 'right', '--preview', g:fzf_dir_preview_command],
+        \ },
+        \ a:bang)
 endfunction
 
 command! DirectoryRg call s:directory_rg()
@@ -2372,8 +2378,11 @@ if s:is_enabled_plugin('defx')
     augroup END
     call a:function()
   endfunction
-  command! -bang -nargs=? -complete=dir Files    call s:use_defx_fzf_action({ -> fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0) })
+  command! -bang -nargs=? -complete=dir Files    call s:use_defx_fzf_action({ -> s:fzf_files(<q-args>, <bang>0) })
   command! -bang -nargs=?               GFiles   call s:use_defx_fzf_action({ -> s:fzf_gitfiles(<q-args>, <bang>0) })
+
+  command! DirectoryMru call s:use_defx_fzf_action(function('s:directory_mru'))
+  command! Directories  call s:use_defx_fzf_action({ -> s:directories(<q-args>, <bang>0) })
 endif
 " }}}
 
