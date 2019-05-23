@@ -3960,6 +3960,11 @@ nnoremap <C-W><Space>- <C-W>10-
 nnoremap <C-W><Space>+ <C-W>10+
 nnoremap <C-W><Space>< <C-W>10<
 nnoremap <C-W><Space>> <C-W>10>
+nnoremap <C-W><Space>= :call <SID>window_equal()<CR>
+function! s:window_equal()
+  windo setlocal nowinfixheight nowinfixwidth
+  wincmd =
+endfunction
 
 " Move tab
 nnoremap <Leader>t< :tabmove -1<CR>
