@@ -1,6 +1,6 @@
 set winaltkeys=no
 set background=dark
-colorscheme seoul256
+colorscheme gruvbox
 
 if has("nvim")
   GuiFont DejaVu\ Sans\ Mono\ for\ Powerline:h12
