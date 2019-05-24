@@ -1992,7 +1992,7 @@ endfunction
 
 command! Mru call fzf#run(fzf#wrap({
       \ 'source':  s:mru_files(),
-      \ 'options': '-m +s',
+      \ 'options': '-m -s',
       \ 'down':    '40%' }))
 " use neomru
 function! s:mru_files()
@@ -2004,7 +2004,7 @@ endfunction
 
 command! ProjectMru call fzf#run(fzf#wrap({
       \ 'source':  s:project_mru_files(),
-      \ 'options': '-m +s',
+      \ 'options': '-m -s',
       \ 'down':    '40%' }))
 " use neomru
 function! s:project_mru_files()
@@ -2022,7 +2022,7 @@ function! s:directory_mru(...)
   let Sink = a:0 && type(a:1) == type(function('call')) ? a:1 : ''
   let args = {
         \ 'source':  s:mru_directories(),
-        \ 'options': ['+s', '--preview-window', 'right', '--preview', g:fzf_dir_preview_command],
+        \ 'options': ['-s', '--preview-window', 'right', '--preview', g:fzf_dir_preview_command],
         \ 'down':    '40%'
         \ }
 
