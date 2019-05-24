@@ -274,8 +274,8 @@ if s:is_enabled_plugin('lightline.vim')
         \ 'mode': 'LightlineMode',
         \ }
   let g:lightline.tab_component_function = {
-        \ 'active_filename': 'LightlineTabActiveFilename',
-        \ 'active_modified': 'LightlineTabActiveModified',
+        \ 'filename': 'LightlineTabFilename',
+        \ 'modified': 'LightlineTabModified',
         \ }
   let g:lightline.active = {
         \ 'left': [
@@ -293,7 +293,7 @@ if s:is_enabled_plugin('lightline.vim')
         \   ['lineinfo', 'percent'] ]
         \ }
   let g:lightline.tab = {
-        \ 'active': [ 'tabnum', 'active_filename', 'active_modified' ],
+        \ 'active': [ 'tabnum', 'filename', 'modified' ],
         \ 'inactive': [ 'tabnum', 'filename', 'modified' ] }
 
   function! LightlineFilename()
@@ -376,19 +376,22 @@ if s:is_enabled_plugin('lightline.vim')
   endfunction
   " }}}
 
-  function! LightlineTabActiveFilename(n) abort
+  function! LightlineTabFilename(n) abort
     let bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]
     let fname = expand('#' . bufnr . ':t')
+    let ftype = getbufvar(bufnr, '&ft')
     let FilenameFilter = { fname -> '' != fname ? fname : '[No Name]' }
     return fname =~ '__Tagbar__' ? 'Tagbar' :
           \ fname =~ 'NERD_tree' ? 'NERDTree' :
-          \ &ft == 'fzf' ? FilenameFilter(get(t:, 'current_filename', fname)) :
+          \ ftype == 'fzf' ? FilenameFilter(gettabvar(a:n, 'current_filename', fname)) :
           \ FilenameFilter(fname)
   endfunction
 
-  function! LightlineTabActiveModified(n) abort
+  function! LightlineTabModified(n) abort
     let winnr = tabpagewinnr(a:n)
-    return &ft == 'fzf' ? '' :
+    let bufnr = tabpagebuflist(a:n)[winnr - 1]
+    let ftype = getbufvar(bufnr, '&ft')
+    return ftype == 'fzf' ? '' :
           \ gettabwinvar(a:n, winnr, '&modified') ? '+' : gettabwinvar(a:n, winnr, '&modifiable') ? '' : '-'
   endfunction
 endif
