@@ -273,6 +273,10 @@ if s:is_enabled_plugin('lightline.vim')
         \ 'fileencoding': 'LightlineFileencoding',
         \ 'mode': 'LightlineMode',
         \ }
+  let g:lightline.tab_component_function = {
+        \ 'active_filename': 'LightlineTabActiveFilename',
+        \ 'active_modified': 'LightlineTabActiveModified',
+        \ }
   let g:lightline.active = {
         \ 'left': [
         \   [ 'mode', 'paste' ],
@@ -288,20 +292,39 @@ if s:is_enabled_plugin('lightline.vim')
         \ 'right': [
         \   ['lineinfo', 'percent'] ]
         \ }
+  let g:lightline.tab = {
+        \ 'active': [ 'tabnum', 'active_filename', 'active_modified' ],
+        \ 'inactive': [ 'tabnum', 'filename', 'modified' ] }
 
   function! LightlineFilename()
     let fname = expand('%:t')
     let fpath = expand('%')
-    return fname =~ '__Tagbar__' ? g:lightline.fname :
-          \ fname == '__Gundo__' ? '' :
-          \ &ft == 'qf' ? w:quickfix_title :
-          \ &ft == 'unite' ? unite#get_status_string() :
-          \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
-          \ &ft == 'help' ? fname :
-          \ ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-          \ (fpath =~? '^fugitive:' ? fnamemodify(fugitive#Real(fpath), ':.') . ' [git]' :
-          \ '' != fname ? fpath : '[No Name]') .
-          \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+
+    if fname =~ '__Tagbar__'
+      return g:lightline.fname
+    elseif fname == '__Gundo__'
+      return ''
+    elseif &ft == 'qf'
+      return w:quickfix_title
+    elseif &ft == 'unite'
+      return unite#get_status_string()
+    elseif &ft == 'vimfiler'
+      return vimfiler#get_status_string()
+    elseif &ft == 'help'
+      let t:current_filename = fname
+      return fname
+    else
+      let readonly = '' != LightlineReadonly() ? LightlineReadonly() . ' ' : ''
+      if fpath =~? '^fugitive'
+        let filename = fnamemodify(fugitive#Real(fpath), ':.') . ' [git]'
+      else
+        let filename = '' != fname ? fpath : '[No Name]'
+      end
+      let modified = '' != LightlineModified() ? ' ' . LightlineModified() : ''
+
+      let t:current_filename = fname
+      return readonly . filename . modified
+    endif
   endfunction
 
   function! LightlineReadonly()
@@ -352,6 +375,22 @@ if s:is_enabled_plugin('lightline.vim')
     endif
   endfunction
   " }}}
+
+  function! LightlineTabActiveFilename(n) abort
+    let bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]
+    let fname = expand('#' . bufnr . ':t')
+    let FilenameFilter = { fname -> '' != fname ? fname : '[No Name]' }
+    return fname =~ '__Tagbar__' ? 'Tagbar' :
+          \ fname =~ 'NERD_tree' ? 'NERDTree' :
+          \ &ft == 'fzf' ? FilenameFilter(get(t:, 'current_filename', fname)) :
+          \ FilenameFilter(fname)
+  endfunction
+
+  function! LightlineTabActiveModified(n) abort
+    let winnr = tabpagewinnr(a:n)
+    return &ft == 'fzf' ? '' :
+          \ gettabwinvar(a:n, winnr, '&modified') ? '+' : gettabwinvar(a:n, winnr, '&modifiable') ? '' : '-'
+  endfunction
 endif
 " }}}
 
