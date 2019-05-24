@@ -2504,6 +2504,13 @@ endif
 
 " skim {{{
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
+
+command! SkimMru call skim#run(skim#wrap({
+      \ 'source':  s:mru_files(),
+      \ 'options': '-m',
+      \ 'down':    '40%' }))
+
+nnoremap <Space>sm :SkimMru<CR>
 " }}}
 
 " vifm {{{
