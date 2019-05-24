@@ -391,7 +391,9 @@ if s:is_enabled_plugin('lightline.vim')
     let winnr = tabpagewinnr(a:n)
     let bufnr = tabpagebuflist(a:n)[winnr - 1]
     let ftype = getbufvar(bufnr, '&ft')
+    let buftype = getbufvar(bufnr, '&buftype')
     return ftype == 'fzf' ? '' :
+          \ buftype == 'terminal' ? '' :
           \ gettabwinvar(a:n, winnr, '&modified') ? '+' : gettabwinvar(a:n, winnr, '&modifiable') ? '' : '-'
   endfunction
 endif
