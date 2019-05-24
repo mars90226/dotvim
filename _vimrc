@@ -3817,7 +3817,10 @@ set ruler " show the cursor position all the time
 
 set scrolloff=0
 
-set diffopt=filler,hiddenoff,vertical
+set diffopt=filler,vertical
+if has("patch-8.0.1361")
+  set diffopt+=hiddenoff
+endif
 
 " completion menu
 set pumheight=40
@@ -3828,9 +3831,8 @@ endif
 " ignore pattern for wildmenu
 set wildmenu
 set wildignore+=*.a,*.o,*.pyc,*~,*.swp,*.tmp
-if has("nvim")
+if has("nvim") && s:nvim_version >= 'NVIM v0.4.0-401-g5c836d2ef'
   set wildmode=full
-  " FIXME Should check wildoptions=pum exists, but currently can't be done
   silent! set wildoptions+=pum
 else
   set wildmode=list:longest,full
@@ -4445,6 +4447,9 @@ if has("nvim")
   augroup terminal_settings
     autocmd!
     autocmd TermOpen * call s:terminal_settings()
+
+    " TODO Start insert mode when cancelling :Windows in terminal mode or
+    " selecting another terminal buffer
     autocmd BufWinEnter,WinEnter term://* startinsert
     autocmd BufLeave term://* stopinsert
 
