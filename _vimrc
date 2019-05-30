@@ -4090,6 +4090,7 @@ nnoremap +P "+P
 " Quick yank filename
 nnoremap <Leader>y5 :let @" = expand('%:t:r')<CR>
 nnoremap <Leader>y% :let @" = @%<CR>
+nnoremap <Leader>y4 :let @" = expand('%:p')<CR>
 
 " Quick split
 nnoremap <Leader>yt :tab split<CR>
@@ -4104,6 +4105,8 @@ cnoremap <expr> <C-G><C-F> <SID>files_in_commandline()
 cnoremap <expr> <C-G><C-T> <SID>rg_current_type_option()
 " <C-]> and <C-%> is the same key
 cnoremap <expr> <C-G><C-]> expand('%:t:r')
+" <C-\> and <C-$> is the same key
+cnoremap <expr> <C-G><C-\> expand('%:p')
 " For grepping word
 cnoremap <expr> <C-G><C-W> "\\b" . expand('<cword>') . "\\b"
 cnoremap <expr> <C-G><C-A> "\\b" . expand('<cWORD>') . "\\b"
