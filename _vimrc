@@ -1831,7 +1831,7 @@ command! -bang -nargs=? -complete=dir Files    call s:fzf_files(<q-args>, <bang>
 command! -bang -nargs=?               GFiles   call s:fzf_gitfiles(<q-args>, <bang>0)
 command! -bang -nargs=*               History  call s:history(<q-args>, <bang>0)
 command! -bar  -bang                  Windows  call fzf#vim#windows(s:fzf_windows_preview(), <bang>0)
-command! -bar  -bang                  BLines   call fzf#vim#buffer_lines(<q-args>, s:fzf_buffer_lines_preview(), <bang>0)
+command! -bar  -nargs=* -bang         BLines   call fzf#vim#buffer_lines(<q-args>, s:fzf_buffer_lines_preview(), <bang>0)
 
 " borrowed from fzf.vim {{{
 function! s:history(arg, bang)
