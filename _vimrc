@@ -1594,24 +1594,24 @@ if s:is_enabled_plugin('denite.nvim')
     endif
   endfunction
   call s:remap('<Space>up', '<Space>u<C-P>', 'n') " UniteWithProjectDir file
-  call s:remap('<Space>P', '<Space>uP', 'n') " Unite file/rec
-  call s:remap('<Space>p', '<Space>up', 'n') " Unite file
-  call s:remap('<Space>ul', '<Space>uL', 'n') " UniteWithCursorWord line
-  call s:remap('<Space>l', '<Space>ul', 'n') " Unite line
+  call s:remap('<Space>P',  '<Space>uP',     'n') " Unite file/rec
+  call s:remap('<Space>p',  '<Space>up',     'n') " Unite file
+  call s:remap('<Space>ul', '<Space>uL',     'n') " UniteWithCursorWord line
+  call s:remap('<Space>l',  '<Space>ul',     'n') " Unite line
+  call s:remap('<Space>o',  '<Space>O',      'n') " Unite outline
 
-  nnoremap <Space>p :Denite -auto-resume buffer dirmark file<CR>
-  nnoremap <Space>P :Denite -auto-resume file/rec<CR>
+  nnoremap <Space>p     :Denite -auto-resume buffer dirmark file<CR>
+  nnoremap <Space>P     :Denite -auto-resume file/rec<CR>
   nnoremap <Space><C-P> :DeniteProjectDir -auto-resume file<CR>
-  nnoremap <Space>l :Denite -auto-action=highlight line<CR>
-  nnoremap <Space>L :Denite -default-action=switch line:buffers<CR>
-  nnoremap <Space>dl :DeniteCursorWord -auto-action=preview -split=no line<CR>
+  nnoremap <Space>l     :Denite -auto-action=highlight line<CR>
+  nnoremap <Space>L     :Denite -default-action=switch line:buffers<CR>
+  nnoremap <Space>dl    :DeniteCursorWord -auto-action=preview -split=no line<CR>
+  nnoremap <Space>o     :Denite outline<CR>
   " }}}
 
   " TODO Denite quickfix seems not working
   " TODO Add Denite tselect source
   " Denite don't use auto-preview file because it's slow
-
-  nnoremap <Space>O :Denite outline<CR>
 
   nnoremap <Space>da :Denite location_list<CR>
   nnoremap <Space>db :DeniteBufferDir -auto-resume file<CR>
