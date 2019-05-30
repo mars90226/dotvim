@@ -1623,12 +1623,12 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>dj :Denite -auto-action=preview jump<CR>
   nnoremap <Space>dJ :Denite project<CR>
   nnoremap <Space>di :call <SID>denite_grep('!', 'grep', '', v:false)<CR>
-  nnoremap <Space>dk :call <SID>denite_grep(expand('<cword>'), 'keyword', '', v:false)<CR>
-  nnoremap <Space>dK :call <SID>denite_grep(expand('<cWORD>'), 'keyword', '', v:false)<CR>
-  nnoremap <Space>d8 :call <SID>denite_grep(expand('<cword>'), 'keyword', '', v:true)<CR>
-  nnoremap <Space>d* :call <SID>denite_grep(expand('<cWORD>'), 'keyword', '', v:true)<CR>
-  xnoremap <Space>dk :<C-U>call <SID>denite_grep(<SID>get_visual_selection(), 'keyword', '', v:false)<CR>
-  xnoremap <Space>d8 :<C-U>call <SID>denite_grep(<SID>get_visual_selection(), 'keyword', '', v:true)<CR>
+  nnoremap <Space>dk :call <SID>denite_grep(expand('<cword>'), 'grep', '', v:false)<CR>
+  nnoremap <Space>dK :call <SID>denite_grep(expand('<cWORD>'), 'grep', '', v:false)<CR>
+  nnoremap <Space>d8 :call <SID>denite_grep(expand('<cword>'), 'grep', '', v:true)<CR>
+  nnoremap <Space>d* :call <SID>denite_grep(expand('<cWORD>'), 'grep', '', v:true)<CR>
+  xnoremap <Space>dk :<C-U>call <SID>denite_grep(<SID>get_visual_selection(), 'grep', '', v:false)<CR>
+  xnoremap <Space>d8 :<C-U>call <SID>denite_grep(<SID>get_visual_selection(), 'grep', '', v:true)<CR>
   nnoremap <Space>dm :Denite file_mru<CR>
   nnoremap <Space>dM :Denite directory_mru<CR>
   nnoremap <Space>do :execute 'Denite output:' . <SID>escape_symbol(input('output: '))<CR>
