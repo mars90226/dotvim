@@ -4166,15 +4166,34 @@ function! s:toggle_fold_between_manual_and_syntax()
   endif
 endfunction
 
-if !exists("g:last_tab")
-  let g:last_tab = 1
+" last tabs
+if !exists("g:last_tabs")
+  let g:last_tabs = [1]
 endif
-function! s:last_tab()
-  execute "tabn " . g:last_tab
+
+function! s:last_tab(count)
+  if a:count >= 0 && a:count < len(g:last_tabs)
+    let tabnr = g:last_tabs[a:count]
+  else
+    let tabnr = g:last_tabs[-1]
+  endif
+  execute 'tabnext ' . tabnr
 endfunction
-nnoremap <M-1> :call <SID>last_tab()<CR>
-command! -bar LastTab call s:last_tab()
-au TabLeave * let g:last_tab = tabpagenr()
+function! s:insert_last_tab(tabnr)
+  let g:last_tabs = filter(g:last_tabs, 'v:val != ' . a:tabnr)
+  call insert(g:last_tabs, a:tabnr, 0)
+  let count_tabcount = tabpagenr('$') - 1
+  if count_tabcount > len(g:last_tabs)
+    let g:last_tabs = g:last_tabs[0 : count_tabcount]
+  endif
+endfunction
+command! -count -bar LastTab call s:last_tab(<count>)
+nnoremap <M-1> :LastTab<CR>
+
+augroup last_tab_settings
+  autocmd!
+  autocmd TabLeave * call s:insert_last_tab(tabpagenr())
+augroup END
 
 " get_visual_selection
 function! s:get_visual_selection()
