@@ -3246,6 +3246,7 @@ nnoremap \tr :Tig ''<CR>
 nnoremap \tt :tabnew <Bar> Tig ''<CR>
 nnoremap \ts :new    <Bar> Tig ''<CR>
 nnoremap \tv :vnew   <Bar> Tig ''<CR>
+nnoremap \tl :execute 'new <Bar> Tig log -p ' . expand('%:p')<CR>
 " }}}
 
 " Gina {{{
