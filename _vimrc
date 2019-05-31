@@ -1090,6 +1090,35 @@ if s:is_enabled_plugin("defx")
   command! -nargs=1 -complete=file DefxTabOpenSink         call s:defx_open(<q-args>, 'tab split')
   command! -nargs=1 -complete=file DefxRightVSplitOpenSink call s:defx_open(<q-args>, 'rightbelow vsplit')
 
+  function! s:defx_open_dir(target, action)
+    let s:defx_action = {
+          \ 'tab split': '-split=tab',
+          \ 'split': '-split=horizontal',
+          \ 'vsplit': '-split=vertical',
+          \ 'rightbelow vsplit': '-split=vertical -direction=botright',
+          \ }
+    let s:defx_additional_argument = {
+          \ 'tab split': '-buffer-name=tab',
+          \ }
+
+    if isdirectory(a:target)
+      let final_target = a:target
+    else
+      let final_target = fnamemodify(a:target, ':h')
+    endif
+
+    if &filetype == 'defx' && a:action == 'edit'
+      call defx#call_action('cd', final_target)
+    else
+      execute 'Defx ' . get(s:defx_action, a:action, '') . ' ' . get(s:defx_additional_argument, a:action , '') . ' ' . final_target
+    endif
+  endfunction
+  command! -nargs=1 -complete=file DefxOpenDirSink            call s:defx_open_dir(<q-args>, 'edit')
+  command! -nargs=1 -complete=file DefxSplitOpenDirSink       call s:defx_open_dir(<q-args>, 'split')
+  command! -nargs=1 -complete=file DefxVSplitOpenDirSink      call s:defx_open_dir(<q-args>, 'vsplit')
+  command! -nargs=1 -complete=file DefxTabOpenDirSink         call s:defx_open_dir(<q-args>, 'tab split')
+  command! -nargs=1 -complete=file DefxRightVSplitOpenDirSink call s:defx_open_dir(<q-args>, 'rightbelow vsplit')
+
   function! s:defx_fzf_rg_internal(context, prompt, bang) abort
     " let path = s:defx_get_folder(a:context)
     let path = s:defx_get_current_path()
@@ -2404,12 +2433,14 @@ endif
 
 if s:is_enabled_plugin('defx')
   let g:defx_fzf_action = extend({
-        \ 'enter':  'DefxOpenSink',
-        \ 'ctrl-t': 'DefxTabOpenSink',
-        \ 'ctrl-s': 'DefxSplitOpenSink',
-        \ 'ctrl-x': 'DefxSplitOpenSink',
-        \ 'ctrl-v': 'DefxVSplitOpenSink',
-        \ 'alt-v':  'DefxRightVSplitOpenSink',
+        \ 'enter':      'DefxOpenSink',
+        \ 'ctrl-t':     'DefxTabOpenSink',
+        \ 'ctrl-s':     'DefxSplitOpenSink',
+        \ 'ctrl-x':     'DefxSplitOpenSink',
+        \ 'ctrl-v':     'DefxVSplitOpenSink',
+        \ 'alt-v':      'DefxRightVSplitOpenSink',
+        \ 'alt-x':      'DefxOpenDirSink',
+        \ 'ctrl-alt-x': 'DefxSplitOpenDirSink',
         \ }, g:misc_fzf_action)
 
   function! s:use_defx_fzf_action(function)
