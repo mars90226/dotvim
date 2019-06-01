@@ -4006,6 +4006,11 @@ if !exists('g:loaded_color')
   highlight PmenuSel ctermbg=95
 endif
 
+" TODO Need to test in Windows
+if has('termguicolors')
+  set termguicolors
+endif
+
 " highlighting strings inside C comments.
 let c_comment_strings = 1
 " }}}
