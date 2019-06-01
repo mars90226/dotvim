@@ -2014,15 +2014,18 @@ function! s:rg_git_diff_tree(...)
         \ bang)
 endfunction
 
+" use neomru
+function! s:filtered_neomru_files()
+  return filter(readfile(g:neomru#file_mru_path)[1:],
+        \ "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/\\|\\[unite\\]\\|\[Preview\\]\\|__Tagbar__\\|term://\\|gina://'")
+endfunction
 command! Mru call fzf#run(fzf#wrap({
       \ 'source':  s:mru_files(),
       \ 'options': '-m -s',
       \ 'down':    '40%' }))
-" use neomru
 function! s:mru_files()
   return extend(
-  \ filter(readfile(g:neomru#file_mru_path)[1:],
-  \   "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/\\|\\[unite\\]\\|\[Preview\\]\\|__Tagbar__\\|term://'"),
+  \ s:filtered_neomru_files(),
   \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
 endfunction
 
@@ -2035,8 +2038,7 @@ function! s:project_mru_files()
   " cannot use \V to escape the special characters in filepath as it only
   " render the string literal after it to "very nomagic"
   return extend(
-  \ filter(filter(readfile(g:neomru#file_mru_path)[1:],
-  \     "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/\\|\\[unite\\]\\|\[Preview\\]\\|__Tagbar__\\|term://'"),
+  \ filter(s:filtered_neomru_files(),
   \   "v:val =~ '^' . getcwd()"),
   \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
 endfunction
