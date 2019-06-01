@@ -4158,7 +4158,15 @@ cnoremap <expr> <C-G><C-A> "\\b" . expand('<cWORD>') . "\\b"
 " :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
 " TODO Move this to 'after' folder
 if has('nvim')
-  nnoremap <Leader>mn :Man 
+  nnoremap <Leader><F1> :call <SID>query_man()<CR>
+  function! s:query_man()
+    let query = input('Man: ')
+    if query != ''
+      execute 'Man ' . query
+    else
+      echomsg 'Cancelled!'
+    endif
+  endfunction
 endif
 
 " sdcv
