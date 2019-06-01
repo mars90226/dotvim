@@ -1062,21 +1062,24 @@ if s:is_enabled_plugin("defx")
 
     call s:use_defx_fzf_action({ -> fzf#vim#files(path, fzf#vim#with_preview(), 0)})
   endfunction
+
+  let s:defx_action = {
+        \ 'tab split': '-split=tab',
+        \ 'split': '-split=horizontal',
+        \ 'vsplit': '-split=vertical',
+        \ 'rightbelow vsplit': '-split=vertical -direction=botright',
+        \ }
+  let s:defx_additional_argument = {
+        \ 'tab split': '-buffer-name=tab',
+        \ }
+
   " TODO May need to escape a:line
   function! s:defx_open(target, action)
-    let s:defx_action = {
-          \ 'tab split': '-split=tab',
-          \ 'split': '-split=horizontal',
-          \ 'vsplit': '-split=vertical',
-          \ 'rightbelow vsplit': '-split=vertical -direction=botright',
-          \ }
-    let s:defx_additional_argument = {
-          \ 'tab split': '-buffer-name=tab',
-          \ }
-
     if isdirectory(a:target)
       if &filetype == 'defx' && a:action == 'edit'
-        call defx#call_action('cd', a:target)
+        " Use absolute path
+        let target = fnamemodify(a:target, ':p')
+        call defx#call_action('cd', target)
       else
         execute 'Defx ' . get(s:defx_action, a:action, '') . ' ' . get(s:defx_additional_argument, a:action , '') . ' ' . a:target
       endif
@@ -1091,26 +1094,18 @@ if s:is_enabled_plugin("defx")
   command! -nargs=1 -complete=file DefxRightVSplitOpenSink call s:defx_open(<q-args>, 'rightbelow vsplit')
 
   function! s:defx_open_dir(target, action)
-    let s:defx_action = {
-          \ 'tab split': '-split=tab',
-          \ 'split': '-split=horizontal',
-          \ 'vsplit': '-split=vertical',
-          \ 'rightbelow vsplit': '-split=vertical -direction=botright',
-          \ }
-    let s:defx_additional_argument = {
-          \ 'tab split': '-buffer-name=tab',
-          \ }
-
     if isdirectory(a:target)
-      let final_target = a:target
+      let dir = a:target
     else
-      let final_target = fnamemodify(a:target, ':h')
+      let dir = fnamemodify(a:target, ':h')
     endif
 
     if &filetype == 'defx' && a:action == 'edit'
-      call defx#call_action('cd', final_target)
+      " Use absolute path
+      let dir = fnamemodify(dir, ':p')
+      call defx#call_action('cd', dir)
     else
-      execute 'Defx ' . get(s:defx_action, a:action, '') . ' ' . get(s:defx_additional_argument, a:action , '') . ' ' . final_target
+      execute 'Defx ' . get(s:defx_action, a:action, '') . ' ' . get(s:defx_additional_argument, a:action , '') . ' ' . dir
     endif
   endfunction
   command! -nargs=1 -complete=file DefxOpenDirSink            call s:defx_open_dir(<q-args>, 'edit')
