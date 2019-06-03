@@ -4171,23 +4171,26 @@ cnoremap <expr> <C-G><C-\> expand('%:p')
 cnoremap <expr> <C-G><C-W> "\\b" . expand('<cword>') . "\\b"
 cnoremap <expr> <C-G><C-A> "\\b" . expand('<cWORD>') . "\\b"
 
+" s:execute_command() for executing command with query
+function! s:execute_command(command, prompt)
+  let query = input(a:prompt)
+  if query != ''
+    execute a:command . ' ' . query
+  else
+    echomsg 'Cancelled!'
+  endif
+endfunction
+
 " Man
 " :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
 " TODO Move this to 'after' folder
 if has('nvim')
-  nnoremap <Leader><F1> :call <SID>query_man()<CR>
-  function! s:query_man()
-    let query = input('Man: ')
-    if query != ''
-      execute 'Man ' . query
-    else
-      echomsg 'Cancelled!'
-    endif
-  endfunction
+  nnoremap <Leader><F1> :call <SID>execute_command('Man', 'Man: ')<CR>
 endif
 
 " sdcv
 nnoremap <Leader>sd :execute '!sdcv ' . expand('<cword>')<CR>
+nnoremap <Space>sd :call <SID>execute_command('!sdcv', 'sdcv: ')<CR>
 
 " Quickfix & Locaiton List {{{
 augroup quickfixSettings
