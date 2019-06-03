@@ -140,7 +140,7 @@ call s:disable_plugins(['coc.nvim', 'deoplete.nvim', 'completor.vim', 'YouComple
 if s:has_async() && s:has_rpc() && executable('node') && executable('yarn')
   " coc.nvim
   call s:enable_plugin('coc.nvim')
-elseif s:has_async() && s:has_rpc() && has("python3")
+elseif s:has_async() && s:has_rpc() && has("python3") && s:python_version() >= "3.6.1"
   " deoplete.nvim
   call s:enable_plugin('deoplete.nvim')
 elseif has("python") || has("python3")
@@ -175,7 +175,7 @@ if !has("python")
   call s:disable_plugin('github-issues.vim')
 endif
 
-if !(s:has_async() && s:has_rpc() && has("python3"))
+if !(s:has_async() && s:has_rpc() && has("python3") && s:python_version() >= "3.6.1")
   call s:disable_plugin('denite.nvim')
 end
 
