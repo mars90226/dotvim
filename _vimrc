@@ -4189,8 +4189,10 @@ if has('nvim')
 endif
 
 " sdcv
-nnoremap <Leader>sd :execute '!sdcv ' . expand('<cword>')<CR>
-nnoremap <Space>sd :call <SID>execute_command('!sdcv', 'sdcv: ')<CR>
+if executable('sdcv')
+  nnoremap <Leader>sd :execute '!sdcv ' . expand('<cword>')<CR>
+  nnoremap <Space>sd :call <SID>execute_command('!sdcv', 'sdcv: ')<CR>
+endif
 
 " Quickfix & Locaiton List {{{
 augroup quickfixSettings
