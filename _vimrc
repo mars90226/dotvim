@@ -2098,6 +2098,15 @@ function! s:directories(path, bang)
         \ a:bang)
 endfunction
 
+command! DirectoryFiles call s:directory_files()
+function! s:directory_files()
+  call fzf#run(fzf#wrap({
+        \ 'source':  g:fd_dir_command,
+        \ 'sink':    function('s:directory_mru_files_sink'),
+        \ 'options': '-s',
+        \ 'down':    '40%' }))
+endfunction
+
 command! DirectoryRg call s:directory_rg()
 function! s:directory_rg()
   call fzf#run(fzf#wrap({
@@ -2468,6 +2477,7 @@ nnoremap <Space>fB :Files %:h<CR>
 nnoremap <Space>fc :BCommits<CR>
 nnoremap <Space>fC :Commits<CR>
 nnoremap <Space>fd :Directories<CR>
+nnoremap <Space>fD :DirectoryFiles<CR>
 nnoremap <Space>ff :Files<CR>
 nnoremap <Space>fF :DirectoryRg<CR>
 nnoremap <Space>f<C-F> :execute 'Files ' . expand('<cfile>')<CR>
