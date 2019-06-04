@@ -4019,7 +4019,7 @@ if !exists('g:loaded_color')
 endif
 
 " TODO Need to test in Windows
-if has('termguicolors')
+if has('nvim') && has('termguicolors')
   set termguicolors
 endif
 
