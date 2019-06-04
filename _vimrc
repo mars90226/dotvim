@@ -4145,7 +4145,9 @@ nnoremap y+ "+yiW
 nnoremap =y "+y
 xnoremap =y "+y
 nnoremap +p "+p
+xnoremap +p "+p
 nnoremap +P "+P
+xnoremap +P "+P
 
 " Quick yank filename
 nnoremap <Leader>y5 :let @" = expand('%:t:r')<CR>
