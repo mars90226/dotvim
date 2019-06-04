@@ -4172,6 +4172,7 @@ cnoremap <expr> <C-G><C-W> "\\b" . expand('<cword>') . "\\b"
 cnoremap <expr> <C-G><C-A> "\\b" . expand('<cWORD>') . "\\b"
 
 " s:execute_command() for executing command with query
+" TODO input completion
 function! s:execute_command(command, prompt)
   let query = input(a:prompt)
   if query != ''
@@ -4185,7 +4186,7 @@ endfunction
 " :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
 " TODO Move this to 'after' folder
 if has('nvim')
-  nnoremap <Leader><F1> :call <SID>execute_command('Man', 'Man: ')<CR>
+  nnoremap <Leader><F1> :Man 
 endif
 
 " sdcv
