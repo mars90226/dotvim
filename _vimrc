@@ -4652,10 +4652,6 @@ function! s:filetype_vim_settings()
   setlocal tabstop=2
   setlocal softtabstop=2
   setlocal expandtab
-
-  if bufname('%') == '.vimrc' || bufname('%') == '_vimrc'
-    setlocal foldmethod=marker
-  endif
 endfunction
 
 function! s:filetype_python_settings()
@@ -4702,4 +4698,4 @@ augroup secure_modeline_conflict_workaround
 augroup END
 " }}}
 
-" vim: set sw=2 ts=2 sts=2 et foldlevel=0
+" vim: set sw=2 ts=2 sts=2 et foldlevel=0 foldmethod=marker:
