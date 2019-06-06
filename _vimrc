@@ -2099,6 +2099,7 @@ function! s:directory_sink(original_cwd, path, Func, line)
   " Avoid fzf_popd autocmd that break further fzf commands that require
   " current changed working directory.
   " See s:dopopd() in fzf/plugin/fzf.vim
+
   if exists('w:fzf_pushd')
     let w:original_cwd = a:original_cwd
     let w:popd_counter = 2
@@ -2106,7 +2107,7 @@ function! s:directory_sink(original_cwd, path, Func, line)
 
     augroup popd_callback
       autocmd!
-      autocmd WinLeave * call s:popd_callback()
+      autocmd WinEnter * call s:popd_callback()
     augroup END
   endif
   execute 'lcd ' . simplify(a:original_cwd . '/' . a:path)
@@ -2530,6 +2531,7 @@ nnoremap <Space>fS :CurrentPlacedSigns<CR>
 nnoremap <Space>ft :BTags<CR>
 nnoremap <Space>fT :Tags<CR>
 nnoremap <Space>fu :DirectoryAncestors<CR>
+nnoremap <Space>fU :DirectoryFiles ..<CR>
 nnoremap <Space>fw :Windows<CR>
 nnoremap <Space>fy :Filetypes<CR>
 nnoremap <Space>f' :Registers<CR>
