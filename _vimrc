@@ -2034,8 +2034,8 @@ function! s:project_mru_files()
   \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
 endfunction
 
-command! DirectoryMru call s:directory_mru()
-function! s:directory_mru(...)
+command! -bang DirectoryMru call s:directory_mru(<bang>0)
+function! s:directory_mru(bang, ...)
   let Sink = a:0 && type(a:1) == type(function('call')) ? a:1 : ''
   let args = {
         \ 'source':  s:mru_directories(),
@@ -2044,9 +2044,9 @@ function! s:directory_mru(...)
         \ }
 
   if empty(Sink)
-    call fzf#run(fzf#wrap(args))
+    call fzf#vim#files('', args, a:bang)
   else
-    call fzf#run(fzf#wrap(extend(args, { 'sink': Sink })))
+    call fzf#vim#files('', extend(args, { 'sink': Sink }), a:bang)
   endif
 endfunction
 " use neomru
@@ -2056,9 +2056,9 @@ function! s:mru_directories()
   \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), "fnamemodify(bufname(v:val), ':p:h')"))
 endfunction
 
-command! DirectoryMruFiles call s:directory_mru_files()
-function! s:directory_mru_files()
-  call s:directory_mru(function('s:directory_mru_files_sink'))
+command! -bang DirectoryMruFiles call s:directory_mru_files(<bang>0)
+function! s:directory_mru_files(bang)
+  call s:directory_mru(a:bang, function('s:directory_mru_files_sink'))
 endfunction
 function! s:directory_mru_files_sink(line)
   execute 'Files ' . a:line
@@ -2067,9 +2067,9 @@ function! s:directory_mru_files_sink(line)
   call feedkeys('i')
 endfunction
 
-command! DirectoryMruRg call s:directory_mru_rg()
-function! s:directory_mru_rg()
-  call s:directory_mru(function('s:directory_mru_rg_sink'))
+command! -bang DirectoryMruRg call s:directory_mru_rg(<bang>0)
+function! s:directory_mru_rg(bang)
+  call s:directory_mru(a:bang, function('s:directory_mru_rg_sink'))
 endfunction
 function! s:directory_mru_rg_sink(line)
   execute 'RgWithOption ' . a:line . '::' . input('Rg: ')
@@ -2079,32 +2079,59 @@ function! s:directory_mru_rg_sink(line)
 endfunction
 
 let g:fd_dir_command = 'fd --type directory --no-ignore-vcs --hidden --follow --ignore-file ' . $HOME . '/.ignore'
-command! Directories call s:directories(<q-args>, <bang>0)
-function! s:directories(path, bang)
- call fzf#vim#files(a:path,
-        \ {
-        \   'source': g:fd_dir_command,
-        \   'options': ['--preview-window', 'right', '--preview', g:fzf_dir_preview_command],
-        \ },
-        \ a:bang)
+command! -bang -nargs=? Directories call s:directories(<q-args>, <bang>0)
+function! s:directories(path, bang, ...)
+  let Sink = a:0 && type(a:1) == type(function('call')) ? a:1 : ''
+  let args = {
+        \ 'source':  g:fd_dir_command,
+        \ 'options': ['-s', '--preview-window', 'right', '--preview', g:fzf_dir_preview_command],
+        \ 'down':    '40%'
+        \ }
+
+  if empty(Sink)
+    call fzf#vim#files(a:path, args, a:bang)
+  else
+    call fzf#vim#files(a:path, extend(args, { 'sink': Sink }), a:bang)
+  endif
+endfunction
+" TODO Refine popd_callback that use counter to activate
+function! s:directory_sink(original_cwd, path, Func, line)
+  " Avoid fzf_popd autocmd that break further fzf commands that require
+  " current changed working directory.
+  " See s:dopopd() in fzf/plugin/fzf.vim
+  if exists('w:fzf_pushd')
+    let w:original_cwd = a:original_cwd
+    let w:popd_counter = 2
+    unlet w:fzf_pushd
+
+    augroup popd_callback
+      autocmd!
+      autocmd WinLeave * call s:popd_callback()
+    augroup END
+  endif
+  execute 'lcd ' . simplify(a:original_cwd . '/' . a:path)
+  call a:Func(a:line)
+endfunction
+function! s:popd_callback()
+  if exists('w:original_cwd')
+    let w:popd_counter -= 1
+    if w:popd_counter == 0
+      execute 'lcd ' . w:original_cwd
+      unlet w:original_cwd
+      unlet w:popd_counter
+      autocmd! popd_callback
+    endif
+  endif
 endfunction
 
-command! DirectoryFiles call s:directory_files()
-function! s:directory_files()
-  call fzf#run(fzf#wrap({
-        \ 'source':  g:fd_dir_command,
-        \ 'sink':    function('s:directory_mru_files_sink'),
-        \ 'options': '-s',
-        \ 'down':    '40%' }))
+command! -bang -nargs=? DirectoryFiles call s:directory_files(<q-args>, <bang>0)
+function! s:directory_files(path, bang)
+  call s:directories(a:path, a:bang, function('s:directory_sink', [getcwd(), a:path, function('s:directory_mru_files_sink')]))
 endfunction
 
-command! DirectoryRg call s:directory_rg()
-function! s:directory_rg()
-  call fzf#run(fzf#wrap({
-        \ 'source':  g:fd_dir_command,
-        \ 'sink':    function('s:directory_mru_rg_sink'),
-        \ 'options': '-s',
-        \ 'down':    '40%' }))
+command! -bang -nargs=? DirectoryRg call s:directory_rg(<q-args>, <bang>0)
+function! s:directory_rg(path, bang)
+  call s:directories(a:path, a:bang, function('s:directory_sink', [getcwd(), a:path, function('s:directory_mru_rg_sink')]))
 endfunction
 
 " Intend to be mapped in command
@@ -2453,10 +2480,8 @@ if s:is_enabled_plugin('defx')
   command! -bang -nargs=? -complete=dir Files    call s:use_defx_fzf_action({ -> s:fzf_files(<q-args>, <bang>0) })
   command! -bang -nargs=?               GFiles   call s:use_defx_fzf_action({ -> s:fzf_gitfiles(<q-args>, <bang>0) })
 
-  command! DirectoryMru      call s:use_defx_fzf_action(function('s:directory_mru'))
-  command! DirectoryMruFiles call s:use_defx_fzf_action(function('s:directory_mru_files'))
-  command! DirectoryMruRg    call s:use_defx_fzf_action(function('s:directory_mru_rg'))
-  command! Directories       call s:use_defx_fzf_action({ -> s:directories(<q-args>, <bang>0) })
+  command! -bang          DirectoryMru      call s:use_defx_fzf_action({ -> s:directory_mru(<bang>0) })
+  command! -bang -nargs=? Directories       call s:use_defx_fzf_action({ -> s:directories(<q-args>, <bang>0) })
 endif
 " }}}
 
