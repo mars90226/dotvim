@@ -122,13 +122,9 @@ function! s:has_jedi()
   endif
 endfunction
 
-function! s:is_full_fledged()
-  return $VIM_FULL_FLEDGED == "yes"
-endfunction
-
 " Choose statusline plugin
 " airline, lightline
-if s:is_full_fledged()
+if $VIM_MODE == 'full'
   call s:disable_plugin('lightline.vim')
 else
   call s:disable_plugin('vim-airline')
@@ -190,17 +186,12 @@ if !exists("##TextYankPost")
   call s:disable_plugin('vim-highlightedyank')
 endif
 
-if !(has('job') || (has('nvim') && exists('*jobwait')))
+if !(has('job') || (has('nvim') && exists('*jobwait'))) || $NVIM_TERMINAL == "yes"
   call s:disable_plugin('vim-gutentags')
 endif
 
-if !s:has_linux_build_env()
+if !s:has_linux_build_env() || $NVIM_TERMINAL == "yes" || $VIM_MODE == 'gitcommit'
   call s:disable_plugin('git-p.nvim')
-endif
-
-if $NVIM_TERMINAL == "yes"
-  call s:disable_plugin('git-p.nvim')
-  call s:disable_plugin('vim-gutentags')
 endif
 " }}}
 
