@@ -133,10 +133,10 @@ endif
 " Choose autocompletion plugin {{{
 " coc.nvim, deoplete.nvim, completor.vim, YouCompleteMe, supertab
 call s:disable_plugins(['coc.nvim', 'deoplete.nvim', 'completor.vim', 'YouCompleteMe', 'supertab'])
-if s:has_async() && s:has_rpc() && executable('node') && executable('yarn')
+if s:has_async() && s:has_rpc() && executable('node') && executable('yarn') && $VIM_MODE != 'reader'
   " coc.nvim
   call s:enable_plugin('coc.nvim')
-elseif s:has_async() && s:has_rpc() && has("python3") && s:python_version() >= "3.6.1"
+elseif s:has_async() && s:has_rpc() && has("python3") && s:python_version() >= "3.6.1" && $VIM_MODE != 'reader'
   " deoplete.nvim
   call s:enable_plugin('deoplete.nvim')
 elseif has("python") || has("python3")
@@ -701,7 +701,7 @@ if s:is_enabled_plugin('completor.vim')
   Plug 'maralla/completor.vim'
 
   if s:has_linux_build_env()
-    let g:completor_clang_binary = "/usr/lib/llvm-5.0/lib/clang"
+    let g:completor_clang_binary = "/usr/lib/llvm-8/lib/clang"
   end
 endif
 " }}}
@@ -807,14 +807,6 @@ endif
 
 " File Navigation {{{
 " ====================================================================
-" CtrlP {{{
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'sgur/ctrlp-extensions.vim'
-Plug 'tacahiroy/ctrlp-funky'
-Plug 'mattn/ctrlp-hackernews'
-Plug 'fisadev/vim-ctrlp-cmdpalette'
-Plug 'ivalkeen/vim-ctrlp-tjump'
-
 " Choose matcher {{{
 if has("python3")
   Plug 'raghur/fruzzy', { 'do': { -> fruzzy#install() } }
@@ -827,6 +819,14 @@ elseif has("python")
   let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 endif
 " }}}
+
+" CtrlP {{{
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'sgur/ctrlp-extensions.vim'
+Plug 'tacahiroy/ctrlp-funky'
+Plug 'mattn/ctrlp-hackernews'
+Plug 'fisadev/vim-ctrlp-cmdpalette'
+Plug 'ivalkeen/vim-ctrlp-tjump'
 
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
       \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
