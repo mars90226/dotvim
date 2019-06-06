@@ -2801,6 +2801,7 @@ map <Space><Space>k <Plug>(edgemotion-k)
 " }}}
 
 Plug 'wellle/targets.vim'
+Plug 'jeetsukumaran/vim-indentwise'
 " }}}
 
 " Text Manipulation {{{
