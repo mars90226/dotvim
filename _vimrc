@@ -3477,6 +3477,12 @@ Plug 'tpope/vim-dispatch'
 nnoremap <Leader>co :Copen<CR>
 " }}}
 
+" securemodelines {{{
+" See https://www.reddit.com/r/vim/comments/bwp7q3/code_execution_vulnerability_in_vim_811365_and/
+" and https://github.com/numirias/security/blob/master/doc/2019-06-04_ace-vim-neovim.md for more details
+Plug 'ciaranm/securemodelines'
+" }}}
+
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
 Plug 'tyru/open-browser.vim'
 Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert', 'S'] }
