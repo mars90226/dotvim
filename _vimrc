@@ -190,7 +190,7 @@ if !(has('job') || (has('nvim') && exists('*jobwait'))) || $NVIM_TERMINAL == "ye
   call s:disable_plugin('vim-gutentags')
 endif
 
-if !s:has_linux_build_env() || $NVIM_TERMINAL == "yes" || $VIM_MODE == 'gitcommit'
+if !s:has_linux_build_env() || $NVIM_TERMINAL == "yes" || $VIM_MODE == 'gitcommit' || $VIM_MODE == 'reader'
   call s:disable_plugin('git-p.nvim')
 endif
 " }}}
