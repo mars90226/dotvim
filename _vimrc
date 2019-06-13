@@ -1839,6 +1839,23 @@ for s:color_name in keys(s:ansi)
         \ "  return s:ansi(a:str, get(a:, 1, ''), '".s:color_name."')\n"
         \ "endfunction"
 endfor
+
+function! s:wrap(name, opts, bang)
+  " fzf#wrap does not append --expect if sink or sink* is found
+  let opts = copy(a:opts)
+  let options = ''
+  if has_key(opts, 'options')
+    let options = type(opts.options) == s:TYPE.list ? join(opts.options) : opts.options
+  endif
+  if options !~ '--expect' && has_key(opts, 'sink*')
+    let Sink = remove(opts, 'sink*')
+    let wrapped = fzf#wrap(a:name, opts, a:bang)
+    let wrapped['sink*'] = Sink
+  else
+    let wrapped = fzf#wrap(a:name, opts, a:bang)
+  endif
+  return wrapped
+endfunction
 " }}}
 
 command! -bar  -bang                  Helptags call fzf#vim#helptags(<bang>0)
@@ -2275,12 +2292,30 @@ command! DirectoryAncestors call fzf#run(fzf#wrap({
       \ 'down': '40%'}))
 
 " Borrowed from s:buffer_line_handler from fzf.vim
-function! s:range_lines_handler(lines)
-  execute split(a:lines[0], '\t')[0]
-endfunction
-function! s:range_lines_center_handler(lines)
-  execute split(a:lines[0], '\t')[0]
-  normal! zzzv
+function! s:range_lines_handler(center, lines)
+  echom string(a:lines)
+  if len(a:lines) < 2
+    return
+  endif
+  let qfl = []
+  for line in a:lines[1:]
+    let chunks = split(line, "\t", 1)
+    let ln = chunks[0]
+    let ltxt = join(chunks[1:], "\t")
+    call add(qfl, {'filename': expand('%'), 'lnum': str2nr(ln), 'text': ltxt})
+  endfor
+  call s:fill_quickfix(qfl, 'cfirst')
+  normal! m'
+  let cmd = s:action_for(a:lines[0])
+  if !empty(cmd)
+    execute 'silent' cmd
+  endif
+
+  execute split(a:lines[1], '\t')[0]
+
+  if a:center
+    normal! zzzv
+  endif
 endfunction
 
 " Borrowed from s:buffer_lines from fzf.vim
@@ -2296,17 +2331,18 @@ function! s:range_lines_source(start, end, query)
   return filter(formatted_lines[a:start-1 : a:end-1], 'len(v:val)')
 endfunction
 function! s:range_lines(prompt, center, start, end, query)
-  let options = ['--tiebreak=index', '--prompt', a:prompt . '> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1']
+  let options = ['--tiebreak=index', '--multi', '--prompt', a:prompt . '> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1']
   let file = expand('%')
   let preview_command = systemlist($VIMHOME . '/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . a:start)[0]
   let final_options = extend(options, ['--preview-window', 'right:50%:hidden', '--preview', preview_command])
   let Sink = a:center ? function('s:range_lines_center_handler') : function('s:range_lines_handler')
+  let Sink = function('s:range_lines_handler', [a:center])
 
-  call fzf#run(fzf#wrap({
+  call fzf#run(s:wrap('', {
         \ 'source':  s:range_lines_source(a:start, a:end, a:query),
         \ 'sink*':   Sink,
         \ 'options': final_options,
-        \ }))
+        \ }, 0))
 endfunction
 command! -nargs=? -range SelectLines call s:range_lines('SelectLines', 1, <line1>, <line2>, <q-args>)
 function! s:screen_lines(...)
