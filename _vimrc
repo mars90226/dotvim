@@ -2955,6 +2955,11 @@ onoremap ie :exec "normal! ggVG"<CR>
 
 " iv = current viewable text in the buffer
 onoremap iv :exec "normal! HVL"<CR>
+
+" Quick substitute from system clipboard
+nmap =s "+<Plug>(SubversiveSubstitute)
+nmap =ss "+<Plug>(SubversiveSubstituteLine)
+nmap =sS "+<Plug>(SubversiveSubstituteToEndOfLine)
 " }}}
 
 Plug 'editorconfig/editorconfig-vim'
@@ -4218,6 +4223,8 @@ nnoremap y' ""yiw
 nnoremap y" ""yiW
 nnoremap y= "+yiw
 nnoremap y+ "+yiW
+
+" Quick yank/paste to/from system clipboard
 nnoremap =y "+y
 xnoremap =y "+y
 nnoremap +p "+p
