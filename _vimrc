@@ -1598,6 +1598,20 @@ if s:is_enabled_plugin('denite.nvim')
     execute 'Denite -buffer-name=' . buffer_name . ' -auto-resume grep:.:' . escaped_option . ':' . final_query
   endfunction
 
+  function! s:denite_project_tags(query)
+    let t:origin_tags = &tags
+    set tags-=./tags;
+    augroup denite_project_tags_callback
+      autocmd!
+      autocmd BufWinLeave \[denite\]
+            \ if exists('t:origin_tags') |
+            \   let &tags = t:origin_tags |
+            \   autocmd! denite_project_tags_callback |
+            \ endif
+    augroup END
+    execute 'Denite tag -input=' . a:query
+  endfunction
+
   " Denite key mappings {{{
   " Override Unite key mapping {{{
   function! s:remap(old_key, new_key, mode)
@@ -1649,6 +1663,8 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>do :execute 'Denite output:' . <SID>escape_symbol(input('output: '))<CR>
   nnoremap <Space>dO :Denite outline<CR>
   nnoremap <Space>d<C-O> :Denite unite:outline<CR>
+  nnoremap <Space>dp :call <SID>denite_project_tags('')<CR>
+  nnoremap <Space>dP :call <SID>denite_project_tags(expand('<cword>'))<CR>
   nnoremap <Space>dq :Denite quickfix<CR>
   nnoremap <Space>dr :Denite register<CR>
   nnoremap <Space>ds :Denite session<CR>
