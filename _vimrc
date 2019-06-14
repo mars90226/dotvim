@@ -2351,7 +2351,6 @@ function! s:range_lines(prompt, center, start, end, query)
   let file = expand('%')
   let preview_command = systemlist($VIMHOME . '/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . a:start)[0]
   let final_options = extend(options, ['--preview-window', 'right:50%:hidden', '--preview', preview_command])
-  let Sink = a:center ? function('s:range_lines_center_handler') : function('s:range_lines_handler')
   let Sink = function('s:range_lines_handler', [a:center])
 
   call fzf#run(s:wrap('', {
