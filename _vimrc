@@ -3906,6 +3906,9 @@ call extend(g:gina#command#browse#translation_patterns, {
 
 " Arpeggio {{{
 call arpeggio#load()
+
+" Quickly escape insert mode
+Arpeggio inoremap jk <Esc>
 " }}}
 " }}}
 
@@ -4119,9 +4122,6 @@ inoremap <C-U> <C-G>u<C-U>
 
 " CTRL-L clear hlsearch
 nnoremap <C-L> <C-L>:nohlsearch<CR>
-
-" Quickly escape insert mode
-Arpeggio inoremap jk <Esc>
 
 " Add key mapping for suspend
 nnoremap <Space><C-Z> :suspend<CR>
