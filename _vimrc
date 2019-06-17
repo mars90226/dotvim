@@ -86,6 +86,33 @@ endfunction
 command! ListDisabledPlugins call s:get_disabled_plugins()
 " }}}
 
+" plugin config cache {{{
+let s:plugin_config_cache_name = $VIMHOME . ".plugin_config_cache"
+function! s:read_plugin_config_cache()
+  if filereadable(s:plugin_config_cache_name)
+    execute 'source ' . s:plugin_config_cache_name
+  endif
+endfunction
+call s:read_plugin_config_cache()
+
+let s:plugin_config_cache = []
+function! s:append_plugin_config_cache(content)
+  call add(s:plugin_config_cache, a:content)
+endfunction
+
+function! s:write_plugin_config_cache()
+  call writefile(s:plugin_config_cache, s:plugin_config_cache_name)
+endfunction
+
+function! s:update_plugin_config_cache()
+  " Update plugin config
+  call s:append_plugin_config_cache("let g:has_jedi = " . s:has_jedi(1))
+
+  call s:write_plugin_config_cache()
+endfunction
+command! UpdatePluginConfigCache call s:update_plugin_config_cache()
+" }}}
+
 " return empty string when no python support found
 function! s:python_version()
   if has("python3")
@@ -110,15 +137,21 @@ function! s:has_linux_build_env()
   return s:os !~ "windows" && s:os !~ "synology"
 endfunction
 
-function! s:has_jedi()
-  if has("python3")
-    call system('pip3 show -qq jedi')
-    return !v:shell_error
-  elseif has("python")
-    call system('pip show -qq jedi')
-    return !v:shell_error
+function! s:has_jedi(...)
+  let force = (a:0 >= 1 && type(a:1) == type(v:true)) ? a:1 : v:false
+
+  if force || !exists("g:has_jedi")
+    if has("python3")
+      call system('pip3 show -qq jedi')
+      return !v:shell_error
+    elseif has("python")
+      call system('pip show -qq jedi')
+      return !v:shell_error
+    else
+      return 0
+    endif
   else
-    return 0
+    return g:has_jedi == 1
   endif
 endfunction
 
@@ -3187,7 +3220,7 @@ endfunction
 
 " jedi-vim {{{
 if s:has_jedi()
-  Plug 'davidhalter/jedi-vim'
+  Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
   let g:jedi#completions_enabled = 1
 

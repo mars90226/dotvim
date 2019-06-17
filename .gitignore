@@ -14,3 +14,6 @@ plugged
 
 # old vim-plug file
 autoload/plug.vim.old
+
+# plugin config cache
+.plugin_config_cache
