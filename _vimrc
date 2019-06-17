@@ -3668,10 +3668,22 @@ endif
 " Unite {{{
 " Avoid remapped by unimpaired
 " TODO Move all plugin settings to post-loaded settings
-nnoremap <silent><nowait> ]u :<C-U>execute v:count1 . 'UniteNext'<CR>
-nnoremap <silent><nowait> [u :<C-U>execute v:count1 . 'UnitePrevious'<CR>
-nnoremap <silent> [U :UniteFirst<CR>
-nnoremap <silent> ]U :UniteLast<CR>
+augroup post_loaded_unite_mappings
+  autocmd!
+  autocmd VimEnter * call s:post_loaded_unite_mappings()
+augroup END
+
+function! s:post_loaded_unite_mappings()
+  silent! unmap [u
+  silent! unmap [uu
+  silent! unmap ]u
+  silent! unmap ]uu
+
+  nnoremap <silent><nowait> ]u :<C-U>execute v:count1 . 'UniteNext'<CR>
+  nnoremap <silent><nowait> [u :<C-U>execute v:count1 . 'UnitePrevious'<CR>
+  nnoremap <silent> [U :UniteFirst<CR>
+  nnoremap <silent> ]U :UniteLast<CR>
+endfunction
 " }}}
 
 " Denite {{{
