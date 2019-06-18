@@ -111,6 +111,13 @@ function! s:update_plugin_config_cache()
   call s:write_plugin_config_cache()
 endfunction
 command! UpdatePluginConfigCache call s:update_plugin_config_cache()
+
+function! s:init_plugin_config_cache()
+  if !filereadable(s:plugin_config_cache_name)
+    call s:update_plugin_config_cache()
+  endif
+endfunction
+call s:init_plugin_config_cache()
 " }}}
 
 " return empty string when no python support found
