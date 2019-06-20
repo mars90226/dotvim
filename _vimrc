@@ -2174,27 +2174,37 @@ function! s:directory_sink(original_cwd, path, Func, line)
   " See s:dopopd() in fzf/plugin/fzf.vim
 
   if exists('w:fzf_pushd')
-    let w:original_cwd = a:original_cwd
-    let w:popd_counter = 2
+    let w:directory_sink_popd = {
+          \ 'original_cwd': a:original_cwd,
+          \ 'popd_counter': 2,
+          \ 'bufname': w:fzf_pushd.bufname
+          \ }
     unlet w:fzf_pushd
 
     augroup popd_callback
       autocmd!
-      autocmd WinEnter * call s:popd_callback()
+      autocmd BufWinEnter,WinEnter * call s:popd_callback()
     augroup END
   endif
   execute 'lcd ' . simplify(a:original_cwd . '/' . a:path)
   call a:Func(a:line)
 endfunction
 function! s:popd_callback()
-  if exists('w:original_cwd')
-    let w:popd_counter -= 1
-    if w:popd_counter == 0
-      execute 'lcd ' . w:original_cwd
-      unlet w:original_cwd
-      unlet w:popd_counter
-      autocmd! popd_callback
-    endif
+  if !exists('w:directory_sink_popd')
+    return
+  endif
+
+  " Check if current buffer is the original buffer
+  let orignal_bufname = w:directory_sink_popd.original_cwd . '/' . w:directory_sink_popd.bufname
+  if fnamemodify(orignal_bufname, ':p') !=# fnamemodify(bufname(''), ':p')
+    return
+  endif
+
+  let w:directory_sink_popd.popd_counter -= 1
+  if w:directory_sink_popd.popd_counter == 0
+    execute 'lcd ' . w:directory_sink_popd.original_cwd
+    unlet w:directory_sink_popd
+    autocmd! popd_callback
   endif
 endfunction
 
