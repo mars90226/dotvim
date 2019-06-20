@@ -2569,6 +2569,9 @@ if s:is_enabled_plugin('defx')
         \ 'ctrl-alt-x': 'DefxSplitOpenDirSink',
         \ }, g:misc_fzf_action)
 
+  " TODO s:common_sink() in fzf/plugin/fzf.vim will always use 'edit' if it
+  " think the current file is empty file. It's hard to workaround the check
+  " and still does not interfere other things like buffer list.
   function! s:use_defx_fzf_action(function)
     let g:fzf_action = g:defx_fzf_action
     augroup use_defx_fzf_action_callback
