@@ -4441,8 +4441,15 @@ function! s:zoom()
     tabclose
   endif
 endfunction
+function! s:zoom_selected(selected)
+  let filetype = &filetype
+  tabnew
+  call append(line('$'), split(a:selected, "\n"))
+  1delete
+  let &filetype = filetype
+endfunction
 nnoremap <silent> <Leader>z :call <SID>zoom()<CR>
-vnoremap <silent> <Leader>z y:tabnew<CR>pkdd
+xnoremap <silent> <Leader>z :<C-U>call <SID>zoom_selected(<SID>get_visual_selection())<CR>
 
 " toggle parent folder tag
 function! s:toggle_parent_folder_tag()
