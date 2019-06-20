@@ -377,7 +377,9 @@ if s:is_enabled_plugin('lightline.vim')
   endfunction
 
   function! LightlineFiletype()
-    return winwidth(0) > s:lightline_width_threshold ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+    return winwidth(0) > s:lightline_width_threshold ?
+          \ &buftype ==# 'terminal' ? &buftype :
+          \ (&filetype !=# '' ? &filetype : 'no ft') : ''
   endfunction
 
   function! LightlineFileencoding()
