@@ -3321,6 +3321,9 @@ augroup END
 function! s:fugitive_settings()
   nnoremap <buffer> <silent> Su :GitDispatch stash -u<CR>
   nnoremap <buffer> <silent> Sp :GitDispatch stash pop<CR>
+  nnoremap <buffer> <silent> gp :Gpush<CR>
+  nnoremap <buffer> <silent> gl :Gpull<CR>
+  nnoremap <buffer> <silent> gL :Gpull --rebase<CR>
 endfunction
 
 let g:fugitive_gitlab_domains = ['https://git.synology.com']
