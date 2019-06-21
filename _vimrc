@@ -4490,6 +4490,12 @@ function! s:file_size(path)
 endfunction
 command! -nargs=1 FileSize call s:file_size(<q-args>)
 
+function! s:set_tab_size(size)
+  let &tabstop     = a:size
+  let &shiftwidth  = a:size
+  let &softtabstop = a:size
+endfunction
+command! -nargs=1 SetTabSize call s:set_tab_size(<q-args>)
 " }}}
 
 " Custom command {{{
