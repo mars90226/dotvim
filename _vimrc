@@ -2159,10 +2159,15 @@ endfunction
 
 command! -bang DirectoryMruFiles call s:directory_mru_files(<bang>0)
 function! s:directory_mru_files(bang)
-  call s:directory_mru(a:bang, function('s:directory_mru_files_sink'))
+  call s:directory_mru(a:bang, function('s:directory_mru_files_sink', [0]))
 endfunction
-function! s:directory_mru_files_sink(line)
-  execute 'Files ' . a:line
+function! s:directory_mru_files_sink(chdir, directory)
+  if a:chdir
+    execute 'lcd ' . a:directory
+    Files
+  else
+    execute 'Files ' . a:directory
+  endif
   " To enter terminal mode, this is a workaround that autocommand exit the
   " terminal mode when previous fzf session end.
   call feedkeys('i')
@@ -2170,10 +2175,15 @@ endfunction
 
 command! -bang DirectoryMruRg call s:directory_mru_rg(<bang>0)
 function! s:directory_mru_rg(bang)
-  call s:directory_mru(a:bang, function('s:directory_mru_rg_sink'))
+  call s:directory_mru(a:bang, function('s:directory_mru_rg_sink', [0]))
 endfunction
-function! s:directory_mru_rg_sink(line)
-  execute 'RgWithOption ' . a:line . '::' . input('Rg: ')
+function! s:directory_mru_rg_sink(chdir, directory)
+  if a:chdir
+    execute 'lcd ' . a:directory
+    execute 'RgWithOption ::' . input('Rg: ')
+  else
+    execute 'RgWithOption ' . a:directory . '::' . input('Rg: ')
+  endif
   " To enter terminal mode, this is a workaround that autocommand exit the
   " terminal mode when previous fzf session end.
   call feedkeys('i')
@@ -2196,11 +2206,12 @@ function! s:directories(path, bang, ...)
   endif
 endfunction
 " TODO Refine popd_callback that use counter to activate
-function! s:directory_sink(original_cwd, path, Func, line)
+function! s:directory_sink(original_cwd, path, Func, directory)
   " Avoid fzf_popd autocmd that break further fzf commands that require
   " current changed working directory.
   " See s:dopopd() in fzf/plugin/fzf.vim
 
+  " Change working directory of original file to orignal directory
   if exists('w:fzf_pushd')
     let w:directory_sink_popd = {
           \ 'original_cwd': a:original_cwd,
@@ -2209,15 +2220,17 @@ function! s:directory_sink(original_cwd, path, Func, line)
           \ }
     unlet w:fzf_pushd
 
-    augroup popd_callback
+    augroup directory_sink_popd_callback
       autocmd!
-      autocmd BufWinEnter,WinEnter * call s:popd_callback()
+      autocmd BufWinEnter,WinEnter * call s:directory_sink_popd_callback()
     augroup END
   endif
+
+  " Change working directory to directory pass in
   execute 'lcd ' . simplify(a:original_cwd . '/' . a:path)
-  call a:Func(a:line)
+  call a:Func(a:directory)
 endfunction
-function! s:popd_callback()
+function! s:directory_sink_popd_callback()
   if !exists('w:directory_sink_popd')
     return
   endif
@@ -2232,18 +2245,18 @@ function! s:popd_callback()
   if w:directory_sink_popd.popd_counter == 0
     execute 'lcd ' . w:directory_sink_popd.original_cwd
     unlet w:directory_sink_popd
-    autocmd! popd_callback
+    autocmd! directory_sink_popd_callback
   endif
 endfunction
 
 command! -bang -nargs=? DirectoryFiles call s:directory_files(<q-args>, <bang>0)
 function! s:directory_files(path, bang)
-  call s:directories(a:path, a:bang, function('s:directory_sink', [getcwd(), a:path, function('s:directory_mru_files_sink')]))
+  call s:directories(a:path, a:bang, function('s:directory_sink', [getcwd(), a:path, function('s:directory_mru_files_sink', [1])]))
 endfunction
 
 command! -bang -nargs=? DirectoryRg call s:directory_rg(<q-args>, <bang>0)
 function! s:directory_rg(path, bang)
-  call s:directories(a:path, a:bang, function('s:directory_sink', [getcwd(), a:path, function('s:directory_mru_rg_sink')]))
+  call s:directories(a:path, a:bang, function('s:directory_sink', [getcwd(), a:path, function('s:directory_mru_rg_sink', [1])]))
 endfunction
 
 " Intend to be mapped in command
