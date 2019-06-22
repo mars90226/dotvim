@@ -279,6 +279,10 @@ if s:is_enabled_plugin('lightline.vim')
 
   let s:lightline_width_threshold = 70
 
+  " Fugitive special revisions. call '0' "staging" ?
+  let s:names = {'0': 'index', '1': 'orig', '2':'fetch', '3':'merge'}
+  let s:sha1size = 7
+
   let g:lightline = {}
   let g:lightline.colorscheme = 'gruvbox'
   let g:lightline.component = {
@@ -367,9 +371,31 @@ if s:is_enabled_plugin('lightline.vim')
   endfunction
 
   function! LightlineFugitive()
-    let head = fugitive#head()
+    if !exists('b:lightline_head')
+      " Borrowed from s:display_git_branch from airline/extensions/branch.vim {{{
+      let name = fugitive#head()
+      try
+        let commit = matchstr(FugitiveParse()[0], '^\x\+')
+
+        if has_key(s:names, commit)
+          let name = get(s:names, commit)."(".name.")"
+        elseif !empty(commit)
+          let ref = fugitive#repo().git_chomp('describe', '--all', '--exact-match', commit)
+          if ref !~ "^fatal: no tag exactly matches"
+            let name = substitute(ref, '\v\C^%(heads/|remotes/|tags/)=','','')."(".name.")"
+          else
+            let name = matchstr(commit, '.\{'.s:sha1size.'}')."(".name.")"
+          endif
+        endif
+      catch
+      endtry
+      " }}}
+
+      let b:lightline_head = name
+    endif
+
     return &ft == 'qf' ? '' : 
-          \ head !=# '' ? ' ' . head : ''
+          \ b:lightline_head !=# '' ? ' ' . b:lightline_head : ''
   endfunction
 
   function! LightlineFileformat()
