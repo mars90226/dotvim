@@ -2310,8 +2310,6 @@ function! s:jump_sink(lines)
     call cursor(list[1], list[2])
   endfor
 endfunction
-
-
 function! s:jumps()
   return reverse(filter(split(execute("jumps", "silent!"), "\n")[1:], 'v:val != ">"'))
 endfunction
@@ -2451,6 +2449,21 @@ function! s:current_placed_signs()
         \ }))
 endfunction
 command! CurrentPlacedSigns call s:current_placed_signs()
+
+function! s:functions_sink(line)
+  let function_name = matchstr(a:line, '\s\zs\S[^(]*\ze(')
+  let @" = function_name
+endfunction
+function! s:functions_source()
+  return split(execute("function", "silent!"), "\n")
+endfunction
+function! s:functions()
+  call fzf#run(fzf#wrap({
+      \ 'source':  s:functions_source(),
+      \ 'sink':    function('s:functions_sink'),
+      \ 'down':    '40%'}))
+endfunction
+command! Functions call s:functions()
 
 " Cscope functions {{{
 " Borrowed from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
