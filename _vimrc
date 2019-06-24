@@ -4859,6 +4859,7 @@ augroup fileTypeSpecific
   autocmd BufNewFile,BufReadPost depends-virtual-*    set filetype=dosini
   autocmd BufNewFile,BufReadPost .tmux.conf           set filetype=tmux
   autocmd BufNewFile,BufReadPost resource             set filetype=json
+  autocmd BufNewFile,BufReadPost *.bashrc             set filetype=sh
 
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
