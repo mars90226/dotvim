@@ -2140,7 +2140,7 @@ function! s:directory_mru(bang, ...)
   let Sink = a:0 && type(a:1) == type(function('call')) ? a:1 : ''
   let args = {
         \ 'source':  s:mru_directories(),
-        \ 'options': ['-s', '--preview-window', 'right', '--preview', g:fzf_dir_preview_command],
+        \ 'options': ['-s', '--preview-window', 'right', '--preview', g:fzf_dir_preview_command, '--prompt', 'DirectoryMru> '],
         \ 'down':    '40%'
         \ }
 
@@ -2192,6 +2192,7 @@ endfunction
 let g:fd_dir_command = 'fd --type directory --no-ignore-vcs --hidden --follow --ignore-file ' . $HOME . '/.ignore'
 command! -bang -nargs=? Directories call s:directories(<q-args>, <bang>0)
 function! s:directories(path, bang, ...)
+  let path = simplify(getcwd() . '/' . a:path)
   let Sink = a:0 && type(a:1) == type(function('call')) ? a:1 : ''
   let args = {
         \ 'source':  g:fd_dir_command,
@@ -2200,9 +2201,9 @@ function! s:directories(path, bang, ...)
         \ }
 
   if empty(Sink)
-    call fzf#vim#files(a:path, args, a:bang)
+    call fzf#vim#files(path, args, a:bang)
   else
-    call fzf#vim#files(a:path, extend(args, { 'sink': Sink }), a:bang)
+    call fzf#vim#files(path, extend(args, { 'sink': Sink }), a:bang)
   endif
 endfunction
 " TODO Refine popd_callback that use counter to activate
