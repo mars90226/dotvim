@@ -4554,6 +4554,12 @@ function! s:set_tab_size(size)
   let &softtabstop = a:size
 endfunction
 command! -nargs=1 SetTabSize call s:set_tab_size(<q-args>)
+
+" Borrowed from gv.vim
+function! s:get_cursor_syntax()
+  return synIDattr(synID(line('.'), col('.'), 0), 'name')
+endfunction
+command! GetCursorSyntax echo s:get_cursor_syntax()
 " }}}
 
 " Custom command {{{
