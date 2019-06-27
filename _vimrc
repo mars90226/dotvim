@@ -2129,6 +2129,7 @@ command! ProjectMru call fzf#run(fzf#wrap({
 function! s:project_mru_files()
   " cannot use \V to escape the special characters in filepath as it only
   " render the string literal after it to "very nomagic"
+  " FIXME Maybe doable, see s:gv_expand()
   return extend(
   \ filter(s:filtered_neomru_files(),
   \   "v:val =~ '^' . getcwd()"),
