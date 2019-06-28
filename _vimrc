@@ -3180,11 +3180,11 @@ if s:is_enabled_plugin('ale')
   "       \}
   " Disable language server in ale, prefer coc.nvim
   let g:ale_linters = {
-        \ 'bash': ['shell', 'shellcheck'],
         \ 'c': ['gcc'],
         \ 'cpp': ['g++'],
         \ 'javascript': ['eslint', 'jshint'],
-        \ 'python': ['pylint']
+        \ 'python': ['pylint'],
+        \ 'sh': ['shell', 'shellcheck']
         \}
   let g:ale_fixers = {
         \ 'javascript': [ 'eslint' ],
