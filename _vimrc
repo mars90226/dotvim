@@ -4901,7 +4901,7 @@ function! s:filetype_python_settings()
   setlocal expandtab
 
   nnoremap <silent><buffer> K :call <SID>show_documentation()<CR>
-  nnoremap gK :execute 'Pydoc ' . expand('<cword>')<CR>
+  nnoremap <silent><buffer> gK :execute 'Pydoc ' . expand('<cword>')<CR>
 endfunction
 " }}}
 
