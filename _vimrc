@@ -615,6 +615,16 @@ if s:is_enabled_plugin('coc.nvim')
   " Show lists
   nnoremap <silent> <Space>cl :CocList lists<CR>
 
+  function! s:coc_toggle()
+    if g:coc_enabled
+      CocDisable
+    else
+      CocEnable
+    endif
+  endfunction
+  command! CocToggle call s:coc_toggle()
+  nnoremap <silent> <Space>cy :CocToggle<CR>
+
   augroup coc_ccls_settings
     autocmd!
     autocmd FileType c,cpp call s:coc_ccls_settings()
