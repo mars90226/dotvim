@@ -4556,7 +4556,7 @@ function! s:file_size(path)
         \ . (kb > 0 ? kb . "KB, " : "")
         \ . byte . "byte"
 endfunction
-command! -nargs=1 FileSize call s:file_size(<q-args>)
+command! -nargs=1 -complete=file FileSize call s:file_size(<q-args>)
 
 function! s:set_tab_size(size)
   let &tabstop     = a:size
