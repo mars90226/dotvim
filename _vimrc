@@ -3488,9 +3488,9 @@ nnoremap \tl :execute 'new <Bar> Tig log -p ' . expand('%:p')<CR>
 " Gina {{{
 Plug 'lambdalisue/gina.vim'
 
-nnoremap <Space>gb :Gina blame<CR>
-xnoremap <Space>gb :Gina blame<CR>
-nnoremap <Space>gB :Gina branch<CR>
+nnoremap <Space>gb :Gina branch<CR>
+nnoremap <Space>gB :Gina blame<CR>
+xnoremap <Space>gB :Gina blame<CR>
 " }}}
 
 " git-p.nvim {{{
