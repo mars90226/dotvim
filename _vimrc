@@ -1955,6 +1955,7 @@ endfunction
 command! -bar  -bang                  Helptags call fzf#vim#helptags(<bang>0)
 command! -bang -nargs=? -complete=dir Files    call s:fzf_files(<q-args>, <bang>0)
 command! -bang -nargs=?               GFiles   call s:fzf_gitfiles(<q-args>, <bang>0)
+command! -bang -nargs=+ -complete=dir Locate   call s:fzf_locate(<q-args>, <bang>0)
 command! -bang -nargs=*               History  call s:history(<q-args>, <bang>0)
 command! -bar  -bang                  Windows  call fzf#vim#windows(s:fzf_windows_preview(), <bang>0)
 command! -bar  -nargs=* -bang         BLines   call fzf#vim#buffer_lines(<q-args>, s:fzf_buffer_lines_preview(), <bang>0)
@@ -1982,6 +1983,10 @@ function! s:fzf_gitfiles(args, bang) abort
   else
     return call('fzf#vim#gitfiles', [a:args, a:bang])
   endif
+endfunction
+
+function! s:fzf_locate(query, bang)
+  call fzf#vim#locate(a:query, fzf#vim#with_preview(), a:bang)
 endfunction
 
 function! s:fzf_windows_preview() abort
@@ -2650,6 +2655,7 @@ if s:is_enabled_plugin('defx')
   endfunction
   command! -bang -nargs=? -complete=dir Files    call s:use_defx_fzf_action({ -> s:fzf_files(<q-args>, <bang>0) })
   command! -bang -nargs=?               GFiles   call s:use_defx_fzf_action({ -> s:fzf_gitfiles(<q-args>, <bang>0) })
+  command! -bang -nargs=+ -complete=dir Locate   call s:use_defx_fzf_action({ -> s:fzf_locate(<q-args>, <bang>0) })
 
   command! -bang          DirectoryMru      call s:use_defx_fzf_action({ -> s:directory_mru(<bang>0) })
   command! -bang -nargs=? Directories       call s:use_defx_fzf_action({ -> s:directories(<q-args>, <bang>0) })
