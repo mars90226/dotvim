@@ -4576,6 +4576,22 @@ function! s:get_cursor_syntax()
   return synIDattr(synID(line('.'), col('.'), 0), 'name')
 endfunction
 command! GetCursorSyntax echo s:get_cursor_syntax()
+
+" Find the cursor
+function! s:blink_cursor_location()
+  let cursorline = &cursorline
+  let cursorcolumn = &cursorcolumn
+
+  let &cursorline = 1
+  let &cursorcolumn = 1
+
+  call timer_start(200, function('s:blink_cursor_location_callback', [cursorline, cursorcolumn]))
+endfunction
+function! s:blink_cursor_location_callback(cursorline, cursorcolumn, timer_id)
+  let &cursorline = a:cursorline
+  let &cursorcolumn = a:cursorcolumn
+endfunction
+command! FindCursor call s:blink_cursor_location()
 " }}}
 
 " Custom command {{{
