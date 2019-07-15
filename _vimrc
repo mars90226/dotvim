@@ -1743,6 +1743,7 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>d<C-O> :Denite unite:outline<CR>
   nnoremap <Space>dp :call <SID>denite_project_tags('')<CR>
   nnoremap <Space>dP :call <SID>denite_project_tags(expand('<cword>'))<CR>
+  nnoremap <Space>d<C-P> :Denite -auto-resume -auto-action=preview file/rec<CR>
   nnoremap <Space>dq :Denite quickfix<CR>
   nnoremap <Space>dr :Denite register<CR>
   nnoremap <Space>ds :Denite session<CR>
