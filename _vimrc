@@ -3489,6 +3489,7 @@ augroup fugitiveSettings
   autocmd!
   autocmd FileType gitcommit setlocal nolist
   autocmd FileType fugitive call s:fugitive_settings()
+  autocmd FileType git      call s:git_settings()
   autocmd BufReadPost fugitive://* setlocal bufhidden=delete
 augroup END
 
@@ -3498,6 +3499,11 @@ function! s:fugitive_settings()
   nnoremap <buffer> <silent> gp :Gpush<CR>
   nnoremap <buffer> <silent> gl :Gpull<CR>
   nnoremap <buffer> <silent> gL :Gpull --rebase<CR>
+endfunction
+
+function! s:git_settings()
+  nnoremap <buffer> <silent> <Leader>gd :call <SID>git_diff_commit(fugitive#Object(@%))<CR>
+  nnoremap <buffer> <silent> <Leader>gg :call <SID>git_grep_commit(fugitive#Object(@%), input('Git grep: '))<CR>
 endfunction
 
 let g:fugitive_gitlab_domains = ['https://git.synology.com']
