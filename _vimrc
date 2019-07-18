@@ -3612,8 +3612,10 @@ nnoremap \tr :Tig ''<CR>
 nnoremap \tt :tabnew <Bar> Tig ''<CR>
 nnoremap \ts :new    <Bar> Tig ''<CR>
 nnoremap \tv :vnew   <Bar> Tig ''<CR>
-nnoremap \tl :execute 'new <Bar> Tig log -p --follow -- ' . expand('%:p')<CR>
-nnoremap \tL :execute 'new <Bar> Tig log -p $(git log --format=format:%H --follow -- ' . expand('%:p') . ')'<CR>
+" Add non-follow version as --follow will include many merge commits
+nnoremap \tl :execute 'new <Bar> Tig log -p -- ' . expand('%:p')<CR>
+nnoremap \tL :execute 'new <Bar> Tig log -p --follow -- ' . expand('%:p')<CR>
+nnoremap \t<C-L> :execute 'new <Bar> Tig log -p $(git log --format=format:%H --follow -- ' . expand('%:p') . ')'<CR>
 " }}}
 
 " Gina {{{
