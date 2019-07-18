@@ -4562,6 +4562,7 @@ function! s:quickfix_settings()
   nnoremap <silent><buffer> <C-V> :set switchbuf+=vsplit<CR><CR>:set switchbuf-=vsplit<CR>
 
   " Use fugitive to open
+  " TODO Add key mapping for :cnext and :cprevious for opening with fugitive
   nnoremap <silent><buffer> <M-f> :call <SID>quickfix_open('Gedit')<CR>
   nnoremap <silent><buffer> <M-t> :call <SID>quickfix_open('Gtabedit')<CR>
   nnoremap <silent><buffer> <M-s> :call <SID>quickfix_open('Gsplit')<CR>
