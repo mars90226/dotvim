@@ -162,6 +162,18 @@ function! s:has_jedi(...)
   endif
 endfunction
 
+let s:git_version = 'not initialized'
+function! s:git_version()
+  if s:git_version == 'not initialized'
+    let s:git_version = systemlist('git --version')[0]
+    if v:shell_error
+      let s:git_version = 'not installed'
+    endif
+  endif
+
+  return s:git_version
+endfunction
+
 " Choose statusline plugin
 " airline, lightline
 if $VIM_MODE == 'full'
@@ -1879,10 +1891,13 @@ endfunction
 " Don't return function, as function in g:fzf_action will only accept a:lines
 " or a:line, which is probably not what the caller want.
 let s:TYPE = {'dict': type({}), 'funcref': type(function('call')), 'string': type(''), 'list': type([])}
-function! s:action_for(key, ...)
+function! s:action_for_with_table(table, key, ...)
   let default = a:0 ? a:1 : ''
-  let Cmd = get(g:fzf_action, a:key, default)
+  let Cmd = get(a:table, a:key, default)
   return type(Cmd) == s:TYPE.string ? Cmd : default
+endfunction
+function! s:action_for(key, ...)
+  return s:action_for_with_table(g:fzf_action, a:key, a:000)
 endfunction
 
 " For filling quickfix in custom sink function
@@ -2521,6 +2536,92 @@ function! s:functions()
       \ 'down':    '40%'}))
 endfunction
 command! Functions call s:functions()
+
+let g:fugitive_fzf_action = extend({
+      \ 'enter': 'Gedit',
+      \ 'ctrl-t': 'Gtabedit',
+      \ 'ctrl-s': 'Gsplit',
+      \ 'ctrl-x': 'Gsplit',
+      \ 'ctrl-v': 'Gvsplit',
+      \ }, g:misc_fzf_action)
+function! s:use_fugitive_fzf_action(function)
+  let g:fzf_action = g:fugitive_fzf_action
+  augroup use_fugitive_fzf_action_callback
+    autocmd!
+    autocmd TermClose term://*fzf*
+          \ let g:fzf_action = g:default_fzf_action |
+          \ autocmd! use_fugitive_fzf_action_callback
+  augroup END
+  call a:function()
+endfunction
+
+if s:git_version() >= 'git version 2.19.0'
+  let g:git_grep_commit_command = 'git grep -n --column'
+else
+  let g:git_grep_commit_command = 'git grep -n'
+endif
+function! s:git_grep_commit(commit, ...)
+  let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
+  let with_column = (s:git_version() >= 'git version 2.19.0') ? 1 : 0
+
+  call fzf#run(s:wrap('', {
+        \ 'source': g:git_grep_commit_command.' '.shellescape(query).' '.a:commit,
+        \ 'sink*': function('s:git_grep_commit_sink', [with_column]),
+        \ 'options': '-m -s',
+        \ 'down': '40%'}, 0))
+endfunction
+" Borrowed from fzf.vim
+function! s:escape(path)
+  let path = fnameescape(a:path)
+  return s:os == 'windows' ? escape(path, '$') : path
+endfunction
+" Borrowed from fzf.vim
+function! s:open(cmd, target)
+  echom 'In s:open, cmd: ' . a:cmd . ', target: ' . a:target
+  if stridx('edit', a:cmd) == 0 && fnamemodify(a:target, ':p') ==# expand('%:p')
+    return
+  endif
+  execute a:cmd s:escape(a:target)
+endfunction
+" Borrowed from fzf.vim
+function! s:git_grep_to_qf(line, with_column)
+  let parts = split(a:line, ':')
+  let text = join(parts[(a:with_column ? 4 : 3):], ':')
+  let dict = {'filename': parts[0] . ':' . (&acd ? fnamemodify(parts[1], ':p') : parts[1]), 'lnum': parts[2], 'text': text}
+  if a:with_column
+    let dict.col = parts[3]
+  endif
+  return dict
+endfunction
+" Borrowed from fzf.vim
+function! s:git_grep_commit_sink(with_column, lines)
+  echom 'with_column: ' . a:with_column
+  echom 'lines: ' . string(a:lines)
+  if len(a:lines) < 2
+    return
+  endif
+
+  let cmd = s:action_for_with_table(g:fugitive_fzf_action, a:lines[0], 'Gedit')
+  let list = map(filter(a:lines[1:], 'len(v:val)'), 's:git_grep_to_qf(v:val, a:with_column)')
+  echom 'list: ' . string(list)
+  if empty(list)
+    return
+  endif
+
+  let first = list[0]
+  try
+    call s:open(cmd, first.filename)
+    execute first.lnum
+    if a:with_column
+      execute 'normal!' first.col.'|'
+    endif
+    normal! zz
+  catch
+  endtry
+
+  call s:fill_quickfix(list)
+endfunction
+command! -nargs=+ GitGrepCommit call s:git_grep_commit(<f-args>)
 
 " Cscope functions {{{
 " Borrowed from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
@@ -4435,6 +4536,28 @@ function! s:quickfix_settings()
   nnoremap <silent><buffer> <C-T> :set switchbuf+=newtab<CR><CR>:set switchbuf-=newtab<CR>
   nnoremap <silent><buffer> <C-S> :set switchbuf+=split<CR><CR>:set switchbuf-=split<CR>
   nnoremap <silent><buffer> <C-V> :set switchbuf+=vsplit<CR><CR>:set switchbuf-=vsplit<CR>
+
+  " Use fugitive to open
+  nnoremap <silent><buffer> <M-f> :call <SID>quickfix_open('Gedit')<CR>
+  nnoremap <silent><buffer> <M-t> :call <SID>quickfix_open('Gtabedit')<CR>
+  nnoremap <silent><buffer> <M-s> :call <SID>quickfix_open('Gsplit')<CR>
+  nnoremap <silent><buffer> <M-v> :call <SID>quickfix_open('Gvsplit')<CR>
+endfunction
+
+function! s:quickfix_open(cmd)
+  " Get current selected quickfix item
+  let item = getqflist()[line('.') - 1]
+  let buffer_name = bufname(item.bufnr)
+
+  " Emulate switchbuf by CTRL-W_W to window above/left of current one and
+  " execute cmd
+  wincmd W
+  execute a:cmd.' '.buffer_name
+  execute item.lnum
+  if item.col
+    execute 'normal! ' . item.col . '|'
+  endif
+  normal! zz
 endfunction
 " }}}
 
