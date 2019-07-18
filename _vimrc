@@ -3528,6 +3528,15 @@ let s:common_efm = ''
       \ . '%+Efatal:%.%#,'
       \ . '%-G%.%#%\e[K%.%#,'
       \ . '%-G%.%#%\r%.%\+'
+
+let s:fnameescape = " \t\n*?[{`$\\%#'\"|!<"
+function! s:fnameescape(file) abort
+  if exists('*fnameescape')
+    return fnameescape(a:file)
+  else
+    return escape(a:file, s:fnameescape)
+  endif
+endfunction
 " }}}
 
 " Borrowed and modified from vim-fugitive s:Dispatch
@@ -3543,6 +3552,17 @@ function! s:git_dispatch(command)
     let [&l:mp, &l:efm, b:current_compiler] = [mp, efm, cc]
     if empty(cc) | unlet! b:current_compiler | endif
   endtry
+endfunction
+
+function! s:fugitive_commit_sha()
+  let filename = fugitive#Object(@%)
+  if filename =~# ':'
+    let sha = split(filename, ':')[0]
+  else
+    let sha = 'HEAD'
+  endif
+
+  return sha
 endfunction
 " }}}
 
@@ -4502,6 +4522,8 @@ cnoremap <expr> <C-G><C-\> expand('%:p')
 " For grepping word
 cnoremap <expr> <C-G><C-W> "\\b" . expand('<cword>') . "\\b"
 cnoremap <expr> <C-G><C-A> "\\b" . expand('<cWORD>') . "\\b"
+" Fugitive commit sha
+cnoremap <expr> <C-G><C-Y> <SID>fugitive_commit_sha()
 
 " s:execute_command() for executing command with query
 " TODO input completion
