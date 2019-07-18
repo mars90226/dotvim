@@ -2621,7 +2621,7 @@ function! s:git_grep_commit_sink(with_column, lines)
 
   call s:fill_quickfix(list)
 endfunction
-command! -nargs=+ GitGrepCommit call s:git_grep_commit(<f-args>)
+command! -nargs=+ -complete=customlist,fugitive#CompleteObject GitGrepCommit call s:git_grep_commit(<f-args>)
 
 " Cscope functions {{{
 " Borrowed from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
@@ -3502,7 +3502,7 @@ endfunction
 
 let g:fugitive_gitlab_domains = ['https://git.synology.com']
 
-command! -nargs=? GitDiffCommit call s:git_diff_commit(<f-args>)
+command! -nargs=? -complete=customlist,fugitive#CompleteObject GitDiffCommit call s:git_diff_commit(<f-args>)
 function! s:git_diff_commit(commit)
   if exists('b:git_dir')
     let files = systemlist('git diff --name-only ' . a:commit . '^!')
