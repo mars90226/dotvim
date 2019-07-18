@@ -2778,6 +2778,7 @@ nnoremap <Space>fF :DirectoryRg<CR>
 nnoremap <Space>f<C-F> :execute 'Files ' . expand('<cfile>')<CR>
 nnoremap <Space>fg :GFiles -co --exclude-standard<CR>
 nnoremap <Space>fG :execute 'GGrep ' . input('Git grep: ')<CR>
+nnoremap <Space>f<C-G> :execute 'GitGrepCommit ' . input('Commit: ') . ' ' . input('Git grep: ')<CR>
 nnoremap <Space>fh :Helptags<CR>
 nnoremap <Space>fi :History<CR>
 nnoremap <Space>fj :Jump<CR>
@@ -3579,6 +3580,7 @@ augroup END
 function! s:gv_settings()
   nnoremap <silent><buffer> + :call <SID>gv_expand()<CR>
   nnoremap <silent><buffer> <Leader>gd :call <SID>git_diff_commit(gv#sha())<CR>
+  nnoremap <silent><buffer> <Leader>gg :call <SID>git_grep_commit(gv#sha(), input('Git grep: '))<CR>
 endfunction
 " }}}
 
