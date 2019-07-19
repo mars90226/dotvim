@@ -4541,6 +4541,11 @@ cnoremap <expr> <C-G><C-A> "\\b" . expand('<cWORD>') . "\\b"
 " Fugitive commit sha
 cnoremap <expr> <C-G><C-Y> <SID>fugitive_commit_sha()
 
+" Ex mode for special buffer that map 'q' as ':quit'
+nnoremap \q: q:
+nnoremap \q/ q/
+nnoremap \q? q?
+
 " s:execute_command() for executing command with query
 " TODO input completion
 function! s:execute_command(command, prompt)
