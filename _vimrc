@@ -1884,7 +1884,7 @@ inoremap <expr> <C-X><C-D> fzf#vim#complete#path('fd -t d')
 " fzf functions & commands {{{
 " fzf utility functions borrowed from fzf.vim {{{
 function! s:warn(message)
-  echohl WarningMsg | echom a:message | echohl None
+  echohl WarningMsg | echomsg a:message | echohl None
 endfunction
 
 " For using g:fzf_action in custom sink function
@@ -2026,7 +2026,6 @@ endfunction
 
 " Currently not used
 function! s:fzf_files_sink(lines)
-  echom string(a:lines)
   if len(a:lines) < 2
     return
   endif
@@ -2309,8 +2308,7 @@ function! s:files_in_commandline_sink(line)
   let s:files_in_commandline_result = a:line
 endfunction
 
-command! -bang -nargs=* GGrep
-  \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
+command! -bang -nargs=* GitGrep call s:git_grep_commit('', <q-args>)
 
 function! s:tselect_sink(lines)
   if len(a:lines) < 2
@@ -2431,7 +2429,6 @@ command! DirectoryAncestors call fzf#run(fzf#wrap({
 
 " Borrowed from s:buffer_line_handler from fzf.vim
 function! s:range_lines_handler(center, lines)
-  echom string(a:lines)
   if len(a:lines) < 2
     return
   endif
@@ -2566,7 +2563,7 @@ function! s:git_grep_commit(commit, ...)
 
   call fzf#run(s:wrap('', {
         \ 'source': g:git_grep_commit_command.' '.shellescape(query).' '.a:commit,
-        \ 'sink*': function('s:git_grep_commit_sink', [with_column]),
+        \ 'sink*': function('s:git_grep_commit_sink', [a:commit, with_column]),
         \ 'options': '-m -s',
         \ 'down': '40%'}, 0))
 endfunction
@@ -2577,33 +2574,43 @@ function! s:escape(path)
 endfunction
 " Borrowed from fzf.vim
 function! s:open(cmd, target)
-  echom 'In s:open, cmd: ' . a:cmd . ', target: ' . a:target
   if stridx('edit', a:cmd) == 0 && fnamemodify(a:target, ':p') ==# expand('%:p')
     return
   endif
   execute a:cmd s:escape(a:target)
 endfunction
 " Borrowed from fzf.vim
-function! s:git_grep_to_qf(line, with_column)
+function! s:git_grep_to_qf(line, commit, with_column)
   let parts = split(a:line, ':')
-  let text = join(parts[(a:with_column ? 4 : 3):], ':')
-  let dict = {'filename': parts[0] . ':' . (&acd ? fnamemodify(parts[1], ':p') : parts[1]), 'lnum': parts[2], 'text': text}
+  let indexs = { 'commit': 0, 'filename': 0, 'lnum': 1, 'col': 2, 'text': 2 }
+  if !empty(a:commit)
+    let indexs['filename'] += 1
+    let indexs['lnum'] += 1
+    let indexs['col'] += 1
+    let indexs['text'] += 1
+  endif
   if a:with_column
-    let dict.col = parts[3]
+    let indexs['text'] += 1
+  endif
+
+  let text = join(parts[indexs['text']:], ':')
+  let dict = {
+        \ 'filename': (empty(a:commit) ? '' : parts[indexs['commit']] . ':') . (&acd ? fnamemodify(parts[indexs['filename']], ':p') : parts[indexs['filename']]),
+        \ 'lnum': parts[indexs['lnum']],
+        \ 'text': text }
+  if a:with_column
+    let dict.col = parts[indexs['col']]
   endif
   return dict
 endfunction
 " Borrowed from fzf.vim
-function! s:git_grep_commit_sink(with_column, lines)
-  echom 'with_column: ' . a:with_column
-  echom 'lines: ' . string(a:lines)
+function! s:git_grep_commit_sink(commit, with_column, lines)
   if len(a:lines) < 2
     return
   endif
-
+https://www.ptt.cc/bbs/Gossiping/M.1563512652.A.905.html
   let cmd = s:action_for_with_table(g:fugitive_fzf_action, a:lines[0], 'Gedit')
-  let list = map(filter(a:lines[1:], 'len(v:val)'), 's:git_grep_to_qf(v:val, a:with_column)')
-  echom 'list: ' . string(list)
+  let list = map(filter(a:lines[1:], 'len(v:val)'), 's:git_grep_to_qf(v:val, a:commit, a:with_column)')
   if empty(list)
     return
   endif
@@ -2686,7 +2693,7 @@ function! s:cscope_query(option)
   if query != ""
     call s:cscope(a:option, query)
   else
-    echom "Cancelled Search!"
+    echomsg "Cancelled Search!"
   endif
 endfunction
 " }}}
@@ -2777,7 +2784,7 @@ nnoremap <Space>ff :Files<CR>
 nnoremap <Space>fF :DirectoryRg<CR>
 nnoremap <Space>f<C-F> :execute 'Files ' . expand('<cfile>')<CR>
 nnoremap <Space>fg :GFiles -co --exclude-standard<CR>
-nnoremap <Space>fG :execute 'GGrep ' . input('Git grep: ')<CR>
+nnoremap <Space>fG :execute 'GitGrep ' . input('Git grep: ')<CR>
 nnoremap <Space>f<C-G> :execute 'GitGrepCommit ' . input('Commit: ') . ' ' . input('Git grep: ')<CR>
 nnoremap <Space>fh :Helptags<CR>
 nnoremap <Space>fi :History<CR>
