@@ -2608,7 +2608,7 @@ function! s:git_grep_commit_sink(commit, with_column, lines)
   if len(a:lines) < 2
     return
   endif
-https://www.ptt.cc/bbs/Gossiping/M.1563512652.A.905.html
+
   let cmd = s:action_for_with_table(g:fugitive_fzf_action, a:lines[0], 'Gedit')
   let list = map(filter(a:lines[1:], 'len(v:val)'), 's:git_grep_to_qf(v:val, a:commit, a:with_column)')
   if empty(list)
