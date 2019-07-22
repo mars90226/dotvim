@@ -2812,6 +2812,7 @@ nnoremap <Space>fg :GFiles -co --exclude-standard<CR>
 nnoremap <Space>fG :execute 'GitGrep ' . input('Git grep: ')<CR>
 nnoremap <Space>f<C-G> :execute 'GitGrepCommit ' . input('Commit: ') . ' ' . input('Git grep: ')<CR>
 nnoremap <Space>fh :Helptags<CR>
+nnoremap <Space>fH :execute 'GitFilesCommit ' . input('Commit: ')<CR>
 nnoremap <Space>fi :History<CR>
 nnoremap <Space>fj :Jump<CR>
 nnoremap <Space>fk :execute 'Rg ' . expand('<cword>')<CR>
