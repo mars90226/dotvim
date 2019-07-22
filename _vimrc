@@ -2308,8 +2308,6 @@ function! s:files_in_commandline_sink(line)
   let s:files_in_commandline_result = a:line
 endfunction
 
-command! -bang -nargs=* GitGrep call s:git_grep_commit('', <q-args>)
-
 function! s:tselect_sink(lines)
   if len(a:lines) < 2
     return
@@ -2552,6 +2550,7 @@ function! s:use_fugitive_fzf_action(function)
   call a:function()
 endfunction
 
+" Git related command {{{
 if s:git_version() >= 'git version 2.19.0'
   let g:git_grep_commit_command = 'git grep -n --column'
 else
@@ -2565,7 +2564,7 @@ function! s:git_grep_commit(commit, ...)
         \ 'source': g:git_grep_commit_command.' '.shellescape(query).' '.a:commit,
         \ 'sink*': function('s:git_grep_commit_sink', [a:commit, with_column]),
         \ 'options': '-m -s',
-        \ 'down': '40%'}, 0))
+        \ 'down': '40%' }, 0))
 endfunction
 " Borrowed from fzf.vim
 function! s:escape(path)
@@ -2629,6 +2628,32 @@ function! s:git_grep_commit_sink(commit, with_column, lines)
   call s:fill_quickfix(list)
 endfunction
 command! -nargs=+ -complete=customlist,fugitive#CompleteObject GitGrepCommit call s:git_grep_commit(<f-args>)
+command! -bang -nargs=* GitGrep call s:git_grep_commit('', <q-args>)
+
+let g:git_files_commit_command = 'git ls-tree -r --name-only'
+function! s:git_files_commit(commit)
+  call fzf#run(s:wrap('', {
+        \ 'source': g:git_files_commit_command.' '.a:commit,
+        \ 'sink*': function('s:git_files_commit_sink', [a:commit]),
+        \ 'options': '-m -s',
+        \ 'down': '40%' }, 0))
+endfunction
+function! s:git_files_commit_sink(commit, lines)
+  if len(a:lines) < 2
+    return
+  endif
+  let cmd = s:action_for_with_table(g:fugitive_fzf_action, a:lines[0], 'Gedit')
+  for target in a:lines[1:]
+    let filename = a:commit . ':' . target
+    if type(cmd) == type(function('call'))
+      cmd(filename)
+    else
+      execute cmd . ' ' . filename
+    endif
+  endfor
+endfunction
+command! -nargs=1 -complete=customlist,fugitive#CompleteObject GitFilesCommit call s:git_files_commit(<q-args>)
+" }}}
 
 " Cscope functions {{{
 " Borrowed from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
