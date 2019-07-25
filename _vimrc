@@ -4781,9 +4781,9 @@ endfunction
 command! -nargs=1 -complete=file FileSize call s:file_size(<q-args>)
 
 function! s:set_tab_size(size)
-  let &tabstop     = a:size
-  let &shiftwidth  = a:size
-  let &softtabstop = a:size
+  let &l:tabstop     = a:size
+  let &l:shiftwidth  = a:size
+  let &l:softtabstop = a:size
 endfunction
 command! -nargs=1 SetTabSize call s:set_tab_size(<q-args>)
 
