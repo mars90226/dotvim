@@ -2630,6 +2630,34 @@ endfunction
 command! -nargs=+ -complete=customlist,fugitive#CompleteObject GitGrepCommit call s:git_grep_commit(<f-args>)
 command! -bang -nargs=* GitGrep call s:git_grep_commit('', <q-args>)
 
+" TODO: Handle added/deleted files
+let g:git_diff_commit_command = 'git diff --name-only'
+function! s:git_diff_commit(commit)
+  if !exists('b:git_dir')
+    echo 'No git a git repository:' expand('%:p')
+  endif
+
+  let revision = a:commit . '^!'
+
+  call fzf#run(fzf#wrap({
+        \ 'source': g:git_diff_commit_command.' '.revision,
+        \ 'sink*': function('s:git_diff_commit_sink', [a:commit]),
+        \ 'options': '-m -s',
+        \ 'down': '40%' }))
+endfunction
+function! s:git_diff_commit_sink(commit, lines)
+  let current_tabnr = tabpagenr()
+  for file in a:lines
+    execute 'tabedit ' . file
+  endfor
+  let last_tabnr = tabpagenr()
+  let range = current_tabnr + 1 . ',' . last_tabnr
+
+  execute range . 'tabdo Gedit ' . a:commit . '^:%'
+  execute range . 'tabdo Gdiff ' . a:commit
+endfunction
+command! -nargs=? -complete=customlist,fugitive#CompleteObject GitDiffCommit call s:git_diff_commit(<f-args>)
+
 let g:git_files_commit_command = 'git ls-tree -r --name-only'
 function! s:git_files_commit(commit)
   call fzf#run(s:wrap('', {
@@ -3540,24 +3568,6 @@ function! s:git_settings()
 endfunction
 
 let g:fugitive_gitlab_domains = ['https://git.synology.com']
-
-command! -nargs=? -complete=customlist,fugitive#CompleteObject GitDiffCommit call s:git_diff_commit(<f-args>)
-function! s:git_diff_commit(commit)
-  if exists('b:git_dir')
-    let files = systemlist('git diff --name-only ' . a:commit . '^!')
-    let current_tabnr = tabpagenr()
-    for file in files
-      execute 'tabedit ' . file
-    endfor
-    let last_tabnr = tabpagenr()
-    let range = current_tabnr + 1 . ',' . last_tabnr
-
-    execute range . 'tabdo Gedit ' . a:commit . '^:%'
-    execute range . 'tabdo Gdiff ' . a:commit
-  else
-    echo 'No git a git repository:' expand('%:p')
-  endif
-endfunction
 
 " Borrowed from vim-fugitive {{{
 let s:common_efm = ''
