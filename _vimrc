@@ -251,7 +251,10 @@ endif
 if empty(glob($VIMHOME.'/autoload/plug.vim'))
   silent! !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://rawgithubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall
+  augroup plug_install
+    autocmd!
+    autocmd VimEnter * PlugInstall
+  augroup END
 endif
 " }}}
 " }}}
@@ -488,7 +491,10 @@ endfunction
 nnoremap <Space>il :IndentLinesToggle<CR>
 nnoremap <Space>iL :call <SID>toggle_indentline_enabled()<CR>
 
-autocmd! User indentLine doautocmd indentLine Syntax
+augroup indent_line_syntax
+  autocmd!
+  autocmd User indentLine doautocmd indentLine Syntax
+augroup END
 " }}}
 
 " vim-devicons {{{
@@ -573,9 +579,6 @@ if s:is_enabled_plugin('coc.nvim')
     endif
   endfunction
 
-  " Highlight symbol under cursor on CursorHold
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-
   " mappings for rename current word
   nmap <Space>cr <Plug>(coc-rename)
 
@@ -585,6 +588,8 @@ if s:is_enabled_plugin('coc.nvim')
 
   augroup coc_settings
     autocmd!
+    " Highlight symbol under cursor on CursorHold
+    autocmd CursorHold * silent call CocActionAsync('highlight')
     " Setup formatexpr
     autocmd FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
     " Update signature help on jump placeholder
@@ -1022,7 +1027,11 @@ if s:is_enabled_plugin("vimfiler")
   let g:vimfiler_as_default_explorer = 1
   nnoremap <F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit<CR>
   nnoremap <Space><F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit -find<CR>
-  autocmd FileType vimfiler call s:vimfiler_my_settings()
+
+  augroup vimfiler_my_settings
+    autocmd!
+    autocmd FileType vimfiler call s:vimfiler_my_settings()
+  augroup END
   function! s:vimfiler_my_settings()
     " Runs "tabopen" action by <C-T>.
     nmap <silent><buffer><expr> <C-T>     vimfiler#do_action('tabopen')
@@ -1255,7 +1264,10 @@ if s:is_enabled_plugin("defx")
   endfunction
   " }}}
 
-  autocmd FileType defx call s:defx_my_settings()
+  augroup defx_my_settings
+    autocmd!
+    autocmd FileType defx call s:defx_my_settings()
+  augroup END
   function! s:defx_my_settings() abort " {{{
     " Define mappings
     if bufname('%') =~ 'tab'
@@ -1574,7 +1586,10 @@ if executable('rg')
 endif
 " }}}
 
-autocmd FileType unite call s:unite_my_settings()
+augroup unite_my_settings
+  autocmd!
+  autocmd FileType unite call s:unite_my_settings()
+augroup END
 function! s:unite_my_settings() "{{{
   " Overwrite settings.
 
@@ -2753,13 +2768,16 @@ endfunction
 " }}}
 
 if has("nvim")
+  augroup fzf_statusline
+    autocmd!
+    autocmd User FzfStatusLine call s:fzf_statusline()
+  augroup END
   function! s:fzf_statusline()
     highlight fzf1 ctermfg=242 ctermbg=236 guifg=#7c6f64 guibg=#32302f
     highlight fzf2 ctermfg=143 guifg=#b8bb26
     highlight fzf3 ctermfg=15 ctermbg=239 guifg=#ebdbb2 guibg=#504945
     setlocal statusline=%#fzf1#\ >\ %#fzf2#fzf%#fzf3#
   endfunction
-  autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
   function! s:project_tags(query, ...)
     let s:origin_tags = &tags
@@ -3206,7 +3224,6 @@ command! AutoPairsToggleMultilineClose call <SID>AutoPairsToggleMultilineClose()
 
 augroup autoPairsFileTypeSpecific
   autocmd!
-
   autocmd Filetype xml let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '<': '>'}
 augroup END
 " }}}
@@ -3708,7 +3725,10 @@ Plug 'mattn/gist-vim'
 " Gundo {{{
 if has('python3')
   Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
-  autocmd! User gundo.vim let g:gundo_prefer_python3 = 1
+  augroup gundo_prefer_python3
+    autocmd!
+    autocmd User gundo.vim let g:gundo_prefer_python3 = 1
+  augroup END
 
   nnoremap <F9> :GundoToggle<CR>
 endif
@@ -3838,7 +3858,7 @@ Plug 'thinca/vim-qfreplace'
 
 augroup qfreplace_settings
   autocmd!
-  autocmd! FileType qf call s:qfreplace_settings()
+  autocmd FileType qf call s:qfreplace_settings()
 augroup END
 
 function! s:qfreplace_settings()
