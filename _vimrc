@@ -1897,7 +1897,8 @@ function! s:action_for_with_table(table, key, ...)
   return type(Cmd) == s:TYPE.string ? Cmd : default
 endfunction
 function! s:action_for(key, ...)
-  return s:action_for_with_table(g:fzf_action, a:key, a:000)
+  let default = a:0 ? a:1 : ''
+  return s:action_for_with_table(g:fzf_action, a:key, default)
 endfunction
 
 " For filling quickfix in custom sink function
