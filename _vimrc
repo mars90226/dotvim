@@ -3649,6 +3649,7 @@ augroup END
 function! s:gv_settings()
   nnoremap <silent><buffer> + :call <SID>gv_expand()<CR>
   nnoremap <silent><buffer> <Leader>gd :call <SID>git_diff_commit(gv#sha())<CR>
+  nnoremap <silent><buffer> <Leader>gf :call <SID>git_files_commit(gv#sha())<CR>
   nnoremap <silent><buffer> <Leader>gg :call <SID>git_grep_commit(gv#sha(), input('Git grep: '))<CR>
 endfunction
 " }}}
