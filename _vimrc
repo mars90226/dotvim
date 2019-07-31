@@ -36,7 +36,7 @@ endif
 "   let $VIMHOME = $HOME."/.vim"
 " endif
 " Use directory junction in Windows to link $HOME."/.vim" to $VIM."/vimfiles"
-let $VIMHOME = $HOME."/.vim"
+let $VIMHOME = $HOME.'/.vim'
 
 " Set Encoding
 if s:os =~ "windows"
@@ -87,7 +87,7 @@ command! ListDisabledPlugins call s:get_disabled_plugins()
 " }}}
 
 " plugin config cache {{{
-let s:plugin_config_cache_name = $VIMHOME . ".plugin_config_cache"
+let s:plugin_config_cache_name = $VIMHOME.'/.plugin_config_cache'
 function! s:read_plugin_config_cache()
   if filereadable(s:plugin_config_cache_name)
     execute 'source ' . s:plugin_config_cache_name
