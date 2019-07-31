@@ -2096,8 +2096,8 @@ endfunction
 
 let g:fd_command = 'fd --no-ignore --hidden --follow'
 command! -bang -nargs=? -complete=dir AllFiles call fzf#vim#files(<q-args>,
-      \ <bang>0 ? extend({ 'source': g:fd_command }, fzf#vim#with_preview('up:60%'))
-      \         : extend({ 'source': g:fd_command }, fzf#vim#with_preview()),
+      \ <bang>0 ? fzf#vim#with_preview({ 'source': g:fd_command }, 'up:60%')
+      \         : fzf#vim#with_preview({ 'source': g:fd_command }),
       \ <bang>0)
 
 let g:git_diff_tree_command = 'git diff-tree --no-commit-id --name-only -r '
@@ -2119,9 +2119,7 @@ function! s:git_diff_tree(...)
 
   call fzf#vim#files(
         \ folder,
-        \ extend({
-        \   'source': g:git_diff_tree_command . commit
-        \ }, fzf#vim#with_preview()),
+        \ fzf#vim#with_preview({ 'source': g:git_diff_tree_command . commit }),
         \ bang)
 endfunction
 
@@ -2313,9 +2311,9 @@ function! s:files_in_commandline()
   let g:fzf_prefer_tmux = 1
   call fzf#vim#files(
         \ '',
-        \ extend({
+        \ fzf#vim#with_preview({
         \   'sink': function('s:files_in_commandline_sink'),
-        \ }, fzf#vim#with_preview()),
+        \ }),
         \ 0)
   let g:fzf_prefer_tmux = 0
   return s:files_in_commandline_result
@@ -2722,15 +2720,15 @@ endfunction
 function! s:cscope(option, query)
   let expect_keys = join(keys(g:fzf_action), ',')
   let color = '{ x = $1; $1 = ""; z = $3; $3 = ""; printf "\033[34m%s\033[0m:\033[31m%s:\033[0m\011\033[37m%s\033[0m\n", x,z,$0; }'
-  let opts = {
-  \ 'source':  "cscope -dL" . a:option . " " . a:query . " | awk '" . color . "'",
-  \ 'sink*': function('s:cscope_sink'),
-  \ 'options': extend(['--ansi', '--prompt', '> ',
-  \             '--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
-  \             '--color', 'fg:188,fg+:222,bg+:#3a3a3a,hl+:104',
-  \             '--expect=' . expect_keys], fzf#vim#with_preview('right:50%:hidden', '?').options),
-  \ 'down': '40%'
-  \ }
+  let opts = fzf#vim#with_preview({
+        \ 'source':  "cscope -dL" . a:option . " " . a:query . " | awk '" . color . "'",
+        \ 'sink*': function('s:cscope_sink'),
+        \ 'options': ['--ansi', '--prompt', '> ',
+        \             '--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
+        \             '--color', 'fg:188,fg+:222,bg+:#3a3a3a,hl+:104',
+        \             '--expect=' . expect_keys],
+        \ 'down': '40%'
+        \ }, 'right:50%:hidden', '?')
   call fzf#run(opts)
 endfunction
 
