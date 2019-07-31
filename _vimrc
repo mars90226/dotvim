@@ -1777,8 +1777,8 @@ if s:is_enabled_plugin('denite.nvim')
   nnoremap <Space>d<Space> :Denite source<CR>
   nnoremap <Space>dt :Denite tag<CR>
   nnoremap <Space>du :Denite -resume<CR>
-  nnoremap <Space>dU :Denite -resume -buffer-name=`call(g:sid.'denite_get_buffer_name', ['grep'])`<CR>
-  nnoremap <Space>d<C-U> :Denite -resume -refresh -buffer-name=`call(g:sid.'denite_get_buffer_name', ['grep'])`<CR>
+  nnoremap <Space>dU :Denite -resume -buffer-name=`{g:sid}denite_get_buffer_name('grep')`<CR>
+  nnoremap <Space>d<C-U> :Denite -resume -refresh -buffer-name=`{g:sid}denite_get_buffer_name('grep')`<CR>
   nnoremap <Space>dx :Denite defx/history<CR>
   nnoremap <Space>dy :Denite neoyank<CR>
   nnoremap <Space>d: :Denite command_history<CR>
@@ -1788,8 +1788,8 @@ if s:is_enabled_plugin('denite.nvim')
 
   nnoremap <silent> [d :Denite -resume -immediately -cursor-pos=-1<CR>
   nnoremap <silent> ]d :Denite -resume -immediately -cursor-pos=+1<CR>
-  nnoremap <silent> [D :Denite -resume -immediately -cursor-pos=-1 -buffer-name=`call(g:sid.'denite_get_buffer_name', ['grep'])`<CR>
-  nnoremap <silent> ]D :Denite -resume -immediately -cursor-pos=+1 -buffer-name=`call(g:sid.'denite_get_buffer_name', ['grep'])`<CR>
+  nnoremap <silent> [D :Denite -resume -immediately -cursor-pos=-1 -buffer-name=`{g:sid}denite_get_buffer_name('grep')`<CR>
+  nnoremap <silent> ]D :Denite -resume -immediately -cursor-pos=+1 -buffer-name=`{g:sid}denite_get_buffer_name('grep')`<CR>
 
   if executable('rg')
     nnoremap <Space>dg/ :call <SID>denite_grep('', 'grep', <SID>rg_current_type_option(), v:false)<CR>
