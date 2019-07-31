@@ -2307,6 +2307,7 @@ endfunction
 
 " Intend to be mapped in command
 function! s:files_in_commandline()
+  let s:files_in_commandline_result = ''
   " Use tmux to avoid opening terminal in neovim
   let g:fzf_prefer_tmux = 1
   call fzf#vim#files(
