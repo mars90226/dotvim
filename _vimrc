@@ -2070,11 +2070,11 @@ endif
 "     \ -g "!{.config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
 " Manually specify ignore file as ripgrep 0.9.0 will not respect to .gitignore outside of git repository
 let g:rg_base_command = 'rg --column --line-number --no-heading --smart-case --color=always --follow --with-filename '
-let g:rg_command = g:rg_base_command . '--ignore-file ' . $HOME . '/.gitignore ' " TODO Use '.ignore'?
-let g:rg_all_command = g:rg_base_command . '--no-ignore --hidden '
+let g:rg_command = g:rg_base_command . '--ignore-file ' . $HOME . '/.gitignore' " TODO Use '.ignore'?
+let g:rg_all_command = g:rg_base_command . '--no-ignore --hidden'
 command! -bang -nargs=* Rg call fzf#vim#grep(
-      \ <bang>0 ? g:rg_all_command.shellescape(<q-args>)
-      \         : g:rg_command.shellescape(<q-args>), 1,
+      \ <bang>0 ? g:rg_all_command.' -- '.shellescape(<q-args>)
+      \         : g:rg_command.' -- '.shellescape(<q-args>), 1,
       \ <bang>0 ? fzf#vim#with_preview('up:60%')
       \         : fzf#vim#with_preview('right:50%:hidden', '?'),
       \ <bang>0)
@@ -2087,8 +2087,8 @@ function! s:rg_with_option(command, bang)
   let option = command_parts[1]
   let query = join(command_parts[2:], ':')
   call fzf#vim#grep(
-        \ a:bang ? g:rg_all_command.option.' '.shellescape(query).' '.folder
-        \        : g:rg_command.option.' '.shellescape(query).' '.folder, 1,
+        \ a:bang ? g:rg_all_command.' '.option.' -- '.shellescape(query).' '.folder
+        \        : g:rg_command.' '.option.' -- '.shellescape(query).' '.folder, 1,
         \ a:bang ? fzf#vim#with_preview('up:60%')
         \        : fzf#vim#with_preview('right:50%:hidden', '?'),
         \ a:bang)
