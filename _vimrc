@@ -936,9 +936,34 @@ nnoremap <Space>cm :CtrlPCmdline<CR>
 nnoremap <Space>c] :CtrlPtjump<CR>
 xnoremap <Space>c] :CtrlPtjumpVisual<CR>
 
+let g:ctrlp_user_command_default_timeout = 5
+let g:ctrlp_user_command_timeout = g:ctrlp_user_command_default_timeout
+
+function! s:ctrlp_update_user_command(has_timeout)
+  if empty(g:ctrlp_base_user_command)
+    return
+  endif
+
+  let g:ctrlp_user_command = (a:has_timeout ? 'timeout '. g:ctrlp_user_command_timeout . ' ' : '') . g:ctrlp_base_user_command
+endfunction
+
+function! s:ctrlp_set_timeout(timeout)
+  if a:timeout == -1
+    let g:ctrlp_user_command_timeout = g:ctrlp_user_command_default_timeout
+  elseif a:timeout != 0
+    let g:ctrlp_user_command_timeout = a:timeout
+  endif
+
+  call s:ctrlp_update_user_command(a:timeout != 0)
+endfunction
+command! -nargs=1 CtrlPSetTimeout call s:ctrlp_set_timeout(<f-args>)
+
 if executable('fd')
-  let g:ctrlp_user_command = 'fd --type f --no-ignore-vcs --hidden --follow --ignore-file ' . $HOME . '/.ignore "" %s'
+  let g:ctrlp_base_user_command = 'fd --type f --no-ignore-vcs --hidden --follow --ignore-file ' . $HOME . '/.ignore "" %s'
+  let g:ctrlp_user_command = 'timeout '. g:ctrlp_user_command_timeout . ' '. g:ctrlp_base_user_command
 endif
+
+call s:ctrlp_update_user_command(v:true)
 " }}}
 
 " netrw {{{
