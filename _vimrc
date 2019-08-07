@@ -1,3 +1,4 @@
+"
 " Bootstrap {{{
 " ====================================================================
 " Map Leader
@@ -4852,6 +4853,13 @@ function! s:blink_cursor_location_callback(cursorline, cursorcolumn, timer_id)
   let &cursorcolumn = a:cursorcolumn
 endfunction
 command! FindCursor call s:blink_cursor_location()
+
+if executable('tmux')
+  function! s:refresh_display()
+    let $DISPLAY = split(systemlist('tmux show-environment DISPLAY')[0], '=')[1]
+  endfunction
+  command! RefreshDisplay s:refresh_display()
+endif
 " }}}
 
 " Custom command {{{
