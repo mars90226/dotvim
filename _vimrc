@@ -356,7 +356,7 @@ if s:is_enabled_plugin('lightline.vim')
     elseif fname == '__Gundo__'
       return ''
     elseif &ft == 'qf'
-      return w:quickfix_title
+      return get(w:, 'quickfix_title', '')
     elseif &ft == 'unite'
       return unite#get_status_string()
     elseif &ft == 'vimfiler'
