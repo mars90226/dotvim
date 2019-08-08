@@ -4858,7 +4858,7 @@ if executable('tmux')
   function! s:refresh_display()
     let $DISPLAY = split(systemlist('tmux show-environment DISPLAY')[0], '=')[1]
   endfunction
-  command! RefreshDisplay s:refresh_display()
+  command! RefreshDisplay call s:refresh_display()
 endif
 " }}}
 
