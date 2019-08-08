@@ -3149,11 +3149,16 @@ augroup incsearch_settings
   autocmd BufWinLeave,WinLeave * call s:clear_incsearch_nohlsearch()
 augroup END
 
+function! s:clear_incsearch_auto_nohlsearch()
+  " clear incsearch-nohlsearch autocmd
+  silent! autocmd! incsearch-auto-nohlsearch
+endfunction
+command! ClearIncsearchAutoNohlsearch call s:clear_incsearch_auto_nohlsearch()
+
 function! s:clear_incsearch_nohlsearch()
   nohlsearch
 
-  " clear incsearch-nohlsearch
-  silent! autocmd! incsearch-auto-nohlsearch
+  call s:clear_incsearch_auto_nohlsearch()
 endfunction
 " }}}
 
@@ -5097,6 +5102,9 @@ if has("nvim")
     setlocal colorcolumn=
     setlocal nonumber
     setlocal norelativenumber
+
+    " Clear incsearch-nohlsearch autocmd on entering terminal mode
+    nnoremap <silent><buffer> i :ClearIncsearchAutoNohlsearch<CR>i
   endfunction
 
   " Search keyword with Google using surfraw {{{
