@@ -5103,8 +5103,12 @@ if has("nvim")
     setlocal nonumber
     setlocal norelativenumber
 
-    " Clear incsearch-nohlsearch autocmd on entering terminal mode
-    nnoremap <silent><buffer> i :ClearIncsearchAutoNohlsearch<CR>i
+    " Only clear incsearch-nohlsearch autocmd in normal shell terminal
+    " Do not clear in other terminal like fzf, ranger, coc
+    if expand('<afile>') =~# 'term://\.//:' . $SHELL
+      " Clear incsearch-nohlsearch autocmd on entering terminal mode
+      nnoremap <silent><buffer> i :ClearIncsearchAutoNohlsearch<CR>i
+    endif
   endfunction
 
   " Search keyword with Google using surfraw {{{
