@@ -47,6 +47,13 @@ endif
 " Set nvim version
 if has("nvim")
   let s:nvim_version = systemlist("nvim --version")[0]
+  function! s:get_nvim_version()
+    return s:nvim_version
+  endfunction
+
+  function! s:get_nvim_patch_version()
+    return matchlist(s:nvim_version, '\v^NVIM v\d+\.\d+\.\d+-(\d+)')[1]
+  endfunction
 endif
 
 " plugin choosing {{{
@@ -4347,7 +4354,8 @@ endif
 " ignore pattern for wildmenu
 set wildmenu
 set wildignore+=*.a,*.o,*.pyc,*~,*.swp,*.tmp
-if has("nvim") && s:nvim_version >= 'NVIM v0.4.0-401-g5c836d2ef'
+" wildoptions=pum added in 'NVIM v0.4.0-401-g5c836d2ef'
+if has("nvim-0.4.0") && s:get_nvim_patch_version() > 401
   set wildmode=full
   silent! set wildoptions+=pum
 else
