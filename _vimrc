@@ -4745,7 +4745,12 @@ function! s:last_tab(count)
   else
     let tabnr = g:last_tabs[-1]
   endif
-  execute 'tabnext ' . tabnr
+  let last_tab_nr = tabpagenr('$')
+  if tabnr > last_tab_nr
+    echoerr 'Tab number ' . tabnr . ' is not exist!'
+  else
+    execute 'tabnext ' . tabnr
+  endif
 endfunction
 function! s:insert_last_tab(tabnr)
   let g:last_tabs = filter(g:last_tabs, 'v:val != ' . a:tabnr)
