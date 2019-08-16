@@ -597,7 +597,8 @@ if s:is_enabled_plugin('coc.nvim')
   augroup coc_settings
     autocmd!
     " Highlight symbol under cursor on CursorHold
-    autocmd CursorHold * silent call CocActionAsync('highlight')
+    " Disabled as not useful and generate a lot of error when not indexed
+    " autocmd CursorHold * silent call CocActionAsync('highlight')
     " Setup formatexpr
     autocmd FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
     " Update signature help on jump placeholder
