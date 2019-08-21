@@ -913,7 +913,8 @@ endif
 " ====================================================================
 " Choose matcher {{{
 if has("python3")
-  Plug 'raghur/fruzzy', { 'do': { -> fruzzy#install() } }
+  " Temporarily use bug fixing branch, wait for merging to master
+  Plug 'raghur/fruzzy', { 'branch': 'bug-19-crash', 'do': { -> fruzzy#install() } }
 
   let g:fruzzy#usenative = 1
   let g:ctrlp_match_func = { 'match': 'fruzzy#ctrlp#matcher' }
