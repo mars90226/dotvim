@@ -235,6 +235,10 @@ if !(s:has_async() && s:has_rpc() && has("python3") && s:python_version() >= "3.
   call s:disable_plugin('denite.nvim')
 end
 
+if v:version < 730 || !(has("python") || has("python3"))
+  call s:disable_plugin('vim-mundo')
+endif
+
 " Choose markdown-preview plugin
 if has("nvim")
   call s:disable_plugin('markdown-preview.vim')
@@ -360,8 +364,10 @@ if s:is_enabled_plugin('lightline.vim')
 
     if fname =~ '__Tagbar__'
       return g:lightline.fname
-    elseif fname == '__Gundo__'
-      return ''
+    elseif fname == '__Mundo__'
+      return 'Mundo'
+    elseif fname == '__Mundo_Preview__'
+      return 'Mundo Preview'
     elseif &ft == 'qf'
       return get(w:, 'quickfix_title', '')
     elseif &ft == 'unite'
@@ -438,8 +444,8 @@ if s:is_enabled_plugin('lightline.vim')
   function! LightlineMode()
     let fname = expand('%:t')
     return fname =~ '__Tagbar__' ? 'Tagbar' :
-          \ fname == '__Gundo__' ? 'Gundo' :
-          \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
+          \ fname == '__Mundo__' ? 'Mundo' :
+          \ fname == '__Mundo_Preview__' ? 'Mundo Preview' :
           \ &ft == 'qf' ? LightlineQuickfixMode() :
           \ &ft == 'unite' ? 'Unite' :
           \ &ft == 'vimfiler' ? 'VimFiler' :
@@ -3888,15 +3894,15 @@ Plug 'mattn/gist-vim'
 
 " Utility {{{
 " ====================================================================
-" Gundo {{{
-if has('python3')
-  Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
-  augroup gundo_prefer_python3
-    autocmd!
-    autocmd User gundo.vim let g:gundo_prefer_python3 = 1
-  augroup END
+" vim-mundo {{{
+if s:is_enabled_plugin('vim-mundo')
+  Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 
-  nnoremap <F9> :GundoToggle<CR>
+  if has("python3")
+    let g:mundo_prefer_python3 = 1
+  endif
+
+  nnoremap <F9> :MundoToggle<CR>
 endif
 " }}}
 
