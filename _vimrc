@@ -52,100 +52,12 @@ call vimrc#plugin#config_cache#read()
 call vimrc#plugin#config_cache#init()
 " }}}
 
-" Choose statusline plugin
-" airline, lightline
-if $VIM_MODE == 'full'
-  call vimrc#plugin#disable_plugin('lightline.vim')
-else
-  call vimrc#plugin#disable_plugin('vim-airline')
-endif
-
-" Choose autocompletion plugin {{{
-" coc.nvim, deoplete.nvim, completor.vim, YouCompleteMe, supertab
-call vimrc#plugin#disable_plugins(
-      \ ['coc.nvim', 'deoplete.nvim', 'completor.vim', 'YouCompleteMe', 'supertab'])
-if vimrc#plugin#check#has_async()
-      \ && vimrc#plugin#check#has_rpc()
-      \ && executable('node')
-      \ && executable('yarn')
-      \ && $VIM_MODE != 'reader'
-  " coc.nvim
-  call vimrc#plugin#enable_plugin('coc.nvim')
-elseif vimrc#plugin#check#has_async()
-      \ && vimrc#plugin#check#has_rpc()
-      \ && has("python3")
-      \ && vimrc#plugin#check#python_version() >= "3.6.1"
-      \ && $VIM_MODE != 'reader'
-  " deoplete.nvim
-  call vimrc#plugin#enable_plugin('deoplete.nvim')
-elseif has("python") || has("python3")
-  " completor.vim
-  call vimrc#plugin#enable_plugin('completor.vim')
-elseif vimrc#plugin#check#has_linux_build_env()
-  " YouCompleteMe
-  call vimrc#plugin#enable_plugin('YouCompleteMe')
-else
-  " supertab
-  call vimrc#plugin#enable_plugin('supertab')
-endif
-" }}}
-
-" Choose Lint plugin
-" syntastic, ale
-if vimrc#plugin#check#has_async()
-  call vimrc#plugin#disable_plugin('syntastic')
-else
-  call vimrc#plugin#disable_plugin('ale')
-end
-
-" Choose file explorer
-" Defx requires python 3.6.1+
-if has("nvim") && vimrc#plugin#check#python_version() >= "3.6.1"
-  call vimrc#plugin#disable_plugin("vimfiler")
-else
-  call vimrc#plugin#disable_plugin("defx")
-endif
-
-if !has("python")
-  call vimrc#plugin#disable_plugin('github-issues.vim')
-endif
-
-if !(vimrc#plugin#check#has_async()
-      \ && vimrc#plugin#check#has_rpc()
-      \ && has("python3")
-      \ && vimrc#plugin#check#python_version() >= "3.6.1")
-  call vimrc#plugin#disable_plugin('denite.nvim')
-end
-
-if v:version < 730 || !(has("python") || has("python3"))
-  call vimrc#plugin#disable_plugin('vim-mundo')
-endif
-
-" Choose markdown-preview plugin
-if has("nvim")
-  call vimrc#plugin#disable_plugin('markdown-preview.vim')
-else
-  call vimrc#plugin#disable_plugin('markdown-preview.nvim')
-endif
-
-if !exists("##TextYankPost")
-  call vimrc#plugin#disable_plugin('vim-highlightedyank')
-endif
-
-if !(has('job') || (has('nvim') && exists('*jobwait'))) || $NVIM_TERMINAL == "yes"
-  call vimrc#plugin#disable_plugin('vim-gutentags')
-endif
-
-if !vimrc#plugin#check#has_linux_build_env()
-      \ || $NVIM_TERMINAL == "yes"
-      \ || $VIM_MODE      == 'gitcommit'
-      \ || $VIM_MODE      == 'reader'
-  call vimrc#plugin#disable_plugin('git-p.nvim')
-endif
+" Start choosing
+call vimrc#plugin#choose#start($VIM_MODE, $NVIM_TERMINAL)
 " }}}
 
 " Autoinstall vim-plug {{{
-if empty(glob(vimrc#plugin#get_vimhome().'/autoload/plug.vim'))
+if empty(glob(vimrc#get_vimhome().'/autoload/plug.vim'))
   silent! !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://rawgithubusercontent.com/junegunn/vim-plug/master/plug.vim
   augroup plug_install
@@ -158,7 +70,7 @@ endif
 
 " Plugin Settings Begin {{{
 " vim-plug
-call plug#begin(vimrc#plugin#get_vimhome().'/plugged')
+call plug#begin(vimrc#get_vimhome().'/plugged')
 " }}}
 
 " Appearance {{{
@@ -655,10 +567,10 @@ if vimrc#plugin#is_enabled_plugin('deoplete.nvim')
   "     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
   "     \ }
   " let g:LanguageClient_loadSettings = 1
-  " let g:LanguageClient_settingsPath = vimrc#plugin#get_vimhome()."/settings.json"
+  " let g:LanguageClient_settingsPath = vimrc#get_vimhome()."/settings.json"
 
   " deoplete-ternjs
-  let g:deoplete#sources#ternjs#tern_bin = vimrc#plugin#get_vimhome() . "/plugged/tern_for_vim/node_modules/tern/bin/tern"
+  let g:deoplete#sources#ternjs#tern_bin = vimrc#get_vimhome() . "/plugged/tern_for_vim/node_modules/tern/bin/tern"
 
   " float-preview.nvim
   if has("nvim")
@@ -772,8 +684,8 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
 
-let g:neosnippet#snippets_directory = vimrc#plugin#get_vimhome().'/plugged/neosnippet-snippets/neosnippets'
-let g:neosnippet#snippets_directory = vimrc#plugin#get_vimhome().'/plugged/vim-snippets/snippets'
+let g:neosnippet#snippets_directory = vimrc#get_vimhome().'/plugged/neosnippet-snippets/neosnippets'
+let g:neosnippet#snippets_directory = vimrc#get_vimhome().'/plugged/vim-snippets/snippets'
 
 " Plugin key-mappings.
 " <C-J>: expand or jump or select completion
@@ -2077,7 +1989,7 @@ endfunction
 function! s:fzf_windows_preview() abort
   let options = fzf#vim#with_preview()
   let preview_script = remove(options.options, -1)[0:-4]
-  let get_filename_script = expand(vimrc#plugin#get_vimhome() . '/bin/fzf_windows_preview.sh')
+  let get_filename_script = expand(vimrc#get_vimhome() . '/bin/fzf_windows_preview.sh')
   let final_script = preview_script . ' "$(' . get_filename_script . ' {})"'
 
   call remove(options.options, -1) " remove --preview
@@ -2088,7 +2000,7 @@ endfunction
 function! s:fzf_buffer_lines_preview() abort
   let file = expand('%')
   let preview_top = 1
-  let preview_command = systemlist(vimrc#plugin#get_vimhome() . '/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . preview_top)[0]
+  let preview_command = systemlist(vimrc#get_vimhome() . '/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . preview_top)[0]
 
   return { 'options': ['--preview-window', 'right:50%:hidden', '--preview', preview_command] }
 endfunction
@@ -2534,7 +2446,7 @@ endfunction
 function! s:range_lines(prompt, center, start, end, query)
   let options = ['--tiebreak=index', '--multi', '--prompt', a:prompt . '> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1']
   let file = expand('%')
-  let preview_command = systemlist(vimrc#plugin#get_vimhome() . '/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . a:start)[0]
+  let preview_command = systemlist(vimrc#get_vimhome() . '/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . a:start)[0]
   let final_options = extend(options, ['--preview-window', 'right:50%:hidden', '--preview', preview_command])
   let Sink = function('s:range_lines_handler', [a:center])
 
@@ -4791,7 +4703,7 @@ function! s:getchar() abort
 endfunction
 command! GetChar call s:getchar()
 
-command! ReloadVimrc source $MYVIMRC
+command! ReloadVimrc call vimrc#reload#reload()
 
 if vimrc#plugin#check#get_os() !~ "windows"
   command! Args echo system("ps -o command= -p " . getpid())
@@ -4996,8 +4908,8 @@ augroup END
 
 augroup vimGeneralCallbacks
   autocmd!
-  autocmd BufWritePost _vimrc nested source $MYVIMRC | e | normal! zzzv
-  autocmd BufWritePost .vimrc nested source $MYVIMRC | e | normal! zzzv
+  autocmd BufWritePost _vimrc nested call vimrc#reload#reload() | e | normal! zzzv
+  autocmd BufWritePost .vimrc nested call vimrc#reload#reload() | e | normal! zzzv
 augroup END
 
 augroup fileTypeSpecific

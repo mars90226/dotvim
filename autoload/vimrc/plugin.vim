@@ -1,12 +1,5 @@
 " Plugin Management
 
-" Use directory junction in Windows to link $HOME."/.vim" to $VIM."/vimfiles"
-let s:vimhome = $HOME . '/.vim'
-
-function! vimrc#plugin#get_vimhome()
-  return s:vimhome
-endfunction
-
 let s:plugin_disabled = []
 
 function! vimrc#plugin#disable_plugin(plugin)
@@ -27,6 +20,10 @@ function! vimrc#plugin#enable_plugin(plugin)
   if l:idx != -1
     call remove(s:plugin_disabled, l:idx)
   end
+endfunction
+
+function! vimrc#plugin#clear_disabled_plugins()
+  let s:plugin_disabled = []
 endfunction
 
 function! vimrc#plugin#is_disabled_plugin(plugin)

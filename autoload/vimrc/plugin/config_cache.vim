@@ -1,5 +1,5 @@
 " Plugin Cache
-let s:plugin_config_cache_name = vimrc#plugin#get_vimhome() . '/.plugin_config_cache'
+let s:plugin_config_cache_name = vimrc#get_vimhome() . '/.plugin_config_cache'
 function! vimrc#plugin#config_cache#read()
   if filereadable(s:plugin_config_cache_name)
     execute 'source ' . s:plugin_config_cache_name
