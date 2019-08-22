@@ -4725,7 +4725,7 @@ function! s:insert_last_tab(tabnr)
   endif
 endfunction
 command! -count -bar LastTab call s:last_tab(<count>)
-nnoremap <M-1> :LastTab<CR>
+nnoremap <M-1> :call <SID>last_tab(v:count)<CR>
 
 augroup last_tab_settings
   autocmd!
