@@ -749,34 +749,13 @@ nnoremap <Space>cm :CtrlPCmdline<CR>
 nnoremap <Space>c] :CtrlPtjump<CR>
 xnoremap <Space>c] :CtrlPtjumpVisual<CR>
 
-let g:ctrlp_user_command_default_timeout = 5
-let g:ctrlp_user_command_timeout = g:ctrlp_user_command_default_timeout
-
-function! s:ctrlp_update_user_command(has_timeout)
-  if empty(g:ctrlp_base_user_command)
-    return
-  endif
-
-  let g:ctrlp_user_command = (a:has_timeout ? 'timeout '. g:ctrlp_user_command_timeout . ' ' : '') . g:ctrlp_base_user_command
-endfunction
-
-function! s:ctrlp_set_timeout(timeout)
-  if a:timeout == -1
-    let g:ctrlp_user_command_timeout = g:ctrlp_user_command_default_timeout
-  elseif a:timeout != 0
-    let g:ctrlp_user_command_timeout = a:timeout
-  endif
-
-  call s:ctrlp_update_user_command(a:timeout != 0)
-endfunction
-command! -nargs=1 CtrlPSetTimeout call s:ctrlp_set_timeout(<f-args>)
+command! -nargs=1 CtrlPSetTimeout call vimrc#ctrlp#set_timeout(<f-args>)
 
 if executable('fd')
   let g:ctrlp_base_user_command = 'fd --type f --no-ignore-vcs --hidden --follow --ignore-file ' . $HOME . '/.ignore "" %s'
-  let g:ctrlp_user_command = 'timeout '. g:ctrlp_user_command_timeout . ' '. g:ctrlp_base_user_command
 endif
 
-call s:ctrlp_update_user_command(v:true)
+call vimrc#ctrlp#update_user_command(v:true)
 " }}}
 
 " netrw {{{
@@ -1284,16 +1263,6 @@ if vimrc#plugin#is_enabled_plugin('lightline.vim')
 endif
 
 " Unite custom function {{{
-" Escape colon, backslash and space
-function! s:escape_symbol(expr)
-  let l:expr = a:expr
-  let l:expr = substitute(l:expr, '\\', '\\\\', 'g')
-  let l:expr = substitute(l:expr, ':', '\\:', 'g')
-  let l:expr = substitute(l:expr, ' ', '\\ ', 'g')
-
-  return l:expr
-endfunction
-
 " TODO Not 100% accurate pattern, increase accuracy
 let g:type_pattern_options = {
       \ 'c-family':   ['\v\.%(c|cpp|h|hpp)$',                 '-tc -tcpp'],
@@ -1335,15 +1304,6 @@ function! s:rg_current_type_option() abort
 
   return ''
 endfunction
-
-function! s:unite_grep(query, buffer_name_prefix, option, is_word) abort
-  let escaped_query = s:escape_symbol(a:query)
-  let escaped_option = s:escape_symbol(a:option)
-  let final_query = a:is_word ? '\\b' . escaped_query . '\\b' : escaped_query
-  let buffer_name = a:buffer_name_prefix . '%' . bufnr('%')
-
-  execute 'Unite -buffer-name=' . buffer_name . ' -wrap grep:.:' . escaped_option . ':' . final_query
-endfunction
 " }}}
 
 " Unite key mappings {{{
@@ -1355,8 +1315,8 @@ if has("nvim")
 else
   nnoremap <Space>P :Unite -start-insert file_rec<CR>
 endif
-nnoremap <Space>/ :call <SID>unite_grep('', 'grep', '', v:false)<CR>
-nnoremap <Space>? :call <SID>unite_grep('', 'grep', input('Option: '), v:false)<CR>
+nnoremap <Space>/ :call vimrc#unite#grep('', 'grep', '', v:false)<CR>
+nnoremap <Space>? :call vimrc#unite#grep('', 'grep', input('Option: '), v:false)<CR>
 nnoremap <Space>S :Unite source<CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
 nnoremap <Space>M :Unite -buffer-name=files -default-action=lcd -start-insert directory_mru<CR>
@@ -1381,12 +1341,12 @@ nnoremap <Space>ugp :Unite gtags/path<CR>
 nnoremap <Space>ugr :Unite gtags/ref<CR>
 nnoremap <Space>ugx :Unite gtags/completion<CR>
 nnoremap <Space>uj :Unite -auto-preview jump<CR>
-nnoremap <Space>uk :call <SID>unite_grep(expand('<cword>'), 'keyword', '', v:false)<CR>
-nnoremap <Space>uK :call <SID>unite_grep(expand('<cWORD>'), 'keyword', '', v:false)<CR>
-nnoremap <Space>u8 :call <SID>unite_grep(expand('<cword>'), 'keyword', '', v:true)<CR>
-nnoremap <Space>u* :call <SID>unite_grep(expand('<cWORD>'), 'keyword', '', v:true)<CR>
-xnoremap <Space>uk :<C-U>call <SID>unite_grep(<SID>get_visual_selection(), 'keyword', '', v:false)<CR>
-xnoremap <Space>u8 :<C-U>call <SID>unite_grep(<SID>get_visual_selection(), 'keyword', '', v:true)<CR>
+nnoremap <Space>uk :call vimrc#unite#grep(expand('<cword>'), 'keyword', '', v:false)<CR>
+nnoremap <Space>uK :call vimrc#unite#grep(expand('<cWORD>'), 'keyword', '', v:false)<CR>
+nnoremap <Space>u8 :call vimrc#unite#grep(expand('<cword>'), 'keyword', '', v:true)<CR>
+nnoremap <Space>u* :call vimrc#unite#grep(expand('<cWORD>'), 'keyword', '', v:true)<CR>
+xnoremap <Space>uk :<C-U>call vimrc#unite#grep(<SID>get_visual_selection(), 'keyword', '', v:false)<CR>
+xnoremap <Space>u8 :<C-U>call vimrc#unite#grep(<SID>get_visual_selection(), 'keyword', '', v:true)<CR>
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>uo :Unite output -start-insert<CR>
 nnoremap <Space>uO :Unite outline -start-insert<CR>
@@ -1419,101 +1379,15 @@ if executable('rg')
   let g:unite_source_grep_default_opts = '--hidden --no-heading --vimgrep -S'
   let g:unite_source_grep_recursive_opt = ''
 
-  nnoremap <Space>g/ :call <SID>unite_grep('', 'grep', <SID>rg_current_type_option(), v:false)<CR>
-  nnoremap <Space>g? :call <SID>unite_grep('', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
+  nnoremap <Space>g/ :call vimrc#unite#grep('', 'grep', <SID>rg_current_type_option(), v:false)<CR>
+  nnoremap <Space>g? :call vimrc#unite#grep('', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
 endif
 " }}}
 
 augroup unite_my_settings
   autocmd!
-  autocmd FileType unite call s:unite_my_settings()
+  autocmd FileType unite call vimrc#unite#mappings()
 augroup END
-function! s:unite_my_settings() "{{{
-  " Overwrite settings.
-
-  imap <buffer> jj      <Plug>(unite_insert_leave)
-  "imap <buffer> <C-W>     <Plug>(unite_delete_backward_path)
-
-  imap <buffer><expr> j unite#smart_map('j', '')
-  imap <buffer> <C-W>     <Plug>(unite_delete_backward_path)
-  imap <buffer> <C-\>'     <Plug>(unite_quick_match_default_action)
-  nmap <buffer> '     <Plug>(unite_quick_match_default_action)
-  imap <buffer><expr> x
-        \ unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
-  nmap <buffer> x     <Plug>(unite_quick_match_choose_action)
-  nmap <buffer> <C-Z>     <Plug>(unite_toggle_transpose_window)
-  imap <buffer> <C-Z>     <Plug>(unite_toggle_transpose_window)
-  imap <buffer> <C-Y>     <Plug>(unite_input_directory)
-  nmap <buffer> <C-Y>     <Plug>(unite_input_directory)
-  nmap <buffer> <M-a>     <Plug>(unite_toggle_auto_preview)
-  nmap <buffer> <M-c>     <Plug>(unite_print_candidate)
-  nmap <buffer> <C-R>     <Plug>(unite_narrowing_input_history)
-  imap <buffer> <C-R><C-R>     <Plug>(unite_narrowing_input_history)
-  imap <buffer> <C-X><C-X>     <Plug>(unite_complete)
-  " nnoremap <silent><buffer><expr> l
-  "       \ unite#smart_map('l', unite#do_action('default'))
-
-  " Restore tab switch mapping
-  nnoremap <buffer> <C-J>     gT
-  nnoremap <buffer> <C-K>     gt
-
-  " Move cursor in insert mode
-  imap <buffer> <C-J>     <Plug>(unite_select_next_line)
-  imap <buffer> <C-K>     <Plug>(unite_select_previous_line)
-
-  let unite = unite#get_current_unite()
-  if unite.profile_name ==# 'search'
-    nnoremap <silent><buffer><expr> r     unite#do_action('replace')
-  else
-    nnoremap <silent><buffer><expr> r     unite#do_action('rename')
-  endif
-
-  nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
-  nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
-        \ empty(unite#mappings#get_current_filters()) ?
-        \ ['sorter_reverse'] : [])
-
-  " Runs "switch" action by <M-s>.
-  imap <silent><buffer><expr> <M-s>     unite#do_action('switch')
-  nmap <silent><buffer><expr> <M-s>     unite#do_action('switch')
-
-  " Runs "tabswitch" action by <M-t>.
-  imap <silent><buffer><expr> <M-t>     unite#do_action('tabswitch')
-  nmap <silent><buffer><expr> <M-t>     unite#do_action('tabswitch')
-
-  " Runs "split" action by <C-S>.
-  imap <silent><buffer><expr> <C-S>     unite#do_action('split')
-  nmap <silent><buffer><expr> <C-S>     unite#do_action('split')
-
-  " Runs "vsplit" action by <C-V>.
-  imap <silent><buffer><expr> <C-V>     unite#do_action('vsplit')
-  nmap <silent><buffer><expr> <C-V>     unite#do_action('vsplit')
-
-  " Runs "tabopen" action by <C-T>.
-  nmap <silent><buffer><expr> <C-T>     unite#do_action('tabopen')
-
-  " Runs "persist_open" action by <C-]>.
-  imap <silent><buffer><expr> <C-]>     unite#do_action('persist_open')
-  nmap <silent><buffer><expr> <C-]>     unite#do_action('persist_open')
-
-  " Simulate "persist_tabopen" action by <M-]>.
-  imap <silent><buffer><expr> <M-]>     unite#do_action('persist_open') . "\<C-W>j:tab split<CR>gT<C-O>zzzv<C-W>k"
-  nmap <silent><buffer><expr> <M-]>     unite#do_action('persist_open') . "\<C-W>j:tab split<CR>gT<C-O>zzzv<C-W>k"
-
-  " Simulate "persist_tabopen_switch" action by <M-[>.
-  imap <silent><buffer><expr> <M-[>     unite#do_action('persist_open') . "\<C-W>j:tab split<CR>gT<C-O>zzzvgt"
-  nmap <silent><buffer><expr> <M-[>     unite#do_action('persist_open') . "\<C-W>j:tab split<CR>gT<C-O>zzzvgt"
-
-  " Runs "grep" action by <M-g>.
-  imap <silent><buffer><expr> <M-g>     unite#do_action('grep')
-  nmap <silent><buffer><expr> <M-g>     unite#do_action('grep')
-
-  " Unmap <Space>, use ` instead
-  silent! nunmap <buffer> <Space>
-  nmap <silent><buffer><nowait> ` <Plug>(unite_toggle_mark_current_candidate)
-  silent! xunmap <buffer> <Space>
-  xmap <silent><buffer><nowait> ` <Plug>(unite_toggle_mark_selected_candidates)
-endfunction "}}}
 " }}}
 
 " Denite {{{
@@ -1533,8 +1407,8 @@ if vimrc#plugin#is_enabled_plugin('denite.nvim')
   endfunction
 
   function! s:denite_grep(query, buffer_name_prefix, option, is_word) abort
-    let escaped_query = s:escape_symbol(a:query)
-    let escaped_option = s:escape_symbol(a:option)
+    let escaped_query = vimrc#escape_symbol(a:query)
+    let escaped_option = vimrc#escape_symbol(a:option)
     let final_query = a:is_word ? '\\b' . escaped_query . '\\b' : escaped_query
     let buffer_name = s:denite_get_buffer_name(a:buffer_name_prefix)
 
@@ -1603,7 +1477,7 @@ if vimrc#plugin#is_enabled_plugin('denite.nvim')
   xnoremap <Space>d8 :<C-U>call <SID>denite_grep(<SID>get_visual_selection(), 'grep', '', v:true)<CR>
   nnoremap <Space>dm :Denite file_mru<CR>
   nnoremap <Space>dM :Denite directory_mru<CR>
-  nnoremap <Space>do :execute 'Denite output:' . <SID>escape_symbol(input('output: '))<CR>
+  nnoremap <Space>do :execute 'Denite output:' . vimrc#escape_symbol(input('output: '))<CR>
   nnoremap <Space>dO :Denite outline<CR>
   nnoremap <Space>d<C-O> :Denite unite:outline<CR>
   nnoremap <Space>dp :call <SID>denite_project_tags('')<CR>
@@ -3941,20 +3815,8 @@ endif
 " TODO Move all plugin settings to post-loaded settings
 augroup post_loaded_unite_mappings
   autocmd!
-  autocmd VimEnter * call s:post_loaded_unite_mappings()
+  autocmd VimEnter * call vimrc#unite#post_loaded_mappings()
 augroup END
-
-function! s:post_loaded_unite_mappings()
-  silent! unmap [u
-  silent! unmap [uu
-  silent! unmap ]u
-  silent! unmap ]uu
-
-  nnoremap <silent><nowait> ]u :<C-U>execute v:count1 . 'UniteNext'<CR>
-  nnoremap <silent><nowait> [u :<C-U>execute v:count1 . 'UnitePrevious'<CR>
-  nnoremap <silent> [U :UniteFirst<CR>
-  nnoremap <silent> ]U :UniteLast<CR>
-endfunction
 " }}}
 
 " Denite {{{
