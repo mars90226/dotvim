@@ -23,24 +23,8 @@ if has('gui')
   endif
 endif
 
-" Detect operating system
-if has("win32") || has("win64")
-  let s:os = "windows"
-else
-  let s:os = system("uname -a")
-endif
-
-" Set $VIMHOME
-" if s:os =~ "windows"
-"   let $VIMHOME = $VIM."/vimfiles"
-" else
-"   let $VIMHOME = $HOME."/.vim"
-" endif
-" Use directory junction in Windows to link $HOME."/.vim" to $VIM."/vimfiles"
-let $VIMHOME = $HOME.'/.vim'
-
 " Set Encoding
-if s:os =~ "windows"
+if vimrc#plugin#check#get_os() =~ "windows"
   set encoding=utf8
 endif
 
@@ -58,209 +42,110 @@ endif
 
 " plugin choosing {{{
 " enabled plugin management {{{
-let s:plugin_disabled = []
-
-function! s:disable_plugin(plugin)
-  let l:idx = index(s:plugin_disabled, a:plugin)
-
-  if l:idx == -1
-    call add(s:plugin_disabled, a:plugin)
-  endif
-endfunction
-
-function! s:disable_plugins(plugins)
-  let s:plugin_disabled += a:plugins
-endfunction
-
-function! s:enable_plugin(plugin)
-  let l:idx = index(s:plugin_disabled, a:plugin)
-
-  if l:idx != -1
-    call remove(s:plugin_disabled, l:idx)
-  end
-endfunction
-
-function! s:is_disabled_plugin(plugin)
-  return index(s:plugin_disabled, a:plugin) != -1
-endfunction
-
-function! s:is_enabled_plugin(plugin)
-  return index(s:plugin_disabled, a:plugin) == -1
-endfunction
-
-function! s:get_disabled_plugins()
-  echo s:plugin_disabled
-endfunction
-command! ListDisabledPlugins call s:get_disabled_plugins()
+command! ListDisabledPlugins call vimrc#plugin#get_disabled_plugins()
 " }}}
 
 " plugin config cache {{{
-let s:plugin_config_cache_name = $VIMHOME.'/.plugin_config_cache'
-function! s:read_plugin_config_cache()
-  if filereadable(s:plugin_config_cache_name)
-    execute 'source ' . s:plugin_config_cache_name
-  endif
-endfunction
-call s:read_plugin_config_cache()
+command! UpdatePluginConfigCache call vimrc#plugin#update_plugin_config_cache()
 
-let s:plugin_config_cache = []
-function! s:append_plugin_config_cache(content)
-  call add(s:plugin_config_cache, a:content)
-endfunction
-
-function! s:write_plugin_config_cache()
-  call writefile(s:plugin_config_cache, s:plugin_config_cache_name)
-endfunction
-
-function! s:update_plugin_config_cache()
-  " Update plugin config
-  call s:append_plugin_config_cache("let g:has_jedi = " . s:has_jedi(1))
-
-  call s:write_plugin_config_cache()
-endfunction
-command! UpdatePluginConfigCache call s:update_plugin_config_cache()
-
-function! s:init_plugin_config_cache()
-  if !filereadable(s:plugin_config_cache_name)
-    call s:update_plugin_config_cache()
-  endif
-endfunction
-call s:init_plugin_config_cache()
+call vimrc#plugin#config_cache#read()
+call vimrc#plugin#config_cache#init()
 " }}}
-
-" return empty string when no python support found
-function! s:python_version()
-  if has("python3")
-    return substitute(split(execute('py3 import sys; print(sys.version)'), ' ')[0], '^\n', '', '')
-  elseif has("python")
-    return substitute(split(execute('py import sys; print(sys.version)'), ' ')[0], '^\n', '', '')
-  else
-    return ""
-  endif
-endfunction
-
-" check if current vim/neovim has async function
-function! s:has_async()
-  return v:version >= 800 || has("nvim")
-endfunction
-
-function! s:has_rpc()
-  return has("nvim")
-endfunction
-
-function! s:has_linux_build_env()
-  return s:os !~ "windows" && s:os !~ "synology"
-endfunction
-
-function! s:has_jedi(...)
-  let force = (a:0 >= 1 && type(a:1) == type(v:true)) ? a:1 : v:false
-
-  if force || !exists("g:has_jedi")
-    if has("python3")
-      call system('pip3 show -qq jedi')
-      return !v:shell_error
-    elseif has("python")
-      call system('pip show -qq jedi')
-      return !v:shell_error
-    else
-      return 0
-    endif
-  else
-    return g:has_jedi == 1
-  endif
-endfunction
-
-let s:git_version = 'not initialized'
-function! s:git_version()
-  if s:git_version == 'not initialized'
-    let s:git_version = systemlist('git --version')[0]
-    if v:shell_error
-      let s:git_version = 'not installed'
-    endif
-  endif
-
-  return s:git_version
-endfunction
 
 " Choose statusline plugin
 " airline, lightline
 if $VIM_MODE == 'full'
-  call s:disable_plugin('lightline.vim')
+  call vimrc#plugin#disable_plugin('lightline.vim')
 else
-  call s:disable_plugin('vim-airline')
+  call vimrc#plugin#disable_plugin('vim-airline')
 endif
 
 " Choose autocompletion plugin {{{
 " coc.nvim, deoplete.nvim, completor.vim, YouCompleteMe, supertab
-call s:disable_plugins(['coc.nvim', 'deoplete.nvim', 'completor.vim', 'YouCompleteMe', 'supertab'])
-if s:has_async() && s:has_rpc() && executable('node') && executable('yarn') && $VIM_MODE != 'reader'
+call vimrc#plugin#disable_plugins(
+      \ ['coc.nvim', 'deoplete.nvim', 'completor.vim', 'YouCompleteMe', 'supertab'])
+if vimrc#plugin#check#has_async()
+      \ && vimrc#plugin#check#has_rpc()
+      \ && executable('node')
+      \ && executable('yarn')
+      \ && $VIM_MODE != 'reader'
   " coc.nvim
-  call s:enable_plugin('coc.nvim')
-elseif s:has_async() && s:has_rpc() && has("python3") && s:python_version() >= "3.6.1" && $VIM_MODE != 'reader'
+  call vimrc#plugin#enable_plugin('coc.nvim')
+elseif vimrc#plugin#check#has_async()
+      \ && vimrc#plugin#check#has_rpc()
+      \ && has("python3")
+      \ && vimrc#plugin#check#python_version() >= "3.6.1"
+      \ && $VIM_MODE != 'reader'
   " deoplete.nvim
-  call s:enable_plugin('deoplete.nvim')
+  call vimrc#plugin#enable_plugin('deoplete.nvim')
 elseif has("python") || has("python3")
   " completor.vim
-  call s:enable_plugin('completor.vim')
-elseif s:has_linux_build_env()
+  call vimrc#plugin#enable_plugin('completor.vim')
+elseif vimrc#plugin#check#has_linux_build_env()
   " YouCompleteMe
-  call s:enable_plugin('YouCompleteMe')
+  call vimrc#plugin#enable_plugin('YouCompleteMe')
 else
   " supertab
-  call s:enable_plugin('supertab')
+  call vimrc#plugin#enable_plugin('supertab')
 endif
 " }}}
 
 " Choose Lint plugin
 " syntastic, ale
-if s:has_async()
-  call s:disable_plugin('syntastic')
+if vimrc#plugin#check#has_async()
+  call vimrc#plugin#disable_plugin('syntastic')
 else
-  call s:disable_plugin('ale')
+  call vimrc#plugin#disable_plugin('ale')
 end
 
 " Choose file explorer
 " Defx requires python 3.6.1+
-if has("nvim") && s:python_version() >= "3.6.1"
-  call s:disable_plugin("vimfiler")
+if has("nvim") && vimrc#plugin#check#python_version() >= "3.6.1"
+  call vimrc#plugin#disable_plugin("vimfiler")
 else
-  call s:disable_plugin("defx")
+  call vimrc#plugin#disable_plugin("defx")
 endif
 
 if !has("python")
-  call s:disable_plugin('github-issues.vim')
+  call vimrc#plugin#disable_plugin('github-issues.vim')
 endif
 
-if !(s:has_async() && s:has_rpc() && has("python3") && s:python_version() >= "3.6.1")
-  call s:disable_plugin('denite.nvim')
+if !(vimrc#plugin#check#has_async()
+      \ && vimrc#plugin#check#has_rpc()
+      \ && has("python3")
+      \ && vimrc#plugin#check#python_version() >= "3.6.1")
+  call vimrc#plugin#disable_plugin('denite.nvim')
 end
 
 if v:version < 730 || !(has("python") || has("python3"))
-  call s:disable_plugin('vim-mundo')
+  call vimrc#plugin#disable_plugin('vim-mundo')
 endif
 
 " Choose markdown-preview plugin
 if has("nvim")
-  call s:disable_plugin('markdown-preview.vim')
+  call vimrc#plugin#disable_plugin('markdown-preview.vim')
 else
-  call s:disable_plugin('markdown-preview.nvim')
+  call vimrc#plugin#disable_plugin('markdown-preview.nvim')
 endif
 
 if !exists("##TextYankPost")
-  call s:disable_plugin('vim-highlightedyank')
+  call vimrc#plugin#disable_plugin('vim-highlightedyank')
 endif
 
 if !(has('job') || (has('nvim') && exists('*jobwait'))) || $NVIM_TERMINAL == "yes"
-  call s:disable_plugin('vim-gutentags')
+  call vimrc#plugin#disable_plugin('vim-gutentags')
 endif
 
-if !s:has_linux_build_env() || $NVIM_TERMINAL == "yes" || $VIM_MODE == 'gitcommit' || $VIM_MODE == 'reader'
-  call s:disable_plugin('git-p.nvim')
+if !vimrc#plugin#check#has_linux_build_env()
+      \ || $NVIM_TERMINAL == "yes"
+      \ || $VIM_MODE      == 'gitcommit'
+      \ || $VIM_MODE      == 'reader'
+  call vimrc#plugin#disable_plugin('git-p.nvim')
 endif
 " }}}
 
 " Autoinstall vim-plug {{{
-if empty(glob($VIMHOME.'/autoload/plug.vim'))
+if empty(glob(vimrc#plugin#get_vimhome().'/autoload/plug.vim'))
   silent! !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://rawgithubusercontent.com/junegunn/vim-plug/master/plug.vim
   augroup plug_install
@@ -273,13 +158,13 @@ endif
 
 " Plugin Settings Begin {{{
 " vim-plug
-call plug#begin($VIMHOME.'/plugged')
+call plug#begin(vimrc#plugin#get_vimhome().'/plugged')
 " }}}
 
 " Appearance {{{
 " ====================================================================
 " vim-airline {{{
-if s:is_enabled_plugin('vim-airline')
+if vimrc#plugin#is_enabled_plugin('vim-airline')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'https://gist.github.com/jbkopecky/a2f66baa8519747b388f2a1617159c07',
@@ -299,7 +184,7 @@ endif
 " }}}
 
 " lightline.vim {{{
-if s:is_enabled_plugin('lightline.vim')
+if vimrc#plugin#is_enabled_plugin('lightline.vim')
   Plug 'itchyny/lightline.vim'
   Plug 'maximbaz/lightline-ale'
   Plug 'shinchu/lightline-gruvbox.vim'
@@ -537,13 +422,13 @@ inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-P>\<C-N>" : "\<PageUp>"
 inoremap <expr> <Tab>      pumvisible() ? "\<C-N>" : "\<Tab>"
 
 " Workaround of supertab bug
-if s:is_disabled_plugin('supertab')
+if vimrc#plugin#is_disabled_plugin('supertab')
   inoremap <expr> <S-Tab>    pumvisible() ? "\<C-P>" : "\<S-Tab>"
 endif
 " }}}
 
 " coc.nvim {{{
-if s:is_enabled_plugin('coc.nvim')
+if vimrc#plugin#is_enabled_plugin('coc.nvim')
   Plug 'Shougo/neco-vim'
   Plug 'neoclide/coc-neco'
   Plug 'neoclide/coc.nvim', { 'do': { -> coc#util#install() } }
@@ -704,7 +589,7 @@ endif
 " }}}
 
 " deoplete.nvim {{{
-if s:is_enabled_plugin('deoplete.nvim')
+if vimrc#plugin#is_enabled_plugin('deoplete.nvim')
   if has("nvim")
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   else
@@ -721,7 +606,7 @@ if s:is_enabled_plugin('deoplete.nvim')
   Plug 'Shougo/neco-syntax'
   Plug 'Shougo/neco-vim'
   Plug 'sebastianmarkow/deoplete-rust', { 'for': ['rust'] }
-  if s:has_jedi()
+  if vimrc#plugin#check#has_jedi()
     Plug 'deoplete-plugins/deoplete-jedi'
   endif
   Plug 'deoplete-plugins/deoplete-zsh'
@@ -770,10 +655,10 @@ if s:is_enabled_plugin('deoplete.nvim')
   "     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
   "     \ }
   " let g:LanguageClient_loadSettings = 1
-  " let g:LanguageClient_settingsPath = $VIMHOME."/settings.json"
+  " let g:LanguageClient_settingsPath = vimrc#plugin#get_vimhome()."/settings.json"
 
   " deoplete-ternjs
-  let g:deoplete#sources#ternjs#tern_bin = $VIMHOME . "/plugged/tern_for_vim/node_modules/tern/bin/tern"
+  let g:deoplete#sources#ternjs#tern_bin = vimrc#plugin#get_vimhome() . "/plugged/tern_for_vim/node_modules/tern/bin/tern"
 
   " float-preview.nvim
   if has("nvim")
@@ -807,17 +692,17 @@ endif
 " }}}
 
 " completor.vim {{{
-if s:is_enabled_plugin('completor.vim')
+if vimrc#plugin#is_enabled_plugin('completor.vim')
   Plug 'maralla/completor.vim'
 
-  if s:has_linux_build_env()
+  if vimrc#plugin#check#has_linux_build_env()
     let g:completor_clang_binary = "/usr/lib/llvm-8/lib/clang"
   end
 endif
 " }}}
 
 " YouCompleteMe {{{
-if s:is_enabled_plugin('YouCompleteMe')
+if vimrc#plugin#is_enabled_plugin('YouCompleteMe')
   Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang_completer' }
 
   let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
@@ -877,7 +762,7 @@ endif
 " }}}
 
 " supertab {{{
-if s:is_enabled_plugin('supertab')
+if vimrc#plugin#is_enabled_plugin('supertab')
   Plug 'ervandew/supertab'
 endif
 " }}}
@@ -887,8 +772,8 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
 
-let g:neosnippet#snippets_directory = $VIMHOME.'/plugged/neosnippet-snippets/neosnippets'
-let g:neosnippet#snippets_directory = $VIMHOME.'/plugged/vim-snippets/snippets'
+let g:neosnippet#snippets_directory = vimrc#plugin#get_vimhome().'/plugged/neosnippet-snippets/neosnippets'
+let g:neosnippet#snippets_directory = vimrc#plugin#get_vimhome().'/plugged/vim-snippets/snippets'
 
 " Plugin key-mappings.
 " <C-J>: expand or jump or select completion
@@ -1046,7 +931,7 @@ let g:tagbar_type_ps1 = {
     \ ]
     \ }
 
-if s:is_enabled_plugin('lightline.vim')
+if vimrc#plugin#is_enabled_plugin('lightline.vim')
   let g:tagbar_status_func = 'TagbarStatusFunc'
 
   function! TagbarStatusFunc(current, sort, fname, ...) abort
@@ -1057,11 +942,11 @@ endif
 " }}}
 
 " vimfiler {{{
-if s:is_enabled_plugin("vimfiler")
+if vimrc#plugin#is_enabled_plugin("vimfiler")
   Plug 'Shougo/vimfiler.vim'
   Plug 'Shougo/neossh.vim'
 
-  if s:is_enabled_plugin('lightline.vim')
+  if vimrc#plugin#is_enabled_plugin('lightline.vim')
     let g:vimfiler_force_overwrite_statusline = 0
   endif
 
@@ -1091,7 +976,7 @@ endif
 " }}}
 
 " Defx {{{
-if s:is_enabled_plugin("defx")
+if vimrc#plugin#is_enabled_plugin("defx")
   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'kristijanhusak/defx-git'
   " Font not supported
@@ -1447,7 +1332,7 @@ endif
 " }}}
 
 " vim-choosewin {{{
-if s:is_enabled_plugin("vimfiler")
+if vimrc#plugin#is_enabled_plugin("vimfiler")
   " Only used in vimfiler
   Plug 't9md/vim-choosewin'
 
@@ -1482,7 +1367,7 @@ let g:unite_source_history_yank_enable = 1
 " for unite-workflow
 let g:github_user = "mars90226"
 
-if s:is_enabled_plugin('lightline.vim')
+if vimrc#plugin#is_enabled_plugin('lightline.vim')
   let g:unite_force_overwrite_statusline = 0
 endif
 
@@ -1720,7 +1605,7 @@ endfunction "}}}
 " }}}
 
 " Denite {{{
-if s:is_enabled_plugin('denite.nvim')
+if vimrc#plugin#is_enabled_plugin('denite.nvim')
   Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'neoclide/denite-extra'
   Plug 'kmnk/denite-dirmark'
@@ -2192,7 +2077,7 @@ endfunction
 function! s:fzf_windows_preview() abort
   let options = fzf#vim#with_preview()
   let preview_script = remove(options.options, -1)[0:-4]
-  let get_filename_script = expand($VIMHOME . '/bin/fzf_windows_preview.sh')
+  let get_filename_script = expand(vimrc#plugin#get_vimhome() . '/bin/fzf_windows_preview.sh')
   let final_script = preview_script . ' "$(' . get_filename_script . ' {})"'
 
   call remove(options.options, -1) " remove --preview
@@ -2203,7 +2088,7 @@ endfunction
 function! s:fzf_buffer_lines_preview() abort
   let file = expand('%')
   let preview_top = 1
-  let preview_command = systemlist($VIMHOME . '/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . preview_top)[0]
+  let preview_command = systemlist(vimrc#plugin#get_vimhome() . '/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . preview_top)[0]
 
   return { 'options': ['--preview-window', 'right:50%:hidden', '--preview', preview_command] }
 endfunction
@@ -2649,7 +2534,7 @@ endfunction
 function! s:range_lines(prompt, center, start, end, query)
   let options = ['--tiebreak=index', '--multi', '--prompt', a:prompt . '> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1']
   let file = expand('%')
-  let preview_command = systemlist($VIMHOME . '/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . a:start)[0]
+  let preview_command = systemlist(vimrc#plugin#get_vimhome() . '/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . a:start)[0]
   let final_options = extend(options, ['--preview-window', 'right:50%:hidden', '--preview', preview_command])
   let Sink = function('s:range_lines_handler', [a:center])
 
@@ -2734,14 +2619,14 @@ function! s:use_fugitive_fzf_action(function)
 endfunction
 
 " Git related command {{{
-if s:git_version() >= 'git version 2.19.0'
+if vimrc#plugin#check#git_version() >= 'git version 2.19.0'
   let g:git_grep_commit_command = 'git grep -n --column'
 else
   let g:git_grep_commit_command = 'git grep -n'
 endif
 function! s:git_grep_commit(commit, ...)
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
-  let with_column = (s:git_version() >= 'git version 2.19.0') ? 1 : 0
+  let with_column = (vimrc#plugin#check#git_version() >= 'git version 2.19.0') ? 1 : 0
 
   call fzf#run(s:wrap('', {
         \ 'source': g:git_grep_commit_command.' '.shellescape(query).' '.a:commit,
@@ -2752,7 +2637,7 @@ endfunction
 " Borrowed from fzf.vim
 function! s:escape(path)
   let path = fnameescape(a:path)
-  return s:os == 'windows' ? escape(path, '$') : path
+  return vimrc#plugin#check#get_os() == 'windows' ? escape(path, '$') : path
 endfunction
 " Borrowed from fzf.vim
 function! s:open(cmd, target)
@@ -2976,7 +2861,7 @@ if has("nvim")
   command! TagbarTags call s:tagbar_tags()
 endif
 
-if s:is_enabled_plugin('defx')
+if vimrc#plugin#is_enabled_plugin('defx')
   let g:defx_fzf_action = extend({
         \ 'enter':      'DefxOpenSink',
         \ 'ctrl-t':     'DefxTabOpenSink',
@@ -3144,7 +3029,7 @@ Plug 'vifm/vifm.vim'
 " }}}
 
 " vim-gutentags {{{
-if s:is_enabled_plugin('vim-gutentags')
+if vimrc#plugin#is_enabled_plugin('vim-gutentags')
   Plug 'ludovicchabant/vim-gutentags'
 
   " Don't update cscope, workload is too heavy
@@ -3208,7 +3093,7 @@ map <Plug>(easymotion-prefix)K <Plug>(easymotion-eol-k)
 map <Plug>(easymotion-prefix); <Plug>(easymotion-jumptoanywhere)
 
 " overwin is slow, disabled
-" if s:os !~ "synology"
+" if vimrc#plugin#check#get_os() !~ "synology"
 "   nmap <Leader>f <Plug>(easymotion-overwin-f)
 "   nmap <Plug>(easymotion-prefix)s <Plug>(easymotion-overwin-f2)
 "   nmap <Plug>(easymotion-prefix)L <Plug>(easymotion-overwin-line)
@@ -3505,7 +3390,7 @@ endfunction
 " }}}
 
 " syntastic {{{
-if s:is_enabled_plugin('syntastic')
+if vimrc#plugin#is_enabled_plugin('syntastic')
   Plug 'vim-syntastic/syntastic'
 
   " Automatically setup by airline
@@ -3540,7 +3425,7 @@ end
 " }}}
 
 " ale {{{
-if s:is_enabled_plugin('ale')
+if vimrc#plugin#is_enabled_plugin('ale')
   Plug 'w0rp/ale'
 
   " let g:ale_linters = {
@@ -3598,13 +3483,13 @@ end
 " }}}
 
 " markdown-preview.vim {{{
-if s:is_enabled_plugin('markdown-preview.vim')
+if vimrc#plugin#is_enabled_plugin('markdown-preview.vim')
   Plug 'iamcco/markdown-preview.vim'
 endif
 " }}}
 
 " markdown-preview.nvim {{{
-if s:is_enabled_plugin('markdown-preview.nvim')
+if vimrc#plugin#is_enabled_plugin('markdown-preview.nvim')
   Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 endif
 " }}}
@@ -3666,7 +3551,7 @@ endfunction
 " }}}
 
 " jedi-vim {{{
-if s:has_jedi()
+if vimrc#plugin#check#has_jedi()
   Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
   let g:jedi#completions_enabled = 1
@@ -3876,7 +3761,7 @@ xnoremap <Space>gB :Gina blame<CR>
 
 " git-p.nvim {{{
 " Disable git-p.nvim in nested neovim due to channel error
-if s:is_enabled_plugin('git-p.nvim')
+if vimrc#plugin#is_enabled_plugin('git-p.nvim')
   Plug 'iamcco/sran.nvim', { 'do': { -> sran#util#install() } }
   Plug 'iamcco/git-p.nvim'
 
@@ -3895,7 +3780,7 @@ Plug 'mattn/gist-vim'
 " Utility {{{
 " ====================================================================
 " vim-mundo {{{
-if s:is_enabled_plugin('vim-mundo')
+if vimrc#plugin#is_enabled_plugin('vim-mundo')
   Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 
   if has("python3")
@@ -4043,7 +3928,7 @@ Plug 'arthurxavierx/vim-caser'
 " }}}
 
 " vim-highlightedyank {{{
-if s:is_enabled_plugin('vim-highlightedyank')
+if vimrc#plugin#is_enabled_plugin('vim-highlightedyank')
   Plug 'machakann/vim-highlightedyank'
 
   let g:highlightedyank_highlight_duration = 200
@@ -4109,7 +3994,7 @@ call plug#end()
 
 " Post-loaded Plugin Settings {{{
 " coc.nvim {{{
-if s:is_enabled_plugin('coc.nvim')
+if vimrc#plugin#is_enabled_plugin('coc.nvim')
   " Common source
   call coc#add_extension('coc-dictionary')
   call coc#add_extension('coc-tag')
@@ -4133,7 +4018,7 @@ endif
 " }}}
 
 " deoplete.nvim {{{
-if s:is_enabled_plugin('deoplete.nvim')
+if vimrc#plugin#is_enabled_plugin('deoplete.nvim')
   " Use smartcase.
   call deoplete#custom#option('smart_case', v:true)
 endif
@@ -4161,7 +4046,7 @@ endfunction
 " }}}
 
 " Denite {{{
-if s:is_enabled_plugin('denite.nvim')
+if vimrc#plugin#is_enabled_plugin('denite.nvim')
   " Use fd for file/rec and ripgrep for grep
   if executable('fd')
     call denite#custom#var('file/rec', 'command',
@@ -4204,7 +4089,7 @@ endif
 " }}}
 
 " Defx {{{
-if s:is_enabled_plugin("defx")
+if vimrc#plugin#is_enabled_plugin("defx")
   call defx#custom#option('_', {
         \ 'columns': 'git:mark:indent:icon:filename:type:size:time',
         \ 'show_ignored_files': 1,
@@ -4258,7 +4143,7 @@ Arpeggio inoremap jk <Esc>
 set nocompatible
 
 " source mswin.vim
-if s:os !~ "synology"
+if vimrc#plugin#check#get_os() !~ "synology"
   source $VIMRUNTIME/mswin.vim
   " TODO Fix this in Linux
   behave mswin
@@ -4535,7 +4420,7 @@ nnoremap <Space>q :q<CR>
 nnoremap <Space>Q :qa!<CR>
 
 " Quick execute
-if s:os =~ "windows"
+if vimrc#plugin#check#get_os() =~ "windows"
   " Win32
   "nnoremap <Leader>x :execute ':! "'.expand('%').'"'<CR>
   nnoremap <Leader>x :!start cmd /c "%:p"<CR>
@@ -4908,7 +4793,7 @@ command! GetChar call s:getchar()
 
 command! ReloadVimrc source $MYVIMRC
 
-if s:os !~ "windows"
+if vimrc#plugin#check#get_os() !~ "windows"
   command! Args echo system("ps -o command= -p " . getpid())
 endif
 " }}}
@@ -4917,7 +4802,7 @@ endif
 " Terminal {{{
 " ====================================================================
 " xterm-256 in Windows {{{
-if !has("nvim") && !has("gui_running") && s:os =~ "windows"
+if !has("nvim") && !has("gui_running") && vimrc#plugin#check#get_os() =~ "windows"
   set term=xterm
   set mouse=a
   set t_Co=256
@@ -4932,8 +4817,8 @@ endif
 " Pair up with 'set winaltkeys=no' in _gvimrc
 " Fix meta key in vim
 " terminal meta key fix {{{
-if !has("nvim") && !has("gui_running") && s:os !~ "windows"
-  if s:os =~ "windows"
+if !has("nvim") && !has("gui_running") && vimrc#plugin#check#get_os() !~ "windows"
+  if vimrc#plugin#check#get_os() =~ "windows"
     " Windows Terminal keycode will change after startup
     " Maybe it's related to ConEmu
     " This fix will not work after reload .vimrc/_vimrc
@@ -5185,7 +5070,7 @@ set keymodel=startsel
 
 " disable Background Color Erase (BC) by clearing the `t_ut` on Synology DSM
 " see https://sunaku.github.io/vim-256color-bce.html
-if s:os =~ "synology" && !has("nvim")
+if vimrc#plugin#check#get_os() =~ "synology" && !has("nvim")
   set t_ut=
 endif
 
