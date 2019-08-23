@@ -1592,35 +1592,9 @@ command! -bang -nargs=? -complete=dir AllFiles call vimrc#fzf#dir#all_files(<q-a
 command! -bang -nargs=* -complete=dir GitDiffFiles call vimrc#fzf#git#diff_tree(<bang>0, <f-args>)
 command! -bang -nargs=* -complete=dir RgGitDiffFiles call vimrc#fzf#git#rg_diff_tree(<bang>0, <f-args>)
 
-" use neomru
-function! s:filtered_neomru_files()
-  return filter(readfile(g:neomru#file_mru_path)[1:],
-        \ "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/\\|\\[unite\\]\\|\[Preview\\]\\|__Tagbar__\\|term://\\|gina://'")
-endfunction
-command! Mru call fzf#run(fzf#wrap({
-      \ 'source':  s:mru_files(),
-      \ 'options': '-m -s',
-      \ 'down':    '40%' }))
-function! s:mru_files()
-  return extend(
-  \ s:filtered_neomru_files(),
-  \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
-endfunction
-
-command! ProjectMru call fzf#run(fzf#wrap({
-      \ 'source':  s:project_mru_files(),
-      \ 'options': '-m -s',
-      \ 'down':    '40%' }))
-" use neomru
-function! s:project_mru_files()
-  " cannot use \V to escape the special characters in filepath as it only
-  " render the string literal after it to "very nomagic"
-  " FIXME Maybe doable, see s:gv_expand()
-  return extend(
-  \ filter(s:filtered_neomru_files(),
-  \   "v:val =~ '^' . getcwd()"),
-  \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
-endfunction
+" Mru
+command! Mru call vimrc#fzf#mru#mru()
+command! ProjectMru call vimrc#fzf#mru#project_mru()
 
 command! -bang DirectoryMru call s:directory_mru(<bang>0)
 function! s:directory_mru(bang, ...)
@@ -2406,7 +2380,7 @@ endif
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 
 command! SkimMru call skim#run(skim#wrap({
-      \ 'source':  s:mru_files(),
+      \ 'source':  vimrc#fzf#mru#mru_files(),
       \ 'options': '-m',
       \ 'down':    '40%' }))
 
