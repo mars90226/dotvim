@@ -153,23 +153,3 @@ function! vimrc#fzf#files_sink(lines)
     endif
   endfor
 endfunction
-
-" Previews
-function! vimrc#fzf#windows_preview() abort
-  let options = fzf#vim#with_preview()
-  let preview_script = remove(options.options, -1)[0:-4]
-  let get_filename_script = expand(vimrc#get_vimhome() . '/bin/fzf_windows_preview.sh')
-  let final_script = preview_script . ' "$(' . get_filename_script . ' {})"'
-
-  call remove(options.options, -1) " remove --preview
-  call extend(options.options, ['--preview', final_script])
-  return options
-endfunction
-
-function! vimrc#fzf#buffer_lines_preview() abort
-  let file = expand('%')
-  let preview_top = 1
-  let preview_command = systemlist(vimrc#get_vimhome() . '/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . preview_top)[0]
-
-  return { 'options': ['--preview-window', 'right:50%:hidden', '--preview', preview_command] }
-endfunction

@@ -1576,103 +1576,21 @@ command! -bang -nargs=? -complete=dir Files    call vimrc#fzf#files(<q-args>, <b
 command! -bang -nargs=?               GFiles   call vimrc#fzf#gitfiles(<q-args>, <bang>0)
 command! -bang -nargs=+ -complete=dir Locate   call vimrc#fzf#locate(<q-args>, <bang>0)
 command! -bang -nargs=*               History  call vimrc#fzf#history(<q-args>, <bang>0)
-command! -bar  -bang                  Windows  call fzf#vim#windows(vimrc#fzf#windows_preview(), <bang>0)
-command! -bar  -nargs=* -bang         BLines   call fzf#vim#buffer_lines(<q-args>, vimrc#fzf#buffer_lines_preview(), <bang>0)
+command! -bar  -bang                  Windows  call fzf#vim#windows(vimrc#fzf#preview#windows(), <bang>0)
+command! -bar  -nargs=* -bang         BLines   call fzf#vim#buffer_lines(<q-args>, vimrc#fzf#preview#buffer_lines(), <bang>0)
 
-let g:fzf_preview_command = 'cat {}'
-if executable('bat')
-  let g:fzf_preview_command = 'bat --style=numbers --color=always {}'
-endif
-let g:fzf_dir_preview_command = 'ls -la --color=always {}'
-if executable('exa')
-  let g:fzf_dir_preview_command = 'exa -lag --color=always {}'
-endif
-
-" let g:rg_command = '
-"     \ rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --color "always"
-"     \ -g "*.{js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst,lua,pm,vim,sh,h,hpp}"
-"     \ -g "!{.config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
-" Manually specify ignore file as ripgrep 0.9.0 will not respect to .gitignore outside of git repository
-let g:rg_base_command = 'rg --column --line-number --no-heading --smart-case --color=always --follow --with-filename '
-let g:rg_command = g:rg_base_command . '--ignore-file ' . $HOME . '/.gitignore' " TODO Use '.ignore'?
-let g:rg_all_command = g:rg_base_command . '--no-ignore --hidden'
-command! -bang -nargs=* Rg call fzf#vim#grep(
-      \ <bang>0 ? g:rg_all_command.' -- '.shellescape(<q-args>)
-      \         : g:rg_command.' -- '.shellescape(<q-args>), 1,
-      \ <bang>0 ? fzf#vim#with_preview('up:60%')
-      \         : fzf#vim#with_preview('right:50%:hidden', '?'),
-      \ <bang>0)
+" Rg
+command! -bang -nargs=* Rg call vimrc#fzf#rg#grep(<q-args>, <bang>0)
 
 " Rg with option, using ':' to separate option and query
-command! -bang -nargs=* RgWithOption call s:rg_with_option(<q-args>, <bang>0)
-function! s:rg_with_option(command, bang)
-  let command_parts = split(a:command, ':', 1)
-  let folder = command_parts[0]
-  let option = command_parts[1]
-  let query = join(command_parts[2:], ':')
-  call fzf#vim#grep(
-        \ a:bang ? g:rg_all_command.' '.option.' -- '.shellescape(query).' '.folder
-        \        : g:rg_command.' '.option.' -- '.shellescape(query).' '.folder, 1,
-        \ a:bang ? fzf#vim#with_preview('up:60%')
-        \        : fzf#vim#with_preview('right:50%:hidden', '?'),
-        \ a:bang)
-endfunction
+command! -bang -nargs=* RgWithOption call vimrc#fzf#rg#grep_with_option(<q-args>, <bang>0)
 
-let g:fd_command = 'fd --no-ignore --hidden --follow'
-command! -bang -nargs=? -complete=dir AllFiles call fzf#vim#files(<q-args>,
-      \ <bang>0 ? fzf#vim#with_preview({ 'source': g:fd_command }, 'up:60%')
-      \         : fzf#vim#with_preview({ 'source': g:fd_command }),
-      \ <bang>0)
+" Fd all files
+command! -bang -nargs=? -complete=dir AllFiles call vimrc#fzf#dir#all_files(<q-args>, <bang>0)
 
-let g:git_diff_tree_command = 'git diff-tree --no-commit-id --name-only -r '
-command! -bang -nargs=* -complete=dir GitDiffFiles call s:git_diff_tree(<bang>0, <f-args>)
-" s:git_diff_tree([bang], [commit], [folder])
-function! s:git_diff_tree(...)
-  if a:0 > 3
-    return vimrc#warn('Invalid argument number')
-  endif
-
-  let bang   = a:0 >= 1 ? a:1 : 0
-  let commit = a:0 >= 2 ? a:2 : 'HEAD'
-  let folder = a:0 == 3 ? a:3 : ''
-
-  let git_dir = FugitiveExtractGitDir(expand(folder))
-  if empty(git_dir)
-    return vimrc#warn('not in git repo')
-  endif
-
-  call fzf#vim#files(
-        \ folder,
-        \ fzf#vim#with_preview({ 'source': g:git_diff_tree_command . commit }),
-        \ bang)
-endfunction
-
-let g:rg_git_diff_tree_command = 'git -C %s diff-tree -z --no-commit-id --name-only -r %s | xargs -0 ' . g:rg_base_command . ' -- %s'
-command! -bang -nargs=* -complete=dir RgGitDiffFiles call s:rg_git_diff_tree(<bang>0, <f-args>)
-" s:rg_git_diff_tree([bang], [pattern], [commit], [folder])
-function! s:rg_git_diff_tree(...)
-  if a:0 > 4
-    return vimrc#warn('Invalid argument number')
-  endif
-
-  let bang    = a:0 >= 1 ? a:1 : 0
-  let pattern = a:0 >= 2 ? a:2 : '.'
-  let commit  = a:0 >= 3 ? a:3 : 'HEAD'
-  let folder  = a:0 == 4 ? a:4 : '.'
-
-  let git_dir = FugitiveExtractGitDir(expand(folder))
-  if empty(git_dir)
-    return vimrc#warn('not in git repo')
-  endif
-
-  let command = printf(g:rg_git_diff_tree_command, folder, commit, shellescape(pattern))
-
-  call fzf#vim#grep(
-        \ command, 1,
-        \ bang ? fzf#vim#with_preview('up:60%')
-        \      : fzf#vim#with_preview('right:50%:hidden', '?'),
-        \ bang)
-endfunction
+" Git diff
+command! -bang -nargs=* -complete=dir GitDiffFiles call vimrc#fzf#git#diff_tree(<bang>0, <f-args>)
+command! -bang -nargs=* -complete=dir RgGitDiffFiles call vimrc#fzf#git#rg_diff_tree(<bang>0, <f-args>)
 
 " use neomru
 function! s:filtered_neomru_files()
@@ -1709,7 +1627,7 @@ function! s:directory_mru(bang, ...)
   let Sink = a:0 && type(a:1) == type(function('call')) ? a:1 : ''
   let args = {
         \ 'source':  s:mru_directories(),
-        \ 'options': ['-s', '--preview-window', 'right', '--preview', g:fzf_dir_preview_command, '--prompt', 'DirectoryMru> '],
+        \ 'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command(), '--prompt', 'DirectoryMru> '],
         \ 'down':    '40%'
         \ }
 
@@ -1765,7 +1683,7 @@ function! s:directories(path, bang, ...)
   let Sink = a:0 && type(a:1) == type(function('call')) ? a:1 : ''
   let args = {
         \ 'source':  g:fd_dir_command,
-        \ 'options': ['-s', '--preview-window', 'right', '--preview', g:fzf_dir_preview_command],
+        \ 'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command()],
         \ 'down':    '40%'
         \ }
 
