@@ -377,6 +377,12 @@ if vimrc#plugin#is_enabled_plugin('coc.nvim')
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
 
+  " mappings for funcobj
+  omap av <Plug>(coc-funcobj-a)
+  xmap av <Plug>(coc-funcobj-a)
+  omap iv <Plug>(coc-funcobj-i)
+  xmap iv <Plug>(coc-funcobj-i)
+
   " K: show documentation in preview window
   nnoremap <silent> K :call <SID>show_documentation()<CR>
   " Remap for K
@@ -1533,36 +1539,13 @@ let g:fzf_colors =
 
 let g:fzf_history_dir = $HOME.'/.local/share/fzf-history'
 
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cclose
-endfunction
-function! s:copy_results(lines)
-  let joined_lines = join(a:lines, "\n")
-  if len(a:lines) > 1
-    let joined_lines .= "\n"
-  endif
-  let @" = joined_lines
-endfunction
-function! s:open_terminal(lines)
-  let path = a:lines[0]
-  let folder = isdirectory(path) ? path : fnamemodify(path, ':p:h')
-  tabe
-  execute 'lcd ' . folder
-  terminal
-  " To enter terminal mode, this is a workaround that autocommand exit the
-  " terminal mode when previous fzf session end.
-  call feedkeys('i')
-endfunction
-
 let g:misc_fzf_action = {
-      \ 'ctrl-q': function('s:build_quickfix_list'),
-      \ 'alt-c':  function('s:copy_results'),
+      \ 'ctrl-q': function('vimrc#fzf#build_quickfix_list'),
+      \ 'alt-c':  function('vimrc#fzf#copy_results'),
       \ 'alt-e':  'cd',
       \ }
 if has('nvim')
-  let g:misc_fzf_action['alt-t'] = function('s:open_terminal')
+  let g:misc_fzf_action['alt-t'] = function('vimrc#fzf#open_terminal')
 endif
 let g:default_fzf_action = extend({
       \ 'ctrl-t': 'tab split',
@@ -1588,163 +1571,13 @@ imap <C-X><C-L> <Plug>(fzf-complete-line)
 inoremap <expr> <C-X><C-D> fzf#vim#complete#path('fd -t d')
 
 " fzf functions & commands {{{
-" fzf utility functions borrowed from fzf.vim {{{
-function! s:warn(message)
-  echohl WarningMsg | echomsg a:message | echohl None
-endfunction
-
-" For using g:fzf_action in custom sink function
-" Don't return function, as function in g:fzf_action will only accept a:lines
-" or a:line, which is probably not what the caller want.
-let s:TYPE = {'dict': type({}), 'funcref': type(function('call')), 'string': type(''), 'list': type([])}
-function! s:action_for_with_table(table, key, ...)
-  let default = a:0 ? a:1 : ''
-  let Cmd = get(a:table, a:key, default)
-  return type(Cmd) == s:TYPE.string ? Cmd : default
-endfunction
-function! s:action_for(key, ...)
-  let default = a:0 ? a:1 : ''
-  return s:action_for_with_table(g:fzf_action, a:key, default)
-endfunction
-
-" For filling quickfix in custom sink function
-function! s:fill_quickfix(list, ...)
-  if len(a:list) > 1
-    call setqflist(a:list)
-    copen
-    wincmd p
-    if a:0
-      execute a:1
-    endif
-  endif
-endfunction
-
-" For using colors in fzf
-function! s:get_color(attr, ...)
-  let gui = has('termguicolors') && &termguicolors
-  let fam = gui ? 'gui' : 'cterm'
-  let pat = gui ? '^#[a-f0-9]\+' : '^[0-9]\+$'
-  for group in a:000
-    let code = synIDattr(synIDtrans(hlID(group)), a:attr, fam)
-    if code =~? pat
-      return code
-    endif
-  endfor
-  return ''
-endfunction
-
-let s:ansi = {'black': 30, 'red': 31, 'green': 32, 'yellow': 33, 'blue': 34, 'magenta': 35, 'cyan': 36}
-
-function! s:csi(color, fg)
-  let prefix = a:fg ? '38;' : '48;'
-  if a:color[0] == '#'
-    return prefix.'2;'.join(map([a:color[1:2], a:color[3:4], a:color[5:6]], 'str2nr(v:val, 16)'), ';')
-  endif
-  return prefix.'5;'.a:color
-endfunction
-
-function! s:ansi(str, group, default, ...)
-  let fg = s:get_color('fg', a:group)
-  let bg = s:get_color('bg', a:group)
-  let color = (empty(fg) ? s:ansi[a:default] : s:csi(fg, 1)) .
-        \ (empty(bg) ? '' : ';'.s:csi(bg, 0))
-  return printf("\x1b[%s%sm%s\x1b[m", color, a:0 ? ';1' : '', a:str)
-endfunction
-
-for s:color_name in keys(s:ansi)
-  execute "function! s:".s:color_name."(str, ...)\n"
-        \ "  return s:ansi(a:str, get(a:, 1, ''), '".s:color_name."')\n"
-        \ "endfunction"
-endfor
-
-function! s:wrap(name, opts, bang)
-  " fzf#wrap does not append --expect if sink or sink* is found
-  let opts = copy(a:opts)
-  let options = ''
-  if has_key(opts, 'options')
-    let options = type(opts.options) == s:TYPE.list ? join(opts.options) : opts.options
-  endif
-  if options !~ '--expect' && has_key(opts, 'sink*')
-    let Sink = remove(opts, 'sink*')
-    let wrapped = fzf#wrap(a:name, opts, a:bang)
-    let wrapped['sink*'] = Sink
-  else
-    let wrapped = fzf#wrap(a:name, opts, a:bang)
-  endif
-  return wrapped
-endfunction
-" }}}
-
 command! -bar  -bang                  Helptags call fzf#vim#helptags(<bang>0)
-command! -bang -nargs=? -complete=dir Files    call s:fzf_files(<q-args>, <bang>0)
-command! -bang -nargs=?               GFiles   call s:fzf_gitfiles(<q-args>, <bang>0)
-command! -bang -nargs=+ -complete=dir Locate   call s:fzf_locate(<q-args>, <bang>0)
-command! -bang -nargs=*               History  call s:history(<q-args>, <bang>0)
-command! -bar  -bang                  Windows  call fzf#vim#windows(s:fzf_windows_preview(), <bang>0)
-command! -bar  -nargs=* -bang         BLines   call fzf#vim#buffer_lines(<q-args>, s:fzf_buffer_lines_preview(), <bang>0)
-
-" borrowed from fzf.vim {{{
-function! s:history(arg, bang)
-  let bang = a:bang || a:arg[len(a:arg)-1] == '!'
-  if a:arg[0] == ':'
-    call fzf#vim#command_history(bang)
-  elseif a:arg[0] == '/'
-    call fzf#vim#search_history(bang)
-  else
-    call fzf#vim#history(fzf#vim#with_preview(), bang)
-  endif
-endfunction
-" }}}
-
-function! s:fzf_files(path, bang)
-  call fzf#vim#files(a:path, fzf#vim#with_preview(), a:bang)
-endfunction
-
-function! s:fzf_gitfiles(args, bang) abort
-  if a:args != '?'
-    return call('fzf#vim#gitfiles', [a:args, fzf#vim#with_preview(), a:bang])
-  else
-    return call('fzf#vim#gitfiles', [a:args, a:bang])
-  endif
-endfunction
-
-function! s:fzf_locate(query, bang)
-  call fzf#vim#locate(a:query, fzf#vim#with_preview(), a:bang)
-endfunction
-
-function! s:fzf_windows_preview() abort
-  let options = fzf#vim#with_preview()
-  let preview_script = remove(options.options, -1)[0:-4]
-  let get_filename_script = expand(vimrc#get_vimhome() . '/bin/fzf_windows_preview.sh')
-  let final_script = preview_script . ' "$(' . get_filename_script . ' {})"'
-
-  call remove(options.options, -1) " remove --preview
-  call extend(options.options, ['--preview', final_script])
-  return options
-endfunction
-
-function! s:fzf_buffer_lines_preview() abort
-  let file = expand('%')
-  let preview_top = 1
-  let preview_command = systemlist(vimrc#get_vimhome() . '/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . preview_top)[0]
-
-  return { 'options': ['--preview-window', 'right:50%:hidden', '--preview', preview_command] }
-endfunction
-
-" Currently not used
-function! s:fzf_files_sink(lines)
-  if len(a:lines) < 2
-    return
-  endif
-  let cmd = s:action_for(a:lines[0], 'edit')
-  for target in a:lines[1:]
-    if type(cmd) == type(function('call'))
-      cmd(target)
-    else
-      execute cmd . ' ' . target
-    endif
-  endfor
-endfunction
+command! -bang -nargs=? -complete=dir Files    call vimrc#fzf#files(<q-args>, <bang>0)
+command! -bang -nargs=?               GFiles   call vimrc#fzf#gitfiles(<q-args>, <bang>0)
+command! -bang -nargs=+ -complete=dir Locate   call vimrc#fzf#locate(<q-args>, <bang>0)
+command! -bang -nargs=*               History  call vimrc#fzf#history(<q-args>, <bang>0)
+command! -bar  -bang                  Windows  call fzf#vim#windows(vimrc#fzf#windows_preview(), <bang>0)
+command! -bar  -nargs=* -bang         BLines   call fzf#vim#buffer_lines(<q-args>, vimrc#fzf#buffer_lines_preview(), <bang>0)
 
 let g:fzf_preview_command = 'cat {}'
 if executable('bat')
@@ -1796,7 +1629,7 @@ command! -bang -nargs=* -complete=dir GitDiffFiles call s:git_diff_tree(<bang>0,
 " s:git_diff_tree([bang], [commit], [folder])
 function! s:git_diff_tree(...)
   if a:0 > 3
-    return s:warn('Invalid argument number')
+    return vimrc#warn('Invalid argument number')
   endif
 
   let bang   = a:0 >= 1 ? a:1 : 0
@@ -1805,7 +1638,7 @@ function! s:git_diff_tree(...)
 
   let git_dir = FugitiveExtractGitDir(expand(folder))
   if empty(git_dir)
-    return s:warn('not in git repo')
+    return vimrc#warn('not in git repo')
   endif
 
   call fzf#vim#files(
@@ -1819,7 +1652,7 @@ command! -bang -nargs=* -complete=dir RgGitDiffFiles call s:rg_git_diff_tree(<ba
 " s:rg_git_diff_tree([bang], [pattern], [commit], [folder])
 function! s:rg_git_diff_tree(...)
   if a:0 > 4
-    return s:warn('Invalid argument number')
+    return vimrc#warn('Invalid argument number')
   endif
 
   let bang    = a:0 >= 1 ? a:1 : 0
@@ -1829,7 +1662,7 @@ function! s:rg_git_diff_tree(...)
 
   let git_dir = FugitiveExtractGitDir(expand(folder))
   if empty(git_dir)
-    return s:warn('not in git repo')
+    return vimrc#warn('not in git repo')
   endif
 
   let command = printf(g:rg_git_diff_tree_command, folder, commit, shellescape(pattern))
@@ -2018,7 +1851,7 @@ function! s:tselect_sink(lines)
   if len(a:lines) < 2
     return
   endif
-  let cmd = s:action_for(a:lines[0], 'edit')
+  let cmd = vimrc#fzf#action_for(a:lines[0], 'edit')
   let qfl = []
   for target in a:lines[1:]
     let infos = split(target, "\t")
@@ -2031,7 +1864,7 @@ function! s:tselect_sink(lines)
     call add(qfl, {'filename': expand('%'), 'lnum': line('.'), 'text': getline('.')})
     normal! zzzv
   endfor
-  call s:fill_quickfix(qfl, 'clast')
+  call vimrc#fzf#fill_quickfix(qfl, 'clast')
   normal! zzzv
 endfunction
 
@@ -2067,7 +1900,7 @@ function! s:jump_sink(lines)
   if len(a:lines) < 2
     return
   endif
-  let cmd = s:action_for(a:lines[0], 'e')
+  let cmd = vimrc#fzf#action_for(a:lines[0], 'e')
   for result in a:lines[1:]
     let list = matchlist(result, '^\s\+\S\+\s\+\(\S\+\)\s\+\(\S\+\)\s\+\(.*\)') " jump line col file/text
     if len(list) < 4
@@ -2143,9 +1976,9 @@ function! s:range_lines_handler(center, lines)
     let ltxt = join(chunks[1:], "\t")
     call add(qfl, {'filename': expand('%'), 'lnum': str2nr(ln), 'text': ltxt})
   endfor
-  call s:fill_quickfix(qfl, 'cfirst')
+  call vimrc#fzf#fill_quickfix(qfl, 'cfirst')
   normal! m'
-  let cmd = s:action_for(a:lines[0])
+  let cmd = vimrc#fzf#action_for(a:lines[0])
   if !empty(cmd)
     execute 'silent' cmd
   endif
@@ -2159,7 +1992,7 @@ endfunction
 
 " Borrowed from s:buffer_lines from fzf.vim
 function! s:range_lines_source(start, end, query)
-  let linefmt = s:yellow(" %4d ", "LineNr")."\t%s"
+  let linefmt = vimrc#fzf#yellow(" %4d ", "LineNr")."\t%s"
   let fmtexpr = 'printf(linefmt, v:key + 1, v:val)'
   let lines = getline(1, '$')
   if empty(a:query)
@@ -2176,7 +2009,7 @@ function! s:range_lines(prompt, center, start, end, query)
   let final_options = extend(options, ['--preview-window', 'right:50%:hidden', '--preview', preview_command])
   let Sink = function('s:range_lines_handler', [a:center])
 
-  call fzf#run(s:wrap('', {
+  call fzf#run(vimrc#fzf#wrap('', {
         \ 'source':  s:range_lines_source(a:start, a:end, a:query),
         \ 'sink*':   Sink,
         \ 'options': final_options,
@@ -2205,7 +2038,7 @@ command! -nargs=1 FilesWithQuery call s:files_with_query(<q-args>)
 
 " TODO Add sign text and highlight
 function! s:current_placed_signs_source()
-  let linefmt = s:yellow(" %4d ", "LineNr")."\t%s"
+  let linefmt = vimrc#fzf#yellow(" %4d ", "LineNr")."\t%s"
   let fmtexpr = 'printf(linefmt, v:val[0], v:val[1])'
   let current_placed_signs = split(execute("sign place buffer=" . bufnr('%'), "silent!"), "\n")[2:]
   let line_numbers = map(current_placed_signs, "str2nr(matchstr(v:val, '\\d\\+', 9))")
@@ -2266,7 +2099,7 @@ function! s:git_grep_commit(commit, ...)
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
   let with_column = (vimrc#plugin#check#git_version() >= 'git version 2.19.0') ? 1 : 0
 
-  call fzf#run(s:wrap('', {
+  call fzf#run(vimrc#fzf#wrap('', {
         \ 'source': g:git_grep_commit_command.' '.shellescape(query).' '.a:commit,
         \ 'sink*': function('s:git_grep_commit_sink', [a:commit, with_column]),
         \ 'options': '-m -s',
@@ -2314,7 +2147,7 @@ function! s:git_grep_commit_sink(commit, with_column, lines)
     return
   endif
 
-  let cmd = s:action_for_with_table(g:fugitive_fzf_action, a:lines[0], 'Gedit')
+  let cmd = vimrc#fzf#action_for_with_table(g:fugitive_fzf_action, a:lines[0], 'Gedit')
   let list = map(filter(a:lines[1:], 'len(v:val)'), 's:git_grep_to_qf(v:val, a:commit, a:with_column)')
   if empty(list)
     return
@@ -2331,7 +2164,7 @@ function! s:git_grep_commit_sink(commit, with_column, lines)
   catch
   endtry
 
-  call s:fill_quickfix(list)
+  call vimrc#fzf#fill_quickfix(list)
 endfunction
 command! -nargs=+ -complete=customlist,fugitive#CompleteObject GitGrepCommit call s:git_grep_commit(<f-args>)
 command! -bang -nargs=* GitGrep call s:git_grep_commit('', <q-args>)
@@ -2366,7 +2199,7 @@ command! -nargs=? -complete=customlist,fugitive#CompleteObject GitDiffCommit cal
 
 let g:git_files_commit_command = 'git ls-tree -r --name-only'
 function! s:git_files_commit(commit)
-  call fzf#run(s:wrap('', {
+  call fzf#run(vimrc#fzf#wrap('', {
         \ 'source': g:git_files_commit_command.' '.a:commit,
         \ 'sink*': function('s:git_files_commit_sink', [a:commit]),
         \ 'options': '-m -s',
@@ -2376,7 +2209,7 @@ function! s:git_files_commit_sink(commit, lines)
   if len(a:lines) < 2
     return
   endif
-  let cmd = s:action_for_with_table(g:fugitive_fzf_action, a:lines[0], 'Gedit')
+  let cmd = vimrc#fzf#action_for_with_table(g:fugitive_fzf_action, a:lines[0], 'Gedit')
   for target in a:lines[1:]
     let filename = a:commit . ':' . target
     if type(cmd) == type(function('call'))
@@ -2395,14 +2228,14 @@ function! s:cscope_sink(lines)
   if len(a:lines) < 2
     return
   end
-  let cmd = s:action_for(a:lines[0], 'edit')
+  let cmd = vimrc#fzf#action_for(a:lines[0], 'edit')
   let qfl = []
   for result in a:lines[1:]
     let text = join(split(result)[1:])
     let [filename, line_number] = split(split(result)[0], ":")
     call add(qfl, {'filename': filename, 'lnum': line_number, 'text': text})
   endfor
-  call s:fill_quickfix(qfl)
+  call vimrc#fzf#fill_quickfix(qfl)
   for qf in qfl
     execute cmd . ' +' . qf.lnum . ' ' . qf.filename
     normal! zzzv
@@ -2524,9 +2357,9 @@ if vimrc#plugin#is_enabled_plugin('defx')
     augroup END
     call a:function()
   endfunction
-  command! -bang -nargs=? -complete=dir Files    call s:use_defx_fzf_action({ -> s:fzf_files(<q-args>, <bang>0) })
-  command! -bang -nargs=?               GFiles   call s:use_defx_fzf_action({ -> s:fzf_gitfiles(<q-args>, <bang>0) })
-  command! -bang -nargs=+ -complete=dir Locate   call s:use_defx_fzf_action({ -> s:fzf_locate(<q-args>, <bang>0) })
+  command! -bang -nargs=? -complete=dir Files    call s:use_defx_fzf_action({ -> vimrc#fzf#files(<q-args>, <bang>0) })
+  command! -bang -nargs=?               GFiles   call s:use_defx_fzf_action({ -> vimrc#fzf#gitfiles(<q-args>, <bang>0) })
+  command! -bang -nargs=+ -complete=dir Locate   call s:use_defx_fzf_action({ -> vimrc#fzf#locate(<q-args>, <bang>0) })
 
   command! -bang          DirectoryMru      call s:use_defx_fzf_action({ -> s:directory_mru(<bang>0) })
   command! -bang -nargs=? Directories       call s:use_defx_fzf_action({ -> s:directories(<q-args>, <bang>0) })

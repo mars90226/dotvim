@@ -14,3 +14,7 @@ function! vimrc#escape_symbol(expr)
 
   return l:expr
 endfunction
+
+function! vimrc#warn(message)
+  echohl WarningMsg | echomsg a:message | echohl None
+endfunction
