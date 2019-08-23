@@ -1400,35 +1400,6 @@ if vimrc#plugin#is_enabled_plugin('denite.nvim')
   let g:denite_source_session_path = $HOME.'/vim-sessions/'
   let g:project_folders = ['/synosrc/packages/source']
 
-  " Denite only has 1 active buffer per tab
-  " buffer-name should be tab-based
-  function! s:denite_get_buffer_name(prefix) abort
-    return a:prefix . '%' . tabpagenr()
-  endfunction
-
-  function! s:denite_grep(query, buffer_name_prefix, option, is_word) abort
-    let escaped_query = vimrc#escape_symbol(a:query)
-    let escaped_option = vimrc#escape_symbol(a:option)
-    let final_query = a:is_word ? '\\b' . escaped_query . '\\b' : escaped_query
-    let buffer_name = s:denite_get_buffer_name(a:buffer_name_prefix)
-
-    execute 'Denite -buffer-name=' . buffer_name . ' -auto-resume grep:.:' . escaped_option . ':' . final_query
-  endfunction
-
-  function! s:denite_project_tags(query)
-    let t:origin_tags = &tags
-    set tags-=./tags;
-    augroup denite_project_tags_callback
-      autocmd!
-      autocmd BufWinLeave \[denite\]
-            \ if exists('t:origin_tags') |
-            \   let &tags = t:origin_tags |
-            \   autocmd! denite_project_tags_callback |
-            \ endif
-    augroup END
-    execute 'Denite tag -input=' . a:query
-  endfunction
-
   " Denite key mappings {{{
   " Override Unite key mapping {{{
   function! s:remap(old_key, new_key, mode)
@@ -1468,20 +1439,20 @@ if vimrc#plugin#is_enabled_plugin('denite.nvim')
   nnoremap <Space>dh :Denite help<CR>
   nnoremap <Space>dj :Denite -auto-action=preview jump<CR>
   nnoremap <Space>dJ :Denite project<CR>
-  nnoremap <Space>di :call <SID>denite_grep('!', 'grep', '', v:false)<CR>
-  nnoremap <Space>dk :call <SID>denite_grep(expand('<cword>'), 'grep', '', v:false)<CR>
-  nnoremap <Space>dK :call <SID>denite_grep(expand('<cWORD>'), 'grep', '', v:false)<CR>
-  nnoremap <Space>d8 :call <SID>denite_grep(expand('<cword>'), 'grep', '', v:true)<CR>
-  nnoremap <Space>d* :call <SID>denite_grep(expand('<cWORD>'), 'grep', '', v:true)<CR>
-  xnoremap <Space>dk :<C-U>call <SID>denite_grep(<SID>get_visual_selection(), 'grep', '', v:false)<CR>
-  xnoremap <Space>d8 :<C-U>call <SID>denite_grep(<SID>get_visual_selection(), 'grep', '', v:true)<CR>
+  nnoremap <Space>di :call vimrc#denite#grep('!', 'grep', '', v:false)<CR>
+  nnoremap <Space>dk :call vimrc#denite#grep(expand('<cword>'), 'grep', '', v:false)<CR>
+  nnoremap <Space>dK :call vimrc#denite#grep(expand('<cWORD>'), 'grep', '', v:false)<CR>
+  nnoremap <Space>d8 :call vimrc#denite#grep(expand('<cword>'), 'grep', '', v:true)<CR>
+  nnoremap <Space>d* :call vimrc#denite#grep(expand('<cWORD>'), 'grep', '', v:true)<CR>
+  xnoremap <Space>dk :<C-U>call vimrc#denite#grep(<SID>get_visual_selection(), 'grep', '', v:false)<CR>
+  xnoremap <Space>d8 :<C-U>call vimrc#denite#grep(<SID>get_visual_selection(), 'grep', '', v:true)<CR>
   nnoremap <Space>dm :Denite file_mru<CR>
   nnoremap <Space>dM :Denite directory_mru<CR>
   nnoremap <Space>do :execute 'Denite output:' . vimrc#escape_symbol(input('output: '))<CR>
   nnoremap <Space>dO :Denite outline<CR>
   nnoremap <Space>d<C-O> :Denite unite:outline<CR>
-  nnoremap <Space>dp :call <SID>denite_project_tags('')<CR>
-  nnoremap <Space>dP :call <SID>denite_project_tags(expand('<cword>'))<CR>
+  nnoremap <Space>dp :call vimrc#denite#project_tags('')<CR>
+  nnoremap <Space>dP :call vimrc#denite#project_tags(expand('<cword>'))<CR>
   nnoremap <Space>d<C-P> :Denite -auto-resume -auto-action=preview file/rec<CR>
   nnoremap <Space>dq :Denite quickfix<CR>
   nnoremap <Space>dr :Denite register<CR>
@@ -1489,151 +1460,32 @@ if vimrc#plugin#is_enabled_plugin('denite.nvim')
   nnoremap <Space>d<Space> :Denite source<CR>
   nnoremap <Space>dt :Denite tag<CR>
   nnoremap <Space>du :Denite -resume<CR>
-  nnoremap <Space>dU :Denite -resume -buffer-name=`{g:sid}denite_get_buffer_name('grep')`<CR>
-  nnoremap <Space>d<C-U> :Denite -resume -refresh -buffer-name=`{g:sid}denite_get_buffer_name('grep')`<CR>
+  nnoremap <Space>dU :Denite -resume -buffer-name=`vimrc#denite#get_buffer_name('grep')`<CR>
+  nnoremap <Space>d<C-U> :Denite -resume -refresh -buffer-name=`vimrc#denite#get_buffer_name('grep')`<CR>
   nnoremap <Space>dx :Denite defx/history<CR>
   nnoremap <Space>dy :Denite neoyank<CR>
   nnoremap <Space>d: :Denite command_history<CR>
   nnoremap <Space>d; :Denite command<CR>
-  nnoremap <Space>d/ :call <SID>denite_grep('', 'grep', '', v:false)<CR>
-  nnoremap <Space>d? :call <SID>denite_grep('', 'grep', input('Option: '), v:false)<CR>
+  nnoremap <Space>d/ :call vimrc#denite#grep('', 'grep', '', v:false)<CR>
+  nnoremap <Space>d? :call vimrc#denite#grep('', 'grep', input('Option: '), v:false)<CR>
 
   nnoremap <silent> [d :Denite -resume -immediately -cursor-pos=-1<CR>
   nnoremap <silent> ]d :Denite -resume -immediately -cursor-pos=+1<CR>
-  nnoremap <silent> [D :Denite -resume -immediately -cursor-pos=-1 -buffer-name=`{g:sid}denite_get_buffer_name('grep')`<CR>
-  nnoremap <silent> ]D :Denite -resume -immediately -cursor-pos=+1 -buffer-name=`{g:sid}denite_get_buffer_name('grep')`<CR>
+  nnoremap <silent> [D :Denite -resume -immediately -cursor-pos=-1 -buffer-name=`vimrc#denite#get_buffer_name('grep')`<CR>
+  nnoremap <silent> ]D :Denite -resume -immediately -cursor-pos=+1 -buffer-name=`vimrc#denite#get_buffer_name('grep')`<CR>
 
   if executable('rg')
-    nnoremap <Space>dg/ :call <SID>denite_grep('', 'grep', <SID>rg_current_type_option(), v:false)<CR>
-    nnoremap <Space>dg? :call <SID>denite_grep('', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
+    nnoremap <Space>dg/ :call vimrc#denite#grep('', 'grep', <SID>rg_current_type_option(), v:false)<CR>
+    nnoremap <Space>dg? :call vimrc#denite#grep('', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
   endif
   " }}}
 
   " Denite buffer key mappings {{{
   augroup denite_my_settings
     autocmd!
-    autocmd FileType denite        call s:denite_my_settings()
-    autocmd FileType denite-filter call s:denite_filter_my_settings()
+    autocmd FileType denite        call vimrc#denite#mappings()
+    autocmd FileType denite-filter call vimrc#denite#filter_mappings()
   augroup END
-
-  " Denite buffer normal mode
-  function! s:denite_my_settings()
-    " Denite buffer
-    nnoremap <silent><buffer><expr> <Esc> denite#do_map('quit')
-    nnoremap <silent><buffer><expr> <C-c> denite#do_map('quit')
-    nnoremap <silent><buffer><expr> q     denite#do_map('quit')
-    nnoremap <silent><buffer><expr> i     denite#do_map('open_filter_buffer')
-
-    " Actions
-    nnoremap <silent><buffer><expr> *
-          \ denite#do_map('toggle_select_all')
-    nnoremap <silent><buffer><expr> .
-          \ denite#do_map('do_previous_action')
-    nnoremap <silent><buffer><nowait><expr> `
-          \ denite#do_map('toggle_select').'j'
-    nnoremap <silent><buffer><nowait><expr> <M-`>
-          \ denite#do_map('toggle_select')
-    nnoremap <silent><buffer><expr> <C-L>
-          \ denite#do_map('redraw')
-    nnoremap <silent><buffer><expr> <C-R>
-          \ denite#do_map('restart')
-    nnoremap <silent><buffer><expr> <Tab>
-          \ denite#do_map('choose_action')
-    nnoremap <silent><buffer><expr> <CR>
-          \ denite#do_map('do_action')
-    nnoremap <silent><buffer><expr> d
-          \ denite#do_map('do_action', 'delete')
-    nnoremap <silent><buffer><expr> e
-          \ denite#do_map('do_action', 'edit')
-    nnoremap <silent><buffer><expr> n
-          \ denite#do_map('do_action', 'new')
-    nnoremap <silent><buffer><expr> o
-          \ denite#do_map('do_action', 'open')
-    nnoremap <silent><buffer><expr> p
-          \ denite#do_map('do_action', 'preview')
-    nnoremap <silent><buffer><expr> r
-          \ denite#do_map('do_action', 'quickfix')
-    nnoremap <silent><buffer><expr> s
-          \ denite#do_map('do_action', 'split')
-    nnoremap <silent><buffer><expr> t
-          \ denite#do_map('do_action', 'tabopen')
-    nnoremap <silent><buffer><expr> v
-          \ denite#do_map('do_action', 'vsplit')
-    nnoremap <silent><buffer><expr> u
-          \ denite#do_map('restore_sources')
-    nnoremap <silent><buffer><expr> x
-          \ denite#do_map('quick_move')
-    nnoremap <silent><buffer><expr> Y
-          \ denite#do_map('do_action', 'yank')
-    nnoremap <silent><buffer><expr> <M-s>
-          \ denite#do_map('do_action', 'splitswitch')
-    nnoremap <silent><buffer><expr> <M-t>
-          \ denite#do_map('do_action', 'tabswitch')
-    nnoremap <silent><buffer><expr> <M-v>
-          \ denite#do_map('do_action', 'vsplitswitch')
-    nnoremap <silent><buffer><expr> <M-w>
-          \ denite#do_map('do_action', 'switch')
-  endfunction
-
-  function! s:denite_move_cursor_candidate_window(dir, lines) abort
-      call win_gotoid(win_findbuf(g:denite#_filter_parent)[0])
-      execute 'normal! ' . a:lines . a:dir
-      call win_gotoid(g:denite#_filter_winid)
-      startinsert!
-  endfunction
-
-  " Denite buffer insert mode
-  function! s:denite_filter_my_settings()
-    " Denite filter buffer
-    inoremap <silent><buffer><expr> <Esc> denite#do_map('quit')
-    inoremap <silent><buffer><expr> <C-C> denite#do_map('quit')
-    nnoremap <silent><buffer><expr> <Esc> denite#do_map('quit')
-    nnoremap <silent><buffer><expr> <C-C> denite#do_map('quit')
-    nnoremap <silent><buffer><expr> q     denite#do_map('quit')
-
-    " Cursor movements
-    " Reserve <C-o> for moving cursor
-    imap     <silent><buffer>         <C-F> <Plug>(denite_filter_quit)
-    " Rerserve a key mapping for entering normal mode
-    inoremap <silent><buffer>         <M-q> <Esc>
-    inoremap <silent><buffer>         <C-B> <C-O>^
-    inoremap <silent><buffer><nowait> <C-E> <C-O>$
-
-    " Actions
-    inoremap <silent><buffer><expr> <Tab> denite#do_map('choose_action')
-    inoremap <silent><buffer><expr> <C-L> denite#do_map('redraw')
-
-    inoremap <silent><buffer> <C-J>
-          \ <Esc>:call <SID>denite_move_cursor_candidate_window('j', 1)<CR>
-    inoremap <silent><buffer> <C-K>
-          \ <Esc>:call <SID>denite_move_cursor_candidate_window('k', 1)<CR>
-    inoremap <silent><buffer> <M-j>
-          \ <Esc>:call <SID>denite_move_cursor_candidate_window('j', 20)<CR>
-    inoremap <silent><buffer> <M-k>
-          \ <Esc>:call <SID>denite_move_cursor_candidate_window('k', 20)<CR>
-    inoremap <silent><buffer><expr> <CR>  denite#do_map('do_action')
-    nnoremap <silent><buffer><expr> <CR>  denite#do_map('do_action')
-    inoremap <silent><buffer><expr> <M-o> denite#do_map('do_action', 'open')
-    inoremap <silent><buffer><expr> <C-S> denite#do_map('do_action', 'split')
-    inoremap <silent><buffer><expr> <C-T> denite#do_map('do_action', 'tabopen')
-    inoremap <silent><buffer><expr> <C-V> denite#do_map('do_action', 'vsplit')
-    inoremap <silent><buffer><expr> <M-p> denite#do_map('do_action', 'preview')
-    inoremap <silent><buffer><expr> <M-d> denite#do_map('do_action', 'cd')
-    inoremap <silent><buffer><expr> <M-s> denite#do_map('do_action', 'splitswitch')
-    inoremap <silent><buffer><expr> <M-t> denite#do_map('do_action', 'tabswitch')
-    inoremap <silent><buffer><expr> <M-v> denite#do_map('do_action', 'vsplitswitch')
-    inoremap <silent><buffer><expr> <M-w> denite#do_map('do_action', 'switch')
-
-    " Toggle matchers & sorters
-    inoremap <silent><buffer><expr> <M-f>
-          \ denite#do_map('toggle_matchers', 'matcher/fruzzy')
-    inoremap <silent><buffer><expr> <M-g>
-          \ denite#do_map('toggle_matchers', 'matcher/substring')
-    inoremap <silent><buffer><expr> <M-`>
-          \ denite#do_map('toggle_matchers', 'matcher/regexp')
-    inoremap <silent><buffer><expr> <M-r>
-          \ denite#do_map('change_sorters', 'sorter/reverse')
-  endfunction
   " }}}
 endif
 " }}}

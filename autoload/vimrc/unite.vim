@@ -1,16 +1,3 @@
-
-function! vimrc#unite#post_loaded_mappings()
-  silent! unmap [u
-  silent! unmap [uu
-  silent! unmap ]u
-  silent! unmap ]uu
-
-  nnoremap <silent><nowait> ]u :<C-U>execute v:count1 . 'UniteNext'<CR>
-  nnoremap <silent><nowait> [u :<C-U>execute v:count1 . 'UnitePrevious'<CR>
-  nnoremap <silent> [U :UniteFirst<CR>
-  nnoremap <silent> ]U :UniteLast<CR>
-endfunction
-
 function! vimrc#unite#grep(query, buffer_name_prefix, option, is_word) abort
   let escaped_query = vimrc#escape_symbol(a:query)
   let escaped_option = vimrc#escape_symbol(a:option)
@@ -106,3 +93,15 @@ function! vimrc#unite#mappings() "{{{
   silent! xunmap <buffer> <Space>
   xmap <silent><buffer><nowait> ` <Plug>(unite_toggle_mark_selected_candidates)
 endfunction "}}}
+
+function! vimrc#unite#post_loaded_mappings()
+  silent! unmap [u
+  silent! unmap [uu
+  silent! unmap ]u
+  silent! unmap ]uu
+
+  nnoremap <silent><nowait> ]u :<C-U>execute v:count1 . 'UniteNext'<CR>
+  nnoremap <silent><nowait> [u :<C-U>execute v:count1 . 'UnitePrevious'<CR>
+  nnoremap <silent> [U :UniteFirst<CR>
+  nnoremap <silent> ]U :UniteLast<CR>
+endfunction
