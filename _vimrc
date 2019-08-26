@@ -851,24 +851,10 @@ if vimrc#plugin#is_enabled_plugin("vimfiler")
   nnoremap <F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit<CR>
   nnoremap <Space><F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit -find<CR>
 
-  augroup vimfiler_my_settings
+  augroup vimfiler_mappings
     autocmd!
-    autocmd FileType vimfiler call s:vimfiler_my_settings()
+    autocmd FileType vimfiler call vimrc#vimfiler#mappings()
   augroup END
-  function! s:vimfiler_my_settings()
-    " Runs "tabopen" action by <C-T>.
-    nmap <silent><buffer><expr> <C-T>     vimfiler#do_action('tabopen')
-
-    " Runs "choose" action by <C-C>.
-    nmap <silent><buffer><expr> <C-C>     vimfiler#do_action('choose')
-
-    " Toggle no_quit with <C-N>
-    nmap <silent><buffer>       <C-N>     :let b:vimfiler.context.quit = !b:vimfiler.context.quit<CR>
-
-    " Unmap <Space>, use ` instead
-    silent! nunmap <buffer> <Space>
-    nmap <silent><buffer>       `         <Plug>(vimfiler_toggle_mark_current_line)
-  endfunction
 endif
 " }}}
 
@@ -910,7 +896,7 @@ if vimrc#plugin#is_enabled_plugin("defx")
   command! -nargs=1 -complete=file DefxTabOpenDirSink         call vimrc#defx#open_dir(<q-args>, 'tab split')
   command! -nargs=1 -complete=file DefxRightVSplitOpenDirSink call vimrc#defx#open_dir(<q-args>, 'rightbelow vsplit')
 
-  augroup defx_my_settings
+  augroup defx_mappings
     autocmd!
     autocmd FileType defx call vimrc#defx#mappings()
   augroup END
@@ -1079,7 +1065,7 @@ if executable('rg')
 endif
 " }}}
 
-augroup unite_my_settings
+augroup unite_mappings
   autocmd!
   autocmd FileType unite call vimrc#unite#mappings()
 augroup END
@@ -1175,7 +1161,7 @@ if vimrc#plugin#is_enabled_plugin('denite.nvim')
   " }}}
 
   " Denite buffer key mappings {{{
-  augroup denite_my_settings
+  augroup denite_mappings
     autocmd!
     autocmd FileType denite        call vimrc#denite#mappings()
     autocmd FileType denite-filter call vimrc#denite#filter_mappings()
