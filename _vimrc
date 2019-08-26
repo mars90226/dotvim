@@ -638,12 +638,7 @@ let g:tagbar_type_ps1 = {
     \ }
 
 if vimrc#plugin#is_enabled_plugin('lightline.vim')
-  let g:tagbar_status_func = 'TagbarStatusFunc'
-
-  function! TagbarStatusFunc(current, sort, fname, ...) abort
-    let g:lightline.fname = a:fname
-    return lightline#statusline(0)
-  endfunction
+  let g:tagbar_status_func = 'vimrc#lightline#tagbar_status_func'
 endif
 " }}}
 

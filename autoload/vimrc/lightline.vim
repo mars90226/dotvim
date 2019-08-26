@@ -126,3 +126,8 @@ function! vimrc#lightline#tab_modified(n) abort
         \ buftype == 'terminal' ? '' :
         \ gettabwinvar(a:n, winnr, '&modified') ? '+' : gettabwinvar(a:n, winnr, '&modifiable') ? '' : '-'
 endfunction
+
+function! vimrc#lightline#tagbar_status_func(current, sort, fname, ...) abort
+  let g:lightline.fname = a:fname
+  return lightline#statusline(0)
+endfunction
