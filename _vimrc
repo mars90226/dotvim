@@ -1643,74 +1643,6 @@ command! -nargs=? -complete=customlist,fugitive#CompleteObject GitDiffCommit cal
 command! -nargs=1 -complete=customlist,fugitive#CompleteObject GitFilesCommit call vimrc#fzf#git#files_commit(<q-args>)
 " }}}
 
-" Cscope functions {{{
-" Borrowed from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
-function! s:cscope_sink(lines)
-  if len(a:lines) < 2
-    return
-  end
-  let cmd = vimrc#fzf#action_for(a:lines[0], 'edit')
-  let qfl = []
-  for result in a:lines[1:]
-    let text = join(split(result)[1:])
-    let [filename, line_number] = split(split(result)[0], ":")
-    call add(qfl, {'filename': filename, 'lnum': line_number, 'text': text})
-  endfor
-  call vimrc#fzf#fill_quickfix(qfl)
-  for qf in qfl
-    execute cmd . ' +' . qf.lnum . ' ' . qf.filename
-    normal! zzzv
-  endfor
-endfunction
-
-function! s:cscope(option, query)
-  let expect_keys = join(keys(g:fzf_action), ',')
-  let color = '{ x = $1; $1 = ""; z = $3; $3 = ""; printf "\033[34m%s\033[0m:\033[31m%s:\033[0m\011\033[37m%s\033[0m\n", x,z,$0; }'
-  let opts = fzf#vim#with_preview({
-        \ 'source':  "cscope -dL" . a:option . " " . a:query . " | awk '" . color . "'",
-        \ 'sink*': function('s:cscope_sink'),
-        \ 'options': ['--ansi', '--prompt', '> ',
-        \             '--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
-        \             '--color', 'fg:188,fg+:222,bg+:#3a3a3a,hl+:104',
-        \             '--expect=' . expect_keys],
-        \ 'down': '40%'
-        \ }, 'right:50%:hidden', '?')
-  call fzf#run(opts)
-endfunction
-
-function! s:cscope_query(option)
-  call inputsave()
-  if a:option == '0'
-    let query = input('C Symbol: ')
-  elseif a:option == '1'
-    let query = input('Definition: ')
-  elseif a:option == '2'
-    let query = input('Functions called by: ')
-  elseif a:option == '3'
-    let query = input('Functions calling: ')
-  elseif a:option == '4'
-    let query = input('Text: ')
-  elseif a:option == '6'
-    let query = input('Egrep: ')
-  elseif a:option == '7'
-    let query = input('File: ')
-  elseif a:option == '8'
-    let query = input('Files #including: ')
-  elseif a:option == '9'
-    let query = input('Assignments to: ')
-  else
-    echo "Invalid option!"
-    return
-  endif
-  call inputrestore()
-  if query != ""
-    call s:cscope(a:option, query)
-  else
-    echomsg "Cancelled Search!"
-  endif
-endfunction
-" }}}
-
 if has("nvim")
   augroup fzf_statusline
     autocmd!
@@ -1864,35 +1796,35 @@ xnoremap <Space>sL :<C-U>execute 'ScreenLines ' . <SID>get_visual_selection()<CR
 nnoremap <Space>ss :History:<CR>mks vim sessions
 
 " fzf & cscope key mappings {{{
-nnoremap <silent> <Leader>cs :call <SID>cscope('0', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cg :call <SID>cscope('1', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cd :call <SID>cscope('2', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cc :call <SID>cscope('3', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>ct :call <SID>cscope('4', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>ce :call <SID>cscope('6', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cf :call <SID>cscope('7', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>ci :call <SID>cscope('8', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>ca :call <SID>cscope('9', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>cs :call vimrc#fzf#cscope#cscope('0', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>cg :call vimrc#fzf#cscope#cscope('1', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>cd :call vimrc#fzf#cscope#cscope('2', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>cc :call vimrc#fzf#cscope#cscope('3', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>ct :call vimrc#fzf#cscope#cscope('4', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>ce :call vimrc#fzf#cscope#cscope('6', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>cf :call vimrc#fzf#cscope#cscope('7', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>ci :call vimrc#fzf#cscope#cscope('8', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>ca :call vimrc#fzf#cscope#cscope('9', expand('<cword>'))<CR>
 
-xnoremap <silent> <Leader>cs :<C-U>call <SID>cscope('0', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>cg :<C-U>call <SID>cscope('1', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>cd :<C-U>call <SID>cscope('2', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>cc :<C-U>call <SID>cscope('3', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>ct :<C-U>call <SID>cscope('4', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>ce :<C-U>call <SID>cscope('6', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>cf :<C-U>call <SID>cscope('7', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>ci :<C-U>call <SID>cscope('8', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>ca :<C-U>call <SID>cscope('9', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cs :<C-U>call vimrc#fzf#cscope#cscope('0', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cg :<C-U>call vimrc#fzf#cscope#cscope('1', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cd :<C-U>call vimrc#fzf#cscope#cscope('2', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cc :<C-U>call vimrc#fzf#cscope#cscope('3', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>ct :<C-U>call vimrc#fzf#cscope#cscope('4', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>ce :<C-U>call vimrc#fzf#cscope#cscope('6', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cf :<C-U>call vimrc#fzf#cscope#cscope('7', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>ci :<C-U>call vimrc#fzf#cscope#cscope('8', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>ca :<C-U>call vimrc#fzf#cscope#cscope('9', <SID>get_visual_selection())<CR>
 
-nnoremap <silent> <Leader><Leader>cs :call <SID>cscope_query('0')<CR>
-nnoremap <silent> <Leader><Leader>cg :call <SID>cscope_query('1')<CR>
-nnoremap <silent> <Leader><Leader>cd :call <SID>cscope_query('2')<CR>
-nnoremap <silent> <Leader><Leader>cc :call <SID>cscope_query('3')<CR>
-nnoremap <silent> <Leader><Leader>ct :call <SID>cscope_query('4')<CR>
-nnoremap <silent> <Leader><Leader>ce :call <SID>cscope_query('6')<CR>
-nnoremap <silent> <Leader><Leader>cf :call <SID>cscope_query('7')<CR>
-nnoremap <silent> <Leader><Leader>ci :call <SID>cscope_query('8')<CR>
-nnoremap <silent> <Leader><Leader>ca :call <SID>cscope_query('9')<CR>
+nnoremap <silent> <Leader><Leader>cs :call vimrc#fzf#cscope#cscope_query('0')<CR>
+nnoremap <silent> <Leader><Leader>cg :call vimrc#fzf#cscope#cscope_query('1')<CR>
+nnoremap <silent> <Leader><Leader>cd :call vimrc#fzf#cscope#cscope_query('2')<CR>
+nnoremap <silent> <Leader><Leader>cc :call vimrc#fzf#cscope#cscope_query('3')<CR>
+nnoremap <silent> <Leader><Leader>ct :call vimrc#fzf#cscope#cscope_query('4')<CR>
+nnoremap <silent> <Leader><Leader>ce :call vimrc#fzf#cscope#cscope_query('6')<CR>
+nnoremap <silent> <Leader><Leader>cf :call vimrc#fzf#cscope#cscope_query('7')<CR>
+nnoremap <silent> <Leader><Leader>ci :call vimrc#fzf#cscope#cscope_query('8')<CR>
+nnoremap <silent> <Leader><Leader>ca :call vimrc#fzf#cscope#cscope_query('9')<CR>
 " }}}
 
 if has("nvim")
