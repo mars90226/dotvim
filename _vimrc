@@ -747,50 +747,6 @@ if vimrc#plugin#is_enabled_plugin('lightline.vim')
   let g:unite_force_overwrite_statusline = 0
 endif
 
-" Unite custom function {{{
-" TODO Not 100% accurate pattern, increase accuracy
-let g:type_pattern_options = {
-      \ 'c-family':   ['\v\.%(c|cpp|h|hpp)$',                 '-tc -tcpp'],
-      \ 'config':     ['\v\.%(cfg|conf|config|ini)$',         '-tconfig'],
-      \ 'css':        ['\v\.%(css|scss)$',                    '-tcss'],
-      \ 'csv':        ['\.csv$',                              '-tcsv'],
-      \ 'go':         ['\.go$',                               '-tgo'],
-      \ 'html':       ['\.html$',                             '-thtml'],
-      \ 'javascript': ['\v\.%(js|jsx)$',                      '-tjs'],
-      \ 'json':       ['\.json$',                             '-tjson'],
-      \ 'log':        ['\.log$',                              '-tlog'],
-      \ 'lua':        ['\.lua$',                              '-tlua'],
-      \ 'perl':       ['\v\.%(pl|pm|t)$',                      '-tperl'],
-      \ 'python':     ['\.py$',                               '-tpy'],
-      \ 'ruby':       ['\v%(\.rb|Gemfile|Rakefile)$',         '-truby'],
-      \ 'rust':       ['\.rs$',                               '-trust'],
-      \ 'shell':      ['\v\.%(bash|bashrc|sh|bash_aliases)$', "-g '{*.sh,.bashrc,.bash_*}'"],
-      \ 'sql':        ['\.sql$',                              '-tsql'],
-      \ 'txt':        ['\.txt$',                              '-ttxt'],
-      \ 'typescript': ['\.ts$',                               "-g '*.ts'"],
-      \ 'vim':        ['\v%(\.vim|\.vimrc|_vimrc)$',          "-g '{*.vim,_vimrc}'"],
-      \ 'yaml':       ['\v\.%(yaml|yml)$',                    '-tyaml'],
-      \ 'wiki':       ['\.wiki$',                             '-twiki'],
-      \ }
-
-" TODO Use ripgrep type list
-" TODO Change to global function?
-" TODO Detect non-file buffer
-function! s:rg_current_type_option() abort
-  let filename = expand('%:t')
-
-  for [type, value] in items(g:type_pattern_options)
-    let pattern = value[0]
-    let option = value[1]
-    if filename =~ pattern
-      return option
-    endif
-  endfor
-
-  return ''
-endfunction
-" }}}
-
 " Unite key mappings {{{
 " Unite don't auto-preview file as it's slow
 nnoremap <Space>l :Unite -start-insert line<CR>
@@ -864,7 +820,7 @@ if executable('rg')
   let g:unite_source_grep_default_opts = '--hidden --no-heading --vimgrep -S'
   let g:unite_source_grep_recursive_opt = ''
 
-  nnoremap <Space>g/ :call vimrc#unite#grep('', 'grep', <SID>rg_current_type_option(), v:false)<CR>
+  nnoremap <Space>g/ :call vimrc#unite#grep('', 'grep', vimrc#rg_current_type_option(), v:false)<CR>
   nnoremap <Space>g? :call vimrc#unite#grep('', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
 endif
 " }}}
@@ -887,20 +843,12 @@ if vimrc#plugin#is_enabled_plugin('denite.nvim')
 
   " Denite key mappings {{{
   " Override Unite key mapping {{{
-  function! s:remap(old_key, new_key, mode)
-    let mapping = maparg(a:old_key, a:mode)
-
-    if !empty(mapping)
-      execute a:mode . 'unmap ' . a:old_key
-      execute a:mode . 'noremap ' . a:new_key . ' ' . mapping
-    endif
-  endfunction
-  call s:remap('<Space>up', '<Space>u<C-P>', 'n') " UniteWithProjectDir file
-  call s:remap('<Space>P',  '<Space>uP',     'n') " Unite file/rec
-  call s:remap('<Space>p',  '<Space>up',     'n') " Unite file
-  call s:remap('<Space>ul', '<Space>uL',     'n') " UniteWithCursorWord line
-  call s:remap('<Space>l',  '<Space>ul',     'n') " Unite line
-  call s:remap('<Space>o',  '<Space>O',      'n') " Unite outline
+  call vimrc#remap('<Space>up', '<Space>u<C-P>', 'n') " UniteWithProjectDir file
+  call vimrc#remap('<Space>P',  '<Space>uP',     'n') " Unite file/rec
+  call vimrc#remap('<Space>p',  '<Space>up',     'n') " Unite file
+  call vimrc#remap('<Space>ul', '<Space>uL',     'n') " UniteWithCursorWord line
+  call vimrc#remap('<Space>l',  '<Space>ul',     'n') " Unite line
+  call vimrc#remap('<Space>o',  '<Space>O',      'n') " Unite outline
 
   nnoremap <Space>p     :Denite -auto-resume buffer dirmark file<CR>
   nnoremap <Space>P     :Denite -auto-resume file/rec<CR>
@@ -959,7 +907,7 @@ if vimrc#plugin#is_enabled_plugin('denite.nvim')
   nnoremap <silent> ]D :Denite -resume -immediately -cursor-pos=+1 -buffer-name=`vimrc#denite#get_buffer_name('grep')`<CR>
 
   if executable('rg')
-    nnoremap <Space>dg/ :call vimrc#denite#grep('', 'grep', <SID>rg_current_type_option(), v:false)<CR>
+    nnoremap <Space>dg/ :call vimrc#denite#grep('', 'grep', vimrc#rg_current_type_option(), v:false)<CR>
     nnoremap <Space>dg? :call vimrc#denite#grep('', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
   endif
   " }}}
@@ -1187,7 +1135,7 @@ nnoremap <Space>fr :execute 'Rg ' . input('Rg: ')<CR>
 nnoremap <Space>fR :execute 'Rg! ' . input('Rg!: ')<CR>
 nnoremap <Space>f4 :execute 'RgWithOption .:' . input('Option: ') . ':' . input('Rg: ')<CR>
 nnoremap <Space>f$ :execute 'RgWithOption! .:' . input('Option: ') . ':' . input('Rg!: ')<CR>
-nnoremap <Space>f? :execute 'RgWithOption .:' . <SID>rg_current_type_option() . ':' . input('Rg: ')<CR>
+nnoremap <Space>f? :execute 'RgWithOption .:' . vimrc#rg_current_type_option() . ':' . input('Rg: ')<CR>
 nnoremap <Space>f5 :execute 'RgWithOption ' . expand('%:h') . '::' . input('Rg: ')<CR>
 nnoremap <Space>fs :GFiles?<CR>
 nnoremap <Space>fS :CurrentPlacedSigns<CR>
@@ -2664,7 +2612,7 @@ nnoremap <Space>sr :let @+ = @"<CR>
 
 " Command line mapping
 cnoremap <expr> <C-G><C-F> vimrc#fzf#files_in_commandline()
-cnoremap <expr> <C-G><C-T> <SID>rg_current_type_option()
+cnoremap <expr> <C-G><C-T> vimrc#rg_current_type_option()
 " <C-]> and <C-%> is the same key
 cnoremap <expr> <C-G><C-]> expand('%:t:r')
 " <C-\> and <C-$> is the same key
