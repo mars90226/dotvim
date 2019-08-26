@@ -1399,20 +1399,10 @@ xmap <M-?> <Esc><Plug>(incsearch-backward)\%V
 
 augroup incsearch_settings
   autocmd!
-  autocmd BufWinLeave,WinLeave * call s:clear_incsearch_nohlsearch()
+  autocmd BufWinLeave,WinLeave * call vimrc#incsearch#clear_nohlsearch()
 augroup END
 
-function! s:clear_incsearch_auto_nohlsearch()
-  " clear incsearch-nohlsearch autocmd
-  silent! autocmd! incsearch-auto-nohlsearch
-endfunction
-command! ClearIncsearchAutoNohlsearch call s:clear_incsearch_auto_nohlsearch()
-
-function! s:clear_incsearch_nohlsearch()
-  nohlsearch
-
-  call s:clear_incsearch_auto_nohlsearch()
-endfunction
+command! ClearIncsearchAutoNohlsearch call vimrc#incsearch#clear_auto_nohlsearch()
 " }}}
 
 " incsearch-fuzzy {{{
@@ -1432,18 +1422,8 @@ map <Leader>g/ <Plug>(incsearch-easymotion-stay)
 " }}}
 
 " incsearch.vim x fuzzy x vim-easymotion {{{
-function! s:config_easyfuzzymotion(...) abort
-  return extend(copy({
-  \   'converters': [incsearch#config#fuzzy#converter()],
-  \   'modules': [incsearch#config#easymotion#module()],
-  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
-  \   'is_expr': 0,
-  \   'is_stay': 1
-  \ }), get(a:, 1, {}))
-endfunction
-
-noremap <silent><expr> \/ incsearch#go(<SID>config_easyfuzzymotion())
-noremap <silent><expr> Z/ incsearch#go(<SID>config_easyfuzzymotion())
+noremap <silent><expr> \/ incsearch#go(vimrc#incsearch#config_easyfuzzymotion())
+noremap <silent><expr> Z/ incsearch#go(vimrc#incsearch#config_easyfuzzymotion())
 " }}}
 
 " CamelCaseMotion {{{
@@ -1566,7 +1546,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-function'
 
 " Search in function
-map <Space>sF :call <SID>clear_incsearch_nohlsearch()<CR>vaf<M-/>
+map <Space>sF :call vimrc#incsearch#clear_nohlsearch()<CR>vaf<M-/>
 
 " }}}
 
