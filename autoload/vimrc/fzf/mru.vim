@@ -27,31 +27,6 @@ function! vimrc#fzf#mru#project_mru_files()
   \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
 endfunction
 
-" Sinks
-function! vimrc#fzf#mru#directory_mru_files_sink(chdir, directory)
-  if a:chdir
-    execute 'lcd ' . a:directory
-    Files
-  else
-    execute 'Files ' . a:directory
-  endif
-  " To enter terminal mode, this is a workaround that autocommand exit the
-  " terminal mode when previous fzf session end.
-  call feedkeys('i')
-endfunction
-
-function! vimrc#fzf#mru#directory_mru_rg_sink(chdir, directory)
-  if a:chdir
-    execute 'lcd ' . a:directory
-    execute 'RgWithOption ::' . input('Rg: ')
-  else
-    execute 'RgWithOption ' . a:directory . '::' . input('Rg: ')
-  endif
-  " To enter terminal mode, this is a workaround that autocommand exit the
-  " terminal mode when previous fzf session end.
-  call feedkeys('i')
-endfunction
-
 " Commands
 function! vimrc#fzf#mru#mru()
   call fzf#run(fzf#wrap({
@@ -84,9 +59,9 @@ function! vimrc#fzf#mru#directory_mru(bang, ...)
 endfunction
 
 function! vimrc#fzf#mru#directory_mru_files(bang)
-  call vimrc#fzf#mru#directory_mru(a:bang, function('vimrc#fzf#mru#directory_mru_files_sink', [0]))
+  call vimrc#fzf#mru#directory_mru(a:bang, function('vimrc#fzf#dir#directory_files_sink', [0]))
 endfunction
 
 function! vimrc#fzf#mru#directory_mru_rg(bang)
-  call vimrc#fzf#mru#directory_mru(a:bang, function('vimrc#fzf#mru#directory_mru_rg_sink', [0]))
+  call vimrc#fzf#mru#directory_mru(a:bang, function('vimrc#fzf#dir#directory_rg_sink', [0]))
 endfunction

@@ -1596,6 +1596,7 @@ command! -bang -nargs=* -complete=dir RgGitDiffFiles call vimrc#fzf#git#rg_diff_
 command! Mru        call vimrc#fzf#mru#mru()
 command! ProjectMru call vimrc#fzf#mru#project_mru()
 
+" DirectoryMru
 command! -bang DirectoryMru      call vimrc#fzf#mru#directory_mru(<bang>0)
 command! -bang DirectoryMruFiles call vimrc#fzf#mru#directory_mru_files(<bang>0)
 command! -bang DirectoryMruRg    call vimrc#fzf#mru#directory_mru_rg(<bang>0)

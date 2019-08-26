@@ -28,6 +28,30 @@ function! vimrc#fzf#dir#directory_sink(original_cwd, path, Func, directory)
   call a:Func(a:directory)
 endfunction
 
+function! vimrc#fzf#dir#directory_files_sink(chdir, directory)
+  if a:chdir
+    execute 'lcd ' . a:directory
+    Files
+  else
+    execute 'Files ' . a:directory
+  endif
+  " To enter terminal mode, this is a workaround that autocommand exit the
+  " terminal mode when previous fzf session end.
+  call feedkeys('i')
+endfunction
+
+function! vimrc#fzf#dir#directory_rg_sink(chdir, directory)
+  if a:chdir
+    execute 'lcd ' . a:directory
+    execute 'RgWithOption ::' . input('Rg: ')
+  else
+    execute 'RgWithOption ' . a:directory . '::' . input('Rg: ')
+  endif
+  " To enter terminal mode, this is a workaround that autocommand exit the
+  " terminal mode when previous fzf session end.
+  call feedkeys('i')
+endfunction
+
 " Callbacks
 function! vimrc#fzf#dir#directory_sink_popd_callback()
   if !exists('w:directory_sink_popd')
@@ -73,9 +97,9 @@ function! vimrc#fzf#dir#directories(path, bang, ...)
 endfunction
 
 function! vimrc#fzf#dir#directory_files(path, bang)
-  call vimrc#fzf#dir#directories(a:path, a:bang, function('vimrc#fzf#dir#directory_sink', [getcwd(), a:path, function('vimrc#fzf#mru#directory_mru_files_sink', [1])]))
+  call vimrc#fzf#dir#directories(a:path, a:bang, function('vimrc#fzf#dir#directory_sink', [getcwd(), a:path, function('vimrc#fzf#dir#directory_files_sink', [1])]))
 endfunction
 
 function! vimrc#fzf#dir#directory_rg(path, bang)
-  call vimrc#fzf#dir#directories(a:path, a:bang, function('vimrc#fzf#dir#directory_sink', [getcwd(), a:path, function('vimrc#fzf#mru#directory_mru_rg_sink', [1])]))
+  call vimrc#fzf#dir#directories(a:path, a:bang, function('vimrc#fzf#dir#directory_sink', [getcwd(), a:path, function('vimrc#fzf#dir#directory_rg_sink', [1])]))
 endfunction
