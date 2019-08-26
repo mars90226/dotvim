@@ -1220,6 +1220,8 @@ if vimrc#plugin#is_enabled_plugin("defx")
           \ defx#do_action('call', '<SID>defx_execute_vertical')
     nnoremap <silent><buffer>       \d
           \ :Denite defx/dirmark<CR>
+    nnoremap <silent><buffer>       \h
+          \ :Denite defx/history<CR>
 
     " Use Unite because using Denite will change other Denite buffers
     nnoremap <silent><buffer> g?
@@ -1468,7 +1470,6 @@ if vimrc#plugin#is_enabled_plugin('denite.nvim')
   nnoremap <Space>du :Denite -resume<CR>
   nnoremap <Space>dU :Denite -resume -buffer-name=`vimrc#denite#get_buffer_name('grep')`<CR>
   nnoremap <Space>d<C-U> :Denite -resume -refresh -buffer-name=`vimrc#denite#get_buffer_name('grep')`<CR>
-  nnoremap <Space>dx :Denite defx/history<CR>
   nnoremap <Space>dy :Denite neoyank<CR>
   nnoremap <Space>d: :Denite command_history<CR>
   nnoremap <Space>d; :Denite command<CR>
