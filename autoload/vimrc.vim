@@ -169,3 +169,58 @@ endfunction
 function! vimrc#refresh_display()
   let $DISPLAY = split(systemlist('tmux show-environment DISPLAY')[0], '=')[1]
 endfunction
+
+" Delete inactive buffers
+function! vimrc#delete_inactive_buffers(wipeout, bang)
+  "From tabpagebuflist() help, get a list of all buffers in all tabs
+  let visible_buffers = {}
+  for t in range(tabpagenr('$'))
+    for b in tabpagebuflist(t + 1)
+      let visible_buffers[b] = 1
+    endfor
+  endfor
+
+  "Below originally inspired by Hara Krishna Dara and Keith Roberts
+  "http://tech.groups.yahoo.com/group/vim/message/56425
+  let wipeout_count = 0
+  if a:wipeout
+    let cmd = 'bwipeout'
+  else
+    let cmd = 'bdelete'
+  endif
+  for b in range(1, bufnr('$'))
+    if buflisted(b) && !getbufvar(b,"&mod") && !has_key(visible_buffers, b)
+      "bufno listed AND isn't modified AND isn't in the list of buffers open in windows and tabs
+      if a:bang
+        silent exec cmd . '!' b
+      else
+        silent exec cmd b
+      endif
+      let wipeout_count = wipeout_count + 1
+    endif
+  endfor
+
+  if a:wipeout
+    echomsg wipeout_count . ' buffer(s) wiped out'
+  else
+    echomsg wipeout_count . ' buffer(s) deleted'
+  endif
+endfunction
+
+" Trim whitespace
+function! vimrc#trim_whitespace()
+    let l:save = winsaveview()
+    %s/\s\+$//e
+    call winrestview(l:save)
+endfunction
+
+" Get char
+function! vimrc#getchar() abort
+  redraw | echo 'Press any key: '
+  let c = getchar()
+  while c ==# "\<CursorHold>"
+    redraw | echo 'Press any key: '
+    let c = getchar()
+  endwhile
+  redraw | echomsg printf('Raw: "%s" | Char: "%s"', c, nr2char(c))
+endfunction
