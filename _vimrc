@@ -2085,83 +2085,20 @@ nnoremap <silent> <Leader>gq :Gwq<CR>
 nnoremap <silent> <Leader>gQ :Gwq!<CR>
 nnoremap <silent> <Leader>gm :Merginal<CR>
 
-function! s:review_last_commit()
-  if exists('b:git_dir')
-    Gtabedit HEAD^{}
-    nnoremap <buffer> <silent> q :<C-U>bdelete<CR>
-  else
-    echo 'No git a git repository:' expand('%:p')
-  endif
-endfunction
-nnoremap <silent> <Leader>g` :call <SID>review_last_commit()<CR>
+nnoremap <silent> <Leader>g` :call vimrc#fugitive#review_last_commit()<CR>
 
 augroup fugitiveSettings
   autocmd!
   autocmd FileType gitcommit setlocal nolist
-  autocmd FileType fugitive call s:fugitive_settings()
-  autocmd FileType git      call s:git_settings()
+  autocmd FileType fugitive call vimrc#fugitive#mappings()
+  autocmd FileType git      call vimrc#fugitive#git_mappings()
   autocmd BufReadPost fugitive://* setlocal bufhidden=delete
 augroup END
 
-function! s:fugitive_settings()
-  nnoremap <buffer> <silent> Su :GitDispatch stash -u<CR>
-  nnoremap <buffer> <silent> Sp :GitDispatch stash pop<CR>
-  nnoremap <buffer> <silent> gp :Gpush<CR>
-  nnoremap <buffer> <silent> gl :Gpull<CR>
-  nnoremap <buffer> <silent> gL :Gpull --rebase<CR>
-endfunction
-
-function! s:git_settings()
-  nnoremap <buffer> <silent> <Leader>gd :call vimrc#fzf#git#diff_commit(fugitive#Object(@%))<CR>
-  nnoremap <buffer> <silent> <Leader>gg :call vimrc#fzf#git#grep_commit(fugitive#Object(@%), input('Git grep: '))<CR>
-endfunction
-
 let g:fugitive_gitlab_domains = ['https://git.synology.com']
 
-" Borrowed from vim-fugitive {{{
-let s:common_efm = ''
-      \ . '%+Egit:%.%#,'
-      \ . '%+Eusage:%.%#,'
-      \ . '%+Eerror:%.%#,'
-      \ . '%+Efatal:%.%#,'
-      \ . '%-G%.%#%\e[K%.%#,'
-      \ . '%-G%.%#%\r%.%\+'
-
-let s:fnameescape = " \t\n*?[{`$\\%#'\"|!<"
-function! s:fnameescape(file) abort
-  if exists('*fnameescape')
-    return fnameescape(a:file)
-  else
-    return escape(a:file, s:fnameescape)
-  endif
-endfunction
-" }}}
-
 " Borrowed and modified from vim-fugitive s:Dispatch
-command! -nargs=* GitDispatch call s:git_dispatch(<q-args>)
-function! s:git_dispatch(command)
-  let [mp, efm, cc] = [&l:mp, &l:efm, get(b:, 'current_compiler', '')]
-  try
-    let b:current_compiler = 'git'
-    let &l:errorformat = s:common_efm
-    let &l:makeprg = 'git ' . a:command
-    Make!
-  finally
-    let [&l:mp, &l:efm, b:current_compiler] = [mp, efm, cc]
-    if empty(cc) | unlet! b:current_compiler | endif
-  endtry
-endfunction
-
-function! s:fugitive_commit_sha()
-  let filename = fugitive#Object(@%)
-  if filename =~# ':'
-    let sha = split(filename, ':')[0]
-  else
-    let sha = 'HEAD'
-  endif
-
-  return sha
-endfunction
+command! -nargs=* GitDispatch call vimrc#fugitive#git_dispatch(<q-args>)
 " }}}
 
 " vim-gitgutter {{{
@@ -2946,7 +2883,7 @@ cnoremap <expr> <C-G><C-\> expand('%:p')
 cnoremap <expr> <C-G><C-W> "\\b" . expand('<cword>') . "\\b"
 cnoremap <expr> <C-G><C-A> "\\b" . expand('<cWORD>') . "\\b"
 " Fugitive commit sha
-cnoremap <expr> <C-G><C-Y> <SID>fugitive_commit_sha()
+cnoremap <expr> <C-G><C-Y> vimrc#fugitive#commit_sha()
 
 " Ex mode for special buffer that map 'q' as ':quit'
 nnoremap \q: q:
