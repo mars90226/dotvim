@@ -33,6 +33,11 @@ function! vimrc#get_visual_selection()
     return join(lines, "\n")
 endfunction
 
+function! vimrc#check_back_space() abort "{{{
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1] =~ '\s'
+endfunction "}}}
+
 " Functions
 function! vimrc#toggle_indent()
   if &expandtab

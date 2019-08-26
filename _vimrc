@@ -220,12 +220,8 @@ if vimrc#plugin#is_enabled_plugin('coc.nvim')
   " <Tab>: completion.
   inoremap <silent><expr> <Tab>
         \ pumvisible() ? "\<C-N>" :
-        \ <SID>check_back_space() ? "\<Tab>" :
+        \ vimrc#check_back_space() ? "\<Tab>" :
         \ coc#refresh()
-  function! s:check_back_space() abort "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1] =~ '\s'
-  endfunction "}}}
 
   " <S-Tab>: completion back.
   inoremap <expr><S-Tab> pumvisible() ? "\<C-P>" : "\<C-H>"
@@ -255,17 +251,9 @@ if vimrc#plugin#is_enabled_plugin('coc.nvim')
   xmap iv <Plug>(coc-funcobj-i)
 
   " K: show documentation in preview window
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
+  nnoremap <silent> K :call vimrc#coc#show_documentation()<CR>
   " Remap for K
   nnoremap gK K
-
-  function! s:show_documentation()
-    if &filetype == 'vim' || &filetype == 'help'
-      execute 'help ' . expand('<cword>')
-    else
-      call CocAction('doHover')
-    endif
-  endfunction
 
   " mappings for rename current word
   nmap <Space>cr <Plug>(coc-rename)
@@ -321,59 +309,13 @@ if vimrc#plugin#is_enabled_plugin('coc.nvim')
   " Show lists
   nnoremap <silent> <Space>cl :CocList lists<CR>
 
-  function! s:coc_toggle()
-    if g:coc_enabled
-      CocDisable
-    else
-      CocEnable
-    endif
-  endfunction
-  command! CocToggle call s:coc_toggle()
+  command! CocToggle call vimrc#coc#toggle()
   nnoremap <silent> <Space>cy :CocToggle<CR>
 
   augroup coc_ccls_settings
     autocmd!
-    autocmd FileType c,cpp call s:coc_ccls_settings()
+    autocmd FileType c,cpp call vimrc#coc#ccls_mappings()
   augroup END
-
-  function! s:coc_ccls_settings()
-    " ccls navigate commands
-    nnoremap <silent><buffer> <C-X>l :call CocLocations('ccls', '$ccls/navigate', { 'direction': 'D' })<CR>
-    nnoremap <silent><buffer> <C-X>k :call CocLocations('ccls', '$ccls/navigate', { 'direction': 'L' })<CR>
-    nnoremap <silent><buffer> <C-X>j :call CocLocations('ccls', '$ccls/navigate', { 'direction': 'R' })<CR>
-    nnoremap <silent><buffer> <C-X>h :call CocLocations('ccls', '$ccls/navigate', { 'direction': 'U' })<CR>
-
-    " TODO Add mapping for hierarchy
-
-    " ccls inheritance
-    " bases
-    nnoremap <silent><buffer> <C-X>b :call CocLocations('ccls', '$ccls/inheritance')<CR>
-    " bases of up to 3 levels
-    nnoremap <silent><buffer> <C-X>B :call CocLocations('ccls', '$ccls/inheritance', { 'levels': 3 })<CR>
-    " derived
-    nnoremap <silent><buffer> <C-X>d :call CocLocations('ccls', '$ccls/inheritance', { 'derived': v:true })<CR>
-    " derived of up to 3 levels
-    nnoremap <silent><buffer> <C-X>D :call CocLocations('ccls', '$ccls/inheritance', { 'derived': v:true, 'levels': 3 })<CR>
-
-    " ccls caller
-    nnoremap <silent><buffer> <C-X>c :call CocLocations('ccls', '$ccls/call')<CR>
-    " ccls callee
-    nnoremap <silent><buffer> <C-X>C :call CocLocations('ccls', '$ccls/call', { 'callee': v:true })<CR>
-
-    " ccls member
-    " member variables / variables in a namespace
-    nnoremap <silent><buffer> <C-X>m :call CocLocations('ccls', '$ccls/member')<CR>
-    " member functions / functions in a namespace
-    nnoremap <silent><buffer> <C-X>f :call CocLocations('ccls', '$ccls/member', { 'kind': 3 })<CR>
-    " member classes / types in a namespace
-    nnoremap <silent><buffer> <C-X>s :call CocLocations('ccls', '$ccls/member', { 'kind': 2 })<CR>
-
-    " ccls vars
-    " vars field, local, parameter
-    nnoremap <silent><buffer> <C-X>v :call CocLocations('ccls', '$ccls/vars')<CR>
-    " vars field
-    nnoremap <silent><buffer> <C-X>V :call CocLocations('ccls', '$ccls/vars', { 'kind': 1 })<CR>
-  endfunction
 endif
 " }}}
 
@@ -461,12 +403,8 @@ if vimrc#plugin#is_enabled_plugin('deoplete.nvim')
   " <Tab>: completion.
   inoremap <silent><expr> <Tab>
         \ pumvisible() ? "\<C-N>" :
-        \ <SID>check_back_space() ? "\<Tab>" :
+        \ vimrc#check_back_space() ? "\<Tab>" :
         \ deoplete#manual_complete()
-  function! s:check_back_space() abort "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1] =~ '\s'
-  endfunction "}}}
 
   " <S-Tab>: completion back.
   inoremap <expr><S-Tab> pumvisible() ? "\<C-P>" : "\<C-H>"
@@ -3090,7 +3028,7 @@ function! s:filetype_python_settings()
   setlocal softtabstop=4
   setlocal expandtab
 
-  nnoremap <silent><buffer> K :call <SID>show_documentation()<CR>
+  nnoremap <silent><buffer> K :call vimrc#coc#show_documentation()<CR>
   nnoremap <silent><buffer> gK :execute 'Pydoc ' . expand('<cword>')<CR>
 endfunction
 " }}}
