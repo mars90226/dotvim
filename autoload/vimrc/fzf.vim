@@ -1,3 +1,11 @@
+" Config
+function! vimrc#fzf#statusline()
+  highlight fzf1 ctermfg=242 ctermbg=236 guifg=#7c6f64 guibg=#32302f
+  highlight fzf2 ctermfg=143 guifg=#b8bb26
+  highlight fzf3 ctermfg=15 ctermbg=239 guifg=#ebdbb2 guibg=#504945
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fzf%#fzf3#
+endfunction
+
 " Actions
 function! vimrc#fzf#build_quickfix_list(lines)
   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))

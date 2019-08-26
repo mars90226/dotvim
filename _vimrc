@@ -973,7 +973,7 @@ if vimrc#plugin#is_enabled_plugin("defx")
     " let path = s:defx_get_folder(a:context)
     let path = s:defx_get_current_path()
 
-    call s:use_defx_fzf_action({ -> fzf#vim#files(path, fzf#vim#with_preview(), 0)})
+    call vimrc#fzf#defx#use_defx_fzf_action({ -> fzf#vim#files(path, fzf#vim#with_preview(), 0)})
   endfunction
 
   let s:defx_action = {
@@ -1646,76 +1646,26 @@ command! -nargs=1 -complete=customlist,fugitive#CompleteObject GitFilesCommit ca
 if has("nvim")
   augroup fzf_statusline
     autocmd!
-    autocmd User FzfStatusLine call s:fzf_statusline()
+    autocmd User FzfStatusLine call vimrc#fzf#statusline()
   augroup END
-  function! s:fzf_statusline()
-    highlight fzf1 ctermfg=242 ctermbg=236 guifg=#7c6f64 guibg=#32302f
-    highlight fzf2 ctermfg=143 guifg=#b8bb26
-    highlight fzf3 ctermfg=15 ctermbg=239 guifg=#ebdbb2 guibg=#504945
-    setlocal statusline=%#fzf1#\ >\ %#fzf2#fzf%#fzf3#
-  endfunction
 
-  function! s:project_tags(query, ...)
-    let s:origin_tags = &tags
-    set tags-=./tags;
-    augroup project_tags_callback
-      autocmd!
-      autocmd TermClose term://*fzf*
-            \ let &tags = s:origin_tags |
-            \ autocmd! project_tags_callback
-    augroup END
-    call call('fzf#vim#tags', [a:query] + a:000)
-  endfunction
-  command! -bang -nargs=* ProjectTags call s:project_tags(<q-args>, <bang>0)
+  " Tags
+  command! -bang -nargs=* ProjectTags call vimrc#fzf#tag#project_tags(<q-args>, <bang>0)
   " Too bad fzf cannot toggle case sensitive interactively
   command! -bang -nargs=* BTagsCaseSentitive       call fzf#vim#buffer_tags(<q-args>, { 'options': ['+i'] }, <bang>0)
   command! -bang -nargs=* TagsCaseSentitive        call fzf#vim#tags(<q-args>,        { 'options': ['+i'] }, <bang>0)
-  command! -bang -nargs=* ProjectTagsCaseSentitive call s:project_tags(<q-args>,      { 'options': ['+i'] }, <bang>0)
+  command! -bang -nargs=* ProjectTagsCaseSentitive call vimrc#fzf#tag#project_tags(<q-args>,      { 'options': ['+i'] }, <bang>0)
 
-  function! s:tagbar_tags()
-    TagbarOpenAutoClose
-    augroup tagbar_tags_callback
-      autocmd!
-      autocmd TermClose term://*fzf*
-            \ call nvim_input('<CR>') |
-            \ autocmd! tagbar_tags_callback
-    augroup END
-    BLines
-  endfunction
-  command! TagbarTags call s:tagbar_tags()
+  command! TagbarTags call vimrc#fzf#tag#tagbar_tags()
 endif
 
 if vimrc#plugin#is_enabled_plugin('defx')
-  let g:defx_fzf_action = extend({
-        \ 'enter':      'DefxOpenSink',
-        \ 'ctrl-t':     'DefxTabOpenSink',
-        \ 'ctrl-s':     'DefxSplitOpenSink',
-        \ 'ctrl-x':     'DefxSplitOpenSink',
-        \ 'ctrl-v':     'DefxVSplitOpenSink',
-        \ 'alt-v':      'DefxRightVSplitOpenSink',
-        \ 'alt-x':      'DefxOpenDirSink',
-        \ 'ctrl-alt-x': 'DefxSplitOpenDirSink',
-        \ }, g:misc_fzf_action)
+  command! -bang -nargs=? -complete=dir Files    call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#files(<q-args>, <bang>0) })
+  command! -bang -nargs=?               GFiles   call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#gitfiles(<q-args>, <bang>0) })
+  command! -bang -nargs=+ -complete=dir Locate   call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#locate(<q-args>, <bang>0) })
 
-  " TODO s:common_sink() in fzf/plugin/fzf.vim will always use 'edit' if it
-  " think the current file is empty file. It's hard to workaround the check
-  " and still does not interfere other things like buffer list.
-  function! s:use_defx_fzf_action(function)
-    let g:fzf_action = g:defx_fzf_action
-    augroup use_defx_fzf_action_callback
-      autocmd!
-      autocmd TermClose term://*fzf*
-            \ let g:fzf_action = g:default_fzf_action |
-            \ autocmd! use_defx_fzf_action_callback
-    augroup END
-    call a:function()
-  endfunction
-  command! -bang -nargs=? -complete=dir Files    call s:use_defx_fzf_action({ -> vimrc#fzf#files(<q-args>, <bang>0) })
-  command! -bang -nargs=?               GFiles   call s:use_defx_fzf_action({ -> vimrc#fzf#gitfiles(<q-args>, <bang>0) })
-  command! -bang -nargs=+ -complete=dir Locate   call s:use_defx_fzf_action({ -> vimrc#fzf#locate(<q-args>, <bang>0) })
-
-  command! -bang          DirectoryMru      call s:use_defx_fzf_action({ -> vimrc#fzf#mru#directory_mru(<bang>0) })
-  command! -bang -nargs=? Directories       call s:use_defx_fzf_action({ -> vimrc#fzf#dir#directories(<q-args>, <bang>0) })
+  command! -bang          DirectoryMru      call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#mru#directory_mru(<bang>0) })
+  command! -bang -nargs=? Directories       call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#dir#directories(<q-args>, <bang>0) })
 endif
 " }}}
 

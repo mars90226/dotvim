@@ -50,3 +50,28 @@ function! vimrc#fzf#tag#tselect(query)
         \ 'options': '-m +s --expect=' . join(keys(g:fzf_action), ','),
         \ 'down':   '40%'}))
 endfunction
+
+" Need neovim terminal
+function! vimrc#fzf#tag#project_tags(query, ...)
+  let s:origin_tags = &tags
+  set tags-=./tags;
+  augroup project_tags_callback
+    autocmd!
+    autocmd TermClose term://*fzf*
+          \ let &tags = s:origin_tags |
+          \ autocmd! project_tags_callback
+  augroup END
+  call call('fzf#vim#tags', [a:query] + a:000)
+endfunction
+
+" Need neovim terminal
+function! vimrc#fzf#tag#tagbar_tags()
+  TagbarOpenAutoClose
+  augroup tagbar_tags_callback
+    autocmd!
+    autocmd TermClose term://*fzf*
+          \ call nvim_input('<CR>') |
+          \ autocmd! tagbar_tags_callback
+  augroup END
+  BLines
+endfunction
