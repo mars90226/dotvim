@@ -1631,155 +1631,16 @@ command! CurrentPlacedSigns call vimrc#fzf#current_placed_signs()
 " Functions
 command! Functions call vimrc#fzf#functions()
 
-let g:fugitive_fzf_action = extend({
-      \ 'enter': 'Gedit',
-      \ 'ctrl-t': 'Gtabedit',
-      \ 'ctrl-s': 'Gsplit',
-      \ 'ctrl-x': 'Gsplit',
-      \ 'ctrl-v': 'Gvsplit',
-      \ }, g:misc_fzf_action)
-function! s:use_fugitive_fzf_action(function)
-  let g:fzf_action = g:fugitive_fzf_action
-  augroup use_fugitive_fzf_action_callback
-    autocmd!
-    autocmd TermClose term://*fzf*
-          \ let g:fzf_action = g:default_fzf_action |
-          \ autocmd! use_fugitive_fzf_action_callback
-  augroup END
-  call a:function()
-endfunction
+" Git commit command {{{
+" GitGrepCommit
+command! -nargs=+ -complete=customlist,fugitive#CompleteObject GitGrepCommit call vimrc#fzf#git#grep_commit(<f-args>)
+command! -bang -nargs=* GitGrep call vimrc#fzf#git#grep_commit('', <q-args>)
 
-" Git related command {{{
-if vimrc#plugin#check#git_version() >= 'git version 2.19.0'
-  let g:git_grep_commit_command = 'git grep -n --column'
-else
-  let g:git_grep_commit_command = 'git grep -n'
-endif
-function! s:git_grep_commit(commit, ...)
-  let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
-  let with_column = (vimrc#plugin#check#git_version() >= 'git version 2.19.0') ? 1 : 0
+" GitDiffCommit
+command! -nargs=? -complete=customlist,fugitive#CompleteObject GitDiffCommit call vimrc#fzf#git#diff_commit(<f-args>)
 
-  call fzf#run(vimrc#fzf#wrap('', {
-        \ 'source': g:git_grep_commit_command.' '.shellescape(query).' '.a:commit,
-        \ 'sink*': function('s:git_grep_commit_sink', [a:commit, with_column]),
-        \ 'options': '-m -s',
-        \ 'down': '40%' }, 0))
-endfunction
-" Borrowed from fzf.vim
-function! s:escape(path)
-  let path = fnameescape(a:path)
-  return vimrc#plugin#check#get_os() == 'windows' ? escape(path, '$') : path
-endfunction
-" Borrowed from fzf.vim
-function! s:open(cmd, target)
-  if stridx('edit', a:cmd) == 0 && fnamemodify(a:target, ':p') ==# expand('%:p')
-    return
-  endif
-  execute a:cmd s:escape(a:target)
-endfunction
-" Borrowed from fzf.vim
-function! s:git_grep_to_qf(line, commit, with_column)
-  let parts = split(a:line, ':')
-  let indexs = { 'commit': 0, 'filename': 0, 'lnum': 1, 'col': 2, 'text': 2 }
-  if !empty(a:commit)
-    let indexs['filename'] += 1
-    let indexs['lnum'] += 1
-    let indexs['col'] += 1
-    let indexs['text'] += 1
-  endif
-  if a:with_column
-    let indexs['text'] += 1
-  endif
-
-  let text = join(parts[indexs['text']:], ':')
-  let dict = {
-        \ 'filename': (empty(a:commit) ? '' : parts[indexs['commit']] . ':') . (&acd ? fnamemodify(parts[indexs['filename']], ':p') : parts[indexs['filename']]),
-        \ 'lnum': parts[indexs['lnum']],
-        \ 'text': text }
-  if a:with_column
-    let dict.col = parts[indexs['col']]
-  endif
-  return dict
-endfunction
-" Borrowed from fzf.vim
-function! s:git_grep_commit_sink(commit, with_column, lines)
-  if len(a:lines) < 2
-    return
-  endif
-
-  let cmd = vimrc#fzf#action_for_with_table(g:fugitive_fzf_action, a:lines[0], 'Gedit')
-  let list = map(filter(a:lines[1:], 'len(v:val)'), 's:git_grep_to_qf(v:val, a:commit, a:with_column)')
-  if empty(list)
-    return
-  endif
-
-  let first = list[0]
-  try
-    call s:open(cmd, first.filename)
-    execute first.lnum
-    if a:with_column
-      execute 'normal!' first.col.'|'
-    endif
-    normal! zz
-  catch
-  endtry
-
-  call vimrc#fzf#fill_quickfix(list)
-endfunction
-command! -nargs=+ -complete=customlist,fugitive#CompleteObject GitGrepCommit call s:git_grep_commit(<f-args>)
-command! -bang -nargs=* GitGrep call s:git_grep_commit('', <q-args>)
-
-" TODO: Handle added/deleted files
-let g:git_diff_commit_command = 'git diff --name-only'
-function! s:git_diff_commit(commit)
-  if !exists('b:git_dir')
-    echo 'No git a git repository:' expand('%:p')
-  endif
-
-  let revision = a:commit . '^!'
-
-  call fzf#run(fzf#wrap({
-        \ 'source': g:git_diff_commit_command.' '.revision,
-        \ 'sink*': function('s:git_diff_commit_sink', [a:commit]),
-        \ 'options': '-m -s',
-        \ 'down': '40%' }))
-endfunction
-function! s:git_diff_commit_sink(commit, lines)
-  let current_tabnr = tabpagenr()
-  for file in a:lines
-    execute 'tabedit ' . file
-  endfor
-  let last_tabnr = tabpagenr()
-  let range = current_tabnr + 1 . ',' . last_tabnr
-
-  execute range . 'tabdo Gedit ' . a:commit . '^:%'
-  execute range . 'tabdo Gdiff ' . a:commit
-endfunction
-command! -nargs=? -complete=customlist,fugitive#CompleteObject GitDiffCommit call s:git_diff_commit(<f-args>)
-
-let g:git_files_commit_command = 'git ls-tree -r --name-only'
-function! s:git_files_commit(commit)
-  call fzf#run(vimrc#fzf#wrap('', {
-        \ 'source': g:git_files_commit_command.' '.a:commit,
-        \ 'sink*': function('s:git_files_commit_sink', [a:commit]),
-        \ 'options': '-m -s',
-        \ 'down': '40%' }, 0))
-endfunction
-function! s:git_files_commit_sink(commit, lines)
-  if len(a:lines) < 2
-    return
-  endif
-  let cmd = vimrc#fzf#action_for_with_table(g:fugitive_fzf_action, a:lines[0], 'Gedit')
-  for target in a:lines[1:]
-    let filename = a:commit . ':' . target
-    if type(cmd) == type(function('call'))
-      cmd(filename)
-    else
-      execute cmd . ' ' . filename
-    endif
-  endfor
-endfunction
-command! -nargs=1 -complete=customlist,fugitive#CompleteObject GitFilesCommit call s:git_files_commit(<q-args>)
+" GitFilesCommit
+command! -nargs=1 -complete=customlist,fugitive#CompleteObject GitFilesCommit call vimrc#fzf#git#files_commit(<q-args>)
 " }}}
 
 " Cscope functions {{{
@@ -2693,8 +2554,8 @@ function! s:fugitive_settings()
 endfunction
 
 function! s:git_settings()
-  nnoremap <buffer> <silent> <Leader>gd :call <SID>git_diff_commit(fugitive#Object(@%))<CR>
-  nnoremap <buffer> <silent> <Leader>gg :call <SID>git_grep_commit(fugitive#Object(@%), input('Git grep: '))<CR>
+  nnoremap <buffer> <silent> <Leader>gd :call vimrc#fzf#git#diff_commit(fugitive#Object(@%))<CR>
+  nnoremap <buffer> <silent> <Leader>gg :call vimrc#fzf#git#grep_commit(fugitive#Object(@%), input('Git grep: '))<CR>
 endfunction
 
 let g:fugitive_gitlab_domains = ['https://git.synology.com']
@@ -2778,9 +2639,9 @@ augroup END
 
 function! s:gv_settings()
   nnoremap <silent><buffer> + :call <SID>gv_expand()<CR>
-  nnoremap <silent><buffer> <Leader>gd :call <SID>git_diff_commit(gv#sha())<CR>
-  nnoremap <silent><buffer> <Leader>gf :call <SID>git_files_commit(gv#sha())<CR>
-  nnoremap <silent><buffer> <Leader>gg :call <SID>git_grep_commit(gv#sha(), input('Git grep: '))<CR>
+  nnoremap <silent><buffer> <Leader>gd :call vimrc#fzf#git#diff_commit(gv#sha())<CR>
+  nnoremap <silent><buffer> <Leader>gf :call vimrc#fzf#git#files_commit(gv#sha())<CR>
+  nnoremap <silent><buffer> <Leader>gg :call vimrc#fzf#git#grep_commit(gv#sha(), input('Git grep: '))<CR>
 endfunction
 " }}}
 
