@@ -1622,46 +1622,14 @@ command! DirectoryAncestors call vimrc#fzf#dir#directory_ancestors()
 command! -nargs=? -range SelectLines call vimrc#fzf#range#range_lines('SelectLines', 1, <line1>, <line2>, <q-args>)
 command! -nargs=?        ScreenLines call vimrc#fzf#range#screen_lines(<q-args>)
 
-function! s:files_with_query(query)
-  Files
-  call feedkeys(a:query)
-endfunction
-command! -nargs=1 FilesWithQuery call s:files_with_query(<q-args>)
+" FilesWithQuery
+command! -nargs=1 FilesWithQuery call vimrc#fzf#files_with_query(<q-args>)
 
-" TODO Add sign text and highlight
-function! s:current_placed_signs_source()
-  let linefmt = vimrc#fzf#yellow(" %4d ", "LineNr")."\t%s"
-  let fmtexpr = 'printf(linefmt, v:val[0], v:val[1])'
-  let current_placed_signs = split(execute("sign place buffer=" . bufnr('%'), "silent!"), "\n")[2:]
-  let line_numbers = map(current_placed_signs, "str2nr(matchstr(v:val, '\\d\\+', 9))")
-  let uniq_line_numbers = uniq(line_numbers) " Remove duplicate line numbers as both GitGutter and GitP will place sign on same lines
-  let lines = map(uniq_line_numbers, "[v:val, getline(v:val)]")
-  let formatted_lines = map(lines, fmtexpr)
-  return formatted_lines
-endfunction
-function! s:current_placed_signs()
-  call fzf#run(fzf#wrap({
-        \ 'source':  s:current_placed_signs_source(),
-        \ 'sink*':   function('s:range_lines_center_handler'),
-        \ 'options': ['--tiebreak=index', '--prompt', 'Signs> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1'],
-        \ }))
-endfunction
-command! CurrentPlacedSigns call s:current_placed_signs()
+" CurrentPlacedSigns
+command! CurrentPlacedSigns call vimrc#fzf#current_placed_signs()
 
-function! s:functions_sink(line)
-  let function_name = matchstr(a:line, '\s\zs\S[^(]*\ze(')
-  let @" = function_name
-endfunction
-function! s:functions_source()
-  return split(execute("function", "silent!"), "\n")
-endfunction
-function! s:functions()
-  call fzf#run(fzf#wrap({
-      \ 'source':  s:functions_source(),
-      \ 'sink':    function('s:functions_sink'),
-      \ 'down':    '40%'}))
-endfunction
-command! Functions call s:functions()
+" Functions
+command! Functions call vimrc#fzf#functions()
 
 let g:fugitive_fzf_action = extend({
       \ 'enter': 'Gedit',

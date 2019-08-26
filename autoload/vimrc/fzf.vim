@@ -118,6 +118,22 @@ function! vimrc#fzf#registers_source()
   return split(execute("registers", "silent!"), "\n")[1:]
 endfunction
 
+" TODO Add sign text and highlight
+function! vimrc#fzf#current_placed_signs_source()
+  let linefmt = vimrc#fzf#yellow(" %4d ", "LineNr")."\t%s"
+  let fmtexpr = 'printf(linefmt, v:val[0], v:val[1])'
+  let current_placed_signs = split(execute("sign place buffer=" . bufnr('%'), "silent!"), "\n")[2:]
+  let line_numbers = map(current_placed_signs, "str2nr(matchstr(v:val, '\\d\\+', 9))")
+  let uniq_line_numbers = uniq(line_numbers) " Remove duplicate line numbers as both GitGutter and GitP will place sign on same lines
+  let lines = map(uniq_line_numbers, "[v:val, getline(v:val)]")
+  let formatted_lines = map(lines, fmtexpr)
+  return formatted_lines
+endfunction
+
+function! vimrc#fzf#functions_source()
+  return split(execute("function", "silent!"), "\n")
+endfunction
+
 " Sinks
 " Currently not used
 function! vimrc#fzf#files_sink(lines)
@@ -166,6 +182,16 @@ function! vimrc#fzf#registers_sink(line)
   execute 'norm ' . a:line[0:1] . 'p'
 endfunction
 
+function! vimrc#fzf#current_placed_signs_sink(lines)
+  execute split(a:lines[0], '\t')[0]
+  normal! zzzv
+endfunction
+
+function! vimrc#fzf#functions_sink(line)
+  let function_name = matchstr(a:line, '\s\zs\S[^(]*\ze(')
+  let @" = function_name
+endfunction
+
 " Commands
 " borrowed from fzf.vim {{{
 function! vimrc#fzf#history(arg, bang)
@@ -190,6 +216,11 @@ function! vimrc#fzf#gitfiles(args, bang) abort
   else
     return call('fzf#vim#gitfiles', [a:args, a:bang])
   endif
+endfunction
+
+function! vimrc#fzf#files_with_query(query)
+  Files
+  call feedkeys(a:query)
 endfunction
 
 function! vimrc#fzf#locate(query, bang)
@@ -225,4 +256,19 @@ function! vimrc#fzf#registers()
       \ 'sink': function('vimrc#fzf#registers_sink'),
       \ 'options': '+s',
       \ 'down': '40%'}))
+endfunction
+
+function! vimrc#fzf#current_placed_signs()
+  call fzf#run(fzf#wrap({
+        \ 'source':  vimrc#fzf#current_placed_signs_source(),
+        \ 'sink*':   function('vimrc#fzf#current_placed_signs_sink'),
+        \ 'options': ['--tiebreak=index', '--prompt', 'Signs> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1'],
+        \ }))
+endfunction
+
+function! vimrc#fzf#functions()
+  call fzf#run(fzf#wrap({
+      \ 'source':  vimrc#fzf#functions_source(),
+      \ 'sink':    function('vimrc#fzf#functions_sink'),
+      \ 'down':    '40%'}))
 endfunction
