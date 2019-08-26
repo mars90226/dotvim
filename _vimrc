@@ -879,354 +879,41 @@ if vimrc#plugin#is_enabled_plugin("defx")
   " Font not supported
   " Plug 'kristijanhusak/defx-icons'
 
-  " " Defx as default explorer, borrowed from vimfiler {{{
-  " FIXME Defx buffer opened through this method will core dump if open terminal or use fzf's :Files
-  " This combines with `set hidden` will cause core dump.
-  "
-  " let s:is_windows = has('win16') || has('win32') || has('win64') || has('win95')
-  "
-  " augroup defx_default_explorer
-  "   autocmd BufEnter,VimEnter,BufNew,BufWinEnter,BufRead,BufCreate
-  "         \ * call s:browse_check(expand('<amatch>'))
-  " augroup END
-  "
-  " function! s:browse_check(path) abort
-  "   if a:path == '' || bufnr('%') != expand('<abuf>')
-  "     return
-  "   endif
-  "
-  "   " Disable netrw.
-  "   augroup FileExplorer
-  "     autocmd!
-  "   augroup END
-  "
-  "   let path = a:path
-  "   " For ":edit ~".
-  "   if fnamemodify(path, ':t') ==# '~'
-  "     let path = '~'
-  "   endif
-  "
-  "   if &filetype ==# 'defx' && line('$') != 1
-  "     return
-  "   endif
-  "
-  "   if isdirectory(s:expand(path))
-  "     call defx#util#call_defx('Defx', path)
-  "   endif
-  " endfunction
-  "
-  " function! s:expand(path) abort
-  "   return s:substitute_path_separator(
-  "         \ (a:path =~# '^\~') ? fnamemodify(a:path, ':p') :
-  "         \ (a:path =~# '^\$\h\w*') ? substitute(a:path,
-  "         \             '^\$\h\w*', '\=eval(submatch(0))', '') :
-  "         \ a:path)
-  " endfunction
-  "
-  " function! s:substitute_path_separator(path) abort
-  "   return s:is_windows ? substitute(a:path, '\\', '/', 'g') : a:path
-  " endfunction
-  " " }}}
-
   augroup netrw_mapping_for_defx
     autocmd!
-    autocmd FileType netrw call s:netrw_mapping_for_defx()
+    autocmd FileType netrw call vimrc#defx#netrw_mapping_for_defx()
   augroup END
-  function! s:netrw_mapping_for_defx()
-    " Cannot override Vinegar '-' mapping, so use '+' instead
-    nmap <silent><buffer> + c:call <SID>opendir('Defx')<CR>
-  endfunction
-
-  " Borrowed from vinegar
-  function! s:opendir(cmd) abort
-    if expand('%') =~# '^$\|^term:[\/][\/]'
-      execute a:cmd ' .'
-    else
-      execute a:cmd . ' ' . expand('%:h')
-    endif
-  endfunction
 
   nnoremap <F4>        :Defx -split=vertical -winwidth=35 -direction=topleft -toggle<CR>
   nnoremap <Space><F4> :Defx -split=vertical -winwidth=35 -direction=topleft -toggle `expand('%:p:h')` -search=`expand('%:p')`<CR>
-  nnoremap -           :call <SID>opendir('Defx')<CR>
-  nnoremap ++          :call <SID>opendir('Defx')<CR>
-  nnoremap \-          :call <SID>opendir('Defx')<CR>
-  nnoremap _           :call <SID>opendir('Defx -split=vertical')<CR>
-  nnoremap <Space>-    :call <SID>opendir('Defx -split=horizontal')<CR>
-  nnoremap <Space>_    :call <SID>opendir('Defx -split=tab -buffer-name=tab')<CR>
+  nnoremap -           :call vimrc#defx#opendir('Defx')<CR>
+  nnoremap ++          :call vimrc#defx#opendir('Defx')<CR>
+  nnoremap \-          :call vimrc#defx#opendir('Defx')<CR>
+  nnoremap _           :call vimrc#defx#opendir('Defx -split=vertical')<CR>
+  nnoremap <Space>-    :call vimrc#defx#opendir('Defx -split=horizontal')<CR>
+  nnoremap <Space>_    :call vimrc#defx#opendir('Defx -split=tab -buffer-name=tab')<CR>
   nnoremap \.          :Defx .<CR>
   nnoremap <Space>=    :Defx -split=vertical .<CR>
   nnoremap <Space>+    :Defx -split=tab -buffer-name=tab .<CR>
 
-  " Defx custom functions {{{
-  " Currently not used
-  function! s:defx_get_folder(context) abort
-    let path = a:context.targets[0]
-    return isdirectory(path) ? path : fnamemodify(path, ':h')
-  endfunction
+  " Defx open
+  command! -nargs=1 -complete=file DefxOpenSink            call vimrc#defx#open(<q-args>, 'edit')
+  command! -nargs=1 -complete=file DefxSplitOpenSink       call vimrc#defx#open(<q-args>, 'split')
+  command! -nargs=1 -complete=file DefxVSplitOpenSink      call vimrc#defx#open(<q-args>, 'vsplit')
+  command! -nargs=1 -complete=file DefxTabOpenSink         call vimrc#defx#open(<q-args>, 'tab split')
+  command! -nargs=1 -complete=file DefxRightVSplitOpenSink call vimrc#defx#open(<q-args>, 'rightbelow vsplit')
 
-  function! s:defx_get_current_path() abort
-    return b:defx['paths'][0]
-  endfunction
-
-  function! s:defx_fzf_files(context) abort
-    " let path = s:defx_get_folder(a:context)
-    let path = s:defx_get_current_path()
-
-    call vimrc#fzf#defx#use_defx_fzf_action({ -> fzf#vim#files(path, fzf#vim#with_preview(), 0)})
-  endfunction
-
-  let s:defx_action = {
-        \ 'tab split': '-split=tab',
-        \ 'split': '-split=horizontal',
-        \ 'vsplit': '-split=vertical',
-        \ 'rightbelow vsplit': '-split=vertical -direction=botright',
-        \ }
-  let s:defx_additional_argument = {
-        \ 'tab split': '-buffer-name=tab',
-        \ }
-
-  " TODO May need to escape a:line
-  function! s:defx_open(target, action)
-    if isdirectory(a:target)
-      if &filetype == 'defx' && a:action == 'edit'
-        " Use absolute path
-        let target = fnamemodify(a:target, ':p')
-        call defx#call_action('cd', target)
-      else
-        execute 'Defx ' . get(s:defx_action, a:action, '') . ' ' . get(s:defx_additional_argument, a:action , '') . ' ' . a:target
-      endif
-    else
-      execute a:action . ' ' . a:target
-    endif
-  endfunction
-  command! -nargs=1 -complete=file DefxOpenSink            call s:defx_open(<q-args>, 'edit')
-  command! -nargs=1 -complete=file DefxSplitOpenSink       call s:defx_open(<q-args>, 'split')
-  command! -nargs=1 -complete=file DefxVSplitOpenSink      call s:defx_open(<q-args>, 'vsplit')
-  command! -nargs=1 -complete=file DefxTabOpenSink         call s:defx_open(<q-args>, 'tab split')
-  command! -nargs=1 -complete=file DefxRightVSplitOpenSink call s:defx_open(<q-args>, 'rightbelow vsplit')
-
-  function! s:defx_open_dir(target, action)
-    if isdirectory(a:target)
-      let dir = a:target
-    else
-      let dir = fnamemodify(a:target, ':h')
-    endif
-
-    if &filetype == 'defx' && a:action == 'edit'
-      " Use absolute path
-      let dir = fnamemodify(dir, ':p')
-      call defx#call_action('cd', dir)
-    else
-      execute 'Defx ' . get(s:defx_action, a:action, '') . ' ' . get(s:defx_additional_argument, a:action , '') . ' ' . dir
-    endif
-  endfunction
-  command! -nargs=1 -complete=file DefxOpenDirSink            call s:defx_open_dir(<q-args>, 'edit')
-  command! -nargs=1 -complete=file DefxSplitOpenDirSink       call s:defx_open_dir(<q-args>, 'split')
-  command! -nargs=1 -complete=file DefxVSplitOpenDirSink      call s:defx_open_dir(<q-args>, 'vsplit')
-  command! -nargs=1 -complete=file DefxTabOpenDirSink         call s:defx_open_dir(<q-args>, 'tab split')
-  command! -nargs=1 -complete=file DefxRightVSplitOpenDirSink call s:defx_open_dir(<q-args>, 'rightbelow vsplit')
-
-  function! s:defx_fzf_rg_internal(context, prompt, bang) abort
-    " let path = s:defx_get_folder(a:context)
-    let path = s:defx_get_current_path()
-
-    let cmd = a:bang ? 'RgWithOption!' : 'RgWithOption'
-    execute cmd . ' ' . path . '::' . input(a:prompt . ': ')
-  endfunction
-  function! s:defx_fzf_rg(context) abort
-    call s:defx_fzf_rg_internal(a:context, 'Rg', v:false)
-  endfunction
-  function! s:defx_fzf_rg_bang(context) abort
-    call s:defx_fzf_rg_internal(a:context, 'Rg!', v:true)
-  endfunction
-
-  function! s:defx_fzf_directory_ancestors_sink(line) abort
-    execute 'lcd ' . a:line
-    call defx#call_action('cd', getcwd())
-  endfunction
-  function! s:defx_fzf_directory_ancestors(context) abort
-    " let path = s:defx_get_folder(a:context)
-    let path = s:defx_get_current_path()
-
-    call fzf#run(fzf#wrap({
-          \ 'source': vimrc#fzf#dir#directory_ancestors_source(path),
-          \ 'sink': function('s:defx_fzf_directory_ancestors_sink'),
-          \ 'options': '+s',
-          \ 'down': '40%'}))
-  endfunction
-
-  function! s:defx_execute_internal(context, split) abort
-    let path = a:context.targets[0]
-    let cmd = input('Command: ')
-
-    if empty(cmd)
-      return
-    endif
-
-    if cmd =~ '{}'
-      " replace all '{}' to path
-      let cmd = substitute(cmd, '{}', path, 'g')
-    else
-      let cmd = cmd . ' ' . path
-    endif
-
-    execute a:split . ' | :terminal ' . cmd
-  endfunction
-  function! s:defx_execute(context) abort
-    call s:defx_execute_internal(a:context, '')
-  endfunction
-  function! s:defx_execute_tab(context) abort
-    call s:defx_execute_internal(a:context, 'tabnew')
-  endfunction
-  function! s:defx_execute_split(context) abort
-    call s:defx_execute_internal(a:context, 'new')
-  endfunction
-  function! s:defx_execute_vertical(context) abort
-    call s:defx_execute_internal(a:context, 'vnew')
-  endfunction
-  " }}}
+  " Defx open dir
+  command! -nargs=1 -complete=file DefxOpenDirSink            call vimrc#defx#open_dir(<q-args>, 'edit')
+  command! -nargs=1 -complete=file DefxSplitOpenDirSink       call vimrc#defx#open_dir(<q-args>, 'split')
+  command! -nargs=1 -complete=file DefxVSplitOpenDirSink      call vimrc#defx#open_dir(<q-args>, 'vsplit')
+  command! -nargs=1 -complete=file DefxTabOpenDirSink         call vimrc#defx#open_dir(<q-args>, 'tab split')
+  command! -nargs=1 -complete=file DefxRightVSplitOpenDirSink call vimrc#defx#open_dir(<q-args>, 'rightbelow vsplit')
 
   augroup defx_my_settings
     autocmd!
-    autocmd FileType defx call s:defx_my_settings()
+    autocmd FileType defx call vimrc#defx#mappings()
   augroup END
-  function! s:defx_my_settings() abort " {{{
-    " Define mappings
-    if bufname('%') =~ 'tab'
-      nnoremap <silent><buffer><expr> <CR>
-            \ defx#async_action('open')
-    else
-      nnoremap <silent><buffer><expr> <CR>
-            \ defx#is_directory() ?
-            \ defx#async_action('open') :
-            \ defx#async_action('drop')
-    endif
-    nnoremap <silent><buffer><expr> c
-          \ defx#do_action('copy')
-    nnoremap <silent><buffer><expr> cc
-          \ defx#do_action('copy')
-    nnoremap <silent><buffer><expr> !
-          \ defx#do_action('execute_command')
-    nnoremap <silent><buffer><expr> m
-          \ defx#do_action('move')
-    nnoremap <silent><buffer><expr> p
-          \ defx#do_action('paste')
-    nnoremap <silent><buffer><expr> l
-          \ defx#async_action('open')
-    nnoremap <silent><buffer><expr> C
-          \ defx#do_action('toggle_columns', 'mark:filename:type:size:time')
-    nnoremap <silent><buffer><expr> S
-          \ defx#do_action('toggle_sort', 'Time')
-    nnoremap <silent><buffer><expr> B
-          \ defx#do_action('open', 'botright split')
-    nnoremap <silent><buffer><expr> E
-          \ defx#do_action('open', 'vsplit')
-    nnoremap <silent><buffer><expr> P
-          \ defx#do_action('open', 'pedit')
-    nnoremap <silent><buffer><expr> T
-          \ defx#do_action('open', 'tab split')
-    nnoremap <silent><buffer><expr> o
-          \ defx#async_action('open_or_close_tree')
-    nnoremap <silent><buffer><expr> O
-          \ defx#async_action('open_tree_recursive')
-    nnoremap <silent><buffer><expr> K
-          \ defx#do_action('new_directory')
-    nnoremap <silent><buffer><expr> N
-          \ defx#do_action('new_file')
-    nnoremap <silent><buffer><expr> M
-          \ defx#do_action('new_multiple_files')
-    nnoremap <silent><buffer><nowait><expr> d
-          \ defx#do_action('remove_trash')
-    nnoremap <silent><buffer><expr> r
-          \ defx#do_action('rename')
-    nnoremap <silent><buffer><expr> x
-          \ defx#do_action('execute_system')
-    nnoremap <silent><buffer><expr> .
-          \ defx#do_action('toggle_ignored_files')
-    nnoremap <silent><buffer><expr> yy
-          \ defx#do_action('yank_path')
-    nnoremap <silent><buffer><expr> h
-          \ defx#async_action('cd', ['..'])
-    nnoremap <silent><buffer><expr> <BS>
-          \ defx#async_action('cd', ['..'])
-    nnoremap <silent><buffer><expr> ~
-          \ defx#async_action('cd')
-    nnoremap <silent><buffer><expr> gr
-          \ defx#do_action('cd', '/')
-    nnoremap <silent><buffer><expr> gl
-          \ defx#do_action('cd', '/usr/lib/')
-    nnoremap <silent><buffer><expr> gv
-          \ defx#do_action('cd', $VIMRUNTIME)
-    nnoremap <silent><buffer><expr> \
-          \ defx#do_action('cd', getcwd())
-    nnoremap <silent><buffer><expr> \\
-          \ defx#do_action('cd', getcwd())
-    nnoremap <silent><buffer><expr> cd
-          \ defx#do_action('change_vim_cwd')
-    nnoremap <silent><buffer><expr> \c
-          \ defx#do_action('cd', expand(input('cd: ')))
-    if bufname('%') =~ 'tab'
-      nnoremap <silent><buffer><expr> q
-            \ defx#do_action('quit') . ":quit<CR>"
-    else
-      nnoremap <silent><buffer><expr> q
-            \ defx#do_action('quit')
-    endif
-    nnoremap <silent><buffer><expr> `
-          \ defx#do_action('toggle_select') . 'j'
-    nnoremap <silent><buffer><expr> *
-          \ defx#do_action('toggle_select_all')
-    nnoremap <silent><buffer><expr> j
-          \ line('.') == line('$') ? 'gg' : 'j'
-    nnoremap <silent><buffer><expr> k
-          \ line('.') == 1 ? 'G' : 'k'
-    nnoremap <silent><buffer><expr> <C-L>
-          \ defx#do_action('redraw')
-    xnoremap <silent><buffer><expr> <CR>
-          \ defx#do_action('toggle_select_visual')
-    nnoremap <silent><buffer><expr> <C-G>
-          \ defx#do_action('print')
-    nnoremap <silent><buffer><expr> <C-T><C-R>
-          \ defx#do_action('change_vim_cwd') . ":terminal<CR>i"
-    nnoremap <silent><buffer><expr> <C-T><C-T>
-          \ defx#do_action('change_vim_cwd') . ":tabnew <Bar> :terminal<CR>i"
-    nnoremap <silent><buffer><expr> <C-T><C-S>
-          \ defx#do_action('change_vim_cwd') . ":new    <Bar> :terminal<CR>i"
-    nnoremap <silent><buffer><expr> <C-T><C-V>
-          \ defx#do_action('change_vim_cwd') . ":vnew   <Bar> :terminal<CR>i"
-    nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
-          \ ':<C-U>wincmd w<CR>' :
-          \ ':<C-U>Defx -buffer-name=temp -split=vertical<CR>'
-    nnoremap <silent><buffer><expr> \f
-          \ defx#do_action('call', '<SID>defx_fzf_files')
-    nnoremap <silent><buffer><expr> \r
-          \ defx#do_action('call', '<SID>defx_fzf_rg')
-    nnoremap <silent><buffer><expr> \R
-          \ defx#do_action('call', '<SID>defx_fzf_rg_bang')
-    nnoremap <silent><buffer><expr> \<BS>
-          \ defx#do_action('call', '<SID>defx_fzf_directory_ancestors')
-    nnoremap <silent><buffer><expr> \x
-          \ defx#do_action('call', '<SID>defx_execute') " Add this mapping to prevent from executing 'x' mapping
-    nnoremap <silent><buffer><expr> \xx
-          \ defx#do_action('call', '<SID>defx_execute')
-    nnoremap <silent><buffer><expr> \xr
-          \ defx#do_action('call', '<SID>defx_execute')
-    nnoremap <silent><buffer><expr> \xt
-          \ defx#do_action('call', '<SID>defx_execute_tab')
-    nnoremap <silent><buffer><expr> \xs
-          \ defx#do_action('call', '<SID>defx_execute_split')
-    nnoremap <silent><buffer><expr> \xv
-          \ defx#do_action('call', '<SID>defx_execute_vertical')
-    nnoremap <silent><buffer>       \d
-          \ :Denite defx/dirmark<CR>
-    nnoremap <silent><buffer>       \h
-          \ :Denite defx/history<CR>
-
-    " Use Unite because using Denite will change other Denite buffers
-    nnoremap <silent><buffer> g?
-          \ :Unite -buffer-name=defx_map_help output:map\ <buffer><CR>
-  endfunction " }}}
 endif
 " }}}
 
