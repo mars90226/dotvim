@@ -101,8 +101,6 @@ if vimrc#plugin#is_enabled_plugin('lightline.vim')
   Plug 'maximbaz/lightline-ale'
   Plug 'shinchu/lightline-gruvbox.vim'
 
-  let s:lightline_width_threshold = 70
-
   " Fugitive special revisions. call '0' "staging" ?
   let s:names = {'0': 'index', '1': 'orig', '2':'fetch', '3':'merge'}
   let s:sha1size = 7
@@ -125,16 +123,16 @@ if vimrc#plugin#is_enabled_plugin('lightline.vim')
         \ 'linter_ok': 'left',
         \ }
   let g:lightline.component_function = {
-        \ 'fugitive': 'LightlineFugitive',
-        \ 'filename': 'LightlineFilename',
-        \ 'fileformat': 'LightlineFileformat',
-        \ 'filetype': 'LightlineFiletype',
-        \ 'fileencoding': 'LightlineFileencoding',
-        \ 'mode': 'LightlineMode',
+        \ 'fugitive': 'vimrc#lightline#fugitive',
+        \ 'filename': 'vimrc#lightline#filename',
+        \ 'fileformat': 'vimrc#lightline#fileformat',
+        \ 'filetype': 'vimrc#lightline#filetype',
+        \ 'fileencoding': 'vimrc#lightline#fileencoding',
+        \ 'mode': 'vimrc#lightline#mode',
         \ }
   let g:lightline.tab_component_function = {
-        \ 'filename': 'LightlineTabFilename',
-        \ 'modified': 'LightlineTabModified',
+        \ 'filename': 'vimrc#lightline#tab_filename',
+        \ 'modified': 'vimrc#lightline#tab_modified',
         \ }
   let g:lightline.active = {
         \ 'left': [
@@ -154,133 +152,6 @@ if vimrc#plugin#is_enabled_plugin('lightline.vim')
   let g:lightline.tab = {
         \ 'active': [ 'tabnum', 'filename', 'modified' ],
         \ 'inactive': [ 'tabnum', 'filename', 'modified' ] }
-
-  function! LightlineFilename()
-    let fname = expand('%:t')
-    let fpath = expand('%')
-
-    if fname =~ '__Tagbar__'
-      return g:lightline.fname
-    elseif fname == '__Mundo__'
-      return 'Mundo'
-    elseif fname == '__Mundo_Preview__'
-      return 'Mundo Preview'
-    elseif &ft == 'qf'
-      return get(w:, 'quickfix_title', '')
-    elseif &ft == 'unite'
-      return unite#get_status_string()
-    elseif &ft == 'vimfiler'
-      return vimfiler#get_status_string()
-    elseif &ft == 'help'
-      let t:current_filename = fname
-      return fname
-    else
-      let readonly = '' != LightlineReadonly() ? LightlineReadonly() . ' ' : ''
-      if fpath =~? '^fugitive'
-        let filename = fnamemodify(fugitive#Real(fpath), ':.') . ' [git]'
-      else
-        let filename = '' != fname ? fpath : '[No Name]'
-      end
-      let modified = '' != LightlineModified() ? ' ' . LightlineModified() : ''
-
-      let t:current_filename = fname
-      return readonly . filename . modified
-    endif
-  endfunction
-
-  function! LightlineReadonly()
-    return &ft !~? 'help' && &readonly ? '' : ''
-  endfunction
-
-  function! LightlineModified()
-    return &modifiable && &modified ? '+' : ''
-  endfunction
-
-  function! LightlineFugitive()
-    if !exists('b:lightline_head')
-      " Borrowed from s:display_git_branch from airline/extensions/branch.vim {{{
-      let name = fugitive#head()
-      try
-        let commit = matchstr(FugitiveParse()[0], '^\x\+')
-
-        if has_key(s:names, commit)
-          let name = get(s:names, commit)."(".name.")"
-        elseif !empty(commit)
-          let ref = fugitive#repo().git_chomp('describe', '--all', '--exact-match', commit)
-          if ref !~ "^fatal: no tag exactly matches"
-            let name = substitute(ref, '\v\C^%(heads/|remotes/|tags/)=','','')."(".name.")"
-          else
-            let name = matchstr(commit, '.\{'.s:sha1size.'}')."(".name.")"
-          endif
-        endif
-      catch
-      endtry
-      " }}}
-
-      let b:lightline_head = name
-    endif
-
-    return &ft == 'qf' ? '' : 
-          \ b:lightline_head !=# '' ? ' ' . b:lightline_head : ''
-  endfunction
-
-  function! LightlineFileformat()
-    return winwidth(0) > s:lightline_width_threshold ? &fileformat : ''
-  endfunction
-
-  function! LightlineFiletype()
-    return winwidth(0) > s:lightline_width_threshold ?
-          \ &buftype ==# 'terminal' ? &buftype :
-          \ (&filetype !=# '' ? &filetype : 'no ft') : ''
-  endfunction
-
-  function! LightlineFileencoding()
-    return winwidth(0) > s:lightline_width_threshold ? (&fileencoding !=# '' ? &fileencoding : &encoding) : ''
-  endfunction
-
-  function! LightlineMode()
-    let fname = expand('%:t')
-    return fname =~ '__Tagbar__' ? 'Tagbar' :
-          \ fname == '__Mundo__' ? 'Mundo' :
-          \ fname == '__Mundo_Preview__' ? 'Mundo Preview' :
-          \ &ft == 'qf' ? LightlineQuickfixMode() :
-          \ &ft == 'unite' ? 'Unite' :
-          \ &ft == 'vimfiler' ? 'VimFiler' :
-          \ &ft == 'fugitive' ? 'Fugitive' :
-          \ lightline#mode()
-  endfunction
-
-  " Borrowed from vim-airline {{{
-  function! LightlineQuickfixMode()
-    let dict = getwininfo(win_getid())
-    if len(dict) > 0 && get(dict[0], 'quickfix', 0) && !get(dict[0], 'loclist', 0)
-      return 'Quickfix'
-    elseif len(dict) > 0 && get(dict[0], 'quickfix', 0) && get(dict[0], 'loclist', 0)
-      return 'Location'
-    endif
-  endfunction
-  " }}}
-
-  function! LightlineTabFilename(n) abort
-    let bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]
-    let fname = expand('#' . bufnr . ':t')
-    let ftype = getbufvar(bufnr, '&ft')
-    let FilenameFilter = { fname -> '' != fname ? fname : '[No Name]' }
-    return fname =~ '__Tagbar__' ? 'Tagbar' :
-          \ fname =~ 'NERD_tree' ? 'NERDTree' :
-          \ ftype == 'fzf' ? FilenameFilter(gettabvar(a:n, 'current_filename', fname)) :
-          \ FilenameFilter(fname)
-  endfunction
-
-  function! LightlineTabModified(n) abort
-    let winnr = tabpagewinnr(a:n)
-    let bufnr = tabpagebuflist(a:n)[winnr - 1]
-    let ftype = getbufvar(bufnr, '&ft')
-    let buftype = getbufvar(bufnr, '&buftype')
-    return ftype == 'fzf' ? '' :
-          \ buftype == 'terminal' ? '' :
-          \ gettabwinvar(a:n, winnr, '&modified') ? '+' : gettabwinvar(a:n, winnr, '&modifiable') ? '' : '-'
-  endfunction
 endif
 " }}}
 
