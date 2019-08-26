@@ -1050,7 +1050,7 @@ if vimrc#plugin#is_enabled_plugin("defx")
     let path = s:defx_get_current_path()
 
     call fzf#run(fzf#wrap({
-          \ 'source': s:directory_ancestors_internal(path),
+          \ 'source': vimrc#fzf#dir#directory_ancestors_source(path),
           \ 'sink': function('s:defx_fzf_directory_ancestors_sink'),
           \ 'options': '+s',
           \ 'down': '40%'}))
@@ -1606,140 +1606,17 @@ command! -bang -nargs=? Directories    call vimrc#fzf#dir#directories(<q-args>, 
 command! -bang -nargs=? DirectoryFiles call vimrc#fzf#dir#directory_files(<q-args>, <bang>0)
 command! -bang -nargs=? DirectoryRg    call vimrc#fzf#dir#directory_rg(<q-args>, <bang>0)
 
-" Intend to be mapped in command
-function! s:files_in_commandline()
-  let s:files_in_commandline_result = ''
-  " Use tmux to avoid opening terminal in neovim
-  let g:fzf_prefer_tmux = 1
-  call fzf#vim#files(
-        \ '',
-        \ fzf#vim#with_preview({
-        \   'sink': function('s:files_in_commandline_sink'),
-        \ }),
-        \ 0)
-  let g:fzf_prefer_tmux = 0
-  return s:files_in_commandline_result
-endfunction
-function! s:files_in_commandline_sink(line)
-  let s:files_in_commandline_result = a:line
-endfunction
+" Tselect
+command! -nargs=1 Tselect call vimrc#fzf#tag#tselect(<q-args>)
 
-function! s:tselect_sink(lines)
-  if len(a:lines) < 2
-    return
-  endif
-  let cmd = vimrc#fzf#action_for(a:lines[0], 'edit')
-  let qfl = []
-  for target in a:lines[1:]
-    let infos = split(target, "\t")
-    " # [pri] kind tag file
-    " This will capture last component
-    let filename = matchlist(infos[0], '\v^%(\s+\S+)*\s+(\S+)')[1]
-    let pattern = substitute(infos[-1], '^\s*\(.\{-}\)\s*$', '\1', '')
-    execute cmd . ' ' . filename
-    execute '/\V' . pattern
-    call add(qfl, {'filename': expand('%'), 'lnum': line('.'), 'text': getline('.')})
-    normal! zzzv
-  endfor
-  call vimrc#fzf#fill_quickfix(qfl, 'clast')
-  normal! zzzv
-endfunction
+" Jump
+command! Jump call vimrc#fzf#jump()
 
-function! s:get_tselect(query)
-  let tselect_output = split(execute("tselect " . a:query, "silent!"), "\n")[1:-2]
-  let tselect_candidates = []
-  let tselect_current_candidate = []
-  for line in tselect_output
-    if line =~ '^\s\+\d'
-      if !empty(tselect_current_candidate)
-        call add(tselect_candidates, join(tselect_current_candidate, "\t"))
-        let tselect_current_candidate = []
-      endif
-    endif
+" Registers
+command! Registers call vimrc#fzf#registers()
 
-    call add(tselect_current_candidate, line)
-  endfor
-  if !empty(tselect_current_candidate)
-    call add(tselect_candidates, join(tselect_current_candidate, "\t"))
-  endif
-
-  return tselect_candidates
-endfunction
-command! -nargs=1 Tselect call fzf#run(fzf#wrap({
-      \ 'source': s:get_tselect(<q-args>),
-      \ 'sink*':   function('s:tselect_sink'),
-      \ 'options': '-m +s --expect=' . join(keys(g:fzf_action), ','),
-      \ 'down':   '40%'}))
-
-" TODO Add Jumps command preview
-" TODO Use <C-O> & <C-I> to actually jump back and forth
-function! s:jump_sink(lines)
-  if len(a:lines) < 2
-    return
-  endif
-  let cmd = vimrc#fzf#action_for(a:lines[0], 'e')
-  for result in a:lines[1:]
-    let list = matchlist(result, '^\s\+\S\+\s\+\(\S\+\)\s\+\(\S\+\)\s\+\(.*\)') " jump line col file/text
-    if len(list) < 4
-      return
-    end
-
-    " Tell if list[3] is a file
-    let lines = getbufline(list[3], list[1])
-    if empty(lines)
-      execute cmd
-    else
-      execute cmd . ' ' . list[3]
-    endif
-    call cursor(list[1], list[2])
-  endfor
-endfunction
-function! s:jumps()
-  return reverse(filter(split(execute("jumps", "silent!"), "\n")[1:], 'v:val != ">"'))
-endfunction
-command! Jump call fzf#run(fzf#wrap({
-      \ 'source':  s:jumps(),
-      \ 'sink*':   function('s:jump_sink'),
-      \ 'options': '-m +s --expect=' . join(keys(g:fzf_action), ','),
-      \ 'down':    '40%'}))
-function! s:registers_sink(line)
-  execute 'norm ' . a:line[0:1] . 'p'
-endfunction
-
-function! s:registers()
-  return split(execute("registers", "silent!"), "\n")[1:]
-endfunction
-command! Registers call fzf#run(fzf#wrap({
-      \ 'source': s:registers(),
-      \ 'sink': function('s:registers_sink'),
-      \ 'options': '+s',
-      \ 'down': '40%'}))
-
-function! s:directory_ancestors_internal(path)
-  let current_dir = fnamemodify(a:path, ':p:h')
-  let ancestors = []
-
-  for path_part in split(current_dir, '/')
-    let last_path = empty(ancestors) ? '' : ancestors[-1]
-    let current_path = last_path . '/' . path_part
-    call add(ancestors, current_path)
-  endfor
-
-  return reverse(ancestors)
-endfunction
-
-function! s:directory_ancestors_sink(line)
-  execute 'lcd ' . a:line
-endfunction
-
-function! s:directory_ancestors()
-  return s:directory_ancestors_internal(expand('%'))
-endfunction
-command! DirectoryAncestors call fzf#run(fzf#wrap({
-      \ 'source': s:directory_ancestors(),
-      \ 'sink': function('s:directory_ancestors_sink'),
-      \ 'options': '+s',
-      \ 'down': '40%'}))
+" DirectoryAncestors
+command! DirectoryAncestors call vimrc#fzf#dir#directory_ancestors()
 
 " Borrowed from s:buffer_line_handler from fzf.vim
 function! s:range_lines_handler(center, lines)
@@ -3734,7 +3611,7 @@ nnoremap <Leader>yv :vertical split<CR>
 nnoremap <Space>sr :let @+ = @"<CR>
 
 " Command line mapping
-cnoremap <expr> <C-G><C-F> <SID>files_in_commandline()
+cnoremap <expr> <C-G><C-F> vimrc#fzf#files_in_commandline()
 cnoremap <expr> <C-G><C-T> <SID>rg_current_type_option()
 " <C-]> and <C-%> is the same key
 cnoremap <expr> <C-G><C-]> expand('%:t:r')

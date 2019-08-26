@@ -1,6 +1,20 @@
 let s:fd_command = 'fd --no-ignore --hidden --follow'
 let s:fd_dir_command = 'fd --type directory --no-ignore-vcs --hidden --follow --ignore-file ' . $HOME . '/.ignore'
 
+" Sources
+function! vimrc#fzf#dir#directory_ancestors_source(path)
+  let current_dir = fnamemodify(a:path, ':p:h')
+  let ancestors = []
+
+  for path_part in split(current_dir, '/')
+    let last_path = empty(ancestors) ? '' : ancestors[-1]
+    let current_path = last_path . '/' . path_part
+    call add(ancestors, current_path)
+  endfor
+
+  return reverse(ancestors)
+endfunction
+
 " Sinks
 " TODO Refine popd_callback that use counter to activate
 function! vimrc#fzf#dir#directory_sink(original_cwd, path, Func, directory)
@@ -50,6 +64,10 @@ function! vimrc#fzf#dir#directory_rg_sink(chdir, directory)
   " To enter terminal mode, this is a workaround that autocommand exit the
   " terminal mode when previous fzf session end.
   call feedkeys('i')
+endfunction
+
+function! vimrc#fzf#dir#directory_ancestors_sink(line)
+  execute 'lcd ' . a:line
 endfunction
 
 " Callbacks
@@ -102,4 +120,12 @@ endfunction
 
 function! vimrc#fzf#dir#directory_rg(path, bang)
   call vimrc#fzf#dir#directories(a:path, a:bang, function('vimrc#fzf#dir#directory_sink', [getcwd(), a:path, function('vimrc#fzf#dir#directory_rg_sink', [1])]))
+endfunction
+
+function! vimrc#fzf#dir#directory_ancestors()
+  call fzf#run(fzf#wrap({
+      \ 'source': vimrc#fzf#dir#directory_ancestors_source(expand('%')),
+      \ 'sink': function('vimrc#fzf#dir#directory_ancestors_sink'),
+      \ 'options': '+s',
+      \ 'down': '40%'}))
 endfunction

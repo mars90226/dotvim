@@ -109,7 +109,64 @@ function! vimrc#fzf#wrap(name, opts, bang)
 endfunction
 " }}}
 
-" Functions & Commands
+" Sources
+function! vimrc#fzf#jump_source()
+  return reverse(filter(split(execute("jumps", "silent!"), "\n")[1:], 'v:val != ">"'))
+endfunction
+
+function! vimrc#fzf#registers_source()
+  return split(execute("registers", "silent!"), "\n")[1:]
+endfunction
+
+" Sinks
+" Currently not used
+function! vimrc#fzf#files_sink(lines)
+  if len(a:lines) < 2
+    return
+  endif
+  let cmd = vimrc#fzf#action_for(a:lines[0], 'edit')
+  for target in a:lines[1:]
+    if type(cmd) == type(function('call'))
+      cmd(target)
+    else
+      execute cmd . ' ' . target
+    endif
+  endfor
+endfunction
+
+function! vimrc#fzf#files_in_commandline_sink(line)
+  let s:files_in_commandline_result = a:line
+endfunction
+
+" TODO Add Jumps command preview
+" TODO Use <C-O> & <C-I> to actually jump back and forth
+function! vimrc#fzf#jump_sink(lines)
+  if len(a:lines) < 2
+    return
+  endif
+  let cmd = vimrc#fzf#action_for(a:lines[0], 'e')
+  for result in a:lines[1:]
+    let list = matchlist(result, '^\s\+\S\+\s\+\(\S\+\)\s\+\(\S\+\)\s\+\(.*\)') " jump line col file/text
+    if len(list) < 4
+      return
+    end
+
+    " Tell if list[3] is a file
+    let lines = getbufline(list[3], list[1])
+    if empty(lines)
+      execute cmd
+    else
+      execute cmd . ' ' . list[3]
+    endif
+    call cursor(list[1], list[2])
+  endfor
+endfunction
+
+function! vimrc#fzf#registers_sink(line)
+  execute 'norm ' . a:line[0:1] . 'p'
+endfunction
+
+" Commands
 " borrowed from fzf.vim {{{
 function! vimrc#fzf#history(arg, bang)
   let bang = a:bang || a:arg[len(a:arg)-1] == '!'
@@ -139,17 +196,33 @@ function! vimrc#fzf#locate(query, bang)
   call fzf#vim#locate(a:query, fzf#vim#with_preview(), a:bang)
 endfunction
 
-" Currently not used
-function! vimrc#fzf#files_sink(lines)
-  if len(a:lines) < 2
-    return
-  endif
-  let cmd = vimrc#fzf#action_for(a:lines[0], 'edit')
-  for target in a:lines[1:]
-    if type(cmd) == type(function('call'))
-      cmd(target)
-    else
-      execute cmd . ' ' . target
-    endif
-  endfor
+" Intend to be mapped in command
+function! vimrc#fzf#files_in_commandline()
+  let s:files_in_commandline_result = ''
+  " Use tmux to avoid opening terminal in neovim
+  let g:fzf_prefer_tmux = 1
+  call fzf#vim#files(
+        \ '',
+        \ fzf#vim#with_preview({
+        \   'sink': function('vimrc#fzf#files_in_commandline_sink'),
+        \ }),
+        \ 0)
+  let g:fzf_prefer_tmux = 0
+  return s:files_in_commandline_result
+endfunction
+
+function! vimrc#fzf#jump()
+  call fzf#run(fzf#wrap({
+      \ 'source':  vimrc#fzf#jump_source(),
+      \ 'sink*':   function('vimrc#fzf#jump_sink'),
+      \ 'options': '-m +s --expect=' . join(keys(g:fzf_action), ','),
+      \ 'down':    '40%'}))
+endfunction
+
+function! vimrc#fzf#registers()
+  call fzf#run(fzf#wrap({
+      \ 'source': vimrc#fzf#registers_source(),
+      \ 'sink': function('vimrc#fzf#registers_sink'),
+      \ 'options': '+s',
+      \ 'down': '40%'}))
 endfunction
