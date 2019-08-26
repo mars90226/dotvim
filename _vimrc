@@ -1883,25 +1883,27 @@ endfunction
 " far.vim {{{
 Plug 'brooth/far.vim', { 'on': ['Far', 'Farp', 'F'] }
 
-if has("nvim")
-  if executable('rg')
-    let g:far#source = 'rgnvim'
-  elseif executable('ag')
-    let g:far#source = 'agnvim'
-  elseif executable('ack')
-    let g:far#source = 'acknvim'
+if has("python3")
+  if has("nvim")
+    if executable('rg')
+      let g:far#source = 'rgnvim'
+    elseif executable('ag')
+      let g:far#source = 'agnvim'
+    elseif executable('ack')
+      let g:far#source = 'acknvim'
+    endif
+  else
+    if executable('rg')
+      let g:far#source = 'rg'
+    elseif executable('ag')
+      let g:far#source = 'ag'
+    elseif executable('ack')
+      let g:far#source = 'ack'
+    endif
   endif
 else
-  if executable('rg')
-    let g:far#source = 'rg'
-  elseif executable('ag')
-    let g:far#source = 'ag'
-  elseif executable('ack')
-    let g:far#source = 'ack'
-  else
-    " Default behavior
-    " g:far#source = 'vimgrep'
-  endif
+  " Default behavior
+  " g:far#source = 'vimgrep'
 endif
 " }}}
 
