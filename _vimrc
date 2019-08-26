@@ -749,7 +749,7 @@ let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
 nnoremap <C-P> :CtrlP<CR>
 nnoremap <Space>cO :CtrlPFunky<CR>
 nnoremap <Space>cK :execute 'CtrlPFunky ' . expand('<cword>')<CR>
-xnoremap <Space>cK :<C-U>execute 'CtrlPFunky ' . <SID>get_visual_selection()<CR>
+xnoremap <Space>cK :<C-U>execute 'CtrlPFunky ' . vimrc#get_visual_selection()<CR>
 nnoremap <Space>cp :CtrlPCmdPalette<CR>
 nnoremap <Space>cm :CtrlPCmdline<CR>
 nnoremap <Space>c] :CtrlPtjump<CR>
@@ -1026,8 +1026,8 @@ nnoremap <Space>uk :call vimrc#unite#grep(expand('<cword>'), 'keyword', '', v:fa
 nnoremap <Space>uK :call vimrc#unite#grep(expand('<cWORD>'), 'keyword', '', v:false)<CR>
 nnoremap <Space>u8 :call vimrc#unite#grep(expand('<cword>'), 'keyword', '', v:true)<CR>
 nnoremap <Space>u* :call vimrc#unite#grep(expand('<cWORD>'), 'keyword', '', v:true)<CR>
-xnoremap <Space>uk :<C-U>call vimrc#unite#grep(<SID>get_visual_selection(), 'keyword', '', v:false)<CR>
-xnoremap <Space>u8 :<C-U>call vimrc#unite#grep(<SID>get_visual_selection(), 'keyword', '', v:true)<CR>
+xnoremap <Space>uk :<C-U>call vimrc#unite#grep(vimrc#get_visual_selection(), 'keyword', '', v:false)<CR>
+xnoremap <Space>u8 :<C-U>call vimrc#unite#grep(vimrc#get_visual_selection(), 'keyword', '', v:true)<CR>
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>uo :Unite output -start-insert<CR>
 nnoremap <Space>uO :Unite outline -start-insert<CR>
@@ -1125,8 +1125,8 @@ if vimrc#plugin#is_enabled_plugin('denite.nvim')
   nnoremap <Space>dK :call vimrc#denite#grep(expand('<cWORD>'), 'grep', '', v:false)<CR>
   nnoremap <Space>d8 :call vimrc#denite#grep(expand('<cword>'), 'grep', '', v:true)<CR>
   nnoremap <Space>d* :call vimrc#denite#grep(expand('<cWORD>'), 'grep', '', v:true)<CR>
-  xnoremap <Space>dk :<C-U>call vimrc#denite#grep(<SID>get_visual_selection(), 'grep', '', v:false)<CR>
-  xnoremap <Space>d8 :<C-U>call vimrc#denite#grep(<SID>get_visual_selection(), 'grep', '', v:true)<CR>
+  xnoremap <Space>dk :<C-U>call vimrc#denite#grep(vimrc#get_visual_selection(), 'grep', '', v:false)<CR>
+  xnoremap <Space>d8 :<C-U>call vimrc#denite#grep(vimrc#get_visual_selection(), 'grep', '', v:true)<CR>
   nnoremap <Space>dm :Denite file_mru<CR>
   nnoremap <Space>dM :Denite directory_mru<CR>
   nnoremap <Space>do :execute 'Denite output:' . vimrc#escape_symbol(input('output: '))<CR>
@@ -1366,8 +1366,8 @@ nnoremap <Space>fk :execute 'Rg ' . expand('<cword>')<CR>
 nnoremap <Space>fK :execute 'Rg ' . expand('<cWORD>')<CR>
 nnoremap <Space>f8 :execute 'Rg \b' . expand('<cword>') . '\b'<CR>
 nnoremap <Space>f* :execute 'Rg \b' . expand('<cWORD>') . '\b'<CR>
-xnoremap <Space>fk :<C-U>execute 'Rg ' . <SID>get_visual_selection()<CR>
-xnoremap <Space>f8 :<C-U>execute 'Rg \b' . <SID>get_visual_selection() . '\b'<CR>
+xnoremap <Space>fk :<C-U>execute 'Rg ' . vimrc#get_visual_selection()<CR>
+xnoremap <Space>f8 :<C-U>execute 'Rg \b' . vimrc#get_visual_selection() . '\b'<CR>
 nnoremap <Space>fl :BLines<CR>
 nnoremap <Space>fL :Lines<CR>
 nnoremap <Space>f<C-L> :execute 'BLines ' . expand('<cword>')<CR>
@@ -1377,7 +1377,7 @@ nnoremap <Space>f<C-M> :ProjectMru<CR>
 nnoremap <Space>fn :execute 'FilesWithQuery ' . expand('<cword>')<CR>
 nnoremap <Space>fN :execute 'FilesWithQuery ' . expand('<cWORD>')<CR>
 nnoremap <Space>f% :execute 'FilesWithQuery ' . expand('%:t:r')<CR>
-xnoremap <Space>fn :<C-U>execute 'FilesWithQuery ' . <SID>get_visual_selection()<CR>
+xnoremap <Space>fn :<C-U>execute 'FilesWithQuery ' . vimrc#get_visual_selection()<CR>
 nnoremap <Space>fo :execute 'Locate ' . input('Locate: ')<CR>
 nnoremap <Space>fr :execute 'Rg ' . input('Rg: ')<CR>
 nnoremap <Space>fR :execute 'Rg! ' . input('Rg!: ')<CR>
@@ -1401,11 +1401,11 @@ nnoremap <Space>f; :Commands<CR>
 xnoremap <Space>f; :<C-U>Commands<CR>
 nnoremap <Space>f/ :History/<CR>
 nnoremap <Space>f] :execute "BTags '" . expand('<cword>')<CR>
-xnoremap <Space>f] :<C-U>execute "BTags '" . <SID>get_visual_selection()<CR>
+xnoremap <Space>f] :<C-U>execute "BTags '" . vimrc#get_visual_selection()<CR>
 nnoremap <Space>f} :execute "Tags '" . expand('<cword>')<CR>
-xnoremap <Space>f} :<C-U>execute "Tags '" . <SID>get_visual_selection()<CR>
+xnoremap <Space>f} :<C-U>execute "Tags '" . vimrc#get_visual_selection()<CR>
 nnoremap <Space>f<C-]> :execute 'Tselect ' . expand('<cword>')<CR>
-xnoremap <Space>f<C-]> :<C-U>execute 'Tselect ' . <SID>get_visual_selection()<CR>
+xnoremap <Space>f<C-]> :<C-U>execute 'Tselect ' . vimrc#get_visual_selection()<CR>
 
 " DirectoryMru
 nnoremap <Space><C-D><C-D> :DirectoryMru<CR>
@@ -1416,7 +1416,7 @@ nmap     <Space>sf vaf:SelectLines<CR>
 xnoremap <Space>sf :SelectLines<CR>
 nnoremap <Space>sl :ScreenLines<CR>
 nnoremap <Space>sL :execute 'ScreenLines ' . expand('<cword>')<CR>
-xnoremap <Space>sL :<C-U>execute 'ScreenLines ' . <SID>get_visual_selection()<CR>
+xnoremap <Space>sL :<C-U>execute 'ScreenLines ' . vimrc#get_visual_selection()<CR>
 nnoremap <Space>ss :History:<CR>mks vim sessions
 
 " fzf & cscope key mappings {{{
@@ -1430,15 +1430,15 @@ nnoremap <silent> <Leader>cf :call vimrc#fzf#cscope#cscope('7', expand('<cword>'
 nnoremap <silent> <Leader>ci :call vimrc#fzf#cscope#cscope('8', expand('<cword>'))<CR>
 nnoremap <silent> <Leader>ca :call vimrc#fzf#cscope#cscope('9', expand('<cword>'))<CR>
 
-xnoremap <silent> <Leader>cs :<C-U>call vimrc#fzf#cscope#cscope('0', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>cg :<C-U>call vimrc#fzf#cscope#cscope('1', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>cd :<C-U>call vimrc#fzf#cscope#cscope('2', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>cc :<C-U>call vimrc#fzf#cscope#cscope('3', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>ct :<C-U>call vimrc#fzf#cscope#cscope('4', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>ce :<C-U>call vimrc#fzf#cscope#cscope('6', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>cf :<C-U>call vimrc#fzf#cscope#cscope('7', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>ci :<C-U>call vimrc#fzf#cscope#cscope('8', <SID>get_visual_selection())<CR>
-xnoremap <silent> <Leader>ca :<C-U>call vimrc#fzf#cscope#cscope('9', <SID>get_visual_selection())<CR>
+xnoremap <silent> <Leader>cs :<C-U>call vimrc#fzf#cscope#cscope('0', vimrc#get_visual_selection())<CR>
+xnoremap <silent> <Leader>cg :<C-U>call vimrc#fzf#cscope#cscope('1', vimrc#get_visual_selection())<CR>
+xnoremap <silent> <Leader>cd :<C-U>call vimrc#fzf#cscope#cscope('2', vimrc#get_visual_selection())<CR>
+xnoremap <silent> <Leader>cc :<C-U>call vimrc#fzf#cscope#cscope('3', vimrc#get_visual_selection())<CR>
+xnoremap <silent> <Leader>ct :<C-U>call vimrc#fzf#cscope#cscope('4', vimrc#get_visual_selection())<CR>
+xnoremap <silent> <Leader>ce :<C-U>call vimrc#fzf#cscope#cscope('6', vimrc#get_visual_selection())<CR>
+xnoremap <silent> <Leader>cf :<C-U>call vimrc#fzf#cscope#cscope('7', vimrc#get_visual_selection())<CR>
+xnoremap <silent> <Leader>ci :<C-U>call vimrc#fzf#cscope#cscope('8', vimrc#get_visual_selection())<CR>
+xnoremap <silent> <Leader>ca :<C-U>call vimrc#fzf#cscope#cscope('9', vimrc#get_visual_selection())<CR>
 
 nnoremap <silent> <Leader><Leader>cs :call vimrc#fzf#cscope#cscope_query('0')<CR>
 nnoremap <silent> <Leader><Leader>cg :call vimrc#fzf#cscope#cscope_query('1')<CR>
@@ -1455,7 +1455,7 @@ if has("nvim")
   nnoremap <Space>fp :ProjectTags<CR>
   nnoremap <Space>sp :ProjectTagsCaseSentitive<CR>
   nnoremap <Space>fP :execute "ProjectTags '" . expand('<cword>')<CR>
-  xnoremap <Space>fP :<C-U>execute "ProjectTags '" . <SID>get_visual_selection()<CR>
+  xnoremap <Space>fP :<C-U>execute "ProjectTags '" . vimrc#get_visual_selection()<CR>
   nnoremap <Space><F8> :TagbarTags<CR>
 endif
 " }}}
@@ -2908,171 +2908,46 @@ augroup END
 " }}}
 
 " Custom function {{{
+" This cannot be moved to autoload, because sid will change when <sfile> change
 function! s:SID_PREFIX() abort
   return matchstr(expand('<sfile>'),
         \ '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
 let g:sid = s:SID_PREFIX()
 
-nnoremap <F6> :call <SID>toggle_indent_between_tab_and_space()<CR>
-function! s:toggle_indent_between_tab_and_space()
-  if &expandtab
-    setlocal noexpandtab
-    setlocal tabstop=4
-    setlocal softtabstop=4
-    setlocal shiftwidth=4
-  else
-    setlocal expandtab
-    setlocal tabstop=2
-    setlocal softtabstop=2
-    setlocal shiftwidth=2
-  endif
-endfunction
+nnoremap <F6> :call vimrc#toggle_indent()<CR>
+nnoremap <F7> :call vimrc#toggle_fold()<CR>
 
-nnoremap <F7> :call <SID>toggle_fold_between_manual_and_syntax()<CR>
-function! s:toggle_fold_between_manual_and_syntax()
-  if &foldmethod == 'manual'
-    setlocal foldmethod=syntax
-  else
-    setlocal foldmethod=manual
-  endif
-endfunction
-
-" last tabs
-if !exists("g:last_tabs")
-  let g:last_tabs = [1]
-endif
-
-function! s:last_tab(count)
-  if a:count >= 0 && a:count < len(g:last_tabs)
-    let tabnr = g:last_tabs[a:count]
-  else
-    let tabnr = g:last_tabs[-1]
-  endif
-  let last_tab_nr = tabpagenr('$')
-  if tabnr > last_tab_nr
-    echoerr 'Tab number ' . tabnr . ' is not exist!'
-  else
-    execute 'tabnext ' . tabnr
-  endif
-endfunction
-function! s:insert_last_tab(tabnr)
-  let g:last_tabs = filter(g:last_tabs, 'v:val != ' . a:tabnr)
-  call insert(g:last_tabs, a:tabnr, 0)
-  let count_tabcount = tabpagenr('$') - 1
-  if count_tabcount > len(g:last_tabs)
-    let g:last_tabs = g:last_tabs[0 : count_tabcount]
-  endif
-endfunction
-command! -count -bar LastTab call s:last_tab(<count>)
-nnoremap <M-1> :call <SID>last_tab(v:count)<CR>
+" LastTab
+command! -count -bar LastTab call vimrc#last_tab(<count>)
+nnoremap <M-1> :call vimrc#last_tab(v:count)<CR>
 
 augroup last_tab_settings
   autocmd!
-  autocmd TabLeave * call s:insert_last_tab(tabpagenr())
+  autocmd TabLeave * call vimrc#insert_last_tab(tabpagenr())
 augroup END
 
-" get_visual_selection
-function! s:get_visual_selection()
-    " Why is this not a built-in Vim script function?!
-    let [line_start, column_start] = getpos("'<")[1:2]
-    let [line_end, column_end] = getpos("'>")[1:2]
-    let lines = getline(line_start, line_end)
-    if len(lines) == 0
-        return ''
-    endif
-    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
-    let lines[0] = lines[0][column_start - 1:]
-    return join(lines, "\n")
-endfunction
-
 " Zoom
-function! s:zoom()
-  if winnr('$') > 1
-    tab split
-  elseif len(filter(map(range(tabpagenr('$')), 'tabpagebuflist(v:val + 1)'),
-                  \ 'index(v:val, '.bufnr('').') >= 0')) > 1
-    tabclose
-  endif
-endfunction
-function! s:zoom_selected(selected)
-  let filetype = &filetype
-  tabnew
-  call append(line('$'), split(a:selected, "\n"))
-  1delete
-  let &filetype = filetype
-endfunction
-nnoremap <silent> <Leader>z :call <SID>zoom()<CR>
-xnoremap <silent> <Leader>z :<C-U>call <SID>zoom_selected(<SID>get_visual_selection())<CR>
+nnoremap <silent> <Leader>z :call vimrc#zoom()<CR>
+xnoremap <silent> <Leader>z :<C-U>call vimrc#zoom_selected(vimrc#get_visual_selection())<CR>
 
-" toggle parent folder tag
-function! s:toggle_parent_folder_tag()
-  let s:parent_folder_tag_pattern = "./tags;"
-  if index(split(&tags, ','), s:parent_folder_tag_pattern) != -1
-    execute 'set tags-=' . s:parent_folder_tag_pattern
-  else
-    execute 'set tags+=' . s:parent_folder_tag_pattern
-  endif
-endfunction
-command! ToggleParentFolderTag call s:toggle_parent_folder_tag()
+" Toggle parent folder tag
+command! ToggleParentFolderTag call vimrc#toggle_parent_folder_tag()
 nnoremap <silent> <Leader>p :ToggleParentFolderTag<CR>
 
-" display file size
-function! s:file_size(path)
-  let path = expand(a:path)
-  if isdirectory(path)
-    echomsg path . " is directory!"
-    return
-  endif
+" Display file size
+command! -nargs=1 -complete=file FileSize call vimrc#file_size(<q-args>)
 
-  let file_size = getfsize(path)
-  let gb = file_size / (1024 * 1024 * 1024)
-  let mb = file_size / (1024 * 1024) % 1024
-  let kb = file_size / (1024) % 1024
-  let byte = file_size % 1024
+" Set tab size
+command! -nargs=1 SetTabSize call vimrc#set_tab_size(<q-args>)
 
-  echomsg path . " size is "
-        \ . (gb > 0 ? gb . "GB, " : "")
-        \ . (mb > 0 ? mb . "MB, " : "")
-        \ . (kb > 0 ? kb . "KB, " : "")
-        \ . byte . "byte"
-endfunction
-command! -nargs=1 -complete=file FileSize call s:file_size(<q-args>)
-
-function! s:set_tab_size(size)
-  let &l:tabstop     = a:size
-  let &l:shiftwidth  = a:size
-  let &l:softtabstop = a:size
-endfunction
-command! -nargs=1 SetTabSize call s:set_tab_size(<q-args>)
-
-" Borrowed from gv.vim
-function! s:get_cursor_syntax()
-  return synIDattr(synID(line('.'), col('.'), 0), 'name')
-endfunction
-command! GetCursorSyntax echo s:get_cursor_syntax()
+command! GetCursorSyntax echo vimrc#get_cursor_syntax()
 
 " Find the cursor
-function! s:blink_cursor_location()
-  let cursorline = &cursorline
-  let cursorcolumn = &cursorcolumn
-
-  let &cursorline = 1
-  let &cursorcolumn = 1
-
-  call timer_start(200, function('s:blink_cursor_location_callback', [cursorline, cursorcolumn]))
-endfunction
-function! s:blink_cursor_location_callback(cursorline, cursorcolumn, timer_id)
-  let &cursorline = a:cursorline
-  let &cursorcolumn = a:cursorcolumn
-endfunction
-command! FindCursor call s:blink_cursor_location()
+command! FindCursor call vimrc#blink_cursor_location()
 
 if executable('tmux')
-  function! s:refresh_display()
-    let $DISPLAY = split(systemlist('tmux show-environment DISPLAY')[0], '=')[1]
-  endfunction
-  command! RefreshDisplay call s:refresh_display()
+  command! RefreshDisplay call vimrc#refresh_display()
 endif
 " }}}
 
@@ -3086,39 +2961,39 @@ if !exists(":DiffOrig")
 endif
 
 function! s:delete_inactive_buffers(wipeout, bang)
-    "From tabpagebuflist() help, get a list of all buffers in all tabs
-    let visible_buffers = {}
-    for t in range(tabpagenr('$'))
-      for b in tabpagebuflist(t + 1)
-        let visible_buffers[b] = 1
-      endfor
+  "From tabpagebuflist() help, get a list of all buffers in all tabs
+  let visible_buffers = {}
+  for t in range(tabpagenr('$'))
+    for b in tabpagebuflist(t + 1)
+      let visible_buffers[b] = 1
     endfor
+  endfor
 
-    "Below originally inspired by Hara Krishna Dara and Keith Roberts
-    "http://tech.groups.yahoo.com/group/vim/message/56425
-    let wipeout_count = 0
-    if a:wipeout
-      let cmd = 'bwipeout'
-    else
-      let cmd = 'bdelete'
+  "Below originally inspired by Hara Krishna Dara and Keith Roberts
+  "http://tech.groups.yahoo.com/group/vim/message/56425
+  let wipeout_count = 0
+  if a:wipeout
+    let cmd = 'bwipeout'
+  else
+    let cmd = 'bdelete'
+  endif
+  for b in range(1, bufnr('$'))
+    if buflisted(b) && !getbufvar(b,"&mod") && !has_key(visible_buffers, b)
+      "bufno listed AND isn't modified AND isn't in the list of buffers open in windows and tabs
+      if a:bang
+        silent exec cmd . '!' b
+      else
+        silent exec cmd b
+      endif
+      let wipeout_count = wipeout_count + 1
     endif
-    for b in range(1, bufnr('$'))
-        if buflisted(b) && !getbufvar(b,"&mod") && !has_key(visible_buffers, b)
-        "bufno listed AND isn't modified AND isn't in the list of buffers open in windows and tabs
-            if a:bang
-              silent exec cmd . '!' b
-            else
-              silent exec cmd b
-            endif
-            let wipeout_count = wipeout_count + 1
-        endif
-    endfor
+  endfor
 
-    if a:wipeout
-      echomsg wipeout_count . ' buffer(s) wiped out'
-    else
-      echomsg wipeout_count . ' buffer(s) deleted'
-    endif
+  if a:wipeout
+    echomsg wipeout_count . ' buffer(s) wiped out'
+  else
+    echomsg wipeout_count . ' buffer(s) deleted'
+  endif
 endfunction
 command! -bang Bdi call s:delete_inactive_buffers(0, <bang>0)
 command! -bang Bwi call s:delete_inactive_buffers(1, <bang>0)
