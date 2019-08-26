@@ -3287,7 +3287,7 @@ if has("nvim")
 
   augroup terminal_settings
     autocmd!
-    autocmd TermOpen * call s:terminal_settings()
+    autocmd TermOpen * call vimrc#terminal#settings()
 
     " TODO Start insert mode when cancelling :Windows in terminal mode or
     " selecting another terminal buffer
@@ -3301,24 +3301,6 @@ if has("nvim")
           \   call nvim_input('<CR>')  |
           \ endif
   augroup END
-
-  function! s:terminal_settings()
-    setlocal bufhidden=hide
-    setlocal nolist
-    setlocal nowrap
-    setlocal nofoldenable
-    setlocal foldcolumn=0
-    setlocal colorcolumn=
-    setlocal nonumber
-    setlocal norelativenumber
-
-    " Only clear incsearch-nohlsearch autocmd in normal shell terminal
-    " Do not clear in other terminal like fzf, ranger, coc
-    if expand('<afile>') =~# 'term://\.//\d\+:' . $SHELL
-      " Clear incsearch-nohlsearch autocmd on entering terminal mode
-      nnoremap <silent><buffer> i :ClearIncsearchAutoNohlsearch<CR>i
-    endif
-  endfunction
 
   " Search keyword with Google using surfraw {{{
   if executable('sr')
