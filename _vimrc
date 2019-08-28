@@ -728,7 +728,7 @@ Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-outline'
 Plug 'Shougo/unite-session'
 Plug 'tsukkee/unite-tag'
-Plug 'blindFS/unite-workflow'
+Plug 'blindFS/unite-workflow', { 'on': [] }
 Plug 'kmnk/vim-unite-giti'
 Plug 'Shougo/vinarise.vim'
 Plug 'Shougo/neomru.vim'
@@ -737,6 +737,8 @@ Plug 'Shougo/unite-help'
 Plug 'thinca/vim-unite-history'
 Plug 'hewes/unite-gtags'
 Plug 'osyo-manga/unite-quickfix'
+
+call vimrc#lazy#lazy_load('unite_workflow')
 
 let g:unite_source_history_yank_enable = 1
 
@@ -1451,8 +1453,13 @@ map <Space><Space>j <Plug>(edgemotion-j)
 map <Space><Space>k <Plug>(edgemotion-k)
 " }}}
 
+" vim-indentwise {{{
+Plug 'jeetsukumaran/vim-indentwise', { 'on': [] }
+
+call vimrc#lazy#lazy_load('indentwise')
+" }}}
+
 Plug 'wellle/targets.vim'
-Plug 'jeetsukumaran/vim-indentwise'
 " }}}
 
 " Text Manipulation {{{
@@ -1500,7 +1507,9 @@ let g:EraseSubword_insertMap = '<C-B>'
 " }}}
 
 " tcomment_vim {{{
-Plug 'tomtom/tcomment_vim'
+Plug 'tomtom/tcomment_vim', { 'on': [] }
+
+call vimrc#lazy#lazy_load('tcomment')
 " }}}
 
 " vim-subversive {{{
@@ -1545,11 +1554,12 @@ Plug 'tpope/vim-surround'
 Plug 'kana/vim-textobj-user'
 
 " vim-textobj-function {{{
-Plug 'kana/vim-textobj-function'
+Plug 'kana/vim-textobj-function', { 'on': [] }
+
+call vimrc#lazy#lazy_load('textobj_function')
 
 " Search in function
 map <Space>sF :call vimrc#incsearch#clear_nohlsearch()<CR>vaf<M-/>
-
 " }}}
 
 Plug 'michaeljsmith/vim-indent-object'
@@ -1559,13 +1569,17 @@ Plug 'coderifous/textobj-word-column.vim'
 " Languages {{{
 " ====================================================================
 " emmet {{{
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'on': [] }
+
+call vimrc#lazy#lazy_load('emmet')
 
 let g:user_emmet_leader_key = '<C-E>'
 " }}}
 
 " cscope-macros.vim {{{
-Plug 'mars90226/cscope_macros.vim'
+Plug 'mars90226/cscope_macros.vim', { 'on': [] }
+
+call vimrc#lazy#lazy_load('cscope_macros')
 
 nnoremap <F11> :call <SID>generate_cscope_files()<CR>
 function! s:generate_cscope_files()
@@ -1836,7 +1850,9 @@ command! -nargs=* GitDispatch call vimrc#fugitive#git_dispatch(<q-args>)
 " }}}
 
 " vim-gitgutter {{{
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter', { 'on': [] }
+
+call vimrc#lazy#lazy_load('gitgutter')
 
 nmap <silent> [h <Plug>GitGutterPrevHunk
 nmap <silent> ]h <Plug>GitGutterNextHunk
@@ -2015,7 +2031,9 @@ let g:lastplace_open_folds = 0
 
 " neoterm {{{
 if has("nvim")
-  Plug 'kassio/neoterm'
+  Plug 'kassio/neoterm', { 'on': [] }
+
+  call vimrc#lazy#lazy_load('neoterm')
 
   let g:neoterm_default_mod = 'botright'
   let g:neoterm_automap_keys = ',T'
@@ -2057,7 +2075,9 @@ endfunction
 " }}}
 
 " vim-caser {{{
-Plug 'arthurxavierx/vim-caser'
+Plug 'arthurxavierx/vim-caser', { 'on': [] }
+
+call vimrc#lazy#lazy_load('caser')
 " }}}
 
 " vim-highlightedyank {{{
@@ -2081,7 +2101,9 @@ nnoremap <Leader><C-L> :Limelight!!<CR>
 " }}}
 
 " vim-dispatch {{{
-Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-dispatch', { 'on': [] }
+
+call vimrc#lazy#lazy_load('dispatch')
 
 nnoremap <Leader>co :Copen<CR>
 " }}}
@@ -2090,6 +2112,12 @@ nnoremap <Leader>co :Copen<CR>
 " See https://www.reddit.com/r/vim/comments/bwp7q3/code_execution_vulnerability_in_vim_811365_and/
 " and https://github.com/numirias/security/blob/master/doc/2019-06-04_ace-vim-neovim.md for more details
 Plug 'ciaranm/securemodelines'
+" }}}
+
+" vim-scriptease {{{
+Plug 'tpope/vim-scriptease', { 'on': [] }
+
+call vimrc#lazy#lazy_load('scriptease')
 " }}}
 
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
@@ -2101,7 +2129,6 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'alx741/vinfo', { 'on': 'Vinfo' }
 Plug 'mattn/webapi-vim'
-Plug 'tpope/vim-scriptease'
 Plug 'kana/vim-arpeggio'
 Plug 'kopischke/vim-fetch'
 Plug 'Valloric/ListToggle'
