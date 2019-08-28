@@ -95,6 +95,7 @@ function! vimrc#unite#mappings() "{{{
 endfunction "}}}
 
 function! vimrc#unite#post_loaded_mappings()
+  " Avoid remapped by unimpaired
   silent! unmap [u
   silent! unmap [uu
   silent! unmap ]u

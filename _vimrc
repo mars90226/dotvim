@@ -1921,21 +1921,9 @@ endif
 " }}}
 
 " vim-unimpaired {{{
-Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-unimpaired', { 'on': [] }
 
-" Ignore [a, ]a, [A, ]A for ale
-let g:nremap = {"[a": "", "]a": "", "[A": "", "]A": ""}
-
-nmap \[u  <Plug>unimpaired_url_encode
-nmap \[uu <Plug>unimpaired_line_url_encode
-nmap \]u  <Plug>unimpaired_url_decode
-nmap \]uu <Plug>unimpaired_line_url_decode
-
-nnoremap coc :set termguicolors!<CR>
-nnoremap coe :set expandtab!<CR>
-nnoremap com :set modifiable!<CR>
-nnoremap coo :set readonly!<CR>
-nnoremap cop :set paste!<CR>
+call vimrc#lazy#lazy_load('unimpaired')
 " }}}
 
 " vim-characterize {{{
@@ -2122,6 +2110,8 @@ call plug#end()
 " }}}
 
 " Post-loaded Plugin Settings {{{
+" TODO Move all plugin settings to post-loaded settings
+
 " coc.nvim {{{
 if vimrc#plugin#is_enabled_plugin('coc.nvim')
   " Common source
@@ -2154,8 +2144,6 @@ endif
 " }}}
 
 " Unite {{{
-" Avoid remapped by unimpaired
-" TODO Move all plugin settings to post-loaded settings
 augroup post_loaded_unite_mappings
   autocmd!
   autocmd VimEnter * call vimrc#unite#post_loaded_mappings()
