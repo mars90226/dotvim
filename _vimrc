@@ -1293,7 +1293,9 @@ Plug 'voithos/vim-python-matchit'
 " }}}
 
 " EasyMotion {{{
-Plug 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion', { 'on': [] }
+
+call vimrc#lazy#lazy_load('easymotion')
 
 let g:EasyMotion_leader_key = '<Space>'
 let g:EasyMotion_smartcase = 1
@@ -1924,6 +1926,20 @@ endif
 Plug 'tpope/vim-unimpaired', { 'on': [] }
 
 call vimrc#lazy#lazy_load('unimpaired')
+
+" Ignore [a, ]a, [A, ]A for ale
+let g:nremap = {"[a": "", "]a": "", "[A": "", "]A": ""}
+
+nmap \[u  <Plug>unimpaired_url_encode
+nmap \[uu <Plug>unimpaired_line_url_encode
+nmap \]u  <Plug>unimpaired_url_decode
+nmap \]uu <Plug>unimpaired_line_url_decode
+
+nnoremap coc :set termguicolors!<CR>
+nnoremap coe :set expandtab!<CR>
+nnoremap com :set modifiable!<CR>
+nnoremap coo :set readonly!<CR>
+nnoremap cop :set paste!<CR>
 " }}}
 
 " vim-characterize {{{
