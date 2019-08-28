@@ -1554,9 +1554,7 @@ Plug 'tpope/vim-surround'
 Plug 'kana/vim-textobj-user'
 
 " vim-textobj-function {{{
-Plug 'kana/vim-textobj-function', { 'on': [] }
-
-call vimrc#lazy#lazy_load('textobj_function')
+Plug 'kana/vim-textobj-function'
 
 " Search in function
 map <Space>sF :call vimrc#incsearch#clear_nohlsearch()<CR>vaf<M-/>
