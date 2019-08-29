@@ -5,6 +5,7 @@ let s:fugitive_fzf_action = extend({
       \ 'ctrl-s': 'Gsplit',
       \ 'ctrl-x': 'Gsplit',
       \ 'ctrl-v': 'Gvsplit',
+      \ 'alt-v': 'Gvsplit',
       \ }, g:misc_fzf_action)
 function! vimrc#fzf#git#get_fugitive_fzf_action()
   return s:fugitive_fzf_action
@@ -66,7 +67,7 @@ function! vimrc#fzf#git#grep_commit_sink(commit, with_column, lines)
     return
   endif
 
-  let cmd = vimrc#fzf#action_for_with_table(g:fugitive_fzf_action, a:lines[0], 'Gedit')
+  let cmd = vimrc#fzf#action_for_with_table(s:fugitive_fzf_action, a:lines[0], 'Gedit')
   let list = map(filter(a:lines[1:], 'len(v:val)'), 's:git_grep_to_qf(v:val, a:commit, a:with_column)')
   if empty(list)
     return
@@ -102,7 +103,7 @@ function! vimrc#fzf#git#files_commit_sink(commit, lines)
   if len(a:lines) < 2
     return
   endif
-  let cmd = vimrc#fzf#action_for_with_table(g:fugitive_fzf_action, a:lines[0], 'Gedit')
+  let cmd = vimrc#fzf#action_for_with_table(s:fugitive_fzf_action, a:lines[0], 'Gedit')
   for target in a:lines[1:]
     let filename = a:commit . ':' . target
     if type(cmd) == type(function('call'))
