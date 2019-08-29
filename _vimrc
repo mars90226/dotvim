@@ -1147,6 +1147,7 @@ nnoremap <Space>fu :DirectoryAncestors<CR>
 nnoremap <Space>fU :DirectoryFiles ..<CR>
 nnoremap <Space>fw :Windows<CR>
 nnoremap <Space>fy :Filetypes<CR>
+nnoremap <Space>fY :execute 'GitFilesCommit ' . vimrc#fugitive#commit_sha()<CR>
 nnoremap <Space>f' :Registers<CR>
 nnoremap <Space>f` :Marks<CR>
 nnoremap <Space>f: :History:<CR>
