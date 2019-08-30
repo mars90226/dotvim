@@ -46,7 +46,7 @@ command! ListDisabledPlugins call vimrc#plugin#get_disabled_plugins()
 " }}}
 
 " plugin config cache {{{
-command! UpdatePluginConfigCache call vimrc#plugin#update_plugin_config_cache()
+command! UpdatePluginConfigCache call vimrc#plugin#config_cache#update()
 
 call vimrc#plugin#config_cache#read()
 call vimrc#plugin#config_cache#init()
