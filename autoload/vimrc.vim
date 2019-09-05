@@ -282,3 +282,8 @@ function! vimrc#getchar() abort
   endwhile
   redraw | echomsg printf('Raw: "%s" | Char: "%s"', c, nr2char(c))
 endfunction
+
+" Clear and redraw
+function! vimrc#clear_and_redraw()
+  call vimrc#lightline#refresh()
+endfunction

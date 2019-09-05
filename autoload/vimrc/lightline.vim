@@ -131,3 +131,7 @@ function! vimrc#lightline#tagbar_status_func(current, sort, fname, ...) abort
   let g:lightline.fname = a:fname
   return lightline#statusline(0)
 endfunction
+
+function! vimrc#lightline#refresh()
+  unlet b:lightline_head
+endfunction
