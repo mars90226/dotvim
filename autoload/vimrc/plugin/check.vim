@@ -11,6 +11,18 @@ function! vimrc#plugin#check#get_os()
   return s:os
 endfunction
 
+" Set nvim version
+if has("nvim")
+  let s:nvim_version = systemlist("nvim --version")[0]
+  function! vimrc#plugin#check#nvim_version()
+    return s:nvim_version
+  endfunction
+
+  function! vimrc#plugin#check#nvim_patch_version()
+    return matchlist(s:nvim_version, '\v^NVIM v\d+\.\d+\.\d+-(\d+)')[1]
+  endfunction
+endif
+
 " return empty string when no python support found
 function! vimrc#plugin#check#python_version()
   if has("python3")

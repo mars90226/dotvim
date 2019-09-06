@@ -5,6 +5,11 @@ function! vimrc#get_vimhome()
   return s:vimhome
 endfunction
 
+function! vimrc#source(path)
+  let abspath = resolve(s:vimhome.'/'.a:path)
+  execute 'source '.fnameescape(abspath)
+endfunction
+
 " Utilities
 " Escape colon, backslash and space
 function! vimrc#escape_symbol(expr)
