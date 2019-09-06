@@ -4,8 +4,9 @@ augroup lastPositionSetting
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
+  " Ignore terminal buffer
   autocmd BufReadPost *
-    \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+    \ if &buftype !~ "terminal" && line("'\"") >= 1 && line("'\"") <= line("$") |
     \   execute "normal! g`\"" |
     \ endif
 augroup END
