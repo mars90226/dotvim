@@ -2137,8 +2137,13 @@ Plug 'tpope/vim-scriptease', { 'on': [] }
 call vimrc#lazy#lazy_load('scriptease')
 " }}}
 
+" open-browser.vim {{{
+if vimrc#plugin#is_enabled_plugin('open-browser.vim')
+  Plug 'tyru/open-browser.vim'
+endif
+" }}}
+
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
-Plug 'tyru/open-browser.vim'
 Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert', 'S'] }
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }

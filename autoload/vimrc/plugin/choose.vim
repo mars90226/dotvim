@@ -92,4 +92,8 @@ function! vimrc#plugin#choose#start(vim_mode, nvim_terminal)
         \ || a:vim_mode      == 'reader'
     call vimrc#plugin#disable_plugin('git-p.nvim')
   endif
+
+  if !vimrc#plugin#check#has_browser()
+    call vimrc#plugin#disable_plugin('open-browser.vim')
+  endif
 endfunction

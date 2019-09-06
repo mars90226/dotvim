@@ -64,3 +64,8 @@ function! vimrc#plugin#check#has_jedi(...)
     return g:has_jedi == 1
   endif
 endfunction
+
+" Assume DSM has no browser
+function! vimrc#plugin#check#has_browser()
+  return s:os !~ "synology"
+endfunction
