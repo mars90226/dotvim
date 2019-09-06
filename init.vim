@@ -1,1 +1,1 @@
-execute 'source ' . fnamemodify(expand('<sfile>'), ':h') . '/_vimrc'
+call vimrc#source('_vimrc')
