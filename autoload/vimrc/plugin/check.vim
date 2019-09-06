@@ -24,13 +24,19 @@ if has("nvim")
 endif
 
 " return empty string when no python support found
-function! vimrc#plugin#check#python_version()
-  if has("python3")
-    return substitute(split(execute('py3 import sys; print(sys.version)'), ' ')[0], '^\n', '', '')
-  elseif has("python")
-    return substitute(split(execute('py import sys; print(sys.version)'), ' ')[0], '^\n', '', '')
+function! vimrc#plugin#check#python_version(...)
+  let force = (a:0 >= 1 && type(a:1) == type(v:true)) ? a:1 : v:false
+
+  if force || !exists("g:python_version")
+    if has("python3")
+      return substitute(split(execute('py3 import sys; print(sys.version)'), ' ')[0], '^\n', '', '')
+    elseif has("python")
+      return substitute(split(execute('py import sys; print(sys.version)'), ' ')[0], '^\n', '', '')
+    else
+      return ""
+    endif
   else
-    return ""
+    return g:python_version
   endif
 endfunction
 

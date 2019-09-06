@@ -18,6 +18,7 @@ endfunction
 function! vimrc#plugin#config_cache#update()
   " Update plugin config
   call vimrc#plugin#config_cache#append("let g:has_jedi = " . vimrc#plugin#check#has_jedi(1))
+  call vimrc#plugin#config_cache#append("let g:python_version = " . vimrc#plugin#check#python_version(1))
 
   call vimrc#plugin#config_cache#write()
 endfunction
