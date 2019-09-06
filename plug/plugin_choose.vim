@@ -8,4 +8,10 @@ call vimrc#plugin#config_cache#read()
 call vimrc#plugin#config_cache#init()
 
 " Start choosing
-call vimrc#plugin#choose#start($VIM_MODE, $NVIM_TERMINAL)
+call vimrc#plugin#clear_disabled_plugins()
+
+call vimrc#source('plug/choose/statusline.vim')
+call vimrc#source('plug/choose/lint.vim')
+call vimrc#source('plug/choose/completion.vim')
+call vimrc#source('plug/choose/file_explorer.vim')
+call vimrc#source('plug/choose/misc.vim')

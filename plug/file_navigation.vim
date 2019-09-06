@@ -199,4 +199,3 @@ else
   " g:far#source = 'vimgrep'
 endif
 " }}}
-
