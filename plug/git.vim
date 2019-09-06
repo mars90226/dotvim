@@ -41,12 +41,14 @@ Plug 'codeindulgence/vim-tig', { 'on': ['Tig', 'Tig!'] }
 call vimrc#source('vimrc/plugins/tig.vim')
 " }}}
 
-" Gina {{{
-Plug 'lambdalisue/gina.vim'
+" gina.vim {{{
+if vimrc#plugin#is_enabled_plugin('gina.vim')
+  Plug 'lambdalisue/gina.vim'
 
-nnoremap <Space>gb :Gina branch<CR>
-nnoremap <Space>gB :Gina blame<CR>
-xnoremap <Space>gB :Gina blame<CR>
+  nnoremap <Space>gb :Gina branch<CR>
+  nnoremap <Space>gB :Gina blame<CR>
+  xnoremap <Space>gB :Gina blame<CR>
+endif
 " }}}
 
 " git-p.nvim {{{

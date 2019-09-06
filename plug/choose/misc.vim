@@ -38,3 +38,8 @@ endif
 if !vimrc#plugin#check#has_browser()
   call vimrc#plugin#disable_plugin('open-browser.vim')
 endif
+
+" Cannot use :Gina browse if no browser
+if !vimrc#plugin#check#has_browser()
+  call vimrc#plugin#disable_plugin('gina.vim')
+endif
