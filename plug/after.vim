@@ -32,8 +32,10 @@ if vimrc#plugin#is_enabled_plugin("defx")
 endif
 " }}}
 
-" Gina {{{
-call vimrc#source('vimrc/plugins/gina_after.vim')
+" gina.vim {{{
+if vimrc#plugin#is_enabled_plugin('gina.vim')
+  call vimrc#source('vimrc/plugins/gina_after.vim')
+endif
 " }}}
 
 " Arpeggio {{{
