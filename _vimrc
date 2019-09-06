@@ -642,6 +642,16 @@ if vimrc#plugin#is_enabled_plugin('lightline.vim')
 endif
 " }}}
 
+" vista.vim {{{
+Plug 'liuchengxu/vista.vim'
+
+nnoremap <F7> :Vista!!<CR>
+nnoremap <Space><F7> :Vista finder<CR>
+
+let g:vista_sidebar_width = 40
+let g:vista_fzf_preview = ['right:50%']
+" }}}
+
 " vimfiler {{{
 if vimrc#plugin#is_enabled_plugin("vimfiler")
   Plug 'Shougo/vimfiler.vim'
@@ -1631,7 +1641,7 @@ if vimrc#plugin#is_enabled_plugin('syntastic')
   let g:syntastic_cpp_checkers  = ['gcc']
 
   let g:syntastic_ignore_files = ['\m^/usr/include/', '\m^/synosrc/packages/build_env/', '\m\c\.h$']
-  nnoremap <Space><F7> :SyntasticCheck<CR>
+  nnoremap <Space><F6> :SyntasticCheck<CR>
   command! -bar SyntasticCheckHeader call s:SyntasticCheckHeader()
   function! s:SyntasticCheckHeader()
     let header_pattern_index = index(g:syntastic_ignore_files, '\m\c\.h$')
@@ -2678,8 +2688,8 @@ function! s:SID_PREFIX() abort
 endfunction
 let g:sid = s:SID_PREFIX()
 
-nnoremap <F6> :call vimrc#toggle_indent()<CR>
-nnoremap <F7> :call vimrc#toggle_fold()<CR>
+command! ToggleIndent call vimrc#toggle_indent()
+command! ToggleFold call vimrc#toggle_fold()
 
 " LastTab
 command! -count -bar LastTab call vimrc#last_tab(<count>)
