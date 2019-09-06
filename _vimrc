@@ -123,11 +123,12 @@ if vimrc#plugin#is_enabled_plugin('lightline.vim')
         \ 'linter_ok': 'left',
         \ }
   let g:lightline.component_function = {
-        \ 'fugitive': 'vimrc#lightline#fugitive',
         \ 'filename': 'vimrc#lightline#filename',
         \ 'fileformat': 'vimrc#lightline#fileformat',
         \ 'filetype': 'vimrc#lightline#filetype',
         \ 'fileencoding': 'vimrc#lightline#fileencoding',
+        \ 'fugitive': 'vimrc#lightline#fugitive',
+        \ 'method': 'vimrc#lightline#nearest_method_or_function',
         \ 'mode': 'vimrc#lightline#mode',
         \ }
   let g:lightline.tab_component_function = {
@@ -141,7 +142,8 @@ if vimrc#plugin#is_enabled_plugin('lightline.vim')
         \ 'right': [
         \   [ 'lineinfo', 'percent' ],
         \   [ 'filetype', 'fileformat', 'fileencoding' ],
-        \   [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ] ]
+        \   [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+        \   [ 'method' ] ],
         \ }
   let g:lightline.inactive = {
         \ 'left': [
@@ -650,6 +652,11 @@ nnoremap <Space><F7> :Vista finder<CR>
 
 let g:vista_sidebar_width = 40
 let g:vista_fzf_preview = ['right:50%']
+
+augroup vista_load_nearest_method_or_function
+  autocmd!
+  autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+augroup END
 " }}}
 
 " vimfiler {{{
