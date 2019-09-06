@@ -65,21 +65,9 @@ call plug#begin(vimrc#get_vimhome().'/plugged')
 " ====================================================================
 " vim-airline {{{
 if vimrc#plugin#is_enabled_plugin('vim-airline')
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'https://gist.github.com/jbkopecky/a2f66baa8519747b388f2a1617159c07',
-        \ { 'as': 'vim-airline-seoul256', 'do': 'mkdir -p autoload/airline/themes; cp -f *.vim autoload/airline/themes' }
+  call vimrc#source('vimrc/plugins/plug/airline.vim')
 
-  let g:airline_powerline_fonts = 1
-
-  let g:airline#extensions#tabline#enabled       = 1
-  let g:airline#extensions#tabline#show_buffers  = 1
-  let g:airline#extensions#tabline#tab_nr_type   = 1 " tab number
-  let g:airline#extensions#tabline#show_tab_nr   = 1
-  let g:airline#extensions#tabline#fnamemod      = ':p:.'
-  let g:airline#extensions#tabline#fnamecollapse = 1
-
-  let g:airline_theme = 'gruvbox'
+  call vimrc#source('vimrc/plugins/airline.vim')
 endif
 " }}}
 
@@ -89,59 +77,7 @@ if vimrc#plugin#is_enabled_plugin('lightline.vim')
   Plug 'maximbaz/lightline-ale'
   Plug 'shinchu/lightline-gruvbox.vim'
 
-  " Fugitive special revisions. call '0' "staging" ?
-  let s:names = {'0': 'index', '1': 'orig', '2':'fetch', '3':'merge'}
-  let s:sha1size = 7
-
-  let g:lightline = {}
-  let g:lightline.colorscheme = 'gruvbox'
-  let g:lightline.component = {
-        \ 'truncate': '%<',
-        \ }
-  let g:lightline.component_expand = {
-        \ 'linter_checking': 'lightline#ale#checking',
-        \ 'linter_warnings': 'lightline#ale#warnings',
-        \ 'linter_errors': 'lightline#ale#errors',
-        \ 'linter_ok': 'lightline#ale#ok',
-        \ }
-  let g:lightline.component_type = {
-        \ 'linter_checking': 'left',
-        \ 'linter_warnings': 'warning',
-        \ 'linter_errors': 'error',
-        \ 'linter_ok': 'left',
-        \ }
-  let g:lightline.component_function = {
-        \ 'filename': 'vimrc#lightline#filename',
-        \ 'fileformat': 'vimrc#lightline#fileformat',
-        \ 'filetype': 'vimrc#lightline#filetype',
-        \ 'fileencoding': 'vimrc#lightline#fileencoding',
-        \ 'fugitive': 'vimrc#lightline#fugitive',
-        \ 'method': 'vimrc#lightline#nearest_method_or_function',
-        \ 'mode': 'vimrc#lightline#mode',
-        \ }
-  let g:lightline.tab_component_function = {
-        \ 'filename': 'vimrc#lightline#tab_filename',
-        \ 'modified': 'vimrc#lightline#tab_modified',
-        \ }
-  let g:lightline.active = {
-        \ 'left': [
-        \   [ 'mode', 'paste' ],
-        \   [ 'truncate', 'fugitive', 'filename' ] ],
-        \ 'right': [
-        \   [ 'lineinfo', 'percent' ],
-        \   [ 'filetype', 'fileformat', 'fileencoding' ],
-        \   [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
-        \   [ 'method' ] ],
-        \ }
-  let g:lightline.inactive = {
-        \ 'left': [
-        \   ['filename'] ],
-        \ 'right': [
-        \   ['lineinfo', 'percent'] ]
-        \ }
-  let g:lightline.tab = {
-        \ 'active': [ 'tabnum', 'filename', 'modified' ],
-        \ 'inactive': [ 'tabnum', 'filename', 'modified' ] }
+  call vimrc#source('vimrc/plugins/lightline.vim')
 endif
 " }}}
 
@@ -207,204 +143,15 @@ if vimrc#plugin#is_enabled_plugin('coc.nvim')
   Plug 'neoclide/coc.nvim', { 'do': { -> coc#util#install() } }
   Plug 'neoclide/coc-denite'
 
-  " <Tab>: completion.
-  inoremap <silent><expr> <Tab>
-        \ pumvisible() ? "\<C-N>" :
-        \ vimrc#check_back_space() ? "\<Tab>" :
-        \ coc#refresh()
-
-  " <S-Tab>: completion back.
-  inoremap <expr><S-Tab> pumvisible() ? "\<C-P>" : "\<C-H>"
-
-  " <M-Space>: trigger completion
-  inoremap <silent><expr> <M-Space> coc#refresh()
-
-  " <CR>: confirm completion, or insert <CR> with new undo chain
-  inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
-
-  " Define mapping for diff mode to avoid recursive mapping
-  nnoremap <silent> <Plug>(diff-prev) [c
-  nnoremap <silent> <Plug>(diff-next) ]c
-  nmap <silent><expr> [c &diff ? "\<Plug>(diff-prev)" : "\<Plug>(coc-diagnostic-prev)"
-  nmap <silent><expr> ]c &diff ? "\<Plug>(diff-next)" : "\<Plug>(coc-diagnostic-next)"
-
-  " mapppings for gotos
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gy <Plug>(coc-type-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
-
-  " mappings for funcobj
-  omap av <Plug>(coc-funcobj-a)
-  xmap av <Plug>(coc-funcobj-a)
-  omap iv <Plug>(coc-funcobj-i)
-  xmap iv <Plug>(coc-funcobj-i)
-
-  " K: show documentation in preview window
-  nnoremap <silent> K :call vimrc#coc#show_documentation()<CR>
-  " Remap for K
-  nnoremap gK K
-
-  " mappings for rename current word
-  nmap <Space>cr <Plug>(coc-rename)
-
-  " mappings for format selected region
-  nmap <Space>cf <Plug>(coc-format-selected)
-  xmap <Space>cf <Plug>(coc-format-selected)
-
-  augroup coc_settings
-    autocmd!
-    " Highlight symbol under cursor on CursorHold
-    " Disabled as not useful and generate a lot of error when not indexed
-    " autocmd CursorHold * silent call CocActionAsync('highlight')
-    " Setup formatexpr
-    autocmd FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
-    " Update signature help on jump placeholder
-    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-  augroup END
-
-  " mappings for do codeAction of selected region
-  nmap <Space>ca <Plug>(coc-codeaction-selected)
-  xmap <Space>ca <Plug>(coc-codeaction-selected)
-
-  " mappings for do codeAction of current line
-  nmap <Space>cc <Plug>(coc-codeaction)
-  " mappings for fix autofix problem of current line
-  nmap <Space>cx <Plug>(coc-fix-current)
-
-  " :Format for format current buffer
-  command! -nargs=0 Format :call CocAction('format')
-
-  " :Fold for fold current buffer
-  command! -nargs=? Fold :call CocAction('fold', <f-args>)
-
-  " TODO Add airline support
-
-  " Show all diagnostics
-  nnoremap <silent> <Space>cd :CocList diagnostics<CR>
-  " Manage extensions
-  nnoremap <silent> <Space>ce :CocList extensions<CR>
-  " Show commands
-  nnoremap <silent> <Space>c; :CocList commands<CR>
-  " Find symbol of current document
-  nnoremap <silent> <Space>co :CocList outline<CR>
-  " Search workspace symbols
-  nnoremap <silent> <Space>cs :CocList -I symbols<CR>
-  " Do default action for next item.
-  nnoremap <silent> <Space>cj :CocNext<CR>
-  " Do default action for prevous item.
-  nnoremap <silent> <Space>ck :CocPrev<CR>
-  " Resume latest coc list
-  nnoremap <silent> <Space>cu :CocListResume<CR>
-  " Show lists
-  nnoremap <silent> <Space>cl :CocList lists<CR>
-
-  command! CocToggle call vimrc#coc#toggle()
-  nnoremap <silent> <Space>cy :CocToggle<CR>
-
-  augroup coc_ccls_settings
-    autocmd!
-    autocmd FileType c,cpp call vimrc#coc#ccls_mappings()
-  augroup END
+  call vimrc#source('vimrc/plugins/coc.vim')
 endif
 " }}}
 
 " deoplete.nvim {{{
 if vimrc#plugin#is_enabled_plugin('deoplete.nvim')
-  if has("nvim")
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-  endif
+  call vimrc#source('vimrc/plugins/plug/deoplete.vim')
 
-  " Currently prefer deoplete-clang over clang_complete
-  " Plug 'Rip-Rip/clang_complete', { 'for': ['c', 'cpp'], 'do': 'make install' }
-  Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
-  " Plug 'tweekmonster/deoplete-clang2', { 'for': ['c', 'cpp'] }
-  Plug 'Shougo/neoinclude.vim'
-  Plug 'Shougo/neco-syntax'
-  Plug 'Shougo/neco-vim'
-  Plug 'sebastianmarkow/deoplete-rust', { 'for': ['rust'] }
-  if vimrc#plugin#check#has_jedi()
-    Plug 'deoplete-plugins/deoplete-jedi'
-  endif
-  Plug 'deoplete-plugins/deoplete-zsh'
-
-  " tern_for_vim will install tern
-  Plug 'carlitux/deoplete-ternjs' ", { 'do': 'npm install -g tern' }
-
-  " TODO Move this out of deoplete.nvim section
-  " Dock mode display error
-  " Check if nvim has float-window support
-  if has("nvim") && exists('*nvim_open_win') && exists('##CompleteChanged')
-    Plug 'ncm2/float-preview.nvim'
-  endif
-
-  " Disabled for now
-  " Plug 'autozimu/LanguageClient-neovim', {
-  "   \ 'branch': 'next',
-  "   \ 'do': './install.sh'
-  "   \ }
-
-  " Use deoplete.
-  let g:deoplete#enable_at_startup = 1
-
-  " deoplete_clang
-  let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-5.0/lib/libclang.so.1"
-  let g:deoplete#sources#clang#clang_header = "/usr/lib/llvm-5.0/lib/clang"
-
-  " clang_complete
-  " let g:clang_library_path = '/usr/lib/llvm-5.0/lib/libclang.so.1'
-  "
-  " let g:clang_debug = 1
-  " let g:clang_use_library = 1
-  " let g:clang_complete_auto = 0
-  " let g:clang_auto_select = 0
-  " let g:clang_omnicppcomplete_compliance = 0
-  " let g:clang_make_default_keymappings = 0
-
-  " deoplete_rust
-  let g:deoplete#sources#rust#racer_binary = $HOME."/.cargo/bin/racer"
-  let g:deoplete#sources#rust#rust_source_path = "/code/rust/src"
-
-  " LanguageClient-neovim
-  " let g:LanguageClient_serverCommands = {
-  "     \ 'c': ['cquery', '--language-server'],
-  "     \ 'cpp': ['cquery', '--language-server'],
-  "     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-  "     \ }
-  " let g:LanguageClient_loadSettings = 1
-  " let g:LanguageClient_settingsPath = vimrc#get_vimhome()."/settings.json"
-
-  " deoplete-ternjs
-  let g:deoplete#sources#ternjs#tern_bin = vimrc#get_vimhome() . "/plugged/tern_for_vim/node_modules/tern/bin/tern"
-
-  " float-preview.nvim
-  if has("nvim")
-    set completeopt-=preview
-
-    let g:float_preview#docked = 0
-  endif
-
-  " TODO Set python & python3 for jedi
-
-  " <Tab>: completion.
-  inoremap <silent><expr> <Tab>
-        \ pumvisible() ? "\<C-N>" :
-        \ vimrc#check_back_space() ? "\<Tab>" :
-        \ deoplete#manual_complete()
-
-  " <S-Tab>: completion back.
-  inoremap <expr><S-Tab> pumvisible() ? "\<C-P>" : "\<C-H>"
-
-  " <C-H>, <BS>: close popup and delete backword char.
-  inoremap <expr><C-H> deoplete#smart_close_popup()."\<C-H>"
-  inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-H>"
-
-  inoremap <expr><C-G><C-G> deoplete#refresh()
-  inoremap <silent><expr><C-L> deoplete#complete_common_string()
+  call vimrc#source('vimrc/plugins/deoplete.vim')
 endif
 " }}}
 
@@ -422,59 +169,7 @@ endif
 if vimrc#plugin#is_enabled_plugin('YouCompleteMe')
   Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang_completer' }
 
-  let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-  let g:ycm_confirm_extra_conf    = 0
-  let g:ycm_key_invoke_completion = '<M-/>'
-
-  nnoremap <Leader>yy :let g:ycm_auto_trigger = 0<CR>
-  nnoremap <Leader>yY :let g:ycm_auto_trigger = 1<CR>
-
-  nnoremap <Leader>yr :YcmRestartServer<CR>
-  nnoremap <Leader>yi :YcmDiags<CR>
-
-  nnoremap <Leader>yI :YcmCompleter GoToInclude<CR>
-  nnoremap <Leader>yg :YcmCompleter GoTo<CR>
-  nnoremap <Leader>yG :YcmCompleter GoToImprecise<CR>
-  nnoremap <Leader>yR :YcmCompleter GoToReferences<CR>
-  nnoremap <Leader>yt :YcmCompleter GetType<CR>
-  nnoremap <Leader>yT :YcmCompleter GetTypeImprecise<CR>
-  nnoremap <Leader>yp :YcmCompleter GetParent<CR>
-  nnoremap <Leader>yd :YcmCompleter GetDoc<CR>
-  nnoremap <Leader>yD :YcmCompleter GetDocImprecise<CR>
-  nnoremap <Leader>yf :YcmCompleter FixIt<CR>
-
-  nnoremap <Leader>ysI :split <Bar> YcmCompleter GoToInclude<CR>
-  nnoremap <Leader>ysg :split <Bar> YcmCompleter GoTo<CR>
-  nnoremap <Leader>ysG :split <Bar> YcmCompleter GoToImprecise<CR>
-  nnoremap <Leader>ysR :split <Bar> YcmCompleter GoToReferences<CR>
-  nnoremap <Leader>yst :split <Bar> YcmCompleter GetType<CR>
-  nnoremap <Leader>ysT :split <Bar> YcmCompleter GetTypeImprecise<CR>
-  nnoremap <Leader>ysp :split <Bar> YcmCompleter GetParent<CR>
-  nnoremap <Leader>ysd :split <Bar> YcmCompleter GetDoc<CR>
-  nnoremap <Leader>ysD :split <Bar> YcmCompleter GetDocImprecise<CR>
-  nnoremap <Leader>ysf :split <Bar> YcmCompleter FixIt<CR>
-
-  nnoremap <Leader>yvI :vsplit <Bar> YcmCompleter GoToInclude<CR>
-  nnoremap <Leader>yvg :vsplit <Bar> YcmCompleter GoTo<CR>
-  nnoremap <Leader>yvG :vsplit <Bar> YcmCompleter GoToImprecise<CR>
-  nnoremap <Leader>yvR :vsplit <Bar> YcmCompleter GoToReferences<CR>
-  nnoremap <Leader>yvt :vsplit <Bar> YcmCompleter GetType<CR>
-  nnoremap <Leader>yvT :vsplit <Bar> YcmCompleter GetTypeImprecise<CR>
-  nnoremap <Leader>yvp :vsplit <Bar> YcmCompleter GetParent<CR>
-  nnoremap <Leader>yvd :vsplit <Bar> YcmCompleter GetDoc<CR>
-  nnoremap <Leader>yvD :vsplit <Bar> YcmCompleter GetDocImprecise<CR>
-  nnoremap <Leader>yvf :vsplit <Bar> YcmCompleter FixIt<CR>
-
-  nnoremap <Leader>yxI :tab split <Bar> YcmCompleter GoToInclude<CR>
-  nnoremap <Leader>yxg :tab split <Bar> YcmCompleter GoTo<CR>
-  nnoremap <Leader>yxG :tab split <Bar> YcmCompleter GoToImprecise<CR>
-  nnoremap <Leader>yxR :tab split <Bar> YcmCompleter GoToReferences<CR>
-  nnoremap <Leader>yxt :tab split <Bar> YcmCompleter GetType<CR>
-  nnoremap <Leader>yxT :tab split <Bar> YcmCompleter GetTypeImprecise<CR>
-  nnoremap <Leader>yxp :tab split <Bar> YcmCompleter GetParent<CR>
-  nnoremap <Leader>yxd :tab split <Bar> YcmCompleter GetDoc<CR>
-  nnoremap <Leader>yxD :tab split <Bar> YcmCompleter GetDocImprecise<CR>
-  nnoremap <Leader>yxf :tab split <Bar> YcmCompleter FixIt<CR>
+  call vimrc#source('vimrc/plugins/YouCompleteMe.vim')
 endif
 " }}}
 
@@ -541,39 +236,7 @@ Plug 'mattn/ctrlp-hackernews'
 Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'ivalkeen/vim-ctrlp-tjump'
 
-let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
-      \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
-" let g:ctrlp_cmdpalette_execute = 1
-
-nnoremap <C-P> :CtrlP<CR>
-nnoremap <Space>cO :CtrlPFunky<CR>
-nnoremap <Space>cK :execute 'CtrlPFunky ' . expand('<cword>')<CR>
-xnoremap <Space>cK :<C-U>execute 'CtrlPFunky ' . vimrc#get_visual_selection()<CR>
-nnoremap <Space>cp :CtrlPCmdPalette<CR>
-nnoremap <Space>cm :CtrlPCmdline<CR>
-nnoremap <Space>c] :CtrlPtjump<CR>
-xnoremap <Space>c] :CtrlPtjumpVisual<CR>
-
-command! -nargs=1 CtrlPSetTimeout call vimrc#ctrlp#set_timeout(<f-args>)
-
-if executable('fd')
-  let g:ctrlp_base_user_command = 'fd --type f --no-ignore-vcs --hidden --follow --ignore-file ' . $HOME . '/.ignore "" %s'
-endif
-
-call vimrc#ctrlp#update_user_command(v:true)
-" }}}
-
-" netrw {{{
-let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro' " add line number
-
-augroup netrw_mapping
-  autocmd!
-  autocmd FileType netrw call s:netrw_mapping()
-augroup END
-
-function! s:netrw_mapping()
-  nmap <buffer> <BS> <Plug>VinegarUp
-endfunction
+call vimrc#source('vimrc/plugins/ctrlp.vim')
 " }}}
 
 " Vinegar {{{
@@ -588,48 +251,7 @@ nmap <silent> <Space>_ <Plug>VinegarTabUp
 " tagbar {{{
 Plug 'majutsushi/tagbar', { 'on': ['TagbarToggle', 'TagbarOpenAutoClose'] }
 
-nnoremap <F8> :TagbarToggle<CR>
-let g:tagbar_map_showproto = '<Leader><Space>'
-let g:tagbar_expand = 1
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-      \ 'p:package',
-      \ 'i:imports:1',
-      \ 'c:constants',
-      \ 'v:variables',
-      \ 't:types',
-      \ 'n:interfaces',
-      \ 'w:fields',
-      \ 'e:embedded',
-      \ 'm:methods',
-      \ 'r:constructor',
-      \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-      \ 't' : 'ctype',
-      \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-      \ 'ctype' : 't',
-      \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-    \ }
-let g:tagbar_type_ps1 = {
-    \ 'ctagstype' : 'powershell',
-    \ 'kinds'     : [
-      \ 'f:function',
-      \ 'i:filter',
-      \ 'a:alias'
-    \ ]
-    \ }
-
-if vimrc#plugin#is_enabled_plugin('lightline.vim')
-  let g:tagbar_status_func = 'vimrc#lightline#tagbar_status_func'
-endif
+call vimrc#source('vimrc/plugins/tagbar.vim')
 " }}}
 
 " vista.vim {{{
@@ -652,18 +274,7 @@ if vimrc#plugin#is_enabled_plugin("vimfiler")
   Plug 'Shougo/vimfiler.vim'
   Plug 'Shougo/neossh.vim'
 
-  if vimrc#plugin#is_enabled_plugin('lightline.vim')
-    let g:vimfiler_force_overwrite_statusline = 0
-  endif
-
-  let g:vimfiler_as_default_explorer = 1
-  nnoremap <F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit<CR>
-  nnoremap <Space><F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit -find<CR>
-
-  augroup vimfiler_mappings
-    autocmd!
-    autocmd FileType vimfiler call vimrc#vimfiler#mappings()
-  augroup END
+  call vimrc#source('vimrc/plugins/vimfiler.vim')
 endif
 " }}}
 
@@ -674,42 +285,7 @@ if vimrc#plugin#is_enabled_plugin("defx")
   " Font not supported
   " Plug 'kristijanhusak/defx-icons'
 
-  augroup netrw_mapping_for_defx
-    autocmd!
-    autocmd FileType netrw call vimrc#defx#netrw_mapping_for_defx()
-  augroup END
-
-  nnoremap <F4>        :Defx -split=vertical -winwidth=35 -direction=topleft -toggle<CR>
-  nnoremap <Space><F4> :Defx -split=vertical -winwidth=35 -direction=topleft -toggle `expand('%:p:h')` -search=`expand('%:p')`<CR>
-  nnoremap -           :call vimrc#defx#opendir('Defx')<CR>
-  nnoremap ++          :call vimrc#defx#opendir('Defx')<CR>
-  nnoremap \-          :call vimrc#defx#opendir('Defx')<CR>
-  nnoremap \=          :call vimrc#defx#opendir('Defx -new')<CR>
-  nnoremap _           :call vimrc#defx#opendir('Defx -split=vertical')<CR>
-  nnoremap <Space>-    :call vimrc#defx#opendir('Defx -split=horizontal')<CR>
-  nnoremap <Space>_    :call vimrc#defx#opendir('Defx -split=tab -buffer-name=tab')<CR>
-  nnoremap \.          :Defx .<CR>
-  nnoremap <Space>=    :Defx -split=vertical .<CR>
-  nnoremap <Space>+    :Defx -split=tab -buffer-name=tab .<CR>
-
-  " Defx open
-  command! -nargs=1 -complete=file DefxOpenSink            call vimrc#defx#open(<q-args>, 'edit')
-  command! -nargs=1 -complete=file DefxSplitOpenSink       call vimrc#defx#open(<q-args>, 'split')
-  command! -nargs=1 -complete=file DefxVSplitOpenSink      call vimrc#defx#open(<q-args>, 'vsplit')
-  command! -nargs=1 -complete=file DefxTabOpenSink         call vimrc#defx#open(<q-args>, 'tab split')
-  command! -nargs=1 -complete=file DefxRightVSplitOpenSink call vimrc#defx#open(<q-args>, 'rightbelow vsplit')
-
-  " Defx open dir
-  command! -nargs=1 -complete=file DefxOpenDirSink            call vimrc#defx#open_dir(<q-args>, 'edit')
-  command! -nargs=1 -complete=file DefxSplitOpenDirSink       call vimrc#defx#open_dir(<q-args>, 'split')
-  command! -nargs=1 -complete=file DefxVSplitOpenDirSink      call vimrc#defx#open_dir(<q-args>, 'vsplit')
-  command! -nargs=1 -complete=file DefxTabOpenDirSink         call vimrc#defx#open_dir(<q-args>, 'tab split')
-  command! -nargs=1 -complete=file DefxRightVSplitOpenDirSink call vimrc#defx#open_dir(<q-args>, 'rightbelow vsplit')
-
-  augroup defx_mappings
-    autocmd!
-    autocmd FileType defx call vimrc#defx#mappings()
-  augroup END
+  call vimrc#source('vimrc/plugins/defx.vim')
 endif
 " }}}
 
@@ -718,14 +294,7 @@ if vimrc#plugin#is_enabled_plugin("vimfiler")
   " Only used in vimfiler
   Plug 't9md/vim-choosewin'
 
-  " seoul256 colors
-  let g:choosewin_color_label_current = { 'gui': ['#7FBF00', '#121813'], 'cterm': [10, 15, 'bold'] }
-  let g:choosewin_color_label = { 'gui': ['#719872', ''], 'cterm': [65, 0] }
-  let g:choosewin_color_other = { 'gui': ['#757575', '#BFBFBF'], 'cterm': [241, 249] }
-  let g:choosewin_color_overlay_current = { 'gui': ['#7FBF00', '#121813'], 'cterm': [10, 15, 'bold'] }
-  let g:choosewin_color_overlay = { 'gui': ['#007173', '#DEDFBD'], 'cterm': [23, 187, 'bold'] }
-  nmap ++ <Plug>(choosewin)
-  nmap <Leader>= <Plug>(choosewin)
+  call vimrc#source('vimrc/plugins/choosewin.vim')
 endif
 " }}}
 
@@ -744,99 +313,7 @@ Plug 'thinca/vim-unite-history'
 Plug 'hewes/unite-gtags'
 Plug 'osyo-manga/unite-quickfix'
 
-call vimrc#lazy#lazy_load('unite_workflow')
-
-let g:unite_source_history_yank_enable = 1
-
-" for unite-workflow
-let g:github_user = "mars90226"
-
-if vimrc#plugin#is_enabled_plugin('lightline.vim')
-  let g:unite_force_overwrite_statusline = 0
-endif
-
-" Unite key mappings {{{
-" Unite don't auto-preview file as it's slow
-nnoremap <Space>l :Unite -start-insert line<CR>
-nnoremap <Space>p :Unite -buffer-name=files buffer bookmark file<CR>
-if has("nvim")
-  nnoremap <Space>P :Unite -start-insert file_rec/neovim<CR>
-else
-  nnoremap <Space>P :Unite -start-insert file_rec<CR>
-endif
-nnoremap <Space>/ :call vimrc#unite#grep('', 'grep', '', v:false)<CR>
-nnoremap <Space>? :call vimrc#unite#grep('', 'grep', input('Option: '), v:false)<CR>
-nnoremap <Space>S :Unite source<CR>
-nnoremap <Space>m :Unite -start-insert file_mru<CR>
-nnoremap <Space>M :Unite -buffer-name=files -default-action=lcd -start-insert directory_mru<CR>
-nnoremap <Space>o :Unite outline -start-insert<CR>
-nnoremap <Space>a :execute 'Unite anzu:' . input ('anzu: ')<CR>
-nnoremap <Space>ua :Unite location_list<CR>
-nnoremap <Space>uA :Unite apropos -start-insert<CR>
-nnoremap <Space>ub :UniteWithBufferDir -buffer-name=files -prompt=%\  file<CR>
-nnoremap <Space>uc :Unite -auto-preview change<CR>
-nnoremap <Space>uC :UniteWithCurrentDir -buffer-name=files file<CR>
-nnoremap <Space>ud :Unite directory<CR>
-nnoremap <Space>uD :UniteWithBufferDir directory<CR>
-nnoremap <Space>u<C-D> :execute 'Unite directory:' . input('dir: ')<CR>
-nnoremap <Space>uf :Unite function -start-insert<CR>
-nnoremap <Space>uh :Unite help<CR>
-nnoremap <Space>uH :Unite history/unite<CR>
-nnoremap <Space>ugc :Unite gtags/context<CR>
-nnoremap <Space>ugd :Unite gtags/def<CR>
-nnoremap <Space>ugf :Unite gtags/file<CR>
-nnoremap <Space>ugg :Unite gtags/grep<CR>
-nnoremap <Space>ugp :Unite gtags/path<CR>
-nnoremap <Space>ugr :Unite gtags/ref<CR>
-nnoremap <Space>ugx :Unite gtags/completion<CR>
-nnoremap <Space>uj :Unite -auto-preview jump<CR>
-nnoremap <Space>uk :call vimrc#unite#grep(expand('<cword>'), 'keyword', '', v:false)<CR>
-nnoremap <Space>uK :call vimrc#unite#grep(expand('<cWORD>'), 'keyword', '', v:false)<CR>
-nnoremap <Space>u8 :call vimrc#unite#grep(expand('<cword>'), 'keyword', '', v:true)<CR>
-nnoremap <Space>u* :call vimrc#unite#grep(expand('<cWORD>'), 'keyword', '', v:true)<CR>
-xnoremap <Space>uk :<C-U>call vimrc#unite#grep(vimrc#get_visual_selection(), 'keyword', '', v:false)<CR>
-xnoremap <Space>u8 :<C-U>call vimrc#unite#grep(vimrc#get_visual_selection(), 'keyword', '', v:true)<CR>
-nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
-nnoremap <Space>uo :Unite output -start-insert<CR>
-nnoremap <Space>uO :Unite outline -start-insert<CR>
-nnoremap <Space>up :UniteWithProjectDir -buffer-name=files -prompt=&\  file<CR>
-nnoremap <Space>uq :Unite quickfix<CR>
-nnoremap <Space>ur :Unite -buffer-name=register register<CR>
-nnoremap <Space>us :Unite -quick-match tab<CR>
-nnoremap <Space>ut :Unite -start-insert tab<CR>
-nnoremap <Space>uT :Unite tag<CR>
-nnoremap <Space>uu :UniteResume<CR>
-nnoremap <Space>uU :Unite -buffer-name=resume resume<CR>
-nnoremap <Space>uw :Unite window<CR>
-nnoremap <Space>uy :Unite history/yank -start-insert<CR>
-nnoremap <Space>uma :Unite mapping<CR>
-nnoremap <Space>ume :Unite output:message<CR>
-nnoremap <Space>ump :Unite output:map<CR>
-nnoremap <Space>u: :Unite history/command -start-insert<CR>
-nnoremap <Space>u; :Unite command -start-insert<CR>
-nnoremap <Space>u/ :Unite history/search<CR>
-
-nnoremap <Space><F1> :Unite output:map<CR>
-
-if executable('fd')
-  let g:unite_source_rec_async_command =
-        \ ['fd', '--type', 'file', '--follow', '--hidden', '--exclude', '.git', '']
-endif
-
-if executable('rg')
-  let g:unite_source_grep_command = 'rg'
-  let g:unite_source_grep_default_opts = '--hidden --no-heading --vimgrep -S'
-  let g:unite_source_grep_recursive_opt = ''
-
-  nnoremap <Space>g/ :call vimrc#unite#grep('', 'grep', vimrc#rg_current_type_option(), v:false)<CR>
-  nnoremap <Space>g? :call vimrc#unite#grep('', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
-endif
-" }}}
-
-augroup unite_mappings
-  autocmd!
-  autocmd FileType unite call vimrc#unite#mappings()
-augroup END
+call vimrc#source('vimrc/plugins/unite.vim')
 " }}}
 
 " Denite {{{
@@ -845,88 +322,7 @@ if vimrc#plugin#is_enabled_plugin('denite.nvim')
   Plug 'neoclide/denite-extra'
   Plug 'kmnk/denite-dirmark'
 
-  let g:session_directory = $HOME.'/vim-sessions/'
-  let g:denite_source_session_path = $HOME.'/vim-sessions/'
-  let g:project_folders = ['/synosrc/packages/source']
-
-  " Denite key mappings {{{
-  " Override Unite key mapping {{{
-  call vimrc#remap('<Space>up', '<Space>u<C-P>', 'n') " UniteWithProjectDir file
-  call vimrc#remap('<Space>P',  '<Space>uP',     'n') " Unite file/rec
-  call vimrc#remap('<Space>p',  '<Space>up',     'n') " Unite file
-  call vimrc#remap('<Space>ul', '<Space>uL',     'n') " UniteWithCursorWord line
-  call vimrc#remap('<Space>l',  '<Space>ul',     'n') " Unite line
-  call vimrc#remap('<Space>o',  '<Space>O',      'n') " Unite outline
-
-  nnoremap <Space>p     :Denite -auto-resume buffer dirmark file<CR>
-  nnoremap <Space>P     :Denite -auto-resume file/rec<CR>
-  nnoremap <Space><C-P> :DeniteProjectDir -auto-resume file<CR>
-  nnoremap <Space>l     :Denite -auto-action=highlight line<CR>
-  nnoremap <Space>L     :Denite -default-action=switch line:buffers<CR>
-  nnoremap <Space>dl    :DeniteCursorWord -auto-action=preview -split=no line<CR>
-  nnoremap <Space>o     :Denite outline<CR>
-  " }}}
-
-  " TODO Denite quickfix seems not working
-  " TODO Add Denite tselect source
-  " Denite don't use auto-preview file because it's slow
-
-  nnoremap <Space>da :Denite location_list<CR>
-  nnoremap <Space>db :DeniteBufferDir -auto-resume file<CR>
-  nnoremap <Space>dc :Denite -auto-action=preview change<CR>
-  nnoremap <Space>dd :Denite directory_rec<CR>
-  nnoremap <Space>dD :Denite directory_mru<CR>
-  nnoremap <Space>df :Denite filetype<CR>
-  nnoremap <Space>dh :Denite help<CR>
-  nnoremap <Space>dj :Denite -auto-action=preview jump<CR>
-  nnoremap <Space>dJ :Denite project<CR>
-  nnoremap <Space>di :call vimrc#denite#grep('!', 'grep', '', v:false)<CR>
-  nnoremap <Space>dk :call vimrc#denite#grep(expand('<cword>'), 'grep', '', v:false)<CR>
-  nnoremap <Space>dK :call vimrc#denite#grep(expand('<cWORD>'), 'grep', '', v:false)<CR>
-  nnoremap <Space>d8 :call vimrc#denite#grep(expand('<cword>'), 'grep', '', v:true)<CR>
-  nnoremap <Space>d* :call vimrc#denite#grep(expand('<cWORD>'), 'grep', '', v:true)<CR>
-  xnoremap <Space>dk :<C-U>call vimrc#denite#grep(vimrc#get_visual_selection(), 'grep', '', v:false)<CR>
-  xnoremap <Space>d8 :<C-U>call vimrc#denite#grep(vimrc#get_visual_selection(), 'grep', '', v:true)<CR>
-  nnoremap <Space>dm :Denite file_mru<CR>
-  nnoremap <Space>dM :Denite directory_mru<CR>
-  nnoremap <Space>do :execute 'Denite output:' . vimrc#escape_symbol(input('output: '))<CR>
-  nnoremap <Space>dO :Denite outline<CR>
-  nnoremap <Space>d<C-O> :Denite unite:outline<CR>
-  nnoremap <Space>dp :call vimrc#denite#project_tags('')<CR>
-  nnoremap <Space>dP :call vimrc#denite#project_tags(expand('<cword>'))<CR>
-  nnoremap <Space>d<C-P> :Denite -auto-resume -auto-action=preview file/rec<CR>
-  nnoremap <Space>dq :Denite quickfix<CR>
-  nnoremap <Space>dr :Denite register<CR>
-  nnoremap <Space>ds :Denite session<CR>
-  nnoremap <Space>d<Space> :Denite source<CR>
-  nnoremap <Space>dt :Denite tag<CR>
-  nnoremap <Space>du :Denite -resume<CR>
-  nnoremap <Space>dU :Denite -resume -buffer-name=`vimrc#denite#get_buffer_name('grep')`<CR>
-  nnoremap <Space>d<C-U> :Denite -resume -refresh -buffer-name=`vimrc#denite#get_buffer_name('grep')`<CR>
-  nnoremap <Space>dy :Denite neoyank<CR>
-  nnoremap <Space>d: :Denite command_history<CR>
-  nnoremap <Space>d; :Denite command<CR>
-  nnoremap <Space>d/ :call vimrc#denite#grep('', 'grep', '', v:false)<CR>
-  nnoremap <Space>d? :call vimrc#denite#grep('', 'grep', input('Option: '), v:false)<CR>
-
-  nnoremap <silent> [d :Denite -resume -immediately -cursor-pos=-1<CR>
-  nnoremap <silent> ]d :Denite -resume -immediately -cursor-pos=+1<CR>
-  nnoremap <silent> [D :Denite -resume -immediately -cursor-pos=-1 -buffer-name=`vimrc#denite#get_buffer_name('grep')`<CR>
-  nnoremap <silent> ]D :Denite -resume -immediately -cursor-pos=+1 -buffer-name=`vimrc#denite#get_buffer_name('grep')`<CR>
-
-  if executable('rg')
-    nnoremap <Space>dg/ :call vimrc#denite#grep('', 'grep', vimrc#rg_current_type_option(), v:false)<CR>
-    nnoremap <Space>dg? :call vimrc#denite#grep('', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
-  endif
-  " }}}
-
-  " Denite buffer key mappings {{{
-  augroup denite_mappings
-    autocmd!
-    autocmd FileType denite        call vimrc#denite#mappings()
-    autocmd FileType denite-filter call vimrc#denite#filter_mappings()
-  augroup END
-  " }}}
+  call vimrc#source('vimrc/plugins/denite.vim')
 endif
 " }}}
 
@@ -952,286 +348,14 @@ nnoremap <Space>rt :tab split <Bar> Ranger<CR>
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-if has("nvim") || has("gui_running")
-  let $FZF_DEFAULT_OPTS .= ' --inline-info'
-endif
-
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
-let g:fzf_history_dir = $HOME.'/.local/share/fzf-history'
-
-let g:misc_fzf_action = {
-      \ 'ctrl-q': function('vimrc#fzf#build_quickfix_list'),
-      \ 'alt-c':  function('vimrc#fzf#copy_results'),
-      \ 'alt-e':  'cd',
-      \ }
-if has('nvim')
-  let g:misc_fzf_action['alt-t'] = function('vimrc#fzf#open_terminal')
-endif
-let g:default_fzf_action = extend({
-      \ 'ctrl-t': 'tab split',
-      \ 'ctrl-s': 'split',
-      \ 'ctrl-x': 'split',
-      \ 'ctrl-v': 'vsplit',
-      \ 'alt-v':  'rightbelow vsplit',
-      \ }, g:misc_fzf_action)
-let g:fzf_action = g:default_fzf_action
-
-" Mapping selecting mappings
-nmap <Space><Tab> <Plug>(fzf-maps-n)
-imap <M-`>        <Plug>(fzf-maps-i)
-xmap <Space><Tab> <Plug>(fzf-maps-x)
-omap <Space><Tab> <Plug>(fzf-maps-o)
-
-" Insert mode completion
-imap <C-X><C-K> <Plug>(fzf-complete-word)
-imap <C-X><C-F> <Plug>(fzf-complete-path)
-" <C-J> is <NL>
-imap <C-X><C-J> <Plug>(fzf-complete-file-ag)
-imap <C-X><C-L> <Plug>(fzf-complete-line)
-inoremap <expr> <C-X><C-D> fzf#vim#complete#path('fd -t d')
-
-" fzf functions & commands {{{
-command! -bar  -bang                  Helptags call fzf#vim#helptags(<bang>0)
-command! -bang -nargs=? -complete=dir Files    call vimrc#fzf#files(<q-args>, <bang>0)
-command! -bang -nargs=?               GFiles   call vimrc#fzf#gitfiles(<q-args>, <bang>0)
-command! -bang -nargs=+ -complete=dir Locate   call vimrc#fzf#locate(<q-args>, <bang>0)
-command! -bang -nargs=*               History  call vimrc#fzf#history(<q-args>, <bang>0)
-command! -bar  -bang                  Windows  call fzf#vim#windows(vimrc#fzf#preview#windows(), <bang>0)
-command! -bar  -nargs=* -bang         BLines   call fzf#vim#buffer_lines(<q-args>, vimrc#fzf#preview#buffer_lines(), <bang>0)
-
-" Rg
-command! -bang -nargs=* Rg call vimrc#fzf#rg#grep(<q-args>, <bang>0)
-
-" Rg with option, using ':' to separate option and query
-command! -bang -nargs=* RgWithOption call vimrc#fzf#rg#grep_with_option(<q-args>, <bang>0)
-
-" Fd all files
-command! -bang -nargs=? -complete=dir AllFiles call vimrc#fzf#dir#all_files(<q-args>, <bang>0)
-
-" Git diff
-command! -bang -nargs=* -complete=dir GitDiffFiles call vimrc#fzf#git#diff_tree(<bang>0, <f-args>)
-command! -bang -nargs=* -complete=dir RgGitDiffFiles call vimrc#fzf#git#rg_diff_tree(<bang>0, <f-args>)
-
-" Mru
-command! Mru        call vimrc#fzf#mru#mru()
-command! ProjectMru call vimrc#fzf#mru#project_mru()
-
-" DirectoryMru
-command! -bang DirectoryMru      call vimrc#fzf#mru#directory_mru(<bang>0)
-command! -bang DirectoryMruFiles call vimrc#fzf#mru#directory_mru_files(<bang>0)
-command! -bang DirectoryMruRg    call vimrc#fzf#mru#directory_mru_rg(<bang>0)
-
-" Directory
-command! -bang -nargs=? Directories    call vimrc#fzf#dir#directories(<q-args>, <bang>0)
-command! -bang -nargs=? DirectoryFiles call vimrc#fzf#dir#directory_files(<q-args>, <bang>0)
-command! -bang -nargs=? DirectoryRg    call vimrc#fzf#dir#directory_rg(<q-args>, <bang>0)
-
-" Tselect
-command! -nargs=1 Tselect call vimrc#fzf#tag#tselect(<q-args>)
-
-" Jump
-command! Jump call vimrc#fzf#jump()
-
-" Registers
-command! Registers call vimrc#fzf#registers()
-
-" DirectoryAncestors
-command! DirectoryAncestors call vimrc#fzf#dir#directory_ancestors()
-
-" Range
-command! -nargs=? -range SelectLines call vimrc#fzf#range#range_lines('SelectLines', 1, <line1>, <line2>, <q-args>)
-command! -nargs=?        ScreenLines call vimrc#fzf#range#screen_lines(<q-args>)
-
-" FilesWithQuery
-command! -nargs=1 FilesWithQuery call vimrc#fzf#files_with_query(<q-args>)
-
-" CurrentPlacedSigns
-command! CurrentPlacedSigns call vimrc#fzf#current_placed_signs()
-
-" Functions
-command! Functions call vimrc#fzf#functions()
-
-" Git commit command {{{
-" GitGrepCommit
-command! -nargs=+ -complete=customlist,fugitive#CompleteObject GitGrepCommit call vimrc#fzf#git#grep_commit(<f-args>)
-command! -bang -nargs=* GitGrep call vimrc#fzf#git#grep_commit('', <q-args>)
-
-" GitDiffCommit
-command! -nargs=? -complete=customlist,fugitive#CompleteObject GitDiffCommit call vimrc#fzf#git#diff_commit(<f-args>)
-
-" GitFilesCommit
-command! -nargs=1 -complete=customlist,fugitive#CompleteObject GitFilesCommit call vimrc#fzf#git#files_commit(<q-args>)
-" }}}
-
-if has("nvim")
-  augroup fzf_statusline
-    autocmd!
-    autocmd User FzfStatusLine call vimrc#fzf#statusline()
-  augroup END
-
-  " Tags
-  command! -bang -nargs=* ProjectTags call vimrc#fzf#tag#project_tags(<q-args>, <bang>0)
-  " Too bad fzf cannot toggle case sensitive interactively
-  command! -bang -nargs=* BTagsCaseSentitive       call fzf#vim#buffer_tags(<q-args>, { 'options': ['+i'] }, <bang>0)
-  command! -bang -nargs=* TagsCaseSentitive        call fzf#vim#tags(<q-args>,        { 'options': ['+i'] }, <bang>0)
-  command! -bang -nargs=* ProjectTagsCaseSentitive call vimrc#fzf#tag#project_tags(<q-args>,      { 'options': ['+i'] }, <bang>0)
-
-  command! TagbarTags call vimrc#fzf#tag#tagbar_tags()
-endif
-
-if vimrc#plugin#is_enabled_plugin('defx')
-  command! -bang -nargs=? -complete=dir Files    call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#files(<q-args>, <bang>0) })
-  command! -bang -nargs=?               GFiles   call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#gitfiles(<q-args>, <bang>0) })
-  command! -bang -nargs=+ -complete=dir Locate   call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#locate(<q-args>, <bang>0) })
-
-  command! -bang          DirectoryMru      call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#mru#directory_mru(<bang>0) })
-  command! -bang -nargs=? Directories       call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#dir#directories(<q-args>, <bang>0) })
-endif
-" }}}
-
-" fzf key mappings {{{
-nnoremap <Space>fa :execute 'Ag ' . input('Ag: ')<CR>
-nnoremap <Space>fA :AllFiles<CR>
-nnoremap <Space>fb :Buffers<CR>
-nnoremap <Space>fB :Files %:h<CR>
-nnoremap <Space>fc :BCommits<CR>
-nnoremap <Space>fC :Commits<CR>
-nnoremap <Space>fd :Directories<CR>
-nnoremap <Space>fD :DirectoryFiles<CR>
-nnoremap <Space>ff :Files<CR>
-nnoremap <Space>fF :DirectoryRg<CR>
-nnoremap <Space>f<C-F> :execute 'Files ' . expand('<cfile>')<CR>
-nnoremap <Space>fg :GFiles -co --exclude-standard<CR>
-nnoremap <Space>fG :execute 'GitGrep ' . input('Git grep: ')<CR>
-nnoremap <Space>f<C-G> :execute 'GitGrepCommit ' . input('Commit: ') . ' ' . input('Git grep: ')<CR>
-nnoremap <Space>fh :Helptags<CR>
-nnoremap <Space>fH :execute 'GitFilesCommit ' . input('Commit: ')<CR>
-nnoremap <Space>fi :History<CR>
-nnoremap <Space>fj :Jump<CR>
-nnoremap <Space>fk :execute 'Rg ' . expand('<cword>')<CR>
-nnoremap <Space>fK :execute 'Rg ' . expand('<cWORD>')<CR>
-nnoremap <Space>f8 :execute 'Rg \b' . expand('<cword>') . '\b'<CR>
-nnoremap <Space>f* :execute 'Rg \b' . expand('<cWORD>') . '\b'<CR>
-xnoremap <Space>fk :<C-U>execute 'Rg ' . vimrc#get_visual_selection()<CR>
-xnoremap <Space>f8 :<C-U>execute 'Rg \b' . vimrc#get_visual_selection() . '\b'<CR>
-nnoremap <Space>fl :BLines<CR>
-nnoremap <Space>fL :Lines<CR>
-nnoremap <Space>f<C-L> :execute 'BLines ' . expand('<cword>')<CR>
-nnoremap <Space>fm :Mru<CR>
-nnoremap <Space>fM :DirectoryMru<CR>
-nnoremap <Space>f<C-M> :ProjectMru<CR>
-nnoremap <Space>fn :execute 'FilesWithQuery ' . expand('<cword>')<CR>
-nnoremap <Space>fN :execute 'FilesWithQuery ' . expand('<cWORD>')<CR>
-nnoremap <Space>f% :execute 'FilesWithQuery ' . expand('%:t:r')<CR>
-xnoremap <Space>fn :<C-U>execute 'FilesWithQuery ' . vimrc#get_visual_selection()<CR>
-nnoremap <Space>fo :execute 'Locate ' . input('Locate: ')<CR>
-nnoremap <Space>fr :execute 'Rg ' . input('Rg: ')<CR>
-nnoremap <Space>fR :execute 'Rg! ' . input('Rg!: ')<CR>
-nnoremap <Space>f4 :execute 'RgWithOption .:' . input('Option: ') . ':' . input('Rg: ')<CR>
-nnoremap <Space>f$ :execute 'RgWithOption! .:' . input('Option: ') . ':' . input('Rg!: ')<CR>
-nnoremap <Space>f? :execute 'RgWithOption .:' . vimrc#rg_current_type_option() . ':' . input('Rg: ')<CR>
-nnoremap <Space>f5 :execute 'RgWithOption ' . expand('%:h') . '::' . input('Rg: ')<CR>
-nnoremap <Space>fs :GFiles?<CR>
-nnoremap <Space>fS :CurrentPlacedSigns<CR>
-nnoremap <Space>ft :BTags<CR>
-nnoremap <Space>fT :Tags<CR>
-nnoremap <Space>fu :DirectoryAncestors<CR>
-nnoremap <Space>fU :DirectoryFiles ..<CR>
-nnoremap <Space>fw :Windows<CR>
-nnoremap <Space>fy :Filetypes<CR>
-nnoremap <Space>fY :execute 'GitFilesCommit ' . vimrc#fugitive#commit_sha()<CR>
-nnoremap <Space>f<C-Y> :execute 'GitGrepCommit ' . vimrc#fugitive#commit_sha() . ' ' . input('Git grep: ')<CR>
-nnoremap <Space>f' :Registers<CR>
-nnoremap <Space>f` :Marks<CR>
-nnoremap <Space>f: :History:<CR>
-xnoremap <Space>f: :<C-U>History:<CR>
-nnoremap <Space>f; :Commands<CR>
-xnoremap <Space>f; :<C-U>Commands<CR>
-nnoremap <Space>f/ :History/<CR>
-nnoremap <Space>f] :execute "BTags '" . expand('<cword>')<CR>
-xnoremap <Space>f] :<C-U>execute "BTags '" . vimrc#get_visual_selection()<CR>
-nnoremap <Space>f} :execute "Tags '" . expand('<cword>')<CR>
-xnoremap <Space>f} :<C-U>execute "Tags '" . vimrc#get_visual_selection()<CR>
-nnoremap <Space>f<C-]> :execute 'Tselect ' . expand('<cword>')<CR>
-xnoremap <Space>f<C-]> :<C-U>execute 'Tselect ' . vimrc#get_visual_selection()<CR>
-
-" DirectoryMru
-nnoremap <Space><C-D><C-D> :DirectoryMru<CR>
-nnoremap <Space><C-D><C-F> :DirectoryMruFiles<CR>
-nnoremap <Space><C-D><C-R> :DirectoryMruRg<CR>
-
-nmap     <Space>sf vaf:SelectLines<CR>
-xnoremap <Space>sf :SelectLines<CR>
-nnoremap <Space>sl :ScreenLines<CR>
-nnoremap <Space>sL :execute 'ScreenLines ' . expand('<cword>')<CR>
-xnoremap <Space>sL :<C-U>execute 'ScreenLines ' . vimrc#get_visual_selection()<CR>
-nnoremap <Space>ss :History:<CR>mks vim sessions
-
-" fzf & cscope key mappings {{{
-nnoremap <silent> <Leader>cs :call vimrc#fzf#cscope#cscope('0', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cg :call vimrc#fzf#cscope#cscope('1', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cd :call vimrc#fzf#cscope#cscope('2', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cc :call vimrc#fzf#cscope#cscope('3', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>ct :call vimrc#fzf#cscope#cscope('4', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>ce :call vimrc#fzf#cscope#cscope('6', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cf :call vimrc#fzf#cscope#cscope('7', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>ci :call vimrc#fzf#cscope#cscope('8', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>ca :call vimrc#fzf#cscope#cscope('9', expand('<cword>'))<CR>
-
-xnoremap <silent> <Leader>cs :<C-U>call vimrc#fzf#cscope#cscope('0', vimrc#get_visual_selection())<CR>
-xnoremap <silent> <Leader>cg :<C-U>call vimrc#fzf#cscope#cscope('1', vimrc#get_visual_selection())<CR>
-xnoremap <silent> <Leader>cd :<C-U>call vimrc#fzf#cscope#cscope('2', vimrc#get_visual_selection())<CR>
-xnoremap <silent> <Leader>cc :<C-U>call vimrc#fzf#cscope#cscope('3', vimrc#get_visual_selection())<CR>
-xnoremap <silent> <Leader>ct :<C-U>call vimrc#fzf#cscope#cscope('4', vimrc#get_visual_selection())<CR>
-xnoremap <silent> <Leader>ce :<C-U>call vimrc#fzf#cscope#cscope('6', vimrc#get_visual_selection())<CR>
-xnoremap <silent> <Leader>cf :<C-U>call vimrc#fzf#cscope#cscope('7', vimrc#get_visual_selection())<CR>
-xnoremap <silent> <Leader>ci :<C-U>call vimrc#fzf#cscope#cscope('8', vimrc#get_visual_selection())<CR>
-xnoremap <silent> <Leader>ca :<C-U>call vimrc#fzf#cscope#cscope('9', vimrc#get_visual_selection())<CR>
-
-nnoremap <silent> <Leader><Leader>cs :call vimrc#fzf#cscope#cscope_query('0')<CR>
-nnoremap <silent> <Leader><Leader>cg :call vimrc#fzf#cscope#cscope_query('1')<CR>
-nnoremap <silent> <Leader><Leader>cd :call vimrc#fzf#cscope#cscope_query('2')<CR>
-nnoremap <silent> <Leader><Leader>cc :call vimrc#fzf#cscope#cscope_query('3')<CR>
-nnoremap <silent> <Leader><Leader>ct :call vimrc#fzf#cscope#cscope_query('4')<CR>
-nnoremap <silent> <Leader><Leader>ce :call vimrc#fzf#cscope#cscope_query('6')<CR>
-nnoremap <silent> <Leader><Leader>cf :call vimrc#fzf#cscope#cscope_query('7')<CR>
-nnoremap <silent> <Leader><Leader>ci :call vimrc#fzf#cscope#cscope_query('8')<CR>
-nnoremap <silent> <Leader><Leader>ca :call vimrc#fzf#cscope#cscope_query('9')<CR>
-" }}}
-
-if has("nvim")
-  nnoremap <Space>fp :ProjectTags<CR>
-  nnoremap <Space>sp :ProjectTagsCaseSentitive<CR>
-  nnoremap <Space>fP :execute "ProjectTags '" . expand('<cword>')<CR>
-  xnoremap <Space>fP :<C-U>execute "ProjectTags '" . vimrc#get_visual_selection()<CR>
-  nnoremap <Space><F8> :TagbarTags<CR>
-endif
+call vimrc#source('vimrc/plugins/fzf.vim')
 " }}}
 " }}}
 
 " skim {{{
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 
-command! SkimMru call skim#run(skim#wrap({
-      \ 'source':  vimrc#fzf#mru#mru_files(),
-      \ 'options': '-m',
-      \ 'down':    '40%' }))
-
-nnoremap <Space>sm :SkimMru<CR>
+call vimrc#source('vimrc/plugins/skim.vim')
 " }}}
 
 " vifm {{{
@@ -1355,29 +479,7 @@ map gz# <Plug>(incsearch-nohl0)<Plug>(asterisk-gz#)
 " vim-anzu {{{
 Plug 'osyo-manga/vim-anzu'
 
-map n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
-map N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
-
-command! AnzuToggleUpdate call s:AnzuToggleUpdate()
-function! s:AnzuToggleUpdate()
-  if g:anzu_enable_CursorHold_AnzuUpdateSearchStatus == 0
-    let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 2
-  else
-    let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 0
-  endif
-endfunction
-
-augroup anzuDisableUpdateOnLargeFile
-  autocmd!
-
-  " Disabled on file larger than 10MB
-  autocmd BufWinEnter,WinEnter *
-        \ if getfsize(expand(@%)) > 10 * 1024 * 1024 |
-        \   let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 0 |
-        \ else |
-        \   let g:anzu_enable_CursorHold_AnzuUpdateSearchStatus = 2 |
-        \ endif
-augroup END
+call vimrc#source('vimrc/plugins/anzu.vim')
 " }}}
 
 " incsearch {{{
@@ -1487,25 +589,7 @@ xmap <Space>ga <Plug>(LiveEasyAlign)
 " auto-pairs {{{
 Plug 'jiangmiao/auto-pairs'
 
-let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
-" let g:AutoPairsMapCR = 0
-
-" Custom <CR> map to avoid enter <CR> when popup is opened
-" inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>" . AutoPairsReturn()
-
-function! s:AutoPairsToggleMultilineClose()
-  if g:AutoPairsMultilineClose == 0
-    let g:AutoPairsMultilineClose = 1
-  else
-    let g:AutoPairsMultilineClose = 0
-  endif
-endfunction
-command! AutoPairsToggleMultilineClose call <SID>AutoPairsToggleMultilineClose()
-
-augroup autoPairsFileTypeSpecific
-  autocmd!
-  autocmd Filetype xml let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '<': '>'}
-augroup END
+call vimrc#source('vimrc/plugins/auto_pairs.vim')
 " }}}
 
 " eraseSubword {{{
@@ -1585,15 +669,7 @@ let g:user_emmet_leader_key = '<C-E>'
 " cscope-macros.vim {{{
 Plug 'mars90226/cscope_macros.vim', { 'on': [] }
 
-call vimrc#lazy#lazy_load('cscope_macros')
-
-nnoremap <F11> :call <SID>generate_cscope_files()<CR>
-function! s:generate_cscope_files()
-  !find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files ;
-  !cscope -b -i cscope.files -f cscope.out
-  cscope kill -1
-  cscope add cscope.out
-endfunction
+call vimrc#source('vimrc/plugins/cscope.vim')
 " }}}
 
 " vim-seeing-is-believing {{{
@@ -1621,34 +697,7 @@ endfunction
 if vimrc#plugin#is_enabled_plugin('syntastic')
   Plug 'vim-syntastic/syntastic'
 
-  " Automatically setup by airline
-  "set statusline+=%#warningmsg#
-  "set statusline+=%{SyntasticStatuslineFlag()}
-  "set statusline+=%*
-
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list            = 2
-  let g:syntastic_check_on_open            = 1
-  let g:syntastic_check_on_wq              = 0
-
-  let g:syntastic_ruby_checkers = ['mri', 'rubylint']
-  let g:syntastic_tex_checkers  = ['lacheck']
-  let g:syntastic_c_checkers    = ['gcc']
-  let g:syntastic_cpp_checkers  = ['gcc']
-
-  let g:syntastic_ignore_files = ['\m^/usr/include/', '\m^/synosrc/packages/build_env/', '\m\c\.h$']
-  nnoremap <Space><F6> :SyntasticCheck<CR>
-  command! -bar SyntasticCheckHeader call s:SyntasticCheckHeader()
-  function! s:SyntasticCheckHeader()
-    let header_pattern_index = index(g:syntastic_ignore_files, '\m\c\.h$')
-    if header_pattern_index >= 0
-      call remove(g:syntastic_ignore_files, header_pattern_index)
-    endif
-
-    let g:syntastic_c_check_header = 1
-    let g:syntastic_cpp_check_header = 1
-    SyntasticCheck
-  endfunction
+  call vimrc#source('vimrc/plugins/syntastic.vim')
 end
 " }}}
 
@@ -1656,57 +705,7 @@ end
 if vimrc#plugin#is_enabled_plugin('ale')
   Plug 'w0rp/ale'
 
-  " let g:ale_linters = {
-  "       \ 'c': ['gcc', 'ccls'],
-  "       \ 'cpp': ['g++', 'ccls'],
-  "       \ 'javascript': ['eslint', 'jshint', 'flow', 'flow-language-server']
-  "       \}
-  " Disable language server in ale, prefer coc.nvim
-  let g:ale_linters = {
-        \ 'c': ['gcc'],
-        \ 'cpp': ['g++'],
-        \ 'javascript': ['eslint', 'jshint'],
-        \ 'python': ['pylint'],
-        \ 'sh': ['shell', 'shellcheck']
-        \}
-  let g:ale_fixers = {
-        \ 'javascript': [ 'eslint' ],
-        \ 'css': [
-        \   'prettier',
-        \   'stylelint'
-        \ ],
-        \ 'scss': [
-        \   'prettier',
-        \   'stylelint'
-        \ ]
-        \}
-  " Depend on project whether to use flow locally
-  " let g:ale_javascript_flow_use_global = 1
-  " let g:ale_javascript_flow_ls_use_global = 1
-  let g:ale_pattern_options = {
-        \ 'configure': {
-        \   'ale_enabled': 0
-        \ }
-        \}
-
-  nmap ]a <Plug>(ale_next_wrap)
-  nmap [a <Plug>(ale_previous_wrap)
-  nmap ]A <Plug>(ale_first)
-  nmap [A <Plug>(ale_last)
-  nmap <Leader>aa <Plug>(ale_toggle_buffer)
-  nmap <Leader>aA <Plug>(ale_toggle)
-  nmap <Leader>ad <Plug>(ale_detail)
-  nmap <Leader>af <Plug>(ale_fix)
-  nmap <Leader>ag <Plug>(ale_go_to_definition)
-  nmap <Leader>aG <Plug>(ale_go_to_definition_in_tab)
-  nmap <Leader>ah <Plug>(ale_hover)
-  nmap <Leader>ai :ALEInfo<CR>
-  nmap <Leader>al <Plug>(ale_lint)
-  nmap <Leader>ar <Plug>(ale_find_references)
-  nmap <Leader>as :execute 'ALESymbolSearch ' . input('Symbol: ')<CR>
-  nmap <Leader>aS :ALEStopAllLSPs<CR>
-  nmap <Leader>at <Plug>(ale_go_to_type_definition)
-  nmap <Leader>aT <Plug>(ale_go_to_type_definition_in_tab)
+  call vimrc#source('vimrc/plugins/ale.vim')
 end
 " }}}
 
@@ -1823,36 +822,7 @@ Plug 'tommcdo/vim-fubitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'idanarye/vim-merginal', { 'branch': 'develop' }
 
-nnoremap <silent> <Leader>gs :Gstatus<CR>
-nnoremap <silent> <Leader>gd :Gdiff<CR>
-nnoremap <silent> <Leader>gc :Gcommit<CR>
-nnoremap <silent> <Leader>gb :Gblame<CR>
-nnoremap <silent> <Leader>ge :Gedit<CR>
-nnoremap <silent> <Leader>gE :Gedit<space>
-nnoremap <silent> <Leader>gl :Glog<CR>
-nnoremap <silent> <Leader>gL :Glog -- %<CR>
-nnoremap <silent> <Leader>gr :Gread<CR>
-nnoremap <silent> <Leader>gR :Gread<space>
-nnoremap <silent> <Leader>gw :Gwrite<CR>
-nnoremap <silent> <Leader>gW :Gwrite!<CR>
-nnoremap <silent> <Leader>gq :Gwq<CR>
-nnoremap <silent> <Leader>gQ :Gwq!<CR>
-nnoremap <silent> <Leader>gm :Merginal<CR>
-
-nnoremap <silent> <Leader>g` :call vimrc#fugitive#review_last_commit()<CR>
-
-augroup fugitiveSettings
-  autocmd!
-  autocmd FileType gitcommit setlocal nolist
-  autocmd FileType fugitive call vimrc#fugitive#mappings()
-  autocmd FileType git      call vimrc#fugitive#git_mappings()
-  autocmd BufReadPost fugitive://* setlocal bufhidden=delete
-augroup END
-
-let g:fugitive_gitlab_domains = ['https://git.synology.com']
-
-" Borrowed and modified from vim-fugitive s:Dispatch
-command! -nargs=* GitDispatch call vimrc#fugitive#git_dispatch(<q-args>)
+call vimrc#source('vimrc/plugins/fugitive.vim')
 " }}}
 
 " vim-gitgutter {{{
@@ -1885,23 +855,7 @@ augroup END
 " vim-tig {{{
 Plug 'codeindulgence/vim-tig', { 'on': ['Tig', 'Tig!'] }
 
-" Add '' to open tig main view
-nnoremap \tr :Tig ''<CR>
-nnoremap \tt :tabnew <Bar> Tig ''<CR>
-nnoremap \ts :new    <Bar> Tig ''<CR>
-nnoremap \tv :vnew   <Bar> Tig ''<CR>
-
-function! s:tig_log(opts, bang, is_current_file)
-  execute 'Tig log ' . (a:bang ? '-p ' : '') . a:opts . (a:is_current_file ? ' -- ' . expand('%:p') : '')
-endfunction
-command! -bang -nargs=* TigLog          call s:tig_log(<q-args>, <bang>0, 0)
-command! -bang -nargs=* TigLogSplit     split | call s:tig_log(<q-args>, <bang>0, 0)
-command! -bang -nargs=* TigLogFile      call s:tig_log(<q-args>, <bang>0, 1)
-command! -bang -nargs=* TigLogFileSplit split | call s:tig_log(<q-args>, <bang>0, 1)
-" Add non-follow version as --follow will include many merge commits
-nnoremap \tl :TigLogFileSplit!<CR>
-nnoremap \tL :TigLogFileSplit! --follow<CR>
-nnoremap \t<C-L> :execute 'TigLogSplit! $(git log --format=format:%H --follow -- ' . expand('%:p') . ')'<CR>
+call vimrc#source('vimrc/plugins/tig.vim')
 " }}}
 
 " Gina {{{
@@ -1918,12 +872,7 @@ if vimrc#plugin#is_enabled_plugin('git-p.nvim')
   Plug 'iamcco/sran.nvim', { 'do': { -> sran#util#install() } }
   Plug 'iamcco/git-p.nvim'
 
-  nmap <Leader>gp <Plug>(git-p-diff-preview)
-
-  highlight! link GitPBlameLine GruvboxFg4
-  highlight! link GitPAdd GruvboxGreenSign
-  highlight! link GitPModify GruvboxAquaSign
-  highlight! link GitPDelete GruvboxRedSign
+  call vimrc#source('vimrc/plugins/git_p.vim')
 endif
 " }}}
 
@@ -2039,25 +988,7 @@ let g:lastplace_open_folds = 0
 if has("nvim")
   Plug 'kassio/neoterm', { 'on': [] }
 
-  call vimrc#lazy#lazy_load('neoterm')
-
-  let g:neoterm_default_mod = 'botright'
-  let g:neoterm_automap_keys = ',T'
-  let g:neoterm_size = &lines / 2
-
-  nnoremap <silent> <Space>` :execute 'T ' . input("Terminal: ")<CR>
-  nnoremap <silent> <Leader>` :Ttoggle<CR>
-  nnoremap <silent> <Space><F3> :TREPLSendFile<CR>
-  nnoremap <silent> <F3> :TREPLSendLine<CR>
-  xnoremap <silent> <F3> :TREPLSendSelection<CR>
-
-  " Useful maps
-  " hide/close terminal
-  nnoremap <silent> <Leader>th :Tclose<CR>
-  " clear terminal
-  nnoremap <silent> <Leader>tl :Tclear<CR>
-  " kills the current job (send a <c-c>)
-  nnoremap <silent> <Leader>tc :Tkill<CR>
+  call vimrc#source('vimrc/plugins/neoterm.vim')
 endif
 " }}}
 
@@ -2168,25 +1099,7 @@ call plug#end()
 
 " coc.nvim {{{
 if vimrc#plugin#is_enabled_plugin('coc.nvim')
-  " Common source
-  call coc#add_extension('coc-dictionary')
-  call coc#add_extension('coc-tag')
-  call coc#add_extension('coc-emoji')
-  call coc#add_extension('coc-syntax')
-  call coc#add_extension('coc-neosnippet')
-  call coc#add_extension('coc-highlight')
-  call coc#add_extension('coc-emmet')
-
-  " Language server
-  call coc#add_extension('coc-json')
-  call coc#add_extension('coc-tsserver')
-  call coc#add_extension('coc-python')
-  " Not work right now
-  " call coc#add_extension('coc-ccls')
-  call coc#add_extension('coc-rls')
-
-  " Misc
-  call coc#add_extension('coc-prettier')
+  call vimrc#source('vimrc/plugins/coc_after.vim')
 endif
 " }}}
 
@@ -2206,86 +1119,18 @@ augroup END
 
 " Denite {{{
 if vimrc#plugin#is_enabled_plugin('denite.nvim')
-  " Use fd for file/rec and ripgrep for grep
-  if executable('fd')
-    call denite#custom#var('file/rec', 'command',
-        \ ['fd', '--type', 'file', '--follow', '--hidden', '--exclude', '.git', ''])
-  elseif executable('rg')
-    call denite#custom#var('file/rec', 'command',
-          \ ['rg', '--files', '--glob', '!.git'])
-  elseif executable('ag')
-    call denite#custome#var('file/rec', 'command',
-          \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-  endif
-
-  if executable('rg')
-    call denite#custom#var('grep', 'command', ['rg'])
-    call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'final_opts', [])
-    call denite#custom#var('grep', 'separator', ['--'])
-    call denite#custom#var('grep', 'default_opts',
-          \ ['--vimgrep', '--no-heading', '-S'])
-  endif
-
-  " Denite options
-  call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
-  call denite#custom#source('default', 'sorters', ['sorter/rank'])
-  call denite#custom#source('grep', 'converters', ['converter/abbr_word'])
-
-  call denite#custom#option('_', {
-        \ 'auto_accel': v:true,
-        \ 'reversed': 1,
-        \ 'prompt': '❯',
-        \ 'prompt_highlight': 'Function',
-        \ 'highlight_mode_normal': 'Visual',
-        \ 'highlight_mode_insert': 'CursorLine',
-        \ 'highlight_matched_char': 'Special',
-        \ 'highlight_matched_range': 'Normal',
-        \ 'vertical_preview': 1,
-        \ 'start_filter': 1,
-        \ })
+  call vimrc#source('vimrc/plugins/denite_after.vim')
 endif
 " }}}
 
 " Defx {{{
 if vimrc#plugin#is_enabled_plugin("defx")
-  call defx#custom#option('_', {
-        \ 'columns': 'git:mark:indent:icon:filename:type:size:time',
-        \ 'show_ignored_files': 1,
-        \ })
-  call defx#custom#column('icon', {
-        \ 'directory_icon': '▸',
-        \ 'opened_icon': '▾',
-        \ 'root_icon': ' ',
-        \ })
-  call defx#custom#column('mark', {
-        \ 'readonly_icon': '✗',
-        \ 'selected_icon': '✓',
-        \ })
-  call defx#custom#column('time', {'format': '%Y/%m/%d %H:%M'})
+  call vimrc#source('vimrc/plugins/defx_after.vim')
 endif
 " }}}
 
 " Gina {{{
-call gina#custom#mapping#nmap(
-        \ '/\%(blame\|commit\|status\|branch\|ls\|grep\|changes\|tag\)',
-        \ 'q', ':<C-U> q<CR>', {'noremap': 1, 'silent': 1},
-        \)
-
-call extend(g:gina#command#browse#translation_patterns, {
-      \ 'git.synology.com': [
-      \   [
-      \     '\vhttps?://(%domain)/(.{-})/(.{-})%(\.git)?$',
-      \     '\vgit://(%domain)/(.{-})/(.{-})%(\.git)?$',
-      \     '\vgit\@(%domain):(.{-})/(.{-})%(\.git)?$',
-      \     '\vssh://git\@(%domain)/(.{-})/(.{-})%(\.git)?$',
-      \   ], {
-      \     'root':  'https://\1/\2/\3/tree/%r1/',
-      \     '_':     'https://\1/\2/\3/blob/%r1/%pt%{#L|}ls%{-}le',
-      \     'exact': 'https://\1/\2/\3/blob/%h1/%pt%{#L|}ls%{-}le',
-      \   },
-      \ ],
-      \})
+call vimrc#source('vimrc/plugins/gina_after.vim')
 " }}}
 
 " Arpeggio {{{
@@ -2298,295 +1143,42 @@ Arpeggio inoremap jk <Esc>
 
 " General Settings {{{
 " ====================================================================
-call vimrc#source('settings.vim')
+call vimrc#source('vimrc/settings.vim')
 " }}}
 
 " Indention {{{
 " ====================================================================
-call vimrc#source('indent.vim')
+call vimrc#source('vimrc/indent.vim')
 " }}}
 
 " Search {{{
 " ====================================================================
-call vimrc#source('search.vim')
+call vimrc#source('vimrc/search.vim')
 " }}}
 
 " Colors and Highlights {{{
 " ====================================================================
-call vimrc#source('colors.vim')
+call vimrc#source('vimrc/colors.vim')
 " }}}
 
 " Key Mappings {{{
 " ====================================================================
-" Don't use Ex mode, use Q for formatting
-nnoremap Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-
-" CTRL-L clear hlsearch
-nnoremap <C-L> <C-L>:nohlsearch<CR>:call vimrc#clear_and_redraw()<CR>
-
-" Add key mapping for suspend
-nnoremap <Space><C-Z> :suspend<CR>
-
-" Quickly switch window {{{
-nnoremap <M-h> <C-W>h
-nnoremap <M-j> <C-W>j
-nnoremap <M-k> <C-W>k
-nnoremap <M-l> <C-W>l
-
-" Move in insert mode
-inoremap <M-h> <Left>
-inoremap <M-j> <Down>
-inoremap <M-k> <Up>
-inoremap <M-l> <Right>
-" }}}
-
-" Saner command-line history {{{
-cnoremap <M-n> <Down>
-cnoremap <M-p> <Up>
-" }}}
-
-" Tab key mapping {{{
-" Quickly switch tab
-nnoremap <C-J> gT
-nnoremap <C-K> gt
-
-nnoremap QQ :call <SID>QuitTab()<CR>
-nnoremap g4 :tablast<CR>
-function! s:QuitTab()
-  try
-    tabclose
-  catch /E784/ " Can't close last tab
-    qall
-  endtry
-endfunction
-" }}}
-
-" Quickly adjust window size
-nnoremap <C-W><Space>- <C-W>10-
-nnoremap <C-W><Space>+ <C-W>10+
-nnoremap <C-W><Space>< <C-W>10<
-nnoremap <C-W><Space>> <C-W>10>
-nnoremap <C-W><Space>= :call <SID>window_equal()<CR>
-function! s:window_equal()
-  windo setlocal nowinfixheight nowinfixwidth
-  wincmd =
-endfunction
-
-" Move tab
-nnoremap <Leader>t< :tabmove -1<CR>
-nnoremap <Leader>t> :tabmove +1<CR>
-
-" Create new line in insert mode
-inoremap <M-o> <C-O>o
-inoremap <M-S-o> <C-O>O
-
-" Go to matched bracket in insert mode
-imap <M-5> <C-O>%
-
-" Create new line without indent & prefix
-nnoremap <M-o> o <C-U>
-nnoremap <M-S-o> O <C-U>
-
-" Save
-nnoremap <C-S> :update<CR>
-
-" Quit
-nnoremap <Space>q :q<CR>
-nnoremap <Space>Q :qa!<CR>
-
-" Quick execute
-if vimrc#plugin#check#get_os() =~ "windows"
-  " Win32
-  "nnoremap <Leader>x :execute ':! "'.expand('%').'"'<CR>
-  nnoremap <Leader>x :!start cmd /c "%:p"<CR>
-  nnoremap <Leader>X :!start cmd /K cd /D %:p:h<CR>
-  nnoremap <Leader>E :execute '!start explorer "' . expand("%:p:h:gs?\\??:gs?/?\\?") . '"'<CR>
-else
-  " Linux
-  nnoremap <Leader>x :!xdg-open "%:p"<CR>
-
-  if has('nvim')
-    nnoremap <Leader>x :terminal xdg-open "%:p"<CR>
-  endif
-endif
-
-" Easier file status
-nnoremap <Space><C-G> 2<C-G>
-
-" Move working directory up
-nnoremap <Leader>u :cd ..<CR>
-
-" Move working directory to current buffer's parent folder
-nnoremap <Leader>cb :cd %:h<CR>
-
-" Quick yank cursor word
-nnoremap y' ""yiw
-nnoremap y" ""yiW
-nnoremap y= "+yiw
-nnoremap y+ "+yiW
-
-" Quick yank/paste to/from system clipboard
-nnoremap =y "+y
-xnoremap =y "+y
-nnoremap +p "+p
-xnoremap +p "+p
-nnoremap +P "+P
-xnoremap +P "+P
-nnoremap +[p "+[p
-nnoremap +]p "+]p
-
-" Quick yank filename
-nnoremap <Leader>y5 :let @" = expand('%:t:r')<CR>
-nnoremap <Leader>y% :let @" = @%<CR>
-nnoremap <Leader>y4 :let @" = expand('%:p')<CR>
-
-" Quick split
-nnoremap <Leader>yt :tab split<CR>
-nnoremap <Leader>ys :split<CR>
-nnoremap <Leader>yv :vertical split<CR>
-
-" Copy unnamed register to system clipboard
-nnoremap <Space>sr :let @+ = @"<CR>
-
-" Command line mapping
-cnoremap <expr> <C-G><C-F> vimrc#fzf#files_in_commandline()
-cnoremap <expr> <C-G><C-T> vimrc#rg_current_type_option()
-" <C-]> and <C-%> is the same key
-cnoremap <expr> <C-G><C-]> expand('%:t:r')
-" <C-\> and <C-$> is the same key
-cnoremap <expr> <C-G><C-\> expand('%:p')
-" For grepping word
-cnoremap <expr> <C-G><C-W> "\\b" . expand('<cword>') . "\\b"
-cnoremap <expr> <C-G><C-A> "\\b" . expand('<cWORD>') . "\\b"
-" Fugitive commit sha
-cnoremap <expr> <C-G><C-Y> vimrc#fugitive#commit_sha()
-
-" Ex mode for special buffer that map 'q' as ':quit'
-nnoremap \q: q:
-nnoremap \q/ q/
-nnoremap \q? q?
-
-" s:execute_command() for executing command with query
-" TODO input completion
-function! s:execute_command(command, prompt)
-  let query = input(a:prompt)
-  if query != ''
-    execute a:command . ' ' . query
-  else
-    echomsg 'Cancelled!'
-  endif
-endfunction
-
-" Man
-" :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
-" TODO Move this to 'after' folder
-if has('nvim')
-  nnoremap <Leader><F1> :Man 
-endif
-
-" sdcv
-if executable('sdcv')
-  nnoremap <Leader>sd :execute '!sdcv ' . expand('<cword>')<CR>
-  nnoremap <Space>sd :call <SID>execute_command('!sdcv', 'sdcv: ')<CR>
-endif
-
-" Quickfix & Locaiton List {{{
-augroup quickfixSettings
-  autocmd!
-  autocmd FileType qf call vimrc#quickfix#mappings()
-augroup END
-" }}}
-
-" Custom function {{{
-" This cannot be moved to autoload, because sid will change when <sfile> change
-function! s:SID_PREFIX() abort
-  return matchstr(expand('<sfile>'),
-        \ '<SNR>\d\+_\zeSID_PREFIX$')
-endfunction
-let g:sid = s:SID_PREFIX()
-
-command! ToggleIndent call vimrc#toggle_indent()
-command! ToggleFold call vimrc#toggle_fold()
-
-" LastTab
-command! -count -bar LastTab call vimrc#last_tab(<count>)
-nnoremap <M-1> :call vimrc#last_tab(v:count)<CR>
-
-augroup last_tab_settings
-  autocmd!
-  autocmd TabLeave * call vimrc#insert_last_tab(tabpagenr())
-augroup END
-
-" Zoom
-nnoremap <silent> <Leader>z :call vimrc#zoom()<CR>
-xnoremap <silent> <Leader>z :<C-U>call vimrc#zoom_selected(vimrc#get_visual_selection())<CR>
-
-" Toggle parent folder tag
-command! ToggleParentFolderTag call vimrc#toggle_parent_folder_tag()
-nnoremap <silent> <Leader>p :ToggleParentFolderTag<CR>
-
-" Display file size
-command! -nargs=1 -complete=file FileSize call vimrc#file_size(<q-args>)
-
-" Set tab size
-command! -nargs=1 SetTabSize call vimrc#set_tab_size(<q-args>)
-
-command! GetCursorSyntax echo vimrc#get_cursor_syntax()
-
-" Find the cursor
-command! FindCursor call vimrc#blink_cursor_location()
-
-if executable('tmux')
-  command! RefreshDisplay call vimrc#refresh_display()
-endif
-" }}}
-
-" Custom command {{{
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_ | diffthis
-                 \ | wincmd p | diffthis
-endif
-
-" Delete inactive buffers
-command! -bang Bdi call vimrc#delete_inactive_buffers(0, <bang>0)
-command! -bang Bwi call vimrc#delete_inactive_buffers(1, <bang>0)
-nnoremap <Leader>D :Bdi<CR>
-nnoremap <Leader><C-D> :Bdi!<CR>
-nnoremap <Leader>Q :Bwi<CR>
-nnoremap <Leader><C-Q> :Bwi!<CR>
-
-command! TrimWhitespace call vimrc#trim_whitespace()
-
-command! GetChar call vimrc#getchar()
-
-command! ReloadVimrc call vimrc#reload#reload()
-
-if vimrc#plugin#check#get_os() !~ "windows"
-  command! Args echo system("ps -o command= -p " . getpid())
-endif
-" }}}
+call vimrc#source('vimrc/mappings.vim')
 " }}}
 
 " Terminal {{{
 " ====================================================================
-call vimrc#source('terminal.vim')
+call vimrc#source('vimrc/terminal.vim')
 " }}}
 
 " Autocommands {{{
 " ====================================================================
-call vimrc#source('autocmd.vim')
+call vimrc#source('vimrc/autocmd.vim')
 " }}}
 
 " Fix and Workarounds {{{
 " ====================================================================
-call vimrc#source('workaround.vim')
+call vimrc#source('vimrc/workaround.vim')
 " }}}
 
 " vim: set sw=2 ts=2 sts=2 et foldlevel=0 foldmethod=marker:
