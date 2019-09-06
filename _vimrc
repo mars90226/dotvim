@@ -684,6 +684,7 @@ if vimrc#plugin#is_enabled_plugin("defx")
   nnoremap -           :call vimrc#defx#opendir('Defx')<CR>
   nnoremap ++          :call vimrc#defx#opendir('Defx')<CR>
   nnoremap \-          :call vimrc#defx#opendir('Defx')<CR>
+  nnoremap \=          :call vimrc#defx#opendir('Defx -new')<CR>
   nnoremap _           :call vimrc#defx#opendir('Defx -split=vertical')<CR>
   nnoremap <Space>-    :call vimrc#defx#opendir('Defx -split=horizontal')<CR>
   nnoremap <Space>_    :call vimrc#defx#opendir('Defx -split=tab -buffer-name=tab')<CR>
