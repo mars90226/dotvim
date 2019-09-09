@@ -5,7 +5,7 @@ function! vimrc#lightline#filename()
   let fpath = expand('%')
 
   if fname =~ '__Tagbar__'
-    return g:lightline.fname
+    return get(g:lightline, 'fname', fname)
   elseif fname == '__Mundo__'
     return 'Mundo'
   elseif fname == '__Mundo_Preview__'
