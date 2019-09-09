@@ -30,6 +30,8 @@ let g:ale_pattern_options = {
       \   'ale_enabled': 0
       \ }
       \}
+" Default using bash dialect for shellcheck
+let g:ale_sh_shellcheck_options = '-s bash'
 
 nmap ]a <Plug>(ale_next_wrap)
 nmap [a <Plug>(ale_previous_wrap)
