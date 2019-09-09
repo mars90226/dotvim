@@ -201,5 +201,4 @@ Plug 'tweekmonster/startuptime.vim'
 " if has("nvim")
 "   Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 " endif
-
 " " }}}
