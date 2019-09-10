@@ -302,3 +302,9 @@ endfunction
 function! vimrc#clear_and_redraw()
   call vimrc#lightline#refresh()
 endfunction
+
+" Execute and save command
+function! vimrc#execute_and_save(command)
+  call histadd("cmd", a:command)
+  execute a:command
+endfunction

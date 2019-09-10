@@ -150,81 +150,81 @@ endif
 " }}}
 
 " fzf key mappings {{{
-nnoremap <Space>fa :execute 'Ag ' . input('Ag: ')<CR>
-nnoremap <Space>fA :AllFiles<CR>
-nnoremap <Space>fb :Buffers<CR>
-nnoremap <Space>fB :Files %:h<CR>
-nnoremap <Space>fc :BCommits<CR>
-nnoremap <Space>fC :Commits<CR>
-nnoremap <Space>fd :Directories<CR>
-nnoremap <Space>fD :DirectoryFiles<CR>
-nnoremap <Space>ff :Files<CR>
-nnoremap <Space>fF :DirectoryRg<CR>
-nnoremap <Space>f<C-F> :execute 'Files ' . expand('<cfile>')<CR>
-nnoremap <Space>fg :GFiles -co --exclude-standard<CR>
-nnoremap <Space>fG :execute 'GitGrep ' . input('Git grep: ')<CR>
-nnoremap <Space>f<C-G> :execute 'GitGrepCommit ' . input('Commit: ') . ' ' . input('Git grep: ')<CR>
-nnoremap <Space>fh :Helptags<CR>
-nnoremap <Space>fH :execute 'GitFilesCommit ' . input('Commit: ')<CR>
-nnoremap <Space>fi :History<CR>
-nnoremap <Space>fj :Jump<CR>
-nnoremap <Space>fk :execute 'Rg ' . expand('<cword>')<CR>
-nnoremap <Space>fK :execute 'Rg ' . expand('<cWORD>')<CR>
-nnoremap <Space>f8 :execute 'Rg \b' . expand('<cword>') . '\b'<CR>
-nnoremap <Space>f* :execute 'Rg \b' . expand('<cWORD>') . '\b'<CR>
-xnoremap <Space>fk :<C-U>execute 'Rg ' . vimrc#get_visual_selection()<CR>
-xnoremap <Space>f8 :<C-U>execute 'Rg \b' . vimrc#get_visual_selection() . '\b'<CR>
-nnoremap <Space>fl :BLines<CR>
-nnoremap <Space>fL :Lines<CR>
-nnoremap <Space>f<C-L> :execute 'BLines ' . expand('<cword>')<CR>
-nnoremap <Space>fm :Mru<CR>
-nnoremap <Space>fM :DirectoryMru<CR>
-nnoremap <Space>f<C-M> :ProjectMru<CR>
-nnoremap <Space>fn :execute 'FilesWithQuery ' . expand('<cword>')<CR>
-nnoremap <Space>fN :execute 'FilesWithQuery ' . expand('<cWORD>')<CR>
-nnoremap <Space>f% :execute 'FilesWithQuery ' . expand('%:t:r')<CR>
-xnoremap <Space>fn :<C-U>execute 'FilesWithQuery ' . vimrc#get_visual_selection()<CR>
-nnoremap <Space>fo :execute 'Locate ' . input('Locate: ')<CR>
-nnoremap <Space>fr :execute 'Rg ' . input('Rg: ')<CR>
-nnoremap <Space>fR :execute 'Rg! ' . input('Rg!: ')<CR>
-nnoremap <Space>f4 :execute 'RgWithOption .:' . input('Option: ') . ':' . input('Rg: ')<CR>
-nnoremap <Space>f$ :execute 'RgWithOption! .:' . input('Option: ') . ':' . input('Rg!: ')<CR>
-nnoremap <Space>f? :execute 'RgWithOption .:' . vimrc#rg_current_type_option() . ':' . input('Rg: ')<CR>
-nnoremap <Space>f5 :execute 'RgWithOption ' . expand('%:h') . '::' . input('Rg: ')<CR>
-nnoremap <Space>fs :GFiles?<CR>
-nnoremap <Space>fS :CurrentPlacedSigns<CR>
-nnoremap <Space>ft :BTags<CR>
-nnoremap <Space>fT :Tags<CR>
-nnoremap <Space>fu :DirectoryAncestors<CR>
-nnoremap <Space>fU :DirectoryFiles ..<CR>
-nnoremap <Space>fw :Windows<CR>
-nnoremap <Space>fy :Filetypes<CR>
-nnoremap <Space>fY :execute 'GitFilesCommit ' . vimrc#fugitive#commit_sha()<CR>
-nnoremap <Space>f<C-Y> :execute 'GitGrepCommit ' . vimrc#fugitive#commit_sha() . ' ' . input('Git grep: ')<CR>
-nnoremap <Space>f' :Registers<CR>
-nnoremap <Space>f` :Marks<CR>
-nnoremap <Space>f: :History:<CR>
-xnoremap <Space>f: :<C-U>History:<CR>
-nnoremap <Space>f; :Commands<CR>
-xnoremap <Space>f; :<C-U>Commands<CR>
-nnoremap <Space>f/ :History/<CR>
-nnoremap <Space>f] :execute "BTags '" . expand('<cword>')<CR>
-xnoremap <Space>f] :<C-U>execute "BTags '" . vimrc#get_visual_selection()<CR>
-nnoremap <Space>f} :execute "Tags '" . expand('<cword>')<CR>
-xnoremap <Space>f} :<C-U>execute "Tags '" . vimrc#get_visual_selection()<CR>
-nnoremap <Space>f<C-]> :execute 'Tselect ' . expand('<cword>')<CR>
-xnoremap <Space>f<C-]> :<C-U>execute 'Tselect ' . vimrc#get_visual_selection()<CR>
+nnoremap <Space>fa :call vimrc#execute_and_save('Ag ' . input('Ag: '))<CR>
+nnoremap <Space>fA :call vimrc#execute_and_save('AllFiles')<CR>
+nnoremap <Space>fb :call vimrc#execute_and_save('Buffers')<CR>
+nnoremap <Space>fB :call vimrc#execute_and_save('Files %:h')<CR>
+nnoremap <Space>fc :call vimrc#execute_and_save('BCommits')<CR>
+nnoremap <Space>fC :call vimrc#execute_and_save('Commits')<CR>
+nnoremap <Space>fd :call vimrc#execute_and_save('Directories')<CR>
+nnoremap <Space>fD :call vimrc#execute_and_save('DirectoryFiles')<CR>
+nnoremap <Space>ff :call vimrc#execute_and_save('Files')<CR>
+nnoremap <Space>fF :call vimrc#execute_and_save('DirectoryRg')<CR>
+nnoremap <Space>f<C-F> :call vimrc#execute_and_save('Files ' . expand('<cfile>'))<CR>
+nnoremap <Space>fg :call vimrc#execute_and_save('GFiles -co --exclude-standard')<CR>
+nnoremap <Space>fG :call vimrc#execute_and_save('GitGrep ' . input('Git grep: '))<CR>
+nnoremap <Space>f<C-G> :call vimrc#execute_and_save('GitGrepCommit ' . input('Commit: ') . ' ' . input('Git grep: '))<CR>
+nnoremap <Space>fh :call vimrc#execute_and_save('Helptags')<CR>
+nnoremap <Space>fH :call vimrc#execute_and_save('GitFilesCommit ' . input('Commit: '))<CR>
+nnoremap <Space>fi :call vimrc#execute_and_save('History')<CR>
+nnoremap <Space>fj :call vimrc#execute_and_save('Jump')<CR>
+nnoremap <Space>fk :call vimrc#execute_and_save('Rg ' . expand('<cword>'))<CR>
+nnoremap <Space>fK :call vimrc#execute_and_save('Rg ' . expand('<cWORD>'))<CR>
+nnoremap <Space>f8 :call vimrc#execute_and_save('Rg \b' . expand('<cword>') . '\b')<CR>
+nnoremap <Space>f* :call vimrc#execute_and_save('Rg \b' . expand('<cWORD>') . '\b')<CR>
+xnoremap <Space>fk :<C-U>call vimrc#execute_and_save('Rg ' . vimrc#get_visual_selection())<CR>
+xnoremap <Space>f8 :<C-U>call vimrc#execute_and_save('Rg \b' . vimrc#get_visual_selection() . '\b')<CR>
+nnoremap <Space>fl :call vimrc#execute_and_save('BLines')<CR>
+nnoremap <Space>fL :call vimrc#execute_and_save('Lines')<CR>
+nnoremap <Space>f<C-L> :call vimrc#execute_and_save('BLines ' . expand('<cword>'))<CR>
+nnoremap <Space>fm :call vimrc#execute_and_save('Mru')<CR>
+nnoremap <Space>fM :call vimrc#execute_and_save('DirectoryMru')<CR>
+nnoremap <Space>f<C-M> :call vimrc#execute_and_save('ProjectMru')<CR>
+nnoremap <Space>fn :call vimrc#execute_and_save('FilesWithQuery ' . expand('<cword>'))<CR>
+nnoremap <Space>fN :call vimrc#execute_and_save('FilesWithQuery ' . expand('<cWORD>'))<CR>
+nnoremap <Space>f% :call vimrc#execute_and_save('FilesWithQuery ' . expand('%:t:r'))<CR>
+xnoremap <Space>fn :<C-U>call vimrc#execute_and_save('FilesWithQuery ' . vimrc#get_visual_selection())<CR>
+nnoremap <Space>fo :call vimrc#execute_and_save('Locate ' . input('Locate: '))<CR>
+nnoremap <Space>fr :call vimrc#execute_and_save('Rg ' . input('Rg: '))<CR>
+nnoremap <Space>fR :call vimrc#execute_and_save('Rg! ' . input('Rg!: '))<CR>
+nnoremap <Space>f4 :call vimrc#execute_and_save('RgWithOption .:' . input('Option: ') . ':' . input('Rg: '))<CR>
+nnoremap <Space>f$ :call vimrc#execute_and_save('RgWithOption! .:' . input('Option: ') . ':' . input('Rg!: '))<CR>
+nnoremap <Space>f? :call vimrc#execute_and_save('RgWithOption .:' . vimrc#rg_current_type_option() . ':' . input('Rg: '))<CR>
+nnoremap <Space>f5 :call vimrc#execute_and_save('RgWithOption ' . expand('%:h') . '::' . input('Rg: '))<CR>
+nnoremap <Space>fs :call vimrc#execute_and_save('GFiles?')<CR>
+nnoremap <Space>fS :call vimrc#execute_and_save('CurrentPlacedSigns')<CR>
+nnoremap <Space>ft :call vimrc#execute_and_save('BTags')<CR>
+nnoremap <Space>fT :call vimrc#execute_and_save('Tags')<CR>
+nnoremap <Space>fu :call vimrc#execute_and_save('DirectoryAncestors')<CR>
+nnoremap <Space>fU :call vimrc#execute_and_save('DirectoryFiles ..')<CR>
+nnoremap <Space>fw :call vimrc#execute_and_save('Windows')<CR>
+nnoremap <Space>fy :call vimrc#execute_and_save('Filetypes')<CR>
+nnoremap <Space>fY :call vimrc#execute_and_save('GitFilesCommit ' . vimrc#fugitive#commit_sha())<CR>
+nnoremap <Space>f<C-Y> :call vimrc#execute_and_save('GitGrepCommit ' . vimrc#fugitive#commit_sha() . ' ' . input('Git grep: '))<CR>
+nnoremap <Space>f' :call vimrc#execute_and_save('Registers')<CR>
+nnoremap <Space>f` :call vimrc#execute_and_save('Marks')<CR>
+nnoremap <Space>f: :call vimrc#execute_and_save('History:')<CR>
+xnoremap <Space>f: :<C-U>call vimrc#execute_and_save('History:')<CR>
+nnoremap <Space>f; :call vimrc#execute_and_save('Commands')<CR>
+xnoremap <Space>f; :<C-U>call vimrc#execute_and_save('Commands')<CR>
+nnoremap <Space>f/ :call vimrc#execute_and_save('History/')<CR>
+nnoremap <Space>f] :call vimrc#execute_and_save("BTags '" . expand('<cword>'))<CR>
+xnoremap <Space>f] :<C-U>call vimrc#execute_and_save("BTags '" . vimrc#get_visual_selection())<CR>
+nnoremap <Space>f} :call vimrc#execute_and_save("Tags '" . expand('<cword>'))<CR>
+xnoremap <Space>f} :<C-U>call vimrc#execute_and_save("Tags '" . vimrc#get_visual_selection())<CR>
+nnoremap <Space>f<C-]> :call vimrc#execute_and_save('Tselect ' . expand('<cword>'))<CR>
+xnoremap <Space>f<C-]> :<C-U>call vimrc#execute_and_save('Tselect ' . vimrc#get_visual_selection())<CR>
 
 " DirectoryMru
-nnoremap <Space><C-D><C-D> :DirectoryMru<CR>
-nnoremap <Space><C-D><C-F> :DirectoryMruFiles<CR>
-nnoremap <Space><C-D><C-R> :DirectoryMruRg<CR>
+nnoremap <Space><C-D><C-D> :call vimrc#execute_and_save('DirectoryMru')<CR>
+nnoremap <Space><C-D><C-F> :call vimrc#execute_and_save('DirectoryMruFiles')<CR>
+nnoremap <Space><C-D><C-R> :call vimrc#execute_and_save('DirectoryMruRg')<CR>
 
 nmap     <Space>sf vaf:SelectLines<CR>
-xnoremap <Space>sf :SelectLines<CR>
-nnoremap <Space>sl :ScreenLines<CR>
-nnoremap <Space>sL :execute 'ScreenLines ' . expand('<cword>')<CR>
-xnoremap <Space>sL :<C-U>execute 'ScreenLines ' . vimrc#get_visual_selection()<CR>
+xnoremap <Space>sf :call vimrc#execute_and_save('SelectLines')<CR>
+nnoremap <Space>sl :call vimrc#execute_and_save('ScreenLines')<CR>
+nnoremap <Space>sL :call vimrc#execute_and_save('ScreenLines ' . expand('<cword>'))<CR>
+xnoremap <Space>sL :<C-U>call vimrc#execute_and_save('ScreenLines ' . vimrc#get_visual_selection())<CR>
 nnoremap <Space>ss :History:<CR>mks vim sessions
 
 " fzf & cscope key mappings {{{
@@ -260,9 +260,9 @@ nnoremap <silent> <Leader><Leader>ca :call vimrc#fzf#cscope#cscope_query('9')<CR
 " }}}
 
 if has("nvim")
-  nnoremap <Space>fp :ProjectTags<CR>
-  nnoremap <Space>sp :ProjectTagsCaseSentitive<CR>
-  nnoremap <Space>fP :execute "ProjectTags '" . expand('<cword>')<CR>
-  xnoremap <Space>fP :<C-U>execute "ProjectTags '" . vimrc#get_visual_selection()<CR>
-  nnoremap <Space><F8> :TagbarTags<CR>
+  nnoremap <Space>fp :call vimrc#execute_and_save('ProjectTags')<CR>
+  nnoremap <Space>sp :call vimrc#execute_and_save('ProjectTagsCaseSentitive')<CR>
+  nnoremap <Space>fP :call vimrc#execute_and_save("ProjectTags '" . expand('<cword>'))<CR>
+  xnoremap <Space>fP :<C-U>call vimrc#execute_and_save("ProjectTags '" . vimrc#get_visual_selection())<CR>
+  nnoremap <Space><F8> :call vimrc#execute_and_save('TagbarTags')<CR>
 endif
