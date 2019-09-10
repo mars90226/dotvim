@@ -132,18 +132,23 @@ nnoremap <Leader>yv :vertical split<CR>
 " Copy unnamed register to system clipboard
 nnoremap <Space>sr :let @+ = @"<CR>
 
-" Command line mapping
+" Command line & Insert mode mapping
 cnoremap <expr> <C-G><C-F> vimrc#fzf#files_in_commandline()
+inoremap <expr> <C-G><C-F> vimrc#fzf#files_in_commandline()
 cnoremap <expr> <C-G><C-T> vimrc#rg_current_type_option()
+inoremap <expr> <C-G><C-T> vimrc#rg_current_type_option()
 " <C-]> and <C-%> is the same key
 cnoremap <expr> <C-G><C-]> expand('%:t:r')
+inoremap <expr> <C-G><C-]> expand('%:t:r')
 " <C-\> and <C-$> is the same key
 cnoremap <expr> <C-G><C-\> expand('%:p')
+inoremap <expr> <C-G><C-\> expand('%:p')
 " For grepping word
 cnoremap <expr> <C-G><C-W> "\\b" . expand('<cword>') . "\\b"
 cnoremap <expr> <C-G><C-A> "\\b" . expand('<cWORD>') . "\\b"
 " Fugitive commit sha
 cnoremap <expr> <C-G><C-Y> vimrc#fugitive#commit_sha()
+inoremap <expr> <C-G><C-Y> vimrc#fugitive#commit_sha()
 
 " Ex mode for special buffer that map 'q' as ':quit'
 nnoremap \q: q:
