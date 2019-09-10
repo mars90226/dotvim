@@ -133,7 +133,9 @@ function! vimrc#lightline#tagbar_status_func(current, sort, fname, ...) abort
 endfunction
 
 function! vimrc#lightline#refresh()
-  unlet b:lightline_head
+  if exists('b:lightline_head')
+    unlet b:lightline_head
+  endif
 endfunction
 
 function! vimrc#lightline#nearest_method_or_function()
