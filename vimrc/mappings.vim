@@ -146,6 +146,7 @@ inoremap <expr> <C-G><C-\> expand('%:p')
 " For grepping word
 cnoremap <expr> <C-G><C-W> "\\b" . expand('<cword>') . "\\b"
 cnoremap <expr> <C-G><C-A> "\\b" . expand('<cWORD>') . "\\b"
+cnoremap <expr> <C-G><C-b> "\<C-b>\\b\<C-e>\\b"
 " Fugitive commit sha
 cnoremap <expr> <C-G><C-Y> vimrc#fugitive#commit_sha()
 inoremap <expr> <C-G><C-Y> vimrc#fugitive#commit_sha()
