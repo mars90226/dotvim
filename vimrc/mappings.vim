@@ -156,6 +156,11 @@ nnoremap \q: q:
 nnoremap \q/ q/
 nnoremap \q? q?
 
+" Execute last command
+" Note: @: should execute last command, but didn't work when using
+" vimrc#execute_and_save()
+nnoremap <M-x><M-x> :<C-P><CR>
+
 " s:execute_command() for executing command with query
 " TODO input completion
 function! s:execute_command(command, prompt)
