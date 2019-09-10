@@ -210,6 +210,7 @@ nnoremap <M-1> :call vimrc#last_tab(v:count)<CR>
 augroup last_tab_settings
   autocmd!
   autocmd TabLeave * call vimrc#insert_last_tab(tabpagenr())
+  autocmd TabClosed * call vimrc#clear_invalid_last_tab()
 augroup END
 
 " Zoom
