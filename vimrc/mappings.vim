@@ -143,6 +143,9 @@ inoremap <expr> <C-G><C-]> expand('%:t:r')
 " <C-\> and <C-$> is the same key
 cnoremap <expr> <C-G><C-\> expand('%:p')
 inoremap <expr> <C-G><C-\> expand('%:p')
+" Expand buffer folder
+cnoremap <expr> <C-G><C-R> expand('%:h')
+inoremap <expr> <C-G><C-R> expand('%:h')
 " For grepping word
 cnoremap <expr> <C-G><C-W> "\\b" . expand('<cword>') . "\\b"
 cnoremap <expr> <C-G><C-A> "\\b" . expand('<cWORD>') . "\\b"
