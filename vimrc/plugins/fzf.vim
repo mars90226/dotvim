@@ -199,6 +199,7 @@ nnoremap <Space>ft :call vimrc#execute_and_save('BTags')<CR>
 nnoremap <Space>fT :call vimrc#execute_and_save('Tags')<CR>
 nnoremap <Space>fu :call vimrc#execute_and_save('DirectoryAncestors')<CR>
 nnoremap <Space>fU :call vimrc#execute_and_save('DirectoryFiles ..')<CR>
+nnoremap <Space>f<C-U> :call vimrc#execute_and_save('DirectoryRg ..')<CR>
 nnoremap <Space>fw :call vimrc#execute_and_save('Windows')<CR>
 nnoremap <Space>fy :call vimrc#execute_and_save('Filetypes')<CR>
 nnoremap <Space>fY :call vimrc#execute_and_save('GitFilesCommit ' . vimrc#fugitive#commit_sha())<CR>
