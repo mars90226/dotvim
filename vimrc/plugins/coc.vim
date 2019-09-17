@@ -77,6 +77,8 @@ nnoremap <silent> <Space>cd :CocList diagnostics<CR>
 nnoremap <silent> <Space>ce :CocList extensions<CR>
 " Show commands
 nnoremap <silent> <Space>c; :CocList commands<CR>
+" Show info
+nnoremap <silent> <Space>ci :CocInfo<CR>
 " Find symbol of current document
 nnoremap <silent> <Space>co :CocList outline<CR>
 " Search workspace symbols
