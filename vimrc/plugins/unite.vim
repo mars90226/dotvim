@@ -71,6 +71,7 @@ nnoremap <Space>u; :Unite command -start-insert<CR>
 nnoremap <Space>u/ :Unite history/search<CR>
 
 nnoremap <Space><F1> :Unite output:map<CR>
+nnoremap <Space><F2> :Unite output:map\ <buffer><CR>
 
 if executable('fd')
   let g:unite_source_rec_async_command =
