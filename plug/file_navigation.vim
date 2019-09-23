@@ -43,6 +43,7 @@ Plug 'liuchengxu/vista.vim'
 
 nnoremap <F7> :Vista!!<CR>
 nnoremap <Space><F7> :Vista finder<CR>
+nnoremap <M-F7> :Vista finder coc<CR>
 
 let g:vista_sidebar_width = 40
 let g:vista_fzf_preview = ['right:50%']
