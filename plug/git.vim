@@ -13,15 +13,15 @@ Plug 'airblade/vim-gitgutter', { 'on': [] }
 
 call vimrc#lazy#lazy_load('gitgutter')
 
-nmap <silent> [h <Plug>GitGutterPrevHunk
-nmap <silent> ]h <Plug>GitGutterNextHunk
+nmap <silent> [h <Plug>(GitGutterPrevHunk)
+nmap <silent> ]h <Plug>(GitGutterNextHunk)
 nnoremap cog :GitGutterToggle<CR>
 nnoremap <Leader>gt :GitGutterAll<CR>
 
-omap ih <Plug>GitGutterTextObjectInnerPending
-omap ah <Plug>GitGutterTextObjectOuterPending
-xmap ih <Plug>GitGutterTextObjectInnerVisual
-xmap ah <Plug>GitGutterTextObjectOuterVisual
+omap ih <Plug>(GitGutterTextObjectInnerPending)
+omap ah <Plug>(GitGutterTextObjectOuterPending)
+xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 " }}}
 
 " gv.vim {{{
