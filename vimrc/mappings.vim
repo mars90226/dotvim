@@ -238,6 +238,8 @@ command! FindCursor call vimrc#blink_cursor_location()
 if executable('tmux')
   command! RefreshDisplay call vimrc#refresh_display()
 endif
+
+command! ClearWinfixsize call vimrc#clear_winfixsize()
 " }}}
 
 " Custom command {{{

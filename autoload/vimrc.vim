@@ -322,3 +322,9 @@ function! vimrc#execute_and_save(command)
   call histadd("cmd", a:command)
   execute a:command
 endfunction
+
+" Clear winfixheight & winfixwidth for resizing window
+function! vimrc#clear_winfixsize()
+  setlocal nowinfixheight
+  setlocal nowinfixwidth
+endfunction
