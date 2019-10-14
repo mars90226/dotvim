@@ -132,3 +132,6 @@ set foldlevelstart=99
 " Complete
 set dictionary=/usr/share/dict/words
 
+" Remove '=' from isfilename to complete filename in 'options'='filename' format
+" TODO Move to ftplugin setting
+set isfname-==
