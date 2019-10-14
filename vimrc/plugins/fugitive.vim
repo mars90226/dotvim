@@ -12,7 +12,7 @@ nnoremap <silent> <Leader>gw :Gwrite<CR>
 nnoremap <silent> <Leader>gW :Gwrite!<CR>
 nnoremap <silent> <Leader>gq :Gwq<CR>
 nnoremap <silent> <Leader>gQ :Gwq!<CR>
-nnoremap <silent> <Leader>gm :Merginal<CR>
+nnoremap <silent> <Leader>gM :Merginal<CR>
 
 nnoremap <silent> <Leader>g` :call vimrc#fugitive#review_last_commit()<CR>
 

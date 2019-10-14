@@ -61,4 +61,10 @@ if vimrc#plugin#is_enabled_plugin('git-p.nvim')
 endif
 " }}}
 
+" git-messenger.vim {{{
+Plug 'rhysd/git-messenger.vim', { 'on': ['GitMessenger', '<Plug>(git-messenger)'] }
+
+nmap <Leader>gm <Plug>(git-messenger)
+" }}}
+
 Plug 'mattn/gist-vim'
