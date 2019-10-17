@@ -19,8 +19,9 @@ nnoremap <silent> <Leader>g` :call vimrc#fugitive#review_last_commit()<CR>
 augroup fugitiveSettings
   autocmd!
   autocmd FileType gitcommit setlocal nolist
-  autocmd FileType fugitive call vimrc#fugitive#mappings()
-  autocmd FileType git      call vimrc#fugitive#git_mappings()
+  autocmd FileType fugitive      call vimrc#fugitive#mappings()
+  autocmd FileType git           call vimrc#fugitive#git_mappings()
+  autocmd FileType fugitiveblame call vimrc#fugitive#blame_mappings()
   autocmd BufReadPost fugitive://* setlocal bufhidden=delete
 augroup END
 

@@ -32,6 +32,12 @@ function! vimrc#fugitive#git_mappings()
   nnoremap <buffer> <silent> <Leader>gg :call vimrc#fzf#git#grep_commit(fugitive#Object(@%), input('Git grep: '))<CR>
 endfunction
 
+function! vimrc#fugitive#blame_mappings()
+  nnoremap <buffer> <silent> <Leader>gd :call vimrc#fzf#git#diff_commit(vimrc#fugitive#blame_sha())<CR>
+  nnoremap <buffer> <silent> <Leader>gf :call vimrc#fzf#git#files_commit(vimrc#fugitive#blame_sha())<CR>
+  nnoremap <buffer> <silent> <Leader>gg :call vimrc#fzf#git#grep_commit(vimrc#fugitive#blame_sha(), input('Git grep: '))<CR>
+endfunction
+
 " Functions
 function! vimrc#fugitive#review_last_commit()
   if exists('b:git_dir')
@@ -64,4 +70,9 @@ function! vimrc#fugitive#commit_sha()
   endif
 
   return sha
+endfunction
+
+function! vimrc#fugitive#blame_sha(...)
+  " Borrowed from gv#sha() in gv.vim
+  return matchstr(get(a:000, 0, getline('.')), '\zs[a-f0-9]\+')
 endfunction
