@@ -158,8 +158,8 @@ nnoremap <Space>fc :call vimrc#execute_and_save('BCommits')<CR>
 nnoremap <Space>fC :call vimrc#execute_and_save('Commits')<CR>
 nnoremap <Space>fd :call vimrc#execute_and_save('Directories')<CR>
 nnoremap <Space>fD :call vimrc#execute_and_save('DirectoryFiles')<CR>
-nnoremap <Space>fe :call vimrc#execute_and_save('RgWithOption ' . input('Folder: ') . ':' . input('Option: ') . ':' . input('Rg: '))<CR>
-nnoremap <Space>fE :call vimrc#execute_and_save('RgWithOption! ' . input('Folder: ') . ':' . input('Option: ') . ':' . input('Rg: '))<CR>
+nnoremap <Space>fe :call vimrc#execute_and_save('RgWithOption ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Rg: '))<CR>
+nnoremap <Space>fE :call vimrc#execute_and_save('RgWithOption! ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Rg: '))<CR>
 nnoremap <Space>ff :call vimrc#execute_and_save('Files')<CR>
 nnoremap <Space>fF :call vimrc#execute_and_save('DirectoryRg')<CR>
 nnoremap <Space>f<C-F> :call vimrc#execute_and_save('Files ' . expand('<cfile>'))<CR>
