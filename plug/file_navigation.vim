@@ -176,7 +176,7 @@ endfunction
 " }}}
 
 " far.vim {{{
-Plug 'brooth/far.vim', { 'on': ['Far', 'Farp', 'F'] }
+Plug 'brooth/far.vim'
 
 if has("python3")
   if has("nvim")
