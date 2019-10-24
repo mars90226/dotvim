@@ -50,17 +50,27 @@ nnoremap <silent> <Leader>cN :ColorVName<CR>
 " }}}
 
 " VimShell {{{
-Plug 'Shougo/vimshell.vim', { 'on': ['VimShell', 'VimShellCurrentDir', 'VimShellBufferDir', 'VimShellTab'] }
+if vimrc#plugin#is_enabled_plugin('vimshell.vim')
+  Plug 'Shougo/vimshell.vim', { 'on': ['VimShell', 'VimShellCurrentDir', 'VimShellBufferDir', 'VimShellTab'] }
 
-nnoremap <silent> <Leader>vv :VimShell<CR>
-nnoremap <silent> <Leader>vc :VimShellCurrentDir<CR>
-nnoremap <silent> <Leader>vb :VimShellBufferDir<CR>
-nnoremap <silent> <Leader>vt :VimShellTab<CR>
+  nnoremap <silent> <Leader>vv :VimShell<CR>
+  nnoremap <silent> <Leader>vc :VimShellCurrentDir<CR>
+  nnoremap <silent> <Leader>vb :VimShellBufferDir<CR>
+  nnoremap <silent> <Leader>vt :VimShellTab<CR>
+endif
 " }}}
 
 " deol.nvim {{{
-if has("nvim")
+if vimrc#plugin#is_enabled_plugin('deol.nvim')
   Plug 'Shougo/deol.nvim'
+endif
+" }}}
+
+" neoterm {{{
+if vimrc#plugin#is_enabled_plugin('neoterm')
+  Plug 'kassio/neoterm', { 'on': [] }
+
+  call vimrc#source('vimrc/plugins/neoterm.vim')
 endif
 " }}}
 
@@ -99,14 +109,6 @@ Plug 'farmergreg/vim-lastplace'
 let g:lastplace_ignore = "gitcommit,gitrebase,sv,hgcommit"
 let g:lastplace_ignore_buftype = "quickfix,nofile,help"
 let g:lastplace_open_folds = 0
-" }}}
-
-" neoterm {{{
-if has("nvim")
-  Plug 'kassio/neoterm', { 'on': [] }
-
-  call vimrc#source('vimrc/plugins/neoterm.vim')
-endif
 " }}}
 
 " vim-localvimrc {{{

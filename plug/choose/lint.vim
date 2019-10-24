@@ -7,7 +7,7 @@ else
 end
 
 " Disable Lint if vim_mode is 'reader'
-if vimrc#get_vim_mode() == 'reader'
+if vimrc#get_vim_mode() == 'reader' || vimrc#get_vim_mode() == 'gitcommit'
   call vimrc#plugin#disable_plugin('ale')
   call vimrc#plugin#disable_plugin('syntastic')
 end

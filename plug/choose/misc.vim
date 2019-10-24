@@ -43,3 +43,12 @@ endif
 if !vimrc#plugin#check#has_browser()
   call vimrc#plugin#disable_plugin('gina.vim')
 endif
+
+" Choose terminal plugin
+if has("nvim")
+  call vimrc#plugin#disable_plugin('vimshell.vim')
+else
+  " Currently, use both plugins
+  call vimrc#plugin#disable_plugin('deol.nvim')
+  call vimrc#plugin#disable_plugin('neoterm')
+endif

@@ -7,6 +7,7 @@ if vimrc#plugin#check#has_async()
       \ && executable('node')
       \ && executable('yarn')
       \ && vimrc#get_vim_mode() != 'reader'
+      \ && vimrc#get_vim_mode() != 'gitcommit'
   " coc.nvim
   call vimrc#plugin#enable_plugin('coc.nvim')
 elseif vimrc#plugin#check#has_async()
@@ -14,6 +15,7 @@ elseif vimrc#plugin#check#has_async()
       \ && has("python3")
       \ && vimrc#plugin#check#python_version() >= "3.6.1"
       \ && vimrc#get_vim_mode() != 'reader'
+      \ && vimrc#get_vim_mode() != 'gitcommit'
   " deoplete.nvim
   call vimrc#plugin#enable_plugin('deoplete.nvim')
 elseif has("python") || has("python3")
