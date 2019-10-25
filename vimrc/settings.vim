@@ -93,7 +93,6 @@ else " neovim has default folders for these files
 endif
 
 " session options
-set sessionoptions+=localoptions
 set sessionoptions-=options
 set sessionoptions-=folds
 set sessionoptions-=blank
