@@ -19,7 +19,7 @@
       ],
       "initializationOptions": {
         "cache": {
-          "directory": "/tmp/ccls"
+          "directory": ".ccls-cache"
         }
       }
     }
