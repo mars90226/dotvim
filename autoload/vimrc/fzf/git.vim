@@ -87,7 +87,7 @@ function! vimrc#fzf#git#grep_commit_sink(commit, with_column, lines)
   call vimrc#fzf#fill_quickfix(list)
 endfunction
 
-function! vimrc#fzf#git#diff_commit_sink(commit, lines)
+function! vimrc#fzf#git#diff_commit_sink(start_commit, end_commit, lines)
   let current_tabnr = tabpagenr()
   for file in a:lines
     execute 'tabedit ' . file
@@ -95,8 +95,8 @@ function! vimrc#fzf#git#diff_commit_sink(commit, lines)
   let last_tabnr = tabpagenr()
   let range = current_tabnr + 1 . ',' . last_tabnr
 
-  execute range . 'tabdo Gedit ' . a:commit . '^:%'
-  execute range . 'tabdo Gdiff ' . a:commit
+  execute range . 'tabdo Gedit ' . a:start_commit . ':%'
+  execute range . 'tabdo Gdiff ' . a:end_commit
 endfunction
 
 function! vimrc#fzf#git#files_commit_sink(commit, lines)
@@ -193,7 +193,19 @@ function! vimrc#fzf#git#diff_commit(commit)
 
   call fzf#run(fzf#wrap({
         \ 'source': s:git_diff_commit_command.' '.revision,
-        \ 'sink*': function('vimrc#fzf#git#diff_commit_sink', [a:commit]),
+        \ 'sink*': function('vimrc#fzf#git#diff_commit_sink', [a:commit.'^', a:commit]),
+        \ 'options': '-m -s',
+        \ 'down': '40%' }))
+endfunction
+
+function! vimrc#fzf#git#diff_commits(start_commit, end_commit)
+  if !exists('b:git_dir')
+    echo 'No git a git repository:' expand('%:p')
+  endif
+
+  call fzf#run(fzf#wrap({
+        \ 'source': s:git_diff_commit_command.' '.a:start_commit.'..'.a:end_commit,
+        \ 'sink*': function('vimrc#fzf#git#diff_commit_sink', [a:start_commit, a:end_commit]),
         \ 'options': '-m -s',
         \ 'down': '40%' }))
 endfunction

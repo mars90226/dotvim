@@ -29,6 +29,7 @@ endfunction
 
 function! vimrc#fugitive#git_mappings()
   nnoremap <buffer> <silent> <Leader>gd :call vimrc#fzf#git#diff_commit(fugitive#Object(@%))<CR>
+  nnoremap <buffer> <silent> <Leader>gf :call vimrc#fzf#git#files_commit(fugitive#Object(@%))<CR>
   nnoremap <buffer> <silent> <Leader>gg :call vimrc#fzf#git#grep_commit(fugitive#Object(@%), input('Git grep: '))<CR>
 endfunction
 
