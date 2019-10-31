@@ -35,6 +35,10 @@ augroup gv_settings
 augroup END
 " }}}
 
+" vim-flog {{{
+Plug 'rbong/vim-flog'
+" }}}
+
 " vim-tig {{{
 Plug 'codeindulgence/vim-tig', { 'on': ['Tig', 'Tig!'] }
 
