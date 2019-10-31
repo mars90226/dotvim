@@ -37,6 +37,11 @@ augroup END
 
 " vim-flog {{{
 Plug 'rbong/vim-flog'
+
+augroup flog_settings
+  autocmd!
+  autocmd FileType floggraph call vimrc#flog#mappings()
+augroup END
 " }}}
 
 " vim-tig {{{
