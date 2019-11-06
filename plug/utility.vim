@@ -86,7 +86,6 @@ nnoremap <Leader>r :Rooter<CR>
 " vimwiki {{{
 Plug 'vimwiki/vimwiki'
 
-nnoremap <Leader>wg :VimwikiToggleListItem<CR>
 augroup vimwiki_settings
   autocmd!
   autocmd FileType vimwiki call vimrc#vimwiki#mappings()
