@@ -87,6 +87,10 @@ nnoremap <Leader>r :Rooter<CR>
 Plug 'vimwiki/vimwiki'
 
 nnoremap <Leader>wg :VimwikiToggleListItem<CR>
+augroup vimwiki_settings
+  autocmd!
+  autocmd FileType vimwiki call vimrc#vimwiki#mappings()
+augroup END
 " }}}
 
 " orgmode {{{
@@ -122,12 +126,8 @@ Plug 'thinca/vim-qfreplace'
 
 augroup qfreplace_settings
   autocmd!
-  autocmd FileType qf call s:qfreplace_settings()
+  autocmd FileType qf call vimrc#qfreplace#mappings()
 augroup END
-
-function! s:qfreplace_settings()
-  nnoremap <silent><buffer> r :<C-U>Qfreplace<CR>
-endfunction
 " }}}
 
 " vim-caser {{{
