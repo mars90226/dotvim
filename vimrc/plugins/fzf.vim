@@ -162,7 +162,7 @@ nnoremap <Space>fe :call vimrc#execute_and_save('RgWithOption ' . input('Folder:
 nnoremap <Space>fE :call vimrc#execute_and_save('RgWithOption! ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Rg: '))<CR>
 nnoremap <Space>ff :call vimrc#execute_and_save('Files')<CR>
 nnoremap <Space>fF :call vimrc#execute_and_save('DirectoryRg')<CR>
-nnoremap <Space>f<C-F> :call vimrc#execute_and_save('Files ' . expand('<cfile>'))<CR>
+nnoremap <Space>f<C-F> :call vimrc#execute_and_save('FilesWithQuery ' . expand('<cfile>'))<CR>
 nnoremap <Space>fg :call vimrc#execute_and_save('GFiles -co --exclude-standard')<CR>
 nnoremap <Space>fG :call vimrc#execute_and_save('GitGrep ' . input('Git grep: '))<CR>
 nnoremap <Space>f<C-G> :call vimrc#execute_and_save('GitGrepCommit ' . input('Commit: ') . ' ' . input('Git grep: '))<CR>
