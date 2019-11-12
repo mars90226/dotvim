@@ -158,8 +158,8 @@ function! vimrc#fzf#files_sink(lines)
   endfor
 endfunction
 
-function! vimrc#fzf#files_in_commandline_sink(line)
-  let s:files_in_commandline_result = a:line
+function! vimrc#fzf#files_in_commandline_sink(results, line)
+  call add(a:results, a:line)
 endfunction
 
 " TODO Add Jumps command preview
@@ -237,17 +237,17 @@ endfunction
 
 " Intend to be mapped in command
 function! vimrc#fzf#files_in_commandline()
-  let s:files_in_commandline_result = ''
+  let results = []
   " Use tmux to avoid opening terminal in neovim
   let g:fzf_prefer_tmux = 1
   call fzf#vim#files(
         \ '',
         \ fzf#vim#with_preview({
-        \   'sink': function('vimrc#fzf#files_in_commandline_sink'),
+        \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
         \ }),
         \ 0)
   let g:fzf_prefer_tmux = 0
-  return s:files_in_commandline_result
+  return get(results, 0, '')
 endfunction
 
 function! vimrc#fzf#jump()
