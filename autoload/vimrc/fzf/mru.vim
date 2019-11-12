@@ -31,14 +31,14 @@ endfunction
 function! vimrc#fzf#mru#mru()
   call fzf#run(fzf#wrap({
         \ 'source':  vimrc#fzf#mru#mru_files(),
-        \ 'options': '-m -s',
+        \ 'options': ['-m', '-s', '--prompt', 'Mru> '],
         \ 'down':    '40%' }))
 endfunction
 
 function! vimrc#fzf#mru#project_mru()
   call fzf#run(fzf#wrap({
         \ 'source':  vimrc#fzf#mru#project_mru_files(),
-        \ 'options': '-m -s',
+        \ 'options': ['-m', '-s', '--prompt', 'ProjectMru> '],
         \ 'down':    '40%' }))
 endfunction
 
@@ -64,4 +64,38 @@ endfunction
 
 function! vimrc#fzf#mru#directory_mru_rg(bang)
   call vimrc#fzf#mru#directory_mru(a:bang, function('vimrc#fzf#dir#directory_rg_sink', [0]))
+endfunction
+
+function! vimrc#fzf#mru#mru_in_commandline()
+  let results = []
+  " Use tmux to avoid opening terminal in neovim
+  let g:fzf_prefer_tmux = 1
+  call fzf#vim#files(
+        \ '',
+        \ fzf#vim#with_preview({
+        \   'source':  vimrc#fzf#mru#mru_files(),
+        \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
+        \   'options': ['-s', '--prompt', 'Mru> '],
+        \   'down':    '40%'
+        \ }),
+        \ 0)
+  let g:fzf_prefer_tmux = 0
+  return get(results, 0, '')
+endfunction
+
+function! vimrc#fzf#mru#directory_mru_in_commandline()
+  let results = []
+  " Use tmux to avoid opening terminal in neovim
+  let g:fzf_prefer_tmux = 1
+  call fzf#vim#files(
+        \ '',
+        \ {
+        \   'source':  vimrc#fzf#mru#neomru_directories(),
+        \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
+        \   'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command(), '--prompt', 'DirectoryMru> '],
+        \   'down':    '40%'
+        \ },
+        \ 0)
+  let g:fzf_prefer_tmux = 0
+  return get(results, 0, '')
 endfunction

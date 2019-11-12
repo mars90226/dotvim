@@ -135,6 +135,10 @@ nnoremap <Space>sr :let @+ = @"<CR>
 " Command line & Insert mode mapping
 cnoremap <expr> <C-G><C-F> vimrc#fzf#files_in_commandline()
 inoremap <expr> <C-G><C-F> vimrc#fzf#files_in_commandline()
+cnoremap <expr> <C-G><C-G> vimrc#fzf#mru#mru_in_commandline()
+inoremap <expr> <C-G><C-G> vimrc#fzf#mru#mru_in_commandline()
+cnoremap <expr> <C-G><C-M> vimrc#fzf#mru#directory_mru_in_commandline()
+inoremap <expr> <C-G><C-M> vimrc#fzf#mru#directory_mru_in_commandline()
 cnoremap <expr> <C-G><C-T> vimrc#rg_current_type_option()
 inoremap <expr> <C-G><C-T> vimrc#rg_current_type_option()
 " <C-]> and <C-%> is the same key
