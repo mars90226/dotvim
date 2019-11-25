@@ -65,6 +65,9 @@ command! -bang -nargs=* Rg call vimrc#fzf#rg#grep(<q-args>, <bang>0)
 " Rg with option, using ':' to separate option and query
 command! -bang -nargs=* RgWithOption call vimrc#fzf#rg#grep_with_option(<q-args>, <bang>0)
 
+" RgFzf - Ripgrep with reload on change
+command! -bang -nargs=* RgFzf call vimrc#fzf#rg#grep_on_change(<q-args>, <bang>0)
+
 " Fd all files
 command! -bang -nargs=? -complete=dir AllFiles call vimrc#fzf#dir#all_files(<q-args>, <bang>0)
 
@@ -169,6 +172,8 @@ nnoremap <Space>f<C-G> :call vimrc#execute_and_save('GitGrepCommit ' . input('Co
 nnoremap <Space>fh :call vimrc#execute_and_save('Helptags')<CR>
 nnoremap <Space>fH :call vimrc#execute_and_save('GitFilesCommit ' . input('Commit: '))<CR>
 nnoremap <Space>fi :call vimrc#execute_and_save('History')<CR>
+nnoremap <Space>fI :call vimrc#execute_and_save('RgFzf ' . input('RgFzf: '))<CR>
+nnoremap <Space>f<C-I> :call vimrc#execute_and_save('RgFzf! ' . input('RgFzf!: '))<CR>
 nnoremap <Space>fj :call vimrc#execute_and_save('Jump')<CR>
 nnoremap <Space>fk :call vimrc#execute_and_save('Rg ' . expand('<cword>'))<CR>
 nnoremap <Space>fK :call vimrc#execute_and_save('Rg ' . expand('<cWORD>'))<CR>
