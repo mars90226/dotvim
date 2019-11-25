@@ -49,8 +49,6 @@ endfunction
 function! vimrc#fzf#rg#grep_on_change(query, bang)
   let initial_command = printf(s:rg_fzf_command_fmt, shellescape(a:query))
   let reload_command = printf(s:rg_fzf_command_fmt, '{q}')
-  let options = { 'options': [ '--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command ] }
-  let wrapped_options = vimrc#fzf#rg#with_preview(a:bang, options)
-  " let wrapped_options = a:bang ? fzf#vim#with_preview(options, 'up:60%') : fzf#vim#with_preview(options, 'right:50%:hidden', '?')
-  call fzf#vim#grep(initial_command, 1, wrapped_options, a:bang)
+  let options = vimrc#fzf#rg#with_preview(a:bang, { 'options': [ '--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command ] })
+  call fzf#vim#grep(initial_command, 1, options, a:bang)
 endfunction
