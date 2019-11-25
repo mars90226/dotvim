@@ -1,5 +1,7 @@
 " Mappings
 function! vimrc#flog#mappings()
+  nmap <silent><buffer> q <Plug>FlogQuit
+
   nnoremap <silent><buffer> <Leader>gd :call vimrc#fzf#git#diff_commit(vimrc#flog#sha())<CR>
   xnoremap <silent><buffer> <Leader>gd :<C-U>call vimrc#flog#visual_diff_commits()<CR>
   nnoremap <silent><buffer> <Leader>gf :call vimrc#fzf#git#files_commit(vimrc#flog#sha())<CR>
