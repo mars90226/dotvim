@@ -212,6 +212,8 @@ endfunction
 
 let s:git_files_commit_command = 'git ls-tree -r --name-only'
 function! vimrc#fzf#git#files_commit(commit)
+  " TODO Think of a better way to avoid temp file and can still let bat detect
+  " language?
   let tempfile_fmt = "/tmp/$(basename {})"
   " Depends on bat
   let preview_command = 'git show '.a:commit.':{} > '.tempfile_fmt.';'.
