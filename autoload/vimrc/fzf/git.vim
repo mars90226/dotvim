@@ -176,6 +176,7 @@ function! vimrc#fzf#git#grep_commit(commit, ...)
   let with_column = (vimrc#plugin#check#git_version() >= 'git version 2.19.0') ? 1 : 0
   " TODO Think of a better way to avoid temp file and can still let bat detect language
   " Depends on bat
+  " Borrowed from fzf.vim preview.sh
   let preview_command = "FILE=\"$(echo {} | awk -F ':' '{ print $2 }')\";".
         \ "LINE=\"$(echo {} | awk -F ':' '{ print $3 }')\";".
         \ 'FIRST=$(($LINE-$LINES/3));'.
