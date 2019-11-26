@@ -226,8 +226,9 @@ let s:git_files_commit_command = 'git ls-tree -r --name-only'
 function! vimrc#fzf#git#files_commit(commit)
   " TODO Think of a better way to avoid temp file and can still let bat detect language
   " Depends on bat
+  " TODO Filename not quoted, but git display error when quoted
   let preview_command = 'TEMPFILE="/tmp/$(basename {})";'.
-        \ 'git show '.a:commit.':"{}" > "$TEMPFILE";'.
+        \ 'git show '.a:commit.':{} > "$TEMPFILE";'.
         \ 'bat --style=numbers --color=always --line-range 1:"$LINES" "$TEMPFILE";'.
         \ 'rm "$TEMPFILE"'
 
