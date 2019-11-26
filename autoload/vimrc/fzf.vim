@@ -115,6 +115,10 @@ function! vimrc#fzf#wrap(name, opts, bang)
   endif
   return wrapped
 endfunction
+
+function! vimrc#fzf#generate_preview_command_with_bat(file, start)
+  return systemlist(vimrc#get_vimhome() . '/bin/generate_fzf_preview_with_bat.sh ' . a:file . ' ' . a:start)[0]
+endfunction
 " }}}
 
 " Sources

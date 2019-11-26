@@ -43,7 +43,7 @@ endfunction
 function! vimrc#fzf#range#range_lines(prompt, center, start, end, query)
   let options = ['--tiebreak=index', '--multi', '--prompt', a:prompt . '> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1']
   let file = expand('%')
-  let preview_command = systemlist(vimrc#get_vimhome() . '/bin/generate_fzf_preview_with_bat.sh ' . file . ' ' . a:start)[0]
+  let preview_command = vimrc#fzf#generate_preview_command_with_bat(file, a:start)
   let final_options = extend(options, ['--preview-window', 'right:50%:hidden', '--preview', preview_command])
   let Sink = function('vimrc#fzf#range#range_lines_sink', [a:center])
 
