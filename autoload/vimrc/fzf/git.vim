@@ -174,11 +174,22 @@ endif
 function! vimrc#fzf#git#grep_commit(commit, ...)
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
   let with_column = (vimrc#plugin#check#git_version() >= 'git version 2.19.0') ? 1 : 0
+  " TODO Think of a better way to avoid temp file and can still let bat detect language
+  " Depends on bat
+  let preview_command = "FILE=\"$(echo {} | awk -F ':' '{ print $2 }')\";".
+        \ "LINE=\"$(echo {} | awk -F ':' '{ print $3 }')\";".
+        \ 'FIRST=$(($LINE-$LINES/3));'.
+        \ 'FIRST=$(($FIRST < 1 ? 1 : $FIRST));'.
+        \ 'LAST=$((${FIRST}+${LINES}-1));'.
+        \ 'TEMPFILE="/tmp/$(basename $FILE)";'.
+        \ 'git show '.a:commit.':"$FILE" > "$TEMPFILE";'.
+        \ 'bat --style=numbers --color=always --line-range "$FIRST:$LAST" "$TEMPFILE";'.
+        \ 'rm "$TEMPFILE"'
 
   call fzf#run(vimrc#fzf#wrap('', {
         \ 'source': s:git_grep_commit_command.' '.shellescape(query).' '.a:commit,
         \ 'sink*': function('vimrc#fzf#git#grep_commit_sink', [a:commit, with_column]),
-        \ 'options': '-m -s',
+        \ 'options': ['-m', '-s', '--preview-window', 'right:50%', '--preview', preview_command],
         \ 'down': '40%' }, 0))
 endfunction
 
@@ -213,11 +224,11 @@ endfunction
 let s:git_files_commit_command = 'git ls-tree -r --name-only'
 function! vimrc#fzf#git#files_commit(commit)
   " TODO Think of a better way to avoid temp file and can still let bat detect language
-  let tempfile_fmt = "/tmp/$(basename {})"
   " Depends on bat
-  let preview_command = 'git show '.a:commit.':{} > '.tempfile_fmt.';'.
-        \ 'bat --style=numbers --color=always --line-range 1:$LINES '.tempfile_fmt.';'.
-        \ 'rm '.tempfile_fmt
+  let preview_command = 'TEMPFILE="/tmp/$(basename {})";'.
+        \ 'git show '.a:commit.':"{}" > "$TEMPFILE";'.
+        \ 'bat --style=numbers --color=always --line-range 1:"$LINES" "$TEMPFILE";'.
+        \ 'rm "$TEMPFILE"'
 
   call fzf#run(vimrc#fzf#wrap('', {
         \ 'source': s:git_files_commit_command.' '.a:commit,
