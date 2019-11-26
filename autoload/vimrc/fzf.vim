@@ -116,8 +116,13 @@ function! vimrc#fzf#wrap(name, opts, bang)
   return wrapped
 endfunction
 
-function! vimrc#fzf#generate_preview_command_with_bat(file, start)
-  return systemlist(vimrc#get_vimhome() . '/bin/generate_fzf_preview_with_bat.sh ' . a:file . ' ' . a:start)[0]
+function! vimrc#fzf#get_generate_preview_command_with_bat_script()
+  return vimrc#get_vimhome() . '/bin/generate_fzf_preview_with_bat.sh'
+endfunction
+
+function! vimrc#fzf#generate_preview_command_with_bat(start, ...)
+  let file = a:0 > 0 && type(a:1) == type('') ? a:1 : ''
+  return systemlist(vimrc#fzf#get_generate_preview_command_with_bat_script(). ' ' . a:start . ' ' . file)[0]
 endfunction
 " }}}
 

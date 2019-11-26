@@ -27,7 +27,7 @@ endfunction
 
 function! vimrc#fzf#preview#buffer_lines() abort
   let file = expand('%')
-  let preview_command = vimrc#fzf#generate_preview_command_with_bat(file, 1)
+  let preview_command = vimrc#fzf#generate_preview_command_with_bat(1, file)
 
   return { 'options': ['--preview-window', 'right:50%:hidden', '--preview', preview_command] }
 endfunction
