@@ -212,10 +212,16 @@ endfunction
 
 let s:git_files_commit_command = 'git ls-tree -r --name-only'
 function! vimrc#fzf#git#files_commit(commit)
+  let tempfile_fmt = "/tmp/$(basename {})"
+  " Depends on bat
+  let preview_command = 'git show '.a:commit.':{} > '.tempfile_fmt.';'.
+        \ 'bat --style=numbers --color=always --line-range 1:$LINES '.tempfile_fmt.';'.
+        \ 'rm '.tempfile_fmt
+
   call fzf#run(vimrc#fzf#wrap('', {
         \ 'source': s:git_files_commit_command.' '.a:commit,
         \ 'sink*': function('vimrc#fzf#git#files_commit_sink', [a:commit]),
-        \ 'options': '-m -s',
+        \ 'options': ['-m', '-s', '--preview-window', 'right:50%', '--preview', preview_command],
         \ 'down': '40%' }, 0))
 endfunction
 " }}}
