@@ -113,7 +113,7 @@ endif
 " }}}
 
 " ctrlsf.vim {{{
-Plug 'dyng/ctrlsf.vim', { 'on': 'CtrlSF' }
+Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF', 'CtrlSFToggle'] }
 
 nnoremap <Space><C-F> :execute 'CtrlSF ' . input('CtrlSF: ')<CR>
 nnoremap <F5> :CtrlSFToggle<CR>
