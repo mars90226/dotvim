@@ -184,7 +184,7 @@ function! vimrc#fzf#git#grep_commit(commit, ...)
         \ 'LAST=$((${FIRST}+${LINES}-1));'.
         \ 'TEMPFILE="/tmp/$(basename $FILE)";'.
         \ 'git show '.a:commit.':"$FILE" > "$TEMPFILE";'.
-        \ 'bat --style=numbers --color=always --line-range "$FIRST:$LAST" "$TEMPFILE";'.
+        \ vimrc#fzf#preview#get_command() . ' --line-range "$FIRST:$LAST" "$TEMPFILE";'.
         \ 'rm "$TEMPFILE"'
 
   call fzf#run(vimrc#fzf#wrap('', {
@@ -229,7 +229,7 @@ function! vimrc#fzf#git#files_commit(commit)
   " TODO Filename not quoted, but git display error when quoted
   let preview_command = 'TEMPFILE="/tmp/$(basename {})";'.
         \ 'git show '.a:commit.':{} > "$TEMPFILE";'.
-        \ 'bat --style=numbers --color=always --line-range 1:"$LINES" "$TEMPFILE";'.
+        \ vimrc#fzf#preview#get_command() . ' --line-range 1:"$LINES" "$TEMPFILE";'.
         \ 'rm "$TEMPFILE"'
 
   call fzf#run(vimrc#fzf#wrap('', {

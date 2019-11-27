@@ -1,10 +1,10 @@
-let s:fzf_preview_command = 'cat {}'
+let s:fzf_preview_command = 'cat'
 if executable('bat')
-  let s:fzf_preview_command = 'bat --style=numbers --color=always {}'
+  let s:fzf_preview_command = 'bat --style=numbers --color=always'
 endif
-let s:fzf_dir_preview_command = 'ls -la --color=always {}'
+let s:fzf_dir_preview_command = 'ls -la --color=always'
 if executable('exa')
-  let s:fzf_dir_preview_command = 'exa -lag --color=always {}'
+  let s:fzf_dir_preview_command = 'exa -lag --color=always'
 endif
 
 function! vimrc#fzf#preview#get_command()
@@ -23,7 +23,7 @@ function! vimrc#fzf#preview#windows() abort
   let is_terminal_script = '[[ "$FILE" =~ ^term://.* ]]'
   let final_script = file_script . ';' .
         \ 'if ' . is_terminal_script . '; then ' .
-        \ get_terminal_buffer_script . ' "$FILE" | bat --style=numbers --color=always;' .
+        \ get_terminal_buffer_script . ' "$FILE" | ' . vimrc#fzf#preview#get_command() . ';' .
         \ 'else ' . preview_script . ' "$FILE";' .
         \ 'fi'
 
