@@ -42,7 +42,7 @@ xnoremap <Space>dk :<C-U>call vimrc#denite#grep(vimrc#get_visual_selection(), 'g
 xnoremap <Space>d8 :<C-U>call vimrc#denite#grep(vimrc#get_visual_selection(), 'grep', '', v:true)<CR>
 nnoremap <Space>dm :Denite file_mru<CR>
 nnoremap <Space>dM :Denite directory_mru<CR>
-nnoremap <Space>do :execute 'Denite output:' . vimrc#escape_symbol(input('output: '))<CR>
+nnoremap <Space>do :execute 'Denite output:' . vimrc#escape_symbol(input('output: ', '', 'command'))<CR>
 nnoremap <Space>dO :Denite outline<CR>
 nnoremap <Space>d<C-O> :Denite unite:outline<CR>
 nnoremap <Space>dp :call vimrc#denite#project_tags('')<CR>
