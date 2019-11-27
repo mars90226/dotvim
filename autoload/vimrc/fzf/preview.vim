@@ -18,7 +18,14 @@ function! vimrc#fzf#preview#windows() abort
   let options = fzf#vim#with_preview()
   let preview_script = remove(options.options, -1)[0:-4]
   let get_filename_script = expand(vimrc#get_vimhome() . '/bin/fzf_windows_preview.sh')
-  let final_script = preview_script . ' "$(' . get_filename_script . ' {})"'
+  let get_terminal_buffer_script = expand(vimrc#get_vimhome() . '/bin/get_terminal_buffer.py')
+  let file_script = 'FILE="$(' . get_filename_script . ' {})"'
+  let is_terminal_script = '[[ "$FILE" =~ ^term://.* ]]'
+  let final_script = file_script . ';' .
+        \ 'if ' . is_terminal_script . '; then ' .
+        \ get_terminal_buffer_script . ' "$FILE" | bat --style=numbers --color=always;' .
+        \ 'else ' . preview_script . ' "$FILE";' .
+        \ 'fi'
 
   call remove(options.options, -1) " remove --preview
   call extend(options.options, ['--preview', final_script])
