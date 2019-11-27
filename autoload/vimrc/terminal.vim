@@ -16,3 +16,9 @@ function! vimrc#terminal#settings()
     nnoremap <silent><buffer> i :ClearIncsearchAutoNohlsearch<CR>i
   endif
 endfunction
+
+" Utilities
+" Open terminal in specified folder in new tab
+function! vimrc#terminal#tabnew(folder)
+  execute 'tabnew term://' . a:folder . '//' . $SHELL
+endfunction

@@ -128,6 +128,8 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#do_action('change_vim_cwd') . ":new    <Bar> :terminal<CR>i"
   nnoremap <silent><buffer><expr> <C-T><C-V>
         \ defx#do_action('change_vim_cwd') . ":vnew   <Bar> :terminal<CR>i"
+  nnoremap <silent><buffer><expr> <C-T><C-D>
+        \ defx#do_action('change_vim_cwd') . ":call vimrc#terminal#tabnew(input('Folder: ', '', 'dir'))<CR>"
   nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
         \ ':<C-U>wincmd w<CR>' :
         \ ':<C-U>Defx -buffer-name=temp -split=vertical<CR>'

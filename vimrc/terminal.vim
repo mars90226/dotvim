@@ -74,6 +74,7 @@ if has("nvim")
   nnoremap <silent> <Leader>tt :tabnew <Bar> :terminal<CR>i
   nnoremap <silent> <Leader>ts :new    <Bar> :terminal<CR>i
   nnoremap <silent> <Leader>tv :vnew   <Bar> :terminal<CR>i
+  nnoremap <silent> <Leader>td :call vimrc#terminal#tabnew(input('Folder: ', '', 'dir'))<CR>
 
   " Quick terminal function
   tnoremap <M-F1> <C-\><C-N>
