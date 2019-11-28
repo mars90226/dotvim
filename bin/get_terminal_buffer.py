@@ -6,7 +6,8 @@ from pynvim import attach
 
 def get_terminal_buffer_content(terminal_buffer, lines):
     nvim = attach('socket', path=os.getenv('NVIM_LISTEN_ADDRESS'))
-    raw_content = nvim.call('getbufline', terminal_buffer, '1', lines)
+    content_lines = int(nvim.command_output('echo len(getbufline("' + terminal_buffer + '", 1, "$"))'))
+    raw_content = nvim.call('getbufline', terminal_buffer, content_lines-lines+1, '$')
     return "\n".join(raw_content)
 
 def usage():
@@ -17,5 +18,7 @@ if __name__ == "__main__":
         usage()
         sys.exit()
 
-    terminal_buffer_content = get_terminal_buffer_content(sys.argv[1], os.getenv('LINES'))
+    terminal_buffer = sys.argv[1]
+    lines = int(os.getenv('LINES'))
+    terminal_buffer_content = get_terminal_buffer_content(terminal_buffer, lines)
     print(terminal_buffer_content)
