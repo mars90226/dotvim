@@ -7,8 +7,9 @@ from pynvim import attach
 def get_terminal_buffer_content(tab, win, lines):
     nvim = attach('socket', path=os.getenv('NVIM_LISTEN_ADDRESS'))
     win_id = nvim.call('win_getid', win, tab)
+    win_height = nvim.call('winheight', win_id)
     buffer_handle = nvim.call('winbufnr', win_id)
-    last_lines_content = nvim.call('nvim_buf_get_lines', buffer_handle, -lines-1, -1, 0)
+    last_lines_content = nvim.call('nvim_buf_get_lines', buffer_handle, -win_height-1, -win_height+lines-1, 0)
     return "\n".join(last_lines_content)
 
 def usage():
