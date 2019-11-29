@@ -31,14 +31,14 @@ endfunction
 function! vimrc#fzf#mru#mru()
   call fzf#run(fzf#wrap({
         \ 'source':  vimrc#fzf#mru#mru_files(),
-        \ 'options': ['-m', '-s', '--prompt', 'Mru> '],
+        \ 'options': ['-m', '-s', '--prompt', 'Mru> ', '--preview', vimrc#fzf#preview#get_command() . ' {}'],
         \ 'down':    '40%' }))
 endfunction
 
 function! vimrc#fzf#mru#project_mru()
   call fzf#run(fzf#wrap({
         \ 'source':  vimrc#fzf#mru#project_mru_files(),
-        \ 'options': ['-m', '-s', '--prompt', 'ProjectMru> '],
+        \ 'options': ['-m', '-s', '--prompt', 'ProjectMru> ', '--preview', vimrc#fzf#preview#get_command() . ' {}'],
         \ 'down':    '40%' }))
 endfunction
 
