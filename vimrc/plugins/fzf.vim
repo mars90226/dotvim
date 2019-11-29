@@ -229,7 +229,7 @@ nnoremap <Space><C-D><C-F> :call vimrc#execute_and_save('DirectoryMruFiles')<CR>
 nnoremap <Space><C-D><C-R> :call vimrc#execute_and_save('DirectoryMruRg')<CR>
 
 nmap     <Space>sf vaf:SelectLines<CR>
-xnoremap <Space>sf :call vimrc#execute_and_save('SelectLines')<CR>
+xnoremap <Space>sf :<C-U>call vimrc#execute_and_save("'<,'>SelectLines")<CR>
 nnoremap <Space>sl :call vimrc#execute_and_save('ScreenLines')<CR>
 nnoremap <Space>sL :call vimrc#execute_and_save('ScreenLines ' . expand('<cword>'))<CR>
 xnoremap <Space>sL :<C-U>call vimrc#execute_and_save('ScreenLines ' . vimrc#get_visual_selection())<CR>
