@@ -47,7 +47,7 @@ function! vimrc#fzf#mru#directory_mru(bang, ...)
   let Sink = a:0 && type(a:1) == type(function('call')) ? a:1 : ''
   let args = {
         \ 'source':  vimrc#fzf#mru#neomru_directories(),
-        \ 'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command(), '--prompt', 'DirectoryMru> '],
+        \ 'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command() . ' {}', '--prompt', 'DirectoryMru> '],
         \ 'down':    '40%'
         \ }
 
@@ -92,7 +92,7 @@ function! vimrc#fzf#mru#directory_mru_in_commandline()
         \ {
         \   'source':  vimrc#fzf#mru#neomru_directories(),
         \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
-        \   'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command(), '--prompt', 'DirectoryMru> '],
+        \   'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command() . ' {}', '--prompt', 'DirectoryMru> '],
         \   'down':    '40%'
         \ },
         \ 0)

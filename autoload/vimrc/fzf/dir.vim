@@ -103,7 +103,7 @@ function! vimrc#fzf#dir#directories(path, bang, ...)
   let Sink = a:0 && type(a:1) == type(function('call')) ? a:1 : ''
   let args = {
         \ 'source':  s:fd_dir_command,
-        \ 'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command()],
+        \ 'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command() . ' {}'],
         \ 'down':    '40%'
         \ }
 
