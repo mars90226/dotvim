@@ -181,6 +181,14 @@ if vimrc#plugin#is_enabled_plugin('open-browser.vim')
 endif
 " }}}
 
+" context.vim {{{
+Plug 'wellle/context.vim'
+
+let g:context_enabled = 0
+
+nnoremap <F6> :ContextToggle<CR>
+" }}}
+
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
 Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert', 'S'] }
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }
