@@ -77,8 +77,8 @@ let g:incsearch#auto_nohlsearch = 1
 "map g# <Plug>(incsearch-nohl-g#)
 
 " For original search incase need to insert special characters like NULL
-nnoremap \\/ /
-nnoremap \\? ?
+nnoremap <Leader><Leader>/ /
+nnoremap <Leader><Leader>? ?
 
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)

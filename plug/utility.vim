@@ -189,11 +189,17 @@ let g:context_enabled = 0
 nnoremap <F6> :ContextToggle<CR>
 " }}}
 
+" vim-visual-multi {{{
+Plug 'mg979/vim-visual-multi'
+
+" imap <BS> & <CR> is overwritten, need to be careful of bugs
+" }}}
+
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
 Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert', 'S'] }
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
-Plug 'terryma/vim-multiple-cursors'
+" Plug 'terryma/vim-multiple-cursors'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'alx741/vinfo', { 'on': 'Vinfo' }
 Plug 'mattn/webapi-vim'
