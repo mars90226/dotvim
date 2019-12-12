@@ -6,6 +6,7 @@ function! vimrc#flog#mappings()
   xnoremap <silent><buffer> <Leader>gd :<C-U>call vimrc#flog#visual_diff_commits()<CR>
   nnoremap <silent><buffer> <Leader>gf :call vimrc#fzf#git#files_commit(vimrc#flog#sha())<CR>
   nnoremap <silent><buffer> <Leader>gg :call vimrc#fzf#git#grep_commit(vimrc#flog#sha(), input('Git grep: '))<CR>
+  nnoremap <silent><buffer> <Leader>gt :execute 'Git show --stat '.vimrc#flog#sha()<CR>
 endfunction
 
 " Functions

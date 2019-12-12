@@ -5,6 +5,7 @@ function! vimrc#gv#mappings()
   xnoremap <silent><buffer> <Leader>gd :<C-U>call vimrc#gv#visual_diff_commits()<CR>
   nnoremap <silent><buffer> <Leader>gf :call vimrc#fzf#git#files_commit(gv#sha())<CR>
   nnoremap <silent><buffer> <Leader>gg :call vimrc#fzf#git#grep_commit(gv#sha(), input('Git grep: '))<CR>
+  nnoremap <silent><buffer> <Leader>gt :execute 'Git show --stat '.gv#sha()<CR>
 endfunction
 
 " Functions

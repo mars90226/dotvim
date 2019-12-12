@@ -16,7 +16,7 @@ call vimrc#lazy#lazy_load('gitgutter')
 nmap <silent> [h <Plug>(GitGutterPrevHunk)
 nmap <silent> ]h <Plug>(GitGutterNextHunk)
 nnoremap cog :GitGutterToggle<CR>
-nnoremap <Leader>gt :GitGutterAll<CR>
+nnoremap <Leader>gT :GitGutterAll<CR>
 
 omap ih <Plug>(GitGutterTextObjectInnerPending)
 omap ah <Plug>(GitGutterTextObjectOuterPending)

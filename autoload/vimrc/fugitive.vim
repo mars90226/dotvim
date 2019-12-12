@@ -31,12 +31,14 @@ function! vimrc#fugitive#git_mappings()
   nnoremap <buffer> <silent> <Leader>gd :call vimrc#fzf#git#diff_commit(fugitive#Object(@%))<CR>
   nnoremap <buffer> <silent> <Leader>gf :call vimrc#fzf#git#files_commit(fugitive#Object(@%))<CR>
   nnoremap <buffer> <silent> <Leader>gg :call vimrc#fzf#git#grep_commit(fugitive#Object(@%), input('Git grep: '))<CR>
+  nnoremap <buffer> <silent> <Leader>gt :execute 'Git show --stat '.fugitive#Object(@%)<CR>
 endfunction
 
 function! vimrc#fugitive#blame_mappings()
   nnoremap <buffer> <silent> <Leader>gd :call vimrc#fzf#git#diff_commit(vimrc#fugitive#blame_sha())<CR>
   nnoremap <buffer> <silent> <Leader>gf :call vimrc#fzf#git#files_commit(vimrc#fugitive#blame_sha())<CR>
   nnoremap <buffer> <silent> <Leader>gg :call vimrc#fzf#git#grep_commit(vimrc#fugitive#blame_sha(), input('Git grep: '))<CR>
+  nnoremap <buffer> <silent> <Leader>gt :execute 'Git show --stat '.vimrc#fugitive#blame_sha()<CR>
 endfunction
 
 " Functions
