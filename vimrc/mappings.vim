@@ -189,6 +189,7 @@ endif
 " sdcv
 if executable('sdcv')
   nnoremap <Leader>sd :execute '!sdcv ' . expand('<cword>')<CR>
+  xnoremap <Leader>sd :<C-U>execute "!sdcv '" . vimrc#get_visual_selection() . "'"<CR>
   nnoremap <Space>sd :call <SID>execute_command('!sdcv', 'sdcv: ')<CR>
 endif
 
