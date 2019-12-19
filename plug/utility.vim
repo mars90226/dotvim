@@ -110,7 +110,7 @@ nnoremap coa :AnsiEsc<CR>
 Plug 'farmergreg/vim-lastplace'
 
 let g:lastplace_ignore = "gitcommit,gitrebase,sv,hgcommit"
-let g:lastplace_ignore_buftype = "quickfix,nofile,help"
+let g:lastplace_ignore_buftype = "quickfix,nofile,help,terminal"
 let g:lastplace_open_folds = 0
 " }}}
 
