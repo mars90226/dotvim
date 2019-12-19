@@ -1,16 +1,4 @@
 " Put these in an autocmd group, so that we can delete them easily.
-augroup lastPositionSetting
-  autocmd!
-
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " Ignore terminal buffer
-  autocmd BufReadPost *
-    \ if &buftype !~ "terminal" && line("'\"") >= 1 && line("'\"") <= line("$") |
-    \   execute "normal! g`\"" |
-    \ endif
-augroup END
-
 augroup vimGeneralCallbacks
   autocmd!
   autocmd BufWritePost _vimrc nested call vimrc#reload#reload() | e | normal! zzzv
