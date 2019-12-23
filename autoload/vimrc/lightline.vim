@@ -139,5 +139,6 @@ function! vimrc#lightline#refresh()
 endfunction
 
 function! vimrc#lightline#nearest_method_or_function()
-  return get(b:, 'vista_nearest_method_or_function', '')
+  let vista_method = get(b:, 'vista_nearest_method_or_function', '')
+  return vista_method == '' ? tagbar#currenttag('%s', '', '') : vista_method
 endfunction
