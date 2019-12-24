@@ -116,4 +116,3 @@ endif
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'mars90226/perldoc-vim', { 'for': 'perl' }
 Plug 'fs111/pydoc.vim', { 'for': 'python' }
-Plug 'gyim/vim-boxdraw'
