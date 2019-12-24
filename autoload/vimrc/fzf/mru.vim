@@ -1,7 +1,7 @@
 " Use neomru
 function! vimrc#fzf#mru#filtered_neomru_files()
   return filter(readfile(g:neomru#file_mru_path)[1:],
-        \ "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/\\|\\[unite\\]\\|\[Preview\\]\\|__Tagbar__\\|term://\\|gina://'")
+        \ "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/\\|\\[unite\\]\\|\[Preview\\]\\|__Tagbar__\\|term://\\'")
 endfunction
 
 function! vimrc#fzf#mru#neomru_directories()
