@@ -14,10 +14,7 @@ endif
 
 " CtrlP {{{
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'sgur/ctrlp-extensions.vim'
 Plug 'tacahiroy/ctrlp-funky'
-Plug 'mattn/ctrlp-hackernews'
-Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'ivalkeen/vim-ctrlp-tjump'
 
 call vimrc#source('vimrc/plugins/ctrlp.vim')
