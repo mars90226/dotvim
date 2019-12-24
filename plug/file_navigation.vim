@@ -129,10 +129,6 @@ Plug 'junegunn/fzf.vim'
 call vimrc#source('vimrc/plugins/fzf.vim')
 " }}}
 
-" vifm {{{
-Plug 'vifm/vifm.vim'
-" }}}
-
 " vim-gutentags {{{
 if vimrc#plugin#is_enabled_plugin('vim-gutentags')
   Plug 'ludovicchabant/vim-gutentags'
