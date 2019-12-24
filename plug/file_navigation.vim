@@ -25,15 +25,6 @@ call vimrc#source('vimrc/plugins/ctrlp.vim')
 
 " netrw {{{
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro' " add line number
-
-augroup netrw_mapping
-  autocmd!
-  autocmd FileType netrw call s:netrw_mapping()
-augroup END
-
-function! s:netrw_mapping()
-  nmap <buffer> <BS> <Plug>VinegarUp
-endfunction
 " }}}
 
 " Vinegar {{{
@@ -43,6 +34,11 @@ nmap <silent> \-       <Plug>VinegarUp
 nmap <silent> _        <Plug>VinegarVerticalSplitUp
 nmap <silent> <Space>- <Plug>VinegarSplitUp
 nmap <silent> <Space>_ <Plug>VinegarTabUp
+
+augroup vinegar_settings
+  autocmd!
+  autocmd FileType netrw call vimrc#vinegar#mappings()
+augroup END
 " }}}
 
 " tagbar {{{
