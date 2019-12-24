@@ -17,20 +17,8 @@ Plug 'hwartig/vim-seeing-is-believing', { 'for': 'ruby' }
 
 augroup seeingIsBelievingSettings
   autocmd!
-  autocmd FileType ruby call s:seeing_is_believing_settings()
+  autocmd FileType ruby call vimrc#seeing_is_believing#mappings()
 augroup END
-
-function! s:seeing_is_believing_settings()
-  nmap <silent><buffer> <Leader>r<CR> <Plug>(seeing-is-believing-mark-and-run)
-  xmap <silent><buffer> <Leader>r<CR> <Plug>(seeing-is-believing-mark-and-run)
-
-  nmap <silent><buffer> <Leader>rm <Plug>(seeing-is-believing-mark)
-  xmap <silent><buffer> <Leader>rm <Plug>(seeing-is-believing-mark)
-  imap <silent><buffer> <Leader>rm <Plug>(seeing-is-believing-mark)
-
-  nmap <silent><buffer> <Leader>rr <Plug>(seeing-is-believing-run)
-  imap <silent><buffer> <Leader>rr <Plug>(seeing-is-believing-run)
-endfunction
 " }}}
 
 " syntastic {{{
@@ -100,21 +88,8 @@ Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 
 augroup tern_for_vim_settings
   autocmd!
-  autocmd FileType javascript call s:tern_for_vim_settings()
+  autocmd FileType javascript call vimrc#tern#mappings()
 augroup END
-
-function! s:tern_for_vim_settings()
-  nnoremap <silent><buffer> <C-X><C-K> :TernDoc<CR>
-  nnoremap <silent><buffer> <C-X><C-B> :TernDocBrowse<CR>
-  nnoremap <silent><buffer> <C-X><C-T> :TernType<CR>
-  " To avoid accidentally delete
-  nnoremap <silent><buffer> <C-X><C-D> :TernDef<CR>
-  nnoremap <silent><buffer> <C-X><C-P> :TernDefPreview<CR>
-  nnoremap <silent><buffer> <C-X><C-S> :TernDefSplit<CR>
-  nnoremap <silent><buffer> <C-X><C-N> :TernDefTab<CR>
-  nnoremap <silent><buffer> <C-X>c :TernRefs<CR>
-  nnoremap <silent><buffer> <C-X><C-R> :TernRename<CR>
-endfunction
 " }}}
 
 " jedi-vim {{{
@@ -133,13 +108,8 @@ if vimrc#plugin#check#has_jedi()
 
   augroup jedi_vim_settings
     autocmd!
-    autocmd FileType python call s:jedi_vim_settings()
+    autocmd FileType python call vimrc#jedi#mappings()
   augroup END
-
-  function! s:jedi_vim_settings()
-    nnoremap <silent><buffer> <C-X><C-L> :call jedi#remove_usages()<CR>
-    nnoremap <silent><buffer> <C-X><C-N> :tab split <Bar> call jedi#goto()<CR>
-  endfunction
 endif
 " }}}
 
