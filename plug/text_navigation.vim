@@ -30,14 +30,6 @@ map <Plug>(easymotion-prefix)J <Plug>(easymotion-eol-j)
 map <Plug>(easymotion-prefix)K <Plug>(easymotion-eol-k)
 
 map <Plug>(easymotion-prefix); <Plug>(easymotion-jumptoanywhere)
-
-" overwin is slow, disabled
-" if vimrc#plugin#check#get_os() !~ "synology"
-"   nmap <Leader>f <Plug>(easymotion-overwin-f)
-"   nmap <Plug>(easymotion-prefix)s <Plug>(easymotion-overwin-f2)
-"   nmap <Plug>(easymotion-prefix)L <Plug>(easymotion-overwin-line)
-"   nmap <Plug>(easymotion-prefix)w <Plug>(easymotion-overwin-w)
-" endif
 " }}}
 
 " vim-asterisk {{{
