@@ -129,12 +129,6 @@ Plug 'junegunn/fzf.vim'
 call vimrc#source('vimrc/plugins/fzf.vim')
 " }}}
 
-" skim {{{
-Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
-
-call vimrc#source('vimrc/plugins/skim.vim')
-" }}}
-
 " vifm {{{
 Plug 'vifm/vifm.vim'
 " }}}
