@@ -93,19 +93,16 @@ if vimrc#plugin#is_enabled_plugin("vimfiler")
 endif
 " }}}
 
+" neomru.vim & neoyank.vim {{{
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/neoyank.vim'
+" }}}
+
 " Unite {{{
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-outline'
-Plug 'Shougo/unite-session'
-Plug 'tsukkee/unite-tag'
 Plug 'blindFS/unite-workflow', { 'on': [] }
-Plug 'kmnk/vim-unite-giti'
-Plug 'Shougo/vinarise.vim'
-Plug 'Shougo/neomru.vim'
-Plug 'Shougo/neoyank.vim'
-Plug 'Shougo/unite-help'
 Plug 'thinca/vim-unite-history'
-Plug 'hewes/unite-gtags'
 Plug 'osyo-manga/unite-quickfix'
 
 call vimrc#source('vimrc/plugins/unite.vim')

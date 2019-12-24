@@ -34,15 +34,7 @@ nnoremap <Space>ud :Unite directory<CR>
 nnoremap <Space>uD :UniteWithBufferDir directory<CR>
 nnoremap <Space>u<C-D> :execute 'Unite directory:' . input('dir: ')<CR>
 nnoremap <Space>uf :Unite function -start-insert<CR>
-nnoremap <Space>uh :Unite help<CR>
-nnoremap <Space>uH :Unite history/unite<CR>
-nnoremap <Space>ugc :Unite gtags/context<CR>
-nnoremap <Space>ugd :Unite gtags/def<CR>
-nnoremap <Space>ugf :Unite gtags/file<CR>
-nnoremap <Space>ugg :Unite gtags/grep<CR>
-nnoremap <Space>ugp :Unite gtags/path<CR>
-nnoremap <Space>ugr :Unite gtags/ref<CR>
-nnoremap <Space>ugx :Unite gtags/completion<CR>
+nnoremap <Space>uh :Unite history/unite<CR>
 nnoremap <Space>uj :Unite -auto-preview jump<CR>
 nnoremap <Space>uk :call vimrc#unite#grep(expand('<cword>'), 'keyword', '', v:false)<CR>
 nnoremap <Space>uK :call vimrc#unite#grep(expand('<cWORD>'), 'keyword', '', v:false)<CR>
@@ -58,7 +50,6 @@ nnoremap <Space>uq :Unite quickfix<CR>
 nnoremap <Space>ur :Unite -buffer-name=register register<CR>
 nnoremap <Space>us :Unite -quick-match tab<CR>
 nnoremap <Space>ut :Unite -start-insert tab<CR>
-nnoremap <Space>uT :Unite tag<CR>
 nnoremap <Space>uu :UniteResume<CR>
 nnoremap <Space>uU :Unite -buffer-name=resume resume<CR>
 nnoremap <Space>uw :Unite window<CR>
