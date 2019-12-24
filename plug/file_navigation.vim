@@ -122,17 +122,6 @@ nnoremap <Space><C-F> :execute 'CtrlSF ' . input('CtrlSF: ')<CR>
 nnoremap <F5> :CtrlSFToggle<CR>
 " }}}
 
-" ranger.vim {{{
-Plug 'rbgrouleff/bclose.vim'
-Plug 'francoiscabrol/ranger.vim', { 'on': 'Ranger' }
-
-let g:ranger_map_keys = 0
-nnoremap <Space>rr :Ranger<CR>
-nnoremap <Space>rs :split     <Bar> Ranger<CR>
-nnoremap <Space>rv :vsplit    <Bar> Ranger<CR>
-nnoremap <Space>rt :tab split <Bar> Ranger<CR>
-" }}}
-
 " fzf {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
