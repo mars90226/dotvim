@@ -47,7 +47,9 @@ Plug 'ryanoasis/vim-devicons', { 'for': [] }
 
 " Colors {{{
 Plug 'morhetz/gruvbox'
-Plug 'junegunn/seoul256.vim'
-Plug 'chriskempson/base16-vim'
-Plug 'altercation/vim-colors-solarized'
+
+" Disabled as not used
+Plug 'junegunn/seoul256.vim', { 'for': [] }
+Plug 'chriskempson/base16-vim', { 'for': [] }
+Plug 'altercation/vim-colors-solarized', { 'for': [] }
 " }}}
