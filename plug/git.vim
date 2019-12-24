@@ -66,4 +66,5 @@ Plug 'rhysd/git-messenger.vim', { 'on': ['GitMessenger', '<Plug>(git-messenger)'
 nmap <Leader>gm <Plug>(git-messenger)
 " }}}
 
-Plug 'mattn/gist-vim'
+" Disabled as not used
+Plug 'mattn/gist-vim', { 'for': [] }
