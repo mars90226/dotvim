@@ -1,6 +1,4 @@
 " completion setting {{{
-" FIXME Completion popup still appear after select completion.
-" inoremap <expr> <Esc>      pumvisible() ? "\<C-E>" : "\<Esc>"
 inoremap <expr> <CR>       pumvisible() ? "\<C-Y>" : "\<CR>"
 inoremap <expr> <Down>     pumvisible() ? "\<C-N>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-P>" : "\<Up>"
