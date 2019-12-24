@@ -201,7 +201,7 @@ Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
 " Plug 'terryma/vim-multiple-cursors'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Shougo/vinarise.vim'
+Plug 'Shougo/vinarise.vim', { 'on': 'Vinarise' }
 Plug 'alx741/vinfo', { 'on': 'Vinfo' }
 Plug 'mattn/webapi-vim'
 Plug 'kana/vim-arpeggio'
