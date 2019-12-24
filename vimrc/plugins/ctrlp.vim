@@ -18,16 +18,3 @@ if executable('fd')
 endif
 
 call vimrc#ctrlp#update_user_command(v:true)
-" }}}
-
-" netrw {{{
-let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro' " add line number
-
-augroup netrw_mapping
-  autocmd!
-  autocmd FileType netrw call s:netrw_mapping()
-augroup END
-
-function! s:netrw_mapping()
-  nmap <buffer> <BS> <Plug>VinegarUp
-endfunction
