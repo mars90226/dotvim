@@ -211,6 +211,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'DougBeney/pickachu', { 'on': 'Pick' }
 Plug 'tweekmonster/helpful.vim'
 Plug 'tweekmonster/startuptime.vim'
+Plug 'gyim/vim-boxdraw'
 
 " " nvim-gdb {{{
 " Disabled for now as neovim's neovim_gdb.vim seems not exists
