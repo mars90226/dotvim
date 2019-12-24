@@ -220,8 +220,8 @@ nnoremap <Space>f] :call vimrc#execute_and_save("BTags '" . expand('<cword>'))<C
 xnoremap <Space>f] :<C-U>call vimrc#execute_and_save("BTags '" . vimrc#get_visual_selection())<CR>
 nnoremap <Space>f} :call vimrc#execute_and_save("Tags '" . expand('<cword>'))<CR>
 xnoremap <Space>f} :<C-U>call vimrc#execute_and_save("Tags '" . vimrc#get_visual_selection())<CR>
-nnoremap <Space>f<C-]> :call vimrc#execute_and_save('Tselect ' . expand('<cword>'))<CR>
-xnoremap <Space>f<C-]> :<C-U>call vimrc#execute_and_save('Tselect ' . vimrc#get_visual_selection())<CR>
+nnoremap <Space>f[ :call vimrc#execute_and_save('Tselect ' . expand('<cword>'))<CR>
+xnoremap <Space>f[ :<C-U>call vimrc#execute_and_save('Tselect ' . vimrc#get_visual_selection())<CR>
 
 " DirectoryMru
 nnoremap <Space><C-D><C-D> :call vimrc#execute_and_save('DirectoryMru')<CR>
