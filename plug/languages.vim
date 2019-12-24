@@ -118,6 +118,6 @@ Plug 'tpope/vim-rails', { 'for': [] }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 " Plug 'amadeus/vim-jsx', { 'for': 'jsx' } " It's included in vim-polyglot
 Plug 'scrooloose/vim-slumlord'
-Plug 'mars90226/perldoc-vim'
+Plug 'mars90226/perldoc-vim', { 'for': 'perl' }
 Plug 'gyim/vim-boxdraw'
-Plug 'fs111/pydoc.vim'
+Plug 'fs111/pydoc.vim', { 'for': 'python' }
