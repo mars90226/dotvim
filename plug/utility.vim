@@ -209,8 +209,8 @@ Plug 'kopischke/vim-fetch'
 Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-eunuch'
 Plug 'DougBeney/pickachu', { 'on': 'Pick' }
-Plug 'tweekmonster/helpful.vim'
-Plug 'tweekmonster/startuptime.vim'
+Plug 'tweekmonster/helpful.vim', { 'on': 'HelpfulVersion' }
+Plug 'tweekmonster/startuptime.vim', { 'on': 'StartupTime' }
 Plug 'gyim/vim-boxdraw'
 
 " " nvim-gdb {{{
