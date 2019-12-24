@@ -31,9 +31,9 @@ call vimrc#lazy#lazy_load('tcomment')
 " vim-subversive {{{
 Plug 'svermeulen/vim-subversive'
 
-nmap s <Plug>(SubversiveSubstitute)
-nmap ss <Plug>(SubversiveSubstituteLine)
-nmap sS <Plug>(SubversiveSubstituteToEndOfLine)
+nmap ss <Plug>(SubversiveSubstitute)
+nmap sS <Plug>(SubversiveSubstituteLine)
+nmap sl <Plug>(SubversiveSubstituteToEndOfLine)
 
 nmap <Leader>s <Plug>(SubversiveSubstituteRange)
 xmap <Leader>s <Plug>(SubversiveSubstituteRange)
@@ -54,12 +54,38 @@ onoremap ie :exec "normal! ggVG"<CR>
 onoremap iv :exec "normal! HVL"<CR>
 
 " Quick substitute from system clipboard
-nmap =s "+<Plug>(SubversiveSubstitute)
-nmap =ss "+<Plug>(SubversiveSubstituteLine)
-nmap =sS "+<Plug>(SubversiveSubstituteToEndOfLine)
+nmap =ss "+<Plug>(SubversiveSubstitute)
+nmap =sS "+<Plug>(SubversiveSubstituteLine)
+nmap =sl "+<Plug>(SubversiveSubstituteToEndOfLine)
+" }}}
+
+" vim-sandwich {{{
+Plug 'machakann/vim-sandwich'
+
+" if you have not copied default recipes
+let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+
+" add spaces inside bracket
+let g:sandwich#recipes += [
+	  \   {'buns': ['{ ', ' }'], 'nesting': 1, 'match_syntax': 1, 'kind': ['add', 'replace'], 'action': ['add'], 'input': ['}']},
+	  \   {'buns': ['[ ', ' ]'], 'nesting': 1, 'match_syntax': 1, 'kind': ['add', 'replace'], 'action': ['add'], 'input': [']']},
+	  \   {'buns': ['( ', ' )'], 'nesting': 1, 'match_syntax': 1, 'kind': ['add', 'replace'], 'action': ['add'], 'input': [')']},
+	  \   {'buns': ['{\s*', '\s*}'],   'nesting': 1, 'regex': 1, 'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'], 'action': ['delete'], 'input': ['}']},
+	  \   {'buns': ['\[\s*', '\s*\]'], 'nesting': 1, 'regex': 1, 'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'], 'action': ['delete'], 'input': [']']},
+	  \   {'buns': ['(\s*', '\s*)'],   'nesting': 1, 'regex': 1, 'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'], 'action': ['delete'], 'input': [')']},
+	  \ ]
+
+xmap iss <Plug>(textobj-sandwich-auto-i)
+xmap ass <Plug>(textobj-sandwich-auto-a)
+omap iss <Plug>(textobj-sandwich-auto-i)
+omap ass <Plug>(textobj-sandwich-auto-a)
+
+xmap il <Plug>(textobj-sandwich-literal-query-i)
+xmap al <Plug>(textobj-sandwich-literal-query-a)
+omap il <Plug>(textobj-sandwich-literal-query-i)
+omap al <Plug>(textobj-sandwich-literal-query-a)
 " }}}
 
 Plug 'editorconfig/editorconfig-vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
