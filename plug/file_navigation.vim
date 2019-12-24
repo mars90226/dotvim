@@ -39,7 +39,7 @@ augroup END
 " }}}
 
 " tagbar {{{
-Plug 'majutsushi/tagbar', { 'on': ['TagbarToggle', 'TagbarOpenAutoClose'] }
+Plug 'majutsushi/tagbar'
 
 call vimrc#source('vimrc/plugins/tagbar.vim')
 " }}}

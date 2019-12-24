@@ -140,10 +140,11 @@ endfunction
 
 function! vimrc#lightline#nearest_method_or_function()
   let vista_method = get(b:, 'vista_nearest_method_or_function', '')
-  if exists('*tagbar#currenttag')
     return vista_method == '' ? tagbar#currenttag('%s', '', '') : vista_method
-  else
-    " tagbar is not loaded
-    return vista_method
-  end
+  " if exists('*tagbar#currenttag')
+  "   return vista_method == '' ? tagbar#currenttag('%s', '', '') : vista_method
+  " else
+  "   " tagbar is not loaded
+  "   return vista_method
+  " end
 endfunction
