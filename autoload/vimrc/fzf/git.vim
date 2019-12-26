@@ -184,7 +184,7 @@ function! vimrc#fzf#git#grep_commit(commit, ...)
         \ 'LAST=$((${FIRST}+${LINES}-1));'.
         \ 'TEMPFILE="/tmp/$(basename $FILE)";'.
         \ 'git show '.a:commit.':"$FILE" > "$TEMPFILE";'.
-        \ vimrc#fzf#preview#get_command() . ' --line-range "$FIRST:$LAST" "$TEMPFILE";'.
+        \ vimrc#fzf#preview#get_command() . ' --line-range "$FIRST:$LAST" --highlight-line "$LINE" "$TEMPFILE";'.
         \ 'rm "$TEMPFILE"'
 
   call fzf#run(vimrc#fzf#wrap('', {
