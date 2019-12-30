@@ -20,6 +20,9 @@
       "initializationOptions": {
         "cache": {
           "directory": ".ccls-cache"
+        },
+        "index": {
+          "threads": 2
         }
       }
     }
