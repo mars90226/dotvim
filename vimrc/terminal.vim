@@ -157,5 +157,7 @@ if has("nvim")
     nnoremap <Leader>kk :execute 'GoogleKeyword ' . expand('<cword>')<CR>
   endif
   " }}}
+
+  command! Htop :new term://htop
 endif
 " }}}
