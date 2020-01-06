@@ -328,3 +328,20 @@ function! vimrc#clear_winfixsize()
   setlocal nowinfixheight
   setlocal nowinfixwidth
 endfunction
+
+" Asynchronously open browser
+function! vimrc#async_open_browser(url)
+  " Currently only support neovim
+  if !vimrc#plugin#check#has_rpc()
+    echoerr "This version of vim does not have RPC!"
+    return
+  endif
+
+  " Use xdg-open to open browser
+  if !has("unix") || !executable("xdg-open")
+    echoerr "No xdg-open founded!"
+    return
+  endif
+
+  call jobstart('xdg-open '.a:url, {})
+endfunction

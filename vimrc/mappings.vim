@@ -273,4 +273,9 @@ command! ReloadVimrc call vimrc#reload#reload()
 if vimrc#plugin#check#get_os() !~ "windows"
   command! Args echo system("ps -o command= -p " . getpid())
 endif
+
+" Asynchronous open
+if has("nvim") && has("unix") && executable("xdg-open")
+  command! -bar -nargs=1 Browse call vimrc#async_open_browser(<f-args>)
+endif
 " }}}
