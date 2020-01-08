@@ -132,6 +132,9 @@ nnoremap <Leader>yv :vertical split<CR>
 " Copy unnamed register to system clipboard
 nnoremap <Space>sr :let @+ = @"<CR>
 
+" Trim system clipboard to 7 chars (for git commit sha)
+nnoremap <Space>s7 :let @+ = @+[0:6]<CR>
+
 " Command line & Insert mode mapping
 cnoremap <expr> <C-G><C-F> vimrc#fzf#files_in_commandline()
 inoremap <expr> <C-G><C-F> vimrc#fzf#files_in_commandline()
