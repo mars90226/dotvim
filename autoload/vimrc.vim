@@ -11,6 +11,26 @@ function! vimrc#get_vim_mode()
   return s:vim_mode
 endfunction
 
+function! vimrc#get_browser()
+  if executable('firefox')
+    return "firefox"
+  elseif executable('chrome')
+    return "chrome"
+  else
+    return ""
+  endif
+endfunction
+
+function! vimrc#get_browser_search_command(keyword)
+  if executable('firefox')
+    return "firefox --search '" . a:keyword . "'"
+  elseif executable('chrome')
+    return "chrome '? " . a:keyword . "'"
+  else
+    return ""
+  endif
+endfunction
+
 function! vimrc#get_nvim_terminal()
   return s:nvim_terminal
 endfunction
@@ -329,19 +349,53 @@ function! vimrc#clear_winfixsize()
   setlocal nowinfixwidth
 endfunction
 
-" Asynchronously open browser
-function! vimrc#async_open_browser(url)
+" Asynchronously browse URI
+function! vimrc#async_browse(uri)
   " Currently only support neovim
   if !vimrc#plugin#check#has_rpc()
     echoerr "This version of vim does not have RPC!"
     return
   endif
 
-  " Use xdg-open to open browser
+  " Use xdg-open to open URI
   if !has("unix") || !executable("xdg-open")
-    echoerr "No xdg-open founded!"
+    echoerr "No xdg-open found!"
     return
   endif
 
-  call jobstart('xdg-open '.a:url, {})
+  call jobstart('xdg-open ' . a:uri, {})
+endfunction
+
+" Asynchronously open URL in browser
+function! vimrc#async_open_url_in_browser(url)
+  " Currently only support neovim
+  if !vimrc#plugin#check#has_rpc()
+    echoerr "This version of vim does not have RPC!"
+    return
+  endif
+
+  let browser = vimrc#get_browser()
+  if empty(browser)
+    echoerr "No browser found!"
+    return
+  endif
+
+  call jobstart(browser . ' ' . a:url, {})
+endfunction
+
+" Asynchronously search keyword in browser
+function! vimrc#async_search_keyword_in_browser(keyword)
+  " Currently only support neovim
+  if !vimrc#plugin#check#has_rpc()
+    echoerr "This version of vim does not have RPC!"
+    return
+  endif
+
+  let search_command = vimrc#get_browser_search_command(a:keyword)
+  if empty(search_command)
+    echoerr "No browser found!"
+    return
+  endif
+
+  call jobstart(search_command, {})
 endfunction

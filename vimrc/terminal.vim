@@ -154,7 +154,7 @@ if has("nvim")
       startinsert
       call nvim_input('sr google ' . a:keyword . "\n")
     endfunction
-    nnoremap <Leader>kk :execute 'GoogleKeyword ' . expand('<cword>')<CR>
+    nnoremap <Leader>gk :execute 'GoogleKeyword ' . expand('<cword>')<CR>
   endif
   " }}}
 
