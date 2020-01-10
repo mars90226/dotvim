@@ -28,5 +28,9 @@
     }
   },
   "coc.source.neosnippet.disableSyntaxes": ["string", "comment"],
-  "python.linting.pylintEnabled": true
+  "python.linting.pylintEnabled": true,
+  "list.insertMappings": {
+    "<A-j>": "feedkeys:<C-f>",
+    "<A-k>": "feedkeys:<C-b>"
+  }
 }
