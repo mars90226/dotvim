@@ -31,6 +31,10 @@
   "python.linting.pylintEnabled": true,
   "list.insertMappings": {
     "<A-j>": "feedkeys:<C-f>",
-    "<A-k>": "feedkeys:<C-b>"
+    "<A-k>": "feedkeys:<C-b>",
+    "<A-s>": "do:switch",
+    "<C-s>": "action:split",
+    "<C-t>": "action:tabe",
+    "<C-v>": "action:vsplit"
   }
 }
