@@ -72,7 +72,8 @@ nnoremap <M-o> o <C-U>
 nnoremap <M-S-o> O <C-U>
 
 " Save
-nnoremap <C-S> :update<CR>
+nnoremap <C-S>        :update<CR>
+nnoremap <Space><C-S> :wall<CR>
 
 " Quit
 nnoremap <Space>q :q<CR>
