@@ -31,6 +31,10 @@ xmap av <Plug>(coc-funcobj-a)
 omap iv <Plug>(coc-funcobj-i)
 xmap iv <Plug>(coc-funcobj-i)
 
+" mappings for range-select
+nmap <silent> ar <Plug>(coc-range-select)
+xmap <silent> ar <Plug>(coc-range-select)
+
 " K: show documentation in preview window
 nnoremap <silent> K :call vimrc#coc#show_documentation()<CR>
 " Remap for K
