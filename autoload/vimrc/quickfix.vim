@@ -5,12 +5,15 @@ function! vimrc#quickfix#mappings()
   nnoremap <silent><buffer> <C-S> :set switchbuf+=split<CR><CR>:set switchbuf-=split<CR>
   nnoremap <silent><buffer> <C-V> :set switchbuf+=vsplit<CR><CR>:set switchbuf-=vsplit<CR>
 
-  " Use fugitive to open
+  " Use fugitive to open file
   " TODO Add key mapping for :cnext and :cprevious for opening with fugitive
   nnoremap <silent><buffer> <M-f> :call vimrc#quickfix#open('Gedit')<CR>
   nnoremap <silent><buffer> <M-t> :call vimrc#quickfix#open('Gtabedit')<CR>
   nnoremap <silent><buffer> <M-s> :call vimrc#quickfix#open('Gsplit')<CR>
   nnoremap <silent><buffer> <M-v> :call vimrc#quickfix#open('Gvsplit')<CR>
+
+  " Use fugitive to open commit
+  nnoremap <silent><buffer><nowait> gc 0:execute 'Gsplit '.expand('<cword>')<CR>
 endfunction
 
 " Functions
