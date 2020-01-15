@@ -2,7 +2,7 @@ let s:ctrlp_user_command_default_timeout = 5
 let s:ctrlp_user_command_timeout = s:ctrlp_user_command_default_timeout
 
 function! vimrc#ctrlp#update_user_command(has_timeout)
-  if empty(g:ctrlp_base_user_command)
+  if !exists('g:ctrlp_base_user_command') || empty(g:ctrlp_base_user_command)
     return
   endif
 
