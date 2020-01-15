@@ -40,6 +40,7 @@ augroup fileTypeSpecific
   autocmd BufNewFile,BufReadPost resource             set filetype=json
   autocmd BufNewFile,BufReadPost *.bashrc             set filetype=sh
   autocmd BufNewFile,BufReadPost *.sieve              set filetype=sieve
+  autocmd BufNewFile,BufReadPost mimdefang-filter     set filetype=perl
 
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
