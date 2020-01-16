@@ -56,18 +56,16 @@ Plug 'rhysd/git-messenger.vim', { 'on': ['GitMessenger', '<Plug>(git-messenger)'
 nmap <Leader>gm <Plug>(git-messenger)
 " }}}
 
-" nvim-blame-line {{{
+" blamer.nvim {{{
 if has('nvim')
-  Plug 'tveskag/nvim-blame-line'
+  Plug 'APZelos/blamer.nvim'
 
-  let g:blameLineVirtualTextHighlight = 'GruvboxFg4'
+  let g:blamer_enabled = 1
+  let g:blamer_delay = 500
 
-  nnoremap <silent> <Leader>gB :ToggleBlameLine<CR>
+  highlight! link Blamer GruvboxFg4
 
-  augroup nvim_blame_line_settings
-    autocmd!
-    autocmd BufEnter * EnableBlameLine
-  augroup END
+  nnoremap <Leader>gB :BlamerToggle<CR>
 endif
 " }}}
 
