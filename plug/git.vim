@@ -50,20 +50,25 @@ Plug 'codeindulgence/vim-tig', { 'on': ['Tig', 'Tig!'] }
 call vimrc#source('vimrc/plugins/tig.vim')
 " }}}
 
-" git-p.nvim {{{
-" Disable git-p.nvim in nested neovim due to channel error
-if vimrc#plugin#is_enabled_plugin('git-p.nvim')
-  Plug 'iamcco/sran.nvim', { 'do': { -> sran#util#install() } }
-  Plug 'iamcco/git-p.nvim'
-
-  call vimrc#source('vimrc/plugins/git_p.vim')
-endif
-" }}}
-
 " git-messenger.vim {{{
 Plug 'rhysd/git-messenger.vim', { 'on': ['GitMessenger', '<Plug>(git-messenger)'] }
 
 nmap <Leader>gm <Plug>(git-messenger)
+" }}}
+
+" nvim-blame-line {{{
+if has('nvim')
+  Plug 'tveskag/nvim-blame-line'
+
+  let g:blameLineVirtualTextHighlight = 'GruvboxFg4'
+
+  nnoremap <silent> <Leader>gB :ToggleBlameLine<CR>
+
+  augroup nvim_blame_line_settings
+    autocmd!
+    autocmd BufEnter * EnableBlameLine
+  augroup END
+endif
 " }}}
 
 " Disabled as not used
