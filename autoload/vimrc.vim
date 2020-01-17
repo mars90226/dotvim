@@ -399,3 +399,9 @@ function! vimrc#async_search_keyword_in_browser(keyword)
 
   call jobstart(search_command, {})
 endfunction
+
+" Used in command-line mode
+function! vimrc#trim_cmdline()
+  let length = str2nr(input('length: '))
+  return getcmdline()[0 : length - 1]
+endfunction

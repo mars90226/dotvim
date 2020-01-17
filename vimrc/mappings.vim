@@ -161,6 +161,8 @@ cnoremap <expr> <C-G><C-b> "\<C-b>\\b\<C-e>\\b"
 " Fugitive commit sha
 cnoremap <expr> <C-G><C-Y> vimrc#fugitive#commit_sha()
 inoremap <expr> <C-G><C-Y> vimrc#fugitive#commit_sha()
+" Trim command line content
+cnoremap <C-G>t <C-\>evimrc#trim_cmdline()<CR>
 
 " Ex mode for special buffer that map 'q' as ':quit'
 nnoremap \q: q:
