@@ -163,6 +163,8 @@ cnoremap <expr> <C-G><C-Y> vimrc#fugitive#commit_sha()
 inoremap <expr> <C-G><C-Y> vimrc#fugitive#commit_sha()
 " Trim command line content
 cnoremap <C-G>t <C-\>evimrc#trim_cmdline()<CR>
+" Delete whole word
+cnoremap <C-G>w <C-\>evimrc#delete_whole_word()<CR>
 
 " Ex mode for special buffer that map 'q' as ':quit'
 nnoremap \q: q:
