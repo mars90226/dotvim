@@ -7,8 +7,14 @@ else
   let s:os = system("uname -a")
 endif
 
+let s:wsl_environment = $WSL_ENVIRONMENT
+
 function! vimrc#plugin#check#get_os()
   return s:os
+endfunction
+
+function! vimrc#plugin#check#get_wsl_environment()
+  return s:wsl_environment
 endfunction
 
 " Set nvim version
