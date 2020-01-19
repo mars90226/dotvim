@@ -120,7 +120,6 @@ function! vimrc#lightline#tab_filename(n) abort
   let FilenameFilter = { fname -> '' != fname ? fname : '[No Name]' }
   return fname =~ '__Tagbar__' ? 'Tagbar' :
         \ fname == '__vista__' ? 'Vista' :
-        \ fname =~ 'NERD_tree' ? 'NERDTree' :
         \ ftype == 'fzf' ? FilenameFilter(gettabvar(a:n, 'current_filename', fname)) :
         \ FilenameFilter(fname)
 endfunction
