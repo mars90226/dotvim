@@ -6,6 +6,8 @@ function! vimrc#lightline#filename()
 
   if fname =~ '__Tagbar__'
     return get(g:lightline, 'fname', fname)
+  elseif fname == '__vista__'
+    return get(g:lightline, 'fname', fname)
   elseif fname == '__Mundo__'
     return 'Mundo'
   elseif fname == '__Mundo_Preview__'
@@ -42,6 +44,8 @@ function! vimrc#lightline#modified()
 endfunction
 
 function! vimrc#lightline#fugitive()
+  let fname = expand('%:t')
+
   if !exists('b:lightline_head')
     " Borrowed from s:display_git_branch from airline/extensions/branch.vim {{{
     let name = fugitive#head()
@@ -65,7 +69,9 @@ function! vimrc#lightline#fugitive()
     let b:lightline_head = name
   endif
 
-  return &ft == 'qf' ? '' : 
+  return &ft == 'qf' ? '' :
+        \ fname =~ '__Tagbar__' ? '' :
+        \ fname == '__vista__' ? '' :
         \ b:lightline_head !=# '' ? ' ' . b:lightline_head : ''
 endfunction
 
@@ -86,6 +92,7 @@ endfunction
 function! vimrc#lightline#mode()
   let fname = expand('%:t')
   return fname =~ '__Tagbar__' ? 'Tagbar' :
+        \ fname == '__vista__' ? 'Vista' :
         \ fname == '__Mundo__' ? 'Mundo' :
         \ fname == '__Mundo_Preview__' ? 'Mundo Preview' :
         \ &ft == 'qf' ? vimrc#lightline#quickfix_mode() :
@@ -112,6 +119,7 @@ function! vimrc#lightline#tab_filename(n) abort
   let ftype = getbufvar(bufnr, '&ft')
   let FilenameFilter = { fname -> '' != fname ? fname : '[No Name]' }
   return fname =~ '__Tagbar__' ? 'Tagbar' :
+        \ fname == '__vista__' ? 'Vista' :
         \ fname =~ 'NERD_tree' ? 'NERDTree' :
         \ ftype == 'fzf' ? FilenameFilter(gettabvar(a:n, 'current_filename', fname)) :
         \ FilenameFilter(fname)
