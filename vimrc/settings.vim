@@ -80,6 +80,7 @@ endif
 set belloff=all
 
 " move temporary files
+" TODO Use original backupdir and use other backupdir in Windows
 set backup " keep a backup file (restore to previous version)
 set backupdir^=~/.vimtmp
 if has("nvim")
