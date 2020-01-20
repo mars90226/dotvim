@@ -439,3 +439,8 @@ function! vimrc#delete_whole_word()
   call setcmdpos(1)
   return cmd[pos:]
 endfunction
+
+" Use surfraw
+function! vimrc#google_keyword(keyword)
+  execute 'new term://sr\ google\ '.vimrc#escape_symbol(a:keyword)
+endfunction

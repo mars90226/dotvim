@@ -146,13 +146,7 @@ if has("nvim")
 
   " Search keyword with Google using surfraw {{{
   if executable('sr')
-    command! -nargs=1 GoogleKeyword call s:google_keyword(<q-args>)
-    function! s:google_keyword(keyword)
-      new
-      terminal
-      startinsert
-      call nvim_input('sr google ' . a:keyword . "\n")
-    endfunction
+    command! -nargs=1 GoogleKeyword call vimrc#google_keyword(<q-args>)
     nnoremap <Leader>gk :execute 'GoogleKeyword ' . expand('<cword>')<CR>
   endif
   " }}}
