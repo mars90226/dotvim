@@ -11,4 +11,10 @@ function! vimrc#reload#reload()
   endfor
 
   source $MYVIMRC
+
+  " Source $MYVIMRC will reset editorconfig to default config, so reload
+  " editorconfig
+  if exists(":EditorConfigReload")
+    EditorConfigReload
+  endif
 endfunction
