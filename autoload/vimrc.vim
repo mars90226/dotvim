@@ -11,35 +11,6 @@ function! vimrc#get_vim_mode()
   return s:vim_mode
 endfunction
 
-function! vimrc#get_browser()
-  if executable('firefox')
-    return "firefox"
-  elseif executable('chrome')
-    return "chrome"
-  else
-    return ""
-  endif
-endfunction
-
-function! vimrc#get_browser_search_command(keyword)
-  if executable('firefox')
-    return "firefox --search '" . a:keyword . "'"
-  elseif executable('chrome')
-    return "chrome '? " . a:keyword . "'"
-  else
-    return ""
-  endif
-endfunction
-
-function! vimrc#get_client_browser_command(command)
-  " TODO Check client browser
-  return "ssh ".$SSH_CLIENT_HOST." 'firefox ".a:command."'"
-endfunction
-
-function! vimrc#get_client_browser_search_command(keyword)
-  " TODO Check client browser
-  return "ssh ".$SSH_CLIENT_HOST." 'firefox --search ".a:keyword."'"
-endfunction
 
 function! vimrc#get_nvim_terminal()
   return s:nvim_terminal
@@ -384,7 +355,7 @@ function! vimrc#async_open_url_in_browser(url)
     return
   endif
 
-  let browser = vimrc#get_browser()
+  let browser = vimrc#browser#get()
   if empty(browser)
     echoerr "No browser found!"
     return
@@ -401,7 +372,7 @@ function! vimrc#async_search_keyword_in_browser(keyword)
     return
   endif
 
-  let search_command = vimrc#get_browser_search_command(a:keyword)
+  let search_command = vimrc#browser#get_seaarch_command(a:keyword)
   if empty(search_command)
     echoerr "No browser found!"
     return
@@ -418,7 +389,7 @@ function! vimrc#async_open_url_in_client_browser(url)
     return
   endif
 
-  let client_browser_command = vimrc#get_client_browser_command(a:url)
+  let client_browser_command = vimrc#browser#get_client_command(a:url)
   if empty(client_browser_command)
     echoerr "No browser found!"
     return
@@ -435,7 +406,7 @@ function! vimrc#async_search_keyword_in_client_browser(keyword)
     return
   endif
 
-  let client_browser_search_command = vimrc#get_client_browser_search_command(a:keyword)
+  let client_browser_search_command = vimrc#browser#get_client_search_command(a:keyword)
   if empty(client_browser_search_command)
     echoerr "No browser found!"
     return
