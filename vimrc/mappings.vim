@@ -305,4 +305,14 @@ if has("nvim")
   nnoremap <Leader>k :execute 'SearchKeyword ' . expand('<cword>')<CR>
   nnoremap <Leader>K :execute 'SearchKeyword ' . expand('<cWORD>')<CR>
 endif
+
+" Asynchronous open URL in client browser
+if has("nvim")
+  command! -bar -nargs=1 OpenUrlInClientBrowser call vimrc#async_open_url_in_client_browser(<f-args>)
+endif
+
+" Asynchronous search keyword in client browser
+if has("nvim")
+  command! -bar -nargs=1 SearchKeywordInClientBrowser call vimrc#async_search_keyword_in_client_browser(<f-args>)
+endif
 " }}}

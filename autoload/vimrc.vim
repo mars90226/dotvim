@@ -31,6 +31,16 @@ function! vimrc#get_browser_search_command(keyword)
   endif
 endfunction
 
+function! vimrc#get_client_browser_command(command)
+  " TODO Check client browser
+  return "ssh ".$SSH_CLIENT_HOST." 'firefox ".a:command."'"
+endfunction
+
+function! vimrc#get_client_browser_search_command(keyword)
+  " TODO Check client browser
+  return "ssh ".$SSH_CLIENT_HOST." 'firefox --search ".a:keyword."'"
+endfunction
+
 function! vimrc#get_nvim_terminal()
   return s:nvim_terminal
 endfunction
@@ -398,6 +408,40 @@ function! vimrc#async_search_keyword_in_browser(keyword)
   endif
 
   call jobstart(search_command, {})
+endfunction
+
+" Asynchronously open URL in client browser
+function! vimrc#async_open_url_in_client_browser(url)
+  " Currently only support neovim
+  if !vimrc#plugin#check#has_rpc()
+    echoerr "This version of vim does not have RPC!"
+    return
+  endif
+
+  let client_browser_command = vimrc#get_client_browser_command(a:url)
+  if empty(client_browser_command)
+    echoerr "No browser found!"
+    return
+  endif
+
+  call jobstart(client_browser_command, {})
+endfunction
+
+" Asynchronously search keyword in client browser
+function! vimrc#async_search_keyword_in_client_browser(keyword)
+  " Currently only support neovim
+  if !vimrc#plugin#check#has_rpc()
+    echoerr "This version of vim does not have RPC!"
+    return
+  endif
+
+  let client_browser_search_command = vimrc#get_client_browser_search_command(a:keyword)
+  if empty(client_browser_search_command)
+    echoerr "No browser found!"
+    return
+  endif
+
+  call jobstart(client_browser_search_command, {})
 endfunction
 
 " Used in command-line mode
