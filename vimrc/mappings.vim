@@ -161,6 +161,8 @@ cnoremap <expr> <C-G><C-b> "\<C-b>\\b\<C-e>\\b"
 " Fugitive commit sha
 cnoremap <expr> <C-G><C-Y> vimrc#fugitive#commit_sha()
 inoremap <expr> <C-G><C-Y> vimrc#fugitive#commit_sha()
+" Get visual selection
+cnoremap <expr> <C-G><C-V> vimrc#get_visual_selection()
 " Trim command line content
 cnoremap <C-G>t <C-\>evimrc#trim_cmdline()<CR>
 " Delete whole word
