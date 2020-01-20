@@ -184,6 +184,7 @@ xnoremap <Space>f8 :<C-U>call vimrc#execute_and_save('Rg \b' . vimrc#get_visual_
 nnoremap <Space>fl :call vimrc#execute_and_save('BLines')<CR>
 nnoremap <Space>fL :call vimrc#execute_and_save('Lines')<CR>
 nnoremap <Space>f<C-L> :call vimrc#execute_and_save('BLines ' . expand('<cword>'))<CR>
+xnoremap <Space>f<C-L> :<C-U>call vimrc#execute_and_save('BLines ' . vimrc#get_visual_selection())<CR>
 nnoremap <Space>fm :call vimrc#execute_and_save('Mru')<CR>
 nnoremap <Space>fM :call vimrc#execute_and_save('DirectoryMru')<CR>
 nnoremap <Space>f<C-M> :call vimrc#execute_and_save('ProjectMru')<CR>

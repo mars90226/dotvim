@@ -17,6 +17,7 @@ nnoremap <Space><C-P> :DeniteProjectDir -auto-resume file<CR>
 nnoremap <Space>l     :Denite -auto-action=highlight line<CR>
 nnoremap <Space>L     :Denite -default-action=switch line:buffers<CR>
 nnoremap <Space>dl    :DeniteCursorWord -auto-action=preview -split=no line<CR>
+xnoremap <Space>dl    :<C-U>execute 'Denite -auto-action=preview -split=no -input='.vimrc#escape_symbol(vimrc#get_visual_selection()).' line'<CR>
 nnoremap <Space>o     :Denite outline<CR>
 " }}}
 
