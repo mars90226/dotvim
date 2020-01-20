@@ -15,51 +15,17 @@ endif
 " Fix meta key in vim
 " terminal meta key fix {{{
 if !has("nvim") && !has("gui_running") && vimrc#plugin#check#get_os() !~ "windows"
+  " TODO Check if the "windows" condition is wrong
   if vimrc#plugin#check#get_os() =~ "windows"
     " Windows Terminal keycode will change after startup
     " Maybe it's related to ConEmu
     " This fix will not work after reload .vimrc/_vimrc
     augroup WindowsTerminalKeyFix
       autocmd!
-      autocmd VimEnter *
-            \ set <M-a>=a |
-            \ set <M-c>=c |
-            \ set <M-h>=h |
-            \ set <M-g>=g |
-            \ set <M-j>=j |
-            \ set <M-k>=k |
-            \ set <M-l>=l |
-            \ set <M-n>=n |
-            \ set <M-o>=o |
-            \ set <M-p>=p |
-            \ set <M-s>=s |
-            \ set <M-t>=t |
-            \ set <M-/>=/ |
-            \ set <M-?>=? |
-            \ set <M-]>=] |
-            \ set <M-`>=` |
-            \ set <M-1>=1 |
-            \ set <M-S-o>=O
+      autocmd VimEnter * call vimrc#terminal#meta_key_fix()
     augroup END
   else
-    set <M-a>=a |
-    set <M-c>=c |
-    set <M-h>=h |
-    set <M-g>=g |
-    set <M-j>=j |
-    set <M-k>=k |
-    set <M-l>=l |
-    set <M-n>=n |
-    set <M-o>=o |
-    set <M-p>=p |
-    set <M-s>=s |
-    set <M-t>=t |
-    set <M-/>=/ |
-    set <M-?>=? |
-    set <M-]>=] |
-    set <M-`>=` |
-    set <M-1>=1 |
-    set <M-S-o>=O
+    call vimrc#terminal#meta_key_fix()
   endif
 endif
 " }}}

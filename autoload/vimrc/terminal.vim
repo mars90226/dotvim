@@ -17,6 +17,27 @@ function! vimrc#terminal#settings()
   endif
 endfunction
 
+function! vimrc#terminal#meta_key_fix()
+  set <M-a>=a
+  set <M-c>=c
+  set <M-h>=h
+  set <M-g>=g
+  set <M-j>=j
+  set <M-k>=k
+  set <M-l>=l
+  set <M-n>=n
+  set <M-o>=o
+  set <M-p>=p
+  set <M-s>=s
+  set <M-t>=t
+  set <M-/>=/
+  set <M-?>=?
+  set <M-]>=]
+  set <M-`>=`
+  set <M-1>=1
+  set <M-S-o>=O
+endfunction
+
 " Utilities
 " Open terminal in specified folder in new tab
 function! vimrc#terminal#tabnew(folder)
