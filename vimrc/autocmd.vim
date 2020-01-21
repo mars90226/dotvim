@@ -8,19 +8,13 @@ augroup END
 augroup fileTypeSpecific
   autocmd!
 
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
-
-  " Rack
-  autocmd BufNewFile,BufReadPost *.ru                 set filetype=ruby
-
-  " gdb
-  autocmd BufNewFile,BufReadPost *.gdbinit            set filetype=gdb
-
   " gitcommit
+  " FIXME Cannot move to ftplugin, do not load
   autocmd FileType gitcommit setlocal spell complete+=k
 
   " Custom filetype
+  autocmd BufNewFile,BufReadPost *.ru                 set filetype=ruby
+  autocmd BufNewFile,BufReadPost *.gdbinit            set filetype=gdb
   autocmd BufNewFile,BufReadPost *maillog             set filetype=messages
   autocmd BufNewFile,BufReadPost *maillog.*.xz        set filetype=messages
   autocmd BufNewFile,BufReadPost *conf                set filetype=conf
