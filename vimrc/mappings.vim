@@ -34,15 +34,8 @@ cnoremap <M-p> <Up>
 nnoremap <C-J> gT
 nnoremap <C-K> gt
 
-nnoremap QQ :call <SID>QuitTab()<CR>
+nnoremap QQ :call vimrc#utility#quit_tab()<CR>
 nnoremap g4 :tablast<CR>
-function! s:QuitTab()
-  try
-    tabclose
-  catch /E784/ " Can't close last tab
-    qall
-  endtry
-endfunction
 " }}}
 
 " Quickly adjust window size
@@ -50,11 +43,7 @@ nnoremap <C-W><Space>- <C-W>10-
 nnoremap <C-W><Space>+ <C-W>10+
 nnoremap <C-W><Space>< <C-W>10<
 nnoremap <C-W><Space>> <C-W>10>
-nnoremap <C-W><Space>= :call <SID>window_equal()<CR>
-function! s:window_equal()
-  windo setlocal nowinfixheight nowinfixwidth
-  wincmd =
-endfunction
+nnoremap <C-W><Space>= :call vimrc#utility#window_equal()<CR>
 
 " Move tab
 nnoremap <Leader>t< :tabmove -1<CR>
@@ -178,17 +167,6 @@ nnoremap \q? q?
 " vimrc#execute_and_save()
 nnoremap <M-x><M-x> :<C-P><CR>
 
-" s:execute_command() for executing command with query
-" TODO input completion
-function! s:execute_command(command, prompt)
-  let query = input(a:prompt)
-  if query != ''
-    execute a:command . ' ' . query
-  else
-    echomsg 'Cancelled!'
-  endif
-endfunction
-
 " Man
 " :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
 " TODO Move this to 'after' folder
@@ -200,7 +178,7 @@ endif
 if executable('sdcv')
   nnoremap <Leader>sd :execute '!sdcv ' . expand('<cword>')<CR>
   xnoremap <Leader>sd :<C-U>execute "!sdcv '" . vimrc#get_visual_selection() . "'"<CR>
-  nnoremap <Space>sd :call <SID>execute_command('!sdcv', 'sdcv: ')<CR>
+  nnoremap <Space>sd :call vimrc#utility#execute_command('!sdcv', 'sdcv: ')<CR>
 endif
 
 " Quickfix & Locaiton List {{{
