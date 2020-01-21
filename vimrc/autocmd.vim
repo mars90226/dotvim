@@ -44,25 +44,4 @@ augroup fileTypeSpecific
 
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
-
-  " FileType settings
-  autocmd FileType vim call s:filetype_vim_settings()
-  autocmd FileType python call s:filetype_python_settings()
 augroup END
-
-function! s:filetype_vim_settings()
-  setlocal shiftwidth=2
-  setlocal tabstop=2
-  setlocal softtabstop=2
-  setlocal expandtab
-endfunction
-
-function! s:filetype_python_settings()
-  setlocal shiftwidth=4
-  setlocal tabstop=4
-  setlocal softtabstop=4
-  setlocal expandtab
-
-  nnoremap <silent><buffer> K :call vimrc#coc#show_documentation()<CR>
-  nnoremap <silent><buffer> gK :execute 'Pydoc ' . expand('<cword>')<CR>
-endfunction
