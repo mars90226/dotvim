@@ -103,9 +103,10 @@ if has("nvim")
     autocmd BufWinEnter,WinEnter term://* startinsert
     autocmd BufLeave term://* stopinsert
 
-    " Ignore shell terminal buffer
+    " Ignore various filetypes as those will close terminal automatically
+    " Ignore fzf, coc
     autocmd TermClose term://*
-          \ if (expand('<afile>') =~ $SHELL) |
+          \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "coc") |
           \   call nvim_input('<CR>')  |
           \ endif
   augroup END
