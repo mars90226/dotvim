@@ -51,8 +51,7 @@ augroup coc_settings
   " Highlight symbol under cursor on CursorHold
   " Disabled as not useful and generate a lot of error when not indexed
   " autocmd CursorHold * silent call CocActionAsync('highlight')
-  " Setup formatexpr
-  autocmd FileType typescript,json setlocal formatexpr=CocAction('formatSelected')
+
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup END
