@@ -8,7 +8,7 @@ inoremap <expr> <Tab>      pumvisible() ? "\<C-N>" : "\<Tab>"
 
 " Workaround of supertab bug
 if vimrc#plugin#is_disabled_plugin('supertab')
-  inoremap <expr> <S-Tab>    pumvisible() ? "\<C-P>" : "\<S-Tab>"
+  inoremap <expr> <S-Tab>  pumvisible() ? "\<C-P>" : "\<S-Tab>"
 endif
 " }}}
 
