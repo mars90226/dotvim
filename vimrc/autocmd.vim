@@ -8,10 +8,6 @@ augroup END
 augroup fileTypeSpecific
   autocmd!
 
-  " gitcommit
-  " FIXME Cannot move to ftplugin, do not load
-  autocmd FileType gitcommit setlocal spell complete+=k
-
   " Custom filetype
   autocmd BufNewFile,BufReadPost *.ru                 set filetype=ruby
   autocmd BufNewFile,BufReadPost *.gdbinit            set filetype=gdb

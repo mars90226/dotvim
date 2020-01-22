@@ -18,6 +18,18 @@ function! s:fnameescape(file) abort
 endfunction
 " }}}
 
+" Settings
+function! vimrc#fugitive#gitcommit_settings()
+  setlocal complete+=k
+  setlocal nolist
+  setlocal spell
+endfunction
+
+" For fugitive://* buffers
+function! vimrc#fugitive#fugitive_buffer_settings()
+  setlocal bufhidden=delete
+endfunction
+
 " Mappings
 function! vimrc#fugitive#mappings()
   nnoremap <buffer> <silent> Su :GitDispatch stash -u<CR>
