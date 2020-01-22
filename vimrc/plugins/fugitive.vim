@@ -27,7 +27,8 @@ augroup fugitiveSettings
   autocmd BufReadPost fugitive://* setlocal bufhidden=delete
 augroup END
 
-let g:fugitive_gitlab_domains = ['https://git.synology.com']
+let g:fugitive_gitlab_domains = []
+let g:fugitive_gitlab_domains += g:fugitive_gitlab_secret_domains
 
 " Borrowed and modified from vim-fugitive s:Dispatch
 command! -nargs=* GitDispatch call vimrc#fugitive#git_dispatch(<q-args>)
