@@ -5,8 +5,3 @@ let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
 " inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>" . AutoPairsReturn()
 
 command! AutoPairsToggleMultilineClose call vimrc#auto_pairs#toggle_multiline_close()
-
-augroup autoPairsFileTypeSpecific
-  autocmd!
-  autocmd Filetype xml let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '<': '>'}
-augroup END
