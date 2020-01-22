@@ -29,5 +29,3 @@ call vimrc#source('vimrc/job.vim')
 call vimrc#source('vimrc/terminal.vim')
 call vimrc#source('vimrc/autocmd.vim')
 call vimrc#source('vimrc/workaround.vim')
-
-" vim: set sw=2 ts=2 sts=2 et foldlevel=0 foldmethod=marker:
