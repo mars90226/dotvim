@@ -36,3 +36,14 @@ let s:xdg_open_command = has('nvim') ? 'new term://xdg-open' : '!xdg-open'
 function! vimrc#utility#get_xdg_open()
   return s:xdg_open_command
 endfunction
+
+" DiffOrig
+function! vimrc#utility#diff_original()
+  vertical new
+  set buftype=nofile
+  read ++edit #
+  0d_
+  diffthis
+  wincmd p
+  diffthis
+endfunction

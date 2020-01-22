@@ -237,8 +237,7 @@ command! ClearWinfixsize call vimrc#clear_winfixsize()
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
 if !exists(":DiffOrig")
-  command DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_ | diffthis
-                 \ | wincmd p | diffthis
+  command DiffOrig call vimrc#utility#diff_original()
 endif
 
 " Delete inactive buffers
