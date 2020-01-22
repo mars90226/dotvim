@@ -119,5 +119,12 @@ if has("nvim")
   " }}}
 
   command! Htop :new term://htop
+
+  " sdcv
+  if executable('sdcv')
+    nnoremap <Leader>sd :execute 'new term://sdcv ' . expand('<cword>')<CR>
+    xnoremap <Leader>sd :<C-U>execute "new term://sdcv '" . vimrc#get_visual_selection() . "'"<CR>
+    nnoremap <Space>sd :call vimrc#utility#execute_command('new term://sdcv ', 'sdcv: ')<CR>
+  endif
 endif
 " }}}
