@@ -29,3 +29,10 @@ let s:sdcv_command = has('nvim') ? 'new term://sdcv' : '!sdcv'
 function! vimrc#utility#get_sdcv_command()
   return s:sdcv_command
 endfunction
+
+" xdg-open
+let s:xdg_open_command = has('nvim') ? 'new term://xdg-open' : '!xdg-open'
+
+function! vimrc#utility#get_xdg_open()
+  return s:xdg_open_command
+endfunction

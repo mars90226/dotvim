@@ -71,16 +71,13 @@ nnoremap <Space>Q :qa!<CR>
 " Quick execute
 if vimrc#plugin#check#get_os() =~ "windows"
   " Win32
-  "nnoremap <Leader>x :execute ':! "'.expand('%').'"'<CR>
-  nnoremap <Leader>x :!start cmd /c "%:p"<CR>
-  nnoremap <Leader>X :!start cmd /K cd /D %:p:h<CR>
-  nnoremap <Leader>E :execute '!start explorer "' . expand("%:p:h:gs?\\??:gs?/?\\?") . '"'<CR>
+  nnoremap <Leader>x :call vimrc#windows#execute_current_file()<CR>
+  nnoremap <Leader>X :call vimrc#windows#open_terminal_in_current_file_folder()<CR>
+  nnoremap <Leader>E :call vimrc#windows#reveal_current_file_folder_in_explorer()<CR>
 else
   " Linux
-  nnoremap <Leader>x :!xdg-open "%:p"<CR>
-
-  if has('nvim')
-    nnoremap <Leader>x :terminal xdg-open "%:p"<CR>
+  if executable('xdg-open')
+    nnoremap <Leader>x :execute vimrc#utility#get_xdg_open() . ' ' . "%:p"<CR>
   endif
 endif
 
