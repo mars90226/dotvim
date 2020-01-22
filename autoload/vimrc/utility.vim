@@ -22,3 +22,10 @@ function! vimrc#utility#execute_command(command, prompt)
     echomsg 'Cancelled!'
   endif
 endfunction
+
+" sdcv
+let s:sdcv_command = has('nvim') ? 'new term://sdcv' : '!sdcv'
+
+function! vimrc#utility#get_sdcv_command()
+  return s:sdcv_command
+endfunction

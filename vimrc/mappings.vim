@@ -176,9 +176,9 @@ endif
 
 " sdcv
 if executable('sdcv')
-  nnoremap <Leader>sd :execute '!sdcv ' . expand('<cword>')<CR>
-  xnoremap <Leader>sd :<C-U>execute "!sdcv '" . vimrc#get_visual_selection() . "'"<CR>
-  nnoremap <Space>sd :call vimrc#utility#execute_command('!sdcv', 'sdcv: ')<CR>
+  nnoremap <Leader>sd :execute vimrc#utility#get_sdcv_command() . ' ' . expand('<cword>')<CR>
+  xnoremap <Leader>sd :<C-U>execute vimrc#utility#get_sdcv_command() . " '" . vimrc#get_visual_selection() . "'"<CR>
+  nnoremap <Space>sd :call vimrc#utility#execute_command(vimrc#utility#get_sdcv_command(), 'sdcv: ')<CR>
 endif
 
 " Quickfix & Locaiton List {{{
