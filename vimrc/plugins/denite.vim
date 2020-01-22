@@ -1,6 +1,7 @@
 let g:session_directory = $HOME.'/vim-sessions/'
 let g:denite_source_session_path = $HOME.'/vim-sessions/'
-let g:project_folders = ['/synosrc/packages/source']
+let g:project_folders = []
+let g:project_folders += g:denite_secret_project_folders
 
 " Denite key mappings {{{
 " Override Unite key mapping {{{

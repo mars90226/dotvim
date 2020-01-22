@@ -117,7 +117,8 @@ let g:lastplace_open_folds = 0
 " vim-localvimrc {{{
 Plug 'embear/vim-localvimrc'
 
-let g:localvimrc_whitelist = ['/synosrc/[^/]*/source/.*']
+let g:localvimrc_whitelist = []
+let g:localvimrc_whitelist += g:localvimrc_secret_whitelist
 " }}}
 
 " vim-qfreplace {{{

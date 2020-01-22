@@ -13,7 +13,8 @@ let g:syntastic_tex_checkers  = ['lacheck']
 let g:syntastic_c_checkers    = ['gcc']
 let g:syntastic_cpp_checkers  = ['gcc']
 
-let g:syntastic_ignore_files = ['\m^/usr/include/', '\m^/synosrc/packages/build_env/', '\m\c\.h$']
+let g:syntastic_ignore_files = ['\m^/usr/include/', '\m\c\.h$']
+let g:syntastic_ignore_files += g:syntastic_secret_ignore_files
 
 nnoremap <Space><F6> :SyntasticCheck<CR>
 command! -bar SyntasticCheckHeader call vimrc#syntastic#check_header()
