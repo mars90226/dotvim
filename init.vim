@@ -13,6 +13,7 @@ call vimrc#source('plug/text_manipulation.vim')
 call vimrc#source('plug/text_objects.vim')
 call vimrc#source('plug/languages.vim')
 call vimrc#source('plug/git.vim')
+call vimrc#source('plug/terminal.vim')
 call vimrc#source('plug/utility.vim')
 
 call plug#end()
