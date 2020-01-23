@@ -28,7 +28,9 @@ augroup fugitiveSettings
 augroup END
 
 let g:fugitive_gitlab_domains = []
-let g:fugitive_gitlab_domains += g:fugitive_gitlab_secret_domains
+if exists('g:fugitive_gitlab_secret_domains')
+  let g:fugitive_gitlab_domains += g:fugitive_gitlab_secret_domains
+endif
 
 " Borrowed and modified from vim-fugitive s:Dispatch
 command! -nargs=* GitDispatch call vimrc#fugitive#git_dispatch(<q-args>)

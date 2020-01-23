@@ -118,7 +118,9 @@ let g:lastplace_open_folds = 0
 Plug 'embear/vim-localvimrc'
 
 let g:localvimrc_whitelist = []
-let g:localvimrc_whitelist += g:localvimrc_secret_whitelist
+if exists('g:localvimrc_secret_whitelist')
+  let g:localvimrc_whitelist += g:localvimrc_secret_whitelist
+endif
 " }}}
 
 " vim-qfreplace {{{
