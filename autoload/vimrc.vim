@@ -1,7 +1,10 @@
 " Use directory junction in Windows to link $HOME."/.vim" to $VIM."/vimfiles"
 let s:vimhome = $HOME . '/.vim'
 let s:vim_mode = $VIM_MODE
-let s:nvim_listen_address = $NVIM_LISTEN_ADDRESS
+let s:nvim_terminal = $NVIM_TERMINAL == "yes" ? 
+      \ $NVIM_TERMINAL :
+      " Check if parent process is nvim
+      \ systemlist('ps -o ppid= -p '.getpid().' | xargs ps -o cmd= -p ')[0] =~ 'nvim' ? "yes" : "no"
 
 function! vimrc#get_vimhome()
   return s:vimhome
@@ -12,7 +15,7 @@ function! vimrc#get_vim_mode()
 endfunction
 
 function! vimrc#get_nvim_terminal()
-  return empty(s:nvim_listen_address) ? "no" : "yes"
+  return s:nvim_terminal
 endfunction
 
 function! vimrc#source(path)
