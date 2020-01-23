@@ -267,7 +267,7 @@ function! vimrc#defx#execute_internal(context, split) abort
     let cmd = cmd . ' ' . path
   endif
 
-  execute a:split . ' | :terminal ' . cmd
+  execute a:split . ' term://' . cmd
 endfunction
 
 function! vimrc#defx#execute(context) abort
