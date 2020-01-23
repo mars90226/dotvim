@@ -143,6 +143,8 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#do_action('call', 'vimrc#defx#fzf_rg_bang')
   nnoremap <silent><buffer><expr> \<BS>
         \ defx#do_action('call', 'vimrc#defx#fzf_directory_ancestors')
+  nnoremap <silent><buffer><expr> <Space>x
+        \ defx#do_action('call', 'vimrc#defx#execute_split')
   nnoremap <silent><buffer><expr> \x
         \ defx#do_action('call', 'vimrc#defx#execute') " Add this mapping to prevent from executing 'x' mapping
   nnoremap <silent><buffer><expr> \xx
