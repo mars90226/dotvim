@@ -47,3 +47,8 @@ endfunction
 function! vimrc#terminal#is_shell_terminal(terminal)
   return (a:terminal =~ $SHELL) && (a:terminal !~ "fzf") && (a:terminal !~ "coc")
 endfunction
+
+" Only whitelist specific processes
+function! vimrc#terminal#is_interactive_process(terminal)
+  return (a:terminal =~ "htop")
+endfunction
