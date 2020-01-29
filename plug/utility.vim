@@ -173,6 +173,10 @@ Plug 'mg979/vim-visual-multi'
 " imap <BS> & <CR> is overwritten, need to be careful of bugs
 " }}}
 
+" firenvim {{{
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" }}}
+
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
 Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert', 'S'] }
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }
