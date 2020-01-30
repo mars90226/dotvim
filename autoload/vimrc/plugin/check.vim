@@ -3,8 +3,10 @@
 " Detect operating system
 if has("win32") || has("win64")
   let s:os = "windows"
+  let s:distro = "Windows"
 else
-  let s:os = system("uname -a")
+  let s:os = systemlist("uname -a")[0]
+  let s:distro = systemlist("lsb_release -is")[0]
 endif
 
 let s:wsl_environment = $WSL_ENVIRONMENT
@@ -15,6 +17,10 @@ endfunction
 
 function! vimrc#plugin#check#get_wsl_environment()
   return s:wsl_environment
+endfunction
+
+function! vimrc#plugin#check#get_distro()
+  return s:distro
 endfunction
 
 " Set nvim version

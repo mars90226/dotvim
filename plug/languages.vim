@@ -107,6 +107,9 @@ endif
 Plug 'rhysd/rust-doc.vim', { 'for': 'rust' }
 
 let g:rust_doc#define_map_K = 0
+let g:rust_doc#vim_open_cmd = 'RustDocOpen'
+
+command! -nargs=1 RustDocOpen call vimrc#rust_doc#open(<f-args>)
 " }}}
 
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
