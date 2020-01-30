@@ -14,3 +14,5 @@ endfunction
 
 nnoremap <silent><buffer> gK :call <SID>search_under_cursor(expand('<cword>'))<CR>
 vnoremap <silent><buffer> gK :<C-U>call <SID>search_under_cursor(vimrc#get_visual_selection())<CR>
+
+let b:AutoPairs = AutoPairsDefine({'\w\zs<': '>'})
