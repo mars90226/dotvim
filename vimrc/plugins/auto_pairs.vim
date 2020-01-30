@@ -1,7 +1,7 @@
 let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
 " let g:AutoPairsMapCR = 0
 
-" rust.vim in vim-polyglot will chane autopairs config
+" Prevent rust.vim in vim-polyglot change autopairs config
 let g:rust_keep_autopairs_default = 1
 
 " Custom <CR> map to avoid enter <CR> when popup is opened
