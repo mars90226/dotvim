@@ -103,6 +103,12 @@ if vimrc#plugin#check#has_jedi()
 endif
 " }}}
 
+" rust-doc.vim {{{
+Plug 'rhysd/rust-doc.vim', { 'for': 'rust' }
+
+let g:rust_doc#define_map_K = 0
+" }}}
+
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'mars90226/perldoc-vim', { 'for': 'perl' }
 Plug 'fs111/pydoc.vim', { 'for': 'python' }
