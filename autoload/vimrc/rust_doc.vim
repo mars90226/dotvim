@@ -10,12 +10,14 @@ endfunction
 
 " Open rust doc
 function! vimrc#rust_doc#open(url)
-  if vimrc#plugin#check#get_wsl_environment() == "yes"
-    let original_path = substitute(a:url, "^file://", '', '')
-    let wsl_path = 'file://///wsl$/'.vimrc#plugin#check#get_distro().original_path
+  let url = a:url
 
-    call openbrowser#open(wsl_path)
-  else
-    call openbrowser#open(a:url)
+  if vimrc#plugin#check#get_wsl_environment() == "yes"
+    if url =~ "^file://"
+      let original_path = substitute(url, "^file://", '', '')
+      let url = 'file://///wsl$/'.vimrc#plugin#check#get_distro().original_path
+    endif
   endif
+
+  call openbrowser#open(url)
 endfunction
