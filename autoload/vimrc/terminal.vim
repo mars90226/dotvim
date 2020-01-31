@@ -45,7 +45,8 @@ function! vimrc#terminal#tabnew(folder)
 endfunction
 
 function! vimrc#terminal#is_shell_terminal(terminal)
-  return (a:terminal =~ $SHELL) && (a:terminal !~ "fzf") && (a:terminal !~ "coc")
+  return (a:terminal =~ $SHELL) && (a:termial =~ "powershell")
+        \ && (a:terminal !~ "fzf") && (a:terminal !~ "coc")
 endfunction
 
 " Only whitelist specific processes
