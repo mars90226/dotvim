@@ -273,7 +273,7 @@ function! vimrc#defx#execute_internal(context, split) abort
 endfunction
 
 function! vimrc#defx#execute(context) abort
-  call vimrc#defx#execute_internal(a:context, '')
+  call vimrc#defx#execute_internal(a:context, 'edit')
 endfunction
 
 function! vimrc#defx#execute_tab(context) abort
