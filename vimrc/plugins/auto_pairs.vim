@@ -4,6 +4,11 @@ let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
 " Prevent rust.vim in vim-polyglot change autopairs config
 let g:rust_keep_autopairs_default = 1
 
+" Disable default auto-pairs' shortcut jump, use ours
+let g:AutoPairsShortcutJump = ""
+inoremap <silent> <M-n> <Esc>:call vimrc#auto_pairs#jump()<CR>a
+nnoremap <silent> <M-n> :call vimrc#auto_pairs#jump()<CR>
+
 " Custom <CR> map to avoid enter <CR> when popup is opened
 " inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>" . AutoPairsReturn()
 
