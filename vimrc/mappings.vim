@@ -57,7 +57,7 @@ inoremap <M-S-o> <C-O>O
 imap <M-5> <C-O>%
 
 " Go to WORD end in insert mode
-inoremap <M-E> <Esc>:call vimrc#jump_before_space_or_eol()<CR>a
+inoremap <M-E> <Esc>Ea
 
 " Create new line without indent & prefix
 nnoremap <M-o> o <C-U>
