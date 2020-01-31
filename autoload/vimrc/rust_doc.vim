@@ -21,3 +21,21 @@ function! vimrc#rust_doc#open(url)
 
   call openbrowser#open(url)
 endfunction
+
+" Open rustup doc
+function! vimrc#rust_doc#open_rustup_doc(topic)
+  let open_rustup_doc_command = "rustup doc ".a:topic
+  if vimrc#plugin#check#get_wsl_environment() == "yes"
+    let open_rustup_doc_command = "env BROWSER=open_rustup_doc.sh ".open_rustup_doc_command
+  endif
+
+  call jobstart(open_rustup_doc_command, {})
+endfunction
+
+" Utilities
+function! vimrc#rust_doc#get_cursor_word()
+  setlocal iskeyword+=:
+  let cursor_word = expand('<cword>')
+  setlocal iskeyword-=:
+  return cursor_word
+endfunction
