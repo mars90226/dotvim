@@ -5,3 +5,5 @@ let b:loaded_xml_settings = 1
 
 let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '<': '>'}
 let b:AutoPairsJumps = ['>']
+
+setlocal formatprg=rustfmt
