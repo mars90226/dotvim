@@ -56,6 +56,9 @@ inoremap <M-S-o> <C-O>O
 " Go to matched bracket in insert mode
 imap <M-5> <C-O>%
 
+" Go to WORD end in insert mode
+inoremap <M-E> <Esc>:call vimrc#jump_before_space_or_eol()<CR>a
+
 " Create new line without indent & prefix
 nnoremap <M-o> o <C-U>
 nnoremap <M-S-o> O <C-U>
