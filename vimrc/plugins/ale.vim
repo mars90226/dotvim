@@ -33,6 +33,9 @@ let g:ale_pattern_options = {
 " Default using bash dialect for shellcheck
 let g:ale_sh_shellcheck_options = '-s bash'
 
+" Check if clippy is installed
+let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
+
 nmap ]a <Plug>(ale_next_wrap)
 nmap [a <Plug>(ale_previous_wrap)
 nmap ]A <Plug>(ale_first)
