@@ -73,6 +73,11 @@ omap il <Plug>(textobj-sandwich-literal-query-i)
 omap al <Plug>(textobj-sandwich-literal-query-a)
 " }}}
 
+" vim-exchange {{{
+" FIXME Due to usage of clipboard, it's slow in neovim in WSL
+Plug 'tommcdo/vim-exchange'
+" }}}
+
 Plug 'editorconfig/editorconfig-vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-repeat'
