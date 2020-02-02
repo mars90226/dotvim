@@ -288,3 +288,10 @@ function! vimrc#defx#execute_vertical(context) abort
   call vimrc#defx#execute_internal(a:context, 'vnew')
 endfunction
 " }}}
+
+" Defx detect folder
+function! vimrc#defx#detect_folder(path)
+  if a:path != '' && isdirectory(a:path)
+    execute 'silent! Defx '.a:path
+  endif
+endfunction

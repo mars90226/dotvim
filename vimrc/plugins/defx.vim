@@ -34,3 +34,10 @@ augroup defx_mappings
   autocmd!
   autocmd FileType defx call vimrc#defx#mappings()
 augroup END
+
+augroup defx_detect_folder
+  autocmd!
+  " Disable netrw autocmd
+  autocmd VimEnter * autocmd! FileExplorer
+  autocmd BufEnter * call vimrc#defx#detect_folder(expand('<afile>'))
+augroup END
