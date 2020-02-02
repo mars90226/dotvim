@@ -71,6 +71,7 @@ function! vimrc#fzf#dir#directory_ancestors_sink(line)
 endfunction
 
 " Callbacks
+" FIXME This may have race condition that cannot find w:directory_sink_popd
 function! vimrc#fzf#dir#directory_sink_popd_callback()
   if !exists('w:directory_sink_popd')
     return
