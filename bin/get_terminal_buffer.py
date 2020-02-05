@@ -22,6 +22,6 @@ if __name__ == "__main__":
 
     tab = sys.argv[1]
     win = sys.argv[2]
-    lines = int(os.getenv('LINES'))
+    lines = int(os.getenv('FZF_PREVIEW_LINES'))
     terminal_buffer_content = get_terminal_buffer_content(tab, win, lines)
     print(terminal_buffer_content)

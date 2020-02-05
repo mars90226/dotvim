@@ -179,9 +179,9 @@ function! vimrc#fzf#git#grep_commit(commit, ...)
   " Borrowed from fzf.vim preview.sh
   let preview_command = "FILE=\"$(echo {} | awk -F ':' '{ print $2 }')\";".
         \ "LINE=\"$(echo {} | awk -F ':' '{ print $3 }')\";".
-        \ 'FIRST=$(($LINE-$LINES/3));'.
+        \ 'FIRST=$(($LINE-$FZF_PREVIEW_LINES/3));'.
         \ 'FIRST=$(($FIRST < 1 ? 1 : $FIRST));'.
-        \ 'LAST=$((${FIRST}+${LINES}-1));'.
+        \ 'LAST=$((${FIRST}+${FZF_PREVIEW_LINES}-1));'.
         \ 'TEMPFILE="/tmp/$(basename $FILE)";'.
         \ 'git show '.a:commit.':"$FILE" > "$TEMPFILE";'.
         \ vimrc#fzf#preview#get_command() . ' --line-range "$FIRST:$LAST" --highlight-line "$LINE" "$TEMPFILE";'.
@@ -229,7 +229,7 @@ function! vimrc#fzf#git#files_commit(commit)
   " TODO Filename not quoted, but git display error when quoted
   let preview_command = 'TEMPFILE="/tmp/$(basename {})";'.
         \ 'git show '.a:commit.':{} > "$TEMPFILE";'.
-        \ vimrc#fzf#preview#get_command() . ' --line-range 1:"$LINES" "$TEMPFILE";'.
+        \ vimrc#fzf#preview#get_command() . ' --line-range 1:"$FZF_PREVIEW_LINES" "$TEMPFILE";'.
         \ 'rm "$TEMPFILE"'
 
   call fzf#run(vimrc#fzf#wrap('', {
