@@ -147,30 +147,3 @@ augroup AlternateSettings
   autocmd VimEnter * call vimrc#alternative#settings()
 augroup END
 " }}}
-
-" far.vim {{{
-Plug 'brooth/far.vim'
-
-if has("python3")
-  if has("nvim")
-    if executable('rg')
-      let g:far#source = 'rgnvim'
-    elseif executable('ag')
-      let g:far#source = 'agnvim'
-    elseif executable('ack')
-      let g:far#source = 'acknvim'
-    endif
-  else
-    if executable('rg')
-      let g:far#source = 'rg'
-    elseif executable('ag')
-      let g:far#source = 'ag'
-    elseif executable('ack')
-      let g:far#source = 'ack'
-    endif
-  endif
-else
-  " Default behavior
-  " g:far#source = 'vimgrep'
-endif
-" }}}

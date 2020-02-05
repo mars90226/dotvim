@@ -78,6 +78,33 @@ omap al <Plug>(textobj-sandwich-literal-query-a)
 Plug 'tommcdo/vim-exchange'
 " }}}
 
+" far.vim {{{
+Plug 'brooth/far.vim'
+
+if has("python3")
+  if has("nvim")
+    if executable('rg')
+      let g:far#source = 'rgnvim'
+    elseif executable('ag')
+      let g:far#source = 'agnvim'
+    elseif executable('ack')
+      let g:far#source = 'acknvim'
+    endif
+  else
+    if executable('rg')
+      let g:far#source = 'rg'
+    elseif executable('ag')
+      let g:far#source = 'ag'
+    elseif executable('ack')
+      let g:far#source = 'ack'
+    endif
+  endif
+else
+  " Default behavior
+  " g:far#source = 'vimgrep'
+endif
+" }}}
+
 Plug 'editorconfig/editorconfig-vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-repeat'
