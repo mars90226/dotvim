@@ -119,6 +119,7 @@ if has("nvim")
   endif
   " }}}
 
-  command! Htop :new term://htop
+  command! Htop new term://htop
+  command! Broot vnew term://broot
 endif
 " }}}
