@@ -23,6 +23,7 @@ let g:misc_fzf_action = {
       \ 'ctrl-q': function('vimrc#fzf#build_quickfix_list'),
       \ 'alt-c':  function('vimrc#fzf#copy_results'),
       \ 'alt-e':  'cd',
+      \ 'f4':  'diffsplit',
       \ }
 if has('nvim')
   let g:misc_fzf_action['alt-t'] = function('vimrc#fzf#open_terminal')
