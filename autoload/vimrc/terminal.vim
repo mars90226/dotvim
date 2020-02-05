@@ -51,5 +51,5 @@ endfunction
 
 " Only whitelist specific processes
 function! vimrc#terminal#is_interactive_process(terminal)
-  return (a:terminal =~ "htop")
+  return (a:terminal =~ "htop") || (a:terminal =~ "broot")
 endfunction
