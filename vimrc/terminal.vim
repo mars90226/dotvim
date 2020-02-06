@@ -124,7 +124,7 @@ if has("nvim")
   endif
 
   if executable('broot')
-    command! Broot vnew term://broot
+    command! Broot vnew term://broot -p
   endif
 endif
 " }}}
