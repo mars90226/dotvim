@@ -248,8 +248,7 @@ function! vimrc#defx#fzf_directory_ancestors(context) abort
   call fzf#run(fzf#wrap({
         \ 'source': vimrc#fzf#dir#directory_ancestors_source(path),
         \ 'sink': function('vimrc#defx#fzf_directory_ancestors_sink'),
-        \ 'options': '+s',
-        \ 'down': '40%'}))
+        \ 'options': '+s'}))
 endfunction
 " }}}
 

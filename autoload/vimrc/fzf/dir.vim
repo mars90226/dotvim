@@ -104,9 +104,7 @@ function! vimrc#fzf#dir#directories(path, bang, ...)
   let Sink = a:0 && type(a:1) == type(function('call')) ? a:1 : ''
   let args = {
         \ 'source':  s:fd_dir_command,
-        \ 'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command() . ' {}'],
-        \ 'down':    '40%'
-        \ }
+        \ 'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command() . ' {}']}
 
   if empty(Sink)
     call fzf#vim#files(path, args, a:bang)
@@ -127,6 +125,5 @@ function! vimrc#fzf#dir#directory_ancestors()
   call fzf#run(fzf#wrap({
       \ 'source': vimrc#fzf#dir#directory_ancestors_source(expand('%')),
       \ 'sink': function('vimrc#fzf#dir#directory_ancestors_sink'),
-      \ 'options': '+s',
-      \ 'down': '40%'}))
+      \ 'options': '+s'}))
 endfunction

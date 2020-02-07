@@ -31,15 +31,13 @@ endfunction
 function! vimrc#fzf#mru#mru()
   call fzf#run(fzf#wrap({
         \ 'source':  vimrc#fzf#mru#mru_files(),
-        \ 'options': ['-m', '-s', '--prompt', 'Mru> ', '--preview', vimrc#fzf#preview#get_command() . ' {}'],
-        \ 'down':    '40%' }))
+        \ 'options': ['-m', '-s', '--prompt', 'Mru> ', '--preview', vimrc#fzf#preview#get_command() . ' {}']}))
 endfunction
 
 function! vimrc#fzf#mru#project_mru()
   call fzf#run(fzf#wrap({
         \ 'source':  vimrc#fzf#mru#project_mru_files(),
-        \ 'options': ['-m', '-s', '--prompt', 'ProjectMru> ', '--preview', vimrc#fzf#preview#get_command() . ' {}'],
-        \ 'down':    '40%' }))
+        \ 'options': ['-m', '-s', '--prompt', 'ProjectMru> ', '--preview', vimrc#fzf#preview#get_command() . ' {}']}))
 endfunction
 
 " DirectoryMru
@@ -47,9 +45,7 @@ function! vimrc#fzf#mru#directory_mru(bang, ...)
   let Sink = a:0 && type(a:1) == type(function('call')) ? a:1 : ''
   let args = {
         \ 'source':  vimrc#fzf#mru#neomru_directories(),
-        \ 'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command() . ' {}', '--prompt', 'DirectoryMru> '],
-        \ 'down':    '40%'
-        \ }
+        \ 'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command() . ' {}', '--prompt', 'DirectoryMru> ']}
 
   if empty(Sink)
     call fzf#vim#files('', args, a:bang)
@@ -75,9 +71,7 @@ function! vimrc#fzf#mru#mru_in_commandline()
         \ fzf#vim#with_preview({
         \   'source':  vimrc#fzf#mru#mru_files(),
         \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
-        \   'options': ['-s', '--prompt', 'Mru> '],
-        \   'down':    '40%'
-        \ }),
+        \   'options': ['-s', '--prompt', 'Mru> ']}),
         \ 0)
   let g:fzf_prefer_tmux = 0
   return get(results, 0, '')
@@ -92,9 +86,7 @@ function! vimrc#fzf#mru#directory_mru_in_commandline()
         \ {
         \   'source':  vimrc#fzf#mru#neomru_directories(),
         \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
-        \   'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command() . ' {}', '--prompt', 'DirectoryMru> '],
-        \   'down':    '40%'
-        \ },
+        \   'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command() . ' {}', '--prompt', 'DirectoryMru> ']},
         \ 0)
   let g:fzf_prefer_tmux = 0
   return get(results, 0, '')

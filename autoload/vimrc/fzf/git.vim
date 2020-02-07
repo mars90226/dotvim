@@ -190,8 +190,7 @@ function! vimrc#fzf#git#grep_commit(commit, ...)
   call fzf#run(vimrc#fzf#wrap('', {
         \ 'source': s:git_grep_commit_command.' '.shellescape(query).' '.a:commit,
         \ 'sink*': function('vimrc#fzf#git#grep_commit_sink', [a:commit, with_column]),
-        \ 'options': ['-m', '-s', '--preview-window', 'right:50%', '--preview', preview_command],
-        \ 'down': '40%' }, 0))
+        \ 'options': ['-m', '-s', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
 endfunction
 
 " TODO: Handle added/deleted files
@@ -206,8 +205,7 @@ function! vimrc#fzf#git#diff_commit(commit)
   call fzf#run(fzf#wrap({
         \ 'source': s:git_diff_commit_command.' '.revision,
         \ 'sink*': function('vimrc#fzf#git#diff_commit_sink', [a:commit.'^', a:commit]),
-        \ 'options': '-m -s',
-        \ 'down': '40%' }))
+        \ 'options': '-m -s'}))
 endfunction
 
 function! vimrc#fzf#git#diff_commits(start_commit, end_commit)
@@ -218,8 +216,7 @@ function! vimrc#fzf#git#diff_commits(start_commit, end_commit)
   call fzf#run(fzf#wrap({
         \ 'source': s:git_diff_commit_command.' '.a:start_commit.'..'.a:end_commit,
         \ 'sink*': function('vimrc#fzf#git#diff_commit_sink', [a:start_commit, a:end_commit]),
-        \ 'options': '-m -s',
-        \ 'down': '40%' }))
+        \ 'options': '-m -s'}))
 endfunction
 
 let s:git_files_commit_command = 'git ls-tree -r --name-only'
@@ -235,7 +232,6 @@ function! vimrc#fzf#git#files_commit(commit)
   call fzf#run(vimrc#fzf#wrap('', {
         \ 'source': s:git_files_commit_command.' '.a:commit,
         \ 'sink*': function('vimrc#fzf#git#files_commit_sink', [a:commit]),
-        \ 'options': ['-m', '-s', '--preview-window', 'right:50%', '--preview', preview_command],
-        \ 'down': '40%' }, 0))
+        \ 'options': ['-m', '-s', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
 endfunction
 " }}}

@@ -267,16 +267,14 @@ function! vimrc#fzf#jump()
   call fzf#run(fzf#wrap({
       \ 'source':  vimrc#fzf#jump_source(),
       \ 'sink*':   function('vimrc#fzf#jump_sink'),
-      \ 'options': ['-m', '+s', '--expect=' . vimrc#fzf#expect_keys()],
-      \ 'down':    '40%'}))
+      \ 'options': ['-m', '+s', '--expect=' . vimrc#fzf#expect_keys()]}))
 endfunction
 
 function! vimrc#fzf#registers()
   call fzf#run(fzf#wrap({
       \ 'source': vimrc#fzf#registers_source(),
       \ 'sink': function('vimrc#fzf#registers_sink'),
-      \ 'options': '+s',
-      \ 'down': '40%'}))
+      \ 'options': '+s'}))
 endfunction
 
 function! vimrc#fzf#current_placed_signs()
@@ -290,6 +288,5 @@ endfunction
 function! vimrc#fzf#functions()
   call fzf#run(fzf#wrap({
       \ 'source':  vimrc#fzf#functions_source(),
-      \ 'sink':    function('vimrc#fzf#functions_sink'),
-      \ 'down':    '40%'}))
+      \ 'sink':    function('vimrc#fzf#functions_sink')}))
 endfunction
