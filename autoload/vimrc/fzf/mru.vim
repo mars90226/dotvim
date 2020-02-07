@@ -68,10 +68,10 @@ function! vimrc#fzf#mru#mru_in_commandline()
   let g:fzf_prefer_tmux = 1
   call fzf#vim#files(
         \ '',
-        \ fzf#vim#with_preview({
+        \ fzf#vim#with_preview(extend({
         \   'source':  vimrc#fzf#mru#mru_files(),
         \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
-        \   'options': ['-s', '--prompt', 'Mru> ']}),
+        \   'options': ['-s', '--prompt', 'Mru> ']}, g:fzf_tmux_layout)),
         \ 0)
   let g:fzf_prefer_tmux = 0
   return get(results, 0, '')
@@ -83,10 +83,10 @@ function! vimrc#fzf#mru#directory_mru_in_commandline()
   let g:fzf_prefer_tmux = 1
   call fzf#vim#files(
         \ '',
-        \ {
+        \ extend({
         \   'source':  vimrc#fzf#mru#neomru_directories(),
         \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
-        \   'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command() . ' {}', '--prompt', 'DirectoryMru> ']},
+        \   'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command() . ' {}', '--prompt', 'DirectoryMru> ']}, g:fzf_tmux_layout),
         \ 0)
   let g:fzf_prefer_tmux = 0
   return get(results, 0, '')

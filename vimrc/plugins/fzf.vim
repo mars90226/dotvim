@@ -18,6 +18,7 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+let g:fzf_tmux_layout = { 'down': '~40%' }
 
 let g:fzf_history_dir = $HOME.'/.local/share/fzf-history'
 
