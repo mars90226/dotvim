@@ -138,10 +138,10 @@ function! vimrc#fzf#git#diff_tree(...)
         \ bang)
 endfunction
 
-let s:rg_git_diff_tree_command = 'git -C %s diff-tree -z --no-commit-id --name-only -r %s | xargs -0 ' . vimrc#fzf#rg#get_base_command() . ' -- %s'
+let s:rg_git_diff_command = 'git -C %s diff -z --name-only %s | xargs -0 ' . vimrc#fzf#rg#get_base_command() . ' -- %s'
 
-" vimrc#fzf#git#rg_diff_tree([bang], [pattern], [commit], [folder])
-function! vimrc#fzf#git#rg_diff_tree(...)
+" vimrc#fzf#git#rg_diff([bang], [pattern], [commit], [folder])
+function! vimrc#fzf#git#rg_diff(...)
   if a:0 > 4
     return vimrc#warn('Invalid argument number')
   endif
@@ -156,7 +156,7 @@ function! vimrc#fzf#git#rg_diff_tree(...)
     return vimrc#warn('not in git repo')
   endif
 
-  let command = printf(s:rg_git_diff_tree_command, folder, commit, shellescape(pattern))
+  let command = printf(s:rg_git_diff_command, folder, commit, shellescape(pattern))
 
   call fzf#vim#grep(
         \ command, 1,

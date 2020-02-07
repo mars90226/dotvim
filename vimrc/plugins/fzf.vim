@@ -77,7 +77,7 @@ command! -bang -nargs=? -complete=dir AllFiles call vimrc#fzf#dir#all_files(<q-a
 
 " Git diff
 command! -bang -nargs=* -complete=dir GitDiffFiles call vimrc#fzf#git#diff_tree(<bang>0, <f-args>)
-command! -bang -nargs=* -complete=dir RgGitDiffFiles call vimrc#fzf#git#rg_diff_tree(<bang>0, <f-args>)
+command! -bang -nargs=* -complete=dir RgGitDiffFiles call vimrc#fzf#git#rg_diff(<bang>0, <f-args>)
 
 " Mru
 command! Mru        call vimrc#fzf#mru#mru()
@@ -165,6 +165,7 @@ nnoremap <Space>fc :call vimrc#execute_and_save('BCommits')<CR>
 nnoremap <Space>fC :call vimrc#execute_and_save('Commits')<CR>
 nnoremap <Space>fd :call vimrc#execute_and_save('Directories')<CR>
 nnoremap <Space>fD :call vimrc#execute_and_save('DirectoryFiles')<CR>
+nnoremap <Space>f<C-D> :call vimrc#execute_and_save('RgGitDiffFiles ' . input('Rg: '))<CR>
 nnoremap <Space>fe :call vimrc#execute_and_save('RgWithOption ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Rg: '))<CR>
 nnoremap <Space>fE :call vimrc#execute_and_save('RgWithOption! ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Rg: '))<CR>
 nnoremap <Space>ff :call vimrc#execute_and_save('Files')<CR>
