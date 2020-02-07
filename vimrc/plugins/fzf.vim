@@ -17,6 +17,8 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+
 let g:fzf_history_dir = $HOME.'/.local/share/fzf-history'
 
 let g:misc_fzf_action = {
