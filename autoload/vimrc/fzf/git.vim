@@ -160,8 +160,7 @@ function! vimrc#fzf#git#rg_diff(...)
 
   call fzf#vim#grep(
         \ command, 1,
-        \ bang ? fzf#vim#with_preview('up:60%')
-        \      : fzf#vim#with_preview('right:50%:hidden', '?'),
+        \ vimrc#fzf#rg#with_preview(bang, { 'options': ['--prompt', 'RgDiff> '] }),
         \ bang)
 endfunction
 
@@ -190,7 +189,7 @@ function! vimrc#fzf#git#grep_commit(commit, ...)
   call fzf#run(vimrc#fzf#wrap('', {
         \ 'source': s:git_grep_commit_command.' '.shellescape(query).' '.a:commit,
         \ 'sink*': function('vimrc#fzf#git#grep_commit_sink', [a:commit, with_column]),
-        \ 'options': ['-m', '-s', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
+        \ 'options': ['-m', '-s', '--prompt', 'GitGrepCommit> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
 endfunction
 
 " TODO: Handle added/deleted files
@@ -205,7 +204,7 @@ function! vimrc#fzf#git#diff_commit(commit)
   call fzf#run(fzf#wrap({
         \ 'source': s:git_diff_commit_command.' '.revision,
         \ 'sink*': function('vimrc#fzf#git#diff_commit_sink', [a:commit.'^', a:commit]),
-        \ 'options': '-m -s'}))
+        \ 'options': ['-m', '-s', '--prompt', 'GitDiffCommit> ']}))
 endfunction
 
 function! vimrc#fzf#git#diff_commits(start_commit, end_commit)
@@ -216,7 +215,7 @@ function! vimrc#fzf#git#diff_commits(start_commit, end_commit)
   call fzf#run(fzf#wrap({
         \ 'source': s:git_diff_commit_command.' '.a:start_commit.'..'.a:end_commit,
         \ 'sink*': function('vimrc#fzf#git#diff_commit_sink', [a:start_commit, a:end_commit]),
-        \ 'options': '-m -s'}))
+        \ 'options': ['-m', '-s', '--prompt', 'GitDiffCommits> ']}))
 endfunction
 
 let s:git_files_commit_command = 'git ls-tree -r --name-only'
@@ -232,6 +231,6 @@ function! vimrc#fzf#git#files_commit(commit)
   call fzf#run(vimrc#fzf#wrap('', {
         \ 'source': s:git_files_commit_command.' '.a:commit,
         \ 'sink*': function('vimrc#fzf#git#files_commit_sink', [a:commit]),
-        \ 'options': ['-m', '-s', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
+        \ 'options': ['-m', '-s', '--prompt', 'GitFilesCommit> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
 endfunction
 " }}}
