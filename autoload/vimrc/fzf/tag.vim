@@ -47,7 +47,7 @@ function! vimrc#fzf#tag#tselect(query)
   call fzf#run(fzf#wrap({
         \ 'source': vimrc#fzf#tag#get_tselect(a:query),
         \ 'sink*':   function('vimrc#fzf#tag#tselect_sink'),
-        \ 'options': '-m +s --expect=' . join(keys(g:fzf_action), ','),
+        \ 'options': '-m +s --expect=' . vimrc#fzf#expect_keys(),
         \ 'down':   '40%'}))
 endfunction
 

@@ -124,6 +124,10 @@ function! vimrc#fzf#generate_preview_command_with_bat(start, ...)
   let file = a:0 > 0 && type(a:1) == type('') ? a:1 : ''
   return systemlist(vimrc#fzf#get_generate_preview_command_with_bat_script(). ' ' . a:start . ' ' . file)[0]
 endfunction
+
+function! vimrc#fzf#expect_keys()
+  return join(keys(g:fzf_action), ',')
+endfunction
 " }}}
 
 " Sources
@@ -263,7 +267,7 @@ function! vimrc#fzf#jump()
   call fzf#run(fzf#wrap({
       \ 'source':  vimrc#fzf#jump_source(),
       \ 'sink*':   function('vimrc#fzf#jump_sink'),
-      \ 'options': '-m +s --expect=' . join(keys(g:fzf_action), ','),
+      \ 'options': ['-m', '+s', '--expect=' . vimrc#fzf#expect_keys()],
       \ 'down':    '40%'}))
 endfunction
 
