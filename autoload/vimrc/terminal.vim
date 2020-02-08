@@ -45,11 +45,29 @@ function! vimrc#terminal#tabnew(folder)
 endfunction
 
 function! vimrc#terminal#is_shell_terminal(terminal)
-  return ((a:terminal =~ $SHELL) || (a:terminal =~ "powershell"))
-        \ && (a:terminal !~ "fzf") && (a:terminal !~ "coc")
+  let shells = ["bash", "zsh", "fish", "pweorshell"]
+  let exception_programs = ["fzf", "coc"]
+
+  for exception_program in exception_programs
+    if a:terminal =~ exception_program
+      return v:false
+    endif
+  endfor
+
+  for shell in shells
+    if a:terminal =~ shell
+      return v:true
+    endif
+  endfor
 endfunction
 
 " Only whitelist specific processes
 function! vimrc#terminal#is_interactive_process(terminal)
-  return (a:terminal =~ "htop") || (a:terminal =~ "broot")
+  let interactive_processes = ["htop", "broot"]
+
+  for interactive_process in interactive_processes
+    if a:terminal =~ interactive_process
+      return v:true
+    endif
+  endfor
 endfunction
