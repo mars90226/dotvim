@@ -21,13 +21,14 @@ endfunction
 " Commands
 function! vimrc#fzf#cscope#cscope(option, query)
   let color = '{ x = $1; $1 = ""; z = $3; $3 = ""; printf "\033[34m%s\033[0m:\033[31m%s:\033[0m\011\033[37m%s\033[0m\n", x,z,$0; }'
-  let opts = fzf#vim#with_preview({
+  " FIXME cscope seems not compatible with popup layout?
+  let opts = fzf#vim#with_preview(extend({
         \ 'source':  "cscope -dL" . a:option . " " . a:query . " | awk '" . color . "'",
         \ 'sink*': function('vimrc#fzf#cscope#cscope_sink'),
         \ 'options': ['--ansi', '--prompt', '> ',
         \             '--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
         \             '--color', 'fg:188,fg+:222,bg+:#3a3a3a,hl+:104',
-        \             '--expect=' . vimrc#fzf#expect_keys()]}, 'right:50%:hidden', '?')
+        \             '--expect=' . vimrc#fzf#expect_keys()]}, g:fzf_tmux_layout), 'right:50%:hidden', '?')
   call fzf#run(opts)
 endfunction
 
