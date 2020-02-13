@@ -28,7 +28,9 @@ function! vimrc#fzf#cscope#cscope(option, query)
         \ 'options': ['--ansi', '--prompt', '> ',
         \             '--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
         \             '--color', 'fg:188,fg+:222,bg+:#3a3a3a,hl+:104',
-        \             '--expect=' . vimrc#fzf#expect_keys()]}, g:fzf_tmux_layout), 'right:50%:hidden', '?')
+        \             '--expect=' . vimrc#fzf#expect_keys()]
+        \ }, g:fzf_tmux_layout),
+        \ 'right:50%:hidden', '?')
   call fzf#run(opts)
 endfunction
 
