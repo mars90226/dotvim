@@ -201,7 +201,7 @@ function! vimrc#fzf#git#diff_commit(commit)
 
   let revision = a:commit . '^!'
 
-  call fzf#run(fzf#wrap('GitDiffCommit'{
+  call fzf#run(fzf#wrap('GitDiffCommit', {
         \ 'source': s:git_diff_commit_command.' '.revision,
         \ 'sink*': function('vimrc#fzf#git#diff_commit_sink', [a:commit.'^', a:commit]),
         \ 'options': ['-m', '-s', '--prompt', 'GitDiffCommit> ']}))
