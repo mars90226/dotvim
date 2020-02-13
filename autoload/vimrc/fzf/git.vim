@@ -186,7 +186,7 @@ function! vimrc#fzf#git#grep_commit(commit, ...)
         \ vimrc#fzf#preview#get_command() . ' --line-range "$FIRST:$LAST" --highlight-line "$LINE" "$TEMPFILE";'.
         \ 'rm "$TEMPFILE"'
 
-  call fzf#run(vimrc#fzf#wrap('', {
+  call fzf#run(vimrc#fzf#wrap('GitGrepCommit', {
         \ 'source': s:git_grep_commit_command.' '.shellescape(query).' '.a:commit,
         \ 'sink*': function('vimrc#fzf#git#grep_commit_sink', [a:commit, with_column]),
         \ 'options': ['-m', '-s', '--prompt', 'GitGrepCommit> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
@@ -201,7 +201,7 @@ function! vimrc#fzf#git#diff_commit(commit)
 
   let revision = a:commit . '^!'
 
-  call fzf#run(fzf#wrap({
+  call fzf#run(fzf#wrap('GitDiffCommit'{
         \ 'source': s:git_diff_commit_command.' '.revision,
         \ 'sink*': function('vimrc#fzf#git#diff_commit_sink', [a:commit.'^', a:commit]),
         \ 'options': ['-m', '-s', '--prompt', 'GitDiffCommit> ']}))
@@ -212,7 +212,7 @@ function! vimrc#fzf#git#diff_commits(start_commit, end_commit)
     echo 'No git a git repository:' expand('%:p')
   endif
 
-  call fzf#run(fzf#wrap({
+  call fzf#run(fzf#wrap('GitDiffCommits'{
         \ 'source': s:git_diff_commit_command.' '.a:start_commit.'..'.a:end_commit,
         \ 'sink*': function('vimrc#fzf#git#diff_commit_sink', [a:start_commit, a:end_commit]),
         \ 'options': ['-m', '-s', '--prompt', 'GitDiffCommits> ']}))
@@ -228,7 +228,7 @@ function! vimrc#fzf#git#files_commit(commit)
         \ vimrc#fzf#preview#get_command() . ' --line-range 1:"$FZF_PREVIEW_LINES" "$TEMPFILE";'.
         \ 'rm "$TEMPFILE"'
 
-  call fzf#run(vimrc#fzf#wrap('', {
+  call fzf#run(vimrc#fzf#wrap('GitFilesCommit', {
         \ 'source': s:git_files_commit_command.' '.a:commit,
         \ 'sink*': function('vimrc#fzf#git#files_commit_sink', [a:commit]),
         \ 'options': ['-m', '-s', '--prompt', 'GitFilesCommit> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))

@@ -122,8 +122,8 @@ function! vimrc#fzf#dir#directory_rg(path, bang)
 endfunction
 
 function! vimrc#fzf#dir#directory_ancestors()
-  call fzf#run(fzf#wrap({
+  call fzf#run(fzf#wrap('Ancestors', {
       \ 'source': vimrc#fzf#dir#directory_ancestors_source(expand('%')),
       \ 'sink': function('vimrc#fzf#dir#directory_ancestors_sink'),
-      \ 'options': '+s'}))
+      \ 'options': ['+s', '--prompt', 'Ancestors> ']}))
 endfunction

@@ -47,7 +47,7 @@ function! vimrc#fzf#range#range_lines(prompt, center, start, end, query)
   let final_options = extend(options, ['--preview-window', 'right:50%:hidden', '--preview', preview_command])
   let Sink = function('vimrc#fzf#range#range_lines_sink', [a:center])
 
-  call fzf#run(vimrc#fzf#wrap('', {
+  call fzf#run(vimrc#fzf#wrap(a:prompt, {
         \ 'source':  vimrc#fzf#range#range_lines_source(a:start, a:end, a:query),
         \ 'sink*':   Sink,
         \ 'options': final_options,

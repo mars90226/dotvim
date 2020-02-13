@@ -245,10 +245,10 @@ endfunction
 function! vimrc#defx#fzf_directory_ancestors(context) abort
   let path = vimrc#defx#get_current_path()
 
-  call fzf#run(fzf#wrap({
+  call fzf#run(fzf#wrap('Ancestors', {
         \ 'source': vimrc#fzf#dir#directory_ancestors_source(path),
         \ 'sink': function('vimrc#defx#fzf_directory_ancestors_sink'),
-        \ 'options': '+s'}))
+        \ 'options': ['+s', '--prompt', 'Ancestors> ']}))
 endfunction
 " }}}
 

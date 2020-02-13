@@ -29,13 +29,13 @@ endfunction
 
 " Commands
 function! vimrc#fzf#mru#mru()
-  call fzf#run(fzf#wrap({
+  call fzf#run(fzf#wrap('Mru', {
         \ 'source':  vimrc#fzf#mru#mru_files(),
         \ 'options': ['-m', '-s', '--prompt', 'Mru> ', '--preview', vimrc#fzf#preview#get_command() . ' {}']}))
 endfunction
 
 function! vimrc#fzf#mru#project_mru()
-  call fzf#run(fzf#wrap({
+  call fzf#run(fzf#wrap('ProjectMru', {
         \ 'source':  vimrc#fzf#mru#project_mru_files(),
         \ 'options': ['-m', '-s', '--prompt', 'ProjectMru> ', '--preview', vimrc#fzf#preview#get_command() . ' {}']}))
 endfunction

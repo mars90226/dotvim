@@ -44,10 +44,10 @@ endfunction
 
 " Commands
 function! vimrc#fzf#tag#tselect(query)
-  call fzf#run(fzf#wrap({
+  call fzf#run(fzf#wrap('Tselect', {
         \ 'source': vimrc#fzf#tag#get_tselect(a:query),
         \ 'sink*':   function('vimrc#fzf#tag#tselect_sink'),
-        \ 'options': '-m +s --expect=' . vimrc#fzf#expect_keys()}))
+        \ 'options': ['-m', '+s', '--prompt', 'Tselect> ', '--expect=' . vimrc#fzf#expect_keys()]}))
 endfunction
 
 " Need neovim terminal

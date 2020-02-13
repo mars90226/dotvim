@@ -264,21 +264,21 @@ function! vimrc#fzf#files_in_commandline()
 endfunction
 
 function! vimrc#fzf#jump()
-  call fzf#run(fzf#wrap({
+  call fzf#run(fzf#wrap('Jumps', {
       \ 'source':  vimrc#fzf#jump_source(),
       \ 'sink*':   function('vimrc#fzf#jump_sink'),
       \ 'options': ['-m', '+s', '--prompt', 'Jump> ', '--expect=' . vimrc#fzf#expect_keys()]}))
 endfunction
 
 function! vimrc#fzf#registers()
-  call fzf#run(fzf#wrap({
+  call fzf#run(fzf#wrap('Registers', {
       \ 'source': vimrc#fzf#registers_source(),
       \ 'sink': function('vimrc#fzf#registers_sink'),
       \ 'options': ['+s', '--prompt', 'Registers> ']}))
 endfunction
 
 function! vimrc#fzf#current_placed_signs()
-  call fzf#run(fzf#wrap({
+  call fzf#run(fzf#wrap('Signs', {
         \ 'source':  vimrc#fzf#current_placed_signs_source(),
         \ 'sink*':   function('vimrc#fzf#current_placed_signs_sink'),
         \ 'options': ['--tiebreak=index', '--prompt', 'Signs> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1'],
@@ -286,7 +286,7 @@ function! vimrc#fzf#current_placed_signs()
 endfunction
 
 function! vimrc#fzf#functions()
-  call fzf#run(fzf#wrap({
+  call fzf#run(fzf#wrap('Functions', {
       \ 'source':  vimrc#fzf#functions_source(),
       \ 'sink':    function('vimrc#fzf#functions_sink'),
       \ 'options': ['--prompt', 'Functions> ']}))
