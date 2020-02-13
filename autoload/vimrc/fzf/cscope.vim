@@ -11,11 +11,12 @@ function! vimrc#fzf#cscope#cscope_sink(lines)
     let [filename, line_number] = split(split(result)[0], ":")
     call add(qfl, {'filename': filename, 'lnum': line_number, 'text': text})
   endfor
+
+  let first = qfl[0]
+  execute cmd . ' +' . first.lnum . ' ' . first.filename
+  normal! zzzv
+
   call vimrc#fzf#fill_quickfix(qfl)
-  for qf in qfl
-    execute cmd . ' +' . qf.lnum . ' ' . qf.filename
-    normal! zzzv
-  endfor
 endfunction
 
 " Commands
