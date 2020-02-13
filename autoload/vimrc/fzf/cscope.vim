@@ -30,7 +30,7 @@ function! vimrc#fzf#cscope#cscope(option, query)
         \             '--color', 'fg:188,fg+:222,bg+:#3a3a3a,hl+:104',
         \             '--expect=' . vimrc#fzf#expect_keys()]},
         \ 'right:50%:hidden', '?')
-  call fzf#run(fzf#wrap(opts))
+  call fzf#run(fzf#wrap('Cscope', opts))
 endfunction
 
 function! vimrc#fzf#cscope#cscope_query(option)
