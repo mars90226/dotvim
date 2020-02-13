@@ -7,6 +7,9 @@ function! vimrc#flog#mappings()
   nnoremap <silent><buffer> <Leader>gf :call vimrc#fzf#git#files_commit(vimrc#flog#sha())<CR>
   nnoremap <silent><buffer> <Leader>gg :call vimrc#fzf#git#grep_commit(vimrc#flog#sha(), input('Git grep: '))<CR>
   nnoremap <silent><buffer> <Leader>gt :execute 'Git show --stat '.vimrc#flog#sha()<CR>
+
+  " Command line mapping
+  cnoremap <buffer><expr> <C-G><C-S> vimrc#flog#sha()
 endfunction
 
 " Functions
