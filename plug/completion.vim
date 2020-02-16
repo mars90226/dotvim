@@ -60,8 +60,11 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
 
-let g:neosnippet#snippets_directory = vimrc#get_vimhome().'/plugged/neosnippet-snippets/neosnippets'
-let g:neosnippet#snippets_directory = vimrc#get_vimhome().'/plugged/vim-snippets/snippets'
+let g:neosnippet#snippets_directory = [
+      \ vimrc#get_vimhome().'/plugged/neosnippet-snippets/neosnippets',
+      \ vimrc#get_vimhome().'/plugged/vim-snippets/snippets',
+      \ vimrc#get_vimhome().'/snippets'
+      \ ]
 
 " Plugin key-mappings.
 " <C-J>: expand or jump or select completion
