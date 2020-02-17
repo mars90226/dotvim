@@ -93,6 +93,10 @@ nnoremap <Leader>u :cd ..<CR>
 " Move working directory to current buffer's parent folder
 nnoremap <Leader>cb :cd %:h<CR>
 
+" Operator mapping for current word
+onoremap x iw
+onoremap X iW
+
 " Quick yank cursor word
 " TODO This overrides jump to mark
 nnoremap y' ""yiw
