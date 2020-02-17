@@ -177,8 +177,10 @@ nnoremap <M-x><M-x> :<C-P><CR>
 xnoremap <M-s> :s/\%V
 
 " Find non-ASCII character
-noremap <M-x><M-n> /[^\x00-\x7F]<CR>:nohlsearch<CR>
-noremap <M-x><M-p> ?[^\x00-\x7F]<CR>:nohlsearch<CR>
+noremap  <M-x><M-n> /[^\x00-\x7F]<CR>:nohlsearch<CR>
+onoremap <M-x><M-n> /[^\x00-\x7F]<CR>
+noremap  <M-x><M-p> ?[^\x00-\x7F]<CR>:nohlsearch<CR>
+onoremap <M-x><M-p> ?[^\x00-\x7F]<CR>
 
 " Man
 " :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
