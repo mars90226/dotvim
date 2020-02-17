@@ -176,8 +176,9 @@ nnoremap <M-x><M-x> :<C-P><CR>
 " Substitute visual selection
 xnoremap <M-s> :s/\%V
 
-" Find next non-ASCII character
-noremap <M-x><M-n> /[^\x00-\x7F]<CR>
+" Find non-ASCII character
+noremap <M-x><M-n> /[^\x00-\x7F]<CR>:nohlsearch<CR>
+noremap <M-x><M-p> ?[^\x00-\x7F]<CR>:nohlsearch<CR>
 
 " Man
 " :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
