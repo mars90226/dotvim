@@ -35,3 +35,11 @@ augroup fileTypeSpecific
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
 augroup END
+
+" Input Method autocmd
+augroup input_method_settings
+  autocmd!
+
+  autocmd InsertEnter * setlocal iminsert=1
+  autocmd InsertLeave * setlocal iminsert=0
+augroup END
