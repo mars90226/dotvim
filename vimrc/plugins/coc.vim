@@ -13,6 +13,9 @@ inoremap <silent><expr> <M-Space> coc#refresh()
 " <CR>: confirm completion, or insert <CR> with new undo chain
 inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 
+" <C-X><C-G>: start neosnippet completion
+inoremap <silent> <C-X><C-G> <C-R>=coc#start({ 'source': 'neosnippet' })<CR>
+
 " Define mapping for diff mode to avoid recursive mapping
 nnoremap <silent> <Plug>(diff-prev) [c
 nnoremap <silent> <Plug>(diff-next) ]c
