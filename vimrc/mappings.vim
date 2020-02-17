@@ -94,12 +94,14 @@ nnoremap <Leader>u :cd ..<CR>
 nnoremap <Leader>cb :cd %:h<CR>
 
 " Quick yank cursor word
+" TODO This overrides jump to mark
 nnoremap y' ""yiw
 nnoremap y" ""yiW
 nnoremap y= "+yiw
 nnoremap y+ "+yiW
 
 " Quick yank/paste to/from system clipboard
+" TODO This overrides jump to mark
 nnoremap =y "+y
 xnoremap =y "+y
 nnoremap +p "+p

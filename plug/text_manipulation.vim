@@ -71,6 +71,11 @@ xmap il <Plug>(textobj-sandwich-literal-query-i)
 xmap al <Plug>(textobj-sandwich-literal-query-a)
 omap il <Plug>(textobj-sandwich-literal-query-i)
 omap al <Plug>(textobj-sandwich-literal-query-a)
+
+" Quickly add sandwich for word or WORD
+" TODO This overrides jump to mark
+nmap sa' saiw
+nmap sa" saiW
 " }}}
 
 " vim-exchange {{{
