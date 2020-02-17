@@ -27,5 +27,5 @@ endfunction
 
 function! vimrc#browser#get_client_search_command(keyword)
   " TODO Check client browser
-  return "ssh ".$SSH_CLIENT_HOST." 'firefox --search ".a:keyword."'"
+  return "ssh ".$SSH_CLIENT_HOST." \"firefox --search '".a:keyword."'\""
 endfunction
