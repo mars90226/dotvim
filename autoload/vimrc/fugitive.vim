@@ -37,6 +37,8 @@ function! vimrc#fugitive#mappings()
   nnoremap <buffer> <silent> gp :Gpush<CR>
   nnoremap <buffer> <silent> gl :Gpull<CR>
   nnoremap <buffer> <silent> gL :Gpull --rebase<CR>
+
+  call vimrc#git#include_git_mappings("expand('<cword>')")
 endfunction
 
 function! vimrc#fugitive#git_mappings()
