@@ -36,7 +36,11 @@ endif
 call vimrc#source('vimrc/plugins/sandwich_after.vim')
 " }}}
 
-" Arpeggio {{{
+" vim-textobj-user {{{
+call vimrc#source('vimrc/plugins/textobj_user_after.vim')
+" }}}
+
+" arpeggio {{{
 call arpeggio#load()
 
 " Quickly escape insert mode
