@@ -43,36 +43,10 @@ function! vimrc#lightline#modified()
   return &modifiable && &modified ? '+' : ''
 endfunction
 
-function! vimrc#lightline#fugitive()
-  let fname = expand('%:t')
-
-  if !exists('b:lightline_head')
-    " Borrowed from s:display_git_branch from airline/extensions/branch.vim {{{
-    let name = fugitive#head()
-    try
-      let commit = matchstr(FugitiveParse()[0], '^\x\+')
-
-      if has_key(s:names, commit)
-        let name = get(s:names, commit)."(".name.")"
-      elseif !empty(commit)
-        let ref = fugitive#repo().git_chomp('describe', '--all', '--exact-match', commit)
-        if ref !~ "^fatal: no tag exactly matches"
-          let name = substitute(ref, '\v\C^%(heads/|remotes/|tags/)=','','')."(".name.")"
-        else
-          let name = matchstr(commit, '.\{'.s:sha1size.'}')."(".name.")"
-        endif
-      endif
-    catch
-    endtry
-    " }}}
-
-    let b:lightline_head = name
-  endif
-
-  return &ft == 'qf' ? '' :
-        \ fname =~ '__Tagbar__' ? '' :
-        \ fname == '__vista__' ? '' :
-        \ b:lightline_head !=# '' ? ' ' . b:lightline_head : ''
+function! vimrc#lightline#git_status()
+  let status = get(g:, 'coc_git_status', '')
+  let buffer_status = get(b:, 'coc_git_status', '')
+  return status . buffer_status
 endfunction
 
 function! vimrc#lightline#fileformat()

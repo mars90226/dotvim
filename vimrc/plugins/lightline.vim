@@ -24,7 +24,7 @@ let g:lightline.component_function = {
       \ 'fileformat': 'vimrc#lightline#fileformat',
       \ 'filetype': 'vimrc#lightline#filetype',
       \ 'fileencoding': 'vimrc#lightline#fileencoding',
-      \ 'fugitive': 'vimrc#lightline#fugitive',
+      \ 'git_status': 'vimrc#lightline#git_status',
       \ 'method': 'vimrc#lightline#nearest_method_or_function',
       \ 'mode': 'vimrc#lightline#mode',
       \ }
@@ -35,7 +35,7 @@ let g:lightline.tab_component_function = {
 let g:lightline.active = {
       \ 'left': [
       \   [ 'mode', 'paste' ],
-      \   [ 'truncate', 'fugitive', 'filename' ] ],
+      \   [ 'truncate', 'git_status', 'filename' ] ],
       \ 'right': [
       \   [ 'lineinfo', 'percent' ],
       \   [ 'filetype', 'fileformat', 'fileencoding' ],
