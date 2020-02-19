@@ -36,5 +36,8 @@
     "<C-s>": "action:split",
     "<C-t>": "action:tabe",
     "<C-v>": "action:vsplit"
-  }
+  },
+  "git.addGBlameToVirtualText": true,
+  "git.addGBlameToBufferVar": true,
+  "git.virtualTextPrefix": "  "
 }

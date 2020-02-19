@@ -104,3 +104,21 @@ augroup coc_ccls_settings
   autocmd!
   autocmd FileType c,cpp call vimrc#coc#ccls_mappings()
 augroup END
+
+" coc-git {{{
+" navigate chunks of current buffer
+nmap [g <Plug>(coc-git-prevchunk)
+nmap ]g <Plug>(coc-git-nextchunk)
+
+" show chunk diff at current position
+nmap <Leader>gp <Plug>(coc-git-chunkinfo)
+
+" show commit contains current position
+nmap <Leader>gc <Plug>(coc-git-commit)
+
+" create text object for git chunks
+omap ig <Plug>(coc-git-chunk-inner)
+xmap ig <Plug>(coc-git-chunk-inner)
+omap ag <Plug>(coc-git-chunk-outer)
+xmap ag <Plug>(coc-git-chunk-outer)
+" }}}]

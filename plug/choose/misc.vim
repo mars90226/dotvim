@@ -28,13 +28,6 @@ if !(has('job') || (has('nvim') && exists('*jobwait'))) || vimrc#get_nvim_termin
   call vimrc#plugin#disable_plugin('vim-gutentags')
 endif
 
-if !vimrc#plugin#check#has_linux_build_env()
-      \ || vimrc#get_nvim_terminal() == "yes"
-      \ || vimrc#get_vim_mode()      == 'gitcommit'
-      \ || vimrc#get_vim_mode()      == 'reader'
-  call vimrc#plugin#disable_plugin('git-p.nvim')
-endif
-
 if !vimrc#plugin#check#has_browser()
   call vimrc#plugin#disable_plugin('open-browser.vim')
 endif

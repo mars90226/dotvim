@@ -6,6 +6,7 @@ call coc#add_extension('coc-syntax')
 call coc#add_extension('coc-neosnippet')
 call coc#add_extension('coc-highlight')
 call coc#add_extension('coc-emmet')
+call coc#add_extension('coc-git')
 
 " Language server
 call coc#add_extension('coc-json')
