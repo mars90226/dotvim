@@ -46,7 +46,7 @@ endfunction
 function! vimrc#lightline#git_status()
   let status = get(g:, 'coc_git_status', '')
   let buffer_status = get(b:, 'coc_git_status', '')
-  return status . buffer_status
+  return status . buffer_status[1:-2]
 endfunction
 
 function! vimrc#lightline#fileformat()
