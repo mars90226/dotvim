@@ -221,13 +221,13 @@ command! ToggleIndent call vimrc#toggle_indent()
 command! ToggleFold call vimrc#toggle_fold()
 
 " LastTab
-command! -count -bar LastTab call vimrc#last_tab(<count>)
-nnoremap <M-1> :call vimrc#last_tab(v:count)<CR>
+command! -count -bar LastTab call vimrc#last_tab#jump(<count>)
+nnoremap <M-1> :call vimrc#last_tab#jump(v:count)<CR>
 
 augroup last_tab_settings
   autocmd!
-  autocmd TabLeave * call vimrc#insert_last_tab(tabpagenr())
-  autocmd TabClosed * call vimrc#clear_invalid_last_tab()
+  autocmd TabLeave * call vimrc#last_tab#insert(tabpagenr())
+  autocmd TabClosed * call vimrc#last_tab#clear_invalid()
 augroup END
 
 " Zoom
