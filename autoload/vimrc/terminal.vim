@@ -44,18 +44,32 @@ function! vimrc#terminal#tabnew(folder)
   execute 'tabnew term://' . a:folder . '//' . $SHELL
 endfunction
 
+let s:terminal_pattern = '\vterm://(.{-}//(\d+:)?)?\zs.*' " Use very magic
+function! vimrc#terminal#get_terminal_command(terminal)
+  let match_result = matchlist(a:terminal, s:terminal_pattern)
+  if empty(match_result)
+    return ""
+  endif
+  return match_result[0]
+endfunction
+
 function! vimrc#terminal#is_shell_terminal(terminal)
-  let shells = ["bash", "zsh", "fish", "pweorshell"]
+  let shells = ["bash", "zsh", "fish", "powershell"]
   let exception_programs = ["fzf", "coc"]
 
+  let cmd = vimrc#terminal#get_terminal_command(a:terminal)
+  if empty(cmd)
+    return v:false
+  endif
+
   for exception_program in exception_programs
-    if a:terminal =~ exception_program
+    if cmd =~ exception_program
       return v:false
     endif
   endfor
 
   for shell in shells
-    if a:terminal =~ shell
+    if cmd =~ shell
       return v:true
     endif
   endfor
@@ -64,6 +78,11 @@ endfunction
 " Only whitelist specific processes
 function! vimrc#terminal#is_interactive_process(terminal)
   let interactive_processes = ["htop", "broot"]
+
+  let cmd = vimrc#terminal#get_terminal_command(a:terminal)
+  if empty(cmd)
+    return v:false
+  endif
 
   for interactive_process in interactive_processes
     if a:terminal =~ interactive_process
