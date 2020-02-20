@@ -202,7 +202,7 @@ nnoremap <Space>fr :call vimrc#execute_and_save('Rg ' . input('Rg: '))<CR>
 nnoremap <Space>fR :call vimrc#execute_and_save('Rg! ' . input('Rg!: '))<CR>
 nnoremap <Space>f4 :call vimrc#execute_and_save('RgWithOption .:' . input('Option: ') . ':' . input('Rg: '))<CR>
 nnoremap <Space>f$ :call vimrc#execute_and_save('RgWithOption! .:' . input('Option: ') . ':' . input('Rg!: '))<CR>
-nnoremap <Space>f? :call vimrc#execute_and_save('RgWithOption .:' . vimrc#rg_current_type_option() . ':' . input('Rg: '))<CR>
+nnoremap <Space>f? :call vimrc#execute_and_save('RgWithOption .:' . vimrc#rg#current_type_option() . ':' . input('Rg: '))<CR>
 nnoremap <Space>f5 :call vimrc#execute_and_save('RgWithOption ' . expand('%:h') . '::' . input('Rg: '))<CR>
 nnoremap <Space>fs :call vimrc#execute_and_save('GFiles?')<CR>
 nnoremap <Space>fS :call vimrc#execute_and_save('CurrentPlacedSigns')<CR>

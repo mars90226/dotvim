@@ -74,7 +74,7 @@ if executable('rg')
   let g:unite_source_grep_default_opts = '--hidden --no-heading --vimgrep -S'
   let g:unite_source_grep_recursive_opt = ''
 
-  nnoremap <Space>g/ :call vimrc#unite#grep('', 'grep', vimrc#rg_current_type_option(), v:false)<CR>
+  nnoremap <Space>g/ :call vimrc#unite#grep('', 'grep', vimrc#rg#current_type_option(), v:false)<CR>
   nnoremap <Space>g? :call vimrc#unite#grep('', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
 endif
 " }}}

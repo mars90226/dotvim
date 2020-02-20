@@ -72,7 +72,7 @@ nnoremap <silent> [D :Denite -resume -immediately -cursor-pos=-1 -buffer-name=`v
 nnoremap <silent> ]D :Denite -resume -immediately -cursor-pos=+1 -buffer-name=`vimrc#denite#get_buffer_name('grep')`<CR>
 
 if executable('rg')
-  nnoremap <Space>dg/ :call vimrc#denite#grep('', 'grep', vimrc#rg_current_type_option(), v:false)<CR>
+  nnoremap <Space>dg/ :call vimrc#denite#grep('', 'grep', vimrc#rg#current_type_option(), v:false)<CR>
   nnoremap <Space>dg? :call vimrc#denite#grep('', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
 endif
 " }}}
