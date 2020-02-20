@@ -121,17 +121,17 @@ function! vimrc#defx#mappings() abort " {{{
   nnoremap <silent><buffer><expr> <C-G>
         \ defx#do_action('print')
   nnoremap <silent><buffer><expr> <C-T><C-R>
-        \ defx#do_action('change_vim_cwd') . ":terminal<CR>i"
+        \ defx#do_action('change_vim_cwd') . ":call vimrc#terminal#open_current_shell('edit')<CR>"
   nnoremap <silent><buffer><expr> <C-T><C-T>
-        \ defx#do_action('change_vim_cwd') . ":tabnew          <Bar> :terminal<CR>i"
+        \ defx#do_action('change_vim_cwd') . ":call vimrc#terminal#open_current_shell('tabnew')<CR>"
   nnoremap <silent><buffer><expr> <C-T><C-S>
-        \ defx#do_action('change_vim_cwd') . ":new             <Bar> :terminal<CR>i"
+        \ defx#do_action('change_vim_cwd') . ":call vimrc#terminal#open_current_shell('new')<CR>"
   nnoremap <silent><buffer><expr> <C-T><C-V>
-        \ defx#do_action('change_vim_cwd') . ":vnew            <Bar> :terminal<CR>i"
+        \ defx#do_action('change_vim_cwd') . ":call vimrc#terminal#open_current_shell('vnew')<CR>"
   nnoremap <silent><buffer><expr> <C-T><C-B>
-        \ defx#do_action('change_vim_cwd') . ":rightbelow vnew <Bar> :terminal<CR>i"
+        \ defx#do_action('change_vim_cwd') . ":call vimrc#terminal#open_current_shell('rightbelow vnew')<CR>"
   nnoremap <silent><buffer><expr> <C-T><C-D>
-        \ defx#do_action('change_vim_cwd') . ":call vimrc#terminal#tabnew(input('Folder: ', '', 'dir'))<CR>"
+        \ defx#do_action('change_vim_cwd') . ":call vimrc#terminal#open_shell('tabnew', input('Folder: ', '', 'dir'))<CR>"
   nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
         \ ':<C-U>wincmd w<CR>' :
         \ ':<C-U>Defx -buffer-name=temp -split=vertical<CR>'

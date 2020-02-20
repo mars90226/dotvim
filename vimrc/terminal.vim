@@ -36,15 +36,16 @@ if has("nvim")
   set scrollback=100000
 
   " For quick terminal access
-  nnoremap <silent> <Leader>tr :terminal<CR>i
-  nnoremap <silent> <Leader>tt :tabnew <Bar> :terminal<CR>i
-  nnoremap <silent> <Leader>ts :new    <Bar> :terminal<CR>i
-  nnoremap <silent> <Leader>tv :vnew   <Bar> :terminal<CR>i
-  nnoremap <silent> <Leader>td :call vimrc#terminal#tabnew(input('Folder: ', '', 'dir'))<CR>
+  nnoremap <silent> <Leader>tr :call vimrc#terminal#open_current_shell('edit')<CR>
+  nnoremap <silent> <Leader>tt :call vimrc#terminal#open_current_shell('tabnew')<CR>
+  nnoremap <silent> <Leader>ts :call vimrc#terminal#open_current_shell('new')<CR>
+  nnoremap <silent> <Leader>tv :call vimrc#terminal#open_current_shell('vnew')<CR>
+  nnoremap <silent> <Leader>tb :call vimrc#terminal#open_current_shell('rightbelow vnew')<CR>
+  nnoremap <silent> <Leader>td :call vimrc#terminal#open_shell('tabnew', input('Folder: ', '', 'dir'))<CR>
 
   " Quick terminal function
   tnoremap <M-F1> <C-\><C-N>
-  tnoremap <M-F2> <C-\><C-N>:tabnew<CR>:terminal<CR>i
+  tnoremap <M-F2> <C-\><C-N>:call vimrc#terminal#open_current_shell('tabnew')<CR>
   tnoremap <M-F3> <C-\><C-N>:Windows<CR>
 
   " Quickly switch window in terminal
@@ -71,7 +72,7 @@ if has("nvim")
 
     " Quick terminal function
     tnoremap <M-q>1 <C-\><C-\><C-N>
-    tnoremap <M-q>2 <C-\><C-\><C-N>:tabnew<CR>:terminal<CR>i
+    tnoremap <M-q>2 <C-\><C-\><C-N>:call vimrc#terminal#open_current_shell('tabnew')<CR>
     tnoremap <M-q>3 <C-\><C-\><C-N>:Windows<CR>
 
     " Quickly switch window in terminal

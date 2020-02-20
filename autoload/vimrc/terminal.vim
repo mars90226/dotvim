@@ -39,9 +39,16 @@ function! vimrc#terminal#meta_key_fix()
 endfunction
 
 " Utilities
-" Open terminal in specified folder in new tab
-function! vimrc#terminal#tabnew(folder)
-  execute 'tabnew term://' . a:folder . '//' . $SHELL
+function! vimrc#terminal#open(split, folder, cmd)
+  execute a:split . ' term://' . a:folder . '//' . a:cmd
+endfunction
+
+function! vimrc#terminal#open_shell(split, folder)
+  call vimrc#terminal#open(a:split, a:folder, $SHELL)
+endfunction
+
+function! vimrc#terminal#open_current_shell(split)
+  call vimrc#terminal#open(a:split, '', $SHELL)
 endfunction
 
 let s:terminal_pattern = '\vterm://(.{-}//(\d+:)?)?\zs.*' " Use very magic
