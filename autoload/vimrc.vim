@@ -444,7 +444,7 @@ endfunction
 
 " Use surfraw
 function! vimrc#google_keyword(keyword)
-  execute 'new term://sr\ google\ '.vimrc#escape_symbol(a:keyword)
+  call vimrc#terminal#open_current_folder('new', 'sr google '.vimrc#escape_symbol(a:keyword))
 endfunction
 
 " Fold

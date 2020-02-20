@@ -121,11 +121,11 @@ if has("nvim")
   " }}}
 
   if executable('htop')
-    command! Htop new term://htop
+    command! Htop call vimrc#terminal#open_current_folder('new', 'htop')
   endif
 
   if executable('broot')
-    command! Broot vnew term://broot -p
+    command! Broot call vimrc#terminal#open_current_folder('vnew', 'broot -p')
   endif
 endif
 " }}}

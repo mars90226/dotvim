@@ -43,6 +43,10 @@ function! vimrc#terminal#open(split, folder, cmd)
   execute a:split . ' term://' . a:folder . '//' . a:cmd
 endfunction
 
+function! vimrc#terminal#open_current_folder(split, cmd)
+  call vimrc#terminal#open(a:split, '', $SHELL)
+endfunction
+
 function! vimrc#terminal#open_shell(split, folder)
   call vimrc#terminal#open(a:split, a:folder, $SHELL)
 endfunction
