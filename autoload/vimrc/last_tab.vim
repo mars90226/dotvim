@@ -2,7 +2,7 @@ if !exists("s:last_tabs")
   let s:last_tabs = [1]
 endif
 
-function! vimrc#get_last_tabs()
+function! vimrc#last_tab#get()
   return s:last_tabs
 endfunction
 
