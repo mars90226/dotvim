@@ -103,6 +103,10 @@ else
   " Default behavior
   " g:far#source = 'vimgrep'
 endif
+
+let g:far#mapping = {
+      \ 'replace_do': 'S'
+      \ }
 " }}}
 
 Plug 'editorconfig/editorconfig-vim'
