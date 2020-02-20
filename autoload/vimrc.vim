@@ -374,7 +374,7 @@ function! vimrc#async_search_keyword_in_browser(keyword)
     return
   endif
 
-  let search_command = vimrc#browser#get_seaarch_command(a:keyword)
+  let search_command = vimrc#browser#get_search_command(a:keyword)
   if empty(search_command)
     echoerr "No browser found!"
     return

@@ -10,7 +10,7 @@ function! vimrc#browser#get()
   endif
 endfunction
 
-function! vimrc#browser#get_seaarch_command(keyword)
+function! vimrc#browser#get_search_command(keyword)
   if executable('firefox')
     return "firefox --search '" . a:keyword . "'"
   elseif executable('chrome')
