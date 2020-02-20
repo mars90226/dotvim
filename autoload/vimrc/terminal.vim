@@ -44,7 +44,7 @@ function! vimrc#terminal#open(split, folder, cmd)
 endfunction
 
 function! vimrc#terminal#open_current_folder(split, cmd)
-  call vimrc#terminal#open(a:split, '', $SHELL)
+  call vimrc#terminal#open(a:split, '', a:cmd)
 endfunction
 
 function! vimrc#terminal#open_shell(split, folder)
