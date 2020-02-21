@@ -87,3 +87,8 @@ function! vimrc#fugitive#blame_sha(...)
   " Borrowed from gv#sha() in gv.vim
   return matchstr(get(a:000, 0, getline('.')), '\zs[a-f0-9]\+')
 endfunction
+
+function! vimrc#fugitive#diff_staged_file(file)
+  execute 'Gtabedit :'.a:file
+  execute 'Gdiffsplit HEAD:'.a:file
+endfunction
