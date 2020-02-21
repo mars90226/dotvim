@@ -30,7 +30,6 @@ augroup fileTypeSpecific
   autocmd BufNewFile,BufReadPost resource             set filetype=json
   autocmd BufNewFile,BufReadPost *.bashrc             set filetype=sh
   autocmd BufNewFile,BufReadPost *.sieve              set filetype=sieve
-  autocmd BufNewFile,BufReadPost mimedefang-filter    set filetype=perl
 
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
@@ -43,3 +42,8 @@ augroup input_method_settings
   autocmd InsertEnter * setlocal iminsert=1
   autocmd InsertLeave * setlocal iminsert=0
 augroup END
+
+" Secret project local settings
+if exists('*VimSecretProjectLocalSettings')
+  call VimSecretProjectLocalSettings()
+endif
