@@ -113,12 +113,12 @@ if has("nvim")
           \ endif
   augroup END
 
-  " Search keyword with Google using surfraw {{{
+  " TUI {{{
+  " Search keyword with Google using surfraw
   if executable('sr')
     command! -nargs=1 GoogleKeyword call vimrc#google_keyword(<q-args>)
     nnoremap <Leader>gk :execute 'GoogleKeyword ' . expand('<cword>')<CR>
   endif
-  " }}}
 
   if executable('htop')
     command! Htop call vimrc#terminal#open_current_folder('new', 'htop')
@@ -127,5 +127,14 @@ if has("nvim")
   if executable('broot')
     command! Broot call vimrc#terminal#open_current_folder('vnew', 'broot -p')
   endif
+
+  if executable('ranger')
+    command! Ranger call vimrc#terminal#open_current_folder('new', 'ranger')
+  endif
+
+  if executable('nnn')
+    command! Nnn call vimrc#terminal#open_current_folder('new', 'nnn')
+  endif
+  " }}}
 endif
 " }}}
