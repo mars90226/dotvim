@@ -1,12 +1,13 @@
-nnoremap <silent> <Leader>gs :Gstatus<CR>
-nnoremap <silent> <Leader>gd :Gdiff<CR>
-nnoremap <silent> <Leader>gD :Gdiff!<CR>
-nnoremap <silent> <Leader>gC :Gcommit<CR>
-nnoremap <silent> <Leader>gb :Gblame<CR>
+nnoremap <silent> <Leader>gs :Git<CR>
+nnoremap <silent> <Leader>gd :Gdiffsplit<CR>
+nnoremap <silent> <Leader>gD :Gdiffsplit!<CR>
+nnoremap <silent> <Leader>gC :Git commit<CR>
+nnoremap <silent> <Leader>gb :Git blame<CR>
 nnoremap <silent> <Leader>ge :Gedit<CR>
 nnoremap <silent> <Leader>gE :Gedit<space>
-nnoremap <silent> <Leader>gl :Glog<CR>
-nnoremap <silent> <Leader>gL :0Glog<CR>
+" TODO Use :Gllog instead, currently :0Gllog do not work
+nnoremap <silent> <Leader>gl :Gclog<CR>
+nnoremap <silent> <Leader>gL :0Gclog<CR>
 xnoremap <silent> <Leader>gl :<C-U>execute 'Git log -L '.getpos("'<")[1].','.getpos("'>")[1].':%'<CR>
 nnoremap <silent> <Leader>gr :Gread<CR>
 nnoremap <silent> <Leader>gR :Gread<space>
