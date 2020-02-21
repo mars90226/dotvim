@@ -135,6 +135,10 @@ if has("nvim")
   if executable('nnn')
     command! Nnn call vimrc#terminal#open_current_folder('new', 'nnn')
   endif
+
+  if executable('vifm')
+    command! Vifm call vimrc#terminal#open_current_folder('new', 'vifm '.getcwd().' '.expand('%:h'))
+  endif
   " }}}
 endif
 " }}}
