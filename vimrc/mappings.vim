@@ -188,6 +188,14 @@ onoremap <silent> <M-x><M-s> :<C-U>call vimrc#textobj#inner_surround_unicode()<C
 xnoremap <silent> <M-x><M-S> ?[^\x00-\x7F]<CR>o/[^\x00-\x7F]<CR>l
 onoremap <silent> <M-x><M-S> :<C-U>call vimrc#textobj#around_surround_unicode()<CR>
 
+" Find character past specified character
+nnoremap <silent> <M-p> :<C-U>call vimrc#textobj#past_character(v:count1, 'n', v:true)<CR>
+xnoremap <silent> <M-p> :<C-U>call vimrc#textobj#past_character(v:count1, 'v', v:true)<CR>
+onoremap <silent> <M-p> :<C-U>call vimrc#textobj#past_character(v:count1, 'o', v:true)<CR>
+nnoremap <silent> <M-P> :<C-U>call vimrc#textobj#past_character(v:count1, 'n', v:false)<CR>
+xnoremap <silent> <M-P> :<C-U>call vimrc#textobj#past_character(v:count1, 'v', v:false)<CR>
+onoremap <silent> <M-P> :<C-U>call vimrc#textobj#past_character(v:count1, 'o', v:false)<CR>
+
 " Man
 " :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
 " TODO Move this to 'after' folder
