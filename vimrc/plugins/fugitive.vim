@@ -1,4 +1,5 @@
 nnoremap <silent> <Leader>gs :Git<CR>
+nnoremap <silent> <Leader>gS :Gtabedit :%<CR>:Gdiffsplit HEAD:%<CR>
 nnoremap <silent> <Leader>gd :Gdiffsplit<CR>
 nnoremap <silent> <Leader>gD :Gdiffsplit!<CR>
 nnoremap <silent> <Leader>gC :Git commit<CR>
