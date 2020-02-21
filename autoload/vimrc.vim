@@ -283,3 +283,7 @@ function! vimrc#neat_fold_text()
     let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
     return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction
+
+function! vimrc#boundary_pattern(pattern)
+  return '\<'.a:pattern.'\>'
+endfunction
