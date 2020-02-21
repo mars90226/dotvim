@@ -74,13 +74,13 @@ function! vimrc#terminal#is_shell_terminal(terminal)
   endif
 
   for exception_program in exception_programs
-    if cmd =~ vimrc#boundary_pattern(exception_program)
+    if cmd =~ vimrc#get_boundary_pattern(exception_program)
       return v:false
     endif
   endfor
 
   for shell in shells
-    if cmd =~ vimrc#boundary_pattern(shell)
+    if cmd =~ vimrc#get_boundary_pattern(shell)
       return v:true
     endif
   endfor
@@ -96,7 +96,7 @@ function! vimrc#terminal#is_interactive_process(terminal)
   endif
 
   for interactive_process in interactive_processes
-    if cmd =~ vimrc#boundary_pattern(interactive_process)
+    if cmd =~ vimrc#get_boundary_pattern(interactive_process)
       return v:true
     endif
   endfor

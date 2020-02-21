@@ -284,6 +284,6 @@ function! vimrc#neat_fold_text()
     return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction
 
-function! vimrc#boundary_pattern(pattern)
+function! vimrc#get_boundary_pattern(pattern)
   return '\<'.a:pattern.'\>'
 endfunction
