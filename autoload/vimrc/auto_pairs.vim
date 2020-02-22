@@ -9,6 +9,7 @@ function! vimrc#auto_pairs#toggle_multiline_close()
   endif
 endfunction
 
+" TODO Add start pattern matching
 function! vimrc#auto_pairs#jump()
   let end_patterns = ['"', '\]', "'", ')', '}', '`']
   if exists('b:AutoPairsJumps')

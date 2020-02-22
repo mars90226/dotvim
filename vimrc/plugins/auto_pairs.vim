@@ -4,10 +4,11 @@ let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
 " Prevent rust.vim in vim-polyglot change autopairs config
 let g:rust_keep_autopairs_default = 1
 
+" Changes default auto-pairs toggle
 let g:AutoPairsShortcutToggle = "<M-a><M-p>"
 
-" Disable default auto-pairs' shortcut jump, use ours
-let g:AutoPairsShortcutJump = ""
+" Change default auto-pairs' shortcut jump, use ours
+let g:AutoPairsShortcutJump = "<M-a><M-n>"
 inoremap <silent> <M-n> <Esc>:call vimrc#auto_pairs#jump()<CR>a
 nnoremap <silent> <M-n> :call vimrc#auto_pairs#jump()<CR>
 
