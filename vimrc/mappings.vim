@@ -128,6 +128,7 @@ nnoremap <Leader>yv :vertical split<CR>
 
 " Copy unnamed register to system clipboard
 nnoremap <Space>sr :let @+ = @"<CR>
+nnoremap <Space>sR :let @" = @+<CR>
 
 " Trim system clipboard to 7 chars (for git commit sha)
 nnoremap <Space>s7 :let @+ = @+[0:6]<CR>
