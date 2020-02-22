@@ -88,11 +88,11 @@ endif
 " Easier file status
 nnoremap <Space><C-G> 2<C-G>
 
-" Move working directory up
-nnoremap <Leader>u :cd ..<CR>
+" Change current window working directory to parent folder
+nnoremap <Leader>u :lcd ..<CR>
 
-" Move working directory to current buffer's parent folder
-nnoremap <Leader>cb :cd %:h<CR>
+" Change current window working directory to folder containing current buffer
+nnoremap <Leader>cb :lcd %:h<CR>
 
 " Operator mapping for current word
 onoremap x iw
