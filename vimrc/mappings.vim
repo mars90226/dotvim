@@ -44,6 +44,7 @@ nnoremap <C-W><Space>+ <C-W>10+
 nnoremap <C-W><Space>< <C-W>10<
 nnoremap <C-W><Space>> <C-W>10>
 nnoremap <C-W><Space>= :call vimrc#utility#window_equal()<CR>
+nnoremap <C-W><Space>x <C-W>_<C-W><Bar>
 
 " Move tab
 nnoremap <Leader>t< :tabmove -1<CR>
