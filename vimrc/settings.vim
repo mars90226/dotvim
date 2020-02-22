@@ -125,7 +125,7 @@ set dictionary=/usr/share/dict/words
 " TODO Move to ftplugin setting
 set isfname-==
 
-if has('wsl')
+if has('wsl') && has('nvim')
   " FIXME Clipboard in WSL works poorly
   " Always has newline at start of string
   let g:clipboard = {
@@ -140,4 +140,8 @@ if has('wsl')
         \ },
         \ 'cache_enabled': 1,
         \ }
+
+  " Force loading clipboard
+  " This should be fixed in neovim
+  call provider#clipboard#Executable()
 endif
