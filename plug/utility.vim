@@ -171,6 +171,7 @@ nnoremap <F6> :ContextToggle<CR>
 Plug 'mg979/vim-visual-multi'
 
 " imap <BS> & <CR> is overwritten, need to be careful of bugs
+" FIXME Cannot use sandwich command
 " }}}
 
 " firenvim {{{
