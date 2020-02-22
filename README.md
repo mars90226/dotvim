@@ -2,7 +2,7 @@
 
 Carefully crafted vim/neovim config.
 
-## Use following major plugins
+## Major plugins
 
 * [lightline.vim](https://github.com/itchyny/lightline.vim) (custom status line)
 * [coc.nvim](https://github.com/neoclide/coc.nvim) (auto completion)
