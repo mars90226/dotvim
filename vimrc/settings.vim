@@ -126,8 +126,6 @@ set dictionary=/usr/share/dict/words
 set isfname-==
 
 if has('wsl') && has('nvim')
-  " FIXME Clipboard in WSL works poorly
-  " Always has newline at start of string
   let g:clipboard = {
         \ 'name': 'wsl_clipboard',
         \ 'copy': {
