@@ -212,7 +212,7 @@ function! vimrc#fzf#git#diff_commits(start_commit, end_commit)
     echo 'No git a git repository:' expand('%:p')
   endif
 
-  call fzf#run(fzf#wrap('GitDiffCommits'{
+  call fzf#run(fzf#wrap('GitDiffCommits', {
         \ 'source': s:git_diff_commit_command.' '.a:start_commit.'..'.a:end_commit,
         \ 'sink*': function('vimrc#fzf#git#diff_commit_sink', [a:start_commit, a:end_commit]),
         \ 'options': ['-m', '-s', '--prompt', 'GitDiffCommits> ']}))
