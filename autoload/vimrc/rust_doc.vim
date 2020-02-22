@@ -12,7 +12,7 @@ endfunction
 function! vimrc#rust_doc#open(url)
   let url = a:url
 
-  if vimrc#plugin#check#get_wsl_environment() == "yes"
+  if has('wsl')
     if url =~ "^file://"
       let original_path = substitute(url, "^file://", '', '')
       let url = 'file://///wsl$/'.vimrc#plugin#check#get_distro().original_path
@@ -25,7 +25,7 @@ endfunction
 " Open rustup doc
 function! vimrc#rust_doc#open_rustup_doc(topic)
   let open_rustup_doc_command = "rustup doc ".a:topic
-  if vimrc#plugin#check#get_wsl_environment() == "yes"
+  if has('wsl')
     let open_rustup_doc_command = "env BROWSER=open_rustup_doc.sh ".open_rustup_doc_command
   endif
 

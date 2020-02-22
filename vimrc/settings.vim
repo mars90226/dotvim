@@ -125,7 +125,7 @@ set dictionary=/usr/share/dict/words
 " TODO Move to ftplugin setting
 set isfname-==
 
-if vimrc#plugin#check#get_wsl_environment() == "yes"
+if has('wsl')
   " FIXME Clipboard in WSL works poorly
   " Always has newline at start of string
   let g:clipboard = {

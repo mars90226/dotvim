@@ -9,14 +9,8 @@ else
   let s:distro = systemlist("lsb_release -is")[0]
 endif
 
-let s:wsl_environment = $WSL_ENVIRONMENT
-
 function! vimrc#plugin#check#get_os()
   return s:os
-endfunction
-
-function! vimrc#plugin#check#get_wsl_environment()
-  return s:wsl_environment
 endfunction
 
 function! vimrc#plugin#check#get_distro()
