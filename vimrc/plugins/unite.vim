@@ -3,7 +3,7 @@ call vimrc#lazy#lazy_load('unite_workflow')
 let g:unite_source_history_yank_enable = 1
 
 " for unite-workflow
-let g:github_user = "mars90226"
+let g:github_user = $GITHUB_USER
 
 if vimrc#plugin#is_enabled_plugin('lightline.vim')
   let g:unite_force_overwrite_statusline = 0
