@@ -126,3 +126,7 @@ Working in progress.
 
 * [ ] Add full plugin dependencies
 * [ ] Add provider plugin for dependencies
+
+## Screenshots
+
+![fzf_and_vista](https://user-images.githubusercontent.com/1523214/75095594-8e2c1180-55d1-11ea-8370-dd8bde86170d.png)
