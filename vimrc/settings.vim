@@ -124,3 +124,20 @@ set dictionary=/usr/share/dict/words
 " Remove '=' from isfilename to complete filename in 'options'='filename' format
 " TODO Move to ftplugin setting
 set isfname-==
+
+if vimrc#plugin#check#get_wsl_environment() == "yes"
+  " FIXME Clipboard in WSL works poorly
+  " Always has newline at start of string
+  let g:clipboard = {
+        \ 'name': 'wsl_clipboard',
+        \ 'copy': {
+        \     '+': 'xsel -i',
+        \     '*': 'xsel -i',
+        \ },
+        \ 'paste': {
+        \     '+': 'xsel -o',
+        \     '*': 'xsel -o',
+        \ },
+        \ 'cache_enabled': 1,
+        \ }
+endif
