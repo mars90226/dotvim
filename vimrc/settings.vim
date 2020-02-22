@@ -140,6 +140,6 @@ if has('wsl') && has('nvim')
         \ }
 
   " Force loading clipboard
-  " This should be fixed in neovim
+  " TODO Create issue in neovim, this should be fixed in neovim
   call provider#clipboard#Executable()
 endif
