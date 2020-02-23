@@ -213,6 +213,7 @@ nnoremap <Space>fT :call vimrc#execute_and_save('Tags')<CR>
 nnoremap <Space>fu :call vimrc#execute_and_save('DirectoryAncestors')<CR>
 nnoremap <Space>fU :call vimrc#execute_and_save('DirectoryFiles ..')<CR>
 nnoremap <Space>f<C-U> :call vimrc#execute_and_save('DirectoryRg ..')<CR>
+nnoremap <Space>fv :call vimrc#execute_and_save('Colors')<CR>
 nnoremap <Space>fw :call vimrc#execute_and_save('Windows')<CR>
 nnoremap <Space>fy :call vimrc#execute_and_save('Filetypes')<CR>
 nnoremap <Space>fY :call vimrc#execute_and_save('GitFilesCommit ' . vimrc#fugitive#commit_sha())<CR>
@@ -249,35 +250,36 @@ if vimrc#plugin#is_enabled_plugin('coc.nvim')
 endif
 
 " fzf & cscope key mappings {{{
-nnoremap <silent> <Leader>cs :call vimrc#fzf#cscope#cscope('0', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cg :call vimrc#fzf#cscope#cscope('1', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cd :call vimrc#fzf#cscope#cscope('2', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cc :call vimrc#fzf#cscope#cscope('3', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>ct :call vimrc#fzf#cscope#cscope('4', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>ce :call vimrc#fzf#cscope#cscope('6', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cf :call vimrc#fzf#cscope#cscope('7', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>ci :call vimrc#fzf#cscope#cscope('8', expand('<cword>'))<CR>
-nnoremap <silent> <Leader>ca :call vimrc#fzf#cscope#cscope('9', expand('<cword>'))<CR>
+let s:fzf_cscope_prefix = '<M-c>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'s :call vimrc#fzf#cscope#cscope("0", expand("<cword>"))<CR>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'g :call vimrc#fzf#cscope#cscope("1", expand("<cword>"))<CR>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'d :call vimrc#fzf#cscope#cscope("2", expand("<cword>"))<CR>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'c :call vimrc#fzf#cscope#cscope("3", expand("<cword>"))<CR>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'t :call vimrc#fzf#cscope#cscope("4", expand("<cword>"))<CR>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'e :call vimrc#fzf#cscope#cscope("6", expand("<cword>"))<CR>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'f :call vimrc#fzf#cscope#cscope("7", expand("<cword>"))<CR>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'i :call vimrc#fzf#cscope#cscope("8", expand("<cword>"))<CR>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'a :call vimrc#fzf#cscope#cscope("9", expand("<cword>"))<CR>'
 
-xnoremap <silent> <Leader>cs :<C-U>call vimrc#fzf#cscope#cscope('0', vimrc#get_visual_selection())<CR>
-xnoremap <silent> <Leader>cg :<C-U>call vimrc#fzf#cscope#cscope('1', vimrc#get_visual_selection())<CR>
-xnoremap <silent> <Leader>cd :<C-U>call vimrc#fzf#cscope#cscope('2', vimrc#get_visual_selection())<CR>
-xnoremap <silent> <Leader>cc :<C-U>call vimrc#fzf#cscope#cscope('3', vimrc#get_visual_selection())<CR>
-xnoremap <silent> <Leader>ct :<C-U>call vimrc#fzf#cscope#cscope('4', vimrc#get_visual_selection())<CR>
-xnoremap <silent> <Leader>ce :<C-U>call vimrc#fzf#cscope#cscope('6', vimrc#get_visual_selection())<CR>
-xnoremap <silent> <Leader>cf :<C-U>call vimrc#fzf#cscope#cscope('7', vimrc#get_visual_selection())<CR>
-xnoremap <silent> <Leader>ci :<C-U>call vimrc#fzf#cscope#cscope('8', vimrc#get_visual_selection())<CR>
-xnoremap <silent> <Leader>ca :<C-U>call vimrc#fzf#cscope#cscope('9', vimrc#get_visual_selection())<CR>
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'s :<C-U>call vimrc#fzf#cscope#cscope("0", vimrc#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'g :<C-U>call vimrc#fzf#cscope#cscope("1", vimrc#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'d :<C-U>call vimrc#fzf#cscope#cscope("2", vimrc#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'c :<C-U>call vimrc#fzf#cscope#cscope("3", vimrc#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'t :<C-U>call vimrc#fzf#cscope#cscope("4", vimrc#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'e :<C-U>call vimrc#fzf#cscope#cscope("6", vimrc#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'f :<C-U>call vimrc#fzf#cscope#cscope("7", vimrc#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'i :<C-U>call vimrc#fzf#cscope#cscope("8", vimrc#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'a :<C-U>call vimrc#fzf#cscope#cscope("9", vimrc#get_visual_selection())<CR>'
 
-nnoremap <silent> <Leader><Leader>cs :call vimrc#fzf#cscope#cscope_query('0')<CR>
-nnoremap <silent> <Leader><Leader>cg :call vimrc#fzf#cscope#cscope_query('1')<CR>
-nnoremap <silent> <Leader><Leader>cd :call vimrc#fzf#cscope#cscope_query('2')<CR>
-nnoremap <silent> <Leader><Leader>cc :call vimrc#fzf#cscope#cscope_query('3')<CR>
-nnoremap <silent> <Leader><Leader>ct :call vimrc#fzf#cscope#cscope_query('4')<CR>
-nnoremap <silent> <Leader><Leader>ce :call vimrc#fzf#cscope#cscope_query('6')<CR>
-nnoremap <silent> <Leader><Leader>cf :call vimrc#fzf#cscope#cscope_query('7')<CR>
-nnoremap <silent> <Leader><Leader>ci :call vimrc#fzf#cscope#cscope_query('8')<CR>
-nnoremap <silent> <Leader><Leader>ca :call vimrc#fzf#cscope#cscope_query('9')<CR>
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'S :call vimrc#fzf#cscope#cscope_query("0")<CR>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'G :call vimrc#fzf#cscope#cscope_query("1")<CR>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'D :call vimrc#fzf#cscope#cscope_query("2")<CR>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'C :call vimrc#fzf#cscope#cscope_query("3")<CR>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'T :call vimrc#fzf#cscope#cscope_query("4")<CR>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'E :call vimrc#fzf#cscope#cscope_query("6")<CR>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'F :call vimrc#fzf#cscope#cscope_query("7")<CR>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'I :call vimrc#fzf#cscope#cscope_query("8")<CR>'
+execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'A :call vimrc#fzf#cscope#cscope_query("9")<CR>'
 " }}}
 
 if has("nvim")

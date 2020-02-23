@@ -46,7 +46,8 @@ let g:peekaboo_delay = 400
 " colorv {{{
 Plug 'Rykka/colorv.vim', { 'on': ['ColorV', 'ColorVName'] }
 
-nnoremap <silent> <Leader>cN :ColorVName<CR>
+nnoremap <silent> <Leader>vv :ColorV<CR>
+nnoremap <silent> <Leader>vn :ColorVName<CR>
 " }}}
 
 " vim-rooter {{{
@@ -138,7 +139,7 @@ Plug 'tpope/vim-dispatch', { 'on': [] }
 
 call vimrc#lazy#lazy_load('dispatch')
 
-nnoremap <Leader>co :Copen<CR>
+nnoremap <Leader>do :Copen<CR>
 " }}}
 
 " securemodelines {{{

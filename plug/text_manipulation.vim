@@ -41,9 +41,9 @@ nmap <Leader>s <Plug>(SubversiveSubstituteRange)
 xmap <Leader>s <Plug>(SubversiveSubstituteRange)
 nmap <Leader>ss <Plug>(SubversiveSubstituteWordRange)
 
-nmap <Leader>cr <Plug>(SubversiveSubstituteRangeConfirm)
-xmap <Leader>cr <Plug>(SubversiveSubstituteRangeConfirm)
-nmap <Leader>crr <Plug>(SubversiveSubstituteWordRangeConfirm)
+nmap scr <Plug>(SubversiveSubstituteRangeConfirm)
+xmap scr <Plug>(SubversiveSubstituteRangeConfirm)
+nmap scrr <Plug>(SubversiveSubstituteWordRangeConfirm)
 
 nmap <Leader><Leader>s <Plug>(SubversiveSubvertRange)
 xmap <Leader><Leader>s <Plug>(SubversiveSubvertRange)

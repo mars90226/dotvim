@@ -43,11 +43,11 @@ nnoremap <silent> K :call vimrc#coc#show_documentation()<CR>
 nnoremap gK K
 
 " mappings for rename current word
-nmap <Space>cr <Plug>(coc-rename)
+nmap <Leader>cr <Plug>(coc-rename)
 
 " mappings for format selected region
-nmap <Space>cf <Plug>(coc-format-selected)
-xmap <Space>cf <Plug>(coc-format-selected)
+nmap <Leader>cf <Plug>(coc-format-selected)
+xmap <Leader>cf <Plug>(coc-format-selected)
 
 augroup coc_settings
   autocmd!
@@ -60,13 +60,13 @@ augroup coc_settings
 augroup END
 
 " mappings for do codeAction of selected region
-nmap <Space>ca <Plug>(coc-codeaction-selected)
-xmap <Space>ca <Plug>(coc-codeaction-selected)
+nmap <Leader>ca <Plug>(coc-codeaction-selected)
+xmap <Leader>ca <Plug>(coc-codeaction-selected)
 
 " mappings for do codeAction of current line
-nmap <Space>cc <Plug>(coc-codeaction)
+nmap <Leader>cc <Plug>(coc-codeaction)
 " mappings for fix autofix problem of current line
-nmap <Space>cx <Plug>(coc-fix-current)
+nmap <Leader>cx <Plug>(coc-fix-current)
 
 " :Format for format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -77,28 +77,28 @@ command! -nargs=? Fold :call CocAction('fold', <f-args>)
 " TODO Add airline support
 
 " Show all diagnostics
-nnoremap <silent> <Space>cd :CocList diagnostics<CR>
+nnoremap <silent> <Leader>cd :CocList diagnostics<CR>
 " Manage extensions
-nnoremap <silent> <Space>ce :CocList extensions<CR>
+nnoremap <silent> <Leader>ce :CocList extensions<CR>
 " Show commands
-nnoremap <silent> <Space>c; :CocList commands<CR>
+nnoremap <silent> <Leader>c; :CocList commands<CR>
 " Show info
-nnoremap <silent> <Space>ci :CocInfo<CR>
+nnoremap <silent> <Leader>ci :CocInfo<CR>
 " Find symbol of current document
-nnoremap <silent> <Space>co :CocList outline<CR>
+nnoremap <silent> <Leader>co :CocList outline<CR>
 " Search workspace symbols
-nnoremap <silent> <Space>cs :CocList -I symbols<CR>
+nnoremap <silent> <Leader>cs :CocList -I symbols<CR>
 " Do default action for next item.
 nnoremap <silent> [C        :CocNext<CR>
 " Do default action for prevous item.
 nnoremap <silent> ]C        :CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <Space>cu :CocListResume<CR>
+nnoremap <silent> <Leader>cu :CocListResume<CR>
 " Show lists
-nnoremap <silent> <Space>cl :CocList lists<CR>
+nnoremap <silent> <Leader>cl :CocList lists<CR>
 
 command! CocToggle call vimrc#coc#toggle()
-nnoremap <silent> <Space>cy :CocToggle<CR>
+nnoremap <silent> <Leader>cy :CocToggle<CR>
 
 augroup coc_ccls_settings
   autocmd!

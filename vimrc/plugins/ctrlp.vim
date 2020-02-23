@@ -2,11 +2,11 @@ let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
       \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 
 nnoremap <C-P> :CtrlP<CR>
-nnoremap <Space>cO :CtrlPFunky<CR>
-nnoremap <Space>ck :execute 'CtrlPFunky ' . expand('<cword>')<CR>
-xnoremap <Space>ck :<C-U>execute 'CtrlPFunky ' . vimrc#get_visual_selection()<CR>
-nnoremap <Space>c] :CtrlPtjump<CR>
-xnoremap <Space>c] :CtrlPtjumpVisual<CR>
+nnoremap <Leader>cO :CtrlPFunky<CR>
+nnoremap <Leader>ck :execute 'CtrlPFunky ' . expand('<cword>')<CR>
+xnoremap <Leader>ck :<C-U>execute 'CtrlPFunky ' . vimrc#get_visual_selection()<CR>
+nnoremap <Leader>c] :CtrlPtjump<CR>
+xnoremap <Leader>c] :CtrlPtjumpVisual<CR>
 
 command! -nargs=1 CtrlPSetTimeout call vimrc#ctrlp#set_timeout(<f-args>)
 

@@ -89,10 +89,10 @@ endif
 nnoremap <Space><C-G> 2<C-G>
 
 " Change current window working directory to parent folder
-nnoremap <Leader>u :lcd ..<CR>
+nnoremap <Leader>du :lcd ..<CR>
 
 " Change current window working directory to folder containing current buffer
-nnoremap <Leader>cb :lcd %:h<CR>
+nnoremap <Leader>db :lcd %:h<CR>
 
 " Operator mapping for current word
 onoremap x iw
