@@ -176,9 +176,10 @@ nnoremap <Space>fG :call vimrc#execute_and_save('GitGrep ' . input('Git grep: ')
 nnoremap <Space>f<C-G> :call vimrc#execute_and_save('GitGrepCommit ' . input('Commit: ') . ' ' . input('Git grep: '))<CR>
 nnoremap <Space>fh :call vimrc#execute_and_save('Helptags')<CR>
 nnoremap <Space>fH :call vimrc#execute_and_save('GitFilesCommit ' . input('Commit: '))<CR>
-nnoremap <Space>fi :call vimrc#execute_and_save('History')<CR>
-nnoremap <Space>fI :call vimrc#execute_and_save('RgFzf ' . input('RgFzf: '))<CR>
-nnoremap <Space>f<C-I> :call vimrc#execute_and_save('RgFzf! ' . input('RgFzf!: '))<CR>
+nnoremap <Space>fi :call vimrc#execute_and_save('RgFzf')<CR>
+nnoremap <Space>fI :call vimrc#execute_and_save('RgFzf!')<CR>
+nnoremap <Space>f9 :call vimrc#execute_and_save('RgFzf ' . input('RgFzf: '))<CR>
+nnoremap <Space>f( :call vimrc#execute_and_save('RgFzf! ' . input('RgFzf!: '))<CR>
 nnoremap <Space>fj :call vimrc#execute_and_save('Jump')<CR>
 nnoremap <Space>fk :call vimrc#execute_and_save('Rg ' . expand('<cword>'))<CR>
 nnoremap <Space>fK :call vimrc#execute_and_save('Rg ' . expand('<cWORD>'))<CR>
@@ -198,6 +199,7 @@ nnoremap <Space>fN :call vimrc#execute_and_save('FilesWithQuery ' . expand('<cWO
 nnoremap <Space>f% :call vimrc#execute_and_save('FilesWithQuery ' . expand('%:t:r'))<CR>
 xnoremap <Space>fn :<C-U>call vimrc#execute_and_save('FilesWithQuery ' . vimrc#get_visual_selection())<CR>
 nnoremap <Space>fo :call vimrc#execute_and_save('Locate ' . input('Locate: '))<CR>
+nnoremap <Space>fO :call vimrc#execute_and_save('History')<CR>
 nnoremap <Space>fr :call vimrc#execute_and_save('Rg ' . input('Rg: '))<CR>
 nnoremap <Space>fR :call vimrc#execute_and_save('Rg! ' . input('Rg!: '))<CR>
 nnoremap <Space>f4 :call vimrc#execute_and_save('RgWithOption .:' . input('Option: ') . ':' . input('Rg: '))<CR>

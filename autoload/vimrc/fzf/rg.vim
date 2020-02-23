@@ -1,8 +1,9 @@
 " Manually specify ignore file as ripgrep 0.9.0 will not respect to .gitignore outside of git repository
-let s:rg_base_command = 'rg --column --line-number --no-heading --smart-case --color=always --follow --with-filename '
-let s:rg_command = s:rg_base_command . '--ignore-file ' . $HOME . '/.gitignore' " TODO Use '.ignore'?
-let s:rg_all_command = s:rg_base_command . '--no-ignore --hidden'
-let s:rg_fzf_command_fmt = s:rg_base_command . '%s || true'
+let s:rg_base_command = 'rg --column --line-number --no-heading --smart-case --color=always --follow --with-filename'
+let s:rg_command = s:rg_base_command . ' --ignore-file ' . $HOME . '/.gitignore' " TODO Use '.ignore'?
+let s:rg_all_command = s:rg_base_command . ' --no-ignore --hidden'
+let s:rg_fzf_command_fmt = s:rg_command . ' %s || true'
+let s:rg_fzf_all_command_fmt = s:rg_all_command . ' %s || true'
 
 function! vimrc#fzf#rg#get_base_command()
   return s:rg_base_command
@@ -15,6 +16,9 @@ function! vimrc#fzf#rg#get_all_command()
 endfunction
 function! vimrc#fzf#rg#get_fzf_command_fmt()
   return s:rg_fzf_command_fmt
+endfunction
+function! vimrc#fzf#rg#get_fzf_all_command_fmt()
+  return s:rg_fzf_all_command_fmt
 endfunction
 
 " Utility
@@ -47,8 +51,9 @@ endfunction
 
 " RgFzf - Ripgrep with reload on change
 function! vimrc#fzf#rg#grep_on_change(query, bang)
-  let initial_command = printf(s:rg_fzf_command_fmt, shellescape(a:query))
-  let reload_command = printf(s:rg_fzf_command_fmt, '{q}')
+  let rg_fzf_command_fmt = a:bang ? s:rg_fzf_all_command_fmt : s:rg_fzf_command_fmt
+  let initial_command = printf(rg_fzf_command_fmt, shellescape(a:query))
+  let reload_command = printf(rg_fzf_command_fmt, '{q}')
   let options = vimrc#fzf#rg#with_preview(a:bang, { 'options': [ '--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command ] })
   call fzf#vim#grep(initial_command, 1, options, a:bang)
 endfunction
