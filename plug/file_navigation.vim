@@ -129,6 +129,16 @@ Plug 'junegunn/fzf.vim'
 call vimrc#source('vimrc/plugins/fzf.vim')
 " }}}
 
+" vim-clap {{{
+if executable('cargo')
+  Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+else
+  Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+endif
+
+call vimrc#source('vimrc/plugins/clap.vim')
+" }}}
+
 " vim-gutentags {{{
 if vimrc#plugin#is_enabled_plugin('vim-gutentags')
   Plug 'ludovicchabant/vim-gutentags'

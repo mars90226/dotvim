@@ -3,8 +3,8 @@ let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
 
 nnoremap <C-P> :CtrlP<CR>
 nnoremap <Space>cO :CtrlPFunky<CR>
-nnoremap <Space>cK :execute 'CtrlPFunky ' . expand('<cword>')<CR>
-xnoremap <Space>cK :<C-U>execute 'CtrlPFunky ' . vimrc#get_visual_selection()<CR>
+nnoremap <Space>ck :execute 'CtrlPFunky ' . expand('<cword>')<CR>
+xnoremap <Space>ck :<C-U>execute 'CtrlPFunky ' . vimrc#get_visual_selection()<CR>
 nnoremap <Space>c] :CtrlPtjump<CR>
 xnoremap <Space>c] :CtrlPtjumpVisual<CR>
 
