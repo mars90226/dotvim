@@ -26,13 +26,22 @@ call denite#custom#source('grep', 'converters', ['converter/abbr_word'])
 
 call denite#custom#option('_', {
       \ 'auto_accel': v:true,
-      \ 'reversed': 1,
+      \ 'split': 'floating',
+      \ 'winwidth': g:denite_width,
+      \ 'winheight': g:denite_height,
+      \ 'wincol': g:denite_left,
+      \ 'winrow': g:denite_top,
+      \ 'filter_split_direction': 'floating',
+      \ 'floating_preview': v:true,
+      \ 'vertical_preview': v:true,
+      \ 'preview_width': g:denite_preview_width,
+      \ 'preview_height': g:denite_preview_height,
+      \ 'direction': 'topleft',
+      \ 'start_filter': v:true,
       \ 'prompt': '❯',
       \ 'prompt_highlight': 'Function',
       \ 'highlight_mode_normal': 'Visual',
       \ 'highlight_mode_insert': 'CursorLine',
       \ 'highlight_matched_char': 'Special',
-      \ 'highlight_matched_range': 'Normal',
-      \ 'vertical_preview': 1,
-      \ 'start_filter': 1,
+      \ 'highlight_matched_range': 'Normal'
       \ })

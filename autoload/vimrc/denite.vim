@@ -34,6 +34,16 @@ function! vimrc#denite#move_cursor_candidate_window(dir, lines) abort
   startinsert!
 endfunction
 
+" Assume preview floating window is previous window of denite buffer
+function! vimrc#denite#goto_and_back_between_preview()
+  if bufname('%') =~# '\[denite\]'
+    wincmd W
+    nnoremap <silent><buffer> <M-l> :call vimrc#denite#goto_and_back_between_preview()<CR>
+  else
+    wincmd w
+  endif
+endfunction
+
 " Denite buffer normal mode
 function! vimrc#denite#mappings()
   " Denite buffer
@@ -91,6 +101,9 @@ function! vimrc#denite#mappings()
         \ denite#do_map('do_action', 'vsplitswitch')
   nnoremap <silent><buffer><expr> <M-w>
         \ denite#do_map('do_action', 'switch')
+
+  " Switch between denite buffer & preview
+  nnoremap <silent><buffer> <M-l> :call vimrc#denite#goto_and_back_between_preview()<CR>
 endfunction
 
 " Denite buffer insert mode
@@ -105,7 +118,7 @@ function! vimrc#denite#filter_mappings()
   " Cursor movements
   " Reserve <C-o> for moving cursor
   imap     <silent><buffer>         <C-F> <Plug>(denite_filter_quit)
-  " Rerserve a key mapping for entering normal mode
+  " Reserve a key mapping for entering normal mode
   inoremap <silent><buffer>         <M-q> <Esc>
   inoremap <silent><buffer>         <C-B> <C-O>^
   inoremap <silent><buffer><nowait> <C-E> <C-O>$
@@ -119,9 +132,9 @@ function! vimrc#denite#filter_mappings()
   inoremap <silent><buffer> <C-K>
         \ <Esc>:call vimrc#denite#move_cursor_candidate_window('k', 1)<CR>
   inoremap <silent><buffer> <M-j>
-        \ <Esc>:call vimrc#denite#move_cursor_candidate_window('j', 20)<CR>
+        \ <Esc>:call vimrc#denite#move_cursor_candidate_window('j', g:denite_height)<CR>
   inoremap <silent><buffer> <M-k>
-        \ <Esc>:call vimrc#denite#move_cursor_candidate_window('k', 20)<CR>
+        \ <Esc>:call vimrc#denite#move_cursor_candidate_window('k', g:denite_height)<CR>
   inoremap <silent><buffer><expr> <CR>  denite#do_map('do_action')
   nnoremap <silent><buffer><expr> <CR>  denite#do_map('do_action')
   inoremap <silent><buffer><expr> <M-o> denite#do_map('do_action', 'open')
@@ -134,6 +147,9 @@ function! vimrc#denite#filter_mappings()
   inoremap <silent><buffer><expr> <M-t> denite#do_map('do_action', 'tabswitch')
   inoremap <silent><buffer><expr> <M-v> denite#do_map('do_action', 'vsplitswitch')
   inoremap <silent><buffer><expr> <M-w> denite#do_map('do_action', 'switch')
+
+  " Switch between denite buffer & preview
+  imap     <silent><buffer> <M-l> <Plug>(denite_filter_quit):call vimrc#denite#goto_and_back_between_preview()<CR>
 
   " Toggle matchers & sorters
   inoremap <silent><buffer><expr> <M-f>

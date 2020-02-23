@@ -25,7 +25,7 @@ function! vimrc#unite#mappings() "{{{
   imap <buffer> <C-Y>     <Plug>(unite_input_directory)
   nmap <buffer> <C-Y>     <Plug>(unite_input_directory)
   nmap <buffer> <M-a>     <Plug>(unite_toggle_auto_preview)
-  nmap <buffer> <M-c>     <Plug>(unite_print_candidate)
+  nmap <buffer> <M-p>     <Plug>(unite_print_candidate)
   nmap <buffer> <C-R>     <Plug>(unite_narrowing_input_history)
   imap <buffer> <C-R><C-R>     <Plug>(unite_narrowing_input_history)
   imap <buffer> <C-X><C-X>     <Plug>(unite_complete)
