@@ -92,3 +92,9 @@ function! vimrc#fugitive#diff_staged_file(file)
   execute 'Gtabedit :'.a:file
   execute 'Gdiffsplit HEAD:'.a:file
 endfunction
+
+function! vimrc#fugitive#goto_blame_line()
+  let current_line = line('.')
+  split
+  execute current_line.'Git blame'
+endfunction

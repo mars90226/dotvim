@@ -2,8 +2,10 @@ nnoremap <silent> <Leader>gs :Git<CR>
 nnoremap <silent> <Leader>gS :call vimrc#fugitive#diff_staged_file('%')<CR>
 nnoremap <silent> <Leader>gd :Gdiffsplit<CR>
 nnoremap <silent> <Leader>gD :Gdiffsplit!<CR>
+nnoremap <silent> <Leader>gc :call vimrc#fugitive#goto_blame_line()<CR>
 nnoremap <silent> <Leader>gC :Git commit<CR>
 nnoremap <silent> <Leader>gb :Git blame<CR>
+xnoremap <silent> <Leader>gb :Git blame<CR>
 nnoremap <silent> <Leader>ge :Gedit<CR>
 nnoremap <silent> <Leader>gE :Gedit<space>
 " TODO Use :Gllog instead, currently :0Gllog do not work

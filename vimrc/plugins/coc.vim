@@ -114,7 +114,8 @@ nmap ]g <Plug>(coc-git-nextchunk)
 nmap <Leader>gp <Plug>(coc-git-chunkinfo)
 
 " show commit contains current position
-nmap <Leader>gc <Plug>(coc-git-commit)
+" Use our vimrc#fugitive#goto_blame_line()
+" nmap <Leader>gc <Plug>(coc-git-commit)
 
 " create text object for git chunks
 omap ig <Plug>(coc-git-chunk-inner)
