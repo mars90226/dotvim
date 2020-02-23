@@ -281,7 +281,7 @@ function! vimrc#fzf#current_placed_signs()
   call fzf#run(fzf#wrap('Signs', {
         \ 'source':  vimrc#fzf#current_placed_signs_source(),
         \ 'sink*':   function('vimrc#fzf#current_placed_signs_sink'),
-        \ 'options': ['--tiebreak=index', '--prompt', 'Signs> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1'],
+        \ 'options': ['--tiebreak=index', '--prompt', 'Signs> ', '--ansi', '--extended', '--nth=2..', '--tabstop=1'],
         \ }))
 endfunction
 

@@ -41,7 +41,7 @@ endfunction
 
 " Commands
 function! vimrc#fzf#range#range_lines(prompt, center, start, end, query)
-  let options = ['--tiebreak=index', '--multi', '--prompt', a:prompt . '> ', '--ansi', '--extended', '--nth=2..', '--layout=reverse-list', '--tabstop=1']
+  let options = ['--tiebreak=index', '--multi', '--prompt', a:prompt . '> ', '--ansi', '--extended', '--nth=2..', '--tabstop=1']
   let file = expand('%')
   let preview_command = vimrc#fzf#generate_preview_command_with_bat(a:start, file)
   let final_options = extend(options, ['--preview-window', 'right:50%:hidden', '--preview', preview_command])
@@ -65,4 +65,23 @@ function! vimrc#fzf#range#screen_lines(...)
   call setpos('.', save_cursor)
 
   call vimrc#fzf#range#range_lines('ScreenLines', 0, start, end, query)
+endfunction
+
+function! vimrc#fzf#range#select_operator(operator)
+  let w:origin_pos = getcurpos()
+  augroup range_select_operator_callback
+    autocmd!
+    autocmd WinEnter * call vimrc#fzf#range#select_operator_callback()
+  augroup END
+  execute "normal v".a:operator.":SelectLines\<CR>"
+endfunction
+
+function! vimrc#fzf#range#select_operator_callback()
+  if exists('w:origin_pos')
+    " Fzf will jump to target line AFTER we set cursor position
+    " So this cursor position will become last position.
+    call setpos(".", w:origin_pos)
+    unlet w:origin_pos
+    autocmd! range_select_operator_callback
+  endif
 endfunction

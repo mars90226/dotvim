@@ -238,7 +238,8 @@ nnoremap <Space><C-D><C-F> :call vimrc#execute_and_save('DirectoryMruFiles')<CR>
 nnoremap <Space><C-D><C-R> :call vimrc#execute_and_save('DirectoryMruRg')<CR>
 
 " Misc
-nmap     <Space>sf vaf:SelectLines<CR>
+" nmap     <Space>sf vaf:SelectLines<CR>
+nnoremap <Space>sf :call vimrc#fzf#range#select_operator('af')<CR>
 xnoremap <Space>sf :<C-U>call vimrc#execute_and_save("'<,'>SelectLines")<CR>
 nnoremap <Space>sl :call vimrc#execute_and_save('ScreenLines')<CR>
 nnoremap <Space>sL :call vimrc#execute_and_save('ScreenLines ' . expand('<cword>'))<CR>
@@ -246,7 +247,7 @@ xnoremap <Space>sL :<C-U>call vimrc#execute_and_save('ScreenLines ' . vimrc#get_
 nnoremap <Space>ss :History:<CR>mks vim sessions
 
 if vimrc#plugin#is_enabled_plugin('coc.nvim')
-  nmap   <Space>sv vav:SelectLines<CR>
+  nnoremap <Space>sv :call vimrc#fzf#range#select_operator('av')<CR>
 endif
 
 " fzf & cscope key mappings {{{
