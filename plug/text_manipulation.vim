@@ -26,6 +26,8 @@ let g:EraseSubword_insertMap = '<C-B>'
 Plug 'tomtom/tcomment_vim', { 'on': [] }
 
 call vimrc#lazy#lazy_load('tcomment')
+
+let g:tcomment_textobject_inlinecomment = 'ilc'
 " }}}
 
 " vim-subversive {{{
