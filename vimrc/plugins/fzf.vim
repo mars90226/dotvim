@@ -1,5 +1,5 @@
 if has("nvim") || has("gui_running")
-  let $FZF_DEFAULT_OPTS .= ' --inline-info'
+  let $FZF_DEFAULT_OPTS .= ' --layout=reverse --inline-info'
 endif
 
 let g:fzf_colors =
