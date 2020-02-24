@@ -59,6 +59,10 @@ function! vimrc#plugin#check#has_linux_build_env()
   return s:os !~ "windows" && s:os !~ "synology"
 endfunction
 
+function! vimrc#plugin#check#has_cargo()
+  return executable('cargo') && vimrc#plugin#check#has_linux_build_env()
+endfunction
+
 let s:git_version = 'not initialized'
 function! vimrc#plugin#check#git_version()
   if s:git_version == 'not initialized'

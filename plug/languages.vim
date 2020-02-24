@@ -50,7 +50,7 @@ endif
 " }}}
 
 " vim-markdown-composer {{{
-if executable('cargo')
+if vimrc#plugin#check#has_cargo()
   Plug 'euclio/vim-markdown-composer', { 'do': function('vimrc#composer#build_composer') }
 
   " Manually execute :ComposerStart instead

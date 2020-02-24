@@ -130,7 +130,7 @@ call vimrc#source('vimrc/plugins/fzf.vim')
 " }}}
 
 " vim-clap {{{
-if executable('cargo')
+if vimrc#plugin#check#has_cargo()
   Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 else
   Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
