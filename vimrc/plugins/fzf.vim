@@ -1,5 +1,10 @@
+let g:fzf_default_options = { 'options': ['--layout', 'reverse', '--inline-info'] }
+
 if has("nvim") || has("gui_running")
-  let $FZF_DEFAULT_OPTS .= ' --layout=reverse --inline-info'
+  if !exists('g:original_fzf_default_opts')
+    let g:original_fzf_default_opts = $FZF_DEFAULT_OPTS
+  endif
+  let $FZF_DEFAULT_OPTS = g:original_fzf_default_opts.' '.join(g:fzf_default_options.options)
 endif
 
 let g:fzf_colors =
@@ -19,8 +24,6 @@ let g:fzf_colors =
 
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 let g:fzf_tmux_layout = { 'down': '~40%' }
-
-let g:fzf_default_options = { 'options': ['--layout', 'reverse'] }
 
 let g:fzf_history_dir = $HOME.'/.local/share/fzf-history'
 
