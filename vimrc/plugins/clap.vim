@@ -28,6 +28,7 @@ nnorema <Space>cp :Clap providers<CR>
 nnorema <Space>cq :Clap quickfix<CR>
 nnorema <Space>cr :Clap grep<CR>
 nnorema <Space>cR :Clap registers<CR>
+nnorema <Space>ct :Clap tags<CR>
 nnorema <Space>cv :Clap colors<CR>
 nnorema <Space>cw :Clap windows<CR>
 nnorema <Space>cy :Clap yanks<CR>
