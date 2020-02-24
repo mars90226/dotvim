@@ -128,6 +128,21 @@ endfunction
 function! vimrc#fzf#expect_keys()
   return join(keys(g:fzf_action), ',')
 endfunction
+
+function! vimrc#fzf#with_default_options(opts)
+  let opts = copy(a:opts)
+  let fzf_default_options = copy(g:fzf_default_options.options)
+  let options = []
+  if has_key(opts, 'options')
+    if type(opts.options) == type([])
+      let options = opts.options
+    elseif type(opts.options) == type('')
+      let options = [opts.options]
+    endif
+  endif
+  let opts.options = extend(fzf_default_options, options)
+  return opts
+endfunction
 " }}}
 
 " Sources
@@ -263,6 +278,7 @@ function! vimrc#fzf#files_in_commandline()
   return get(results, 0, '')
 endfunction
 
+" Commands
 function! vimrc#fzf#jump()
   call fzf#run(fzf#wrap('Jumps', {
       \ 'source':  vimrc#fzf#jump_source(),

@@ -4,9 +4,7 @@ function! vimrc#fzf#tag#buffer_tags(query, ...)
   let opts = !empty(args) && type(args[0]) == type({}) ? remove(args, 0) : {}
   let bang = !empty(args) && type(args[0]) == type(0) ? remove(args, 0) : 0
 
-  let options = extend(deepcopy(g:fzf_default_options), opts)
-
-  call fzf#vim#buffer_tags(a:query, options, bang)
+  call fzf#vim#buffer_tags(a:query, vimrc#fzf#with_default_options(opts), bang)
 endfunction
 
 " Sources
