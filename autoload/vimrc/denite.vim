@@ -104,6 +104,10 @@ function! vimrc#denite#mappings()
 
   " Switch between denite buffer & preview
   nnoremap <silent><buffer> <M-l> :call vimrc#denite#goto_and_back_between_preview()<CR>
+
+  " Use <M-j>/<M-k> to scroll down/up
+  nnoremap <silent><buffer> <M-j> <C-F>
+  nnoremap <silent><buffer> <M-k> <C-B>
 endfunction
 
 " Denite buffer insert mode
