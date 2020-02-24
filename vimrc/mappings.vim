@@ -290,7 +290,7 @@ command! GetChar call vimrc#getchar()
 
 command! ReloadVimrc call vimrc#reload#reload()
 
-command! -nargs=1 QuickfixOutput cexpr execute(<f-args>)
+command! -nargs=1 -complete=command QuickfixOutput cexpr execute(<f-args>)
 nnoremap <Leader>o :execute 'Quickfix '.input('output: ')<CR>
 
 if vimrc#plugin#check#get_os() !~ "windows"
