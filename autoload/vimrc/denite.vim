@@ -39,6 +39,7 @@ function! vimrc#denite#goto_and_back_between_preview()
   if bufname('%') =~# '\[denite\]'
     wincmd W
     nnoremap <silent><buffer> <M-l> :call vimrc#denite#goto_and_back_between_preview()<CR>
+    nnoremap <silent><buffer><expr> <M-i> "\<C-W>w".denite#do_map('open_filter_buffer')
   else
     wincmd w
   endif
@@ -105,6 +106,9 @@ function! vimrc#denite#mappings()
 
   " Switch between denite buffer & preview
   nnoremap <silent><buffer> <M-l> :call vimrc#denite#goto_and_back_between_preview()<CR>
+
+  " Switch to filter buffer
+  nnoremap <silent><buffer><expr> <M-i> denite#do_map('open_filter_buffer')
 
   " Use <M-j>/<M-k> to scroll down/up
   nnoremap <silent><buffer> <M-j> <C-F>
