@@ -77,9 +77,9 @@ Working in progress.
     * `gr`: Goto references
     * `[c`: Goto previous Coc diagnostic error
     * `]c`: Goto next Coc diagnostic error
-    * `<Space>cf`: Format selected code
-    * `<Space>co`: List and goto outline of current buffer (depends on LSP)
-    * `<Space>c;`: Execute Coc command
+    * `<Leader>cf`: Format selected code
+    * `<Leader>co`: List and goto outline of current buffer (depends on LSP)
+    * `<Leader>c;`: Execute Coc command
 * Defx key mappings
     * `-`: Open current buffer folder in Defx
     * `<Space>-`: Open current buffer folder in split in Defx
@@ -98,6 +98,7 @@ Working in progress.
     * `<Leader>af`: Fix ALE lint error
 * fugitive key mappings
     * `<Leader>gs`: Show git status
+    * `<Leader>gc`: Show git blame commit of current line
     * `<Leader>gd`: Compare current buffer with git indexed file using vimdiff
     * `<Leader>gb`: Show git blame of current buffer
     * `<Leader>gl`: Show git log in quickfix and display most recent commit
@@ -113,7 +114,7 @@ Working in progress.
     * `<M-h>`, `<M-j>`, `<M-k>`, `<M-l>`: Move between windows, like `<C-W>h`, `<C-W>j`, `<C-W>k`, and `<C-W>l`
     * `<C-J>`, `<C-K>`: Move between tabs, like `gT` and `gt`
     * `<Space>q`: Close window, like `:q<CR>`
-    * `<Leader>cb`: Change current window working directory to folder containing current current buffer
+    * `<Leader>db`: Change current window working directory to folder containing current current buffer. Equivalent of `:lcd %:h<CR>`.
     * `<M-1>`: Switch to last tab
     * `<Leader>ts`: Open terminal in split
     * `<Leader>tt`: Open terminal in new tab
