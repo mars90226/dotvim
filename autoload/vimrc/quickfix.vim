@@ -32,3 +32,8 @@ function! vimrc#quickfix#open(cmd)
   endif
   normal! zz
 endfunction
+
+function! vimrc#quickfix#execute(args)
+  cexpr execute(a:args)
+  copen
+endfunction
