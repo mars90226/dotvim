@@ -179,6 +179,14 @@ Plug 'mg979/vim-visual-multi'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 " }}}
 
+" Colorizer {{{
+Plug 'chrisbra/Colorizer'
+
+let g:colorizer_auto_filetype = 'css,html'
+
+nnoremap <Leader>vt :ColorToggle<CR>
+" }}}
+
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
 Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert', 'S'] }
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }

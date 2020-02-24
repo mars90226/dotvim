@@ -44,6 +44,7 @@ function! vimrc#denite#goto_and_back_between_preview()
   endif
 endfunction
 
+" Mappings
 " Denite buffer normal mode
 function! vimrc#denite#mappings()
   " Denite buffer
