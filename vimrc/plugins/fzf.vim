@@ -20,6 +20,8 @@ let g:fzf_colors =
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 let g:fzf_tmux_layout = { 'down': '~40%' }
 
+let g:fzf_default_options = { 'options': ['--layout', 'reverse'] }
+
 let g:fzf_history_dir = $HOME.'/.local/share/fzf-history'
 
 let g:misc_fzf_action = {
@@ -138,6 +140,7 @@ if has("nvim")
 
   " Tags
   " Too bad fzf cannot toggle case sensitive interactively
+  command! -bang -nargs=* BTags                    call vimrc#fzf#tag#buffer_tags(<q-args>, <bang>0)
   command! -bang -nargs=* ProjectTags              call vimrc#fzf#tag#project_tags(<q-args>, <bang>0)
   command! -bang -nargs=* BTagsCaseSentitive       call fzf#vim#buffer_tags(<q-args>, { 'options': ['+i'] }, <bang>0)
   command! -bang -nargs=* TagsCaseSentitive        call fzf#vim#tags(<q-args>,        { 'options': ['+i'] }, <bang>0)

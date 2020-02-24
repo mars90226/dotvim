@@ -1,3 +1,14 @@
+" Commands
+function! vimrc#fzf#tag#buffer_tags(query, ...)
+  let args = copy(a:000)
+  let opts = !empty(args) && type(args[0]) == type({}) ? remove(args, 0) : {}
+  let bang = !empty(args) && type(args[0]) == type(0) ? remove(args, 0) : 0
+
+  let options = extend(deepcopy(g:fzf_default_options), opts)
+
+  call fzf#vim#buffer_tags(a:query, options, bang)
+endfunction
+
 " Sources
 function! vimrc#fzf#tag#get_tselect(query)
   let tselect_output = split(execute("tselect " . a:query, "silent!"), "\n")[1:-2]
@@ -52,6 +63,7 @@ endfunction
 
 " Need neovim terminal
 function! vimrc#fzf#tag#project_tags(query, ...)
+  let args = copy(a:000)
   let s:origin_tags = &tags
   set tags-=./tags;
   augroup project_tags_callback
@@ -60,7 +72,7 @@ function! vimrc#fzf#tag#project_tags(query, ...)
           \ let &tags = s:origin_tags |
           \ autocmd! project_tags_callback
   augroup END
-  call call('fzf#vim#tags', [a:query] + a:000)
+  call call('fzf#vim#tags', [a:query] + args)
 endfunction
 
 " Need neovim terminal
