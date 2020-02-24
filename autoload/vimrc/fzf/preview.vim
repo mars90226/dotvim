@@ -15,7 +15,7 @@ function! vimrc#fzf#preview#get_dir_command()
 endfunction
 
 function! vimrc#fzf#preview#windows() abort
-  let options = fzf#vim#with_preview()
+  let options = fzf#vim#with_preview({ 'options': ['--prompt', 'Windows> '] })
   let preview_script = remove(options.options, -1)[0:-4]
   let get_filename_script = expand(vimrc#get_vimhome() . '/bin/fzf_windows_preview_get_file.sh')
   let get_terminal_buffer_script = expand(vimrc#get_vimhome() . '/bin/get_terminal_buffer.py')
