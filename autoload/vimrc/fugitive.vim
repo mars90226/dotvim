@@ -93,8 +93,10 @@ function! vimrc#fugitive#diff_staged_file(file)
   execute 'Gdiffsplit HEAD:'.a:file
 endfunction
 
-function! vimrc#fugitive#goto_blame_line()
+function! vimrc#fugitive#goto_blame_line(split)
   let current_line = line('.')
-  split
+  if a:split != 'edit'
+    execute a:split
+  endif
   execute current_line.'Git blame'
 endfunction

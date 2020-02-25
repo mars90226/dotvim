@@ -38,6 +38,11 @@ call vimrc#source('vimrc/plugins/tig.vim')
 Plug 'rhysd/git-messenger.vim', { 'on': ['GitMessenger', '<Plug>(git-messenger)'] }
 
 nmap <Leader>gm <Plug>(git-messenger)
+
+augroup git_messenger_settings
+  autocmd!
+  autocmd FileType gitmessengerpopup call vimrc#git_messenger#mappings()
+augroup END
 " }}}
 
 " Disabled as not used
