@@ -107,6 +107,8 @@ else
   " g:far#source = 'vimgrep'
 endif
 
+let g:far#ignore_files = [$HOME.'/.gitignore']
+
 let g:far#mapping = {
       \ 'replace_do': 'S'
       \ }
