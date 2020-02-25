@@ -103,11 +103,18 @@ endfunction
 function! vimrc#terminal#is_shell_terminal(terminal)
   let shells = ["bash", "zsh", "fish", "powershell"]
   let exception_programs = ["fzf", "coc"]
+  let exception_filetypes = ["floaterm"]
 
   let cmd = vimrc#terminal#get_terminal_command(a:terminal)
   if empty(cmd)
     return v:false
   endif
+
+  for exception_filetype in exception_filetypes
+    if &ft == exception_filetype
+      return v:false
+    endif
+  endfor
 
   for exception_program in exception_programs
     if cmd =~ vimrc#get_boundary_pattern(exception_program)
