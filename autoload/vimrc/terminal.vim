@@ -19,10 +19,12 @@ endfunction
 
 " Nested neovim {{{
 let s:nested_neovim_key_mappings = {}
+
+" Use <M-q> as prefix
+" TODO Add key mapping for inserting <M-q>
 function! vimrc#terminal#nested_neovim_mappings(start_count)
   let count = a:start_count - 1
   let c = vimrc#getchar_string('Nested neovim, press any key: ')
-  " Use <M-q> as prefix
   while c == "\<M-q>" 
     let count += 1
     let c = vimrc#getchar_string('Nested neovim, press any key: ')
