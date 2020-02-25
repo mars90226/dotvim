@@ -144,28 +144,34 @@ if has("nvim")
   " TUI {{{
   " Search keyword with Google using surfraw
   if executable('sr')
-    command! -nargs=1 GoogleKeyword call vimrc#google_keyword(<q-args>)
+    command! -nargs=1 GoogleKeyword call vimrc#tui#google_keyword(<q-args>)
     nnoremap <Leader>gk :execute 'GoogleKeyword ' . expand('<cword>')<CR>
   endif
 
   if executable('htop')
-    command! Htop call vimrc#terminal#open_current_folder('new', 'htop')
+    command! Htop      call vimrc#tui#run('float', 'htop')
+    command! HtopSplit call vimrc#tui#run('new', 'htop')
   endif
 
   if executable('broot')
-    command! Broot call vimrc#terminal#open_current_folder('vnew', 'broot -p')
+    command! Broot      call vimrc#tui#run('float', 'broot -p')
+    command! BrootSplit call vimrc#tui#run('vnew', 'broot -p')
   endif
 
   if executable('ranger')
-    command! Ranger call vimrc#terminal#open_current_folder('new', 'ranger')
+    " Use floaterm ranger wrapper
+    command! Ranger      call vimrc#tui#run('float', 'ranger')
+    command! RangerSplit call vimrc#tui#run('new', 'ranger')
   endif
 
   if executable('nnn')
-    command! Nnn call vimrc#terminal#open_current_folder('new', 'nnn')
+    command! Nnn      call vimrc#tui#run('float', 'nnn')
+    command! NnnSplit call vimrc#tui#run('new', 'nnn')
   endif
 
   if executable('vifm')
-    command! Vifm call vimrc#terminal#open_current_folder('new', 'vifm '.getcwd().' '.expand('%:h'))
+    command! Vifm      call vimrc#tui#run('float', 'vifm')
+    command! VifmSplit call vimrc#tui#run('new', 'vifm')
   endif
   " }}}
 endif

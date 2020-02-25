@@ -278,11 +278,6 @@ function! vimrc#delete_whole_word()
   return cmd[pos:]
 endfunction
 
-" Use surfraw
-function! vimrc#google_keyword(keyword)
-  call vimrc#terminal#open_current_folder('new', 'sr google '.vimrc#escape_symbol(a:keyword))
-endfunction
-
 " Fold
 " Borrowed from https://superuser.com/questions/990296/how-to-change-the-way-that-vim-displays-collapsed-folded-lines
 function! vimrc#neat_fold_text()
