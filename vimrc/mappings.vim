@@ -286,7 +286,7 @@ nnoremap <Leader><C-Q> :Bwi!<CR>
 
 command! TrimWhitespace call vimrc#trim_whitespace()
 
-command! GetChar call vimrc#getchar()
+command! GetChar call vimrc#display_char()
 
 command! ReloadVimrc call vimrc#reload#reload()
 

@@ -93,6 +93,34 @@ if has("nvim")
 
     " Quickly suspend neovim
     tnoremap <M-q><C-Z> <C-\><C-\><C-N>:suspend<CR>
+
+    " For nested nested neovim {{{
+      tnoremap <silent> <expr> <M-q><M-q> vimrc#terminal#nested_neovim_mappings(2)
+
+      " Quick terminal function
+      call vimrc#terminal#nested_neovim_register('1', '')
+      call vimrc#terminal#nested_neovim_register('2', ":call vimrc#terminal#open_current_shell('tabnew')\<CR>")
+      call vimrc#terminal#nested_neovim_register('3', ":Windows\<CR>")
+
+      " Quickly switch window in terminal
+      call vimrc#terminal#nested_neovim_register("\<M-h>", "\<C-W>h")
+      call vimrc#terminal#nested_neovim_register("\<M-j>", "\<C-W>j")
+      call vimrc#terminal#nested_neovim_register("\<M-k>", "\<C-W>k")
+      call vimrc#terminal#nested_neovim_register("\<M-l>", "\<C-W>l")
+
+      " Quickly switch tab in terminal
+      call vimrc#terminal#nested_neovim_register("\<C-J>", "gT")
+      call vimrc#terminal#nested_neovim_register("\<C-K>", "gt")
+
+      " Quickly switch to last tab in terminal
+      call vimrc#terminal#nested_neovim_register("\<M-1>", ":LastTab\<CR>")
+
+      " Quickly paste from register
+      call vimrc#terminal#nested_neovim_register("\<M-r>", ":execute 'normal! \"'.vimrc#getchar_string().'pi'\<CR>")
+
+      " Quickly suspend neovim
+      call vimrc#terminal#nested_neovim_register("\<C-Z>", ":suspend\<CR>")
+    " }}}
   " }}}
 
   augroup terminal_settings
