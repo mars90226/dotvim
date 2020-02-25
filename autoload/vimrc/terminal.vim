@@ -17,6 +17,10 @@ function! vimrc#terminal#settings()
   endif
 endfunction
 
+" Mappings
+function! vimrc#terminal#nested_neovim_mappings()
+endfunction
+
 function! vimrc#terminal#meta_key_fix()
   set <M-a>=a
   set <M-c>=c
