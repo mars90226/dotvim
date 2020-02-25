@@ -29,6 +29,10 @@ if has("nvim")
   endfunction
 endif
 
+function! vimrc#plugin#check#has_floating_window()
+  return exists('*nvim_win_set_config')
+endfunction
+
 " return empty string when no python support found
 function! vimrc#plugin#check#python_version(...)
   let force = (a:0 >= 1 && type(a:1) == type(v:true)) ? a:1 : v:false

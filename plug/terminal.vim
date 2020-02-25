@@ -22,3 +22,18 @@ if vimrc#plugin#is_enabled_plugin('neoterm')
   call vimrc#source('vimrc/plugins/neoterm.vim')
 endif
 " }}}
+
+" vim-floaterm {{{
+if vimrc#plugin#is_enabled_plugin('vim-floaterm')
+  Plug 'voldikss/vim-floaterm'
+
+  let g:floaterm_position = 'center'
+
+  nnoremap <silent> <M-2> :FloatermToggle<CR>
+
+  tnoremap <M-2> <C-\><C-N>:FloatermToggle<CR>
+
+  " For nested neovim
+  tnoremap <M-q><M-2> <C-\><C-\><C-N>:FloatermToggle<CR>
+endif
+" }}}
