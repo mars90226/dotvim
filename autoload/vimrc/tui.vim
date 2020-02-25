@@ -19,7 +19,7 @@ function! vimrc#tui#run(split, command)
     if index(floaterm_wrappers, a:command) != -1
       execute 'FloatermNew '.a:command
     else
-      execute 'FloatermNew '.a:command.'; exit'
+      call floaterm#terminal#open(-1, a:command)
     endif
   else
     call vimrc#terminal#open_current_folder(split, a:command)
