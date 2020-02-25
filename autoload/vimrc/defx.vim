@@ -97,6 +97,8 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#do_action('cd', getcwd())
   nnoremap <silent><buffer><expr> cd
         \ defx#do_action('change_vim_cwd')
+  nnoremap <silent><buffer><expr> cb
+        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd')
   nnoremap <silent><buffer><expr> \c
         \ defx#do_action('cd', expand(input('cd: ')))
   if bufname('%') =~ 'tab'
@@ -285,6 +287,12 @@ endfunction
 
 function! vimrc#defx#execute_vertical(context) abort
   call vimrc#defx#execute_internal(a:context, 'vnew')
+endfunction
+
+function! vimrc#defx#change_vim_buffer_cwd(context) abort
+  let path = vimrc#defx#get_current_path()
+
+  execute 'lcd '.fnameescape(path)
 endfunction
 " }}}
 
