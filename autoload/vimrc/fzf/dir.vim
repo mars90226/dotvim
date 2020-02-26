@@ -78,8 +78,10 @@ function! vimrc#fzf#dir#directory_sink_popd_callback()
   endif
 
   " Check if current buffer is the original buffer
-  let orignal_bufname = w:directory_sink_popd.original_cwd . '/' . w:directory_sink_popd.bufname
-  if fnamemodify(orignal_bufname, ':p') !=# fnamemodify(bufname(''), ':p')
+  let original_bufname = w:directory_sink_popd.original_cwd . '/' . w:directory_sink_popd.bufname
+  if fnamemodify(original_bufname, ':p') !=# fnamemodify(bufname(''), ':p')
+    unlet w:directory_sink_popd
+    autocmd! directory_sink_popd_callback
     return
   endif
 
