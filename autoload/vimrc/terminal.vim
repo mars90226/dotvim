@@ -95,7 +95,7 @@ endfunction
 
 " Only whitelist specific processes
 function! vimrc#terminal#is_interactive_process(terminal)
-  let interactive_processes = ["htop", "broot", "sr", "ranger", "nnn", "vifm", "fff"]
+  let interactive_processes = ["htop", "btm", "broot", "sr", "ranger", "nnn", "vifm", "fff"]
 
   let cmd = vimrc#terminal#get_terminal_command(a:terminal)
   if empty(cmd)

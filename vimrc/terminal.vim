@@ -153,6 +153,11 @@ if has("nvim")
     command! HtopSplit call vimrc#tui#run('new', 'htop')
   endif
 
+  if executable('btm')
+    command! Btm      call vimrc#tui#run('float', 'btm')
+    command! BtmSplit call vimrc#tui#run('new', 'btm')
+  endif
+
   if executable('broot')
     command! Broot      call vimrc#tui#run('float', 'broot -p')
     command! BrootSplit call vimrc#tui#run('vnew', 'broot -p')
@@ -175,6 +180,7 @@ if has("nvim")
   endif
 
   if executable('fff')
+    " Use floaterm fff wrapper
     command! Fff      call vimrc#tui#run('float', 'fff')
     command! FffSplit call vimrc#tui#run('new', 'fff')
   endif
