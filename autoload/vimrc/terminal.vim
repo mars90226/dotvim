@@ -17,42 +17,6 @@ function! vimrc#terminal#settings()
   endif
 endfunction
 
-" Nested neovim {{{
-let s:nested_neovim_key_mappings = {}
-
-" Use <M-q> as prefix
-" TODO Add key mapping for inserting <M-q>
-function! vimrc#terminal#nested_neovim_mappings(start_count)
-  let count = a:start_count - 1
-  let c = vimrc#getchar_string('Nested neovim, press any key: ')
-  while c == "\<M-q>" 
-    let count += 1
-    let c = vimrc#getchar_string('Nested neovim, press any key: ')
-  endwhile
-
-  if !has_key(s:nested_neovim_key_mappings, c)
-    redraw | echo ''
-    " FIXME This may cause terminal to take another character before go back
-    " to normal
-    return ""
-  endif
-  let target_key = s:nested_neovim_key_mappings[c]
-
-  let result = ""
-  for i in range(1, float2nr(pow(2, count)))
-    let result .= "\<C-\>"
-  endfor
-  let result .= "\<C-N>".target_key
-
-  redraw | echo ''
-  return result
-endfunction
-
-function! vimrc#terminal#nested_neovim_register(key, target)
-  let s:nested_neovim_key_mappings[a:key] = a:target
-endfunction
-" }}}
-
 function! vimrc#terminal#meta_key_fix()
   set <M-a>=a
   set <M-c>=c

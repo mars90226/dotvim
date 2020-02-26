@@ -46,9 +46,9 @@ if vimrc#plugin#is_enabled_plugin('vim-floaterm')
   tnoremap <M-q><M-5> <C-\><C-\><C-N>:FloatermNew<CR>
 
   " For nested nested neovim
-  call vimrc#terminal#nested_neovim_register("\<M-2>", ":FloatermToggle\<CR>")
-  call vimrc#terminal#nested_neovim_register("\<M-3>", ":FloatermPrev\<CR>")
-  call vimrc#terminal#nested_neovim_register("\<M-4>", ":FloatermNext\<CR>")
-  call vimrc#terminal#nested_neovim_register("\<M-5>", ":FloatermNew\<CR>")
+  call vimrc#terminal#nested_neovim#register("\<M-2>", ":FloatermToggle\<CR>")
+  call vimrc#terminal#nested_neovim#register("\<M-3>", ":FloatermPrev\<CR>")
+  call vimrc#terminal#nested_neovim#register("\<M-4>", ":FloatermNext\<CR>")
+  call vimrc#terminal#nested_neovim#register("\<M-5>", ":FloatermNew\<CR>")
 endif
 " }}}
