@@ -146,23 +146,27 @@ function! vimrc#defx#mappings() abort " {{{
   nnoremap <silent><buffer><expr> \<BS>
         \ defx#do_action('call', 'vimrc#defx#fzf_directory_ancestors')
   nnoremap <silent><buffer><expr> <Space>x
-        \ defx#do_action('call', 'vimrc#defx#execute_split')
+        \ defx#do_action('call', 'vimrc#defx#execute_file_float')
   nnoremap <silent><buffer><expr> \x
-        \ defx#do_action('call', 'vimrc#defx#execute') " Add this mapping to prevent from executing 'x' mapping
+        \ defx#do_action('call', 'vimrc#defx#execute_file') " Add this mapping to prevent from executing 'x' mapping
   nnoremap <silent><buffer><expr> \xx
-        \ defx#do_action('call', 'vimrc#defx#execute')
+        \ defx#do_action('call', 'vimrc#defx#execute_file')
   nnoremap <silent><buffer><expr> \xr
-        \ defx#do_action('call', 'vimrc#defx#execute')
+        \ defx#do_action('call', 'vimrc#defx#execute_file')
+  nnoremap <silent><buffer><expr> \xf
+        \ defx#do_action('call', 'vimrc#defx#execute_file_float')
   nnoremap <silent><buffer><expr> \xt
-        \ defx#do_action('call', 'vimrc#defx#execute_tab')
+        \ defx#do_action('call', 'vimrc#defx#execute_file_tab')
   nnoremap <silent><buffer><expr> \xs
-        \ defx#do_action('call', 'vimrc#defx#execute_split')
+        \ defx#do_action('call', 'vimrc#defx#execute_file_split')
   nnoremap <silent><buffer><expr> \xv
-        \ defx#do_action('call', 'vimrc#defx#execute_vertical')
+        \ defx#do_action('call', 'vimrc#defx#execute_file_vertical')
   nnoremap <silent><buffer><expr> \dx
-        \ defx#do_action('call', 'vimrc#defx#execute_dir_split')
+        \ defx#do_action('call', 'vimrc#defx#execute_dir_float')
   nnoremap <silent><buffer><expr> \dr
         \ defx#do_action('call', 'vimrc#defx#execute_dir')
+  nnoremap <silent><buffer><expr> \df
+        \ defx#do_action('call', 'vimrc#defx#execute_dir_float')
   nnoremap <silent><buffer><expr> \dt
         \ defx#do_action('call', 'vimrc#defx#execute_dir_tab')
   nnoremap <silent><buffer><expr> \ds
@@ -265,9 +269,8 @@ endfunction
 " }}}
 
 " Execute {{{
-function! vimrc#defx#execute_internal(context, split) abort
-  let path = a:context.targets[0]
-  let cmd = input('Command: ')
+function! vimrc#defx#execute_internal(path, split) abort
+  let cmd = input('Command: ', '', 'shellcmd')
 
   if empty(cmd)
     return
@@ -275,50 +278,50 @@ function! vimrc#defx#execute_internal(context, split) abort
 
   if cmd =~ '{}'
     " replace all '{}' to path
-    let cmd = substitute(cmd, '{}', path, 'g')
+    let cmd = substitute(cmd, '{}', a:path, 'g')
   else
-    let cmd = cmd . ' ' . path
+    let cmd = cmd . ' ' . a:path
   endif
 
-  execute a:split . ' term://' . cmd
+  call vimrc#tui#run(a:split, cmd)
 endfunction
 
-function! vimrc#defx#execute(context) abort
-  call vimrc#defx#execute_internal(a:context, 'edit')
+function! vimrc#defx#execute_file_internal(context, split) abort
+  let path = a:context.targets[0]
+  call vimrc#defx#execute_internal(path, a:split)
 endfunction
 
-function! vimrc#defx#execute_tab(context) abort
-  call vimrc#defx#execute_internal(a:context, 'tabnew')
+function! vimrc#defx#execute_file(context) abort
+  call vimrc#defx#execute_file_internal(a:context, 'edit')
 endfunction
 
-function! vimrc#defx#execute_split(context) abort
-  call vimrc#defx#execute_internal(a:context, 'new')
+function! vimrc#defx#execute_file_float(context) abort
+  call vimrc#defx#execute_file_internal(a:context, 'float')
 endfunction
 
-function! vimrc#defx#execute_vertical(context) abort
-  call vimrc#defx#execute_internal(a:context, 'vnew')
+function! vimrc#defx#execute_file_tab(context) abort
+  call vimrc#defx#execute_file_internal(a:context, 'tabnew')
+endfunction
+
+function! vimrc#defx#execute_file_split(context) abort
+  call vimrc#defx#execute_file_internal(a:context, 'new')
+endfunction
+
+function! vimrc#defx#execute_file_vertical(context) abort
+  call vimrc#defx#execute_file_internal(a:context, 'vnew')
 endfunction
 
 function! vimrc#defx#execute_dir_internal(context, split) abort
   let path = vimrc#defx#get_current_path()
-  let cmd = input('Command: ')
-
-  if empty(cmd)
-    return
-  endif
-
-  if cmd =~ '{}'
-    " replace all '{}' to path
-    let cmd = substitute(cmd, '{}', path, 'g')
-  else
-    let cmd = cmd . ' ' . path
-  endif
-
-  execute a:split . ' term://' . cmd
+  call vimrc#defx#execute_internal(path, a:split)
 endfunction
 
 function! vimrc#defx#execute(context) abort
   call vimrc#defx#execute_dir_internal(a:context, 'edit')
+endfunction
+
+function! vimrc#defx#execute_dir_float(context) abort
+  call vimrc#defx#execute_dir_internal(a:context, 'float')
 endfunction
 
 function! vimrc#defx#execute_dir_tab(context) abort

@@ -75,13 +75,13 @@ nnoremap <Space>Q :qa!<CR>
 " Quick execute
 if vimrc#plugin#check#get_os() =~ "windows"
   " Win32
-  nnoremap <Leader>x :call vimrc#windows#execute_current_file()<CR>
+  nnoremap <Leader>xx :call vimrc#windows#execute_current_file()<CR>
   nnoremap <Leader>X :call vimrc#windows#open_terminal_in_current_file_folder()<CR>
   nnoremap <Leader>E :call vimrc#windows#reveal_current_file_folder_in_explorer()<CR>
 else
   " Linux
   if executable('xdg-open')
-    nnoremap <Leader>x :execute vimrc#utility#get_xdg_open() . ' ' . "%:p"<CR>
+    nnoremap <Leader>xx :execute vimrc#utility#get_xdg_open() . ' ' . "%:p"<CR>
   endif
 endif
 
@@ -286,7 +286,7 @@ nnoremap <Leader><C-Q> :Bwi!<CR>
 
 command! TrimWhitespace call vimrc#trim_whitespace()
 
-command! GetChar call vimrc#display_char()
+command! DisplayChar call vimrc#display_char()
 
 command! ReloadVimrc call vimrc#reload#reload()
 

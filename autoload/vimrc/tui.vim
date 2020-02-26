@@ -1,5 +1,16 @@
-" Functions
+" For TUI support
+let s:tui_processes = ["htop", "btm", "broot", "sr", "ranger", "nnn", "vifm", "fff"]
+let s:floaterm_wrappers = ["fff", "fzf", "ranger"]
 
+function! vimrc#tui#get_processes()
+  return s:tui_processes
+endfunction
+
+function! vimrc#tui#get_floaterm_wrappers()
+  return s:floaterm_wrappers
+endfunction
+
+" Functions
 " Use surfraw
 function! vimrc#tui#google_keyword(keyword)
   let escaped_keyword = vimrc#escape_symbol(a:keyword)
@@ -11,12 +22,12 @@ function! vimrc#tui#google_keyword(keyword)
   endif
 endfunction
 
+" TODO Rename function as it's not really TUI when not using floaterm
 function! vimrc#tui#run(split, command)
-  let floaterm_wrappers = ["fff", "fzf", "ranger"]
   let split = a:split == "float" && vimrc#plugin#is_disabled_plugin('vim-floaterm') ? "new" : a:split
 
   if split == "float"
-    if index(floaterm_wrappers, a:command) != -1
+    if index(s:floaterm_wrappers, a:command) != -1 || index(s:tui_processes, a:command) == -1
       execute 'FloatermNew '.a:command
     else
       call floaterm#terminal#open(-1, a:command)
