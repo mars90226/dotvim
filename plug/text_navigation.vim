@@ -11,7 +11,8 @@ call vimrc#lazy#lazy_load('easymotion')
 let g:EasyMotion_leader_key = '<Space>'
 let g:EasyMotion_smartcase = 1
 
-map ; <Plug>(easymotion-s2)
+map ;        <Plug>(easymotion-s2)
+map <Space>; <Plug>(easymotion-sn)
 
 map \w <Plug>(easymotion-bd-wl)
 map \f <Plug>(easymotion-bd-fl)
