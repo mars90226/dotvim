@@ -3,18 +3,20 @@ augroup netrw_mapping_for_defx
   autocmd FileType netrw call vimrc#defx#netrw_mapping_for_defx()
 augroup END
 
-nnoremap <F4>        :Defx -split=vertical -winwidth=35 -direction=topleft -toggle<CR>
-nnoremap <Space><F4> :Defx -split=vertical -winwidth=35 -direction=topleft -toggle `expand('%:p:h')` -search=`expand('%:p')`<CR>
-nnoremap -           :call vimrc#defx#opendir('Defx')<CR>
-nnoremap ++          :call vimrc#defx#opendir('Defx')<CR>
-nnoremap \-          :call vimrc#defx#opendir('Defx')<CR>
-nnoremap \=          :call vimrc#defx#opendir('Defx -new')<CR>
-nnoremap _           :call vimrc#defx#opendir('Defx -split=vertical')<CR>
-nnoremap <Space>-    :call vimrc#defx#opendir('Defx -split=horizontal')<CR>
-nnoremap <Space>_    :call vimrc#defx#opendir('Defx -split=tab -buffer-name=tab')<CR>
-nnoremap \.          :Defx .<CR>
-nnoremap <Space>=    :Defx -split=vertical .<CR>
-nnoremap <Space>+    :Defx -split=tab -buffer-name=tab .<CR>
+" TODO Clean up these key mappings
+nnoremap <F4>            :Defx -split=vertical -winwidth=35 -direction=topleft -toggle<CR>
+nnoremap <Space><F4>     :Defx -split=vertical -winwidth=35 -direction=topleft -toggle `expand('%:p:h')` -search=`expand('%:p')`<CR>
+nnoremap -               :call vimrc#defx#opendir('Defx')<CR>
+nnoremap ++              :call vimrc#defx#opendir('Defx')<CR>
+nnoremap \-              :call vimrc#defx#opendir('Defx')<CR>
+nnoremap \=              :call vimrc#defx#opendir('Defx -new')<CR>
+nnoremap _               :call vimrc#defx#opendir('Defx -split=vertical')<CR>
+nnoremap <Space>-        :call vimrc#defx#opendir('Defx -split=horizontal')<CR>
+nnoremap <Space><Space>- :call vimrc#defx#opendir('Defx -split=horizontal -new')<CR>
+nnoremap <Space>_        :call vimrc#defx#opendir('Defx -split=tab -buffer-name=tab')<CR>
+nnoremap \.              :Defx .<CR>
+nnoremap <Space>=        :Defx -split=vertical .<CR>
+nnoremap <Space>+        :Defx -split=tab -buffer-name=tab .<CR>
 
 " Defx open
 command! -nargs=1 -complete=file DefxOpenSink            call vimrc#defx#open(<q-args>, 'edit')
