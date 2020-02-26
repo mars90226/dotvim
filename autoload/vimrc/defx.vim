@@ -159,7 +159,17 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#do_action('call', 'vimrc#defx#execute_split')
   nnoremap <silent><buffer><expr> \xv
         \ defx#do_action('call', 'vimrc#defx#execute_vertical')
-  nnoremap <silent><buffer>       \d
+  nnoremap <silent><buffer><expr> \dx
+        \ defx#do_action('call', 'vimrc#defx#execute_dir_split')
+  nnoremap <silent><buffer><expr> \dr
+        \ defx#do_action('call', 'vimrc#defx#execute_dir')
+  nnoremap <silent><buffer><expr> \dt
+        \ defx#do_action('call', 'vimrc#defx#execute_dir_tab')
+  nnoremap <silent><buffer><expr> \ds
+        \ defx#do_action('call', 'vimrc#defx#execute_dir_split')
+  nnoremap <silent><buffer><expr> \dv
+        \ defx#do_action('call', 'vimrc#defx#execute_dir_vertical')
+  nnoremap <silent><buffer>       \dd
         \ :Denite defx/dirmark<CR>
   nnoremap <silent><buffer>       \h
         \ :Denite defx/history<CR>
@@ -289,12 +299,46 @@ function! vimrc#defx#execute_vertical(context) abort
   call vimrc#defx#execute_internal(a:context, 'vnew')
 endfunction
 
+function! vimrc#defx#execute_dir_internal(context, split) abort
+  let path = vimrc#defx#get_current_path()
+  let cmd = input('Command: ')
+
+  if empty(cmd)
+    return
+  endif
+
+  if cmd =~ '{}'
+    " replace all '{}' to path
+    let cmd = substitute(cmd, '{}', path, 'g')
+  else
+    let cmd = cmd . ' ' . path
+  endif
+
+  execute a:split . ' term://' . cmd
+endfunction
+
+function! vimrc#defx#execute(context) abort
+  call vimrc#defx#execute_dir_internal(a:context, 'edit')
+endfunction
+
+function! vimrc#defx#execute_dir_tab(context) abort
+  call vimrc#defx#execute_dir_internal(a:context, 'tabnew')
+endfunction
+
+function! vimrc#defx#execute_dir_split(context) abort
+  call vimrc#defx#execute_dir_internal(a:context, 'new')
+endfunction
+
+function! vimrc#defx#execute_dir_vertical(context) abort
+  call vimrc#defx#execute_dir_internal(a:context, 'vnew')
+endfunction
+" }}}
+
 function! vimrc#defx#change_vim_buffer_cwd(context) abort
   let path = vimrc#defx#get_current_path()
 
   execute 'lcd '.fnameescape(path)
 endfunction
-" }}}
 
 " Defx detect folder
 function! vimrc#defx#detect_folder(path)
