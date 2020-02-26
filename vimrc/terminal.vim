@@ -173,6 +173,11 @@ if has("nvim")
     command! Vifm      call vimrc#tui#run('float', 'vifm')
     command! VifmSplit call vimrc#tui#run('new', 'vifm')
   endif
+
+  if executable('fff')
+    command! Fff      call vimrc#tui#run('float', 'fff')
+    command! FffSplit call vimrc#tui#run('new', 'fff')
+  endif
   " }}}
 endif
 " }}}
