@@ -34,6 +34,7 @@ endif
 " completor.vim {{{
 if vimrc#plugin#is_enabled_plugin('completor.vim')
   Plug 'maralla/completor.vim'
+  Plug 'maralla/completor-neosnippet'
 
   if vimrc#plugin#check#has_linux_build_env()
     let g:completor_clang_binary = "/usr/lib/llvm-8/lib/clang"
