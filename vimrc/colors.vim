@@ -28,6 +28,9 @@ endif
 " TODO Need to test in Windows
 if has('nvim') && has('termguicolors')
   set termguicolors
+
+  " highlight default link NormalFloat Pmenu
+  highlight NormalFloat guibg=#32302f
 endif
 
 " highlighting strings inside C comments.
