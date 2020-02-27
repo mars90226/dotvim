@@ -40,3 +40,8 @@ if executable('fff')
   command! Fff      call vimrc#tui#run('float', 'fff')
   command! FffSplit call vimrc#tui#run('new', 'fff')
 endif
+
+if executable('lf')
+  command! Lf      call vimrc#tui#run('float', 'lf')
+  command! LfSplit call vimrc#tui#run('new', 'lf')
+endif
