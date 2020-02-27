@@ -255,7 +255,7 @@ endfunction
 
 " Used in command-line mode
 function! vimrc#trim_cmdline()
-  let length = str2nr(input('length: '))
+  let length = str2nr(input('length: ', '', 'expression'))
   return getcmdline()[0 : length - 1]
 endfunction
 

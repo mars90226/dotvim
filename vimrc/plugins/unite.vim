@@ -32,7 +32,7 @@ nnoremap <Space>uc :Unite -auto-preview change<CR>
 nnoremap <Space>uC :UniteWithCurrentDir -buffer-name=files file<CR>
 nnoremap <Space>ud :Unite directory<CR>
 nnoremap <Space>uD :UniteWithBufferDir directory<CR>
-nnoremap <Space>u<C-D> :execute 'Unite directory:' . input('dir: ')<CR>
+nnoremap <Space>u<C-D> :execute 'Unite directory:' . input('dir: ', '', 'dir')<CR>
 nnoremap <Space>uf :Unite function -start-insert<CR>
 nnoremap <Space>uh :Unite history/unite<CR>
 nnoremap <Space>uj :Unite -auto-preview jump<CR>

@@ -4,7 +4,7 @@ let g:neoterm_default_mod = 'botright'
 let g:neoterm_automap_keys = ',T'
 let g:neoterm_size = &lines / 2
 
-nnoremap <silent> <Space>` :execute 'T ' . input("Terminal: ")<CR>
+nnoremap <silent> <Space>` :execute 'T ' . input('Terminal: ', '', 'shellcmd')<CR>
 nnoremap <silent> <Leader>` :Ttoggle<CR>
 nnoremap <silent> <Space><F3> :TREPLSendFile<CR>
 nnoremap <silent> <F3> :TREPLSendLine<CR>
