@@ -69,8 +69,8 @@ nnoremap <C-S>        :update<CR>
 nnoremap <Space><C-S> :wall<CR>
 
 " Quit
-nnoremap <Space>q :q<CR>
-nnoremap <Space>Q :qa!<CR>
+nnoremap <Space>q :quit<CR>
+nnoremap <Space>Q :qall!<CR>
 
 " Quick execute
 if vimrc#plugin#check#get_os() =~ "windows"
@@ -243,8 +243,9 @@ augroup last_tab_settings
 augroup END
 
 " Zoom
-nnoremap <silent> <Leader>z :call vimrc#zoom()<CR>
-xnoremap <silent> <Leader>z :<C-U>call vimrc#zoom_selected(vimrc#get_visual_selection())<CR>
+nnoremap <silent> <Leader>zz :call vimrc#zoom()<CR>
+xnoremap <silent> <Leader>zz :<C-U>call vimrc#zoom_selected(vimrc#get_visual_selection())<CR>
+nnoremap <silent> <Leader>zf :call vimrc#zoom_float()<CR>
 
 " Toggle parent folder tag
 command! ToggleParentFolderTag call vimrc#toggle_parent_folder_tag()

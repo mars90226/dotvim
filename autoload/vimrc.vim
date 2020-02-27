@@ -106,6 +106,18 @@ function! vimrc#zoom_selected(selected)
   1delete
   let &filetype = filetype
 endfunction
+
+function! vimrc#zoom_float()
+  let winid = win_getid()
+  if vimrc#float#is_float(winid)
+    quit
+  else
+    let bufnr = bufnr('%')
+    let width = float2nr(&columns * 0.9)
+    let height = float2nr(&lines * 0.8)
+    call vimrc#float#open(bufnr, width, height)
+  endif
+endfunction
 " }}}
 
 function! vimrc#toggle_parent_folder_tag()
