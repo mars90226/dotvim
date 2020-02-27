@@ -118,6 +118,19 @@ function! vimrc#zoom_float()
     call vimrc#float#open(bufnr, width, height)
   endif
 endfunction
+
+function! vimrc#zoom_float_selected(selected)
+  let filetype = &filetype
+
+  let width = float2nr(&columns * 0.9)
+  let height = float2nr(&lines * 0.8)
+  call vimrc#float#open(-1, width, height)
+
+  call append(line('$'), split(a:selected, "\n"))
+  1delete
+
+  let &filetype = filetype
+endfunction
 " }}}
 
 function! vimrc#toggle_parent_folder_tag()

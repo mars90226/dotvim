@@ -2,6 +2,8 @@
 " Borrowed from vim-floaterm
 " TODO Add border float window
 function! vimrc#float#open(bufnr, width, height) abort
+  let bufnr = a:bufnr >= 0 ? a:bufnr : nvim_create_buf(v:false, v:true)
+
   let col = (&columns - a:width) / 2
   let row = (&lines - a:height) / 2
   let opts = {
@@ -13,7 +15,7 @@ function! vimrc#float#open(bufnr, width, height) abort
     \ 'height': a:height,
     \ 'style':'minimal'
     \ }
-  let winid = nvim_open_win(a:bufnr, v:true, opts)
+  return nvim_open_win(bufnr, v:true, opts)
 endfunction
 
 function! vimrc#float#is_float(winid)

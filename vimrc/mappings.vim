@@ -246,6 +246,7 @@ augroup END
 nnoremap <silent> <Leader>zz :call vimrc#zoom()<CR>
 xnoremap <silent> <Leader>zz :<C-U>call vimrc#zoom_selected(vimrc#get_visual_selection())<CR>
 nnoremap <silent> <Leader>zf :call vimrc#zoom_float()<CR>
+xnoremap <silent> <Leader>zf :<C-U>call vimrc#zoom_float_selected(vimrc#get_visual_selection())<CR>
 
 " Toggle parent folder tag
 command! ToggleParentFolderTag call vimrc#toggle_parent_folder_tag()
