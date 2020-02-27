@@ -62,7 +62,7 @@ if has("nvim")
   tnoremap <M-1> <C-\><C-N>:LastTab<CR>
 
   " Quickly paste from register
-  tnoremap <expr> <M-r> '<C-\><C-N>"' . nr2char(getchar()) . 'pi'
+  tnoremap <M-r> <C-\><C-N>:execute 'normal! "'.vimrc#getchar_string().'pi'<CR>
 
   " Quickly suspend neovim
   tnoremap <M-C-Z> <C-\><C-N>:suspend<CR>
@@ -89,7 +89,7 @@ if has("nvim")
     tnoremap <M-q><M-1> <C-\><C-\><C-N>:LastTab<CR>
 
     " Quickly paste from register
-    tnoremap <expr> <M-q><M-r> '<C-\><C-\><C-N>"' . nr2char(getchar()) . 'pi'
+    tnoremap <M-q><M-r> <C-\><C-\><C-N>:execute 'normal! "'.vimrc#getchar_string().'pi'<CR>
 
     " Quickly suspend neovim
     tnoremap <M-q><C-Z> <C-\><C-\><C-N>:suspend<CR>
