@@ -48,7 +48,7 @@ nmap <Leader>ag <Plug>(ale_go_to_definition)
 nmap <Leader>aG <Plug>(ale_go_to_definition_in_tab)
 nmap <Leader>ah <Plug>(ale_hover)
 nmap <Leader>ai :ALEInfo<CR>
-nmap <Leader>al <Plug>(ale_lint)
+nmap <Leader>aL <Plug>(ale_lint)
 nmap <Leader>ar <Plug>(ale_find_references)
 nmap <Leader>as :execute 'ALESymbolSearch ' . input('Symbol: ')<CR>
 nmap <Leader>aS :ALEStopAllLSPs<CR>

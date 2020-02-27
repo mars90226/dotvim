@@ -157,3 +157,11 @@ augroup AlternateSettings
   autocmd VimEnter * call vimrc#alternative#settings()
 augroup END
 " }}}
+
+" any-jump.nvim {{{
+Plug 'pechorin/any-jump.nvim'
+
+nnoremap <Leader>aj :AnyJump<CR>
+nnoremap <Leader>ab :AnyJumpBack<CR>
+nnoremap <Leader>al :AnyJumpLastResults<CR>
+" }}}
