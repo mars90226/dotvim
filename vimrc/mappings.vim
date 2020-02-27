@@ -243,10 +243,13 @@ augroup last_tab_settings
 augroup END
 
 " Zoom
-nnoremap <silent> <Leader>zz :call vimrc#zoom()<CR>
-xnoremap <silent> <Leader>zz :<C-U>call vimrc#zoom_selected(vimrc#get_visual_selection())<CR>
-nnoremap <silent> <Leader>zf :call vimrc#zoom_float()<CR>
-xnoremap <silent> <Leader>zf :<C-U>call vimrc#zoom_float_selected(vimrc#get_visual_selection())<CR>
+nnoremap <silent> <Leader>zz :call vimrc#zoom#zoom()<CR>
+xnoremap <silent> <Leader>zz :<C-U>call vimrc#zoom#selected(vimrc#get_visual_selection())<CR>
+
+if has('nvim')
+  nnoremap <silent> <Leader>zf :call vimrc#zoom#float()<CR>
+  xnoremap <silent> <Leader>zf :<C-U>call vimrc#zoom#float_selected(vimrc#get_visual_selection())<CR>
+endif
 
 " Toggle parent folder tag
 command! ToggleParentFolderTag call vimrc#toggle_parent_folder_tag()

@@ -1,4 +1,10 @@
 " Functions
+let s:float_default_size = [float2nr(&columns * 0.9), float2nr(&lines * 0.8)]
+
+function! vimrc#float#get_default_size()
+  return s:float_default_size
+endfunction
+
 " Borrowed from vim-floaterm
 " TODO Add border float window
 function! vimrc#float#open(bufnr, width, height) abort

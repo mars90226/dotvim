@@ -89,50 +89,6 @@ function! vimrc#toggle_fold()
   endif
 endfunction
 
-" Zoom {{{
-function! vimrc#zoom()
-  if winnr('$') > 1
-    tab split
-  elseif len(filter(map(range(tabpagenr('$')), 'tabpagebuflist(v:val + 1)'),
-                  \ 'index(v:val, '.bufnr('').') >= 0')) > 1
-    tabclose
-  endif
-endfunction
-
-function! vimrc#zoom_selected(selected)
-  let filetype = &filetype
-  tabnew
-  call append(line('$'), split(a:selected, "\n"))
-  1delete
-  let &filetype = filetype
-endfunction
-
-function! vimrc#zoom_float()
-  let winid = win_getid()
-  if vimrc#float#is_float(winid)
-    quit
-  else
-    let bufnr = bufnr('%')
-    let width = float2nr(&columns * 0.9)
-    let height = float2nr(&lines * 0.8)
-    call vimrc#float#open(bufnr, width, height)
-  endif
-endfunction
-
-function! vimrc#zoom_float_selected(selected)
-  let filetype = &filetype
-
-  let width = float2nr(&columns * 0.9)
-  let height = float2nr(&lines * 0.8)
-  call vimrc#float#open(-1, width, height)
-
-  call append(line('$'), split(a:selected, "\n"))
-  1delete
-
-  let &filetype = filetype
-endfunction
-" }}}
-
 function! vimrc#toggle_parent_folder_tag()
   let s:parent_folder_tag_pattern = "./tags;"
   if index(split(&tags, ','), s:parent_folder_tag_pattern) != -1
@@ -318,4 +274,10 @@ endfunction
 
 function! vimrc#get_boundary_pattern(pattern)
   return '\<'.a:pattern.'\>'
+endfunction
+
+function! vimrc#set_scratch()
+  setlocal buftype=nofile
+  setlocal bufhidden=hide
+  setlocal noswapfile
 endfunction
