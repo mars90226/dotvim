@@ -158,7 +158,10 @@ function! vimrc#denite#filter_mappings()
   inoremap <silent><buffer><expr> <M-w> denite#do_map('do_action', 'switch')
 
   " Switch between denite buffer & preview
-  imap     <silent><buffer> <M-l> <Plug>(denite_filter_quit):call vimrc#denite#goto_and_back_between_preview()<CR>
+  imap <silent><buffer> <M-l>      <Plug>(denite_filter_quit):call vimrc#denite#goto_and_back_between_preview()<CR>
+
+  " Integration with other plugins
+  imap <buffer>         <M-x><M-c> <Plug>(denite_filter_quit):ColorToggle<CR>i
 
   " Toggle matchers & sorters
   inoremap <silent><buffer><expr> <M-f>
