@@ -1,13 +1,17 @@
-set winaltkeys=no
-set background=dark
-colorscheme gruvbox
+let g:guifont = 'DejaVu Sans Mono for Powerline'
+let g:guifont_size = 'h12'
+let g:guifont_character_set = 'cANSI'
 
-if has("nvim")
-  GuiFont DejaVu\ Sans\ Mono\ for\ Powerline:h12
+if has('nvim')
+  if exists(':GuiFont')
+    " nvim-qt
+    execute 'GuiFont '.g:guifont.':'.g:guifont_size
+  endif
 else
-  set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12:cANSI
+  let &guifont = g:guifont.':'.g:guifont_size.':'.g:guifont_character_set
 end
 
-set lines=43
-set columns=100
-au BufRead,BufNewFile *.rb setlocal balloondelay=1000000
+set winaltkeys=no
+
+set lines=44
+set columns=110

@@ -11,7 +11,7 @@ if !has("nvim") && !has("gui_running") && vimrc#plugin#check#get_os() =~ "window
 endif
 " }}}
 
-" Pair up with 'set winaltkeys=no' in _gvimrc
+" Pair up with 'set winaltkeys=no' in ginit.vim
 " Fix meta key in vim
 " terminal meta key fix {{{
 if !has("nvim") && !has("gui_running") && vimrc#plugin#check#get_os() !~ "windows"
