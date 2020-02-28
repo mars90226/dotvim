@@ -12,7 +12,13 @@ elseif has("python")
 endif
 " }}}
 
-" CtrlP {{{
+" neomru.vim & neoyank.vim {{{
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/neoyank.vim'
+" }}}
+
+" Finders {{{
+" ctrlp.vim {{{
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'ivalkeen/vim-ctrlp-tjump'
@@ -20,24 +26,45 @@ Plug 'ivalkeen/vim-ctrlp-tjump'
 call vimrc#source('vimrc/plugins/ctrlp.vim')
 " }}}
 
-" netrw {{{
-let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro' " add line number
+" unite.vim {{{
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/unite-outline'
+Plug 'blindFS/unite-workflow', { 'on': [] }
+Plug 'thinca/vim-unite-history'
+Plug 'osyo-manga/unite-quickfix'
+
+call vimrc#source('vimrc/plugins/unite.vim')
 " }}}
 
-" Vinegar {{{
-Plug 'tpope/vim-vinegar'
+" denite.nvim {{{
+if vimrc#plugin#is_enabled_plugin('denite.nvim')
+  Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'neoclide/denite-extra'
+  Plug 'kmnk/denite-dirmark'
 
-nmap <silent> \-       <Plug>VinegarUp
-nmap <silent> _        <Plug>VinegarVerticalSplitUp
-nmap <silent> <Space>- <Plug>VinegarSplitUp
-nmap <silent> <Space>_ <Plug>VinegarTabUp
-
-augroup vinegar_settings
-  autocmd!
-  autocmd FileType netrw call vimrc#vinegar#mappings()
-augroup END
+  call vimrc#source('vimrc/plugins/denite.vim')
+endif
 " }}}
 
+" fzf {{{
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+call vimrc#source('vimrc/plugins/fzf.vim')
+" }}}
+
+" vim-clap {{{
+if vimrc#plugin#check#has_cargo()
+  Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+else
+  Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+endif
+
+call vimrc#source('vimrc/plugins/clap.vim')
+" }}}
+" }}}
+
+" Goto Definitions {{{
 " tagbar {{{
 Plug 'majutsushi/tagbar'
 
@@ -61,58 +88,24 @@ augroup vista_load_nearest_method_or_function
 augroup END
 " }}}
 
-" vimfiler {{{
-if vimrc#plugin#is_enabled_plugin("vimfiler")
-  Plug 'Shougo/vimfiler.vim'
-  Plug 'Shougo/neossh.vim'
+" any-jump.nvim {{{
+Plug 'pechorin/any-jump.nvim'
 
-  call vimrc#source('vimrc/plugins/vimfiler.vim')
+nnoremap <Leader>aj :AnyJump<CR>
+nnoremap <Leader>ab :AnyJumpBack<CR>
+nnoremap <Leader>al :AnyJumpLastResults<CR>
+" }}}
+
+" vim-gutentags {{{
+" Automatically update tags
+if vimrc#plugin#is_enabled_plugin('vim-gutentags')
+  Plug 'ludovicchabant/vim-gutentags'
+
+  " Don't update cscope, workload is too heavy
+  let g:gutentags_modules = ['ctags']
+  let g:gutentags_ctags_exclude = ['.git', 'node_modules', '.ccls-cache']
 endif
 " }}}
-
-" Defx {{{
-if vimrc#plugin#is_enabled_plugin("defx")
-  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'kristijanhusak/defx-git'
-  " Font not supported
-  " Plug 'kristijanhusak/defx-icons'
-
-  call vimrc#source('vimrc/plugins/defx.vim')
-endif
-" }}}
-
-" vim-choosewin {{{
-if vimrc#plugin#is_enabled_plugin("vimfiler")
-  " Only used in vimfiler
-  Plug 't9md/vim-choosewin'
-
-  call vimrc#source('vimrc/plugins/choosewin.vim')
-endif
-" }}}
-
-" neomru.vim & neoyank.vim {{{
-Plug 'Shougo/neomru.vim'
-Plug 'Shougo/neoyank.vim'
-" }}}
-
-" Unite {{{
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-outline'
-Plug 'blindFS/unite-workflow', { 'on': [] }
-Plug 'thinca/vim-unite-history'
-Plug 'osyo-manga/unite-quickfix'
-
-call vimrc#source('vimrc/plugins/unite.vim')
-" }}}
-
-" Denite {{{
-if vimrc#plugin#is_enabled_plugin('denite.nvim')
-  Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'neoclide/denite-extra'
-  Plug 'kmnk/denite-dirmark'
-
-  call vimrc#source('vimrc/plugins/denite.vim')
-endif
 " }}}
 
 " ctrlsf.vim {{{
@@ -122,33 +115,6 @@ nnoremap <Space><C-F> :execute 'CtrlSF ' . input('CtrlSF: ')<CR>
 nnoremap <F5> :CtrlSFToggle<CR>
 " }}}
 
-" fzf {{{
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
-call vimrc#source('vimrc/plugins/fzf.vim')
-" }}}
-
-" vim-clap {{{
-if vimrc#plugin#check#has_cargo()
-  Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
-else
-  Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-endif
-
-call vimrc#source('vimrc/plugins/clap.vim')
-" }}}
-
-" vim-gutentags {{{
-if vimrc#plugin#is_enabled_plugin('vim-gutentags')
-  Plug 'ludovicchabant/vim-gutentags'
-
-  " Don't update cscope, workload is too heavy
-  let g:gutentags_modules = ['ctags']
-  let g:gutentags_ctags_exclude = ['.git', 'node_modules', '.ccls-cache']
-endif
-" }}}
-
 " alternate.vim {{{
 Plug 'pchynoweth/a.vim'
 
@@ -156,12 +122,4 @@ augroup alternate_settings
   autocmd!
   autocmd VimEnter * call vimrc#alternative#settings()
 augroup END
-" }}}
-
-" any-jump.nvim {{{
-Plug 'pechorin/any-jump.nvim'
-
-nnoremap <Leader>aj :AnyJump<CR>
-nnoremap <Leader>ab :AnyJumpBack<CR>
-nnoremap <Leader>al :AnyJumpLastResults<CR>
 " }}}

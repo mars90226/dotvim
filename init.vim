@@ -7,6 +7,7 @@ call plug#begin(vimrc#get_vimhome().'/plugged')
 
 call vimrc#source('plug/appearance.vim')
 call vimrc#source('plug/completion.vim')
+call vimrc#source('plug/file_explorer.vim')
 call vimrc#source('plug/file_navigation.vim')
 call vimrc#source('plug/text_navigation.vim')
 call vimrc#source('plug/text_manipulation.vim')
