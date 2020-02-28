@@ -3,6 +3,13 @@
 let s:current_filename = expand('<sfile>')
 
 function! vimrc#reload#reload()
+  " reload in floating window to avoid affecting current buffer & window
+  " settings
+  if has('nvim')
+    let [width, height] = vimrc#float#get_default_size()
+    call vimrc#float#open(-1, width, height)
+  endif
+
   for file in split(glob(vimrc#get_vimhome() . '/autoload/**/*.vim'), '\n')
     " Avoid reloading reload.vim
     if resolve(file) != s:current_filename
@@ -11,6 +18,11 @@ function! vimrc#reload#reload()
   endfor
 
   source $MYVIMRC
+
+  " Close floating window
+  if has('nvim')
+    close
+  endif
 
   " Source $MYVIMRC will reset editorconfig to default config, so reload
   " editorconfig
