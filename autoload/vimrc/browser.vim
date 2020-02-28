@@ -1,11 +1,11 @@
 " Utility functions
-function! vimrc#browser#get()
+function! vimrc#browser#get_command(command)
   if executable('firefox')
-    return "firefox"
+    return 'firefox '.a:command
   elseif executable('chrome')
-    return "chrome"
+    return 'chrome '.a:command
   else
-    return ""
+    return ''
   endif
 endfunction
 
@@ -56,13 +56,13 @@ function! vimrc#browser#async_open_url(url)
     return
   endif
 
-  let browser = vimrc#browser#get()
-  if empty(browser)
+  let browser_command = vimrc#browser#get_command(a:url)
+  if empty(browser_command)
     echoerr "No browser found!"
     return
   endif
 
-  call jobstart(browser . ' ' . a:url, {})
+  call jobstart(browser_command, {})
 endfunction
 
 " Asynchronously search keyword in browser
