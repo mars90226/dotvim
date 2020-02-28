@@ -109,6 +109,8 @@ let g:lastplace_open_folds = 0
 " vim-localvimrc {{{
 Plug 'embear/vim-localvimrc'
 
+" Be careful of malicious localvimrc
+let g:localvimrc_sandbox = 0
 let g:localvimrc_whitelist = []
 if exists('g:localvimrc_secret_whitelist')
   let g:localvimrc_whitelist += g:localvimrc_secret_whitelist
