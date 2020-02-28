@@ -53,7 +53,6 @@ map gz# <Plug>(incsearch-nohl0)<Plug>(asterisk-gz#)
 Plug 'haya14busa/incsearch.vim'
 
 " :h g:incsearch#auto_nohlsearch
-set hlsearch
 let g:incsearch#auto_nohlsearch = 1
 
 map n  <Plug>(incsearch-nohl-n)
