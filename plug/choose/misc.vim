@@ -2,13 +2,6 @@ if !has("python")
   call vimrc#plugin#disable_plugin('github-issues.vim')
 endif
 
-if !(vimrc#plugin#check#has_async()
-      \ && vimrc#plugin#check#has_rpc()
-      \ && has("python3")
-      \ && vimrc#plugin#check#python_version() >= "3.6.1")
-  call vimrc#plugin#disable_plugin('denite.nvim')
-end
-
 if v:version < 730 || !(has("python") || has("python3"))
   call vimrc#plugin#disable_plugin('vim-mundo')
 endif

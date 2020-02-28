@@ -54,13 +54,15 @@ call vimrc#source('vimrc/plugins/fzf.vim')
 " }}}
 
 " vim-clap {{{
-if vimrc#plugin#check#has_cargo()
-  Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
-else
-  Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-endif
+if vimrc#plugin#is_enabled_plugin('vim-clap')
+  if vimrc#plugin#check#has_cargo()
+    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+  else
+    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+  endif
 
-call vimrc#source('vimrc/plugins/clap.vim')
+  call vimrc#source('vimrc/plugins/clap.vim')
+endif
 " }}}
 " }}}
 
