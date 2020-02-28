@@ -72,14 +72,14 @@ inoremap <expr> <C-X><C-D> fzf#vim#complete#path('fd -t d')
 
 " fzf functions & commands {{{
 command! -bar  -bang                  Helptags call fzf#vim#helptags({ 'options': ['--prompt', 'Helptags> '] }, <bang>0)
-command! -bang -nargs=? -complete=dir Files   call vimrc#fzf#files(<q-args>, <bang>0)
-command! -bang -nargs=?               GFiles  call vimrc#fzf#gitfiles(<q-args>, <bang>0)
-command! -bang -nargs=+ -complete=dir Locate  call vimrc#fzf#locate(<q-args>, <bang>0)
-command! -bang -nargs=*               History call vimrc#fzf#history(<q-args>, <bang>0)
-command! -bar  -bang                  Windows call fzf#vim#windows(vimrc#fzf#preview#windows(), <bang>0)
-command! -bar  -nargs=* -bang         BLines  call fzf#vim#buffer_lines(<q-args>, vimrc#fzf#preview#buffer_lines(), <bang>0)
-command! -bang -nargs=*               Lines   call fzf#vim#lines(<q-args>, vimrc#fzf#with_default_options(), <bang>0)
-command! -bar -bang                   Commits call fzf#vim#commits(vimrc#fzf#with_default_options(), <bang>0)
+command! -bang -nargs=? -complete=dir Files    call vimrc#fzf#files(<q-args>, <bang>0)
+command! -bang -nargs=?               GFiles   call vimrc#fzf#gitfiles(<q-args>, <bang>0)
+command! -bang -nargs=+ -complete=dir Locate   call vimrc#fzf#locate(<q-args>, <bang>0)
+command! -bang -nargs=*               History  call vimrc#fzf#history(<q-args>, <bang>0)
+command! -bar  -bang                  Windows  call fzf#vim#windows(vimrc#fzf#preview#windows(), <bang>0)
+command! -bar  -nargs=* -bang         BLines   call fzf#vim#buffer_lines(<q-args>, vimrc#fzf#preview#buffer_lines(), <bang>0)
+command! -bang -nargs=*               Lines    call fzf#vim#lines(<q-args>, vimrc#fzf#with_default_options(), <bang>0)
+command! -bar -bang                   Commits  call fzf#vim#commits(vimrc#fzf#with_default_options(), <bang>0)
 command! -bar -bang                   BCommits call fzf#vim#buffer_commits(vimrc#fzf#with_default_options(), <bang>0)
 
 " Rg
