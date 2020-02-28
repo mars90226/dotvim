@@ -12,6 +12,7 @@ if vimrc#plugin#is_disabled_plugin('supertab')
 endif
 " }}}
 
+" Completion {{{
 " coc.nvim {{{
 if vimrc#plugin#is_enabled_plugin('coc.nvim')
   Plug 'Shougo/neco-vim'
@@ -55,7 +56,9 @@ if vimrc#plugin#is_enabled_plugin('supertab')
   Plug 'ervandew/supertab'
 endif
 " }}}
+" }}}
 
+" Completion Source {{{
 " neosnippet {{{
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
@@ -89,4 +92,5 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 if executable('tmux')
   Plug 'wellle/tmux-complete.vim'
 endif
+" }}}
 " }}}
