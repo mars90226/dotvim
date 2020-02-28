@@ -80,8 +80,8 @@ command! -bar  -bang                  Windows call fzf#vim#windows(vimrc#fzf#pre
 command! -bar  -nargs=* -bang         BLines  call fzf#vim#buffer_lines(<q-args>, vimrc#fzf#preview#buffer_lines(), <bang>0)
 command! -bang -nargs=*               Lines   call fzf#vim#lines(<q-args>, vimrc#fzf#with_default_options(), <bang>0)
 " Disabled for now as fzf#vim#commits has bug that does not properly handle options
-" command! -bar -bang                   Commits call fzf#vim#commits(<bang>0, vimrc#fzf#with_default_options())
-" command! -bar -bang                   BCommits call fzf#vim#buffer_commits(<bang>0, vimrc#fzf#with_default_options())
+command! -bar -bang                   Commits call fzf#vim#commits(<bang>0, vimrc#fzf#with_default_options())
+command! -bar -bang                   BCommits call fzf#vim#buffer_commits(<bang>0, vimrc#fzf#with_default_options())
 
 " Rg
 command! -bang -nargs=* Rg call vimrc#fzf#rg#grep(<q-args>, <bang>0)

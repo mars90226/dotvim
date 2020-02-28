@@ -4,7 +4,7 @@ if has("nvim")
   " Asynchronous open URI
   if has("unix") && executable("xdg-open")
     " Required by fugitive :GBrowse
-    command! -bar -nargs=1 Browse call vimrc#browser#async_browse(<f-args>)
+    command! -bar -nargs=1 Browse call vimrc#browser#async_open(<f-args>)
     nnoremap <Leader>xx :execute      'Browse '.expand('<cWORD>')<CR>
     nnoremap <Leader>xX :execute      'Browse '.expand('<cword>')<CR>
     xnoremap <Leader>xx :<C-U>execute 'Browse '.vimrc#get_visual_selection()<CR>

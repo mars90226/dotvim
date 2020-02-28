@@ -29,89 +29,57 @@ function! vimrc#browser#get_client_search_command(keyword)
   return "ssh ".$SSH_CLIENT_HOST." \"firefox --search '".a:keyword."'\""
 endfunction
 
-" Functions
-" Asynchronously browse URI
-" TODO Move to better place?
-function! vimrc#browser#async_browse(uri)
+" Utilities {{{
+" Asynchronously browse internal
+function! vimrc#browser#async_execute(command)
   " Currently only support neovim
   if !vimrc#plugin#check#has_rpc()
     echoerr "This version of vim does not have RPC!"
     return
   endif
 
+  call jobstart(a:command, {})
+endfunction
+
+function! vimrc#browser#async_browse(command)
+  if empty(a:command)
+    echoerr "No browser found!"
+    return
+  endif
+
+  call vimrc#browser#async_execute(a:command)
+endfunction
+" }}}
+
+" Functions
+" Asynchronously browse URI
+" TODO Move to better place?
+function! vimrc#browser#async_open(uri)
   " Use xdg-open to open URI
   if !has("unix") || !executable("xdg-open")
     echoerr "No xdg-open found!"
     return
   endif
 
-  call jobstart('xdg-open ' . a:uri, {})
+  call vimrc#browser#async_execute('xdg-open '.a:uri)
 endfunction
 
 " Asynchronously open URL in browser
 function! vimrc#browser#async_open_url(url)
-  " Currently only support neovim
-  if !vimrc#plugin#check#has_rpc()
-    echoerr "This version of vim does not have RPC!"
-    return
-  endif
-
-  let browser_command = vimrc#browser#get_command(a:url)
-  if empty(browser_command)
-    echoerr "No browser found!"
-    return
-  endif
-
-  call jobstart(browser_command, {})
+  call vimrc#browser#async_browse(vimrc#browser#get_command(a:url))
 endfunction
 
 " Asynchronously search keyword in browser
 function! vimrc#browser#async_search_keyword(keyword)
-  " Currently only support neovim
-  if !vimrc#plugin#check#has_rpc()
-    echoerr "This version of vim does not have RPC!"
-    return
-  endif
-
-  let search_command = vimrc#browser#get_search_command(a:keyword)
-  if empty(search_command)
-    echoerr "No browser found!"
-    return
-  endif
-
-  call jobstart(search_command, {})
+  call vimrc#browser#async_browse(vimrc#browser#get_search_command(a:keyword))
 endfunction
 
 " Asynchronously open URL in client browser
 function! vimrc#browser#client_async_open_url(url)
-  " Currently only support neovim
-  if !vimrc#plugin#check#has_rpc()
-    echoerr "This version of vim does not have RPC!"
-    return
-  endif
-
-  let client_browser_command = vimrc#browser#get_client_command(a:url)
-  if empty(client_browser_command)
-    echoerr "No browser found!"
-    return
-  endif
-
-  call jobstart(client_browser_command, {})
+  call vimrc#browser#async_browse(vimrc#browser#get_client_command(a:url))
 endfunction
 
 " Asynchronously search keyword in client browser
 function! vimrc#browser#client_async_search_keyword(keyword)
-  " Currently only support neovim
-  if !vimrc#plugin#check#has_rpc()
-    echoerr "This version of vim does not have RPC!"
-    return
-  endif
-
-  let client_browser_search_command = vimrc#browser#get_client_search_command(a:keyword)
-  if empty(client_browser_search_command)
-    echoerr "No browser found!"
-    return
-  endif
-
-  call jobstart(client_browser_search_command, {})
+  call vimrc#browser#async_browse(vimrc#browser#get_client_search_command(a:keyword))
 endfunction
