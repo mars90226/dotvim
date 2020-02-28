@@ -24,7 +24,6 @@ nnoremap <Space>S :Unite source<CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
 nnoremap <Space>M :Unite -buffer-name=files -default-action=lcd -start-insert directory_mru<CR>
 nnoremap <Space>o :Unite outline -start-insert<CR>
-nnoremap <Space>a :execute 'Unite anzu:' . input ('anzu: ')<CR>
 nnoremap <Space>ua :Unite location_list<CR>
 nnoremap <Space>uA :Unite apropos -start-insert<CR>
 nnoremap <Space>ub :UniteWithBufferDir -buffer-name=files -prompt=%\  file<CR>

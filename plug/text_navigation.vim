@@ -49,12 +49,6 @@ map z#  <Plug>(incsearch-nohl0)<Plug>(asterisk-z#)
 map gz# <Plug>(incsearch-nohl0)<Plug>(asterisk-gz#)
 " }}}
 
-" vim-anzu {{{
-Plug 'osyo-manga/vim-anzu'
-
-call vimrc#source('vimrc/plugins/anzu.vim')
-" }}}
-
 " incsearch {{{
 Plug 'haya14busa/incsearch.vim'
 
@@ -62,9 +56,8 @@ Plug 'haya14busa/incsearch.vim'
 set hlsearch
 let g:incsearch#auto_nohlsearch = 1
 
-" Replace by vim-anzu
-"map n  <Plug>(incsearch-nohl-n)
-"map N  <Plug>(incsearch-nohl-N)
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
 
 " Replace by vim-asterisk
 "map *  <Plug>(incsearch-nohl-*)
