@@ -28,6 +28,24 @@ augroup flog_settings
 augroup END
 " }}}
 
+" vim-gitgutter {{{
+if vimrc#plugin#is_enabled_plugin('vim-gitgutter')
+  Plug 'airblade/vim-gitgutter', { 'on': [] }
+
+  call vimrc#lazy#lazy_load('gitgutter')
+
+  nmap <silent> [g <Plug>(GitGutterPrevHunk)
+  nmap <silent> ]g <Plug>(GitGutterNextHunk)
+  nnoremap cog :GitGutterToggle<CR>
+  nnoremap <Leader>gT :GitGutterAll<CR>
+
+  omap ig <Plug>(GitGutterTextObjectInnerPending)
+  omap ag <Plug>(GitGutterTextObjectOuterPending)
+  xmap ig <Plug>(GitGutterTextObjectInnerVisual)
+  xmap ag <Plug>(GitGutterTextObjectOuterVisual)
+endif
+" }}}
+
 " vim-tig {{{
 Plug 'codeindulgence/vim-tig', { 'on': ['Tig', 'Tig!'] }
 
