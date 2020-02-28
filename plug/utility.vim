@@ -76,6 +76,22 @@ Plug 'jceb/vim-orgmode'
 Plug 'vimoutliner/vimoutliner'
 " }}}
 
+" indentLine {{{
+Plug 'Yggdroot/indentLine', { 'on': ['IndentLinesEnable', 'IndentLinesToggle'] }
+
+let g:indentLine_enabled = 0
+let g:indentLine_color_term = 243
+let g:indentLine_color_gui = '#AAAAAA'
+
+nnoremap <Space>il :IndentLinesToggle<CR>
+nnoremap <Space>iL :call vimrc#indent_line#toggle_enabled()<CR>
+
+augroup indent_line_syntax
+  autocmd!
+  autocmd User indentLine doautocmd indentLine Syntax
+augroup END
+" }}}
+
 " AnsiEsc.vim {{{
 Plug 'powerman/vim-plugin-AnsiEsc', { 'on': 'AnsiEsc' }
 

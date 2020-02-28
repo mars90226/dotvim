@@ -1,3 +1,4 @@
+" Status Line {{{
 " vim-airline {{{
 if vimrc#plugin#is_enabled_plugin('vim-airline')
   call vimrc#source('plug/plugins/airline.vim')
@@ -15,21 +16,6 @@ if vimrc#plugin#is_enabled_plugin('lightline.vim')
   call vimrc#source('vimrc/plugins/lightline.vim')
 endif
 " }}}
-
-" indentLine {{{
-Plug 'Yggdroot/indentLine', { 'on': ['IndentLinesEnable', 'IndentLinesToggle'] }
-
-let g:indentLine_enabled = 0
-let g:indentLine_color_term = 243
-let g:indentLine_color_gui = '#AAAAAA'
-
-nnoremap <Space>il :IndentLinesToggle<CR>
-nnoremap <Space>iL :call vimrc#indent_line#toggle_enabled()<CR>
-
-augroup indent_line_syntax
-  autocmd!
-  autocmd User indentLine doautocmd indentLine Syntax
-augroup END
 " }}}
 
 " vim-devicons {{{
