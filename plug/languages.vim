@@ -15,7 +15,7 @@ call vimrc#source('vimrc/plugins/cscope.vim')
 " vim-seeing-is-believing {{{
 Plug 'hwartig/vim-seeing-is-believing', { 'for': 'ruby' }
 
-augroup seeingIsBelievingSettings
+augroup seeing_is_believing_settings
   autocmd!
   autocmd FileType ruby call vimrc#seeing_is_believing#mappings()
 augroup END

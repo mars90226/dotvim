@@ -152,7 +152,7 @@ endif
 " alternate.vim {{{
 Plug 'pchynoweth/a.vim'
 
-augroup AlternateSettings
+augroup alternate_settings
   autocmd!
   autocmd VimEnter * call vimrc#alternative#settings()
 augroup END

@@ -26,7 +26,7 @@ nnoremap <silent> <Leader>gM :Merginal<CR>
 
 nnoremap <silent> <Leader>g` :call vimrc#fugitive#review_last_commit()<CR>
 
-augroup fugitiveSettings
+augroup fugitive_settings
   autocmd!
   autocmd FileType gitcommit       call vimrc#fugitive#gitcommit_settings()
   autocmd FileType fugitive        call vimrc#fugitive#mappings()

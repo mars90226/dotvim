@@ -20,7 +20,7 @@ if !has("nvim") && !has("gui_running") && vimrc#plugin#check#get_os() !~ "window
     " Windows Terminal keycode will change after startup
     " Maybe it's related to ConEmu
     " This fix will not work after reload .vimrc/_vimrc/init.vim
-    augroup WindowsTerminalKeyFix
+    augroup windows_terminal_key_fix
       autocmd!
       autocmd VimEnter * call vimrc#terminal#meta_key_fix()
     augroup END

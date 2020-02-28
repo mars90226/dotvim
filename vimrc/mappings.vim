@@ -215,7 +215,7 @@ if executable('sdcv')
 endif
 
 " Quickfix & Locaiton List {{{
-augroup quickfixSettings
+augroup quickfix_settings
   autocmd!
   autocmd FileType qf call vimrc#quickfix#mappings()
 augroup END
