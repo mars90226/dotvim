@@ -1,11 +1,13 @@
-let g:fzf_default_options = { 'options': ['--layout', 'reverse', '--inline-info'] }
-
-if has("nvim") || has("gui_running")
-  if !exists('g:original_fzf_default_opts')
-    let g:original_fzf_default_opts = $FZF_DEFAULT_OPTS
-  endif
-  let $FZF_DEFAULT_OPTS = g:original_fzf_default_opts.' '.join(g:fzf_default_options.options)
+if has('nvim')
+  let g:fzf_default_options = { 'options': ['--layout', 'reverse', '--inline-info'] }
+else
+  let g:fzf_default_options = { 'options': ['--layout', 'default', '--inline-info'] }
 endif
+
+if !exists('g:original_fzf_default_opts')
+  let g:original_fzf_default_opts = $FZF_DEFAULT_OPTS
+endif
+let $FZF_DEFAULT_OPTS = g:original_fzf_default_opts.' '.join(g:fzf_default_options.options)
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -22,7 +24,16 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+if has('nvim')
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+else
+  " Borrowed from fzf
+  if has('terminal') && has('patch-8.0.995')
+    let g:fzf_layout = { 'window': 'belowright '.float2nr(&lines * 0.4).'new' }
+  else
+    let g:fzf_layout = { 'down': '~40%' }
+  endif
+endif
 let g:fzf_tmux_layout = { 'down': '~40%' }
 
 let g:fzf_history_dir = $HOME.'/.local/share/fzf-history'
