@@ -6,11 +6,11 @@ if exists('g:denite_secret_project_folders')
   let g:project_folders += g:denite_secret_project_folders
 endif
 
-let g:denite_width = &columns / 2
-let g:denite_height = &lines * 4 / 5
-let g:denite_left = &columns / 20
-let g:denite_top = &lines / 10
-let g:denite_preview_width = &columns * 2 / 5
+let g:denite_width = float2nr(&columns * 0.5)
+let g:denite_height = float2nr(&lines * 0.8)
+let g:denite_left = float2nr(&columns * 0.05)
+let g:denite_top = float2nr(&lines * 0.1)
+let g:denite_preview_width = float2nr(&columns * 0.4)
 let g:denite_preview_height = g:denite_height + 1
 
 " Denite key mappings {{{

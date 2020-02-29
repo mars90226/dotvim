@@ -1,8 +1,16 @@
 " Functions
-let s:float_default_size = [float2nr(&columns * 0.9), float2nr(&lines * 0.8)]
+let s:float_default_width = float2nr(&columns * 0.9)
+let s:float_default_height = float2nr(&lines * 0.8)
+let s:float_default_size = [s:float_default_width, s:float_default_height]
 
 function! vimrc#float#get_default_size()
   return s:float_default_size
+endfunction
+
+function! vimrc#float#calculate_pos(width, height)
+  let col = (&columns - a:width) / 2
+  let row = (&lines - a:height) / 2
+  return [col, row]
 endfunction
 
 " Borrowed from vim-floaterm
@@ -12,8 +20,7 @@ function! vimrc#float#open(bufnr, width, height, ...) abort
   let options = a:0 >= 1 && type(a:0) == type({}) ? extend(default_action, a:1) : default_options
   let bufnr = a:bufnr >= 0 ? a:bufnr : nvim_create_buf(options.listed, options.scratch)
 
-  let col = (&columns - a:width) / 2
-  let row = (&lines - a:height) / 2
+  let [col, row] = vimrc#float#calculate_pos(a:width, a:height)
   let opts = {
     \ 'relative': 'editor',
     \ 'anchor': 'NW',
