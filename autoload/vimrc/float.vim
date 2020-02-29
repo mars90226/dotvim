@@ -52,10 +52,21 @@ endfunction
 function! vimrc#float#new(...)
   call vimrc#float#hide()
 
-  let [width, height] = vimrc#float#get_default_size()
-  let [bufnr, winid] = vimrc#float#open(-1, width, height)
+  let command = a:0 >= 1 && type(a:1) == type('') ? a:1 : ''
+  let prior_float_open = a:0 >= 2 && type(a:2) == type(0) ? a:2 : 0
 
-  if a:0 >= 1 && type(a:1) == type('') && !empty(a:1)
+  let bufnr = -1
+  if prior_float_open && !empty(command)
+    let command = a:1
+    execute command
+    let bufnr = bufnr()
+    close
+  endif
+
+  let [width, height] = vimrc#float#get_default_size()
+  let [bufnr, winid] = vimrc#float#open(bufnr, width, height)
+
+  if !prior_float_open && !empty(command)
     let command = a:1
     execute command
     " bufnr may changed after executing command
@@ -114,7 +125,9 @@ endfunction
 function! vimrc#float#curr(...) abort
   let curr_bufnr = vimrc#float#buflist#find_curr()
   if curr_bufnr == -1
-    let curr_bufnr = vimrc#float#new(a:0 >= 1 ? a:1 : '')
+    let command = a:0 >= 1 ? a:1 : ''
+    let prior_float_open = a:0 >= 2 ? a:2 : 0
+    let curr_bufnr = vimrc#float#new(command, prior_float_open)
   else
     let [width, height] = vimrc#float#get_default_size()
     call vimrc#float#open(curr_bufnr, width, height)
@@ -135,7 +148,9 @@ function! vimrc#float#toggle(...)  abort
         normal! i
       endif
     else
-      call vimrc#float#curr(a:0 >= 1 ? a:1 : '')
+      let command = a:0 >= 1 ? a:1 : ''
+      let prior_float_open = a:0 >= 2 ? a:2 : 0
+      call vimrc#float#curr(command, prior_float_open)
     endif
   endif
 endfunction
