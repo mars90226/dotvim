@@ -259,6 +259,7 @@ if has('nvim')
   command!                                  VimrcFloatPrev   call vimrc#float#prev()
   command!                                  VimrcFloatNext   call vimrc#float#next()
   nnoremap <silent> <M-,><M-l> :VimrcFloatToggle<CR>
+  inoremap <silent> <M-,><M-l> <Esc>:VimrcFloatToggle<CR>
   nnoremap <silent> <M-,><M-n> :execute 'VimrcFloatNew '.input('command: ', '', 'command')<CR>
   nnoremap <silent> <M-,><M-m> :execute 'VimrcFloatNew! '.input('command: ', '', 'command')<CR>
   nnoremap <silent> <M-,><M-j> :VimrcFloatPrev<CR>
