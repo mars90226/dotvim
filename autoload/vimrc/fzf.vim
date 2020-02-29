@@ -282,10 +282,11 @@ function! vimrc#fzf#helptag_sink(lines)
   if stridx(&rtp, rtp) < 0
     execute 'set rtp+='.s:escape(rtp)
   endif
-  execute 'help' tag
 
   if has('nvim') && use_float
-    call vimrc#zoom#into_float()
+    execute 'VimrcFloatNew! help' tag
+  else
+    execute 'help' tag
   endif
 endfunction
 
