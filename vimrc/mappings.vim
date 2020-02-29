@@ -249,6 +249,7 @@ xnoremap <silent> <Leader>zz :<C-U>call vimrc#zoom#selected(vimrc#get_visual_sel
 if has('nvim')
   nnoremap <silent> <Leader>zf :call vimrc#zoom#float()<CR>
   xnoremap <silent> <Leader>zf :<C-U>call vimrc#zoom#float_selected(vimrc#get_visual_selection())<CR>
+  nnoremap <silent> <Leader>zF :call vimrc#zoom#into_float()<CR>
 endif
 
 " Float

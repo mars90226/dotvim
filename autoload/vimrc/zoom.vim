@@ -36,3 +36,13 @@ function! vimrc#zoom#float_selected(selected)
 
   let &filetype = filetype
 endfunction
+
+function! vimrc#zoom#into_float()
+  if vimrc#float#is_float(win_getid())
+    VimrcFloatToggle
+  else
+    let bufnr = bufnr('%')
+    close
+    execute 'VimrcFloatNew buffer '.bufnr
+  endif
+endfunction
