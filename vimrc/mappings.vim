@@ -257,7 +257,7 @@ if has('nvim')
   command! -nargs=? -complete=command VimrcFloatNew    call vimrc#float#new(<f-args>)
   command!                            VimrcFloatPrev   call vimrc#float#prev()
   command!                            VimrcFloatNext   call vimrc#float#next()
-  nnoremap <silent> <Leader>zt :VimrcFloatToggle<CR>
+  nnoremap <silent> <Leader>zl :VimrcFloatToggle<CR>
   nnoremap <silent> <Leader>zn :execute 'VimrcFloatNew '.input('command: ', '', 'command')<CR>
   nnoremap <silent> <Leader>zj :VimrcFloatPrev<CR>
   nnoremap <silent> <Leader>zk :VimrcFloatNext<CR>
