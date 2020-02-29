@@ -228,6 +228,20 @@ function! vimrc#fzf#functions_sink(line)
   let @" = function_name
 endfunction
 
+" Borrowed from fzf.vim
+function! vimrc#fzf#helptag_sink(line)
+  let [tag, file, path] = split(a:line, "\t")[0:2]
+  let rtp = fnamemodify(path, ':p:h:h')
+  if stridx(&rtp, rtp) < 0
+    execute 'set rtp+='.s:escape(rtp)
+  endif
+  execute 'help' tag
+
+  if has('nvim')
+    call vimrc#zoom#into_float()
+  endif
+endfunction
+
 " Commands
 " borrowed from fzf.vim {{{
 function! vimrc#fzf#history(arg, bang)
@@ -306,4 +320,12 @@ function! vimrc#fzf#functions()
       \ 'source':  vimrc#fzf#functions_source(),
       \ 'sink':    function('vimrc#fzf#functions_sink'),
       \ 'options': ['--prompt', 'Functions> ']}))
+endfunction
+
+function! vimrc#fzf#helptag(bang)
+  let options = {
+        \ 'sink': function('vimrc#fzf#helptag_sink'),
+        \ 'options': ['--prompt', 'Helptags> ']
+        \ }
+  call fzf#vim#helptags(options, a:bang)
 endfunction
