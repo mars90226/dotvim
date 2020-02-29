@@ -99,6 +99,27 @@ for s:color_name in keys(s:ansi)
         \ "endfunction"
 endfor
 
+function! vimrc#fzf#fzf(name, opts, extra)
+  let [extra, bang] = [{}, 0]
+  if len(a:extra) <= 1
+    let first = get(a:extra, 0, 0)
+    if type(first) == s:TYPE.dict
+      let extra = first
+    else
+      let bang = first
+    endif
+  elseif len(a:extra) == 2
+    let [extra, bang] = a:extra
+  else
+    throw 'invalid number of arguments'
+  endif
+
+  let eopts  = has_key(extra, 'options') ? remove(extra, 'options') : ''
+  let merged = extend(copy(a:opts), extra)
+  call s:merge_opts(merged, eopts)
+  return fzf#run(vimrc#fzf#wrap(a:name, merged, bang))
+endfunction
+
 function! vimrc#fzf#wrap(name, opts, bang)
   " fzf#wrap does not append --expect if sink or sink* is found
   let opts = copy(a:opts)
@@ -114,6 +135,30 @@ function! vimrc#fzf#wrap(name, opts, bang)
     let wrapped = fzf#wrap(a:name, opts, a:bang)
   endif
   return wrapped
+endfunction
+
+function! s:extend_opts(dict, eopts, prepend)
+  if empty(a:eopts)
+    return
+  endif
+  if has_key(a:dict, 'options')
+    if type(a:dict.options) == s:TYPE.list && type(a:eopts) == s:TYPE.list
+      if a:prepend
+        let a:dict.options = extend(copy(a:eopts), a:dict.options)
+      else
+        call extend(a:dict.options, a:eopts)
+      endif
+    else
+      let all_opts = a:prepend ? [a:eopts, a:dict.options] : [a:dict.options, a:eopts]
+      let a:dict.options = join(map(all_opts, 'type(v:val) == s:TYPE.list ? join(map(copy(v:val), "fzf#shellescape(v:val)")) : v:val'))
+    endif
+  else
+    let a:dict.options = a:eopts
+  endif
+endfunction
+
+function! s:merge_opts(dict, eopts)
+  return s:extend_opts(a:dict, a:eopts, 0)
 endfunction
 
 function! vimrc#fzf#get_generate_preview_command_with_bat_script()
@@ -229,15 +274,17 @@ function! vimrc#fzf#functions_sink(line)
 endfunction
 
 " Borrowed from fzf.vim
-function! vimrc#fzf#helptag_sink(line)
-  let [tag, file, path] = split(a:line, "\t")[0:2]
+function! vimrc#fzf#helptag_sink(lines)
+  echomsg "helptag_sink, lines: ".string(a:lines)
+  let use_float = a:lines[0] == 'alt-z' ? v:true : v:false
+  let [tag, file, path] = split(a:lines[1], "\t")[0:2]
   let rtp = fnamemodify(path, ':p:h:h')
   if stridx(&rtp, rtp) < 0
     execute 'set rtp+='.s:escape(rtp)
   endif
   execute 'help' tag
 
-  if has('nvim')
+  if has('nvim') && use_float
     call vimrc#zoom#into_float()
   endif
 endfunction
@@ -322,10 +369,21 @@ function! vimrc#fzf#functions()
       \ 'options': ['--prompt', 'Functions> ']}))
 endfunction
 
-function! vimrc#fzf#helptag(bang)
-  let options = {
-        \ 'sink': function('vimrc#fzf#helptag_sink'),
-        \ 'options': ['--prompt', 'Helptags> ']
-        \ }
-  call fzf#vim#helptags(options, a:bang)
+function! vimrc#fzf#helptags(...)
+  if !executable('grep') || !executable('perl')
+    return vimrc#warn('Helptags command requires grep and perl')
+  endif
+  let sorted = sort(split(globpath(&runtimepath, 'doc/tags', 1), '\n'))
+  let tags = exists('*uniq') ? uniq(sorted) : fzf#vim#_uniq(sorted)
+
+  if exists('s:helptags_script')
+    silent! call delete(s:helptags_script)
+  endif
+  let s:helptags_script = tempname()
+  call writefile(['/('.(vimrc#plugin#check#get_os() =~ "windows" ? '^[A-Z]:\/.*?[^:]' : '.*?').'):(.*?)\t(.*?)\t/; printf(qq('.vimrc#fzf#green('%-40s', 'Label').'\t%s\t%s\n), $2, $3, $1)'], s:helptags_script)
+  return vimrc#fzf#fzf('helptags', {
+  \ 'source':  'grep -H ".*" '.join(map(tags, 'fzf#shellescape(v:val)')).
+    \ ' | perl -n '.fzf#shellescape(s:helptags_script).' | sort',
+    \ 'sink*': function('vimrc#fzf#helptag_sink'),
+  \ 'options': ['--ansi', '+m', '--tiebreak=begin', '--with-nth', '..-2', '--prompt', 'Helptags> ', '--expect=alt-z']}, a:000)
 endfunction

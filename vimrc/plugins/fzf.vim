@@ -71,7 +71,7 @@ imap <C-X><C-L> <Plug>(fzf-complete-line)
 inoremap <expr> <C-X><C-D> fzf#vim#complete#path('fd -t d')
 
 " fzf functions & commands {{{
-command! -bar  -bang                  Helptags call vimrc#fzf#helptag(<bang>0)
+command! -bar  -bang                  Helptags call vimrc#fzf#helptags(<bang>0)
 command! -bang -nargs=? -complete=dir Files    call vimrc#fzf#files(<q-args>, <bang>0)
 command! -bang -nargs=?               GFiles   call vimrc#fzf#gitfiles(<q-args>, <bang>0)
 command! -bang -nargs=+ -complete=dir Locate   call vimrc#fzf#locate(<q-args>, <bang>0)
