@@ -251,6 +251,18 @@ if has('nvim')
   xnoremap <silent> <Leader>zf :<C-U>call vimrc#zoom#float_selected(vimrc#get_visual_selection())<CR>
 endif
 
+" Float
+if has('nvim')
+  command! -nargs=?                   VimrcFloatToggle call vimrc#float#toggle(<f-args>)
+  command! -nargs=? -complete=command VimrcFloatNew    call vimrc#float#new(<f-args>)
+  command!                            VimrcFloatPrev   call vimrc#float#prev()
+  command!                            VimrcFloatNext   call vimrc#float#next()
+  nnoremap <silent> <Leader>zt :VimrcFloatToggle<CR>
+  nnoremap <silent> <Leader>zn :execute 'VimrcFloatNew '.input('command: ', '', 'command')<CR>
+  nnoremap <silent> <Leader>zj :VimrcFloatPrev<CR>
+  nnoremap <silent> <Leader>zk :VimrcFloatNext<CR>
+endif
+
 " Toggle parent folder tag
 command! ToggleParentFolderTag call vimrc#toggle_parent_folder_tag()
 nnoremap <silent> <Leader>p :ToggleParentFolderTag<CR>

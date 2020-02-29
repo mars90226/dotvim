@@ -20,13 +20,10 @@ function! vimrc#zoom#selected(selected)
 endfunction
 
 function! vimrc#zoom#float()
-  let winid = win_getid()
-  if vimrc#float#is_float(winid)
-    quit
+  if vimrc#float#is_float(win_getid())
+    VimrcFloatToggle
   else
-    let bufnr = bufnr('%')
-    let [width, height] = vimrc#float#get_default_size()
-    call vimrc#float#open(bufnr, width, height)
+    execute 'VimrcFloatNew edit '.expand('%')
   endif
 endfunction
 

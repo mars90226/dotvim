@@ -7,8 +7,10 @@ endfunction
 
 " Borrowed from vim-floaterm
 " TODO Add border float window
-function! vimrc#float#open(bufnr, width, height) abort
-  let bufnr = a:bufnr >= 0 ? a:bufnr : nvim_create_buf(v:false, v:true)
+function! vimrc#float#open(bufnr, width, height, ...) abort
+  let default_options = { 'listed': v:false, 'scratch': v:true }
+  let options = a:0 >= 1 && type(a:0) == type({}) ? extend(default_action, a:1) : default_options
+  let bufnr = a:bufnr >= 0 ? a:bufnr : nvim_create_buf(options.listed, options.scratch)
 
   let col = (&columns - a:width) / 2
   let row = (&lines - a:height) / 2
@@ -21,13 +23,112 @@ function! vimrc#float#open(bufnr, width, height) abort
     \ 'height': a:height,
     \ 'style':'minimal'
     \ }
-  return nvim_open_win(bufnr, v:true, opts)
+  let winid = nvim_open_win(bufnr, v:true, opts)
+
+  call nvim_win_set_var(winid, 'vimrc_float', v:true)
+  return [bufnr, winid]
 endfunction
 
 function! vimrc#float#is_float(winid)
   try
-    return !empty(nvim_win_get_config(a:winid).relative)
+    return !empty(nvim_win_get_config(a:winid).relative) && getwinvar(a:winid, 'vimrc_float', v:false)
   catch /E5555: API call: Invalid window id:/
     return v:false
   endtry
+endfunction
+function! vimrc#float#is_float_winnr(winnr)
+  return vimrc#float#is_float(win_getid(a:winnr))
+endfunction
+
+" Functions
+" Borrowed from https://github.com/voldikss/vim-floaterm/blob/master/autoload/floaterm.vim
+function! vimrc#float#new(...)
+  call vimrc#float#hide()
+
+  let [width, height] = vimrc#float#get_default_size()
+  let [bufnr, winid] = vimrc#float#open(-1, width, height)
+
+  if a:0 >= 1 && type(a:1) == type('') && !empty(a:1)
+    let command = a:1
+    execute command
+    " bufnr may changed after executing command
+    let bufnr = bufnr()
+  endif
+
+  call vimrc#float#buflist#add(bufnr)
+  return bufnr
+endfunction
+
+" Find **one** floaterm window
+function! s:find_term_win() abort
+  let found_winnr = 0
+  for winnr in range(1, winnr('$'))
+    if vimrc#float#is_float_winnr(winnr)
+      let found_winnr = winnr
+      break
+    endif
+  endfor
+  return found_winnr
+endfunction
+
+function! vimrc#float#hide()
+  while v:true
+    let found_winnr = s:find_term_win()
+    if found_winnr > 0
+      execute found_winnr . 'hide'
+    else
+      break
+    endif
+  endwhile
+endfunction
+
+function! vimrc#float#next()  abort
+  call vimrc#float#hide()
+  let next_bufnr = vimrc#float#buflist#find_next()
+  if next_bufnr == -1
+    echo 'No more vimrc_floats'
+  else
+    let [width, height] = vimrc#float#get_default_size()
+    call vimrc#float#open(next_bufnr, width, height)
+  endif
+endfunction
+
+function! vimrc#float#prev()  abort
+  call vimrc#float#hide()
+  let prev_bufnr = vimrc#float#buflist#find_prev()
+  if prev_bufnr == -1
+    echo 'No more vimrc_floats'
+  else
+    let [width, height] = vimrc#float#get_default_size()
+    call vimrc#float#open(prev_bufnr, width, height)
+  endif
+endfunction
+
+function! vimrc#float#curr(...) abort
+  let curr_bufnr = vimrc#float#buflist#find_curr()
+  if curr_bufnr == -1
+    let curr_bufnr = vimrc#float#new(a:0 >= 1 ? a:1 : '')
+  else
+    let [width, height] = vimrc#float#get_default_size()
+    call vimrc#float#open(curr_bufnr, width, height)
+  endif
+  return curr_bufnr
+endfunction
+
+function! vimrc#float#toggle(...)  abort
+  if vimrc#float#is_float(win_getid())
+    hide
+  else
+    let found_winnr = s:find_term_win()
+    if found_winnr > 0
+      execute found_winnr . 'wincmd w'
+      if has('nvim')
+        startinsert
+      elseif mode() ==# 'n'
+        normal! i
+      endif
+    else
+      call vimrc#float#curr(a:0 >= 1 ? a:1 : '')
+    endif
+  endif
 endfunction
