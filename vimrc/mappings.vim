@@ -256,10 +256,11 @@ endif
 if has('nvim')
   command! -bang -nargs=?                   VimrcFloatToggle call vimrc#float#toggle(<q-args>, <bang>0)
   command! -bang -nargs=? -complete=command VimrcFloatNew    call vimrc#float#new(<q-args>, <bang>0)
-  command!                            VimrcFloatPrev   call vimrc#float#prev()
-  command!                            VimrcFloatNext   call vimrc#float#next()
+  command!                                  VimrcFloatPrev   call vimrc#float#prev()
+  command!                                  VimrcFloatNext   call vimrc#float#next()
   nnoremap <silent> <M-,><M-l> :VimrcFloatToggle<CR>
   nnoremap <silent> <M-,><M-n> :execute 'VimrcFloatNew '.input('command: ', '', 'command')<CR>
+  nnoremap <silent> <M-,><M-m> :execute 'VimrcFloatNew! '.input('command: ', '', 'command')<CR>
   nnoremap <silent> <M-,><M-j> :VimrcFloatPrev<CR>
   nnoremap <silent> <M-,><M-k> :VimrcFloatNext<CR>
 endif
