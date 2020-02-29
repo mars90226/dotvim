@@ -209,6 +209,7 @@ function! vimrc#defx#open(target, action)
   endif
 endfunction
 
+" TODO Rename to indicate sink?
 function! vimrc#defx#open_dir(target, action)
   if isdirectory(a:target)
     let dir = a:target
