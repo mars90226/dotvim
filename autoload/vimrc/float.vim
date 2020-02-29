@@ -154,3 +154,7 @@ function! vimrc#float#toggle(...)  abort
     endif
   endif
 endfunction
+
+function! vimrc#float#remove() abort
+  return vimrc#float#buflist#remove_curr()
+endfunction

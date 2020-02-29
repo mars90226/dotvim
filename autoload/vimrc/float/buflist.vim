@@ -141,6 +141,27 @@ function! s:buflist.to_string() dict abort
   return str
 endfunction
 
+" For source extensions(vim-clap, denite)
+" Return a list containing floaterm bufnr
+" Every bufnr should exist
+function! s:buflist.gather() dict abort
+  let candidates = []
+  let curr = self.head.next
+  while curr != self.head
+    if curr.is_valid()
+      call add(candidates, curr.bufnr)
+    endif
+    let curr = curr.next
+  endwhile
+  return candidates
+endfunction
+
+" Remove current node
+function! s:buflist.remove_curr() dict abort
+  let node = self.index
+  return self.remove(node)
+endfunction
+
 
 " ----------------------------------------------------------------------------
 " Wrap functions to allow to be involved
@@ -163,4 +184,7 @@ function! vimrc#float#buflist#info() abort
 endfunction
 function! vimrc#float#buflist#gather() abort
   return s:buflist.gather()
+endfunction
+function! vimrc#float#buflist#remove_curr() abort
+  return s:buflist.remove_curr()
 endfunction

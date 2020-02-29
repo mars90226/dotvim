@@ -258,12 +258,14 @@ if has('nvim')
   command! -bang -nargs=? -complete=command VimrcFloatNew    call vimrc#float#new(<q-args>, <bang>0)
   command!                                  VimrcFloatPrev   call vimrc#float#prev()
   command!                                  VimrcFloatNext   call vimrc#float#next()
+  command!                                  VimrcFloatRemove call vimrc#float#remove()
   nnoremap <silent> <M-,><M-l> :VimrcFloatToggle<CR>
   inoremap <silent> <M-,><M-l> <Esc>:VimrcFloatToggle<CR>
   nnoremap <silent> <M-,><M-n> :execute 'VimrcFloatNew '.input('command: ', '', 'command')<CR>
   nnoremap <silent> <M-,><M-m> :execute 'VimrcFloatNew! '.input('command: ', '', 'command')<CR>
   nnoremap <silent> <M-,><M-j> :VimrcFloatPrev<CR>
   nnoremap <silent> <M-,><M-k> :VimrcFloatNext<CR>
+  nnoremap <silent> <M-,><M-r> :VimrcFloatRemove<CR>
 endif
 
 " Toggle parent folder tag
