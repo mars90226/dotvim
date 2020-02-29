@@ -30,9 +30,7 @@ endfunction
 function! vimrc#zoom#float_selected(selected)
   let filetype = &filetype
 
-  let [width, height] = vimrc#float#get_default_size()
-  call vimrc#float#open(-1, width, height)
-
+  VimrcFloatNew
   call append(line('$'), split(a:selected, "\n"))
   1delete
 
