@@ -10,7 +10,10 @@
 "     \'prev': s:node,
 "     \'bufnr': int
 "   \}
+
+if !exists('s:node')
 let s:node = {}
+endif
 
 function! s:node.new(bufnr) dict abort
   let node = deepcopy(self)
@@ -36,12 +39,14 @@ endfunction
 "     \'index': s:node,
 "     \'size': int
 "   \}
-let s:buflist = {}
-let s:buflist.head = s:node.new(-1)
-let s:buflist.head.next = s:buflist.head
-let s:buflist.head.prev = s:buflist.head
-let s:buflist.index = s:buflist.head
-let s:buflist.size = 0
+if !exists('s:buflist')
+  let s:buflist = {}
+  let s:buflist.head = s:node.new(-1)
+  let s:buflist.head.next = s:buflist.head
+  let s:buflist.head.prev = s:buflist.head
+  let s:buflist.index = s:buflist.head
+  let s:buflist.size = 0
+endif
 
 function! s:buflist.insert(node) dict abort
   let a:node.prev = self.index
