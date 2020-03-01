@@ -104,15 +104,14 @@ function! vimrc#fzf#git#files_commit_sink(commit, lines)
     return
   endif
   let Cmd = vimrc#fzf#action_for_with_table(s:fugitive_fzf_action, a:lines[0], 'Gedit')
-  for target in a:lines[1:]
-    let filename = a:commit . ':' . target
-    if type(Cmd) == type(function('call'))
-      " FIXME function should use sink* or collect into list and past to it
-      Cmd(filename)
-    else
+  let list = map(a:lines[1:], { _, filename -> a:commit.':'.filename })
+  if type(Cmd) == type(function('call'))
+    call Cmd(list)
+  else
+    for filename in list
       execute Cmd . ' ' . filename
-    endif
-  endfor
+    endfor
+  endif
 endfunction
 
 " Commands

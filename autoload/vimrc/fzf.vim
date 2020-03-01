@@ -10,6 +10,7 @@ endfunction
 function! vimrc#fzf#build_quickfix_list(lines)
   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
   copen
+  cfirst
   cclose
 endfunction
 
@@ -47,13 +48,11 @@ function! vimrc#fzf#fill_quickfix(list, ...)
 endfunction
 
 " For using g:fzf_action in custom sink function
-" Don't return function, as function in g:fzf_action will only accept a:lines
-" or a:line, which is probably not what the caller want.
 let s:TYPE = {'dict': type({}), 'funcref': type(function('call')), 'string': type(''), 'list': type([])}
 function! vimrc#fzf#action_for_with_table(table, key, ...)
   let default = a:0 ? a:1 : ''
   let Cmd = get(a:table, a:key, default)
-  return type(Cmd) == s:TYPE.string ? Cmd : default
+  return type(Cmd) == s:TYPE.string || type(Cmd) == s:TYPE.funcref ? Cmd : default
 endfunction
 
 function! vimrc#fzf#action_for(key, ...)
@@ -227,14 +226,14 @@ function! vimrc#fzf#files_sink(lines)
     return
   endif
   let Cmd = vimrc#fzf#action_for(a:lines[0], 'edit')
-  for target in a:lines[1:]
-    if type(Cmd) == type(function('call'))
-      " FIXME function should use sink* or collect into list and past to it
-      Cmd(target)
-    else
-      execute Cmd . ' ' . target
-    endif
-  endfor
+  let list = a:lines[1:]
+  if type(Cmd) == type(function('call'))
+    call Cmd(list)
+  else
+    for filename in list
+      execute Cmd . ' ' . filename
+    endfor
+  endif
 endfunction
 
 function! vimrc#fzf#files_in_commandline_sink(results, line)
