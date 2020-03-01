@@ -1,4 +1,4 @@
-if !exists("s:last_tabs")
+if !exists('s:last_tabs')
   let s:last_tabs = [1]
 endif
 

@@ -1,34 +1,37 @@
-let s:lightline_width_threshold = 70
+" Script Enconding: UTF-8
+scriptencoding utf-8
+
+let s:lightline_width_threshold = 69
 
 function! vimrc#lightline#filename()
   let fname = expand('%:t')
   let fpath = expand('%')
 
-  if fname =~ '__Tagbar__'
+  if fname =~# '__Tagbar__'
     return get(g:lightline, 'fname', fname)
-  elseif fname == '__vista__'
+  elseif fname ==# '__vista__'
     return get(g:lightline, 'fname', fname)
-  elseif fname == '__Mundo__'
+  elseif fname ==# '__Mundo__'
     return 'Mundo'
-  elseif fname == '__Mundo_Preview__'
+  elseif fname ==# '__Mundo_Preview__'
     return 'Mundo Preview'
-  elseif &ft == 'qf'
+  elseif &filetype ==# 'qf'
     return get(w:, 'quickfix_title', '')
-  elseif &ft == 'unite'
+  elseif &filetype ==# 'unite'
     return unite#get_status_string()
-  elseif &ft == 'vimfiler'
+  elseif &filetype ==# 'vimfiler'
     return vimfiler#get_status_string()
-  elseif &ft == 'help'
+  elseif &filetype ==# 'help'
     let t:current_filename = fname
     return fname
   else
-    let readonly = '' != vimrc#lightline#readonly() ? vimrc#lightline#readonly() . ' ' : ''
+    let readonly = '' !=# vimrc#lightline#readonly() ? vimrc#lightline#readonly() . ' ' : ''
     if fpath =~? '^fugitive'
       let filename = fnamemodify(fugitive#Real(fpath), ':.') . ' [git]'
     else
-      let filename = '' != fname ? fpath : '[No Name]'
+      let filename = '' !=# fname ? fpath : '[No Name]'
     end
-    let modified = '' != vimrc#lightline#modified() ? ' ' . vimrc#lightline#modified() : ''
+    let modified = '' !=# vimrc#lightline#modified() ? ' ' . vimrc#lightline#modified() : ''
 
     let t:current_filename = fname
     return readonly . filename . modified
@@ -36,7 +39,7 @@ function! vimrc#lightline#filename()
 endfunction
 
 function! vimrc#lightline#readonly()
-  return &ft !~? 'help' && &readonly ? '' : ''
+  return &filetype !~? 'help' && &readonly ? '' : ''
 endfunction
 
 function! vimrc#lightline#modified()
@@ -65,14 +68,14 @@ endfunction
 
 function! vimrc#lightline#mode()
   let fname = expand('%:t')
-  return fname =~ '__Tagbar__' ? 'Tagbar' :
-        \ fname == '__vista__' ? 'Vista' :
-        \ fname == '__Mundo__' ? 'Mundo' :
-        \ fname == '__Mundo_Preview__' ? 'Mundo Preview' :
-        \ &ft == 'qf' ? vimrc#lightline#quickfix_mode() :
-        \ &ft == 'unite' ? 'Unite' :
-        \ &ft == 'vimfiler' ? 'VimFiler' :
-        \ &ft == 'fugitive' ? 'Fugitive' :
+  return fname =~# '__Tagbar__' ? 'Tagbar' :
+        \ fname ==# '__vista__' ? 'Vista' :
+        \ fname ==# '__Mundo__' ? 'Mundo' :
+        \ fname ==# '__Mundo_Preview__' ? 'Mundo Preview' :
+        \ &filetype ==# 'qf' ? vimrc#lightline#quickfix_mode() :
+        \ &filetype ==# 'unite' ? 'Unite' :
+        \ &filetype ==# 'vimfiler' ? 'VimFiler' :
+        \ &filetype ==# 'fugitive' ? 'Fugitive' :
         \ lightline#mode()
 endfunction
 
@@ -90,21 +93,21 @@ endfunction
 function! vimrc#lightline#tab_filename(n) abort
   let bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]
   let fname = expand('#' . bufnr . ':t')
-  let ftype = getbufvar(bufnr, '&ft')
-  let FilenameFilter = { fname -> '' != fname ? fname : '[No Name]' }
-  return fname =~ '__Tagbar__' ? 'Tagbar' :
-        \ fname == '__vista__' ? 'Vista' :
-        \ ftype == 'fzf' ? FilenameFilter(gettabvar(a:n, 'current_filename', fname)) :
+  let ftype = getbufvar(bufnr, '&filetype')
+  let FilenameFilter = { fname -> '' !=# fname ? fname : '[No Name]' }
+  return fname =~# '__Tagbar__' ? 'Tagbar' :
+        \ fname ==# '__vista__' ? 'Vista' :
+        \ ftype ==# 'fzf' ? FilenameFilter(gettabvar(a:n, 'current_filename', fname)) :
         \ FilenameFilter(fname)
 endfunction
 
 function! vimrc#lightline#tab_modified(n) abort
   let winnr = tabpagewinnr(a:n)
   let bufnr = tabpagebuflist(a:n)[winnr - 1]
-  let ftype = getbufvar(bufnr, '&ft')
+  let ftype = getbufvar(bufnr, '&filetype')
   let buftype = getbufvar(bufnr, '&buftype')
-  return ftype == 'fzf' ? '' :
-        \ buftype == 'terminal' ? '' :
+  return ftype ==# 'fzf' ? '' :
+        \ buftype ==# 'terminal' ? '' :
         \ gettabwinvar(a:n, winnr, '&modified') ? '+' : gettabwinvar(a:n, winnr, '&modifiable') ? '' : '-'
 endfunction
 
@@ -121,5 +124,5 @@ endfunction
 
 function! vimrc#lightline#nearest_method_or_function()
   let vista_method = get(b:, 'vista_nearest_method_or_function', '')
-  return vista_method == '' ? tagbar#currenttag('%s', '', '') : vista_method
+  return vista_method ==# '' ? tagbar#currenttag('%s', '', '') : vista_method
 endfunction

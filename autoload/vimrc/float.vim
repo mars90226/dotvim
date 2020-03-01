@@ -17,7 +17,7 @@ endfunction
 " TODO Add border float window
 function! vimrc#float#open(bufnr, width, height, ...) abort
   let default_options = { 'listed': v:false, 'scratch': v:true }
-  let options = a:0 >= 1 && type(a:0) == type({}) ? extend(default_action, a:1) : default_options
+  let options = a:0 >= 1 && type(a:0) == type({}) ? extend(default_options, a:1) : default_options
   let bufnr = a:bufnr >= 0 ? a:bufnr : nvim_create_buf(options.listed, options.scratch)
 
   let [col, row] = vimrc#float#calculate_pos(a:width, a:height)

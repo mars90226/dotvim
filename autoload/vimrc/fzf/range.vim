@@ -1,7 +1,7 @@
 " Sources
 " Borrowed from s:buffer_lines from fzf.vim
 function! vimrc#fzf#range#range_lines_source(start, end, query)
-  let linefmt = vimrc#fzf#yellow(" %4d ", "LineNr")."\t%s"
+  let linefmt = vimrc#fzf#yellow(' %4d ', 'LineNr')."\t%s"
   let fmtexpr = 'printf(linefmt, v:key + 1, v:val)'
   let lines = getline(1, '$')
   if empty(a:query)
@@ -58,6 +58,7 @@ function! vimrc#fzf#range#screen_lines(...)
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
 
   let save_cursor = getcurpos()
+  " FIXME vint: dangerous command
   normal H
   let start = getpos('.')[1]
   normal L
@@ -73,14 +74,14 @@ function! vimrc#fzf#range#select_operator(operator)
     autocmd!
     autocmd WinEnter * call vimrc#fzf#range#select_operator_callback()
   augroup END
-  execute "normal v".a:operator.":SelectLines\<CR>"
+  execute 'normal v'.a:operator.":SelectLines\<CR>"
 endfunction
 
 function! vimrc#fzf#range#select_operator_callback()
   if exists('w:origin_pos')
     " Fzf will jump to target line AFTER we set cursor position
     " So this cursor position will become last position.
-    call setpos(".", w:origin_pos)
+    call setpos('.', w:origin_pos)
     unlet w:origin_pos
     autocmd! range_select_operator_callback
   endif

@@ -15,18 +15,18 @@ function! vimrc#browser#get_search_command(keyword)
   elseif executable('chrome')
     return "chrome '? " . a:keyword . "'"
   else
-    return ""
+    return ''
   endif
 endfunction
 
 function! vimrc#browser#get_client_command(command)
   " TODO Check client browser
-  return "ssh ".$SSH_CLIENT_HOST." 'firefox ".a:command."'"
+  return 'ssh '.$SSH_CLIENT_HOST." 'firefox ".a:command."'"
 endfunction
 
 function! vimrc#browser#get_client_search_command(keyword)
   " TODO Check client browser
-  return "ssh ".$SSH_CLIENT_HOST." \"firefox --search '".a:keyword."'\""
+  return 'ssh '.$SSH_CLIENT_HOST." \"firefox --search '".a:keyword."'\""
 endfunction
 
 " Utilities {{{
@@ -34,7 +34,7 @@ endfunction
 function! vimrc#browser#async_execute(command)
   " Currently only support neovim
   if !vimrc#plugin#check#has_rpc()
-    echoerr "This version of vim does not have RPC!"
+    echoerr 'This version of vim does not have RPC!'
     return
   endif
 
@@ -43,7 +43,7 @@ endfunction
 
 function! vimrc#browser#async_browse(command)
   if empty(a:command)
-    echoerr "No browser found!"
+    echoerr 'No browser found!'
     return
   endif
 
@@ -56,8 +56,8 @@ endfunction
 " TODO Move to better place?
 function! vimrc#browser#async_open(uri)
   " Use xdg-open to open URI
-  if !has("unix") || !executable("xdg-open")
-    echoerr "No xdg-open found!"
+  if !has('unix') || !executable('xdg-open')
+    echoerr 'No xdg-open found!'
     return
   endif
 

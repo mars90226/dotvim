@@ -33,7 +33,7 @@ function! vimrc#fzf#open_terminal(lines)
 endfunction
 
 " Utility functions
-" borrowed from fzf.vim {{{
+" Borrowed from fzf.vim {{{
 " For filling quickfix in custom sink function
 function! vimrc#fzf#fill_quickfix(list, ...)
   if len(a:list) > 1
@@ -77,7 +77,7 @@ endfunction
 
 function! vimrc#fzf#csi(color, fg)
   let prefix = a:fg ? '38;' : '48;'
-  if a:color[0] == '#'
+  if a:color[0] ==# '#'
     return prefix.'2;'.join(map([a:color[1:2], a:color[3:4], a:color[5:6]], 'str2nr(v:val, 16)'), ';')
   endif
   return prefix.'5;'.a:color
@@ -94,9 +94,9 @@ function! vimrc#fzf#ansi(str, group, default, ...)
 endfunction
 
 for s:color_name in keys(s:ansi)
-  execute "function! vimrc#fzf#".s:color_name."(str, ...)\n"
+  execute 'function! vimrc#fzf#'.s:color_name."(str, ...)\n"
         \ "  return vimrc#fzf#ansi(a:str, get(a:, 1, ''), '".s:color_name."')\n"
-        \ "endfunction"
+        \ 'endfunction'
 endfor
 
 function! vimrc#fzf#fzf(name, opts, extra)
@@ -127,7 +127,7 @@ function! vimrc#fzf#wrap(name, opts, bang)
   if has_key(opts, 'options')
     let options = type(opts.options) == s:TYPE.list ? join(opts.options) : opts.options
   endif
-  if options !~ '--expect' && has_key(opts, 'sink*')
+  if options !~# '--expect' && has_key(opts, 'sink*')
     let Sink = remove(opts, 'sink*')
     let wrapped = fzf#wrap(a:name, opts, a:bang)
     let wrapped['sink*'] = Sink
@@ -188,31 +188,36 @@ function! vimrc#fzf#with_default_options(...)
   let opts.options = extend(fzf_default_options, options)
   return opts
 endfunction
+
+function! s:escape(path)
+  let path = fnameescape(a:path)
+  return vimrc#plugin#check#get_os() =~# 'windows' ? escape(path, '$') : path
+endfunction
 " }}}
 
 " Sources
 function! vimrc#fzf#jump_source()
-  return reverse(filter(split(execute("jumps", "silent!"), "\n")[1:], 'v:val != ">"'))
+  return reverse(filter(split(execute('jumps', 'silent!'), "\n")[1:], 'v:val !=# ">"'))
 endfunction
 
 function! vimrc#fzf#registers_source()
-  return split(execute("registers", "silent!"), "\n")[1:]
+  return split(execute('registers', 'silent!'), "\n")[1:]
 endfunction
 
 " TODO Add sign text and highlight
 function! vimrc#fzf#current_placed_signs_source()
-  let linefmt = vimrc#fzf#yellow(" %4d ", "LineNr")."\t%s"
+  let linefmt = vimrc#fzf#yellow(' %4d ', 'LineNr')."\t%s"
   let fmtexpr = 'printf(linefmt, v:val[0], v:val[1])'
-  let current_placed_signs = split(execute("sign place buffer=" . bufnr('%'), "silent!"), "\n")[2:]
+  let current_placed_signs = split(execute('sign place buffer=' . bufnr('%'), 'silent!'), "\n")[2:]
   let line_numbers = map(current_placed_signs, "str2nr(matchstr(v:val, '\\d\\+', 9))")
   let uniq_line_numbers = uniq(line_numbers) " Remove duplicate line numbers as both GitGutter and GitP will place sign on same lines
-  let lines = map(uniq_line_numbers, "[v:val, getline(v:val)]")
+  let lines = map(uniq_line_numbers, '[v:val, getline(v:val)]')
   let formatted_lines = map(lines, fmtexpr)
   return formatted_lines
 endfunction
 
 function! vimrc#fzf#functions_source()
-  return split(execute("function", "silent!"), "\n")
+  return split(execute('function', 'silent!'), "\n")
 endfunction
 
 " Sinks
@@ -221,12 +226,13 @@ function! vimrc#fzf#files_sink(lines)
   if len(a:lines) < 2
     return
   endif
-  let cmd = vimrc#fzf#action_for(a:lines[0], 'edit')
+  let Cmd = vimrc#fzf#action_for(a:lines[0], 'edit')
   for target in a:lines[1:]
-    if type(cmd) == type(function('call'))
-      cmd(target)
+    if type(Cmd) == type(function('call'))
+      " FIXME function should use sink* or collect into list and past to it
+      Cmd(target)
     else
-      execute cmd . ' ' . target
+      execute Cmd . ' ' . target
     endif
   endfor
 endfunction
@@ -275,12 +281,11 @@ endfunction
 
 " Borrowed from fzf.vim
 function! vimrc#fzf#helptag_sink(lines)
-  echomsg "helptag_sink, lines: ".string(a:lines)
-  let use_float = a:lines[0] == 'alt-z' ? v:true : v:false
+  let use_float = a:lines[0] ==# 'alt-z' ? v:true : v:false
   let [tag, file, path] = split(a:lines[1], "\t")[0:2]
   let rtp = fnamemodify(path, ':p:h:h')
-  if stridx(&rtp, rtp) < 0
-    execute 'set rtp+='.s:escape(rtp)
+  if stridx(&runtimepath, rtp) < 0
+    let &runtimepath += s:escape(rtp)
   endif
 
   if has('nvim') && use_float
@@ -293,10 +298,10 @@ endfunction
 " Commands
 " borrowed from fzf.vim {{{
 function! vimrc#fzf#history(arg, bang)
-  let bang = a:bang || a:arg[len(a:arg)-1] == '!'
-  if a:arg[0] == ':'
+  let bang = a:bang || a:arg[len(a:arg)-1] ==# '!'
+  if a:arg[0] ==# ':'
     call fzf#vim#command_history(bang)
-  elseif a:arg[0] == '/'
+  elseif a:arg[0] ==# '/'
     call fzf#vim#search_history(bang)
   else
     call fzf#vim#history(fzf#vim#with_preview(), bang)
@@ -309,7 +314,7 @@ function! vimrc#fzf#files(path, bang)
 endfunction
 
 function! vimrc#fzf#gitfiles(args, bang) abort
-  if a:args != '?'
+  if a:args !=# '?'
     return call('fzf#vim#gitfiles', [a:args, fzf#vim#with_preview(), a:bang])
   else
     return call('fzf#vim#gitfiles', [a:args, a:bang])
@@ -381,7 +386,7 @@ function! vimrc#fzf#helptags(...)
     silent! call delete(s:helptags_script)
   endif
   let s:helptags_script = tempname()
-  call writefile(['/('.(vimrc#plugin#check#get_os() =~ "windows" ? '^[A-Z]:\/.*?[^:]' : '.*?').'):(.*?)\t(.*?)\t/; printf(qq('.vimrc#fzf#green('%-40s', 'Label').'\t%s\t%s\n), $2, $3, $1)'], s:helptags_script)
+  call writefile(['/('.(vimrc#plugin#check#get_os() =~# 'windows' ? '^[A-Z]:\/.*?[^:]' : '.*?').'):(.*?)\t(.*?)\t/; printf(qq('.vimrc#fzf#green('%-40s', 'Label').'\t%s\t%s\n), $2, $3, $1)'], s:helptags_script)
   return vimrc#fzf#fzf('helptags', {
   \ 'source':  'grep -H ".*" '.join(map(tags, 'fzf#shellescape(v:val)')).
     \ ' | perl -n '.fzf#shellescape(s:helptags_script).' | sort',

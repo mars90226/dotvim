@@ -1,3 +1,6 @@
+" Script Encoding: UTF-8
+scriptencoding utf-8
+
 " These are already defined
 " digraphs ,_ 12289 " '、'
 " digraphs ._ 12290 " '。'

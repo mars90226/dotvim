@@ -31,9 +31,9 @@ endfunction
 
 function! vimrc#textobj#past_character(count, mode, forward)
   let character = nr2char(getchar())
-  let mode_prefix = a:mode == 'v' ? 'gv' : ''
+  let mode_prefix = a:mode ==# 'v' ? 'gv' : ''
   let find_command = a:forward ? 'f' : 'F'
   let past_suffix = a:forward ? 'l' : 'h'
-  let past_suffix = a:mode == 'n' ? past_suffix : past_suffix.past_suffix
+  let past_suffix = a:mode ==# 'n' ? past_suffix : past_suffix.past_suffix
   execute 'normal! '.mode_prefix.a:count.find_command.character.past_suffix
 endfunction

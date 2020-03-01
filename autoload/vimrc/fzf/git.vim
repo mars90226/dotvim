@@ -25,7 +25,7 @@ endfunction
 " Borrowed from fzf.vim {{{
 function! s:escape(path)
   let path = fnameescape(a:path)
-  return vimrc#plugin#check#get_os() == 'windows' ? escape(path, '$') : path
+  return vimrc#plugin#check#get_os() ==# 'windows' ? escape(path, '$') : path
 endfunction
 
 function! s:open(cmd, target)
@@ -50,7 +50,7 @@ function! s:git_grep_to_qf(line, commit, with_column)
 
   let text = join(parts[indexs['text']:], ':')
   let dict = {
-        \ 'filename': (empty(a:commit) ? '' : parts[indexs['commit']] . ':') . (&acd ? fnamemodify(parts[indexs['filename']], ':p') : parts[indexs['filename']]),
+        \ 'filename': (empty(a:commit) ? '' : parts[indexs['commit']] . ':') . (&autochdir ? fnamemodify(parts[indexs['filename']], ':p') : parts[indexs['filename']]),
         \ 'lnum': parts[indexs['lnum']],
         \ 'text': text }
   if a:with_column
@@ -103,13 +103,14 @@ function! vimrc#fzf#git#files_commit_sink(commit, lines)
   if len(a:lines) < 2
     return
   endif
-  let cmd = vimrc#fzf#action_for_with_table(s:fugitive_fzf_action, a:lines[0], 'Gedit')
+  let Cmd = vimrc#fzf#action_for_with_table(s:fugitive_fzf_action, a:lines[0], 'Gedit')
   for target in a:lines[1:]
     let filename = a:commit . ':' . target
-    if type(cmd) == type(function('call'))
-      cmd(filename)
+    if type(Cmd) == type(function('call'))
+      " FIXME function should use sink* or collect into list and past to it
+      Cmd(filename)
     else
-      execute cmd . ' ' . filename
+      execute Cmd . ' ' . filename
     endif
   endfor
 endfunction
@@ -165,14 +166,14 @@ function! vimrc#fzf#git#rg_diff(...)
 endfunction
 
 " Git commit command {{{
-if vimrc#plugin#check#git_version() >= 'git version 2.19.0'
+if vimrc#plugin#check#git_version() >=# 'git version 2.19.0'
   let s:git_grep_commit_command = 'git grep -n --column'
 else
   let s:git_grep_commit_command = 'git grep -n'
 endif
 function! vimrc#fzf#git#grep_commit(commit, ...)
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
-  let with_column = (vimrc#plugin#check#git_version() >= 'git version 2.19.0') ? 1 : 0
+  let with_column = (vimrc#plugin#check#git_version() >=# 'git version 2.19.0') ? 1 : 0
   " TODO Think of a better way to avoid temp file and can still let bat detect language
   " Depends on bat
   " Borrowed from fzf.vim preview.sh

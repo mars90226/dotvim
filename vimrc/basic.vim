@@ -1,5 +1,5 @@
 " Map Leader
-let g:mapleader = ","
+let g:mapleader = ','
 
 " Language
 " Always use English to avoid plugin not catching exception due to translation
@@ -13,7 +13,7 @@ endif
 " Change Menu language
 " This should happen before loading plugins to avoid deleting plugins' menus
 if has('gui')
-  if &langmenu != 'en_US.UTF-8'
+  if &langmenu !=# 'en_US.UTF-8'
     set langmenu=en_US.UTF-8
     source $VIMRUNTIME/delmenu.vim
     source $VIMRUNTIME/menu.vim
@@ -21,6 +21,6 @@ if has('gui')
 endif
 
 " Set Encoding
-if vimrc#plugin#check#get_os() =~ "windows"
+if vimrc#plugin#check#get_os() =~# 'windows'
   set encoding=utf8
 endif

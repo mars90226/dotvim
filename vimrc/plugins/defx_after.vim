@@ -1,3 +1,6 @@
+" Script Encoding: UTF-8
+scriptencoding utf-8
+
 call defx#custom#option('_', {
       \ 'columns': 'git:mark:indent:icon:filename:type:size:time',
       \ 'show_ignored_files': 1,

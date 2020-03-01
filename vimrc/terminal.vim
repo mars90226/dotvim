@@ -1,5 +1,5 @@
 " xterm-256 in Windows {{{
-if !has("nvim") && !has("gui_running") && vimrc#plugin#check#get_os() =~ "windows"
+if !has('nvim') && !has('gui_running') && vimrc#plugin#check#get_os() =~# 'windows'
   set term=xterm
   set mouse=a
   set t_Co=256
@@ -14,9 +14,9 @@ endif
 " Pair up with 'set winaltkeys=no' in ginit.vim
 " Fix meta key in vim
 " terminal meta key fix {{{
-if !has("nvim") && !has("gui_running") && vimrc#plugin#check#get_os() !~ "windows"
+if !has('nvim') && !has('gui_running') && vimrc#plugin#check#get_os() !~# 'windows'
   " TODO Check if the "windows" condition is wrong
-  if vimrc#plugin#check#get_os() =~ "windows"
+  if vimrc#plugin#check#get_os() =~# 'windows'
     " Windows Terminal keycode will change after startup
     " Maybe it's related to ConEmu
     " This fix will not work after reload .vimrc/_vimrc/init.vim
@@ -31,7 +31,7 @@ endif
 " }}}
 
 " neovim terminal key mapping and settings
-if has("nvim")
+if has('nvim')
   " Set terminal buffer size to unlimited
   set scrollback=100000
 
@@ -109,8 +109,8 @@ if has("nvim")
       call vimrc#terminal#nested_neovim#register("\<M-l>", "\<C-W>l")
 
       " Quickly switch tab in terminal
-      call vimrc#terminal#nested_neovim#register("\<C-J>", "gT")
-      call vimrc#terminal#nested_neovim#register("\<C-K>", "gt")
+      call vimrc#terminal#nested_neovim#register("\<C-J>", 'gT')
+      call vimrc#terminal#nested_neovim#register("\<C-K>", 'gt')
 
       " Quickly switch to last tab in terminal
       call vimrc#terminal#nested_neovim#register("\<M-1>", ":LastTab\<CR>")

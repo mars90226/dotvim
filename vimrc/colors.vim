@@ -17,7 +17,7 @@ if !exists('g:loaded_color')
 
   set background=dark
 
-  if !exists("g:gui_oni")
+  if !exists('g:gui_oni')
     colorscheme gruvbox
   endif
 

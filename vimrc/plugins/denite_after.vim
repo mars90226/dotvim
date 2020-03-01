@@ -1,3 +1,6 @@
+" Script Encoding: UTF-8
+scriptencoding utf-8
+
 " Use fd for file/rec and ripgrep for grep
 if executable('fd')
   call denite#custom#var('file/rec', 'command',

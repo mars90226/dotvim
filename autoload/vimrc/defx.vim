@@ -26,7 +26,7 @@ endfunction
 
 function! vimrc#defx#mappings() abort " {{{
   " Define mappings
-  if bufname('%') =~ 'tab'
+  if bufname('%') =~# 'tab'
     nnoremap <silent><buffer><expr> <CR>
           \ defx#async_action('open')
   else
@@ -103,7 +103,7 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd')
   nnoremap <silent><buffer><expr> \c
         \ defx#do_action('cd', expand(input('cd: ', '', 'dir')))
-  if bufname('%') =~ 'tab'
+  if bufname('%') =~# 'tab'
     nnoremap <silent><buffer><expr> q
           \ defx#do_action('quit') . ":quit<CR>"
   else
@@ -199,7 +199,7 @@ let s:defx_additional_argument = {
 " TODO May need to escape a:line
 function! vimrc#defx#open(target, action)
   if isdirectory(a:target)
-    if &filetype == 'defx' && a:action == 'edit'
+    if &filetype ==# 'defx' && a:action ==# 'edit'
       " Use absolute path
       let target = fnamemodify(a:target, ':p')
       call defx#call_action('cd', target)
@@ -219,7 +219,7 @@ function! vimrc#defx#open_dir(target, action)
     let dir = fnamemodify(a:target, ':h')
   endif
 
-  if &filetype == 'defx' && a:action == 'edit'
+  if &filetype ==# 'defx' && a:action ==# 'edit'
     " Use absolute path
     let dir = fnamemodify(dir, ':p')
     call defx#call_action('cd', dir)
@@ -279,7 +279,7 @@ function! vimrc#defx#execute_internal(path, split) abort
     return
   endif
 
-  if cmd =~ '{}'
+  if cmd =~# '{}'
     " replace all '{}' to path
     let cmd = substitute(cmd, '{}', a:path, 'g')
   else
@@ -348,7 +348,7 @@ endfunction
 
 " Defx detect folder
 function! vimrc#defx#detect_folder(path)
-  if a:path != '' && isdirectory(a:path)
+  if a:path !=# '' && isdirectory(a:path)
     execute 'silent! Defx '.a:path
   endif
 endfunction

@@ -2,7 +2,7 @@
 function! vimrc#gv#mappings()
   nnoremap <silent><buffer> + :call vimrc#gv#expand()<CR>
 
-  call vimrc#git#include_git_mappings("gv#sha()", "vimrc#gv#visual_diff_commits()")
+  call vimrc#git#include_git_mappings('gv#sha()', 'vimrc#gv#visual_diff_commits()')
 endfunction
 
 " Functions

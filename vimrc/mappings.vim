@@ -73,7 +73,7 @@ nnoremap <Space>q :quit<CR>
 nnoremap <Space>Q :qall!<CR>
 
 " Quick execute
-if vimrc#plugin#check#get_os() =~ "windows"
+if vimrc#plugin#check#get_os() =~# 'windows'
   " Win32
   nnoremap <Leader>xx :call vimrc#windows#execute_current_file()<CR>
   nnoremap <Leader>X :call vimrc#windows#open_terminal_in_current_file_folder()<CR>
@@ -298,7 +298,7 @@ command! ClearWinfixsize call vimrc#clear_winfixsize()
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
-if !exists(":DiffOrig")
+if !exists(':DiffOrig')
   command DiffOrig call vimrc#utility#diff_original()
 endif
 
@@ -319,7 +319,7 @@ command! ReloadVimrc call vimrc#reload#reload()
 command! -nargs=1 -complete=command QuickfixOutput call vimrc#quickfix#execute(<f-args>)
 nnoremap <Leader>o :execute 'QuickfixOutput '.input('output: ', '', 'command')<CR>
 
-if vimrc#plugin#check#get_os() !~ "windows"
+if vimrc#plugin#check#get_os() !~# 'windows'
   command! Args echo system("ps -o command= -p " . getpid())
 endif
 " }}}

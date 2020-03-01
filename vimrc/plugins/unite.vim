@@ -13,7 +13,7 @@ endif
 " Unite don't auto-preview file as it's slow
 nnoremap <Space>l :Unite -start-insert line<CR>
 nnoremap <Space>p :Unite -buffer-name=files buffer bookmark file<CR>
-if has("nvim")
+if has('nvim')
   nnoremap <Space>P :Unite -start-insert file_rec/neovim<CR>
 else
   nnoremap <Space>P :Unite -start-insert file_rec<CR>

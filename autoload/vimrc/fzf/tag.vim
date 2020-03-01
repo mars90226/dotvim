@@ -9,11 +9,11 @@ endfunction
 
 " Sources
 function! vimrc#fzf#tag#get_tselect(query)
-  let tselect_output = split(execute("tselect " . a:query, "silent!"), "\n")[1:-2]
+  let tselect_output = split(execute('tselect ' . a:query, 'silent!'), "\n")[1:-2]
   let tselect_candidates = []
   let tselect_current_candidate = []
   for line in tselect_output
-    if line =~ '^\s\+\d'
+    if line =~# '^\s\+\d'
       if !empty(tselect_current_candidate)
         call add(tselect_candidates, join(tselect_current_candidate, "\t"))
         let tselect_current_candidate = []

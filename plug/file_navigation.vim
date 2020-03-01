@@ -1,11 +1,11 @@
 " Choose matcher {{{
-if has("python3")
+if has('python3')
   " Temporarily use bug fixing branch, wait for merging to master
   Plug 'raghur/fruzzy', { 'branch': 'master', 'do': { -> fruzzy#install() } }
 
   let g:fruzzy#usenative = 1
   let g:ctrlp_match_func = { 'match': 'fruzzy#ctrlp#matcher' }
-elseif has("python")
+elseif has('python')
   Plug 'FelikZ/ctrlp-py-matcher'
 
   let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }

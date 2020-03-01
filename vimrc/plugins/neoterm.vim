@@ -1,7 +1,7 @@
 call vimrc#lazy#lazy_load('neoterm')
 
 let g:neoterm_default_mod = 'botright'
-let g:neoterm_automap_keys = ',T'
+let g:neoterm_automap_keys = '<Leader>T'
 let g:neoterm_size = &lines / 2
 
 nnoremap <silent> <Space>` :execute 'T ' . input('Terminal: ', '', 'shellcmd')<CR>

@@ -1,8 +1,8 @@
 " This file is for commands that use Neovim's job API
 
-if has("nvim")
+if has('nvim')
   " Asynchronous open URI
-  if has("unix") && executable("xdg-open")
+  if has('unix') && executable('xdg-open')
     " Required by fugitive :GBrowse
     command! -bar -nargs=1 Browse call vimrc#browser#async_open(<f-args>)
     nnoremap <Leader>xx :execute      'Browse '.expand('<cWORD>')<CR>

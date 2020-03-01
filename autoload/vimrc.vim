@@ -3,8 +3,8 @@ let s:vimhome = $HOME . '/.vim'
 let s:vim_mode = $VIM_MODE
 
 " Check if $NVIM_TERMINAL is set or parent process is nvim
-let s:nvim_terminal = ($NVIM_TERMINAL == "yes" ? $NVIM_TERMINAL :
-      \ systemlist('ps -o ppid= -p '.getpid().' | xargs ps -o cmd= -p ')[0] =~ 'nvim' ? "yes" : "no")
+let s:nvim_terminal = ($NVIM_TERMINAL ==# 'yes' ? $NVIM_TERMINAL :
+      \ systemlist('ps -o ppid= -p '.getpid().' | xargs ps -o cmd= -p ')[0] =~# 'nvim' ? 'yes' : 'no')
 
 function! vimrc#get_vimhome()
   return s:vimhome
@@ -46,14 +46,14 @@ function! vimrc#get_visual_selection()
     if len(lines) == 0
         return ''
     endif
-    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[-1] = lines[-1][: column_end - (&selection ==# 'inclusive' ? 1 : 2)]
     let lines[0] = lines[0][column_start - 1:]
     return join(lines, "\n")
 endfunction
 
 function! vimrc#check_back_space() abort "{{{
   let col = col('.') - 1
-  return !col || getline('.')[col - 1] =~ '\s'
+  return !col || getline('.')[col - 1] =~# '\s'
 endfunction "}}}
 
 function! vimrc#remap(old_key, new_key, mode)
@@ -82,7 +82,7 @@ endfunction
 
 " Toggle fold between manual and syntax
 function! vimrc#toggle_fold()
-  if &foldmethod == 'manual'
+  if &foldmethod ==# 'manual'
     setlocal foldmethod=syntax
   else
     setlocal foldmethod=manual
@@ -90,7 +90,7 @@ function! vimrc#toggle_fold()
 endfunction
 
 function! vimrc#toggle_parent_folder_tag()
-  let s:parent_folder_tag_pattern = "./tags;"
+  let s:parent_folder_tag_pattern = './tags;'
   if index(split(&tags, ','), s:parent_folder_tag_pattern) != -1
     execute 'set tags-=' . s:parent_folder_tag_pattern
   else
@@ -101,7 +101,7 @@ endfunction
 function! vimrc#file_size(path)
   let path = expand(a:path)
   if isdirectory(path)
-    echomsg path . " is directory!"
+    echomsg path . ' is directory!'
     return
   endif
 
@@ -111,11 +111,11 @@ function! vimrc#file_size(path)
   let kb = file_size / (1024) % 1024
   let byte = file_size % 1024
 
-  echomsg path . " size is "
-        \ . (gb > 0 ? gb . "GB, " : "")
-        \ . (mb > 0 ? mb . "MB, " : "")
-        \ . (kb > 0 ? kb . "KB, " : "")
-        \ . byte . "byte"
+  echomsg path . ' size is '
+        \ . (gb > 0 ? gb . 'GB, ' : '')
+        \ . (mb > 0 ? mb . 'MB, ' : '')
+        \ . (kb > 0 ? kb . 'KB, ' : '')
+        \ . byte . 'byte'
 endfunction
 
 function! vimrc#set_tab_size(size)
@@ -169,7 +169,7 @@ function! vimrc#delete_inactive_buffers(wipeout, bang)
     let cmd = 'bdelete'
   endif
   for b in range(1, bufnr('$'))
-    if buflisted(b) && !getbufvar(b,"&mod") && !has_key(visible_buffers, b)
+    if buflisted(b) && !getbufvar(b,'&mod') && !has_key(visible_buffers, b)
       "bufno listed AND isn't modified AND isn't in the list of buffers open in windows and tabs
       if a:bang
         silent exec cmd . '!' b
@@ -190,7 +190,8 @@ endfunction
 " Trim whitespace
 function! vimrc#trim_whitespace()
     let l:save = winsaveview()
-    %s/\s\+$//e
+    " FIXME vint: Use substitute() instead of :substitue
+    %substitute/\s\+$//e
     call winrestview(l:save)
 endfunction
 
@@ -224,7 +225,7 @@ endfunction
 
 " Execute and save command
 function! vimrc#execute_and_save(command)
-  call histadd("cmd", a:command)
+  call histadd('cmd', a:command)
   execute a:command
 endfunction
 
@@ -246,17 +247,17 @@ function! vimrc#delete_whole_word()
   let pos = getcmdpos() - 1 " getcmdpos() start from 1, but string index start from 0
   let meet_non_space = v:false
   for i in range(pos-2, 0, -1)
-    if cmd[i] != ' '
+    if cmd[i] !=# ' '
       let meet_non_space = v:true
     endif
 
-    if cmd[i] == ' ' && meet_non_space
+    if cmd[i] ==# ' ' && meet_non_space
       call setcmdpos(i+2)
-      return cmd[0:i] . cmd[pos:]
+      return cmd[0:i] . cmd[pos : ]
     endif
   endfor
   call setcmdpos(1)
-  return cmd[pos:]
+  return cmd[pos : ]
 endfunction
 
 " Fold
@@ -264,7 +265,7 @@ endfunction
 function! vimrc#neat_fold_text()
     let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
     let lines_count = v:foldend - v:foldstart + 1
-    let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+    let lines_count_text = '| ' . printf('%10s', lines_count . ' lines') . ' |'
     let foldchar = matchstr(&fillchars, 'fold:\zs.')
     let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
     let foldtextend = lines_count_text . repeat(foldchar, 8)

@@ -150,7 +150,7 @@ command! -nargs=? -complete=customlist,fugitive#CompleteObject GitDiffCommit cal
 command! -nargs=1 -complete=customlist,fugitive#CompleteObject GitFilesCommit call vimrc#fzf#git#files_commit(<q-args>)
 " }}}
 
-if has("nvim")
+if has('nvim')
   augroup fzf_statusline
     autocmd!
     autocmd User FzfStatusLine call vimrc#fzf#statusline()
@@ -302,7 +302,7 @@ execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'I :call vimrc#fzf#cscope#cscop
 execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'A :call vimrc#fzf#cscope#cscope_query("9")<CR>'
 " }}}
 
-if has("nvim")
+if has('nvim')
   nnoremap <Space>fp   :call      vimrc#execute_and_save('ProjectTags')<CR>
   nnoremap <Space>sp   :call      vimrc#execute_and_save('ProjectTagsCaseSentitive')<CR>
   nnoremap <Space>fP   :call      vimrc#execute_and_save("ProjectTags '" . expand('<cword>'))<CR>

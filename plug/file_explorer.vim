@@ -17,7 +17,7 @@ augroup END
 " }}}
 
 " vimfiler {{{
-if vimrc#plugin#is_enabled_plugin("vimfiler")
+if vimrc#plugin#is_enabled_plugin('vimfiler')
   Plug 'Shougo/vimfiler.vim'
   Plug 'Shougo/neossh.vim'
 
@@ -26,7 +26,7 @@ endif
 " }}}
 
 " vim-choosewin {{{
-if vimrc#plugin#is_enabled_plugin("vimfiler")
+if vimrc#plugin#is_enabled_plugin('vimfiler')
   " Only used in vimfiler
   Plug 't9md/vim-choosewin'
 
@@ -35,7 +35,7 @@ endif
 " }}}
 
 " defx.nvim {{{
-if vimrc#plugin#is_enabled_plugin("defx")
+if vimrc#plugin#is_enabled_plugin('defx')
   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'kristijanhusak/defx-git'
   " Font not supported

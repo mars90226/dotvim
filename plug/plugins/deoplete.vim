@@ -1,4 +1,4 @@
-if has("nvim")
+if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
   Plug 'Shougo/deoplete.nvim'
@@ -25,7 +25,7 @@ Plug 'carlitux/deoplete-ternjs' ", { 'do': 'npm install -g tern' }
 " TODO Move this out of deoplete.nvim section
 " Dock mode display error
 " Check if nvim has float-window support
-if has("nvim") && exists('*nvim_open_win') && exists('##CompleteChanged')
+if has('nvim') && exists('*nvim_open_win') && exists('##CompleteChanged')
   Plug 'ncm2/float-preview.nvim'
 endif
 

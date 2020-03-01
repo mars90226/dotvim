@@ -16,7 +16,7 @@ endfunction
 function! vimrc#utility#execute_command(command, prompt)
   " TODO input completion
   let query = input(a:prompt)
-  if query != ''
+  if query !=# ''
     execute a:command . ' ' . query
   else
     echomsg 'Cancelled!'

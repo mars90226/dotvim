@@ -84,8 +84,8 @@ Plug 'tommcdo/vim-exchange'
 " far.vim {{{
 Plug 'brooth/far.vim'
 
-if has("python3")
-  if has("nvim")
+if has('python3')
+  if has('nvim')
     if executable('rg')
       let g:far#source = 'rgnvim'
     elseif executable('ag')

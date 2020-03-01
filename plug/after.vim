@@ -27,7 +27,7 @@ endif
 " }}}
 
 " Defx {{{
-if vimrc#plugin#is_enabled_plugin("defx")
+if vimrc#plugin#is_enabled_plugin('defx')
   call vimrc#source('vimrc/plugins/defx_after.vim')
 endif
 " }}}

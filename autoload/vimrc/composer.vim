@@ -2,7 +2,7 @@
 
 " Functions
 function! vimrc#composer#build_composer(info)
-  if a:info.status != 'unchanged' || a:info.force
+  if a:info.status !=# 'unchanged' || a:info.force
     if has('nvim')
       !cargo build --release
     else

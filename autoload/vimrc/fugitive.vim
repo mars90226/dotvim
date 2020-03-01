@@ -42,11 +42,11 @@ function! vimrc#fugitive#mappings()
 endfunction
 
 function! vimrc#fugitive#git_mappings()
-  call vimrc#git#include_git_mappings("fugitive#Object(@%)")
+  call vimrc#git#include_git_mappings('fugitive#Object(@%)')
 endfunction
 
 function! vimrc#fugitive#blame_mappings()
-  call vimrc#git#include_git_mappings("vimrc#fugitive#blame_sha()")
+  call vimrc#git#include_git_mappings('vimrc#fugitive#blame_sha()')
 endfunction
 
 " Functions
@@ -95,7 +95,7 @@ endfunction
 
 function! vimrc#fugitive#goto_blame_line(split)
   let current_line = line('.')
-  if a:split != 'edit'
+  if a:split !=# 'edit'
     execute a:split
   endif
   execute current_line.'Git blame'

@@ -2,7 +2,7 @@
 if vimrc#plugin#is_enabled_plugin('vim-mundo')
   Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
 
-  if has("python3")
+  if has('python3')
     let g:mundo_prefer_python3 = 1
   endif
 
@@ -16,7 +16,7 @@ Plug 'tpope/vim-unimpaired', { 'on': [] }
 call vimrc#lazy#lazy_load('unimpaired')
 
 " Ignore [a, ]a, [A, ]A for ale
-let g:nremap = {"[a": "", "]a": "", "[A": "", "]A": ""}
+let g:nremap = {'[a': '', ']a': '', '[A': '', ']A': ''}
 
 nmap \[u  <Plug>unimpaired_url_encode
 nmap \[uu <Plug>unimpaired_line_url_encode
@@ -101,8 +101,8 @@ nnoremap coa :AnsiEsc<CR>
 " vim-lastplace {{{
 Plug 'farmergreg/vim-lastplace'
 
-let g:lastplace_ignore = "gitcommit,gitrebase,sv,hgcommit"
-let g:lastplace_ignore_buftype = "quickfix,nofile,help,terminal"
+let g:lastplace_ignore = 'gitcommit,gitrebase,sv,hgcommit'
+let g:lastplace_ignore_buftype = 'quickfix,nofile,help,terminal'
 let g:lastplace_open_folds = 0
 " }}}
 
