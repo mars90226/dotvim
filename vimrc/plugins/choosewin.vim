@@ -8,7 +8,7 @@
 " gruvbox
 let g:choosewin_color_label_current = { 'gui': ['#b8bb26', '#282828'], 'cterm': [142, 235, 'bold'] }
 let g:choosewin_color_label = { 'gui': ['#83a598', '#282828'], 'cterm': [108, 234] }
-let g:choosewin_color_other = { 'gui': ['#504945', '#ebdbb2'], 'cterm': [241, 249] }
+let g:choosewin_color_other = { 'gui': ['#7c6f64', '#ebdbb2'], 'cterm': [241, 249] }
 let g:choosewin_color_overlay_current = { 'gui': ['#b8bb26', '#282828'], 'cterm': [142, 235, 'bold'] }
 let g:choosewin_color_overlay = { 'gui': ['#83a598', '#ebdbb2'], 'cterm': [23, 187, 'bold'] }
 let g:choosewin_color_land = { 'gui': ['#b8bb26', '#282828'], 'cterm': [142, 235, 'bold'] }
