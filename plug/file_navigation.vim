@@ -47,7 +47,8 @@ endif
 " }}}
 
 " fzf {{{
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" fzf#install() only install binary
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 call vimrc#source('vimrc/plugins/fzf.vim')
