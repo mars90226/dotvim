@@ -67,6 +67,10 @@ if has('nvim')
   " Quickly suspend neovim
   tnoremap <M-C-Z> <C-\><C-N>:suspend<CR>
 
+  " Quickly page-up/page-down
+  tnoremap <M-PageUp>   <C-\><C-N><PageUp>
+  tnoremap <M-PageDown> <C-\><C-N><PageDown>
+
   " For nested neovim {{{
     " Use <M-q> as prefix
 
@@ -94,6 +98,10 @@ if has('nvim')
     " Quickly suspend neovim
     tnoremap <M-q><C-Z> <C-\><C-\><C-N>:suspend<CR>
 
+    " Quickly page-up/page-down
+    tnoremap <M-q><PageUp>   <C-\><C-\><C-N><PageUp>
+    tnoremap <M-q><PageDown> <C-\><C-\><C-N><PageDown>
+
     " For nested nested neovim {{{
       tnoremap <silent> <expr> <M-q><M-q> vimrc#terminal#nested_neovim#start(2)
 
@@ -120,6 +128,10 @@ if has('nvim')
 
       " Quickly suspend neovim
       call vimrc#terminal#nested_neovim#register("\<C-Z>", ":suspend\<CR>")
+
+      " Quickly page-up/page-down
+      call vimrc#terminal#nested_neovim#register("\<PageUp>", "\<PageUp>")
+      call vimrc#terminal#nested_neovim#register("\<PageDown>", "\<PageDown>")
     " }}}
   " }}}
 
