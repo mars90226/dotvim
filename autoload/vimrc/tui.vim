@@ -1,6 +1,6 @@
 " For TUI support
 let s:tui_processes = ['htop', 'btm', 'broot', 'sr', 'ranger', 'nnn', 'vifm', 'fff', 'lf']
-let s:floaterm_wrappers = ['fff', 'fzf', 'ranger']
+let s:floaterm_wrappers = ['fff', 'fzf', 'nnn', 'ranger']
 
 function! vimrc#tui#get_processes()
   return s:tui_processes
