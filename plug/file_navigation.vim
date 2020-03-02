@@ -118,6 +118,12 @@ nnoremap <Space><C-F> :execute 'CtrlSF ' . input('CtrlSF: ')<CR>
 nnoremap <F5> :CtrlSFToggle<CR>
 " }}}
 
+" vim-choosewin {{{
+Plug 't9md/vim-choosewin'
+
+call vimrc#source('vimrc/plugins/choosewin.vim')
+" }}}
+
 " alternate.vim {{{
 Plug 'pchynoweth/a.vim'
 

@@ -25,15 +25,6 @@ if vimrc#plugin#is_enabled_plugin('vimfiler')
 endif
 " }}}
 
-" vim-choosewin {{{
-if vimrc#plugin#is_enabled_plugin('vimfiler')
-  " Only used in vimfiler
-  Plug 't9md/vim-choosewin'
-
-  call vimrc#source('vimrc/plugins/choosewin.vim')
-endif
-" }}}
-
 " defx.nvim {{{
 if vimrc#plugin#is_enabled_plugin('defx')
   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
