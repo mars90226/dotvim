@@ -201,8 +201,10 @@ Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'chrisbra/Colorizer'
 
 let g:colorizer_auto_filetype = 'css,html'
+let g:colorizer_disable_bufleave = 1
 
 nnoremap <Leader>vt :ColorToggle<CR>
+nnoremap <Leader>vc :ColorClear<CR>
 " }}}
 
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
