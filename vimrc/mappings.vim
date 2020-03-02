@@ -204,10 +204,10 @@ onoremap <silent> <M-P> :<C-U>call vimrc#textobj#past_character(v:count1, 'o', v
 " :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
 " TODO Move this to 'after' folder
 if has('nvim')
+  " TODO Detect goyo mode and use normal :Man
+  nnoremap <Leader><F1> :Man 
   if vimrc#plugin#check#has_floating_window()
-    nnoremap <Leader><F1> :VimrcFloatNew! Man 
-  else
-    nnoremap <Leader><F1> :Man 
+    nnoremap <Leader><F2> :VimrcFloatNew! Man 
   endif
 endif
 
