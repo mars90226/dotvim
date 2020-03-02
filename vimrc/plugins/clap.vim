@@ -31,8 +31,8 @@ nnorema <Space>cw     :Clap windows<CR>
 nnorema <Space>cy     :Clap yanks<CR>
 nnorema <Space>c'     :Clap registers<CR>
 nnorema <Space>c`     :Clap marks<CR>
-nnorema <Space>c:     :Clap command<CR>
-nnorema <Space>c;     :Clap command_history<CR>
+nnorema <Space>c:     :Clap command_history<CR>
+nnorema <Space>c;     :Clap command<CR>
 nnorema <Space>c/     :Clap search_history<CR>
 nnorema <Space>c<Tab> :Clap maps<CR>
 " }}}
