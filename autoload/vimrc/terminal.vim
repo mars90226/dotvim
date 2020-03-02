@@ -65,7 +65,7 @@ function! vimrc#terminal#get_terminal_command(terminal)
 endfunction
 
 function! vimrc#terminal#is_shell_terminal(terminal)
-  let shells = ["bash", "zsh", "fish", "powershell"]
+  let shells = ["bash", "zsh", "fish", "powershell", "ash"]
   let exception_programs = ["fzf", "coc"]
   let exception_filetypes = ["floaterm"]
 
