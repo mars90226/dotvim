@@ -72,6 +72,11 @@ endfunction
 
 " Callbacks
 " FIXME This may have race condition that cannot find w:directory_sink_popd
+" Error messages:
+" || Error detected while processing function
+" || 778[30]
+" || <SNR>127_callback[21]
+" || Vim(let):E5555: API call: Vim(let):E121: Undefined variable: w:directory_sink_popd
 function! vimrc#fzf#dir#directory_sink_popd_callback()
   if !exists('w:directory_sink_popd')
     return
