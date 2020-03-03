@@ -113,6 +113,7 @@ nnoremap +p "+p
 xnoremap +p "+p
 nnoremap +P "+P
 xnoremap +P "+P
+" TODO Previous key mappings not work in vimwiki as it use '=' & '+'
 nnoremap <p "+[p
 nnoremap >p "+]p
 
