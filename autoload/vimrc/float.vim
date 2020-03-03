@@ -30,7 +30,10 @@ function! vimrc#float#open(bufnr, width, height, ...) abort
     \ 'height': a:height,
     \ 'style':'minimal'
     \ }
-  let winid = nvim_open_win(bufnr, v:true, opts)
+  " FIXME noautocmd to prevent terminal startinsert WinEnter autocmd
+  " This may be a bug that nvim_open_win() trigger WinEnter autocmd and <afile>
+  " is not buffer name in new window but in original window
+  noautocmd let winid = nvim_open_win(bufnr, v:true, opts)
 
   call nvim_win_set_var(winid, 'vimrc_float', v:true)
   return [bufnr, winid]
