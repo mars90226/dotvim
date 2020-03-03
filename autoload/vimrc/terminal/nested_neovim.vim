@@ -28,6 +28,7 @@ function! vimrc#terminal#nested_neovim#start(prefix, start_count)
   return result
 endfunction
 
+" TODO Add prefix for different type of nested neovim key mappings
 function! vimrc#terminal#nested_neovim#register(key, target)
   let s:nested_neovim_key_mappings[a:key] = a:target
 endfunction
