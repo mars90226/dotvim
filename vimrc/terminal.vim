@@ -103,7 +103,7 @@ if has('nvim')
     tnoremap <M-q><PageDown> <C-\><C-\><C-N><PageDown>
 
     " For nested nested neovim {{{
-      tnoremap <silent> <expr> <M-q><M-q> vimrc#terminal#nested_neovim#start(2)
+      tnoremap <silent> <expr> <M-q><M-q> vimrc#terminal#nested_neovim#start("\<M-q>", 2)
 
       " Quick terminal function
       call vimrc#terminal#nested_neovim#register('1', '')
