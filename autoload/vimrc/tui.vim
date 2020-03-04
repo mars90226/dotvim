@@ -41,12 +41,12 @@ endfunction
 " Functions
 " Use surfraw
 function! vimrc#tui#google_keyword(keyword)
-  let escaped_keyword = vimrc#escape_symbol(a:keyword)
+  let command = 'sr google '.vimrc#escape_symbol(a:keyword)
 
   if vimrc#plugin#is_enabled_plugin('vim-floaterm')
-    execute 'FloatermNew sr google '.escaped_keyword.'; exit'
+    call floaterm#terminal#open(-1, command)
   else
-    call vimrc#terminal#open_current_folder('new', 'sr google '.escaped_keyword)
+    call vimrc#terminal#open_current_folder('new', command)
   endif
 endfunction
 
