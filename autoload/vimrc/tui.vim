@@ -61,12 +61,7 @@ function! vimrc#tui#google_keyword(keyword)
   endif
 
   let command = 'sr google '.vimrc#escape_symbol(a:keyword)
-
-  if vimrc#plugin#is_enabled_plugin('vim-floaterm')
-    call floaterm#terminal#open(-1, command)
-  else
-    call vimrc#terminal#open_current_folder('new', command)
-  endif
+  call vimrc#tui#run('float', command)
 endfunction
 
 function! vimrc#tui#sdcv(word)
@@ -75,10 +70,5 @@ function! vimrc#tui#sdcv(word)
   endif
 
   let command = 'sdcv '.a:word
-
-  if vimrc#plugin#is_enabled_plugin('vim-floaterm')
-    call floaterm#terminal#open(-1, command)
-  else
-    call vimrc#terminal#open_current_folder('new', command)
-  endif
+  call vimrc#tui#run('float', command)
 endfunction
