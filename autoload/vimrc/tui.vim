@@ -63,12 +63,3 @@ function! vimrc#tui#google_keyword(keyword)
   let command = 'sr google '.vimrc#escape_symbol(a:keyword)
   call vimrc#tui#run('float', command)
 endfunction
-
-function! vimrc#tui#sdcv(word)
-  if empty(a:word)
-    return
-  endif
-
-  let command = 'sdcv '.a:word
-  call vimrc#tui#run('float', command)
-endfunction
