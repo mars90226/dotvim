@@ -5,18 +5,18 @@ if executable('sr')
 endif
 
 if executable('htop')
-  command! Htop      call vimrc#tui#run('float', 'htop')
-  command! HtopSplit call vimrc#tui#run('new', 'htop')
+  command! Htop        call vimrc#tui#run('float', 'htop')
+  command! HtopSplit   call vimrc#tui#run('new', 'htop')
 endif
 
 if executable('btm')
-  command! Btm      call vimrc#tui#run('float', 'btm')
-  command! BtmSplit call vimrc#tui#run('new', 'btm')
+  command! Btm         call vimrc#tui#run('float', 'btm')
+  command! BtmSplit    call vimrc#tui#run('new', 'btm')
 endif
 
 if executable('broot')
-  command! Broot      call vimrc#tui#run('float', 'broot -p')
-  command! BrootSplit call vimrc#tui#run('vnew', 'broot -p')
+  command! Broot       call vimrc#tui#run('float', 'broot -p')
+  command! BrootSplit  call vimrc#tui#run('vnew', 'broot -p')
 endif
 
 if executable('ranger')
@@ -26,22 +26,33 @@ if executable('ranger')
 endif
 
 if executable('nnn')
-  command! Nnn      call vimrc#tui#run('float', 'nnn')
-  command! NnnSplit call vimrc#tui#run('new', 'nnn')
+  command! Nnn         call vimrc#tui#run('float', 'nnn')
+  command! NnnSplit    call vimrc#tui#run('new', 'nnn')
 endif
 
 if executable('vifm')
-  command! Vifm      call vimrc#tui#run('float', 'vifm')
-  command! VifmSplit call vimrc#tui#run('new', 'vifm')
+  command! Vifm        call vimrc#tui#run('float', 'vifm')
+  command! VifmSplit   call vimrc#tui#run('new', 'vifm')
 endif
 
 if executable('fff')
   " Use floaterm fff wrapper
-  command! Fff      call vimrc#tui#run('float', 'fff')
-  command! FffSplit call vimrc#tui#run('new', 'fff')
+  command! Fff         call vimrc#tui#run('float', 'fff')
+  command! FffSplit    call vimrc#tui#run('new', 'fff')
 endif
 
 if executable('lf')
-  command! Lf      call vimrc#tui#run('float', 'lf')
-  command! LfSplit call vimrc#tui#run('new', 'lf')
+  command! Lf          call vimrc#tui#run('float', 'lf')
+  command! LfSplit     call vimrc#tui#run('new', 'lf')
+endif
+
+" Shells
+if executable('fish')
+  command! Fish        call vimrc#tui#run('float', 'fish')
+  command! FishSplit   call vimrc#tui#run('new', 'fish')
+endif
+
+if executable('zsh')
+  command! Zsh         call vimrc#tui#run('float', 'zsh')
+  command! ZshSplit    call vimrc#tui#run('new', 'zsh')
 endif
