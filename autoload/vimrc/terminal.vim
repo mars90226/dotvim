@@ -115,3 +115,15 @@ function! vimrc#terminal#close_result_buffer(terminal)
     call nvim_input('<CR>')
   endif
 endfunction
+
+function! vimrc#terminal#get_open_command()
+  if has('nvim')
+    if vimrc#plugin#check#has_floating_window()
+      return 'VimrcFloatNew TermOpen'
+    else
+      return 'new'
+    endif
+  else
+    return '!'
+  endif
+endfunction

@@ -24,14 +24,14 @@ function! vimrc#utility#execute_command(command, prompt)
 endfunction
 
 " sdcv
-let s:sdcv_command = has('nvim') ? 'new term://sdcv' : '!sdcv'
+let s:sdcv_command = vimrc#terminal#get_open_command() . ' sdcv'
 
 function! vimrc#utility#get_sdcv_command()
   return s:sdcv_command
 endfunction
 
 " xdg-open
-let s:xdg_open_command = has('nvim') ? 'new term://xdg-open' : '!xdg-open'
+let s:xdg_open_command = vimrc#terminal#get_open_command() . ' xdg-open'
 
 function! vimrc#utility#get_xdg_open()
   return s:xdg_open_command
