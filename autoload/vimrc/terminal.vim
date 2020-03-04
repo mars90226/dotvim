@@ -108,3 +108,9 @@ function! vimrc#terminal#is_interactive_process(terminal)
     endif
   endfor
 endfunction
+
+function! vimrc#terminal#close_result_buffer(terminal)
+  if vimrc#terminal#is_shell_terminal(a:terminal) || vimrc#terminal#is_interactive_process(a:terminal)
+    call nvim_input('<CR>')
+  endif
+endfunction

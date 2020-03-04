@@ -146,11 +146,7 @@ if has('nvim')
 
     " Ignore various filetypes as those will close terminal automatically
     " Ignore fzf, coc
-    autocmd TermClose term://*
-          \ if vimrc#terminal#is_shell_terminal(expand('<afile>')) ||
-          \    vimrc#terminal#is_interactive_process(expand('<afile>')) |
-          \   call nvim_input('<CR>')  |
-          \ endif
+    autocmd TermClose term://* call vimrc#terminal#close_result_buffer(expand('<afile>'))
   augroup END
 endif
 " }}}
