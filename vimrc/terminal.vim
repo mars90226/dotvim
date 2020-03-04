@@ -35,6 +35,8 @@ if has('nvim')
   " Set terminal buffer size to unlimited
   set scrollback=100000
 
+  command! -nargs=* TermOpen call vimrc#terminal#open_current_folder('edit', <q-args>)
+
   " For quick terminal access
   nnoremap <silent> <Leader>tr :call vimrc#terminal#open_current_shell('edit')<CR>
   nnoremap <silent> <Leader>tt :call vimrc#terminal#open_current_shell('tabnew')<CR>

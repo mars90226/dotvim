@@ -40,7 +40,8 @@ endfunction
 
 " Utilities
 function! vimrc#terminal#open(split, folder, cmd)
-  execute a:split . ' term://' . a:folder . '//' . a:cmd
+  let split = empty(a:split) ? 'edit' : a:split
+  execute split . ' term://' . a:folder . '//' . a:cmd
 endfunction
 
 function! vimrc#terminal#open_current_folder(split, cmd)
