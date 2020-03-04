@@ -39,17 +39,6 @@ function vimrc#tui#is_tui(command)
 endfunction
 
 " Functions
-" Use surfraw
-function! vimrc#tui#google_keyword(keyword)
-  let command = 'sr google '.vimrc#escape_symbol(a:keyword)
-
-  if vimrc#plugin#is_enabled_plugin('vim-floaterm')
-    call floaterm#terminal#open(-1, command)
-  else
-    call vimrc#terminal#open_current_folder('new', command)
-  endif
-endfunction
-
 " TODO Rename function as it's not really TUI when not using floaterm
 function! vimrc#tui#run(split, command)
   let split = a:split ==# 'float' && vimrc#plugin#is_disabled_plugin('vim-floaterm') ? 'new' : a:split
@@ -62,5 +51,34 @@ function! vimrc#tui#run(split, command)
     endif
   else
     call vimrc#terminal#open_current_folder(split, a:command)
+  endif
+endfunction
+
+" Use surfraw
+function! vimrc#tui#google_keyword(keyword)
+  if empty(a:keyword)
+    return
+  endif
+
+  let command = 'sr google '.vimrc#escape_symbol(a:keyword)
+
+  if vimrc#plugin#is_enabled_plugin('vim-floaterm')
+    call floaterm#terminal#open(-1, command)
+  else
+    call vimrc#terminal#open_current_folder('new', command)
+  endif
+endfunction
+
+function! vimrc#tui#sdcv(word)
+  if empty(a:word)
+    return
+  endif
+
+  let command = 'sdcv '.a:word
+
+  if vimrc#plugin#is_enabled_plugin('vim-floaterm')
+    call floaterm#terminal#open(-1, command)
+  else
+    call vimrc#terminal#open_current_folder('new', command)
   endif
 endfunction
