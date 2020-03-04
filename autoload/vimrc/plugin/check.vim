@@ -3,18 +3,26 @@
 " Detect operating system
 if has('win32') || has('win64')
   let s:os = 'windows'
-  let s:distro = 'Windows'
 else
   let s:os = systemlist('uname -a')[0]
-  let s:distro = systemlist('lsb_release -is')[0]
 endif
 
 function! vimrc#plugin#check#get_os()
   return s:os
 endfunction
 
-function! vimrc#plugin#check#get_distro()
-  return s:distro
+function! vimrc#plugin#check#get_distro(...)
+  let force = (a:0 >= 1 && type(a:1) == type(v:true)) ? a:1 : v:false
+
+  if force || !exists('g:distro')
+    if s:os =~# 'windows'
+      return 'Windows'
+    else
+      return systemlist('lsb_release -is')[0]
+    endif
+  else
+    return g:distro
+  endif
 endfunction
 
 " Set nvim version
