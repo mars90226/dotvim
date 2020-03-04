@@ -167,9 +167,8 @@ Plug 'ciaranm/securemodelines'
 " }}}
 
 " vim-scriptease {{{
-Plug 'tpope/vim-scriptease', { 'on': [] }
-
-call vimrc#lazy#lazy_load('scriptease')
+Plug 'tpope/vim-scriptease'
+" Do not lazy load vim-scriptease, as it breaks :Breakadd/:Breakdel
 " }}}
 
 " open-browser.vim {{{
