@@ -22,6 +22,12 @@ if has('nvim')
   nnoremap <Leader>kK :execute        'SearchKeyword '.expand('<cWORD>')<CR>
   xnoremap <Leader>kk :<C-U>execute   'SearchKeyword '.vimrc#get_visual_selection()<CR>
 
+  " Asynchronous search keyword in duckduckgo in browser
+  command! -bar -nargs=1 SearchKeywordDdg call vimrc#search_engine#duckduckgo(<f-args>)
+  nnoremap <Leader>kd :execute        'SearchKeywordDdg '.expand('<cword>')<CR>
+  nnoremap <Leader>kD :execute        'SearchKeywordDdg '.expand('<cWORD>')<CR>
+  xnoremap <Leader>kd :<C-U>execute   'SearchKeywordDdg '.vimrc#get_visual_selection()<CR>
+
   " Asynchronous open URL in client browser
   command! -bar -nargs=1 ClientOpenUrl call vimrc#browser#client_async_open_url(<f-args>)
   nnoremap <Leader>bc :execute        'ClientOpenUrl '.expand('<cWORD>')<CR>
@@ -33,4 +39,10 @@ if has('nvim')
   nnoremap <Leader>kc :execute        'ClientSearchKeyword '.expand('<cword>')<CR>
   nnoremap <Leader>kC :execute        'ClientSearchKeyword '.expand('<cWORD>')<CR>
   xnoremap <Leader>kc :<C-U>execute   'ClientSearchKeyword '.vimrc#get_visual_selection()<CR>
+
+  " Asynchronous search keyword in duckduckgo in client browser
+  command! -bar -nargs=1 ClientSearchKeywordDdg call vimrc#search_engine#client_duckduckgo(<f-args>)
+  nnoremap <Leader>kv :execute        'ClientSearchKeywordDdg '.expand('<cword>')<CR>
+  nnoremap <Leader>kV :execute        'ClientSearchKeywordDdg '.expand('<cWORD>')<CR>
+  xnoremap <Leader>kv :<C-U>execute   'ClientSearchKeywordDdg '.vimrc#get_visual_selection()<CR>
 endif
