@@ -23,13 +23,13 @@ if has('nvim')
   xnoremap <Leader>kk :<C-U>execute   'SearchKeyword '.vimrc#get_visual_selection()<CR>
 
   " Asynchronous search keyword in duckduckgo in browser
-  command! -bar -nargs=1 SearchKeywordDdg call vimrc#search_engine#duckduckgo(<f-args>)
+  command! -bar -nargs=1 SearchKeywordDdg call vimrc#search_engine#search('duckduckgo', <f-args>)
   nnoremap <Leader>kd :execute        'SearchKeywordDdg '.expand('<cword>')<CR>
   nnoremap <Leader>kD :execute        'SearchKeywordDdg '.expand('<cWORD>')<CR>
   xnoremap <Leader>kd :<C-U>execute   'SearchKeywordDdg '.vimrc#get_visual_selection()<CR>
 
   " Asynchronous search keyword in devdoc in browser
-  command! -bar -nargs=1 SearchKeywordDevDocs call vimrc#search_engine#devdocs(<f-args>)
+  command! -bar -nargs=1 SearchKeywordDevDocs call vimrc#search_engine#search('devdocs', <f-args>)
   nnoremap <Leader>ke :execute        'SearchKeywordDevDocs '.expand('<cword>')<CR>
   nnoremap <Leader>kE :execute        'SearchKeywordDevDocs '.expand('<cWORD>')<CR>
   xnoremap <Leader>ke :<C-U>execute   'SearchKeywordDevDocs '.vimrc#get_visual_selection()<CR>
@@ -47,13 +47,13 @@ if has('nvim')
   xnoremap <Leader>kc :<C-U>execute   'ClientSearchKeyword '.vimrc#get_visual_selection()<CR>
 
   " Asynchronous search keyword in duckduckgo in client browser
-  command! -bar -nargs=1 ClientSearchKeywordDdg call vimrc#search_engine#client_duckduckgo(<f-args>)
+  command! -bar -nargs=1 ClientSearchKeywordDdg call vimrc#search_engine#client_search('duckduckgo', <f-args>)
   nnoremap <Leader>kv :execute        'ClientSearchKeywordDdg '.expand('<cword>')<CR>
   nnoremap <Leader>kV :execute        'ClientSearchKeywordDdg '.expand('<cWORD>')<CR>
   xnoremap <Leader>kv :<C-U>execute   'ClientSearchKeywordDdg '.vimrc#get_visual_selection()<CR>
 
   " Asynchronous search keyword in devdocs in client browser
-  command! -bar -nargs=1 ClientSearchKeywordDevDocs call vimrc#search_engine#client_devdocs(<f-args>)
+  command! -bar -nargs=1 ClientSearchKeywordDevDocs call vimrc#search_engine#client_search('devdocs', <f-args>)
   nnoremap <Leader>kb :execute        'ClientSearchKeywordDevDocs '.expand('<cword>')<CR>
   nnoremap <Leader>kB :execute        'ClientSearchKeywordDevDocs '.expand('<cWORD>')<CR>
   xnoremap <Leader>kb :<C-U>execute   'ClientSearchKeywordDevDocs '.vimrc#get_visual_selection()<CR>

@@ -5,33 +5,28 @@ function! vimrc#search_engine#url_encode(str) abort
   return substitute(iconv(a:str, 'latin1', 'utf-8'),'[^A-Za-z0-9_.~-]','\="%".printf("%02X",char2nr(submatch(0)))','g')
 endfunction
 
+" Configs
+let s:search_engines = {
+      \ 'duckduckgo': 'https://duckduckgo.com/?q=%s',
+      \ 'devdocs': 'https://devdocs.io/?q=%s'
+      \ }
+
 " Functions
-let s:duckduckgo_url = 'https://duckduckgo.com/?q=%s'
-function! vimrc#search_engine#duckduckgo_url(keyword)
-  return printf(s:duckduckgo_url, vimrc#search_engine#url_encode(a:keyword))
+function! vimrc#search_engine#get_url(search_engine, keyword)
+  if !has_key(s:search_engines, a:search_engine)
+    echoerr 'Search engine: '.a:search_engine.' is not exist!'
+    return ''
+  endif
+
+  return printf(s:search_engines[a:search_engine], vimrc#search_engine#url_encode(a:keyword))
 endfunction
 
 " TODO: Move to browser.vim
-function! vimrc#search_engine#duckduckgo(keyword)
-  call vimrc#browser#async_open_url(vimrc#search_engine#duckduckgo_url(a:keyword))
+function! vimrc#search_engine#search(search_engine, keyword)
+  call vimrc#browser#async_open_url(vimrc#search_engine#get_url(a:search_engine, a:keyword))
 endfunction
 
 " TODO: Move to browser.vim
-function! vimrc#search_engine#client_duckduckgo(keyword)
-  call vimrc#browser#client_async_open_url(vimrc#search_engine#duckduckgo_url(a:keyword))
-endfunction
-
-let s:devdocs_url = 'https://devdocs.io/?q=%s'
-function! vimrc#search_engine#devdocs_url(keyword)
-  return printf(s:devdocs_url, vimrc#search_engine#url_encode(a:keyword))
-endfunction
-
-" TODO: Move to browser.vim
-function! vimrc#search_engine#devdocs(keyword)
-  call vimrc#browser#async_open_url(vimrc#search_engine#devdocs_url(a:keyword))
-endfunction
-
-" TODO: Move to browser.vim
-function! vimrc#search_engine#client_devdocs(keyword)
-  call vimrc#browser#client_async_open_url(vimrc#search_engine#devdocs_url(a:keyword))
+function! vimrc#search_engine#client_search(search_engine, keyword)
+  call vimrc#browser#client_async_open_url(vimrc#search_engine#get_url(a:search_engine, a:keyword))
 endfunction
