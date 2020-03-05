@@ -51,6 +51,25 @@ function! vimrc#browser#async_browse(command)
 endfunction
 " }}}
 
+" Includes
+function! vimrc#browser#include_search_mappings(command, prefix, suffix)
+  let cword_key  = a:prefix . a:suffix
+  let cWORD_key  = a:prefix . toupper(a:suffix)
+  let visual_key = a:prefix . a:suffix
+
+  call vimrc#mapping#include_cursor_mappings(a:command, cword_key, cWORD_key)
+  call vimrc#mapping#include_visual_selection_mappings(a:command, visual_key)
+endfunction
+
+function! vimrc#browser#include_open_url_mappings(command, prefix, suffix)
+  let cword_key  = a:prefix . toupper(a:suffix)
+  let cWORD_key  = a:prefix . a:suffix
+  let visual_key = a:prefix . a:suffix
+
+  call vimrc#mapping#include_cursor_mappings(a:command, cword_key, cWORD_key)
+  call vimrc#mapping#include_visual_selection_mappings(a:command, visual_key)
+endfunction
+
 " Functions
 " Asynchronously browse URI
 " TODO Move to better place?

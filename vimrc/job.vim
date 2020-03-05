@@ -5,47 +5,38 @@ if has('nvim')
   if has('unix') && executable('xdg-open')
     " Required by fugitive :GBrowse
     command! -bar -nargs=1 Browse call vimrc#browser#async_open(<f-args>)
-    call vimrc#mapping#include_cursor_mapping('Browse', '<Leader>xX', '<Leader>xx')
-    call vimrc#mapping#include_visual_selection_mapping('Browse', '<Leader>xx')
+    call vimrc#browser#include_open_url_mappings('Browse', '<Leader>x', 'x')
   endif
 
   " Asynchronous open URL in browser
   command! -bar -nargs=1 OpenUrl call vimrc#browser#async_open_url(<f-args>)
-  call vimrc#mapping#include_cursor_mapping('OpenUrl', '<Leader>bB', '<Leader>bb')
-  call vimrc#mapping#include_visual_selection_mapping('OpenUrl', '<Leader>bb')
+  call vimrc#browser#include_open_url_mappings('OpenUrl', '<Leader>b', 'b')
 
   " Asynchronous search keyword in browser
   command! -bar -nargs=1 SearchKeyword call vimrc#browser#async_search_keyword(<f-args>)
-  call vimrc#mapping#include_cursor_mapping('SearchKeyword', '<Leader>kk', '<Leader>kK')
-  call vimrc#mapping#include_visual_selection_mapping('SearchKeyword', '<Leader>kk')
+  call vimrc#browser#include_search_mappings('SearchKeyword', '<Leader>k', 'k')
 
   " Asynchronous search keyword in duckduckgo in browser
   command! -bar -nargs=1 SearchKeywordDdg call vimrc#search_engine#search('duckduckgo', <f-args>)
-  call vimrc#mapping#include_cursor_mapping('SearchKeywordDdg', '<Leader>kd', '<Leader>kD')
-  call vimrc#mapping#include_visual_selection_mapping('SearchKeywordDdg', '<Leader>kd')
+  call vimrc#browser#include_search_mappings('SearchKeywordDdg', '<Leader>k', 'd')
 
   " Asynchronous search keyword in devdoc in browser
   command! -bar -nargs=1 SearchKeywordDevDocs call vimrc#search_engine#search('devdocs', <f-args>)
-  call vimrc#mapping#include_cursor_mapping('SearchKeywordDevDocs', '<Leader>ke', '<Leader>kE')
-  call vimrc#mapping#include_visual_selection_mapping('SearchKeywordDevDocs', '<Leader>ke')
+  call vimrc#browser#include_search_mappings('SearchKeywordDevDocs', '<Leader>k', 'e')
 
   " Asynchronous open URL in client browser
   command! -bar -nargs=1 ClientOpenUrl call vimrc#browser#client_async_open_url(<f-args>)
-  call vimrc#mapping#include_cursor_mapping('ClientOpenUrl', '<Leader>bC', '<Leader>bc')
-  call vimrc#mapping#include_visual_selection_mapping('ClientOpenUrl', '<Leader>bc')
+  call vimrc#browser#include_open_url_mappings('ClientOpenUrl', '<Leader>b', 'c')
 
   " Asynchronous search keyword in client browser
   command! -bar -nargs=1 ClientSearchKeyword call vimrc#browser#client_async_search_keyword(<f-args>)
-  call vimrc#mapping#include_cursor_mapping('ClientSearchKeyword', '<Leader>kc', '<Leader>kC')
-  call vimrc#mapping#include_visual_selection_mapping('ClientSearchKeyword', '<Leader>kc')
+  call vimrc#browser#include_search_mappings('ClientSearchKeyword', '<Leader>k', 'c')
 
   " Asynchronous search keyword in duckduckgo in client browser
   command! -bar -nargs=1 ClientSearchKeywordDdg call vimrc#search_engine#client_search('duckduckgo', <f-args>)
-  call vimrc#mapping#include_cursor_mapping('ClientSearchKeywordDdg', '<Leader>kv', '<Leader>kV')
-  call vimrc#mapping#include_visual_selection_mapping('ClientSearchKeywordDdg', '<Leader>kv')
+  call vimrc#browser#include_search_mappings('ClientSearchKeywordDdg', '<Leader>k', 'v')
 
   " Asynchronous search keyword in devdocs in client browser
   command! -bar -nargs=1 ClientSearchKeywordDevDocs call vimrc#search_engine#client_search('devdocs', <f-args>)
-  call vimrc#mapping#include_cursor_mapping('ClientSearchKeywordDevDocs', '<Leader>kb', '<Leader>kB')
-  call vimrc#mapping#include_visual_selection_mapping('ClientSearchKeywordDevDocs', '<Leader>kb')
+  call vimrc#browser#include_search_mappings('ClientSearchKeywordDevDocs', '<Leader>k', 'b')
 endif
