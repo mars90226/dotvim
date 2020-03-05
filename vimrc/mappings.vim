@@ -114,8 +114,8 @@ xnoremap +p "+p
 nnoremap +P "+P
 xnoremap +P "+P
 " TODO Previous key mappings not work in vimwiki as it use '=' & '+'
-nnoremap <p "+[p
-nnoremap >p "+]p
+nmap     <p "+[p
+nmap     >p "+]p
 
 " Quick yank filename
 nnoremap <Leader>y5 :let @" = expand('%:t:r')<CR>
