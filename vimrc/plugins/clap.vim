@@ -18,9 +18,10 @@ nnorema <Space>cd     :Clap git_diff_files<CR>
 nnorema <Space>cf     :Clap files<CR>
 nnorema <Space>cg     :Clap git_files<CR>
 nnorema <Space>ch     :Clap help_tags<CR>
+nnorema <Space>ci     :Clap filer<CR>
+nnorema <Space>cj     :Clap jumps<CR>
 nnorema <Space>cl     :Clap blines<CR>
 nnorema <Space>cL     :Clap lines<CR>
-nnorema <Space>cj     :Clap jumps<CR>
 nnorema <Space>cm     :Clap history<CR>
 nnorema <Space>cp     :Clap providers<CR>
 nnorema <Space>cq     :Clap quickfix<CR>
