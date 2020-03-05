@@ -66,20 +66,24 @@ endfunction
 
 " Asynchronously open URL in browser
 function! vimrc#browser#async_open_url(url)
+  echo 'Open URL: '.a:url
   call vimrc#browser#async_browse(vimrc#browser#get_command(a:url))
 endfunction
 
 " Asynchronously search keyword in browser
 function! vimrc#browser#async_search_keyword(keyword)
+  echo 'Search keyword: '.a:keyword
   call vimrc#browser#async_browse(vimrc#browser#get_search_command(a:keyword))
 endfunction
 
 " Asynchronously open URL in client browser
 function! vimrc#browser#client_async_open_url(url)
+  echo 'Open URL in client browser: '.a:url
   call vimrc#browser#async_browse(vimrc#browser#get_client_command(a:url))
 endfunction
 
 " Asynchronously search keyword in client browser
 function! vimrc#browser#client_async_search_keyword(keyword)
+  echo 'Search keyword in client browser: '.a:keyword
   call vimrc#browser#async_browse(vimrc#browser#get_client_search_command(a:keyword))
 endfunction
