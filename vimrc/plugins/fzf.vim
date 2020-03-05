@@ -187,6 +187,7 @@ nnoremap <Space>fD     :call      vimrc#execute_and_save('DirectoryFiles')<CR>
 nnoremap <Space>f<C-D> :call      vimrc#execute_and_save('RgGitDiffFiles ' . input('Rg: '))<CR>
 nnoremap <Space>fe     :call      vimrc#execute_and_save('RgWithOption ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Rg: '))<CR>
 nnoremap <Space>fE     :call      vimrc#execute_and_save('RgWithOption! ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Rg: '))<CR>
+nnoremap <Space>f3     :call      vimrc#execute_and_save('RgWithOption ' . expand('%') . ':' . input('Option: ') . ':' . input('Rg: '))<CR>
 nnoremap <Space>ff     :call      vimrc#execute_and_save('Files')<CR>
 nnoremap <Space>fF     :call      vimrc#execute_and_save('DirectoryRg')<CR>
 nnoremap <Space>f<C-F> :call      vimrc#execute_and_save('FilesWithQuery ' . expand('<cfile>'))<CR>
