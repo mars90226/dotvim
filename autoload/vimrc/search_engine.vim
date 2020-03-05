@@ -15,6 +15,14 @@ function! vimrc#search_engine#define_client_search_command(command, search_engin
   execute 'command! -bar -nargs=1 '.a:command." call vimrc#search_engine#client_search('".a:search_engine."', <f-args>)"
   call vimrc#browser#include_search_mappings(a:command, a:prefix, a:suffix)
 endfunction
+
+function! vimrc#search_engine#define_command(command, browser, search_engine, prefix, suffix)
+  if a:browser ==# 'client'
+    call vimrc#search_engine#define_client_search_command(a:command, a:search_engine, a:prefix, a:suffix)
+  else
+    call vimrc#search_engine#define_search_command(a:command, a:search_engine, a:prefix, a:suffix)
+  endif
+endfunction
 " }}}
 
 " Configs

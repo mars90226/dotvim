@@ -1,33 +1,43 @@
 " This file is for commands that use Neovim's job API
 
 if has('nvim')
+  let g:execute_prefix        = '<Leader>x'
+  let g:open_url_prefix       = '<Leader>b'
+  let g:search_keyword_prefix = '<Leader>k'
+
+  let g:browser_maps = {
+        \ 'OpenUrl':             ['vimrc#browser#async_open_url',              g:open_url_prefix,       'b'],
+        \ 'SearchKeyword':       ['vimrc#browser#async_search_keyword',        g:search_keyword_prefix, 'k'],
+        \ 'ClientOpenUrl':       ['vimrc#browser#client_async_open_url',       g:open_url_prefix,       'c'],
+        \ 'ClientSearchKeyword': ['vimrc#browser#client_async_search_keyword', g:search_keyword_prefix, 'c'],
+        \ }
+  let g:search_engine_maps = {
+        \ 'SearchKeywordDdg':           ['current', 'duckduckgo', g:search_keyword_prefix, 'd'],
+        \ 'SearchKeywordDevDocs':       ['current', 'devdocs',    g:search_keyword_prefix, 'e'],
+        \ 'ClientSearchKeywordDdg':     ['client',  'duckduckgo', g:search_keyword_prefix, 'v'],
+        \ 'ClientSearchKeywordDevDocs': ['client',  'devdocs',    g:search_keyword_prefix, 'b'],
+        \ }
+
   " Asynchronous open URI
   if has('unix') && executable('xdg-open')
     " Required by fugitive :GBrowse
-    call vimrc#browser#define_command('Browse', 'vimrc#browser#async_open', '<Leader>x', 'x')
+    call vimrc#browser#define_command('Browse', 'vimrc#browser#async_open', g:execute_prefix, 'x')
   endif
 
-  " Asynchronous open URL in browser
-  call vimrc#browser#define_command('OpenUrl', 'vimrc#browser#async_open_url', '<Leader>b', 'b')
+  for [command, definition] in items(g:browser_maps)
+    let function = definition[0]
+    let prefix   = definition[1]
+    let suffix   = definition[2]
 
-  " Asynchronous search keyword in browser
-  call vimrc#browser#define_command('SearchKeyword', 'vimrc#browser#async_search_keyword', '<Leader>k', 'k')
+    call vimrc#browser#define_command(command, function, prefix, suffix)
+  endfor
 
-  " Asynchronous search keyword in duckduckgo in browser
-  call vimrc#search_engine#define_search_command('SearchKeywordDdg', 'duckduckgo', '<Leader>k', 'd')
+  for [command, definition] in items(g:search_engine_maps)
+    let browser       = definition[0]
+    let search_engine = definition[1]
+    let prefix        = definition[2]
+    let suffix        = definition[3]
 
-  " Asynchronous search keyword in devdoc in browser
-  call vimrc#search_engine#define_search_command('SearchKeywordDdg', 'devdocs', '<Leader>k', 'e')
-
-  " Asynchronous open URL in client browser
-  call vimrc#browser#define_command('ClientOpenUrl', 'vimrc#browser#client_async_open_url', '<Leader>b', 'c')
-
-  " Asynchronous search keyword in client browser
-  call vimrc#browser#define_command('ClientSearchKeyword', 'vimrc#browser#client_async_search_keyword', '<Leader>k', 'c')
-
-  " Asynchronous search keyword in duckduckgo in client browser
-  call vimrc#search_engine#define_client_search_command('ClientSearchKeywordDdg', 'duckduckgo', '<Leader>k', 'v')
-
-  " Asynchronous search keyword in devdocs in client browser
-  call vimrc#search_engine#define_client_search_command('ClientSearchKeywordDevDocs', 'devdocs', '<Leader>k', 'b')
+    call vimrc#search_engine#define_command(command, browser, search_engine, prefix, suffix)
+  endfor
 endif
