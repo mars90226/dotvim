@@ -41,7 +41,7 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#do_action('copy')
   nnoremap <silent><buffer><expr> !
         \ defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr> m
+  nnoremap <silent><buffer><nowait><expr> m
         \ defx#do_action('move')
   nnoremap <silent><buffer><expr> p
         \ defx#do_action('paste')
@@ -110,7 +110,7 @@ function! vimrc#defx#mappings() abort " {{{
     nnoremap <silent><buffer><expr> q
           \ defx#do_action('quit')
   endif
-  nnoremap <silent><buffer><expr> `
+  nnoremap <silent><buffer><nowait><expr> `
         \ defx#do_action('toggle_select') . 'j'
   nnoremap <silent><buffer><expr> *
         \ defx#do_action('toggle_select_all')
