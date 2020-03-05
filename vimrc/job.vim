@@ -4,17 +4,14 @@ if has('nvim')
   " Asynchronous open URI
   if has('unix') && executable('xdg-open')
     " Required by fugitive :GBrowse
-    command! -bar -nargs=1 Browse call vimrc#browser#async_open(<f-args>)
-    call vimrc#browser#include_open_url_mappings('Browse', '<Leader>x', 'x')
+    call vimrc#browser#define_command('Browse', 'vimrc#browser#async_open', '<Leader>x', 'x')
   endif
 
   " Asynchronous open URL in browser
-  command! -bar -nargs=1 OpenUrl call vimrc#browser#async_open_url(<f-args>)
-  call vimrc#browser#include_open_url_mappings('OpenUrl', '<Leader>b', 'b')
+  call vimrc#browser#define_command('OpenUrl', 'vimrc#browser#async_open_url', '<Leader>b', 'b')
 
   " Asynchronous search keyword in browser
-  command! -bar -nargs=1 SearchKeyword call vimrc#browser#async_search_keyword(<f-args>)
-  call vimrc#browser#include_search_mappings('SearchKeyword', '<Leader>k', 'k')
+  call vimrc#browser#define_command('SearchKeyword', 'vimrc#browser#async_search_keyword', '<Leader>k', 'k')
 
   " Asynchronous search keyword in duckduckgo in browser
   command! -bar -nargs=1 SearchKeywordDdg call vimrc#search_engine#search('duckduckgo', <f-args>)
@@ -25,12 +22,10 @@ if has('nvim')
   call vimrc#browser#include_search_mappings('SearchKeywordDevDocs', '<Leader>k', 'e')
 
   " Asynchronous open URL in client browser
-  command! -bar -nargs=1 ClientOpenUrl call vimrc#browser#client_async_open_url(<f-args>)
-  call vimrc#browser#include_open_url_mappings('ClientOpenUrl', '<Leader>b', 'c')
+  call vimrc#browser#define_command('ClientOpenUrl', 'vimrc#browser#client_async_open_url', '<Leader>b', 'c')
 
   " Asynchronous search keyword in client browser
-  command! -bar -nargs=1 ClientSearchKeyword call vimrc#browser#client_async_search_keyword(<f-args>)
-  call vimrc#browser#include_search_mappings('ClientSearchKeyword', '<Leader>k', 'c')
+  call vimrc#browser#define_command('ClientSearchKeyword', 'vimrc#browser#client_async_search_keyword', '<Leader>k', 'c')
 
   " Asynchronous search keyword in duckduckgo in client browser
   command! -bar -nargs=1 ClientSearchKeywordDdg call vimrc#search_engine#client_search('duckduckgo', <f-args>)
