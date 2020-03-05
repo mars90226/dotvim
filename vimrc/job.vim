@@ -14,12 +14,10 @@ if has('nvim')
   call vimrc#browser#define_command('SearchKeyword', 'vimrc#browser#async_search_keyword', '<Leader>k', 'k')
 
   " Asynchronous search keyword in duckduckgo in browser
-  command! -bar -nargs=1 SearchKeywordDdg call vimrc#search_engine#search('duckduckgo', <f-args>)
-  call vimrc#browser#include_search_mappings('SearchKeywordDdg', '<Leader>k', 'd')
+  call vimrc#search_engine#define_search_command('SearchKeywordDdg', 'duckduckgo', '<Leader>k', 'd')
 
   " Asynchronous search keyword in devdoc in browser
-  command! -bar -nargs=1 SearchKeywordDevDocs call vimrc#search_engine#search('devdocs', <f-args>)
-  call vimrc#browser#include_search_mappings('SearchKeywordDevDocs', '<Leader>k', 'e')
+  call vimrc#search_engine#define_search_command('SearchKeywordDdg', 'devdocs', '<Leader>k', 'e')
 
   " Asynchronous open URL in client browser
   call vimrc#browser#define_command('ClientOpenUrl', 'vimrc#browser#client_async_open_url', '<Leader>b', 'c')
@@ -28,10 +26,8 @@ if has('nvim')
   call vimrc#browser#define_command('ClientSearchKeyword', 'vimrc#browser#client_async_search_keyword', '<Leader>k', 'c')
 
   " Asynchronous search keyword in duckduckgo in client browser
-  command! -bar -nargs=1 ClientSearchKeywordDdg call vimrc#search_engine#client_search('duckduckgo', <f-args>)
-  call vimrc#browser#include_search_mappings('ClientSearchKeywordDdg', '<Leader>k', 'v')
+  call vimrc#search_engine#define_client_search_command('ClientSearchKeywordDdg', 'duckduckgo', '<Leader>k', 'v')
 
   " Asynchronous search keyword in devdocs in client browser
-  command! -bar -nargs=1 ClientSearchKeywordDevDocs call vimrc#search_engine#client_search('devdocs', <f-args>)
-  call vimrc#browser#include_search_mappings('ClientSearchKeywordDevDocs', '<Leader>k', 'b')
+  call vimrc#search_engine#define_client_search_command('ClientSearchKeywordDevDocs', 'devdocs', '<Leader>k', 'b')
 endif

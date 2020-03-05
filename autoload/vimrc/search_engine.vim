@@ -5,6 +5,18 @@ function! vimrc#search_engine#url_encode(str) abort
   return substitute(iconv(a:str, 'latin1', 'utf-8'),'[^A-Za-z0-9_.~-]','\="%".printf("%02X",char2nr(submatch(0)))','g')
 endfunction
 
+" Includes {{{
+function! vimrc#search_engine#define_search_command(command, search_engine, prefix, suffix)
+  execute 'command! -bar -nargs=1 '.a:command." call vimrc#search_engine#search('".a:search_engine."', <f-args>)"
+  call vimrc#browser#include_search_mappings(a:command, a:prefix, a:suffix)
+endfunction
+
+function! vimrc#search_engine#define_client_search_command(command, search_engine, prefix, suffix)
+  execute 'command! -bar -nargs=1 '.a:command." call vimrc#search_engine#client_search('".a:search_engine."', <f-args>)"
+  call vimrc#browser#include_search_mappings(a:command, a:prefix, a:suffix)
+endfunction
+" }}}
+
 " Configs
 let s:search_engines = {
       \ 'duckduckgo': 'https://duckduckgo.com/?q=%s',
