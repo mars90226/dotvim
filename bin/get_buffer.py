@@ -5,7 +5,7 @@ import sys
 from pynvim import attach
 
 
-def get_terminal_buffer_content(tab, win, lines):
+def get_buffer_content(tab, win, lines):
     nvim = attach("socket", path=os.getenv("NVIM_LISTEN_ADDRESS"))
     win_id = nvim.call("win_getid", win, tab)
     win_height = nvim.call("winheight", win_id)
@@ -17,7 +17,7 @@ def get_terminal_buffer_content(tab, win, lines):
 
 
 def usage():
-    print("%s: [terminal_buffer]") % sys.argv[0]
+    print("%s: [tab] [win]") % sys.argv[0]
 
 
 if __name__ == "__main__":
@@ -28,5 +28,5 @@ if __name__ == "__main__":
     tab = sys.argv[1]
     win = sys.argv[2]
     lines = int(os.getenv("FZF_PREVIEW_LINES"))
-    terminal_buffer_content = get_terminal_buffer_content(tab, win, lines)
-    print(terminal_buffer_content)
+    buffer_content = get_buffer_content(tab, win, lines)
+    print(buffer_content)

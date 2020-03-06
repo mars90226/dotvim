@@ -18,7 +18,7 @@ function! vimrc#fzf#preview#windows() abort
   let options = fzf#vim#with_preview({ 'options': ['--prompt', 'Windows> '] })
   let preview_script = remove(options.options, -1)[0:-4]
   let get_filename_script = expand(vimrc#get_vimhome() . '/bin/fzf_windows_preview_get_file.sh')
-  let get_terminal_buffer_script = expand(vimrc#get_vimhome() . '/bin/get_terminal_buffer.py')
+  let get_buffer_script = expand(vimrc#get_vimhome() . '/bin/get_buffer.py')
   let file_script = 'FILE="$(' . get_filename_script . ' {})"'
   let tab_script = "TAB=\"$(echo {} | awk '{ print $1 }')\""
   let win_script = "WIN=\"$(echo {} | awk '{ print $2 }')\""
@@ -27,7 +27,7 @@ function! vimrc#fzf#preview#windows() abort
         \ tab_script . ';' .
         \ win_script . ';' .
         \ 'if ' . is_terminal_script . '; then ' .
-        \ get_terminal_buffer_script . ' "$TAB" "$WIN" | ' . vimrc#fzf#preview#get_command() . ';' .
+        \ get_buffer_script . ' "$TAB" "$WIN" | ' . vimrc#fzf#preview#get_command() . ';' .
         \ 'else ' . preview_script . ' "$FILE";' .
         \ 'fi'
 
