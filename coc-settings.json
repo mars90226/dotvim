@@ -25,7 +25,11 @@
           "threads": 2
         }
       }
-    }
+    },
+	"lua": {
+		"command": "lua-lsp",
+		"filetypes": ["lua"]
+	}
   },
   "coc.source.neosnippet.disableSyntaxes": ["string", "comment"],
   "python.linting.pylintEnabled": true,
