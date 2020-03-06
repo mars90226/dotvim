@@ -95,6 +95,7 @@ if vimrc#plugin#check#has_jedi()
   let g:jedi#usages_command           = '<C-X>c'
   let g:jedi#completions_command      = '<C-X><C-X>'
   let g:jedi#rename_command           = '<C-X><C-R>'
+  let g:jedi#goto_stubs_command       = '<C-X><C-S>'
 
   augroup jedi_vim_settings
     autocmd!
