@@ -122,6 +122,9 @@ nnoremap <Leader>y5 :let @" = expand('%:t:r')<CR>
 nnoremap <Leader>y% :let @" = @%<CR>
 nnoremap <Leader>y4 :let @" = expand('%:p')<CR>
 
+" Quick yank current directory
+nnoremap <Leader>yd :let @" = getcwd()<CR>
+
 " Quick split
 nnoremap <Leader>yt :tab split<CR>
 nnoremap <Leader>ys :split<CR>
