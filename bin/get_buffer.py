@@ -17,16 +17,16 @@ def get_buffer_content(tab, win, lines):
 
 
 def usage():
-    print("%s: [tab] [win]") % sys.argv[0]
+    print("%s: [tab] [win] [lines]") % sys.argv[0]
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 4:
         usage()
         sys.exit()
 
     tab = sys.argv[1]
     win = sys.argv[2]
-    lines = int(os.getenv("FZF_PREVIEW_LINES"))
+    lines = int(sys.argv[3])
     buffer_content = get_buffer_content(tab, win, lines)
     print(buffer_content)

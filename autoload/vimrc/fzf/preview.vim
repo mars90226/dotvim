@@ -27,7 +27,7 @@ function! vimrc#fzf#preview#windows() abort
         \ tab_script . ';' .
         \ win_script . ';' .
         \ 'if ' . is_terminal_script . '; then ' .
-        \ get_buffer_script . ' "$TAB" "$WIN" | ' . vimrc#fzf#preview#get_command() . ';' .
+        \ get_buffer_script . ' "$TAB" "$WIN" "$FZF_PREVIEW_LINES" | ' . vimrc#fzf#preview#get_command() . ';' .
         \ 'else ' . preview_script . ' "$FILE";' .
         \ 'fi'
 
