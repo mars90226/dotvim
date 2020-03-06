@@ -8,7 +8,7 @@ let g:ale_linters = {
       \ 'c': ['gcc'],
       \ 'cpp': ['g++'],
       \ 'javascript': ['eslint', 'jshint'],
-      \ 'python': ['pylint'],
+      \ 'python': ['pylint', 'flake8'],
       \ 'sh': ['shell', 'shellcheck']
       \}
 let g:ale_fixers = {
@@ -17,6 +17,7 @@ let g:ale_fixers = {
       \   'prettier',
       \   'stylelint'
       \ ],
+      \ 'python': ['black'],
       \ 'scss': [
       \   'prettier',
       \   'stylelint'
