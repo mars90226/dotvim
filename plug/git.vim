@@ -30,19 +30,25 @@ augroup END
 
 " vim-gitgutter {{{
 if vimrc#plugin#is_enabled_plugin('vim-gitgutter')
-  Plug 'airblade/vim-gitgutter', { 'on': [] }
+  " Plug 'airblade/vim-gitgutter', { 'on': [] }
+  Plug 'airblade/vim-gitgutter'
 
-  call vimrc#lazy#lazy_load('gitgutter')
+  " call vimrc#lazy#lazy_load('gitgutter')
 
-  nmap <silent> [g <Plug>(GitGutterPrevHunk)
-  nmap <silent> ]g <Plug>(GitGutterNextHunk)
-  nnoremap cog :GitGutterToggle<CR>
-  nnoremap <Leader>gT :GitGutterAll<CR>
+  let g:gitgutter_grep = 'rg --hidden --follow --glob "!.git/*"'
 
-  omap ig <Plug>(GitGutterTextObjectInnerPending)
-  omap ag <Plug>(GitGutterTextObjectOuterPending)
-  xmap ig <Plug>(GitGutterTextObjectInnerVisual)
-  xmap ag <Plug>(GitGutterTextObjectOuterVisual)
+  nnoremap cog :GitGutterBufferToggle<CR>
+  nnoremap coG :GitGutterToggle<CR>
+
+  if vimrc#plugin#is_disabled_plugin('coc.nvim')
+    nmap <silent> [g <Plug>(GitGutterPrevHunk)
+    nmap <silent> ]g <Plug>(GitGutterNextHunk)
+
+    omap ig <Plug>(GitGutterTextObjectInnerPending)
+    omap ag <Plug>(GitGutterTextObjectOuterPending)
+    xmap ig <Plug>(GitGutterTextObjectInnerVisual)
+    xmap ag <Plug>(GitGutterTextObjectOuterVisual)
+  endif
 endif
 " }}}
 
