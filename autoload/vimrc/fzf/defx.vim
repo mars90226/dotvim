@@ -13,6 +13,8 @@ function! vimrc#fzf#defx#get_defx_fzf_action()
   return s:defx_fzf_action
 endfunction
 
+" TODO: This may be removed as Defx folder detection is added in augroup
+" defx_detect_folder
 " TODO s:common_sink() in fzf/plugin/fzf.vim will always use 'edit' if it
 " think the current file is empty file. It's hard to workaround the check
 " and still does not interfere other things like buffer list.
