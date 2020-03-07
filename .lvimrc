@@ -1,0 +1,4 @@
+" Exclude plugged/ for ctags
+if exists('g:gutentags_ctags_exclude') && index(g:gutentags_ctags_exclude, 'plugged') == -1
+  call add(g:gutentags_ctags_exclude, 'plugged')
+endif
