@@ -12,6 +12,8 @@ function! vimrc#reload#reload()
 
   for file in split(glob(vimrc#get_vimhome() . '/autoload/**/*.vim'), '\n')
     " Avoid reloading reload.vim
+    " When changing this file, a restart of neovim or manually reload this
+    " file is needed
     if resolve(file) != s:current_filename
       execute 'source ' . file
     endif
@@ -28,5 +30,10 @@ function! vimrc#reload#reload()
   " editorconfig
   if exists(':EditorConfigReload')
     EditorConfigReload
+  endif
+
+  " Source $MYVIMRC will reset localvimrc config, reload localvimrc
+  if exists(':LocalVimRC')
+    LocalVimRC
   endif
 endfunction
