@@ -13,6 +13,14 @@ if vimrc#plugin#is_enabled_plugin('deoplete.nvim')
 endif
 " }}}
 
+" completor.vim {{{
+if vimrc#plugin#is_enabled_plugin('completor.vim')
+  if vimrc#plugin#is_enabled_plugin('nvim-lsp')
+    call vimrc#source('vimrc/plugins/nvim_lsp_after.vim')
+  endif
+endif
+" }}}
+
 " Unite {{{
 augroup post_loaded_unite_mappings
   autocmd!

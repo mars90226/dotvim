@@ -23,3 +23,11 @@ elseif vimrc#plugin#check#has_linux_build_env()
 else
   call vimrc#plugin#enable_plugin('supertab')
 endif
+
+" nvim-lsp for builtin neovim lsp
+" TODO: Use nvim_exec_lua() instead. Currently it's in document but not exist.
+" Check if `vim.lsp` is a table, not a nil
+call vimrc#plugin#disable_plugin('nvim-lsp')
+if has('nvim') && trim(execute('lua print(type(vim.lsp) == type({}))')) ==# 'true'
+  call vimrc#plugin#enable_plugin('nvim-lsp')
+endif
