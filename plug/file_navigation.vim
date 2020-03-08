@@ -92,11 +92,13 @@ augroup END
 " }}}
 
 " any-jump.nvim {{{
-Plug 'pechorin/any-jump.nvim'
+if vimrc#plugin#is_enabled_plugin('any-jump.nvim')
+  Plug 'pechorin/any-jump.nvim'
 
-nnoremap <Leader>aj :AnyJump<CR>
-nnoremap <Leader>ab :AnyJumpBack<CR>
-nnoremap <Leader>al :AnyJumpLastResults<CR>
+  nnoremap <Leader>aj :AnyJump<CR>
+  nnoremap <Leader>ab :AnyJumpBack<CR>
+  nnoremap <Leader>al :AnyJumpLastResults<CR>
+endif
 " }}}
 
 " vim-gutentags {{{

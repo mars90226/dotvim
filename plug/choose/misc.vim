@@ -24,3 +24,7 @@ endif
 if !vimrc#plugin#check#has_browser()
   call vimrc#plugin#disable_plugin('open-browser.vim')
 endif
+
+if !exists('*popup_menu')
+  call vimrc#plugin#disable_plugin('any-jump.nvim')
+endif
