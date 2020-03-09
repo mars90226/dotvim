@@ -70,9 +70,15 @@ function! vimrc#browser#include_open_url_mappings(command, prefix, suffix)
   call vimrc#mapping#include_visual_selection_mappings(a:command, visual_key)
 endfunction
 
-function! vimrc#browser#define_command(command, function, prefix, suffix)
-  execute 'command! -bar -nargs=1 '.a:command.' call '.a:function.'(<f-args>)'
-  call vimrc#browser#include_search_mappings(a:command, a:prefix, a:suffix)
+function! vimrc#browser#define_command(command, browser, type, prefix, suffix)
+  let function = 'vimrc#browser#'.(a:browser ==# 'client' ? 'client_' : '').'async_'.a:type
+  execute 'command! -bar -nargs=1 '.a:command.' call '.function.'(<f-args>)'
+
+  if a:type ==# 'open_url'
+    call vimrc#browser#include_open_url_mappings(a:command, a:prefix, a:suffix)
+  elseif a:type ==# 'search_keyword'
+    call vimrc#browser#include_search_mappings(a:command, a:prefix, a:suffix)
+  endif
 endfunction
 " }}}
 
