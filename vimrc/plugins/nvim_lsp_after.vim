@@ -1,2 +1,4 @@
 " Setup bashls (bash-language-server)
-lua require'nvim_lsp'.bashls.setup{}
+if executable('bash-language-server')
+  lua require'nvim_lsp'.bashls.setup{}
+endif
