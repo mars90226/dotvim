@@ -40,15 +40,13 @@ if vimrc#plugin#is_enabled_plugin('vim-gitgutter')
   nnoremap cog :GitGutterBufferToggle<CR>
   nnoremap coG :GitGutterToggle<CR>
 
-  if vimrc#plugin#is_disabled_plugin('coc.nvim')
-    nmap <silent> [g <Plug>(GitGutterPrevHunk)
-    nmap <silent> ]g <Plug>(GitGutterNextHunk)
+  nmap <silent> [h <Plug>(GitGutterPrevHunk)
+  nmap <silent> ]h <Plug>(GitGutterNextHunk)
 
-    omap ig <Plug>(GitGutterTextObjectInnerPending)
-    omap ag <Plug>(GitGutterTextObjectOuterPending)
-    xmap ig <Plug>(GitGutterTextObjectInnerVisual)
-    xmap ag <Plug>(GitGutterTextObjectOuterVisual)
-  endif
+  omap ih <Plug>(GitGutterTextObjectInnerPending)
+  omap ah <Plug>(GitGutterTextObjectOuterPending)
+  xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+  xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 endif
 " }}}
 
