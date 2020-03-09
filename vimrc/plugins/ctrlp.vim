@@ -5,6 +5,7 @@ nnoremap <C-P> :CtrlP<CR>
 nnoremap <Leader>cO :CtrlPFunky<CR>
 nnoremap <Leader>ck :execute 'CtrlPFunky ' . expand('<cword>')<CR>
 xnoremap <Leader>ck :<C-U>execute 'CtrlPFunky ' . vimrc#get_visual_selection()<CR>
+nnoremap <Leader>cm :CtrlPMRU<CR>
 nnoremap <Leader>c] :CtrlPtjump<CR>
 xnoremap <Leader>c] :CtrlPtjumpVisual<CR>
 
