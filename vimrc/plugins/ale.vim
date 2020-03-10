@@ -17,6 +17,9 @@ let g:ale_fixers = {
       \   'prettier',
       \   'stylelint'
       \ ],
+      \ 'lua': [
+      \   { buffer, lines -> systemlist('luaformatter '.expand('%')) }
+      \ ],
       \ 'python': ['black'],
       \ 'scss': [
       \   'prettier',
