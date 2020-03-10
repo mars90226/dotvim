@@ -21,7 +21,7 @@ if has('nvim')
   " Asynchronous open URI
   if has('unix') && executable('xdg-open')
     " Required by fugitive :GBrowse
-    call vimrc#browser#define_command('Browse', 'vimrc#browser#async_open', g:execute_prefix, 'x')
+    call vimrc#browser#define_command('Browse', 'current', 'open', g:execute_prefix, 'x')
   endif
 
   for [command, definition] in items(g:browser_maps)
