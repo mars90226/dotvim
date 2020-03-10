@@ -20,7 +20,8 @@ nnoremap <Space>-        :call vimrc#defx#opendir('Defx -split=horizontal')<CR>
 nnoremap <Space><Space>- :call vimrc#defx#opendir('Defx -split=horizontal -new')<CR>
 nnoremap <Space>_        :call vimrc#defx#opendir('Defx -split=tab -buffer-name=tab')<CR>
 nnoremap \.              :Defx .<CR>
-nnoremap <Space>=        :Defx -split=vertical .<CR>
+nnoremap \>              :Defx -split=vertical .<CR>
+nnoremap <Space>=        :Defx -split=horizontal .<CR>
 nnoremap <Space>+        :Defx -split=tab -buffer-name=tab .<CR>
 nnoremap <Leader>zd      :call vimrc#defx#opendir('Defx '.g:defx_float_options)<CR>
 nnoremap <Leader>zr      :execute 'Defx '.g:defx_float_options.' .'<CR>
