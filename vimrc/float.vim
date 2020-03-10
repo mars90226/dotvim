@@ -15,6 +15,8 @@ if has('nvim') && vimrc#plugin#check#has_floating_window()
   command!                                  VimrcFloatPrev   call vimrc#float#prev()
   command!                                  VimrcFloatNext   call vimrc#float#next()
   command!                                  VimrcFloatRemove call vimrc#float#remove()
+  command! -bang -nargs=? -complete=command VimrcFloatermNew call vimrc#float#new('TermOpen '.<q-args>, <bang>0)
+
   nnoremap <silent> <M-,><M-l> :VimrcFloatToggle<CR>
   inoremap <silent> <M-,><M-l> <Esc>:VimrcFloatToggle<CR>
   nnoremap <silent> <M-,><M-n> :execute 'VimrcFloatNew '.input('command: ', '', 'command')<CR>
@@ -22,6 +24,8 @@ if has('nvim') && vimrc#plugin#check#has_floating_window()
   nnoremap <silent> <M-,><M-j> :VimrcFloatPrev<CR>
   nnoremap <silent> <M-,><M-k> :VimrcFloatNext<CR>
   nnoremap <silent> <M-,><M-r> :VimrcFloatRemove<CR>
+  nnoremap <silent> <M-,><M-x> :execute 'VimrcFloatermNew '.input('command: ', '', 'shellcmd')<CR>
+  nnoremap <silent> <M-,><M-c> :execute 'VimrcFloatermNew! '.input('command: ', '', 'shellcmd')<CR>
 
   " terminal key mappings
   tnoremap <silent> <M-q><M-,><M-l> <C-\><C-N>:VimrcFloatToggle<CR>
