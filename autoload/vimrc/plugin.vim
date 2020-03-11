@@ -3,22 +3,22 @@
 let s:plugin_disabled = []
 
 function! vimrc#plugin#disable_plugin(plugin)
-  let l:idx = index(s:plugin_disabled, a:plugin)
-
-  if l:idx == -1
+  if index(s:plugin_disabled, a:plugin) == -1
     call add(s:plugin_disabled, a:plugin)
   endif
 endfunction
 
 function! vimrc#plugin#disable_plugins(plugins)
-  let s:plugin_disabled += a:plugins
+  for plugin in a:plugins
+    call vimrc#plugin#disable_plugin(plugin)
+  endfor
 endfunction
 
 function! vimrc#plugin#enable_plugin(plugin)
-  let l:idx = index(s:plugin_disabled, a:plugin)
+  let index = index(s:plugin_disabled, a:plugin)
 
-  if l:idx != -1
-    call remove(s:plugin_disabled, l:idx)
+  if index != -1
+    call remove(s:plugin_disabled, index)
   end
 endfunction
 
