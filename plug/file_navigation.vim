@@ -116,7 +116,11 @@ endif
 " ctrlsf.vim {{{
 Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF', 'CtrlSFToggle'] }
 
-nnoremap <Space><C-F> :execute 'CtrlSF ' . input('CtrlSF: ')<CR>
+nmap <Space><C-F> <Plug>CtrlSFPrompt
+
+nmap <Leader><C-F> <Plug>CtrlSFCwordExec
+xmap <Leader><C-F> <Plug>CtrlSFVwordExec
+
 nnoremap <F5> :CtrlSFToggle<CR>
 " }}}
 
