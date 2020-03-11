@@ -209,9 +209,9 @@ onoremap <silent> <M-P> :<C-U>call vimrc#textobj#past_character(v:count1, 'o', v
 " TODO Move this to 'after' folder
 if has('nvim')
   " TODO Detect goyo mode and use normal :Man
-  nnoremap <Leader><F1> :Man 
+  nnoremap <Leader><F1> :Man<Space>
   if vimrc#plugin#check#has_floating_window()
-    nnoremap <Leader><F2> :VimrcFloatNew! Man 
+    nnoremap <Leader><F2> :VimrcFloatNew! Man<Space>
   endif
 endif
 
