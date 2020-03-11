@@ -94,6 +94,9 @@ nnoremap <Leader>du :lcd ..<CR>
 " Change current window working directory to folder containing current buffer
 nnoremap <Leader>db :lcd %:h<CR>
 
+" Horizontally scroll to center of window, like horizontal 'zz'
+nnoremap zc zszH
+
 " Operator mapping for current word
 onoremap x iw
 onoremap X iW
