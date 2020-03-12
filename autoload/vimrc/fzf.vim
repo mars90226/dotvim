@@ -108,7 +108,7 @@ for s:color_name in keys(s:ansi)
 endfor
 
 function! vimrc#fzf#buflisted()
-  return filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&filetype") != "qf"')
+  return filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&filetype") !=# "qf"')
 endfunction
 
 function! vimrc#fzf#fzf(name, opts, extra)
