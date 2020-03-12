@@ -34,11 +34,11 @@ command! -nargs=1 -complete=file DefxTabOpenSink         call vimrc#defx#open(<q
 command! -nargs=1 -complete=file DefxRightVSplitOpenSink call vimrc#defx#open(<q-args>, 'rightbelow vsplit')
 
 " Defx open dir
-command! -nargs=1 -complete=file DefxOpenDirSink            call vimrc#defx#open_dir(<q-args>, 'edit')
-command! -nargs=1 -complete=file DefxSplitOpenDirSink       call vimrc#defx#open_dir(<q-args>, 'split')
-command! -nargs=1 -complete=file DefxVSplitOpenDirSink      call vimrc#defx#open_dir(<q-args>, 'vsplit')
-command! -nargs=1 -complete=file DefxTabOpenDirSink         call vimrc#defx#open_dir(<q-args>, 'tab split')
-command! -nargs=1 -complete=file DefxRightVSplitOpenDirSink call vimrc#defx#open_dir(<q-args>, 'rightbelow vsplit')
+command! -nargs=1 -complete=dir DefxOpenDirSink            call vimrc#defx#open_dir(<q-args>, 'edit')
+command! -nargs=1 -complete=dir DefxSplitOpenDirSink       call vimrc#defx#open_dir(<q-args>, 'split')
+command! -nargs=1 -complete=dir DefxVSplitOpenDirSink      call vimrc#defx#open_dir(<q-args>, 'vsplit')
+command! -nargs=1 -complete=dir DefxTabOpenDirSink         call vimrc#defx#open_dir(<q-args>, 'tab split')
+command! -nargs=1 -complete=dir DefxRightVSplitOpenDirSink call vimrc#defx#open_dir(<q-args>, 'rightbelow vsplit')
 
 augroup defx_mappings
   autocmd!
