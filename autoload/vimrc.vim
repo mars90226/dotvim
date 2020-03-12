@@ -35,7 +35,10 @@ function! vimrc#escape_symbol(expr)
 endfunction
 
 function! vimrc#warn(message)
-  echohl WarningMsg | echomsg a:message | echohl None
+  echohl WarningMsg
+  echom a:message
+  echohl None
+  return 0
 endfunction
 
 function! vimrc#get_visual_selection()

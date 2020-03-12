@@ -114,6 +114,19 @@ function! vimrc#fzf#git#files_commit_sink(commit, lines)
   endif
 endfunction
 
+function! vimrc#fzf#git#commits_in_commandline_sink(results, lines)
+  " TODO: Make vimrc#fzf#git#commits_in_commandline() do not use expect key
+  " Currently vimrc#fzf#git#commits_in_commandline() use vimrc#fzf#fzf() which
+  " always add expect key.
+  let line = type(a:lines) == type([]) ? a:lines[1] : a:lines
+
+  let pat = '[0-9a-f]\{7,9}'
+  let sha = matchstr(line, pat)
+  if !empty(sha)
+    call add(a:results, sha)
+  endif
+endfunction
+
 " Commands
 let s:git_diff_tree_command = 'git diff-tree --no-commit-id --name-only -r '
 
@@ -234,3 +247,56 @@ function! vimrc#fzf#git#files_commit(commit)
         \ 'options': ['-m', '-s', '--prompt', 'GitFilesCommit> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
 endfunction
 " }}}
+
+" Intend to be mapped in command
+function! vimrc#fzf#git#commits_in_commandline(buffer_local, args)
+  let s:git_root = vimrc#fzf#get_git_root()
+  if empty(s:git_root)
+    return vimrc#warn('Not in git repository')
+  endif
+
+  let source = 'git log '.get(g:, 'fzf_commits_log_options', '--color=always '.fzf#shellescape('--format=%C(auto)%h%d %s %C(green)%cr'))
+  let current = expand('%')
+  let managed = 0
+  if !empty(current)
+    call system('git show '.fzf#shellescape(current).' 2> '.(vimrc#plugin#check#get_os() =~# 'windows' ? 'nul' : '/dev/null'))
+    let managed = !v:shell_error
+  endif
+
+  if a:buffer_local
+    if !managed
+      return vimrc#warn('The current buffer is not in the working tree')
+    endif
+    let source .= ' --follow '.fzf#shellescape(current)
+  else
+    let source .= ' --graph'
+  endif
+
+  let command = a:buffer_local ? 'BCommits' : 'Commits'
+  let results = []
+  let options = {
+  \ 'source':  source,
+  \ 'sink*':   function('vimrc#fzf#git#commits_in_commandline_sink', [results]),
+  \ 'options': ['--ansi', '--tiebreak=index', '--layout=reverse-list',
+  \   '--inline-info', '--prompt', command.'> ', '--bind=ctrl-s:toggle-sort',
+  \   '--header', ':: Press '.vimrc#fzf#magenta('CTRL-S', 'Special').' to toggle sort, '.vimrc#fzf#magenta('CTRL-Y', 'Special').' to yank commit hashes']
+  \ }
+
+  if a:buffer_local
+    let options.options[-2] .= ', '.vimrc#fzf#magenta('CTRL-D', 'Special').' to diff'
+    let options.options[-1] .= ',ctrl-d'
+  endif
+
+  if vimrc#plugin#check#get_os() !~# 'windows' && &columns > vimrc#fzf#get_wide()
+    call extend(options.options,
+    \ ['--preview', 'echo {} | grep -o "[a-f0-9]\{7,\}" | head -1 | xargs git show --format=format: --color=always | head -200'])
+  endif
+
+
+  " Use tmux to avoid opening terminal in neovim
+  let g:fzf_prefer_tmux = 1
+  let options = extend(options, g:fzf_tmux_layout)
+  call vimrc#fzf#fzf(a:buffer_local ? 'bcommits' : 'commits', options, a:args)
+  let g:fzf_prefer_tmux = 0
+  return get(results, 0, '')
+endfunction

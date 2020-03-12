@@ -201,6 +201,11 @@ function! vimrc#fzf#with_default_options(...)
   return opts
 endfunction
 
+function! vimrc#fzf#get_git_root()
+  let root = split(system('git rev-parse --show-toplevel'), '\n')[0]
+  return v:shell_error ? '' : root
+endfunction
+
 function! s:escape(path)
   let path = fnameescape(a:path)
   return vimrc#plugin#check#get_os() =~# 'windows' ? escape(path, '$') : path
