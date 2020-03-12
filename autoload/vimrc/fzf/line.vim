@@ -1,3 +1,6 @@
+" Script Encoding: UTF-8
+scriptencoding utf-8
+
 " Borrowed from fzf.vim
 
 " Sources
@@ -10,13 +13,13 @@ function! vimrc#fzf#line#lines_source(all)
   if display_bufnames
     let bufnames = {}
     for b in vimrc#fzf#buflisted()
-      let bufnames[b] = pathshorten(fnamemodify(bufname(b), ":~:."))
+      let bufnames[b] = pathshorten(fnamemodify(bufname(b), ':~:.'))
       let longest_name = max([longest_name, len(bufnames[b])])
     endfor
   endif
   let len_bufnames = min([15, longest_name])
   for b in vimrc#fzf#buflisted()
-    let lines = getbufline(b, 1, "$")
+    let lines = getbufline(b, 1, '$')
     if empty(lines)
       let path = fnamemodify(bufname(b), ':p')
       let lines = filereadable(path) ? readfile(path) : []
@@ -26,11 +29,11 @@ function! vimrc#fzf#line#lines_source(all)
       if len(bufname) > len_bufnames + 1
         let bufname = '…' . bufname[-len_bufnames+1:]
       endif
-      let bufname = printf(vimrc#fzf#green("%".len_bufnames."s", "Directory"), bufname)
+      let bufname = printf(vimrc#fzf#green('%'.len_bufnames.'s', 'Directory'), bufname)
     else
       let bufname = ''
     endif
-    let linefmt = vimrc#fzf#blue("%2d\t", "TabLine")."%s".vimrc#fzf#yellow("\t%4d ", "LineNr")."\t%s"
+    let linefmt = vimrc#fzf#blue("%2d\t", 'TabLine').'%s'.vimrc#fzf#yellow("\t%4d ", 'LineNr')."\t%s"
     call extend(b == buf ? cur : rest,
     \ filter(
     \   map(lines,
