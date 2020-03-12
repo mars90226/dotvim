@@ -60,6 +60,15 @@ function! vimrc#fzf#action_for(key, ...)
   return vimrc#fzf#action_for_with_table(g:fzf_action, a:key, default)
 endfunction
 
+function! vimrc#fzf#action_type(key)
+  return get(g:fzf_action_type, a:key, {})
+endfunction
+
+let s:wide = 120
+function! vimrc#fzf#get_wide()
+  return s:wide
+endfunction
+
 " For using colors in fzf
 function! vimrc#fzf#get_color(attr, ...)
   let gui = has('termguicolors') && &termguicolors
@@ -97,6 +106,10 @@ for s:color_name in keys(s:ansi)
         \ "  return vimrc#fzf#ansi(a:str, get(a:, 1, ''), '".s:color_name."')\n"
         \ 'endfunction'
 endfor
+
+function! vimrc#fzf#buflisted()
+  return filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&filetype") != "qf"')
+endfunction
 
 function! vimrc#fzf#fzf(name, opts, extra)
   let [extra, bang] = [{}, 0]

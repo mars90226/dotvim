@@ -58,6 +58,16 @@ let g:default_fzf_action = extend({
       \ }, g:misc_fzf_action)
 let g:fzf_action = g:default_fzf_action
 
+" TODO: Generalize g:fzf_action_type
+" Currently, this is only used in vimrc#fzf#line#lines_sink() which used in
+" :Lines
+let g:fzf_action_type = {
+      \ 'alt-l': {
+      \   'type': 'file',
+      \   'need_argument': v:true
+      \ }
+      \ }
+
 " Mapping selecting mappings
 nmap <Space><Tab> <Plug>(fzf-maps-n)
 imap <M-`>        <Plug>(fzf-maps-i)
@@ -80,7 +90,7 @@ command! -bang -nargs=+ -complete=dir Locate   call vimrc#fzf#locate(<q-args>, <
 command! -bang -nargs=*               History  call vimrc#fzf#history(<q-args>, <bang>0)
 command! -bar  -bang                  Windows  call fzf#vim#windows(vimrc#fzf#preview#windows(), <bang>0)
 command! -bar  -nargs=* -bang         BLines   call fzf#vim#buffer_lines(<q-args>, vimrc#fzf#preview#buffer_lines(), <bang>0)
-command! -bang -nargs=*               Lines    call fzf#vim#lines(<q-args>, vimrc#fzf#with_default_options(), <bang>0)
+command! -bang -nargs=*               Lines    call vimrc#fzf#line#lines(<q-args>, vimrc#fzf#with_default_options(), <bang>0)
 command! -bar -bang                   Commits  call fzf#vim#commits(vimrc#fzf#with_default_options(), <bang>0)
 command! -bar -bang                   BCommits call fzf#vim#buffer_commits(vimrc#fzf#with_default_options(), <bang>0)
 
