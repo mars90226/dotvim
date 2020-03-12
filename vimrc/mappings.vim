@@ -145,8 +145,9 @@ cnoremap <C-G><C-G> <C-G>
 inoremap <C-G><C-G> <C-G>
 cnoremap <expr> <C-G><C-F> vimrc#fzf#files_in_commandline()
 inoremap <expr> <C-G><C-F> vimrc#fzf#files_in_commandline()
-cnoremap <expr> <C-G><C-H> vimrc#fzf#mru#mru_in_commandline()
-inoremap <expr> <C-G><C-H> vimrc#fzf#mru#mru_in_commandline()
+" <BS> and <C-H> are the same key
+cnoremap <expr> <C-G><BS>  vimrc#fzf#mru#mru_in_commandline()
+inoremap <expr> <C-G><BS>  vimrc#fzf#mru#mru_in_commandline()
 cnoremap <expr> <C-G><C-M> vimrc#fzf#mru#directory_mru_in_commandline()
 inoremap <expr> <C-G><C-M> vimrc#fzf#mru#directory_mru_in_commandline()
 cnoremap <expr> <C-G><C-T> vimrc#rg#current_type_option()
