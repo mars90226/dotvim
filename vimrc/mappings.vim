@@ -303,4 +303,6 @@ nnoremap <Leader>o :execute 'QuickfixOutput '.input('output: ', '', 'command')<C
 if vimrc#plugin#check#get_os() !~# 'windows'
   command! Args echo system("ps -o command= -p " . getpid())
 endif
+
+command! -nargs=1 -complete=file Switch call vimrc#switch(<q-args>, 'edit')
 " }}}

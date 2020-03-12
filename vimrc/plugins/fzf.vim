@@ -54,6 +54,7 @@ let g:default_fzf_action = extend({
       \ 'ctrl-v': 'vsplit',
       \ 'alt-v':  'rightbelow vsplit',
       \ 'alt-z':  'VimrcFloatNew split',
+      \ 'alt-l':  'Switch',
       \ }, g:misc_fzf_action)
 let g:fzf_action = g:default_fzf_action
 
