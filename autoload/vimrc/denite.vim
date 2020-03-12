@@ -159,7 +159,8 @@ function! vimrc#denite#filter_mappings()
   inoremap <silent><buffer><expr> <C-T> denite#do_map('do_action', 'tabopen')
   inoremap <silent><buffer><expr> <C-V> denite#do_map('do_action', 'vsplit')
   " <C-_> and <C-/> are the same key
-  inoremap <silent><buffer><expr> <C-_> denite#do_map('do_action', 'preview')
+  " Avoid using <C-_> as it's conflict with tcomment
+  inoremap <silent><buffer><expr> <M-/> denite#do_map('do_action', 'preview')
   inoremap <silent><buffer><expr> <M-d> denite#do_map('do_action', 'cd')
   inoremap <silent><buffer><expr> <M-s> denite#do_map('do_action', 'splitswitch')
   inoremap <silent><buffer><expr> <M-t> denite#do_map('do_action', 'tabswitch')
