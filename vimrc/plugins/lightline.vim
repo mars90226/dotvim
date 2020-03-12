@@ -4,6 +4,7 @@ let s:sha1size = 7
 
 let g:lightline = {}
 let g:lightline.colorscheme = 'gruvbox'
+let g:lightline_gruvbox_style = 'hard_left'
 let g:lightline.component = {
       \ 'truncate': '%<',
       \ }
