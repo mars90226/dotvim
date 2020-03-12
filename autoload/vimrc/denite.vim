@@ -118,7 +118,7 @@ endfunction
 " Denite buffer insert mode
 function! vimrc#denite#filter_mappings()
   " Denite filter buffer
-  inoremap <silent><buffer><expr> <Esc> denite#do_map('quit')
+  inoremap <silent><buffer><expr> <Esc> pumvisible() ? "\<C-E>" : denite#do_map('quit')
   inoremap <silent><buffer><expr> <C-C> denite#do_map('quit')
   nnoremap <silent><buffer><expr> <Esc> denite#do_map('quit')
   nnoremap <silent><buffer><expr> <C-C> denite#do_map('quit')
@@ -131,6 +131,14 @@ function! vimrc#denite#filter_mappings()
   inoremap <silent><buffer>         <M-q> <Esc>
   inoremap <silent><buffer>         <C-B> <C-O>^
   inoremap <silent><buffer><nowait> <C-E> <C-O>$
+
+  " History
+  inoremap <silent><buffer> <C-P> <Up>
+  inoremap <silent><buffer> <C-N> <Down>
+
+  " Completion
+  inoremap <silent><buffer> <M-p> <C-P>
+  inoremap <silent><buffer> <M-n> <C-N>
 
   " Actions
   inoremap <silent><buffer><expr> <Tab> denite#do_map('choose_action')
@@ -150,7 +158,8 @@ function! vimrc#denite#filter_mappings()
   inoremap <silent><buffer><expr> <C-S> denite#do_map('do_action', 'split')
   inoremap <silent><buffer><expr> <C-T> denite#do_map('do_action', 'tabopen')
   inoremap <silent><buffer><expr> <C-V> denite#do_map('do_action', 'vsplit')
-  inoremap <silent><buffer><expr> <M-p> denite#do_map('do_action', 'preview')
+  " <C-_> and <C-/> are the same key
+  inoremap <silent><buffer><expr> <C-_> denite#do_map('do_action', 'preview')
   inoremap <silent><buffer><expr> <M-d> denite#do_map('do_action', 'cd')
   inoremap <silent><buffer><expr> <M-s> denite#do_map('do_action', 'splitswitch')
   inoremap <silent><buffer><expr> <M-t> denite#do_map('do_action', 'tabswitch')
