@@ -31,6 +31,7 @@
 		"filetypes": ["lua"]
 	}
   },
+  "coc.preferences.useQuickfixForLocations": true,
   "coc.source.neosnippet.disableSyntaxes": ["string", "comment"],
   "python.linting.pylintEnabled": true,
   "list.insertMappings": {
