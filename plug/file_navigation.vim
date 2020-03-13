@@ -50,6 +50,8 @@ endif
 " fzf#install() only install binary
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+" TODO: Make Quickfix use g:fzf_action
+Plug 'fszymanski/fzf-quickfix', { 'on': 'Quickfix' }
 
 call vimrc#source('vimrc/plugins/fzf.vim')
 " }}}

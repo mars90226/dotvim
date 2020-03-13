@@ -187,7 +187,7 @@ endif
 " }}}
 
 " fzf key mappings {{{
-nnoremap <Space>fa     :call      vimrc#execute_and_save('Ag ' . input('Ag: '))<CR>
+nnoremap <Space>fa     :call      vimrc#execute_and_save('Quickfix!')<CR>
 nnoremap <Space>fA     :call      vimrc#execute_and_save('AllFiles')<CR>
 nnoremap <Space>fb     :call      vimrc#execute_and_save('Buffers')<CR>
 nnoremap <Space>fB     :call      vimrc#execute_and_save('Files %:h')<CR>
@@ -231,6 +231,7 @@ nnoremap <Space>f%     :call      vimrc#execute_and_save('FilesWithQuery ' . exp
 xnoremap <Space>fn     :<C-U>call vimrc#execute_and_save('FilesWithQuery ' . vimrc#get_visual_selection())<CR>
 nnoremap <Space>fo     :call      vimrc#execute_and_save('Locate ' . input('Locate: '))<CR>
 nnoremap <Space>fO     :call      vimrc#execute_and_save('History')<CR>
+nnoremap <Space>fq     :call      vimrc#execute_and_save('Quickfix')<CR>
 nnoremap <Space>fr     :call      vimrc#execute_and_save('Rg ' . input('Rg: '))<CR>
 nnoremap <Space>fR     :call      vimrc#execute_and_save('Rg! ' . input('Rg!: '))<CR>
 nnoremap <Space>f4     :call      vimrc#execute_and_save('RgWithOption .:' . input('Option: ') . ':' . input('Rg: '))<CR>
