@@ -5,6 +5,7 @@ if has('nvim')
   let g:open_url_prefix       = '<Leader>b'
   let g:search_keyword_prefix = '<Leader>k'
 
+  " TODO: Only define client browser command if $SSH_CLIENT_HOST exists
   let g:browser_maps = {
         \ 'OpenUrl':             ['current', 'open_url',       g:open_url_prefix,       'b'],
         \ 'SearchKeyword':       ['current', 'search_keyword', g:search_keyword_prefix, 'k'],

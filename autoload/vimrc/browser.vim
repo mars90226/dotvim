@@ -92,29 +92,50 @@ function! vimrc#browser#async_open(uri)
     return
   endif
 
+  " Detect URI and use browser
+  if a:uri =~# '\v^https?://'
+    if vimrc#plugin#check#has_ssh_host_client()
+      call vimrc#browser#client_async_open_url(a:uri, 1)
+    else
+      call vimrc#browser#async_open_url(a:uri, 1)
+    endif
+  endif
+
   call vimrc#browser#async_execute('xdg-open '.a:uri)
 endfunction
 
 " Asynchronously open URL in browser
-function! vimrc#browser#async_open_url(url)
-  echo 'Open URL: '.a:url
+function! vimrc#browser#async_open_url(url, ...)
+  let silent = a:1
+  if !silent
+    echo 'Open URL: '.a:url
+  endif
   call vimrc#browser#async_browse(vimrc#browser#get_command(a:url))
 endfunction
 
 " Asynchronously search keyword in browser
-function! vimrc#browser#async_search_keyword(keyword)
-  echo 'Search keyword: '.a:keyword
+function! vimrc#browser#async_search_keyword(keyword, ...)
+  let silent = a:1
+  if !silent
+    echo 'Search keyword: '.a:keyword
+  endif
   call vimrc#browser#async_browse(vimrc#browser#get_search_command(a:keyword))
 endfunction
 
 " Asynchronously open URL in client browser
-function! vimrc#browser#client_async_open_url(url)
-  echo 'Open URL in client browser: '.a:url
+function! vimrc#browser#client_async_open_url(url, ...)
+  let silent = a:1
+  if !silent
+    echo 'Open URL in client browser: '.a:url
+  endif
   call vimrc#browser#async_browse(vimrc#browser#get_client_command(a:url))
 endfunction
 
 " Asynchronously search keyword in client browser
-function! vimrc#browser#client_async_search_keyword(keyword)
-  echo 'Search keyword in client browser: '.a:keyword
+function! vimrc#browser#client_async_search_keyword(keyword, ...)
+  let silent = a:1
+  if !silent
+    echo 'Search keyword in client browser: '.a:keyword
+  endif
   call vimrc#browser#async_browse(vimrc#browser#get_client_search_command(a:keyword))
 endfunction

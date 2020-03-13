@@ -109,3 +109,7 @@ endfunction
 function! vimrc#plugin#check#has_browser()
   return s:os !~# 'synology'
 endfunction
+
+function! vimrc#plugin#check#has_ssh_host_client()
+  return !empty($SSH_CLIENT_HOST)
+endfunction
