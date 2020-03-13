@@ -111,7 +111,7 @@ Plug 'embear/vim-localvimrc'
 
 " Be careful of malicious localvimrc
 let g:localvimrc_sandbox = 0
-let g:localvimrc_whitelist = [$HOME.'/.vim', $HOME.'/.tmux']
+let g:localvimrc_whitelist = [$HOME.'/.vim', $HOME.'/.tmux', $HOME.'/test']
 if exists('g:localvimrc_secret_whitelist')
   let g:localvimrc_whitelist += g:localvimrc_secret_whitelist
 endif
