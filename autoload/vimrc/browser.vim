@@ -115,7 +115,7 @@ endfunction
 
 " Asynchronously search keyword in browser
 function! vimrc#browser#async_search_keyword(keyword, ...)
-  let silent = a:1
+  let silent = a:0 > 0 ? a:1 : v:false
   if !silent
     echo 'Search keyword: '.a:keyword
   endif
@@ -124,7 +124,7 @@ endfunction
 
 " Asynchronously open URL in client browser
 function! vimrc#browser#client_async_open_url(url, ...)
-  let silent = a:1
+  let silent = a:0 > 0 ? a:1 : v:false
   if !silent
     echo 'Open URL in client browser: '.a:url
   endif
@@ -133,7 +133,7 @@ endfunction
 
 " Asynchronously search keyword in client browser
 function! vimrc#browser#client_async_search_keyword(keyword, ...)
-  let silent = a:1
+  let silent = a:0 > 0 ? a:1 : v:false
   if !silent
     echo 'Search keyword in client browser: '.a:keyword
   endif
