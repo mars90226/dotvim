@@ -19,11 +19,8 @@ if has('nvim')
         \ 'ClientSearchKeywordDevDocs': ['client',  'devdocs',    g:search_keyword_prefix, 'b'],
         \ }
 
-  " Asynchronous open URI
-  if has('unix') && executable('xdg-open')
-    " Required by fugitive :GBrowse
-    call vimrc#browser#define_command('Browse', 'current', 'open', g:execute_prefix, 'x')
-  endif
+  " Required by fugitive :GBrowse
+  call vimrc#browser#define_command('Browse', 'current', 'open', g:execute_prefix, 'x')
 
   for [command, definition] in items(g:browser_maps)
     let browser = definition[0]

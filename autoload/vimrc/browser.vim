@@ -74,7 +74,7 @@ function! vimrc#browser#define_command(command, browser, type, prefix, suffix)
   let function = 'vimrc#browser#'.(a:browser ==# 'client' ? 'client_' : '').'async_'.a:type
   execute 'command! -bar -nargs=1 '.a:command.' call '.function.'(<f-args>)'
 
-  if a:type ==# 'open_url'
+  if a:type ==# 'open_url' || a:type ==# 'open'
     call vimrc#browser#include_open_url_mappings(a:command, a:prefix, a:suffix)
   elseif a:type ==# 'search_keyword'
     call vimrc#browser#include_search_mappings(a:command, a:prefix, a:suffix)
@@ -86,12 +86,6 @@ endfunction
 " Asynchronously browse URI
 " TODO Move to better place?
 function! vimrc#browser#async_open(uri)
-  " Use xdg-open to open URI
-  if !has('unix') || !executable('xdg-open')
-    echoerr 'No xdg-open found!'
-    return
-  endif
-
   " Detect URI and use browser
   if a:uri =~# '\v^https?://'
     if vimrc#plugin#check#has_ssh_host_client()
@@ -100,13 +94,19 @@ function! vimrc#browser#async_open(uri)
       call vimrc#browser#async_open_url(a:uri, 1)
     endif
   else
+    " Use xdg-open to open URI
+    if !has('unix') || !executable('xdg-open')
+      echoerr 'No xdg-open found!'
+      return
+    endif
+
     call vimrc#browser#async_execute('xdg-open '.a:uri)
   endif
 endfunction
 
 " Asynchronously open URL in browser
 function! vimrc#browser#async_open_url(url, ...)
-  let silent = a:1
+  let silent = a:0 > 0 ? a:1 : v:false
   if !silent
     echo 'Open URL: '.a:url
   endif
