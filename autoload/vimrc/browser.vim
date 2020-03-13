@@ -99,9 +99,9 @@ function! vimrc#browser#async_open(uri)
     else
       call vimrc#browser#async_open_url(a:uri, 1)
     endif
+  else
+    call vimrc#browser#async_execute('xdg-open '.a:uri)
   endif
-
-  call vimrc#browser#async_execute('xdg-open '.a:uri)
 endfunction
 
 " Asynchronously open URL in browser
