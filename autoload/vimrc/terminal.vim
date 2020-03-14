@@ -17,6 +17,13 @@ function! vimrc#terminal#settings()
   endif
 endfunction
 
+" Mappings
+function! vimrc#terminal#mappings()
+  " Navigate prompts
+  nnoremap <silent><buffer> [[ ?❯<CR>
+  nnoremap <silent><buffer> ]] /❯<CR>
+endfunction
+
 function! vimrc#terminal#meta_key_fix()
   set <M-a>=a
   set <M-c>=c

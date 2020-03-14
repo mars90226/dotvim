@@ -140,6 +140,7 @@ if has('nvim')
   augroup terminal_settings
     autocmd!
     autocmd TermOpen * call vimrc#terminal#settings()
+    autocmd TermOpen * call vimrc#terminal#mappings()
 
     " TODO Start insert mode when cancelling :Windows in terminal mode or
     " selecting another terminal buffer
