@@ -145,7 +145,7 @@ if has('nvim')
     " TODO Start insert mode when cancelling :Windows in terminal mode or
     " selecting another terminal buffer
     autocmd BufWinEnter,WinEnter term://* startinsert
-    autocmd BufLeave term://* stopinsert
+    autocmd BufLeave             term://* stopinsert
 
     " Ignore various filetypes as those will close terminal automatically
     " Ignore fzf, coc
