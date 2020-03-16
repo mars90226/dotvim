@@ -11,30 +11,30 @@ augroup filetype_detection_settings
   autocmd!
 
   " Custom filetype
-  autocmd BufNewFile,BufReadPost *.ru                 set filetype=ruby
-  autocmd BufNewFile,BufReadPost *.gdbinit            set filetype=gdb
-  autocmd BufNewFile,BufReadPost *maillog             set filetype=messages
-  autocmd BufNewFile,BufReadPost *maillog.*.xz        set filetype=messages
-  autocmd BufNewFile,BufReadPost *conf                set filetype=conf
-  autocmd BufNewFile,BufReadPost *conf.local          set filetype=conf
-  autocmd BufNewFile,BufReadPost *conf.local.override set filetype=conf
-  autocmd BufNewFile,BufReadPost *.cf                 set filetype=conf
-  autocmd BufNewFile,BufReadPost .gitignore           set filetype=conf
-  autocmd BufNewFile,BufReadPost .ignore              set filetype=conf
-  autocmd BufNewFile,BufReadPost */conf/template/*    set filetype=conf
-  autocmd BufNewFile,BufReadPost */rspamd/*.inc       set filetype=conf
-  autocmd BufNewFile,BufReadPost */upstart/*conf      set filetype=upstart
-  autocmd BufNewFile,BufReadPost *.upstart            set filetype=upstart
-  autocmd BufNewFile,BufReadPost Makefile.inc         set filetype=make
-  autocmd BufNewFile,BufReadPost depends              set filetype=dosini
-  autocmd BufNewFile,BufReadPost depends-virtual-*    set filetype=dosini
-  autocmd BufNewFile,BufReadPost .tmux.conf           set filetype=tmux
-  autocmd BufNewFile,BufReadPost resource             set filetype=json
-  autocmd BufNewFile,BufReadPost *.bashrc             set filetype=sh
-  autocmd BufNewFile,BufReadPost *.sieve              set filetype=sieve
+  autocmd BufNewFile,BufReadPost *.ru                 setlocal filetype=ruby
+  autocmd BufNewFile,BufReadPost *.gdbinit            setlocal filetype=gdb
+  autocmd BufNewFile,BufReadPost *maillog             setlocal filetype=messages
+  autocmd BufNewFile,BufReadPost *maillog.*.xz        setlocal filetype=messages
+  autocmd BufNewFile,BufReadPost *conf                setlocal filetype=conf
+  autocmd BufNewFile,BufReadPost *conf.local          setlocal filetype=conf
+  autocmd BufNewFile,BufReadPost *conf.local.override setlocal filetype=conf
+  autocmd BufNewFile,BufReadPost *.cf                 setlocal filetype=conf
+  autocmd BufNewFile,BufReadPost .gitignore           setlocal filetype=conf
+  autocmd BufNewFile,BufReadPost .ignore              setlocal filetype=conf
+  autocmd BufNewFile,BufReadPost */conf/template/*    setlocal filetype=conf
+  autocmd BufNewFile,BufReadPost */rspamd/*.inc       setlocal filetype=conf
+  autocmd BufNewFile,BufReadPost */upstart/*conf      setlocal filetype=upstart
+  autocmd BufNewFile,BufReadPost *.upstart            setlocal filetype=upstart
+  autocmd BufNewFile,BufReadPost Makefile.inc         setlocal filetype=make
+  autocmd BufNewFile,BufReadPost depends              setlocal filetype=dosini
+  autocmd BufNewFile,BufReadPost depends-virtual-*    setlocal filetype=dosini
+  autocmd BufNewFile,BufReadPost .tmux.conf           setlocal filetype=tmux
+  autocmd BufNewFile,BufReadPost resource             setlocal filetype=json
+  autocmd BufNewFile,BufReadPost *.bashrc             setlocal filetype=sh
+  autocmd BufNewFile,BufReadPost *.sieve              setlocal filetype=sieve
 
   " Custom build log syntax
-  autocmd BufNewFile,BufReadPost *.build              set filetype=cerr
+  autocmd BufNewFile,BufReadPost *.build              setlocal filetype=cerr
 augroup END
 
 " Input Method autocmd
