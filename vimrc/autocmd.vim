@@ -49,3 +49,8 @@ augroup END
 if exists('*VimSecretProjectLocalSettings')
   call VimSecretProjectLocalSettings()
 endif
+
+" Machine-local project local settings
+if exists('*VimLocalProjectLocalSettings')
+  call VimLocalProjectLocalSettings()
+endif
