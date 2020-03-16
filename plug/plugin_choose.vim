@@ -10,6 +10,9 @@ call vimrc#plugin#config_cache#read()
 " plugin secret
 call vimrc#source('plug/secret.vim')
 
+" plugin local
+call vimrc#source('plug/local.vim')
+
 " Start choosing
 call vimrc#plugin#clear_disabled_plugins()
 
