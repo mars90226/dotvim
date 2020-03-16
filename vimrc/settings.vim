@@ -83,10 +83,10 @@ set belloff=all
 " move temporary files
 " TODO Use original backupdir and use other backupdir in Windows
 set backup " keep a backup file (restore to previous version)
-set backupdir^=~/.vimtmp
 if has('nvim')
   set undofile
 else " neovim has default folders for these files
+  set backupdir^=~/.vimtmp
   set directory^=~/.vimtmp
   if v:version >= 703
     set undodir^=~/.vimtmp
