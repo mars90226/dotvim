@@ -115,6 +115,10 @@ function! vimrc#fzf#git#files_commit_sink(commit, lines)
 endfunction
 
 function! vimrc#fzf#git#commits_in_commandline_sink(results, lines)
+  if len(a:lines) < 2
+    return
+  endif
+
   " TODO: Make vimrc#fzf#git#commits_in_commandline() do not use expect key
   " Currently vimrc#fzf#git#commits_in_commandline() use vimrc#fzf#fzf() which
   " always add expect key.
