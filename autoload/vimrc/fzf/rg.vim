@@ -1,5 +1,6 @@
 " Manually specify ignore file as ripgrep 0.9.0 will not respect to .gitignore outside of git repository
-let s:rg_base_command = 'rg --column --line-number --no-heading --smart-case --color=always --follow --with-filename'
+" Require ripgrep v11.0.0 for --auto-hybrid-regex
+let s:rg_base_command = 'rg --auto-hybrid-regex --column --line-number --no-heading --smart-case --color=always --follow --with-filename'
 let s:rg_command = s:rg_base_command . ' --ignore-file ' . $HOME . '/.gitignore' " TODO Use '.ignore'?
 let s:rg_all_command = s:rg_base_command . ' --no-ignore --hidden'
 let s:rg_fzf_command_fmt = s:rg_command . ' %s || true'
