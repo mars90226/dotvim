@@ -71,7 +71,7 @@ set fillchars=diff:⣿,fold:-,vert:│
 set list
 if vimrc#get_vim_mode() =~# 'reader'
   " Don't show trailing space in reader vim mode
-  set listchars=tab:▸\ ,extends:»,precedes:«,nbsp:␣
+  set listchars=tab:▸\ ,trail:\ ,extends:»,precedes:«,nbsp:␣
 else
   set listchars=tab:▸\ ,trail:•,extends:»,precedes:«,nbsp:␣
 endif
