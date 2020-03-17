@@ -283,7 +283,7 @@ if vimrc#plugin#is_enabled_plugin('coc.nvim')
 endif
 
 " fzf & cscope key mappings {{{
-let s:fzf_cscope_prefix = '<M-c>'
+let s:fzf_cscope_prefix = '\c'
 execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'s :call vimrc#fzf#cscope#cscope("0", expand("<cword>"))<CR>'
 execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'g :call vimrc#fzf#cscope#cscope("1", expand("<cword>"))<CR>'
 execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'d :call vimrc#fzf#cscope#cscope("2", expand("<cword>"))<CR>'
