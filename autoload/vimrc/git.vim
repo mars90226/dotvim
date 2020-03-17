@@ -15,3 +15,7 @@ function! vimrc#git#include_git_mappings(get_commit_sha_function_call, ...)
   " Command line mapping
   execute 'cnoremap <buffer><expr> <C-G><C-S> '.a:get_commit_sha_function_call
 endfunction
+
+function! vimrc#git#get_email()
+  return systemlist('git config --get user.email')[0]
+endfunction
