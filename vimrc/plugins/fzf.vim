@@ -76,9 +76,10 @@ omap <Space><Tab> <Plug>(fzf-maps-o)
 
 " Insert mode completion
 imap <C-X><C-K> <Plug>(fzf-complete-word)
-imap <C-X><C-F> <Plug>(fzf-complete-path)
+inoremap <expr> <C-X><C-F> fzf#vim#complete#path('fd -t f')
+
 " <C-J> is <NL>
-imap <C-X><C-J> <Plug>(fzf-complete-file-ag)
+imap <expr> <C-X><C-J> vimrc#fzf#neosnippet#neosnippet_in_insert_mode()
 imap <C-X><C-L> <Plug>(fzf-complete-line)
 inoremap <expr> <C-X><C-D> fzf#vim#complete#path('fd -t d')
 
@@ -149,6 +150,9 @@ command! CurrentPlacedSigns call vimrc#fzf#current_placed_signs()
 " Functions
 command! Functions call vimrc#fzf#functions()
 
+" NeoSnippets
+command! NeoSnippets call vimrc#fzf#neosnippet#neosnippet()
+
 " Git commit command {{{
 " GitGrepCommit
 command! -nargs=+ -complete=customlist,fugitive#CompleteObject GitGrepCommit call vimrc#fzf#git#grep_commit(<f-args>)
@@ -212,6 +216,7 @@ nnoremap <Space>fI     :call      vimrc#execute_and_save('RgFzf!')<CR>
 nnoremap <Space>f9     :call      vimrc#execute_and_save('RgFzf ' . input('RgFzf: '))<CR>
 nnoremap <Space>f(     :call      vimrc#execute_and_save('RgFzf! ' . input('RgFzf!: '))<CR>
 nnoremap <Space>fj     :call      vimrc#execute_and_save('Jump')<CR>
+nnoremap <Space>fJ     :call      vimrc#execute_and_save('NeoSnippets')<CR>
 nnoremap <Space>fk     :call      vimrc#execute_and_save('Rg ' . expand('<cword>'))<CR>
 nnoremap <Space>fK     :call      vimrc#execute_and_save('Rg ' . expand('<cWORD>'))<CR>
 nnoremap <Space>f8     :call      vimrc#execute_and_save('Rg \b' . expand('<cword>') . '\b')<CR>

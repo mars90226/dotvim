@@ -206,6 +206,10 @@ function! vimrc#fzf#get_git_root()
   return v:shell_error ? '' : root
 endfunction
 
+function! vimrc#fzf#strip(str)
+  return substitute(a:str, '^\s*\|\s*$', '', 'g')
+endfunction
+
 function! s:escape(path)
   let path = fnameescape(a:path)
   return vimrc#plugin#check#get_os() =~# 'windows' ? escape(path, '$') : path
