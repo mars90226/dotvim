@@ -75,13 +75,14 @@ xmap <Space><Tab> <Plug>(fzf-maps-x)
 omap <Space><Tab> <Plug>(fzf-maps-o)
 
 " Insert mode completion
-imap <C-X><C-K> <Plug>(fzf-complete-word)
+imap            <C-X><C-K> <Plug>(fzf-complete-word)
 inoremap <expr> <C-X><C-F> fzf#vim#complete#path('fd -t f')
 
 " <C-J> is <NL>
-imap <expr> <C-X><C-J> vimrc#fzf#neosnippet#neosnippet_in_insert_mode()
-imap <C-X><C-L> <Plug>(fzf-complete-line)
+imap     <expr> <C-X><C-J> vimrc#fzf#neosnippet#neosnippet_in_insert_mode()
+imap            <C-X><C-L> <Plug>(fzf-complete-line)
 inoremap <expr> <C-X><C-D> fzf#vim#complete#path('fd -t d')
+inoremap <expr> <M-x><M-p> vimrc#fzf#chinese#punctuations_in_insert_mode()
 
 " fzf functions & commands {{{
 command! -bar  -bang                  Helptags call vimrc#fzf#helptags(<bang>0)
@@ -152,6 +153,9 @@ command! Functions call vimrc#fzf#functions()
 
 " NeoSnippets
 command! NeoSnippets call vimrc#fzf#neosnippet#neosnippet()
+
+" Punctuations
+command! Punctuations call vimrc#fzf#chinese#punctuations()
 
 " Git commit command {{{
 " GitGrepCommit
@@ -236,6 +240,7 @@ nnoremap <Space>f%     :call      vimrc#execute_and_save('FilesWithQuery ' . exp
 xnoremap <Space>fn     :<C-U>call vimrc#execute_and_save('FilesWithQuery ' . vimrc#get_visual_selection())<CR>
 nnoremap <Space>fo     :call      vimrc#execute_and_save('Locate ' . input('Locate: '))<CR>
 nnoremap <Space>fO     :call      vimrc#execute_and_save('History')<CR>
+nnoremap <Space>f<M-p> :call      vimrc#execute_and_save('Punctuations')<CR>
 nnoremap <Space>fq     :call      vimrc#execute_and_save('Quickfix')<CR>
 nnoremap <Space>fr     :call      vimrc#execute_and_save('Rg ' . input('Rg: '))<CR>
 nnoremap <Space>fR     :call      vimrc#execute_and_save('Rg! ' . input('Rg!: '))<CR>

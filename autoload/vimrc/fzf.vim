@@ -210,6 +210,21 @@ function! vimrc#fzf#strip(str)
   return substitute(a:str, '^\s*\|\s*$', '', 'g')
 endfunction
 
+function! vimrc#fzf#align_lists(lists)
+  let maxes = {}
+  for list in a:lists
+    let i = 0
+    while i < len(list)
+      let maxes[i] = max([get(maxes, i, 0), len(list[i])])
+      let i += 1
+    endwhile
+  endfor
+  for list in a:lists
+    call map(list, "printf('%-'.maxes[v:key].'s', v:val)")
+  endfor
+  return a:lists
+endfunction
+
 function! s:escape(path)
   let path = fnameescape(a:path)
   return vimrc#plugin#check#get_os() =~# 'windows' ? escape(path, '$') : path

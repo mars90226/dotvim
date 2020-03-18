@@ -14,10 +14,8 @@ endfunction
 
 " Intend to be mapped in insert mode
 function! vimrc#fzf#neosnippet#neosnippet_in_insert_mode_sink(results, line)
-  echomsg "sink: ".string(a:results).", ".a:line
   let snip = split(a:line, "\t")[0]
   call add(a:results, vimrc#fzf#strip(snip)."\<Plug>(neosnippet_expand_or_jump)")
-  echomsg "sink: ".string(a:results).", ".a:line
 endfunction
 
 " Commands
@@ -29,12 +27,12 @@ function! vimrc#fzf#neosnippet#neosnippet()
   if empty(list)
     return vimrc#warn('No snippets available here')
   endif
-  let aligned = sort(s:align_lists(items(list)))
+  let aligned = sort(vimrc#fzf#align_lists(items(list)))
   let colored = map(aligned, 'vimrc#fzf#yellow(v:val[0])."\t".v:val[1]')
-  return vimrc#fzf#fzf('snippets', {
-  \ 'source':  colored,
-  \ 'options': '--ansi --tiebreak=index +m -n 1 -d "\t"',
-  \ 'sink':    function('vimrc#fzf#neosnippet#neosnippet_sink')}, a:000)
+  return vimrc#fzf#fzf('Neosnippets', {
+        \ 'source':  colored,
+        \ 'options': '--ansi --tiebreak=index +m -n 1 -d "\t" --prompt "Neosnippets> "',
+        \ 'sink':    function('vimrc#fzf#neosnippet#neosnippet_sink')}, a:000)
 endfunction
 
 " Intend to be mapped in insert mode
@@ -46,33 +44,16 @@ function! vimrc#fzf#neosnippet#neosnippet_in_insert_mode()
   if empty(list)
     return vimrc#warn('No snippets available here')
   endif
-  let aligned = sort(s:align_lists(items(list)))
+  let aligned = sort(vimrc#fzf#align_lists(items(list)))
   let colored = map(aligned, 'vimrc#fzf#yellow(v:val[0])."\t".v:val[1]')
   let results = []
-  " FIXME Use tmux as opening popup in insert mode cause serious error and
-  " need to restart neovim
+  " FIXME Use tmux as opening popup in insert mode conflict with neovim
+  " floating window and cause serious error that need to restart neovim
   let g:fzf_prefer_tmux = 1
-  call vimrc#fzf#fzf('snippets', extend({
-  \ 'source':  colored,
-  \ 'options': '--ansi --tiebreak=index +m -n 1 -d "\t"',
-  \ 'sink':    function('vimrc#fzf#neosnippet#neosnippet_in_insert_mode_sink', [results])}, g:fzf_tmux_layout), a:000)
+  call vimrc#fzf#fzf('Neosnippets', extend({
+        \ 'source':  colored,
+        \ 'options': '--ansi --tiebreak=index +m -n 1 -d "\t" --prompt "Neosnippets> "',
+        \ 'sink':    function('vimrc#fzf#neosnippet#neosnippet_in_insert_mode_sink', [results])}, g:fzf_tmux_layout), a:000)
   let g:fzf_prefer_tmux = 0
-  echomsg string(results)
   return get(results, 0, '')
-endfunction
-
-" Utlities
-function! s:align_lists(lists)
-  let maxes = {}
-  for list in a:lists
-    let i = 0
-    while i < len(list)
-      let maxes[i] = max([get(maxes, i, 0), len(list[i])])
-      let i += 1
-    endwhile
-  endfor
-  for list in a:lists
-    call map(list, "printf('%-'.maxes[v:key].'s', v:val)")
-  endfor
-  return a:lists
 endfunction
