@@ -85,17 +85,21 @@ if has('balloon_eval')
 endif
 set belloff=all
 
-" move temporary files
+" Backup
+" neovim has default folders for backup, undo, swap files
+" Only move temporary files in vanilla vim
 " TODO Use original backupdir and use other backupdir in Windows
 set backup " keep a backup file (restore to previous version)
-if has('nvim')
-  set undofile
-else " neovim has default folders for these files
+if !has('nvim')
   set backupdir^=~/.vimtmp
   set directory^=~/.vimtmp
-  if v:version >= 703
+endif
+
+" Persistent Undo
+if has('persistent_undo')
+  set undofile
+  if !has('nvim')
     set undodir^=~/.vimtmp
-    set undofile " enable persistent-undo
   endif
 endif
 
