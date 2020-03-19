@@ -97,7 +97,13 @@ augroup END
 if vimrc#plugin#is_enabled_plugin('any-jump.nvim')
   Plug 'pechorin/any-jump.nvim'
 
+  let [g:any_jump_window_width_ratio, g:any_jump_window_height_ratio] = vimrc#float#get_default_ratio()
+  let [_, g:any_jump_window_top_offset] = vimrc#float#calculate_pos_from_ratio(g:any_jump_window_width_ratio, g:any_jump_window_height_ratio)
+
+  let g:any_jump_disable_default_keybindings = 1
+
   nnoremap <Leader>aj :AnyJump<CR>
+  xnoremap <Leader>aj :AnyJumpVisual<CR>
   nnoremap <Leader>ab :AnyJumpBack<CR>
   nnoremap <Leader>al :AnyJumpLastResults<CR>
 endif
