@@ -72,21 +72,18 @@ function! vimrc#terminal#get_terminal_command(terminal)
   return match_result[0]
 endfunction
 
+function! vimrc#terminal#is_floaterm()
+  return &ft =~ "floaterm"
+endfunction
+
 function! vimrc#terminal#is_shell_terminal(terminal)
   let shells = vimrc#tui#get_shells()
   let exception_programs = ["fzf", "coc"]
-  let exception_filetypes = ["floaterm"]
 
   let cmd = vimrc#terminal#get_terminal_command(a:terminal)
   if empty(cmd)
     return v:false
   endif
-
-  for exception_filetype in exception_filetypes
-    if &ft == exception_filetype
-      return v:false
-    endif
-  endfor
 
   for exception_program in exception_programs
     if cmd =~ vimrc#get_boundary_pattern(exception_program)
@@ -118,6 +115,10 @@ function! vimrc#terminal#is_interactive_process(terminal)
 endfunction
 
 function! vimrc#terminal#close_result_buffer(terminal)
+  if vimrc#terminal#is_floaterm()
+    return
+  endif
+
   if vimrc#terminal#is_shell_terminal(a:terminal) || vimrc#terminal#is_interactive_process(a:terminal)
     call nvim_input('<CR>')
   endif
