@@ -1,3 +1,6 @@
+" Script Encoding: UTF-8
+scriptencoding utf-8
+
 " Settings
 function! vimrc#terminal#settings()
   setlocal bufhidden=hide
@@ -67,18 +70,18 @@ let s:terminal_pattern = '\vterm://(.{-}//(\d+:)?)?\zs.*' " Use very magic
 function! vimrc#terminal#get_terminal_command(terminal)
   let match_result = matchlist(a:terminal, s:terminal_pattern)
   if empty(match_result)
-    return ""
+    return ''
   endif
   return match_result[0]
 endfunction
 
 function! vimrc#terminal#is_floaterm()
-  return &ft =~ "floaterm"
+  return &ft ==# 'floaterm'
 endfunction
 
 function! vimrc#terminal#is_shell_terminal(terminal)
   let shells = vimrc#tui#get_shells()
-  let exception_programs = ["fzf", "coc"]
+  let exception_programs = ['fzf', 'coc']
 
   let cmd = vimrc#terminal#get_terminal_command(a:terminal)
   if empty(cmd)
