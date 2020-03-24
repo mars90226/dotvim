@@ -1,7 +1,7 @@
 " For TUI support
 let s:shells = ['bash', 'zsh', 'fish', 'powershell', 'ash']
 let s:tui_processes = ['htop', 'btm', 'broot', 'sr', 'ranger', 'nnn', 'vifm', 'fff', 'lf']
-let s:floaterm_wrappers = ['fff', 'fzf', 'lf', 'nnn', 'ranger']
+let s:floaterm_wrappers = ['fff', 'fzf', 'lf', 'nnn', 'ranger', 'vifm']
 
 function! vimrc#tui#get_shells()
   return s:shells
