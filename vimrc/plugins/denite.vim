@@ -25,16 +25,14 @@ call vimrc#remap('<Space>o',  '<Space>O',      'n') " Unite outline
 nnoremap <Space>p     :Denite -auto-resume buffer dirmark file<CR>
 nnoremap <Space>P     :Denite -auto-resume file/rec<CR>
 nnoremap <Space><C-P> :DeniteProjectDir -auto-resume file<CR>
-nnoremap <Space>l     :Denite -auto-action=highlight line<CR>
-nnoremap <Space>L     :Denite -default-action=switch line:buffers<CR>
-nnoremap <Space>dl    :DeniteCursorWord -auto-action=preview -split=no line<CR>
-xnoremap <Space>dl    :<C-U>execute 'Denite -auto-action=preview -split=no -input='.vimrc#escape_symbol(vimrc#get_visual_selection()).' line'<CR>
+nnoremap <Space>l     :Denite -auto-action=preview line<CR>
+nnoremap <Space>L     :Denite -default-action=switch -auto-action=preview line:buffers<CR>
 nnoremap <Space>o     :Denite outline<CR>
 " }}}
 
-" TODO Denite quickfix seems not working
-" TODO Add Denite tselect source
-" Denite don't use auto-preview file because it's slow
+" TODO: Add Denite tselect source
+" Denite don't use auto-action=preview file because it's slow
+" FIXME: Denite -auto-action=preview will preview last candidate
 
 nnoremap <Space>da :Denite location_list<CR>
 nnoremap <Space>db :DeniteBufferDir -auto-resume file<CR>
@@ -52,6 +50,8 @@ nnoremap <Space>d8 :call vimrc#denite#grep(expand('<cword>'), 'grep', '', v:true
 nnoremap <Space>d* :call vimrc#denite#grep(expand('<cWORD>'), 'grep', '', v:true)<CR>
 xnoremap <Space>dk :<C-U>call vimrc#denite#grep(vimrc#get_visual_selection(), 'grep', '', v:false)<CR>
 xnoremap <Space>d8 :<C-U>call vimrc#denite#grep(vimrc#get_visual_selection(), 'grep', '', v:true)<CR>
+nnoremap <Space>dl :DeniteCursorWord -auto-action=preview line<CR>
+xnoremap <Space>dl :<C-U>execute 'Denite -auto-action=preview -input='.vimrc#escape_symbol(vimrc#get_visual_selection()).' line'<CR>
 nnoremap <Space>dm :Denite file_mru<CR>
 nnoremap <Space>dM :Denite directory_mru<CR>
 nnoremap <Space>do :execute 'Denite output:' . vimrc#escape_symbol(input('output: ', '', 'command'))<CR>
