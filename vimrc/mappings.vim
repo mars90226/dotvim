@@ -199,16 +199,18 @@ nnoremap <M-x><M-x> :<C-P><CR>
 xnoremap <M-s> :s/\%V
 
 " Find non-ASCII character
-nnoremap <silent> <M-x><M-n> /[^\x00-\x7F]<CR>:nohlsearch<CR>
-xnoremap <silent> <M-x><M-n> /[^\x00-\x7F]<CR>
-onoremap <silent> <M-x><M-n> /[^\x00-\x7F]<CR>
-nnoremap <silent> <M-x><M-p> ?[^\x00-\x7F]<CR>:nohlsearch<CR>
-xnoremap <silent> <M-x><M-p> ?[^\x00-\x7F]<CR>
-onoremap <silent> <M-x><M-p> ?[^\x00-\x7F]<CR>
-xnoremap <silent> <M-x><M-s> ?[^\x00-\x7F]<CR>lo/[^\x00-\x7F]<CR>
-onoremap <silent> <M-x><M-s> :<C-U>call vimrc#textobj#inner_surround_unicode()<CR>
-xnoremap <silent> <M-x><M-S> ?[^\x00-\x7F]<CR>o/[^\x00-\x7F]<CR>l
-onoremap <silent> <M-x><M-S> :<C-U>call vimrc#textobj#around_surround_unicode()<CR>
+map <M-x> [Meta-x]
+noremap [Meta-x] <NOP>
+nnoremap <silent> [Meta-x]<M-n> /[^\x00-\x7F]<CR>:nohlsearch<CR>
+xnoremap <silent> [Meta-x]<M-n> /[^\x00-\x7F]<CR>
+onoremap <silent> [Meta-x]<M-n> /[^\x00-\x7F]<CR>
+nnoremap <silent> [Meta-x]<M-p> ?[^\x00-\x7F]<CR>:nohlsearch<CR>
+xnoremap <silent> [Meta-x]<M-p> ?[^\x00-\x7F]<CR>
+onoremap <silent> [Meta-x]<M-p> ?[^\x00-\x7F]<CR>
+xnoremap <silent> [Meta-x]<M-s> ?[^\x00-\x7F]<CR>lo/[^\x00-\x7F]<CR>
+onoremap <silent> [Meta-x]<M-s> :<C-U>call vimrc#textobj#inner_surround_unicode()<CR>
+xnoremap <silent> [Meta-x]<M-S> ?[^\x00-\x7F]<CR>o/[^\x00-\x7F]<CR>l
+onoremap <silent> [Meta-x]<M-S> :<C-U>call vimrc#textobj#around_surround_unicode()<CR>
 
 " Find character past specified character
 nnoremap <silent> <M-p> :<C-U>call vimrc#textobj#past_character(v:count1, 'n', v:true)<CR>
