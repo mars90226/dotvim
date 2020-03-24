@@ -14,12 +14,13 @@ elseif executable('ag')
 endif
 
 if executable('rg')
-  call denite#custom#var('grep', 'command', ['rg'])
-  call denite#custom#var('grep', 'recursive_opts', [])
-  call denite#custom#var('grep', 'final_opts', [])
-  call denite#custom#var('grep', 'separator', ['--'])
-  call denite#custom#var('grep', 'default_opts',
-        \ ['--vimgrep', '--no-heading', '-S'])
+  call denite#custom#var('grep,line/external', {
+        \ 'command': ['rg'],
+        \ 'recursive_opts': [],
+        \ 'final_opts': [],
+        \ 'separator': ['--'],
+        \ 'default_opts': ['--vimgrep', '--no-heading', '--smart-case'],
+        \ })
 endif
 
 " Denite options

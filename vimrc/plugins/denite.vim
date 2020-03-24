@@ -39,6 +39,7 @@ nnoremap <Space>db :DeniteBufferDir -auto-resume file<CR>
 nnoremap <Space>dc :Denite -auto-action=preview change<CR>
 nnoremap <Space>dd :Denite directory_rec<CR>
 nnoremap <Space>dD :Denite directory_mru<CR>
+nnoremap <Space>de :Denite line/external<CR>
 nnoremap <Space>df :Denite filetype<CR>
 nnoremap <Space>dh :Denite help<CR>
 nnoremap <Space>dj :Denite -auto-action=preview jump<CR>
