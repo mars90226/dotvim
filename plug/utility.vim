@@ -168,7 +168,7 @@ call vimrc#lazy#lazy_load('dispatch')
 " But using Job makes closing vim while git push failed
 " let g:dispatch_no_tmux_make = 1
 
-nnoremap <Leader>do :Copen<CR>
+nnoremap <Leader>dq :Copen<CR>
 " }}}
 
 " securemodelines {{{

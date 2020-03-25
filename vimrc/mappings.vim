@@ -92,7 +92,7 @@ nnoremap <Space><C-G> 2<C-G>
 nnoremap <Leader>du :lcd ..<CR>
 
 " Change current window working directory to folder containing current buffer
-nnoremap <Leader>db :lcd %:h<CR>
+nnoremap <Leader>dh :lcd %:h<CR>
 
 " Horizontally scroll to center of window, like horizontal 'zz'
 nnoremap zc zszH
