@@ -90,7 +90,9 @@ set belloff=all
 " Only move temporary files in vanilla vim
 " TODO Use original backupdir and use other backupdir in Windows
 set backup " keep a backup file (restore to previous version)
-if !has('nvim')
+if has('nvim')
+  set backupdir=~/.local/share/nvim/backup,.
+else
   set backupdir^=~/.vimtmp
   set directory^=~/.vimtmp
 endif
