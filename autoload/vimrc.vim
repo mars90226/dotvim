@@ -2,7 +2,6 @@
 let s:vimhome = $HOME . '/.vim'
 let s:vim_mode = $VIM_MODE
 
-
 function! vimrc#get_vimhome()
   return s:vimhome
 endfunction

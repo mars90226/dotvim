@@ -27,14 +27,17 @@ endfunction
 
 " Set nvim version
 if has('nvim')
-  let s:nvim_version = systemlist('nvim --version')[0]
-
   function! vimrc#plugin#check#nvim_version()
-    return s:nvim_version
+    if exists('g:nvim_version')
+      return g:nvim_version
+    endif
+
+    let g:nvim_version = systemlist('nvim --version')[0]
+    return g:nvim_version
   endfunction
 
   function! vimrc#plugin#check#nvim_patch_version()
-    return matchlist(s:nvim_version, '\v^NVIM v\d+\.\d+\.\d+-(\d+)')[1]
+    return matchlist(vimrc#plugin#check#nvim_version(), '\v^NVIM v\d+\.\d+\.\d+-(\d+)')[1]
   endfunction
 
   " Check if $NVIM_TERMINAL is set or parent process is nvim
