@@ -3,7 +3,7 @@ let g:guifont_size = 'h12'
 let g:guifont_character_set = 'cANSI'
 
 if has('nvim')
-  if exists(':GuiFont')
+  if exists(':GuiFont') == 2
     " nvim-qt
     execute 'GuiFont '.g:guifont.':'.g:guifont_size
   endif

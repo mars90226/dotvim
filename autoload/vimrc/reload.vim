@@ -28,12 +28,12 @@ function! vimrc#reload#reload()
 
   " Source $MYVIMRC will reset editorconfig to default config, so reload
   " editorconfig
-  if exists(':EditorConfigReload')
+  if exists(':EditorConfigReload') == 2
     EditorConfigReload
   endif
 
   " Source $MYVIMRC will reset localvimrc config, reload localvimrc
-  if exists(':LocalVimRC')
+  if exists(':LocalVimRC') == 2
     LocalVimRC
   endif
 endfunction

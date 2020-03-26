@@ -20,7 +20,7 @@ endfunction
 
 " Commands
 function! vimrc#fzf#neosnippet#neosnippet()
-  if !exists(':NeoSnippetEdit')
+  if exists(':NeoSnippetEdit') != 2
     return vimrc#warn('Neosnippet not found')
   endif
   let list = vimrc#fzf#neosnippet#neosnippet_source()
@@ -37,7 +37,7 @@ endfunction
 
 " Intend to be mapped in insert mode
 function! vimrc#fzf#neosnippet#neosnippet_in_insert_mode()
-  if !exists(':NeoSnippetEdit')
+  if exists(':NeoSnippetEdit') != 2
     return vimrc#warn('Neosnippet not found')
   endif
   let list = vimrc#fzf#neosnippet#neosnippet_source()
