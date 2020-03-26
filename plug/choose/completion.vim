@@ -28,6 +28,8 @@ endif
 " TODO: Use nvim_exec_lua() instead. Currently it's in document but not exist.
 " Check if `vim.lsp` is a table, not a nil
 call vimrc#plugin#disable_plugin('nvim-lsp')
-if has('nvim') && trim(execute('lua print(type(vim.lsp) == type({}))')) ==# 'true'
+" if has('nvim') && trim(execute('lua print(type(vim.lsp) == type({}))')) ==# 'true'
+" TODO: Use approximate check for nvim-0.5.0 to improve performance
+if has('nvim') && has('nvim-0.5.0')
   call vimrc#plugin#enable_plugin('nvim-lsp')
 endif
