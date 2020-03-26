@@ -17,7 +17,7 @@ if !exists('##TextYankPost')
   call vimrc#plugin#disable_plugin('vim-highlightedyank')
 endif
 
-if !(has('job') || (has('nvim') && exists('*jobwait'))) || vimrc#plugin#check#nvim_terminal() ==# 'yes'
+if !(has('job') || (has('nvim') && exists('*jobwait'))) || (has('nvim') && vimrc#plugin#check#nvim_terminal() ==# 'yes')
   call vimrc#plugin#disable_plugin('vim-gutentags')
 endif
 
