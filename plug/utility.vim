@@ -163,12 +163,7 @@ Plug 'tpope/vim-dispatch', { 'on': [] }
 
 call vimrc#lazy#lazy_load('dispatch')
 
-" TODO Check if disabling tmux is good
-" As currently, it break tmux zoom.
-" But using Job makes closing vim while git push failed
-" let g:dispatch_no_tmux_make = 1
-
-nnoremap <Leader>dq :Copen<CR>
+call vimrc#source('vimrc/plugins/dispatch.vim')
 " }}}
 
 " securemodelines {{{
