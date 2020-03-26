@@ -28,12 +28,43 @@ endfunction
 " Set nvim version
 if has('nvim')
   let s:nvim_version = systemlist('nvim --version')[0]
+
   function! vimrc#plugin#check#nvim_version()
     return s:nvim_version
   endfunction
 
   function! vimrc#plugin#check#nvim_patch_version()
     return matchlist(s:nvim_version, '\v^NVIM v\d+\.\d+\.\d+-(\d+)')[1]
+  endfunction
+
+  " Check if $NVIM_TERMINAL is set or parent process is nvim
+  function! vimrc#plugin#check#nvim_terminal()
+    if exists('g:nvim_terminal')
+      return g:nvim_terminal
+    endif
+
+    " Check bash environment variable in neovim terminal
+    if $NVIM_TERMINAL ==# 'yes'
+      let g:nvim_terminal = 'yes'
+      return g:nvim_terminal
+    endif
+
+    if vimrc#plugin#check#get_os() =~# 'windows'
+      " FIXME: Implement parent process check in Windows
+      let g:nvim_terminal = 'no'
+      return g:nvim_terminal
+    endif
+
+    " Use /proc to get parent process info
+    let parent_pid = split(readfile('/proc/'.getpid().'/stat')[0])[3]
+    let parent_cmdline = readfile('/proc/'.parent_pid.'/cmdline')[0]
+    if parent_cmdline =~# 'nvim'
+      let g:nvim_terminal = 'yes'
+    else
+      let g:nvim_terminal = 'no'
+    endif
+
+    return g:nvim_terminal
   endfunction
 endif
 

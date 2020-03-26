@@ -33,7 +33,7 @@ endfunction
 function! vimrc#fzf#chinese#punctuations()
   let list = vimrc#fzf#chinese#punctuations_source()
   if empty(list)
-    return vimrc#warn('No snippets available here')
+    return vimrc#utility#warn('No snippets available here')
   endif
   let aligned = sort(vimrc#fzf#align_lists(items(list)))
   let colored = map(aligned, 'vimrc#fzf#yellow(v:val[0])."\t".v:val[1]')
@@ -48,7 +48,7 @@ endfunction
 function! vimrc#fzf#chinese#punctuations_in_insert_mode()
   let list = vimrc#fzf#chinese#punctuations_source()
   if empty(list)
-    return vimrc#warn('No snippets available here')
+    return vimrc#utility#warn('No snippets available here')
   endif
   let aligned = sort(vimrc#fzf#align_lists(items(list)))
   let colored = map(aligned, 'vimrc#fzf#yellow(v:val[0])."\t".v:val[1]')

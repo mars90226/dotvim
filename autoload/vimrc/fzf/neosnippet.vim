@@ -21,11 +21,11 @@ endfunction
 " Commands
 function! vimrc#fzf#neosnippet#neosnippet()
   if exists(':NeoSnippetEdit') != 2
-    return vimrc#warn('Neosnippet not found')
+    return vimrc#utility#warn('Neosnippet not found')
   endif
   let list = vimrc#fzf#neosnippet#neosnippet_source()
   if empty(list)
-    return vimrc#warn('No snippets available here')
+    return vimrc#utility#warn('No snippets available here')
   endif
   let aligned = sort(vimrc#fzf#align_lists(items(list)))
   let colored = map(aligned, 'vimrc#fzf#yellow(v:val[0])."\t".v:val[1]')
@@ -38,11 +38,11 @@ endfunction
 " Intend to be mapped in insert mode
 function! vimrc#fzf#neosnippet#neosnippet_in_insert_mode()
   if exists(':NeoSnippetEdit') != 2
-    return vimrc#warn('Neosnippet not found')
+    return vimrc#utility#warn('Neosnippet not found')
   endif
   let list = vimrc#fzf#neosnippet#neosnippet_source()
   if empty(list)
-    return vimrc#warn('No snippets available here')
+    return vimrc#utility#warn('No snippets available here')
   endif
   let aligned = sort(vimrc#fzf#align_lists(items(list)))
   let colored = map(aligned, 'vimrc#fzf#yellow(v:val[0])."\t".v:val[1]')

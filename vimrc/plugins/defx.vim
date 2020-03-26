@@ -41,7 +41,7 @@ command! -nargs=1 -complete=dir DefxTabOpenDirSink         call vimrc#defx#open_
 command! -nargs=1 -complete=dir DefxRightVSplitOpenDirSink call vimrc#defx#open_dir(<q-args>, 'rightbelow vsplit')
 
 " Defx switch
-command! -nargs=1 -complete=file DefxSwitch call vimrc#switch(<q-args>, 'DefxOpenSink')
+command! -nargs=1 -complete=file DefxSwitch call vimrc#open#switch(<q-args>, 'DefxOpenSink')
 
 augroup defx_mappings
   autocmd!

@@ -413,7 +413,7 @@ endfunction
 
 function! vimrc#fzf#helptags(...)
   if !executable('grep') || !executable('perl')
-    return vimrc#warn('Helptags command requires grep and perl')
+    return vimrc#utility#warn('Helptags command requires grep and perl')
   endif
   let sorted = sort(split(globpath(&runtimepath, 'doc/tags', 1), '\n'))
   let tags = exists('*uniq') ? uniq(sorted) : fzf#vim#_uniq(sorted)

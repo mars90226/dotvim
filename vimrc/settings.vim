@@ -127,7 +127,7 @@ if !has('nvim')
 endif
 
 " Fold
-set foldtext=vimrc#neat_fold_text()
+set foldtext=vimrc#fold#neat_fold_text()
 set foldlevelstart=99
 
 " Complete

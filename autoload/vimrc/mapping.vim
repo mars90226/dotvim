@@ -5,5 +5,5 @@ function! vimrc#mapping#include_cursor_mappings(command, cword_key, cWORD_key)
 endfunction
 
 function! vimrc#mapping#include_visual_selection_mappings(command, key)
-  execute 'xnoremap '.a:key." :<C-U>execute '".a:command." '.vimrc#get_visual_selection()<CR>"
+  execute 'xnoremap '.a:key." :<C-U>execute '".a:command." '.vimrc#utility#get_visual_selection()<CR>"
 endfunction

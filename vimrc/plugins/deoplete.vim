@@ -44,7 +44,7 @@ endif
 " <Tab>: completion.
 inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-N>" :
-      \ vimrc#check_back_space() ? "\<Tab>" :
+      \ vimrc#insert#check_back_space() ? "\<Tab>" :
       \ deoplete#manual_complete()
 
 " <S-Tab>: completion back.

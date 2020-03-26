@@ -1,7 +1,7 @@
 " <Tab>: completion.
 inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-N>" :
-      \ vimrc#check_back_space() ? "\<Tab>" :
+      \ vimrc#insert#check_back_space() ? "\<Tab>" :
       \ coc#refresh()
 
 " <S-Tab>: completion back.

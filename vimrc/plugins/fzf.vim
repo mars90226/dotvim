@@ -225,19 +225,19 @@ nnoremap <Space>fk     :call      vimrc#execute_and_save('Rg ' . expand('<cword>
 nnoremap <Space>fK     :call      vimrc#execute_and_save('Rg ' . expand('<cWORD>'))<CR>
 nnoremap <Space>f8     :call      vimrc#execute_and_save('Rg \b' . expand('<cword>') . '\b')<CR>
 nnoremap <Space>f*     :call      vimrc#execute_and_save('Rg \b' . expand('<cWORD>') . '\b')<CR>
-xnoremap <Space>fk     :<C-U>call vimrc#execute_and_save('Rg ' . vimrc#get_visual_selection())<CR>
-xnoremap <Space>f8     :<C-U>call vimrc#execute_and_save('Rg \b' . vimrc#get_visual_selection() . '\b')<CR>
+xnoremap <Space>fk     :<C-U>call vimrc#execute_and_save('Rg ' . vimrc#utility#get_visual_selection())<CR>
+xnoremap <Space>f8     :<C-U>call vimrc#execute_and_save('Rg \b' . vimrc#utility#get_visual_selection() . '\b')<CR>
 nnoremap <Space>fl     :call      vimrc#execute_and_save('BLines')<CR>
 nnoremap <Space>fL     :call      vimrc#execute_and_save('Lines')<CR>
 nnoremap <Space>f<C-L> :call      vimrc#execute_and_save('BLines ' . expand('<cword>'))<CR>
-xnoremap <Space>f<C-L> :<C-U>call vimrc#execute_and_save('BLines ' . vimrc#get_visual_selection())<CR>
+xnoremap <Space>f<C-L> :<C-U>call vimrc#execute_and_save('BLines ' . vimrc#utility#get_visual_selection())<CR>
 nnoremap <Space>fm     :call      vimrc#execute_and_save('Mru')<CR>
 nnoremap <Space>fM     :call      vimrc#execute_and_save('DirectoryMru')<CR>
 nnoremap <Space>f<C-M> :call      vimrc#execute_and_save('ProjectMru')<CR>
 nnoremap <Space>fn     :call      vimrc#execute_and_save('FilesWithQuery ' . expand('<cword>'))<CR>
 nnoremap <Space>fN     :call      vimrc#execute_and_save('FilesWithQuery ' . expand('<cWORD>'))<CR>
 nnoremap <Space>f%     :call      vimrc#execute_and_save('FilesWithQuery ' . expand('%:t:r'))<CR>
-xnoremap <Space>fn     :<C-U>call vimrc#execute_and_save('FilesWithQuery ' . vimrc#get_visual_selection())<CR>
+xnoremap <Space>fn     :<C-U>call vimrc#execute_and_save('FilesWithQuery ' . vimrc#utility#get_visual_selection())<CR>
 nnoremap <Space>fo     :call      vimrc#execute_and_save('Locate ' . input('Locate: '))<CR>
 nnoremap <Space>fO     :call      vimrc#execute_and_save('History')<CR>
 nnoremap <Space>f<M-p> :call      vimrc#execute_and_save('Punctuations')<CR>
@@ -268,11 +268,11 @@ nnoremap <Space>f;     :call      vimrc#execute_and_save('Commands')<CR>
 xnoremap <Space>f;     :<C-U>call vimrc#execute_and_save('Commands')<CR>
 nnoremap <Space>f/     :call      vimrc#execute_and_save('History/')<CR>
 nnoremap <Space>f]     :call      vimrc#execute_and_save("BTags '" . expand('<cword>'))<CR>
-xnoremap <Space>f]     :<C-U>call vimrc#execute_and_save("BTags '" . vimrc#get_visual_selection())<CR>
+xnoremap <Space>f]     :<C-U>call vimrc#execute_and_save("BTags '" . vimrc#utility#get_visual_selection())<CR>
 nnoremap <Space>f}     :call      vimrc#execute_and_save("Tags '" . expand('<cword>'))<CR>
-xnoremap <Space>f}     :<C-U>call vimrc#execute_and_save("Tags '" . vimrc#get_visual_selection())<CR>
+xnoremap <Space>f}     :<C-U>call vimrc#execute_and_save("Tags '" . vimrc#utility#get_visual_selection())<CR>
 nnoremap <Space>f<C-]> :call      vimrc#execute_and_save('Tselect ' . expand('<cword>'))<CR>
-xnoremap <Space>f<C-]> :<C-U>call vimrc#execute_and_save('Tselect ' . vimrc#get_visual_selection())<CR>
+xnoremap <Space>f<C-]> :<C-U>call vimrc#execute_and_save('Tselect ' . vimrc#utility#get_visual_selection())<CR>
 
 " DirectoryMru
 nnoremap <Space><C-D><C-D> :call vimrc#execute_and_save('DirectoryMru')<CR>
@@ -284,7 +284,7 @@ nnoremap <Space>sf :call      vimrc#fzf#range#select_operator('af')<CR>
 xnoremap <Space>sf :<C-U>call vimrc#execute_and_save("'<,'>SelectLines")<CR>
 nnoremap <Space>sl :call      vimrc#execute_and_save('ScreenLines')<CR>
 nnoremap <Space>sL :call      vimrc#execute_and_save('ScreenLines ' . expand('<cword>'))<CR>
-xnoremap <Space>sL :<C-U>call vimrc#execute_and_save('ScreenLines ' . vimrc#get_visual_selection())<CR>
+xnoremap <Space>sL :<C-U>call vimrc#execute_and_save('ScreenLines ' . vimrc#utility#get_visual_selection())<CR>
 
 nnoremap <Space>ss :History:<CR>mks vim sessions
 
@@ -304,15 +304,15 @@ execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'f :call vimrc#fzf#cscope#cscop
 execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'i :call vimrc#fzf#cscope#cscope("8", expand("<cword>"))<CR>'
 execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'a :call vimrc#fzf#cscope#cscope("9", expand("<cword>"))<CR>'
 
-execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'s :<C-U>call vimrc#fzf#cscope#cscope("0", vimrc#get_visual_selection())<CR>'
-execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'g :<C-U>call vimrc#fzf#cscope#cscope("1", vimrc#get_visual_selection())<CR>'
-execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'d :<C-U>call vimrc#fzf#cscope#cscope("2", vimrc#get_visual_selection())<CR>'
-execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'c :<C-U>call vimrc#fzf#cscope#cscope("3", vimrc#get_visual_selection())<CR>'
-execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'t :<C-U>call vimrc#fzf#cscope#cscope("4", vimrc#get_visual_selection())<CR>'
-execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'e :<C-U>call vimrc#fzf#cscope#cscope("6", vimrc#get_visual_selection())<CR>'
-execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'f :<C-U>call vimrc#fzf#cscope#cscope("7", vimrc#get_visual_selection())<CR>'
-execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'i :<C-U>call vimrc#fzf#cscope#cscope("8", vimrc#get_visual_selection())<CR>'
-execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'a :<C-U>call vimrc#fzf#cscope#cscope("9", vimrc#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'s :<C-U>call vimrc#fzf#cscope#cscope("0", vimrc#utility#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'g :<C-U>call vimrc#fzf#cscope#cscope("1", vimrc#utility#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'d :<C-U>call vimrc#fzf#cscope#cscope("2", vimrc#utility#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'c :<C-U>call vimrc#fzf#cscope#cscope("3", vimrc#utility#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'t :<C-U>call vimrc#fzf#cscope#cscope("4", vimrc#utility#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'e :<C-U>call vimrc#fzf#cscope#cscope("6", vimrc#utility#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'f :<C-U>call vimrc#fzf#cscope#cscope("7", vimrc#utility#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'i :<C-U>call vimrc#fzf#cscope#cscope("8", vimrc#utility#get_visual_selection())<CR>'
+execute 'xnoremap <silent> '.s:fzf_cscope_prefix.'a :<C-U>call vimrc#fzf#cscope#cscope("9", vimrc#utility#get_visual_selection())<CR>'
 
 execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'S :call vimrc#fzf#cscope#cscope_query("0")<CR>'
 execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'G :call vimrc#fzf#cscope#cscope_query("1")<CR>'
@@ -329,6 +329,6 @@ if has('nvim')
   nnoremap <Space>fp   :call      vimrc#execute_and_save('ProjectTags')<CR>
   nnoremap <Space>sp   :call      vimrc#execute_and_save('ProjectTagsCaseSentitive')<CR>
   nnoremap <Space>fP   :call      vimrc#execute_and_save("ProjectTags '" . expand('<cword>'))<CR>
-  xnoremap <Space>fP   :<C-U>call vimrc#execute_and_save("ProjectTags '" . vimrc#get_visual_selection())<CR>
+  xnoremap <Space>fP   :<C-U>call vimrc#execute_and_save("ProjectTags '" . vimrc#utility#get_visual_selection())<CR>
   nnoremap <Space><F8> :call      vimrc#execute_and_save('TagbarTags')<CR>
 endif

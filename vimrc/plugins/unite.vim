@@ -39,8 +39,8 @@ nnoremap <Space>uk :call vimrc#unite#grep(expand('<cword>'), 'keyword', '', v:fa
 nnoremap <Space>uK :call vimrc#unite#grep(expand('<cWORD>'), 'keyword', '', v:false)<CR>
 nnoremap <Space>u8 :call vimrc#unite#grep(expand('<cword>'), 'keyword', '', v:true)<CR>
 nnoremap <Space>u* :call vimrc#unite#grep(expand('<cWORD>'), 'keyword', '', v:true)<CR>
-xnoremap <Space>uk :<C-U>call vimrc#unite#grep(vimrc#get_visual_selection(), 'keyword', '', v:false)<CR>
-xnoremap <Space>u8 :<C-U>call vimrc#unite#grep(vimrc#get_visual_selection(), 'keyword', '', v:true)<CR>
+xnoremap <Space>uk :<C-U>call vimrc#unite#grep(vimrc#utility#get_visual_selection(), 'keyword', '', v:false)<CR>
+xnoremap <Space>u8 :<C-U>call vimrc#unite#grep(vimrc#utility#get_visual_selection(), 'keyword', '', v:true)<CR>
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>uo :Unite output -start-insert<CR>
 nnoremap <Space>uO :Unite outline -start-insert<CR>

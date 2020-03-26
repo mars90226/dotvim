@@ -179,11 +179,11 @@ inoremap <expr> <C-G><C-I> vimrc#fzf#git#commits_in_commandline(0, [])
 cnoremap <expr> <C-G><C-E> vimrc#git#get_email()
 inoremap <expr> <C-G><C-E> vimrc#git#get_email()
 " Get visual selection
-cnoremap <expr> <C-G><C-V> vimrc#get_visual_selection()
-" Trim command line content
-cnoremap <C-G>t <C-\>evimrc#trim_cmdline()<CR>
-" Delete whole word
-cnoremap <C-G>w <C-\>evimrc#delete_whole_word()<CR>
+cnoremap <expr> <C-G><C-V> vimrc#utility#get_visual_selection()
+" Trim command line content (Use <Space> to separate `<C-\>e` and function)
+cnoremap <C-G>t <C-\>e<Space>vimrc#insert#trim_cmdline()<CR>
+" Delete whole word (Use <Space> to separate `<C-\>e` and function)
+cnoremap <C-G>w <C-\>e<Space>vimrc#insert#delete_whole_word()<CR>
 
 " Ex mode for special buffer that map 'q' as ':quit'
 nnoremap \q: q:
@@ -234,7 +234,7 @@ endif
 " sdcv
 if executable('sdcv')
   nnoremap <Leader>sd :execute vimrc#utility#get_sdcv_command() . ' ' . expand('<cword>')<CR>
-  xnoremap <Leader>sd :<C-U>execute vimrc#utility#get_sdcv_command() . " '" . vimrc#get_visual_selection() . "'"<CR>
+  xnoremap <Leader>sd :<C-U>execute vimrc#utility#get_sdcv_command() . " '" . vimrc#utility#get_visual_selection() . "'"<CR>
   nnoremap <Space>sd  :call vimrc#utility#execute_command(vimrc#utility#get_sdcv_command(), 'sdcv: ')<CR>
 endif
 
@@ -253,8 +253,8 @@ function! s:SID_PREFIX() abort
 endfunction
 let g:sid = s:SID_PREFIX()
 
-command! ToggleIndent call vimrc#toggle_indent()
-command! ToggleFold call vimrc#toggle_fold()
+command! ToggleIndent call vimrc#toggle#toggle#indent()
+command! ToggleFold call vimrc#toggle#fold_method()
 
 " LastTab
 command! -count -bar LastTab call vimrc#last_tab#jump(<count>)
@@ -267,22 +267,22 @@ augroup last_tab_settings
 augroup END
 
 " Toggle parent folder tag
-command! ToggleParentFolderTag call vimrc#toggle_parent_folder_tag()
+command! ToggleParentFolderTag call vimrc#toggle#parent_folder_tag()
 nnoremap <silent> <Leader>p :ToggleParentFolderTag<CR>
 
 " Display file size
-command! -nargs=1 -complete=file FileSize call vimrc#file_size(<q-args>)
+command! -nargs=1 -complete=file FileSize call vimrc#utility#file_size(<q-args>)
 
 " Set tab size
-command! -nargs=1 SetTabSize call vimrc#set_tab_size(<q-args>)
+command! -nargs=1 SetTabSize call vimrc#utility#set_tab_size(<q-args>)
 
-command! GetCursorSyntax echo vimrc#get_cursor_syntax()
+command! GetCursorSyntax echo vimrc#utility#get_cursor_syntax()
 
 " Find the cursor
-command! FindCursor call vimrc#blink_cursor_location()
+command! FindCursor call vimrc#utility#blink_cursor_location()
 
 if executable('tmux')
-  command! RefreshDisplay call vimrc#refresh_display()
+  command! RefreshDisplay call vimrc#utility#refresh_display()
 endif
 
 command! ClearWinfixsize call vimrc#clear_winfixsize()
@@ -297,14 +297,14 @@ if exists(':DiffOrig') != 2
 endif
 
 " Delete inactive buffers
-command! -bang Bdi call vimrc#delete_inactive_buffers(0, <bang>0)
-command! -bang Bwi call vimrc#delete_inactive_buffers(1, <bang>0)
+command! -bang Bdi call vimrc#utility#delete_inactive_buffers(0, <bang>0)
+command! -bang Bwi call vimrc#utility#delete_inactive_buffers(1, <bang>0)
 nnoremap <Leader>D :Bdi<CR>
 nnoremap <Leader><C-D> :Bdi!<CR>
 nnoremap <Leader>Q :Bwi<CR>
 nnoremap <Leader><C-Q> :Bwi!<CR>
 
-command! TrimWhitespace call vimrc#trim_whitespace()
+command! TrimWhitespace call vimrc#utility#trim_whitespace()
 
 command! DisplayChar call vimrc#display_char()
 
@@ -317,5 +317,5 @@ if vimrc#plugin#check#get_os() !~# 'windows'
   command! Args echo system("ps -o command= -p " . getpid())
 endif
 
-command! -nargs=1 -complete=file Switch call vimrc#switch(<q-args>, 'edit')
+command! -nargs=1 -complete=file Switch call vimrc#open#switch(<q-args>, 'edit')
 " }}}

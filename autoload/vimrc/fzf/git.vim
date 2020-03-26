@@ -137,7 +137,7 @@ let s:git_diff_tree_command = 'git diff-tree --no-commit-id --name-only -r '
 " vimrc#fzf#git#diff_tree([bang], [commit], [folder])
 function! vimrc#fzf#git#diff_tree(...)
   if a:0 > 3
-    return vimrc#warn('Invalid argument number')
+    return vimrc#utility#warn('Invalid argument number')
   endif
 
   let bang   = a:0 >= 1 ? a:1 : 0
@@ -146,7 +146,7 @@ function! vimrc#fzf#git#diff_tree(...)
 
   let git_dir = FugitiveExtractGitDir(expand(folder))
   if empty(git_dir)
-    return vimrc#warn('not in git repo')
+    return vimrc#utility#warn('not in git repo')
   endif
 
   call fzf#vim#files(
@@ -160,7 +160,7 @@ let s:rg_git_diff_command = 'git -C %s diff -z --name-only %s | xargs -0 ' . vim
 " vimrc#fzf#git#rg_diff([bang], [pattern], [commit], [folder])
 function! vimrc#fzf#git#rg_diff(...)
   if a:0 > 4
-    return vimrc#warn('Invalid argument number')
+    return vimrc#utility#warn('Invalid argument number')
   endif
 
   let bang    = a:0 >= 1 ? a:1 : 0
@@ -170,7 +170,7 @@ function! vimrc#fzf#git#rg_diff(...)
 
   let git_dir = FugitiveExtractGitDir(expand(folder))
   if empty(git_dir)
-    return vimrc#warn('not in git repo')
+    return vimrc#utility#warn('not in git repo')
   endif
 
   let command = printf(s:rg_git_diff_command, folder, commit, shellescape(pattern))
@@ -256,7 +256,7 @@ endfunction
 function! vimrc#fzf#git#commits_in_commandline(buffer_local, args)
   let s:git_root = vimrc#fzf#get_git_root()
   if empty(s:git_root)
-    return vimrc#warn('Not in git repository')
+    return vimrc#utility#warn('Not in git repository')
   endif
 
   let source = 'git log '.get(g:, 'fzf_commits_log_options', '--color=always '.fzf#shellescape('--format=%C(auto)%h%d %s %C(green)%cr'))
@@ -269,7 +269,7 @@ function! vimrc#fzf#git#commits_in_commandline(buffer_local, args)
 
   if a:buffer_local
     if !managed
-      return vimrc#warn('The current buffer is not in the working tree')
+      return vimrc#utility#warn('The current buffer is not in the working tree')
     endif
     let source .= ' --follow '.fzf#shellescape(current)
   else

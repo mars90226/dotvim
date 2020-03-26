@@ -2,7 +2,7 @@
 function! vimrc#zoom#zoom()
   if winnr('$') > 1
     tab split
-    call vimrc#set_scratch()
+    call vimrc#utility#set_scratch()
   elseif len(filter(map(range(tabpagenr('$')), 'tabpagebuflist(v:val + 1)'),
                   \ 'index(v:val, '.bufnr('').') >= 0')) > 1
     tabclose
@@ -15,7 +15,7 @@ function! vimrc#zoom#selected(selected)
   tabnew
   call append(line('$'), split(a:selected, "\n"))
   1delete
-  call vimrc#set_scratch()
+  call vimrc#utility#set_scratch()
   let &filetype = filetype
 endfunction
 
