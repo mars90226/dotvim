@@ -28,3 +28,7 @@ endif
 if !has('nvim-0.4') && !exists('*popup_menu')
   call vimrc#plugin#disable_plugin('any-jump.nvim')
 endif
+
+if !has('nvim-0.4')
+  call vimrc#plugin#disable_plugin('firenvim')
+endif

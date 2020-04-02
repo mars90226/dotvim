@@ -199,7 +199,9 @@ Plug 'mg979/vim-visual-multi'
 " }}}
 
 " firenvim {{{
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+if vimrc#plugin#is_enabled_plugin('firenvim')
+  Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+endif
 " }}}
 
 " Colorizer {{{
