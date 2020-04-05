@@ -214,6 +214,12 @@ nnoremap <Leader>vt :ColorToggle<CR>
 nnoremap <Leader>vc :ColorClear<CR>
 " }}}
 
+" suda.vim {{{
+Plug 'lambdalisue/suda.vim'
+
+command! Suda edit suda://%
+" }}}
+
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
 Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert', 'S'] }
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }
