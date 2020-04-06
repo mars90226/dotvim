@@ -74,6 +74,9 @@ xmap il <Plug>(textobj-sandwich-literal-query-i)
 xmap al <Plug>(textobj-sandwich-literal-query-a)
 omap il <Plug>(textobj-sandwich-literal-query-i)
 omap al <Plug>(textobj-sandwich-literal-query-a)
+
+" To avoid mis-deleting character when cancelling sandwich operator
+nnoremap s<Esc> <NOP>
 " }}}
 
 " vim-exchange {{{
