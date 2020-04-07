@@ -7,6 +7,8 @@ endif
 if executable('htop')
   command! Htop        call vimrc#tui#run('float', 'htop')
   command! HtopSplit   call vimrc#tui#run('new', 'htop')
+
+  nnoremap <Leader>ht :Htop<CR>
 endif
 
 if executable('btm')
@@ -45,6 +47,15 @@ if executable('lf')
   command! Lf          call vimrc#tui#run('float', 'lf')
   command! LfSplit     call vimrc#tui#run('new', 'lf')
 endif
+
+if executable('lazygit')
+  command! LazyGit      call vimrc#tui#run('float', 'lazygit')
+  command! LazyGitSplit call vimrc#tui#run('new', 'lazygit')
+
+  nnoremap <Leader>gz :LazyGit<CR>
+endif
+
+" TODO: Add tig
 
 " Shells
 if executable('fish')
