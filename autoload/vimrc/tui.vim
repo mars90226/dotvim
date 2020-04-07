@@ -47,7 +47,7 @@ function! vimrc#tui#run(split, command)
     if vimrc#tui#is_tui(a:command)
       execute 'FloatermNew '.a:command
     else
-      call floaterm#terminal#open(-1, a:command)
+      call floaterm#terminal#open(-1, a:command, {}, {})
     endif
   else
     call vimrc#terminal#open_current_folder(split, a:command)

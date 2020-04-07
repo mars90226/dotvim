@@ -1,4 +1,5 @@
 " Functions
+" FIXME: Will open shell after floaterm update?
 function! vimrc#floaterm#send(cmd)
   if empty(a:cmd)
     return
