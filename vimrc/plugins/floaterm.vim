@@ -13,6 +13,7 @@ nnoremap <silent> <M-3> :FloatermPrev<CR>
 nnoremap <silent> <M-4> :FloatermNext<CR>
 nnoremap <silent> <M-5> :FloatermNew<CR>
 nnoremap <Leader>xc     :execute 'FloatermSendWithoutShell '.input('Command: ', '', 'shellcmd')<CR>
+nnoremap <Leader>xh     :execute 'FloatermNew cd '.getcwd()<CR>
 
 tnoremap <M-2>   <C-\><C-N>:FloatermToggle<CR>
 tnoremap <M-3>   <C-\><C-N>:FloatermPrev<CR>
