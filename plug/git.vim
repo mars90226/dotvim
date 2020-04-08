@@ -13,6 +13,8 @@ Plug 'junegunn/gv.vim', { 'on': 'GV' }
 
 command! -nargs=* GVA GV --all <args>
 
+nnoremap <Leader>gv :execute 'GV -- '.shellescape(expand('%'))<CR>
+
 augroup gv_settings
   autocmd!
   autocmd FileType GV call vimrc#gv#mappings()
@@ -21,6 +23,8 @@ augroup END
 
 " vim-flog {{{
 Plug 'rbong/vim-flog'
+
+nnoremap <Leader>gf :execute 'Flog -- '.shellescape(expand('%'))<CR>
 
 augroup flog_settings
   autocmd!
