@@ -319,7 +319,7 @@ function! vimrc#defx#execute_dir_internal(context, split) abort
   call vimrc#defx#execute_internal(path, a:split)
 endfunction
 
-function! vimrc#defx#execute(context) abort
+function! vimrc#defx#execute_dir(context) abort
   call vimrc#defx#execute_dir_internal(a:context, 'edit')
 endfunction
 
