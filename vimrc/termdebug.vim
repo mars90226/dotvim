@@ -17,8 +17,13 @@ nnoremap <Leader>df :Finish<CR>
 nnoremap <Leader>dc :Continue<CR>
 nnoremap <Leader>dS :Stop<CR>
 
+" `:Evaluate` evaluate cursor variable and show result in floating window
+" which may not be large enough to contain all result
 nnoremap <Leader>de :Evaluate<Space>
 xnoremap <Leader>de :Evaluate
+" `:Evaluate variable` show result in echo
+nnoremap <Leader>dk :execute 'Evaluate '.expand('<cword>')<CR>
+nnoremap <Leader>dK :execute 'Evaluate '.expand('<cWORD>')<CR>
 
 nnoremap <Leader>dg :Gdb<CR>
 nnoremap <Leader>dp :Program<CR>
