@@ -15,6 +15,8 @@ endif
 " neomru.vim & neoyank.vim {{{
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/neoyank.vim'
+
+" TODO: Raise neomru limit
 " }}}
 
 " Finders {{{
