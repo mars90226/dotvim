@@ -18,6 +18,11 @@ call vimrc#lazy#lazy_load('unimpaired')
 " Ignore [a, ]a, [A, ]A for ale
 let g:nremap = {'[a': '', ']a': '', '[A': '', ']A': ''}
 
+nnoremap \[a  :previous<CR>
+nnoremap \]a  :next<CR>
+nnoremap \[A  :first<CR>
+nnoremap \]A  :last<CR>
+
 nmap \[u  <Plug>unimpaired_url_encode
 nmap \[uu <Plug>unimpaired_line_url_encode
 nmap \]u  <Plug>unimpaired_url_decode
