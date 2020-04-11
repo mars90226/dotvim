@@ -11,6 +11,15 @@ function! vimrc#utility#denite_escape_symbol(expr)
   return l:expr
 endfunction
 
+" Escape backslash and space
+function! vimrc#utility#commandline_escape_symbol(expr)
+  let l:expr = a:expr
+  let l:expr = substitute(l:expr, '\\', '\\\\', 'g')
+  let l:expr = substitute(l:expr, ' ', '\\ ', 'g')
+
+  return l:expr
+endfunction
+
 function! vimrc#utility#warn(message)
   echohl WarningMsg
   echom a:message
