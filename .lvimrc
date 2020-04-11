@@ -1,4 +1,5 @@
 " Exclude plugged/ for ctags
 if exists('g:gutentags_ctags_exclude') && index(g:gutentags_ctags_exclude, 'plugged') == -1
+  " TODO: Only work when open vim in ~/.vim
   call add(g:gutentags_ctags_exclude, 'plugged')
 endif
