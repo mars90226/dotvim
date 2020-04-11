@@ -1,6 +1,6 @@
 function! vimrc#unite#grep(query, buffer_name_prefix, option, is_word) abort
-  let escaped_query = vimrc#utility#escape_symbol(a:query)
-  let escaped_option = vimrc#utility#escape_symbol(a:option)
+  let escaped_query = vimrc#utility#denite_escape_symbol(a:query)
+  let escaped_option = vimrc#utility#denite_escape_symbol(a:option)
   let final_query = a:is_word ? '\\b' . escaped_query . '\\b' : escaped_query
   let buffer_name = a:buffer_name_prefix . '%' . bufnr('%')
 

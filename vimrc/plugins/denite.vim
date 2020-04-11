@@ -52,10 +52,10 @@ nnoremap <Space>d* :call vimrc#denite#grep(expand('<cWORD>'), 'grep', '', v:true
 xnoremap <Space>dk :<C-U>call vimrc#denite#grep(vimrc#utility#get_visual_selection(), 'grep', '', v:false)<CR>
 xnoremap <Space>d8 :<C-U>call vimrc#denite#grep(vimrc#utility#get_visual_selection(), 'grep', '', v:true)<CR>
 nnoremap <Space>dl :DeniteCursorWord -auto-action=preview line<CR>
-xnoremap <Space>dl :<C-U>execute 'Denite -auto-action=preview -input='.vimrc#utility#escape_symbol(vimrc#utility#get_visual_selection()).' line'<CR>
+xnoremap <Space>dl :<C-U>execute 'Denite -auto-action=preview -input='.vimrc#utility#denite_escape_symbol(vimrc#utility#get_visual_selection()).' line'<CR>
 nnoremap <Space>dm :Denite file_mru<CR>
 nnoremap <Space>dM :Denite directory_mru<CR>
-nnoremap <Space>do :execute 'Denite output:' . vimrc#utility#escape_symbol(input('output: ', '', 'command'))<CR>
+nnoremap <Space>do :execute 'Denite output:' . vimrc#utility#denite_escape_symbol(input('output: ', '', 'command'))<CR>
 nnoremap <Space>dO :Denite outline<CR>
 nnoremap <Space>d<C-O> :Denite unite:outline<CR>
 nnoremap <Space>dp :call vimrc#denite#project_tags('')<CR>

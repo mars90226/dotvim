@@ -60,6 +60,6 @@ function! vimrc#tui#google_keyword(keyword)
     return
   endif
 
-  let command = 'sr google '.vimrc#utility#escape_symbol(a:keyword)
+  let command = 'sr google '.shellescape(a:keyword)
   call vimrc#tui#run('float', command)
 endfunction
