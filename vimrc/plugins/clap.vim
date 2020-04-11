@@ -27,7 +27,8 @@ nnoremap <Space>cL     :Clap lines<CR>
 nnoremap <Space>cm     :Clap history<CR>
 nnoremap <Space>cp     :Clap providers<CR>
 nnoremap <Space>cq     :Clap quickfix<CR>
-nnoremap <Space>cr     :Clap grep<CR>
+nnoremap <Space>cr     :execute 'Clap grep2 ++query='.input('grep2: ')<CR>
+nnoremap <Space>cR     :execute 'Clap grep ++query='.input('grep: ')<CR>
 " FIXME: Not work, cannot use option that need argument
 nnoremap <Space>c4     :execute 'Clap grep ++opt='.vimrc#utility#commandline_escape_symbol(input('Option: '))<CR>
 nnoremap <Space>ct     :Clap tags<CR>
