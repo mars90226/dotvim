@@ -30,7 +30,7 @@ nnoremap <Space>cq     :Clap quickfix<CR>
 nnoremap <Space>cr     :execute 'Clap grep2 ++query='.input('grep2: ')<CR>
 nnoremap <Space>cR     :execute 'Clap grep ++query='.input('grep: ')<CR>
 " FIXME: Not work, cannot use option that need argument
-nnoremap <Space>c4     :execute 'Clap grep ++opt='.vimrc#utility#commandline_escape_symbol(input('Option: '))<CR>
+nnoremap <Space>c4     :execute 'Clap grep ++opt='.vimrc#utility#commandline_escape_symbol(input('Option: ')).' ++query='.input('grep: ')<CR>
 nnoremap <Space>ct     :Clap tags<CR>
 nnoremap <Space>cv     :Clap colors<CR>
 nnoremap <Space>cw     :Clap windows<CR>
