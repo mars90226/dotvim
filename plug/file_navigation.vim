@@ -84,15 +84,18 @@ call vimrc#source('vimrc/plugins/tagbar.vim')
 " vista.vim {{{
 Plug 'liuchengxu/vista.vim'
 
-nnoremap <F7> :Vista!!<CR>
+" Don't use :Vista! or :Vista!! to close Vista window.
+" It will make :Vista coc not open Vista window.
+nnoremap <F7>        :Vista<CR>
 nnoremap <Space><F7> :Vista coc<CR>
-nnoremap <Space>vf :Vista finder<CR>
-nnoremap <Space>vc :Vista finder coc<CR>
-nnoremap <Space>vs :Vista show<CR>
-nnoremap <Space>vt :Vista toc<CR>
-nnoremap <Space>vv :Vista focus<CR>
-nnoremap <Space>vi :Vista info<CR>
-nnoremap <Space>vI :Vista info+<CR>
+nnoremap <Space>vq   :Vista focus<CR>:close<CR>
+nnoremap <Space>vf   :Vista finder<CR>
+nnoremap <Space>vc   :Vista finder coc<CR>
+nnoremap <Space>vs   :Vista show<CR>
+nnoremap <Space>vt   :Vista toc<CR>
+nnoremap <Space>vv   :Vista focus<CR>
+nnoremap <Space>vi   :Vista info<CR>
+nnoremap <Space>vI   :Vista info+<CR>
 
 let g:vista_sidebar_width = 40
 let g:vista_fzf_preview = ['right:50%']
