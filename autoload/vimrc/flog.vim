@@ -1,7 +1,5 @@
 " Mappings
 function! vimrc#flog#mappings()
-  nmap <silent><buffer> q <Plug>(FlogQuit)
-
   call vimrc#git#include_git_mappings('vimrc#flog#sha()', 'vimrc#flog#visual_diff_commits()')
 endfunction
 
