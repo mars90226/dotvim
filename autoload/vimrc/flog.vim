@@ -1,5 +1,7 @@
 " Mappings
 function! vimrc#flog#mappings()
+  nnoremap <expr> q winnr('$') != 1 ? ':<C-U>wincmd w<CR>:<C-U>close<CR>' : 'q'
+
   call vimrc#git#include_git_mappings('vimrc#flog#sha()', 'vimrc#flog#visual_diff_commits()')
 endfunction
 
