@@ -125,17 +125,17 @@ function! vimrc#defx#mappings() abort " {{{
   nnoremap <silent><buffer><expr> <C-G>
         \ defx#do_action('print')
   nnoremap <silent><buffer><expr> <C-T><C-R>
-        \ defx#do_action('change_vim_cwd') . ":call vimrc#terminal#open_current_shell('edit')<CR>"
+        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . ":call vimrc#terminal#open_current_shell('edit')<CR>"
   nnoremap <silent><buffer><expr> <C-T><C-T>
-        \ defx#do_action('change_vim_cwd') . ":call vimrc#terminal#open_current_shell('tabnew')<CR>"
+        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . ":call vimrc#terminal#open_current_shell('tabnew')<CR>"
   nnoremap <silent><buffer><expr> <C-T><C-S>
-        \ defx#do_action('change_vim_cwd') . ":call vimrc#terminal#open_current_shell('new')<CR>"
+        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . ":call vimrc#terminal#open_current_shell('new')<CR>"
   nnoremap <silent><buffer><expr> <C-T><C-V>
-        \ defx#do_action('change_vim_cwd') . ":call vimrc#terminal#open_current_shell('vnew')<CR>"
+        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . ":call vimrc#terminal#open_current_shell('vnew')<CR>"
   nnoremap <silent><buffer><expr> <C-T><C-B>
-        \ defx#do_action('change_vim_cwd') . ":call vimrc#terminal#open_current_shell('rightbelow vnew')<CR>"
+        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . ":call vimrc#terminal#open_current_shell('rightbelow vnew')<CR>"
   nnoremap <silent><buffer><expr> <C-T><C-D>
-        \ defx#do_action('change_vim_cwd') . ":call vimrc#terminal#open_shell('tabnew', input('Folder: ', '', 'dir'))<CR>"
+        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . ":call vimrc#terminal#open_shell('tabnew', input('Folder: ', '', 'dir'))<CR>"
   nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
         \ ':<C-U>wincmd w<CR>' :
         \ ':<C-U>Defx -buffer-name=temp -split=vertical<CR>'
@@ -149,8 +149,9 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#do_action('call', 'vimrc#defx#fzf_directory_ancestors')
   nnoremap <silent><buffer><expr> <Space>x
         \ defx#do_action('call', 'vimrc#defx#execute_file_float')
+  " Add this mapping to prevent from executing 'x' mapping
   nnoremap <silent><buffer><expr> \x
-        \ defx#do_action('call', 'vimrc#defx#execute_file') " Add this mapping to prevent from executing 'x' mapping
+        \ defx#do_action('call', 'vimrc#defx#execute_file')
   nnoremap <silent><buffer><expr> \xx
         \ defx#do_action('call', 'vimrc#defx#execute_file')
   nnoremap <silent><buffer><expr> \xr
