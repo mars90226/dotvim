@@ -8,7 +8,7 @@ endfunction
 " Functions
 function! vimrc#flog#sha(...)
   let line = get(a:000, 0, line('.'))
-  return flog#get_commit_data(line).short_commit_hash
+  return flog#get_commit_at_line(line).short_commit_hash
 endfunction
 
 function! vimrc#flog#visual_diff_commits()
