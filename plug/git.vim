@@ -24,6 +24,8 @@ augroup END
 " vim-flog {{{
 Plug 'rbong/vim-flog'
 
+command! -nargs=* Floga Flog -all <args>
+
 nnoremap <Leader>gf :execute 'Flog -- '.shellescape(expand('%'))<CR>
 
 augroup flog_settings
