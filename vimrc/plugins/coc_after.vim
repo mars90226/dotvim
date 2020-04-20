@@ -15,5 +15,28 @@ call coc#add_extension('coc-python')
 " call coc#add_extension('coc-ccls')
 call coc#add_extension('coc-rls')
 
+call coc#config('languageserver', {
+      \ 'ccls': {
+      \   'command': 'ccls',
+      \   'filetypes': ['c', 'cpp', 'objc', 'objcpp'],
+      \   'rootPatterns': [
+      \     '.ccls',
+      \     'compile_commands.json',
+      \     '.git/',
+      \     '.hg/'
+      \   ],
+      \  'initializationOptions': {
+      \    'cache': {
+      \      'directory': $HOME.'/.cache/ccls'
+      \    },
+      \    'client': {
+      \      'snippetSupport': v:true
+      \    },
+      \    'index': {
+      \      'threads': 2
+      \    }
+      \  }
+      \ }})
+
 " Misc
 call coc#add_extension('coc-prettier')

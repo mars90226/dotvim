@@ -7,29 +7,10 @@
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
     },
-    "ccls": {
-      "command": "ccls",
-      "filetypes": ["c", "cpp", "objc", "objcpp"],
-      "rootPatterns": [
-        ".ccls",
-        "compile_commands.json",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ],
-      "initializationOptions": {
-        "cache": {
-          "directory": ".ccls-cache"
-        },
-        "index": {
-          "threads": 2
-        }
-      }
-    },
-	"lua": {
-		"command": "lua-lsp",
-		"filetypes": ["lua"]
-	}
+    "lua": {
+      "command": "lua-lsp",
+      "filetypes": ["lua"]
+    }
   },
   "coc.preferences.useQuickfixForLocations": true,
   "coc.source.neosnippet.disableSyntaxes": ["string", "comment"],
