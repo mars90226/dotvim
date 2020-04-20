@@ -36,7 +36,13 @@ call coc#config('languageserver', {
       \      'threads': 2
       \    }
       \  }
-      \ }})
+      \ },
+      \ 'phplang': {
+      \   'command': 'php',
+      \   'args': [$HOME.'/.config/composer/vendor/bin/php-language-server.php'],
+      \   'filetypes': ['php']
+      \ }
+      \})
 
 " Misc
 call coc#add_extension('coc-prettier')
