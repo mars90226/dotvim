@@ -29,6 +29,11 @@ function! vimrc#defx#mappings() abort " {{{
   if bufname('%') =~# 'tab'
     nnoremap <silent><buffer><expr> <CR>
           \ defx#async_action('open')
+  elseif bufname('%') =~# 'float'
+    nnoremap <silent><buffer><expr> <CR>
+          \ defx#is_directory() ?
+          \ defx#async_action('open') :
+          \ defx#async_action('multi', ['drop', 'quit'])
   else
     nnoremap <silent><buffer><expr> <CR>
           \ defx#is_directory() ?
