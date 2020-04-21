@@ -6,6 +6,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'idanarye/vim-merginal', { 'branch': 'develop' }
 
 call vimrc#source('vimrc/plugins/fugitive.vim')
+call vimrc#source('vimrc/plugins/merginal.vim')
 " }}}
 
 " gv.vim {{{
