@@ -292,6 +292,10 @@ if vimrc#plugin#is_enabled_plugin('coc.nvim')
   nnoremap <Space>sv :call vimrc#fzf#range#select_operator('av')<CR>
 endif
 
+" fzf-checkout
+nnoremap <Space>gc :GCheckout<CR>
+nnoremap <Space>gt :GCheckoutTag<CR>
+
 " fzf & cscope key mappings {{{
 let s:fzf_cscope_prefix = '\c'
 execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'s :call vimrc#fzf#cscope#cscope("0", expand("<cword>"))<CR>'
