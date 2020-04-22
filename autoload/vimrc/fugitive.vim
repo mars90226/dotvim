@@ -28,6 +28,11 @@ endfunction
 " For fugitive://* buffers
 function! vimrc#fugitive#fugitive_buffer_settings()
   setlocal bufhidden=delete
+
+  " Use fugitive's '-' mapping
+  nmap <buffer> <silent> _               :vsplit<CR>-
+  nmap <buffer> <silent> <Space>-        :split<CR>-
+  nmap <buffer> <silent> <Space><Space>- :tab split<CR>-
 endfunction
 
 " Mappings
