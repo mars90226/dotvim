@@ -15,6 +15,8 @@ if has('nvim') && vimrc#plugin#check#has_floating_window()
   command!                                  VimrcFloatPrev   call vimrc#float#prev()
   command!                                  VimrcFloatNext   call vimrc#float#next()
   command!                                  VimrcFloatRemove call vimrc#float#remove()
+  " TODO: Use floaterm & g:floaterm_autoclose = v:false for non-interactive
+  " terminal command
   command! -bang -nargs=? -complete=command VimrcFloatermNew call vimrc#float#new('TermOpen '.<q-args>, <bang>0)
 
   nnoremap <silent> <M-,><M-l> :VimrcFloatToggle<CR>
