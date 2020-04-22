@@ -131,6 +131,10 @@ function! vimrc#fzf#git#commits_in_commandline_sink(results, lines)
   endif
 endfunction
 
+function! vimrc#fzf#git#branches_in_commandline_sink(results, line)
+  call add(a:results, a:line)
+endfunction
+
 " Commands
 let s:git_diff_tree_command = 'git diff-tree --no-commit-id --name-only -r '
 
@@ -301,6 +305,21 @@ function! vimrc#fzf#git#commits_in_commandline(buffer_local, args)
   let g:fzf_prefer_tmux = 1
   let options = extend(options, g:fzf_tmux_layout)
   call vimrc#fzf#fzf(a:buffer_local ? 'bcommits' : 'commits', options, a:args)
+  let g:fzf_prefer_tmux = 0
+  return get(results, 0, '')
+endfunction
+
+" Intend to be mapped in command
+function! vimrc#fzf#git#branches_in_commandline()
+  let source = 'git branch --format="%(refname)" --all | sed "s/refs\/[^/]\+\///"'
+  let results = []
+  " Use tmux to avoid opening terminal in neovim
+  let g:fzf_prefer_tmux = 1
+  call fzf#run(fzf#wrap('Branches', extend({
+        \ 'source': source,
+        \ 'sink': function('vimrc#fzf#git#branches_in_commandline_sink', [results]),
+        \ 'options': ['+s', '--prompt', 'Branches> ']
+        \ }, g:fzf_tmux_layout)))
   let g:fzf_prefer_tmux = 0
   return get(results, 0, '')
 endfunction

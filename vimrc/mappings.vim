@@ -164,7 +164,7 @@ inoremap <expr> <C-G><C-R> expand('%:h')
 " For grepping word
 cnoremap <expr> <C-G><C-W> "\\b" . expand('<cword>') . "\\b"
 cnoremap <expr> <C-G><C-A> "\\b" . expand('<cWORD>') . "\\b"
-cnoremap <expr> <C-G><C-b> "\<C-b>\\b\<C-e>\\b"
+cnoremap <expr> <C-G>b     "\<C-B>\\b\<C-E>\\b"
 " Fugitive commit sha
 cnoremap <expr> <C-G><C-Y> vimrc#fugitive#commit_sha()
 inoremap <expr> <C-G><C-Y> vimrc#fugitive#commit_sha()
@@ -175,6 +175,9 @@ inoremap <expr> <C-G><C-I> vimrc#fzf#git#commits_in_commandline(0, [])
 " Vim(let):E684: list index out of range: 1
 " cnoremap <expr> <C-G><C-O> vimrc#fzf#git#commits_in_commandline(1, [])
 " inoremap <expr> <C-G><C-O> vimrc#fzf#git#commits_in_commandline(1, [])
+" Fill branches
+cnoremap <expr> <C-G><C-B> vimrc#fzf#git#branches_in_commandline()
+inoremap <expr> <C-G><C-B> vimrc#fzf#git#branches_in_commandline()
 " Fill git email
 cnoremap <expr> <C-G><C-E> vimrc#git#get_email()
 inoremap <expr> <C-G><C-E> vimrc#git#get_email()
