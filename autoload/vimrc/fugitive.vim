@@ -43,11 +43,7 @@ function! vimrc#fugitive#mappings()
   nnoremap <buffer> <silent> gl :Gpull<CR>
   nnoremap <buffer> <silent> gL :Gpull --rebase<CR>
 
-  if exists(':VimrcFloatermNew')
-    nnoremap <buffer> <silent> czc :VimrcFloatermNew git cz<CR>
-  else
-    nnoremap <buffer> <silent> czc :Dispatch git cz<CR>
-  endif
+  nnoremap <buffer> <silent> czc :call vimrc#tui#run('float', 'git cz')<CR>
 
   call vimrc#git#include_git_mappings("expand('<cword>')")
 endfunction
