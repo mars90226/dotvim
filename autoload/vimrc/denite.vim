@@ -45,6 +45,24 @@ function! vimrc#denite#goto_and_back_between_preview()
   endif
 endfunction
 
+" Utilities
+let s:denite_actions = {
+  \ 'move_cursor': 'vimrc#denite#move_cursor_candidate_window'
+  \ }
+
+" Borrowed from denite.nvim
+function! vimrc#denite#do_map(name, ...)
+  let args = copy(a:000)
+  let esc = (mode() ==# 'i' ? "\<C-O>" : '')
+  let denite_action = get(s:denite_actions, a:name)
+  return printf(esc . ":\<C-U>call vimrc#denite#call_map(%s, %s)\<CR>",
+        \ string(denite_action), string(args))
+endfunction
+
+function! vimrc#denite#call_map(function, args)
+  call call(a:function, a:args)
+endfunction
+
 " Mappings
 " Denite buffer normal mode
 function! vimrc#denite#mappings()
@@ -144,14 +162,10 @@ function! vimrc#denite#filter_mappings()
   inoremap <silent><buffer><expr> <Tab> denite#do_map('choose_action')
   inoremap <silent><buffer><expr> <C-L> denite#do_map('redraw')
 
-  inoremap <silent><buffer> <C-J>
-        \ <Esc>:call vimrc#denite#move_cursor_candidate_window('j', 1)<CR>
-  inoremap <silent><buffer> <C-K>
-        \ <Esc>:call vimrc#denite#move_cursor_candidate_window('k', 1)<CR>
-  inoremap <silent><buffer> <M-j>
-        \ <Esc>:call vimrc#denite#move_cursor_candidate_window('j', g:denite_height)<CR>
-  inoremap <silent><buffer> <M-k>
-        \ <Esc>:call vimrc#denite#move_cursor_candidate_window('k', g:denite_height)<CR>
+  inoremap <silent><buffer><expr> <C-J> vimrc#denite#do_map('move_cursor', 'j', 1)
+  inoremap <silent><buffer><expr> <C-K> vimrc#denite#do_map('move_cursor', 'k', 1)
+  inoremap <silent><buffer><expr> <M-j> vimrc#denite#do_map('move_cursor', 'j', g:denite_height)
+  inoremap <silent><buffer><expr> <M-k> vimrc#denite#do_map('move_cursor', 'k', g:denite_height)
   inoremap <silent><buffer><expr> <CR>  denite#do_map('do_action')
   nnoremap <silent><buffer><expr> <CR>  denite#do_map('do_action')
   inoremap <silent><buffer><expr> <M-o> denite#do_map('do_action', 'open')
@@ -167,6 +181,10 @@ function! vimrc#denite#filter_mappings()
   inoremap <silent><buffer><expr> <M-v> denite#do_map('do_action', 'vsplitswitch')
   inoremap <silent><buffer><expr> <M-w> denite#do_map('do_action', 'switch')
 
+  " Toggle select
+  inoremap <silent><buffer><expr> <M-`> denite#do_map('toggle_select').
+        \ vimrc#denite#do_map('move_cursor', 'j', 1)
+
   " Switch between denite buffer & preview
   imap <silent><buffer> <M-l>      <Plug>(denite_filter_quit):call vimrc#denite#goto_and_back_between_preview()<CR>
 
@@ -178,8 +196,8 @@ function! vimrc#denite#filter_mappings()
         \ denite#do_map('toggle_matchers', 'matcher/fruzzy')
   inoremap <silent><buffer><expr> <M-g>
         \ denite#do_map('toggle_matchers', 'matcher/substring')
-  inoremap <silent><buffer><expr> <M-`>
-        \ denite#do_map('toggle_matchers', 'matcher/regexp')
   inoremap <silent><buffer><expr> <M-r>
+        \ denite#do_map('toggle_matchers', 'matcher/regexp')
+  inoremap <silent><buffer><expr> <M-;>
         \ denite#do_map('change_sorters', 'sorter/reverse')
 endfunction
