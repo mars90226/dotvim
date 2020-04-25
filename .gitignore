@@ -17,3 +17,6 @@ autoload/plug.vim.old
 
 # plugin config cache
 .plugin_config_cache
+
+# node_modules for commitizen
+node_modules
