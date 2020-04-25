@@ -13,7 +13,8 @@ call coc#add_extension('coc-tsserver')
 call coc#add_extension('coc-python')
 " Not work right now
 " call coc#add_extension('coc-ccls')
-call coc#add_extension('coc-rls')
+" call coc#add_extension('coc-rls')
+call coc#add_extension('coc-rust-analyzer')
 
 call coc#config('languageserver', {
       \ 'ccls': {
