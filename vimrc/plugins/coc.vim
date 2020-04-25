@@ -10,8 +10,8 @@ inoremap <expr><S-Tab> pumvisible() ? "\<C-P>" : "\<C-H>"
 " <M-Space>: trigger completion
 inoremap <silent><expr> <M-Space> coc#refresh()
 
-" <CR>: confirm completion, or insert <CR> with new undo chain
-inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
+" <CR>: confirm completion, or select first completion item, or insert <CR> with new undo chain
+inoremap <expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-G>u\<CR>\<C-R>=coc#on_enter()\<CR>"
 
 " <C-X><C-G>: start neosnippet completion
 inoremap <silent> <C-X><C-G> <C-R>=coc#start({ 'source': 'neosnippet' })<CR>
