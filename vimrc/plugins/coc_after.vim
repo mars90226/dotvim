@@ -15,6 +15,7 @@ call coc#add_extension('coc-python')
 " call coc#add_extension('coc-ccls')
 " call coc#add_extension('coc-rls')
 call coc#add_extension('coc-rust-analyzer')
+call coc#add_extension('coc-vimlsp')
 
 call coc#config('languageserver', {
       \ 'ccls': {
