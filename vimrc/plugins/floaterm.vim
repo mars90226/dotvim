@@ -17,10 +17,11 @@ nnoremap <silent> <Leader>xh :FloatermHide<CR>
 nnoremap          <Leader>xs :execute 'FloatermSendWithoutShell '.input('Command: ', '', 'shellcmd')<CR>
 nnoremap          <Leader>xc :execute 'FloatermNew! cd '.shellescape(getcwd())<CR>
 
-tnoremap <M-2>   <C-\><C-N>:FloatermToggle<CR>
-tnoremap <M-3>   <C-\><C-N>:FloatermPrev<CR>
-tnoremap <M-4>   <C-\><C-N>:FloatermNext<CR>
-tnoremap <M-5>   <C-\><C-N>:FloatermNew<CR>
+" For terminal
+tnoremap <M-2>      <C-\><C-N>:FloatermToggle<CR>
+tnoremap <M-3>      <C-\><C-N>:FloatermPrev<CR>
+tnoremap <M-4>      <C-\><C-N>:FloatermNext<CR>
+tnoremap <M-5>      <C-\><C-N>:FloatermNew<CR>
 
 " For nested neovim
 tnoremap <M-q><M-2> <C-\><C-\><C-N>:FloatermToggle<CR>
