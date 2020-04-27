@@ -40,7 +40,7 @@ endfunction
 
 " Functions
 function! vimrc#coc#show_documentation()
-  if &filetype ==# 'vim' || &filetype ==# 'help'
+  if &filetype ==# 'help'
     execute 'help ' . expand('<cword>')
   else
     call CocAction('doHover')
