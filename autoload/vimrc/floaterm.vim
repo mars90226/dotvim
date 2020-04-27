@@ -9,7 +9,7 @@ function! vimrc#floaterm#send(cmd)
 
   let bufnr = floaterm#buflist#find_curr()
   if bufnr == -1
-    let bufnr = floaterm#new()
+    let bufnr = floaterm#new('', {}, {}, v:true)
   endif
   call floaterm#terminal#send(bufnr, cmds)
 endfunction
