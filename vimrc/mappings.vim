@@ -121,6 +121,7 @@ nmap     <p "+[p
 nmap     >p "+]p
 
 " Quick yank filename
+nnoremap <Leader>y6 :let @" = expand('%:t')<CR>
 nnoremap <Leader>y5 :let @" = expand('%:t:r')<CR>
 nnoremap <Leader>y% :let @" = @%<CR>
 nnoremap <Leader>y4 :let @" = expand('%:p')<CR>
@@ -152,6 +153,9 @@ cnoremap <expr> <C-G><C-M> vimrc#fzf#mru#directory_mru_in_commandline()
 inoremap <expr> <C-G><C-M> vimrc#fzf#mru#directory_mru_in_commandline()
 cnoremap <expr> <C-G><C-T> vimrc#rg#current_type_option()
 inoremap <expr> <C-G><C-T> vimrc#rg#current_type_option()
+" Expand filename
+cnoremap <expr> <C-G><C-^> expand('%:t')
+inoremap <expr> <C-G><C-^> expand('%:t')
 " <C-]> and <C-%> are the same key
 cnoremap <expr> <C-G><C-]> expand('%:t:r')
 inoremap <expr> <C-G><C-]> expand('%:t:r')

@@ -237,6 +237,7 @@ nnoremap <Space>f<C-M> :call      vimrc#execute_and_save('ProjectMru')<CR>
 nnoremap <Space>fn     :call      vimrc#execute_and_save('FilesWithQuery ' . expand('<cword>'))<CR>
 nnoremap <Space>fN     :call      vimrc#execute_and_save('FilesWithQuery ' . expand('<cWORD>'))<CR>
 nnoremap <Space>f%     :call      vimrc#execute_and_save('FilesWithQuery ' . expand('%:t:r'))<CR>
+nnoremap <Space>f^     :call      vimrc#execute_and_save('FilesWithQuery ' . expand('%:t'))<CR>
 xnoremap <Space>fn     :<C-U>call vimrc#execute_and_save('FilesWithQuery ' . vimrc#utility#get_visual_selection())<CR>
 nnoremap <Space>fo     :call      vimrc#execute_and_save('Locate ' . input('Locate: '))<CR>
 nnoremap <Space>fO     :call      vimrc#execute_and_save('History')<CR>
