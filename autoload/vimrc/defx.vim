@@ -193,44 +193,47 @@ endfunction " }}}
 
 " Functions
 let s:defx_action = {
-      \ 'tab split': '-split=tab',
-      \ 'split': '-split=horizontal',
-      \ 'vsplit': '-split=vertical',
-      \ 'rightbelow vsplit': '-split=vertical -direction=botright',
-      \ }
-let s:defx_additional_argument = {
-      \ 'tab split': '-buffer-name=tab',
+      \ 'edit': ['edit', ''],
+      \ 'tab': ['tab split', g:defx_tab_options],
+      \ 'split': ['split', '-split=horizontal'],
+      \ 'vsplit': ['vsplit', '-split=vertical'],
+      \ 'rvsplit': ['rightbelow vsplit', '-split=vertical -direction=botright'],
+      \ 'float': ['VimrcFloatNew edit', g:defx_float_options],
       \ }
 
 " TODO May need to escape a:line
 function! vimrc#defx#open(target, action)
+  let [action, defx_option] = get(s:defx_action, a:action, '')
+
   if isdirectory(a:target)
-    if &filetype ==# 'defx' && a:action ==# 'edit'
+    if &filetype ==# 'defx' && action ==# 'edit'
       " Use absolute path
       let target = fnamemodify(a:target, ':p')
       call defx#call_action('cd', target)
     else
-      execute 'Defx ' . get(s:defx_action, a:action, '') . ' ' . get(s:defx_additional_argument, a:action , '') . ' ' . a:target
+      execute 'Defx ' . defx_option . ' ' . a:target
     endif
   else
-    execute a:action . ' ' . a:target
+    execute action . ' ' . a:target
   endif
 endfunction
 
 " TODO Rename to indicate sink?
 function! vimrc#defx#open_dir(target, action)
+  let [action, defx_option] = get(s:defx_action, a:action, '')
+
   if isdirectory(a:target)
     let dir = a:target
   else
     let dir = fnamemodify(a:target, ':h')
   endif
 
-  if &filetype ==# 'defx' && a:action ==# 'edit'
+  if &filetype ==# 'defx' && action ==# 'edit'
     " Use absolute path
     let dir = fnamemodify(dir, ':p')
     call defx#call_action('cd', dir)
   else
-    execute 'Defx ' . get(s:defx_action, a:action, '') . ' ' . get(s:defx_additional_argument, a:action , '') . ' ' . dir
+    execute 'Defx ' . defx_option . ' ' . dir
   endif
 endfunction
 

@@ -7,7 +7,7 @@ let s:defx_fzf_action = extend({
       \ 'alt-v':      'DefxRightVSplitOpenSink',
       \ 'alt-x':      'DefxOpenDirSink',
       \ 'ctrl-alt-x': 'DefxSplitOpenDirSink',
-      \ 'alt-z':      'VimrcFloatNew DefxOpenSink',
+      \ 'alt-z':      'DefxFloatOpenSink',
       \ 'alt-l':      'DefxSwitch',
       \ }, g:misc_fzf_action)
 function! vimrc#fzf#defx#get_defx_fzf_action()

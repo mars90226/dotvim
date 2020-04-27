@@ -3,7 +3,8 @@ if vimrc#plugin#is_enabled_plugin('lightline.vim')
 endif
 
 let g:vimfiler_as_default_explorer = 1
-nnoremap <F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit<CR>
+
+nnoremap <F4>        :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit<CR>
 nnoremap <Space><F4> :VimFilerExplorer -split -simple -parent -winwidth=35 -toggle -no-quit -find<CR>
 
 augroup vimfiler_mappings
