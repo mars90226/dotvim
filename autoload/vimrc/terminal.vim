@@ -126,7 +126,7 @@ endfunction
 function! vimrc#terminal#get_open_command()
   if has('nvim')
     if vimrc#plugin#check#has_floating_window()
-      return 'VimrcFloatNew TermOpen'
+      return 'FloatermNew'
     else
       return 'new'
     endif

@@ -5,17 +5,15 @@ let g:floaterm_height = 0.8
 let g:floaterm_winblend = 0
 let g:floaterm_autoclose = v:false
 
-" Commands
-command! -nargs=1 FloatermSendWithoutShell call vimrc#floaterm#send(<q-args>)
-
 " Mappings
 nnoremap <silent> <M-2>      :FloatermToggle<CR>
 nnoremap <silent> <M-3>      :FloatermPrev<CR>
 nnoremap <silent> <M-4>      :FloatermNext<CR>
 nnoremap <silent> <M-5>      :FloatermNew!<CR>
 nnoremap <silent> <Leader>xh :FloatermHide<CR>
-nnoremap          <Leader>xs :execute 'FloatermSendWithoutShell '.input('Command: ', '', 'shellcmd')<CR>
-nnoremap          <Leader>xc :execute 'FloatermNew! cd '.shellescape(getcwd())<CR>
+nnoremap          <Leader>xs :execute 'FloatermSend '.input('Command: ', '', 'shellcmd')<CR>
+nnoremap          <Leader>xc :execute 'FloatermNew '.input('Command: ', '', 'shellcmd')<CR>
+nnoremap          <Leader>xw :execute 'FloatermNew! cd '.shellescape(getcwd())<CR>
 
 " For terminal
 tnoremap <M-2>      <C-\><C-N>:FloatermToggle<CR>
