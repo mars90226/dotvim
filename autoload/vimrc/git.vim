@@ -11,7 +11,7 @@ function! vimrc#git#include_git_mappings(get_commit_sha_function_call, ...)
   execute 'nnoremap <silent><buffer> <Leader>gf :call vimrc#fzf#git#files_commit('.a:get_commit_sha_function_call.')<CR>'
   execute 'nnoremap <silent><buffer> <Leader>gg :call vimrc#fzf#git#grep_commit('.a:get_commit_sha_function_call.', input("Git grep: "))<CR>'
   execute 'nnoremap <silent><buffer> <Leader>gt :execute "Git show --stat ".'.a:get_commit_sha_function_call.'<CR>'
-  execute 'nnoremap <silent><buffer> <Leader>gp :execute "Git cherry-pick -p ".'.a:get_commit_sha_function_call.'<CR>'
+  execute 'nnoremap <silent><buffer> <Leader>gp :execute "Git cherry-pick -n ".'.a:get_commit_sha_function_call.'<CR>'
   execute 'nnoremap <silent><buffer> <Leader>gP :execute "Git cherry-pick ".'.a:get_commit_sha_function_call.'<CR>'
 
   " Command line mapping
