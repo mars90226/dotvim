@@ -31,8 +31,8 @@ function! vimrc#rust_doc#open(url)
 endfunction
 
 " Open rustup doc
-function! vimrc#rust_doc#open_rustup_doc(topic)
-  let open_rustup_doc_command = 'rustup doc '.a:topic
+function! vimrc#rust_doc#open_rustup_doc(...)
+  let open_rustup_doc_command = 'rustup doc '.join(a:000)
   if has('wsl')
     " TODO Check if open_rustup_doc.sh exists
     let open_rustup_doc_command = 'env BROWSER=open_rustup_doc.sh '.open_rustup_doc_command
