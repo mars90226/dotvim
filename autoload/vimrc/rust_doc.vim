@@ -15,7 +15,15 @@ function! vimrc#rust_doc#open(url)
   if has('wsl')
     if url =~# '^file://'
       let original_path = substitute(url, '^file://', '', '')
-      let url = 'file://///wsl$/'.vimrc#plugin#check#get_distro().original_path
+
+      " Check if path is in mount Windows drive
+      if original_path =~# '^/mnt/\w\+'
+        let final_path = substitute(original_path, '\v^/mnt/(\w+)', '\1:', '')
+      else
+        let final_path = '//wsl$/'.vimrc#plugin#check#get_distro().original_path
+      endif
+
+      let url = 'file:///'.final_path
     endif
   endif
 
