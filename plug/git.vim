@@ -14,7 +14,7 @@ Plug 'junegunn/gv.vim', { 'on': 'GV' }
 
 command! -nargs=* GVA GV --all <args>
 
-nnoremap <Leader>gv :execute 'GV -- '.shellescape(expand('%'))<CR>
+nnoremap <Leader>gv :GV!<CR>
 
 augroup gv_settings
   autocmd!
