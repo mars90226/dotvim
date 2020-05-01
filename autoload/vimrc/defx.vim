@@ -18,6 +18,23 @@ function! vimrc#defx#get_current_path() abort
   return b:defx['paths'][0]
 endfunction
 
+let s:defx_actions = {
+  \ 'open_current_shell': 'vimrc#terminal#open_current_shell',
+  \ 'open_shell': 'vimrc#terminal#open_shell',
+  \ }
+
+" Borrowed from defx.nvim
+function! vimrc#defx#do_map(name, ...)
+  let args = copy(a:000)
+  let defx_action = get(s:defx_actions, a:name)
+  return printf(":\<C-U>call vimrc#defx#call_map(%s, %s)\<CR>",
+        \ string(defx_action), string(args))
+endfunction
+
+function! vimrc#defx#call_map(function, args)
+  call call(a:function, a:args)
+endfunction
+
 " Mappings
 function! vimrc#defx#netrw_mapping_for_defx()
   " Cannot override Vinegar '-' mapping, so use '+' instead
@@ -130,17 +147,17 @@ function! vimrc#defx#mappings() abort " {{{
   nnoremap <silent><buffer><expr> <C-G>
         \ defx#do_action('print')
   nnoremap <silent><buffer><expr> <C-T><C-R>
-        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . ":call vimrc#terminal#open_current_shell('edit')<CR>"
+        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . vimrc#defx#do_map('open_current_shell', 'edit')
   nnoremap <silent><buffer><expr> <C-T><C-T>
-        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . ":call vimrc#terminal#open_current_shell('tabnew')<CR>"
+        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . vimrc#defx#do_map('open_current_shell', 'tabnew')
   nnoremap <silent><buffer><expr> <C-T><C-S>
-        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . ":call vimrc#terminal#open_current_shell('new')<CR>"
+        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . vimrc#defx#do_map('open_current_shell', 'new')
   nnoremap <silent><buffer><expr> <C-T><C-V>
-        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . ":call vimrc#terminal#open_current_shell('vnew')<CR>"
+        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . vimrc#defx#do_map('open_current_shell', 'vnew')
   nnoremap <silent><buffer><expr> <C-T><C-B>
-        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . ":call vimrc#terminal#open_current_shell('rightbelow vnew')<CR>"
+        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . vimrc#defx#do_map('open_current_shell', 'rightbelow vnew')
   nnoremap <silent><buffer><expr> <C-T><C-D>
-        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . ":call vimrc#terminal#open_shell('tabnew', input('Folder: ', '', 'dir'))<CR>"
+        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . vimrc#defx#do_map('open_shell', 'tabnew', input('Folder: ', '', 'dir'))
   nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
         \ ':<C-U>wincmd w<CR>' :
         \ ':<C-U>Defx -buffer-name=temp -split=vertical<CR>'
