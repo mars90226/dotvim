@@ -103,7 +103,7 @@ function! vimrc#defx#mappings() abort " {{{
   nnoremap <silent><buffer><expr> \\
         \ defx#do_action('cd', getcwd())
   nnoremap <silent><buffer><expr> cd
-        \ defx#do_action('change_vim_cwd')
+        \ defx#do_action('change_vim_cwd') . defx#do_action('call', 'vimrc#defx#update_git_dir')
   nnoremap <silent><buffer><expr> cb
         \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd')
   nnoremap <silent><buffer><expr> cv
@@ -353,6 +353,11 @@ function! vimrc#defx#change_vim_buffer_cwd(context) abort
   let path = vimrc#defx#get_current_path()
 
   execute 'lcd '.fnameescape(path)
+endfunction
+
+function! vimrc#defx#update_git_dir(context) abort
+  let path = vimrc#defx#get_current_path()
+  let b:git_dir = FugitiveExtractGitDir(expand(path))
 endfunction
 
 " Defx detect folder
