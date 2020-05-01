@@ -107,6 +107,8 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#async_action('cd', ['..'])
   nnoremap <silent><buffer><expr> <BS>
         \ defx#async_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> <C-H>
+        \ defx#async_action('cd', ['..'])
   nnoremap <silent><buffer><expr> ~
         \ defx#async_action('cd')
   nnoremap <silent><buffer><expr> gr
@@ -168,6 +170,8 @@ function! vimrc#defx#mappings() abort " {{{
   nnoremap <silent><buffer><expr> \R
         \ defx#do_action('call', 'vimrc#defx#fzf_rg_bang')
   nnoremap <silent><buffer><expr> \<BS>
+        \ defx#do_action('call', 'vimrc#defx#fzf_directory_ancestors')
+  nnoremap <silent><buffer><expr> \<C-H>
         \ defx#do_action('call', 'vimrc#defx#fzf_directory_ancestors')
   nnoremap <silent><buffer><expr> <Space>x
         \ defx#do_action('call', 'vimrc#defx#execute_file_float')
