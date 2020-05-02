@@ -21,6 +21,7 @@ let g:ale_fixers = {
       \   { buffer, lines -> systemlist('luaformatter '.expand('%')) }
       \ ],
       \ 'python': ['black'],
+      \ 'rust': ['rustfmt'],
       \ 'scss': [
       \   'prettier',
       \   'stylelint'
