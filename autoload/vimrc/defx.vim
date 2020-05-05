@@ -84,9 +84,9 @@ function! vimrc#defx#mappings() abort " {{{
   nnoremap <silent><buffer><expr> T
         \ defx#do_action('open', 'tab split')
   nnoremap <silent><buffer><expr> o
-        \ defx#async_action('open_or_close_tree')
+        \ defx#async_action('open_tree', 'toggle')
   nnoremap <silent><buffer><expr> O
-        \ defx#async_action('open_tree_recursive')
+        \ defx#async_action('open_tree', 'recursive')
   nnoremap <silent><buffer><expr> K
         \ defx#do_action('new_directory')
   nnoremap <silent><buffer><expr> N
