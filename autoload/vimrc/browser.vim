@@ -67,7 +67,7 @@ function! vimrc#browser#include_open_url_mappings(command, prefix, suffix)
   let cword_key  = a:prefix . toupper(a:suffix)
   let cWORD_key  = a:prefix . a:suffix
   let visual_key = a:prefix . a:suffix
-  let query_key  = a:prefix . g:mapleader . g:suffix
+  let query_key  = a:prefix . g:mapleader . a:suffix
 
   call vimrc#mapping#include_cursor_mappings(a:command, cword_key, cWORD_key)
   call vimrc#mapping#include_visual_selection_mappings(a:command, visual_key)
