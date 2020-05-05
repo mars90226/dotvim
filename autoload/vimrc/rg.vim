@@ -2,6 +2,7 @@
 " TODO Not 100% accurate pattern, increase accuracy
 let s:type_pattern_options = {
       \ 'c-family':   ['\v\.%(c|cpp|h|hpp)$',                 '-tc -tcpp'],
+      \ 'cmake':      ['\v%(CMakeLists\.txt|\.cmake)$',       '-tcmake'],
       \ 'config':     ['\v\.%(cfg|conf|config|ini)$',         '-tconfig'],
       \ 'css':        ['\v\.%(css|scss)$',                    '-tcss'],
       \ 'csv':        ['\.csv$',                              '-tcsv'],
