@@ -98,8 +98,8 @@ nnoremap <Leader>dh :lcd %:h<CR>
 nnoremap zc zszH
 
 " Scroll to 1/4 top/bottom of window
-nnoremap <expr> zT 'zt' . float2nr(&lines * 0.25) . "\<C-Y>"
-nnoremap <expr> zB 'zb' . float2nr(&lines * 0.25) . "\<C-E>"
+nnoremap <expr> zT 'zt' . float2nr(winheight(0) * 0.25) . "\<C-Y>"
+nnoremap <expr> zB 'zb' . float2nr(winheight(0) * 0.25) . "\<C-E>"
 
 " Operator mapping for current word
 onoremap x iw
