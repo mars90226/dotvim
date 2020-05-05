@@ -7,3 +7,7 @@ endfunction
 function! vimrc#mapping#include_visual_selection_mappings(command, key)
   execute 'xnoremap '.a:key." :<C-U>execute '".a:command." '.vimrc#utility#get_visual_selection()<CR>"
 endfunction
+
+function! vimrc#mapping#include_query_mappings(command, key, prompt)
+  execute 'nnoremap '.a:key." :execute '".a:command." '.input('".a:prompt."> ')<CR>"
+endfunction

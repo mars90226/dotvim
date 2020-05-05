@@ -56,18 +56,22 @@ function! vimrc#browser#include_search_mappings(command, prefix, suffix)
   let cword_key  = a:prefix . a:suffix
   let cWORD_key  = a:prefix . toupper(a:suffix)
   let visual_key = a:prefix . a:suffix
+  let query_key  = a:prefix . g:mapleader . a:suffix
 
   call vimrc#mapping#include_cursor_mappings(a:command, cword_key, cWORD_key)
   call vimrc#mapping#include_visual_selection_mappings(a:command, visual_key)
+  call vimrc#mapping#include_query_mappings(a:command, query_key, a:command)
 endfunction
 
 function! vimrc#browser#include_open_url_mappings(command, prefix, suffix)
   let cword_key  = a:prefix . toupper(a:suffix)
   let cWORD_key  = a:prefix . a:suffix
   let visual_key = a:prefix . a:suffix
+  let query_key  = a:prefix . g:mapleader . g:suffix
 
   call vimrc#mapping#include_cursor_mappings(a:command, cword_key, cWORD_key)
   call vimrc#mapping#include_visual_selection_mappings(a:command, visual_key)
+  call vimrc#mapping#include_query_mappings(a:command, query_key, a:command)
 endfunction
 
 function! vimrc#browser#define_command(command, browser, type, prefix, suffix)
@@ -108,6 +112,7 @@ endfunction
 function! vimrc#browser#async_open_url(url, ...)
   let silent = a:0 > 0 ? a:1 : v:false
   if !silent
+    redraw
     echo 'Open URL: '.a:url
   endif
   call vimrc#browser#async_browse(vimrc#browser#get_command(a:url))
@@ -117,6 +122,7 @@ endfunction
 function! vimrc#browser#async_search_keyword(keyword, ...)
   let silent = a:0 > 0 ? a:1 : v:false
   if !silent
+    redraw
     echo 'Search keyword: '.a:keyword
   endif
   call vimrc#browser#async_browse(vimrc#browser#get_search_command(a:keyword))
@@ -126,6 +132,7 @@ endfunction
 function! vimrc#browser#client_async_open_url(url, ...)
   let silent = a:0 > 0 ? a:1 : v:false
   if !silent
+    redraw
     echo 'Open URL in client browser: '.a:url
   endif
   call vimrc#browser#async_browse(vimrc#browser#get_client_command(a:url))
@@ -135,6 +142,7 @@ endfunction
 function! vimrc#browser#client_async_search_keyword(keyword, ...)
   let silent = a:0 > 0 ? a:1 : v:false
   if !silent
+    redraw
     echo 'Search keyword in client browser: '.a:keyword
   endif
   call vimrc#browser#async_browse(vimrc#browser#get_client_search_command(a:keyword))
