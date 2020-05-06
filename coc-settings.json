@@ -25,5 +25,6 @@
     "<C-v>": "action:vsplit"
   },
   "git.addGBlameToVirtualText": true,
-  "git.virtualTextPrefix": "  "
+  "git.virtualTextPrefix": "  ",
+  "vimlsp.indexes.runtimepath": false
 }
