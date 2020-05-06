@@ -14,13 +14,13 @@ function! vimrc#denite#grep(query, buffer_name_prefix, option, is_word) abort
 endfunction
 
 function! vimrc#denite#project_tags(query)
-  let t:origin_tags = &tags
-  set tags-=./tags;
+  let t:origin_tags = vimrc#tags#use_project_tags()
+
   augroup denite_project_tags_callback
     autocmd!
     autocmd BufWinLeave \[denite\]
           \ if exists('t:origin_tags') |
-          \   let &tags = t:origin_tags |
+          \   call vimrc#tags#restore_tags(t:origin_tags) |
           \   autocmd! denite_project_tags_callback |
           \ endif
   augroup END

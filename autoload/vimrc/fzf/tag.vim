@@ -62,12 +62,12 @@ endfunction
 " Need neovim terminal
 function! vimrc#fzf#tag#project_tags(query, ...)
   let args = copy(a:000)
-  let s:origin_tags = &tags
-  set tags-=./tags;
+  let s:origin_tags = vimrc#tags#use_project_tags()
+
   augroup project_tags_callback
     autocmd!
     autocmd TermClose term://*fzf*
-          \ let &tags = s:origin_tags |
+          \ call vimrc#tags#restore_tags(s:origin_tags) |
           \ autocmd! project_tags_callback
   augroup END
   call call('fzf#vim#tags', [a:query] + args)

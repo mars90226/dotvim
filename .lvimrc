@@ -3,3 +3,6 @@ if exists('g:gutentags_ctags_exclude') && index(g:gutentags_ctags_exclude, 'plug
   " TODO: Only work when open vim in ~/.vim
   call add(g:gutentags_ctags_exclude, 'plugged')
 endif
+
+setlocal tags+=plugged/*/tags
+let b:project_tags_excludes = ['plugged/*/tags']
