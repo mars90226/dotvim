@@ -286,7 +286,7 @@ augroup END
 
 " Toggle parent folder tag
 command! ToggleParentFolderTag call vimrc#toggle#parent_folder_tag()
-nnoremap <silent> <Leader>p :ToggleParentFolderTag<CR>
+nnoremap <silent> yoP :ToggleParentFolderTag<CR>
 
 " Display file size
 command! -nargs=1 -complete=file FileSize call vimrc#utility#file_size(<q-args>)
