@@ -184,6 +184,8 @@ function! vimrc#denite#filter_mappings()
   " Toggle select
   inoremap <silent><buffer><expr> <M-`> denite#do_map('toggle_select').
         \ vimrc#denite#do_map('move_cursor', 'j', 1)
+  inoremap <silent><buffer><expr> <M-*>
+        \ denite#do_map('toggle_select_all')
 
   " Switch between denite buffer & preview
   imap <silent><buffer> <M-l>      <Plug>(denite_filter_quit):call vimrc#denite#goto_and_back_between_preview()<CR>
