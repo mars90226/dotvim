@@ -43,7 +43,12 @@ function! vimrc#fugitive#mappings()
   nnoremap <buffer> <silent> gl :Gpull<CR>
   nnoremap <buffer> <silent> gL :Gpull --rebase<CR>
 
-  nnoremap <buffer> <silent> czc :call vimrc#tui#run('float', 'git cz')<CR>
+  if executable('rust-commitizen')
+    nnoremap <buffer> <silent> czc :call vimrc#tui#run('float', 'rust-commitizen')<CR>
+  endif
+  if executable('git-cz')
+    nnoremap <buffer> <silent> czC :call vimrc#tui#run('float', 'git cz')<CR>
+  endif
 
   call vimrc#git#include_git_mappings("expand('<cword>')")
 endfunction
