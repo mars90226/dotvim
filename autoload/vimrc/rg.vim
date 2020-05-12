@@ -40,5 +40,11 @@ function! vimrc#rg#current_type_option() abort
     endif
   endfor
 
+  let rg_type_list = map(systemlist('rg --type-list'), { _, line -> split(line, ':')[0] })
+  let rg_type_index = index(rg_type_list, &filetype)
+  if rg_type_index >= 0
+    return '-t'.rg_type_list[rg_type_index]
+  endif
+
   return ''
 endfunction
