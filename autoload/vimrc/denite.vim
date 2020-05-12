@@ -187,6 +187,10 @@ function! vimrc#denite#filter_mappings()
   inoremap <silent><buffer><expr> <M-*>
         \ denite#do_map('toggle_select_all')
 
+  " Horizontal scroll
+  inoremap <silent><buffer><expr> <M-H> vimrc#denite#do_map('move_cursor', 'zH', 1)
+  inoremap <silent><buffer><expr> <M-L> vimrc#denite#do_map('move_cursor', 'zL', 1)
+
   " Switch between denite buffer & preview
   imap <silent><buffer> <M-l>      <Plug>(denite_filter_quit):call vimrc#denite#goto_and_back_between_preview()<CR>
 
