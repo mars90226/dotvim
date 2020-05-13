@@ -64,7 +64,8 @@ if has('nvim')
   tnoremap <M-1> <C-\><C-N>:LastTab<CR>
 
   " Quickly paste from register
-  tnoremap <M-r> <C-\><C-N>:execute 'normal! "'.vimrc#getchar_string().'pi'<CR>
+  tnoremap <M-r>      <C-\><C-N>:execute 'normal! "'.vimrc#getchar_string().'pi'<CR>
+  tnoremap <M-r><M-r> <M-r>
 
   " Quickly suspend neovim
   tnoremap <M-C-Z> <C-\><C-N>:suspend<CR>
