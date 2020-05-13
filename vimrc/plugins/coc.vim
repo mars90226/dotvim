@@ -89,9 +89,9 @@ nnoremap <silent> <Leader>co :CocList outline<CR>
 " Search workspace symbols
 nnoremap <silent> <Leader>cs :CocList -I symbols<CR>
 " Do default action for next item.
-nnoremap <silent> [C        :CocNext<CR>
+nnoremap <silent> [C         :CocNext<CR>
 " Do default action for prevous item.
-nnoremap <silent> ]C        :CocPrev<CR>
+nnoremap <silent> ]C         :CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <Leader>cu :CocListResume<CR>
 " Show lists
