@@ -22,9 +22,9 @@ call vimrc#remap('<Space>ul', '<Space>uL',     'n') " UniteWithCursorWord line
 call vimrc#remap('<Space>l',  '<Space>ul',     'n') " Unite line
 call vimrc#remap('<Space>o',  '<Space>O',      'n') " Unite outline
 
-nnoremap <Space>p     :Denite -auto-resume buffer dirmark file<CR>
-nnoremap <Space>P     :Denite -auto-resume file/rec<CR>
-nnoremap <Space><C-P> :DeniteProjectDir -auto-resume file<CR>
+nnoremap <Space>p     :Denite buffer dirmark file<CR>
+nnoremap <Space>P     :Denite file/rec<CR>
+nnoremap <Space><C-P> :DeniteProjectDir file<CR>
 nnoremap <Space>l     :Denite -auto-action=preview line<CR>
 nnoremap <Space>L     :Denite -default-action=switch -auto-action=preview line:buffers<CR>
 nnoremap <Space>o     :Denite outline<CR>
@@ -35,7 +35,7 @@ nnoremap <Space>o     :Denite outline<CR>
 " FIXME: Denite -auto-action=preview will preview last candidate
 
 nnoremap <Space>da :Denite location_list<CR>
-nnoremap <Space>db :DeniteBufferDir -auto-resume file<CR>
+nnoremap <Space>db :DeniteBufferDir file<CR>
 nnoremap <Space>dc :Denite -auto-action=preview change<CR>
 nnoremap <Space>dd :Denite directory_rec<CR>
 nnoremap <Space>dD :Denite directory_mru<CR>
@@ -60,7 +60,7 @@ nnoremap <Space>dO :Denite outline<CR>
 nnoremap <Space>d<C-O> :Denite unite:outline<CR>
 nnoremap <Space>dp :call vimrc#denite#project_tags('')<CR>
 nnoremap <Space>dP :call vimrc#denite#project_tags(expand('<cword>'))<CR>
-nnoremap <Space>d<C-P> :Denite -auto-resume -auto-action=preview file/rec<CR>
+nnoremap <Space>d<C-P> :Denite -auto-action=preview file/rec<CR>
 nnoremap <Space>dq :Denite quickfix<CR>
 nnoremap <Space>dr :Denite register<CR>
 nnoremap <Space>ds :Denite session<CR>

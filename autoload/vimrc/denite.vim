@@ -10,7 +10,7 @@ function! vimrc#denite#grep(query, buffer_name_prefix, option, is_word) abort
   let final_query = a:is_word ? '\\b' . escaped_query . '\\b' : escaped_query
   let buffer_name = vimrc#denite#get_buffer_name(a:buffer_name_prefix)
 
-  execute 'Denite -buffer-name=' . buffer_name . ' -auto-resume grep:.:' . escaped_option . ':' . final_query
+  execute 'Denite -buffer-name=' . buffer_name . ' grep:.:' . escaped_option . ':' . final_query
 endfunction
 
 function! vimrc#denite#project_tags(query)
