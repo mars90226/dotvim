@@ -345,8 +345,23 @@ function! vimrc#fzf#history(arg, bang)
 endfunction
 " }}}
 
-function! vimrc#fzf#files(path, bang)
-  call fzf#vim#files(a:path, fzf#vim#with_preview(), a:bang)
+function! vimrc#fzf#files(path, ...)
+  let [extra, bang] = [{}, 0]
+  if a:0 <= 1
+    let first = get(a:000, 0, 0)
+    if type(first) == type({})
+      let extra = first
+    else
+      let bang = first
+    endif
+  elseif a:0 == 2
+    let [extra, bang] = a:000
+  endif
+
+  let eopts  = has_key(extra, 'options') ? remove(extra, 'options') : ''
+  let merged = extend(fzf#vim#with_preview(), extra)
+  call s:merge_opts(merged, eopts)
+  call fzf#vim#files(a:path, merged, bang)
 endfunction
 
 function! vimrc#fzf#gitfiles(args, bang) abort
@@ -358,8 +373,10 @@ function! vimrc#fzf#gitfiles(args, bang) abort
 endfunction
 
 function! vimrc#fzf#files_with_query(query)
-  Files
-  call feedkeys(a:query)
+  let options = {
+    \ 'options': ['--query', a:query]
+    \ }
+  call vimrc#fzf#files('', options, 0)
 endfunction
 
 function! vimrc#fzf#locate(query, bang)
