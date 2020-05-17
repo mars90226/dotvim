@@ -24,6 +24,7 @@
     "<C-t>": "action:tabe",
     "<C-v>": "action:vsplit"
   },
+  "git.enableGutters": false,
   "git.addGBlameToVirtualText": true,
   "git.virtualTextPrefix": "  ",
   "vimlsp.indexes.runtimepath": false

@@ -22,6 +22,7 @@ augroup gv_settings
 augroup END
 " }}}
 
+
 " vim-flog {{{
 Plug 'rbong/vim-flog'
 
@@ -35,26 +36,45 @@ augroup flog_settings
 augroup END
 " }}}
 
-" vim-gitgutter {{{
-if vimrc#plugin#is_enabled_plugin('vim-gitgutter')
-  " Plug 'airblade/vim-gitgutter', { 'on': [] }
-  Plug 'airblade/vim-gitgutter'
+" " vim-gitgutter {{{
+" if vimrc#plugin#is_enabled_plugin('vim-gitgutter')
+"   " Plug 'airblade/vim-gitgutter', { 'on': [] }
+"   Plug 'airblade/vim-gitgutter'
+"
+"   " call vimrc#lazy#lazy_load('gitgutter')
+"
+"   let g:gitgutter_grep = 'rg --hidden --follow --glob "!.git/*"'
+"
+"   nnoremap cog :GitGutterBufferToggle<CR>
+"   nnoremap coG :GitGutterToggle<CR>
+"
+"   nmap <silent> [h <Plug>(GitGutterPrevHunk)
+"   nmap <silent> ]h <Plug>(GitGutterNextHunk)
+"
+"   omap ih <Plug>(GitGutterTextObjectInnerPending)
+"   omap ah <Plug>(GitGutterTextObjectOuterPending)
+"   xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+"   xmap ah <Plug>(GitGutterTextObjectOuterVisual)
+" endif
+" " }}}
 
-  " call vimrc#lazy#lazy_load('gitgutter')
+" vim-signify {{{
+Plug 'mhinz/vim-signify'
 
-  let g:gitgutter_grep = 'rg --hidden --follow --glob "!.git/*"'
+nnoremap <Leader>hd :SignifyDiff<CR>
+nnoremap <Leader>hf :SignifyFold<CR>
+nnoremap <Leader>hp :SignifyHunkDiff<CR>
+nnoremap <Leader>hu :SignifyHunkUndo<CR>
 
-  nnoremap cog :GitGutterBufferToggle<CR>
-  nnoremap coG :GitGutterToggle<CR>
+nmap [h <Plug>(signify-prev-hunk)
+nmap ]h <Plug>(signify-next-hunk)
+nmap [H 9999<Plug>(signify-prev-hunk)
+nmap ]H 9999<Plug>(signify-next-hunk)
 
-  nmap <silent> [h <Plug>(GitGutterPrevHunk)
-  nmap <silent> ]h <Plug>(GitGutterNextHunk)
-
-  omap ih <Plug>(GitGutterTextObjectInnerPending)
-  omap ah <Plug>(GitGutterTextObjectOuterPending)
-  xmap ih <Plug>(GitGutterTextObjectInnerVisual)
-  xmap ah <Plug>(GitGutterTextObjectOuterVisual)
-endif
+omap ih <Plug>(signify-motion-inner-pending)
+xmap ih <Plug>(signify-motion-inner-visual)
+omap ah <Plug>(signify-motion-outer-pending)
+xmap ah <Plug>(signify-motion-outer-visual)
 " }}}
 
 " vim-tig {{{
