@@ -24,9 +24,10 @@ Plug 'ryanoasis/vim-devicons', { 'for': [] }
 " }}}
 
 " Colors {{{
-" morhetz/gruvbox seems not updated for a while, use gruvbox-community/gruvbox
-" Plug 'morhetz/gruvbox'
-Plug 'gruvbox-community/gruvbox'
+" TODO morhetz/gruvbox seems not updated for a while, use gruvbox-community/gruvbox
+Plug 'morhetz/gruvbox'
+" TODO disabled as it change color of floating and fzf prompt
+" Plug 'gruvbox-community/gruvbox'
 
 " Disabled as not used
 Plug 'junegunn/seoul256.vim', { 'for': [] }
