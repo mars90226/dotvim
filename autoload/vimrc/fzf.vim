@@ -112,23 +112,7 @@ function! vimrc#fzf#buflisted()
 endfunction
 
 function! vimrc#fzf#fzf(name, opts, extra)
-  let [extra, bang] = [{}, 0]
-  if len(a:extra) <= 1
-    let first = get(a:extra, 0, 0)
-    if type(first) == s:TYPE.dict
-      let extra = first
-    else
-      let bang = first
-    endif
-  elseif len(a:extra) == 2
-    let [extra, bang] = a:extra
-  else
-    throw 'invalid number of arguments'
-  endif
-
-  let eopts  = has_key(extra, 'options') ? remove(extra, 'options') : ''
-  let merged = extend(copy(a:opts), extra)
-  call s:merge_opts(merged, eopts)
+  let [merged, bang] = s:extract_and_merge_options(a:opts, a:000)
   return fzf#run(vimrc#fzf#wrap(a:name, merged, bang))
 endfunction
 
@@ -228,6 +212,28 @@ endfunction
 function! s:escape(path)
   let path = fnameescape(a:path)
   return vimrc#plugin#check#get_os() =~# 'windows' ? escape(path, '$') : path
+endfunction
+
+function! s:extract_and_merge_options(opts, extra)
+  let [extra, bang] = [{}, 0]
+  if len(a:extra) <= 1
+    let first = get(a:extra, 0, 0)
+    if type(first) == s:TYPE.dict
+      let extra = first
+    else
+      let bang = first
+    endif
+  elseif len(a:extra) == 2
+    let [extra, bang] = a:extra
+  else
+    throw 'invalid number of arguments'
+  endif
+
+  let eopts  = has_key(extra, 'options') ? remove(extra, 'options') : ''
+  let merged = extend(copy(a:opts), extra)
+  call s:merge_opts(merged, eopts)
+
+  return [merged, bang]
 endfunction
 " }}}
 
@@ -346,30 +352,13 @@ endfunction
 " }}}
 
 function! vimrc#fzf#files(path, ...)
-  let [extra, bang] = [{}, 0]
-  if a:0 <= 1
-    let first = get(a:000, 0, 0)
-    if type(first) == type({})
-      let extra = first
-    else
-      let bang = first
-    endif
-  elseif a:0 == 2
-    let [extra, bang] = a:000
-  endif
-
-  let eopts  = has_key(extra, 'options') ? remove(extra, 'options') : ''
-  let merged = extend(fzf#vim#with_preview(), extra)
-  call s:merge_opts(merged, eopts)
+  let [merged, bang] = s:extract_and_merge_options(fzf#vim#with_preview(), a:000)
   call fzf#vim#files(a:path, merged, bang)
 endfunction
 
-function! vimrc#fzf#gitfiles(args, bang) abort
-  if a:args !=# '?'
-    return call('fzf#vim#gitfiles', [a:args, fzf#vim#with_preview(), a:bang])
-  else
-    return call('fzf#vim#gitfiles', [a:args, a:bang])
-  endif
+function! vimrc#fzf#gitfiles(args, ...) abort
+  let [merged, bang] = s:extract_and_merge_options(a:args !=# '?' ? fzf#vim#with_preview() : {}, a:000)
+  return call('fzf#vim#gitfiles', [a:args, merged, bang])
 endfunction
 
 function! vimrc#fzf#files_with_query(query)
