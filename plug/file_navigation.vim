@@ -57,8 +57,10 @@ Plug 'fszymanski/fzf-quickfix', { 'on': 'Quickfix' }
 " FIXME: GCheckout will display erroneous '-e'
 " TODO: Create issue on https://github.com/stsewd/fzf-checkout.vim
 Plug 'stsewd/fzf-checkout.vim'
+Plug 'laher/fuzzymenu.vim'
 
 call vimrc#source('vimrc/plugins/fzf.vim')
+call vimrc#source('vimrc/plugins/fuzzymenu.vim')
 " }}}
 
 " vim-clap {{{
