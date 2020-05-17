@@ -22,7 +22,6 @@ augroup gv_settings
 augroup END
 " }}}
 
-
 " vim-flog {{{
 Plug 'rbong/vim-flog'
 
