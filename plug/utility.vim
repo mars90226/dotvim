@@ -83,13 +83,12 @@ Plug 'vimoutliner/vimoutliner'
 
 " indentLine {{{
 Plug 'Yggdroot/indentLine', { 'on': ['IndentLinesEnable', 'IndentLinesToggle'] }
+" TODO not working, disabled for now
+" Plug 'lukas-reineke/indent-blankline.nvim'
 
 let g:indentLine_enabled = 0
-let g:indentLine_color_term = 243
-let g:indentLine_color_gui = '#AAAAAA'
 
 nnoremap <Space>il :IndentLinesToggle<CR>
-nnoremap <Space>iL :call vimrc#indent_line#toggle_enabled()<CR>
 
 augroup indent_line_syntax
   autocmd!

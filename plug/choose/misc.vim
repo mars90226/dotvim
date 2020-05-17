@@ -32,3 +32,8 @@ endif
 if !has('nvim-0.4')
   call vimrc#plugin#disable_plugin('firenvim')
 endif
+
+" TODO not working, disabled for now
+" if !has('nvim-0.4')
+"   call vimrc#plugin#disable_plugin('indent-blankline.nvim')
+" endif
