@@ -20,9 +20,6 @@ else
 endif
 nnoremap <Space>/ :call vimrc#unite#grep('', 'grep', '', v:false)<CR>
 nnoremap <Space>? :call vimrc#unite#grep('', 'grep', input('Option: '), v:false)<CR>
-nnoremap <Space>S :Unite source<CR>
-nnoremap <Space>m :Unite -start-insert file_mru<CR>
-nnoremap <Space>M :Unite -buffer-name=files -default-action=lcd -start-insert directory_mru<CR>
 nnoremap <Space>o :Unite outline -start-insert<CR>
 nnoremap <Space>ua :Unite location_list<CR>
 nnoremap <Space>uA :Unite apropos -start-insert<CR>
@@ -42,6 +39,8 @@ nnoremap <Space>u* :call vimrc#unite#grep(expand('<cWORD>'), 'keyword', '', v:tr
 xnoremap <Space>uk :<C-U>call vimrc#unite#grep(vimrc#utility#get_visual_selection(), 'keyword', '', v:false)<CR>
 xnoremap <Space>u8 :<C-U>call vimrc#unite#grep(vimrc#utility#get_visual_selection(), 'keyword', '', v:true)<CR>
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
+nnoremap <Space>um :Unite -start-insert file_mru<CR>
+nnoremap <Space>uM :Unite -buffer-name=files -default-action=lcd -start-insert directory_mru<CR>
 nnoremap <Space>uo :Unite output -start-insert<CR>
 nnoremap <Space>uO :Unite outline -start-insert<CR>
 nnoremap <Space>up :UniteWithProjectDir -buffer-name=files -prompt=&\  file<CR>
@@ -53,12 +52,11 @@ nnoremap <Space>uu :UniteResume<CR>
 nnoremap <Space>uU :Unite -buffer-name=resume resume<CR>
 nnoremap <Space>uw :Unite window<CR>
 nnoremap <Space>uy :Unite history/yank -start-insert<CR>
-nnoremap <Space>uma :Unite mapping<CR>
-nnoremap <Space>ume :Unite output:message<CR>
-nnoremap <Space>ump :Unite output:map<CR>
+nnoremap <Space>u` :Unite mapping<CR>
 nnoremap <Space>u: :Unite history/command -start-insert<CR>
 nnoremap <Space>u; :Unite command -start-insert<CR>
 nnoremap <Space>u/ :Unite history/search<CR>
+nnoremap <Space>u<Space> :Unite source<CR>
 
 nnoremap <Space><F1> :Unite output:map<CR>
 nnoremap <Space><F2> :Unite output:map\ <buffer><CR>
