@@ -24,7 +24,9 @@ Plug 'ryanoasis/vim-devicons', { 'for': [] }
 " }}}
 
 " Colors {{{
-Plug 'morhetz/gruvbox'
+" morhetz/gruvbox seems not updated for a while, use gruvbox-community/gruvbox
+" Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 
 " Disabled as not used
 Plug 'junegunn/seoul256.vim', { 'for': [] }
