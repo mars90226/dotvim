@@ -3,8 +3,8 @@
 let s:rg_base_command = 'rg --auto-hybrid-regex --column --line-number --no-heading --smart-case --color=always --follow --with-filename'
 let s:rg_command = s:rg_base_command . ' --ignore-file ' . $HOME . '/.gitignore' " TODO Use '.ignore'?
 let s:rg_all_command = s:rg_base_command . ' --no-ignore --hidden'
-let s:rg_fzf_command_fmt = s:rg_command . ' %s || true'
-let s:rg_fzf_all_command_fmt = s:rg_all_command . ' %s || true'
+let s:rg_fzf_command_fmt = s:rg_command . ' -- %s || true'
+let s:rg_fzf_all_command_fmt = s:rg_all_command . ' -- %s || true'
 
 function! vimrc#fzf#rg#get_base_command()
   return s:rg_base_command
