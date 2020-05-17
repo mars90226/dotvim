@@ -54,8 +54,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " TODO: Make Quickfix use g:fzf_action
 Plug 'fszymanski/fzf-quickfix', { 'on': 'Quickfix' }
-" FIXME: GCheckout will display erroneous '-e'
-" TODO: Create issue on https://github.com/stsewd/fzf-checkout.vim
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'laher/fuzzymenu.vim'
 
