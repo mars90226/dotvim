@@ -42,3 +42,14 @@ function! vimrc#fzf#preview#buffer_lines() abort
 
   return vimrc#fzf#with_default_options({ 'options': ['--preview-window', 'right:50%:hidden', '--preview', preview_command] })
 endfunction
+
+" Utility
+let s:buffer_tags_preview_options = { 'placeholder': '{2}:{3}', 'options': ['-d', '\t'] }
+function! vimrc#fzf#preview#buffer_tags_options(options)
+  let preview_options = fzf#vim#with_preview(s:buffer_tags_preview_options, 'right:50%', '?')
+  let opts = has_key(a:options, 'options') ? remove(a:options, 'options') : ''
+  let merged = extend(preview_options, a:options)
+  call vimrc#fzf#merge_opts(merged, opts)
+
+  return merged
+endfunction

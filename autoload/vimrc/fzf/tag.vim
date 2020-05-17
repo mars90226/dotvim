@@ -1,4 +1,5 @@
 " Commands
+" Currently unused
 function! vimrc#fzf#tag#buffer_tags(query, ...)
   let args = copy(a:000)
   let opts = !empty(args) && type(args[0]) == type({}) ? remove(args, 0) : {}

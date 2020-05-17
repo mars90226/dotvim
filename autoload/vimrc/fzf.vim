@@ -133,7 +133,7 @@ function! vimrc#fzf#wrap(name, opts, bang)
   return wrapped
 endfunction
 
-function! s:extend_opts(dict, eopts, prepend)
+function! vimrc#fzf#extend_opts(dict, eopts, prepend)
   if empty(a:eopts)
     return
   endif
@@ -153,8 +153,8 @@ function! s:extend_opts(dict, eopts, prepend)
   endif
 endfunction
 
-function! s:merge_opts(dict, eopts)
-  return s:extend_opts(a:dict, a:eopts, 0)
+function! vimrc#fzf#merge_opts(dict, eopts)
+  return vimrc#fzf#extend_opts(a:dict, a:eopts, 0)
 endfunction
 
 function! vimrc#fzf#get_generate_preview_command_with_bat_script()
@@ -231,7 +231,7 @@ function! s:extract_and_merge_options(opts, extra)
 
   let eopts  = has_key(extra, 'options') ? remove(extra, 'options') : ''
   let merged = extend(copy(a:opts), extra)
-  call s:merge_opts(merged, eopts)
+  call vimrc#fzf#merge_opts(merged, eopts)
 
   return [merged, bang]
 endfunction

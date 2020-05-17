@@ -177,9 +177,8 @@ if has('nvim')
 
   " Tags
   " Too bad fzf cannot toggle case sensitive interactively
-  command! -bang -nargs=* BTags                    call vimrc#fzf#tag#buffer_tags(<q-args>, <bang>0)
   command! -bang -nargs=* ProjectTags              call vimrc#fzf#tag#project_tags(<q-args>, <bang>0)
-  command! -bang -nargs=* BTagsCaseSentitive       call fzf#vim#buffer_tags(<q-args>,        { 'options': ['+i'] }, <bang>0)
+  command! -bang -nargs=* BTagsCaseSentitive       call fzf#vim#buffer_tags(<q-args>, vimrc#fzf#preview#buffer_tags_options({ 'options': ['+i'] }), <bang>0)
   command! -bang -nargs=* TagsCaseSentitive        call fzf#vim#tags(<q-args>,               { 'options': ['+i'] }, <bang>0)
   command! -bang -nargs=* ProjectTagsCaseSentitive call vimrc#fzf#tag#project_tags(<q-args>, { 'options': ['+i'] }, <bang>0)
   command!                TagbarTags               call vimrc#fzf#tag#tagbar_tags()
