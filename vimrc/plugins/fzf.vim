@@ -93,8 +93,6 @@ command! -bang -nargs=*               History  call vimrc#fzf#history(<q-args>, 
 command! -bar  -bang                  Windows  call fzf#vim#windows(vimrc#fzf#preview#windows(), <bang>0)
 command! -bar  -nargs=* -bang         BLines   call fzf#vim#buffer_lines(<q-args>, vimrc#fzf#preview#buffer_lines(), <bang>0)
 command! -bang -nargs=*               Lines    call vimrc#fzf#line#lines(<q-args>, vimrc#fzf#with_default_options(), <bang>0)
-command! -bar -bang                   Commits  call fzf#vim#commits(vimrc#fzf#with_default_options(), <bang>0)
-command! -bar -bang                   BCommits call fzf#vim#buffer_commits(vimrc#fzf#with_default_options(), <bang>0)
 
 " Rg
 command! -bang -nargs=* Rg call vimrc#fzf#rg#grep(<q-args>, <bang>0)

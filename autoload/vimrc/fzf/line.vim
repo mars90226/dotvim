@@ -91,6 +91,6 @@ function! vimrc#fzf#line#lines(...)
   return vimrc#fzf#fzf('lines', {
   \ 'source':  lines,
   \ 'sink*':   function('vimrc#fzf#line#lines_sink'),
-  \ 'options': ['+m', '--tiebreak=index', '--prompt', 'Lines> ', '--ansi', '--extended', '--nth='.nth.'..', '--layout=reverse-list', '--tabstop=1', '--query', query]
+  \ 'options': ['+m', '--tiebreak=index', '--prompt', 'Lines> ', '--ansi', '--extended', '--nth='.nth.'..', '--tabstop=1', '--query', query]
   \}, args)
 endfunction

@@ -285,8 +285,8 @@ function! vimrc#fzf#git#commits_in_commandline(buffer_local, args)
   let options = {
   \ 'source':  source,
   \ 'sink*':   function('vimrc#fzf#git#commits_in_commandline_sink', [results]),
-  \ 'options': ['--ansi', '--tiebreak=index', '--layout=reverse-list',
-  \   '--inline-info', '--prompt', command.'> ', '--bind=ctrl-s:toggle-sort',
+  \ 'options': ['--ansi', '--tiebreak=index',
+  \   '--prompt', command.'> ', '--bind=ctrl-s:toggle-sort',
   \   '--header', ':: Press '.vimrc#fzf#magenta('CTRL-S', 'Special').' to toggle sort, '.vimrc#fzf#magenta('CTRL-Y', 'Special').' to yank commit hashes']
   \ }
 
