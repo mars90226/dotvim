@@ -2,10 +2,25 @@
 " Borrowed from vinegar
 function! vimrc#defx#opendir(cmd) abort
   if expand('%') =~# '^$\|^term:[\/][\/]'
-    execute a:cmd ' .'
+    let dir = '.'
   else
-    execute a:cmd . ' ' . expand('%:h')
+    let dir = expand('%:h')
   endif
+
+  call vimrc#defx#opencmd(a:cmd.' '.dir)
+endfunction
+
+function! vimrc#defx#openpwd(cmd) abort
+  call vimrc#defx#opencmd(a:cmd.' .')
+endfunction
+
+function! vimrc#defx#opencmd(cmd) abort
+  let cmd = a:cmd =~# '%' ? vimrc#defx#fill_buffer_name(a:cmd) : a:cmd
+  execute cmd
+endfunction
+
+function! vimrc#defx#fill_buffer_name(defx_option)
+  return printf(a:defx_option, win_getid())
 endfunction
 
 " Currently not used
