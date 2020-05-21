@@ -30,11 +30,11 @@ let g:ale_fixers = {
 " Depend on project whether to use flow locally
 " let g:ale_javascript_flow_use_global = 1
 " let g:ale_javascript_flow_ls_use_global = 1
-let g:ale_pattern_options = {
+let g:ale_pattern_options = extend({
       \ 'configure': {
       \   'ale_enabled': 0
       \ }
-      \}
+      \}, get(g:, 'ale_secret_pattern_options', {}))
 " Default using bash dialect for shellcheck
 let g:ale_sh_shellcheck_options = '-s bash'
 
