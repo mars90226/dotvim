@@ -6,6 +6,9 @@ inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-P>\<C-N>" : "\<PageDow
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-P>\<C-N>" : "\<PageUp>"
 inoremap <expr> <Tab>      pumvisible() ? "\<C-N>" : "\<Tab>"
 
+" mapping for decrease number
+nnoremap <C-X><C-X> <C-X>
+
 " Workaround of supertab bug
 if vimrc#plugin#is_disabled_plugin('supertab')
   inoremap <expr> <S-Tab>  pumvisible() ? "\<C-P>" : "\<S-Tab>"
