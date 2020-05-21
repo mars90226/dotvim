@@ -22,11 +22,15 @@ nnoremap <silent> <Plug>(diff-next) ]c
 nmap <silent><expr> [c &diff ? "\<Plug>(diff-prev)" : "\<Plug>(coc-diagnostic-prev)"
 nmap <silent><expr> ]c &diff ? "\<Plug>(diff-next)" : "\<Plug>(coc-diagnostic-next)"
 
-" mapppings for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" mappings for gotos
+nnoremap <silent> gd :call CocActionAsync('jumpDefinition')<CR>
+nnoremap <silent> gD :call CocActionAsync('jumpDefinition', 'split')<CR>
+nnoremap <silent> gy :call CocActionAsync('jumpTypeDefinition')<CR>
+nnoremap <silent> gY :call CocActionAsync('jumpTypeDefinition', 'split')<CR>
+nnoremap <silent> gi :call CocActionAsync('jumpImplementation')<CR>
+nnoremap <silent> gI :call CocActionAsync('jumpImplementation', 'split')<CR>
+nnoremap <silent> gr :call CocActionAsync('jumpReferences')<CR>
+nnoremap <silent> gR :call CocActionAsync('jumpReferences', 'split')<CR>
 
 " mappings for funcobj
 omap av <Plug>(coc-funcobj-a)
