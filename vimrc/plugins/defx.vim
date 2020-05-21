@@ -14,8 +14,8 @@ let g:defx_float_options = '-buffer-name=float-%d -winwidth='.g:defx_width.' -wi
 " Defx key mappings {{{
 " TODO Clean up these key mappings
 " Sidebar
-nnoremap <F4>            :Defx -split=vertical -winwidth=`g:defx_sidebar_width` -direction=topleft -toggle<CR>
-nnoremap <Space><F4>     :Defx -split=vertical -winwidth=`g:defx_sidebar_width` -direction=topleft -toggle `expand('%:p:h')` -search=`expand('%:p')`<CR>
+nnoremap <F4>        :Defx -split=vertical -winwidth=`g:defx_sidebar_width` -direction=topleft -toggle<CR>
+nnoremap <Space><F4> :Defx -split=vertical -winwidth=`g:defx_sidebar_width` -direction=topleft -toggle `expand('%:p:h')` -search=`expand('%:p')`<CR>
 
 " Buffer directory
 nnoremap -         :call vimrc#defx#opendir('Defx '.g:defx_win_options)<CR>
