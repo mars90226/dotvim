@@ -67,6 +67,9 @@ augroup END
 nmap <Leader>ca <Plug>(coc-codeaction-selected)
 xmap <Leader>ca <Plug>(coc-codeaction-selected)
 
+" mappings for do codeLensAction
+nmap <Leader>cL <Plug>(coc-codelens-action)
+
 " mappings for do codeAction of current line
 nmap <Leader>cc <Plug>(coc-codeaction)
 " mappings for fix autofix problem of current line

@@ -15,6 +15,7 @@
   "coc.preferences.useQuickfixForLocations": true,
   "coc.source.neosnippet.disableSyntaxes": ["string", "comment"],
   "suggest.acceptSuggestionOnCommitCharacter": true,
+  "codeLens.enable": false,
   "python.linting.pylintEnabled": true,
   "list.insertMappings": {
     "<A-j>": "feedkeys:<C-f>",
