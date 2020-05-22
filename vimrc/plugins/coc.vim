@@ -32,11 +32,15 @@ nnoremap <silent> gI :call CocActionAsync('jumpImplementation', 'split')<CR>
 nnoremap <silent> gr :call CocActionAsync('jumpReferences')<CR>
 nnoremap <silent> gR :call CocActionAsync('jumpReferences', 'split')<CR>
 
-" mappings for funcobj
+" mappings for funcobj & classobj
 omap av <Plug>(coc-funcobj-a)
 xmap av <Plug>(coc-funcobj-a)
 omap iv <Plug>(coc-funcobj-i)
 xmap iv <Plug>(coc-funcobj-i)
+omap ac <Plug>(coc-classcobj-a)
+xmap ac <Plug>(coc-classcobj-a)
+omap ic <Plug>(coc-classcobj-i)
+xmap ic <Plug>(coc-classcobj-i)
 
 " mappings for range-select
 xmap <silent> ar <Plug>(coc-range-select)
@@ -57,10 +61,15 @@ augroup coc_settings
   autocmd!
   " Highlight symbol under cursor on CursorHold
   " Disabled as not useful and generate a lot of error when not indexed
-  " autocmd CursorHold * silent call CocActionAsync('highlight')
+  autocmd CursorHold * silent call CocActionAsync('highlight')
 
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+
+  if vimrc#plugin#is_enabled_plugin('lightline.vim')
+    " Add lightline support
+    autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+  endif
 augroup END
 
 " mappings for do codeAction of selected region
@@ -79,9 +88,10 @@ nmap <Leader>cx <Plug>(coc-fix-current)
 command! -nargs=0 Format :call CocAction('format')
 
 " :Fold for fold current buffer
-command! -nargs=? Fold :call CocAction('fold', <f-args>)
+command! -nargs=? Fold   :call CocAction('fold', <f-args>)
 
-" TODO Add airline support
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR     :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Show all diagnostics
 nnoremap <silent> <Leader>cd :CocList diagnostics<CR>

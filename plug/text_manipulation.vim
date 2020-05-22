@@ -52,9 +52,11 @@ nmap <Leader><Leader>ss <Plug>(SubversiveSubvertWordRange)
 
 " ie = inner entire buffer
 onoremap ie :exec "normal! ggVG"<CR>
+xnoremap ie :<C-U>exec "normal! ggVG"<CR>
 
-" iv = current viewable text in the buffer
-onoremap iv :exec "normal! HVL"<CR>
+" iV = current viewable text in the buffer
+onoremap iV :exec "normal! HVL"<CR>
+xnoremap iV :<C-U>exec "normal! HVL"<CR>
 
 " Quick substitute from system clipboard
 nmap =ss "+<Plug>(SubversiveSubstitute)

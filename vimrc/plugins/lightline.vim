@@ -21,6 +21,7 @@ let g:lightline.component_type = {
       \ 'linter_ok': 'left',
       \ }
 let g:lightline.component_function = {
+      \ 'cocstatus': 'coc#status',
       \ 'filename': 'vimrc#lightline#filename',
       \ 'fileformat': 'vimrc#lightline#fileformat',
       \ 'filetype': 'vimrc#lightline#filetype',
@@ -41,6 +42,7 @@ let g:lightline.active = {
       \   [ 'lineinfo', 'percent' ],
       \   [ 'filetype', 'fileformat', 'fileencoding' ],
       \   [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+      \   [ 'cocstatus' ],
       \   [ 'method' ] ],
       \ }
 let g:lightline.inactive = {
