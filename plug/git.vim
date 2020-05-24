@@ -60,6 +60,8 @@ augroup END
 " vim-signify {{{
 Plug 'mhinz/vim-signify'
 
+let g:signify_priority = 40
+
 nnoremap <Leader>hd :SignifyDiff<CR>
 nnoremap <Leader>hf :SignifyFold<CR>
 nnoremap <Leader>hp :SignifyHunkDiff<CR>
