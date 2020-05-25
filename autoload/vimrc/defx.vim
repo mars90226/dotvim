@@ -134,7 +134,7 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#do_action('cd', $VIMRUNTIME)
   nnoremap <silent><buffer><expr> \
         \ defx#do_action('cd', getcwd())
-  nnoremap <silent><buffer><expr> \\
+  nnoremap <silent><buffer><nowait><expr> \\
         \ defx#do_action('cd', getcwd())
   nnoremap <silent><buffer><expr> cd
         \ defx#do_action('change_vim_cwd') . defx#do_action('call', 'vimrc#defx#update_git_dir')
