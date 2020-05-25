@@ -1,7 +1,7 @@
 " Settings
 if vimrc#plugin#check#has_linux_build_env()
   " TODO Detect clang version
-  let g:completor_clang_binary = '/usr/lib/llvm-8/lib/clang'
+  let g:completor_clang_binary = vimrc#plugin#check#detect_clang_dir().'/bin/clang'
 end
 
 " <Tab>: completion
