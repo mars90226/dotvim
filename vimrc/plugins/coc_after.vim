@@ -1,4 +1,5 @@
 " Common source
+" call coc#add_extension('coc-highlight')
 call coc#add_extension('coc-dictionary')
 call coc#add_extension('coc-tag')
 call coc#add_extension('coc-emoji')
