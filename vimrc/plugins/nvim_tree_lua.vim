@@ -1,7 +1,7 @@
 nnoremap <F4> :LuaTreeToggle<CR>
 nnoremap <Space><F4> :LuaTreeFindFile<CR>
 
-nmap <expr> - "\<Plug>VinegarUp".":LuaTreeFindFile\<CR>\<C-O>"
+nmap <silent><expr> - "\<Plug>VinegarUp".":LuaTreeFindFile\<CR>\<C-O>"
 
 augroup nvim_tree_lua_mappings
   autocmd!
