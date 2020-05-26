@@ -230,11 +230,11 @@ endfunction " }}}
 " Functions
 let s:defx_action = {
       \ 'edit': ['edit', ''],
-      \ 'tab': ['tab split', get(g:, 'defx_tab_options', '-split=tab')],
+      \ 'tab': ['tab split', '-split=tab '.get(g:, 'defx_tab_options', '')],
       \ 'split': ['split', '-split=horizontal'],
       \ 'vsplit': ['vsplit', '-split=vertical'],
       \ 'rvsplit': ['rightbelow vsplit', '-split=vertical -direction=botright'],
-      \ 'float': ['VimrcFloatNew edit', get(g:, 'defx_float_options', '-split=floating')],
+      \ 'float': ['VimrcFloatNew edit', '-split=floating '.get(g:, 'defx_float_options', '')],
       \ }
 
 " TODO May need to escape a:line
