@@ -3,7 +3,7 @@ function! vimrc#nvim_tree_lua#mappings()
   nnoremap <silent><buffer> R :LuaTreeRefresh<CR>
   nnoremap <silent><buffer> q :LuaTreeToggle<CR>
 
-  nnoremap <silent><buffer> h :call vimrc#nvim_tree_lua#change_dir('..')<CR>
+  nnoremap <silent><buffer> h :call vimrc#nvim_tree_lua#up()<CR>
   nnoremap <silent><buffer> l :lua require"tree".open_file("chdir")<CR>
 
   nnoremap <silent><buffer> \f :call vimrc#nvim_tree_lua#fzf_files()<CR>
@@ -93,4 +93,10 @@ function! vimrc#nvim_tree_lua#opendir()
 
   call vimrc#nvim_tree_lua#open()
   call vimrc#nvim_tree_lua#change_dir(dir)
+endfunction
+
+function! vimrc#nvim_tree_lua#up()
+  let path = vimrc#nvim_tree_lua#get_path()
+  let parent_path = simplify(path.'/..')
+  call vimrc#nvim_tree_lua#change_dir(parent_path)
 endfunction

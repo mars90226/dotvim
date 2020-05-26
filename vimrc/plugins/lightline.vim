@@ -21,14 +21,16 @@ let g:lightline.component_type = {
       \ 'linter_ok': 'left',
       \ }
 let g:lightline.component_function = {
-      \ 'cocstatus': 'coc#status',
+      \ 'cocstatus': 'vimrc#lightline#coc_status',
       \ 'filename': 'vimrc#lightline#filename',
       \ 'fileformat': 'vimrc#lightline#fileformat',
       \ 'filetype': 'vimrc#lightline#filetype',
       \ 'fileencoding': 'vimrc#lightline#fileencoding',
       \ 'git_status': 'vimrc#lightline#git_status',
+      \ 'lineinfo': 'vimrc#lightline#lineinfo',
       \ 'method': 'vimrc#lightline#nearest_method_or_function',
       \ 'mode': 'vimrc#lightline#mode',
+      \ 'percent': 'vimrc#lightline#percent',
       \ }
 let g:lightline.tab_component_function = {
       \ 'filename': 'vimrc#lightline#tab_filename',

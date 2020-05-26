@@ -1,3 +1,5 @@
+let g:lua_tree_width = 35
+
 nnoremap <F4> :LuaTreeToggle<CR>
 nnoremap <Space><F4> :LuaTreeFindFile<CR>
 

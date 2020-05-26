@@ -21,6 +21,8 @@ function! vimrc#lightline#filename()
     return unite#get_status_string()
   elseif &filetype ==# 'vimfiler'
     return vimfiler#get_status_string()
+  elseif &filetype ==# 'LuaTree'
+    return vimrc#nvim_tree_lua#get_path()
   elseif &filetype ==# 'help'
     let t:current_filename = fname
     return fname
@@ -47,6 +49,10 @@ function! vimrc#lightline#modified()
 endfunction
 
 function! vimrc#lightline#git_status()
+  if winwidth(0) <= s:lightline_width_threshold
+    return ''
+  endif
+
   let status = get(g:, 'coc_git_status', '')
   let buffer_status = get(b:, 'coc_git_status', '')
   return status . buffer_status[1:-2]
@@ -66,6 +72,26 @@ function! vimrc#lightline#fileencoding()
   return winwidth(0) > s:lightline_width_threshold ? (&fileencoding !=# '' ? &fileencoding : &encoding) : ''
 endfunction
 
+function! vimrc#lightline#lineinfo()
+  if winwidth(0) > s:lightline_width_threshold
+    return line('.').':'.col('.')
+  else
+    return ''
+  endif
+endfunction
+
+function! vimrc#lightline#percent()
+  if winwidth(0) > s:lightline_width_threshold
+    return line('.') * 100 / line('$') . '%'
+  else
+    return ''
+  endif
+endfunction
+
+function! vimrc#lightline#coc_status()
+  return winwidth(0) > s:lightline_width_threshold ? coc#status() : ''
+endfunction
+
 function! vimrc#lightline#mode()
   let fname = expand('%:t')
   return fname =~# '__Tagbar__' ? 'Tagbar' :
@@ -75,6 +101,7 @@ function! vimrc#lightline#mode()
         \ &filetype ==# 'qf' ? vimrc#lightline#quickfix_mode() :
         \ &filetype ==# 'unite' ? 'Unite' :
         \ &filetype ==# 'vimfiler' ? 'VimFiler' :
+        \ &filetype ==# 'LuaTree' ? 'LuaTree' :
         \ &filetype ==# 'fugitive' ? 'Fugitive' :
         \ lightline#mode()
 endfunction
