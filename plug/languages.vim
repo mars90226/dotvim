@@ -113,6 +113,18 @@ let g:rust_doc#vim_open_cmd = 'RustDocOpen'
 command! -nargs=1 RustDocOpen call vimrc#rust_doc#open(<f-args>)
 " }}}
 
+" vim-syntax-syslog-ng {{{
+Plug 'apeschel/vim-syntax-syslog-ng'
+
+augroup vim_syntax_syslog_ng_settings
+  autocmd!
+  autocmd BufNewFile,BufReadPost syslog-ng.conf        setlocal filetype=syslog-ng
+  autocmd BufNewFile,BufReadPost syslog-ng/**/*.conf   setlocal filetype=syslog-ng
+  autocmd BufNewFile,BufReadPost patterndb.d/*.conf    setlocal filetype=syslog-ng
+  autocmd BufNewFile,BufReadPost patterndb.d/**/*.conf setlocal filetype=syslog-ng
+augroup END
+" }}}
+
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'mars90226/perldoc-vim', { 'for': 'perl' }
 Plug 'fs111/pydoc.vim', { 'for': 'python' }
