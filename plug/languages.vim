@@ -118,10 +118,10 @@ Plug 'apeschel/vim-syntax-syslog-ng'
 
 augroup vim_syntax_syslog_ng_settings
   autocmd!
-  autocmd BufNewFile,BufReadPost syslog-ng.conf        setlocal filetype=syslog-ng
-  autocmd BufNewFile,BufReadPost syslog-ng/**/*.conf   setlocal filetype=syslog-ng
-  autocmd BufNewFile,BufReadPost patterndb.d/*.conf    setlocal filetype=syslog-ng
-  autocmd BufNewFile,BufReadPost patterndb.d/**/*.conf setlocal filetype=syslog-ng
+  autocmd BufNewFile,BufReadPost syslog-ng.conf       setlocal filetype=syslog-ng
+  autocmd BufNewFile,BufReadPost syslog-ng/*/*.conf   setlocal filetype=syslog-ng
+  autocmd BufNewFile,BufReadPost patterndb.d/*.conf   setlocal filetype=syslog-ng
+  autocmd BufNewFile,BufReadPost patterndb.d/*/*.conf setlocal filetype=syslog-ng
 augroup END
 " }}}
 
