@@ -89,7 +89,11 @@ function! vimrc#lightline#percent()
 endfunction
 
 function! vimrc#lightline#coc_status()
-  return winwidth(0) > s:lightline_width_threshold ? coc#status() : ''
+  if winwidth(0) > s:lightline_width_threshold && vimrc#plugin#is_enabled_plugin('coc.nvim')
+    return coc#status()
+  else
+    return ''
+  endif
 endfunction
 
 function! vimrc#lightline#mode()
