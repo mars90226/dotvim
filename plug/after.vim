@@ -33,7 +33,7 @@ endif
 " }}}
 
 " Defx {{{
-if vimrc#plugin#is_enabled_plugin('defx')
+if vimrc#plugin#is_enabled_plugin('defx.nvim')
   call vimrc#source('vimrc/plugins/defx_after.vim')
 endif
 " }}}

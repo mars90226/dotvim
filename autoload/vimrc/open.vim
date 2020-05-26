@@ -10,7 +10,7 @@ function! vimrc#open#switch(file, fallback_command)
 endfunction
 
 function! vimrc#open#tab(file)
-  if vimrc#plugin#is_enabled_plugin('defx')
+  if vimrc#plugin#is_enabled_plugin('defx.nvim')
     call vimrc#defx#open(a:file, 'tab')
   else
     execute 'tabedit '.a:file

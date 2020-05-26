@@ -182,7 +182,7 @@ if has('nvim')
   command!                TagbarTags               call vimrc#fzf#tag#tagbar_tags()
 endif
 
-if vimrc#plugin#is_enabled_plugin('defx')
+if vimrc#plugin#is_enabled_plugin('defx.nvim')
   command! -bang -nargs=? -complete=dir Files        call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#files(<q-args>, <bang>0) })
   command! -bang -nargs=?               GFiles       call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#gitfiles(<q-args>, <bang>0) })
   command! -bang -nargs=+ -complete=dir Locate       call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#locate(<q-args>, <bang>0) })

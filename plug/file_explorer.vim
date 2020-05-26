@@ -26,7 +26,7 @@ endif
 " }}}
 
 " defx.nvim {{{
-if vimrc#plugin#is_enabled_plugin('defx')
+if vimrc#plugin#is_enabled_plugin('defx.nvim')
   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'kristijanhusak/defx-git'
   " Font not supported
@@ -34,4 +34,12 @@ if vimrc#plugin#is_enabled_plugin('defx')
 
   call vimrc#source('vimrc/plugins/defx.vim')
 endif
-" }}
+" }}}
+
+" nvim-tree.lua {{{
+if vimrc#plugin#is_enabled_plugin('nvim-tree.lua')
+  Plug 'kyazdani42/nvim-tree.lua'
+
+  call vimrc#source('vimrc/plugins/nvim_tree_lua.vim')
+endif
+" }}}
