@@ -14,8 +14,8 @@ function! vimrc#clap#mappings()
   inoremap <silent><buffer> <C-O> <Esc>
 
   " Use <C-S> to open in split
-  nnoremap <silent><buffer> <C-S> :<C-U>call clap#handler#try_open("ctrl-x")<CR>
-  inoremap <silent><buffer> <C-S> <Esc>:<C-U>call clap#handler#try_open("ctrl-x")<CR>
+  nnoremap <silent><buffer> <C-S> :<C-U>call clap#selection#try_open("ctrl-x")<CR>
+  inoremap <silent><buffer> <C-S> <Esc>:<C-U>call clap#selection#try_open("ctrl-x")<CR>
 
   " Use <M-j>/<M-k> to scroll down/up
   nnoremap <silent><buffer> <M-j> :call clap#navigation#scroll('down')<CR>
