@@ -63,8 +63,10 @@ endfunction
 
 function! vimrc#nvim_tree_lua#open()
 lua << EOF
+  local state = require 'lib/state'
   local winutils = require 'lib/winutils'
 
+  state.init_tree()
   winutils.open()
   winutils.update_view()
   winutils.set_mappings()
