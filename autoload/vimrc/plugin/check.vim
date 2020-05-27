@@ -149,9 +149,14 @@ function! vimrc#plugin#check#has_ssh_host_client()
 endfunction
 
 let s:clang_dir_prefix = '/usr/lib/llvm-'
-function! vimrc#plugin#check#detect_clang_dir()
+function! vimrc#plugin#check#detect_clang_dir(subpath)
   let clang_versions = map(glob(s:clang_dir_prefix.'*', v:false, v:true),
         \ { _, path -> matchstr(path, s:clang_dir_prefix.'\zs.*') } )
+
+  if empty(clang_versions)
+    return ''
+  endif
+
   let newest_clang_version = sort(clang_versions, 'N')[-1]
-  return s:clang_dir_prefix.newest_clang_version
+  return s:clang_dir_prefix.newest_clang_version.a:subpath
 endfunction

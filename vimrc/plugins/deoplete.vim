@@ -3,11 +3,11 @@ let g:deoplete#enable_at_startup = 1
 
 " TODO Detect clang version
 " deoplete_clang
-let g:deoplete#sources#clang#libclang_path = vimrc#plugin#check#detect_clang_dir().'/lib/libclang.so.1'
-let g:deoplete#sources#clang#clang_header = vimrc#plugin#check#detect_clang_dir().'/lib/clang'
+let g:deoplete#sources#clang#libclang_path = vimrc#plugin#check#detect_clang_dir('/lib/libclang.so.1')
+let g:deoplete#sources#clang#clang_header = vimrc#plugin#check#detect_clang_dir('/lib/clang')
 
 " clang_complete
-" let g:clang_library_path = vimrc#plugin#check#detect_clang_dir().'/lib/libclang.so.1'
+" let g:clang_library_path = vimrc#plugin#check#detect_clang_dir('/lib/libclang.so.1')
 "
 " let g:clang_debug = 1
 " let g:clang_use_library = 1
