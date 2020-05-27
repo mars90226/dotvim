@@ -16,7 +16,7 @@ function! vimrc#terminal#settings()
   " Do not clear in other terminal like fzf, coc
   if vimrc#terminal#is_shell_terminal(expand('<afile>'))
     " Clear incsearch-nohlsearch autocmd on entering terminal mode
-    nnoremap <silent><buffer> i :ClearIncsearchAutoNohlsearch<CR>i
+    nnoremap <silent><buffer> i :ClearIncsearchAutoNohlsearch<CR>:startinsert<CR>
   endif
 endfunction
 
