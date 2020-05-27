@@ -67,9 +67,11 @@ lua << EOF
   local winutils = require 'lib/winutils'
 
   state.init_tree()
-  winutils.open()
-  winutils.update_view()
-  winutils.set_mappings()
+  if winutils.is_win_open() == false then
+    winutils.open()
+    winutils.update_view()
+    winutils.set_mappings()
+  end
 EOF
 endfunction
 
@@ -101,4 +103,12 @@ function! vimrc#nvim_tree_lua#up()
   let path = vimrc#nvim_tree_lua#get_path()
   let parent_path = simplify(path.'/..')
   call vimrc#nvim_tree_lua#change_dir(parent_path)
+endfunction
+
+function! vimrc#nvim_tree_lua#detect_folder(path)
+  if a:path !=# '' && isdirectory(a:path)
+    execute "normal! \<C-O>"
+    call vimrc#nvim_tree_lua#open()
+    call vimrc#nvim_tree_lua#change_dir(a:path)
+  endif
 endfunction

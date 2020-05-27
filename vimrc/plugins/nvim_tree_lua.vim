@@ -9,3 +9,9 @@ augroup nvim_tree_lua_mappings
   autocmd!
   autocmd FileType LuaTree call vimrc#nvim_tree_lua#mappings()
 augroup END
+
+augroup nvim_tree_lua_detect_folder
+  autocmd!
+  " nvim-tree.lua already disable loading netrw
+  autocmd BufEnter * call vimrc#nvim_tree_lua#detect_folder(expand('<afile>'))
+augroup END
