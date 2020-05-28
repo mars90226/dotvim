@@ -41,6 +41,10 @@ nnoremap <Space>c:     :Clap command_history<CR>
 nnoremap <Space>c;     :Clap command<CR>
 nnoremap <Space>c/     :Clap search_history<CR>
 nnoremap <Space>c<Tab> :Clap maps<CR>
+
+if vimrc#plugin#is_enabled_plugin('coc.nvim')
+  nnoremap <Space>cT     :Clap tags coc<CR>
+endif
 " }}}
 
 " Clap buffer key mappings {{{
