@@ -117,6 +117,11 @@ nnoremap <silent> <Leader>cl :CocList lists<CR>
 command! CocToggle call vimrc#coc#toggle()
 nnoremap <silent> <Leader>cy :CocToggle<CR>
 
+" Find cursor word in outline
+nnoremap <silent> <Leader>ck :call vimrc#coc#outline_with_query(expand('<cword>'))<CR>
+nnoremap <silent> <Leader>cK :call vimrc#coc#outline_with_query(expand('<cWORD>'))<CR>
+xnoremap <silent> <Leader>ck :<C-U>call vimrc#coc#outline_with_query(vimrc#utility#get_visual_selection())<CR>
+
 augroup coc_ccls_settings
   autocmd!
   autocmd FileType c,cpp call vimrc#coc#ccls_mappings()

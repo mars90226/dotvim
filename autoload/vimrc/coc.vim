@@ -54,3 +54,8 @@ function! vimrc#coc#toggle()
     CocEnable
   endif
 endfunction
+
+function! vimrc#coc#outline_with_query(query)
+  call setreg('"', a:query)
+  CocList outline
+endfunction

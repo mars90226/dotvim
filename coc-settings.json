@@ -23,7 +23,8 @@
     "<A-s>": "do:switch",
     "<C-s>": "action:split",
     "<C-t>": "action:tabe",
-    "<C-v>": "action:vsplit"
+    "<C-v>": "action:vsplit",
+    "<A-r>": "eval:@@"
   },
   "git.enableGutters": false,
   "git.addGBlameToVirtualText": true,
