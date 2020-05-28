@@ -22,4 +22,8 @@ function! vimrc#clap#mappings()
   nnoremap <silent><buffer> <M-k> :call clap#navigation#scroll('up')<CR>
   inoremap <silent><buffer> <M-j> <C-R>=clap#navigation#scroll('down')<CR>
   inoremap <silent><buffer> <M-k> <C-R>=clap#navigation#scroll('up')<CR>
+
+  " Completion
+  inoremap <silent><buffer> <M-p> <C-P>
+  inoremap <silent><buffer> <M-n> <C-N>
 endfunction
