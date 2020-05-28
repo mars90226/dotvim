@@ -13,6 +13,8 @@ else
   call vimrc#plugin#disable_plugin('markdown-preview.nvim')
 endif
 
+" neovim master will crash for unknown reason, checkout b996205969d5c56e9110158e48cef559e9de0969
+" ref: https://github.com/neovim/neovim/issues/12387
 if !exists('##TextYankPost')
   call vimrc#plugin#disable_plugin('vim-highlightedyank')
 endif
