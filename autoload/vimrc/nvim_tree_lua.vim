@@ -12,7 +12,7 @@ function! vimrc#nvim_tree_lua#mappings()
   nnoremap <silent><buffer> gv :call vimrc#nvim_tree_lua#change_dir($VIMRUNTIME)<CR>
   nnoremap <silent><buffer> gl :call vimrc#nvim_tree_lua#change_dir('/usr/lib')<CR>
   nnoremap <silent><buffer> gr :call vimrc#nvim_tree_lua#change_dir('/')<CR>
-  nnoremap <silent><buffer> \\ :call vimrc#nvim_tree_lua#change_dir(getcwd())<CR>
+  nnoremap <silent><buffer><nowait> \\ :call vimrc#nvim_tree_lua#change_dir(getcwd())<CR>
 endfunction
 
 " Utilities

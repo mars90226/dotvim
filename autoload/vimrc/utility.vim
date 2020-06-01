@@ -91,14 +91,35 @@ function! vimrc#utility#delete_inactive_buffers(wipeout, bang)
 endfunction
 
 " vimrc#utility#execute_command() for executing command with query
-function! vimrc#utility#execute_command(command, prompt)
+function! vimrc#utility#execute_command(command, prompt, ...)
+  let no_space = a:0 > 0 && type(a:1) == type(0) ? a:1 : 0
   " TODO input completion
   let query = input(a:prompt)
   if query !=# ''
-    execute a:command . ' ' . query
+    execute a:command . (no_space ? '' : ' ') . query
   else
-    echomsg 'Cancelled!'
+    echo "\r"
+    echohl WarningMsg
+    echo 'Cancelled!'
+    echohl None
   endif
+endfunction
+
+function! vimrc#utility#ask_execute(command, message)
+  if vimrc#utility#ask(a:message)
+    execute a:command
+  endif
+endfunction
+
+" Borrowed from vim-plug
+function! vimrc#utility#ask(message, ...)
+  call inputsave()
+  echohl WarningMsg
+  let answer = input(a:message.(a:0 ? ' (y/N/a) ' : ' (y/N) '))
+  echohl None
+  call inputrestore()
+  echo "\r"
+  return (a:0 && answer =~? '^a') ? 2 : (answer =~? '^y') ? 1 : 0
 endfunction
 
 " sdcv

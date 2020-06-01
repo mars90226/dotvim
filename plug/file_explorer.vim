@@ -43,3 +43,11 @@ if vimrc#plugin#is_enabled_plugin('nvim-tree.lua')
   call vimrc#source('vimrc/plugins/nvim_tree_lua.vim')
 endif
 " }}}
+
+" dirvish.vim {{{
+if vimrc#plugin#is_enabled_plugin('dirvish.vim')
+  Plug 'justinmk/vim-dirvish'
+
+  call vimrc#source('vimrc/plugins/dirvish.vim')
+endif
+" }}}
