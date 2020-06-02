@@ -61,17 +61,28 @@ function! vimrc#fzf#tag#tselect(query)
 endfunction
 
 " Need neovim terminal
-function! vimrc#fzf#tag#project_tags(query, ...)
-  let args = copy(a:000)
-  let s:origin_tags = vimrc#tags#use_project_tags()
-
+function! vimrc#fzf#tag#setup_project_tags_callback(origin_tags)
+  let s:origin_tags = a:origin_tags
   augroup project_tags_callback
     autocmd!
     autocmd TermClose term://*fzf*
           \ call vimrc#tags#restore_tags(s:origin_tags) |
           \ autocmd! project_tags_callback
   augroup END
+endfunction
+
+function! vimrc#fzf#tag#project_tags(query, ...)
+  let args = copy(a:000)
+  call vimrc#fzf#tag#setup_project_tags_callback(vimrc#tags#use_project_tags())
+
   call call('fzf#vim#tags', [a:query] + args)
+endfunction
+
+" Need neovim terminal
+function! vimrc#fzf#tag#project_tselect(query)
+  call vimrc#fzf#tag#setup_project_tags_callback(vimrc#tags#use_project_tags())
+
+  call call('vimrc#fzf#tag#tselect', [a:query])
 endfunction
 
 " Need neovim terminal

@@ -125,7 +125,8 @@ command! -bang -nargs=? DirectoryFiles call vimrc#fzf#dir#directory_files(<q-arg
 command! -bang -nargs=? DirectoryRg    call vimrc#fzf#dir#directory_rg(<q-args>, <bang>0)
 
 " Tselect
-command! -nargs=1 Tselect call vimrc#fzf#tag#tselect(<q-args>)
+command! -nargs=1 Tselect        call vimrc#fzf#tag#tselect(<q-args>)
+command! -nargs=1 ProjectTselect call vimrc#fzf#tag#project_tselect(<q-args>)
 
 " Jump
 command! Jump call vimrc#fzf#jump()
@@ -270,8 +271,10 @@ nnoremap <Space>f]     :call      vimrc#execute_and_save("BTags '" . expand('<cw
 xnoremap <Space>f]     :<C-U>call vimrc#execute_and_save("BTags '" . vimrc#utility#get_visual_selection())<CR>
 nnoremap <Space>f}     :call      vimrc#execute_and_save("Tags '" . expand('<cword>'))<CR>
 xnoremap <Space>f}     :<C-U>call vimrc#execute_and_save("Tags '" . vimrc#utility#get_visual_selection())<CR>
-nnoremap <Space>f<C-]> :call      vimrc#execute_and_save('Tselect ' . expand('<cword>'))<CR>
-xnoremap <Space>f<C-]> :<C-U>call vimrc#execute_and_save('Tselect ' . vimrc#utility#get_visual_selection())<CR>
+nnoremap <Space>f<C-]> :call      vimrc#execute_and_save('ProjectTselect ' . expand('<cword>'))<CR>
+xnoremap <Space>f<C-]> :<C-U>call vimrc#execute_and_save('ProjectTselect ' . vimrc#utility#get_visual_selection())<CR>
+nnoremap <Space>f<M-]> :call      vimrc#execute_and_save('Tselect ' . expand('<cword>'))<CR>
+xnoremap <Space>f<M-]> :<C-U>call vimrc#execute_and_save('Tselect ' . vimrc#utility#get_visual_selection())<CR>
 
 " DirectoryMru
 nnoremap <Space><C-D><C-D> :call vimrc#execute_and_save('DirectoryMru')<CR>
