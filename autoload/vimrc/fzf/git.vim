@@ -135,6 +135,10 @@ function! vimrc#fzf#git#branches_in_commandline_sink(results, line)
   call add(a:results, a:line)
 endfunction
 
+function! vimrc#fzf#git#tags_in_commandline_sink(results, line)
+  call add(a:results, a:line)
+endfunction
+
 " Commands
 let s:git_diff_tree_command = 'git diff-tree --no-commit-id --name-only -r '
 
@@ -256,7 +260,7 @@ function! vimrc#fzf#git#files_commit(commit)
 endfunction
 " }}}
 
-" Intend to be mapped in command
+" Intend to be mapped in command mode
 function! vimrc#fzf#git#commits_in_commandline(buffer_local, args)
   let s:git_root = vimrc#fzf#get_git_root()
   if empty(s:git_root)
@@ -283,12 +287,12 @@ function! vimrc#fzf#git#commits_in_commandline(buffer_local, args)
   let command = a:buffer_local ? 'BCommits' : 'Commits'
   let results = []
   let options = {
-  \ 'source':  source,
-  \ 'sink*':   function('vimrc#fzf#git#commits_in_commandline_sink', [results]),
-  \ 'options': ['--ansi', '--tiebreak=index',
-  \   '--prompt', command.'> ', '--bind=ctrl-s:toggle-sort',
-  \   '--header', ':: Press '.vimrc#fzf#magenta('CTRL-S', 'Special').' to toggle sort, '.vimrc#fzf#magenta('CTRL-Y', 'Special').' to yank commit hashes']
-  \ }
+        \ 'source':  source,
+        \ 'sink*':   function('vimrc#fzf#git#commits_in_commandline_sink', [results]),
+        \ 'options': ['--ansi', '--tiebreak=index',
+        \   '--prompt', command.'> ', '--bind=ctrl-s:toggle-sort',
+        \   '--header', ':: Press '.vimrc#fzf#magenta('CTRL-S', 'Special').' to toggle sort, '.vimrc#fzf#magenta('CTRL-Y', 'Special').' to yank commit hashes']
+        \ }
 
   if a:buffer_local
     let options.options[-2] .= ', '.vimrc#fzf#magenta('CTRL-D', 'Special').' to diff'
@@ -309,7 +313,7 @@ function! vimrc#fzf#git#commits_in_commandline(buffer_local, args)
   return get(results, 0, '')
 endfunction
 
-" Intend to be mapped in command
+" Intend to be mapped in command mode
 function! vimrc#fzf#git#branches_in_commandline()
   let source = 'git branch --format="%(refname)" --all | sed "s/refs\/[^/]\+\///"'
   let results = []
@@ -320,6 +324,21 @@ function! vimrc#fzf#git#branches_in_commandline()
         \ 'sink': function('vimrc#fzf#git#branches_in_commandline_sink', [results]),
         \ 'options': ['+s', '--prompt', 'Branches> ']
         \ }, g:fzf_tmux_layout)))
+  let g:fzf_prefer_tmux = 0
+  return get(results, 0, '')
+endfunction
+
+" Intend to be mapped in command mode
+function! vimrc#fzf#git#tags_in_commandline()
+  let source = 'git tag'
+  let results = []
+  " Use tmux to avoid opening terminal in neovim
+  let g:fzf_prefer_tmux = 1
+  call fzf#run(fzf#wrap('Git Tags', extend({
+    \ 'source': source,
+    \ 'sink': function('vimrc#fzf#git#tags_in_commandline_sink', [results]),
+    \ 'options': ['+s', '--prompt', 'Git Tags> ']
+    \ }, g:fzf_tmux_layout)))
   let g:fzf_prefer_tmux = 0
   return get(results, 0, '')
 endfunction

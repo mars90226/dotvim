@@ -372,7 +372,7 @@ function! vimrc#fzf#locate(query, bang)
   call fzf#vim#locate(a:query, fzf#vim#with_preview(), a:bang)
 endfunction
 
-" Intend to be mapped in command
+" Intend to be mapped in command mode
 function! vimrc#fzf#files_in_commandline()
   let results = []
   " Use tmux to avoid opening terminal in neovim
