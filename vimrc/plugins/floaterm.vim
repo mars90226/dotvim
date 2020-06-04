@@ -13,6 +13,7 @@ nnoremap <silent> <M-5>      :FloatermNew!<CR>
 nnoremap <silent> <Leader>xh :FloatermHide<CR>
 nnoremap          <Leader>xs :execute 'FloatermSend '.input('Command: ', '', 'shellcmd')<CR>
 nnoremap          <Leader>xc :execute 'FloatermNew '.input('Command: ', '', 'shellcmd')<CR>
+nnoremap          <Leader>xC :execute 'FloatermNew! '.input('Command: ', '', 'shellcmd')<CR>
 nnoremap          <Leader>xw :execute 'FloatermNew! cd '.shellescape(getcwd())<CR>
 
 " For terminal
