@@ -136,6 +136,10 @@ augroup qfreplace_settings
 augroup END
 " }}}
 
+" vim-qf {{{
+Plug 'romainl/vim-qf'
+" }}}
+
 " vim-caser {{{
 Plug 'arthurxavierx/vim-caser', { 'on': [] }
 
