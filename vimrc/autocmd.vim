@@ -28,6 +28,8 @@ augroup filetype_detection_settings
   autocmd BufNewFile,BufReadPost Makefile.inc         setlocal filetype=make
   autocmd BufNewFile,BufReadPost depends              setlocal filetype=dosini
   autocmd BufNewFile,BufReadPost depends-virtual-*    setlocal filetype=dosini
+  autocmd BufNewFile,BufReadPost settings             setlocal filetype=dosini
+  autocmd BufNewFile,BufReadPost settings-virtual-*   setlocal filetype=dosini
   autocmd BufNewFile,BufReadPost .tmux.conf           setlocal filetype=tmux
   autocmd BufNewFile,BufReadPost conf/resource*       setlocal filetype=json
   autocmd BufNewFile,BufReadPost conf/privilege*      setlocal filetype=json
