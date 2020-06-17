@@ -18,7 +18,7 @@ endfunction
 " Difference from vimrc#terminal#is_interactive_process():
 " 1. Check if command is shell
 " 2. Check if command is floaterm wrapper
-function vimrc#tui#is_tui(command)
+function! vimrc#tui#is_tui(command)
   if index(s:floaterm_wrappers, a:command) != -1
     return v:true
   endif
