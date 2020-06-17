@@ -1,6 +1,6 @@
 " Functions
 function! vimrc#netrw#toggle_pin()
-  let w:netrw_pin = get(b:, 'netrw_pin', v:false) ? v:false : v:true
+  let w:netrw_pin = get(w:, 'netrw_pin', v:false) ? v:false : v:true
 endfunction
 
 function! vimrc#netrw#check_pin()
