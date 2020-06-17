@@ -107,8 +107,11 @@ endfunction
 
 function! vimrc#nvim_tree_lua#detect_folder(path)
   if a:path !=# '' && isdirectory(a:path)
-    execute "normal! \<C-O>"
-    call vimrc#nvim_tree_lua#open()
-    call vimrc#nvim_tree_lua#change_dir(a:path)
+    " Check for netrw pin
+    if !vimrc#netrw#check_pin()
+      execute "normal! \<C-O>"
+      call vimrc#nvim_tree_lua#open()
+      call vimrc#nvim_tree_lua#change_dir(a:path)
+    endif
   endif
 endfunction

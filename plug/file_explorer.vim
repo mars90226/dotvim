@@ -1,5 +1,10 @@
 " netrw {{{
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro' " add line number
+
+augroup netrw_settings
+  autocmd!
+  autocmd FileType netrw call vimrc#netrw#mappings()
+augroup END
 " }}}
 
 " vim-vinegar {{{

@@ -399,6 +399,9 @@ endfunction
 " Defx detect folder
 function! vimrc#defx#detect_folder(path)
   if a:path !=# '' && isdirectory(a:path)
-    execute 'silent! Defx '.a:path
+    " Check for netrw pin
+    if !vimrc#netrw#check_pin()
+      execute 'silent! Defx '.a:path
+    endif
   endif
 endfunction
