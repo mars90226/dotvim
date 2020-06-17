@@ -50,6 +50,9 @@ function! vimrc#fugitive#mappings()
     nnoremap <buffer> <silent> czC :call vimrc#tui#run('float', 'git cz')<CR>
   endif
 
+  nnoremap <buffer> <silent> coO :execute 'Git checkout --ours '.expand('<cWORD>')<CR>
+  nnoremap <buffer> <silent> coT :execute 'Git checkout --theirs '.expand('<cWORD>')<CR>
+
   call vimrc#git#include_git_mappings("expand('<cword>')")
 endfunction
 

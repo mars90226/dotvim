@@ -36,6 +36,7 @@ if vimrc#plugin#is_enabled_plugin('defx.nvim')
   Plug 'kristijanhusak/defx-git'
   " Font not supported
   " Plug 'kristijanhusak/defx-icons'
+  Plug 'Shougo/neossh.vim'
 
   call vimrc#source('vimrc/plugins/defx.vim')
 endif
