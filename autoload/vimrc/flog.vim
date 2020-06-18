@@ -20,20 +20,19 @@ function! vimrc#flog#visual_diff_commits()
   call vimrc#fzf#git#diff_commits(start_commit, end_commit)
 endfunction
 
-function! vimrc#flog#show_current_file(...)
-  let options = a:0 >= 1 && type(a:1) == type({}) ? a:1 : {}
-
+function! vimrc#flog#show_file(file, options)
+  let is_current_file = a:file ==# '%'
   let cmd = 'Flog -- '
 
-  for key in keys(options)
+  for key in keys(a:options)
     if len(key) == 1
-      let cmd .= '-'.key.' '.options[key].' '
+      let cmd .= '-'.key.' '.a:options[key].' '
     else
-      let cmd .= '--'.key.'='.options[key].' '
+      let cmd .= '--'.key.'='.a:options[key].' '
     endif
   endfor
 
-  let cmd .= shellescape(expand('%'))
+  let cmd .= is_current_file ? shellescape(expand('%')) : a:file
 
   execute cmd
 endfunction

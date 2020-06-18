@@ -14,9 +14,9 @@ Plug 'junegunn/gv.vim', { 'on': 'GV' }
 
 command! -nargs=* GVA GV --all <args>
 
-nnoremap <Leader>gv     :GV!<CR>
-nnoremap <Leader>gV     :execute 'GV! --author='.g:company_domain<CR>
-nnoremap <Leader>g<C-V> :execute 'GV! --author='.g:company_email<CR>
+nnoremap <Leader>gv     :call vimrc#gv#show_file('%', {})<CR>
+nnoremap <Leader>gV     :call vimrc#gv#show_file('%', {'author': g:company_domain})<CR>
+nnoremap <Leader>g<C-V> :call vimrc#gv#show_file('%', {'author': g:company_email})<CR>
 
 augroup gv_settings
   autocmd!
@@ -29,9 +29,9 @@ Plug 'rbong/vim-flog'
 
 command! -nargs=* Floga Flog -all <args>
 
-nnoremap <Leader>gf     :call vimrc#flog#show_current_file()<CR>
-nnoremap <Leader>gF     :call vimrc#flog#show_current_file({'author': g:company_domain})<CR>
-nnoremap <Leader>g<C-F> :call vimrc#flog#show_current_file({'author': g:company_email})<CR>
+nnoremap <Leader>gf     :call vimrc#flog#show_file('%', {})<CR>
+nnoremap <Leader>gF     :call vimrc#flog#show_file('%', {'author': g:company_domain})<CR>
+nnoremap <Leader>g<C-F> :call vimrc#flog#show_file('%', {'author': g:company_email})<CR>
 
 augroup flog_settings
   autocmd!

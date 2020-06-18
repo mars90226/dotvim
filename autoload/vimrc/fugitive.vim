@@ -54,6 +54,16 @@ function! vimrc#fugitive#mappings()
   nnoremap <buffer> <silent> coT :execute 'Git checkout --theirs '.fugitive#StatusCfile()<CR>
 
   call vimrc#git#include_git_mappings("expand('<cword>')")
+
+  " GV
+  nnoremap <buffer> <silent> <Leader>gv :call vimrc#gv#show_file(fugitive#StatusCfile(), {})<CR>
+  nnoremap <buffer> <silent> <Leader>gV :call vimrc#gv#show_file(fugitive#StatusCfile(), {'author': g:company_domain})<CR>
+  nnoremap <buffer> <silent> <Leader>g<C-V> :call vimrc#gv#show_file(fugitive#StatusCfile(), {'author': g:company_email})<CR>
+
+  " Flog
+  nnoremap <buffer> <silent> <Leader>gf :call vimrc#flog#show_file(fugitive#StatusCfile(), {})<CR>
+  nnoremap <buffer> <silent> <Leader>gF :call vimrc#flog#show_file(fugitive#StatusCfile(), {'author': g:company_domain})<CR>
+  nnoremap <buffer> <silent> <Leader>g<C-F> :call vimrc#flog#show_file(fugitive#StatusCfile(), {'author': g:company_email})<CR>
 endfunction
 
 function! vimrc#fugitive#git_mappings()

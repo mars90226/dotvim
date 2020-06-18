@@ -21,3 +21,22 @@ function! vimrc#gv#visual_diff_commits()
 
   call vimrc#fzf#git#diff_commits(start_commit, end_commit)
 endfunction
+
+function! vimrc#gv#show_file(file, options)
+  let is_current_file = a:file ==# '%'
+  let cmd = is_current_file ? 'GV! ' : 'GV '
+
+  for key in keys(a:options)
+    if len(key) == 1
+      let cmd .= '-'.key.' '.a:options[key].' '
+    else
+      let cmd .= '--'.key.'='.a:options[key].' '
+    endif
+  endfor
+
+  if !is_current_file
+    let cmd .= ' -- '.a:file
+  endif
+
+  execute cmd
+endfunction
