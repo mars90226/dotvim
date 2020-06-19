@@ -88,15 +88,27 @@ function! vimrc#fzf#git#grep_commit_sink(commit, with_column, lines)
 endfunction
 
 function! vimrc#fzf#git#diff_commit_sink(start_commit, end_commit, lines)
-  let current_tabnr = tabpagenr()
-  for file in a:lines
-    execute 'tabedit ' . file
-  endfor
-  let last_tabnr = tabpagenr()
-  let range = current_tabnr + 1 . ',' . last_tabnr
+  if len(a:lines) < 2
+    return
+  endif
 
-  execute range . 'tabdo Gedit ' . a:start_commit . ':%'
-  execute range . 'tabdo Gdiff ' . a:end_commit
+  " only support function
+  let Cmd = vimrc#fzf#action_for_with_table(s:fugitive_fzf_action, a:lines[0], 'Gedit')
+  let list = a:lines[1:]
+
+  if type(Cmd) == type(function('call'))
+    call Cmd(list)
+  else
+    let current_tabnr = tabpagenr()
+    for file in list
+      execute 'tabedit ' . file
+    endfor
+    let last_tabnr = tabpagenr()
+    let range = current_tabnr + 1 . ',' . last_tabnr
+
+    execute range . 'tabdo Gedit ' . a:start_commit . ':%'
+    execute range . 'tabdo Gdiff ' . a:end_commit
+  endif
 endfunction
 
 function! vimrc#fzf#git#files_commit_sink(commit, lines)
@@ -226,10 +238,10 @@ function! vimrc#fzf#git#diff_commit(commit)
 
   let revision = a:commit . '^!'
 
-  call fzf#run(fzf#wrap('GitDiffCommit', {
+  call fzf#run(vimrc#fzf#wrap('GitDiffCommit', {
         \ 'source': s:git_diff_commit_command.' '.revision,
         \ 'sink*': function('vimrc#fzf#git#diff_commit_sink', [a:commit.'^', a:commit]),
-        \ 'options': ['-m', '-s', '--prompt', 'GitDiffCommit> ']}))
+        \ 'options': ['-m', '-s', '--prompt', 'GitDiffCommit> ']}, 0))
 endfunction
 
 function! vimrc#fzf#git#diff_commits(start_commit, end_commit)
@@ -237,10 +249,10 @@ function! vimrc#fzf#git#diff_commits(start_commit, end_commit)
     echo 'No git a git repository:' expand('%:p')
   endif
 
-  call fzf#run(fzf#wrap('GitDiffCommits', {
+  call fzf#run(vimrc#fzf#wrap('GitDiffCommits', {
         \ 'source': s:git_diff_commit_command.' '.a:start_commit.'..'.a:end_commit,
         \ 'sink*': function('vimrc#fzf#git#diff_commit_sink', [a:start_commit, a:end_commit]),
-        \ 'options': ['-m', '-s', '--prompt', 'GitDiffCommits> ']}))
+        \ 'options': ['-m', '-s', '--prompt', 'GitDiffCommits> ']}, 0))
 endfunction
 
 let s:git_files_commit_command = 'git ls-tree -r --name-only'
