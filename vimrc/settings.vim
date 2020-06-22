@@ -89,11 +89,20 @@ set belloff=all
 " neovim has default folders for backup, undo, swap files
 " Only move temporary files in vanilla vim
 " TODO Use original backupdir and use other backupdir in Windows
+if has('nvim')
+  let g:backupdir = $HOME.'/.local/share/nvim/backup'
+else
+  let g:backupdir = $HOME.'/.vimtmp'
+endif
+if !isdirectory(g:backupdir)
+  call mkdir(g:backupdir, 'p')
+endif
+
 set backup " keep a backup file (restore to previous version)
 if has('nvim')
-  set backupdir=~/.local/share/nvim/backup,.
+  let &backupdir = g:backupdir.',.'
 else
-  set backupdir^=~/.vimtmp
+  execute 'set backupdir^='.g:backupdir
   set directory^=~/.vimtmp
 endif
 
