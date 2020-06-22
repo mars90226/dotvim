@@ -53,3 +53,22 @@ function! vimrc#fzf#preview#buffer_tags_options(options)
 
   return merged
 endfunction
+
+function! vimrc#fzf#preview#with_preview(...)
+  " Borrored from fzf#wrap()
+  let args = [{}, 0]
+  let expects = map(copy(args), 'type(v:val)')
+  let tidx = 0
+  for arg in copy(a:000)
+    let tidx = index(expects, type(arg), tidx)
+    if tidx < 0
+      throw 'Invalid arguments (expected: [opts dict] [fullscreen boolean])'
+    endif
+    let args[tidx] = arg
+    let tidx += 1
+    unlet arg
+  endfor
+  let [opts, bang] = args
+
+  return bang ? fzf#vim#with_preview(opts, 'up:60%') : fzf#vim#with_preview(opts, 'right:50%:hidden', '?')
+endfunction

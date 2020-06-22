@@ -197,7 +197,7 @@ function! vimrc#fzf#git#rg_diff(...)
 
   call fzf#vim#grep(
         \ command, 1,
-        \ vimrc#fzf#rg#with_preview(bang, { 'options': ['--prompt', 'RgDiff> '] }),
+        \ vimrc#fzf#preview#with_preview({ 'options': ['--prompt', 'RgDiff> '] }, bang),
         \ bang)
 endfunction
 

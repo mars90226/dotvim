@@ -106,6 +106,9 @@ command! -bang -nargs=* RgFzf call vimrc#fzf#rg#grep_on_change(<q-args>, <bang>0
 " Fd all files
 command! -bang -nargs=? -complete=dir AllFiles call vimrc#fzf#dir#all_files(<q-args>, <bang>0)
 
+" Fd custom files
+command! -bang -nargs=? -complete=dir CustomFiles call vimrc#fzf#dir#custom_files(<q-args>, <bang>0)
+
 " Git diff
 command! -bang -nargs=* -complete=dir GitDiffFiles call vimrc#fzf#git#diff_tree(<bang>0, <f-args>)
 command! -bang -nargs=* -complete=dir RgGitDiffFiles call vimrc#fzf#git#rg_diff(<bang>0, <f-args>)
@@ -195,6 +198,8 @@ endif
 " fzf key mappings {{{
 nnoremap <Space>fa     :call      vimrc#execute_and_save('Quickfix!')<CR>
 nnoremap <Space>fA     :call      vimrc#execute_and_save('AllFiles')<CR>
+nnoremap <Space>f1     :call      vimrc#execute_and_save('CustomFiles :' . input('Option: '))<CR>
+nnoremap <Space>f!     :call      vimrc#execute_and_save('CustomFiles ' . input('Folder: ', '', 'dir') . ':' . input('Option: '))<CR>
 nnoremap <Space>fb     :call      vimrc#execute_and_save('Buffers')<CR>
 nnoremap <Space>fB     :call      vimrc#execute_and_save('Files %:h')<CR>
 nnoremap <Space>fc     :call      vimrc#execute_and_save('BCommits')<CR>

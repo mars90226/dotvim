@@ -99,10 +99,25 @@ function! vimrc#fzf#dir#directory_sink_popd_callback()
 endfunction
 
 " Commands
-function! vimrc#fzf#dir#all_files(query, bang)
-  call fzf#vim#files(a:query,
-        \ a:bang ? fzf#vim#with_preview({ 'source': s:fd_command }, 'up:60%')
-        \        : fzf#vim#with_preview({ 'source': s:fd_command }),
+function! vimrc#fzf#dir#all_files(folder, bang)
+  let options = { 'source': s:fd_command }
+
+  call fzf#vim#files(a:folder,
+        \ vimrc#fzf#preview#with_preview(options, a:bang),
+        \ a:bang)
+endfunction
+
+" Custom files, using ':' to seperate folder and option
+function! vimrc#fzf#dir#custom_files(command, bang)
+  let command_parts = split(a:command, ':', 1)
+  let folder = command_parts[0]
+  let option = join(command_parts[1:], ':')
+  let options = {
+    \ 'source': s:fd_command.' '.option
+    \ }
+
+  call fzf#vim#files(folder,
+        \ vimrc#fzf#preview#with_preview(options, a:bang),
         \ a:bang)
 endfunction
 
