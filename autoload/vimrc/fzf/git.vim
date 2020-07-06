@@ -203,9 +203,9 @@ endfunction
 
 " Git commit command {{{
 if vimrc#plugin#check#git_version() >=# 'git version 2.19.0'
-  let s:git_grep_commit_command = 'git grep -n --column'
+  let s:git_grep_commit_command = 'git grep -nP --column'
 else
-  let s:git_grep_commit_command = 'git grep -n'
+  let s:git_grep_commit_command = 'git grep -nP'
 endif
 function! vimrc#fzf#git#grep_commit(commit, ...)
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
