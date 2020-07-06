@@ -33,6 +33,10 @@ function! vimrc#defx#get_current_path() abort
   return b:defx['paths'][0]
 endfunction
 
+function! vimrc#defx#get_target(context) abort
+  return a:context.targets[0]
+endfunction
+
 let s:defx_actions = {
   \ 'open_current_shell': 'vimrc#terminal#open_current_shell',
   \ 'open_shell': 'vimrc#terminal#open_shell',
