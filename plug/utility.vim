@@ -245,6 +245,7 @@ Plug 'DougBeney/pickachu', { 'on': 'Pick' }
 Plug 'tweekmonster/helpful.vim', { 'on': 'HelpfulVersion' }
 Plug 'tweekmonster/startuptime.vim', { 'on': 'StartupTime' }
 Plug 'gyim/vim-boxdraw'
+Plug 'lambdalisue/reword.vim'
 
 " " nvim-gdb {{{
 " Disabled for now as neovim's neovim_gdb.vim seems not exists
