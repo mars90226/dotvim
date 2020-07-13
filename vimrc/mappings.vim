@@ -201,6 +201,9 @@ cnoremap <expr> <C-G><C-V> vimrc#utility#get_visual_selection()
 cnoremap <C-G>t <C-\>e<Space>vimrc#insert#trim_cmdline()<CR>
 " Delete whole word (Use <Space> to separate `<C-\>e` and function)
 cnoremap <C-G>w <C-\>e<Space>vimrc#insert#delete_whole_word()<CR>
+" Company related data
+cnoremap <C-G>d <C-\>e<Space>g:company_domain<CR>
+cnoremap <C-G>e <C-\>e<Space>g:company_email<CR>
 
 " Ex mode for special buffer that map 'q' as ':quit'
 nnoremap \q: q:
