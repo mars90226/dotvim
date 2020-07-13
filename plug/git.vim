@@ -14,6 +14,12 @@ Plug 'junegunn/gv.vim', { 'on': 'GV' }
 
 command! -nargs=* GVA GV --all <args>
 
+" GV with company filter
+execute 'command! -nargs=* GVD  GV --author='.g:company_domain.' <args>'
+execute 'command! -nargs=* GVDA GV --author='.g:company_domain.' --all <args>'
+execute 'command! -nargs=* GVE  GV --author='.g:company_email.' <args>'
+execute 'command! -nargs=* GVEA GV --author='.g:company_email.' --all <args>'
+
 nnoremap <Leader>gv     :call vimrc#gv#show_file('%', {})<CR>
 nnoremap <Leader>gV     :call vimrc#gv#show_file('%', {'author': g:company_domain})<CR>
 nnoremap <Leader>g<C-V> :call vimrc#gv#show_file('%', {'author': g:company_email})<CR>
