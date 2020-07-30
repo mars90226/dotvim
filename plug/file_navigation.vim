@@ -116,7 +116,7 @@ endif
 " }}}
 
 " ctrlsf.vim {{{
-Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF', 'CtrlSFToggle'] }
+Plug 'dyng/ctrlsf.vim'
 
 nmap <Space><C-F> <Plug>CtrlSFPrompt
 
