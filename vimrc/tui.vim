@@ -55,6 +55,11 @@ if executable('lazygit')
   nnoremap <Leader>gz :LazyGit<CR>
 endif
 
+if executable('gitui')
+  command! Gitui       call vimrc#tui#run('float', 'gitui')
+  command! GituiSplit  call vimrc#tui#run('new', 'gitui')
+endif
+
 " TODO: Add tig
 
 " Shells
