@@ -9,7 +9,7 @@ function! vimrc#defx#opendir(cmd) abort
     let dir = expand('%:h')
   endif
 
-  call vimrc#defx#opencmd(a:cmd.' '.dir)
+  call vimrc#defx#opencmd(a:cmd.' '.fnameescape(dir))
 endfunction
 
 function! vimrc#defx#openpwd(cmd) abort
