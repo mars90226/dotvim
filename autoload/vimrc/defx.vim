@@ -228,7 +228,7 @@ function! vimrc#defx#mappings() abort " {{{
   nnoremap <silent><buffer>       \dd
         \ :Denite defx/dirmark<CR>
   nnoremap <silent><buffer>       \h
-        \ :Denite defx/history<CR>
+        \ :Denite -unique defx/history<CR>
 
   " Use Unite because using Denite will change other Denite buffers
   nnoremap <silent><buffer> g?
