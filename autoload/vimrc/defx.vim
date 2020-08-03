@@ -3,6 +3,8 @@
 function! vimrc#defx#opendir(cmd) abort
   if expand('%') =~# '^$\|^term:[\/][\/]'
     let dir = '.'
+  elseif &filetype ==# 'defx'
+    let dir = fnamemodify(vimrc#defx#get_current_path(), ':h')
   else
     let dir = expand('%:h')
   endif
@@ -122,6 +124,8 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#do_action('toggle_ignored_files')
   nnoremap <silent><buffer><expr> yy
         \ defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr> -
+        \ defx#async_action('cd', ['..'])
   nnoremap <silent><buffer><expr> h
         \ defx#async_action('cd', ['..'])
   nnoremap <silent><buffer><expr> <BS>
