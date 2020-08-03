@@ -60,6 +60,11 @@ if executable('gitui')
   command! GituiSplit  call vimrc#tui#run('new', 'gitui')
 endif
 
+if executable('bandwhich')
+  command! Bandwhich      call vimrc#tui#run('float', 'bandwhich')
+  command! BandwhichSplit call vimrc#tui#run('new', 'bandwhich')
+endif
+
 " TODO: Add tig
 
 " Shells
