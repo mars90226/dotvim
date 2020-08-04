@@ -37,20 +37,22 @@ map <Plug>(easymotion-prefix); <Plug>(easymotion-jumptoanywhere)
 " }}}
 
 " aerojump.nvim {{{
-Plug 'ripxorip/aerojump.nvim', { 'do': ':UpdateRemotePlugins' }
+if vimrc#plugin#is_enabled_plugin('aerojump.nvim')
+  Plug 'ripxorip/aerojump.nvim', { 'do': ':UpdateRemotePlugins' }
 
-let g:aerojump_keymaps = {
-      \ '<Esc>': 'AerojumpExit',
-      \ '<C-C>': 'AerojumpExit',
-      \ '<Tab>': 'AerojumpSelNext',
-      \ '<S-Tab>': 'AerojumpSelPrev',
-      \ }
+  let g:aerojump_keymaps = {
+        \ '<Esc>': 'AerojumpExit',
+        \ '<C-C>': 'AerojumpExit',
+        \ '<Tab>': 'AerojumpSelNext',
+        \ '<S-Tab>': 'AerojumpSelPrev',
+        \ }
 
-nmap <Space>as <Plug>(AerojumpSpace)
-nmap <Space>ab <Plug>(AerojumpBolt)
-nmap <Space>aa <Plug>(AerojumpFromCursorBolt)
-nmap <Space>ad <Plug>(AerojumpDefault)
-nmap <Space>am <Plug>(AerojumpMilk)
+  nmap <Space>as <Plug>(AerojumpSpace)
+  nmap <Space>ab <Plug>(AerojumpBolt)
+  nmap <Space>aa <Plug>(AerojumpFromCursorBolt)
+  nmap <Space>ad <Plug>(AerojumpDefault)
+  nmap <Space>am <Plug>(AerojumpMilk)
+endif
 " }}}
 
 " vim-asterisk {{{
