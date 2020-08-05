@@ -50,9 +50,9 @@ call denite#custom#option('_', {
       \ 'direction': 'topleft',
       \ 'start_filter': v:true,
       \ 'prompt': '❯',
-      \ 'prompt_highlight': 'Function',
-      \ 'highlight_mode_normal': 'Visual',
-      \ 'highlight_mode_insert': 'CursorLine',
+      \ 'match_highlight': v:true,
+      \ 'highlight_prompt': 'Function',
+      \ 'highlight_filter_background': 'CursorLine',
       \ 'highlight_matched_char': 'Special',
       \ 'highlight_matched_range': 'Normal'
       \ })
