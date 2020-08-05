@@ -1,3 +1,29 @@
+" Utilities
+function! vimrc#clap#install()
+  Clap install-binary
+  call vimrc#clap#build_fuzzymatch_rs()
+endfunction
+
+function! vimrc#clap#build_fuzzymatch_rs() abort
+  belowright 10new
+  setlocal buftype=nofile winfixheight norelativenumber nonumber bufhidden=wipe
+
+  let clap_dir = simplify(g:clap#autoload_dir.'/../pythonx/clap')
+  let bufnr = bufnr('')
+
+  function! s:OnExit(status) closure abort
+    if a:status == 0
+      execute 'silent! bd! '.bufnr
+      call clap#helper#echo_info('build fuzzymatch_rs successfully')
+    endif
+  endfunction
+
+  call termopen('make build', {
+    \ 'cwd': clap_dir,
+    \ 'on_exit': {job, status -> s:OnExit(status)}
+    \ })
+endfunction
+
 " Settings
 function! vimrc#clap#settings()
   " FIXME Should make scroll full window, but does not work
