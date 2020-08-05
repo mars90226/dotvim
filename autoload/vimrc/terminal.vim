@@ -58,7 +58,7 @@ function! vimrc#terminal#open(split, folder, cmd)
       let bufnr = floaterm#terminal#open(-1, a:cmd, {}, {})
       call floaterm#terminal#send(bufnr, [cd_cmd])
     else
-      let bufnr = floaterm#terminal#open(-1, $SHELL, {}, {})
+      let bufnr = floaterm#terminal#open(-1, &shell, {}, {})
       call floaterm#terminal#send(bufnr, [cd_cmd, a:cmd])
     endif
   else
@@ -71,11 +71,11 @@ function! vimrc#terminal#open_current_folder(split, cmd)
 endfunction
 
 function! vimrc#terminal#open_shell(split, folder)
-  call vimrc#terminal#open(a:split, a:folder, $SHELL)
+  call vimrc#terminal#open(a:split, a:folder, &shell)
 endfunction
 
 function! vimrc#terminal#open_current_shell(split)
-  call vimrc#terminal#open(a:split, '', $SHELL)
+  call vimrc#terminal#open(a:split, '', &shell)
 endfunction
 
 let s:terminal_pattern = '\vterm://(.{-}//(\d+:)?)?\zs.*' " Use very magic
