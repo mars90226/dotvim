@@ -50,6 +50,10 @@ let s:denite_actions = {
   \ 'move_cursor': 'vimrc#denite#move_cursor_candidate_window'
   \ }
 
+function! vimrc#denite#use_clap()
+  return vimrc#plugin#is_enabled_plugin('vim-clap') && vimrc#plugin#check#has_cargo()
+endfunction
+
 " Borrowed from denite.nvim
 function! vimrc#denite#do_map(name, ...)
   let args = copy(a:000)
@@ -247,8 +251,13 @@ function! vimrc#denite#filter_mappings()
   imap <buffer>         <M-x><M-c> <Plug>(denite_filter_quit):ColorToggle<CR>i
 
   " Toggle matchers & sorters
-  inoremap <silent><buffer><expr> <M-f>
-        \ denite#do_map('toggle_matchers', 'matcher/fruzzy')
+  if vimrc#denite#use_clap()
+    inoremap <silent><buffer><expr> <M-f>
+          \ denite#do_map('toggle_matchers', 'matcher/clap')
+  else
+    inoremap <silent><buffer><expr> <M-f>
+          \ denite#do_map('toggle_matchers', 'matcher/fruzzy')
+  endif
   inoremap <silent><buffer><expr> <M-g>
         \ denite#do_map('toggle_matchers', 'matcher/substring')
   inoremap <silent><buffer><expr> <M-r>
