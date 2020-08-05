@@ -51,7 +51,19 @@ endfunction
 " Utilities
 function! vimrc#terminal#open(split, folder, cmd)
   let split = empty(a:split) ? 'edit' : a:split
-  execute split . ' term://' . a:folder . '//' . a:cmd
+
+  if split ==# 'float'
+    let cd_cmd = empty(a:folder) ? '' : 'cd '.fnameescape(a:folder)
+    if vimrc#tui#is_shell(a:cmd)
+      let bufnr = floaterm#terminal#open(-1, a:cmd, {}, {})
+      call floaterm#terminal#send(bufnr, [cd_cmd])
+    else
+      let bufnr = floaterm#terminal#open(-1, $SHELL, {}, {})
+      call floaterm#terminal#send(bufnr, [cd_cmd, a:cmd])
+    endif
+  else
+    execute split . ' term://' . a:folder . '//' . a:cmd
+  endif
 endfunction
 
 function! vimrc#terminal#open_current_folder(split, cmd)

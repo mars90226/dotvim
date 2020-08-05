@@ -181,6 +181,8 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . vimrc#defx#do_map('open_current_shell', 'vnew')
   nnoremap <silent><buffer><expr> <C-T><C-B>
         \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . vimrc#defx#do_map('open_current_shell', 'rightbelow vnew')
+  nnoremap <silent><buffer><expr> <C-T><C-F>
+        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . vimrc#defx#do_map('open_current_shell', 'float')
   nnoremap <silent><buffer><expr> <C-T><C-D>
         \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . vimrc#defx#do_map('open_shell', 'tabnew', input('Folder: ', '', 'dir'))
   nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?

@@ -7,6 +7,10 @@ function! vimrc#tui#get_shells()
   return s:shells
 endfunction
 
+function! vimrc#tui#is_shell(cmd)
+  return index(s:shells, a:cmd) != -1
+endfunction
+
 function! vimrc#tui#get_processes()
   return s:tui_processes
 endfunction
@@ -43,12 +47,8 @@ endfunction
 function! vimrc#tui#run(split, command)
   let split = a:split ==# 'float' && vimrc#plugin#is_disabled_plugin('vim-floaterm') ? 'new' : a:split
 
-  if split ==# 'float'
-    if vimrc#tui#is_tui(a:command)
-      execute 'FloatermNew '.a:command
-    else
-      call floaterm#terminal#open(-1, a:command, {}, {})
-    endif
+  if split ==# 'float' && vimrc#tui#is_tui(a:command)
+    execute 'FloatermNew '.a:command
   else
     call vimrc#terminal#open_current_folder(split, a:command)
   endif
