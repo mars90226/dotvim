@@ -63,6 +63,55 @@ function! vimrc#denite#call_map(function, args)
   call call(a:function, a:args)
 endfunction
 
+function! vimrc#denite#toggle_matchers(...)
+  call denite#call_map('toggle_matchers', a:000)
+endfunction
+
+function! vimrc#denite#change_sorters(...)
+  call denite#call_map('change_sorters', a:000)
+endfunction
+
+" Completions
+function! vimrc#denite#complete_matchers(ArgLead, CmdLine, CursorPos)
+  return [
+    \ 'matcher/clap',
+    \ 'matcher/cpsm',
+    \ 'matcher/fuzzy',
+    \ 'matcher/hide_hidden_files',
+    \ 'matcher/project_files',
+    \ 'matcher/ignore_current_buffer',
+    \ 'matcher/ignore_globs',
+    \ 'matcher/regexp',
+    \ 'matcher/substring',
+    \ ]
+endfunction
+
+function! vimrc#denite#complete_sorters(ArgLead, CmdLine, CursorPos)
+  return [
+    \ 'sorter/rank',
+    \ 'sorter/reverse',
+    \ 'sorter/sublime',
+    \ 'sorter/word',
+    \ ]
+endfunction
+
+" Settings
+function! vimrc#denite#settings()
+  call vimrc#denite#common_commands()
+  call vimrc#denite#mappings()
+endfunction
+
+function! vimrc#denite#filter_settings()
+  call vimrc#denite#common_commands()
+  call vimrc#denite#filter_mappings()
+endfunction
+
+" Commands
+function! vimrc#denite#common_commands()
+  command! -buffer -nargs=+ -complete=customlist,vimrc#denite#complete_matchers DeniteToggleMatchers call vimrc#denite#toggle_matchers(<f-args>)
+  command! -buffer -nargs=+ -complete=customlist,vimrc#denite#complete_sorters DeniteChangeSorters call vimrc#denite#change_sorters(<f-args>)
+endfunction
+
 " Mappings
 " Denite buffer normal mode
 function! vimrc#denite#mappings()

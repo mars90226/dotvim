@@ -86,10 +86,10 @@ if executable('rg')
 endif
 " }}}
 
-" Denite buffer key mappings {{{
-augroup denite_mappings
+" Denite buffer settings {{{
+augroup denite_settings
   autocmd!
-  autocmd FileType denite        call vimrc#denite#mappings()
-  autocmd FileType denite-filter call vimrc#denite#filter_mappings()
+  autocmd FileType denite        call vimrc#denite#settings()
+  autocmd FileType denite-filter call vimrc#denite#filter_settings()
 augroup END
 " }}}
