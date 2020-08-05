@@ -71,8 +71,8 @@ function! vimrc#denite#toggle_matchers(...)
   call denite#call_map('toggle_matchers', a:000)
 endfunction
 
-function! vimrc#denite#change_sorters(...)
-  call denite#call_map('change_sorters', a:000)
+function! vimrc#denite#change_sorters(sorter)
+  call denite#call_map('change_sorters', [a:sorter])
 endfunction
 
 " Completions
@@ -113,7 +113,7 @@ endfunction
 " Commands
 function! vimrc#denite#common_commands()
   command! -buffer -nargs=+ -complete=customlist,vimrc#denite#complete_matchers DeniteToggleMatchers call vimrc#denite#toggle_matchers(<f-args>)
-  command! -buffer -nargs=+ -complete=customlist,vimrc#denite#complete_sorters DeniteChangeSorters call vimrc#denite#change_sorters(<f-args>)
+  command! -buffer -nargs=1 -complete=customlist,vimrc#denite#complete_sorters DeniteChangeSorters call vimrc#denite#change_sorters(<f-args>)
 endfunction
 
 " Mappings
