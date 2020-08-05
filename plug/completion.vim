@@ -74,8 +74,8 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
 
 let g:neosnippet#snippets_directory = [
-      \ vimrc#get_vimhome().'/plugged/neosnippet-snippets/neosnippets',
-      \ vimrc#get_vimhome().'/plugged/vim-snippets/snippets',
+      \ vimrc#get_vim_plug_dir().'/neosnippet-snippets/neosnippets',
+      \ vimrc#get_vim_plug_dir().'/vim-snippets/snippets',
       \ vimrc#get_vimhome().'/my-snippets'
       \ ]
 

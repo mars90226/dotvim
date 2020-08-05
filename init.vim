@@ -3,7 +3,7 @@ call vimrc#source('plug/plugin_choose.vim')
 call vimrc#source('plug/auto_plug.vim')
 
 " Plugin Settings Begin
-call plug#begin(vimrc#get_vimhome().'/plugged')
+call plug#begin(vimrc#get_vim_plug_dir())
 
 call vimrc#source('plug/appearance.vim')
 call vimrc#source('plug/completion.vim')

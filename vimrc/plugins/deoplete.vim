@@ -30,7 +30,7 @@ let g:deoplete#sources#rust#rust_source_path = '/code/rust/src'
 " let g:LanguageClient_settingsPath = vimrc#get_vimhome()."/settings.json"
 
 " deoplete-ternjs
-let g:deoplete#sources#ternjs#tern_bin = vimrc#get_vimhome() . '/plugged/tern_for_vim/node_modules/tern/bin/tern'
+let g:deoplete#sources#ternjs#tern_bin = vimrc#get_vim_plug_dir().'/tern_for_vim/node_modules/tern/bin/tern'
 
 " float-preview.nvim
 if has('nvim')
