@@ -19,9 +19,9 @@ function! vimrc#tui#get_floaterm_wrappers()
   return s:floaterm_wrappers
 endfunction
 
-" Difference from vimrc#terminal#is_interactive_process():
-" 1. Check if command is shell
-" 2. Check if command is floaterm wrapper
+" 1. Check if command is floaterm wrapper
+" 2. Check if command is tui process
+" 3. Check if command is shell
 function! vimrc#tui#is_tui(command)
   if index(s:floaterm_wrappers, a:command) != -1
     return v:true
@@ -29,17 +29,17 @@ function! vimrc#tui#is_tui(command)
 
   for tui_process in s:tui_processes
     if a:command =~ vimrc#get_boundary_pattern(tui_process)
-      return v:false
+      return v:true
     endif
   endfor
 
   for shell in s:shells
     if a:command =~ vimrc#get_boundary_pattern(shell)
-      return v:false
+      return v:true
     endif
   endfor
 
-  return v:true
+  return v:false
 endfunction
 
 " Functions

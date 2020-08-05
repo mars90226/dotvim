@@ -113,7 +113,7 @@ function! vimrc#terminal#is_shell_terminal(terminal)
   endfor
 endfunction
 
-" Only whitelist specific processes
+" Check if terminal command is tui process
 function! vimrc#terminal#is_interactive_process(terminal)
   let interactive_processes = vimrc#tui#get_processes()
 
