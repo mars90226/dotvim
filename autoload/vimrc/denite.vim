@@ -51,7 +51,7 @@ let s:denite_actions = {
   \ }
 
 function! vimrc#denite#use_clap()
-  return vimrc#plugin#is_enabled_plugin('vim-clap') && vimrc#plugin#check#has_cargo()
+  return executable(vimrc#clap#get_clap_fuzzymatch_rs_so()) || (vimrc#plugin#is_enabled_plugin('vim-clap') && vimrc#plugin#check#has_cargo())
 endfunction
 
 " Borrowed from denite.nvim

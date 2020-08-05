@@ -1,4 +1,15 @@
 " Utilities
+let s:clap_pythonx_clap_dir = simplify(g:clap#autoload_dir.'/../pythonx/clap')
+let s:clap_fuzzymatch_rs_so = s:clap_pythonx_clap_dir.'/fuzzymatch_rs.so'
+
+function! vimrc#clap#get_clap_pythonx_clap_dir()
+  return s:clap_pythonx_clap_dir
+endfunction
+
+function! vimrc#clap#get_clap_fuzzymatch_rs_so()
+  return s:clap_fuzzymatch_rs_so
+endfunction
+
 function! vimrc#clap#install()
   Clap install-binary
   call vimrc#clap#build_fuzzymatch_rs()
@@ -8,7 +19,6 @@ function! vimrc#clap#build_fuzzymatch_rs() abort
   belowright 10new
   setlocal buftype=nofile winfixheight norelativenumber nonumber bufhidden=wipe
 
-  let clap_dir = simplify(g:clap#autoload_dir.'/../pythonx/clap')
   let bufnr = bufnr('')
 
   function! s:OnExit(status) closure abort
@@ -19,7 +29,7 @@ function! vimrc#clap#build_fuzzymatch_rs() abort
   endfunction
 
   call termopen('make build', {
-    \ 'cwd': clap_dir,
+    \ 'cwd': s:clap_pythonx_clap_dir,
     \ 'on_exit': {job, status -> s:OnExit(status)}
     \ })
 endfunction
