@@ -32,6 +32,7 @@ else
 end
 
 call denite#custom#source('default', 'sorters', ['sorter/rank'])
+call denite#custom#source('defx/history', 'sorters', [''])
 call denite#custom#source('grep', 'converters', ['converter/abbr_word'])
 
 call denite#custom#option('_', {
