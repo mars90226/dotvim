@@ -1,6 +1,5 @@
 " Choose matcher {{{
 if has('python3')
-  " Temporarily use bug fixing branch, wait for merging to master
   Plug 'raghur/fruzzy', { 'branch': 'master', 'do': { -> fruzzy#install() } }
 
   let g:fruzzy#usenative = 1
