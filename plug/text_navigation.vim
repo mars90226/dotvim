@@ -18,7 +18,7 @@ map \w <Plug>(easymotion-bd-wl)
 map \f <Plug>(easymotion-bd-fl)
 map \s <Plug>(easymotion-sl2)
 
-map <Leader>f <Plug>(easymotion-bd-f)
+map <Leader><Leader>f <Plug>(easymotion-bd-f)
 map <Space><Space>l <Plug>(easymotion-bd-jk)
 map <Plug>(easymotion-prefix)s <Plug>(easymotion-bd-f2)
 map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)

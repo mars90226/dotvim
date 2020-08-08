@@ -119,6 +119,17 @@ let g:far#mapping = {
       \ }
 " }}}
 
+" ferret {{{
+Plug 'wincent/ferret'
+
+let g:FerretMap = 0
+
+nmap <Leader>fa <Plug>(FerretAck)
+nmap <Leader>fl <Plug>(FerretLack)
+nmap <Leader>fs <Plug>(FerretAckWord)
+nmap <Leader>fr <Plug>(FerretAcks)
+" }}}
+
 Plug 'editorconfig/editorconfig-vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-repeat'
