@@ -27,10 +27,7 @@ function! vimrc#terminal#mappings()
   nnoremap <silent><buffer> ]] /❯<CR>
 
   " Search pattern
-  nnoremap <silent><buffer> <M-s><C-F> :call vimrc#search#search_file(0)<CR>
-  nnoremap <silent><buffer> <M-s><M-h> :call vimrc#search#search_hash(0)<CR>
-  nnoremap <silent><buffer> <M-s><C-U> :call vimrc#search#search_url(0)<CR>
-  nnoremap <silent><buffer> <M-s><M-i> :call vimrc#search#search_ip(0)<CR>
+  call vimrc#search#define_search_mappings()
 endfunction
 
 function! vimrc#terminal#meta_key_fix()
