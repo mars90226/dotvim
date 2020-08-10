@@ -20,7 +20,7 @@ endif
 
 " vim-devicons {{{
 " Disable for now as Fira Code nerd fonts is not patched
-Plug 'ryanoasis/vim-devicons', { 'for': [] }
+" Plug 'ryanoasis/vim-devicons'
 " }}}
 
 " Colors {{{

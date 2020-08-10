@@ -16,6 +16,7 @@ call vimrc#source('plug/languages.vim')
 call vimrc#source('plug/git.vim')
 call vimrc#source('plug/terminal.vim')
 call vimrc#source('plug/utility.vim')
+call vimrc#source('plug/last.vim')
 
 call plug#end()
 

@@ -34,8 +34,7 @@ endif
 if vimrc#plugin#is_enabled_plugin('defx.nvim')
   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'kristijanhusak/defx-git'
-  " Font not supported
-  " Plug 'kristijanhusak/defx-icons'
+  Plug 'kristijanhusak/defx-icons'
   Plug 'Shougo/neossh.vim'
 
   call vimrc#source('vimrc/plugins/defx.vim')
