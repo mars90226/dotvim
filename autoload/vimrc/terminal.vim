@@ -25,6 +25,12 @@ function! vimrc#terminal#mappings()
   " Navigate prompts
   nnoremap <silent><buffer> [[ ?❯<CR>
   nnoremap <silent><buffer> ]] /❯<CR>
+
+  " Search pattern
+  nnoremap <silent><buffer> <M-s><C-F> :call vimrc#search#search_file(0)<CR>
+  nnoremap <silent><buffer> <M-s><M-h> :call vimrc#search#search_hash(0)<CR>
+  nnoremap <silent><buffer> <M-s><C-U> :call vimrc#search#search_url(0)<CR>
+  nnoremap <silent><buffer> <M-s><M-i> :call vimrc#search#search_ip(0)<CR>
 endfunction
 
 function! vimrc#terminal#meta_key_fix()
