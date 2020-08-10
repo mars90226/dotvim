@@ -35,7 +35,7 @@ if !has('nvim-0.4')
   call vimrc#plugin#disable_plugin('firenvim')
 endif
 
-if vimrc#plugin#check#python_version() >=# '3.6'
+if vimrc#plugin#check#python_version() <# '3.6'
   call vimrc#plugin#disable_plugin('aerojump.nvim')
 endif
 
