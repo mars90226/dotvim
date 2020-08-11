@@ -171,6 +171,11 @@ command! -nargs=? -complete=customlist,fugitive#CompleteObject GitDiffCommit cal
 command! -nargs=1 -complete=customlist,fugitive#CompleteObject GitFilesCommit call vimrc#fzf#git#files_commit(<q-args>)
 " }}}
 
+" KeywordsByMe
+command! -nargs=1 KeywordsByMe call vimrc#fzf#git#keywords_by_me(<f-args>)
+command!          TodosByMe    call vimrc#fzf#git#keywords_by_me('TODO')
+command!          FixmesByMe   call vimrc#fzf#git#keywords_by_me('FIXME')
+
 if has('nvim')
   augroup fzf_statusline
     autocmd!

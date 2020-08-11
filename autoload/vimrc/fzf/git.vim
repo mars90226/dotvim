@@ -126,6 +126,29 @@ function! vimrc#fzf#git#files_commit_sink(commit, lines)
   endif
 endfunction
 
+function! vimrc#fzf#git#keywords_by_me_sink(lines)
+  if len(a:lines) < 2
+    return
+  endif
+
+  let cmd = vimrc#fzf#action_for(a:lines[0], 'edit')
+  let qfl = []
+  let candidates = a:lines[1:]
+  for candidate in candidates
+    let matches = matchlist(candidate, '\v^\x{7,40}\s(\S+)*\s\(\S+\s\S+\s\S+\s\S+\s+(\d+)\)\s(.*)$')
+    let filename = matches[1]
+    let line_number = matches[2]
+    let text = matches[3]
+    call add(qfl, {'filename': filename, 'lnum': line_number, 'text': text})
+  endfor
+
+  let first = qfl[0]
+  execute cmd . ' +' . first.lnum . ' ' . first.filename
+  normal! zzzv
+
+  call vimrc#fzf#fill_quickfix(qfl)
+endfunction
+
 function! vimrc#fzf#git#commits_in_commandline_sink(results, lines)
   if len(a:lines) < 2
     return
@@ -269,6 +292,17 @@ function! vimrc#fzf#git#files_commit(commit)
         \ 'source': s:git_files_commit_command.' '.a:commit,
         \ 'sink*': function('vimrc#fzf#git#files_commit_sink', [a:commit]),
         \ 'options': ['-m', '-s', '--prompt', 'GitFilesCommit> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
+endfunction
+
+let s:git_keywords_by_me_command = 'git grep -il %s | xargs -n1 git blame -M -f -e 2>/dev/null | rg -i %s | rg "$(git config user.email)"'
+function! vimrc#fzf#git#keywords_by_me(keyword)
+  let command = printf(s:git_keywords_by_me_command, a:keyword, a:keyword)
+
+  call fzf#run(vimrc#fzf#wrap('KeywordsByMe', {
+        \ 'source': command,
+        \ 'sink*': function('vimrc#fzf#git#keywords_by_me_sink'),
+        \ 'options': ['-m', '-s', '--prompt', 'KeywordsByMe ('.a:keyword.')> ']
+        \ }, 0))
 endfunction
 " }}}
 
