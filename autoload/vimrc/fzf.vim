@@ -312,7 +312,16 @@ function! vimrc#fzf#registers_sink(line)
 endfunction
 
 function! vimrc#fzf#current_placed_signs_sink(lines)
-  execute split(a:lines[0], '\t')[0]
+  if len(a:lines) < 2
+    return
+  endif
+
+  let cmd = vimrc#fzf#action_for(a:lines[0], 'e')
+  for result in a:lines[1:]
+    let line_number = split(result, '\t')[0]
+    execute cmd . ' | ' . line_number
+  endfor
+
   normal! zzzv
 endfunction
 
@@ -389,10 +398,11 @@ endfunction
 
 " Commands
 function! vimrc#fzf#jump()
-  call fzf#run(fzf#wrap('Jumps', {
+  call fzf#run(vimrc#fzf#wrap('Jumps', {
       \ 'source':  vimrc#fzf#jump_source(),
       \ 'sink*':   function('vimrc#fzf#jump_sink'),
-      \ 'options': ['-m', '+s', '--prompt', 'Jump> ', '--expect=' . vimrc#fzf#expect_keys()]}))
+      \ 'options': ['-m', '+s', '--prompt', 'Jump> ']
+      \ }, 0))
 endfunction
 
 function! vimrc#fzf#registers()
@@ -403,11 +413,11 @@ function! vimrc#fzf#registers()
 endfunction
 
 function! vimrc#fzf#current_placed_signs()
-  call fzf#run(fzf#wrap('Signs', {
+  call fzf#run(vimrc#fzf#wrap('Signs', {
         \ 'source':  vimrc#fzf#current_placed_signs_source(),
         \ 'sink*':   function('vimrc#fzf#current_placed_signs_sink'),
-        \ 'options': ['--tiebreak=index', '--prompt', 'Signs> ', '--ansi', '--extended', '--nth=2..', '--tabstop=1'],
-        \ }))
+        \ 'options': ['-m', '+s', '--tiebreak=index', '--prompt', 'Signs> ', '--ansi', '--extended', '--nth=2..', '--tabstop=1'],
+        \ }, 0))
 endfunction
 
 function! vimrc#fzf#functions()
