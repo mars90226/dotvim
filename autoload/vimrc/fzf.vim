@@ -316,10 +316,14 @@ function! vimrc#fzf#current_placed_signs_sink(lines)
     return
   endif
 
-  let cmd = vimrc#fzf#action_for(a:lines[0], 'e')
+  let cmd = vimrc#fzf#action_for(a:lines[0], '')
   for result in a:lines[1:]
     let line_number = split(result, '\t')[0]
-    execute cmd . ' | ' . line_number
+
+    if !empty(cmd)
+      execute cmd
+    endif
+    execute line_number
   endfor
 
   normal! zzzv
