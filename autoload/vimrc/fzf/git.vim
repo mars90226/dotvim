@@ -135,7 +135,7 @@ function! vimrc#fzf#git#keywords_by_me_sink(lines)
   let qfl = []
   let candidates = a:lines[1:]
   for candidate in candidates
-    let matches = matchlist(candidate, '\v^\x{7,40}\s(\S+)*\s\(\S+\s\S+\s\S+\s\S+\s+(\d+)\)\s(.*)$')
+    let matches = matchlist(candidate, '\v^\x{7,40}\s(\S+)*\s+\(\S+\s+\S+\s\S+\s\S+\s+(\d+)\)\s(.*)$')
     let filename = matches[1]
     let line_number = matches[2]
     let text = matches[3]
