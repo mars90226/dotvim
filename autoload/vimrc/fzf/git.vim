@@ -294,7 +294,7 @@ function! vimrc#fzf#git#files_commit(commit)
         \ 'options': ['-m', '-s', '--prompt', 'GitFilesCommit> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
 endfunction
 
-let s:git_keywords_by_me_command = 'git grep -il %s | xargs -n1 git blame -M -f -e 2>/dev/null | rg -i %s | rg "$(git config user.email)"'
+let s:git_keywords_by_me_command = 'git grep -il %s | xargs -n1 git blame -M -f -e 2>/dev/null | rg -i %s | rg "$(git config user.email)|not.committed.yet"'
 function! vimrc#fzf#git#keywords_by_me(keyword)
   let command = printf(s:git_keywords_by_me_command, a:keyword, a:keyword)
 
