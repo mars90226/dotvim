@@ -341,7 +341,7 @@ function! vimrc#defx#execute_internal(path, split) abort
     let cmd = cmd . ' ' . a:path
   endif
 
-  call vimrc#tui#run(a:split, cmd)
+  call vimrc#tui#run(a:split, cmd, 1)
 endfunction
 
 function! vimrc#defx#execute_file_internal(context, split) abort
