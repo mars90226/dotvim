@@ -56,6 +56,8 @@ function! vimrc#terminal#open(split, folder, cmd)
   let split = empty(a:split) ? 'edit' : a:split
 
   if split ==# 'float'
+    " Floaterm always use current working directory
+    " So we need to open shell and prepend cd command
     let cd_cmd = empty(a:folder) ? '' : 'cd '.fnameescape(a:folder)
     if vimrc#tui#is_shell(a:cmd)
       let bufnr = floaterm#terminal#open(-1, a:cmd, {}, {})
