@@ -44,10 +44,10 @@ function! vimrc#fugitive#mappings()
   nnoremap <buffer> <silent> gL :Gpull --rebase<CR>
 
   if executable('rust-commitizen')
-    nnoremap <buffer> <silent> czc :call vimrc#tui#run('float', 'rust-commitizen')<CR>
+    nnoremap <buffer> <silent> czc :call vimrc#tui#run('float', 'rust-commitizen', 1)<CR>
   endif
   if executable('git-cz')
-    nnoremap <buffer> <silent> czC :call vimrc#tui#run('float', 'git cz')<CR>
+    nnoremap <buffer> <silent> czC :call vimrc#tui#run('float', 'git cz', 1)<CR>
   endif
 
   nnoremap <buffer> <silent> coO :execute 'Git checkout --ours '.fugitive#StatusCfile()<CR>
