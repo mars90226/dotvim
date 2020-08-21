@@ -36,6 +36,8 @@ augroup filetype_detection_settings
   autocmd BufNewFile,BufReadPost .tmux.conf           setlocal filetype=tmux
   autocmd BufNewFile,BufReadPost conf/resource*       setlocal filetype=json
   autocmd BufNewFile,BufReadPost conf/privilege*      setlocal filetype=json
+  autocmd BufNewFile,BufReadPost config.define        setlocal filetype=json
+  autocmd BufNewFile,BufReadPost config.debug         setlocal filetype=json
   autocmd BufNewFile,BufReadPost *.bashrc             setlocal filetype=sh
   autocmd BufNewFile,BufReadPost *.sieve              setlocal filetype=sieve
 
