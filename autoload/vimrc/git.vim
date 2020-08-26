@@ -21,3 +21,7 @@ endfunction
 function! vimrc#git#get_email()
   return systemlist('git config --get user.email')[0]
 endfunction
+
+function! vimrc#git#root()
+  return systemlist('git rev-parse --show-toplevel')[0]
+endfunction

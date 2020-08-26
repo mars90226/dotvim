@@ -140,6 +140,8 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#do_action('cd', '/usr/lib/')
   nnoremap <silent><buffer><expr> gv
         \ defx#do_action('cd', $VIMRUNTIME)
+  nnoremap <silent><buffer><expr> gp
+        \ defx#do_action('cd', vimrc#git#root())
   nnoremap <silent><buffer><expr> \
         \ defx#do_action('cd', getcwd())
   nnoremap <silent><buffer><nowait><expr> \\
@@ -150,6 +152,8 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd')
   nnoremap <silent><buffer><expr> cv
         \ defx#do_action('cd', expand(input('cd: ', '', 'dir')))
+  nnoremap <silent><buffer><expr> <Leader>r
+        \ defx#do_action('call', 'vimrc#defx#git_root')
   if bufname('%') =~# 'tab'
     nnoremap <silent><buffer><expr> q
           \ defx#do_action('quit') . ":quit<CR>"
@@ -395,15 +399,28 @@ function! vimrc#defx#execute_dir_vertical(context) abort
 endfunction
 " }}}
 
+" Current working directory & git directory
 function! vimrc#defx#change_vim_buffer_cwd(context) abort
   let path = vimrc#defx#get_current_path()
+  call vimrc#defx#_change_vim_buffer_cwd(path)
+endfunction
 
-  execute 'lcd '.fnameescape(path)
+function! vimrc#defx#_change_vim_buffer_cwd(path) abort
+  execute 'lcd '.fnameescape(a:path)
+  call vimrc#defx#_update_git_dir(a:path)
 endfunction
 
 function! vimrc#defx#update_git_dir(context) abort
   let path = vimrc#defx#get_current_path()
-  let b:git_dir = FugitiveExtractGitDir(expand(path))
+  call vimrc#defx#_update_git_dir(path)
+endfunction
+
+function! vimrc#defx#_update_git_dir(path) abort
+  let b:git_dir = FugitiveExtractGitDir(expand(a:path))
+endfunction
+
+function! vimrc#defx#git_root(context) abort
+  call vimrc#defx#_change_vim_buffer_cwd(vimrc#git#root())
 endfunction
 
 " Defx detect folder
