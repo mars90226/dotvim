@@ -33,6 +33,7 @@ augroup filetype_detection_settings
   autocmd BufNewFile,BufReadPost settings-virtual-*   setlocal filetype=dosini
   autocmd BufNewFile,BufReadPost strings              setlocal filetype=dosini
   autocmd BufNewFile,BufReadPost strings-virtual-*    setlocal filetype=dosini
+  autocmd BufNewFile,BufReadPost PKG_DEPS             setlocal filetype=dosini
   autocmd BufNewFile,BufReadPost .tmux.conf           setlocal filetype=tmux
   autocmd BufNewFile,BufReadPost conf/resource*       setlocal filetype=json
   autocmd BufNewFile,BufReadPost conf/privilege*      setlocal filetype=json
