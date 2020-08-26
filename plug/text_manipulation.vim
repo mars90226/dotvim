@@ -123,6 +123,7 @@ let g:far#mapping = {
 Plug 'wincent/ferret'
 
 let g:FerretMap = 0
+let g:FerretQFCommands = 0
 
 nmap <Leader>fa <Plug>(FerretAck)
 nmap <Leader>fl <Plug>(FerretLack)
