@@ -94,6 +94,8 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#do_action('toggle_columns', 'mark:filename:type:size:time')
   nnoremap <silent><buffer><expr> S
         \ defx#do_action('toggle_sort', 'Time')
+  nnoremap <silent><buffer><expr> A
+        \ defx#do_action('open', 'split')
   nnoremap <silent><buffer><expr> B
         \ defx#do_action('open', 'botright split')
   nnoremap <silent><buffer><expr> E
