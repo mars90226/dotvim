@@ -237,6 +237,8 @@ function! vimrc#defx#mappings() abort " {{{
         \ :Denite defx/dirmark<CR>
   nnoremap <silent><buffer>       \h
         \ :Denite -unique defx/history<CR>
+  nnoremap <silent><buffer><expr> \P
+        \ defx#do_action('call', 'vimrc#defx#paste_from_system_clipboard')
 
   " Use Unite because using Denite will change other Denite buffers
   nnoremap <silent><buffer> g?
@@ -340,14 +342,16 @@ function! vimrc#defx#execute_internal(path, split) abort
     return
   endif
 
-  if cmd =~# '{}'
-    " replace all '{}' to path
-    let cmd = substitute(cmd, '{}', a:path, 'g')
-  else
-    let cmd = cmd . ' ' . a:path
-  endif
+  call vimrc#tui#run(a:split, vimrc#defx#_get_commmand(cmd, a:path), 1)
+endfunction
 
-  call vimrc#tui#run(a:split, cmd, 1)
+function! vimrc#defx#_get_commmand(cmd, path) abort
+  if a:cmd =~# '{}'
+    " replace all '{}' to path
+    return substitute(a:cmd, '{}', a:path, 'g')
+  else
+    return a:cmd . ' ' . a:path
+  endif
 endfunction
 
 function! vimrc#defx#execute_file_internal(context, split) abort
@@ -433,4 +437,10 @@ function! vimrc#defx#detect_folder(path)
       execute 'silent! Defx '.a:path
     endif
   endif
+endfunction
+
+function! vimrc#defx#paste_from_system_clipboard(context) abort
+  let path = vimrc#defx#get_current_path()
+
+  execute '!'.vimrc#defx#_get_commmand('cp '.fnameescape(@+), path)
 endfunction
