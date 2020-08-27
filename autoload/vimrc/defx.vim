@@ -440,5 +440,5 @@ endfunction
 function! vimrc#defx#paste_from_system_clipboard(context) abort
   let path = vimrc#defx#get_current_path()
 
-  execute '!'.vimrc#defx#_get_commmand('cp '.fnameescape(@+), path)
+  execute '!'.vimrc#defx#_get_commmand('cp -r '.fnameescape(@+), path)
 endfunction
