@@ -38,7 +38,9 @@ augroup filetype_detection_settings
   autocmd BufNewFile,BufReadPost */conf/resource*     setlocal filetype=json
   autocmd BufNewFile,BufReadPost */conf/privilege*    setlocal filetype=json
   autocmd BufNewFile,BufReadPost config.define        setlocal filetype=json
+  autocmd BufNewFile,BufReadPost config.define.cfg    setlocal filetype=json
   autocmd BufNewFile,BufReadPost config.debug         setlocal filetype=json
+  autocmd BufNewFile,BufReadPost config.debug.cfg     setlocal filetype=json
   autocmd BufNewFile,BufReadPost *.bashrc             setlocal filetype=sh
   autocmd BufNewFile,BufReadPost *.sieve              setlocal filetype=sieve
   autocmd BufNewFile,BufReadPost */backup/export      setlocal filetype=sh
