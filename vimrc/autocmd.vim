@@ -41,6 +41,12 @@ augroup filetype_detection_settings
   autocmd BufNewFile,BufReadPost config.debug         setlocal filetype=json
   autocmd BufNewFile,BufReadPost *.bashrc             setlocal filetype=sh
   autocmd BufNewFile,BufReadPost *.sieve              setlocal filetype=sieve
+  autocmd BufNewFile,BufReadPost */backup/export      setlocal filetype=sh
+  autocmd BufNewFile,BufReadPost */backup/import      setlocal filetype=sh
+  autocmd BufNewFile,BufReadPost */backup/can_export  setlocal filetype=sh
+  autocmd BufNewFile,BufReadPost */backup/can_import  setlocal filetype=sh
+  autocmd BufNewFile,BufReadPost */backup/info        setlocal filetype=json
+  autocmd BufNewFile,BufReadPost */backup/info.dynamic setlocal filetype=sh
 
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              setlocal filetype=cerr
