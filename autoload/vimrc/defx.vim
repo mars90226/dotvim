@@ -144,8 +144,6 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#do_action('cd', $VIMRUNTIME)
   nnoremap <silent><buffer><expr> gp
         \ defx#do_action('cd', vimrc#git#root())
-  nnoremap <silent><buffer><expr> \
-        \ defx#do_action('cd', getcwd())
   nnoremap <silent><buffer><nowait><expr> \\
         \ defx#do_action('cd', getcwd())
   nnoremap <silent><buffer><expr> cd
