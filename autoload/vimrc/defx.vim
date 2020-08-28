@@ -153,7 +153,7 @@ function! vimrc#defx#mappings() abort " {{{
   nnoremap <silent><buffer><expr> cv
         \ defx#do_action('cd', expand(input('cd: ', '', 'dir')))
   nnoremap <silent><buffer><expr> <Leader>r
-        \ defx#do_action('call', 'vimrc#defx#git_root')
+        \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . defx#do_action('call', 'vimrc#defx#git_root')
   if bufname('%') =~# 'tab'
     nnoremap <silent><buffer><expr> q
           \ defx#do_action('quit') . ":quit<CR>"
