@@ -194,10 +194,16 @@ function! vimrc#defx#mappings() abort " {{{
         \ ':<C-U>Defx -buffer-name=temp -split=vertical<CR>'
   nnoremap <silent><buffer><expr> \f
         \ defx#do_action('call', 'vimrc#defx#fzf_files')
+  nnoremap <silent><buffer><expr> \<C-F>
+        \ defx#do_action('call', 'vimrc#defx#fzf_files_target')
   nnoremap <silent><buffer><expr> \r
         \ defx#do_action('call', 'vimrc#defx#fzf_rg')
   nnoremap <silent><buffer><expr> \R
         \ defx#do_action('call', 'vimrc#defx#fzf_rg_bang')
+  nnoremap <silent><buffer><expr> \<C-R>
+        \ defx#do_action('call', 'vimrc#defx#fzf_rg_target')
+  nnoremap <silent><buffer><expr> \<M-r>
+        \ defx#do_action('call', 'vimrc#defx#fzf_rg_bang_target')
   nnoremap <silent><buffer><expr> \<BS>
         \ defx#do_action('call', 'vimrc#defx#fzf_directory_ancestors')
   nnoremap <silent><buffer><expr> \<C-H>
@@ -291,27 +297,53 @@ endfunction
 
 " Commands
 " TODO Move to fzf autoload
+" Files {{{
+function! vimrc#defx#_fzf_files(path) abort
+  call vimrc#fzf#defx#use_defx_fzf_action({ -> fzf#vim#files(a:path, fzf#vim#with_preview(), 0)})
+endfunction
+
 function! vimrc#defx#fzf_files(context) abort
   let path = vimrc#defx#get_current_path()
 
-  call vimrc#fzf#defx#use_defx_fzf_action({ -> fzf#vim#files(path, fzf#vim#with_preview(), 0)})
+  call vimrc#defx#_fzf_files(path)
 endfunction
+
+function! vimrc#defx#fzf_files_target(context) abort
+  let path = vimrc#defx#get_target(a:context)
+
+  call vimrc#defx#_fzf_files(path)
+endfunction
+" }}}
 
 " TODO Move to fzf autoload
 " Rg {{{
-function! vimrc#defx#fzf_rg_internal(context, prompt, bang) abort
-  let path = vimrc#defx#get_current_path()
-
+function! vimrc#defx#fzf_rg_internal(path, prompt, bang) abort
   let cmd = a:bang ? 'RgWithOption!' : 'RgWithOption'
-  execute cmd . ' ' . path . '::' . input(a:prompt . ': ')
+  execute cmd . ' ' . a:path . '::' . input(a:prompt . ': ')
 endfunction
 
 function! vimrc#defx#fzf_rg(context) abort
-  call vimrc#defx#fzf_rg_internal(a:context, 'Rg', v:false)
+  let path = vimrc#defx#get_current_path()
+
+  call vimrc#defx#fzf_rg_internal(path, 'Rg', v:false)
+endfunction
+
+function! vimrc#defx#fzf_rg_target(context) abort
+  let path = vimrc#defx#get_target(a:context)
+
+  call vimrc#defx#fzf_rg_internal(path, 'Rg', v:false)
 endfunction
 
 function! vimrc#defx#fzf_rg_bang(context) abort
-  call vimrc#defx#fzf_rg_internal(a:context, 'Rg!', v:true)
+  let path = vimrc#defx#get_current_path()
+
+  call vimrc#defx#fzf_rg_internal(path, 'Rg!', v:true)
+endfunction
+
+function! vimrc#defx#fzf_rg_bang_target(context) abort
+  let path = vimrc#defx#get_target(a:context)
+
+  call vimrc#defx#fzf_rg_internal(path, 'Rg!', v:false)
 endfunction
 " }}}
 
