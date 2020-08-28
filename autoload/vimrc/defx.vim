@@ -243,6 +243,8 @@ function! vimrc#defx#mappings() abort " {{{
         \ :Denite -unique defx/history<CR>
   nnoremap <silent><buffer><expr> \P
         \ defx#do_action('call', 'vimrc#defx#paste_from_system_clipboard')
+  nnoremap <silent><buffer><expr> \<C-P>
+        \ defx#do_action('call', 'vimrc#defx#paste_from_system_clipboard_target')
 
   " Use Unite because using Denite will change other Denite buffers
   nnoremap <silent><buffer> g?
@@ -469,8 +471,19 @@ function! vimrc#defx#detect_folder(path)
   endif
 endfunction
 
+" Paste from system clipboard
+function! vimrc#defx#_paste_from_system_clipboard(path) abort
+  execute '!'.vimrc#defx#_get_commmand('cp -r '.fnameescape(@+), a:path)
+endfunction
+
 function! vimrc#defx#paste_from_system_clipboard(context) abort
   let path = vimrc#defx#get_current_path()
 
-  execute '!'.vimrc#defx#_get_commmand('cp -r '.fnameescape(@+), path)
+  call vimrc#defx#_paste_from_system_clipboard(path)
+endfunction
+
+function! vimrc#defx#paste_from_system_clipboard_target(context) abort
+  let path = vimrc#defx#get_target(a:context)
+
+  call vimrc#defx#_paste_from_system_clipboard(path)
 endfunction
