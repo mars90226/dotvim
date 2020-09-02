@@ -38,6 +38,9 @@ let g:ale_pattern_options = extend({
 " Default using bash dialect for shellcheck
 let g:ale_sh_shellcheck_options = '-s bash'
 
+" Default using gcc instead of clang++
+let g:ale_cpp_cc_executable = 'gcc'
+
 " Check if clippy is installed
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 
