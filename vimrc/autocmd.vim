@@ -58,8 +58,12 @@ augroup END
 augroup input_method_settings
   autocmd!
 
-  autocmd InsertEnter * setlocal iminsert=1
-  autocmd InsertLeave * setlocal iminsert=0
+  " TODO enable when getimstatus() is available
+  " ref: https://github.com/Shougo/deoplete.nvim/issues/1003
+  if vimrc#plugin#is_disabled_plugin('deoplete.nvim')
+    autocmd InsertEnter * setlocal iminsert=1
+    autocmd InsertLeave * setlocal iminsert=0
+  endif
 augroup END
 
 " Secret project local settings
