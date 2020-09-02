@@ -1,20 +1,22 @@
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
 
-" TODO Detect clang version
-" deoplete_clang
-let g:deoplete#sources#clang#libclang_path = vimrc#plugin#check#detect_clang_dir('/lib/libclang.so.1')
-let g:deoplete#sources#clang#clang_header = vimrc#plugin#check#detect_clang_dir('/lib/clang')
+if vimrc#plugin#check#has_linux_build_env()
+  " TODO Detect clang version
+  " deoplete_clang
+  let g:deoplete#sources#clang#libclang_path = vimrc#plugin#check#detect_clang_dir('/lib/libclang.so.1')
+  let g:deoplete#sources#clang#clang_header = vimrc#plugin#check#detect_clang_dir('/lib/clang')
 
-" clang_complete
-" let g:clang_library_path = vimrc#plugin#check#detect_clang_dir('/lib/libclang.so.1')
-"
-" let g:clang_debug = 1
-" let g:clang_use_library = 1
-" let g:clang_complete_auto = 0
-" let g:clang_auto_select = 0
-" let g:clang_omnicppcomplete_compliance = 0
-" let g:clang_make_default_keymappings = 0
+  " clang_complete
+  " let g:clang_library_path = vimrc#plugin#check#detect_clang_dir('/lib/libclang.so.1')
+  "
+  " let g:clang_debug = 1
+  " let g:clang_use_library = 1
+  " let g:clang_complete_auto = 0
+  " let g:clang_auto_select = 0
+  " let g:clang_omnicppcomplete_compliance = 0
+  " let g:clang_make_default_keymappings = 0
+endif
 
 " deoplete_rust
 let g:deoplete#sources#rust#racer_binary = $HOME.'/.cargo/bin/racer'
