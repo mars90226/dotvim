@@ -161,6 +161,8 @@ cnoremap <expr> <C-G><C-M> vimrc#fzf#mru#directory_mru_in_commandline()
 inoremap <expr> <C-G><C-M> vimrc#fzf#mru#directory_mru_in_commandline()
 cnoremap <expr> <C-G><C-P> vimrc#rg#current_type_option()
 inoremap <expr> <C-G><C-P> vimrc#rg#current_type_option()
+cnoremap <expr> <C-G><C-L> vimrc#rg#types_in_commandline()
+inoremap <expr> <C-G><C-L> vimrc#rg#types_in_commandline()
 " Expand filename
 cnoremap <expr> <C-G><C-^> expand('%:t')
 inoremap <expr> <C-G><C-^> expand('%:t')
