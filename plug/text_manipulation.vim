@@ -131,6 +131,13 @@ nmap <Leader>fs <Plug>(FerretAckWord)
 nmap <Leader>fr <Plug>(FerretAcks)
 " }}}
 
+" vim-visual-multi {{{
+Plug 'mg979/vim-visual-multi'
+
+" imap <BS> & <CR> is overwritten, need to be careful of bugs
+" FIXME Cannot use sandwich command
+" }}}
+
 Plug 'editorconfig/editorconfig-vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-repeat'

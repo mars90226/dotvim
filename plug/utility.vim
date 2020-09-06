@@ -199,13 +199,6 @@ let g:context_enabled = 0
 nnoremap <F6> :ContextToggle<CR>
 " }}}
 
-" vim-visual-multi {{{
-Plug 'mg979/vim-visual-multi'
-
-" imap <BS> & <CR> is overwritten, need to be careful of bugs
-" FIXME Cannot use sandwich command
-" }}}
-
 " firenvim {{{
 if vimrc#plugin#is_enabled_plugin('firenvim')
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
