@@ -125,6 +125,12 @@ augroup vim_syntax_syslog_ng_settings
 augroup END
 " }}}
 
+" vim-lsp-cxx-highlight {{{
+if vimrc#plugin#is_enabled_plugin('vim-lsp-cxx-highlight')
+  Plug 'jackguo380/vim-lsp-cxx-highlight'
+endif
+" }}}
+
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'mars90226/perldoc-vim', { 'for': 'perl' }
 Plug 'fs111/pydoc.vim', { 'for': 'python' }

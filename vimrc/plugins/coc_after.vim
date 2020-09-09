@@ -37,6 +37,9 @@ call coc#config('languageserver', {
       \    'client': {
       \      'snippetSupport': v:true
       \    },
+      \    'highlight': {
+      \      'lsRanges': v:true
+      \    },
       \    'index': {
       \      'threads': 2
       \    }
