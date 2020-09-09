@@ -310,8 +310,8 @@ if vimrc#plugin#is_enabled_plugin('coc.nvim')
 endif
 
 " fzf-checkout
-nnoremap <Space>gc :GCheckout<CR>
-nnoremap <Space>gt :GCheckoutTag<CR>
+nnoremap <Space>gc :GBranches<CR>
+nnoremap <Space>gt :GTag<CR>
 
 " fzf & cscope key mappings {{{
 let s:fzf_cscope_prefix = '\c'
