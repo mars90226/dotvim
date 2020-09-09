@@ -67,6 +67,9 @@ nnoremap <Leader>r :Rooter<CR>
 " vimwiki {{{
 Plug 'vimwiki/vimwiki'
 
+" disable vimwiki on markdown file
+let g:vimwiki_ext2syntax = { '.wiki': 'media' }
+
 augroup vimwiki_settings
   autocmd!
   autocmd FileType vimwiki call vimrc#vimwiki#mappings()
