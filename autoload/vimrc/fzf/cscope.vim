@@ -28,6 +28,7 @@ function! vimrc#fzf#cscope#cscope(option, query)
         \ 'sink*': function('vimrc#fzf#cscope#cscope_sink'),
         \ 'options': ['--ansi', '--prompt', '> ',
         \             '--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
+        \             '--delimiter', ':', '--preview-window', '+{2}-5',
         \             '--color', 'fg:188,fg+:222,bg+:#3a3a3a,hl+:104',
         \             '--prompt', 'Cscope> ',
         \             '--expect=' . vimrc#fzf#expect_keys()]},
