@@ -19,6 +19,7 @@ augroup filetype_detection_settings
   autocmd BufNewFile,BufReadPost *conf.local          setlocal filetype=conf
   autocmd BufNewFile,BufReadPost *conf.local.override setlocal filetype=conf
   autocmd BufNewFile,BufReadPost *.cf                 setlocal filetype=conf
+  autocmd BufNewFile,BufReadPost main.cf              setlocal filetype=pfmain
   autocmd BufNewFile,BufReadPost .gitignore           setlocal filetype=conf
   autocmd BufNewFile,BufReadPost .gitconfig-*         setlocal filetype=gitconfig
   autocmd BufNewFile,BufReadPost .ignore              setlocal filetype=conf
