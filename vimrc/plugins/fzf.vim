@@ -47,7 +47,7 @@ let g:misc_fzf_action = {
 if has('nvim')
   let g:misc_fzf_action['alt-t'] = function('vimrc#fzf#open_terminal')
 endif
-let g:default_fzf_action = extend({
+let g:default_fzf_action = vimrc#fzf#wrap_actions_for_trigger(extend({
       \ 'ctrl-t': 'tab split',
       \ 'ctrl-s': 'split',
       \ 'ctrl-x': 'split',
@@ -55,7 +55,7 @@ let g:default_fzf_action = extend({
       \ 'alt-v':  'rightbelow vsplit',
       \ 'alt-z':  'VimrcFloatNew split',
       \ 'alt-l':  'Switch',
-      \ }, g:misc_fzf_action)
+      \ }, g:misc_fzf_action))
 let g:fzf_action = g:default_fzf_action
 
 " TODO: Generalize g:fzf_action_type

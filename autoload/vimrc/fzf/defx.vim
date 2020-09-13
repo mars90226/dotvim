@@ -1,4 +1,4 @@
-let s:defx_fzf_action = extend({
+let s:defx_fzf_action = vimrc#fzf#wrap_actions_for_trigger(extend({
       \ 'enter':      'DefxOpenSink',
       \ 'ctrl-t':     'DefxTabOpenSink',
       \ 'ctrl-s':     'DefxSplitOpenSink',
@@ -9,7 +9,7 @@ let s:defx_fzf_action = extend({
       \ 'ctrl-alt-x': 'DefxSplitOpenDirSink',
       \ 'alt-z':      'DefxFloatOpenSink',
       \ 'alt-l':      'DefxSwitch',
-      \ }, g:misc_fzf_action)
+      \ }, g:misc_fzf_action))
 function! vimrc#fzf#defx#get_defx_fzf_action()
   return s:defx_fzf_action
 endfunction
@@ -21,6 +21,7 @@ endfunction
 " and still does not interfere other things like buffer list.
 function! vimrc#fzf#defx#use_defx_fzf_action(function)
   let g:fzf_action = s:defx_fzf_action
+
   augroup use_defx_fzf_action_callback
     autocmd!
     autocmd TermClose term://*fzf*

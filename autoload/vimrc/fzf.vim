@@ -237,6 +237,25 @@ function! s:extract_and_merge_options(opts, extra)
 endfunction
 " }}}
 
+" Wrap action to trigger autocmd in sink
+function! vimrc#fzf#wrap_action_for_trigger(Action)
+  if type(a:Action) == type('')
+    return 'doautocmd User VimrcFzfSink | '.a:Action
+  else
+    return { line -> a:Action(line) }
+  endif
+endfunction
+
+function! vimrc#fzf#wrap_actions_for_trigger(fzf_action)
+  let wrapped_fzf_action = {}
+
+  for [key, Action] in items(a:fzf_action)
+    let wrapped_fzf_action[key] = vimrc#fzf#wrap_action_for_trigger(Action)
+  endfor
+
+  return wrapped_fzf_action
+endfunction
+
 " Sources
 function! vimrc#fzf#jump_source()
   return reverse(filter(split(execute('jumps', 'silent!'), "\n")[1:], 'v:val !=# ">"'))

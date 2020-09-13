@@ -16,30 +16,36 @@ function! vimrc#fzf#dir#directory_ancestors_source(path)
 endfunction
 
 " Sinks
-" TODO Refine popd_callback that use counter to activate
 function! vimrc#fzf#dir#directory_sink(original_cwd, path, Func, directory)
   " Avoid fzf_popd autocmd that break further fzf commands that require
   " current changed working directory.
   " See s:dopopd() in fzf/plugin/fzf.vim
+  "
+  " Flow:
+  "   fzf command -> fzf pushd -> fzf callback -> fzf popd
+  "
+  " Pushing second fzf function to DirChanged callback to ignore first fzf
+  " command popd.
 
   " Change working directory of original file to orignal directory
   if exists('w:fzf_pushd')
     let w:directory_sink_popd = {
           \ 'original_cwd': a:original_cwd,
-          \ 'popd_counter': 2,
           \ 'bufname': w:fzf_pushd.bufname
           \ }
-    unlet w:fzf_pushd
-
-    augroup directory_sink_popd_callback
-      autocmd!
-      autocmd BufWinEnter,WinEnter * call vimrc#fzf#dir#directory_sink_popd_callback()
-    augroup END
   endif
 
   " Change working directory to directory pass in
   execute 'lcd ' . simplify(a:original_cwd . '/' . a:path)
-  call a:Func(a:directory)
+
+  " Execute second fzf function in callback
+  let w:directory_sink_directory = a:directory
+  let w:DirectorySinkFunc = a:Func
+
+  augroup directory_sink_chdir_callback
+    autocmd!
+    autocmd DirChanged * call vimrc#fzf#dir#directory_sink_chdir_callback(w:DirectorySinkFunc, w:directory_sink_directory)
+  augroup END
 endfunction
 
 function! vimrc#fzf#dir#directory_files_sink(chdir, directory)
@@ -49,6 +55,7 @@ function! vimrc#fzf#dir#directory_files_sink(chdir, directory)
   else
     execute 'Files ' . a:directory
   endif
+
   " To enter terminal mode, this is a workaround that autocommand exit the
   " terminal mode when previous fzf session end.
   call feedkeys('i')
@@ -61,6 +68,7 @@ function! vimrc#fzf#dir#directory_rg_sink(chdir, directory)
   else
     execute 'RgWithOption ' . a:directory . '::' . input('Rg: ')
   endif
+
   " To enter terminal mode, this is a workaround that autocommand exit the
   " terminal mode when previous fzf session end.
   call feedkeys('i')
@@ -71,6 +79,31 @@ function! vimrc#fzf#dir#directory_ancestors_sink(line)
 endfunction
 
 " Callbacks
+function! vimrc#fzf#dir#directory_sink_chdir_callback(Func, directory)
+  " Set callback in fzf sink to switch original buffer to original cwd.
+  " Avoid invoke popd_callback callback too early.
+
+  autocmd! directory_sink_chdir_callback
+
+  augroup directory_sink_second_sink_callback
+    autocmd!
+    autocmd User VimrcFzfSink call vimrc#fzf#dir#directory_sink_second_sink_callback()
+  augroup END
+
+  call a:Func(a:directory)
+endfunction
+
+function! vimrc#fzf#dir#directory_sink_second_sink_callback()
+  " Invoke popd_callback in WinEnter callback
+
+  autocmd! directory_sink_second_sink_callback
+
+  augroup directory_sink_popd_callback
+    autocmd!
+    autocmd WinEnter * call vimrc#fzf#dir#directory_sink_popd_callback()
+  augroup END
+endfunction
+
 " FIXME This may have race condition that cannot find w:directory_sink_popd
 " Error messages:
 " || Error detected while processing function
@@ -90,12 +123,9 @@ function! vimrc#fzf#dir#directory_sink_popd_callback()
     return
   endif
 
-  let w:directory_sink_popd.popd_counter -= 1
-  if w:directory_sink_popd.popd_counter == 0
-    execute 'lcd ' . w:directory_sink_popd.original_cwd
-    unlet w:directory_sink_popd
-    autocmd! directory_sink_popd_callback
-  endif
+  execute 'lcd ' . w:directory_sink_popd.original_cwd
+  unlet w:directory_sink_popd
+  autocmd! directory_sink_popd_callback
 endfunction
 
 " Commands

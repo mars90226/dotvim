@@ -1,18 +1,19 @@
 " Utilities
-let s:fugitive_fzf_action = extend({
+let s:fugitive_fzf_action = vimrc#fzf#wrap_actions_for_trigger(extend({
       \ 'enter': 'Gedit',
       \ 'ctrl-t': 'Gtabedit',
       \ 'ctrl-s': 'Gsplit',
       \ 'ctrl-x': 'Gsplit',
       \ 'ctrl-v': 'Gvsplit',
       \ 'alt-v': 'Gvsplit',
-      \ }, g:misc_fzf_action)
+      \ }, g:misc_fzf_action))
 function! vimrc#fzf#git#get_fugitive_fzf_action()
   return s:fugitive_fzf_action
 endfunction
 
 function! vimrc#fzf#git#use_fugitive_fzf_action(function)
   let g:fzf_action = s:fugitive_fzf_action
+
   augroup use_fugitive_fzf_action_callback
     autocmd!
     autocmd TermClose term://*fzf*
