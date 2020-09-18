@@ -181,6 +181,10 @@ command! -nargs=1 KeywordsByMe call vimrc#fzf#git#keywords_by_me(<f-args>)
 command!          TodosByMe    call vimrc#fzf#git#keywords_by_me('TODO')
 command!          FixmesByMe   call vimrc#fzf#git#keywords_by_me('FIXME')
 
+" TodosInDisk & FixmesInDisk
+command! TodosInDisk  RgWithOption :-w:TODO
+command! FixmesInDisk RgWithOption :-w:FIXME
+
 if has('nvim')
   augroup fzf_statusline
     autocmd!
