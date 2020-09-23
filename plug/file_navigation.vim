@@ -96,6 +96,7 @@ if vimrc#plugin#is_enabled_plugin('any-jump.nvim')
   let g:any_jump_disable_default_keybindings = 1
 
   nnoremap <Leader>aj :AnyJump<CR>
+  nnoremap <Leader>aa :AnyJumpArg<Space>
   xnoremap <Leader>aj :AnyJumpVisual<CR>
   nnoremap <Leader>ab :AnyJumpBack<CR>
   nnoremap <Leader>al :AnyJumpLastResults<CR>
