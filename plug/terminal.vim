@@ -26,6 +26,7 @@ endif
 " vim-floaterm {{{
 if vimrc#plugin#is_enabled_plugin('vim-floaterm')
   Plug 'voldikss/vim-floaterm'
+  Plug 'voldikss/fzf-floaterm'
 
   call vimrc#source('vimrc/plugins/floaterm.vim')
 endif
