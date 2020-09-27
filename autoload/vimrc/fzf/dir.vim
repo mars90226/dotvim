@@ -35,11 +35,8 @@ function! vimrc#fzf#dir#directory_sink(original_cwd, path, Func, directory)
           \ }
   endif
 
-  " Change working directory to directory pass in
-  execute 'lcd ' . simplify(a:original_cwd . '/' . a:path)
-
   " Execute second fzf function in callback
-  let w:directory_sink_directory = a:directory
+  let w:directory_sink_directory = simplify(a:original_cwd.'/'.a:path.'/'.a:directory)
   let w:DirectorySinkFunc = a:Func
 
   augroup directory_sink_chdir_callback
