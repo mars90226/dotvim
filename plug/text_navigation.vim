@@ -18,7 +18,7 @@ map \w <Plug>(easymotion-bd-wl)
 map \f <Plug>(easymotion-bd-fl)
 map \s <Plug>(easymotion-sl2)
 
-map <Leader><Leader>f <Plug>(easymotion-bd-f)
+map <Space><Space>f <Plug>(easymotion-bd-f)
 map <Space><Space>l <Plug>(easymotion-bd-jk)
 map <Plug>(easymotion-prefix)s <Plug>(easymotion-bd-f2)
 map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
@@ -151,6 +151,18 @@ map <Space><Space>k <Plug>(edgemotion-k)
 Plug 'jeetsukumaran/vim-indentwise', { 'on': [] }
 
 call vimrc#lazy#lazy_load('indentwise')
+" }}}
+
+" vim-eft {{{
+Plug 'hrsh7th/vim-eft'
+
+nmap '; <Plug>(eft-repeat)
+xmap '; <Plug>(eft-repeat)
+
+map f <Plug>(eft-f)
+map F <Plug>(eft-F)
+map t <Plug>(eft-t)
+map T <Plug>(eft-T)
 " }}}
 
 Plug 'wellle/targets.vim'
