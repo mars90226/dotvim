@@ -49,10 +49,11 @@ let g:peekaboo_delay = 400
 " }}}
 
 " colorv {{{
-Plug 'Rykka/colorv.vim', { 'on': ['ColorV', 'ColorVName'] }
+Plug 'Rykka/colorv.vim', { 'on': ['ColorV', 'ColorVName', 'ColorVView'] }
 
 nnoremap <silent> <Leader>vv :ColorV<CR>
 nnoremap <silent> <Leader>vn :ColorVName<CR>
+nnoremap <silent> <Leader>vw :ColorVView<CR>
 " }}}
 
 " vim-rooter {{{
