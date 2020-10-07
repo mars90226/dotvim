@@ -154,6 +154,7 @@ call vimrc#lazy#lazy_load('indentwise')
 " }}}
 
 " " vim-eft {{{
+" FIXME: Disabled for not compatible with visual block mode
 " Plug 'hrsh7th/vim-eft'
 "
 " nmap '; <Plug>(eft-repeat)
