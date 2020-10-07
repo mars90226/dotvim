@@ -153,16 +153,16 @@ Plug 'jeetsukumaran/vim-indentwise', { 'on': [] }
 call vimrc#lazy#lazy_load('indentwise')
 " }}}
 
-" vim-eft {{{
-Plug 'hrsh7th/vim-eft'
-
-nmap '; <Plug>(eft-repeat)
-xmap '; <Plug>(eft-repeat)
-
-map f <Plug>(eft-f)
-map F <Plug>(eft-F)
-map t <Plug>(eft-t)
-map T <Plug>(eft-T)
-" }}}
+" " vim-eft {{{
+" Plug 'hrsh7th/vim-eft'
+"
+" nmap '; <Plug>(eft-repeat)
+" xmap '; <Plug>(eft-repeat)
+"
+" map f <Plug>(eft-f)
+" map F <Plug>(eft-F)
+" map t <Plug>(eft-t)
+" map T <Plug>(eft-T)
+" " }}}
 
 Plug 'wellle/targets.vim'
