@@ -131,6 +131,14 @@ if vimrc#plugin#is_enabled_plugin('vim-lsp-cxx-highlight')
 endif
 " }}}
 
+" vim-doge {{{
+if vimrc#plugin#is_enabled_plugin('vim-doge')
+  Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+
+  let g:doge_mapping = '<Leader><Leader>d'
+endif
+" }}}
+
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'mars90226/perldoc-vim', { 'for': 'perl' }
 Plug 'fs111/pydoc.vim', { 'for': 'python' }
