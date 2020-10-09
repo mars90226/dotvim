@@ -54,13 +54,11 @@ function! vimrc#fzf#chinese#punctuations_in_insert_mode()
   let colored = map(aligned, 'vimrc#fzf#yellow(v:val[0])."\t".v:val[1]')
 
   let results = []
-  " FIXME Use tmux as opening popup in insert mode conflict with neovim
-  " floating window and cause serious error that need to restart neovim
-  let g:fzf_prefer_tmux = 1
+  " FIXME Use tmux because of opening popup in insert mode conflict with
+  " neovim floating window and cause serious error that need to restart neovim
   call vimrc#fzf#fzf('Punctuations', extend({
         \ 'source': colored,
         \ 'sink': function('vimrc#fzf#chinese#punctuations_in_insert_mode_sink', [results]),
         \ 'options': ['--ansi', '--tiebreak=index', '+m', '-n', '1', '-d', "\t", '--prompt', 'Punctuations> ']}, g:fzf_tmux_layout), a:000)
-  let g:fzf_prefer_tmux = 0
   return get(results, 0, '')
 endfunction

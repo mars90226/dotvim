@@ -34,7 +34,7 @@ else
     let g:fzf_layout = { 'down': '~40%' }
   endif
 endif
-let g:fzf_tmux_layout = { 'down': '~40%' }
+let g:fzf_tmux_layout = { 'tmux': '-p 90%,60%' }
 
 let g:fzf_history_dir = $HOME.'/.local/share/fzf-history'
 

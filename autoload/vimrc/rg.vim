@@ -60,13 +60,10 @@ endfunction
 
 function! vimrc#rg#types_in_commandline()
   let results = []
-  " Use tmux to avoid opening terminal in neovim
-  let g:fzf_prefer_tmux = 1
   call fzf#run(fzf#wrap('Rg Types', extend({
         \ 'source': vimrc#rg#types_in_commandline_source(),
         \ 'sink': function('vimrc#rg#types_in_commandline_sink', [results]),
         \ 'options': ['--prompt', 'Rg Types> ']
         \ }, g:fzf_tmux_layout)))
-  let g:fzf_prefer_tmux = 0
   return get(results, 0, '')
 endfunction

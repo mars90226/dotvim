@@ -407,15 +407,12 @@ endfunction
 " Intend to be mapped in command mode
 function! vimrc#fzf#files_in_commandline()
   let results = []
-  " Use tmux to avoid opening terminal in neovim
-  let g:fzf_prefer_tmux = 1
   call fzf#vim#files(
         \ '',
         \ fzf#vim#with_preview(extend({
         \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
         \ }, g:fzf_tmux_layout)),
         \ 0)
-  let g:fzf_prefer_tmux = 0
   return get(results, 0, '')
 endfunction
 
