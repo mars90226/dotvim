@@ -50,6 +50,7 @@ endfunction
 
 function! vimrc#utility#window_equal()
   windo setlocal nowinfixheight nowinfixwidth
+  1wincmd w
   wincmd =
 endfunction
 
