@@ -19,10 +19,22 @@ endfunction
 " }}}
 
 " Settings
+function! vimrc#fugitive#settings()
+  let b:qs_local_disable = 1
+endfunction
+
+function! vimrc#fugitive#git_settings()
+  let b:qs_local_disable = 1
+endfunction
+
 function! vimrc#fugitive#gitcommit_settings()
   setlocal complete+=k
   setlocal nolist
   setlocal spell
+endfunction
+
+function! vimrc#fugitive#blame_settings()
+  let b:qs_local_disable = 1
 endfunction
 
 " For fugitive://* buffers

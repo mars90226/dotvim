@@ -168,6 +168,8 @@ call vimrc#lazy#lazy_load('indentwise')
 
 " quick-scope {{{
 Plug 'unblevable/quick-scope'
+
+let g:qs_buftype_blacklist = ['nofile', 'quickfix', 'terminal']
 " }}}
 
 Plug 'wellle/targets.vim'
