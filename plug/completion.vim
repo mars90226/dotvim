@@ -95,6 +95,11 @@ endif
 
 " Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
+
+augroup neosnippet_settings
+  autocmd!
+  autocmd BufNewFile,BufReadPost *.snip setlocal filetype=neosnippet
+augroup END
 " }}}
 
 " tmux-complete.vim {{{
