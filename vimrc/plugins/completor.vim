@@ -4,6 +4,8 @@ if vimrc#plugin#check#has_linux_build_env()
   let g:completor_clang_binary = vimrc#plugin#check#detect_clang_dir('/bin/clang')
 end
 
+let g:completor_blacklist = ['tagbar', 'qf', 'netrw', 'unite']
+
 " <Tab>: completion
 inoremap <expr> <Tab>
       \ pumvisible() ? "\<C-N>" :
