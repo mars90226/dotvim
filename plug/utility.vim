@@ -75,6 +75,7 @@ let g:vimwiki_key_mappings = { 'table_mappings': 0 }
 
 augroup vimwiki_settings
   autocmd!
+  autocmd FileType vimwiki call vimrc#vimwiki#settings()
   autocmd FileType vimwiki call vimrc#vimwiki#mappings()
 augroup END
 " }}}
