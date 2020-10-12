@@ -62,6 +62,7 @@ command! -nargs=1 -complete=file DefxSwitch call vimrc#open#switch(<q-args>, 'De
 
 augroup defx_mappings
   autocmd!
+  autocmd FileType defx call vimrc#defx#settings()
   autocmd FileType defx call vimrc#defx#mappings()
 augroup END
 

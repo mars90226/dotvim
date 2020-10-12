@@ -56,6 +56,12 @@ function! vimrc#defx#call_map(function, args)
   call call(a:function, a:args)
 endfunction
 
+" Settings
+function! vimrc#defx#settings()
+  setlocal nonumber
+  setlocal norelativenumber
+endfunction
+
 " Mappings
 function! vimrc#defx#netrw_mapping_for_defx()
   " Cannot override Vinegar '-' mapping, so use '+' instead
