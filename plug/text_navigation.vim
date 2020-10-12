@@ -166,4 +166,8 @@ call vimrc#lazy#lazy_load('indentwise')
 " map T <Plug>(eft-T)
 " " }}}
 
+" quick-scope {{{
+Plug 'unblevable/quick-scope'
+" }}}
+
 Plug 'wellle/targets.vim'
