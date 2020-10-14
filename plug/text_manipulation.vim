@@ -138,6 +138,11 @@ Plug 'mg979/vim-visual-multi'
 " FIXME Cannot use sandwich command
 " }}}
 
+" Tabular {{{
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+" For vim-markdown :TableFormat
+" }}}
+
 Plug 'editorconfig/editorconfig-vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-repeat'
