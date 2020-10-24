@@ -46,7 +46,7 @@ endfunction
 " Utility
 let s:buffer_tags_preview_options = { 'placeholder': '{2}:{3}', 'options': ['-d', '\t'] }
 function! vimrc#fzf#preview#buffer_tags_options(options)
-  let preview_options = fzf#vim#with_preview(s:buffer_tags_preview_options, 'right:50%', '?')
+  let preview_options = vimrc#fzf#preview#with_preview(s:buffer_tags_preview_options)
   let opts = has_key(a:options, 'options') ? remove(a:options, 'options') : ''
   let merged = extend(preview_options, a:options)
   call vimrc#fzf#merge_opts(merged, opts)
@@ -70,5 +70,5 @@ function! vimrc#fzf#preview#with_preview(...)
   endfor
   let [opts, bang] = args
 
-  return bang ? fzf#vim#with_preview(opts, 'up:60%') : fzf#vim#with_preview(opts, 'right:50%:hidden', '?')
+  return bang ? fzf#vim#with_preview(opts, 'up:60%') : fzf#vim#with_preview(opts, 'right:50%:hidden', 'ctrl-/')
 endfunction
