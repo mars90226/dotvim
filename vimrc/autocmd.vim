@@ -50,6 +50,7 @@ augroup filetype_detection_settings
   autocmd BufNewFile,BufReadPost */backup/can_import  setlocal filetype=sh
   autocmd BufNewFile,BufReadPost */backup/info        setlocal filetype=json
   autocmd BufNewFile,BufReadPost */backup/info.dynamic setlocal filetype=sh
+  autocmd BufNewFile,BufReadPost sa-update-rules/*.cf setlocal filetype=spamassassin
 
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              setlocal filetype=cerr
