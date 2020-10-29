@@ -278,17 +278,20 @@ endfunction
 
 " TODO: Handle added/deleted files
 let s:git_diff_commit_command = 'git diff --name-only'
+let s:git_diff_commit_preview_command_fmt = 'git diff --color=always %s %s -- {}'
 function! vimrc#fzf#git#diff_commit(commit)
   if !exists('b:git_dir')
     echo 'No git a git repository:' expand('%:p')
   endif
 
-  let revision = a:commit . '^!'
+  let start_commit = a:commit.'^'
+  let end_commit = a:commit
+  let preview_command = printf(s:git_diff_commit_preview_command_fmt, start_commit, end_commit)
 
   call fzf#run(vimrc#fzf#wrap('GitDiffCommit', {
-        \ 'source': s:git_diff_commit_command.' '.revision,
-        \ 'sink*': function('vimrc#fzf#git#diff_commit_sink', [a:commit.'^', a:commit]),
-        \ 'options': ['-m', '-s', '--prompt', 'GitDiffCommit> ']}, 0))
+        \ 'source': s:git_diff_commit_command.' '.start_commit.' '.end_commit,
+        \ 'sink*': function('vimrc#fzf#git#diff_commit_sink', [start_commit, end_commit]),
+        \ 'options': ['-m', '-s', '--prompt', 'GitDiffCommit> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
 endfunction
 
 function! vimrc#fzf#git#diff_commits(start_commit, end_commit)
@@ -296,10 +299,12 @@ function! vimrc#fzf#git#diff_commits(start_commit, end_commit)
     echo 'No git a git repository:' expand('%:p')
   endif
 
+  let preview_command = printf(s:git_diff_commit_preview_command_fmt, a:start_commit, a:end_commit)
+
   call fzf#run(vimrc#fzf#wrap('GitDiffCommits', {
         \ 'source': s:git_diff_commit_command.' '.a:start_commit.'..'.a:end_commit,
         \ 'sink*': function('vimrc#fzf#git#diff_commit_sink', [a:start_commit, a:end_commit]),
-        \ 'options': ['-m', '-s', '--prompt', 'GitDiffCommits> ']}, 0))
+        \ 'options': ['-m', '-s', '--prompt', 'GitDiffCommits> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
 endfunction
 
 let s:git_files_commit_command = 'git ls-tree -r --name-only'
