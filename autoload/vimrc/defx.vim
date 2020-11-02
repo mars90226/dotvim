@@ -160,6 +160,8 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#do_action('cd', expand(input('cd: ', '', 'dir')))
   nnoremap <silent><buffer><expr> <Leader>r
         \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . defx#do_action('call', 'vimrc#defx#git_root')
+  nnoremap <silent><buffer><expr> gK
+        \ defx#do_action('call', 'vimrc#defx#show_detail')
   if bufname('%') =~# 'tab'
     nnoremap <silent><buffer><expr> q
           \ defx#do_action('quit') . ":quit<CR>"
@@ -365,8 +367,8 @@ endfunction
 " }}}
 
 " Execute {{{
-function! vimrc#defx#execute_internal(path, split) abort
-  let cmd = input('Command: ', '', 'shellcmd')
+function! vimrc#defx#execute_internal(path, split, ...) abort
+  let cmd = a:0 >= 1 && type(a:1) == type('') ? a:1 : input('Command: ', '', 'shellcmd')
 
   if empty(cmd)
     return
@@ -385,8 +387,8 @@ function! vimrc#defx#_get_commmand(cmd, path) abort
 endfunction
 
 function! vimrc#defx#execute_file_internal(context, split) abort
-  let path = a:context.targets[0]
-  call vimrc#defx#execute_internal(path, a:split)
+  let target = vimrc#defx#get_target(a:context)
+  call vimrc#defx#execute_internal(target, a:split)
 endfunction
 
 function! vimrc#defx#execute_file(context) abort
@@ -484,4 +486,11 @@ function! vimrc#defx#paste_from_system_clipboard_target(context) abort
   let path = vimrc#defx#get_target(a:context)
 
   call vimrc#defx#_paste_from_system_clipboard(path)
+endfunction
+
+" Depends on exa
+function! vimrc#defx#show_detail(context) abort
+  let target = vimrc#defx#get_target(a:context)
+  let cmd = 'exa -l {}'
+  call vimrc#defx#execute_internal(target, 'float', cmd)
 endfunction
