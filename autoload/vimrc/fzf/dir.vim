@@ -141,8 +141,9 @@ function! vimrc#fzf#dir#custom_files(command, bang)
   let folder = command_parts[0]
   let option = command_parts[1]
   let pattern = join(command_parts[2:], ':')
+  let cmd = s:fd_command.' '.option.' '.shellescape(pattern)
   let options = {
-    \ 'source': s:fd_command.' '.option.' '.pattern
+    \ 'source': cmd
     \ }
 
   call fzf#vim#files(folder,
