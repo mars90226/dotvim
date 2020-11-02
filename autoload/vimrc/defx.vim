@@ -288,18 +288,10 @@ endfunction
 function! vimrc#defx#open_dir(target, action)
   let [action, defx_option] = get(s:defx_action, a:action, '')
 
-  if isdirectory(a:target)
-    let dir = a:target
-  else
-    let dir = fnamemodify(a:target, ':h')
-  endif
-
   if &filetype ==# 'defx' && action ==# 'edit'
-    " Use absolute path
-    let dir = fnamemodify(dir, ':p')
-    call defx#call_action('cd', dir)
+    call defx#call_action('search', a:target)
   else
-    execute 'Defx ' . defx_option . ' ' . dir
+    execute 'Defx ' . defx_option . ' -search=' . a:target
   endif
 endfunction
 
