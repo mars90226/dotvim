@@ -134,13 +134,15 @@ function! vimrc#fzf#dir#all_files(folder, bang)
         \ a:bang)
 endfunction
 
-" Custom files, using ':' to seperate folder and option
+" Custom files, using ':' to seperate folder and option and pattern
+" TODO Review arguments
 function! vimrc#fzf#dir#custom_files(command, bang)
   let command_parts = split(a:command, ':', 1)
   let folder = command_parts[0]
-  let option = join(command_parts[1:], ':')
+  let option = command_parts[1]
+  let pattern = join(command_parts[2:], ':')
   let options = {
-    \ 'source': s:fd_command.' '.option
+    \ 'source': s:fd_command.' '.option.' '.pattern
     \ }
 
   call fzf#vim#files(folder,

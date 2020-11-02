@@ -212,8 +212,8 @@ endif
 " fzf key mappings {{{
 nnoremap <Space>fa     :call      vimrc#execute_and_save('Quickfix!')<CR>
 nnoremap <Space>fA     :call      vimrc#execute_and_save('AllFiles')<CR>
-nnoremap <Space>f1     :call      vimrc#execute_and_save('CustomFiles :' . input('Option: '))<CR>
-nnoremap <Space>f!     :call      vimrc#execute_and_save('CustomFiles ' . input('Folder: ', '', 'dir') . ':' . input('Option: '))<CR>
+nnoremap <Space>f1     :call      vimrc#execute_and_save('CustomFiles :' . input('Option: ') . ':' . input('Fd: '))<CR>
+nnoremap <Space>f!     :call      vimrc#execute_and_save('CustomFiles ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Fd: '))<CR>
 nnoremap <Space>fb     :call      vimrc#execute_and_save('Buffers')<CR>
 nnoremap <Space>fB     :call      vimrc#execute_and_save('Files %:h')<CR>
 nnoremap <Space>fc     :call      vimrc#execute_and_save('BCommits')<CR>
