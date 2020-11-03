@@ -84,6 +84,8 @@ function! vimrc#defx#mappings() abort " {{{
           \ defx#async_action('open') :
           \ defx#async_action('drop')
   endif
+  nnoremap <silent><buffer><nowait><expr> +
+        \ defx#do_action('open', 'choose')
   nnoremap <silent><buffer><expr> c
         \ defx#do_action('copy')
   nnoremap <silent><buffer><expr> cc
