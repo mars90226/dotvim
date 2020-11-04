@@ -76,7 +76,8 @@ Plug 'honza/vim-snippets'
 let g:neosnippet#snippets_directory = [
       \ vimrc#get_vim_plug_dir().'/neosnippet-snippets/neosnippets',
       \ vimrc#get_vim_plug_dir().'/vim-snippets/snippets',
-      \ vimrc#get_vimhome().'/my-snippets'
+      \ vimrc#get_vimhome().'/my-snippets',
+      \ $HOME.'/.vim_secret/my-snippets'
       \ ]
 
 " Plugin key-mappings.
