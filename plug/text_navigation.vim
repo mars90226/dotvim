@@ -166,10 +166,11 @@ call vimrc#lazy#lazy_load('indentwise')
 " map T <Plug>(eft-T)
 " " }}}
 
-" quick-scope {{{
-Plug 'unblevable/quick-scope'
-
-let g:qs_buftype_blacklist = ['nofile', 'quickfix', 'terminal']
-" }}}
+" " quick-scope {{{
+" TODO: Still not able to accommodate this plugin, try again later
+" Plug 'unblevable/quick-scope'
+"
+" let g:qs_buftype_blacklist = ['nofile', 'quickfix', 'terminal']
+" " }}}
 
 Plug 'wellle/targets.vim'
