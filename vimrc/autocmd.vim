@@ -11,6 +11,7 @@ augroup filetype_detection_settings
   autocmd!
 
   " Custom filetype
+  " TODO: Fix *conf, too many false positive
   autocmd BufNewFile,BufReadPost *.ru                 setlocal filetype=ruby
   autocmd BufNewFile,BufReadPost *.gdbinit            setlocal filetype=gdb
   autocmd BufNewFile,BufReadPost *maillog             setlocal filetype=messages
