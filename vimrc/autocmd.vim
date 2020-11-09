@@ -51,6 +51,8 @@ augroup filetype_detection_settings
   autocmd BufNewFile,BufReadPost */backup/info        setlocal filetype=json
   autocmd BufNewFile,BufReadPost */backup/info.dynamic setlocal filetype=sh
   autocmd BufNewFile,BufReadPost sa-update-rules/*.cf setlocal filetype=spamassassin
+  autocmd BufNewFile,BufReadPost syslog-ng.conf       setlocal filetype=syslog-ng
+  autocmd BufNewFile,BufReadPost patterndb.d/*.conf   setlocal filetype=syslog-ng
 
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              setlocal filetype=cerr
