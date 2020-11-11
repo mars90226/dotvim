@@ -55,6 +55,7 @@ augroup filetype_detection_settings
   autocmd BufNewFile,BufReadPost syslog-ng.conf       setlocal filetype=syslog-ng
   autocmd BufNewFile,BufReadPost patterndb.d/*.conf   setlocal filetype=syslog-ng
   autocmd BufNewFile,BufReadPost patterndb.d/*/*.conf setlocal filetype=syslog-ng
+  autocmd BufNewFile,BufReadPost justfile             setlocal filetype=make
 
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              setlocal filetype=cerr
