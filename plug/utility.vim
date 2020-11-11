@@ -248,6 +248,7 @@ Plug 'gyim/vim-boxdraw'
 Plug 'lambdalisue/reword.vim'
 Plug 'lpinilla/vim-codepainter'
 Plug 'nicwest/vim-http'
+Plug 'kristijanhusak/vim-carbon-now-sh'
 
 " " nvim-gdb {{{
 " Disabled for now as neovim's neovim_gdb.vim seems not exists
