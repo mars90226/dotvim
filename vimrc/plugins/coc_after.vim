@@ -20,6 +20,7 @@ call coc#add_extension('coc-vimlsp')
 call coc#add_extension('coc-cmake')
 call coc#add_extension('coc-css')
 call coc#add_extension('coc-vetur')
+call coc#add_extension('coc-solargraph')
 
 call coc#config('languageserver', {
       \ 'ccls': {
