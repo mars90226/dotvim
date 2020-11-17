@@ -86,7 +86,7 @@ augroup END
 if vimrc#plugin#check#has_jedi()
   Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
-  let g:jedi#completions_enabled = 1
+  let g:jedi#completions_enabled = 0
 
   let g:jedi#goto_command             = '<C-X><C-G>'
   let g:jedi#goto_assignments_command = '<C-X>a'

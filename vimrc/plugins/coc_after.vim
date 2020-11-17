@@ -11,7 +11,7 @@ call coc#add_extension('coc-git')
 " Language server
 call coc#add_extension('coc-json')
 call coc#add_extension('coc-tsserver')
-call coc#add_extension('coc-python')
+call coc#add_extension('coc-pyright')
 " Not work right now
 " call coc#add_extension('coc-ccls')
 " call coc#add_extension('coc-rls')
