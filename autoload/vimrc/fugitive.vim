@@ -45,6 +45,8 @@ function! vimrc#fugitive#fugitive_buffer_settings()
   nmap <buffer> <silent> _               :vsplit<CR>-
   nmap <buffer> <silent> <Space>-        :split<CR>-
   nmap <buffer> <silent> <Space><Space>- :tab split<CR>-
+
+  nnoremap <buffer> <silent> <Leader>gu :execute 'Gsplit '.vimrc#fugitive#commit_sha()<CR>
 endfunction
 
 " Mappings
