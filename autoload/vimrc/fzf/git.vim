@@ -36,10 +36,10 @@ function! s:open(cmd, target)
   execute a:cmd s:escape(a:target)
 endfunction
 
-function! s:git_grep_to_qf(line, commit, with_column)
+function! s:git_grep_to_qf(line, has_commit, with_column)
   let parts = split(a:line, ':')
   let indexs = { 'commit': 0, 'filename': 0, 'lnum': 1, 'col': 2, 'text': 2 }
-  if !empty(a:commit)
+  if a:has_commit
     let indexs['filename'] += 1
     let indexs['lnum'] += 1
     let indexs['col'] += 1
@@ -51,7 +51,7 @@ function! s:git_grep_to_qf(line, commit, with_column)
 
   let text = join(parts[indexs['text']:], ':')
   let dict = {
-        \ 'filename': (empty(a:commit) ? '' : parts[indexs['commit']] . ':') . (&autochdir ? fnamemodify(parts[indexs['filename']], ':p') : parts[indexs['filename']]),
+        \ 'filename': (a:has_commit ? parts[indexs['commit']] . ':' : '') . (&autochdir ? fnamemodify(parts[indexs['filename']], ':p') : parts[indexs['filename']]),
         \ 'lnum': parts[indexs['lnum']],
         \ 'text': text }
   if a:with_column
@@ -63,13 +63,13 @@ endfunction
 
 " Sinks
 " Borrowed from fzf.vim
-function! vimrc#fzf#git#grep_commit_sink(commit, with_column, lines)
+function! vimrc#fzf#git#grep_commit_sink(has_commit, with_column, lines)
   if len(a:lines) < 2
     return
   endif
 
   let cmd = vimrc#fzf#action_for_with_table(s:fugitive_fzf_action, a:lines[0], 'Gedit')
-  let list = map(filter(a:lines[1:], 'len(v:val)'), 's:git_grep_to_qf(v:val, a:commit, a:with_column)')
+  let list = map(filter(a:lines[1:], 'len(v:val)'), 's:git_grep_to_qf(v:val, a:has_commit, a:with_column)')
   if empty(list)
     return
   endif
@@ -256,7 +256,7 @@ function! vimrc#fzf#git#grep_commits(commits, query)
   " Depends on bat
   " Borrowed from fzf.vim preview.sh
   let get_variable_commands = {}
-  if empty(a:commits[0])
+  if empty(a:commits)
     let get_variable_commands['COMMIT'] = ''
     let get_variable_commands['FILE']   = "$(echo {} | awk -F ':' '{ print $1 }')"
     let get_variable_commands['LINE']   = "$(echo {} | awk -F ':' '{ print $2 }')"
@@ -265,6 +265,8 @@ function! vimrc#fzf#git#grep_commits(commits, query)
     let get_variable_commands['FILE']   = "$(echo {} | awk -F ':' '{ print $2 }')"
     let get_variable_commands['LINE']   = "$(echo {} | awk -F ':' '{ print $3 }')"
   endif
+  " Allow command to get commits
+  let commits_string = type(a:commits) == type([]) ? join(a:commits) : a:commits
 
   let preview_command = "COMMIT=\"".get_variable_commands['COMMIT']."\";".
         \ "FILE=\"".get_variable_commands['FILE']."\";".
@@ -278,8 +280,8 @@ function! vimrc#fzf#git#grep_commits(commits, query)
         \ 'rm "$TEMPFILE"'
 
   call fzf#run(vimrc#fzf#wrap('GitGrepCommit', {
-        \ 'source': s:git_grep_commit_command.' '.query.' '.join(a:commits),
-        \ 'sink*': function('vimrc#fzf#git#grep_commit_sink', [a:commits[0], with_column]),
+        \ 'source': s:git_grep_commit_command.' '.query.' '.commits_string,
+        \ 'sink*': function('vimrc#fzf#git#grep_commit_sink', [!empty(a:commits), with_column]),
         \ 'options': ['-m', '-s', '--prompt', 'GitGrepCommit> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
 endfunction
 
@@ -290,25 +292,26 @@ else
 endif
 function! vimrc#fzf#git#grep_commit(commit, ...)
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
-  call vimrc#fzf#git#grep_commits([a:commit], query)
+  let commits = empty(a:commit) ? [] : [a:commit]
+  call vimrc#fzf#git#grep_commits(commits, query)
 endfunction
 
 function! vimrc#fzf#git#grep_all_commits(...)
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
-  let all_commits = systemlist('git rev-list --all')
-  call vimrc#fzf#git#grep_commits(all_commits, query)
+  " Use shell command substitution to get commits to avoid passing too long command to fzf
+  call vimrc#fzf#git#grep_commits('$(git rev-list --all)', query)
 endfunction
 
 function! vimrc#fzf#git#grep_branches(...)
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
-  let all_branches = systemlist("git branch -a | sed 's/^[* ]*//; /->/d'")
-  call vimrc#fzf#git#grep_commits(all_branches, query)
+  " Use shell command substitution to get commits to avoid passing too long command to fzf
+  call vimrc#fzf#git#grep_commits("$(git branch -a | sed 's/^[* ]*//; /->/d')", query)
 endfunction
 
 function! vimrc#fzf#git#grep_current_branch(...)
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
-  let all_current_branch_commit = systemlist('git rev-list HEAD')
-  call vimrc#fzf#git#grep_commits(all_current_branch_commit, query)
+  " Use shell command substitution to get commits to avoid passing too long command to fzf
+  call vimrc#fzf#git#grep_commits('$(git rev-list HEAD)', query)
 endfunction
 
 " TODO: Handle added/deleted files
