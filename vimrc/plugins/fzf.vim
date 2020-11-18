@@ -162,7 +162,10 @@ command! Punctuations call vimrc#fzf#chinese#punctuations()
 " Git commit command {{{
 " GitGrepCommit
 command! -nargs=+ -complete=customlist,fugitive#CompleteObject GitGrepCommit call vimrc#fzf#git#grep_commit(<f-args>)
-command! -bang -nargs=* GitGrep call vimrc#fzf#git#grep_commit('', <q-args>)
+command! -nargs=* GitGrep call vimrc#fzf#git#grep_commit('', <q-args>)
+command! -nargs=* GitGrepAllCommits call vimrc#fzf#git#grep_all_commits(<q-args>)
+command! -nargs=* GitGrepBranches call vimrc#fzf#git#grep_branches(<q-args>)
+command! -nargs=* GitGrepCurrentBranch call vimrc#fzf#git#grep_current_branch(<q-args>)
 
 " GitDiffCommit
 command! -nargs=? -complete=customlist,fugitive#CompleteObject GitDiffCommit call vimrc#fzf#git#diff_commit(<f-args>)
@@ -312,6 +315,10 @@ nnoremap <Space>ss :History:<CR>mks vim sessions
 if vimrc#plugin#is_enabled_plugin('coc.nvim')
   nnoremap <Space>sv :call vimrc#fzf#range#select_operator('av')<CR>
 endif
+
+nnoremap <Space>sga :call vimrc#execute_and_save('GitGrepAllCommits ' . input('Git grep all commits: '))<CR>
+nnoremap <Space>sgb :call vimrc#execute_and_save('GitGrepBranches ' . input('Git grep branches: '))<CR>
+nnoremap <Space>sgc :call vimrc#execute_and_save('GitGrepCurrentBranch ' . input('Git grep current branch: '))<CR>
 
 " fzf-checkout
 nnoremap <Space>gc :GBranches<CR>

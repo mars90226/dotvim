@@ -249,6 +249,40 @@ function! vimrc#fzf#git#rg_diff(...)
 endfunction
 
 " Git commit command {{{
+function! vimrc#fzf#git#grep_commits(commits, query)
+  let query = shellescape(a:query)
+  let with_column = (vimrc#plugin#check#git_version() >=# 'git version 2.19.0') ? 1 : 0
+  " TODO Think of a better way to avoid temp file and can still let bat detect language
+  " Depends on bat
+  " Borrowed from fzf.vim preview.sh
+  let get_variable_commands = {}
+  if empty(a:commits[0])
+    let get_variable_commands['COMMIT'] = ''
+    let get_variable_commands['FILE']   = "$(echo {} | awk -F ':' '{ print $1 }')"
+    let get_variable_commands['LINE']   = "$(echo {} | awk -F ':' '{ print $2 }')"
+  else
+    let get_variable_commands['COMMIT'] = "$(echo {} | awk -F ':' '{ print $1 }')"
+    let get_variable_commands['FILE']   = "$(echo {} | awk -F ':' '{ print $2 }')"
+    let get_variable_commands['LINE']   = "$(echo {} | awk -F ':' '{ print $3 }')"
+  endif
+
+  let preview_command = "COMMIT=\"".get_variable_commands['COMMIT']."\";".
+        \ "FILE=\"".get_variable_commands['FILE']."\";".
+        \ "LINE=\"".get_variable_commands['LINE']."\";".
+        \ 'FIRST=$(($LINE-$FZF_PREVIEW_LINES/3));'.
+        \ 'FIRST=$(($FIRST < 1 ? 1 : $FIRST));'.
+        \ 'LAST=$((${FIRST}+${FZF_PREVIEW_LINES}-1));'.
+        \ 'TEMPFILE="/tmp/$(basename $FILE)";'.
+        \ 'git show "$COMMIT":"$FILE" > "$TEMPFILE";'.
+        \ vimrc#fzf#preview#get_command() . ' --line-range "$FIRST:$LAST" --highlight-line "$LINE" "$TEMPFILE";'.
+        \ 'rm "$TEMPFILE"'
+
+  call fzf#run(vimrc#fzf#wrap('GitGrepCommit', {
+        \ 'source': s:git_grep_commit_command.' '.query.' '.join(a:commits),
+        \ 'sink*': function('vimrc#fzf#git#grep_commit_sink', [a:commits[0], with_column]),
+        \ 'options': ['-m', '-s', '--prompt', 'GitGrepCommit> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
+endfunction
+
 if vimrc#plugin#check#git_version() >=# 'git version 2.19.0'
   let s:git_grep_commit_command = 'git grep -nP --column'
 else
@@ -256,24 +290,25 @@ else
 endif
 function! vimrc#fzf#git#grep_commit(commit, ...)
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
-  let with_column = (vimrc#plugin#check#git_version() >=# 'git version 2.19.0') ? 1 : 0
-  " TODO Think of a better way to avoid temp file and can still let bat detect language
-  " Depends on bat
-  " Borrowed from fzf.vim preview.sh
-  let preview_command = "FILE=\"$(echo {} | awk -F ':' '{ print $2 }')\";".
-        \ "LINE=\"$(echo {} | awk -F ':' '{ print $3 }')\";".
-        \ 'FIRST=$(($LINE-$FZF_PREVIEW_LINES/3));'.
-        \ 'FIRST=$(($FIRST < 1 ? 1 : $FIRST));'.
-        \ 'LAST=$((${FIRST}+${FZF_PREVIEW_LINES}-1));'.
-        \ 'TEMPFILE="/tmp/$(basename $FILE)";'.
-        \ 'git show '.a:commit.':"$FILE" > "$TEMPFILE";'.
-        \ vimrc#fzf#preview#get_command() . ' --line-range "$FIRST:$LAST" --highlight-line "$LINE" "$TEMPFILE";'.
-        \ 'rm "$TEMPFILE"'
+  call vimrc#fzf#git#grep_commits([a:commit], query)
+endfunction
 
-  call fzf#run(vimrc#fzf#wrap('GitGrepCommit', {
-        \ 'source': s:git_grep_commit_command.' '.shellescape(query).' '.a:commit,
-        \ 'sink*': function('vimrc#fzf#git#grep_commit_sink', [a:commit, with_column]),
-        \ 'options': ['-m', '-s', '--prompt', 'GitGrepCommit> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
+function! vimrc#fzf#git#grep_all_commits(...)
+  let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
+  let all_commits = systemlist('git rev-list --all')
+  call vimrc#fzf#git#grep_commits(all_commits, query)
+endfunction
+
+function! vimrc#fzf#git#grep_branches(...)
+  let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
+  let all_branches = systemlist("git branch -a | sed 's/^[* ]*//; /->/d'")
+  call vimrc#fzf#git#grep_commits(all_branches, query)
+endfunction
+
+function! vimrc#fzf#git#grep_current_branch(...)
+  let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
+  let all_current_branch_commit = systemlist('git rev-list HEAD')
+  call vimrc#fzf#git#grep_commits(all_current_branch_commit, query)
 endfunction
 
 " TODO: Handle added/deleted files
