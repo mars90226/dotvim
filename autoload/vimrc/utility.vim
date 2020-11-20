@@ -187,7 +187,7 @@ function! vimrc#utility#blink_cursor_location()
   let &cursorline = 1
   let &cursorcolumn = 1
 
-  call timer_start(200, function('s:blink_cursor_location_callback', [cursorline, cursorcolumn]))
+  call timer_start(250, function('s:blink_cursor_location_callback', [cursorline, cursorcolumn]))
 endfunction
 
 function! s:blink_cursor_location_callback(cursorline, cursorcolumn, timer_id)
