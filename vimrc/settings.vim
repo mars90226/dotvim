@@ -38,8 +38,10 @@ set modeline
 set updatetime=100 " default: 4000
 set cursorline
 set ruler " show the cursor position all the time
-" Fix neovim VimReized bug: https://github.com/neovim/neovim/issues/12432
-set display-=msgsep
+" TODO: Remove this comment when neovim bug fixed
+" Fix neovim VimResized bug: https://github.com/neovim/neovim/issues/12432
+" Disabled fix as vim-clap removed VimResized autocmd that trigger bug: https://github.com/liuchengxu/vim-clap/pull/593
+" set display-=msgsep
 
 set scrolloff=0
 
