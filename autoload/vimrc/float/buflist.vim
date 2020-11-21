@@ -180,7 +180,7 @@ function! vimrc#float#buflist#find_curr() abort
   return s:buflist.find_curr()
 endfunction
 function! vimrc#float#buflist#info() abort
-  echom s:buflist.to_string()
+  echomsg s:buflist.to_string()
 endfunction
 function! vimrc#float#buflist#gather() abort
   return s:buflist.gather()

@@ -22,7 +22,7 @@ endfunction
 
 function! vimrc#utility#warn(message)
   echohl WarningMsg
-  echom a:message
+  echomsg a:message
   echohl None
   return 0
 endfunction
