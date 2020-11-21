@@ -8,5 +8,7 @@ setlocal tabstop=4
 setlocal softtabstop=4
 setlocal expandtab
 
-nnoremap <silent><buffer> K :call vimrc#coc#show_documentation()<CR>
-nnoremap <silent><buffer> gK :execute 'Pydoc ' . expand('<cword>')<CR>
+if vimrc#plugin#is_enabled_plugin('coc.nvim')
+  nnoremap <silent><buffer> K :call vimrc#coc#show_documentation()<CR>
+  nnoremap <silent><buffer> gK :execute 'Pydoc ' . expand('<cword>')<CR>
+endif
