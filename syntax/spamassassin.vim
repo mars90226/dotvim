@@ -17,12 +17,12 @@
 " including all plugins that ship with SpamAssassin and even a few others.
 " Only a few eval:foobar() functions are supported (there are too many).
 
-if version < 600
-  echo "Vim 6 or later is needed for this syntax file"
+if v:version < 600
+  echo 'Vim 6 or later is needed for this syntax file'
   finish " ... note that 'finish' isn't vim-5 compatible...
 endif
 
-if exists("b:current_syntax")
+if exists('b:current_syntax')
   finish
 endif
 

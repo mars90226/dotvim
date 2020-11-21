@@ -58,10 +58,9 @@ function! vimrc#fzf#range#screen_lines(...)
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
 
   let save_cursor = getcurpos()
-  " FIXME vint: dangerous command
-  normal H
+  normal! H
   let start = getpos('.')[1]
-  normal L
+  normal! L
   let end = getpos('.')[1]
   call setpos('.', save_cursor)
 

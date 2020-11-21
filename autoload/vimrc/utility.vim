@@ -203,8 +203,11 @@ endfunction
 " Trim whitespace
 function! vimrc#utility#trim_whitespace()
     let l:save = winsaveview()
-    " FIXME vint: Use substitute() instead of :substitue
-    %substitute/\s\+$//e
+    let l = 1
+    for line in getline(1, '$')
+      call setline(1, substitute(line, '\s\+$', '', 'e'))
+      let l += 1
+    endfor
     call winrestview(l:save)
 endfunction
 
