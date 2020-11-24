@@ -6,3 +6,16 @@
 "       \   'select-i': 'iu',
 "       \ },
 "       \ })
+
+call textobj#user#plugin('comment', {
+     \   '-': {
+     \     'select-a-function': 'textobj#comment#select_a',
+     \     'select-a': 'am',
+     \     'select-i-function': 'textobj#comment#select_i',
+     \     'select-i': 'im',
+     \   },
+     \   'big': {
+     \     'select-a-function': 'textobj#comment#select_big_a',
+     \     'select-a': 'aM',
+     \   }
+     \ })

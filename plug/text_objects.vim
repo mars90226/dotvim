@@ -23,3 +23,4 @@ onoremap <silent> iU :call TextObjWordBasedColumn("iW")<cr>
 " }}}
 
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'glts/vim-textobj-comment'
