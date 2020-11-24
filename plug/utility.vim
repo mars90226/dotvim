@@ -145,6 +145,11 @@ augroup END
 
 " vim-qf {{{
 Plug 'romainl/vim-qf'
+
+" Don't auto open quickfix list because it make vim-dispatch not able to
+" restore 'makeprg' after make.
+" https://github.com/tpope/vim-dispatch/issues/254
+let g:qf_auto_open_quickfix = 0
 " }}}
 
 " vim-caser {{{
