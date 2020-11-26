@@ -3,5 +3,5 @@
 command! -bang -nargs=0 Fzm call fuzzymenu#Run({'fullscreen': <bang>0})
 
 " Mappings
-nmap <Space>m <Plug>Fzm
-xmap <Space>m <Plug>FzmVisual
+nmap <Space>m <Plug>(Fzm)
+xmap <Space>m <Plug>(FzmVisual)
