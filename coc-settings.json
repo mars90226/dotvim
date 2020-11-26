@@ -16,7 +16,7 @@
   "coc.source.neosnippet.disableSyntaxes": ["string", "comment"],
   "suggest.acceptSuggestionOnCommitCharacter": true,
   "codeLens.enable": false,
-  "python.linting.pylintEnabled": true,
+  "python.linting.pylintEnabled": false,
   "list.insertMappings": {
     "<A-j>": "feedkeys:<C-f>",
     "<A-k>": "feedkeys:<C-b>",
