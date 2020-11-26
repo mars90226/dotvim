@@ -18,3 +18,7 @@ if executable('black-macchiato')
 elseif executable('autopep8')
   setlocal formatprg=autopep8
 end
+
+if executable('isort')
+  command -range SortImport :<line1>,<line2>!isort -
+endif
