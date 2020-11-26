@@ -337,6 +337,8 @@ command! ReloadVimrc call vimrc#reload#reload()
 
 command! -nargs=1 -complete=command QuickfixOutput call vimrc#quickfix#execute(<f-args>)
 nnoremap <Leader>o :execute 'QuickfixOutput '.input('output: ', '', 'command')<CR>
+command! -nargs=1 -complete=command LocationOutput call vimrc#quickfix#loc_execute(<f-args>)
+nnoremap <Leader>O :execute 'LocationOutput '.input('output: ', '', 'command')<CR>
 
 if vimrc#plugin#check#get_os() !~# 'windows'
   command! Args echo system("ps -o command= -p " . getpid())

@@ -37,3 +37,8 @@ function! vimrc#quickfix#execute(args)
   cexpr execute(a:args)
   copen
 endfunction
+
+function! vimrc#quickfix#loc_execute(args)
+  lexpr execute(a:args)
+  lopen
+endfunction
