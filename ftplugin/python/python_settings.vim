@@ -12,3 +12,9 @@ if vimrc#plugin#is_enabled_plugin('coc.nvim')
   nnoremap <silent><buffer> K :call vimrc#coc#show_documentation()<CR>
   nnoremap <silent><buffer> gK :execute 'Pydoc ' . expand('<cword>')<CR>
 endif
+
+if executable('black-macchiato')
+  setlocal formatprg=black-macchiato
+elseif executable('autopep8')
+  setlocal formatprg=autopep8
+end
