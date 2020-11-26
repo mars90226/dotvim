@@ -257,7 +257,7 @@ function! vimrc#fzf#wrap_actions_for_trigger(fzf_action)
 endfunction
 
 " Sources
-function! vimrc#fzf#jump_source()
+function! vimrc#fzf#jumps_source()
   return reverse(filter(split(execute('jumps', 'silent!'), "\n")[1:], 'v:val !=# ">"'))
 endfunction
 
@@ -279,6 +279,10 @@ endfunction
 
 function! vimrc#fzf#functions_source()
   return split(execute('function', 'silent!'), "\n")
+endfunction
+
+function! vimrc#fzf#compilers_source()
+  return getcompletion('', 'compiler')
 endfunction
 
 " Sinks
@@ -304,7 +308,7 @@ endfunction
 
 " TODO Add Jumps command preview
 " TODO Use <C-O> & <C-I> to actually jump back and forth
-function! vimrc#fzf#jump_sink(lines)
+function! vimrc#fzf#jumps_sink(lines)
   if len(a:lines) < 2
     return
   endif
@@ -351,6 +355,10 @@ endfunction
 function! vimrc#fzf#functions_sink(line)
   let function_name = matchstr(a:line, '\s\zs\S[^(]*\ze(')
   let @" = function_name
+endfunction
+
+function! vimrc#fzf#compilers_sink(bang, line)
+  execute 'compiler'.(a:bang ? '!' : '').' '.a:line
 endfunction
 
 " Borrowed from fzf.vim
@@ -417,11 +425,11 @@ function! vimrc#fzf#files_in_commandline()
 endfunction
 
 " Commands
-function! vimrc#fzf#jump()
+function! vimrc#fzf#jumps()
   call fzf#run(vimrc#fzf#wrap('Jumps', {
-      \ 'source':  vimrc#fzf#jump_source(),
-      \ 'sink*':   function('vimrc#fzf#jump_sink'),
-      \ 'options': ['-m', '+s', '--prompt', 'Jump> ']
+      \ 'source':  vimrc#fzf#jumps_source(),
+      \ 'sink*':   function('vimrc#fzf#jumps_sink'),
+      \ 'options': ['-m', '+s', '--prompt', 'Jumps> ']
       \ }, 0))
 endfunction
 
@@ -464,4 +472,12 @@ function! vimrc#fzf#helptags(...)
     \ ' | perl -n '.fzf#shellescape(s:helptags_script).' | sort',
     \ 'sink*': function('vimrc#fzf#helptag_sink'),
   \ 'options': ['--ansi', '+m', '--tiebreak=begin', '--with-nth', '..-2', '--prompt', 'Helptags> ', '--expect=alt-z']}, a:000)
+endfunction
+
+function! vimrc#fzf#compilers(bang)
+  call fzf#run(vimrc#fzf#wrap('Compilers', {
+      \ 'source':  vimrc#fzf#compilers_source(),
+      \ 'sink':   function('vimrc#fzf#compilers_sink', [a:bang]),
+      \ 'options': ['+s', '--prompt', 'Compilers> ']
+      \ }, 0))
 endfunction

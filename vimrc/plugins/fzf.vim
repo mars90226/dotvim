@@ -131,8 +131,8 @@ command! -bang -nargs=? DirectoryRg    call vimrc#fzf#dir#directory_rg(<q-args>,
 command! -nargs=1 Tselect        call vimrc#fzf#tag#tselect(<q-args>)
 command! -nargs=1 ProjectTselect call vimrc#fzf#tag#project_tselect(<q-args>)
 
-" Jump
-command! Jump call vimrc#fzf#jump()
+" Jumps
+command! Jumps call vimrc#fzf#jumps()
 
 " Registers
 command! Registers call vimrc#fzf#registers()
@@ -158,6 +158,9 @@ command! NeoSnippets call vimrc#fzf#neosnippet#neosnippet()
 
 " Punctuations
 command! Punctuations call vimrc#fzf#chinese#punctuations()
+
+" Compilers
+command! -bang Compilers call vimrc#fzf#compilers(<bang>0)
 
 " Git commit command {{{
 " GitGrepCommit
@@ -239,7 +242,7 @@ nnoremap <Space>fi     :call      vimrc#execute_and_save('RgFzf')<CR>
 nnoremap <Space>fI     :call      vimrc#execute_and_save('RgFzf!')<CR>
 nnoremap <Space>f9     :call      vimrc#execute_and_save('RgFzf ' . input('RgFzf: '))<CR>
 nnoremap <Space>f(     :call      vimrc#execute_and_save('RgFzf! ' . input('RgFzf!: '))<CR>
-nnoremap <Space>fj     :call      vimrc#execute_and_save('Jump')<CR>
+nnoremap <Space>fj     :call      vimrc#execute_and_save('Jumps')<CR>
 nnoremap <Space>fJ     :call      vimrc#execute_and_save('NeoSnippets')<CR>
 nnoremap <Space>fk     :call      vimrc#execute_and_save('Rg ' . expand('<cword>'))<CR>
 nnoremap <Space>fK     :call      vimrc#execute_and_save('Rg ' . expand('<cWORD>'))<CR>
