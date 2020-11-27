@@ -18,8 +18,8 @@ if has('nvim')
 else
   nnoremap <Space>P :Unite -start-insert file_rec<CR>
 endif
-nnoremap <Space>/ :call vimrc#unite#grep('', 'grep', '', v:false)<CR>
-nnoremap <Space>? :call vimrc#unite#grep('', 'grep', input('Option: '), v:false)<CR>
+nnoremap <Space>/ :call vimrc#unite#grep('.', '', 'grep', '', v:false)<CR>
+nnoremap <Space>? :call vimrc#unite#grep('.', '', 'grep', input('Option: '), v:false)<CR>
 nnoremap <Space>o :Unite outline -start-insert<CR>
 nnoremap <Space>ua :Unite location_list<CR>
 nnoremap <Space>uA :Unite apropos -start-insert<CR>
@@ -29,15 +29,17 @@ nnoremap <Space>uC :UniteWithCurrentDir -buffer-name=files file<CR>
 nnoremap <Space>ud :Unite directory<CR>
 nnoremap <Space>uD :UniteWithBufferDir directory<CR>
 nnoremap <Space>u<C-D> :execute 'Unite directory:' . input('dir: ', '', 'dir')<CR>
+nnoremap <Space>ue :call vimrc#unite#grep(input('Folder: ', '', 'dir'), '', 'grep', '', v:false)<CR>
+nnoremap <Space>uE :call vimrc#unite#grep(input('Folder: ', '', 'dir'), '', 'grep', input('Option: '), v:false)<CR>
 nnoremap <Space>uf :Unite function -start-insert<CR>
 nnoremap <Space>uh :Unite history/unite<CR>
 nnoremap <Space>uj :Unite -auto-preview jump<CR>
-nnoremap <Space>uk :call vimrc#unite#grep(expand('<cword>'), 'keyword', '', v:false)<CR>
-nnoremap <Space>uK :call vimrc#unite#grep(expand('<cWORD>'), 'keyword', '', v:false)<CR>
-nnoremap <Space>u8 :call vimrc#unite#grep(expand('<cword>'), 'keyword', '', v:true)<CR>
-nnoremap <Space>u* :call vimrc#unite#grep(expand('<cWORD>'), 'keyword', '', v:true)<CR>
-xnoremap <Space>uk :<C-U>call vimrc#unite#grep(vimrc#utility#get_visual_selection(), 'keyword', '', v:false)<CR>
-xnoremap <Space>u8 :<C-U>call vimrc#unite#grep(vimrc#utility#get_visual_selection(), 'keyword', '', v:true)<CR>
+nnoremap <Space>uk :call vimrc#unite#grep('.', expand('<cword>'), 'keyword', '', v:false)<CR>
+nnoremap <Space>uK :call vimrc#unite#grep('.', expand('<cWORD>'), 'keyword', '', v:false)<CR>
+nnoremap <Space>u8 :call vimrc#unite#grep('.', expand('<cword>'), 'keyword', '', v:true)<CR>
+nnoremap <Space>u* :call vimrc#unite#grep('.', expand('<cWORD>'), 'keyword', '', v:true)<CR>
+xnoremap <Space>uk :<C-U>call vimrc#unite#grep('.', vimrc#utility#get_visual_selection(), 'keyword', '', v:false)<CR>
+xnoremap <Space>u8 :<C-U>call vimrc#unite#grep('.', vimrc#utility#get_visual_selection(), 'keyword', '', v:true)<CR>
 nnoremap <Space>ul :UniteWithCursorWord -no-split -auto-preview line<CR>
 nnoremap <Space>um :Unite -start-insert file_mru<CR>
 nnoremap <Space>uM :Unite -buffer-name=files -default-action=lcd -start-insert directory_mru<CR>
@@ -71,8 +73,8 @@ if executable('rg')
   let g:unite_source_grep_default_opts = '--hidden --no-heading --vimgrep -S'
   let g:unite_source_grep_recursive_opt = ''
 
-  nnoremap <Space>g/ :call vimrc#unite#grep('', 'grep', vimrc#rg#current_type_option(), v:false)<CR>
-  nnoremap <Space>g? :call vimrc#unite#grep('', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
+  nnoremap <Space>g/ :call vimrc#unite#grep('.', '', 'grep', vimrc#rg#current_type_option(), v:false)<CR>
+  nnoremap <Space>g? :call vimrc#unite#grep('.', '', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
 endif
 " }}}
 

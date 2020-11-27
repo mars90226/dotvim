@@ -4,13 +4,13 @@ function! vimrc#denite#get_buffer_name(prefix) abort
   return a:prefix . '%' . tabpagenr()
 endfunction
 
-function! vimrc#denite#grep(query, buffer_name_prefix, option, is_word) abort
+function! vimrc#denite#grep(folder, query, buffer_name_prefix, option, is_word) abort
   let escaped_query = vimrc#utility#denite_escape_symbol(a:query)
   let escaped_option = vimrc#utility#denite_escape_symbol(a:option)
   let final_query = a:is_word ? '\\b' . escaped_query . '\\b' : escaped_query
   let buffer_name = vimrc#denite#get_buffer_name(a:buffer_name_prefix)
 
-  execute 'Denite -buffer-name=' . buffer_name . ' grep:.:' . escaped_option . ':' . final_query
+  execute 'Denite -buffer-name=' . buffer_name . ' grep:' . a:folder . ':' . escaped_option . ':' . final_query
 endfunction
 
 function! vimrc#denite#project_tags(query)

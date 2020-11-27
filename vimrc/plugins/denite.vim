@@ -39,20 +39,22 @@ nnoremap <Space>db :DeniteBufferDir file<CR>
 nnoremap <Space>dc :Denite -auto-action=preview change<CR>
 nnoremap <Space>dd :Denite directory_rec<CR>
 nnoremap <Space>dD :Denite directory_mru<CR>
-nnoremap <Space>de :Denite line/external<CR>
+nnoremap <Space>de :call vimrc#denite#grep(input('Folder: ', '', 'dir'), '', 'grep', '', v:false)<CR>
+nnoremap <Space>dE :call vimrc#denite#grep(input('Folder: ', '', 'dir'), '', 'grep', input('Option: '), v:false)<CR>
 nnoremap <Space>df :Denite filetype<CR>
 nnoremap <Space>dh :Denite help<CR>
 nnoremap <Space>dj :Denite -auto-action=preview jump<CR>
 nnoremap <Space>dJ :Denite project<CR>
-nnoremap <Space>di :call vimrc#denite#grep('!', 'grep', '', v:false)<CR>
-nnoremap <Space>dk :call vimrc#denite#grep(expand('<cword>'), 'grep', '', v:false)<CR>
-nnoremap <Space>dK :call vimrc#denite#grep(expand('<cWORD>'), 'grep', '', v:false)<CR>
-nnoremap <Space>d8 :call vimrc#denite#grep(expand('<cword>'), 'grep', '', v:true)<CR>
-nnoremap <Space>d* :call vimrc#denite#grep(expand('<cWORD>'), 'grep', '', v:true)<CR>
-xnoremap <Space>dk :<C-U>call vimrc#denite#grep(vimrc#utility#get_visual_selection(), 'grep', '', v:false)<CR>
-xnoremap <Space>d8 :<C-U>call vimrc#denite#grep(vimrc#utility#get_visual_selection(), 'grep', '', v:true)<CR>
+nnoremap <Space>di :call vimrc#denite#grep('.', '!', 'grep', '', v:false)<CR>
+nnoremap <Space>dk :call vimrc#denite#grep('.', expand('<cword>'), 'grep', '', v:false)<CR>
+nnoremap <Space>dK :call vimrc#denite#grep('.', expand('<cWORD>'), 'grep', '', v:false)<CR>
+nnoremap <Space>d8 :call vimrc#denite#grep('.', expand('<cword>'), 'grep', '', v:true)<CR>
+nnoremap <Space>d* :call vimrc#denite#grep('.', expand('<cWORD>'), 'grep', '', v:true)<CR>
+xnoremap <Space>dk :<C-U>call vimrc#denite#grep('.', vimrc#utility#get_visual_selection(), 'grep', '', v:false)<CR>
+xnoremap <Space>d8 :<C-U>call vimrc#denite#grep('.', vimrc#utility#get_visual_selection(), 'grep', '', v:true)<CR>
 nnoremap <Space>dl :DeniteCursorWord -auto-action=preview line<CR>
 xnoremap <Space>dl :<C-U>execute 'Denite -auto-action=preview -input='.vimrc#utility#denite_escape_symbol(vimrc#utility#get_visual_selection()).' line'<CR>
+nnoremap <Space>dL :Denite line/external<CR>
 nnoremap <Space>dm :Denite file_mru<CR>
 nnoremap <Space>dM :Denite directory_mru<CR>
 nnoremap <Space>do :execute 'Denite output:' . vimrc#utility#denite_escape_symbol(input('output: ', '', 'command'))<CR>
@@ -72,8 +74,8 @@ nnoremap <Space>d<C-U> :Denite -resume -refresh -buffer-name=`vimrc#denite#get_b
 nnoremap <Space>dy :Denite neoyank<CR>
 nnoremap <Space>d: :Denite command_history<CR>
 nnoremap <Space>d; :Denite command<CR>
-nnoremap <Space>d/ :call vimrc#denite#grep('', 'grep', '', v:false)<CR>
-nnoremap <Space>d? :call vimrc#denite#grep('', 'grep', input('Option: '), v:false)<CR>
+nnoremap <Space>d/ :call vimrc#denite#grep('.', '', 'grep', '', v:false)<CR>
+nnoremap <Space>d? :call vimrc#denite#grep('.', '', 'grep', input('Option: '), v:false)<CR>
 
 nnoremap <silent> [d :Denite -resume -immediately -cursor-pos=-1<CR>
 nnoremap <silent> ]d :Denite -resume -immediately -cursor-pos=+1<CR>
@@ -81,8 +83,8 @@ nnoremap <silent> [D :Denite -resume -immediately -cursor-pos=-1 -buffer-name=`v
 nnoremap <silent> ]D :Denite -resume -immediately -cursor-pos=+1 -buffer-name=`vimrc#denite#get_buffer_name('grep')`<CR>
 
 if executable('rg')
-  nnoremap <Space>dg/ :call vimrc#denite#grep('', 'grep', vimrc#rg#current_type_option(), v:false)<CR>
-  nnoremap <Space>dg? :call vimrc#denite#grep('', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
+  nnoremap <Space>dg/ :call vimrc#denite#grep('.', '', 'grep', vimrc#rg#current_type_option(), v:false)<CR>
+  nnoremap <Space>dg? :call vimrc#denite#grep('.', '', 'grep', "-g '" . input('glob: ') . "'", v:false)<CR>
 endif
 " }}}
 
