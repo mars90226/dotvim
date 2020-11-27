@@ -203,10 +203,10 @@ endfunction
 " Trim whitespace
 function! vimrc#utility#trim_whitespace()
     let l:save = winsaveview()
-    let l = 1
+    let line_number = 1
     for line in getline(1, '$')
-      call setline(1, substitute(line, '\s\+$', '', 'e'))
-      let l += 1
+      call setline(line_number, substitute(line, '\s\+$', '', 'e'))
+      let line_number += 1
     endfor
     call winrestview(l:save)
 endfunction
