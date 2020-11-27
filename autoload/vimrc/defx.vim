@@ -31,6 +31,10 @@ function! vimrc#defx#get_folder(context) abort
   return isdirectory(path) ? path : fnamemodify(path, ':h')
 endfunction
 
+function! vimrc#defx#get_buffer_context() abort
+  return b:defx['context']
+endfunction
+
 function! vimrc#defx#get_current_path() abort
   return b:defx['paths'][0]
 endfunction
@@ -259,6 +263,11 @@ function! vimrc#defx#mappings() abort " {{{
   " Use Unite because using Denite will change other Denite buffers
   nnoremap <silent><buffer> g?
         \ :Unite -buffer-name=defx_map_help output:map\ <buffer><CR>
+
+  cnoremap <buffer><expr> <C-X>d
+        \ vimrc#defx#get_current_path_in_commandline()
+  cnoremap <buffer><expr> <C-X>f
+        \ defx#do_action('call', 'vimrc#defx#get_target_in_commandline')
 endfunction " }}}
 
 " Functions
@@ -495,4 +504,18 @@ function! vimrc#defx#show_detail(context) abort
   let target = vimrc#defx#get_target(a:context)
   let cmd = 'exa -l {}'
   call vimrc#defx#execute_internal(target, 'float', cmd)
+endfunction
+
+" Command line function
+function! vimrc#defx#get_current_path_in_commandline() abort
+  return vimrc#defx#get_current_path()
+endfunction
+
+function! vimrc#defx#get_target_in_commandline(context) abort
+  let target = vimrc#defx#get_target(a:context)
+
+  " This function is executed by Defx python script
+  " So we cannot simply return target to caller.
+  " Instead we assume the typehead is in command line and feed the keys.
+  call feedkeys(target)
 endfunction
