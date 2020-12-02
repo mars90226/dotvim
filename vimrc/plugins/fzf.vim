@@ -173,6 +173,9 @@ command! -nargs=* GitGrepCurrentBranch call vimrc#fzf#git#grep_current_branch(<q
 " GitDiffCommit
 command! -nargs=? -complete=customlist,fugitive#CompleteObject GitDiffCommit call vimrc#fzf#git#diff_commit(<f-args>)
 
+" GitDiffCommits
+command! -nargs=+ -complete=customlist,fugitive#CompleteObject GitDiffCommits call vimrc#fzf#git#diff_commits(<f-args>)
+
 " GitFilesCommit
 command! -nargs=1 -complete=customlist,fugitive#CompleteObject GitFilesCommit call vimrc#fzf#git#files_commit(<q-args>)
 " }}}
