@@ -1,7 +1,7 @@
-" Don't use :Vista! or :Vista!! to close Vista window.
-" It will make :Vista coc not open Vista window.
+" Don't use :Vista!! to toggle Vista window.
+" It will use :Vista not :Vista coc.
 nnoremap <F7>        :Vista<CR>
-nnoremap <Space>vq   :Vista focus<CR>:close<CR>
+nnoremap <Space>vq   :Vista!<CR>
 nnoremap <Space>vf   :Vista finder<CR>
 nnoremap <Space>vl   :call vimrc#vista#finder_with_query('Vista finder', expand('<cword>'))<CR>
 nnoremap <Space>vL   :call vimrc#vista#finder_with_query('Vista finder', expand('<cWORD>'))<CR>
