@@ -12,7 +12,10 @@ let g:ale_linters = {
       \ 'sh': ['shell', 'shellcheck']
       \}
 let g:ale_fixers = {
-      \ 'javascript': [ 'eslint' ],
+      \ 'javascript': [
+      \   'eslint',
+      \   'prettier'
+      \ ],
       \ 'css': [
       \   'prettier',
       \   'stylelint'
