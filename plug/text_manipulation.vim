@@ -77,6 +77,20 @@ xmap al <Plug>(textobj-sandwich-literal-query-a)
 omap il <Plug>(textobj-sandwich-literal-query-i)
 omap al <Plug>(textobj-sandwich-literal-query-a)
 
+" Add vim-surround key mapping for vim-visual-multi
+" Borrowed from vim-sandwich/macros/sandwich/keymap/surround.vim {{{
+nmap ys <Plug>(operator-sandwich-add)
+onoremap <SID>line :normal! ^vg_<CR>
+nmap <silent> yss <Plug>(operator-sandwich-add)<SID>line
+onoremap <SID>gul g_
+nmap yS ys<SID>gul
+
+nmap ds <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
+nmap dss <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
+nmap cs <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
+nmap css <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
+" }}}
+
 " To avoid mis-deleting character when cancelling sandwich operator
 nnoremap s<Esc> <NOP>
 " }}}
