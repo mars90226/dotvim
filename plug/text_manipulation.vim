@@ -149,7 +149,6 @@ nmap <Leader>fr <Plug>(FerretAcks)
 Plug 'mg979/vim-visual-multi'
 
 " imap <BS> & <CR> is overwritten, need to be careful of bugs
-" FIXME Cannot use sandwich command
 " }}}
 
 " Tabular {{{
