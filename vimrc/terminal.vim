@@ -76,9 +76,9 @@ if has('nvim')
 
   " Search pattern
   tnoremap <M-s><C-F> <C-\><C-N>:call vimrc#search#search_file(0)<CR>
-  tnoremap <M-s><M-h> <C-\><C-N>:call vimrc#search#search_hash(0)<CR>
+  tnoremap <M-s><C-Y> <C-\><C-N>:call vimrc#search#search_hash(0)<CR>
   tnoremap <M-s><C-U> <C-\><C-N>:call vimrc#search#search_url(0)<CR>
-  tnoremap <M-s><M-i> <C-\><C-N>:call vimrc#search#search_ip(0)<CR>
+  tnoremap <M-s><C-I> <C-\><C-N>:call vimrc#search#search_ip(0)<CR>
   tnoremap <M-s><M-s> <M-s>
 
   " For nested neovim {{{
@@ -114,9 +114,9 @@ if has('nvim')
 
     " Search pattern
     tnoremap <M-q><C-F> <C-\><C-\><C-N>:call vimrc#search#search_file(0)<CR>
-    tnoremap <M-q><M-h> <C-\><C-\><C-N>:call vimrc#search#search_hash(0)<CR>
+    tnoremap <M-q><C-Y> <C-\><C-\><C-N>:call vimrc#search#search_hash(0)<CR>
     tnoremap <M-q><C-U> <C-\><C-\><C-N>:call vimrc#search#search_url(0)<CR>
-    tnoremap <M-q><M-i> <C-\><C-\><C-N>:call vimrc#search#search_ip(0)<CR>
+    tnoremap <M-q><C-I> <C-\><C-\><C-N>:call vimrc#search#search_ip(0)<CR>
 
     " For nested nested neovim {{{
       tnoremap <silent> <expr> <M-q><M-q> vimrc#terminal#nested_neovim#start("\<M-q>", 2)
@@ -151,9 +151,9 @@ if has('nvim')
 
       " Search pattern
       call vimrc#terminal#nested_neovim#register("\<C-F>", ":call vimrc#search#search_file(0)\<CR>")
-      call vimrc#terminal#nested_neovim#register("\<M-h>", ":call vimrc#search#search_hash(0)\<CR>")
+      call vimrc#terminal#nested_neovim#register("\<C-Y>", ":call vimrc#search#search_hash(0)\<CR>")
       call vimrc#terminal#nested_neovim#register("\<C-U>", ":call vimrc#search#search_url(0)\<CR>")
-      call vimrc#terminal#nested_neovim#register("\<M-i>", ":call vimrc#search#search_ip(0)\<CR>")
+      call vimrc#terminal#nested_neovim#register("\<C-I>", ":call vimrc#search#search_ip(0)\<CR>")
     " }}}
   " }}}
 
