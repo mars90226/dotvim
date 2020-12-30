@@ -218,6 +218,14 @@ function! vimrc#defx#mappings() abort " {{{
         \ defx#do_action('call', 'vimrc#defx#fzf_rg_target')
   nnoremap <silent><buffer><expr> \<M-r>
         \ defx#do_action('call', 'vimrc#defx#fzf_rg_bang_target')
+  nnoremap <silent><buffer><expr> \a
+        \ defx#do_action('call', 'vimrc#defx#fzf_rga')
+  nnoremap <silent><buffer><expr> \A
+        \ defx#do_action('call', 'vimrc#defx#fzf_rga_bang')
+  nnoremap <silent><buffer><expr> \<C-A>
+        \ defx#do_action('call', 'vimrc#defx#fzf_rga_target')
+  nnoremap <silent><buffer><expr> \<M-a>
+        \ defx#do_action('call', 'vimrc#defx#fzf_rga_bang_target')
   nnoremap <silent><buffer><expr> \<BS>
         \ defx#do_action('call', 'vimrc#defx#fzf_directory_ancestors')
   nnoremap <silent><buffer><expr> \<C-H>
@@ -359,6 +367,39 @@ function! vimrc#defx#fzf_rg_bang_target(context) abort
   call vimrc#defx#fzf_rg_internal(path, 'Rg!', v:false)
 endfunction
 " }}}
+
+" TODO Move to fzf autoload
+" Rga {{{
+function! vimrc#defx#fzf_rga_internal(path, prompt, bang) abort
+  let cmd = a:bang ? 'Rga!' : 'Rga'
+  execute cmd . ' ' . a:path . '::' . input(a:prompt . ': ')
+endfunction
+
+function! vimrc#defx#fzf_rga(context) abort
+  let path = vimrc#defx#get_current_path()
+
+  call vimrc#defx#fzf_rga_internal(path, 'Rga', v:false)
+endfunction
+
+function! vimrc#defx#fzf_rga_targaet(context) abort
+  let path = vimrc#defx#get_targaet(a:context)
+
+  call vimrc#defx#fzf_rga_internal(path, 'Rga', v:false)
+endfunction
+
+function! vimrc#defx#fzf_rga_bang(context) abort
+  let path = vimrc#defx#get_current_path()
+
+  call vimrc#defx#fzf_rga_internal(path, 'Rga!', v:true)
+endfunction
+
+function! vimrc#defx#fzf_rga_bang_targaet(context) abort
+  let path = vimrc#defx#get_targaet(a:context)
+
+  call vimrc#defx#fzf_rga_internal(path, 'Rga!', v:false)
+endfunction
+" }}}
+
 
 " TODO Move to fzf autoload
 " DirectoryAncestors {{{

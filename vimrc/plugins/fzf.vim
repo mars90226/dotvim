@@ -97,11 +97,14 @@ command! -bang -nargs=*               Lines    call vimrc#fzf#line#lines(<q-args
 " Rg
 command! -bang -nargs=* Rg call vimrc#fzf#rg#grep(<q-args>, <bang>0)
 
-" Rg with option, using ':' to separate option and query
+" Rg with option, using ':' to separate folder, option and query
 command! -bang -nargs=* RgWithOption call vimrc#fzf#rg#grep_with_option(<q-args>, <bang>0)
 
 " RgFzf - Ripgrep with reload on change
 command! -bang -nargs=* RgFzf call vimrc#fzf#rg#grep_on_change(<q-args>, <bang>0)
+
+" Rga - Ripgrep-all with custom command, using ':' to separate folder, option and query
+command! -bang -nargs=* Rga call vimrc#fzf#rg#rga(<q-args>, <bang>0)
 
 " Fd all files
 command! -bang -nargs=? -complete=dir AllFiles call vimrc#fzf#dir#all_files(<q-args>, <bang>0)
@@ -325,6 +328,9 @@ endif
 nnoremap <Space>sga :call vimrc#execute_and_save('GitGrepAllCommits ' . input('Git grep all commits: '))<CR>
 nnoremap <Space>sgb :call vimrc#execute_and_save('GitGrepBranches ' . input('Git grep branches: '))<CR>
 nnoremap <Space>sgc :call vimrc#execute_and_save('GitGrepCurrentBranch ' . input('Git grep current branch: '))<CR>
+
+nnoremap <Space>sa :call vimrc#execute_and_save('Rga ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Rg: '))<CR>
+nnoremap <Space>sA :call vimrc#execute_and_save('Rga! ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Rg: '))<CR>
 
 " fzf-checkout
 nnoremap <Space>gc :GBranches<CR>
