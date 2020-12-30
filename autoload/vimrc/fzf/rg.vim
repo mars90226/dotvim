@@ -7,6 +7,7 @@ let s:rg_base_options = '--auto-hybrid-regex --column --line-number --no-heading
 let s:rg_options = s:rg_base_options . ' --ignore-file ' . $HOME . '/.gitignore' " TODO Use '.ignore'?
 let s:rg_all_options = s:rg_base_options . ' --no-ignore --hidden'
 
+let s:rg_base_command = s:rg_binary . s:rg_base_options
 let s:rg_command = s:rg_binary . s:rg_options
 let s:rg_all_command = s:rg_binary . s:rg_all_options
 
@@ -16,6 +17,9 @@ let s:rg_fzf_all_command_fmt = s:rg_all_command . ' -- %s || true'
 let s:rga_command = s:rga_binary . s:rg_options
 let s:rga_all_command = s:rga_binary . s:rg_all_options
 
+function! vimrc#fzf#rg#get_base_command()
+  return s:rg_base_command
+endfunction
 function! vimrc#fzf#rg#get_command()
   return s:rg_command
 endfunction
