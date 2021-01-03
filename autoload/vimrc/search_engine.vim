@@ -6,17 +6,17 @@ function! vimrc#search_engine#url_encode(str) abort
 endfunction
 
 " Includes {{{
-function! vimrc#search_engine#define_search_command(command, search_engine, prefix, suffix)
+function! vimrc#search_engine#define_search_command(command, search_engine, prefix, suffix) abort
   execute 'command! -bar -nargs=1 '.a:command." call vimrc#search_engine#search('".a:search_engine."', <f-args>)"
   call vimrc#browser#include_search_mappings(a:command, a:prefix, a:suffix)
 endfunction
 
-function! vimrc#search_engine#define_client_search_command(command, search_engine, prefix, suffix)
+function! vimrc#search_engine#define_client_search_command(command, search_engine, prefix, suffix) abort
   execute 'command! -bar -nargs=1 '.a:command." call vimrc#search_engine#client_search('".a:search_engine."', <f-args>)"
   call vimrc#browser#include_search_mappings(a:command, a:prefix, a:suffix)
 endfunction
 
-function! vimrc#search_engine#define_command(command, browser, search_engine, prefix, suffix)
+function! vimrc#search_engine#define_command(command, browser, search_engine, prefix, suffix) abort
   if a:browser ==# 'client'
     call vimrc#search_engine#define_client_search_command(a:command, a:search_engine, a:prefix, a:suffix)
   else
@@ -32,7 +32,7 @@ let s:search_engines = {
       \ }
 
 " Functions
-function! vimrc#search_engine#get_url(search_engine, keyword)
+function! vimrc#search_engine#get_url(search_engine, keyword) abort
   if !has_key(s:search_engines, a:search_engine)
     echoerr 'Search engine: '.a:search_engine.' is not exist!'
     return ''
@@ -42,11 +42,11 @@ function! vimrc#search_engine#get_url(search_engine, keyword)
 endfunction
 
 " TODO: Move to browser.vim
-function! vimrc#search_engine#search(search_engine, keyword)
+function! vimrc#search_engine#search(search_engine, keyword) abort
   call vimrc#browser#async_open_url(vimrc#search_engine#get_url(a:search_engine, a:keyword))
 endfunction
 
 " TODO: Move to browser.vim
-function! vimrc#search_engine#client_search(search_engine, keyword)
+function! vimrc#search_engine#client_search(search_engine, keyword) abort
   call vimrc#browser#client_async_open_url(vimrc#search_engine#get_url(a:search_engine, a:keyword))
 endfunction

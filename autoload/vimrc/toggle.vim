@@ -1,5 +1,5 @@
 " Functions
-function! vimrc#toggle#indent()
+function! vimrc#toggle#indent() abort
   if &expandtab
     setlocal noexpandtab
     setlocal tabstop=4
@@ -14,7 +14,7 @@ function! vimrc#toggle#indent()
 endfunction
 
 " Toggle fold between manual and syntax
-function! vimrc#toggle#fold_method()
+function! vimrc#toggle#fold_method() abort
   if &foldmethod ==# 'manual'
     setlocal foldmethod=syntax
   else
@@ -22,7 +22,7 @@ function! vimrc#toggle#fold_method()
   endif
 endfunction
 
-function! vimrc#toggle#parent_folder_tag()
+function! vimrc#toggle#parent_folder_tag() abort
   let s:parent_folder_tag_pattern = './tags;'
   if index(split(&tags, ','), s:parent_folder_tag_pattern) != -1
     execute 'set tags-=' . s:parent_folder_tag_pattern

@@ -1,5 +1,5 @@
 " Mappings
-function! vimrc#nvim_tree_lua#mappings()
+function! vimrc#nvim_tree_lua#mappings() abort
   nnoremap <silent><buffer> R :LuaTreeRefresh<CR>
   nnoremap <silent><buffer> q :LuaTreeToggle<CR>
 
@@ -16,7 +16,7 @@ function! vimrc#nvim_tree_lua#mappings()
 endfunction
 
 " Utilities
-function! vimrc#nvim_tree_lua#get_node()
+function! vimrc#nvim_tree_lua#get_node() abort
 lua << EOF
   local state = require 'lib/state'
   local tree = state.get_tree()
@@ -36,7 +36,7 @@ EOF
   return nvim_buf_get_var(0, 'nvim_tree_node_path')
 endfunction
 
-function! vimrc#nvim_tree_lua#get_path()
+function! vimrc#nvim_tree_lua#get_path() abort
 lua << EOF
   local state = require 'lib/state'
   local tree = state.get_tree()
@@ -48,7 +48,7 @@ EOF
   return nvim_buf_get_var(0, 'nvim_tree_path')
 endfunction
 
-function! vimrc#nvim_tree_lua#change_dir(dir)
+function! vimrc#nvim_tree_lua#change_dir(dir) abort
   call nvim_buf_set_var(0, 'nvim_tree_dir', a:dir)
 
 lua << EOF
@@ -61,7 +61,7 @@ lua << EOF
 EOF
 endfunction
 
-function! vimrc#nvim_tree_lua#open()
+function! vimrc#nvim_tree_lua#open() abort
 lua << EOF
   local state = require 'lib/state'
   local winutils = require 'lib/winutils'
@@ -76,19 +76,19 @@ EOF
 endfunction
 
 " Functions
-function! vimrc#nvim_tree_lua#fzf_files()
+function! vimrc#nvim_tree_lua#fzf_files() abort
   let path = vimrc#nvim_tree_lua#get_path()
 
   call fzf#vim#files(path, fzf#vim#with_preview(), 0)
 endfunction
 
-function! vimrc#nvim_tree_lua#fzf_rg()
+function! vimrc#nvim_tree_lua#fzf_rg() abort
   let path = vimrc#nvim_tree_lua#get_path()
 
   execute 'RgWithOption '.path.'::'.input('Rg: ')
 endfunction
 
-function! vimrc#nvim_tree_lua#opendir()
+function! vimrc#nvim_tree_lua#opendir() abort
   if expand('%') =~# '^$\|^term:[\/][\/]'
     let dir = '.'
   else
@@ -99,13 +99,13 @@ function! vimrc#nvim_tree_lua#opendir()
   call vimrc#nvim_tree_lua#change_dir(dir)
 endfunction
 
-function! vimrc#nvim_tree_lua#up()
+function! vimrc#nvim_tree_lua#up() abort
   let path = vimrc#nvim_tree_lua#get_path()
   let parent_path = simplify(path.'/..')
   call vimrc#nvim_tree_lua#change_dir(parent_path)
 endfunction
 
-function! vimrc#nvim_tree_lua#detect_folder(path)
+function! vimrc#nvim_tree_lua#detect_folder(path) abort
   if a:path !=# '' && isdirectory(a:path)
     " Check for netrw pin
     if !vimrc#netrw#check_pin()

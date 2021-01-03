@@ -7,7 +7,7 @@ function! vimrc#unite#grep(folder, query, buffer_name_prefix, option, is_word) a
   execute 'Unite -buffer-name=' . buffer_name . ' -wrap grep:' . a:folder . ':' . escaped_option . ':' . final_query
 endfunction
 
-function! vimrc#unite#mappings() "{{{
+function! vimrc#unite#mappings() "{{{ abort
   " Overwrite settings.
 
   imap <buffer> jj      <Plug>(unite_insert_leave)
@@ -94,7 +94,7 @@ function! vimrc#unite#mappings() "{{{
   xmap <silent><buffer><nowait> ` <Plug>(unite_toggle_mark_selected_candidates)
 endfunction "}}}
 
-function! vimrc#unite#post_loaded_mappings()
+function! vimrc#unite#post_loaded_mappings() abort
   " Avoid remapped by unimpaired
   silent! unmap [u
   silent! unmap [uu

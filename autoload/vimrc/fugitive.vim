@@ -19,26 +19,26 @@ endfunction
 " }}}
 
 " Settings
-function! vimrc#fugitive#settings()
+function! vimrc#fugitive#settings() abort
   let b:qs_local_disable = 1
 endfunction
 
-function! vimrc#fugitive#git_settings()
+function! vimrc#fugitive#git_settings() abort
   let b:qs_local_disable = 1
 endfunction
 
-function! vimrc#fugitive#gitcommit_settings()
+function! vimrc#fugitive#gitcommit_settings() abort
   setlocal complete+=k
   setlocal nolist
   setlocal spell
 endfunction
 
-function! vimrc#fugitive#blame_settings()
+function! vimrc#fugitive#blame_settings() abort
   let b:qs_local_disable = 1
 endfunction
 
 " For fugitive://* buffers
-function! vimrc#fugitive#fugitive_buffer_settings()
+function! vimrc#fugitive#fugitive_buffer_settings() abort
   setlocal bufhidden=delete
 
   " Use fugitive's '-' mapping
@@ -50,7 +50,7 @@ function! vimrc#fugitive#fugitive_buffer_settings()
 endfunction
 
 " Mappings
-function! vimrc#fugitive#mappings()
+function! vimrc#fugitive#mappings() abort
   nnoremap <buffer> <silent> Su :GitDispatch stash -u<CR>
   nnoremap <buffer> <silent> Sp :GitDispatch stash pop<CR>
   nnoremap <buffer> <silent> gp :Gpush<CR>
@@ -80,16 +80,16 @@ function! vimrc#fugitive#mappings()
   nnoremap <buffer> <silent> <Leader>g<C-F> :call vimrc#flog#show_file(fugitive#StatusCfile(), {'author': g:company_email})<CR>
 endfunction
 
-function! vimrc#fugitive#git_mappings()
+function! vimrc#fugitive#git_mappings() abort
   call vimrc#git#include_git_mappings('fugitive#Object(@%)')
 endfunction
 
-function! vimrc#fugitive#blame_mappings()
+function! vimrc#fugitive#blame_mappings() abort
   call vimrc#git#include_git_mappings('vimrc#fugitive#blame_sha()')
 endfunction
 
 " Functions
-function! vimrc#fugitive#review_last_commit()
+function! vimrc#fugitive#review_last_commit() abort
   if exists('b:git_dir')
     Gtabedit HEAD^{}
     nnoremap <buffer> <silent> q :<C-U>bdelete<CR>
@@ -98,7 +98,7 @@ function! vimrc#fugitive#review_last_commit()
   endif
 endfunction
 
-function! vimrc#fugitive#git_dispatch(command)
+function! vimrc#fugitive#git_dispatch(command) abort
   let [mp, efm, cc] = [&l:mp, &l:efm, get(b:, 'current_compiler', '')]
   try
     let b:current_compiler = 'git'
@@ -111,7 +111,7 @@ function! vimrc#fugitive#git_dispatch(command)
   endtry
 endfunction
 
-function! vimrc#fugitive#commit_sha()
+function! vimrc#fugitive#commit_sha() abort
   let filename = fugitive#Object(@%)
   if filename =~# ':'
     let sha = split(filename, ':')[0]
@@ -122,17 +122,17 @@ function! vimrc#fugitive#commit_sha()
   return sha
 endfunction
 
-function! vimrc#fugitive#blame_sha(...)
+function! vimrc#fugitive#blame_sha(...) abort
   " Borrowed from gv#sha() in gv.vim
   return matchstr(get(a:000, 0, getline('.')), '\zs[a-f0-9]\+')
 endfunction
 
-function! vimrc#fugitive#diff_staged_file(file)
+function! vimrc#fugitive#diff_staged_file(file) abort
   execute 'Gtabedit :'.a:file
   execute 'Gdiffsplit HEAD:'.a:file
 endfunction
 
-function! vimrc#fugitive#goto_blame_line(split)
+function! vimrc#fugitive#goto_blame_line(split) abort
   let current_line = line('.')
   if a:split !=# 'edit'
     execute a:split

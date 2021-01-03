@@ -1,5 +1,5 @@
 " Mappings
-function! vimrc#vimfiler#mappings()
+function! vimrc#vimfiler#mappings() abort
   " Runs "tabopen" action by <C-T>.
   nmap <silent><buffer><expr> <C-T>     vimfiler#do_action('tabopen')
 

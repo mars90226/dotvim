@@ -1,12 +1,12 @@
 " Settings
-function! vimrc#vimwiki#settings()
+function! vimrc#vimwiki#settings() abort
   " TODO Check if there's bad side effect
   " Currently, this will make vimwiki's todo list toggle updating hierarchy
   let b:vimwiki_wiki_nr = -1
 endfunction
 
 " Mappings
-function! vimrc#vimwiki#mappings()
+function! vimrc#vimwiki#mappings() abort
   nnoremap <silent><buffer> <Leader>wg :VimwikiToggleListItem<CR>
 
   " for original vimwiki <Tab> & <S-Tab> in insert mode

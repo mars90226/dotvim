@@ -10,7 +10,7 @@ let s:defx_fzf_action = vimrc#fzf#wrap_actions_for_trigger(extend({
       \ 'alt-z':      'DefxFloatOpenSink',
       \ 'alt-l':      'DefxSwitch',
       \ }, g:misc_fzf_action))
-function! vimrc#fzf#defx#get_defx_fzf_action()
+function! vimrc#fzf#defx#get_defx_fzf_action() abort
   return s:defx_fzf_action
 endfunction
 
@@ -19,7 +19,7 @@ endfunction
 " TODO s:common_sink() in fzf/plugin/fzf.vim will always use 'edit' if it
 " think the current file is empty file. It's hard to workaround the check
 " and still does not interfere other things like buffer list.
-function! vimrc#fzf#defx#use_defx_fzf_action(function)
+function! vimrc#fzf#defx#use_defx_fzf_action(function) abort
   let g:fzf_action = s:defx_fzf_action
 
   augroup use_defx_fzf_action_callback

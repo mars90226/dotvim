@@ -3,25 +3,25 @@ let s:vimhome = $HOME . '/.vim'
 let s:vim_mode = $VIM_MODE
 let s:vim_plug_dir = s:vimhome.'/plugged'
 
-function! vimrc#get_vimhome()
+function! vimrc#get_vimhome() abort
   return s:vimhome
 endfunction
 
-function! vimrc#get_vim_mode()
+function! vimrc#get_vim_mode() abort
   return s:vim_mode
 endfunction
 
-function! vimrc#get_vim_plug_dir()
+function! vimrc#get_vim_plug_dir() abort
   return s:vim_plug_dir
 endfunction
 
-function! vimrc#source(path)
+function! vimrc#source(path) abort
   let abspath = resolve(s:vimhome.'/'.a:path)
   execute 'source '.fnameescape(abspath)
 endfunction
 
 " Utilities
-function! vimrc#remap(old_key, new_key, mode)
+function! vimrc#remap(old_key, new_key, mode) abort
   let mapping = maparg(a:old_key, a:mode)
 
   if !empty(mapping)
@@ -54,22 +54,22 @@ function! vimrc#display_char() abort
 endfunction
 
 " Clear and redraw
-function! vimrc#clear_and_redraw()
+function! vimrc#clear_and_redraw() abort
   call vimrc#lightline#refresh()
 endfunction
 
 " Execute and save command
-function! vimrc#execute_and_save(command)
+function! vimrc#execute_and_save(command) abort
   call histadd('cmd', a:command)
   execute a:command
 endfunction
 
 " Clear winfixheight & winfixwidth for resizing window
-function! vimrc#clear_winfixsize()
+function! vimrc#clear_winfixsize() abort
   setlocal nowinfixheight
   setlocal nowinfixwidth
 endfunction
 
-function! vimrc#get_boundary_pattern(pattern)
+function! vimrc#get_boundary_pattern(pattern) abort
   return '\<'.a:pattern.'\>'
 endfunction

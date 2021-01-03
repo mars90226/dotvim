@@ -1,7 +1,7 @@
 let s:nvim_lsp_filetypes = []
 
 " Functions
-function! vimrc#nvim_lsp#show_documentation()
+function! vimrc#nvim_lsp#show_documentation() abort
   if index(s:nvim_lsp_filetypes, &filetype) == -1
     normal! K
   else
@@ -9,7 +9,7 @@ function! vimrc#nvim_lsp#show_documentation()
   endif
 endfunction
 
-function! vimrc#nvim_lsp#register_filetype(filetype)
+function! vimrc#nvim_lsp#register_filetype(filetype) abort
   if index(s:nvim_lsp_filetypes, a:filetype) == -1
     call add(s:nvim_lsp_filetypes, a:filetype)
   endif

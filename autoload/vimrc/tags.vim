@@ -1,5 +1,5 @@
 " Functions
-function! vimrc#tags#use_project_tags()
+function! vimrc#tags#use_project_tags() abort
   let origin_tags = &tags
 
   set tags-=./tags;
@@ -14,6 +14,6 @@ function! vimrc#tags#use_project_tags()
   return origin_tags
 endfunction
 
-function! vimrc#tags#restore_tags(backup)
+function! vimrc#tags#restore_tags(backup) abort
   let &tags = a:backup
 endfunction

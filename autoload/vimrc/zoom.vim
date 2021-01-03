@@ -1,5 +1,5 @@
 " Functions
-function! vimrc#zoom#zoom()
+function! vimrc#zoom#zoom() abort
   if winnr('$') > 1
     tab split
     call vimrc#utility#set_scratch()
@@ -10,7 +10,7 @@ function! vimrc#zoom#zoom()
   endif
 endfunction
 
-function! vimrc#zoom#selected(selected)
+function! vimrc#zoom#selected(selected) abort
   let filetype = &filetype
   tabnew
   call append(line('$'), split(a:selected, "\n"))
@@ -19,7 +19,7 @@ function! vimrc#zoom#selected(selected)
   let &filetype = filetype
 endfunction
 
-function! vimrc#zoom#float()
+function! vimrc#zoom#float() abort
   if vimrc#float#is_float(win_getid())
     VimrcFloatToggle
   else
@@ -27,7 +27,7 @@ function! vimrc#zoom#float()
   endif
 endfunction
 
-function! vimrc#zoom#float_selected(selected)
+function! vimrc#zoom#float_selected(selected) abort
   let filetype = &filetype
 
   VimrcFloatNew
@@ -37,7 +37,7 @@ function! vimrc#zoom#float_selected(selected)
   let &filetype = filetype
 endfunction
 
-function! vimrc#zoom#into_float()
+function! vimrc#zoom#into_float() abort
   if vimrc#float#is_float(win_getid())
     VimrcFloatToggle
   else

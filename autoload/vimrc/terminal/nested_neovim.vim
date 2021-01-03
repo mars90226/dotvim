@@ -2,7 +2,7 @@ let s:nested_neovim_key_mappings = {}
 
 " Use <M-q> as prefix
 " TODO Add key mapping for inserting <M-q>
-function! vimrc#terminal#nested_neovim#start(prefix, start_count)
+function! vimrc#terminal#nested_neovim#start(prefix, start_count) abort
   let prefix_count = a:start_count
   let c = vimrc#getchar_string('Nested neovim, press any key: ')
   while c ==# a:prefix
@@ -29,6 +29,6 @@ function! vimrc#terminal#nested_neovim#start(prefix, start_count)
 endfunction
 
 " TODO Add prefix for different type of nested neovim key mappings
-function! vimrc#terminal#nested_neovim#register(key, target)
+function! vimrc#terminal#nested_neovim#register(key, target) abort
   let s:nested_neovim_key_mappings[a:key] = a:target
 endfunction

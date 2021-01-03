@@ -1,5 +1,5 @@
 " Mappings
-function! vimrc#git_messenger#mappings()
+function! vimrc#git_messenger#mappings() abort
   nnoremap <silent><buffer> <Leader>gc :call vimrc#git_messenger#goto_commit('Gsplit')<CR>
   nnoremap <silent><buffer> <Leader>gC :call vimrc#git_messenger#goto_commit('Gedit')<CR>
 
@@ -8,10 +8,10 @@ function! vimrc#git_messenger#mappings()
 endfunction
 
 " Functions
-function! vimrc#git_messenger#goto_commit(split)
+function! vimrc#git_messenger#goto_commit(split) abort
   execute a:split.' '.vimrc#git_messenger#sha()
 endfunction
 
-function! vimrc#git_messenger#sha()
+function! vimrc#git_messenger#sha() abort
   return split(getline(3))[1]
 endfunction

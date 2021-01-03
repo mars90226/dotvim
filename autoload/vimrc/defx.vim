@@ -21,7 +21,7 @@ function! vimrc#defx#opencmd(cmd) abort
   execute cmd
 endfunction
 
-function! vimrc#defx#fill_buffer_name(defx_option)
+function! vimrc#defx#fill_buffer_name(defx_option) abort
   return printf(a:defx_option, win_getid())
 endfunction
 
@@ -49,30 +49,30 @@ let s:defx_actions = {
   \ }
 
 " Borrowed from defx.nvim
-function! vimrc#defx#do_map(name, ...)
+function! vimrc#defx#do_map(name, ...) abort
   let args = copy(a:000)
   let defx_action = get(s:defx_actions, a:name)
   return printf(":\<C-U>call vimrc#defx#call_map(%s, %s)\<CR>",
         \ string(defx_action), string(args))
 endfunction
 
-function! vimrc#defx#call_map(function, args)
+function! vimrc#defx#call_map(function, args) abort
   call call(a:function, a:args)
 endfunction
 
 " Settings
-function! vimrc#defx#settings()
+function! vimrc#defx#settings() abort
   setlocal nonumber
   setlocal norelativenumber
 endfunction
 
 " Mappings
-function! vimrc#defx#netrw_mapping_for_defx()
+function! vimrc#defx#netrw_mapping_for_defx() abort
   " Cannot override Vinegar '-' mapping, so use '+' instead
   nmap <silent><buffer> + :call vimrc#defx#opendir('Defx')<CR>
 endfunction
 
-function! vimrc#defx#mappings() abort " {{{
+function! vimrc#defx#mappings() abort " {{{ abort
   " Define mappings
   if bufname('%') =~# 'tab'
     nnoremap <silent><buffer><expr> <CR>
@@ -289,7 +289,7 @@ let s:defx_action = {
       \ }
 
 " TODO May need to escape a:line
-function! vimrc#defx#open(target, action)
+function! vimrc#defx#open(target, action) abort
   let [action, defx_option] = get(s:defx_action, a:action, '')
 
   if isdirectory(a:target)
@@ -306,7 +306,7 @@ function! vimrc#defx#open(target, action)
 endfunction
 
 " TODO Rename to indicate sink?
-function! vimrc#defx#open_dir(target, action)
+function! vimrc#defx#open_dir(target, action) abort
   let [action, defx_option] = get(s:defx_action, a:action, '')
 
   if &filetype ==# 'defx' && action ==# 'edit'
@@ -514,7 +514,7 @@ function! vimrc#defx#git_root(context) abort
 endfunction
 
 " Defx detect folder
-function! vimrc#defx#detect_folder(path)
+function! vimrc#defx#detect_folder(path) abort
   if a:path !=# '' && isdirectory(a:path)
     " Check for netrw pin
     if !vimrc#netrw#check_pin()

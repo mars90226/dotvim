@@ -5,13 +5,13 @@ function! vimrc#insert#check_back_space() abort
 endfunction
 
 " Used in command-line mode
-function! vimrc#insert#trim_cmdline()
+function! vimrc#insert#trim_cmdline() abort
   let length = str2nr(input('length: ', '', 'expression'))
   return getcmdline()[0 : length - 1]
 endfunction
 
 " Used in command-line mode
-function! vimrc#insert#delete_whole_word()
+function! vimrc#insert#delete_whole_word() abort
   let cmd = getcmdline()
   let pos = getcmdpos() - 1 " getcmdpos() start from 1, but string index start from 0
   let meet_non_space = v:false

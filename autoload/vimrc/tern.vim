@@ -1,5 +1,5 @@
 " Mappings
-function! vimrc#tern#mappings()
+function! vimrc#tern#mappings() abort
   nnoremap <silent><buffer> <C-X><C-K> :TernDoc<CR>
   nnoremap <silent><buffer> <C-X><C-B> :TernDocBrowse<CR>
   nnoremap <silent><buffer> <C-X><C-T> :TernType<CR>

@@ -1,5 +1,5 @@
 " Mappings
-function! vimrc#dirvish#mappings()
+function! vimrc#dirvish#mappings() abort
   nmap <silent><buffer> h <Plug>(dirvish_up)
   nmap <silent><buffer> l <CR>
 
@@ -24,7 +24,7 @@ function! vimrc#dirvish#mappings()
   nnoremap <silent><buffer> N :call vimrc#utility#execute_command('!touch %/', 'new file: ', 1)<CR>
 endfunction
 
-function! vimrc#dirvish#toggle()
+function! vimrc#dirvish#toggle() abort
   let current_winid = win_getid()
   let dirvish_sidebar_winid = vimrc#dirvish#find_sidebar()
   if dirvish_sidebar_winid != -1
@@ -50,7 +50,7 @@ function! vimrc#dirvish#toggle()
   endif
 endfunction
 
-function! vimrc#dirvish#find_sidebar()
+function! vimrc#dirvish#find_sidebar() abort
   for i in range(1, winnr('$'))
     if getwinvar(i, 'dirvish_sidebar', v:false)
       return win_getid(i)
@@ -60,11 +60,11 @@ function! vimrc#dirvish#find_sidebar()
   return -1
 endfunction
 
-function! vimrc#dirvish#is_sidebar()
+function! vimrc#dirvish#is_sidebar() abort
   return get(w:, 'dirvish_sidebar', v:false)
 endfunction
 
-function! vimrc#dirvish#quit()
+function! vimrc#dirvish#quit() abort
   if vimrc#dirvish#is_sidebar()
     close
   else
@@ -72,10 +72,10 @@ function! vimrc#dirvish#quit()
   endif
 endfunction
 
-function! vimrc#dirvish#get_path()
+function! vimrc#dirvish#get_path() abort
   return getline('.')
 endfunction
 
-function! vimrc#dirvish#get_filename()
+function! vimrc#dirvish#get_filename() abort
   return fnamemodify(vimrc#dirvish#get_path(), ':t')
 endfunction

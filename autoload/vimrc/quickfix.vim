@@ -1,5 +1,5 @@
 " Mappings
-function! vimrc#quickfix#mappings()
+function! vimrc#quickfix#mappings() abort
   nnoremap <silent><buffer> q :close<CR>
   nnoremap <silent><buffer> <C-T> :set switchbuf+=newtab<CR><CR>:set switchbuf-=newtab<CR>
   nnoremap <silent><buffer> <C-S> :set switchbuf+=split<CR><CR>:set switchbuf-=split<CR>
@@ -17,7 +17,7 @@ function! vimrc#quickfix#mappings()
 endfunction
 
 " Functions
-function! vimrc#quickfix#open(cmd)
+function! vimrc#quickfix#open(cmd) abort
   " Get current selected quickfix item
   let item = getqflist()[line('.') - 1]
   let buffer_name = bufname(item.bufnr)
@@ -33,12 +33,12 @@ function! vimrc#quickfix#open(cmd)
   normal! zz
 endfunction
 
-function! vimrc#quickfix#execute(args)
+function! vimrc#quickfix#execute(args) abort
   cexpr execute(a:args)
   copen
 endfunction
 
-function! vimrc#quickfix#loc_execute(args)
+function! vimrc#quickfix#loc_execute(args) abort
   lexpr execute(a:args)
   lopen
 endfunction

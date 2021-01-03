@@ -7,11 +7,11 @@ else
   let s:os = systemlist('uname -a')[0]
 endif
 
-function! vimrc#plugin#check#get_os()
+function! vimrc#plugin#check#get_os() abort
   return s:os
 endfunction
 
-function! vimrc#plugin#check#get_distro(...)
+function! vimrc#plugin#check#get_distro(...) abort
   let force = (a:0 >= 1 && type(a:1) == type(v:true)) ? a:1 : v:false
 
   if force || !exists('g:distro')
@@ -27,7 +27,7 @@ endfunction
 
 " Set nvim version
 if has('nvim')
-  function! vimrc#plugin#check#nvim_version()
+  function! vimrc#plugin#check#nvim_version() abort
     if exists('g:nvim_version')
       return g:nvim_version
     endif
@@ -36,12 +36,12 @@ if has('nvim')
     return g:nvim_version
   endfunction
 
-  function! vimrc#plugin#check#nvim_patch_version()
+  function! vimrc#plugin#check#nvim_patch_version() abort
     return matchlist(vimrc#plugin#check#nvim_version(), '\v^NVIM v\d+\.\d+\.\d+-(\d+)')[1]
   endfunction
 
   " Check if $NVIM_TERMINAL is set or parent process is nvim
-  function! vimrc#plugin#check#nvim_terminal()
+  function! vimrc#plugin#check#nvim_terminal() abort
     if exists('g:nvim_terminal')
       return g:nvim_terminal
     endif
@@ -71,12 +71,12 @@ if has('nvim')
   endfunction
 endif
 
-function! vimrc#plugin#check#has_floating_window()
+function! vimrc#plugin#check#has_floating_window() abort
   return exists('*nvim_win_set_config')
 endfunction
 
 " return empty string when no python support found
-function! vimrc#plugin#check#python_version(...)
+function! vimrc#plugin#check#python_version(...) abort
   let force = (a:0 >= 1 && type(a:1) == type(v:true)) ? a:1 : v:false
 
   if force || !exists('g:python_version')
@@ -93,24 +93,24 @@ function! vimrc#plugin#check#python_version(...)
 endfunction
 
 " check if current vim/neovim has async function
-function! vimrc#plugin#check#has_async()
+function! vimrc#plugin#check#has_async() abort
   return v:version >= 800 || has('nvim')
 endfunction
 
-function! vimrc#plugin#check#has_rpc()
+function! vimrc#plugin#check#has_rpc() abort
   return has('nvim')
 endfunction
 
-function! vimrc#plugin#check#has_linux_build_env()
+function! vimrc#plugin#check#has_linux_build_env() abort
   return s:os !~# 'windows' && s:os !~# 'synology'
 endfunction
 
-function! vimrc#plugin#check#has_cargo()
+function! vimrc#plugin#check#has_cargo() abort
   return executable('cargo') && vimrc#plugin#check#has_linux_build_env()
 endfunction
 
 let s:git_version = 'not initialized'
-function! vimrc#plugin#check#git_version()
+function! vimrc#plugin#check#git_version() abort
   if s:git_version ==# 'not initialized'
     let s:git_version = systemlist('git --version')[0]
     if v:shell_error
@@ -121,7 +121,7 @@ function! vimrc#plugin#check#git_version()
   return s:git_version
 endfunction
 
-function! vimrc#plugin#check#has_jedi(...)
+function! vimrc#plugin#check#has_jedi(...) abort
   let force = (a:0 >= 1 && type(a:1) == type(v:true)) ? a:1 : v:false
 
   if force || !exists('g:has_jedi')
@@ -140,16 +140,16 @@ function! vimrc#plugin#check#has_jedi(...)
 endfunction
 
 " Assume DSM has no browser
-function! vimrc#plugin#check#has_browser()
+function! vimrc#plugin#check#has_browser() abort
   return s:os !~# 'synology'
 endfunction
 
-function! vimrc#plugin#check#has_ssh_host_client()
+function! vimrc#plugin#check#has_ssh_host_client() abort
   return !empty($SSH_CLIENT_HOST)
 endfunction
 
 let s:clang_dir_prefix = '/usr/lib/llvm-'
-function! vimrc#plugin#check#detect_clang_dir(subpath)
+function! vimrc#plugin#check#detect_clang_dir(subpath) abort
   let clang_versions = map(glob(s:clang_dir_prefix.'*', v:false, v:true),
         \ { _, path -> matchstr(path, s:clang_dir_prefix.'\zs.*') } )
 

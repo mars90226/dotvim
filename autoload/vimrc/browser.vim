@@ -1,5 +1,5 @@
 " Utility functions
-function! vimrc#browser#get_command(command)
+function! vimrc#browser#get_command(command) abort
   if executable('firefox')
     return 'firefox '.a:command
   elseif executable('chrome')
@@ -9,7 +9,7 @@ function! vimrc#browser#get_command(command)
   endif
 endfunction
 
-function! vimrc#browser#get_search_command(keyword)
+function! vimrc#browser#get_search_command(keyword) abort
   if executable('firefox')
     return "firefox --search '" . a:keyword . "'"
   elseif executable('chrome')
@@ -19,19 +19,19 @@ function! vimrc#browser#get_search_command(keyword)
   endif
 endfunction
 
-function! vimrc#browser#get_client_command(command)
+function! vimrc#browser#get_client_command(command) abort
   " TODO Check client browser
   return 'ssh '.$SSH_CLIENT_HOST." 'firefox ".a:command."'"
 endfunction
 
-function! vimrc#browser#get_client_search_command(keyword)
+function! vimrc#browser#get_client_search_command(keyword) abort
   " TODO Check client browser
   return 'ssh '.$SSH_CLIENT_HOST." \"firefox --search '".a:keyword."'\""
 endfunction
 
 " Utilities {{{
 " Asynchronously browse internal
-function! vimrc#browser#async_execute(command)
+function! vimrc#browser#async_execute(command) abort
   " Currently only support neovim
   if !vimrc#plugin#check#has_rpc()
     echoerr 'This version of vim does not have RPC!'
@@ -41,7 +41,7 @@ function! vimrc#browser#async_execute(command)
   call jobstart(a:command, {})
 endfunction
 
-function! vimrc#browser#async_browse(command)
+function! vimrc#browser#async_browse(command) abort
   if empty(a:command)
     echoerr 'No browser found!'
     return
@@ -52,7 +52,7 @@ endfunction
 " }}}
 
 " Includes {{{
-function! vimrc#browser#include_search_mappings(command, prefix, suffix)
+function! vimrc#browser#include_search_mappings(command, prefix, suffix) abort
   let cword_key  = a:prefix . a:suffix
   let cWORD_key  = a:prefix . toupper(a:suffix)
   let visual_key = a:prefix . a:suffix
@@ -63,7 +63,7 @@ function! vimrc#browser#include_search_mappings(command, prefix, suffix)
   call vimrc#mapping#include_query_mappings(a:command, query_key, a:command)
 endfunction
 
-function! vimrc#browser#include_open_url_mappings(command, prefix, suffix)
+function! vimrc#browser#include_open_url_mappings(command, prefix, suffix) abort
   let cword_key  = a:prefix . toupper(a:suffix)
   let cWORD_key  = a:prefix . a:suffix
   let visual_key = a:prefix . a:suffix
@@ -74,7 +74,7 @@ function! vimrc#browser#include_open_url_mappings(command, prefix, suffix)
   call vimrc#mapping#include_query_mappings(a:command, query_key, a:command)
 endfunction
 
-function! vimrc#browser#define_command(command, browser, type, prefix, suffix)
+function! vimrc#browser#define_command(command, browser, type, prefix, suffix) abort
   let function = 'vimrc#browser#'.(a:browser ==# 'client' ? 'client_' : '').'async_'.a:type
   execute 'command! -bar -nargs=1 '.a:command.' call '.function.'(<f-args>)'
 
@@ -89,7 +89,7 @@ endfunction
 " Functions
 " Asynchronously browse URI
 " TODO Move to better place?
-function! vimrc#browser#async_open(uri)
+function! vimrc#browser#async_open(uri) abort
   " Detect URI and use browser
   if a:uri =~# '\v^https?://'
     if vimrc#plugin#check#has_ssh_host_client()
@@ -109,7 +109,7 @@ function! vimrc#browser#async_open(uri)
 endfunction
 
 " Asynchronously open URL in browser
-function! vimrc#browser#async_open_url(url, ...)
+function! vimrc#browser#async_open_url(url, ...) abort
   let silent = a:0 > 0 ? a:1 : v:false
   if !silent
     redraw
@@ -119,7 +119,7 @@ function! vimrc#browser#async_open_url(url, ...)
 endfunction
 
 " Asynchronously search keyword in browser
-function! vimrc#browser#async_search_keyword(keyword, ...)
+function! vimrc#browser#async_search_keyword(keyword, ...) abort
   let silent = a:0 > 0 ? a:1 : v:false
   if !silent
     redraw
@@ -129,7 +129,7 @@ function! vimrc#browser#async_search_keyword(keyword, ...)
 endfunction
 
 " Asynchronously open URL in client browser
-function! vimrc#browser#client_async_open_url(url, ...)
+function! vimrc#browser#client_async_open_url(url, ...) abort
   let silent = a:0 > 0 ? a:1 : v:false
   if !silent
     redraw
@@ -139,7 +139,7 @@ function! vimrc#browser#client_async_open_url(url, ...)
 endfunction
 
 " Asynchronously search keyword in client browser
-function! vimrc#browser#client_async_search_keyword(keyword, ...)
+function! vimrc#browser#client_async_search_keyword(keyword, ...) abort
   let silent = a:0 > 0 ? a:1 : v:false
   if !silent
     redraw

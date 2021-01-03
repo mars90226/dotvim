@@ -1,7 +1,7 @@
 " Functions
 
 let s:unicode_pattern = '[^\x00-\x7F]'
-function! vimrc#textobj#inner_surround_unicode()
+function! vimrc#textobj#inner_surround_unicode() abort
   let original_pos = getpos('.')[1:2]
 
   let start = searchpos(s:unicode_pattern, 'beW')
@@ -15,7 +15,7 @@ function! vimrc#textobj#inner_surround_unicode()
   call cursor(end)
 endfunction
 
-function! vimrc#textobj#around_surround_unicode()
+function! vimrc#textobj#around_surround_unicode() abort
   let original_pos = getpos('.')[1:2]
 
   let start = searchpos(s:unicode_pattern, 'beW')
@@ -29,7 +29,7 @@ function! vimrc#textobj#around_surround_unicode()
   normal! l
 endfunction
 
-function! vimrc#textobj#past_character(count, mode, forward)
+function! vimrc#textobj#past_character(count, mode, forward) abort
   let character = nr2char(getchar())
   let mode_prefix = a:mode ==# 'v' ? 'gv' : ''
   let find_command = a:forward ? 'f' : 'F'

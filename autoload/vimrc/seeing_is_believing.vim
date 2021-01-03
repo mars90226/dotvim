@@ -1,5 +1,5 @@
 " Mappings
-function! vimrc#seeing_is_believing#mappings()
+function! vimrc#seeing_is_believing#mappings() abort
   nmap <silent><buffer> <Leader>r<CR> <Plug>(seeing-is-believing-mark-and-run)
   xmap <silent><buffer> <Leader>r<CR> <Plug>(seeing-is-believing-mark-and-run)
 

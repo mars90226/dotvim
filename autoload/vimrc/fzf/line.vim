@@ -4,7 +4,7 @@ scriptencoding utf-8
 " Borrowed from fzf.vim
 
 " Sources
-function! vimrc#fzf#line#lines_source(all)
+function! vimrc#fzf#line#lines_source(all) abort
   let cur = []
   let rest = []
   let buf = bufnr('')
@@ -44,7 +44,7 @@ function! vimrc#fzf#line#lines_source(all)
 endfunction
 
 " Sinks
-function! vimrc#fzf#line#lines_sink(lines)
+function! vimrc#fzf#line#lines_sink(lines) abort
   if len(a:lines) < 2
     return
   endif
@@ -83,7 +83,7 @@ function! vimrc#fzf#line#lines_sink(lines)
 endfunction
 
 " Commands
-function! vimrc#fzf#line#lines(...)
+function! vimrc#fzf#line#lines(...) abort
   let [display_bufnames, lines] = vimrc#fzf#line#lines_source(1)
   let nth = display_bufnames ? 3 : 2
   let [query, args] = (a:0 && type(a:1) == type('')) ?

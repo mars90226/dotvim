@@ -1,6 +1,6 @@
 " Sinks
 " Borrowed from: https://gist.github.com/amitab/cd051f1ea23c588109c6cfcb7d1d5776
-function! vimrc#fzf#cscope#cscope_sink(lines)
+function! vimrc#fzf#cscope#cscope_sink(lines) abort
   if len(a:lines) < 2
     return
   end
@@ -20,7 +20,7 @@ function! vimrc#fzf#cscope#cscope_sink(lines)
 endfunction
 
 " Commands
-function! vimrc#fzf#cscope#cscope(option, query)
+function! vimrc#fzf#cscope#cscope(option, query) abort
   let color = '{ x = $1; $1 = ""; z = $3; $3 = ""; printf "\033[34m%s\033[0m:\033[31m%s:\033[0m\011\033[37m%s\033[0m\n", x,z,$0; }'
   " TODO prompt for every cscope query type
   let opts = fzf#vim#with_preview({
@@ -36,7 +36,7 @@ function! vimrc#fzf#cscope#cscope(option, query)
   call fzf#run(fzf#wrap('Cscope', opts))
 endfunction
 
-function! vimrc#fzf#cscope#cscope_query(option)
+function! vimrc#fzf#cscope#cscope_query(option) abort
   call inputsave()
   if a:option ==# '0'
     let query = input('C Symbol: ')

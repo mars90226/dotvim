@@ -3,26 +3,26 @@ let s:shells = [&shell, 'bash', 'zsh', 'fish', 'powershell', 'ash']
 let s:tui_processes = ['htop', 'btm', 'broot', 'sr', 'ranger', 'nnn', 'vifm', 'fff', 'lf', 'lazygit', 'gitui', 'bandwhich']
 let s:floaterm_wrappers = ['fff', 'fzf', 'lf', 'nnn', 'ranger', 'vifm', 'rg']
 
-function! vimrc#tui#get_shells()
+function! vimrc#tui#get_shells() abort
   return s:shells
 endfunction
 
-function! vimrc#tui#is_shell(cmd)
+function! vimrc#tui#is_shell(cmd) abort
   return index(s:shells, a:cmd) != -1
 endfunction
 
-function! vimrc#tui#get_processes()
+function! vimrc#tui#get_processes() abort
   return s:tui_processes
 endfunction
 
-function! vimrc#tui#get_floaterm_wrappers()
+function! vimrc#tui#get_floaterm_wrappers() abort
   return s:floaterm_wrappers
 endfunction
 
 " 1. Check if command is floaterm wrapper
 " 2. Check if command is tui process
 " 3. Check if command is shell
-function! vimrc#tui#is_tui(command)
+function! vimrc#tui#is_tui(command) abort
   if index(s:floaterm_wrappers, a:command) != -1
     return v:true
   endif
@@ -44,7 +44,7 @@ endfunction
 
 " Functions
 " TODO Rename function as it's not really TUI when not using floaterm
-function! vimrc#tui#run(split, command, ...)
+function! vimrc#tui#run(split, command, ...) abort
   let force_noshell = a:0 > 0 && type(a:1) == type(0) ? a:1 : 0
   let split = a:split ==# 'float' && vimrc#plugin#is_disabled_plugin('vim-floaterm') ? 'new' : a:split
 
@@ -56,7 +56,7 @@ function! vimrc#tui#run(split, command, ...)
 endfunction
 
 " Use surfraw
-function! vimrc#tui#google_keyword(keyword)
+function! vimrc#tui#google_keyword(keyword) abort
   if empty(a:keyword)
     return
   endif

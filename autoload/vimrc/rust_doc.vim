@@ -1,5 +1,5 @@
 " Functions
-function! vimrc#rust_doc#search_under_cursor(query) range
+function! vimrc#rust_doc#search_under_cursor(query) range abort
   if a:query ==# ''
     echomsg 'rust-doc: No identifier is found under the cursor'
     return
@@ -9,7 +9,7 @@ function! vimrc#rust_doc#search_under_cursor(query) range
 endfunction
 
 " Open rust doc
-function! vimrc#rust_doc#open(url)
+function! vimrc#rust_doc#open(url) abort
   let url = a:url
 
   if has('wsl')
@@ -31,7 +31,7 @@ function! vimrc#rust_doc#open(url)
 endfunction
 
 " Open rustup doc
-function! vimrc#rust_doc#open_rustup_doc(...)
+function! vimrc#rust_doc#open_rustup_doc(...) abort
   let open_rustup_doc_command = 'rustup doc '.join(a:000)
   if has('wsl')
     " TODO Check if open_rustup_doc.sh exists
@@ -42,7 +42,7 @@ function! vimrc#rust_doc#open_rustup_doc(...)
 endfunction
 
 " Utilities
-function! vimrc#rust_doc#get_cursor_word()
+function! vimrc#rust_doc#get_cursor_word() abort
   setlocal iskeyword+=:
   let cursor_word = expand('<cword>')
   setlocal iskeyword-=:

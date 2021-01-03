@@ -1,5 +1,5 @@
 " Config
-function! vimrc#fzf#statusline()
+function! vimrc#fzf#statusline() abort
   highlight fzf1 ctermfg=242 ctermbg=236 guifg=#7c6f64 guibg=#32302f
   highlight fzf2 ctermfg=143 guifg=#b8bb26
   highlight fzf3 ctermfg=15 ctermbg=239 guifg=#ebdbb2 guibg=#504945
@@ -7,14 +7,14 @@ function! vimrc#fzf#statusline()
 endfunction
 
 " Actions
-function! vimrc#fzf#build_quickfix_list(lines)
+function! vimrc#fzf#build_quickfix_list(lines) abort
   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
   copen
   cfirst
   cclose
 endfunction
 
-function! vimrc#fzf#copy_results(lines)
+function! vimrc#fzf#copy_results(lines) abort
   let joined_lines = join(a:lines, "\n")
   if len(a:lines) > 1
     let joined_lines .= "\n"
@@ -22,7 +22,7 @@ function! vimrc#fzf#copy_results(lines)
   let @" = joined_lines
 endfunction
 
-function! vimrc#fzf#open_terminal(lines)
+function! vimrc#fzf#open_terminal(lines) abort
   let path = a:lines[0]
   let folder = isdirectory(path) ? path : fnamemodify(path, ':p:h')
   tabe
@@ -36,7 +36,7 @@ endfunction
 " Utility functions
 " Borrowed from fzf.vim {{{
 " For filling quickfix in custom sink function
-function! vimrc#fzf#fill_quickfix(list, ...)
+function! vimrc#fzf#fill_quickfix(list, ...) abort
   if len(a:list) > 1
     call setqflist(a:list)
     copen
@@ -49,28 +49,28 @@ endfunction
 
 " For using g:fzf_action in custom sink function
 let s:TYPE = {'dict': type({}), 'funcref': type(function('call')), 'string': type(''), 'list': type([])}
-function! vimrc#fzf#action_for_with_table(table, key, ...)
+function! vimrc#fzf#action_for_with_table(table, key, ...) abort
   let default = a:0 ? a:1 : ''
   let Cmd = get(a:table, a:key, default)
   return type(Cmd) == s:TYPE.string || type(Cmd) == s:TYPE.funcref ? Cmd : default
 endfunction
 
-function! vimrc#fzf#action_for(key, ...)
+function! vimrc#fzf#action_for(key, ...) abort
   let default = a:0 ? a:1 : ''
   return vimrc#fzf#action_for_with_table(g:fzf_action, a:key, default)
 endfunction
 
-function! vimrc#fzf#action_type(key)
+function! vimrc#fzf#action_type(key) abort
   return get(g:fzf_action_type, a:key, {})
 endfunction
 
 let s:wide = 120
-function! vimrc#fzf#get_wide()
+function! vimrc#fzf#get_wide() abort
   return s:wide
 endfunction
 
 " For using colors in fzf
-function! vimrc#fzf#get_color(attr, ...)
+function! vimrc#fzf#get_color(attr, ...) abort
   let gui = has('termguicolors') && &termguicolors
   let fam = gui ? 'gui' : 'cterm'
   let pat = gui ? '^#[a-f0-9]\+' : '^[0-9]\+$'
@@ -83,7 +83,7 @@ function! vimrc#fzf#get_color(attr, ...)
   return ''
 endfunction
 
-function! vimrc#fzf#csi(color, fg)
+function! vimrc#fzf#csi(color, fg) abort
   let prefix = a:fg ? '38;' : '48;'
   if a:color[0] ==# '#'
     return prefix.'2;'.join(map([a:color[1:2], a:color[3:4], a:color[5:6]], 'str2nr(v:val, 16)'), ';')
@@ -93,7 +93,7 @@ endfunction
 
 let s:ansi = {'black': 30, 'red': 31, 'green': 32, 'yellow': 33, 'blue': 34, 'magenta': 35, 'cyan': 36}
 
-function! vimrc#fzf#ansi(str, group, default, ...)
+function! vimrc#fzf#ansi(str, group, default, ...) abort
   let fg = vimrc#fzf#get_color('fg', a:group)
   let bg = vimrc#fzf#get_color('bg', a:group)
   let color = (empty(fg) ? s:ansi[a:default] : vimrc#fzf#csi(fg, 1)) .
@@ -107,16 +107,16 @@ for s:color_name in keys(s:ansi)
         \ 'endfunction'
 endfor
 
-function! vimrc#fzf#buflisted()
+function! vimrc#fzf#buflisted() abort
   return filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&filetype") !=# "qf"')
 endfunction
 
-function! vimrc#fzf#fzf(name, opts, extra)
+function! vimrc#fzf#fzf(name, opts, extra) abort
   let [merged, bang] = s:extract_and_merge_options(a:opts, a:000)
   return fzf#run(vimrc#fzf#wrap(a:name, merged, bang))
 endfunction
 
-function! vimrc#fzf#wrap(name, opts, bang)
+function! vimrc#fzf#wrap(name, opts, bang) abort
   " fzf#wrap does not append --expect if sink or sink* is found
   let opts = copy(a:opts)
   let options = ''
@@ -133,7 +133,7 @@ function! vimrc#fzf#wrap(name, opts, bang)
   return wrapped
 endfunction
 
-function! vimrc#fzf#extend_opts(dict, eopts, prepend)
+function! vimrc#fzf#extend_opts(dict, eopts, prepend) abort
   if empty(a:eopts)
     return
   endif
@@ -153,24 +153,24 @@ function! vimrc#fzf#extend_opts(dict, eopts, prepend)
   endif
 endfunction
 
-function! vimrc#fzf#merge_opts(dict, eopts)
+function! vimrc#fzf#merge_opts(dict, eopts) abort
   return vimrc#fzf#extend_opts(a:dict, a:eopts, 0)
 endfunction
 
-function! vimrc#fzf#get_generate_preview_command_with_bat_script()
+function! vimrc#fzf#get_generate_preview_command_with_bat_script() abort
   return vimrc#get_vimhome() . '/bin/generate_fzf_preview_with_bat.sh'
 endfunction
 
-function! vimrc#fzf#generate_preview_command_with_bat(start, ...)
+function! vimrc#fzf#generate_preview_command_with_bat(start, ...) abort
   let file = a:0 > 0 && type(a:1) == type('') ? a:1 : ''
   return systemlist(vimrc#fzf#get_generate_preview_command_with_bat_script(). ' ' . a:start . ' ' . file)[0]
 endfunction
 
-function! vimrc#fzf#expect_keys()
+function! vimrc#fzf#expect_keys() abort
   return join(keys(g:fzf_action), ',')
 endfunction
 
-function! vimrc#fzf#with_default_options(...)
+function! vimrc#fzf#with_default_options(...) abort
   let opts = a:0 >= 1 && type(a:1) == type({}) ? copy(a:1) : {}
   let fzf_default_options = copy(g:fzf_default_options.options)
   let options = []
@@ -185,16 +185,16 @@ function! vimrc#fzf#with_default_options(...)
   return opts
 endfunction
 
-function! vimrc#fzf#get_git_root()
+function! vimrc#fzf#get_git_root() abort
   let root = split(system('git rev-parse --show-toplevel'), '\n')[0]
   return v:shell_error ? '' : root
 endfunction
 
-function! vimrc#fzf#strip(str)
+function! vimrc#fzf#strip(str) abort
   return substitute(a:str, '^\s*\|\s*$', '', 'g')
 endfunction
 
-function! vimrc#fzf#align_lists(lists)
+function! vimrc#fzf#align_lists(lists) abort
   let maxes = {}
   for list in a:lists
     let i = 0
@@ -209,12 +209,12 @@ function! vimrc#fzf#align_lists(lists)
   return a:lists
 endfunction
 
-function! s:escape(path)
+function! s:escape(path) abort
   let path = fnameescape(a:path)
   return vimrc#plugin#check#get_os() =~# 'windows' ? escape(path, '$') : path
 endfunction
 
-function! s:extract_and_merge_options(opts, extra)
+function! s:extract_and_merge_options(opts, extra) abort
   let [extra, bang] = [{}, 0]
   if len(a:extra) <= 1
     let first = get(a:extra, 0, 0)
@@ -238,7 +238,7 @@ endfunction
 " }}}
 
 " Wrap action to trigger autocmd in sink
-function! vimrc#fzf#wrap_action_for_trigger(Action)
+function! vimrc#fzf#wrap_action_for_trigger(Action) abort
   if type(a:Action) == type('')
     return 'doautocmd User VimrcFzfSink | '.a:Action
   else
@@ -246,7 +246,7 @@ function! vimrc#fzf#wrap_action_for_trigger(Action)
   endif
 endfunction
 
-function! vimrc#fzf#wrap_actions_for_trigger(fzf_action)
+function! vimrc#fzf#wrap_actions_for_trigger(fzf_action) abort
   let wrapped_fzf_action = {}
 
   for [key, Action] in items(a:fzf_action)
@@ -257,16 +257,16 @@ function! vimrc#fzf#wrap_actions_for_trigger(fzf_action)
 endfunction
 
 " Sources
-function! vimrc#fzf#jumps_source()
+function! vimrc#fzf#jumps_source() abort
   return reverse(filter(split(execute('jumps', 'silent!'), "\n")[1:], 'v:val !=# ">"'))
 endfunction
 
-function! vimrc#fzf#registers_source()
+function! vimrc#fzf#registers_source() abort
   return split(execute('registers', 'silent!'), "\n")[1:]
 endfunction
 
 " TODO Add sign text and highlight
-function! vimrc#fzf#current_placed_signs_source()
+function! vimrc#fzf#current_placed_signs_source() abort
   let linefmt = vimrc#fzf#yellow(' %4d ', 'LineNr')."\t%s"
   let fmtexpr = 'printf(linefmt, v:val[0], v:val[1])'
   let current_placed_signs = split(execute('sign place buffer=' . bufnr('%'), 'silent!'), "\n")[2:]
@@ -277,17 +277,17 @@ function! vimrc#fzf#current_placed_signs_source()
   return formatted_lines
 endfunction
 
-function! vimrc#fzf#functions_source()
+function! vimrc#fzf#functions_source() abort
   return split(execute('function', 'silent!'), "\n")
 endfunction
 
-function! vimrc#fzf#compilers_source()
+function! vimrc#fzf#compilers_source() abort
   return getcompletion('', 'compiler')
 endfunction
 
 " Sinks
 " Currently not used
-function! vimrc#fzf#files_sink(lines)
+function! vimrc#fzf#files_sink(lines) abort
   if len(a:lines) < 2
     return
   endif
@@ -302,13 +302,13 @@ function! vimrc#fzf#files_sink(lines)
   endif
 endfunction
 
-function! vimrc#fzf#files_in_commandline_sink(results, line)
+function! vimrc#fzf#files_in_commandline_sink(results, line) abort
   call add(a:results, a:line)
 endfunction
 
 " TODO Add Jumps command preview
 " TODO Use <C-O> & <C-I> to actually jump back and forth
-function! vimrc#fzf#jumps_sink(lines)
+function! vimrc#fzf#jumps_sink(lines) abort
   if len(a:lines) < 2
     return
   endif
@@ -330,11 +330,11 @@ function! vimrc#fzf#jumps_sink(lines)
   endfor
 endfunction
 
-function! vimrc#fzf#registers_sink(line)
+function! vimrc#fzf#registers_sink(line) abort
   execute 'norm ' . a:line[0:1] . 'p'
 endfunction
 
-function! vimrc#fzf#current_placed_signs_sink(lines)
+function! vimrc#fzf#current_placed_signs_sink(lines) abort
   if len(a:lines) < 2
     return
   endif
@@ -352,17 +352,17 @@ function! vimrc#fzf#current_placed_signs_sink(lines)
   normal! zzzv
 endfunction
 
-function! vimrc#fzf#functions_sink(line)
+function! vimrc#fzf#functions_sink(line) abort
   let function_name = matchstr(a:line, '\s\zs\S[^(]*\ze(')
   let @" = function_name
 endfunction
 
-function! vimrc#fzf#compilers_sink(bang, line)
+function! vimrc#fzf#compilers_sink(bang, line) abort
   execute 'compiler'.(a:bang ? '!' : '').' '.a:line
 endfunction
 
 " Borrowed from fzf.vim
-function! vimrc#fzf#helptag_sink(lines)
+function! vimrc#fzf#helptag_sink(lines) abort
   let use_float = a:lines[0] ==# 'alt-z' ? v:true : v:false
   let [tag, file, path] = split(a:lines[1], "\t")[0:2]
   let rtp = fnamemodify(path, ':p:h:h')
@@ -379,7 +379,7 @@ endfunction
 
 " Commands
 " borrowed from fzf.vim {{{
-function! vimrc#fzf#history(arg, bang)
+function! vimrc#fzf#history(arg, bang) abort
   let bang = a:bang || a:arg[len(a:arg)-1] ==# '!'
   if a:arg[0] ==# ':'
     call fzf#vim#command_history(bang)
@@ -391,7 +391,7 @@ function! vimrc#fzf#history(arg, bang)
 endfunction
 " }}}
 
-function! vimrc#fzf#files(path, ...)
+function! vimrc#fzf#files(path, ...) abort
   let [merged, bang] = s:extract_and_merge_options(fzf#vim#with_preview(), a:000)
   call fzf#vim#files(a:path, merged, bang)
 endfunction
@@ -401,19 +401,19 @@ function! vimrc#fzf#gitfiles(args, ...) abort
   return call('fzf#vim#gitfiles', [a:args, merged, bang])
 endfunction
 
-function! vimrc#fzf#files_with_query(query)
+function! vimrc#fzf#files_with_query(query) abort
   let options = {
     \ 'options': ['--query', a:query]
     \ }
   call vimrc#fzf#files('', options, 0)
 endfunction
 
-function! vimrc#fzf#locate(query, bang)
+function! vimrc#fzf#locate(query, bang) abort
   call fzf#vim#locate(a:query, fzf#vim#with_preview(), a:bang)
 endfunction
 
 " Intend to be mapped in command mode
-function! vimrc#fzf#files_in_commandline()
+function! vimrc#fzf#files_in_commandline() abort
   let results = []
   call fzf#vim#files(
         \ '',
@@ -425,7 +425,7 @@ function! vimrc#fzf#files_in_commandline()
 endfunction
 
 " Commands
-function! vimrc#fzf#jumps()
+function! vimrc#fzf#jumps() abort
   call fzf#run(vimrc#fzf#wrap('Jumps', {
       \ 'source':  vimrc#fzf#jumps_source(),
       \ 'sink*':   function('vimrc#fzf#jumps_sink'),
@@ -433,14 +433,14 @@ function! vimrc#fzf#jumps()
       \ }, 0))
 endfunction
 
-function! vimrc#fzf#registers()
+function! vimrc#fzf#registers() abort
   call fzf#run(fzf#wrap('Registers', {
       \ 'source': vimrc#fzf#registers_source(),
       \ 'sink': function('vimrc#fzf#registers_sink'),
       \ 'options': ['+s', '--prompt', 'Registers> ']}))
 endfunction
 
-function! vimrc#fzf#current_placed_signs()
+function! vimrc#fzf#current_placed_signs() abort
   call fzf#run(vimrc#fzf#wrap('Signs', {
         \ 'source':  vimrc#fzf#current_placed_signs_source(),
         \ 'sink*':   function('vimrc#fzf#current_placed_signs_sink'),
@@ -448,14 +448,14 @@ function! vimrc#fzf#current_placed_signs()
         \ }, 0))
 endfunction
 
-function! vimrc#fzf#functions()
+function! vimrc#fzf#functions() abort
   call fzf#run(fzf#wrap('Functions', {
       \ 'source':  vimrc#fzf#functions_source(),
       \ 'sink':    function('vimrc#fzf#functions_sink'),
       \ 'options': ['--prompt', 'Functions> ']}))
 endfunction
 
-function! vimrc#fzf#helptags(...)
+function! vimrc#fzf#helptags(...) abort
   if !executable('grep') || !executable('perl')
     return vimrc#utility#warn('Helptags command requires grep and perl')
   endif
@@ -474,7 +474,7 @@ function! vimrc#fzf#helptags(...)
   \ 'options': ['--ansi', '+m', '--tiebreak=begin', '--with-nth', '..-2', '--prompt', 'Helptags> ', '--expect=alt-z']}, a:000)
 endfunction
 
-function! vimrc#fzf#compilers(bang)
+function! vimrc#fzf#compilers(bang) abort
   call fzf#run(vimrc#fzf#wrap('Compilers', {
       \ 'source':  vimrc#fzf#compilers_source(),
       \ 'sink':   function('vimrc#fzf#compilers_sink', [a:bang]),

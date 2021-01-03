@@ -7,10 +7,10 @@ if executable('exa')
   let s:fzf_dir_preview_command = 'exa -lag --color=always'
 endif
 
-function! vimrc#fzf#preview#get_command()
+function! vimrc#fzf#preview#get_command() abort
   return s:fzf_preview_command
 endfunction
-function! vimrc#fzf#preview#get_dir_command()
+function! vimrc#fzf#preview#get_dir_command() abort
   return s:fzf_dir_preview_command
 endfunction
 
@@ -45,7 +45,7 @@ endfunction
 
 " Utility
 let s:buffer_tags_preview_options = { 'placeholder': '{2}:{3}', 'options': ['-d', '\t'] }
-function! vimrc#fzf#preview#buffer_tags_options(options)
+function! vimrc#fzf#preview#buffer_tags_options(options) abort
   let preview_options = vimrc#fzf#preview#with_preview(s:buffer_tags_preview_options)
   let opts = has_key(a:options, 'options') ? remove(a:options, 'options') : ''
   let merged = extend(preview_options, a:options)
@@ -54,7 +54,7 @@ function! vimrc#fzf#preview#buffer_tags_options(options)
   return merged
 endfunction
 
-function! vimrc#fzf#preview#with_preview(...)
+function! vimrc#fzf#preview#with_preview(...) abort
   " Borrored from fzf#wrap()
   let args = [{}, 0]
   let expects = map(copy(args), 'type(v:val)')

@@ -2,11 +2,11 @@ if !exists('s:last_tabs')
   let s:last_tabs = [1]
 endif
 
-function! vimrc#last_tab#get()
+function! vimrc#last_tab#get() abort
   return s:last_tabs
 endfunction
 
-function! vimrc#last_tab#jump(count)
+function! vimrc#last_tab#jump(count) abort
   if a:count >= 0 && a:count < len(s:last_tabs)
     let tabnr = s:last_tabs[a:count]
   else
@@ -20,7 +20,7 @@ function! vimrc#last_tab#jump(count)
   endif
 endfunction
 
-function! vimrc#last_tab#insert(tabnr)
+function! vimrc#last_tab#insert(tabnr) abort
   " Insert last tab
   let s:last_tabs = filter(s:last_tabs, 'v:val != ' . a:tabnr)
   call insert(s:last_tabs, a:tabnr, 0)
@@ -32,7 +32,7 @@ function! vimrc#last_tab#insert(tabnr)
   endif
 endfunction
 
-function! vimrc#last_tab#clear_invalid()
+function! vimrc#last_tab#clear_invalid() abort
   " Clear invalid last tab
   let new_last_tabs = []
   for last_tab in s:last_tabs

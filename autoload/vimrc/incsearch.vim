@@ -9,12 +9,12 @@ function! vimrc#incsearch#config_easyfuzzymotion(...) abort
   \ }), get(a:, 1, {}))
 endfunction
 
-function! vimrc#incsearch#clear_auto_nohlsearch()
+function! vimrc#incsearch#clear_auto_nohlsearch() abort
   " clear incsearch-nohlsearch autocmd
   silent! autocmd! incsearch-auto-nohlsearch
 endfunction
 
-function! vimrc#incsearch#clear_nohlsearch()
+function! vimrc#incsearch#clear_nohlsearch() abort
   nohlsearch
 
   call vimrc#incsearch#clear_auto_nohlsearch()

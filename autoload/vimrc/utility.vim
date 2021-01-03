@@ -2,7 +2,7 @@
 " Escape colon, backslash and space
 " For unite & denite
 " TODO: Move to better place
-function! vimrc#utility#denite_escape_symbol(expr)
+function! vimrc#utility#denite_escape_symbol(expr) abort
   let l:expr = a:expr
   let l:expr = substitute(l:expr, '\\', '\\\\', 'g')
   let l:expr = substitute(l:expr, ':', '\\:', 'g')
@@ -12,7 +12,7 @@ function! vimrc#utility#denite_escape_symbol(expr)
 endfunction
 
 " Escape backslash and space
-function! vimrc#utility#commandline_escape_symbol(expr)
+function! vimrc#utility#commandline_escape_symbol(expr) abort
   let l:expr = a:expr
   let l:expr = substitute(l:expr, '\\', '\\\\', 'g')
   let l:expr = substitute(l:expr, ' ', '\\ ', 'g')
@@ -20,14 +20,14 @@ function! vimrc#utility#commandline_escape_symbol(expr)
   return l:expr
 endfunction
 
-function! vimrc#utility#warn(message)
+function! vimrc#utility#warn(message) abort
   echohl WarningMsg
   echomsg a:message
   echohl None
   return 0
 endfunction
 
-function! vimrc#utility#get_visual_selection()
+function! vimrc#utility#get_visual_selection() abort
     " Why is this not a built-in Vim script function?!
     let [line_start, column_start] = getpos("'<")[1:2]
     let [line_end, column_end] = getpos("'>")[1:2]
@@ -40,7 +40,7 @@ function! vimrc#utility#get_visual_selection()
     return join(lines, "\n")
 endfunction
 
-function! vimrc#utility#quit_tab()
+function! vimrc#utility#quit_tab() abort
   try
     tabclose
   catch /E784/ " Can't close last tab
@@ -48,14 +48,14 @@ function! vimrc#utility#quit_tab()
   endtry
 endfunction
 
-function! vimrc#utility#window_equal()
+function! vimrc#utility#window_equal() abort
   windo setlocal nowinfixheight nowinfixwidth
   1wincmd w
   wincmd =
 endfunction
 
 " Delete inactive buffers
-function! vimrc#utility#delete_inactive_buffers(wipeout, bang)
+function! vimrc#utility#delete_inactive_buffers(wipeout, bang) abort
   "From tabpagebuflist() help, get a list of all buffers in all tabs
   let visible_buffers = {}
   for t in range(tabpagenr('$'))
@@ -92,7 +92,7 @@ function! vimrc#utility#delete_inactive_buffers(wipeout, bang)
 endfunction
 
 " vimrc#utility#execute_command() for executing command with query
-function! vimrc#utility#execute_command(command, prompt, ...)
+function! vimrc#utility#execute_command(command, prompt, ...) abort
   let no_space = a:0 > 0 && type(a:1) == type(0) ? a:1 : 0
   " TODO input completion
   let query = input(a:prompt)
@@ -106,14 +106,14 @@ function! vimrc#utility#execute_command(command, prompt, ...)
   endif
 endfunction
 
-function! vimrc#utility#ask_execute(command, message)
+function! vimrc#utility#ask_execute(command, message) abort
   if vimrc#utility#ask(a:message)
     execute a:command
   endif
 endfunction
 
 " Borrowed from vim-plug
-function! vimrc#utility#ask(message, ...)
+function! vimrc#utility#ask(message, ...) abort
   call inputsave()
   echohl WarningMsg
   let answer = input(a:message.(a:0 ? ' (y/N/a) ' : ' (y/N) '))
@@ -126,19 +126,19 @@ endfunction
 " sdcv
 let s:sdcv_command = vimrc#terminal#get_open_command() . ' sdcv'
 
-function! vimrc#utility#get_sdcv_command()
+function! vimrc#utility#get_sdcv_command() abort
   return s:sdcv_command
 endfunction
 
 " xdg-open
 let s:xdg_open_command = vimrc#terminal#get_open_command() . ' xdg-open'
 
-function! vimrc#utility#get_xdg_open()
+function! vimrc#utility#get_xdg_open() abort
   return s:xdg_open_command
 endfunction
 
 " DiffOrig
-function! vimrc#utility#diff_original()
+function! vimrc#utility#diff_original() abort
   vertical new
   set buftype=nofile
   read ++edit #
@@ -148,7 +148,7 @@ function! vimrc#utility#diff_original()
   diffthis
 endfunction
 
-function! vimrc#utility#file_size(path)
+function! vimrc#utility#file_size(path) abort
   let path = expand(a:path)
   if isdirectory(path)
     echomsg path . ' is directory!'
@@ -168,19 +168,19 @@ function! vimrc#utility#file_size(path)
         \ . byte . 'byte'
 endfunction
 
-function! vimrc#utility#set_tab_size(size)
+function! vimrc#utility#set_tab_size(size) abort
   let &l:tabstop     = a:size
   let &l:shiftwidth  = a:size
   let &l:softtabstop = a:size
 endfunction
 
 " Borrowed from gv.vim
-function! vimrc#utility#get_cursor_syntax()
+function! vimrc#utility#get_cursor_syntax() abort
   return synIDattr(synID(line('.'), col('.'), 0), 'name')
 endfunction
 
 " Find the cursor {{{
-function! vimrc#utility#blink_cursor_location()
+function! vimrc#utility#blink_cursor_location() abort
   let cursorline = &cursorline
   let cursorcolumn = &cursorcolumn
 
@@ -190,18 +190,18 @@ function! vimrc#utility#blink_cursor_location()
   call timer_start(250, function('s:blink_cursor_location_callback', [cursorline, cursorcolumn]))
 endfunction
 
-function! s:blink_cursor_location_callback(cursorline, cursorcolumn, timer_id)
+function! s:blink_cursor_location_callback(cursorline, cursorcolumn, timer_id) abort
   let &cursorline = a:cursorline
   let &cursorcolumn = a:cursorcolumn
 endfunction
 " }}}
 
-function! vimrc#utility#refresh_display()
+function! vimrc#utility#refresh_display() abort
   let $DISPLAY = split(systemlist('tmux show-environment DISPLAY')[0], '=')[1]
 endfunction
 
 " Trim whitespace
-function! vimrc#utility#trim_whitespace()
+function! vimrc#utility#trim_whitespace() abort
     let l:save = winsaveview()
     let line_number = 1
     for line in getline(1, '$')
@@ -211,7 +211,7 @@ function! vimrc#utility#trim_whitespace()
     call winrestview(l:save)
 endfunction
 
-function! vimrc#utility#set_scratch()
+function! vimrc#utility#set_scratch() abort
   setlocal buftype=nofile
   setlocal bufhidden=hide
   setlocal noswapfile

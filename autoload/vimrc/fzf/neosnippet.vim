@@ -1,25 +1,25 @@
 " Borrowed from fzf.vim
 
 " Source
-function! vimrc#fzf#neosnippet#neosnippet_source()
+function! vimrc#fzf#neosnippet#neosnippet_source() abort
   let snippets = neosnippet#helpers#get_snippets('i')
   return map(snippets, { _, snippet -> snippet.description })
 endfunction
 
 " Sink
-function! vimrc#fzf#neosnippet#neosnippet_sink(line)
+function! vimrc#fzf#neosnippet#neosnippet_sink(line) abort
   let snip = split(a:line, "\t")[0]
   execute 'normal a'.vimrc#fzf#strip(snip)."\<Plug>(neosnippet_expand_or_jump)"
 endfunction
 
 " Intend to be mapped in insert mode
-function! vimrc#fzf#neosnippet#neosnippet_in_insert_mode_sink(results, line)
+function! vimrc#fzf#neosnippet#neosnippet_in_insert_mode_sink(results, line) abort
   let snip = split(a:line, "\t")[0]
   call add(a:results, vimrc#fzf#strip(snip)."\<Plug>(neosnippet_expand_or_jump)")
 endfunction
 
 " Commands
-function! vimrc#fzf#neosnippet#neosnippet()
+function! vimrc#fzf#neosnippet#neosnippet() abort
   if exists(':NeoSnippetEdit') != 2
     return vimrc#utility#warn('Neosnippet not found')
   endif
@@ -36,7 +36,7 @@ function! vimrc#fzf#neosnippet#neosnippet()
 endfunction
 
 " Intend to be mapped in insert mode
-function! vimrc#fzf#neosnippet#neosnippet_in_insert_mode()
+function! vimrc#fzf#neosnippet#neosnippet_in_insert_mode() abort
   if exists(':NeoSnippetEdit') != 2
     return vimrc#utility#warn('Neosnippet not found')
   endif

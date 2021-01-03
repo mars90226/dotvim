@@ -1,5 +1,5 @@
 " Mappings
-function! vimrc#coc#ccls_mappings()
+function! vimrc#coc#ccls_mappings() abort
   " ccls navigate commands
   nnoremap <silent><buffer> <C-X>l :call CocLocations('ccls', '$ccls/navigate', { 'direction': 'D' })<CR>
   nnoremap <silent><buffer> <C-X>k :call CocLocations('ccls', '$ccls/navigate', { 'direction': 'L' })<CR>
@@ -39,7 +39,7 @@ function! vimrc#coc#ccls_mappings()
 endfunction
 
 " Functions
-function! vimrc#coc#show_documentation()
+function! vimrc#coc#show_documentation() abort
   if &filetype ==# 'help'
     execute 'help ' . expand('<cword>')
   else
@@ -47,7 +47,7 @@ function! vimrc#coc#show_documentation()
   endif
 endfunction
 
-function! vimrc#coc#toggle()
+function! vimrc#coc#toggle() abort
   if g:coc_enabled
     CocDisable
   else
@@ -55,7 +55,7 @@ function! vimrc#coc#toggle()
   endif
 endfunction
 
-function! vimrc#coc#outline_with_query(query)
+function! vimrc#coc#outline_with_query(query) abort
   call setreg('"', a:query)
   CocList outline
 endfunction

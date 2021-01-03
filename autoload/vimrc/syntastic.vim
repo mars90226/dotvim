@@ -1,7 +1,7 @@
 " For syntastic
 
 " Functions
-function! vimrc#syntastic#check_header()
+function! vimrc#syntastic#check_header() abort
   let header_pattern_index = index(g:syntastic_ignore_files, '\m\c\.h$')
   if header_pattern_index >= 0
     call remove(g:syntastic_ignore_files, header_pattern_index)

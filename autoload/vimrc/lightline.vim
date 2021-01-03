@@ -3,7 +3,7 @@ scriptencoding utf-8
 
 let s:lightline_width_threshold = 69
 
-function! vimrc#lightline#filename()
+function! vimrc#lightline#filename() abort
   let fname = expand('%:t')
   let fpath = expand('%')
 
@@ -40,15 +40,15 @@ function! vimrc#lightline#filename()
   endif
 endfunction
 
-function! vimrc#lightline#readonly()
+function! vimrc#lightline#readonly() abort
   return &filetype !~? 'help' && &readonly ? '' : ''
 endfunction
 
-function! vimrc#lightline#modified()
+function! vimrc#lightline#modified() abort
   return &modifiable && &modified ? '+' : ''
 endfunction
 
-function! vimrc#lightline#git_status()
+function! vimrc#lightline#git_status() abort
   if winwidth(0) <= s:lightline_width_threshold
     return ''
   endif
@@ -58,21 +58,21 @@ function! vimrc#lightline#git_status()
   return status . buffer_status[1:-2]
 endfunction
 
-function! vimrc#lightline#fileformat()
+function! vimrc#lightline#fileformat() abort
   return winwidth(0) > s:lightline_width_threshold ? &fileformat : ''
 endfunction
 
-function! vimrc#lightline#filetype()
+function! vimrc#lightline#filetype() abort
   return winwidth(0) > s:lightline_width_threshold ?
         \ &buftype ==# 'terminal' ? &buftype :
         \ (&filetype !=# '' ? &filetype : 'no ft') : ''
 endfunction
 
-function! vimrc#lightline#fileencoding()
+function! vimrc#lightline#fileencoding() abort
   return winwidth(0) > s:lightline_width_threshold ? (&fileencoding !=# '' ? &fileencoding : &encoding) : ''
 endfunction
 
-function! vimrc#lightline#lineinfo()
+function! vimrc#lightline#lineinfo() abort
   if winwidth(0) > s:lightline_width_threshold
     return line('.').':'.col('.')
   else
@@ -80,7 +80,7 @@ function! vimrc#lightline#lineinfo()
   endif
 endfunction
 
-function! vimrc#lightline#percent()
+function! vimrc#lightline#percent() abort
   if winwidth(0) > s:lightline_width_threshold
     return line('.') * 100 / line('$') . '%'
   else
@@ -88,7 +88,7 @@ function! vimrc#lightline#percent()
   endif
 endfunction
 
-function! vimrc#lightline#coc_status()
+function! vimrc#lightline#coc_status() abort
   if winwidth(0) > s:lightline_width_threshold && vimrc#plugin#is_enabled_plugin('coc.nvim') && exists('*coc#status')
     return coc#status()
   else
@@ -96,7 +96,7 @@ function! vimrc#lightline#coc_status()
   endif
 endfunction
 
-function! vimrc#lightline#mode()
+function! vimrc#lightline#mode() abort
   let fname = expand('%:t')
   return fname =~# '__Tagbar__' ? 'Tagbar' :
         \ fname ==# '__vista__' ? 'Vista' :
@@ -111,7 +111,7 @@ function! vimrc#lightline#mode()
 endfunction
 
 " Borrowed from vim-airline {{{
-function! vimrc#lightline#quickfix_mode()
+function! vimrc#lightline#quickfix_mode() abort
   let dict = getwininfo(win_getid())
   if len(dict) > 0 && get(dict[0], 'quickfix', 0) && !get(dict[0], 'loclist', 0)
     return 'Quickfix'
@@ -147,13 +147,13 @@ function! vimrc#lightline#tagbar_status_func(current, sort, fname, ...) abort
   return lightline#statusline(0)
 endfunction
 
-function! vimrc#lightline#refresh()
+function! vimrc#lightline#refresh() abort
   if exists('b:lightline_head')
     unlet b:lightline_head
   endif
 endfunction
 
-function! vimrc#lightline#nearest_method_or_function()
+function! vimrc#lightline#nearest_method_or_function() abort
   let vista_method = get(b:, 'vista_nearest_method_or_function', '')
   return vista_method ==# '' ? tagbar#currenttag('%s', '', '') : vista_method
 endfunction

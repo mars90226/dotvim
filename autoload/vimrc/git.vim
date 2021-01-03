@@ -1,5 +1,5 @@
 " Utility functions
-function! vimrc#git#include_git_mappings(get_commit_sha_function_call, ...)
+function! vimrc#git#include_git_mappings(get_commit_sha_function_call, ...) abort
   let get_commit_sha_of_current_line_function_call = a:0 > 0 && type(a:1) == type('') ? a:1 : ''
 
   execute 'nnoremap <silent><buffer> <Leader>gd :call vimrc#fzf#git#diff_commit('.a:get_commit_sha_function_call.')<CR>'
@@ -18,10 +18,10 @@ function! vimrc#git#include_git_mappings(get_commit_sha_function_call, ...)
   execute 'cnoremap <buffer><expr> <C-G><C-S> '.a:get_commit_sha_function_call
 endfunction
 
-function! vimrc#git#get_email()
+function! vimrc#git#get_email() abort
   return systemlist('git config --get user.email')[0]
 endfunction
 
-function! vimrc#git#root()
+function! vimrc#git#root() abort
   return systemlist('git rev-parse --show-toplevel')[0]
 endfunction

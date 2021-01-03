@@ -1,5 +1,5 @@
 " Functions
-function! vimrc#lazy#lazy_load(name)
+function! vimrc#lazy#lazy_load(name) abort
   let augroup_name = 'vimrc_lazy_load_'.a:name
   execute 'augroup '.augroup_name
   autocmd!

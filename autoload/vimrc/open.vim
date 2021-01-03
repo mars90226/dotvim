@@ -1,5 +1,5 @@
 " Functions
-function! vimrc#open#switch(file, fallback_command)
+function! vimrc#open#switch(file, fallback_command) abort
   let bufnr = bufnr(a:file)
   let winids = win_findbuf(bufnr)
   if empty(winids)
@@ -9,7 +9,7 @@ function! vimrc#open#switch(file, fallback_command)
   endif
 endfunction
 
-function! vimrc#open#tab(file)
+function! vimrc#open#tab(file) abort
   if vimrc#plugin#is_enabled_plugin('defx.nvim')
     call vimrc#defx#open(a:file, 'tab')
   else

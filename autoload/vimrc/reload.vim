@@ -2,7 +2,7 @@
 
 let s:current_filename = expand('<sfile>')
 
-function! vimrc#reload#reload()
+function! vimrc#reload#reload() abort
   " reload in floating window to avoid affecting current buffer & window
   " settings
   if has('nvim')

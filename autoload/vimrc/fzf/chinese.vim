@@ -13,24 +13,24 @@ let s:chinese_punctuations = {
       \ }
 
 " Sources
-function! vimrc#fzf#chinese#punctuations_source()
+function! vimrc#fzf#chinese#punctuations_source() abort
   return s:chinese_punctuations
 endfunction
 
 " Sinks
-function! vimrc#fzf#chinese#punctuations_sink(line)
+function! vimrc#fzf#chinese#punctuations_sink(line) abort
   let punctuation = split(a:line, "\t")[1]
   execute 'normal! a'.punctuation
 endfunction
 
 " Intend to be mapped in insert mode
-function! vimrc#fzf#chinese#punctuations_in_insert_mode_sink(results, line)
+function! vimrc#fzf#chinese#punctuations_in_insert_mode_sink(results, line) abort
   let punctuation = split(a:line, "\t")[1]
   call add(a:results, punctuation)
 endfunction
 
 " Commands
-function! vimrc#fzf#chinese#punctuations()
+function! vimrc#fzf#chinese#punctuations() abort
   let list = vimrc#fzf#chinese#punctuations_source()
   if empty(list)
     return vimrc#utility#warn('No snippets available here')
@@ -45,7 +45,7 @@ function! vimrc#fzf#chinese#punctuations()
 endfunction
 
 " Intend to be mapped in insert mode
-function! vimrc#fzf#chinese#punctuations_in_insert_mode()
+function! vimrc#fzf#chinese#punctuations_in_insert_mode() abort
   let list = vimrc#fzf#chinese#punctuations_source()
   if empty(list)
     return vimrc#utility#warn('No snippets available here')

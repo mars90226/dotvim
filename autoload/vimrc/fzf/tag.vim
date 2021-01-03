@@ -1,6 +1,6 @@
 " Commands
 " Currently unused
-function! vimrc#fzf#tag#buffer_tags(query, ...)
+function! vimrc#fzf#tag#buffer_tags(query, ...) abort
   let args = copy(a:000)
   let opts = !empty(args) && type(args[0]) == type({}) ? remove(args, 0) : {}
   let bang = !empty(args) && type(args[0]) == type(0) ? remove(args, 0) : 0
@@ -9,7 +9,7 @@ function! vimrc#fzf#tag#buffer_tags(query, ...)
 endfunction
 
 " Sources
-function! vimrc#fzf#tag#get_tselect(query)
+function! vimrc#fzf#tag#get_tselect(query) abort
   let tselect_output = split(execute('tselect ' . a:query, 'silent!'), "\n")[1:-2]
   let tselect_candidates = []
   let tselect_current_candidate = []
@@ -31,7 +31,7 @@ function! vimrc#fzf#tag#get_tselect(query)
 endfunction
 
 " Sinks
-function! vimrc#fzf#tag#tselect_sink(lines)
+function! vimrc#fzf#tag#tselect_sink(lines) abort
   if len(a:lines) < 2
     return
   endif
@@ -53,7 +53,7 @@ function! vimrc#fzf#tag#tselect_sink(lines)
 endfunction
 
 " Commands
-function! vimrc#fzf#tag#tselect(query)
+function! vimrc#fzf#tag#tselect(query) abort
   call fzf#run(fzf#wrap('Tselect', {
         \ 'source': vimrc#fzf#tag#get_tselect(a:query),
         \ 'sink*':   function('vimrc#fzf#tag#tselect_sink'),
@@ -61,7 +61,7 @@ function! vimrc#fzf#tag#tselect(query)
 endfunction
 
 " Need neovim terminal
-function! vimrc#fzf#tag#setup_project_tags_callback(origin_tags)
+function! vimrc#fzf#tag#setup_project_tags_callback(origin_tags) abort
   let s:origin_tags = a:origin_tags
   augroup project_tags_callback
     autocmd!
@@ -71,7 +71,7 @@ function! vimrc#fzf#tag#setup_project_tags_callback(origin_tags)
   augroup END
 endfunction
 
-function! vimrc#fzf#tag#project_tags(query, ...)
+function! vimrc#fzf#tag#project_tags(query, ...) abort
   let args = copy(a:000)
   call vimrc#fzf#tag#setup_project_tags_callback(vimrc#tags#use_project_tags())
 
@@ -79,14 +79,14 @@ function! vimrc#fzf#tag#project_tags(query, ...)
 endfunction
 
 " Need neovim terminal
-function! vimrc#fzf#tag#project_tselect(query)
+function! vimrc#fzf#tag#project_tselect(query) abort
   call vimrc#fzf#tag#setup_project_tags_callback(vimrc#tags#use_project_tags())
 
   call call('vimrc#fzf#tag#tselect', [a:query])
 endfunction
 
 " Need neovim terminal
-function! vimrc#fzf#tag#tagbar_tags()
+function! vimrc#fzf#tag#tagbar_tags() abort
   TagbarOpenAutoClose
   augroup tagbar_tags_callback
     autocmd!

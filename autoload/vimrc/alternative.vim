@@ -1,5 +1,5 @@
 " Settings
-function! vimrc#alternative#settings()
+function! vimrc#alternative#settings() abort
   " ReactJS
   let g:alternateExtensionsDict['javascript.jsx'] = {}
   let g:alternateExtensionsDict['javascript.jsx']['js'] = 'css,scss'

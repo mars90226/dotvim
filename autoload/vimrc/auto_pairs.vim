@@ -1,7 +1,7 @@
 " For auto-pairs
 
 " Functions
-function! vimrc#auto_pairs#toggle_multiline_close()
+function! vimrc#auto_pairs#toggle_multiline_close() abort
   if g:AutoPairsMultilineClose == 0
     let g:AutoPairsMultilineClose = 1
   else
@@ -10,7 +10,7 @@ function! vimrc#auto_pairs#toggle_multiline_close()
 endfunction
 
 " TODO Add start pattern matching
-function! vimrc#auto_pairs#jump()
+function! vimrc#auto_pairs#jump() abort
   let end_patterns = ['"', '\]', "'", ')', '}', '`']
   if exists('b:AutoPairsJumps')
     let end_patterns += b:AutoPairsJumps

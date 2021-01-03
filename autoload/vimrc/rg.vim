@@ -49,16 +49,16 @@ function! vimrc#rg#current_type_option() abort
   return ''
 endfunction
 
-function! vimrc#rg#types_in_commandline_sink(results, line)
+function! vimrc#rg#types_in_commandline_sink(results, line) abort
   let type_option = get(s:type_pattern_options, a:line, '')[1]
   call add(a:results, type_option)
 endfunction
 
-function! vimrc#rg#types_in_commandline_source()
+function! vimrc#rg#types_in_commandline_source() abort
   return keys(s:type_pattern_options)
 endfunction
 
-function! vimrc#rg#types_in_commandline()
+function! vimrc#rg#types_in_commandline() abort
   let results = []
   call fzf#run(fzf#wrap('Rg Types', extend({
         \ 'source': vimrc#rg#types_in_commandline_source(),

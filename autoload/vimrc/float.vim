@@ -6,21 +6,21 @@ let s:float_default_height = float2nr(&lines * s:float_default_height_ratio)
 let s:float_default_ratio = [s:float_default_width_ratio, s:float_default_height_ratio]
 let s:float_default_size = [s:float_default_width, s:float_default_height]
 
-function! vimrc#float#get_default_size()
+function! vimrc#float#get_default_size() abort
   return s:float_default_size
 endfunction
 
-function! vimrc#float#get_default_ratio()
+function! vimrc#float#get_default_ratio() abort
   return s:float_default_ratio
 endfunction
 
-function! vimrc#float#calculate_pos(width, height)
+function! vimrc#float#calculate_pos(width, height) abort
   let col = (&columns - a:width) / 2
   let row = (&lines - a:height) / 2
   return [col, row]
 endfunction
 
-function! vimrc#float#calculate_pos_from_ratio(width_ratio, height_ratio)
+function! vimrc#float#calculate_pos_from_ratio(width_ratio, height_ratio) abort
   let col_ratio = (1 - a:width_ratio) / 2
   let row_ratio = (1 - a:height_ratio) / 2
   let col = float2nr(&columns * col_ratio)
@@ -54,20 +54,20 @@ function! vimrc#float#open(bufnr, width, height, ...) abort
   return [bufnr, winid]
 endfunction
 
-function! vimrc#float#is_float(winid)
+function! vimrc#float#is_float(winid) abort
   try
     return !empty(nvim_win_get_config(a:winid).relative) && getwinvar(a:winid, 'vimrc_float', v:false)
   catch /E5555: API call: Invalid window id:/
     return v:false
   endtry
 endfunction
-function! vimrc#float#is_float_winnr(winnr)
+function! vimrc#float#is_float_winnr(winnr) abort
   return vimrc#float#is_float(win_getid(a:winnr))
 endfunction
 
 " Functions
 " Borrowed from https://github.com/voldikss/vim-floaterm/blob/master/autoload/floaterm.vim
-function! vimrc#float#new(...)
+function! vimrc#float#new(...) abort
   call vimrc#float#hide()
 
   let command = a:0 >= 1 && type(a:1) == type('') ? a:1 : ''
@@ -107,7 +107,7 @@ function! s:find_term_win() abort
   return found_winnr
 endfunction
 
-function! vimrc#float#hide()
+function! vimrc#float#hide() abort
   while v:true
     let found_winnr = s:find_term_win()
     if found_winnr > 0

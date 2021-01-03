@@ -2,7 +2,7 @@
 scriptencoding utf-8
 
 " Settings
-function! vimrc#terminal#settings()
+function! vimrc#terminal#settings() abort
   setlocal bufhidden=hide
   setlocal nolist
   setlocal nowrap
@@ -21,7 +21,7 @@ function! vimrc#terminal#settings()
 endfunction
 
 " Mappings
-function! vimrc#terminal#mappings()
+function! vimrc#terminal#mappings() abort
   " Navigate prompts
   nnoremap <silent><buffer> [[ ?❯<CR>
   nnoremap <silent><buffer> ]] /❯<CR>
@@ -30,7 +30,7 @@ function! vimrc#terminal#mappings()
   call vimrc#search#define_search_mappings()
 endfunction
 
-function! vimrc#terminal#meta_key_fix()
+function! vimrc#terminal#meta_key_fix() abort
   set <M-a>=a
   set <M-c>=c
   set <M-h>=h
@@ -52,7 +52,7 @@ function! vimrc#terminal#meta_key_fix()
 endfunction
 
 " Utilities
-function! vimrc#terminal#open(split, folder, cmd)
+function! vimrc#terminal#open(split, folder, cmd) abort
   let split = empty(a:split) ? 'edit' : a:split
 
   if split ==# 'float'
@@ -71,20 +71,20 @@ function! vimrc#terminal#open(split, folder, cmd)
   endif
 endfunction
 
-function! vimrc#terminal#open_current_folder(split, cmd)
+function! vimrc#terminal#open_current_folder(split, cmd) abort
   call vimrc#terminal#open(a:split, '', a:cmd)
 endfunction
 
-function! vimrc#terminal#open_shell(split, folder)
+function! vimrc#terminal#open_shell(split, folder) abort
   call vimrc#terminal#open(a:split, a:folder, &shell)
 endfunction
 
-function! vimrc#terminal#open_current_shell(split)
+function! vimrc#terminal#open_current_shell(split) abort
   call vimrc#terminal#open(a:split, '', &shell)
 endfunction
 
 let s:terminal_pattern = '\vterm://(.{-}//(\d+:)?)?\zs.*' " Use very magic
-function! vimrc#terminal#get_terminal_command(terminal)
+function! vimrc#terminal#get_terminal_command(terminal) abort
   let match_result = matchlist(a:terminal, s:terminal_pattern)
   if empty(match_result)
     return ''
@@ -92,11 +92,11 @@ function! vimrc#terminal#get_terminal_command(terminal)
   return match_result[0]
 endfunction
 
-function! vimrc#terminal#is_floaterm()
+function! vimrc#terminal#is_floaterm() abort
   return &ft ==# 'floaterm'
 endfunction
 
-function! vimrc#terminal#is_shell_terminal(terminal)
+function! vimrc#terminal#is_shell_terminal(terminal) abort
   let shells = vimrc#tui#get_shells()
   let exception_programs = ['fzf', 'coc']
 
@@ -119,7 +119,7 @@ function! vimrc#terminal#is_shell_terminal(terminal)
 endfunction
 
 " Check if terminal command is tui process
-function! vimrc#terminal#is_interactive_process(terminal)
+function! vimrc#terminal#is_interactive_process(terminal) abort
   let interactive_processes = vimrc#tui#get_processes()
 
   let cmd = vimrc#terminal#get_terminal_command(a:terminal)
@@ -134,13 +134,13 @@ function! vimrc#terminal#is_interactive_process(terminal)
   endfor
 endfunction
 
-function! vimrc#terminal#close_result_buffer(terminal)
+function! vimrc#terminal#close_result_buffer(terminal) abort
   if vimrc#terminal#is_shell_terminal(a:terminal) || vimrc#terminal#is_interactive_process(a:terminal)
     call nvim_input('<CR>')
   endif
 endfunction
 
-function! vimrc#terminal#get_open_command()
+function! vimrc#terminal#get_open_command() abort
   if has('nvim')
     if vimrc#plugin#check#has_floating_window()
       return 'FloatermNew'

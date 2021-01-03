@@ -13,7 +13,7 @@ function! vimrc#denite#grep(folder, query, buffer_name_prefix, option, is_word) 
   execute 'Denite -buffer-name=' . buffer_name . ' grep:' . a:folder . ':' . escaped_option . ':' . final_query
 endfunction
 
-function! vimrc#denite#project_tags(query)
+function! vimrc#denite#project_tags(query) abort
   let t:origin_tags = vimrc#tags#use_project_tags()
 
   augroup denite_project_tags_callback
@@ -35,7 +35,7 @@ function! vimrc#denite#move_cursor_candidate_window(dir, lines) abort
 endfunction
 
 " Assume preview floating window is previous window of denite buffer
-function! vimrc#denite#goto_and_back_between_preview()
+function! vimrc#denite#goto_and_back_between_preview() abort
   if bufname('%') =~# '\[denite\]'
     wincmd W
     nnoremap <silent><buffer> <M-l> :call vimrc#denite#goto_and_back_between_preview()<CR>
@@ -50,12 +50,12 @@ let s:denite_actions = {
   \ 'move_cursor': 'vimrc#denite#move_cursor_candidate_window'
   \ }
 
-function! vimrc#denite#use_clap()
+function! vimrc#denite#use_clap() abort
   return executable(vimrc#clap#get_clap_fuzzymatch_rs_so()) || (vimrc#plugin#is_enabled_plugin('vim-clap') && vimrc#plugin#check#has_cargo())
 endfunction
 
 " Borrowed from denite.nvim
-function! vimrc#denite#do_map(name, ...)
+function! vimrc#denite#do_map(name, ...) abort
   let args = copy(a:000)
   let esc = (mode() ==# 'i' ? "\<C-O>" : '')
   let denite_action = get(s:denite_actions, a:name)
@@ -63,20 +63,20 @@ function! vimrc#denite#do_map(name, ...)
         \ string(denite_action), string(args))
 endfunction
 
-function! vimrc#denite#call_map(function, args)
+function! vimrc#denite#call_map(function, args) abort
   call call(a:function, a:args)
 endfunction
 
-function! vimrc#denite#toggle_matchers(...)
+function! vimrc#denite#toggle_matchers(...) abort
   call denite#call_map('toggle_matchers', a:000)
 endfunction
 
-function! vimrc#denite#change_sorters(sorter)
+function! vimrc#denite#change_sorters(sorter) abort
   call denite#call_map('change_sorters', [a:sorter])
 endfunction
 
 " Completions
-function! vimrc#denite#complete_matchers(ArgLead, CmdLine, CursorPos)
+function! vimrc#denite#complete_matchers(ArgLead, CmdLine, CursorPos) abort
   return [
     \ 'matcher/clap',
     \ 'matcher/cpsm',
@@ -90,7 +90,7 @@ function! vimrc#denite#complete_matchers(ArgLead, CmdLine, CursorPos)
     \ ]
 endfunction
 
-function! vimrc#denite#complete_sorters(ArgLead, CmdLine, CursorPos)
+function! vimrc#denite#complete_sorters(ArgLead, CmdLine, CursorPos) abort
   return [
     \ 'sorter/rank',
     \ 'sorter/reverse',
@@ -100,25 +100,25 @@ function! vimrc#denite#complete_sorters(ArgLead, CmdLine, CursorPos)
 endfunction
 
 " Settings
-function! vimrc#denite#settings()
+function! vimrc#denite#settings() abort
   call vimrc#denite#common_commands()
   call vimrc#denite#mappings()
 endfunction
 
-function! vimrc#denite#filter_settings()
+function! vimrc#denite#filter_settings() abort
   call vimrc#denite#common_commands()
   call vimrc#denite#filter_mappings()
 endfunction
 
 " Commands
-function! vimrc#denite#common_commands()
+function! vimrc#denite#common_commands() abort
   command! -buffer -nargs=+ -complete=customlist,vimrc#denite#complete_matchers DeniteToggleMatchers call vimrc#denite#toggle_matchers(<f-args>)
   command! -buffer -nargs=1 -complete=customlist,vimrc#denite#complete_sorters DeniteChangeSorters call vimrc#denite#change_sorters(<f-args>)
 endfunction
 
 " Mappings
 " Denite buffer normal mode
-function! vimrc#denite#mappings()
+function! vimrc#denite#mappings() abort
   " Denite buffer
   nnoremap <silent><buffer><expr> <Esc> denite#do_map('quit')
   nnoremap <silent><buffer><expr> <C-c> denite#do_map('quit')
@@ -187,7 +187,7 @@ function! vimrc#denite#mappings()
 endfunction
 
 " Denite buffer insert mode
-function! vimrc#denite#filter_mappings()
+function! vimrc#denite#filter_mappings() abort
   " Denite filter buffer
   inoremap <silent><buffer><expr> <Esc> pumvisible() ? "\<C-E>" : denite#do_map('quit')
   inoremap <silent><buffer><expr> <C-C> denite#do_map('quit')

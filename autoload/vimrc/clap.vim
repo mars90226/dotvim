@@ -2,15 +2,15 @@
 let s:clap_pythonx_clap_dir = simplify(g:clap#autoload_dir.'/../pythonx/clap')
 let s:clap_fuzzymatch_rs_so = s:clap_pythonx_clap_dir.'/fuzzymatch_rs.so'
 
-function! vimrc#clap#get_clap_pythonx_clap_dir()
+function! vimrc#clap#get_clap_pythonx_clap_dir() abort
   return s:clap_pythonx_clap_dir
 endfunction
 
-function! vimrc#clap#get_clap_fuzzymatch_rs_so()
+function! vimrc#clap#get_clap_fuzzymatch_rs_so() abort
   return s:clap_fuzzymatch_rs_so
 endfunction
 
-function! vimrc#clap#install()
+function! vimrc#clap#install() abort
   Clap install-binary
   call vimrc#clap#build_fuzzymatch_rs()
 endfunction
@@ -35,13 +35,13 @@ function! vimrc#clap#build_fuzzymatch_rs() abort
 endfunction
 
 " Settings
-function! vimrc#clap#settings()
+function! vimrc#clap#settings() abort
   " FIXME Should make scroll full window, but does not work
   let &l:scroll *= 2
 endfunction
 
 " Mappings
-function! vimrc#clap#mappings()
+function! vimrc#clap#mappings() abort
   " Press <Esc> to exit
   nnoremap <silent><buffer> <Esc> :call clap#handler#exit()<CR>
   inoremap <silent><buffer> <Esc> <Esc>:<C-U>call clap#handler#exit()<CR>

@@ -7,11 +7,11 @@ let s:fugitive_fzf_action = vimrc#fzf#wrap_actions_for_trigger(extend({
       \ 'ctrl-v': 'Gvsplit',
       \ 'alt-v': 'Gvsplit',
       \ }, g:misc_fzf_action))
-function! vimrc#fzf#git#get_fugitive_fzf_action()
+function! vimrc#fzf#git#get_fugitive_fzf_action() abort
   return s:fugitive_fzf_action
 endfunction
 
-function! vimrc#fzf#git#use_fugitive_fzf_action(function)
+function! vimrc#fzf#git#use_fugitive_fzf_action(function) abort
   let g:fzf_action = s:fugitive_fzf_action
 
   augroup use_fugitive_fzf_action_callback
@@ -24,19 +24,19 @@ function! vimrc#fzf#git#use_fugitive_fzf_action(function)
 endfunction
 
 " Borrowed from fzf.vim {{{
-function! s:escape(path)
+function! s:escape(path) abort
   let path = fnameescape(a:path)
   return vimrc#plugin#check#get_os() ==# 'windows' ? escape(path, '$') : path
 endfunction
 
-function! s:open(cmd, target)
+function! s:open(cmd, target) abort
   if stridx('edit', a:cmd) == 0 && fnamemodify(a:target, ':p') ==# expand('%:p')
     return
   endif
   execute a:cmd s:escape(a:target)
 endfunction
 
-function! s:git_grep_to_qf(line, has_commit, with_column)
+function! s:git_grep_to_qf(line, has_commit, with_column) abort
   let parts = split(a:line, ':')
   let indexs = { 'commit': 0, 'filename': 0, 'lnum': 1, 'col': 2, 'text': 2 }
   if a:has_commit
@@ -63,7 +63,7 @@ endfunction
 
 " Sinks
 " Borrowed from fzf.vim
-function! vimrc#fzf#git#grep_commit_sink(has_commit, with_column, lines)
+function! vimrc#fzf#git#grep_commit_sink(has_commit, with_column, lines) abort
   if len(a:lines) < 2
     return
   endif
@@ -88,7 +88,7 @@ function! vimrc#fzf#git#grep_commit_sink(has_commit, with_column, lines)
   call vimrc#fzf#fill_quickfix(list)
 endfunction
 
-function! vimrc#fzf#git#diff_commit_sink(start_commit, end_commit, lines)
+function! vimrc#fzf#git#diff_commit_sink(start_commit, end_commit, lines) abort
   if len(a:lines) < 2
     return
   endif
@@ -112,7 +112,7 @@ function! vimrc#fzf#git#diff_commit_sink(start_commit, end_commit, lines)
   endif
 endfunction
 
-function! vimrc#fzf#git#files_commit_sink(commit, lines)
+function! vimrc#fzf#git#files_commit_sink(commit, lines) abort
   if len(a:lines) < 2
     return
   endif
@@ -127,7 +127,7 @@ function! vimrc#fzf#git#files_commit_sink(commit, lines)
   endif
 endfunction
 
-function! vimrc#fzf#git#keywords_sink(lines)
+function! vimrc#fzf#git#keywords_sink(lines) abort
   if len(a:lines) < 2
     return
   endif
@@ -150,7 +150,7 @@ function! vimrc#fzf#git#keywords_sink(lines)
   call vimrc#fzf#fill_quickfix(qfl)
 endfunction
 
-function! vimrc#fzf#git#keywords_by_me_sink(lines)
+function! vimrc#fzf#git#keywords_by_me_sink(lines) abort
   if len(a:lines) < 2
     return
   endif
@@ -173,7 +173,7 @@ function! vimrc#fzf#git#keywords_by_me_sink(lines)
   call vimrc#fzf#fill_quickfix(qfl)
 endfunction
 
-function! vimrc#fzf#git#commits_in_commandline_sink(results, lines)
+function! vimrc#fzf#git#commits_in_commandline_sink(results, lines) abort
   if len(a:lines) < 2
     return
   endif
@@ -190,11 +190,11 @@ function! vimrc#fzf#git#commits_in_commandline_sink(results, lines)
   endif
 endfunction
 
-function! vimrc#fzf#git#branches_in_commandline_sink(results, line)
+function! vimrc#fzf#git#branches_in_commandline_sink(results, line) abort
   call add(a:results, a:line)
 endfunction
 
-function! vimrc#fzf#git#tags_in_commandline_sink(results, line)
+function! vimrc#fzf#git#tags_in_commandline_sink(results, line) abort
   call add(a:results, a:line)
 endfunction
 
@@ -202,7 +202,7 @@ endfunction
 let s:git_diff_tree_command = 'git diff-tree --no-commit-id --name-only -r '
 
 " vimrc#fzf#git#diff_tree([bang], [commit], [folder])
-function! vimrc#fzf#git#diff_tree(...)
+function! vimrc#fzf#git#diff_tree(...) abort
   if a:0 > 3
     return vimrc#utility#warn('Invalid argument number')
   endif
@@ -225,7 +225,7 @@ endfunction
 let s:rg_git_diff_command = 'git -C %s diff -z --name-only %s | xargs -0 ' . vimrc#fzf#rg#get_base_command() . ' -- %s'
 
 " vimrc#fzf#git#rg_diff([bang], [pattern], [commit], [folder])
-function! vimrc#fzf#git#rg_diff(...)
+function! vimrc#fzf#git#rg_diff(...) abort
   if a:0 > 4
     return vimrc#utility#warn('Invalid argument number')
   endif
@@ -249,7 +249,7 @@ function! vimrc#fzf#git#rg_diff(...)
 endfunction
 
 " Git commit command {{{
-function! vimrc#fzf#git#grep_commits(commits, query)
+function! vimrc#fzf#git#grep_commits(commits, query) abort
   let query = shellescape(a:query)
   let with_column = (vimrc#plugin#check#git_version() >=# 'git version 2.19.0') ? 1 : 0
   " TODO Think of a better way to avoid temp file and can still let bat detect language
@@ -290,25 +290,25 @@ if vimrc#plugin#check#git_version() >=# 'git version 2.19.0'
 else
   let s:git_grep_commit_command = 'git grep -nP'
 endif
-function! vimrc#fzf#git#grep_commit(commit, ...)
+function! vimrc#fzf#git#grep_commit(commit, ...) abort
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
   let commits = empty(a:commit) ? [] : [a:commit]
   call vimrc#fzf#git#grep_commits(commits, query)
 endfunction
 
-function! vimrc#fzf#git#grep_all_commits(...)
+function! vimrc#fzf#git#grep_all_commits(...) abort
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
   " Use shell command substitution to get commits to avoid passing too long command to fzf
   call vimrc#fzf#git#grep_commits('$(git rev-list --all)', query)
 endfunction
 
-function! vimrc#fzf#git#grep_branches(...)
+function! vimrc#fzf#git#grep_branches(...) abort
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
   " Use shell command substitution to get commits to avoid passing too long command to fzf
   call vimrc#fzf#git#grep_commits("$(git branch -a | sed 's/^[* ]*//; /->/d')", query)
 endfunction
 
-function! vimrc#fzf#git#grep_current_branch(...)
+function! vimrc#fzf#git#grep_current_branch(...) abort
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
   " Use shell command substitution to get commits to avoid passing too long command to fzf
   call vimrc#fzf#git#grep_commits('$(git rev-list HEAD)', query)
@@ -317,7 +317,7 @@ endfunction
 " TODO: Handle added/deleted files
 let s:git_diff_commit_command = 'git diff --name-only'
 let s:git_diff_commit_preview_command_fmt = 'git diff --color=always %s %s -- {}'
-function! vimrc#fzf#git#diff_commit(commit)
+function! vimrc#fzf#git#diff_commit(commit) abort
   if !exists('b:git_dir')
     echo 'No git a git repository:' expand('%:p')
   endif
@@ -332,7 +332,7 @@ function! vimrc#fzf#git#diff_commit(commit)
         \ 'options': ['-m', '-s', '--prompt', 'GitDiffCommit> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
 endfunction
 
-function! vimrc#fzf#git#diff_commits(start_commit, end_commit)
+function! vimrc#fzf#git#diff_commits(start_commit, end_commit) abort
   if !exists('b:git_dir')
     echo 'No git a git repository:' expand('%:p')
   endif
@@ -346,7 +346,7 @@ function! vimrc#fzf#git#diff_commits(start_commit, end_commit)
 endfunction
 
 let s:git_files_commit_command = 'git ls-tree -r --name-only'
-function! vimrc#fzf#git#files_commit(commit)
+function! vimrc#fzf#git#files_commit(commit) abort
   " TODO Think of a better way to avoid temp file and can still let bat detect language
   " Depends on bat
   " TODO Filename not quoted, but git display error when quoted
@@ -362,7 +362,7 @@ function! vimrc#fzf#git#files_commit(commit)
 endfunction
 
 let s:git_keywords_command = 'git grep -il %s | xargs -n1 git blame -M -f -e 2>/dev/null | rg -i %s'
-function! vimrc#fzf#git#keywords(keyword)
+function! vimrc#fzf#git#keywords(keyword) abort
   let command = printf(s:git_keywords_command, a:keyword, a:keyword)
 
   call fzf#run(vimrc#fzf#wrap('Keywords', {
@@ -373,7 +373,7 @@ function! vimrc#fzf#git#keywords(keyword)
 endfunction
 
 let s:git_keywords_by_me_command = s:git_keywords_command.' | rg "$(git config user.email)|not.committed.yet"'
-function! vimrc#fzf#git#keywords_by_me(keyword)
+function! vimrc#fzf#git#keywords_by_me(keyword) abort
   let command = printf(s:git_keywords_by_me_command, a:keyword, a:keyword)
 
   call fzf#run(vimrc#fzf#wrap('KeywordsByMe', {
@@ -385,7 +385,7 @@ endfunction
 " }}}
 
 " Intend to be mapped in command mode
-function! vimrc#fzf#git#commits_in_commandline(buffer_local, args)
+function! vimrc#fzf#git#commits_in_commandline(buffer_local, args) abort
   let s:git_root = vimrc#fzf#get_git_root()
   if empty(s:git_root)
     return vimrc#utility#warn('Not in git repository')
@@ -435,7 +435,7 @@ function! vimrc#fzf#git#commits_in_commandline(buffer_local, args)
 endfunction
 
 " Intend to be mapped in command mode
-function! vimrc#fzf#git#branches_in_commandline()
+function! vimrc#fzf#git#branches_in_commandline() abort
   let source = 'git branch --format="%(refname)" --all | sed "s/refs\/[^/]\+\///"'
   let results = []
   call fzf#run(fzf#wrap('Branches', extend({
@@ -447,7 +447,7 @@ function! vimrc#fzf#git#branches_in_commandline()
 endfunction
 
 " Intend to be mapped in command mode
-function! vimrc#fzf#git#tags_in_commandline()
+function! vimrc#fzf#git#tags_in_commandline() abort
   let source = 'git tag'
   let results = []
   call fzf#run(fzf#wrap('Git Tags', extend({
