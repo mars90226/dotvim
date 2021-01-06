@@ -71,7 +71,10 @@ Plug 'vimwiki/vimwiki'
 " disable vimwiki on markdown file
 let g:vimwiki_ext2syntax = { '.wiki': 'media' }
 " disable <Tab> & <S-Tab> mappings in insert mode
-let g:vimwiki_key_mappings = { 'table_mappings': 0 }
+let g:vimwiki_key_mappings = {
+      \ 'lists_return': 1,
+      \ 'table_mappings': 0,
+      \ }
 
 augroup vimwiki_settings
   autocmd!
