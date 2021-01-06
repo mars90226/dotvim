@@ -196,8 +196,20 @@ function! s:blink_cursor_location_callback(cursorline, cursorcolumn, timer_id) a
 endfunction
 " }}}
 
+function! vimrc#utility#refresh_env_from_tmux(variable) abort
+  " Currently only support environment variable that tmux will show as
+  " following format: '{key}={value}'
+  let new_value = split(systemlist('tmux show-environment '.a:variable)[0], '=')[1]
+  call setenv(a:variable, new_value)
+endfunction
+
 function! vimrc#utility#refresh_display() abort
-  let $DISPLAY = split(systemlist('tmux show-environment DISPLAY')[0], '=')[1]
+  call vimrc#utility#refresh_env_from_tmux('DISPLAY')
+endfunction
+
+function! vimrc#utility#refresh_ssh_agent() abort
+  call vimrc#utility#refresh_env_from_tmux('SSH_AUTH_SOCK')
+  call vimrc#utility#refresh_env_from_tmux('SSH_AGENT_PID')
 endfunction
 
 " Trim whitespace

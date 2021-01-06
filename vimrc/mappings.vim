@@ -308,6 +308,10 @@ command! FindCursor call vimrc#utility#blink_cursor_location()
 
 if executable('tmux')
   command! RefreshDisplay call vimrc#utility#refresh_display()
+
+  if executable('ssh-agent')
+    command! RefreshSshAgent call vimrc#utility#refresh_ssh_agent()
+  endif
 endif
 
 command! ClearWinfixsize call vimrc#clear_winfixsize()
