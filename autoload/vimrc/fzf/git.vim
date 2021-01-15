@@ -198,6 +198,10 @@ function! vimrc#fzf#git#tags_in_commandline_sink(results, line) abort
   call add(a:results, a:line)
 endfunction
 
+function! vimrc#fzf#git#diff_files_in_commandline_sink(results, line) abort
+  call add(a:results, a:line)
+endfunction
+
 " Commands
 let s:git_diff_tree_command = 'git diff-tree --no-commit-id --name-only -r '
 
@@ -454,6 +458,18 @@ function! vimrc#fzf#git#tags_in_commandline() abort
     \ 'source': source,
     \ 'sink': function('vimrc#fzf#git#tags_in_commandline_sink', [results]),
     \ 'options': ['+s', '--prompt', 'Git Tags> ']
+    \ }, g:fzf_tmux_layout)))
+  return get(results, 0, '')
+endfunction
+
+" Intend to be mapped in command mode
+function! vimrc#fzf#git#diff_files_in_commandline() abort
+  let source = "git status --porcelain --untracked-files=all | awk '{ print $2 }'"
+  let results = []
+  call fzf#run(fzf#wrap('GitFiles?', extend({
+    \ 'source': source,
+    \ 'sink': function('vimrc#fzf#git#diff_files_in_commandline_sink', [results]),
+    \ 'options': ['+s', '--prompt', 'GitFiles?> ']
     \ }, g:fzf_tmux_layout)))
   return get(results, 0, '')
 endfunction
