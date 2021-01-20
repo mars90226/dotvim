@@ -228,3 +228,8 @@ function! vimrc#utility#set_scratch() abort
   setlocal bufhidden=hide
   setlocal noswapfile
 endfunction
+
+function! vimrc#utility#resize_to_selected() abort
+  let height = line("'>") - line("'<") + 1
+  execute 'resize '.height
+endfunction
