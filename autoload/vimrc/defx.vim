@@ -43,6 +43,11 @@ function! vimrc#defx#get_target() abort
   return defx#get_candidate()['action__path']
 endfunction
 
+" Currently only accept types: ['win', 'tab', 'float']
+function! vimrc#defx#get_options(type) abort
+  return get(g:, 'defx_'.a:type.'_options', '')
+endfunction
+
 let s:defx_actions = {
   \ 'open_current_shell': 'vimrc#terminal#open_current_shell',
   \ 'open_shell': 'vimrc#terminal#open_shell',
@@ -284,37 +289,37 @@ endfunction " }}}
 let s:defx_action = {
       \ 'edit': [
       \   'edit',
-      \   ''.get(g:, 'defx_win_options', ''),
+      \   ''.vimrc#defx#get_options('win'),
       \   v:true
       \ ],
       \ 'tab': [
       \   'tab split',
-      \   '-split=tab '.get(g:, 'defx_tab_options', ''),
+      \   ''.vimrc#defx#get_options('tab'),
       \   v:true
       \ ],
       \ 'split': [
       \   'split',
-      \   '-split=horizontal '.get(g:, 'defx_win_options', ''),
+      \   '-split=horizontal '.vimrc#defx#get_options('win'),
       \   v:true
       \ ],
       \ 'vsplit': [
       \   'vsplit',
-      \   '-split=vertical '.get(g:, 'defx_win_options', ''),
+      \   '-split=vertical '.vimrc#defx#get_options('win'),
       \   v:true
       \ ],
       \ 'rvsplit': [
       \   'rightbelow vsplit',
-      \   '-split=vertical -direction=botright '.get(g:, 'defx_win_options', ''),
+      \   '-split=vertical -direction=botright '.vimrc#defx#get_options('win'),
       \   v:true
       \ ],
       \ 'float': [
       \   'VimrcFloatNew edit',
-      \   '-split=floating '.get(g:, 'defx_float_options', ''),
+      \   ''.vimrc#defx#get_options('float'),
       \   v:true
       \ ],
       \ 'search': [
       \   'Defx -search=',
-      \   get(g:, 'defx_win_options', '').' -search=',
+      \   vimrc#defx#get_options('win').' -search=',
       \   v:false
       \ ]
       \ }

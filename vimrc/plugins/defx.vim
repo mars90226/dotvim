@@ -8,8 +8,8 @@ let [g:defx_left, g:defx_top] = vimrc#float#calculate_pos(g:defx_width, g:defx_h
 let g:defx_sidebar_width = 35
 let g:defx_resume_options = '-listed -resume'
 let g:defx_win_options = '-buffer-name=win-%d'
-let g:defx_tab_options = '-buffer-name=tab-%d'
-let g:defx_float_options = '-buffer-name=float-%d -winwidth='.g:defx_width.' -winheight='.g:defx_height.' -wincol='.g:defx_left.' -winrow='.g:defx_top
+let g:defx_tab_options = '-split=tab -buffer-name=tab-%d'
+let g:defx_float_options = '-split=floating -buffer-name=float-%d -winwidth='.g:defx_width.' -winheight='.g:defx_height.' -wincol='.g:defx_left.' -winrow='.g:defx_top
 
 " Defx key mappings {{{
 " TODO Clean up these key mappings
@@ -23,22 +23,22 @@ nnoremap ++        :call vimrc#defx#opendir('Defx '.g:defx_win_options)<CR>
 nnoremap \-        :call vimrc#defx#opendir('Defx '.g:defx_win_options)<CR>
 nnoremap <Space>-  :call vimrc#defx#opendir('Defx -split=horizontal '.g:defx_win_options)<CR>
 nnoremap _         :call vimrc#defx#opendir('Defx -split=vertical '.g:defx_win_options)<CR>
-nnoremap <Space>_  :call vimrc#defx#opendir('Defx -split=tab '.g:defx_tab_options)<CR>
-nnoremap <Space>=  :call vimrc#defx#opendir('Defx -split=floating '.g:defx_float_options)<CR>
+nnoremap <Space>_  :call vimrc#defx#opendir('Defx '.g:defx_tab_options)<CR>
+nnoremap <Space>=  :call vimrc#defx#opendir('Defx '.g:defx_float_options)<CR>
 
 " Current working directory
 nnoremap \xr       :call vimrc#defx#openpwd('Defx '.g:defx_win_options)<CR>
 nnoremap \xs       :call vimrc#defx#openpwd('Defx -split=horizontal '.g:defx_win_options)<CR>
 nnoremap \xv       :call vimrc#defx#openpwd('Defx -split=vertical '.g:defx_win_options)<CR>
-nnoremap \xt       :call vimrc#defx#openpwd('Defx -split=tab '.g:defx_tab_options)<CR>
-nnoremap \xf       :call vimrc#defx#openpwd('Defx -split=floating '.g:defx_float_options)<CR>
+nnoremap \xt       :call vimrc#defx#openpwd('Defx '.g:defx_tab_options)<CR>
+nnoremap \xf       :call vimrc#defx#openpwd('Defx '.g:defx_float_options)<CR>
 
 " Resume
 nnoremap <Space>xr :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.g:defx_win_options)<CR>
 nnoremap <Space>xs :call vimrc#defx#opencmd('Defx -split=horizontal '.g:defx_resume_options.' '.g:defx_win_options)<CR>
 nnoremap <Space>xv :call vimrc#defx#opencmd('Defx -split=vertical '.g:defx_resume_options.' '.g:defx_win_options)<CR>
-nnoremap <Space>xt :call vimrc#defx#opencmd('Defx -split=tab '.g:defx_resume_options.' '.g:defx_tab_options)<CR>
-nnoremap <Space>xf :call vimrc#defx#opencmd('Defx -split=floating '.g:defx_resume_options.' '.g:defx_float_options)<CR>
+nnoremap <Space>xt :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.g:defx_tab_options)<CR>
+nnoremap <Space>xf :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.g:defx_float_options)<CR>
 " }}}
 
 " Defx open
