@@ -197,6 +197,9 @@ command!          FixmesByMe   call vimrc#fzf#git#keywords_by_me('FIXME')
 command! TodosInDisk  RgWithOption :-w:TODO
 command! FixmesInDisk RgWithOption :-w:FIXME
 
+" LastTabs
+command! LastTabs call vimrc#fzf#last_tab#last_tabs()
+
 if has('nvim')
   augroup fzf_statusline
     autocmd!
@@ -318,6 +321,7 @@ xnoremap <Space>sf :<C-U>call vimrc#execute_and_save("'<,'>SelectLines")<CR>
 nnoremap <Space>sl :call      vimrc#execute_and_save('ScreenLines')<CR>
 nnoremap <Space>sL :call      vimrc#execute_and_save('ScreenLines ' . expand('<cword>'))<CR>
 xnoremap <Space>sL :<C-U>call vimrc#execute_and_save('ScreenLines ' . vimrc#utility#get_visual_selection())<CR>
+nnoremap <Space>s1 :call      vimrc#execute_and_save('LastTabs')<CR>
 
 nnoremap <Space>ss :History:<CR>mks vim sessions
 
