@@ -43,7 +43,16 @@ function! vimrc#defx#get_target() abort
   return defx#get_candidate()['action__path']
 endfunction
 
-" Currently only accept types: ['win', 'tab', 'float', 'sidebar', 'resume']
+" Currently accept types:
+"   * win
+"   * horizontal_win
+"   * horizontal_bottom_win
+"   * vertical_win
+"   * vertical_right_win
+"   * tab
+"   * float
+"   * sidebar
+"   * resum
 function! vimrc#defx#get_options(type) abort
   return get(g:, 'defx_'.a:type.'_options', '')
 endfunction
@@ -289,32 +298,32 @@ endfunction " }}}
 let s:defx_action = {
       \ 'edit': [
       \   'edit',
-      \   ''.vimrc#defx#get_options('win'),
+      \   vimrc#defx#get_options('win'),
       \   v:true
       \ ],
       \ 'tab': [
       \   'tab split',
-      \   ''.vimrc#defx#get_options('tab'),
+      \   vimrc#defx#get_options('tab'),
       \   v:true
       \ ],
       \ 'split': [
       \   'split',
-      \   '-split=horizontal '.vimrc#defx#get_options('win'),
+      \   vimrc#defx#get_options('horizontal_win'),
       \   v:true
       \ ],
       \ 'vsplit': [
       \   'vsplit',
-      \   '-split=vertical '.vimrc#defx#get_options('win'),
+      \   vimrc#defx#get_options('vertical_win'),
       \   v:true
       \ ],
       \ 'rvsplit': [
       \   'rightbelow vsplit',
-      \   '-split=vertical -direction=botright '.vimrc#defx#get_options('win'),
+      \   vimrc#defx#get_options('vertical_right_win'),
       \   v:true
       \ ],
       \ 'float': [
       \   'VimrcFloatNew edit',
-      \   ''.vimrc#defx#get_options('float'),
+      \   vimrc#defx#get_options('float'),
       \   v:true
       \ ],
       \ 'search': [
