@@ -6,16 +6,17 @@ augroup END
 let [g:defx_width, g:defx_height] = vimrc#float#get_default_size()
 let [g:defx_left, g:defx_top] = vimrc#float#calculate_pos(g:defx_width, g:defx_height)
 let g:defx_sidebar_width = 35
-let g:defx_resume_options = '-listed -resume'
 let g:defx_win_options = '-buffer-name=win-%d'
 let g:defx_tab_options = '-split=tab -buffer-name=tab-%d'
 let g:defx_float_options = '-split=floating -buffer-name=float-%d -winwidth='.g:defx_width.' -winheight='.g:defx_height.' -wincol='.g:defx_left.' -winrow='.g:defx_top
+let g:defx_sidebar_options = '-split=vertical -winwidth='.g:defx_sidebar_width.' -direction=topleft -toggle'
+let g:defx_resume_options = '-listed -resume'
 
 " Defx key mappings {{{
 " TODO Clean up these key mappings
 " Sidebar
-nnoremap <F4>        :Defx -split=vertical -winwidth=`g:defx_sidebar_width` -direction=topleft -toggle<CR>
-nnoremap <Space><F4> :Defx -split=vertical -winwidth=`g:defx_sidebar_width` -direction=topleft -toggle `expand('%:p:h')` -search=`expand('%:p')`<CR>
+nnoremap <F4>        :execute 'Defx '.g:defx_sidebar_options<CR>
+nnoremap <Space><F4> :execute 'Defx '.g:defx_sidebar_options.' '.expand('%:p:h').' -search='.expand('%:p')<CR>
 
 " Buffer directory
 nnoremap -         :call vimrc#defx#opendir('Defx '.g:defx_win_options)<CR>

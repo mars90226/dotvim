@@ -43,7 +43,7 @@ function! vimrc#defx#get_target() abort
   return defx#get_candidate()['action__path']
 endfunction
 
-" Currently only accept types: ['win', 'tab', 'float']
+" Currently only accept types: ['win', 'tab', 'float', 'sidebar', 'resume']
 function! vimrc#defx#get_options(type) abort
   return get(g:, 'defx_'.a:type.'_options', '')
 endfunction
