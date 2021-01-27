@@ -282,17 +282,46 @@ endfunction " }}}
 
 " Functions
 let s:defx_action = {
-      \ 'edit': ['edit', ''],
-      \ 'tab': ['tab split', '-split=tab '.get(g:, 'defx_tab_options', '')],
-      \ 'split': ['split', '-split=horizontal'],
-      \ 'vsplit': ['vsplit', '-split=vertical'],
-      \ 'rvsplit': ['rightbelow vsplit', '-split=vertical -direction=botright'],
-      \ 'float': ['VimrcFloatNew edit', '-split=floating '.get(g:, 'defx_float_options', '')],
+      \ 'edit': [
+      \   'edit',
+      \   ''.get(g:, 'defx_win_options', ''),
+      \   v:true
+      \ ],
+      \ 'tab': [
+      \   'tab split',
+      \   '-split=tab '.get(g:, 'defx_tab_options', ''),
+      \   v:true
+      \ ],
+      \ 'split': [
+      \   'split',
+      \   '-split=horizontal '.get(g:, 'defx_win_options', ''),
+      \   v:true
+      \ ],
+      \ 'vsplit': [
+      \   'vsplit',
+      \   '-split=vertical '.get(g:, 'defx_win_options', ''),
+      \   v:true
+      \ ],
+      \ 'rvsplit': [
+      \   'rightbelow vsplit',
+      \   '-split=vertical -direction=botright '.get(g:, 'defx_win_options', ''),
+      \   v:true
+      \ ],
+      \ 'float': [
+      \   'VimrcFloatNew edit',
+      \   '-split=floating '.get(g:, 'defx_float_options', ''),
+      \   v:true
+      \ ],
+      \ 'search': [
+      \   'Defx -search=',
+      \   get(g:, 'defx_win_options', '').' -search=',
+      \   v:false
+      \ ]
       \ }
 
 " TODO May need to escape a:line
 function! vimrc#defx#open(target, action) abort
-  let [action, defx_option] = get(s:defx_action, a:action, '')
+  let [action, defx_option, need_space] = get(s:defx_action, a:action, '')
 
   if isdirectory(a:target)
     if &filetype ==# 'defx' && action ==# 'edit'
@@ -300,10 +329,10 @@ function! vimrc#defx#open(target, action) abort
       let target = fnamemodify(a:target, ':p')
       call defx#call_action('cd', target)
     else
-      execute 'Defx ' . defx_option . ' ' . a:target
+      execute 'Defx ' . defx_option . (need_space ? ' ' : '') . a:target
     endif
   else
-    execute action . ' ' . a:target
+    execute action . (need_space ? ' ' : '') . a:target
   endif
 endfunction
 
