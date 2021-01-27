@@ -267,6 +267,8 @@ function! vimrc#defx#mappings() abort " {{{ abort
         \ defx#do_action('call', 'vimrc#defx#paste_from_system_clipboard')
   nnoremap <silent><buffer><expr> \<C-P>
         \ defx#do_action('call', 'vimrc#defx#paste_from_system_clipboard_target')
+  nnoremap <silent><buffer><expr> <Leader>gl
+        \ ':Git log -p -- '.vimrc#defx#get_target()."\<CR>"
 
   " Use Unite because using Denite will change other Denite buffers
   nnoremap <silent><buffer> g?
