@@ -39,8 +39,8 @@ function! vimrc#defx#get_current_path() abort
   return b:defx['paths'][0]
 endfunction
 
-function! vimrc#defx#get_target(context) abort
-  return a:context.targets[0]
+function! vimrc#defx#get_target() abort
+  return defx#get_candidate()['action__path']
 endfunction
 
 let s:defx_actions = {
@@ -275,7 +275,7 @@ function! vimrc#defx#mappings() abort " {{{ abort
   cnoremap <buffer><expr> <C-X>d
         \ vimrc#defx#get_current_path_in_commandline()
   cnoremap <buffer><expr> <C-X>f
-        \ defx#do_action('call', 'vimrc#defx#get_target_in_commandline')
+        \ vimrc#defx#get_target_in_commandline()
 endfunction " }}}
 
 " Functions
@@ -330,7 +330,7 @@ function! vimrc#defx#fzf_files(context) abort
 endfunction
 
 function! vimrc#defx#fzf_files_target(context) abort
-  let path = vimrc#defx#get_target(a:context)
+  let path = vimrc#defx#get_target()
 
   call vimrc#defx#_fzf_files(path)
 endfunction
@@ -350,7 +350,7 @@ function! vimrc#defx#fzf_rg(context) abort
 endfunction
 
 function! vimrc#defx#fzf_rg_target(context) abort
-  let path = vimrc#defx#get_target(a:context)
+  let path = vimrc#defx#get_target()
 
   call vimrc#defx#fzf_rg_internal(path, 'Rg', v:false)
 endfunction
@@ -362,7 +362,7 @@ function! vimrc#defx#fzf_rg_bang(context) abort
 endfunction
 
 function! vimrc#defx#fzf_rg_bang_target(context) abort
-  let path = vimrc#defx#get_target(a:context)
+  let path = vimrc#defx#get_target()
 
   call vimrc#defx#fzf_rg_internal(path, 'Rg!', v:false)
 endfunction
@@ -439,7 +439,7 @@ function! vimrc#defx#_get_commmand(cmd, path) abort
 endfunction
 
 function! vimrc#defx#execute_file_internal(context, split) abort
-  let target = vimrc#defx#get_target(a:context)
+  let target = vimrc#defx#get_target()
   call vimrc#defx#execute_internal(target, a:split)
 endfunction
 
@@ -535,14 +535,14 @@ function! vimrc#defx#paste_from_system_clipboard(context) abort
 endfunction
 
 function! vimrc#defx#paste_from_system_clipboard_target(context) abort
-  let path = vimrc#defx#get_target(a:context)
+  let path = vimrc#defx#get_target()
 
   call vimrc#defx#_paste_from_system_clipboard(path)
 endfunction
 
 " Depends on exa
 function! vimrc#defx#show_detail(context) abort
-  let target = vimrc#defx#get_target(a:context)
+  let target = vimrc#defx#get_target()
   let cmd = 'exa -l {}'
   call vimrc#defx#execute_internal(target, 'float', cmd)
 endfunction
@@ -552,11 +552,7 @@ function! vimrc#defx#get_current_path_in_commandline() abort
   return vimrc#defx#get_current_path()
 endfunction
 
-function! vimrc#defx#get_target_in_commandline(context) abort
-  let target = vimrc#defx#get_target(a:context)
-
-  " This function is executed by Defx python script
-  " So we cannot simply return target to caller.
-  " Instead we assume the typehead is in command line and feed the keys.
-  call feedkeys(target)
+function! vimrc#defx#get_target_in_commandline() abort
+  let candidate = defx#get_candidate()
+  return candidate['action__path']
 endfunction
