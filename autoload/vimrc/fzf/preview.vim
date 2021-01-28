@@ -7,6 +7,10 @@ if executable('exa')
   let s:fzf_dir_preview_command = 'exa -lag --color=always'
 endif
 
+let s:fzf_default_preview_options = fzf#vim#with_preview()
+" preview script should be the next option after '--preview'
+let s:fzf_preview_script = s:fzf_default_preview_options.options[index(s:fzf_default_preview_options.options, '--preview') + 1][0:-4]
+
 function! vimrc#fzf#preview#get_command() abort
   return s:fzf_preview_command
 endfunction
@@ -16,7 +20,6 @@ endfunction
 
 function! vimrc#fzf#preview#windows() abort
   let options = fzf#vim#with_preview({ 'options': ['--prompt', 'Windows> '] })
-  let preview_script = remove(options.options, -1)[0:-4]
   let get_filename_script = expand(vimrc#get_vimhome() . '/bin/fzf_windows_preview_get_file.sh')
   let get_buffer_script = expand(vimrc#get_vimhome() . '/bin/get_buffer.py')
   let file_script = 'FILE="$(' . get_filename_script . ' {})"'
@@ -28,10 +31,9 @@ function! vimrc#fzf#preview#windows() abort
         \ win_script . ';' .
         \ 'if ' . is_terminal_script . '; then ' .
         \ get_buffer_script . ' "$TAB" "$WIN" "$FZF_PREVIEW_LINES" | ' . vimrc#fzf#preview#get_command() . ';' .
-        \ 'else ' . preview_script . ' "$FILE";' .
+        \ 'else ' . s:fzf_preview_script . ' "$FILE";' .
         \ 'fi'
 
-  call remove(options.options, -1) " remove --preview
   call extend(options.options, ['--preview', final_script])
   return options
 endfunction
