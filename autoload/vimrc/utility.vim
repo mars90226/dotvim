@@ -229,7 +229,32 @@ function! vimrc#utility#set_scratch() abort
   setlocal noswapfile
 endfunction
 
+" Ref: https://vi.stackexchange.com/a/6709
+function! vimrc#utility#get_window_non_text_area_width() abort
+  redir => l:a | execute 'sil sign place buffer='.bufnr('') | redir end
+  let signlist = split(a, '\n')
+  let non_window_text_area_width = &numberwidth + &foldcolumn + (len(signlist) > 2 ? 2 : 0)
+
+  return non_window_text_area_width
+endfunction
+
+function! vimrc#utility#get_window_text_area_width() abort
+  let window_text_area_width = winwidth(0) - vimrc#utility#get_window_non_text_area_width()
+
+  return window_text_area_width
+endfunction
+
 function! vimrc#utility#resize_to_selected() abort
+  call vimrc#utility#resize_height_to_selected()
+  call vimrc#utility#resize_width_to_selected()
+endfunction
+
+function! vimrc#utility#resize_height_to_selected() abort
   let height = line("'>") - line("'<") + 1
   execute 'resize '.height
+endfunction
+
+function! vimrc#utility#resize_width_to_selected() abort
+  let width = col("'>") - col("'<") + vimrc#utility#get_window_non_text_area_width()
+  execute 'vertical resize '.width
 endfunction
