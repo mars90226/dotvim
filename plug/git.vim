@@ -12,7 +12,7 @@ call vimrc#source('vimrc/plugins/merginal.vim')
 " gv.vim {{{
 Plug 'junegunn/gv.vim', { 'on': 'GV' }
 
-command! -nargs=* GVA GV --all <args>
+command! -bang -nargs=* GVA GV<bang> --all <args>
 
 " GV with company filter
 execute 'command! -nargs=* GVD  GV --author='.get(g:, 'company_domain', '').' <args>'
