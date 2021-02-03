@@ -11,6 +11,7 @@ nnoremap <silent> <Leader>gC :call vimrc#fugitive#goto_blame_line('edit')<CR>
 nnoremap <silent> <Leader>gb :Git blame<CR>
 xnoremap <silent> <Leader>gb :Git blame<CR>
 nnoremap <silent> <Leader>gB :GBrowse<CR>
+xnoremap <silent> <Leader>gB :GBrowse<CR>
 nnoremap <silent> <Leader>ge :Gedit<CR>
 nnoremap <silent> <Leader>gE :Gedit<space>
 " TODO Use :Gllog instead, currently :0Gllog do not work
