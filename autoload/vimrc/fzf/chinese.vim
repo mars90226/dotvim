@@ -10,6 +10,8 @@ let s:chinese_punctuations = {
       \ 'semicolon': '；',
       \ 'exclamation_mark': '！',
       \ 'question_mark': '？',
+      \ 'left_bracket': '「',
+      \ 'right_bracket': '」',
       \ }
 
 " Sources
