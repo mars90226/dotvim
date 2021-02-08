@@ -26,6 +26,7 @@ augroup filetype_detection_settings
   autocmd BufNewFile,BufReadPost .ignore              setlocal filetype=conf
   autocmd BufNewFile,BufReadPost */conf/template/*    setlocal filetype=conf
   autocmd BufNewFile,BufReadPost */rspamd/*.inc       setlocal filetype=conf
+  autocmd BufNewFile,BufReadPost */*.template         setlocal filetype=conf
   autocmd BufNewFile,BufReadPost */upstart/*conf      setlocal filetype=upstart
   autocmd BufNewFile,BufReadPost *.upstart            setlocal filetype=upstart
   autocmd BufNewFile,BufReadPost Makefile.inc         setlocal filetype=make
