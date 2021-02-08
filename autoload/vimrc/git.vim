@@ -15,6 +15,9 @@ function! vimrc#git#include_git_mappings(get_commit_sha_function_call, ...) abor
   execute 'nnoremap <silent><buffer> <Leader>gP :execute "Git cherry-pick ".'.a:get_commit_sha_function_call.'<CR>'
   execute 'nnoremap <silent><buffer> <Leader>gob :execute "Git branch --contains ".'.a:get_commit_sha_function_call.'<CR>'
   execute 'nnoremap <silent><buffer> <Leader>got :execute "Git tag --contains ".'.a:get_commit_sha_function_call.'<CR>'
+  if vimrc#plugin#is_enabled_plugin('vim-floaterm')
+    execute 'nnoremap <silent><buffer> <Leader>df :execute "FloatermNew git diff ".'.a:get_commit_sha_function_call.'."^!"<CR>'
+  endif
 
   " Command line mapping
   execute 'cnoremap <buffer><expr> <C-G><C-S> '.a:get_commit_sha_function_call
