@@ -43,7 +43,8 @@ if has('nvim')
   nnoremap <silent> <Leader>ts :call vimrc#terminal#open_current_shell('new')<CR>
   nnoremap <silent> <Leader>tv :call vimrc#terminal#open_current_shell('vnew')<CR>
   nnoremap <silent> <Leader>tb :call vimrc#terminal#open_current_shell('rightbelow vnew')<CR>
-  nnoremap <silent> <Leader>td :call vimrc#terminal#open_shell('tabnew', input('Folder: ', '', 'dir'))<CR>
+  nnoremap <silent> <Leader>td :call vimrc#terminal#open_shell('new', input('Folder: ', '', 'dir'))<CR>
+  nnoremap <silent> <Leader>tD :call vimrc#terminal#open_shell('tabnew', input('Folder: ', '', 'dir'))<CR>
 
   " Quick terminal function
   tnoremap <M-F1> <C-\><C-N>
