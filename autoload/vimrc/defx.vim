@@ -118,8 +118,24 @@ function! vimrc#defx#mappings() abort " {{{ abort
         \ defx#async_action('open')
   nnoremap <silent><buffer><expr> C
         \ defx#do_action('toggle_columns', 'mark:filename:type:size:time')
+  " Even through there's a commit to fix redraw needed after sorting, but the
+  " redraw is still needed.
+  " https://github.com/Shougo/defx.nvim/commit/ce2a0321400ab3057d6ae03e0866541adb50a642
   nnoremap <silent><buffer><expr> S
-        \ defx#do_action('toggle_sort', 'Time')
+        \ defx#do_action('toggle_sort', 'Time') .
+        \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> se
+        \ defx#do_action('toggle_sort', 'extension') .
+        \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> sf
+        \ defx#do_action('toggle_sort', 'filename') .
+        \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> ss
+        \ defx#do_action('toggle_sort', 'size') .
+        \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> st
+        \ defx#do_action('toggle_sort', 'time') .
+        \ defx#do_action('redraw')
   nnoremap <silent><buffer><expr> A
         \ defx#do_action('open', 'split')
   nnoremap <silent><buffer><expr> B
