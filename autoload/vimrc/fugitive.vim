@@ -53,9 +53,9 @@ endfunction
 function! vimrc#fugitive#mappings() abort
   nnoremap <buffer> <silent> Su :GitDispatch stash -u<CR>
   nnoremap <buffer> <silent> Sp :GitDispatch stash pop<CR>
-  nnoremap <buffer> <silent> gp :Gpush<CR>
-  nnoremap <buffer> <silent> gl :Gpull<CR>
-  nnoremap <buffer> <silent> gL :Gpull --rebase<CR>
+  nnoremap <buffer> <silent> gp :Git push<CR>
+  nnoremap <buffer> <silent> gl :Git pull<CR>
+  nnoremap <buffer> <silent> gL :Git pull --rebase<CR>
 
   if executable('rust-commitizen')
     nnoremap <buffer> <silent> czc :call vimrc#tui#run('float', 'rust-commitizen', 1)<CR>

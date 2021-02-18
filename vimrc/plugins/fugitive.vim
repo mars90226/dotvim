@@ -1,6 +1,6 @@
 " For execute git command
 nnoremap <Space>gg :Git<Space>
-nnoremap <Space>gG :Git!<Space>
+nnoremap <Space>gG :Git --paginate<Space>
 
 nnoremap <silent> <Leader>gs :Git<CR>
 nnoremap <silent> <Leader>gS :call vimrc#fugitive#diff_staged_file('%')<CR>
