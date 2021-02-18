@@ -16,6 +16,7 @@ let g:defx_vertical_right_win_options    = '-split=vertical -direction=botright 
 let g:defx_tab_options                   = '-split=tab -buffer-name=tab-%d'
 let g:defx_float_options                 = '-split=floating -buffer-name=float-%d -winwidth='.g:defx_width.' -winheight='.g:defx_height.' -wincol='.g:defx_left.' -winrow='.g:defx_top
 let g:defx_sidebar_options               = '-split=vertical -winwidth='.g:defx_sidebar_width.' -direction=topleft -toggle'
+let g:defx_new_options                   = '-new'
 let g:defx_resume_options                = '-listed -resume'
 
 " Defx key mappings {{{
@@ -25,20 +26,20 @@ nnoremap <F4>        :execute 'Defx '.vimrc#defx#get_options('sidebar')<CR>
 nnoremap <Space><F4> :execute 'Defx '.vimrc#defx#get_options('sidebar').' '.expand('%:p:h').' -search='.expand('%:p')<CR>
 
 " Buffer directory
-nnoremap -         :call vimrc#defx#opendir('Defx '.vimrc#defx#get_options('win'))<CR>
-nnoremap ++        :call vimrc#defx#opendir('Defx '.vimrc#defx#get_options('win'))<CR>
-nnoremap \-        :call vimrc#defx#opendir('Defx '.vimrc#defx#get_options('win'))<CR>
-nnoremap <Space>-  :call vimrc#defx#opendir('Defx '.vimrc#defx#get_options('horizontal_win'))<CR>
-nnoremap _         :call vimrc#defx#opendir('Defx '.vimrc#defx#get_options('vertical_win'))<CR>
-nnoremap <Space>_  :call vimrc#defx#opendir('Defx '.vimrc#defx#get_options('tab'))<CR>
-nnoremap <Space>=  :call vimrc#defx#opendir('Defx '.vimrc#defx#get_options('float'))<CR>
+nnoremap -         :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('win'))<CR>
+nnoremap ++        :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('win'))<CR>
+nnoremap \-        :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('win'))<CR>
+nnoremap <Space>-  :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('horizontal_win'))<CR>
+nnoremap _         :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('vertical_win'))<CR>
+nnoremap <Space>_  :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('tab'))<CR>
+nnoremap <Space>=  :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('float'))<CR>
 
 " Current working directory
-nnoremap \xr       :call vimrc#defx#openpwd('Defx '.vimrc#defx#get_options('win'))<CR>
-nnoremap \xs       :call vimrc#defx#openpwd('Defx '.vimrc#defx#get_options('horizontal_win'))<CR>
-nnoremap \xv       :call vimrc#defx#openpwd('Defx '.vimrc#defx#get_options('vertical_win'))<CR>
-nnoremap \xt       :call vimrc#defx#openpwd('Defx '.vimrc#defx#get_options('tab'))<CR>
-nnoremap \xf       :call vimrc#defx#openpwd('Defx '.vimrc#defx#get_options('float'))<CR>
+nnoremap \xr       :call vimrc#defx#openpwd('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('win'))<CR>
+nnoremap \xs       :call vimrc#defx#openpwd('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('horizontal_win'))<CR>
+nnoremap \xv       :call vimrc#defx#openpwd('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('vertical_win'))<CR>
+nnoremap \xt       :call vimrc#defx#openpwd('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('tab'))<CR>
+nnoremap \xf       :call vimrc#defx#openpwd('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('float'))<CR>
 
 " Resume
 nnoremap <Space>xr :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vimrc#defx#get_options('win'))<CR>
