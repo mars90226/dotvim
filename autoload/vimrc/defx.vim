@@ -139,11 +139,11 @@ function! vimrc#defx#mappings() abort " {{{ abort
   nnoremap <silent><buffer><expr> A
         \ defx#do_action('open', 'split')
   nnoremap <silent><buffer><expr> B
-        \ defx#do_action('open', 'botright split')
+        \ defx#do_action('open', 'rightbelow split')
   nnoremap <silent><buffer><expr> E
         \ defx#do_action('open', 'vsplit')
   nnoremap <silent><buffer><expr> ge
-        \ defx#do_action('open', 'botright vsplit')
+        \ defx#do_action('open', 'rightbelow vsplit')
   nnoremap <silent><buffer><expr> P
         \ defx#do_action('open', 'pedit')
   nnoremap <silent><buffer><expr> T
