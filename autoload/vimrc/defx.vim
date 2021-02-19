@@ -368,7 +368,7 @@ endfunction
 
 " TODO Rename to indicate sink?
 function! vimrc#defx#open_dir(target, action) abort
-  let [action, defx_option] = get(s:defx_action, a:action, '')
+  let [action, defx_option, _] = get(s:defx_action, a:action, '')
 
   if &filetype ==# 'defx' && action ==# 'edit'
     call defx#call_action('search', a:target)
