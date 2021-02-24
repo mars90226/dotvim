@@ -327,6 +327,11 @@ let s:defx_action = {
       \   vimrc#defx#get_options('horizontal_win'),
       \   v:true
       \ ],
+      \ 'bsplit': [
+      \   'rightbelow split',
+      \   vimrc#defx#get_options('horizontal_bottom_win'),
+      \   v:true
+      \ ],
       \ 'vsplit': [
       \   'vsplit',
       \   vimrc#defx#get_options('vertical_win'),

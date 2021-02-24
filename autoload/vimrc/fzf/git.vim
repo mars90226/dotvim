@@ -1,11 +1,12 @@
 " Utilities
 let s:fugitive_fzf_action = vimrc#fzf#wrap_actions_for_trigger(extend({
-      \ 'enter': 'Gedit',
+      \ 'enter':  'Gedit',
       \ 'ctrl-t': 'Gtabedit',
       \ 'ctrl-s': 'Gsplit',
       \ 'ctrl-x': 'Gsplit',
+      \ 'alt-g':  'Gsplit',
       \ 'ctrl-v': 'Gvsplit',
-      \ 'alt-v': 'Gvsplit',
+      \ 'alt-v':  'Gvsplit',
       \ }, g:misc_fzf_action))
 function! vimrc#fzf#git#get_fugitive_fzf_action() abort
   return s:fugitive_fzf_action

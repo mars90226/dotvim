@@ -52,6 +52,7 @@ nnoremap <Space>xf :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vi
 " Defx open
 command! -nargs=1 -complete=file DefxOpenSink            call vimrc#defx#open(<q-args>, 'edit')
 command! -nargs=1 -complete=file DefxSplitOpenSink       call vimrc#defx#open(<q-args>, 'split')
+command! -nargs=1 -complete=file DefxBottomSplitOpenSink call vimrc#defx#open(<q-args>, 'bsplit')
 command! -nargs=1 -complete=file DefxVSplitOpenSink      call vimrc#defx#open(<q-args>, 'vsplit')
 command! -nargs=1 -complete=file DefxTabOpenSink         call vimrc#defx#open(<q-args>, 'tab')
 command! -nargs=1 -complete=file DefxRightVSplitOpenSink call vimrc#defx#open(<q-args>, 'rvsplit')
@@ -60,6 +61,7 @@ command! -nargs=1 -complete=file DefxFloatOpenSink       call vimrc#defx#open(<q
 " Defx open dir
 command! -nargs=1 -complete=dir DefxOpenDirSink            call vimrc#defx#open_dir(<q-args>, 'edit')
 command! -nargs=1 -complete=dir DefxSplitOpenDirSink       call vimrc#defx#open_dir(<q-args>, 'split')
+command! -nargs=1 -complete=dir DefxBottomSplitOpenDirSink call vimrc#defx#open_dir(<q-args>, 'bsplit')
 command! -nargs=1 -complete=dir DefxVSplitOpenDirSink      call vimrc#defx#open_dir(<q-args>, 'vsplit')
 command! -nargs=1 -complete=dir DefxTabOpenDirSink         call vimrc#defx#open_dir(<q-args>, 'tab')
 command! -nargs=1 -complete=dir DefxRightVSplitOpenDirSink call vimrc#defx#open_dir(<q-args>, 'rvsplit')

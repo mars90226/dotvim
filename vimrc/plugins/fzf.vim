@@ -42,7 +42,7 @@ let g:misc_fzf_action = {
       \ 'ctrl-q': function('vimrc#fzf#build_quickfix_list'),
       \ 'alt-c':  function('vimrc#fzf#copy_results'),
       \ 'alt-e':  'cd',
-      \ 'f4':  'diffsplit',
+      \ 'f4':     'diffsplit',
       \ }
 if has('nvim')
   let g:misc_fzf_action['alt-t'] = function('vimrc#fzf#open_terminal')
@@ -51,6 +51,7 @@ let g:default_fzf_action = vimrc#fzf#wrap_actions_for_trigger(extend({
       \ 'ctrl-t': 'tab split',
       \ 'ctrl-s': 'split',
       \ 'ctrl-x': 'split',
+      \ 'alt-g':  'rightbelow split',
       \ 'ctrl-v': 'vsplit',
       \ 'alt-v':  'rightbelow vsplit',
       \ 'alt-z':  'VimrcFloatNew split',

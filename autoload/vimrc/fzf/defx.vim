@@ -3,6 +3,7 @@ let s:defx_fzf_action = vimrc#fzf#wrap_actions_for_trigger(extend({
       \ 'ctrl-t':     'DefxTabOpenSink',
       \ 'ctrl-s':     'DefxSplitOpenSink',
       \ 'ctrl-x':     'DefxSplitOpenSink',
+      \ 'alt-g':      'DefxBottomSplitOpenSink',
       \ 'ctrl-v':     'DefxVSplitOpenSink',
       \ 'alt-v':      'DefxRightVSplitOpenSink',
       \ 'alt-x':      'DefxOpenDirSink',
