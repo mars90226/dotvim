@@ -121,20 +121,29 @@ function! vimrc#defx#mappings() abort " {{{ abort
   " Even through there's a commit to fix redraw needed after sorting, but the
   " redraw is still needed.
   " https://github.com/Shougo/defx.nvim/commit/ce2a0321400ab3057d6ae03e0866541adb50a642
-  nnoremap <silent><buffer><expr> S
-        \ defx#do_action('toggle_sort', 'Time') .
-        \ defx#do_action('redraw')
   nnoremap <silent><buffer><expr> se
         \ defx#do_action('toggle_sort', 'extension') .
+        \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> sE
+        \ defx#do_action('toggle_sort', 'Extension') .
         \ defx#do_action('redraw')
   nnoremap <silent><buffer><expr> sf
         \ defx#do_action('toggle_sort', 'filename') .
         \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> sF
+        \ defx#do_action('toggle_sort', 'Filename') .
+        \ defx#do_action('redraw')
   nnoremap <silent><buffer><expr> ss
         \ defx#do_action('toggle_sort', 'size') .
         \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> sS
+        \ defx#do_action('toggle_sort', 'Size') .
+        \ defx#do_action('redraw')
   nnoremap <silent><buffer><expr> st
         \ defx#do_action('toggle_sort', 'time') .
+        \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> sT
+        \ defx#do_action('toggle_sort', 'Time') .
         \ defx#do_action('redraw')
   nnoremap <silent><buffer><expr> A
         \ defx#do_action('open', 'split')
