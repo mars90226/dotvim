@@ -236,6 +236,12 @@ Plug 'lambdalisue/suda.vim'
 command! Suda edit suda://%
 " }}}
 
+" winresizer.vim {{{
+Plug 'simeji/winresizer'
+
+let g:winresizer_start_key = '<Leader>R'
+" }}}
+
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
 Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert', 'S'] }
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }
