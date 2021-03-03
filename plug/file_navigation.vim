@@ -100,6 +100,11 @@ if vimrc#plugin#is_enabled_plugin('any-jump.nvim')
   xnoremap <Leader>aj :AnyJumpVisual<CR>
   nnoremap <Leader>ab :AnyJumpBack<CR>
   nnoremap <Leader>al :AnyJumpLastResults<CR>
+
+  augroup any_jump_settings
+    autocmd!
+    autocmd FileType any-jump call vimrc#any_jump#settings()
+  augroup END
 endif
 " }}}
 
