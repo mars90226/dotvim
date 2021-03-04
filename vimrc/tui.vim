@@ -7,8 +7,8 @@ endif
 if executable('htop')
   command! Htop        call vimrc#tui#run('float', 'htop')
   command! HtopSplit   call vimrc#tui#run('new', 'htop')
-  call fuzzymenu#Add('Htop', { 'exec': 'Htop' })
-  call fuzzymenu#Add('HtopSplit', { 'exec': 'HtopSplit' })
+  call vimrc#fuzzymenu#try_add('Htop', { 'exec': 'Htop' })
+  call vimrc#fuzzymenu#try_add('HtopSplit', { 'exec': 'HtopSplit' })
 
   nnoremap <Leader>ht :Htop<CR>
 endif
@@ -16,59 +16,59 @@ endif
 if executable('btm')
   command! Btm         call vimrc#tui#run('float', 'btm')
   command! BtmSplit    call vimrc#tui#run('new', 'btm')
-  call fuzzymenu#Add('Btm', { 'exec': 'Btm' })
-  call fuzzymenu#Add('BtmSplit', { 'exec': 'BtmSplit' })
+  call vimrc#fuzzymenu#try_add('Btm', { 'exec': 'Btm' })
+  call vimrc#fuzzymenu#try_add('BtmSplit', { 'exec': 'BtmSplit' })
 endif
 
 if executable('broot')
   command! Broot       call vimrc#tui#run('float', 'broot -p')
   command! BrootSplit  call vimrc#tui#run('vnew', 'broot -p')
-  call fuzzymenu#Add('Broot', { 'exec': 'Broot' })
-  call fuzzymenu#Add('BrootSplit', { 'exec': 'BrootSplit' })
+  call vimrc#fuzzymenu#try_add('Broot', { 'exec': 'Broot' })
+  call vimrc#fuzzymenu#try_add('BrootSplit', { 'exec': 'BrootSplit' })
 endif
 
 if executable('ranger')
   " Use floaterm ranger wrapper
   command! Ranger      call vimrc#tui#run('float', 'ranger')
   command! RangerSplit call vimrc#tui#run('new', 'ranger')
-  call fuzzymenu#Add('Ranger', { 'exec': 'Ranger' })
-  call fuzzymenu#Add('RangerSplit', { 'exec': 'RangerSplit' })
+  call vimrc#fuzzymenu#try_add('Ranger', { 'exec': 'Ranger' })
+  call vimrc#fuzzymenu#try_add('RangerSplit', { 'exec': 'RangerSplit' })
 endif
 
 if executable('nnn')
   command! Nnn         call vimrc#tui#run('float', 'nnn')
   command! NnnSplit    call vimrc#tui#run('new', 'nnn')
-  call fuzzymenu#Add('Nnn', { 'exec': 'Nnn' })
-  call fuzzymenu#Add('NnnSplit', { 'exec': 'NnnSplit' })
+  call vimrc#fuzzymenu#try_add('Nnn', { 'exec': 'Nnn' })
+  call vimrc#fuzzymenu#try_add('NnnSplit', { 'exec': 'NnnSplit' })
 endif
 
 if executable('vifm')
   command! Vifm        call vimrc#tui#run('float', 'vifm')
   command! VifmSplit   call vimrc#tui#run('new', 'vifm')
-  call fuzzymenu#Add('Vifm', { 'exec': 'Vifm' })
-  call fuzzymenu#Add('VifmSplit', { 'exec': 'VifmSplit' })
+  call vimrc#fuzzymenu#try_add('Vifm', { 'exec': 'Vifm' })
+  call vimrc#fuzzymenu#try_add('VifmSplit', { 'exec': 'VifmSplit' })
 endif
 
 if executable('fff')
   " Use floaterm fff wrapper
   command! Fff         call vimrc#tui#run('float', 'fff')
   command! FffSplit    call vimrc#tui#run('new', 'fff')
-  call fuzzymenu#Add('Fff', { 'exec': 'Fff' })
-  call fuzzymenu#Add('FffSplit', { 'exec': 'FffSplit' })
+  call vimrc#fuzzymenu#try_add('Fff', { 'exec': 'Fff' })
+  call vimrc#fuzzymenu#try_add('FffSplit', { 'exec': 'FffSplit' })
 endif
 
 if executable('lf')
   command! Lf          call vimrc#tui#run('float', 'lf')
   command! LfSplit     call vimrc#tui#run('new', 'lf')
-  call fuzzymenu#Add('Lf', { 'exec': 'Lf' })
-  call fuzzymenu#Add('LfSplit', { 'exec': 'LfSplit' })
+  call vimrc#fuzzymenu#try_add('Lf', { 'exec': 'Lf' })
+  call vimrc#fuzzymenu#try_add('LfSplit', { 'exec': 'LfSplit' })
 endif
 
 if executable('lazygit')
   command! LazyGit      call vimrc#tui#run('float', 'lazygit')
   command! LazyGitSplit call vimrc#tui#run('new', 'lazygit')
-  call fuzzymenu#Add('LazyGit', { 'exec': 'LazyGit' })
-  call fuzzymenu#Add('LazyGitSplit', { 'exec': 'LazyGitSplit' })
+  call vimrc#fuzzymenu#try_add('LazyGit', { 'exec': 'LazyGit' })
+  call vimrc#fuzzymenu#try_add('LazyGitSplit', { 'exec': 'LazyGitSplit' })
 
   nnoremap <Leader>gz :LazyGit<CR>
 endif
@@ -76,15 +76,15 @@ endif
 if executable('gitui')
   command! Gitui       call vimrc#tui#run('float', 'gitui')
   command! GituiSplit  call vimrc#tui#run('new', 'gitui')
-  call fuzzymenu#Add('Gitui', { 'exec': 'Gitui' })
-  call fuzzymenu#Add('GituiSplit', { 'exec': 'GituiSplit' })
+  call vimrc#fuzzymenu#try_add('Gitui', { 'exec': 'Gitui' })
+  call vimrc#fuzzymenu#try_add('GituiSplit', { 'exec': 'GituiSplit' })
 endif
 
 if executable('bandwhich')
   command! Bandwhich      call vimrc#tui#run('float', 'bandwhich')
   command! BandwhichSplit call vimrc#tui#run('new', 'bandwhich')
-  call fuzzymenu#Add('Bandwhich', { 'exec': 'Bandwhich' })
-  call fuzzymenu#Add('BandwhichSplit', { 'exec': 'BandwhichSplit' })
+  call vimrc#fuzzymenu#try_add('Bandwhich', { 'exec': 'Bandwhich' })
+  call vimrc#fuzzymenu#try_add('BandwhichSplit', { 'exec': 'BandwhichSplit' })
 endif
 
 " TODO: Add tig
@@ -93,13 +93,13 @@ endif
 if executable('fish')
   command! Fish        call vimrc#tui#run('float', 'fish')
   command! FishSplit   call vimrc#tui#run('new', 'fish')
-  call fuzzymenu#Add('Fish', { 'exec': 'Fish' })
-  call fuzzymenu#Add('FishSplit', { 'exec': 'FishSplit' })
+  call vimrc#fuzzymenu#try_add('Fish', { 'exec': 'Fish' })
+  call vimrc#fuzzymenu#try_add('FishSplit', { 'exec': 'FishSplit' })
 endif
 
 if executable('zsh')
   command! Zsh         call vimrc#tui#run('float', 'zsh')
   command! ZshSplit    call vimrc#tui#run('new', 'zsh')
-  call fuzzymenu#Add('Zsh', { 'exec': 'Zsh' })
-  call fuzzymenu#Add('ZshSplit', { 'exec': 'ZshSplit' })
+  call vimrc#fuzzymenu#try_add('Zsh', { 'exec': 'Zsh' })
+  call vimrc#fuzzymenu#try_add('ZshSplit', { 'exec': 'ZshSplit' })
 endif
