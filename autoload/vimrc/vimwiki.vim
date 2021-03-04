@@ -1,8 +1,6 @@
 " Settings
 function! vimrc#vimwiki#settings() abort
-  " TODO Check if there's bad side effect
-  " Currently, this will make vimwiki's todo list toggle updating hierarchy
-  let b:vimwiki_wiki_nr = -1
+  " Currently, do nothing
 endfunction
 
 " Mappings

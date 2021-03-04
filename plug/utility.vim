@@ -69,7 +69,7 @@ nnoremap <Leader>r :Rooter<CR>
 Plug 'vimwiki/vimwiki'
 
 " disable vimwiki on markdown file
-let g:vimwiki_ext2syntax = { '.wiki': 'media' }
+let g:vimwiki_ext2syntax = { '.wiki': 'default' }
 " disable <Tab> & <S-Tab> mappings in insert mode
 let g:vimwiki_key_mappings = {
       \ 'lists_return': 1,
