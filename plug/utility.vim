@@ -75,6 +75,7 @@ let g:vimwiki_key_mappings = {
       \ 'lists_return': 1,
       \ 'table_mappings': 0,
       \ }
+let g:vimwiki_folding = 'expr'
 
 augroup vimwiki_settings
   autocmd!
