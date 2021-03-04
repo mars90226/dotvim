@@ -250,6 +250,10 @@ nnoremap <silent> <M-P> :<C-U>call vimrc#textobj#past_character(v:count1, 'n', v
 xnoremap <silent> <M-P> :<C-U>call vimrc#textobj#past_character(v:count1, 'v', v:false)<CR>
 onoremap <silent> <M-P> :<C-U>call vimrc#textobj#past_character(v:count1, 'o', v:false)<CR>
 
+" Diff
+nnoremap <Leader>dft :windo diffthis<CR>
+nnoremap <Leader>dfo :windo diffoff<CR>
+
 " Man
 " :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
 " TODO Move this to 'after' folder
