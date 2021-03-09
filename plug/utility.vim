@@ -117,6 +117,9 @@ if vimrc#plugin#is_enabled_plugin('indent-blankline.nvim')
   let g:indent_blankline_filetype_exclude = ['help']
   let g:indent_blankline_buftype_exclude = ['terminal']
 
+  " Currently, there's no way to differentiate tab and space.
+  " The only way to differentiate is to disable indent-blankline.nvim
+  " temporarily.
   nnoremap <Space>il :IndentBlanklineToggle<CR>
 endif
 " }}}
