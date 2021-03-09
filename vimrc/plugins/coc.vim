@@ -57,6 +57,9 @@ nmap <Leader>cr <Plug>(coc-rename)
 nmap <Leader>cf <Plug>(coc-format-selected)
 xmap <Leader>cf <Plug>(coc-format-selected)
 
+nnoremap <silent><nowait><expr> <C-F> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-F>"
+nnoremap <silent><nowait><expr> <C-B> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-B>"
+
 augroup coc_settings
   autocmd!
   " Highlight symbol under cursor on CursorHold
