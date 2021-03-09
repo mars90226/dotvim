@@ -39,7 +39,12 @@ if vimrc#plugin#check#python_version() <# '3.6'
   call vimrc#plugin#disable_plugin('aerojump.nvim')
 endif
 
-" TODO not working, disabled for now
-" if !has('nvim-0.4')
-"   call vimrc#plugin#disable_plugin('indent-blankline.nvim')
-" endif
+" Choose indent line plugin
+" indent-blankline.nvim, indentLine
+call vimrc#plugin#disable_plugins(['indent-blankline.nvim', 'indentLine'])
+" allow virt_text overlay at any column in 'NVIM v0.5.0-dev+1103-g7bcac75f3'
+if has('nvim-0.5') && vimrc#plugin#check#nvim_patch_version() >= 1103
+  call vimrc#plugin#enable_plugin('indent-blankline.nvim')
+else
+  call vimrc#plugin#enable_plugin('indentLine')
+endif

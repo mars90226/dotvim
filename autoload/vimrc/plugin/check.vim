@@ -37,7 +37,7 @@ if has('nvim')
   endfunction
 
   function! vimrc#plugin#check#nvim_patch_version() abort
-    return matchlist(vimrc#plugin#check#nvim_version(), '\v^NVIM v\d+\.\d+\.\d+-(\d+)')[1]
+    return matchlist(vimrc#plugin#check#nvim_version(), '\v^NVIM v\d+\.\d+\.\d+-%(dev\+)?(\d+)')[1]
   endfunction
 
   " Check if $NVIM_TERMINAL is set or parent process is nvim

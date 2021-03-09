@@ -93,18 +93,28 @@ Plug 'vimoutliner/vimoutliner'
 " }}}
 
 " indentLine {{{
-Plug 'Yggdroot/indentLine', { 'on': ['IndentLinesEnable', 'IndentLinesToggle'] }
-" TODO not working, disabled for now
-" Plug 'lukas-reineke/indent-blankline.nvim'
+if vimrc#plugin#is_enabled_plugin('indentLine')
+  Plug 'Yggdroot/indentLine', { 'on': ['IndentLinesEnable', 'IndentLinesToggle'] }
 
-let g:indentLine_enabled = 0
+  let g:indentLine_enabled = 0
 
-nnoremap <Space>il :IndentLinesToggle<CR>
+  nnoremap <Space>il :IndentLinesToggle<CR>
 
-augroup indent_line_syntax
-  autocmd!
-  autocmd User indentLine doautocmd indentLine Syntax
-augroup END
+  augroup indent_line_syntax
+    autocmd!
+    autocmd User indentLine doautocmd indentLine Syntax
+  augroup END
+endif
+" }}}
+
+" indent-blankline.nvim {{{
+if vimrc#plugin#is_enabled_plugin('indent-blankline.nvim')
+  Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
+
+  let g:indent_blankline_space_char = '•'
+
+  nnoremap <Space>il :IndentBlanklineToggle<CR>
+endif
 " }}}
 
 " AnsiEsc.vim {{{
