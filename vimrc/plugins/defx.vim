@@ -24,6 +24,10 @@ let g:defx_resume_options                = '-listed -resume'
 " Sidebar
 nnoremap <F4>        :execute 'Defx '.vimrc#defx#get_options('sidebar')<CR>
 nnoremap <Space><F4> :execute 'Defx '.vimrc#defx#get_options('sidebar').' '.expand('%:p:h').' -search='.expand('%:p')<CR>
+" Currently, it's impossible to type <S-F1> ~ <S-F12> using MobaXterm + tmux.
+" MobaXterm with 'Byobu terminal type' + tmux with 'screen-256color' will
+" generate keycode for <S-F1> ~ <S-F4> that recognized by neovim as <F13> ~ <F16>.
+nnoremap <F16>       :execute 'Defx '.vimrc#defx#get_options('sidebar').' '.expand('%:p:h').' -search='.expand('%:p').' -no-focus'<CR>
 
 " Buffer directory
 nnoremap -         :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('win'))<CR>
