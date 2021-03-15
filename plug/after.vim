@@ -46,6 +46,10 @@ call vimrc#source('vimrc/plugins/sandwich_after.vim')
 call vimrc#source('vimrc/plugins/textobj_user_after.vim')
 " }}}
 
+" fuzzymenu {{{
+call vimrc#source('vimrc/plugins/fuzzymenu_after.vim')
+" }}}
+
 " arpeggio {{{
 call arpeggio#load()
 
