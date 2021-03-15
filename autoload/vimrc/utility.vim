@@ -258,3 +258,9 @@ function! vimrc#utility#resize_width_to_selected() abort
   let width = col("'>") - col("'<") + vimrc#utility#get_window_non_text_area_width()
   execute 'vertical resize '.width
 endfunction
+
+function! vimrc#utility#sort_copied_words() abort
+  let copied = getreg('"')
+  let sorted_copied = join(sort(split(copied)), ' ')
+  return sorted_copied
+endfunction
