@@ -114,7 +114,7 @@ if vimrc#plugin#is_enabled_plugin('indent-blankline.nvim')
   " Although previously, middle dot is avoided in commit ce68e7d4e533b23764961139b2900697f18d78b0.
   " It seems currently there's no problem when displayed by MobaXterm.
   let g:indent_blankline_space_char = '·'
-  let g:indent_blankline_filetype_exclude = ['any-jump', 'clap', 'defx', 'help', 'git']
+  let g:indent_blankline_filetype_exclude = ['any-jump', 'clap', 'defx', 'help', 'git', 'gitcommit', 'gitrebase', 'gitsendemail']
   let g:indent_blankline_buftype_exclude = ['nofile', 'terminal']
 
   " Currently, there's no way to differentiate tab and space.
