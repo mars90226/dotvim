@@ -12,6 +12,14 @@ let g:ale_linters = {
       \ 'sh': ['shell', 'shellcheck']
       \}
 let g:ale_fixers = {
+      \ 'c': [
+      \   'clang-format',
+      \   'clangtidy'
+      \ ],
+      \ 'cpp': [
+      \   'clang-format',
+      \   'clangtidy'
+      \ ],
       \ 'javascript': [
       \   'eslint',
       \   'prettier'
