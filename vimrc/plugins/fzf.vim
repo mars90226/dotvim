@@ -127,9 +127,9 @@ command! -bang DirectoryMruFiles call vimrc#fzf#mru#directory_mru_files(<bang>0)
 command! -bang DirectoryMruRg    call vimrc#fzf#mru#directory_mru_rg(<bang>0)
 
 " Directory
-command! -bang -nargs=? Directories    call vimrc#fzf#dir#directories(<q-args>, <bang>0)
-command! -bang -nargs=? DirectoryFiles call vimrc#fzf#dir#directory_files(<q-args>, <bang>0)
-command! -bang -nargs=? DirectoryRg    call vimrc#fzf#dir#directory_rg(<q-args>, <bang>0)
+command! -bang -nargs=? -complete=dir Directories    call vimrc#fzf#dir#directories(<q-args>, <bang>0)
+command! -bang -nargs=? -complete=dir DirectoryFiles call vimrc#fzf#dir#directory_files(<q-args>, <bang>0)
+command! -bang -nargs=? -complete=dir DirectoryRg    call vimrc#fzf#dir#directory_rg(<q-args>, <bang>0)
 
 " Tselect
 command! -nargs=1 Tselect        call vimrc#fzf#tag#tselect(<q-args>)
