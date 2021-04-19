@@ -1,3 +1,8 @@
+" Commands
+command! -nargs=1 GitGotoBlameLine call vimrc#fugitive#goto_blame_line(<f-args>)
+command! GitCloseFugitiveBuffers call vimrc#fugitive#close_all_fugitive_buffers()
+
+" Mappings
 " For execute git command
 nnoremap <Space>gg :Git<Space>
 nnoremap <Space>gG :Git --paginate<Space>
@@ -6,8 +11,8 @@ nnoremap <silent> <Leader>gs :Git<CR>
 nnoremap <silent> <Leader>gS :call vimrc#fugitive#diff_staged_file('%')<CR>
 nnoremap <silent> <Leader>gd :Gdiffsplit<CR>
 nnoremap <silent> <Leader>gD :Gdiffsplit!<CR>
-nnoremap <silent> <Leader>gc :call vimrc#fugitive#goto_blame_line('split')<CR>
-nnoremap <silent> <Leader>gC :call vimrc#fugitive#goto_blame_line('edit')<CR>
+nnoremap <silent> <Leader>gc :GitGotoBlameLine split<CR>
+nnoremap <silent> <Leader>gC :GitGotoBlameLine edit<CR>
 nnoremap <silent> <Leader>gb :Git blame<CR>
 xnoremap <silent> <Leader>gb :Git blame<CR>
 nnoremap <silent> <Leader>gB :GBrowse<CR>

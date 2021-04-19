@@ -139,3 +139,7 @@ function! vimrc#fugitive#goto_blame_line(split) abort
   endif
   execute current_line.'Git blame'
 endfunction
+
+function! vimrc#fugitive#close_all_fugitive_buffers() abort
+  call vimrc#utility#delete_buffers({ _, buf -> bufname(buf) =~# '^fugitive:///' })
+endfunction

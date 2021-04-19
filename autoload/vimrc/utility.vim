@@ -264,3 +264,12 @@ function! vimrc#utility#sort_copied_words() abort
   let sorted_copied = join(sort(split(copied)), ' ')
   return sorted_copied
 endfunction
+
+function! vimrc#utility#delete_buffers(Filter) abort
+  let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val)')
+  let filtered_buffers = filter(buffers, a:Filter)
+
+  if !empty(filtered_buffers)
+    execute 'bdelete '.join(filtered_buffers, ' ')
+  endif
+endfunction
