@@ -137,6 +137,14 @@ function! vimrc#utility#get_xdg_open() abort
   return s:xdg_open_command
 endfunction
 
+" translate-shell
+" Use bing as google is blocking request
+let s:translate_shell_command = vimrc#terminal#get_open_command() . ' trans -e bing'
+
+function! vimrc#utility#get_translate_shell_command() abort
+  return s:translate_shell_command
+endfunction
+
 " DiffOrig
 function! vimrc#utility#diff_original() abort
   vertical new
