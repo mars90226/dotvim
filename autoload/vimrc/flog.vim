@@ -22,17 +22,13 @@ endfunction
 
 function! vimrc#flog#show_file(file, options) abort
   let is_current_file = a:file ==# '%'
-  let cmd = 'Flog -- '
+  let cmd = 'Flog '
+  let a:options['path'] = is_current_file ? expand('%') : a:file
 
+  " Currently only support :Flog builtin options, no "git log --graph" options
   for key in keys(a:options)
-    if len(key) == 1
-      let cmd .= '-'.key.' '.a:options[key].' '
-    else
-      let cmd .= '--'.key.'='.a:options[key].' '
-    endif
+    let cmd .= '-'.key.'='.a:options[key].' '
   endfor
-
-  let cmd .= is_current_file ? shellescape(expand('%')) : a:file
 
   execute cmd
 endfunction
