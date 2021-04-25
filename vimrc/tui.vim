@@ -64,6 +64,13 @@ if executable('lf')
   call vimrc#fuzzymenu#try_add('LfSplit', { 'exec': 'LfSplit' })
 endif
 
+if executable('xplr')
+  command! Xplr          call vimrc#tui#run('float', 'xplr')
+  command! XplrSplit     call vimrc#tui#run('new', 'xplr')
+  call vimrc#fuzzymenu#try_add('Xplr', { 'exec': 'Xplr' })
+  call vimrc#fuzzymenu#try_add('XplrSplit', { 'exec': 'XplrSplit' })
+endif
+
 if executable('lazygit')
   command! LazyGit      call vimrc#tui#run('float', 'lazygit')
   command! LazyGitSplit call vimrc#tui#run('new', 'lazygit')
