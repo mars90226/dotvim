@@ -35,6 +35,12 @@ Plug 'rbong/vim-flog'
 
 command! -nargs=* Floga Flog -all <args>
 
+" GV with company filter
+execute 'command! -nargs=* Flogd  Flog -author='.get(g:, 'company_domain', '').' <args>'
+execute 'command! -nargs=* Flogda Flog -author='.get(g:, 'company_domain', '').' --all <args>'
+execute 'command! -nargs=* Floge  Flog -author='.get(g:, 'company_email', '').' <args>'
+execute 'command! -nargs=* Flogea Flog -author='.get(g:, 'company_email', '').' --all <args>'
+
 nnoremap <Leader>gf     :call vimrc#flog#show_file('%', {})<CR>
 nnoremap <Leader>gF     :call vimrc#flog#show_file('%', {'author': g:company_domain})<CR>
 nnoremap <Leader>g<C-F> :call vimrc#flog#show_file('%', {'author': g:company_email})<CR>
