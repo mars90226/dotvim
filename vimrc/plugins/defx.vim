@@ -5,7 +5,7 @@ augroup END
 
 let [g:defx_width, g:defx_height] = vimrc#float#get_default_size()
 let [g:defx_left, g:defx_top] = vimrc#float#calculate_pos(g:defx_width, g:defx_height)
-let g:defx_sidebar_width = 35
+let g:defx_sidebar_width = g:left_sidebar_width
 
 " Defx Options
 let g:defx_win_options                   = '-buffer-name=win-%d'

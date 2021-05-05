@@ -1,6 +1,7 @@
 nnoremap <F8> :TagbarToggle<CR>
 let g:tagbar_map_showproto = '<Leader><Space>'
 let g:tagbar_expand = 1
+let g:tagbar_width = g:right_sidebar_width
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [

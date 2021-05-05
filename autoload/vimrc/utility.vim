@@ -257,6 +257,18 @@ function! vimrc#utility#resize_to_selected() abort
   call vimrc#utility#resize_width_to_selected()
 endfunction
 
+function! vimrc#utility#reset_sidebar_size() abort
+  if winnr() == 1
+    " Left sidebar
+    setlocal winfixwidth
+    execute 'vertical resize '.g:left_sidebar_width
+  elseif winnr() == winnr('$')
+    " Right sidebar
+    setlocal winfixwidth
+    execute 'vertical resize '.g:right_sidebar_width
+  endif
+endfunction
+
 function! vimrc#utility#resize_height_to_selected() abort
   let height = line("'>") - line("'<") + 1
   execute 'resize '.height

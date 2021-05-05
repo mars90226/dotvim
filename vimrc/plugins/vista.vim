@@ -18,7 +18,7 @@ if vimrc#plugin#is_enabled_plugin('coc.nvim')
   nnoremap <Space>vK   :call vimrc#vista#finder_with_query('Vista finder coc', expand('<cword>'))<CR>
 endif
 
-let g:vista_sidebar_width = 40
+let g:vista_sidebar_width = g:right_sidebar_width
 let g:vista_fzf_preview = ['right:50%']
 
 augroup vista_load_nearest_method_or_function

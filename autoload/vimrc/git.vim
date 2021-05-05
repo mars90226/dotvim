@@ -25,8 +25,8 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
   endif
 
   if vimrc#plugin#is_enabled_plugin('diffview.nvim')
-    execute 'nnoremap <buffer> <Leader>dv :DiffviewOpen <C-R>=vimrc#git#expand_commits('.git_sha_fn.')<CR><CR>'
-    execute 'nnoremap <buffer> <Leader>dV :DiffviewOpen <C-R>=vimrc#git#expand_commits('.git_sha_fn.')<CR>'
+    execute 'nnoremap <buffer> <Leader>dv :DiffviewOpen <C-R>=vimrc#git#expand_commits('.git_sha_fn.')<CR>^!<CR>'
+    execute 'nnoremap <buffer> <Leader>dV :DiffviewOpen <C-R>=vimrc#git#expand_commits('.git_sha_fn.')<CR>^!'
 
     if has_visual_shas
       execute 'xnoremap <buffer> <Leader>dv :<C-U>DiffviewOpen <C-R>=vimrc#git#expand_commits('.git_visual_shas_fn.')<CR><CR>'

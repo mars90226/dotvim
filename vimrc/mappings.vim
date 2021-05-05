@@ -48,6 +48,7 @@ nnoremap <C-W><Space>x <C-W>_<C-W><Bar>
 xnoremap <C-W><Space>_ :call vimrc#utility#resize_height_to_selected()<CR>
 xnoremap <C-W><Space><Bar> :call vimrc#utility#resize_width_to_selected()<CR>
 xnoremap <C-W><Space>x :call vimrc#utility#resize_to_selected()<CR>
+nnoremap <C-W><Space>s :call vimrc#utility#reset_sidebar_size()<CR>
 
 " Move tab
 nnoremap <Leader>t< :tabmove -1<CR>

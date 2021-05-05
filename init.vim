@@ -1,4 +1,5 @@
 call vimrc#source('vimrc/basic.vim')
+call vimrc#source('vimrc/config.vim')
 call vimrc#source('plug/plugin_choose.vim')
 call vimrc#source('plug/auto_plug.vim')
 
