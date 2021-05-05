@@ -111,5 +111,11 @@ augroup git_messenger_settings
 augroup END
 " }}}
 
+" diffview.nvim {{{
+if vimrc#plugin#is_enabled_plugin('diffview.nvim')
+  Plug 'sindrets/diffview.nvim'
+endif
+" }}}
+
 " Disabled as not used
 Plug 'mattn/gist-vim', { 'for': [] }

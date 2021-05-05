@@ -260,6 +260,12 @@ Plug 'simeji/winresizer'
 let g:winresizer_start_key = '<Leader>R'
 " }}}
 
+" nvim-web-devicons {{{
+if vimrc#plugin#is_enabled_plugin('nvim-web-devicons')
+  Plug 'kyazdani42/nvim-web-devicons'
+endif
+" }}}
+
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
 Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert', 'S'] }
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }
