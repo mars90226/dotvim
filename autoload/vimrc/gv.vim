@@ -2,7 +2,7 @@
 function! vimrc#gv#mappings() abort
   nnoremap <silent><buffer> + :call vimrc#gv#expand()<CR>
 
-  call vimrc#git#include_git_mappings('gv#sha()', 'vimrc#gv#visual_diff_commits()')
+  call vimrc#git#include_git_mappings('gv', v:true)
 endfunction
 
 " Functions
@@ -11,15 +11,6 @@ function! vimrc#gv#expand() abort
   GV --name-status
   call search('\V'.line, 'c')
   normal! zz
-endfunction
-
-function! vimrc#gv#visual_diff_commits() abort
-  " Borrowed from gv.vim
-  let shas = filter(map(getline("'<", "'>"), 'gv#sha(v:val)'), '!empty(v:val)')
-  let start_commit = shas[-1]
-  let end_commit = shas[0]
-
-  call vimrc#fzf#git#diff_commits(start_commit, end_commit)
 endfunction
 
 function! vimrc#gv#show_file(file, options) abort

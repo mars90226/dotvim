@@ -67,7 +67,7 @@ function! vimrc#fugitive#mappings() abort
   nnoremap <buffer> <silent> coO :execute 'Git checkout --ours '.fugitive#StatusCfile()<CR>
   nnoremap <buffer> <silent> coT :execute 'Git checkout --theirs '.fugitive#StatusCfile()<CR>
 
-  call vimrc#git#include_git_mappings("expand('<cword>')")
+  call vimrc#git#include_git_mappings('fugitive')
 
   " GV
   nnoremap <buffer> <silent> <Leader>gv :call vimrc#gv#show_file(fugitive#StatusCfile(), {})<CR>
@@ -81,11 +81,11 @@ function! vimrc#fugitive#mappings() abort
 endfunction
 
 function! vimrc#fugitive#git_mappings() abort
-  call vimrc#git#include_git_mappings('fugitive#Object(@%)')
+  call vimrc#git#include_git_mappings('git')
 endfunction
 
 function! vimrc#fugitive#blame_mappings() abort
-  call vimrc#git#include_git_mappings('vimrc#fugitive#blame_sha()')
+  call vimrc#git#include_git_mappings('fugitive_blame')
 endfunction
 
 " Functions

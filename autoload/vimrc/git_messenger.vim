@@ -4,7 +4,7 @@ function! vimrc#git_messenger#mappings() abort
   nnoremap <silent><buffer> <Leader>gC :call vimrc#git_messenger#goto_commit('Gedit')<CR>
 
   " FIXME Display some error message when using these key mappings
-  call vimrc#git#include_git_mappings('vimrc#git_messenger#sha()')
+  call vimrc#git#include_git_mappings('git_messenger')
 endfunction
 
 " Functions
