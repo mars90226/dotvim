@@ -33,6 +33,7 @@ nnoremap coe :set expandtab!<CR>
 nnoremap com :set modifiable!<CR>
 nnoremap coo :set readonly!<CR>
 nnoremap cop :set paste!<CR>
+nnoremap yoa :setlocal autoread!<CR>
 " }}}
 
 " vim-characterize {{{
