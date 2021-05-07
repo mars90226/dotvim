@@ -269,7 +269,7 @@ function! vimrc#defx#mappings() abort " {{{ abort
         \ defx#do_action('call', 'vimrc#defx#fzf_directory_ancestors')
   nnoremap <silent><buffer><expr> \<C-H>
         \ defx#do_action('call', 'vimrc#defx#fzf_directory_ancestors')
-  nnoremap <silent><buffer><expr> <Space>x
+  nnoremap <silent><buffer><expr> <Space>xx
         \ defx#do_action('call', 'vimrc#defx#execute_file_float')
   " Add this mapping to prevent from executing 'x' mapping
   nnoremap <silent><buffer><expr> \x
@@ -308,6 +308,11 @@ function! vimrc#defx#mappings() abort " {{{ abort
         \ defx#do_action('call', 'vimrc#defx#paste_from_system_clipboard_target')
   nnoremap <silent><buffer><expr> <Leader>gl
         \ ':Git log -p -- '.vimrc#defx#get_target()."\<CR>"
+
+  if executable('viu')
+    nnoremap <silent><buffer><expr> \vv
+          \ defx#do_action('call', 'vimrc#defx#show_image')
+  endif
 
   " Use Unite because using Denite will change other Denite buffers
   nnoremap <silent><buffer> g?
@@ -513,9 +518,11 @@ function! vimrc#defx#_get_commmand(cmd, path) abort
   endif
 endfunction
 
-function! vimrc#defx#execute_file_internal(context, split) abort
+function! vimrc#defx#execute_file_internal(context, split, ...) abort
   let target = vimrc#defx#get_target()
-  call vimrc#defx#execute_internal(target, a:split)
+  let args = [target, a:split] + a:000
+
+  call call('vimrc#defx#execute_internal', args)
 endfunction
 
 function! vimrc#defx#execute_file(context) abort
@@ -538,9 +545,11 @@ function! vimrc#defx#execute_file_vertical(context) abort
   call vimrc#defx#execute_file_internal(a:context, 'vnew')
 endfunction
 
-function! vimrc#defx#execute_dir_internal(context, split) abort
+function! vimrc#defx#execute_dir_internal(context, split, ...) abort
   let path = vimrc#defx#get_current_path()
-  call vimrc#defx#execute_internal(path, a:split)
+  let args = [path, a:split] + a:000
+
+  call call('vimrc#defx#execute_internal', args)
 endfunction
 
 function! vimrc#defx#execute_dir(context) abort
@@ -617,9 +626,17 @@ endfunction
 
 " Depends on exa
 function! vimrc#defx#show_detail(context) abort
-  let target = vimrc#defx#get_target()
-  let cmd = 'exa -l {}'
-  call vimrc#defx#execute_internal(target, 'float', cmd)
+  call vimrc#defx#execute_file_internal(a:context, 'float', 'exa -l {}')
+endfunction
+
+" Depends on viu
+function! vimrc#defx#show_image(context) abort
+  " FIXME: Better workaround
+  " It seems like viu close standard output pipe and neovim terminal stop
+  " refresh right pipe closed and before finish rendering all viu output.
+  " So the image is not fully renderred in terminal.
+  " So we add a little sleep time to wait for renderring.
+  call vimrc#defx#execute_file_internal(a:context, 'float', 'viu {}; sleep 0.1')
 endfunction
 
 " Command line function
