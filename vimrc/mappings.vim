@@ -212,6 +212,15 @@ cnoremap <C-G>w <C-\>e<Space>vimrc#insert#delete_whole_word()<CR>
 " Company related data
 cnoremap <C-G>d <C-R>=g:company_domain<CR>
 cnoremap <C-G>e <C-R>=g:company_email<CR>
+" Manipulate register content
+cnoremap <C-G>4 <C-R>=fnamemodify(@", ':p')<CR>
+inoremap <C-G>4 <C-R>=fnamemodify(@", ':p')<CR>
+cnoremap <C-G>5 <C-R>=fnamemodify(@", ':t:r')<CR>
+inoremap <C-G>5 <C-R>=fnamemodify(@", ':t:r')<CR>
+cnoremap <C-G>6 <C-R>=fnamemodify(@", ':t')<CR>
+inoremap <C-G>6 <C-R>=fnamemodify(@", ':t')<CR>
+cnoremap <C-G>r <C-R>=fnamemodify(@", ':h')<CR>
+inoremap <C-G>r <C-R>=fnamemodify(@", ':h')<CR>
 
 " Ex mode for special buffer that map 'q' as ':quit'
 nnoremap \q: q:
