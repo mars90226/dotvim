@@ -390,7 +390,13 @@ function! vimrc#defx#open_dir(target, action) abort
   let [action, defx_option, _] = get(s:defx_action, a:action, '')
 
   if &filetype ==# 'defx' && action ==# 'edit'
-    call defx#call_action('search', a:target)
+    " TODO: Better detection of whether target is under current path
+    " Call expand() to handle variable expansion
+    if stridx(a:target, vimrc#defx#get_current_path()) != -1
+      call defx#call_action('search', a:target)
+    else
+      call defx#call_action('cd', fnamemodify(a:target, ':p:h'))
+    endif
   else
     execute 'Defx ' . defx_option . ' -search=' . a:target
   endif
