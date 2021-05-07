@@ -207,6 +207,8 @@ function! vimrc#defx#mappings() abort " {{{ abort
         \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . defx#do_action('call', 'vimrc#defx#git_root')
   nnoremap <silent><buffer><expr> gK
         \ defx#do_action('call', 'vimrc#defx#show_detail')
+  nnoremap <silent><buffer><expr> gy
+        \ defx#do_action('call', 'vimrc#defx#show_filetype')
   if bufname('%') =~# 'tab'
     nnoremap <silent><buffer><expr> q
           \ defx#do_action('quit') . ":quit<CR>"
@@ -633,6 +635,11 @@ endfunction
 " Depends on exa
 function! vimrc#defx#show_detail(context) abort
   call vimrc#defx#execute_file_internal(a:context, 'float', 'exa -l {}')
+endfunction
+
+" Depends on file
+function! vimrc#defx#show_filetype(context) abort
+  call vimrc#defx#execute_file_internal(a:context, 'float', 'file {}')
 endfunction
 
 " Depends on viu
