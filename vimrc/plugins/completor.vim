@@ -9,4 +9,5 @@ let g:completor_blacklist = ['tagbar', 'qf', 'netrw', 'unite']
 " <Tab>: completion
 inoremap <expr> <Tab>
       \ pumvisible() ? "\<C-N>" :
+      \ vimrc#insert#check_back_space() ? "\<Tab>" :
       \ "<C-R>=completor#do('complete')<CR>"
