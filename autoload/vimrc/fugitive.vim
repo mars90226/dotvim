@@ -46,6 +46,8 @@ function! vimrc#fugitive#fugitive_buffer_settings() abort
   nmap <buffer> <silent> <Space>-        :split<CR>-
   nmap <buffer> <silent> <Space><Space>- :tab split<CR>-
 
+  call vimrc#git#include_git_mappings('fugitive_buffer')
+
   nnoremap <buffer> <silent> <Leader>gu :execute 'Gsplit '.vimrc#fugitive#commit_sha()<CR>
 endfunction
 
