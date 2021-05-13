@@ -366,7 +366,7 @@ function! vimrc#fzf#git#files_commit(commit) abort
         \ 'options': ['-m', '-s', '--prompt', 'GitFilesCommit> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
 endfunction
 
-let s:git_keywords_command = 'git grep -il %s | xargs -n1 git blame -M -f -e 2>/dev/null | rg -i %s'
+let s:git_keywords_command = "git grep -ilP '%s' | xargs -n1 git blame -M -f -e 2>/dev/null | rg -i '%s'"
 function! vimrc#fzf#git#keywords(keyword) abort
   let command = printf(s:git_keywords_command, a:keyword, a:keyword)
 

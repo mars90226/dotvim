@@ -185,14 +185,14 @@ command! -nargs=1 -complete=customlist,fugitive#CompleteObject GitFilesCommit ca
 " }}}
 
 " Keywords
-command! -nargs=1 Keywords call vimrc#fzf#git#keywords(<f-args>)
-command!          Todos    call vimrc#fzf#git#keywords('TODO')
-command!          Fixmes   call vimrc#fzf#git#keywords('FIXME')
+command! -nargs=* Keywords call vimrc#fzf#git#keywords(<q-args>)
+command! -nargs=* Todos    call vimrc#fzf#git#keywords('TODO:?\s*'.<q-args>)
+command! -nargs=* Fixmes   call vimrc#fzf#git#keywords('FIXME:?\s*'.<q-args>)
 
 " KeywordsByMe
-command! -nargs=1 KeywordsByMe call vimrc#fzf#git#keywords_by_me(<f-args>)
-command!          TodosByMe    call vimrc#fzf#git#keywords_by_me('TODO')
-command!          FixmesByMe   call vimrc#fzf#git#keywords_by_me('FIXME')
+command! -nargs=* KeywordsByMe call vimrc#fzf#git#keywords_by_me(<q-args>)
+command! -nargs=* TodosByMe    call vimrc#fzf#git#keywords_by_me('TODO:?\s*'.<q-args>)
+command! -nargs=* FixmesByMe   call vimrc#fzf#git#keywords_by_me('FIXME:?\s*'.<q-args>)
 
 " TodosInDisk & FixmesInDisk
 command! TodosInDisk  RgWithOption :-w:TODO
