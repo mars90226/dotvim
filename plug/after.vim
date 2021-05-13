@@ -1,3 +1,4 @@
+" Here is the place for config/script to use plugin autoload functions
 " TODO Move all plugin settings to post-loaded settings
 
 " coc.nvim {{{

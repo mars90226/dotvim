@@ -94,6 +94,7 @@ function! vimrc#unite#mappings() "{{{ abort
   xmap <silent><buffer><nowait> ` <Plug>(unite_toggle_mark_selected_candidates)
 endfunction "}}}
 
+" Should be loaded after lazy load, cause unimpaired is lazy loaded
 function! vimrc#unite#post_loaded_mappings() abort
   " Avoid remapped by unimpaired
   silent! unmap [u
