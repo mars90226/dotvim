@@ -117,5 +117,16 @@ if vimrc#plugin#is_enabled_plugin('diffview.nvim')
 endif
 " }}}
 
+" blamer.nvim {{{
+if vimrc#plugin#is_enabled_plugin('blamer.nvim')
+  Plug 'APZelos/blamer.nvim'
+
+  let g:blamer_enabled = 1
+  let g:blamer_delay = 500
+  let g:blamer_date_format = '%Y-%m-%d %H:%M'
+  let g:blamer_relative_time = 1
+endif
+" }}}
+
 " Disabled as not used
 Plug 'mattn/gist-vim', { 'for': [] }
