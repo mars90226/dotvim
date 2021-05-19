@@ -221,6 +221,9 @@ cnoremap <C-G>6 <C-R>=fnamemodify(@", ':t')<CR>
 inoremap <C-G>6 <C-R>=fnamemodify(@", ':t')<CR>
 cnoremap <C-G>r <C-R>=fnamemodify(@", ':h')<CR>
 inoremap <C-G>r <C-R>=fnamemodify(@", ':h')<CR>
+" Insert date
+cnoremap <C-G>D <C-R>=systemlist('env LC_ALL=C date +"%Y/%m/%d"')[0]<CR>
+inoremap <C-G>D <C-R>=systemlist('env LC_ALL=C date +"%Y/%m/%d"')[0]<CR>
 
 " Ex mode for special buffer that map 'q' as ':quit'
 nnoremap \q: q:
