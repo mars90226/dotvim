@@ -87,6 +87,8 @@ endfunction
 
 function! vimrc#fugitive#git_mappings() abort
   call vimrc#git#include_git_mappings('git')
+
+  nnoremap <buffer> <silent> gq :close<CR>
 endfunction
 
 function! vimrc#fugitive#blame_mappings() abort
