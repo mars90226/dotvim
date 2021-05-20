@@ -270,6 +270,9 @@ nnoremap <Leader>dfo :windo diffoff<CR>
 " Sort
 xnoremap <silent> <Space>sw d:execute 'normal i'.vimrc#utility#sort_copied_words()<CR>
 
+" Retab
+nnoremap <Space>r5 :%retab<CR>
+
 " Man
 " :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
 " TODO Move this to 'after' folder
