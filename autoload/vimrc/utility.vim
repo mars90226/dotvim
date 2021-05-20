@@ -222,13 +222,13 @@ endfunction
 
 " Trim whitespace
 function! vimrc#utility#trim_whitespace() abort
-    let l:save = winsaveview()
-    let line_number = 1
-    for line in getline(1, '$')
-      call setline(line_number, substitute(line, '\s\+$', '', 'e'))
-      let line_number += 1
-    endfor
-    call winrestview(l:save)
+  let l:save = winsaveview()
+  let line_number = 1
+  for line in getline(1, '$')
+    call setline(line_number, substitute(line, '\s\+$', '', 'e'))
+    let line_number += 1
+  endfor
+  call winrestview(l:save)
 endfunction
 
 function! vimrc#utility#set_scratch() abort
