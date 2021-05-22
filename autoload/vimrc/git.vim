@@ -4,6 +4,7 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
   let git_module = 'vimrc#git#'.a:git_type
   let git_sha_fn = git_module.'#sha()'
   let git_visual_shas_fn = git_module.'#visual_shas()'
+  let git_all_visual_shas_fn = git_module.'#all_visual_shas()'
 
   " Git built-in
   execute 'nnoremap <silent><buffer> <Leader>gt :execute "Git show --stat ".'.git_sha_fn.'<CR>'
@@ -24,6 +25,9 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
   endif
   execute 'nnoremap <silent><buffer> <Leader>gf :call vimrc#fzf#git#files_commit('.git_sha_fn.')<CR>'
   execute 'nnoremap <silent><buffer> <Leader>gg :call vimrc#fzf#git#grep_commit('.git_sha_fn.', input("Git grep: "))<CR>'
+  if has_visual_shas
+    execute 'xnoremap <silent><buffer> <Leader>gg :<C-U>call vimrc#fzf#git#grep_commits('.git_all_visual_shas_fn.', input("Git grep: "))<CR>'
+  endif
 
   " Plugin
   if vimrc#plugin#is_enabled_plugin('vim-floaterm')
@@ -41,9 +45,11 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
   endif
 
   " Command line mapping
+  " TODO: Avoid conflicting with vimrc#fzf#git#diff_files_in_commandline()
   execute 'cnoremap <buffer><expr> <C-G><C-S> '.git_sha_fn
   if has_visual_shas
     execute 'cnoremap <buffer><expr> <C-G><C-D> vimrc#git#expand_commits('.git_visual_shas_fn.')'
+    execute 'cnoremap <buffer><expr> <C-G><M-d> join('.git_all_visual_shas_fn.')'
   endif
 endfunction
 

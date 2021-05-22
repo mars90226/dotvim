@@ -11,3 +11,7 @@ function! vimrc#git#flog#visual_shas() abort
 
   return [start_commit, end_commit]
 endfunction
+
+function! vimrc#git#flog#all_visual_shas() abort
+  return filter(map(range(line("'<"), line("'>")), 'vimrc#flog#sha(v:val)'), '!empty(v:val)')
+endfunction

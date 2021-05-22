@@ -11,3 +11,7 @@ function! vimrc#git#gv#visual_shas() abort
 
   return [start_commit, end_commit]
 endfunction
+
+function! vimrc#git#gv#all_visual_shas() abort
+  return filter(map(getline("'<", "'>"), 'gv#sha(v:val)'), '!empty(v:val)')
+endfunction

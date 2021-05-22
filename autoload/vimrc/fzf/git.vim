@@ -254,9 +254,15 @@ function! vimrc#fzf#git#rg_diff(...) abort
 endfunction
 
 " Git commit command {{{
+if vimrc#plugin#check#git_version() >=# 'git version 2.19.0'
+  let s:git_grep_commit_command = 'git grep -nP --column'
+  let s:git_grep_with_column = v:true
+else
+  let s:git_grep_commit_command = 'git grep -nP'
+  let s:git_grep_with_column = v:false
+endif
 function! vimrc#fzf#git#grep_commits(commits, query) abort
   let query = shellescape(a:query)
-  let with_column = (vimrc#plugin#check#git_version() >=# 'git version 2.19.0') ? 1 : 0
   " TODO Think of a better way to avoid temp file and can still let bat detect language
   " Depends on bat
   " Borrowed from fzf.vim preview.sh
@@ -286,15 +292,10 @@ function! vimrc#fzf#git#grep_commits(commits, query) abort
 
   call fzf#run(vimrc#fzf#wrap('GitGrepCommit', {
         \ 'source': s:git_grep_commit_command.' '.query.' '.commits_string,
-        \ 'sink*': function('vimrc#fzf#git#grep_commit_sink', [!empty(a:commits), with_column]),
+        \ 'sink*': function('vimrc#fzf#git#grep_commit_sink', [!empty(a:commits), s:git_grep_with_column]),
         \ 'options': ['-m', '-s', '--prompt', 'GitGrepCommit> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
 endfunction
 
-if vimrc#plugin#check#git_version() >=# 'git version 2.19.0'
-  let s:git_grep_commit_command = 'git grep -nP --column'
-else
-  let s:git_grep_commit_command = 'git grep -nP'
-endif
 function! vimrc#fzf#git#grep_commit(commit, ...) abort
   let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
   let commits = empty(a:commit) ? [] : [a:commit]
