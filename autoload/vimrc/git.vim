@@ -38,6 +38,9 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
 
   " Command line mapping
   execute 'cnoremap <buffer><expr> <C-G><C-S> '.git_sha_fn
+  if has_visual_shas
+    execute 'cnoremap <buffer><expr> <C-G><C-D> vimrc#git#expand_commits('.git_visual_shas_fn.')'
+  endif
 endfunction
 
 function! vimrc#git#get_email() abort
