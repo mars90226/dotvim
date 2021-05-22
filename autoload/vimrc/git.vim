@@ -6,14 +6,15 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
   let git_visual_shas_fn = git_module.'#visual_shas()'
 
   execute 'nnoremap <silent><buffer> <Leader>gd :call vimrc#fzf#git#diff_commit('.git_sha_fn.')<CR>'
-
   if has_visual_shas
     execute 'xnoremap <silent><buffer> <Leader>gd :<C-U>call vimrc#git#visual_diff_commits('.git_visual_shas_fn.')<CR>'
   endif
-
   execute 'nnoremap <silent><buffer> <Leader>gf :call vimrc#fzf#git#files_commit('.git_sha_fn.')<CR>'
   execute 'nnoremap <silent><buffer> <Leader>gg :call vimrc#fzf#git#grep_commit('.git_sha_fn.', input("Git grep: "))<CR>'
   execute 'nnoremap <silent><buffer> <Leader>gt :execute "Git show --stat ".'.git_sha_fn.'<CR>'
+  if has_visual_shas
+    execute 'xnoremap <silent><buffer> <Leader>gt :<C-U>execute "Git diff --stat ".vimrc#git#expand_commits('.git_visual_shas_fn.')<CR>'
+  endif
   execute 'nnoremap <silent><buffer> <Leader>gp :execute "Git cherry-pick -n ".'.git_sha_fn.'<CR>'
   execute 'nnoremap <silent><buffer> <Leader>gP :execute "Git cherry-pick ".'.git_sha_fn.'<CR>'
   execute 'nnoremap <silent><buffer> <Leader>gob :execute "Git branch --contains ".'.git_sha_fn.'<CR>'
