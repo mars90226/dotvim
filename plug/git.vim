@@ -114,6 +114,15 @@ augroup END
 " diffview.nvim {{{
 if vimrc#plugin#is_enabled_plugin('diffview.nvim')
   Plug 'sindrets/diffview.nvim'
+
+  augroup diffview_settings
+    autocmd!
+    " diffview.nvim use nvim_buf_set_name() to change buffer name to
+    " corresponding file, so use BufFilePost event
+    " diffview buffer pattern: "^diffview/(\d+_)?(\w{7})_.*$"
+    "                                     ^index ^sha    ^filename
+    autocmd BufFilePost diffview/\(\d\\\{1,\}_\)\\\{0,1\}\w\\\{7\}_* call vimrc#diffview#buffer_mappings()
+  augroup END
 endif
 " }}}
 
