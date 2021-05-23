@@ -117,6 +117,7 @@ if vimrc#plugin#is_enabled_plugin('diffview.nvim')
 
   augroup diffview_settings
     autocmd!
+    autocmd FileType DiffviewFiles call vimrc#diffview#mappings()
     " diffview.nvim use nvim_buf_set_name() to change buffer name to
     " corresponding file, so use BufFilePost event
     " diffview buffer pattern: "^diffview/(\d+_)?(\w{7})_.*$"
