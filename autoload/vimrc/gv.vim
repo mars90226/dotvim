@@ -2,7 +2,7 @@
 function! vimrc#gv#mappings() abort
   nnoremap <silent><buffer> + :call vimrc#gv#expand()<CR>
 
-  call vimrc#git#include_git_mappings('gv', v:true)
+  call vimrc#git#include_git_mappings('gv', v:true, v:true)
 endfunction
 
 " Functions

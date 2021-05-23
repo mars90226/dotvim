@@ -1,42 +1,53 @@
 " Utility functions
 function! vimrc#git#include_git_mappings(git_type, ...) abort
-  let has_visual_shas = a:0 > 0 && type(a:1) == type(v:true) ? a:1 : v:false
+  let has_sha = a:0 > 0 && type(a:1) == type(v:true) ? a:1 : v:true
+  let has_visual_shas = a:0 > 1 && type(a:2) == type(v:true) ? a:2 : v:false
   let git_module = 'vimrc#git#'.a:git_type
+  " TODO: Use curly-braces-function-names,
+  " see :help curly-braces-function-names
   let git_sha_fn = git_module.'#sha()'
   let git_visual_shas_fn = git_module.'#visual_shas()'
   let git_all_visual_shas_fn = git_module.'#all_visual_shas()'
 
   " Git built-in
-  execute 'nnoremap <silent><buffer> <Leader>gt :execute "Git show --stat ".'.git_sha_fn.'<CR>'
+  if has_sha
+    execute 'nnoremap <silent><buffer> <Leader>gt :execute "Git show --stat ".'.git_sha_fn.'<CR>'
+    execute 'nnoremap <silent><buffer> <Leader>gp :execute "Git cherry-pick -n ".'.git_sha_fn.'<CR>'
+    execute 'nnoremap <silent><buffer> <Leader>gP :execute "Git cherry-pick ".'.git_sha_fn.'<CR>'
+    execute 'nnoremap <silent><buffer> <Leader>gob :execute "Git branch --contains ".'.git_sha_fn.'<CR>'
+    execute 'nnoremap <silent><buffer> <Leader>got :execute "Git tag --contains ".'.git_sha_fn.'<CR>'
+    execute 'nnoremap <silent><buffer> <Leader>gT :execute "Gtabedit ".'.git_sha_fn.'<CR>'
+    execute 'nnoremap <silent><buffer> <Leader>ga :execute "Git tag ".input("Git tag: ")." ".'.git_sha_fn.'<CR>'
+  endif
+
   if has_visual_shas
     execute 'xnoremap <silent><buffer> <Leader>gt :<C-U>execute "Git diff --stat ".vimrc#git#expand_commits('.git_visual_shas_fn.')<CR>'
   endif
-  execute 'nnoremap <silent><buffer> <Leader>gp :execute "Git cherry-pick -n ".'.git_sha_fn.'<CR>'
-  execute 'nnoremap <silent><buffer> <Leader>gP :execute "Git cherry-pick ".'.git_sha_fn.'<CR>'
-  execute 'nnoremap <silent><buffer> <Leader>gob :execute "Git branch --contains ".'.git_sha_fn.'<CR>'
-  execute 'nnoremap <silent><buffer> <Leader>got :execute "Git tag --contains ".'.git_sha_fn.'<CR>'
-  execute 'nnoremap <silent><buffer> <Leader>gT :execute "Gtabedit ".'.git_sha_fn.'<CR>'
-  execute 'nnoremap <silent><buffer> <Leader>ga :execute "Git tag ".input("Git tag: ")." ".'.git_sha_fn.'<CR>'
 
   " Fzf
-  execute 'nnoremap <silent><buffer> <Leader>gd :call vimrc#fzf#git#diff_commit('.git_sha_fn.')<CR>'
+  if has_sha
+    execute 'nnoremap <silent><buffer> <Leader>gd :call vimrc#fzf#git#diff_commit('.git_sha_fn.')<CR>'
+    execute 'nnoremap <silent><buffer> <Leader>gf :call vimrc#fzf#git#files_commit('.git_sha_fn.')<CR>'
+    execute 'nnoremap <silent><buffer> <Leader>gg :call vimrc#fzf#git#grep_commit('.git_sha_fn.', input("Git grep: "))<CR>'
+  endif
+
   if has_visual_shas
     execute 'xnoremap <silent><buffer> <Leader>gd :<C-U>call vimrc#git#visual_diff_commits('.git_visual_shas_fn.')<CR>'
-  endif
-  execute 'nnoremap <silent><buffer> <Leader>gf :call vimrc#fzf#git#files_commit('.git_sha_fn.')<CR>'
-  execute 'nnoremap <silent><buffer> <Leader>gg :call vimrc#fzf#git#grep_commit('.git_sha_fn.', input("Git grep: "))<CR>'
-  if has_visual_shas
     execute 'xnoremap <silent><buffer> <Leader>gg :<C-U>call vimrc#fzf#git#grep_commits('.git_all_visual_shas_fn.', input("Git grep: "))<CR>'
   endif
 
   " Plugin
   if vimrc#plugin#is_enabled_plugin('vim-floaterm')
-    execute 'nnoremap <silent><buffer> <Leader>df :execute "FloatermNew git diff ".'.git_sha_fn.'."^!"<CR>'
+    if has_sha
+      execute 'nnoremap <silent><buffer> <Leader>df :execute "FloatermNew git diff ".'.git_sha_fn.'."^!"<CR>'
+    endif
   endif
 
   if vimrc#plugin#is_enabled_plugin('diffview.nvim')
-    execute 'nnoremap <buffer> <Leader>dv :DiffviewOpen <C-R>=vimrc#git#expand_commits('.git_sha_fn.')<CR>^!<CR>'
-    execute 'nnoremap <buffer> <Leader>dV :DiffviewOpen <C-R>=vimrc#git#expand_commits('.git_sha_fn.')<CR>^!'
+    if has_sha
+      execute 'nnoremap <buffer> <Leader>dv :DiffviewOpen <C-R>=vimrc#git#expand_commits('.git_sha_fn.')<CR>^!<CR>'
+      execute 'nnoremap <buffer> <Leader>dV :DiffviewOpen <C-R>=vimrc#git#expand_commits('.git_sha_fn.')<CR>^!'
+    endif
 
     if has_visual_shas
       execute 'xnoremap <buffer> <Leader>dv :<C-U>DiffviewOpen <C-R>=vimrc#git#expand_commits('.git_visual_shas_fn.')<CR><CR>'
@@ -46,7 +57,10 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
 
   " Command line mapping
   " TODO: Avoid conflicting with vimrc#fzf#git#diff_files_in_commandline()
-  execute 'cnoremap <buffer><expr> <C-G><C-S> '.git_sha_fn
+  if has_sha
+    execute 'cnoremap <buffer><expr> <C-G><C-S> '.git_sha_fn
+  endif
+
   if has_visual_shas
     execute 'cnoremap <buffer><expr> <C-G><C-D> vimrc#git#expand_commits('.git_visual_shas_fn.')'
     execute 'cnoremap <buffer><expr> <C-G><M-d> join('.git_all_visual_shas_fn.')'
