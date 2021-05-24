@@ -44,6 +44,9 @@ execute 'command! -nargs=* Flogda Flog -author='.get(g:, 'company_domain', '').'
 execute 'command! -nargs=* Floge  Flog -author='.get(g:, 'company_email', '').' <args>'
 execute 'command! -nargs=* Flogea Flog -author='.get(g:, 'company_email', '').' --all <args>'
 
+nnoremap <Space>gf :call vimrc#flog#open({})<CR>
+nnoremap <Space>gF :call vimrc#flog#open({'all': v:true})<CR>
+
 nnoremap <Leader>gf     :call vimrc#flog#show_file('%', {})<CR>
 nnoremap <Leader>gF     :call vimrc#flog#show_file('%', {'author': g:company_domain})<CR>
 nnoremap <Leader>g<C-F> :call vimrc#flog#show_file('%', {'author': g:company_email})<CR>

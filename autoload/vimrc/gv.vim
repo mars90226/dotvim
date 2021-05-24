@@ -18,10 +18,10 @@ function! vimrc#gv#expand() abort
 endfunction
 
 function! vimrc#gv#_open(cmd, options, raw_args) abort
-  let cmd = copy(a:cmd)
+  let cmd = copy(a:cmd).' '
 
   for key in keys(a:options)
-    if !a:options[key]
+    if type(a:options[key]) != type('') && !a:options[key]
       continue
     endif
 
