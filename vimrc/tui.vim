@@ -85,6 +85,8 @@ if executable('gitui')
   command! GituiSplit  call vimrc#tui#run('new', 'gitui')
   call vimrc#fuzzymenu#try_add('Gitui', { 'exec': 'Gitui' })
   call vimrc#fuzzymenu#try_add('GituiSplit', { 'exec': 'GituiSplit' })
+
+  nnoremap <Leader>gi :Gitui<CR>
 endif
 
 if executable('bandwhich')
