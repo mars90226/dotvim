@@ -96,18 +96,28 @@ command! -nargs=? Fold   :call CocAction('fold', <f-args>)
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR     :call CocAction('runCommand', 'editor.action.organizeImport')
 
+" Show actions
+nnoremap <silent> <Leader>cA :CocFzfList actions<CR>
 " Show all diagnostics
-nnoremap <silent> <Leader>cd :CocList diagnostics<CR>
+nnoremap <silent> <Leader>cd :CocFzfList diagnostics<CR>
+" Show current buffer diagnostics
+nnoremap <silent> <Leader>cD :CocFzfList diagnostics --current-buf<CR>
 " Manage extensions
 nnoremap <silent> <Leader>ce :CocList extensions<CR>
 " Show commands
-nnoremap <silent> <Leader>c; :CocList commands<CR>
+nnoremap <silent> <Leader>c; :CocFzfList commands<CR>
 " Show info
 nnoremap <silent> <Leader>ci :CocInfo<CR>
+" Show last jump location
+nnoremap <silent> <Leader>cj :CocFzfList location<CR>
 " Find symbol of current document
-nnoremap <silent> <Leader>co :CocList outline<CR>
+nnoremap <silent> <Leader>co :CocFzfList outline<CR>
 " Search workspace symbols
-nnoremap <silent> <Leader>cs :CocList -I symbols<CR>
+nnoremap <silent> <Leader>cs :CocFzfList symbols<CR>
+" TODO: add key mapping for `:CocFzfList symbols --kind {kind} {{query}}`
+" Show completion sources
+nnoremap <silent> <Leader>cU :CocFzfList sources<CR>
+" TODO: Add key mapping for `:CocFzfList yank`, depend on `coc-yank`
 " Do default action for next item.
 nnoremap <silent> [C         :CocNext<CR>
 " Do default action for prevous item.
@@ -115,7 +125,7 @@ nnoremap <silent> ]C         :CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <Leader>cu :CocListResume<CR>
 " Show lists
-nnoremap <silent> <Leader>cl :CocList lists<CR>
+nnoremap <silent> <Leader>cl :CocFzfList lists<CR>
 
 command! CocToggle call vimrc#coc#toggle()
 nnoremap <silent> <Leader>cy :CocToggle<CR>
