@@ -8,6 +8,7 @@ setlocal tabstop=2
 setlocal softtabstop=2
 setlocal expandtab
 
+" Utility
 function! s:todo_cleanup_star() abort
   let l:save = winsaveview()
   let line_number = 1
@@ -52,6 +53,7 @@ function! s:todo_remove_category_header() abort
   %global/^\v`\[(finished|ongoing|todo|postpone)\]`:$/delete
 endfunction
 
+" Functions
 function! s:todo_format() abort
   %retab
   call s:todo_cleanup_star()
@@ -61,4 +63,9 @@ function! s:todo_format() abort
   call s:todo_remove_category_header()
 endfunction
 
+function! s:todo_clean() abort
+  %global/\[x\] /delete
+endfunction
+
 command! -buffer TodoFormat call s:todo_format()
+command! -buffer TodoClean call s:todo_clean()
