@@ -20,6 +20,9 @@ execute 'command! -nargs=* GVDA GV --author='.get(g:, 'company_domain', '').' --
 execute 'command! -nargs=* GVE  GV --author='.get(g:, 'company_email', '').' <args>'
 execute 'command! -nargs=* GVEA GV --author='.get(g:, 'company_email', '').' --all <args>'
 
+nnoremap <Space>gv :call vimrc#gv#open({})<CR>
+nnoremap <Space>gV :call vimrc#gv#open({'all': v:true})<CR>
+
 nnoremap <Leader>gv     :call vimrc#gv#show_file('%', {})<CR>
 nnoremap <Leader>gV     :call vimrc#gv#show_file('%', {'author': g:company_domain})<CR>
 nnoremap <Leader>g<C-V> :call vimrc#gv#show_file('%', {'author': g:company_email})<CR>
