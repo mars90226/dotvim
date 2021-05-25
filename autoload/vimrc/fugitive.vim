@@ -50,8 +50,6 @@ function! vimrc#fugitive#fugitive_buffer_settings() abort
   if &filetype !=# 'git'
     call vimrc#git#include_git_mappings('fugitive_buffer')
   endif
-
-  nnoremap <buffer> <silent> <Leader>gu :execute 'Gsplit '.vimrc#fugitive#commit_sha()<CR>
 endfunction
 
 " Mappings

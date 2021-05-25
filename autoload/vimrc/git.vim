@@ -17,6 +17,7 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
     execute 'nnoremap <silent><buffer> <Leader>gob :execute "Git branch --contains ".'.git_sha_fn.'<CR>'
     execute 'nnoremap <silent><buffer> <Leader>got :execute "Git tag --contains ".'.git_sha_fn.'<CR>'
     execute 'nnoremap <silent><buffer> <Leader>gT :execute "Gtabedit ".'.git_sha_fn.'<CR>'
+    execute 'nnoremap <silent><buffer> <Leader>gu :execute "Gsplit ".'.git_sha_fn.'<CR>'
     execute 'nnoremap <silent><buffer> <Leader>ga :execute "Git tag ".input("Git tag: ")." ".'.git_sha_fn.'<CR>'
   endif
 
