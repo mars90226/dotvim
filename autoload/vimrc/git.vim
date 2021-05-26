@@ -57,7 +57,6 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
   endif
 
   " Command line mapping
-  " TODO: Avoid conflicting with vimrc#fzf#git#diff_files_in_commandline()
   if has_sha
     execute 'cnoremap <buffer><expr> <C-G><C-S> '.git_sha_fn
   endif
