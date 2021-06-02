@@ -199,7 +199,7 @@ function! vimrc#denite#filter_mappings() abort
 
   " Cursor movements
   " Reserve <C-o> for moving cursor
-  imap     <silent><buffer>         <C-F> <Plug>(denite_filter_quit)
+  imap     <silent><buffer>         <C-F> <Plug>(denite_filter_update)
   " Reserve a key mapping for entering normal mode
   inoremap <silent><buffer>         <M-q> <Esc>
   inoremap <silent><buffer>         <C-B> <C-O>^
@@ -247,10 +247,10 @@ function! vimrc#denite#filter_mappings() abort
   inoremap <silent><buffer><expr> <M-L> vimrc#denite#do_map('move_cursor', 'zL', 1)
 
   " Switch between denite buffer & preview
-  imap <silent><buffer> <M-l>      <Plug>(denite_filter_quit):call vimrc#denite#goto_and_back_between_preview()<CR>
+  imap <silent><buffer> <M-l>      <Plug>(denite_filter_update):call vimrc#denite#goto_and_back_between_preview()<CR>
 
   " Integration with other plugins
-  imap <buffer>         <M-x><M-c> <Plug>(denite_filter_quit):ColorToggle<CR>i
+  imap <buffer>         <M-x><M-c> <Plug>(denite_filter_update):ColorToggle<CR>i
 
   " Toggle matchers & sorters
   if vimrc#denite#use_clap()
