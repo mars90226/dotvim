@@ -43,6 +43,7 @@ omap ic <Plug>(coc-classcobj-i)
 xmap ic <Plug>(coc-classcobj-i)
 
 " mappings for range-select
+nmap <silent> <Space>ar <Plug>(coc-range-select)
 xmap <silent> ar <Plug>(coc-range-select)
 
 " K: show documentation in preview window
