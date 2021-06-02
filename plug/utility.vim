@@ -230,7 +230,8 @@ Plug 'wellle/context.vim'
 
 let g:context_enabled = 0
 
-nnoremap <F6> :ContextToggle<CR>
+nnoremap <F6> :ContextToggleWindow<CR>
+nnoremap <Space><F6> :ContextToggle<CR>
 " }}}
 
 " firenvim {{{
