@@ -13,10 +13,6 @@ let s:fzf_preview_default_layout = 'right:50%'
 let s:fzf_preview_option_layout = s:fzf_preview_default_layout.':hidden'
 let s:fzf_preview_bang_layout = 'right:50%'
 
-let s:fzf_default_preview_options = fzf#vim#with_preview()
-" preview script should be the next option after '--preview'
-let s:fzf_preview_script = s:fzf_default_preview_options.options[index(s:fzf_default_preview_options.options, '--preview') + 1][0:-4]
-
 function! vimrc#fzf#preview#get_command() abort
   return s:fzf_preview_command
 endfunction
@@ -28,6 +24,16 @@ function! vimrc#fzf#preview#get_preview_toggle_key() abort
 endfunction
 function! vimrc#fzf#preview#get_preview_default_layout() abort
   return s:fzf_preview_default_layout
+endfunction
+function! vimrc#fzf#preview#get_preview_script() abort
+  " Can only setup variable after loading fzf.vim
+  if exists('s:fzf_preview_script')
+    let s:fzf_default_preview_options = fzf#vim#with_preview()
+    " preview script should be the next option after '--preview'
+    let s:fzf_preview_script = s:fzf_default_preview_options.options[index(s:fzf_default_preview_options.options, '--preview') + 1][0:-4]
+  endif
+
+  return s:fzf_preview_script
 endfunction
 
 function! vimrc#fzf#preview#windows() abort
@@ -43,7 +49,7 @@ function! vimrc#fzf#preview#windows() abort
         \ win_script . ';' .
         \ 'if ' . is_terminal_script . '; then ' .
         \ get_buffer_script . ' "$TAB" "$WIN" "$FZF_PREVIEW_LINES" | ' . vimrc#fzf#preview#get_command() . ';' .
-        \ 'else ' . s:fzf_preview_script . ' "$FILE";' .
+        \ 'else ' . vimrc#fzf#preview#get_preview_script() . ' "$FILE";' .
         \ 'fi'
 
   call extend(options.options, ['--preview', final_script])
