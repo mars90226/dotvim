@@ -1,13 +1,7 @@
-if has('nvim')
-  let g:fzf_default_options = { 'options': ['--layout', 'reverse', '--inline-info'] }
-else
-  let g:fzf_default_options = { 'options': ['--layout', 'default', '--inline-info'] }
-endif
-
 if !exists('g:original_fzf_default_opts')
   let g:original_fzf_default_opts = $FZF_DEFAULT_OPTS
 endif
-let $FZF_DEFAULT_OPTS = g:original_fzf_default_opts.' '.join(g:fzf_default_options.options)
+let $FZF_DEFAULT_OPTS = g:original_fzf_default_opts.' '.join(vimrc#fzf#get_default_options().options)
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],

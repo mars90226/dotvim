@@ -1,3 +1,4 @@
+" Variables
 let s:fzf_preview_command = 'cat'
 if executable('bat')
   let s:fzf_preview_command = 'bat --style=numbers --color=always'
@@ -6,6 +7,11 @@ let s:fzf_dir_preview_command = 'ls -la --color=always'
 if executable('exa')
   let s:fzf_dir_preview_command = 'exa -lag --color=always'
 endif
+
+let s:fzf_preview_toggle_key = 'ctrl-/'
+let s:fzf_preview_default_layout = 'right:50%'
+let s:fzf_preview_option_layout = s:fzf_preview_default_layout.':hidden'
+let s:fzf_preview_bang_layout = 'right:50%'
 
 let s:fzf_default_preview_options = fzf#vim#with_preview()
 " preview script should be the next option after '--preview'
@@ -16,6 +22,12 @@ function! vimrc#fzf#preview#get_command() abort
 endfunction
 function! vimrc#fzf#preview#get_dir_command() abort
   return s:fzf_dir_preview_command
+endfunction
+function! vimrc#fzf#preview#get_preview_toggle_key() abort
+  return s:fzf_preview_toggle_key
+endfunction
+function! vimrc#fzf#preview#get_preview_default_layout() abort
+  return s:fzf_preview_default_layout
 endfunction
 
 function! vimrc#fzf#preview#windows() abort
@@ -72,5 +84,5 @@ function! vimrc#fzf#preview#with_preview(...) abort
   endfor
   let [opts, bang] = args
 
-  return bang ? fzf#vim#with_preview(opts, 'up:60%') : fzf#vim#with_preview(opts, 'right:50%:hidden', 'ctrl-/')
+  return bang ? fzf#vim#with_preview(opts, s:fzf_preview_bang_layout) : fzf#vim#with_preview(opts, s:fzf_preview_default_layout, vimrc#fzf#preview#get_preview_toggle_key())
 endfunction

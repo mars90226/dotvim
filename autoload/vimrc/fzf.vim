@@ -1,3 +1,14 @@
+" Variables
+if has('nvim')
+  let s:fzf_default_options = { 'options': ['--layout', 'reverse', '--inline-info'] }
+else
+  let s:fzf_default_options = { 'options': ['--layout', 'default', '--inline-info'] }
+endif
+
+function! vimrc#fzf#get_default_options() abort
+  return s:fzf_default_options
+endfunction
+
 " Config
 function! vimrc#fzf#statusline() abort
   highlight fzf1 ctermfg=242 ctermbg=236 guifg=#7c6f64 guibg=#32302f
