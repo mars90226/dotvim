@@ -10,6 +10,15 @@
     "lua": {
       "command": "lua-lsp",
       "filetypes": ["lua"]
+    },
+    "crystal": {
+      "command": "crystalline",
+      "args": [
+        "--stdio"
+      ],
+      "filetypes": [
+        "crystal"
+      ]
     }
   },
   "coc.preferences.useQuickfixForLocations": false,
