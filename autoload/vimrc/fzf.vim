@@ -183,7 +183,7 @@ endfunction
 
 function! vimrc#fzf#with_default_options(...) abort
   let opts = a:0 >= 1 && type(a:1) == type({}) ? copy(a:1) : {}
-  let fzf_default_options = copy(g:fzf_default_options.options)
+  let fzf_default_options = copy(vimrc#fzf#get_default_options().options)
   let options = []
   if has_key(opts, 'options')
     if type(opts.options) == type([])
