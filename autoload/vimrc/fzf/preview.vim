@@ -27,7 +27,7 @@ function! vimrc#fzf#preview#get_preview_default_layout() abort
 endfunction
 function! vimrc#fzf#preview#get_preview_script() abort
   " Can only setup variable after loading fzf.vim
-  if exists('s:fzf_preview_script')
+  if !exists('s:fzf_preview_script')
     let s:fzf_default_preview_options = fzf#vim#with_preview()
     " preview script should be the next option after '--preview'
     let s:fzf_preview_script = s:fzf_default_preview_options.options[index(s:fzf_default_preview_options.options, '--preview') + 1][0:-4]
