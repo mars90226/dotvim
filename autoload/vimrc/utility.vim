@@ -124,14 +124,14 @@ function! vimrc#utility#ask(message, ...) abort
 endfunction
 
 " sdcv
-let s:sdcv_command = vimrc#terminal#get_open_command() . ' sdcv'
+let s:sdcv_command = vimrc#terminal#get_open_command('sdcv')
 
 function! vimrc#utility#get_sdcv_command() abort
   return s:sdcv_command
 endfunction
 
 " xdg-open
-let s:xdg_open_command = vimrc#terminal#get_open_command() . ' xdg-open'
+let s:xdg_open_command = vimrc#terminal#get_open_command('xdg-open')
 
 function! vimrc#utility#get_xdg_open() abort
   return s:xdg_open_command
@@ -139,7 +139,7 @@ endfunction
 
 " translate-shell
 " Use bing as google is blocking request
-let s:translate_shell_command = vimrc#terminal#get_open_command() . ' trans -e bing'
+let s:translate_shell_command = vimrc#terminal#get_open_command('trans -e bing')
 
 function! vimrc#utility#get_translate_shell_command() abort
   return s:translate_shell_command

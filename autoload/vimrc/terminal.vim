@@ -140,14 +140,14 @@ function! vimrc#terminal#close_result_buffer(terminal) abort
   endif
 endfunction
 
-function! vimrc#terminal#get_open_command() abort
+function! vimrc#terminal#get_open_command(cmd) abort
   if has('nvim')
     if vimrc#plugin#check#has_floating_window()
-      return 'FloatermNew'
+      return 'FloatermNew '.a:cmd
     else
-      return 'new'
+      return 'new term://'.a:cmd
     endif
   else
-    return '!'
+    return '!'.a:cmd
   endif
 endfunction
