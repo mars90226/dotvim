@@ -140,10 +140,16 @@ function! vimrc#terminal#close_result_buffer(terminal) abort
   endif
 endfunction
 
-function! vimrc#terminal#get_open_command(cmd) abort
+function! vimrc#terminal#get_open_command(cmd, ...) abort
+  let use_vimrc_float = a:0 > 0 && type(a:1) == type(v:true) ? a:1 : v:false
+
   if has('nvim')
     if vimrc#plugin#check#has_floating_window()
-      return 'FloatermNew '.a:cmd
+      if use_vimrc_float
+        return 'VimrcFloatNew r!'.a:cmd
+      else
+        return 'FloatermNew '.a:cmd
+      endif
     else
       return 'new term://'.a:cmd
     endif

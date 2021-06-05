@@ -124,25 +124,22 @@ function! vimrc#utility#ask(message, ...) abort
 endfunction
 
 " sdcv
-let s:sdcv_command = vimrc#terminal#get_open_command('sdcv')
-
-function! vimrc#utility#get_sdcv_command() abort
-  return s:sdcv_command
+function! vimrc#utility#get_sdcv_command(...) abort
+  let use_vimrc_float = a:0 > 0 && type(a:1) == type(v:true) ? a:1 : v:true
+  return vimrc#terminal#get_open_command('sdcv', use_vimrc_float)
 endfunction
 
 " xdg-open
-let s:xdg_open_command = vimrc#terminal#get_open_command('xdg-open')
-
-function! vimrc#utility#get_xdg_open() abort
-  return s:xdg_open_command
+function! vimrc#utility#get_xdg_open(...) abort
+  let use_vimrc_float = a:0 > 0 && type(a:1) == type(v:true) ? a:1 : v:true
+  return vimrc#terminal#get_open_command('xdg-open', use_vimrc_float)
 endfunction
 
 " translate-shell
-" Use bing as google is blocking request
-let s:translate_shell_command = vimrc#terminal#get_open_command('trans -e bing')
-
-function! vimrc#utility#get_translate_shell_command() abort
-  return s:translate_shell_command
+function! vimrc#utility#get_translate_shell_command(...) abort
+  let use_vimrc_float = a:0 > 0 && type(a:1) == type(v:true) ? a:1 : v:true
+  " Use bing as google is blocking request
+  return vimrc#terminal#get_open_command('trans -e bing', use_vimrc_float)
 endfunction
 
 " DiffOrig
