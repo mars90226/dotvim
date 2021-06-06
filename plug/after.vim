@@ -33,6 +33,12 @@ if vimrc#plugin#is_enabled_plugin('denite.nvim')
 endif
 " }}}
 
+" telescope.nvim {{{
+if vimrc#plugin#is_enabled_plugin('telescope.nvim')
+  lua require('vimrc.plugins.telescope')
+endif
+" }}}
+
 " Defx {{{
 if vimrc#plugin#is_enabled_plugin('defx.nvim')
   call vimrc#source('vimrc/plugins/defx_after.vim')
