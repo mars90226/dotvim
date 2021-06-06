@@ -71,6 +71,14 @@ if vimrc#plugin#is_enabled_plugin('vim-clap')
   call vimrc#source('vimrc/plugins/clap.vim')
 endif
 " }}}
+
+" telescope.nvim {{{
+if vimrc#plugin#is_enabled_plugin('telescope.nvim')
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+endif
+" }}}
 " }}}
 
 " Goto Definitions {{{

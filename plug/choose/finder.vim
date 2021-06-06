@@ -10,3 +10,7 @@ end
 if !has('nvim')
   call vimrc#plugin#disable_plugin('vim-clap')
 endif
+
+if !has('nvim-0.5')
+  call vimrc#plugin#disable_plugin('telescope.nvim')
+endif
