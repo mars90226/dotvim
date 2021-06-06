@@ -20,6 +20,7 @@ map \s <Plug>(easymotion-sl2)
 
 map <Space><Space>f <Plug>(easymotion-bd-f)
 map <Space><Space>l <Plug>(easymotion-bd-jk)
+map <Space><Space>t <Plug>(easymotion-bd-t)
 map <Plug>(easymotion-prefix)s <Plug>(easymotion-bd-f2)
 map <Plug>(easymotion-prefix)w <Plug>(easymotion-bd-w)
 map <Plug>(easymotion-prefix)W <Plug>(easymotion-bd-W)
