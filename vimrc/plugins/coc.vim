@@ -138,9 +138,16 @@ command! CocToggle call vimrc#coc#toggle()
 nnoremap <silent> <Leader>cy :CocToggle<CR>
 
 " Find cursor word in outline
-nnoremap <silent> <Leader>ck :call vimrc#coc#outline_with_query(expand('<cword>'))<CR>
-nnoremap <silent> <Leader>cK :call vimrc#coc#outline_with_query(expand('<cWORD>'))<CR>
-xnoremap <silent> <Leader>ck :<C-U>call vimrc#coc#outline_with_query(vimrc#utility#get_visual_selection())<CR>
+nnoremap <silent> <Leader>ck :call vimrc#fzf#coc#call_with_query('CocFzfList outline', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>cK :call vimrc#fzf#coc#call_with_query('CocFzfList outline', expand('<cWORD>'))<CR>
+xnoremap <silent> <Leader>ck :<C-U>call vimrc#fzf#coc#call_with_query('CocFzfList outline', vimrc#utility#get_visual_selection())<CR>
+
+" Find cursor word in symbols
+" Initial query seems not work due to fzf haven't get the input due to asynchronous source
+" But pressing any key will make fzf start to filter
+nnoremap <silent> <Leader>c8 :call vimrc#fzf#coc#call_with_query('CocFzfList symbols', expand('<cword>'))<CR>
+nnoremap <silent> <Leader>c* :call vimrc#fzf#coc#call_with_query('CocFzfList symbols', expand('<cWORD>'))<CR>
+xnoremap <silent> <Leader>c8 :<C-U>call vimrc#fzf#coc#call_with_query('CocFzfList symbols', vimrc#utility#get_visual_selection())<CR>
 
 augroup coc_ccls_settings
   autocmd!

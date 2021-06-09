@@ -54,8 +54,3 @@ function! vimrc#coc#toggle() abort
     CocEnable
   endif
 endfunction
-
-function! vimrc#coc#outline_with_query(query) abort
-  call setreg('"', a:query)
-  CocList outline
-endfunction
