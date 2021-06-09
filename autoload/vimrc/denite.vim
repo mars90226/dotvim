@@ -34,13 +34,18 @@ function! vimrc#denite#move_cursor_candidate_window(dir, lines) abort
   startinsert!
 endfunction
 
-" Assume preview floating window is previous window of denite buffer
+" Assume denite window order in floating window
+" 1. denite preview buffer
+" 2. denite filter buffer
+" 3. denite buffer
 function! vimrc#denite#goto_and_back_between_preview() abort
   if bufname('%') =~# '\[denite\]'
+    wincmd W
     wincmd W
     nnoremap <silent><buffer> <M-l> :call vimrc#denite#goto_and_back_between_preview()<CR>
     nnoremap <silent><buffer><expr> <M-i> "\<C-W>w".denite#do_map('open_filter_buffer')
   else
+    wincmd w
     wincmd w
   endif
 endfunction
