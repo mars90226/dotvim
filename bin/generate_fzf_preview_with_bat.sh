@@ -28,8 +28,10 @@ if [[ -n "${pattern}" ]]; then
   # escape pattern
   printf -v pattern "%q" "${pattern}"
   filter_command="rg ${pattern} ${file} > ${tmp_file}"
+  # TODO: Remove tmp_folder after fzf exit
+  clean_command="rm ${tmp_file}"
 
-  preview_command="${filter_command}; ${fzf_preview_command} --line-range ${preview_start}:${preview_end} --highlight-line ${current_line} ${tmp_file}"
+  preview_command="${filter_command}; ${fzf_preview_command} --line-range ${preview_start}:${preview_end} --highlight-line ${current_line} ${tmp_file}; ${clean_command}"
 else
   preview_command="${fzf_preview_command} --line-range ${preview_start}:${preview_end} --highlight-line ${current_line} ${file}"
 fi
