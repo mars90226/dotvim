@@ -94,3 +94,12 @@ function! vimrc#fzf#line#lines(...) abort
   \ 'options': ['+m', '--tiebreak=index', '--prompt', 'Lines> ', '--ansi', '--extended', '--nth='.nth.'..', '--tabstop=1', '--query', query]
   \}, args)
 endfunction
+
+function! vimrc#fzf#line#buffer_lines(...) abort
+  let [query, args] = (a:0 && type(a:1) == type('')) ?
+        \ [a:1, a:000[1:]] : ['', a:000]
+  let [args, bang] = (len(args) > 0 && type(args[-1]) == type(0)) ?
+        \ [args[:-2], args[-1]] : [args, 0]
+
+  call call('fzf#vim#buffer_lines', args + [vimrc#fzf#preview#buffer_lines(query), bang])
+endfunction

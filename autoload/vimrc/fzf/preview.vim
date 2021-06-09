@@ -57,17 +57,15 @@ function! vimrc#fzf#preview#windows() abort
 endfunction
 
 function! vimrc#fzf#preview#buffer_lines(...) abort
-  let query = join(copy(a:000))
+  let query = a:0 > 0 && type(a:1) == type('') ? a:1 : ''
   let file = expand('%')
-  if empty(query)
-    let preview_command = vimrc#fzf#generate_preview_command_with_bat(1, file)
-  else
-    let tmp_folder = tempname()
-    " TODO: fzf :BLines use vim regex, but script use ripgrep regex
-    let preview_command = vimrc#fzf#generate_preview_command_with_bat(1, file, query, tmp_folder)
+  let preview_command = vimrc#fzf#generate_preview_command_with_bat(1, file)
+  let options = { 'options': ['--preview-window', 'right:50%:hidden', '--preview', preview_command] }
+  if !empty(query)
+    let options.options += ['--query', query]
   endif
 
-  return vimrc#fzf#with_default_options({ 'options': ['--preview-window', 'right:50%:hidden', '--preview', preview_command] })
+  return vimrc#fzf#with_default_options(options)
 endfunction
 
 " Utility
