@@ -1,7 +1,7 @@
 " Options
 let g:coc_fzf_preview_toggle_key = vimrc#fzf#preview#get_preview_toggle_key()
 let g:coc_fzf_preview = vimrc#fzf#preview#get_preview_default_layout()
-let g:coc_fzf_opts = vimrc#fzf#get_default_options().options
+let g:coc_fzf_opts = copy(vimrc#fzf#get_default_options().options)
 let g:coc_fzf_preview_fullscreen = 0
 
 " <Tab>: completion.
