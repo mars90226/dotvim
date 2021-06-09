@@ -130,7 +130,7 @@ nnoremap <silent> [C         :CocNext<CR>
 " Do default action for prevous item.
 nnoremap <silent> ]C         :CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <Leader>cu :CocListResume<CR>
+nnoremap <silent> <Leader>cu :CocFzfListResume<CR>
 " Show lists
 nnoremap <silent> <Leader>cl :CocFzfList lists<CR>
 
