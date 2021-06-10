@@ -39,11 +39,14 @@ endfunction
 " 2. denite filter buffer
 " 3. denite buffer
 function! vimrc#denite#goto_and_back_between_preview() abort
-  if bufname('%') =~# '\[denite\]'
+  if vimrc#denite#is_denite_buffer(bufname('%'))
     wincmd W
     wincmd W
-    nnoremap <silent><buffer> <M-l> :call vimrc#denite#goto_and_back_between_preview()<CR>
-    nnoremap <silent><buffer><expr> <M-i> "\<C-W>w".denite#do_map('open_filter_buffer')
+    " FIXME: Need to define original mapping here
+    nnoremap <Plug>(default-meta-l) <C-W>l
+    nnoremap <Plug>(default-meta-i) <Nop>
+    nmap <silent><buffer><expr> <M-l> vimrc#denite#is_active() ? ":call vimrc#denite#goto_and_back_between_preview()\<CR>" : "\<Plug>(default-meta-l)"
+    nmap <silent><buffer><expr> <M-i> vimrc#denite#is_active() ? "\<C-W>w\<C-W>w".denite#do_map('open_filter_buffer') : "\<Plug>(default-meta-i)"
   else
     wincmd w
     wincmd w
@@ -78,6 +81,19 @@ endfunction
 
 function! vimrc#denite#change_sorters(sorter) abort
   call denite#call_map('change_sorters', [a:sorter])
+endfunction
+
+function! vimrc#denite#is_denite_buffer(bufname) abort
+  return a:bufname =~# '\[denite\]'
+endfunction
+
+function! vimrc#denite#is_active() abort
+  for buffer in tabpagebuflist(tabpagenr())
+    if vimrc#denite#is_denite_buffer(bufname(buffer))
+      return v:true
+    endif
+  endfor
+  return v:false
 endfunction
 
 " Completions
