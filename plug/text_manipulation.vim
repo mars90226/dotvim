@@ -77,6 +77,12 @@ xmap al <Plug>(textobj-sandwich-literal-query-a)
 omap il <Plug>(textobj-sandwich-literal-query-i)
 omap al <Plug>(textobj-sandwich-literal-query-a)
 
+" Seems bundled vim-textobj-functioncall does not work
+" xmap ad <Plug>(textobject-sandwich-function-a)
+" xmap id <Plug>(textobject-sandwich-function-i)
+" omap ad <Plug>(textobject-sandwich-function-a)
+" omap id <Plug>(textobject-sandwich-function-i)
+
 " Add vim-surround key mapping for vim-visual-multi
 " Borrowed from vim-sandwich/macros/sandwich/keymap/surround.vim {{{
 nmap ys <Plug>(operator-sandwich-add)

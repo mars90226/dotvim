@@ -22,5 +22,18 @@ onoremap <silent> iu :call TextObjWordBasedColumn("iw")<cr>
 onoremap <silent> iU :call TextObjWordBasedColumn("iW")<cr>
 " }}}
 
+" vim-textobj-functioncall {{{
+" Should already be bundled in vim-sandwich, but not work
+" So, explicitly install this plugin
+Plug 'machakann/vim-textobj-functioncall'
+
+let g:textobj_functioncall_no_default_key_mappings = 1
+
+xmap id <Plug>(textobj-functioncall-i)
+omap id <Plug>(textobj-functioncall-i)
+xmap ad <Plug>(textobj-functioncall-a)
+omap ad <Plug>(textobj-functioncall-a)
+" }}}
+
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'glts/vim-textobj-comment'
