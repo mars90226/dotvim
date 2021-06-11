@@ -125,19 +125,19 @@ endfunction
 
 " sdcv
 function! vimrc#utility#get_sdcv_command(...) abort
-  let use_vimrc_float = a:0 > 0 && type(a:1) == type(v:true) ? a:1 : v:true
+  let use_vimrc_float = a:0 > 0 && type(a:1) == type(v:true) ? a:1 : v:false
   return vimrc#terminal#get_open_command('sdcv', use_vimrc_float)
 endfunction
 
 " xdg-open
 function! vimrc#utility#get_xdg_open(...) abort
-  let use_vimrc_float = a:0 > 0 && type(a:1) == type(v:true) ? a:1 : v:true
+  let use_vimrc_float = a:0 > 0 && type(a:1) == type(v:true) ? a:1 : v:false
   return vimrc#terminal#get_open_command('xdg-open', use_vimrc_float)
 endfunction
 
 " translate-shell
 function! vimrc#utility#get_translate_shell_command(...) abort
-  let use_vimrc_float = a:0 > 0 && type(a:1) == type(v:true) ? a:1 : v:true
+  let use_vimrc_float = a:0 > 0 && type(a:1) == type(v:true) ? a:1 : v:false
   " Use bing as google is blocking request
   return vimrc#terminal#get_open_command('trans -e bing', use_vimrc_float)
 endfunction
