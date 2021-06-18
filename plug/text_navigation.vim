@@ -188,4 +188,12 @@ call vimrc#lazy#lazy_load('indentwise')
 " let g:qs_buftype_blacklist = ['nofile', 'quickfix', 'terminal']
 " " }}}
 
+" targets.vim {{{
 Plug 'wellle/targets.vim'
+
+" Reach targets
+nmap <expr> ]r 'vin'.vimrc#getchar_string()."o\<Esc>"
+nmap <expr> [r 'vil'.vimrc#getchar_string()."\<Esc>"
+nmap <expr> ]R 'van'.vimrc#getchar_string()."o\<Esc>"
+nmap <expr> [R 'val'.vimrc#getchar_string()."\<Esc>"
+" }}}
