@@ -19,7 +19,7 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 if has('nvim')
-  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 else
   " Borrowed from fzf
   if has('terminal') && has('patch-8.0.995')
@@ -28,7 +28,7 @@ else
     let g:fzf_layout = { 'down': '~40%' }
   endif
 endif
-let g:fzf_tmux_layout = { 'tmux': '-p 90%,60%' }
+let g:fzf_tmux_layout = { 'tmux': '-p 90%,80%' }
 
 let g:fzf_history_dir = $HOME.'/.local/share/fzf-history'
 

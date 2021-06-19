@@ -2,8 +2,8 @@
 let g:clap_layout = {
       \ 'relative': 'editor',
       \ 'width': '90%',
-      \ 'height': '60%',
-      \ 'row': '20%',
+      \ 'height': '80%',
+      \ 'row': '10%',
       \ 'col': '5%'
       \ }
 
