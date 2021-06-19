@@ -72,10 +72,10 @@ xmap ass <Plug>(textobj-sandwich-auto-a)
 omap iss <Plug>(textobj-sandwich-auto-i)
 omap ass <Plug>(textobj-sandwich-auto-a)
 
-xmap iq <Plug>(textobj-sandwich-literal-query-i)
-xmap aq <Plug>(textobj-sandwich-literal-query-a)
-omap iq <Plug>(textobj-sandwich-literal-query-i)
-omap aq <Plug>(textobj-sandwich-literal-query-a)
+xmap iy <Plug>(textobj-sandwich-literal-query-i)
+xmap ay <Plug>(textobj-sandwich-literal-query-a)
+omap iy <Plug>(textobj-sandwich-literal-query-i)
+omap ay <Plug>(textobj-sandwich-literal-query-a)
 
 " Seems bundled vim-textobj-functioncall does not work
 " xmap ad <Plug>(textobject-sandwich-function-a)
