@@ -45,6 +45,12 @@ if vimrc#plugin#is_enabled_plugin('defx.nvim')
 endif
 " }}}
 
+" hop.nvim {{{
+if vimrc#plugin#is_enabled_plugin('hop.nvim')
+  lua require'hop'.setup{}
+endif
+" }}}
+
 " vim-sandwich {{{
 call vimrc#source('vimrc/plugins/sandwich_after.vim')
 " }}}

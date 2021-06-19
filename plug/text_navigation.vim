@@ -37,6 +37,20 @@ map <Plug>(easymotion-prefix)K <Plug>(easymotion-eol-k)
 map <Plug>(easymotion-prefix); <Plug>(easymotion-jumptoanywhere)
 " }}}
 
+" hop.nvim {{{
+if vimrc#plugin#is_enabled_plugin('hop.nvim')
+  Plug 'phaazon/hop.nvim'
+
+  map <Space>w        <Cmd>HopWord<CR>
+  map <Space>;        <Cmd>HopPattern<CR>
+  map <Space><Space>f <Cmd>HopChar1<CR>
+  map ;               <Cmd>HopChar2<CR>
+  map <Space><Space>l <Cmd>HopLine<CR>
+  map <Space>j        <Cmd>HopLineAC<CR>
+  map <Space>k        <Cmd>HopLineBC<CR>
+endif
+" }}}
+
 " aerojump.nvim {{{
 if vimrc#plugin#is_enabled_plugin('aerojump.nvim')
   Plug 'ripxorip/aerojump.nvim', { 'do': ':UpdateRemotePlugins' }
