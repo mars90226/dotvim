@@ -110,9 +110,9 @@ endif
 
 " indent-blankline.nvim {{{
 if vimrc#plugin#is_enabled_plugin('indent-blankline.nvim')
-  Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
+  Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua', 'on': [] }
 
-  " TODO: Fix this, not work now
+  call vimrc#lazy#lazy_load('indent_blankline')
 
   " Although previously, middle dot is avoided in commit ce68e7d4e533b23764961139b2900697f18d78b0.
   " It seems currently there's no problem when displayed by MobaXterm.
