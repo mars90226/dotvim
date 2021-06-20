@@ -63,9 +63,9 @@ call vimrc#source('vimrc/plugins/fuzzymenu.vim')
 " vim-clap {{{
 if vimrc#plugin#is_enabled_plugin('vim-clap')
   if vimrc#plugin#check#has_cargo()
-    Plug 'liuchengxu/vim-clap', { 'do': ':call vimrc#clap#install()' }
+    Plug 'liuchengxu/vim-clap', { 'do': ':call vimrc#clap#install()', 'on': [] }
   else
-    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!', 'on': [] }
   endif
 
   call vimrc#source('vimrc/plugins/clap.vim')

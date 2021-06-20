@@ -1,3 +1,6 @@
+" Lazy load
+call vimrc#lazy#lazy_load('clap')
+
 " Clap settings
 let g:clap_layout = {
       \ 'relative': 'editor',

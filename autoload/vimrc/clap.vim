@@ -1,5 +1,5 @@
 " Utilities
-let s:clap_pythonx_clap_dir = simplify(g:clap#autoload_dir.'/../pythonx/clap')
+let s:clap_pythonx_clap_dir = simplify(get(g:, 'clap#autoload_dir', vimrc#get_vim_plug_dir().'/vim-clap/autoload').'/../pythonx/clap')
 let s:clap_fuzzymatch_rs_so = s:clap_pythonx_clap_dir.'/fuzzymatch_rs.so'
 
 function! vimrc#clap#get_clap_pythonx_clap_dir() abort
