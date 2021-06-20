@@ -1,3 +1,11 @@
+" Setup
+" Python & Python3 setting for Windows & Synology should be in local vim
+" config
+if vimrc#plugin#check#get_os() !~# 'windows' && vimrc#plugin#check#get_os() !~# 'synology'
+  let g:python_host_prog = '/usr/bin/python'
+  let g:python3_host_prog = '/usr/bin/python3'
+endif
+
 " plugin management
 command! ListDisabledPlugins call vimrc#plugin#get_disabled_plugins()
 
