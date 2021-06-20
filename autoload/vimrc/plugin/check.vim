@@ -1,28 +1,31 @@
 " Plugin Check Utility
+function! vimrc#plugin#check#get_os(...) abort
+  let force = (a:0 >= 1 && type(a:1) == type(v:true)) ? a:1 : v:false
 
-" Detect operating system
-if has('win32') || has('win64')
-  let s:os = 'windows'
-else
-  let s:os = systemlist('uname -a')[0]
-endif
+  if force || !exists('g:os')
+    " Detect operating system
+    if has('win32') || has('win64')
+      let g:os = 'windows'
+    else
+      let g:os = systemlist('uname -a')[0]
+    endif
+  endif
 
-function! vimrc#plugin#check#get_os() abort
-  return s:os
+  return g:os
 endfunction
 
 function! vimrc#plugin#check#get_distro(...) abort
   let force = (a:0 >= 1 && type(a:1) == type(v:true)) ? a:1 : v:false
 
   if force || !exists('g:distro')
-    if s:os =~# 'windows'
-      return 'Windows'
+    if vimrc#plugin#check#get_os() =~# 'windows'
+      let g:distro = 'Windows'
     else
-      return systemlist('lsb_release -is')[0]
+      let g:distro = systemlist('lsb_release -is')[0]
     endif
-  else
-    return g:distro
   endif
+
+  return g:distro
 endfunction
 
 " Set nvim version
@@ -32,7 +35,7 @@ if has('nvim')
       return g:nvim_version
     endif
 
-    let g:nvim_version = systemlist('nvim --version')[0]
+    let g:nvim_version = split(execute('version'), "\n")[0]
     return g:nvim_version
   endfunction
 
@@ -81,15 +84,15 @@ function! vimrc#plugin#check#python_version(...) abort
 
   if force || !exists('g:python_version')
     if has('python3')
-      return substitute(split(execute('py3 import sys; print(sys.version)'), ' ')[0], '^\n', '', '')
+      let g:python_version = substitute(split(execute('py3 import sys; print(sys.version)'), ' ')[0], '^\n', '', '')
     elseif has('python')
-      return substitute(split(execute('py import sys; print(sys.version)'), ' ')[0], '^\n', '', '')
+      let g:python_version = substitute(split(execute('py import sys; print(sys.version)'), ' ')[0], '^\n', '', '')
     else
-      return ''
+      let g:python_version = ''
     endif
-  else
-    return g:python_version
   endif
+
+  return g:python_version
 endfunction
 
 " check if current vim/neovim has async function
@@ -102,7 +105,8 @@ function! vimrc#plugin#check#has_rpc() abort
 endfunction
 
 function! vimrc#plugin#check#has_linux_build_env() abort
-  return s:os !~# 'windows' && s:os !~# 'synology'
+  let os = vimrc#plugin#check#get_os()
+  return os !~# 'windows' && os !~# 'synology'
 endfunction
 
 function! vimrc#plugin#check#has_cargo() abort
@@ -127,21 +131,21 @@ function! vimrc#plugin#check#has_jedi(...) abort
   if force || !exists('g:has_jedi')
     if has('python3')
       call system('pip3 show -qq jedi')
-      return !v:shell_error
+      let g:has_jedi = !v:shell_error
     elseif has('python')
       call system('pip show -qq jedi')
-      return !v:shell_error
+      let g:has_jedi = !v:shell_error
     else
-      return 0
+      let g:has_jedi = 0
     endif
-  else
-    return g:has_jedi == 1
   endif
+
+  return g:has_jedi == 1
 endfunction
 
 " Assume DSM has no browser
 function! vimrc#plugin#check#has_browser() abort
-  return s:os !~# 'synology'
+  return vimrc#plugin#check#get_os() !~# 'synology'
 endfunction
 
 function! vimrc#plugin#check#has_ssh_host_client() abort

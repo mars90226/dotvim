@@ -1,3 +1,4 @@
+call vimrc#source('plug/plugin_config_cache.vim')
 call vimrc#source('vimrc/basic.vim')
 call vimrc#source('vimrc/config.vim')
 call vimrc#source('plug/plugin_choose.vim')
