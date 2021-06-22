@@ -16,7 +16,12 @@ endfunction
 
 " Mappings
 function! vimrc#vimwiki#mappings() abort
-  command! VimwikiToggleFolding call vimrc#vimwiki#toggle_folding()
+  command! -buffer VimwikiToggleFolding    call vimrc#vimwiki#toggle_folding()
+  command! -buffer VimwikiToggleAllFolding call vimrc#vimwiki#toggle_all_folding()
+  command! -buffer VimwikiManualFolding    call vimrc#vimwiki#manual_folding()
+  command! -buffer VimwikiManualAllFolding tabdo windo VimwikiManualFolding
+  command! -buffer VimwikiExprFolding      call vimrc#vimwiki#expr_folding()
+  command! -buffer VimwikiExprAllFolding   tabdo windo VimwikiExprFolding
 
   nnoremap <silent><buffer> <Leader>wg :VimwikiToggleListItem<CR>
 
@@ -31,18 +36,44 @@ function! vimrc#vimwiki#mappings() abort
 endfunction
 
 " Functions
-function! vimrc#vimwiki#toggle_folding() abort
-  let VimwikiSetupFunc = vimrc#utility#get_script_function(vimrc#vimwiki#get_vimwiki_plugin_snr(), 'setup_buffer_win_enter')
-  let folding = vimwiki#vars#get_global('folding')
+function! vimrc#vimwiki#toggle_folding(...) abort
+  if &filetype !~# 'vimwiki'
+    return
+  endif
+
+  let folding = a:0 > 0 && type(a:1) == type('') ? a:1 : vimwiki#vars#get_global('folding')
 
   if folding =~? '^expr.*'
-    " Do not call vimwiki setup function as it will elinimate all folds
-    call vimwiki#vars#set_global('folding', 'manual')
-    set foldmethod=manual
+    call vimrc#vimwiki#manual_folding()
     echo 'set foldmethod=manual'
   else
-    call vimwiki#vars#set_global('folding', 'expr')
-    call VimwikiSetupFunc()
+    call vimrc#vimwiki#expr_folding()
     echo 'set foldmethod=expr'
   endif
+endfunction
+
+function! vimrc#vimwiki#toggle_all_folding() abort
+  let folding = vimwiki#vars#get_global('folding')
+  tabdo windo call vimrc#vimwiki#toggle_folding(folding)
+endfunction
+
+function! vimrc#vimwiki#manual_folding() abort
+  if &filetype !~# 'vimwiki'
+    return
+  endif
+
+  " Do not call vimwiki setup function as it will elinimate all folds
+  call vimwiki#vars#set_global('folding', 'manual')
+  set foldmethod=manual
+endfunction
+
+function! vimrc#vimwiki#expr_folding() abort
+  if &filetype !~# 'vimwiki'
+    return
+  endif
+
+  let VimwikiSetupFunc = vimrc#utility#get_script_function(vimrc#vimwiki#get_vimwiki_plugin_snr(), 'setup_buffer_win_enter')
+
+  call vimwiki#vars#set_global('folding', 'expr')
+  call VimwikiSetupFunc()
 endfunction
