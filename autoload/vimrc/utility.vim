@@ -302,3 +302,17 @@ function! vimrc#utility#delete_buffers(Filter) abort
     execute 'bdelete '.join(filtered_buffers, ' ')
   endif
 endfunction
+
+" ref: https://stackoverflow.com/a/39216373
+function! vimrc#utility#get_script_id(script_name) abort
+  let snr = matchstr(matchstr(split(execute('scriptnames'), "\n"), a:script_name), '^\d\+')
+  return snr
+endfunction
+
+function! vimrc#utility#get_script_function_name(snr, function_name) abort
+  return '<SNR>'.a:snr.'_'.a:function_name
+endfunction
+
+function! vimrc#utility#get_script_function(snr, function_name) abort
+  return function(vimrc#utility#get_script_function_name(a:snr, a:function_name))
+endfunction
