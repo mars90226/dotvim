@@ -1,6 +1,3 @@
-profile start /tmp/profile.log
-profile file *
-profile func *
 call vimrc#source('plug/plugin_config_cache.vim')
 call vimrc#source('vimrc/basic.vim')
 call vimrc#source('vimrc/config.vim')
