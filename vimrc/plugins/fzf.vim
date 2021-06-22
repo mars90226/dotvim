@@ -326,8 +326,11 @@ if vimrc#plugin#is_enabled_plugin('coc.nvim')
 endif
 
 nnoremap <Space>sga :call vimrc#execute_and_save('GitGrepAllCommits ' . input('Git grep all commits: '))<CR>
+nnoremap <Space>sgA :call vimrc#execute_and_save('GitGrepAllCommits ' . input('Git grep all commits: ') . ' -- ' . input('File: ', '', 'file'))<CR>
 nnoremap <Space>sgb :call vimrc#execute_and_save('GitGrepBranches ' . input('Git grep branches: '))<CR>
+nnoremap <Space>sgB :call vimrc#execute_and_save('GitGrepBranches ' . input('Git grep branches: ') . ' -- ' . input('File: ', '', 'file'))<CR>
 nnoremap <Space>sgc :call vimrc#execute_and_save('GitGrepCurrentBranch ' . input('Git grep current branch: '))<CR>
+nnoremap <Space>sgC :call vimrc#execute_and_save('GitGrepCurrentBranch ' . input('Git grep current branch: ') . ' -- ' . input('File: ', '', 'file'))<CR>
 
 nnoremap <Space>sa :call vimrc#execute_and_save('Rga ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Rg: '))<CR>
 nnoremap <Space>sA :call vimrc#execute_and_save('Rga! ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Rg: '))<CR>
