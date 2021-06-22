@@ -261,8 +261,9 @@ else
   let s:git_grep_commit_command = 'git grep -nP'
   let s:git_grep_with_column = v:false
 endif
-function! vimrc#fzf#git#grep_commits(commits, query) abort
+function! vimrc#fzf#git#grep_commits(commits, query, ...) abort
   let query = shellescape(a:query)
+  let pathspecs = a:0 > 0 && (type(a:1) == type([]) || type(a:1) == type('')) ? a:1 : []
   " TODO Think of a better way to avoid temp file and can still let bat detect language
   " Depends on bat
   " Borrowed from fzf.vim preview.sh
@@ -278,6 +279,13 @@ function! vimrc#fzf#git#grep_commits(commits, query) abort
   endif
   " Allow command to get commits
   let commits_string = type(a:commits) == type([]) ? join(a:commits) : a:commits
+  let pathspecs_string = type(pathspecs) == type([]) ?
+        \ join(map(pathspecs, { _, pathspec -> shellescape(pathspec) })) : shellescape(pathspecs)
+
+  let final_command = s:git_grep_commit_command.' '.query.' '.commits_string
+  if !empty(pathspecs_string)
+    let final_command .= ' -- '.pathspecs_string
+  endif
 
   let preview_command = "COMMIT=\"".get_variable_commands['COMMIT']."\";".
         \ "FILE=\"".get_variable_commands['FILE']."\";".
@@ -291,33 +299,46 @@ function! vimrc#fzf#git#grep_commits(commits, query) abort
         \ 'rm "$TEMPFILE"'
 
   call fzf#run(vimrc#fzf#wrap('GitGrepCommit', {
-        \ 'source': s:git_grep_commit_command.' '.query.' '.commits_string,
+        \ 'source': final_command,
         \ 'sink*': function('vimrc#fzf#git#grep_commit_sink', [!empty(a:commits), s:git_grep_with_column]),
         \ 'options': ['-m', '-s', '--prompt', 'GitGrepCommit> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
 endfunction
 
 function! vimrc#fzf#git#grep_commit(commit, ...) abort
-  let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
   let commits = empty(a:commit) ? [] : [a:commit]
-  call vimrc#fzf#git#grep_commits(commits, query)
+  let arguments = a:0 > 0 && type(a:1) == type('') ? split(a:1) : []
+  let query = []
+  let pathspecs = []
+  let before_double_dash = v:true
+
+  for arg in arguments
+    if arg ==# '--'
+      let before_double_dash = v:false
+    else
+      if before_double_dash
+        call add(query, arg)
+      else
+        call add(pathspecs, arg)
+      endif
+    endif
+  endfor
+
+  call vimrc#fzf#git#grep_commits(commits, join(query), pathspecs)
 endfunction
 
 function! vimrc#fzf#git#grep_all_commits(...) abort
-  let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
   " Use shell command substitution to get commits to avoid passing too long command to fzf
-  call vimrc#fzf#git#grep_commits('$(git rev-list --all)', query)
+  call call('vimrc#fzf#git#grep_commit', ['$(git rev-list --all)'] + a:000)
 endfunction
 
 function! vimrc#fzf#git#grep_branches(...) abort
-  let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
   " Use shell command substitution to get commits to avoid passing too long command to fzf
-  call vimrc#fzf#git#grep_commits("$(git branch -a | sed 's/^[* ]*//; /->/d')", query)
+  call call('vimrc#fzf#git#grep_commit', ["$(git branch -a | sed 's/^[* ]*//; /->/d')"] + a:000)
 endfunction
 
 function! vimrc#fzf#git#grep_current_branch(...) abort
-  let query = (a:0 && type(a:1) == type('')) ? a:1 : ''
   " Use shell command substitution to get commits to avoid passing too long command to fzf
-  call vimrc#fzf#git#grep_commits('$(git rev-list HEAD)', query)
+  call call('vimrc#fzf#git#grep_commit', ['$(git rev-list HEAD)'] + a:000)
 endfunction
 
 " TODO: Handle added/deleted files
