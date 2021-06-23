@@ -76,12 +76,21 @@ let g:vimwiki_key_mappings = {
       \ 'lists_return': 1,
       \ 'table_mappings': 0,
       \ }
-let g:vimwiki_folding = 'expr'
+" Toggle after vim
+" let g:vimwiki_folding = 'expr'
+
+command! VimwikiToggleFolding    call vimrc#vimwiki#toggle_folding()
+command! VimwikiToggleAllFolding call vimrc#vimwiki#toggle_all_folding()
+command! VimwikiManualFolding    call vimrc#vimwiki#manual_folding()
+command! VimwikiManualAllFolding tabdo windo VimwikiManualFolding
+command! VimwikiExprFolding      call vimrc#vimwiki#expr_folding()
+command! VimwikiExprAllFolding   tabdo windo VimwikiExprFolding
 
 augroup vimwiki_settings
   autocmd!
   autocmd FileType vimwiki call vimrc#vimwiki#settings()
   autocmd FileType vimwiki call vimrc#vimwiki#mappings()
+  autocmd VimEnter *.wiki  VimwikiExprAllFolding
 augroup END
 " }}}
 

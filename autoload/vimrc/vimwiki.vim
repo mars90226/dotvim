@@ -16,13 +16,6 @@ endfunction
 
 " Mappings
 function! vimrc#vimwiki#mappings() abort
-  command! -buffer VimwikiToggleFolding    call vimrc#vimwiki#toggle_folding()
-  command! -buffer VimwikiToggleAllFolding call vimrc#vimwiki#toggle_all_folding()
-  command! -buffer VimwikiManualFolding    call vimrc#vimwiki#manual_folding()
-  command! -buffer VimwikiManualAllFolding tabdo windo VimwikiManualFolding
-  command! -buffer VimwikiExprFolding      call vimrc#vimwiki#expr_folding()
-  command! -buffer VimwikiExprAllFolding   tabdo windo VimwikiExprFolding
-
   nnoremap <silent><buffer> <Leader>wg :VimwikiToggleListItem<CR>
 
   " for original vimwiki <Tab> & <S-Tab> in insert mode
@@ -64,7 +57,8 @@ function! vimrc#vimwiki#manual_folding() abort
 
   " Do not call vimwiki setup function as it will elinimate all folds
   call vimwiki#vars#set_global('folding', 'manual')
-  set foldmethod=manual
+  setlocal foldmethod=manual
+  setlocal foldexpr&
 endfunction
 
 function! vimrc#vimwiki#expr_folding() abort
