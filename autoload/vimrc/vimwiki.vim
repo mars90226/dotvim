@@ -45,11 +45,6 @@ function! vimrc#vimwiki#toggle_folding(...) abort
   endif
 endfunction
 
-function! vimrc#vimwiki#toggle_all_folding() abort
-  let folding = vimwiki#vars#get_global('folding')
-  tabdo windo call vimrc#vimwiki#toggle_folding(folding)
-endfunction
-
 function! vimrc#vimwiki#manual_folding() abort
   if &filetype !~# 'vimwiki'
     return
@@ -70,4 +65,18 @@ function! vimrc#vimwiki#expr_folding() abort
 
   call vimwiki#vars#set_global('folding', 'expr')
   call VimwikiSetupFunc()
+endfunction
+
+function! vimrc#vimwiki#toggle_all_folding() abort
+  let folding = vimwiki#vars#get_global('folding')
+  call vimrc#utility#all_tab_win_execute({ -> vimrc#vimwiki#toggle_folding(folding) })
+endfunction
+
+function! vimrc#vimwiki#manual_all_folding() abort
+  call vimrc#utility#all_tab_win_execute({ -> vimrc#vimwiki#manual_folding() })
+endfunction
+
+function! vimrc#vimwiki#expr_all_folding() abort
+  let folding = vimwiki#vars#get_global('folding')
+  call vimrc#utility#all_tab_win_execute({ -> vimrc#vimwiki#expr_folding() })
 endfunction

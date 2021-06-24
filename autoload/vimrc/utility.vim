@@ -316,3 +316,26 @@ endfunction
 function! vimrc#utility#get_script_function(snr, function_name) abort
   return function(vimrc#utility#get_script_function_name(a:snr, a:function_name))
 endfunction
+
+function! vimrc#utility#get_tab_win_nr() abort
+  return [tabpagenr(), winnr()]
+endfunction
+
+function! vimrc#utility#goto_tab_win_nr(tab_win_nr) abort
+  let [tabnr, winnr] = a:tab_win_nr
+
+  execute tabnr.'tabn'
+  execute winnr.'wincmd w'
+endfunction
+
+function! vimrc#utility#execute_retain_tab_win(function) abort
+  let origin_tab_win_nr = vimrc#utility#get_tab_win_nr()
+  call a:function()
+  call vimrc#utility#goto_tab_win_nr(origin_tab_win_nr)
+endfunction
+
+function! vimrc#utility#all_tab_win_execute(function) abort
+  let origin_tab_win_nr = vimrc#utility#get_tab_win_nr()
+  tabdo windo call a:function()
+  call vimrc#utility#goto_tab_win_nr(origin_tab_win_nr)
+endfunction
