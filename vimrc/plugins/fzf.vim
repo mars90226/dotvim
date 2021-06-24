@@ -86,7 +86,6 @@ command! -bang -nargs=?               GFiles   call vimrc#fzf#gitfiles(<q-args>,
 command! -bang -nargs=+ -complete=dir Locate   call vimrc#fzf#locate(<q-args>, <bang>0)
 command! -bang -nargs=*               History  call vimrc#fzf#history(<q-args>, <bang>0)
 command! -bar  -bang                  Windows  call fzf#vim#windows(vimrc#fzf#preview#windows(), <bang>0)
-" command! -bar  -nargs=* -bang         BLines   call fzf#vim#buffer_lines(<q-args>, vimrc#fzf#preview#buffer_lines(<q-args>), <bang>0)
 command! -bar  -nargs=* -bang         BLines   call vimrc#fzf#line#buffer_lines(<q-args>, <bang>0)
 command! -bang -nargs=*               Lines    call vimrc#fzf#line#lines(<q-args>, vimrc#fzf#with_default_options(), <bang>0)
 
