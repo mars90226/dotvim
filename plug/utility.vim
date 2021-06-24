@@ -1,3 +1,6 @@
+" Script Encoding: UTF-8
+scriptencoding utf-8
+
 " vim-mundo {{{
 if vimrc#plugin#is_enabled_plugin('vim-mundo')
   Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
