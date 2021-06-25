@@ -9,6 +9,16 @@ let g:clap_layout = {
       \ 'row': '10%',
       \ 'col': '5%'
       \ }
+if &columns >= 80
+  " Default preview direction is 'LR', which means preview have half width in
+  " clap layout.
+  " So if total width is '90%', then g:clap_layout width should be '45%'.
+  let g:clap_preview_direction = 'LR'
+  let g:clap_layout.width = (str2nr(g:clap_layout.width) / 2).'%'
+else
+  let g:clap_preview_direction = 'UD'
+  let g:clap_layout.height = (str2nr(g:clap_layout.height) / 2).'%'
+endif
 
 let g:clap_theme = 'atom_dark'
 
