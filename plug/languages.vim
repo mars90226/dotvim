@@ -2,6 +2,7 @@
 " nvim-treesitter {{{
 if vimrc#plugin#is_enabled_plugin('nvim-treesitter')
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' } " Updating the parsers on update
+  Plug 'nvim-treesitter/nvim-treesitter-refactor'
 
   call vimrc#source('vimrc/plugins/nvim_treesitter.vim')
 endif
@@ -12,7 +13,6 @@ if vimrc#plugin#is_enabled_plugin('vim-lsp-cxx-highlight')
   Plug 'jackguo380/vim-lsp-cxx-highlight'
 endif
 " }}}
-
 " }}}
 
 " emmet {{{
