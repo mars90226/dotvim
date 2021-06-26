@@ -31,7 +31,7 @@ endif
 " Check if `vim.lsp` is a table, not a nil
 call vimrc#plugin#disable_plugin('nvim-lsp')
 " if has('nvim') && trim(execute('lua print(type(vim.lsp) == type({}))')) ==# 'true'
-" TODO: Use approximate check for nvim-0.5.0 to improve performance
+" TODO: Currently, use approximate check for nvim-0.5.0 to improve performance
 " Only enable nvim-lsp when using completor.vim
 if has('nvim')
       \ && has('nvim-0.5.0')

@@ -55,6 +55,12 @@ endif
 call vimrc#source('vimrc/plugins/sandwich_after.vim')
 " }}}
 
+" nvim-treesitter {{{
+if vimrc#plugin#is_enabled_plugin('nvim-treesitter')
+  call vimrc#source('vimrc/plugins/nvim_treesitter_after.vim')
+endif
+" }}}
+
 " vim-textobj-user {{{
 call vimrc#source('vimrc/plugins/textobj_user_after.vim')
 " }}}

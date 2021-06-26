@@ -1,3 +1,20 @@
+" Highlighting {{{
+" nvim-treesitter {{{
+if vimrc#plugin#is_enabled_plugin('nvim-treesitter')
+  Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' } " Updating the parsers on update
+
+  call vimrc#source('vimrc/plugins/nvim_treesitter.vim')
+endif
+" }}}
+
+" vim-lsp-cxx-highlight {{{
+if vimrc#plugin#is_enabled_plugin('vim-lsp-cxx-highlight')
+  Plug 'jackguo380/vim-lsp-cxx-highlight'
+endif
+" }}}
+
+" }}}
+
 " emmet {{{
 Plug 'mattn/emmet-vim', { 'on': [] }
 
@@ -123,12 +140,6 @@ augroup vim_syntax_syslog_ng_settings
   autocmd BufNewFile,BufReadPost patterndb.d/*.conf   setlocal filetype=syslog-ng
   autocmd BufNewFile,BufReadPost patterndb.d/*/*.conf setlocal filetype=syslog-ng
 augroup END
-" }}}
-
-" vim-lsp-cxx-highlight {{{
-if vimrc#plugin#is_enabled_plugin('vim-lsp-cxx-highlight')
-  Plug 'jackguo380/vim-lsp-cxx-highlight'
-endif
 " }}}
 
 " vim-doge {{{
