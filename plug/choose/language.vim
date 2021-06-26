@@ -5,7 +5,11 @@ call vimrc#plugin#disable_plugin('nvim-treesitter')
 " if has('nvim') && trim(execute('lua print(type(vim.treesitter) == type({}))')) ==# 'true'
 " TODO: Currently, use approximate check for nvim-0.5.0 to improve performance
 " Only enable nvim-treesitter on Linux build env
-if has('nvim') && has('nvim-0.5.0') && vimrc#plugin#check#has_linux_build_env()
+if has('nvim')
+      \ && has('nvim-0.5.0')
+      \ && vimrc#get_vim_mode() !=# 'reader'
+      \ && vimrc#get_vim_mode() !=# 'gitcommit'
+      \ && vimrc#plugin#check#has_linux_build_env()
   call vimrc#plugin#enable_plugin('nvim-treesitter')
 endif
 
