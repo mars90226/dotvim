@@ -136,6 +136,7 @@ if vimrc#plugin#is_enabled_plugin('indent-blankline.nvim')
   " The only way to differentiate is to disable indent-blankline.nvim
   " temporarily.
   nnoremap <Space>il :IndentBlanklineToggle<CR>
+  nnoremap <Space>ir :IndentBlanklineRefresh<CR>
 endif
 " }}}
 
