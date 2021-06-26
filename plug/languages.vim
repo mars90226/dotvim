@@ -5,6 +5,7 @@ if vimrc#plugin#is_enabled_plugin('nvim-treesitter')
   Plug 'nvim-treesitter/nvim-treesitter-refactor'
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'nvim-treesitter/playground'
+  Plug 'romgrk/nvim-treesitter-context'
 
   call vimrc#source('vimrc/plugins/nvim_treesitter.vim')
 endif

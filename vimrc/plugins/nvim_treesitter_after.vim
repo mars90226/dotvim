@@ -112,4 +112,8 @@ require'nvim-treesitter.configs'.setup {
     lint_events = {"BufWrite", "CursorHold"},
   },
 }
+
+require'treesitter-context.config'.setup{
+  enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+}
 EOF
