@@ -111,6 +111,9 @@ require'nvim-treesitter.configs'.setup {
     use_virtual_text = true,
     lint_events = {"BufWrite", "CursorHold"},
   },
+  context_commentstring = {
+    enable = true
+  },
 }
 
 require'treesitter-context.config'.setup{
