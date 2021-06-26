@@ -4,6 +4,7 @@ if vimrc#plugin#is_enabled_plugin('nvim-treesitter')
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' } " Updating the parsers on update
   Plug 'nvim-treesitter/nvim-treesitter-refactor'
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+  Plug 'nvim-treesitter/playground'
 
   call vimrc#source('vimrc/plugins/nvim_treesitter.vim')
 endif
