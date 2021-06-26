@@ -16,7 +16,11 @@ endfunction
 " Toggle fold between manual and syntax
 function! vimrc#toggle#fold_method() abort
   if &foldmethod ==# 'manual'
-    setlocal foldmethod=syntax
+    if vimrc#plugin#is_enabled_plugin('nvim-treesitter')
+      setlocal foldmethod=expr
+    else
+      setlocal foldmethod=syntax
+    endif
   else
     setlocal foldmethod=manual
   endif
