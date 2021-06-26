@@ -38,5 +38,55 @@ require'nvim-treesitter.configs'.setup {
       },
     },
   },
+  textobjects = {
+    select = {
+      enable = true,
+      keymaps = {
+        -- Override textobj-function & coc.nvim class
+        -- nvim-treesitter is preciser than textobj-function & coc.nvim
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+
+        ["iF"] = {
+          python = "(function_definition) @function",
+          cpp = "(function_definition) @function",
+          c = "(function_definition) @function",
+          java = "(method_declaration) @function",
+        },
+      },
+    },
+    swap = {
+      enable = true,
+      swap_next = {
+        ["<Space>ha"] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["<Space>hA"] = "@parameter.inner",
+      },
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        ["]m"] = "@function.outer",
+        ["]]"] = "@class.outer",
+      },
+      goto_next_end = {
+        ["]M"] = "@function.outer",
+        ["]["] = "@class.outer",
+      },
+      goto_previous_start = {
+        ["[m"] = "@function.outer",
+        ["[["] = "@class.outer",
+      },
+      goto_previous_end = {
+        ["[M"] = "@function.outer",
+        ["[]"] = "@class.outer",
+      },
+    },
+    -- TODO: Add lsp_interop, need nvim-lsp
+  },
 }
 EOF
