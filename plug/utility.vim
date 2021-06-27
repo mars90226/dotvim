@@ -283,6 +283,11 @@ if vimrc#plugin#is_enabled_plugin('nvim-web-devicons')
 endif
 " }}}
 
+" profiler.nvim {{{
+" Disabled by default, enable to profile
+" Plug 'norcalli/profiler.nvim'
+" }}}
+
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
 Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert', 'S'] }
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }
