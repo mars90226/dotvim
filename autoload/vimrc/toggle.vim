@@ -18,11 +18,14 @@ function! vimrc#toggle#fold_method() abort
   if &foldmethod ==# 'manual'
     if vimrc#plugin#is_enabled_plugin('nvim-treesitter')
       setlocal foldmethod=expr
+      setlocal foldexpr=nvim_treesitter#foldexpr()
     else
       setlocal foldmethod=syntax
+      setlocal foldexpr&
     endif
   else
     setlocal foldmethod=manual
+    setlocal foldexpr&
   endif
 endfunction
 
