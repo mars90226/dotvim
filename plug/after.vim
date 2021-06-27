@@ -61,6 +61,12 @@ if vimrc#plugin#is_enabled_plugin('nvim-treesitter')
 endif
 " }}}
 
+" gitsigns.nvim {{{
+if vimrc#plugin#is_enabled_plugin('gitsigns.nvim')
+  lua require('vimrc.plugins.gitsigns')
+endif
+" }}}
+
 " vim-textobj-user {{{
 call vimrc#source('vimrc/plugins/textobj_user_after.vim')
 " }}}

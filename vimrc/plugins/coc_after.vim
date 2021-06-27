@@ -53,7 +53,21 @@ call coc#config('languageserver', {
       \   'args': [$HOME.'/.config/composer/vendor/bin/php-language-server.php'],
       \   'filetypes': ['php']
       \ }
-      \})
+      \ })
+
+let coc_git_config = {}
+if vimrc#plugin#is_enabled_plugin('coc-git-gutter')
+  let coc_git_config.enableGutters = v:true
+else
+  let coc_git_config.enableGutters = v:false
+endif
+if vimrc#plugin#is_enabled_plugin('coc-git-blamer')
+  let coc_git_config.addGBlameToVirtualText = v:true
+else
+  let coc_git_config.addGBlameToVirtualText = v:false
+endif
+
+call coc#config('git', coc_git_config)
 
 " Misc
 call coc#add_extension('coc-prettier')

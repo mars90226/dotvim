@@ -57,47 +57,34 @@ augroup flog_settings
 augroup END
 " }}}
 
-" " vim-gitgutter {{{
-" if vimrc#plugin#is_enabled_plugin('vim-gitgutter')
-"   " Plug 'airblade/vim-gitgutter', { 'on': [] }
-"   Plug 'airblade/vim-gitgutter'
-"
-"   " call vimrc#lazy#lazy_load('gitgutter')
-"
-"   let g:gitgutter_grep = 'rg --hidden --follow --glob "!.git/*"'
-"
-"   nnoremap cog :GitGutterBufferToggle<CR>
-"   nnoremap coG :GitGutterToggle<CR>
-"
-"   nmap <silent> [h <Plug>(GitGutterPrevHunk)
-"   nmap <silent> ]h <Plug>(GitGutterNextHunk)
-"
-"   omap ih <Plug>(GitGutterTextObjectInnerPending)
-"   omap ah <Plug>(GitGutterTextObjectOuterPending)
-"   xmap ih <Plug>(GitGutterTextObjectInnerVisual)
-"   xmap ah <Plug>(GitGutterTextObjectOuterVisual)
-" endif
-" " }}}
+" gitsigns.nvim {{{
+if vimrc#plugin#is_enabled_plugin('gitsigns.nvim')
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'lewis6991/gitsigns.nvim'
+endif
+" }}}
 
 " vim-signify {{{
-Plug 'mhinz/vim-signify'
+if vimrc#plugin#is_enabled_plugin('vim-signify')
+  Plug 'mhinz/vim-signify'
 
-let g:signify_priority = 40
+  let g:signify_priority = 40
 
-nnoremap <Leader>hd :SignifyDiff<CR>
-nnoremap <Leader>hf :SignifyFold<CR>
-nnoremap <Leader>hp :SignifyHunkDiff<CR>
-nnoremap <Leader>hu :SignifyHunkUndo<CR>
+  nnoremap <Leader>hd :SignifyDiff<CR>
+  nnoremap <Leader>hf :SignifyFold<CR>
+  nnoremap <Leader>hp :SignifyHunkDiff<CR>
+  nnoremap <Leader>hu :SignifyHunkUndo<CR>
 
-nmap [h <Plug>(signify-prev-hunk)
-nmap ]h <Plug>(signify-next-hunk)
-nmap [H 9999<Plug>(signify-prev-hunk)
-nmap ]H 9999<Plug>(signify-next-hunk)
+  nmap [h <Plug>(signify-prev-hunk)
+  nmap ]h <Plug>(signify-next-hunk)
+  nmap [H 9999<Plug>(signify-prev-hunk)
+  nmap ]H 9999<Plug>(signify-next-hunk)
 
-omap ih <Plug>(signify-motion-inner-pending)
-xmap ih <Plug>(signify-motion-inner-visual)
-omap ah <Plug>(signify-motion-outer-pending)
-xmap ah <Plug>(signify-motion-outer-visual)
+  omap ih <Plug>(signify-motion-inner-pending)
+  xmap ih <Plug>(signify-motion-inner-visual)
+  omap ah <Plug>(signify-motion-outer-pending)
+  xmap ah <Plug>(signify-motion-outer-visual)
+endif
 " }}}
 
 " vim-tig {{{
