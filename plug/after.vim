@@ -35,7 +35,7 @@ endif
 
 " telescope.nvim {{{
 if vimrc#plugin#is_enabled_plugin('telescope.nvim')
-  lua require('vimrc.plugins.telescope')
+  lua require('vimrc.plugins.telescope_after')
 endif
 " }}}
 
@@ -57,13 +57,13 @@ call vimrc#source('vimrc/plugins/sandwich_after.vim')
 
 " nvim-treesitter {{{
 if vimrc#plugin#is_enabled_plugin('nvim-treesitter')
-  call vimrc#source('vimrc/plugins/nvim_treesitter_after.vim')
+  lua require('vimrc.plugins.nvim_treesitter_after')
 endif
 " }}}
 
 " gitsigns.nvim {{{
 if vimrc#plugin#is_enabled_plugin('gitsigns.nvim')
-  lua require('vimrc.plugins.gitsigns')
+  lua require('vimrc.plugins.gitsigns_after')
 endif
 " }}}
 

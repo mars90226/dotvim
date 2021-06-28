@@ -1,4 +1,3 @@
-lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
   ignore_install = {},
@@ -119,4 +118,3 @@ require'nvim-treesitter.configs'.setup {
 require'treesitter-context.config'.setup{
   enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
 }
-EOF
