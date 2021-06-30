@@ -22,6 +22,7 @@ call coc#add_extension('coc-css')
 call coc#add_extension('coc-vetur')
 call coc#add_extension('coc-solargraph')
 call coc#add_extension('coc-perl')
+call coc#add_extension('coc-go')
 
 call coc#config('languageserver', {
       \ 'ccls': {
