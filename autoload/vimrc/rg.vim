@@ -13,6 +13,7 @@ let s:type_pattern_options = {
       \ 'log':        ['\.log$',                                     '-tlog'],
       \ 'lua':        ['\.lua$',                                     '-tlua'],
       \ 'make':       ['\v%(^[Mm]akefile%(\.am|\.in)?|\.mak|\.mk)$', '-tmake'],
+      \ 'markdown':   ['\v\.%(markdown|md|mdown|mkdn)$',             '-tmd'],
       \ 'perl':       ['\v\.%(pl|pm|t)$',                            '-tperl'],
       \ 'php':        ['\v\.%(php|php[3-5]|phtml)$',                 '-tphp'],
       \ 'python':     ['\.py$',                                      '-tpy'],
