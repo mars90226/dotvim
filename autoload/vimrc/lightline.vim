@@ -154,6 +154,5 @@ function! vimrc#lightline#refresh() abort
 endfunction
 
 function! vimrc#lightline#nearest_method_or_function() abort
-  let vista_method = get(b:, 'vista_nearest_method_or_function', '')
-  return vista_method ==# '' ? tagbar#currenttag('%s', '', '') : vista_method
+  return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
