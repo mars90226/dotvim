@@ -27,13 +27,15 @@ function! vimrc#lightline#filename() abort
     let t:current_filename = fname
     return fname
   else
-    let readonly = '' !=# vimrc#lightline#readonly() ? vimrc#lightline#readonly() . ' ' : ''
+    let readonly = vimrc#lightline#readonly()
+    let readonly = '' !=# readonly ? readonly . ' ' : ''
     if fpath =~? '^fugitive'
       let filename = fnamemodify(fugitive#Real(fpath), ':.') . ' [git]'
     else
       let filename = '' !=# fname ? fpath : '[No Name]'
     end
-    let modified = '' !=# vimrc#lightline#modified() ? ' ' . vimrc#lightline#modified() : ''
+    let modified = vimrc#lightline#modified()
+    let modified = '' !=# modified ? ' ' . modified : ''
 
     let t:current_filename = fname
     return readonly . filename . modified
