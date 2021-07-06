@@ -1,6 +1,6 @@
 " For TUI support
 let s:shells = [&shell, 'bash', 'zsh', 'fish', 'powershell', 'ash']
-let s:tui_processes = ['htop', 'btm', 'broot', 'sr', 'ranger', 'nnn', 'vifm', 'fff', 'lf', 'lazygit', 'gitui', 'bandwhich']
+let s:tui_processes = ['htop', 'atop', 'btm', 'broot', 'sr', 'ranger', 'nnn', 'vifm', 'fff', 'lf', 'lazygit', 'gitui', 'bandwhich']
 let s:floaterm_wrappers = ['broot', 'fff', 'fzf', 'lf', 'nnn', 'ranger', 'rg', 'vifm', 'xplr']
 
 function! vimrc#tui#get_shells() abort

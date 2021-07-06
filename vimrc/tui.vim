@@ -13,6 +13,13 @@ if executable('htop')
   nnoremap <Leader>ht :Htop<CR>
 endif
 
+if executable('atop')
+  command! Atop        call vimrc#tui#run('float', 'atop')
+  command! AtopSplit   call vimrc#tui#run('new', 'atop')
+  call vimrc#fuzzymenu#try_add('Atop', { 'exec': 'Atop' })
+  call vimrc#fuzzymenu#try_add('AtopSplit', { 'exec': 'AtopSplit' })
+endif
+
 if executable('btm')
   command! Btm         call vimrc#tui#run('float', 'btm')
   command! BtmSplit    call vimrc#tui#run('new', 'btm')
