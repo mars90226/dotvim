@@ -35,7 +35,6 @@ if executable('broot')
 endif
 
 if executable('ranger')
-  " Use floaterm ranger wrapper
   command! Ranger      call vimrc#tui#run('float', 'ranger')
   command! RangerSplit call vimrc#tui#run('new', 'ranger')
   call vimrc#fuzzymenu#try_add('Ranger', { 'exec': 'Ranger' })
@@ -57,7 +56,6 @@ if executable('vifm')
 endif
 
 if executable('fff')
-  " Use floaterm fff wrapper
   command! Fff         call vimrc#tui#run('float', 'fff')
   command! FffSplit    call vimrc#tui#run('new', 'fff')
   call vimrc#fuzzymenu#try_add('Fff', { 'exec': 'Fff' })
