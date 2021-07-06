@@ -5,8 +5,8 @@ if executable('sr')
 endif
 
 if executable('htop')
-  command! Htop        call vimrc#tui#run('float', 'htop')
-  command! HtopSplit   call vimrc#tui#run('new', 'htop')
+  command! -nargs=* Htop        call vimrc#tui#run('float', 'htop '.<q-args>)
+  command! -nargs=* HtopSplit   call vimrc#tui#run('new', 'htop '.<q-args>)
   call vimrc#fuzzymenu#try_add('Htop', { 'exec': 'Htop' })
   call vimrc#fuzzymenu#try_add('HtopSplit', { 'exec': 'HtopSplit' })
 
@@ -14,71 +14,71 @@ if executable('htop')
 endif
 
 if executable('atop')
-  command! Atop        call vimrc#tui#run('float', 'atop')
-  command! AtopSplit   call vimrc#tui#run('new', 'atop')
+  command! -nargs=* Atop        call vimrc#tui#run('float', 'atop '.<q-args>)
+  command! -nargs=* AtopSplit   call vimrc#tui#run('new', 'atop '.<q-args>)
   call vimrc#fuzzymenu#try_add('Atop', { 'exec': 'Atop' })
   call vimrc#fuzzymenu#try_add('AtopSplit', { 'exec': 'AtopSplit' })
 endif
 
 if executable('btm')
-  command! Btm         call vimrc#tui#run('float', 'btm')
-  command! BtmSplit    call vimrc#tui#run('new', 'btm')
+  command! -nargs=* Btm         call vimrc#tui#run('float', 'btm '.<q-args>)
+  command! -nargs=* BtmSplit    call vimrc#tui#run('new', 'btm '.<q-args>)
   call vimrc#fuzzymenu#try_add('Btm', { 'exec': 'Btm' })
   call vimrc#fuzzymenu#try_add('BtmSplit', { 'exec': 'BtmSplit' })
 endif
 
 if executable('broot')
-  command! Broot       call vimrc#tui#run('float', 'broot -p')
-  command! BrootSplit  call vimrc#tui#run('vnew', 'broot -p')
+  command! -nargs=* Broot       call vimrc#tui#run('float', 'broot -p '.<q-args>)
+  command! -nargs=* BrootSplit  call vimrc#tui#run('vnew', 'broot -p '.<q-args>)
   call vimrc#fuzzymenu#try_add('Broot', { 'exec': 'Broot' })
   call vimrc#fuzzymenu#try_add('BrootSplit', { 'exec': 'BrootSplit' })
 endif
 
 if executable('ranger')
-  command! Ranger      call vimrc#tui#run('float', 'ranger')
-  command! RangerSplit call vimrc#tui#run('new', 'ranger')
+  command! -nargs=* Ranger      call vimrc#tui#run('float', 'ranger '.<q-args>)
+  command! -nargs=* RangerSplit call vimrc#tui#run('new', 'ranger '.<q-args>)
   call vimrc#fuzzymenu#try_add('Ranger', { 'exec': 'Ranger' })
   call vimrc#fuzzymenu#try_add('RangerSplit', { 'exec': 'RangerSplit' })
 endif
 
 if executable('nnn')
-  command! Nnn         call vimrc#tui#run('float', 'nnn')
-  command! NnnSplit    call vimrc#tui#run('new', 'nnn')
+  command! -nargs=* Nnn         call vimrc#tui#run('float', 'nnn '.<q-args>)
+  command! -nargs=* NnnSplit    call vimrc#tui#run('new', 'nnn '.<q-args>)
   call vimrc#fuzzymenu#try_add('Nnn', { 'exec': 'Nnn' })
   call vimrc#fuzzymenu#try_add('NnnSplit', { 'exec': 'NnnSplit' })
 endif
 
 if executable('vifm')
-  command! Vifm        call vimrc#tui#run('float', 'vifm')
-  command! VifmSplit   call vimrc#tui#run('new', 'vifm')
+  command! -nargs=* Vifm        call vimrc#tui#run('float', 'vifm '.<q-args>)
+  command! -nargs=* VifmSplit   call vimrc#tui#run('new', 'vifm '.<q-args>)
   call vimrc#fuzzymenu#try_add('Vifm', { 'exec': 'Vifm' })
   call vimrc#fuzzymenu#try_add('VifmSplit', { 'exec': 'VifmSplit' })
 endif
 
 if executable('fff')
-  command! Fff         call vimrc#tui#run('float', 'fff')
-  command! FffSplit    call vimrc#tui#run('new', 'fff')
+  command! -nargs=* Fff         call vimrc#tui#run('float', 'fff '.<q-args>)
+  command! -nargs=* FffSplit    call vimrc#tui#run('new', 'fff '.<q-args>)
   call vimrc#fuzzymenu#try_add('Fff', { 'exec': 'Fff' })
   call vimrc#fuzzymenu#try_add('FffSplit', { 'exec': 'FffSplit' })
 endif
 
 if executable('lf')
-  command! Lf          call vimrc#tui#run('float', 'lf')
-  command! LfSplit     call vimrc#tui#run('new', 'lf')
+  command! -nargs=* Lf          call vimrc#tui#run('float', 'lf '.<q-args>)
+  command! -nargs=* LfSplit     call vimrc#tui#run('new', 'lf '.<q-args>)
   call vimrc#fuzzymenu#try_add('Lf', { 'exec': 'Lf' })
   call vimrc#fuzzymenu#try_add('LfSplit', { 'exec': 'LfSplit' })
 endif
 
 if executable('xplr')
-  command! Xplr          call vimrc#tui#run('float', 'xplr')
-  command! XplrSplit     call vimrc#tui#run('new', 'xplr')
+  command! -nargs=* Xplr          call vimrc#tui#run('float', 'xplr '.<q-args>)
+  command! -nargs=* XplrSplit     call vimrc#tui#run('new', 'xplr '.<q-args>)
   call vimrc#fuzzymenu#try_add('Xplr', { 'exec': 'Xplr' })
   call vimrc#fuzzymenu#try_add('XplrSplit', { 'exec': 'XplrSplit' })
 endif
 
 if executable('lazygit')
-  command! LazyGit      call vimrc#tui#run('float', 'lazygit')
-  command! LazyGitSplit call vimrc#tui#run('new', 'lazygit')
+  command! -nargs=* LazyGit      call vimrc#tui#run('float', 'lazygit '.<q-args>)
+  command! -nargs=* LazyGitSplit call vimrc#tui#run('new', 'lazygit '.<q-args>)
   call vimrc#fuzzymenu#try_add('LazyGit', { 'exec': 'LazyGit' })
   call vimrc#fuzzymenu#try_add('LazyGitSplit', { 'exec': 'LazyGitSplit' })
 
@@ -86,8 +86,8 @@ if executable('lazygit')
 endif
 
 if executable('gitui')
-  command! Gitui       call vimrc#tui#run('float', 'gitui')
-  command! GituiSplit  call vimrc#tui#run('new', 'gitui')
+  command! -nargs=* Gitui       call vimrc#tui#run('float', 'gitui '.<q-args>)
+  command! -nargs=* GituiSplit  call vimrc#tui#run('new', 'gitui '.<q-args>)
   call vimrc#fuzzymenu#try_add('Gitui', { 'exec': 'Gitui' })
   call vimrc#fuzzymenu#try_add('GituiSplit', { 'exec': 'GituiSplit' })
 
@@ -95,8 +95,8 @@ if executable('gitui')
 endif
 
 if executable('bandwhich')
-  command! Bandwhich      call vimrc#tui#run('float', 'bandwhich')
-  command! BandwhichSplit call vimrc#tui#run('new', 'bandwhich')
+  command! -nargs=* Bandwhich      call vimrc#tui#run('float', 'bandwhich '.<q-args>)
+  command! -nargs=* BandwhichSplit call vimrc#tui#run('new', 'bandwhich '.<q-args>)
   call vimrc#fuzzymenu#try_add('Bandwhich', { 'exec': 'Bandwhich' })
   call vimrc#fuzzymenu#try_add('BandwhichSplit', { 'exec': 'BandwhichSplit' })
 endif
@@ -105,15 +105,15 @@ endif
 
 " Shells
 if executable('fish')
-  command! Fish        call vimrc#tui#run('float', 'fish')
-  command! FishSplit   call vimrc#tui#run('new', 'fish')
+  command! -nargs=* Fish        call vimrc#tui#run('float', 'fish '.<q-args>)
+  command! -nargs=* FishSplit   call vimrc#tui#run('new', 'fish '.<q-args>)
   call vimrc#fuzzymenu#try_add('Fish', { 'exec': 'Fish' })
   call vimrc#fuzzymenu#try_add('FishSplit', { 'exec': 'FishSplit' })
 endif
 
 if executable('zsh')
-  command! Zsh         call vimrc#tui#run('float', 'zsh')
-  command! ZshSplit    call vimrc#tui#run('new', 'zsh')
+  command! -nargs=* Zsh         call vimrc#tui#run('float', 'zsh '.<q-args>)
+  command! -nargs=* ZshSplit    call vimrc#tui#run('new', 'zsh '.<q-args>)
   call vimrc#fuzzymenu#try_add('Zsh', { 'exec': 'Zsh' })
   call vimrc#fuzzymenu#try_add('ZshSplit', { 'exec': 'ZshSplit' })
 endif
