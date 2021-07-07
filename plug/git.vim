@@ -15,6 +15,8 @@ Plug 'junegunn/gv.vim', { 'on': 'GV' }
 command! -bang -nargs=* GVA GV<bang> --all <args>
 
 " GV with company filter
+" TODO: Add complete function, need to get gv.vim script id to use
+" s:gvcomplete as complete function
 execute 'command! -nargs=* GVD  GV --author='.get(g:, 'company_domain', '').' <args>'
 execute 'command! -nargs=* GVDA GV --author='.get(g:, 'company_domain', '').' --all <args>'
 execute 'command! -nargs=* GVE  GV --author='.get(g:, 'company_email', '').' <args>'
@@ -39,10 +41,10 @@ Plug 'rbong/vim-flog'
 command! -nargs=* Floga Flog -all <args>
 
 " GV with company filter
-execute 'command! -nargs=* Flogd  Flog -author='.get(g:, 'company_domain', '').' <args>'
-execute 'command! -nargs=* Flogda Flog -author='.get(g:, 'company_domain', '').' -all <args>'
-execute 'command! -nargs=* Floge  Flog -author='.get(g:, 'company_email', '').' <args>'
-execute 'command! -nargs=* Flogea Flog -author='.get(g:, 'company_email', '').' -all <args>'
+execute 'command! -complete=customlist,flog#complete -nargs=* Flogd  Flog -author='.get(g:, 'company_domain', '').' <args>'
+execute 'command! -complete=customlist,flog#complete -nargs=* Flogda Flog -author='.get(g:, 'company_domain', '').' -all <args>'
+execute 'command! -complete=customlist,flog#complete -nargs=* Floge  Flog -author='.get(g:, 'company_email', '').' <args>'
+execute 'command! -complete=customlist,flog#complete -nargs=* Flogea Flog -author='.get(g:, 'company_email', '').' -all <args>'
 
 nnoremap <Space>gf :call vimrc#flog#open({})<CR>
 nnoremap <Space>gF :call vimrc#flog#open({'all': v:true})<CR>
