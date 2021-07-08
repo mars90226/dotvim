@@ -315,6 +315,7 @@ let g:sid = s:SID_PREFIX()
 
 command! ToggleIndent call vimrc#toggle#toggle#indent()
 command! ToggleFold call vimrc#toggle#fold_method()
+nnoremap cof :ToggleFold<CR>
 
 " LastTab
 command! -count -bar LastTab call vimrc#last_tab#jump(<count>)
