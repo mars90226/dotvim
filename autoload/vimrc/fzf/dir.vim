@@ -1,6 +1,11 @@
 let s:fd_command = 'fd --no-ignore --hidden --follow'
 let s:fd_dir_command = 'fd --type directory --no-ignore-vcs --hidden --follow --ignore-file ' . $HOME . '/.ignore'
 
+" Utilities
+function! vimrc#fzf#dir#get_start_directory(cwd, path) abort
+  return a:path =~# '^/' ? a:path : simplify(a:cwd . '/' . a:path)
+endfunction
+
 " Sources
 function! vimrc#fzf#dir#directory_ancestors_source(path) abort
   let current_dir = fnamemodify(a:path, ':p:h')
@@ -36,7 +41,7 @@ function! vimrc#fzf#dir#directory_sink(original_cwd, path, Func, directory) abor
   endif
 
   " Execute second fzf function in callback
-  let w:directory_sink_directory = simplify(a:original_cwd.'/'.a:path.'/'.a:directory)
+  let w:directory_sink_directory = simplify(vimrc#fzf#dir#get_start_directory(a:original_cwd, a:path).'/'.a:directory)
   let w:DirectorySinkFunc = a:Func
 
   augroup directory_sink_chdir_callback
@@ -152,7 +157,7 @@ function! vimrc#fzf#dir#custom_files(command, bang) abort
 endfunction
 
 function! vimrc#fzf#dir#directories(path, bang, ...) abort
-  let path = simplify(getcwd() . '/' . a:path)
+  let path = vimrc#fzf#dir#get_start_directory(getcwd(), a:path)
   let Sink = a:0 && type(a:1) == type(function('call')) ? a:1 : ''
   let args = {
         \ 'source':  s:fd_dir_command,
