@@ -214,6 +214,12 @@ if vimrc#plugin#is_enabled_plugin('defx.nvim')
   command! -bang -nargs=? -complete=dir Files        call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#files(<q-args>, <bang>0) })
   command! -bang -nargs=?               GFiles       call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#gitfiles(<q-args>, <bang>0) })
   command! -bang -nargs=+ -complete=dir Locate       call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#locate(<q-args>, <bang>0) })
+
+  " Mru
+  command!                              Mru          call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#mru#mru() })
+  command!                              ProjectMru   call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#mru#project_mru() })
+
+  " DirectoryMru
   command! -bang                        DirectoryMru call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#mru#directory_mru(<bang>0) })
   command! -bang -nargs=?               Directories  call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#dir#directories(<q-args>, <bang>0) })
 endif
