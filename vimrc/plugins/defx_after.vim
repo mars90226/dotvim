@@ -2,7 +2,7 @@
 scriptencoding utf-8
 
 call defx#custom#option('_', {
-      \ 'columns': 'git:mark:indent:icon:icons:space:filename:type:size:time',
+      \ 'columns': 'git:mark:indent:icon:space:icons:space:filename:type:size:time',
       \ 'show_ignored_files': 1,
       \ })
 call defx#custom#column('icon', {
