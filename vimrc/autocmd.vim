@@ -1,12 +1,3 @@
-" Put these in an autocmd group, so that we can delete them easily.
-" TODO May consider removing this augroup and only use :ReloadVimrc to reload
-augroup vim_auto_reload_settings
-  autocmd!
-  autocmd BufWritePost .vimrc   nested call vimrc#reload#reload() | e | normal! zzzv
-  autocmd BufWritePost _vimrc   nested call vimrc#reload#reload() | e | normal! zzzv
-  autocmd BufWritePost init.vim nested call vimrc#reload#reload() | e | normal! zzzv
-augroup END
-
 augroup filetype_detection_settings
   autocmd!
 
