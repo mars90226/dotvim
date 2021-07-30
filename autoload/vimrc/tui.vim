@@ -11,12 +11,20 @@ function! vimrc#tui#is_shell(cmd) abort
   return index(s:shells, a:cmd) != -1
 endfunction
 
-function! vimrc#tui#get_processes() abort
+function! vimrc#tui#get_tui_processes() abort
   return s:tui_processes
+endfunction
+
+function! vimrc#tui#is_tui_process(cmd) abort
+  return index(s:tui_processes, a:cmd) != -1
 endfunction
 
 function! vimrc#tui#get_floaterm_wrappers() abort
   return s:floaterm_wrappers
+endfunction
+
+function! vimrc#tui#is_floaterm_wrapper(cmd) abort
+  return index(s:floaterm_wrappers, a:cmd) != -1
 endfunction
 
 " 1. Check if command is floaterm wrapper

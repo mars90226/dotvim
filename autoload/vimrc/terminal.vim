@@ -60,9 +60,11 @@ function! vimrc#terminal#open(split, folder, cmd) abort
     " So we need to open shell and prepend cd command
     let cd_cmd = empty(a:folder) ? '' : 'cd '.fnameescape(a:folder)
     if vimrc#tui#is_shell(a:cmd)
+      " FIXME: the function arguments are changed
       let bufnr = floaterm#terminal#open(-1, a:cmd, {}, {})
       call floaterm#terminal#send(bufnr, [cd_cmd])
     else
+      " FIXME: the function arguments are changed
       let bufnr = floaterm#terminal#open(-1, &shell, {}, {})
       call floaterm#terminal#send(bufnr, [cd_cmd, a:cmd])
     endif
@@ -96,8 +98,7 @@ function! vimrc#terminal#is_floaterm() abort
   return &ft ==# 'floaterm'
 endfunction
 
-function! vimrc#terminal#is_shell_terminal(terminal) abort
-  let shells = vimrc#tui#get_shells()
+function! vimrc#terminal#is_exception_program(terminal) abort
   let exception_programs = ['fzf', 'coc']
 
   let cmd = vimrc#terminal#get_terminal_command(a:terminal)
@@ -107,9 +108,18 @@ function! vimrc#terminal#is_shell_terminal(terminal) abort
 
   for exception_program in exception_programs
     if cmd =~ vimrc#get_boundary_pattern(exception_program)
-      return v:false
+      return v:true
     endif
   endfor
+endfunction
+
+function! vimrc#terminal#is_shell_terminal(terminal) abort
+  let shells = vimrc#tui#get_shells()
+
+  let cmd = vimrc#terminal#get_terminal_command(a:terminal)
+  if empty(cmd)
+    return v:false
+  endif
 
   for shell in shells
     if cmd =~ vimrc#get_boundary_pattern(shell)
@@ -120,7 +130,7 @@ endfunction
 
 " Check if terminal command is tui process
 function! vimrc#terminal#is_interactive_process(terminal) abort
-  let interactive_processes = vimrc#tui#get_processes()
+  let interactive_processes = vimrc#tui#get_tui_processes()
 
   let cmd = vimrc#terminal#get_terminal_command(a:terminal)
   if empty(cmd)
@@ -134,8 +144,29 @@ function! vimrc#terminal#is_interactive_process(terminal) abort
   endfor
 endfunction
 
+function! vimrc#terminal#is_floaterm_wrapper(terminal) abort
+  let floaterm_wrappers = vimrc#tui#get_floaterm_wrappers()
+
+  let cmd = get(b:, 'floaterm_cmd', '')
+  if type(cmd) == type([])
+    let cmd = join(cmd)
+  endif
+  if empty(cmd)
+    return v:false
+  endif
+
+  for floaterm_wrapper in floaterm_wrappers
+    if cmd =~ vimrc#get_boundary_pattern(floaterm_wrapper)
+      return v:true
+    endif
+  endfor
+endfunction
+
 function! vimrc#terminal#close_result_buffer(terminal) abort
-  if vimrc#terminal#is_shell_terminal(a:terminal) || vimrc#terminal#is_interactive_process(a:terminal)
+  if !vimrc#terminal#is_exception_program(a:terminal)
+        \ && !vimrc#terminal#is_floaterm_wrapper(a:terminal)
+        \ && (vimrc#terminal#is_shell_terminal(a:terminal)
+        \ || vimrc#terminal#is_interactive_process(a:terminal))
     call nvim_input('<CR>')
   endif
 endfunction
