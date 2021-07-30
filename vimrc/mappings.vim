@@ -352,6 +352,8 @@ if executable('tmux')
 endif
 
 command! ClearWinfixsize call vimrc#clear_winfixsize()
+
+command! -nargs=1 ClearRegisters call vimrc#utility#clear_registers(<q-args>)
 " }}}
 
 " Custom command {{{

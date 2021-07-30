@@ -339,3 +339,9 @@ function! vimrc#utility#all_tab_win_execute(function) abort
   tabdo windo call a:function()
   call vimrc#utility#goto_tab_win_nr(origin_tab_win_nr)
 endfunction
+
+function! vimrc#utility#clear_registers(registers) abort
+  for i in range(len(a:registers))
+    call setreg(a:registers[i], '')
+  endfor
+endfunction
