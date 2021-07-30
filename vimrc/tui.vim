@@ -32,6 +32,8 @@ if executable('broot')
   command! -nargs=* BrootSplit  call vimrc#tui#run('vnew', 'broot -p '.<q-args>)
   call vimrc#fuzzymenu#try_add('Broot', { 'exec': 'Broot' })
   call vimrc#fuzzymenu#try_add('BrootSplit', { 'exec': 'BrootSplit' })
+
+  nnoremap <Leader>br :Broot<CR>
 endif
 
 if executable('ranger')
