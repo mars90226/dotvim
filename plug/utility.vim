@@ -70,7 +70,7 @@ nnoremap <Leader>r :Rooter<CR>
 " }}}
 
 " vimwiki {{{
-Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 " disable vimwiki on markdown file
 let g:vimwiki_ext2syntax = { '.wiki': 'default' }
