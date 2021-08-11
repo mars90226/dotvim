@@ -212,7 +212,7 @@ function! vimrc#utility#refresh_env_from_tmux(variable) abort
 endfunction
 
 function! vimrc#utility#refresh_display() abort
-  # $TMUX_DISPLAY should be the viable $DISPLAY
+  " $TMUX_DISPLAY should be the viable $DISPLAY
   call vimrc#utility#refresh_env_from_tmux('TMUX_DISPLAY')
   call setenv('DISPLAY', $TMUX_DISPLAY)
 endfunction
