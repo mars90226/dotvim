@@ -20,7 +20,7 @@ endif
 if vimrc#plugin#is_enabled_plugin('coc.nvim')
   Plug 'Shougo/neco-vim'
   Plug 'neoclide/coc-neco'
-  Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+  Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': { -> coc#util#install() } }
   Plug 'neoclide/coc-denite'
   Plug 'antoinemadec/coc-fzf'
 
