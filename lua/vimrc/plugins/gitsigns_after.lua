@@ -40,7 +40,6 @@ require('gitsigns').setup {
   update_debounce = 100,
   status_formatter = nil, -- Use default
   word_diff = false,
-  use_decoration_api = true,
   use_internal_diff = true,  -- If luajit is present
   on_attach = function(bufnr)
     vim.wo.signcolumn = 'yes'
