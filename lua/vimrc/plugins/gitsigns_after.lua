@@ -34,14 +34,14 @@ require('gitsigns').setup {
     follow_files = true
   },
   current_line_blame = true,
-  current_line_blame_delay = 500,
-  current_line_blame_position = 'eol',
+  current_line_blame_opts = {
+    virt_text = true,
+    virt_text_pos = 'eol',
+    delay = 500
+  },
   sign_priority = 6,
   update_debounce = 100,
   status_formatter = nil, -- Use default
   word_diff = false,
   use_internal_diff = true,  -- If luajit is present
-  on_attach = function(bufnr)
-    vim.wo.signcolumn = 'yes'
-  end
 }
