@@ -9,6 +9,7 @@ let g:ale_linters = {
       \ 'cpp': ['g++'],
       \ 'javascript': ['eslint', 'jshint'],
       \ 'python': ['pylint', 'flake8'],
+      \ 'ruby': ['standardrb'],
       \ 'sh': ['shell', 'shellcheck']
       \}
 let g:ale_fixers = {
@@ -32,6 +33,7 @@ let g:ale_fixers = {
       \   { buffer, lines -> systemlist('luaformatter '.expand('%')) }
       \ ],
       \ 'python': ['black'],
+      \ 'ruby': ['standardrb'],
       \ 'rust': ['rustfmt'],
       \ 'scss': [
       \   'prettier',
