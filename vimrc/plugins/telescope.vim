@@ -10,6 +10,10 @@ nnoremap <Space>tg <Cmd>Telescope git_files<CR>
 nnoremap <Space>th <Cmd>Telescope help_tags<CR>
 nnoremap <Space>ti <Cmd>Telescope live_grep<CR>
 nnoremap <Space>tj <Cmd>Telescope jumplist<CR>
+nnoremap <Space>tk <Cmd>execute 'Telescope grep_string use_regex=true search='.expand('<cword>')<CR>
+nnoremap <Space>tK <Cmd>execute 'Telescope grep_string use_regex=true search='.expand('<cWORD>')<CR>
+nnoremap <Space>t8 <Cmd>execute 'Telescope grep_string use_regex=true search=\b'.expand('<cword>').'\b'<CR>
+nnoremap <Space>t* <Cmd>execute 'Telescope grep_string use_regex=true search=\b'.expand('<cWORD>').'\b'<CR>
 nnoremap <Space>tl <Cmd>Telescope current_buffer_fuzzy_find<CR>
 nnoremap <Space>tL <Cmd>Telescope builtin<CR>
 nnoremap <Space>tm <Cmd>Telescope oldfiles<CR>
