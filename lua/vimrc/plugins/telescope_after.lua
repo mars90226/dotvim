@@ -21,7 +21,14 @@ require('telescope').setup{
         -- Use <C-J>/<C-K> to move next/previous
         ["<C-J>"] = actions.move_selection_next,
         ["<C-K>"] = actions.move_selection_previous,
+
+        -- Use <C-S> to select horizontal
+        ["<C-S>"] = actions.select_horizontal,
       },
+      n = {
+        -- Use <C-S> to select horizontal
+        ["<C-S>"] = actions.select_horizontal,
+      }
     },
   }
 }
