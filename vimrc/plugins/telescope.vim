@@ -37,3 +37,6 @@ nnoremap <Space>t/ <Cmd>Telescope search_history<CR>
 nnoremap <Space>t<Tab> <Cmd>Telescope keymaps<CR>
 nnoremap <Space>t<F1> <Cmd>Telescope man_pages<CR>
 nnoremap <Space>t<F5> <Cmd>Telescope reloader<CR>
+
+" Cheatsheet Mappings
+nnoremap <Leader><Tab> :Cheatsheet<CR>

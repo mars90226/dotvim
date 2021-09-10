@@ -78,6 +78,8 @@ if vimrc#plugin#is_enabled_plugin('telescope.nvim')
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-telescope/telescope-project.nvim'
+  Plug 'jvgrootveld/telescope-zoxide'
+  Plug 'sudormrfbin/cheatsheet.nvim'
 
   call vimrc#source('vimrc/plugins/telescope.vim')
 endif
