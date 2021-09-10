@@ -77,6 +77,7 @@ if vimrc#plugin#is_enabled_plugin('telescope.nvim')
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-telescope/telescope-project.nvim'
 
   call vimrc#source('vimrc/plugins/telescope.vim')
 endif
