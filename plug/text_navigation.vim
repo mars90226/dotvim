@@ -51,6 +51,15 @@ if vimrc#plugin#is_enabled_plugin('hop.nvim')
 endif
 " }}}
 
+" lightspeed.nvim {{{
+if vimrc#plugin#is_enabled_plugin('lightspeed.nvim')
+  Plug 'ggandor/lightspeed.nvim'
+
+  map ;     <Plug>Lightspeed_s
+  map <M-;> <Plug>Lightspeed_S
+endif
+" }}}
+
 " aerojump.nvim {{{
 if vimrc#plugin#is_enabled_plugin('aerojump.nvim')
   Plug 'ripxorip/aerojump.nvim', { 'do': ':UpdateRemotePlugins' }
