@@ -15,7 +15,7 @@ require'nvim-treesitter.configs'.setup {
     },
   },
   indent = {
-    enable = true
+    enable = false -- Currently, nvim-treesitter indent is WIP and not ready for production use
   },
   refactor = {
     highlight_definitions = { enable = true },
