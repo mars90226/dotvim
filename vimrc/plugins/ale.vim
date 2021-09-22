@@ -38,7 +38,8 @@ let g:ale_fixers = {
       \ 'scss': [
       \   'prettier',
       \   'stylelint'
-      \ ]
+      \ ],
+      \ 'sh': ['shfmt']
       \}
 " Depend on project whether to use flow locally
 " let g:ale_javascript_flow_use_global = 1
