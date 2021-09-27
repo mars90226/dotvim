@@ -16,7 +16,7 @@ endif
 
 " nvim-lsp {{{
 if vimrc#plugin#is_enabled_plugin('nvim-lsp')
-  call vimrc#source('vimrc/plugins/nvim_lsp_after.vim')
+  lua require('vimrc.plugins.nvim_lsp_after')
 endif
 " }}}
 

@@ -1,5 +1,6 @@
 " Choose autocompletion plugin
 " coc.nvim, deoplete.nvim, completor.vim, YouCompleteMe, supertab
+" TODO: Add nvim-compe
 call vimrc#plugin#disable_plugins(
       \ ['coc.nvim', 'deoplete.nvim', 'completor.vim', 'YouCompleteMe', 'supertab'])
 if vimrc#plugin#check#has_async()

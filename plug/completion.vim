@@ -62,6 +62,8 @@ endif
 " nvim-lsp {{{
 if vimrc#plugin#is_enabled_plugin('nvim-lsp')
   Plug 'neovim/nvim-lsp'
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'kabouzeid/nvim-lspinstall'
 
   call vimrc#source('vimrc/plugins/nvim_lsp.vim')
 endif
