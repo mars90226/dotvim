@@ -30,6 +30,17 @@ endif
 " barbar.nvim {{{
 if vimrc#plugin#is_enabled_plugin('barbar.nvim')
   Plug 'romgrk/barbar.nvim'
+
+  " Move to previous/next
+  nnoremap <silent> <C-J> :BufferPrevious<CR>
+  nnoremap <silent> <C-K> :BufferNext<CR>
+
+  " Re-order to previous/next
+  nnoremap <silent> <Leader>t< :BufferMovePrevious<CR>
+  nnoremap <silent> <Leader>t> :BufferMoveNext<CR>
+
+  " Goto buffer in position
+  nnoremap <silent> g4 :BufferLast<CR>
 endif
 " }}}
 " }}}

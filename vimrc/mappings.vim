@@ -30,12 +30,20 @@ cnoremap <M-p> <Up>
 " }}}
 
 " Tab key mapping {{{
-" Quickly switch tab
-nnoremap <C-J> gT
-nnoremap <C-K> gt
+if vimrc#plugin#is_disabled_plugin('barbar.nvim')
+  " Move to previous/next
+  nnoremap <C-J> gT
+  nnoremap <C-K> gt
+
+  " Re-order to previous/next
+  nnoremap <Leader>t< :tabmove -1<CR>
+  nnoremap <Leader>t> :tabmove +1<CR>
+
+  " Goto buffer in position
+  nnoremap g4 :tablast<CR>
+endif
 
 nnoremap QQ :call vimrc#utility#quit_tab()<CR>
-nnoremap g4 :tablast<CR>
 " }}}
 
 " Quickly adjust window size
@@ -49,10 +57,6 @@ xnoremap <C-W><Space>_ :call vimrc#utility#resize_height_to_selected()<CR>
 xnoremap <C-W><Space><Bar> :call vimrc#utility#resize_width_to_selected()<CR>
 xnoremap <C-W><Space>x :call vimrc#utility#resize_to_selected()<CR>
 nnoremap <C-W><Space>s :call vimrc#utility#reset_sidebar_size()<CR>
-
-" Move tab
-nnoremap <Leader>t< :tabmove -1<CR>
-nnoremap <Leader>t> :tabmove +1<CR>
 
 " Create new line in insert mode
 inoremap <M-o> <C-O>o
