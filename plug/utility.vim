@@ -80,7 +80,7 @@ let g:vimwiki_key_mappings = {
       \ 'table_mappings': 0,
       \ }
 " Toggle after vim
-" let g:vimwiki_folding = 'expr'
+let g:vimwiki_folding = 'expr:quick'
 
 command! VimwikiToggleFolding    call vimrc#vimwiki#toggle_folding()
 command! VimwikiToggleAllFolding call vimrc#vimwiki#toggle_all_folding()
@@ -93,7 +93,7 @@ augroup vimwiki_settings
   autocmd!
   autocmd FileType vimwiki call vimrc#vimwiki#settings()
   autocmd FileType vimwiki call vimrc#vimwiki#mappings()
-  autocmd VimEnter *.wiki  VimwikiExprAllFolding
+  autocmd VimEnter *.wiki  VimwikiManualAllFolding
 augroup END
 " }}}
 

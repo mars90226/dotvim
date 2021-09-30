@@ -63,7 +63,7 @@ function! vimrc#vimwiki#expr_folding() abort
 
   let VimwikiSetupFunc = vimrc#utility#get_script_function(vimrc#vimwiki#get_vimwiki_plugin_snr(), 'setup_buffer_win_enter')
 
-  call vimwiki#vars#set_global('folding', 'expr')
+  call vimwiki#vars#set_global('folding', 'expr:quick')
   call VimwikiSetupFunc()
 endfunction
 
