@@ -20,6 +20,7 @@ endif
 " lualine.nvim {{{
 if vimrc#plugin#is_enabled_plugin('lualine.nvim')
   Plug 'shadmansaleh/lualine.nvim'
+  Plug 'romgrk/barbar.nvim'
 endif
 " }}}
 " }}}
