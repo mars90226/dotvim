@@ -22,12 +22,18 @@ require'lualine'.setup {
     lualine_z = {}
   },
   tabline = {
-    lualine_a = {'buffers'},
-    lualine_b = {'branch'},
-    lualine_c = {{'filename', path = 1}},
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {
+      {
+        'tabs',
+        max_length = vim.o.columns,
+        mode = 2
+      }
+    },
     lualine_x = {},
     lualine_y = {},
-    lualine_z = {'tabs'}
+    lualine_z = {}
 },
   extensions = {'fugitive', 'fzf', 'quickfix'}
 }
