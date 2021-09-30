@@ -18,7 +18,7 @@ call vimrc#source('plug/local.vim')
 " Start choosing
 call vimrc#plugin#clear_disabled_plugins()
 
-call vimrc#source('plug/choose/statusline.vim')
+call vimrc#source('plug/choose/appearance.vim')
 call vimrc#source('plug/choose/completion.vim')
 call vimrc#source('plug/choose/file_explorer.vim')
 call vimrc#source('plug/choose/finder.vim')

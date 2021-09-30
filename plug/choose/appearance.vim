@@ -8,3 +8,9 @@ elseif vimrc#get_vim_mode() !=# 'full'
 else
   call vimrc#plugin#enable_plugin('vim-airline')
 endif
+
+" Tabline
+" barbar.nvim, or tabline bundled in statusline
+if vimrc#plugin#is_disabled_plugin('lualine.nvim')
+  call vimrc#plugin#disable_plugin('barbar.nvim')
+endif

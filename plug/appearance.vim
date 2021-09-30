@@ -20,6 +20,15 @@ endif
 " lualine.nvim {{{
 if vimrc#plugin#is_enabled_plugin('lualine.nvim')
   Plug 'shadmansaleh/lualine.nvim'
+endif
+" }}}
+" }}}
+
+" Tabline {{{
+" Only barbar.nvim is independent tabline plugin, others are built in
+" statusline plugin.
+" barbar.nvim {{{
+if vimrc#plugin#is_enabled_plugin('barbar.nvim')
   Plug 'romgrk/barbar.nvim'
 endif
 " }}}
