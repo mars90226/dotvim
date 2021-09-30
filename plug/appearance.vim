@@ -16,6 +16,12 @@ if vimrc#plugin#is_enabled_plugin('lightline.vim')
   call vimrc#source('vimrc/plugins/lightline.vim')
 endif
 " }}}
+
+" lualine.nvim {{{
+if vimrc#plugin#is_enabled_plugin('lualine.nvim')
+  Plug 'shadmansaleh/lualine.nvim'
+endif
+" }}}
 " }}}
 
 " vim-devicons {{{

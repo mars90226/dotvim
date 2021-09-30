@@ -1,6 +1,12 @@
 " Here is the place for config/script to use plugin autoload functions
 " TODO Move all plugin settings to post-loaded settings
 
+" lualine.nvim {{{
+if vimrc#plugin#is_enabled_plugin('lualine.nvim')
+  lua require('vimrc.plugins.lualine')
+endi
+" }}}
+
 " coc.nvim {{{
 if vimrc#plugin#is_enabled_plugin('coc.nvim')
   call vimrc#source('vimrc/plugins/coc_after.vim')
