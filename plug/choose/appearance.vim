@@ -11,6 +11,9 @@ endif
 
 " Tabline
 " barbar.nvim, or tabline bundled in statusline
-if vimrc#plugin#is_disabled_plugin('lualine.nvim')
-  call vimrc#plugin#disable_plugin('barbar.nvim')
-endif
+" TODO: Disabled due to slowness
+" TODO: Is fast in LunarVim, need to study why
+call vimrc#plugin#disable_plugin('barbar.nvim')
+" if vimrc#plugin#is_disabled_plugin('lualine.nvim')
+"   call vimrc#plugin#disable_plugin('barbar.nvim')
+" endif

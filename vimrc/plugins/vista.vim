@@ -21,10 +21,13 @@ endif
 let g:vista_sidebar_width = g:right_sidebar_width
 let g:vista_fzf_preview = ['right:50%']
 
-augroup vista_load_nearest_method_or_function
-  autocmd!
-  autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-augroup END
+if vimrc#plugin#is_disabled_plugin('lualine.nvim')
+  " Disabled in lualine.nvim, so only load when lualine.nvim is disabled
+  augroup vista_load_nearest_method_or_function
+    autocmd!
+    autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+  augroup END
+endif
 
 augroup vista_settings
   autocmd!
