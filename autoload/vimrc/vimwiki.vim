@@ -29,19 +29,26 @@ function! vimrc#vimwiki#mappings() abort
 endfunction
 
 " Functions
+function! vimrc#vimwiki#_get_toggled_folding(folding) abort
+  if a:folding =~? '^expr.*'
+    return 'manual'
+  else
+    return 'expr'
+  endif
+endfunction
+
 function! vimrc#vimwiki#toggle_folding(...) abort
   if &filetype !~# 'vimwiki'
     return
   endif
 
   let folding = a:0 > 0 && type(a:1) == type('') ? a:1 : vimwiki#vars#get_global('folding')
+  let print_message = a:0 > 1 && type(a:2) == type(v:true) ? a:2 : v:true
+  let toggled_folding = vimrc#vimwiki#_get_toggled_folding(folding)
 
-  if folding =~? '^expr.*'
-    call vimrc#vimwiki#manual_folding()
-    echo 'set foldmethod=manual'
-  else
-    call vimrc#vimwiki#expr_folding()
-    echo 'set foldmethod=expr'
+  call vimrc#vimwiki#{toggled_folding}_folding()
+  if print_message
+    echo 'set foldmethod='.toggled_folding
   endif
 endfunction
 
@@ -69,7 +76,9 @@ endfunction
 
 function! vimrc#vimwiki#toggle_all_folding() abort
   let folding = vimwiki#vars#get_global('folding')
-  call vimrc#utility#all_tab_win_execute({ -> vimrc#vimwiki#toggle_folding(folding) })
+  let toggled_folding = vimrc#vimwiki#_get_toggled_folding(folding)
+  call vimrc#utility#all_tab_win_execute({ -> vimrc#vimwiki#toggle_folding(folding, v:false) })
+  echo 'set foldmethod='.toggled_folding
 endfunction
 
 function! vimrc#vimwiki#manual_all_folding() abort
