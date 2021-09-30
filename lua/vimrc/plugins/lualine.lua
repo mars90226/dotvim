@@ -28,7 +28,11 @@ require'lualine'.setup {
       {
         'tabs',
         max_length = vim.o.columns,
-        mode = 2
+        mode = 2,
+        tabs_color = {
+          -- bg = GruvboxFg2, bg = GruvboxBg2
+          active = {fg = '#D4C3A0', bg = '#4F4945'},
+        }
       }
     },
     lualine_x = {},
