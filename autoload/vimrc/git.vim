@@ -14,7 +14,7 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
     execute 'nnoremap <silent><buffer> <Leader>gt :execute "Git show --pretty=medium --stat ".'.git_sha_fn.'<CR>'
     execute 'nnoremap <silent><buffer> <Leader>gp :execute "Git cherry-pick -n ".'.git_sha_fn.'<CR>'
     execute 'nnoremap <silent><buffer> <Leader>gP :execute "Git cherry-pick ".'.git_sha_fn.'<CR>'
-    execute 'nnoremap <silent><buffer> <Leader>gob :execute "Git branch --contains ".'.git_sha_fn.'<CR>'
+    execute 'nnoremap <silent><buffer> <Leader>gob :execute "Git branch --all --contains ".'.git_sha_fn.'<CR>'
     execute 'nnoremap <silent><buffer> <Leader>got :execute "Git tag --contains ".'.git_sha_fn.'<CR>'
     execute 'nnoremap <silent><buffer> <Leader>gT :execute "Gtabedit ".'.git_sha_fn.'<CR>'
     execute 'nnoremap <silent><buffer> <Leader>gu :execute "Gsplit ".'.git_sha_fn.'<CR>'
