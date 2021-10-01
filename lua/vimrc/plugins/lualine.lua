@@ -21,23 +21,37 @@ require'lualine'.setup {
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {
-      {
-        'tabs',
-        max_length = vim.o.columns,
-        mode = 2,
-        tabs_color = {
-          -- bg = GruvboxFg2, bg = GruvboxBg2
-          active = {fg = '#D4C3A0', bg = '#4F4945'},
-        }
-      }
-    },
-    lualine_x = {},
-    lualine_y = {},
-    lualine_z = {}
-},
+  -- builtin tabline
+  -- tabline = {
+  --   lualine_a = {},
+  --   lualine_b = {},
+  --   lualine_c = {
+  --     {
+  --       'tabs',
+  --       max_length = vim.o.columns,
+  --       mode = 2,
+  --       tabs_color = {
+  --         -- bg = GruvboxFg2, bg = GruvboxBg2
+  --         active = {fg = '#D4C3A0', bg = '#4F4945'},
+  --       }
+  --     }
+  --   },
+  --   lualine_x = {},
+  --   lualine_y = {},
+  --   lualine_z = {}
+  -- },
+
+  -- tabline.nvim
+  -- tabline = {
+  --   lualine_a = {},
+  --   lualine_b = {},
+  --   lualine_c = { require'tabline'.tabline_buffers },
+  --   lualine_x = { require'tabline'.tabline_tabs },
+  --   lualine_y = {},
+  --   lualine_z = {},
+  -- },
+  
+  -- barbar.nvim, luatab.nvim
+  tabline = {},
   extensions = {'fugitive', 'fzf', 'quickfix'}
 }

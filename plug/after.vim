@@ -7,6 +7,12 @@ if vimrc#plugin#is_enabled_plugin('lualine.nvim')
 endi
 " }}}
 
+" tabline.nvim {{{
+if vimrc#plugin#is_enabled_plugin('tabline.nvim')
+  lua require('vimrc.plugins.tabline')
+endif
+" }}}
+
 " coc.nvim {{{
 if vimrc#plugin#is_enabled_plugin('coc.nvim')
   call vimrc#source('vimrc/plugins/coc_after.vim')

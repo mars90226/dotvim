@@ -25,8 +25,23 @@ endif
 " }}}
 
 " Tabline {{{
-" Only barbar.nvim is independent tabline plugin, others are built in
-" statusline plugin.
+" luatab.nvim {{{
+if vimrc#plugin#is_enabled_plugin('luatab.nvim')
+  Plug 'alvarosevilla95/luatab.nvim'
+
+  set tabline=%!v:lua.require'luatab'.tabline()
+endif
+" }}}
+
+" tabline.nvim {{{
+if vimrc#plugin#is_enabled_plugin('tabline.nvim')
+  Plug 'kdheepak/tabline.nvim'
+
+  set guioptions-=e " Use showtabline in gui vim
+  set sessionoptions+=tabpages,globals " store tabpages and globals in session
+endif
+" }}}
+
 " barbar.nvim {{{
 if vimrc#plugin#is_enabled_plugin('barbar.nvim')
   Plug 'romgrk/barbar.nvim'
@@ -43,6 +58,8 @@ if vimrc#plugin#is_enabled_plugin('barbar.nvim')
   nnoremap <silent> g4 :BufferLast<CR>
 endif
 " }}}
+
+" Other tabline plugins are built in statusline plugin.
 " }}}
 
 " vim-devicons {{{
