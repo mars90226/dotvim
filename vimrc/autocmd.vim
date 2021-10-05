@@ -17,6 +17,7 @@ augroup filetype_detection_settings
   autocmd BufNewFile,BufReadPost .ignore              setlocal filetype=conf
   autocmd BufNewFile,BufReadPost */conf/template/*    setlocal filetype=conf
   autocmd BufNewFile,BufReadPost */*.template         setlocal filetype=conf
+  autocmd BufNewFile,BufReadPost conf/rspamd.conf*    setlocal filetype=rspamd
   autocmd BufNewFile,BufReadPost */rspamd/*.inc       setlocal filetype=rspamd
   autocmd BufNewFile,BufReadPost conf/modules.d/*.conf setlocal filetype=rspamd
   autocmd BufNewFile,BufReadPost conf/local.d/*.conf  setlocal filetype=rspamd
