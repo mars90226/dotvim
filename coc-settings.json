@@ -7,10 +7,6 @@
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
     },
-    "lua": {
-      "command": "lua-lsp",
-      "filetypes": ["lua"]
-    },
     "crystal": {
       "command": "crystalline",
       "args": [
