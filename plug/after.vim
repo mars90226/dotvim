@@ -1,6 +1,12 @@
 " Here is the place for config/script to use plugin autoload functions
 " TODO Move all plugin settings to post-loaded settings
 
+" Colors {{{
+" NOTE: Set colorscheme before statusline & tabline to avoid loading wrong
+" colors in statusline & tabline
+colorscheme gruvbox
+" }}}
+
 " lualine.nvim {{{
 if vimrc#plugin#is_enabled_plugin('lualine.nvim')
   lua require('vimrc.plugins.lualine')

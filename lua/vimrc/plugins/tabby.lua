@@ -1,1 +1,1 @@
-require'tabby'.setup({})
+require'tabby'.setup()
