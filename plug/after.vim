@@ -7,6 +7,12 @@ if vimrc#plugin#is_enabled_plugin('lualine.nvim')
 endi
 " }}}
 
+" tabby.nvim {{{
+if vimrc#plugin#is_enabled_plugin('tabby.nvim')
+  lua require('vimrc.plugins.tabby')
+endif
+" }}}
+
 " tabline.nvim {{{
 if vimrc#plugin#is_enabled_plugin('tabline.nvim')
   lua require('vimrc.plugins.tabline')

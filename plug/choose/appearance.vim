@@ -11,10 +11,13 @@ else
 endif
 
 " Tabline
-" luatab.nvim, tabline.nvim, barbar.nvim, or tabline bundled in statusline
-call vimrc#plugin#disable_plugins(['luatab.nvim', 'tabline.nvim', 'barbar.nvim'])
+" tabby.nvim, luatab.nvim, tabline.nvim, barbar.nvim, or tabline bundled in statusline
+call vimrc#plugin#disable_plugins(['tabby.nvim', 'luatab.nvim', 'tabline.nvim', 'barbar.nvim'])
 if vimrc#plugin#is_enabled_plugin('lualine.nvim')
-  call vimrc#plugin#enable_plugin('luatab.nvim')
+  call vimrc#plugin#enable_plugin('tabby.nvim')
+  " TODO: Disable luatab.nvim due to not showing current tab when too many
+  " tabs
+  " call vimrc#plugin#enable_plugin('luatab.nvim')
   " TODO: Disable tabline.nvim due to lack of normal tabline
   " call vimrc#plugin#enable_plugin('tabline.nvim')
   " TODO: Disable barbar.nvim due to slowness

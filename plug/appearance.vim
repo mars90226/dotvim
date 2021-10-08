@@ -25,6 +25,12 @@ endif
 " }}}
 
 " Tabline {{{
+" tabby.nvim {{{
+if vimrc#plugin#is_enabled_plugin('tabby.nvim')
+  Plug 'nanozuki/tabby.nvim'
+endif
+" }}}
+
 " luatab.nvim {{{
 if vimrc#plugin#is_enabled_plugin('luatab.nvim')
   Plug 'alvarosevilla95/luatab.nvim'

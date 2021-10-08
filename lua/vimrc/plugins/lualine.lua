@@ -51,7 +51,7 @@ require'lualine'.setup {
   --   lualine_z = {},
   -- },
   
-  -- barbar.nvim, luatab.nvim
+  -- barbar.nvim, luatab.nvim, tabby.nvim
   tabline = {},
   extensions = {'fugitive', 'fzf', 'quickfix'}
 }
