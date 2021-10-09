@@ -284,7 +284,6 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Shougo/vinarise.vim', { 'on': 'Vinarise' }
 Plug 'alx741/vinfo', { 'on': 'Vinfo' }
 Plug 'mattn/webapi-vim'
-Plug 'kana/vim-arpeggio'
 Plug 'kopischke/vim-fetch'
 Plug 'Valloric/ListToggle'
 Plug 'tpope/vim-eunuch'

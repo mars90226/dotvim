@@ -105,10 +105,3 @@ endif
 " fuzzymenu {{{
 call vimrc#source('vimrc/plugins/fuzzymenu_after.vim')
 " }}}
-
-" arpeggio {{{
-call arpeggio#load()
-
-" Quickly escape insert mode
-Arpeggio inoremap jk <Esc>
-" }}}
