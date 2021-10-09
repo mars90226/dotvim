@@ -17,8 +17,6 @@ function! vimrc#lightline#filename() abort
     return 'Mundo Preview'
   elseif &filetype ==# 'qf'
     return get(w:, 'quickfix_title', '')
-  elseif &filetype ==# 'vimfiler'
-    return vimfiler#get_status_string()
   elseif &filetype ==# 'LuaTree'
     return vimrc#nvim_tree_lua#get_path()
   elseif &filetype ==# 'help'
@@ -103,7 +101,6 @@ function! vimrc#lightline#mode() abort
         \ fname ==# '__Mundo__' ? 'Mundo' :
         \ fname ==# '__Mundo_Preview__' ? 'Mundo Preview' :
         \ &filetype ==# 'qf' ? vimrc#lightline#quickfix_mode() :
-        \ &filetype ==# 'vimfiler' ? 'VimFiler' :
         \ &filetype ==# 'LuaTree' ? 'LuaTree' :
         \ &filetype ==# 'fugitive' ? 'Fugitive' :
         \ lightline#mode()

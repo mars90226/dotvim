@@ -21,15 +21,6 @@ augroup vinegar_settings
 augroup END
 " }}}
 
-" vimfiler {{{
-if vimrc#plugin#is_enabled_plugin('vimfiler')
-  Plug 'Shougo/vimfiler.vim'
-  Plug 'Shougo/neossh.vim'
-
-  call vimrc#source('vimrc/plugins/vimfiler.vim')
-endif
-" }}}
-
 " defx.nvim {{{
 if vimrc#plugin#is_enabled_plugin('defx.nvim')
   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
