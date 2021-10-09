@@ -95,6 +95,14 @@ endif
 call vimrc#source('vimrc/plugins/textobj_user_after.vim')
 " }}}
 
+" nvim-colorizer.lua {{{
+if vimrc#plugin#is_enabled_plugin('nvim-colorizer.lua')
+  set termguicolors
+
+  lua require'colorizer'.setup()
+endif
+" }}}
+
 " fuzzymenu {{{
 call vimrc#source('vimrc/plugins/fuzzymenu_after.vim')
 " }}}

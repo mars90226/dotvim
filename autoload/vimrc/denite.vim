@@ -271,7 +271,9 @@ function! vimrc#denite#filter_mappings() abort
   imap <silent><buffer> <M-l>      <Plug>(denite_filter_update):call vimrc#denite#goto_and_back_between_preview()<CR>
 
   " Integration with other plugins
-  imap <buffer>         <M-x><M-c> <Plug>(denite_filter_update):ColorToggle<CR>i
+  if vimrc#plugin#is_enabled_plugin('Colorizer')
+    imap <buffer>         <M-x><M-c> <Plug>(denite_filter_update):ColorToggle<CR>i
+  endif
 
   " Toggle matchers & sorters
   if vimrc#denite#use_clap()

@@ -65,3 +65,12 @@ if has('nvim-0.5')
 else
   call vimrc#plugin#enable_plugin('vim-choosewin')
 endif
+
+" Choose colorizer plugin
+" nvim-colorizer.lua, Colorizer
+call vimrc#plugin#disable_plugins(['nvim-colorizer.lua', 'Colorizer'])
+if has('nvim-0.4.0') && has('termguicolors')
+  call vimrc#plugin#enable_plugin('nvim-colorizer.lua')
+else
+  call vimrc#plugin#enable_plugin('Colorizer')
+endif
