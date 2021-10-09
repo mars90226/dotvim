@@ -7,6 +7,7 @@ if vimrc#plugin#is_enabled_plugin('nvim-treesitter')
   Plug 'nvim-treesitter/playground'
   Plug 'romgrk/nvim-treesitter-context'
   Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+  Plug 'mfussenegger/nvim-ts-hint-textobject'
 
   call vimrc#source('vimrc/plugins/nvim_treesitter.vim')
 endif
