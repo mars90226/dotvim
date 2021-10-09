@@ -43,7 +43,7 @@ endif
 " indent-blankline.nvim, indentLine
 call vimrc#plugin#disable_plugins(['indent-blankline.nvim', 'indentLine'])
 " allow virt_text overlay at any column in 'NVIM v0.5.0-dev+1103-g7bcac75f3'
-if has('nvim-0.5.1') || (has('nvim-0.5') && vimrc#plugin#check#nvim_patch_version() >= 1103)
+if has('nvim-0.5') || (has('nvim-0.4') && vimrc#plugin#check#nvim_patch_version() >= 1103)
   call vimrc#plugin#enable_plugin('indent-blankline.nvim')
 else
   call vimrc#plugin#enable_plugin('indentLine')

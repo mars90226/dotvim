@@ -76,11 +76,10 @@ set fillchars=diff:⣿,fold:-,vert:│
 
 " show hidden characters
 set list
+set listchars=tab:▸\ ,extends:»,precedes:«,nbsp:␣,space:⋅
 if vimrc#get_vim_mode() =~# 'reader'
   " Don't show trailing space in reader vim mode
-  set listchars=tab:▸\ ,trail:\ ,extends:»,precedes:«,nbsp:␣
-else
-  set listchars=tab:▸\ ,trail:•,extends:»,precedes:«,nbsp:␣
+  set listchars+=trail:•
 endif
 
 set laststatus=2

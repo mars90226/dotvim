@@ -95,6 +95,12 @@ endif
 call vimrc#source('vimrc/plugins/textobj_user_after.vim')
 " }}}
 
+" indent-blankline.nvim {{{
+if vimrc#plugin#is_enabled_plugin('indent-blankline.nvim')
+  lua require('vimrc.plugins.indent_blankline')
+endif
+" }}}
+
 " nvim-colorizer.lua {{{
 if vimrc#plugin#is_enabled_plugin('nvim-colorizer.lua')
   set termguicolors
