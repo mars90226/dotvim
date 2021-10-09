@@ -1,16 +1,3 @@
-" Choose matcher {{{
-if has('python3')
-  Plug 'raghur/fruzzy', { 'branch': 'master', 'do': { -> fruzzy#install() } }
-
-  let g:fruzzy#usenative = 1
-  let g:ctrlp_match_func = { 'match': 'fruzzy#ctrlp#matcher' }
-elseif has('python')
-  Plug 'FelikZ/ctrlp-py-matcher'
-
-  let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-endif
-" }}}
-
 " neomru.vim & neoyank.vim {{{
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/neoyank.vim'
@@ -19,14 +6,6 @@ Plug 'Shougo/neoyank.vim'
 " }}}
 
 " Finders {{{
-" ctrlp.vim {{{
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'tacahiroy/ctrlp-funky'
-Plug 'ivalkeen/vim-ctrlp-tjump'
-
-call vimrc#source('vimrc/plugins/ctrlp.vim')
-" }}}
-
 " unite.vim {{{
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-outline'
