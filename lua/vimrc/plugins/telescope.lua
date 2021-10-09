@@ -63,3 +63,4 @@ if vim.fn['vimrc#plugin#is_enabled_plugin']('telescope-fzf-native.nvim') == 1 th
 end
 require('telescope').load_extension('project')
 require('telescope').load_extension('zoxide')
+require('telescope').load_extension('media_files')
