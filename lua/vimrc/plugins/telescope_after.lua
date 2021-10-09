@@ -36,5 +36,8 @@ require('telescope').setup{
 -- Extensions
 ------------------------------
 
+if vim.fn['vimrc#plugin#is_enabled_plugin']('telescope-fzf-native.nvim') == 1 then
+  require('telescope').load_extension('fzf')
+end
 require('telescope').load_extension('project')
 require('telescope').load_extension('zoxide')
