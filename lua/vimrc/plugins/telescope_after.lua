@@ -1,9 +1,27 @@
+local state = require "telescope.state"
+
 local actions = require('telescope.actions')
+local action_state = require "telescope.actions.state"
+local action_set = require "telescope.actions.set"
 
 -- Actions
 ------------------------------
 local exit_insert_mode = function(prompt_bufnr)
   vim.cmd [[stopinsert]]
+end
+
+local move_selection_next_page = function(prompt_bufnr)
+  local status = state.get_status(prompt_bufnr)
+  local distance = vim.api.nvim_win_get_height(status.results_win)
+
+  action_set.shift_selection(prompt_bufnr, distance)
+end
+
+local move_selection_previous_page = function(prompt_bufnr)
+  local status = state.get_status(prompt_bufnr)
+  local distance = vim.api.nvim_win_get_height(status.results_win)
+
+  action_set.shift_selection(prompt_bufnr, -distance)
 end
 
 -- Global remapping
@@ -21,6 +39,10 @@ require('telescope').setup{
         -- Use <C-J>/<C-K> to move next/previous
         ["<C-J>"] = actions.move_selection_next,
         ["<C-K>"] = actions.move_selection_previous,
+
+        -- Use <M-j>/<M-k> to move next/previous page
+        ["<M-j>"] = move_selection_next_page,
+        ["<M-k>"] = move_selection_previous_page,
 
         -- Use <C-S> to select horizontal
         ["<C-S>"] = actions.select_horizontal,
