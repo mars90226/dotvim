@@ -68,9 +68,19 @@ endif
 " Other tabline plugins are built in statusline plugin.
 " }}}
 
+" Devicons {{{
 " vim-devicons {{{
 " Disable for now as Fira Code nerd fonts is not patched
-" Plug 'ryanoasis/vim-devicons'
+" if vimrc#plugin#is_enabled_plugin('vim-devicons')
+"   Plug 'ryanoasis/vim-devicons'
+" endif
+" }}}
+
+" nvim-web-devicons {{{
+if vimrc#plugin#is_enabled_plugin('nvim-web-devicons')
+  Plug 'kyazdani42/nvim-web-devicons'
+endif
+" }}}
 " }}}
 
 " Colors {{{

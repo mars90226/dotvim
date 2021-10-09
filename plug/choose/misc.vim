@@ -49,10 +49,6 @@ else
   call vimrc#plugin#enable_plugin('indentLine')
 endif
 
-if !has('nvim-0.5')
-  call vimrc#plugin#disable_plugin('nvim-web-devicons')
-endif
-
 if !has('nvim-0.5') || vimrc#plugin#is_disabled_plugin('nvim-web-devicons')
   call vimrc#plugin#disable_plugin('diffview.nvim')
 endif

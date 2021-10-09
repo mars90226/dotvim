@@ -277,12 +277,6 @@ Plug 'simeji/winresizer'
 let g:winresizer_start_key = '<Leader>R'
 " }}}
 
-" nvim-web-devicons {{{
-if vimrc#plugin#is_enabled_plugin('nvim-web-devicons')
-  Plug 'kyazdani42/nvim-web-devicons'
-endif
-" }}}
-
 " profiler.nvim {{{
 " Disabled by default, enable to profile
 " Plug 'norcalli/profiler.nvim'
