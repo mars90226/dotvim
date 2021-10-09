@@ -176,33 +176,3 @@ Plug 'jeetsukumaran/vim-indentwise', { 'on': [] }
 
 call vimrc#lazy#lazy_load('indentwise')
 " }}}
-
-" " vim-eft {{{
-" FIXME: Disabled for not compatible with visual block mode
-" Plug 'hrsh7th/vim-eft'
-"
-" nmap '; <Plug>(eft-repeat)
-" xmap '; <Plug>(eft-repeat)
-"
-" map f <Plug>(eft-f)
-" map F <Plug>(eft-F)
-" map t <Plug>(eft-t)
-" map T <Plug>(eft-T)
-" " }}}
-
-" " quick-scope {{{
-" TODO: Still not able to accommodate this plugin, try again later
-" Plug 'unblevable/quick-scope'
-"
-" let g:qs_buftype_blacklist = ['nofile', 'quickfix', 'terminal']
-" " }}}
-
-" targets.vim {{{
-Plug 'wellle/targets.vim'
-
-" Reach targets
-nmap <expr> ]r 'vin'.vimrc#getchar_string()."o\<Esc>"
-nmap <expr> [r 'vil'.vimrc#getchar_string()."\<Esc>"
-nmap <expr> ]R 'van'.vimrc#getchar_string()."o\<Esc>"
-nmap <expr> [R 'val'.vimrc#getchar_string()."\<Esc>"
-" }}}
