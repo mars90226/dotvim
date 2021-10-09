@@ -81,6 +81,7 @@ if vimrc#plugin#is_enabled_plugin('telescope.nvim')
   Plug 'jvgrootveld/telescope-zoxide'
   Plug 'sudormrfbin/cheatsheet.nvim'
   Plug 'nvim-telescope/telescope-media-files.nvim'
+  Plug 'TC72/telescope-tele-tabby.nvim'
 
   if vimrc#plugin#is_enabled_plugin('telescope-fzf-native.nvim')
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
