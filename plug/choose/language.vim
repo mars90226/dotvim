@@ -1,3 +1,4 @@
+" Highlight {{{
 " nvim-treesitter for builtin neovim treesitter
 " TODO: Use nvim_exec_lua() instead. Currently it's in document but not exist.
 " Check if `vim.treesitter` is a table, not a nil
@@ -20,6 +21,34 @@ endif
 call vimrc#plugin#disable_plugin('vim-lsp-cxx-highlight')
 if vimrc#plugin#is_enabled_plugin('coc.nvim') || vimrc#plugin#is_enabled_plugin('nvim-lsp')
   call vimrc#plugin#enable_plugin('vim-lsp-cxx-highlight')
+endif
+" }}}
+
+" Lint {{{
+" Choose Lint plugin
+" syntastic, ale
+if vimrc#plugin#check#has_async()
+  call vimrc#plugin#disable_plugin('syntastic')
+else
+  call vimrc#plugin#disable_plugin('ale')
+end
+
+" Disable Lint if vim_mode is 'reader'
+if vimrc#get_vim_mode() ==# 'reader' || vimrc#get_vim_mode() ==# 'gitcommit'
+  call vimrc#plugin#disable_plugin('ale')
+  call vimrc#plugin#disable_plugin('syntastic')
+end
+" }}}
+
+" Choose markdown-preview plugin
+" vim-markdown-composer, markdown-preview.nvim, markdown-preview.vim
+call vimrc#plugin#disable_plugins(['vim-markdown-composer', 'markdown-preview.nvim', 'markdown-preview.vim'])
+if vimrc#plugin#check#has_cargo()
+  call vimrc#plugin#enable_plugin('vim-markdown-composer')
+elseif has('nvim')
+  call vimrc#plugin#enable_plugin('markdown-preview.nvim')
+else
+  call vimrc#plugin#enable_plugin('markdown-preview.vim')
 endif
 
 " Enable language documentation generation

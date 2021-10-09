@@ -43,6 +43,7 @@ augroup seeing_is_believing_settings
 augroup END
 " }}}
 
+" Lint {{{
 " syntastic {{{
 if vimrc#plugin#is_enabled_plugin('syntastic')
   Plug 'vim-syntastic/syntastic'
@@ -58,7 +59,9 @@ if vimrc#plugin#is_enabled_plugin('ale')
   call vimrc#source('vimrc/plugins/ale.vim')
 end
 " }}}
+" }}}
 
+" Markdown preview {{{
 " markdown-preview.vim {{{
 if vimrc#plugin#is_enabled_plugin('markdown-preview.vim')
   Plug 'iamcco/markdown-preview.vim'
@@ -72,12 +75,13 @@ endif
 " }}}
 
 " vim-markdown-composer {{{
-if vimrc#plugin#check#has_cargo()
+if vimrc#plugin#is_enabled_plugin('vim-markdown-composer')
   Plug 'euclio/vim-markdown-composer', { 'do': function('vimrc#composer#build_composer') }
 
   " Manually execute :ComposerStart instead
   let g:markdown_composer_autostart = 0
 endif
+" }}}
 " }}}
 
 " vim-go {{{
