@@ -27,9 +27,7 @@ endif
 
 " Devicons
 " nvim-web-devicons, vim-devicons
-call vimrc#plugin#disable_plugins(['nvim-web-devicons', 'vim-devicons'])
+call vimrc#plugin#disable_plugins(['nvim-web-devicons'])
 if has('nvim-0.5')
   call vimrc#plugin#enable_plugin('nvim-web-devicons')
-else
-  call vimrc#plugin#enable_plugin('vim-devicons')
 endif

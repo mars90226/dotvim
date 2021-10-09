@@ -70,10 +70,7 @@ endif
 
 " Devicons {{{
 " vim-devicons {{{
-" Disable for now as Fira Code nerd fonts is not patched
-" if vimrc#plugin#is_enabled_plugin('vim-devicons')
-"   Plug 'ryanoasis/vim-devicons'
-" endif
+" NOTE: Should be loaded as the very last one
 " }}}
 
 " nvim-web-devicons {{{
