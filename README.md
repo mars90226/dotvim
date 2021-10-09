@@ -11,7 +11,6 @@ Carefully crafted vim/neovim config.
 * [fzf](https://github.com/junegunn/fzf) (fuzzy finder for almost everything)
 * [fzf.vim](https://github.com/junegunn/fzf.vim) (used with fzf)
 * [denite.nvim](https://github.com/Shougo/denite.nvim) (same as above but use for some cases that need regexp filter)
-* [unite.vim](https://github.com/Shougo/unite.vim) (same as above but has more niche sources)
 * [defx.nvim](https://github.com/Shougo/defx.nvim) (file explorer)
 * [vim-easymotion](https://github.com/easymotion/vim-easymotion) (quickly move cursor to certain place on screen)
 * [incsearch.vim](https://github.com/haya14busa/incsearch.vim) (goto next and previous matched result without leaving search mode)
@@ -61,10 +60,6 @@ Working in progress.
     * `<Space>p`: Search and open files
     * `<Space>o`: List and goto outline of current buffer (depends on tags)
     * `<Space>do`: Execute vim command and search output
-* Unite key mappings
-    * `<Space>O`: List and goto outline of current buffer (depends on regex)
-    * `<Space><F1>`: List mappings
-    * `<Space><F2>`: List buffer mappings
 * Vista key mappings
     * `<F7>`: Toggle Vista that showing tags or LSP outline in sidebar
     * `<Space><F7>`: Start Vista finder that goto tags or LSP symbols

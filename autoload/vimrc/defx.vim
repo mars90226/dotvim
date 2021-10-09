@@ -316,9 +316,7 @@ function! vimrc#defx#mappings() abort " {{{ abort
           \ defx#do_action('call', 'vimrc#defx#show_image')
   endif
 
-  " Use Unite because using Denite will change other Denite buffers
-  nnoremap <silent><buffer> g?
-        \ :Unite -buffer-name=defx_map_help output:map\ <buffer><CR>
+  " TODO: Add buffer output:map
 
   cnoremap <buffer><expr> <C-X>d
         \ vimrc#defx#get_current_path_in_commandline()

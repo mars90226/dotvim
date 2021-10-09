@@ -1,6 +1,6 @@
 " Functions
 " Escape colon, backslash and space
-" For unite & denite
+" For denite
 " TODO: Move to better place
 function! vimrc#utility#denite_escape_symbol(expr) abort
   let l:expr = a:expr

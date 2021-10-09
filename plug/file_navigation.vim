@@ -6,16 +6,6 @@ Plug 'Shougo/neoyank.vim'
 " }}}
 
 " Finders {{{
-" unite.vim {{{
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-outline'
-Plug 'blindFS/unite-workflow', { 'on': [] }
-Plug 'thinca/vim-unite-history'
-Plug 'osyo-manga/unite-quickfix'
-
-call vimrc#source('vimrc/plugins/unite.vim')
-" }}}
-
 " denite.nvim {{{
 if vimrc#plugin#is_enabled_plugin('denite.nvim')
   Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }

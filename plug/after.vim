@@ -44,13 +44,6 @@ if vimrc#plugin#is_enabled_plugin('nvim-lsp')
 endif
 " }}}
 
-" Unite {{{
-augroup post_loaded_unite_mappings
-  autocmd!
-  autocmd VimEnter * call vimrc#unite#post_loaded_mappings()
-augroup END
-" }}}
-
 " Denite {{{
 if vimrc#plugin#is_enabled_plugin('denite.nvim')
   call vimrc#source('vimrc/plugins/denite_after.vim')
