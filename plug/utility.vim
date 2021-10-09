@@ -232,15 +232,6 @@ if vimrc#plugin#is_enabled_plugin('open-browser.vim')
 endif
 " }}}
 
-" context.vim {{{
-Plug 'wellle/context.vim'
-
-let g:context_enabled = 0
-
-nnoremap <F6> :ContextToggleWindow<CR>
-nnoremap <Space><F6> :ContextToggle<CR>
-" }}}
-
 " firenvim {{{
 if vimrc#plugin#is_enabled_plugin('firenvim')
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }

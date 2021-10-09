@@ -57,3 +57,12 @@ call vimrc#plugin#disable_plugin('vim-doge')
 if executable('node') && executable('npm')
   call vimrc#plugin#enable_plugin('vim-doge')
 endif
+
+" Choose context plugin
+" nvim-treesitter-context, context.vim
+call vimrc#plugin#disable_plugins(['nvim-treesitter-context', 'context.vim'])
+if vimrc#plugin#is_enabled_plugin('nvim-treesitter')
+  call vimrc#plugin#enable_plugin('nvim-treesitter-context')
+else
+  call vimrc#plugin#enable_plugin('context.vim')
+end

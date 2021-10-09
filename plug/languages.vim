@@ -5,7 +5,6 @@ if vimrc#plugin#is_enabled_plugin('nvim-treesitter')
   Plug 'nvim-treesitter/nvim-treesitter-refactor'
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'nvim-treesitter/playground'
-  Plug 'romgrk/nvim-treesitter-context'
   Plug 'JoosepAlviste/nvim-ts-context-commentstring'
   Plug 'mfussenegger/nvim-ts-hint-textobject'
 
@@ -16,6 +15,27 @@ endif
 " vim-lsp-cxx-highlight {{{
 if vimrc#plugin#is_enabled_plugin('vim-lsp-cxx-highlight')
   Plug 'jackguo380/vim-lsp-cxx-highlight'
+endif
+" }}}
+" }}}
+
+" Context {{{
+" nvim-treesitter-context {{{
+if vimrc#plugin#is_enabled_plugin('nvim-treesitter-context')
+  Plug 'romgrk/nvim-treesitter-context'
+
+  nnoremap <F6> :TSContextToggle<CR>
+endif
+" }}}
+
+" context.vim {{{
+if vimrc#plugin#is_enabled_plugin('context.vim')
+  Plug 'wellle/context.vim'
+
+  let g:context_enabled = 0
+
+  nnoremap <F6> :ContextToggleWindow<CR>
+  nnoremap <Space><F6> :ContextToggle<CR>
 endif
 " }}}
 " }}}
