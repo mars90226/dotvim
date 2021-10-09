@@ -53,7 +53,7 @@ let g:peekaboo_delay = 400
 " }}}
 
 " colorv {{{
-Plug 'Rykka/colorv.vim', { 'on': ['ColorV', 'ColorVName', 'ColorVView'] }
+Plug 'gu-fan/colorv.vim', { 'on': ['ColorV', 'ColorVName', 'ColorVView'] }
 
 nnoremap <silent> <Leader>vv :ColorV<CR>
 nnoremap <silent> <Leader>vn :ColorVName<CR>
@@ -239,6 +239,7 @@ endif
 " }}}
 
 " Colorizer {{{
+" Colorizer {{{
 if vimrc#plugin#is_enabled_plugin('Colorizer')
   Plug 'chrisbra/Colorizer'
 
@@ -254,6 +255,7 @@ endif
 if vimrc#plugin#is_enabled_plugin('nvim-colorizer.lua')
   Plug 'norcalli/nvim-colorizer.lua'
 endif
+" }}}
 " }}}
 
 " suda.vim {{{
