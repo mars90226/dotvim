@@ -148,10 +148,22 @@ xmap <Leader><C-F> <Plug>CtrlSFVwordExec
 nnoremap <F5> :CtrlSFToggle<CR>
 " }}}
 
+" Window Switching {{{
 " vim-choosewin {{{
-Plug 't9md/vim-choosewin'
+if vimrc#plugin#is_enabled_plugin('vim-choosewin')
+  Plug 't9md/vim-choosewin'
 
-call vimrc#source('vimrc/plugins/choosewin.vim')
+  call vimrc#source('vimrc/plugins/choosewin.vim')
+endif
+" }}}
+
+" nvim-window {{{
+if vimrc#plugin#is_enabled_plugin('nvim-window')
+  Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
+
+  nnoremap <silent> =- <Cmd>lua require('nvim-window').pick()<CR>
+endif
+" }}}
 " }}}
 
 " alternate.vim {{{

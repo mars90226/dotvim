@@ -56,3 +56,12 @@ endif
 if !has('nvim-0.5') || vimrc#plugin#is_disabled_plugin('nvim-web-devicons')
   call vimrc#plugin#disable_plugin('diffview.nvim')
 endif
+
+" Choose window switching plugin
+" nvim-window, vim-choosewin
+call vimrc#plugin#disable_plugins(['nvim-window', 'vim-choosewin'])
+if has('nvim-0.5')
+  call vimrc#plugin#enable_plugin('nvim-window')
+else
+  call vimrc#plugin#enable_plugin('vim-choosewin')
+endif
