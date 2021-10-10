@@ -181,6 +181,10 @@ Plug 'romainl/vim-qf'
 let g:qf_auto_open_quickfix = 0
 " }}}
 
+" Cfilter {{{
+packadd cfilter
+" }}}
+
 " vim-caser {{{
 Plug 'arthurxavierx/vim-caser', { 'on': [] }
 
