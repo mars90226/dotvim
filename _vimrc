@@ -1,1 +1,1 @@
-call vimrc#source('init.vim')
+call vimrc#source('main.vim')
