@@ -5,8 +5,6 @@
 -- vim.cmd [[profile func *]]
 -- }}}
 
-vim.fn['vimrc#source']('main.vim')
-
 vim.fn['vimrc#source']('plug/plugin_config_cache.vim')
 vim.fn['vimrc#source']('vimrc/basic.vim')
 vim.fn['vimrc#source']('vimrc/config.vim')
