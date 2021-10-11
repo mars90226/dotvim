@@ -9,28 +9,35 @@ vim.fn['vimrc#source']('plug/plugin_config_cache.vim')
 vim.fn['vimrc#source']('vimrc/basic.vim')
 vim.fn['vimrc#source']('vimrc/config.vim')
 vim.fn['vimrc#source']('plug/plugin_choose.vim')
-vim.fn['vimrc#source']('plug/auto_plug.vim')
+
+local packer_bootstrap = require('plug.auto_packer')
 
 -- Plugin Settings Begin
-vim.fn['plug#begin'](vim.fn['vimrc#get_vim_plug_dir']())
+require('packer').startup(function(use)
+  use 'wbthomason/packer.nvim'
 
-vim.fn['vimrc#source']('plug/appearance.vim')
-vim.fn['vimrc#source']('plug/completion.vim')
-vim.fn['vimrc#source']('plug/file_explorer.vim')
-vim.fn['vimrc#source']('plug/file_navigation.vim')
-vim.fn['vimrc#source']('plug/text_navigation.vim')
-vim.fn['vimrc#source']('plug/text_manipulation.vim')
-vim.fn['vimrc#source']('plug/text_objects.vim')
-vim.fn['vimrc#source']('plug/languages.vim')
-vim.fn['vimrc#source']('plug/git.vim')
-vim.fn['vimrc#source']('plug/terminal.vim')
-vim.fn['vimrc#source']('plug/utility.vim')
-vim.fn['vimrc#source']('plug/last.vim')
+  -- Automatically set up your configuration after cloning packer.nvim
+  -- Put this at the end after all plugins
+  -- if packer_bootstrap then
+  --   require('packer').sync()
+  -- end
+end)
 
-vim.fn['plug#end']()
+-- vim.fn['vimrc#source']('plug/appearance.vim')
+-- vim.fn['vimrc#source']('plug/completion.vim')
+-- vim.fn['vimrc#source']('plug/file_explorer.vim')
+-- vim.fn['vimrc#source']('plug/file_navigation.vim')
+-- vim.fn['vimrc#source']('plug/text_navigation.vim')
+-- vim.fn['vimrc#source']('plug/text_manipulation.vim')
+-- vim.fn['vimrc#source']('plug/text_objects.vim')
+-- vim.fn['vimrc#source']('plug/languages.vim')
+-- vim.fn['vimrc#source']('plug/git.vim')
+-- vim.fn['vimrc#source']('plug/terminal.vim')
+-- vim.fn['vimrc#source']('plug/utility.vim')
+-- vim.fn['vimrc#source']('plug/last.vim')
 
 -- Post-loaded Plugin Settings
-vim.fn['vimrc#source']('plug/after.vim')
+-- vim.fn['vimrc#source']('plug/after.vim')
 
 vim.fn['vimrc#source']('vimrc/settings.vim')
 vim.fn['vimrc#source']('vimrc/indent.vim')

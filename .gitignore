@@ -20,3 +20,6 @@ autoload/plug.vim.old
 
 # node_modules for commitizen
 node_modules
+
+# packer.nvim
+plugin/packer_compiled.lua
