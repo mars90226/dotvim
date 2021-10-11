@@ -16,6 +16,7 @@ local packer_bootstrap = require('plug.auto_packer')
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
+  require('plug.appearance').startup(use)
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   -- if packer_bootstrap then
