@@ -33,46 +33,17 @@ completion.startup = function(use)
   use 'antoinemadec/coc-fzf'
 
   -- Completion Source
-  use {
-    'Shougo/neosnippet.vim',
-    config = function()
-      vim.g['neosnippet#snippets_directory'] = {
-        vim.fn['vimrc#get_vim_plug_dir']()..'/neosnippet-snippets/neosnippets',
-        vim.fn['vimrc#get_vim_plug_dir']()..'/vim-snippets/snippets',
-        vim.fn['vimrc#get_vimhome']()..'/my-snippets',
-        vim.env.HOME..'/.vim_secret/my-snippets'
-      }
-
-      -- Plugin key-mappings.
-      -- <C-J>: expand or jump or select completion
-      imap('<C-J>',
-        [[pumvisible() && !neosnippet#expandable_or_jumpable() ? "\<C-Y>" : "\<Plug>(neosnippet_expand_or_jump)"]],
-        'silent',
-        'expr')
-      smap('<C-J>', [["\<Plug>(neosnippet_expand_or_jump)"]])
-      xmap('<C-J>', [["\<Plug>(neosnippet_expand_target)"]])
-
-      -- For snippet_complete marker.
-      if vim.fn.has('conceal') == 1 then
-        vim.go.conceallevel = 2
-        vim.go.concealcursor = 'i'
-      end
-
-      -- Enable snipMate compatibility feature.
-      vim.g['neosnippet#enable_snipmate_compatibility'] = 1
-
-      vim.cmd [[augroup neosnippet_settings]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd BufNewFile,BufReadPost *.snip setlocal filetype=neosnippet]]
-      vim.cmd [[augroup END]]
-    end
-  }
-  use 'Shougo/neosnippet-snippets'
+  -- TODO: Add snippets plugin
+  -- neosnippet keeps showing error
   use 'honza/vim-snippets'
 
-  if vim.fn.executable('tmux') == 1 then
-    use 'wellle/tmux-complete.vim'
-  end
+  vim.cmd [[packadd tmux-complete.vim]]
+  use {
+    'wellle/tmux-complete.vim',
+    cond = function()
+      return vim.fn.executable('tmux') == 1
+    end
+  }
 end
 
 return completion
