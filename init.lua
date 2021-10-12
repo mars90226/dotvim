@@ -30,6 +30,7 @@ require('packer').startup(function(use)
   require('plug.languages').startup(use)
   require('plug.git').startup(use)
   require('plug.terminal').startup(use)
+  require('plug.utility').startup(use)
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
