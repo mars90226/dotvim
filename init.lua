@@ -31,6 +31,7 @@ require('packer').startup(function(use)
   require('plug.git').startup(use)
   require('plug.terminal').startup(use)
   require('plug.utility').startup(use)
+  require('plug.last').startup(use)
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
@@ -38,22 +39,6 @@ require('packer').startup(function(use)
   --   require('packer').sync()
   -- end
 end)
-
--- vim.fn['vimrc#source']('plug/appearance.vim')
--- vim.fn['vimrc#source']('plug/completion.vim')
--- vim.fn['vimrc#source']('plug/file_explorer.vim')
--- vim.fn['vimrc#source']('plug/file_navigation.vim')
--- vim.fn['vimrc#source']('plug/text_navigation.vim')
--- vim.fn['vimrc#source']('plug/text_manipulation.vim')
--- vim.fn['vimrc#source']('plug/text_objects.vim')
--- vim.fn['vimrc#source']('plug/languages.vim')
--- vim.fn['vimrc#source']('plug/git.vim')
--- vim.fn['vimrc#source']('plug/terminal.vim')
--- vim.fn['vimrc#source']('plug/utility.vim')
--- vim.fn['vimrc#source']('plug/last.vim')
-
--- Post-loaded Plugin Settings
--- vim.fn['vimrc#source']('plug/after.vim')
 
 vim.fn['vimrc#source']('vimrc/settings.vim')
 vim.fn['vimrc#source']('vimrc/indent.vim')
