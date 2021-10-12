@@ -8,6 +8,8 @@ endif
 if vimrc#plugin#is_enabled_plugin('neoterm')
   Plug 'kassio/neoterm', { 'on': [] }
 
+  call vimrc#lazy#lazy_load('neoterm')
+
   call vimrc#source('vimrc/plugins/neoterm.vim')
 endif
 " }}}
