@@ -41,14 +41,14 @@ file_navigation.startup = function(use)
     'laher/fuzzymenu.vim',
     config = function()
       vim.fn['vimrc#source']('vimrc/plugins/fuzzymenu.vim')
+      vim.fn['vimrc#source']('vimrc/plugins/fuzzymenu_after.vim')
     end
   }
 
   -- telescope.nvim
-  use 'nvim-lua/popup.nvim'
-  use 'nvim-lua/plenary.nvim'
   use {
     'nvim-telescope/telescope.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
     config = function()
       vim.fn['vimrc#source']('vimrc/plugins/telescope.vim')
       require('vimrc.plugins.telescope')
