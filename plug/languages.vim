@@ -51,6 +51,8 @@ let g:user_emmet_leader_key = '<C-E>'
 " cscope-macros.vim {{{
 Plug 'mars90226/cscope_macros.vim', { 'on': [] }
 
+call vimrc#lazy#lazy_load('cscope_macros')
+
 call vimrc#source('vimrc/plugins/cscope.vim')
 " }}}
 

@@ -37,8 +37,7 @@ languages.startup = function(use)
   use {
     'mars90226/cscope_macros.vim',
     config = function()
-      nnoremap('<F11>',        ':call vimrc#cscope#generate_files()<CR>')
-      nnoremap('<Space><F11>', ':call vimrc#cscope#reload()<CR>')
+      vim.fn['vimrc#source']('vimrc/plugins/cscope.vim')
     end
   }
 

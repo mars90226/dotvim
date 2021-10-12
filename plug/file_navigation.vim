@@ -37,6 +37,8 @@ if vimrc#plugin#is_enabled_plugin('vim-clap')
     Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!', 'on': [] }
   endif
 
+  call vimrc#lazy#lazy_load('clap')
+
   call vimrc#source('vimrc/plugins/clap.vim')
 endif
 " }}}
