@@ -28,6 +28,7 @@ require('packer').startup(function(use)
   require('plug.text_manipulcation').startup(use)
   require('plug.text_objects').startup(use)
   require('plug.languages').startup(use)
+  require('plug.git').startup(use)
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
