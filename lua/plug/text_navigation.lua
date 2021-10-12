@@ -47,6 +47,8 @@ text_navigation.startup = function(use)
       map('<Space><Space>l', '<Cmd>HopLine<CR>')
       map('<Space>j',        '<Cmd>HopLineAC<CR>')
       map('<Space>k',        '<Cmd>HopLineBC<CR>')
+
+      require('hop').setup {}
     end
   }
   use {
