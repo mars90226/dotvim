@@ -1,5 +1,3 @@
-require'mapx'.setup{ global = true }
-
 local completion = {}
 
 completion.setup_mapping = function()

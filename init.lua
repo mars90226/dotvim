@@ -18,6 +18,7 @@ require('packer').startup(function(use)
 
   -- Mapping utility
   use 'b0o/mapx.nvim'
+  require('mapx').setup { global = true }
 
   require('plug.appearance').startup(use)
   require('plug.completion').startup(use)
