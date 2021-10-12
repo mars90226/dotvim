@@ -113,8 +113,10 @@ file_navigation.startup = function(use)
     'dyng/ctrlsf.vim',
     config = function()
       nmap('<Space><C-F>', "<Plug>CtrlSFPrompt")
+
       nmap('<Leader><C-F>', "<Plug>CtrlSFCwordExec")
       xmap('<Leader><C-F>', "<Plug>CtrlSFVwordExec")
+
       nnoremap('<F5>', ":CtrlSFToggle<CR>")
     end
   }

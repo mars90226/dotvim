@@ -24,6 +24,7 @@ require('packer').startup(function(use)
   require('plug.completion').startup(use)
   require('plug.file_explorer').startup(use)
   require('plug.file_navigation').startup(use)
+  require('plug.text_navigation').startup(use)
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
