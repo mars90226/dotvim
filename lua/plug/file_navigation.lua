@@ -51,6 +51,7 @@ file_navigation.startup = function(use)
     'nvim-telescope/telescope.nvim',
     config = function()
       vim.fn['vimrc#source']('vimrc/plugins/telescope.vim')
+      require('vimrc.plugins.telescope')
     end
   }
   use 'nvim-telescope/telescope-project.nvim'
@@ -58,11 +59,16 @@ file_navigation.startup = function(use)
   use 'sudormrfbin/cheatsheet.nvim'
   use 'nvim-telescope/telescope-media-files.nvim'
   use 'TC72/telescope-tele-tabby.nvim'
+
+  -- TODO: Check if we can remove :packadd
+  vim.cmd [[packadd telescope-fzf-native.nvim]]
   use {
     'nvim-telescope/telescope-fzf-native.nvim',
-    run = function() vim.cmd [[make]] end,
+    run = 'make',
     cond = function()
       return vim.fn['vimrc#plugin#is_enabled_plugin']('telescope-fzf-native.nvim') == 1
+    end,
+    setup = function()
     end
   }
 
