@@ -1,3 +1,5 @@
+local utils = require('vimrc.utils')
+
 local languages = {}
 
 languages.startup = function(use)
@@ -29,6 +31,7 @@ languages.startup = function(use)
 
   use {
     'mattn/emmet-vim',
+    event = 'VimEnter',
     config = function()
       vim.g.user_emmet_leader_key = '<C-E>'
     end
@@ -36,6 +39,7 @@ languages.startup = function(use)
 
   use {
     'mars90226/cscope_macros.vim',
+    keys = {utils.t'<F11>', utils.t'<Space><F11>'},
     config = function()
       vim.fn['vimrc#source']('vimrc/plugins/cscope.vim')
     end

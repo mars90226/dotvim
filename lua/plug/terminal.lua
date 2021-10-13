@@ -1,3 +1,5 @@
+local utils = require('vimrc.utils')
+
 local terminal = {}
 
 terminal.startup = function(use)
@@ -12,6 +14,8 @@ terminal.startup = function(use)
 
   use {
     'kassio/neoterm',
+    cmd = {'T', 'Ttoggle', 'Texec'},
+    keys = {utils.t'<Space>`', utils.t'<Leader>`'},
     config = function()
       vim.fn['vimrc#source']('vimrc/plugins/neoterm.vim')
     end

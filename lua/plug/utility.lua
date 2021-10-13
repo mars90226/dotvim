@@ -1,9 +1,12 @@
+local utils = require('vimrc.utils')
+
 local utility = {}
 
 utility.startup = function(use)
   use {
     'simnalamburt/vim-mundo',
     cmd = {'MundoToggle'},
+    keys = {utils.t'<F9>'},
     config = function()
       if vim.fn.has('python3') == 1 then
         vim.g.mundo_prefer_python3 = 1
@@ -15,6 +18,7 @@ utility.startup = function(use)
 
   use {
     'tpope/vim-unimpaired',
+    event = 'VimEnter',
     config = function()
       -- Ignore [a, ]a, [A, ]A for ale
       vim.g.nremap = {['[a'] = '', [']a'] = '', ['[A'] = '', [']A'] = ''}
@@ -56,16 +60,18 @@ utility.startup = function(use)
   use {
     'gu-fan/colorv.vim',
     cmd = {'ColorV', 'ColorVName', 'ColorVView'},
+    keys = {utils.t'<Leader>vv', utils.t'<Leader>vn', utils.t'<Leader>vw'},
     config = function()
-      nnoremap('<silent>', '<Leader>vv :ColorV<CR>')
-      nnoremap('<silent>', '<Leader>vn :ColorVName<CR>')
-      nnoremap('<silent>', '<Leader>vw :ColorVView<CR>')
+      nnoremap('<Leader>vv', ':ColorV<CR>', 'silent')
+      nnoremap('<Leader>vn', ':ColorVName<CR>', 'silent')
+      nnoremap('<Leader>vw', ':ColorVView<CR>', 'silent')
     end
   }
 
   use {
     'airblade/vim-rooter',
     cmd = {'Rooter'},
+    keys = {utils.t'<Leader>r'},
     config = function()
       vim.g.rooter_manual_only = 1
       vim.g.rooter_cd_cmd = 'lcd'
@@ -123,6 +129,7 @@ utility.startup = function(use)
   use {
     'powerman/vim-plugin-AnsiEsc',
     cmd = {'AnsiEsc'},
+    keys = {'coa'},
     config = function()
       nnoremap('coa', ':AnsiEsc<CR>')
     end
@@ -180,7 +187,7 @@ utility.startup = function(use)
   -- cfilter
   vim.cmd [[packadd cfilter]]
 
-  use 'arthurxavierx/vim-caser'
+  use {'arthurxavierx/vim-caser', event = 'VimEnter'}
 
   use {
     'machakann/vim-highlightedyank',
@@ -205,6 +212,7 @@ utility.startup = function(use)
 
   use {
     'tpope/vim-dispatch',
+    event = 'VimEnter',
     config = function()
       vim.fn['vimrc#source']('vimrc/plugins/dispatch.vim')
     end

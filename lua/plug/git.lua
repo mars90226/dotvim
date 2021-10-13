@@ -24,6 +24,13 @@ git.startup = function(use)
   use {
     'junegunn/gv.vim',
     cmd = {'GV'},
+    keys = {
+      utils.t'<Space>gv',
+      utils.t'<Space>gV',
+      utils.t'<Leader>gv',
+      utils.t'<Leader>gV',
+      utils.t'<Leader>g<C-V>',
+    },
     config = function()
       -- GV with company filter
       -- TODO: Add complete function, need to get gv.vim script id to use
@@ -49,6 +56,14 @@ git.startup = function(use)
 
   use {
     'rbong/vim-flog',
+    cmd = {'Flog', 'Flogsplit'},
+    keys = {
+      utils.t'<Space>gf',
+      utils.t'<Space>gF',
+      utils.t'<Leader>gf',
+      utils.t'<Leader>gF',
+      utils.t'<Leader>g<C-F>',
+    },
     config = function()
       vim.cmd [[command! -nargs=* Floga Flog -all <args>]]
 
@@ -83,6 +98,12 @@ git.startup = function(use)
   use {
     'codeindulgence/vim-tig',
     cmd = {'Tig', 'Tig!'},
+    keys = {
+      [[\tr]],
+      [[\tt]],
+      [[\ts]],
+      [[\tv]],
+    },
     config = function()
       vim.fn['vimrc#source']('vimrc/plugins/tig.vim')
     end
@@ -91,7 +112,7 @@ git.startup = function(use)
   use {
     'rhysd/git-messenger.vim',
     cmd = {'GitMessenger'},
-    keys = {utils.t'<Plug>(git-messenger)'},
+    keys = {utils.t'<Leader>gm'},
     config = function()
       nmap('<Leader>gm', '<Plug>(git-messenger)')
 
