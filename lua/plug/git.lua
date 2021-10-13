@@ -125,6 +125,7 @@ git.startup = function(use)
 
   use {
     'sindrets/diffview.nvim',
+    cmd = {'DiffviewOpen', 'DiffviewFilesHistory'},
     config = function()
       vim.cmd [[augroup diffview_settings]]
       vim.cmd [[autocmd!]]

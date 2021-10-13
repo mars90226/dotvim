@@ -67,6 +67,7 @@ languages.startup = function(use)
   -- Markdown preview
   use {
     'euclio/vim-markdown-composer',
+    ft = {'markdown'},
     run = function() vim.fn['vimrc#composer#build_composer']() end,
     config = function()
       -- Manually execute :ComposerStart instead
@@ -76,6 +77,7 @@ languages.startup = function(use)
 
   use {
     'fatih/vim-go',
+    ft = {'go'},
     run = ':GoUpdateBinaries',
     config = function()
       vim.g.go_decls_mode = 'fzf'
@@ -153,6 +155,8 @@ languages.startup = function(use)
   use {
     'kkoomen/vim-doge',
     run = function() vim.fn['doge#install']() end,
+    cmd = {'DogeGenerate', 'DogeCreateDocStandard'},
+    keys = {'<Leader><Leader>d'},
     config = function()
       vim.g.doge_mapping = '<Leader><Leader>d'
     end
