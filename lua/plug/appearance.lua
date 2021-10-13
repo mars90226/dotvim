@@ -14,7 +14,7 @@ appearance.startup = function(use)
   }
 
   -- Devicons
-  use 'kyazdani42/nvim-web-devicons'
+  use {'kyazdani42/nvim-web-devicons', module = 'nvim-web-devicons'}
 
   -- Colors
   use 'rktjmp/lush.nvim'
