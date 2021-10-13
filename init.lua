@@ -10,7 +10,7 @@ vim.fn['vimrc#source']('vimrc/basic.vim')
 vim.fn['vimrc#source']('vimrc/config.vim')
 vim.fn['vimrc#source']('plug/plugin_choose.vim')
 
-local packer_bootstrap = require('plug.auto_packer')
+local auto_packer = require('plug.auto_packer')
 
 -- Plugin Settings Begin
 require('packer').startup(function(use)
@@ -35,9 +35,9 @@ require('packer').startup(function(use)
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
-  -- if packer_bootstrap then
-  --   require('packer').sync()
-  -- end
+  if auto_packer.packer_bootstrap ~= nil then
+    require('packer').sync()
+  end
 end)
 
 vim.fn['vimrc#source']('vimrc/settings.vim')
