@@ -19,6 +19,24 @@ inoremap <silent><expr> <M-Space> coc#refresh()
 " <CR>: confirm completion, or select first completion item, or insert <CR> with new undo chain
 inoremap <expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-G>u\<CR>\<C-R>=coc#on_enter()\<CR>"
 
+" <C-L>: trigger snippet expand
+imap <C-L> <Plug>(coc-snippets-expand)
+
+" <C-J>: select text for visual placeholder of snippet
+vmap <C-J> <Plug>(coc-snippets-select)
+
+" <C-J>: jump to next placeholder
+let g:coc_snippet_next = '<C-J>'
+
+" <C-K>: jump to previous placeholder
+let g:coc_snippet_prev = '<C-K>'
+
+" <C-J>: both expand and jump (make expand higher priority)
+imap <C-J> <Plug>(coc-snippets-expand-jump)
+
+" <Leader>cx: convert visual selected code to snippet
+xmap <Leader>cx <Plug>(coc-convert-snippet)
+
 " <C-X><C-G>: start neosnippet completion
 inoremap <silent> <C-X><C-G> <C-R>=coc#start({ 'source': 'neosnippet' })<CR>
 

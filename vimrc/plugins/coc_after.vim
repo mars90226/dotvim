@@ -4,7 +4,7 @@ call coc#add_extension('coc-dictionary')
 call coc#add_extension('coc-tag')
 call coc#add_extension('coc-emoji')
 call coc#add_extension('coc-syntax')
-call coc#add_extension('coc-neosnippet')
+call coc#add_extension('coc-snippets')
 call coc#add_extension('coc-emmet')
 call coc#add_extension('coc-git')
 

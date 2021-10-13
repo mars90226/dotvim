@@ -72,38 +72,39 @@ endif
 
 " Completion Source {{{
 " neosnippet {{{
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+" Plug 'Shougo/neosnippet.vim'
+" Plug 'Shougo/neosnippet-snippets'
+" NOTE: Use coc-snippets
 Plug 'honza/vim-snippets'
 
-let g:neosnippet#snippets_directory = [
-      \ vimrc#get_vim_plug_dir().'/neosnippet-snippets/neosnippets',
-      \ vimrc#get_vim_plug_dir().'/vim-snippets/snippets',
-      \ vimrc#get_vimhome().'/my-snippets',
-      \ $HOME.'/.vim_secret/my-snippets'
-      \ ]
-
-" Plugin key-mappings.
-" <C-J>: expand or jump or select completion
-imap <silent><expr> <C-J>
-      \ pumvisible() && !neosnippet#expandable_or_jumpable() ?
-      \ "\<C-Y>" :
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-smap <C-J> <Plug>(neosnippet_expand_or_jump)
-xmap <C-J> <Plug>(neosnippet_expand_target)
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-
-" Enable snipMate compatibility feature.
-let g:neosnippet#enable_snipmate_compatibility = 1
-
-augroup neosnippet_settings
-  autocmd!
-  autocmd BufNewFile,BufReadPost *.snip setlocal filetype=neosnippet
-augroup END
+" let g:neosnippet#snippets_directory = [
+"       \ vimrc#get_vim_plug_dir().'/neosnippet-snippets/neosnippets',
+"       \ vimrc#get_vim_plug_dir().'/vim-snippets/snippets',
+"       \ vimrc#get_vimhome().'/my-snippets',
+"       \ $HOME.'/.vim_secret/my-snippets'
+"       \ ]
+"
+" " Plugin key-mappings.
+" " <C-J>: expand or jump or select completion
+" imap <silent><expr> <C-J>
+"       \ pumvisible() && !neosnippet#expandable_or_jumpable() ?
+"       \ "\<C-Y>" :
+"       \ "\<Plug>(neosnippet_expand_or_jump)"
+" smap <C-J> <Plug>(neosnippet_expand_or_jump)
+" xmap <C-J> <Plug>(neosnippet_expand_target)
+"
+" " For snippet_complete marker.
+" if has('conceal')
+"   set conceallevel=2 concealcursor=i
+" endif
+"
+" " Enable snipMate compatibility feature.
+" let g:neosnippet#enable_snipmate_compatibility = 1
+"
+" augroup neosnippet_settings
+"   autocmd!
+"   autocmd BufNewFile,BufReadPost *.snip setlocal filetype=neosnippet
+" augroup END
 " }}}
 
 " tmux-complete.vim {{{

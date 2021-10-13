@@ -33,9 +33,12 @@ completion.startup = function(use)
   use 'antoinemadec/coc-fzf'
 
   -- Completion Source
-  -- TODO: Add snippets plugin
-  -- neosnippet keeps showing error
-  use 'honza/vim-snippets'
+  -- NOTE: Explicit add vim-snippets to 'runtimepath' to make coc-snippets works
+  vim.cmd [[packadd vim-snippets]]
+  use {
+    'honza/vim-snippets',
+    opt = true
+  }
 
   vim.cmd [[packadd tmux-complete.vim]]
   use {
