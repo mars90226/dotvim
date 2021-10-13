@@ -10,14 +10,15 @@ file_navigation.startup = function(use)
   -- denite.nvim
   use {
     'Shougo/denite.nvim',
-    run = ':UpdateRemotePlugins',
+    event = 'VimEnter',
     config = function()
+      vim.cmd [[silent! UpdateRemotePlugins]]
       vim.fn['vimrc#source']('vimrc/plugins/denite.vim')
       vim.fn['vimrc#source']('vimrc/plugins/denite_after.vim')
     end
   }
-  use 'neoclide/denite-extra'
-  use 'kmnk/denite-dirmark'
+  use {'neoclide/denite-extra', after = 'denite.nvim'}
+  use {'kmnk/denite-dirmark', after = 'denite.nvim'}
 
   -- fzf
   -- fzf#install() only install binary

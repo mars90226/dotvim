@@ -29,7 +29,7 @@ completion.startup = function(use)
       vim.fn['vimrc#source']('vimrc/plugins/coc_after.vim')
     end
   }
-  use 'neoclide/coc-denite'
+  use {'neoclide/coc-denite', after = 'denite.nvim'}
   use 'antoinemadec/coc-fzf'
 
   -- Completion Source

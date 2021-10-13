@@ -84,6 +84,13 @@ utility.startup = function(use)
   use {
     'vimwiki/vimwiki',
     branch = 'dev',
+    ft = {'vimwiki'},
+    setup = function()
+      vim.cmd [[augroup vimwiki_filetypedetect]]
+      vim.cmd [[autocmd!]]
+      vim.cmd [[autocmd BufRead,BufNewFile *.wiki setfiletype vimwiki]]
+      vim.cmd [[augroup END]]
+    end,
     config = function()
       -- disable vimwiki on markdown file
       vim.g.vimwiki_ext2syntax = { ['.wiki'] = 'default' }
@@ -110,8 +117,8 @@ utility.startup = function(use)
       vim.cmd [[augroup END]]
     end
   }
-  use 'jceb/vim-orgmode'
-  use 'vimoutliner/vimoutliner'
+  use {'jceb/vim-orgmode', ft = {'org'}}
+  use {'vimoutliner/vimoutliner', ft = {'votl'}}
 
   use {
     'lukas-reineke/indent-blankline.nvim',
