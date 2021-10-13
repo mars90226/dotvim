@@ -98,8 +98,8 @@ text_navigation.startup = function(use)
       -- :h g:incsearch#auto_nohlsearch
       vim.g['incsearch#auto_nohlsearch'] = 1
 
-      map('n', ' <Plug>(incsearch-nohl-n)')
-      map('N', ' <Plug>(incsearch-nohl-N)')
+      map('n', '<Plug>(incsearch-nohl-n)')
+      map('N', '<Plug>(incsearch-nohl-N)')
 
       -- Replace by vim-asterisk
       -- map('*',  '<Plug>(incsearch-nohl-*)')

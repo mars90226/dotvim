@@ -140,17 +140,19 @@ utility.startup = function(use)
   use {
     'embear/vim-localvimrc',
     config = function()
+      local utils = require('vimrc.utils')
+
       -- Be careful of malicious localvimrc
       vim.g.localvimrc_sandbox = 0
 
       vim.g.localvimrc_whitelist = {vim.env.HOME..'/.vim', vim.env.HOME..'/.tmux', vim.env.HOME..'/test'}
 
       if vim.g.localvimrc_secret_whitelist ~= nil then
-        table.insert(vim.g.localvimrc_whitelist, vim.g.localvimrc_secret_whitelist)
+        vim.g.localvimrc_whitelist = utils.table_concat(vim.g.localvimrc_whitelist, vim.g.localvimrc_secret_whitelist)
       end
 
       if vim.g.localvimrc_local_whitelist ~= nil then
-        table.insert(vim.g.localvimrc_whitelist, vim.g.localvimrc_local_whitelist)
+        vim.g.localvimrc_whitelist = utils.table_concat(vim.g.localvimrc_whitelist, vim.g.localvimrc_local_whitelist)
       end
     end
   }

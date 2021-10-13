@@ -20,4 +20,12 @@ utils.t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
+-- Concat two tables
+utils.table_concat = function(table1, table2)
+  for i = 1, #table2 do
+    table1[#table1 + 1] = table2[i]
+  end
+  return table1
+end
+
 return utils
