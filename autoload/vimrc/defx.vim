@@ -193,6 +193,8 @@ function! vimrc#defx#mappings() abort " {{{ abort
         \ defx#do_action('cd', '/usr/lib/')
   nnoremap <silent><buffer><expr> gv
         \ defx#do_action('cd', $VIMRUNTIME)
+  nnoremap <silent><buffer><expr> gV
+        \ defx#do_action('cd', stdpath('data'))
   nnoremap <silent><buffer><expr> gp
         \ defx#do_action('cd', vimrc#git#root())
   nnoremap <silent><buffer><nowait><expr> \\
