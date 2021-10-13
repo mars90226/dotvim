@@ -44,6 +44,7 @@ utility.startup = function(use)
 
   use {
     'tpope/vim-characterize',
+    key = {'gA'},
     config = function()
       nmap('gA', '<Plug>(characterize)')
     end
@@ -61,6 +62,7 @@ utility.startup = function(use)
     'gu-fan/colorv.vim',
     cmd = {'ColorV', 'ColorVName', 'ColorVView'},
     keys = {utils.t'<Leader>vv', utils.t'<Leader>vn', utils.t'<Leader>vw'},
+    requires = { 'mattn/webapi-vim' },
     config = function()
       nnoremap('<Leader>vv', ':ColorV<CR>', 'silent')
       nnoremap('<Leader>vn', ':ColorVName<CR>', 'silent')
@@ -154,6 +156,7 @@ utility.startup = function(use)
   use {
     'embear/vim-localvimrc',
     config = function()
+      -- NOTE: Avoid lazy load error with upvalues (captured values)
       local utils = require('vimrc.utils')
 
       -- Be careful of malicious localvimrc
@@ -173,6 +176,7 @@ utility.startup = function(use)
 
   use {
     'thinca/vim-qfreplace',
+    ft = {'qf'},
     config = function()
       vim.cmd [[augroup qfreplace_settings]]
       vim.cmd [[autocmd!]]
@@ -183,6 +187,7 @@ utility.startup = function(use)
 
   use {
     'romainl/vim-qf',
+    ft = {'qf'},
     config = function()
       -- Don't auto open quickfix list because it make vim-dispatch not able to
       -- restore 'makeprg' after make.
@@ -205,6 +210,8 @@ utility.startup = function(use)
 
   use {
     'junegunn/goyo.vim',
+    cmd = {'Goyo'},
+    keys = {utils.t'<Leader>gy'},
     config = function()
       nnoremap('<Leader>gy', ':Goyo<CR>')
     end
@@ -212,6 +219,8 @@ utility.startup = function(use)
 
   use {
     'junegunn/limelight.vim',
+    cmd = {'Limelight'},
+    keys = {utils.t'<Leader><C-L>'},
     config = function()
       nnoremap('<Leader><C-L>', ':Limelight!!<CR>')
     end
@@ -236,6 +245,7 @@ utility.startup = function(use)
 
   use {
     'glacambre/firenvim',
+    disable = true,
     run = function() vim.fn['firenvim#install'](0) end
   }
 
@@ -251,13 +261,15 @@ utility.startup = function(use)
 
   use {
     'lambdalisue/suda.vim',
-    config = function()
+    cmd = {'Suda'},
+    setup = function()
       vim.cmd [[command! Suda edit suda://%]]
     end
   }
 
   use {
     'simeji/winresizer',
+    keys = {utils.t'<Leader>R'},
     config = function()
       vim.g.winresizer_start_key = '<Leader>R'
     end
@@ -273,18 +285,24 @@ utility.startup = function(use)
   use {'Shougo/vimproc.vim', run = 'make'}
   use {'Shougo/vinarise.vim', cmd = {'Vinarise'}}
   use {'alx741/vinfo', cmd = {'Vinfo'}}
-  use 'mattn/webapi-vim'
   use 'kopischke/vim-fetch'
-  use 'Valloric/ListToggle'
+  use {
+    'Valloric/ListToggle',
+    cmd = {'QToggle', 'LToggle'},
+    keys = {utils.t'<Leader>q', utils.t'<Leader>l'}
+  }
   use 'tpope/vim-eunuch'
   use {'DougBeney/pickachu', cmd = {'Pick'}}
   use {'tweekmonster/helpful.vim', cmd = {'HelpfulVersion'}}
   use {'tweekmonster/startuptime.vim', cmd = {'StartupTime'}}
-  use 'gyim/vim-boxdraw'
+  use {
+    'gyim/vim-boxdraw',
+    keys = {'+o', '+O', '+c', '+-', '+_'}
+  }
   use 'lambdalisue/reword.vim'
-  use 'lpinilla/vim-codepainter'
-  use 'nicwest/vim-http'
-  use 'kristijanhusak/vim-carbon-now-sh'
+  use {'lpinilla/vim-codepainter', keys = {utils.t'<F2>', utils.t'<F3>'}}
+  use {'nicwest/vim-http', cmd = {'Http', 'Http!'}}
+  use {'kristijanhusak/vim-carbon-now-sh', cmd = {'CarbonNowSh'}}
 
   -- nvim-gdb
   -- Disabled for now as neovim's neovim_gdb.vim seems not exists
