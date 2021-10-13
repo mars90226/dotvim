@@ -25,11 +25,11 @@ git.startup = function(use)
     'junegunn/gv.vim',
     cmd = {'GV'},
     keys = {
-      utils.t'<Space>gv',
-      utils.t'<Space>gV',
-      utils.t'<Leader>gv',
-      utils.t'<Leader>gV',
-      utils.t'<Leader>g<C-V>',
+      '<Space>gv',
+      '<Space>gV',
+      '<Leader>gv',
+      '<Leader>gV',
+      '<Leader>g<C-V>',
     },
     config = function()
       -- GV with company filter
@@ -58,11 +58,11 @@ git.startup = function(use)
     'rbong/vim-flog',
     cmd = {'Flog', 'Flogsplit'},
     keys = {
-      utils.t'<Space>gf',
-      utils.t'<Space>gF',
-      utils.t'<Leader>gf',
-      utils.t'<Leader>gF',
-      utils.t'<Leader>g<C-F>',
+      '<Space>gf',
+      '<Space>gF',
+      '<Leader>gf',
+      '<Leader>gF',
+      '<Leader>g<C-F>',
     },
     config = function()
       vim.cmd [[command! -nargs=* Floga Flog -all <args>]]
@@ -112,7 +112,7 @@ git.startup = function(use)
   use {
     'rhysd/git-messenger.vim',
     cmd = {'GitMessenger'},
-    keys = {utils.t'<Leader>gm'},
+    keys = {'<Leader>gm'},
     config = function()
       nmap('<Leader>gm', '<Plug>(git-messenger)')
 

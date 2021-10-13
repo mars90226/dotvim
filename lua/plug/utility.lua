@@ -6,7 +6,7 @@ utility.startup = function(use)
   use {
     'simnalamburt/vim-mundo',
     cmd = {'MundoToggle'},
-    keys = {utils.t'<F9>'},
+    keys = {'<F9>'},
     config = function()
       if vim.fn.has('python3') == 1 then
         vim.g.mundo_prefer_python3 = 1
@@ -61,7 +61,7 @@ utility.startup = function(use)
   use {
     'gu-fan/colorv.vim',
     cmd = {'ColorV', 'ColorVName', 'ColorVView'},
-    keys = {utils.t'<Leader>vv', utils.t'<Leader>vn', utils.t'<Leader>vw'},
+    keys = {'<Leader>vv', '<Leader>vn', '<Leader>vw'},
     requires = { 'mattn/webapi-vim' },
     config = function()
       nnoremap('<Leader>vv', ':ColorV<CR>', 'silent')
@@ -73,7 +73,7 @@ utility.startup = function(use)
   use {
     'airblade/vim-rooter',
     cmd = {'Rooter'},
-    keys = {utils.t'<Leader>r'},
+    keys = {'<Leader>r'},
     config = function()
       vim.g.rooter_manual_only = 1
       vim.g.rooter_cd_cmd = 'lcd'
@@ -211,7 +211,7 @@ utility.startup = function(use)
   use {
     'junegunn/goyo.vim',
     cmd = {'Goyo'},
-    keys = {utils.t'<Leader>gy'},
+    keys = {'<Leader>gy'},
     config = function()
       nnoremap('<Leader>gy', ':Goyo<CR>')
     end
@@ -220,7 +220,7 @@ utility.startup = function(use)
   use {
     'junegunn/limelight.vim',
     cmd = {'Limelight'},
-    keys = {utils.t'<Leader><C-L>'},
+    keys = {'<Leader><C-L>'},
     config = function()
       nnoremap('<Leader><C-L>', ':Limelight!!<CR>')
     end
@@ -269,8 +269,8 @@ utility.startup = function(use)
 
   use {
     'simeji/winresizer',
-    keys = {utils.t'<Leader>R'},
-    config = function()
+    keys = {'<Leader>R'},
+    setup = function()
       vim.g.winresizer_start_key = '<Leader>R'
     end
   }
@@ -289,7 +289,7 @@ utility.startup = function(use)
   use {
     'Valloric/ListToggle',
     cmd = {'QToggle', 'LToggle'},
-    keys = {utils.t'<Leader>q', utils.t'<Leader>l'}
+    keys = {'<Leader>q', '<Leader>l'}
   }
   use 'tpope/vim-eunuch'
   use {'DougBeney/pickachu', cmd = {'Pick'}}
@@ -300,7 +300,10 @@ utility.startup = function(use)
     keys = {'+o', '+O', '+c', '+-', '+_'}
   }
   use 'lambdalisue/reword.vim'
-  use {'lpinilla/vim-codepainter', keys = {utils.t'<F2>', utils.t'<F3>'}}
+  use {
+    'lpinilla/vim-codepainter',
+    keys = {'<F2>', '<F3>'},
+  }
   use {'nicwest/vim-http', cmd = {'Http', 'Http!'}}
   use {'kristijanhusak/vim-carbon-now-sh', cmd = {'CarbonNowSh'}}
 

@@ -39,7 +39,7 @@ languages.startup = function(use)
 
   use {
     'mars90226/cscope_macros.vim',
-    keys = {utils.t'<F11>', utils.t'<Space><F11>'},
+    keys = {'<F11>', '<Space><F11>'},
     config = function()
       vim.fn['vimrc#source']('vimrc/plugins/cscope.vim')
     end
