@@ -7,7 +7,7 @@ file_explorer.startup = function(use)
 
   use {
     'Shougo/defx.nvim',
-    run = function() vim.cmd [[UpdateRemotePlugins]] end,
+    run = ':UpdateRemotePlugins',
     setup = function()
       vim.cmd [[packadd defx.nvim]]
     end,

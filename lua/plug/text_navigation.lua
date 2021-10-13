@@ -61,7 +61,7 @@ text_navigation.startup = function(use)
   }
   use {
     'ripxorip/aerojump.nvim',
-    run = function() vim.cmd [[UpdateRemotePlugins]] end,
+    run = ':UpdateRemotePlugins',
     config = function()
       vim.g.aerojump_keymaps = {
         ['<Esc>'] = 'AerojumpExit',

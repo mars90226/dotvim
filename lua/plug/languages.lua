@@ -7,7 +7,7 @@ languages.startup = function(use)
   -- nvim-treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
-    run = function() vim.cmd [[TSUpdate]] end,
+    run = ':TSUpdate',
     config = function()
       vim.fn['vimrc#source']('vimrc/plugins/nvim_treesitter.vim')
       require('vimrc.plugins.nvim_treesitter')
@@ -76,7 +76,7 @@ languages.startup = function(use)
 
   use {
     'fatih/vim-go',
-    run = function() vim.cmd [[GoUpdateBinaries]] end,
+    run = ':GoUpdateBinaries',
     config = function()
       vim.g.go_decls_mode = 'fzf'
 
