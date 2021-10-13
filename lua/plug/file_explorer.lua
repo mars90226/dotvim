@@ -5,21 +5,31 @@ file_explorer.startup = function(use)
   -- bug that doesn't load Defx properly.
   -- ref: https://github.com/Shougo/defx.nvim/issues/314
 
-  vim.cmd [[packadd defx.nvim]]
   use {
     'Shougo/defx.nvim',
     run = function() vim.cmd [[UpdateRemotePlugins]] end,
+    setup = function()
+      vim.cmd [[packadd defx.nvim]]
+    end,
     config = function()
       vim.fn['vimrc#source']('vimrc/plugins/defx.vim')
       vim.fn['vimrc#source']('vimrc/plugins/defx_after.vim')
     end
   }
 
-  vim.cmd [[packadd defx-git]]
-  use 'kristijanhusak/defx-git'
+  use {
+      'kristijanhusak/defx-git',
+      setup = function()
+        vim.cmd [[packadd defx-git]]
+      end
+  }
 
-  vim.cmd [[packadd defx-icons]]
-  use 'kristijanhusak/defx-icons'
+  use {
+      'kristijanhusak/defx-icons',
+      setup = function()
+        vim.cmd [[packadd defx-icons]]
+      end
+  }
 
   use 'Shougo/neossh.vim'
 end

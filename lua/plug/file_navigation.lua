@@ -61,14 +61,14 @@ file_navigation.startup = function(use)
   use 'TC72/telescope-tele-tabby.nvim'
 
   -- TODO: Check if we can remove :packadd
-  vim.cmd [[packadd telescope-fzf-native.nvim]]
   use {
     'nvim-telescope/telescope-fzf-native.nvim',
     run = 'make',
+    setup = function()
+      vim.cmd [[packadd telescope-fzf-native.nvim]]
+    end,
     cond = function()
       return vim.fn['vimrc#plugin#is_enabled_plugin']('telescope-fzf-native.nvim') == 1
-    end,
-    setup = function()
     end
   }
 
