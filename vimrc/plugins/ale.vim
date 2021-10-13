@@ -30,7 +30,7 @@ let g:ale_fixers = {
       \   'stylelint'
       \ ],
       \ 'lua': [
-      \   { buffer, lines -> systemlist('luaformatter '.expand('%')) }
+      \   'lua-format'
       \ ],
       \ 'python': ['black'],
       \ 'ruby': ['standardrb'],
