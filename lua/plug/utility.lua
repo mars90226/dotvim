@@ -282,7 +282,6 @@ utility.startup = function(use)
   use {'tpope/vim-abolish', cmd = {'Abolish', 'Subvert', 'S'}}
   use {'will133/vim-dirdiff', cmd = {'DirDiff'}}
   use {'AndrewRadev/linediff.vim', cmd = {'Linediff'}}
-  use {'Shougo/vimproc.vim', run = 'make'}
   use {'Shougo/vinarise.vim', cmd = {'Vinarise'}}
   use {'alx741/vinfo', cmd = {'Vinfo'}}
   use 'kopischke/vim-fetch'
