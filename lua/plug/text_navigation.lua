@@ -8,13 +8,11 @@ text_navigation.startup = function(use)
   use {
     'easymotion/vim-easymotion',
     event = 'VimEnter',
-    config = function()
+    setup = function()
       vim.g.EasyMotion_leader_key = '<Space>'
       vim.g.EasyMotion_smartcase = 1
-
-      map(';',        '<Plug>(easymotion-s2)')
-      map('<Space>;', '<Plug>(easymotion-sn)')
-
+    end,
+    config = function()
       map([[\w]], '<Plug>(easymotion-bd-wl)')
       map([[\f]], '<Plug>(easymotion-bd-fl)')
       map([[\s]], '<Plug>(easymotion-sl2)')
@@ -44,7 +42,6 @@ text_navigation.startup = function(use)
       map('<Space>w',        '<Cmd>HopWord<CR>')
       map('<Space>;',        '<Cmd>HopPattern<CR>')
       map('<Space><Space>f', '<Cmd>HopChar1<CR>')
-      map(';',               '<Cmd>HopChar2<CR>')
       map('<Space><Space>l', '<Cmd>HopLine<CR>')
       map('<Space>j',        '<Cmd>HopLineAC<CR>')
       map('<Space>k',        '<Cmd>HopLineBC<CR>')
