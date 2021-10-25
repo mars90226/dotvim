@@ -3,7 +3,7 @@ local appearance = {}
 appearance.startup = function(use)
   -- Status Line
   use {
-    'shadmansaleh/lualine.nvim',
+    'nvim-lualine/lualine.nvim',
     config = function() require('vimrc.plugins.lualine') end
   }
 
