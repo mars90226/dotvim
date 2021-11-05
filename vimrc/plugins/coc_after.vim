@@ -24,6 +24,7 @@ call coc#add_extension('coc-solargraph')
 call coc#add_extension('coc-perl')
 call coc#add_extension('coc-go')
 call coc#add_extension('coc-sumneko-lua')
+call coc#add_extension('coc-phpls')
 
 call coc#config('languageserver', {
       \ 'ccls': {
@@ -49,11 +50,6 @@ call coc#config('languageserver', {
       \      'threads': 2
       \    }
       \  }
-      \ },
-      \ 'phplang': {
-      \   'command': 'php',
-      \   'args': [$HOME.'/.config/composer/vendor/bin/php-language-server.php'],
-      \   'filetypes': ['php']
       \ }
       \ })
 
