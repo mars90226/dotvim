@@ -138,6 +138,14 @@ git.startup = function(use)
       vim.cmd [[augroup END]]
     end
   }
+
+  use {
+    'TimUntersberger/neogit',
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require('neogit').setup {}
+    end
+  }
 end
 
 return git
