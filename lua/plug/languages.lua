@@ -3,6 +3,16 @@ local utils = require('vimrc.utils')
 local languages = {}
 
 languages.startup = function(use)
+  -- filetype
+  use {
+    'sheerun/vim-polyglot',
+    disable = true,
+    setup = function()
+      -- Avoid conflict with vim-go, must after vim-go loaded
+      vim.g.polyglot_disabled = {'go'}
+    end
+  }
+
   -- Highlighing
   -- nvim-treesitter
   use {
@@ -83,14 +93,6 @@ languages.startup = function(use)
       vim.g.go_decls_mode = 'fzf'
 
       -- TODO Add key mappings for vim-go commands
-    end
-  }
-
-  use {
-    'sheerun/vim-polyglot',
-    setup = function()
-      -- Avoid conflict with vim-go, must after vim-go loaded
-      vim.g.polyglot_disabled = {'go'}
     end
   }
 
