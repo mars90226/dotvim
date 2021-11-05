@@ -4,6 +4,15 @@ file_navigation.startup = function(use)
   -- Sources
   use 'Shougo/neomru.vim'
   use 'Shougo/neoyank.vim'
+  use {
+    'AckslD/nvim-neoclip.lua',
+    requires = {'tami5/sqlite.lua', module = 'sqlite'},
+    config = function()
+      require('neoclip').setup {
+        enable_persistant_history = true,
+      }
+    end
+  }
   -- TODO: Raise neomru limit
 
   -- Finders

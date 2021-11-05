@@ -28,6 +28,7 @@ nnoremap <Space>tt <Cmd>Telescope current_buffer_tags<CR>
 nnoremap <Space>tT <Cmd>Telescope tags<CR>
 nnoremap <Space>tv <Cmd>Telescope colorscheme<CR>
 nnoremap <Space>tw <Cmd>Telescope tele_tabby list<CR>
+nnoremap <Space>tx <Cmd>Telescope neoclip<CR>
 nnoremap <Space>ty <Cmd>Telescope filetypes<CR>
 nnoremap <Space>tY <Cmd>Telescope highlights<CR>
 nnoremap <Space>t` <Cmd>Telescope marks<CR>
