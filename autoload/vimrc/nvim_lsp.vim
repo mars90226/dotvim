@@ -1,16 +1,8 @@
-let s:nvim_lsp_filetypes = []
-
 " Functions
 function! vimrc#nvim_lsp#show_documentation() abort
-  if index(s:nvim_lsp_filetypes, &filetype) == -1
-    normal! K
+  if &filetype ==# 'help'
+    execute 'help ' . expand('<cword>')
   else
     lua vim.lsp.buf.hover()
-  endif
-endfunction
-
-function! vimrc#nvim_lsp#register_filetype(filetype) abort
-  if index(s:nvim_lsp_filetypes, a:filetype) == -1
-    call add(s:nvim_lsp_filetypes, a:filetype)
   endif
 endfunction
