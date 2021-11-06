@@ -28,10 +28,13 @@ completion.startup = function(use)
     'williamboman/nvim-lsp-installer',
     config = function()
       local lsp_installer = require("nvim-lsp-installer")
+      local lsp_configs = require('vimrc.lsp')
       local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
       lsp_installer.on_server_ready(function(server)
-        local opts = server:get_default_options()
+        local opts = lsp_configs[server.name]
+        opts = vim.tbl_extend('keep', opts, server:get_default_options())
+
         -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
         opts.capabilities = capabilities
 
@@ -43,11 +46,24 @@ completion.startup = function(use)
       -- Ensure lsp servers
       local lsp_installer_servers = require'nvim-lsp-installer.servers'
 
-      for _, lsp in ipairs(require('vimrc.lsp').servers) do
+      for lsp, lsp_config in pairs(lsp_configs.servers) do
         local ok, lsp_server = lsp_installer_servers.get_server(lsp)
         if ok then
           if not lsp_server:is_installed() then
             lsp_server:install()
+          end
+        else
+          -- Maybe lsp_installer not supported language server, but already installed
+          -- TODO: use other attribute to record name
+          if vim.fn.executable(lsp) then
+            -- TODO: Reduce duplication
+            local cmp_lsp_config = vim.deepcopy(lsp_config)
+
+            -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
+            cmp_lsp_config.capabilities = capabilities
+
+            require'lspconfig'[lsp].setup(cmp_lsp_config)
+            vim.cmd [[ do User LspAttachBuffers ]]
           end
         end
       end
