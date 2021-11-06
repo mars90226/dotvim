@@ -11,6 +11,9 @@ setlocal expandtab
 if vimrc#plugin#is_enabled_plugin('coc.nvim')
   nnoremap <silent><buffer> K :call vimrc#coc#show_documentation()<CR>
   nnoremap <silent><buffer> gK :execute 'Pydoc ' . expand('<cword>')<CR>
+elseif vimrc#plugin#is_enabled_plugin('nvim-lsp')
+  nnoremap <silent><buffer> K :call vimrc#nvim_lsp#show_documentation()<CR>
+  nnoremap <silent><buffer> gK :execute 'Pydoc ' . expand('<cword>')<CR>
 endif
 
 if executable('black-macchiato')

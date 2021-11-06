@@ -1,9 +1,12 @@
 " Choose autocompletion plugin
-" coc.nvim, deoplete.nvim, completor.vim, YouCompleteMe, supertab
+" nvim-cmp, coc.nvim, deoplete.nvim, completor.vim, YouCompleteMe, supertab
 " TODO: Add nvim-compe
 call vimrc#plugin#disable_plugins(
-      \ ['coc.nvim', 'deoplete.nvim', 'completor.vim', 'YouCompleteMe', 'supertab'])
-if vimrc#plugin#check#has_async()
+      \ ['nvim-cmp', 'coc.nvim', 'deoplete.nvim', 'completor.vim', 'YouCompleteMe', 'supertab'])
+
+if has('nvim') && has('nvim-0.5.1')
+  call vimrc#plugin#enable_plugin('nvim-cmp')
+elseif vimrc#plugin#check#has_async()
       \ && vimrc#plugin#check#has_rpc()
       \ && executable('node')
       \ && executable('yarn')
@@ -35,9 +38,8 @@ call vimrc#plugin#disable_plugin('nvim-lsp')
 " TODO: Currently, use approximate check for nvim-0.5.0 to improve performance
 " Only enable nvim-lsp when using completor.vim
 if has('nvim')
-      \ && has('nvim-0.5.0')
+      \ && has('nvim-0.5.1')
       \ && vimrc#get_vim_mode() !=# 'reader'
       \ && vimrc#get_vim_mode() !=# 'gitcommit'
-      \ && vimrc#plugin#is_enabled_plugin('completor.vim')
   call vimrc#plugin#enable_plugin('nvim-lsp')
 endif

@@ -16,6 +16,11 @@ if vimrc#plugin#is_enabled_plugin('coc.nvim')
   nnoremap <Space>vc   :Vista finder coc<CR>
   nnoremap <Space>vk   :call vimrc#vista#finder_with_query('Vista finder coc', expand('<cword>'))<CR>
   nnoremap <Space>vK   :call vimrc#vista#finder_with_query('Vista finder coc', expand('<cword>'))<CR>
+elseif vimrc#plugin#is_enabled_plugin('nvim-lsp')
+  nnoremap <Space><F7> :Vista nvim_lsp<CR>
+  nnoremap <Space>vc   :Vista finder nvim_lsp<CR>
+  nnoremap <Space>vk   :call vimrc#vista#finder_with_query('Vista finder nvim_lsp', expand('<cword>'))<CR>
+  nnoremap <Space>vK   :call vimrc#vista#finder_with_query('Vista finder nvim_lsp', expand('<cword>'))<CR>
 endif
 
 let g:vista_sidebar_width = g:right_sidebar_width
