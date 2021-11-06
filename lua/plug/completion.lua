@@ -28,11 +28,16 @@ completion.startup = function(use)
     'williamboman/nvim-lsp-installer',
     config = function()
       local lsp_installer = require("nvim-lsp-installer")
+      local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
       lsp_installer.on_server_ready(function(server)
-          -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
-          server:setup(server:get_default_options())
-          vim.cmd [[ do User LspAttachBuffers ]]
+        local opts = server:get_default_options()
+        -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
+        opts.capabilities = capabilities
+
+        -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
+        server:setup(opts)
+        vim.cmd [[ do User LspAttachBuffers ]]
       end)
 
       -- Ensure lsp servers
@@ -136,15 +141,7 @@ completion.startup = function(use)
         }
       })
 
-      -- Setup lspconfig.
-      local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-      -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-      for _, lsp in ipairs(require('vimrc.lsp').servers) do
-        require('lspconfig')[lsp].setup {
-          capabilities = capabilities,
-        }
-      end
+      -- Setup lspconfig in nvim-lsp-installer config function
     end
   }
 
