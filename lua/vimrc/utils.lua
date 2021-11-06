@@ -28,4 +28,10 @@ utils.table_concat = function(table1, table2)
   return table1
 end
 
+-- ref: https://github.com/LunarVim/LunarVim/blob/rolling/lua/lvim/core/cmp.lua
+utils.check_backspace = function()
+  local col = vim.fn.col "." - 1
+  return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
+end
+
 return utils
