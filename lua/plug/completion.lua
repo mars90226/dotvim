@@ -102,6 +102,7 @@ completion.startup = function(use)
   use {
     'hrsh7th/nvim-cmp',
     requires = {
+      -- Snippets
       {
         'L3MON4D3/LuaSnip',
         config = function()
@@ -114,6 +115,11 @@ completion.startup = function(use)
           })
         end
       },
+
+      -- Formatting
+      'onsails/lspkind-nvim',
+
+      -- Completion Sources
       'saadparwaiz1/cmp_luasnip',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-buffer',
@@ -133,6 +139,7 @@ completion.startup = function(use)
 
       local cmp = require('cmp')
       local luasnip = require('luasnip')
+      local lspkind = require('lspkind')
       local utils = require('vimrc.utils')
 
       cmp.setup({
@@ -140,6 +147,9 @@ completion.startup = function(use)
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end,
+        },
+        formatting = {
+          format = lspkind.cmp_format({maxwidth = 50})
         },
         mapping = {
           ['<C-D>'] = cmp.mapping.scroll_docs(-4),
