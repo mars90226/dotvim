@@ -6,6 +6,7 @@ file_navigation.startup = function(use)
   use 'Shougo/neoyank.vim'
   use {
     'AckslD/nvim-neoclip.lua',
+    disable = true,
     requires = {'tami5/sqlite.lua', module = 'sqlite'},
     config = function()
       require('neoclip').setup {
