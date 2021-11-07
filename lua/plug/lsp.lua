@@ -5,10 +5,11 @@ lsp.startup = function(use)
   use {
     'neovim/nvim-lspconfig',
     config = function()
-      nnoremap('<C-]>', '<Cmd>lua vim.lsp.buf.definition()<CR>', 'silent')
-      nnoremap('1gD',   '<Cmd>lua vim.lsp.buf.type_definition()<CR>', 'silent')
-      nnoremap('gR',    '<Cmd>lua vim.lsp.buf.references()<CR>', 'silent')
-      nnoremap('g0',    '<Cmd>lua vim.lsp.buf.document_symbol()<CR>', 'silent')
+      nnoremap('<C-]>',     '<Cmd>lua vim.lsp.buf.definition()<CR>', 'silent')
+      nnoremap('1gD',       '<Cmd>lua vim.lsp.buf.type_definition()<CR>', 'silent')
+      nnoremap('gR',        '<Cmd>lua vim.lsp.buf.references()<CR>', 'silent')
+      nnoremap('g0',        '<Cmd>lua vim.lsp.buf.document_symbol()<CR>', 'silent')
+      nnoremap('<Space>lf', '<Cmd>lua vim.lsp.buf.formatting()<CR>', 'silent')
 
       -- Remap for K
       nnoremap('gK', 'K')
