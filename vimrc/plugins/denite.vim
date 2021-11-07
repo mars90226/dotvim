@@ -17,8 +17,8 @@ let g:denite_preview_height = g:denite_height + 1
 nnoremap <Space>p     :Denite buffer dirmark file<CR>
 nnoremap <Space>P     :Denite file/rec<CR>
 nnoremap <Space><C-P> :DeniteProjectDir file<CR>
-nnoremap <Space>l     :Denite -auto-action=preview line<CR>
-nnoremap <Space>L     :Denite -default-action=switch -auto-action=preview line:buffers<CR>
+nnoremap <Space>L     :Denite -auto-action=preview line<CR>
+nnoremap <Space><C-L> :Denite -default-action=switch -auto-action=preview line:buffers<CR>
 nnoremap <Space>o     :Denite outline<CR>
 
 " TODO: Add Denite tselect source
