@@ -1,8 +1,9 @@
-local state = require "telescope.state"
+local state = require('telescope.state')
 
 local actions = require('telescope.actions')
-local action_state = require "telescope.actions.state"
-local action_set = require "telescope.actions.set"
+local action_set = require('telescope.actions.set')
+
+local trouble = require('trouble.providers.telescope')
 
 -- Actions
 ------------------------------
@@ -46,10 +47,16 @@ require('telescope').setup{
 
         -- Use <C-S> to select horizontal
         ["<C-S>"] = actions.select_horizontal,
+
+        -- Use <M-t> to open in trouble
+        ["<M-t>"] = trouble.open_with_trouble,
       },
       n = {
         -- Use <C-S> to select horizontal
         ["<C-S>"] = actions.select_horizontal,
+
+        -- Use <M-t> to open in trouble
+        ["<M-t>"] = trouble.open_with_trouble,
       }
     },
   }

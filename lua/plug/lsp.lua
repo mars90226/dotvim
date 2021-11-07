@@ -83,6 +83,20 @@ lsp.startup = function(use)
     end
   }
   use {
+    'folke/trouble.nvim',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function()
+      require('trouble').setup {}
+
+      nnoremap('<Space>xx', '<Cmd>TroubleToggle<CR>', 'silent')
+      nnoremap('<Space>xw', '<Cmd>TroubleToggle lsp_workspace_diagnostics<CR>', 'silent')
+      nnoremap('<Space>xd', '<Cmd>TroubleToggle lsp_document_diagnostics<CR>', 'silent')
+      nnoremap('<Space>xq', '<Cmd>TroubleToggle quickfix<CR>', 'silent')
+      nnoremap('<Space>xl', '<Cmd>TroubleToggle loclist<CR>', 'silent')
+      nnoremap('<Space>xr', '<Cmd>TroubleToggle lsp_references<CR>', 'silent')
+    end
+  }
+  use {
     'jose-elias-alvarez/null-ls.nvim',
     requires = {
       'nvim-lua/plenary.nvim',

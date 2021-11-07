@@ -46,11 +46,11 @@ nnoremap \xt       :call vimrc#defx#openpwd('Defx '.g:defx_new_options.' '.vimrc
 nnoremap \xf       :call vimrc#defx#openpwd('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('float'))<CR>
 
 " Resume
-nnoremap <Space>xr :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vimrc#defx#get_options('win'))<CR>
-nnoremap <Space>xs :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vimrc#defx#get_options('horizontal_win'))<CR>
-nnoremap <Space>xv :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vimrc#defx#get_options('vertical_win'))<CR>
-nnoremap <Space>xt :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vimrc#defx#get_options('tab'))<CR>
-nnoremap <Space>xf :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vimrc#defx#get_options('float'))<CR>
+nnoremap \Xr :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vimrc#defx#get_options('win'))<CR>
+nnoremap \Xs :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vimrc#defx#get_options('horizontal_win'))<CR>
+nnoremap \Xv :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vimrc#defx#get_options('vertical_win'))<CR>
+nnoremap \Xt :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vimrc#defx#get_options('tab'))<CR>
+nnoremap \Xf :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vimrc#defx#get_options('float'))<CR>
 " }}}
 
 " Defx open
