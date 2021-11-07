@@ -23,7 +23,7 @@ git.startup = function(use)
 
   use {
     'junegunn/gv.vim',
-    cmd = {'GV'},
+    cmd = {'GV', 'GVA', 'GVD', 'GVDA', 'GVDE', 'GVEA'},
     keys = {
       '<Space>gv',
       '<Space>gV',
@@ -32,6 +32,8 @@ git.startup = function(use)
       '<Leader>g<C-V>',
     },
     config = function()
+      vim.cmd [[command! -bang -nargs=* GVA GV<bang> --all <args>]]
+
       -- GV with company filter
       -- TODO: Add complete function, need to get gv.vim script id to use
       -- s:gvcomplete as complete function
