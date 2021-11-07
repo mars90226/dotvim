@@ -174,6 +174,8 @@ utility.startup = function(use)
     end
   }
 
+  use { 'kevinhwang91/nvim-bqf', ft = {'qf'} }
+
   use {
     'thinca/vim-qfreplace',
     ft = {'qf'},
