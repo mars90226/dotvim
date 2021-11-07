@@ -79,7 +79,7 @@ languages.startup = function(use)
   use {
     'euclio/vim-markdown-composer',
     ft = {'markdown'},
-    run = function() vim.fn['vimrc#composer#build_composer']() end,
+    run = 'cargo build --release',
     config = function()
       -- Manually execute :ComposerStart instead
       vim.g.markdown_composer_autostart = 0
