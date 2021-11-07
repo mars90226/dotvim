@@ -24,6 +24,7 @@ require('packer').startup(function(use)
   end
 
   require('plug.appearance').startup(use)
+  require('plug.lsp').startup(use)
   require('plug.completion').startup(use)
   require('plug.file_explorer').startup(use)
   require('plug.file_navigation').startup(use)

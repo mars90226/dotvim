@@ -26,11 +26,14 @@ endif
 
 " Lint {{{
 " Choose Lint plugin
-" syntastic, ale
-if vimrc#plugin#check#has_async()
-  call vimrc#plugin#disable_plugin('syntastic')
+" null-ls.nvim, ale, syntastic
+call vimrc#plugin#disable_plugins(['null-ls.nvim', 'ale', 'syntastic'])
+if has('nvim-0.5.0')
+  call vimrc#plugin#enable_plugin('null-ls.nvim')
+elseif vimrc#plugin#check#has_async()
+  call vimrc#plugin#enable_plugin('ale')
 else
-  call vimrc#plugin#disable_plugin('ale')
+  call vimrc#plugin#enable_plugin('syntastic')
 end
 
 " Disable Lint if vim_mode is 'reader'
