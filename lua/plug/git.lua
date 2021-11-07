@@ -143,6 +143,7 @@ git.startup = function(use)
 
   use {
     'TimUntersberger/neogit',
+    disable = true,
     requires = { 'nvim-lua/plenary.nvim' },
     config = function()
       require('neogit').setup {}

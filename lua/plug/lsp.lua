@@ -63,6 +63,7 @@ lsp.startup = function(use)
   }
   use {
     'tami5/lspsaga.nvim',
+    event = 'VimEnter',
     config = function()
       require'lspsaga'.setup{}
 
