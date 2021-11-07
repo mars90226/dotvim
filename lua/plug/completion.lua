@@ -17,11 +17,19 @@ end
 completion.startup = function(use)
   completion.setup_mapping()
 
-  -- Completion
+  -- Language Server Protocol
   use {
     'neovim/nvim-lspconfig',
     config = function()
-      vim.fn['vimrc#source']('vimrc/plugins/nvim_lsp.vim')
+      nnoremap('<C-]>', '<Cmd>lua vim.lsp.buf.definition()<CR>', 'silent')
+      nnoremap('1gD',   '<Cmd>lua vim.lsp.buf.type_definition()<CR>', 'silent')
+      nnoremap('gR',    '<Cmd>lua vim.lsp.buf.references()<CR>', 'silent')
+      nnoremap('g0',    '<Cmd>lua vim.lsp.buf.document_symbol()<CR>', 'silent')
+
+      -- Remap for K
+      nnoremap('gK', 'K')
+
+      vim.go.omnifunc = [[v:lua.vim.lsp.omnifunc]]
     end
   }
   use {
@@ -32,8 +40,8 @@ completion.startup = function(use)
       local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
       lsp_installer.on_server_ready(function(server)
-        local opts = lsp_configs[server.name]
-        opts = vim.tbl_extend('keep', opts, server:get_default_options())
+        local opts = lsp_configs[server.name] or {}
+        opts = vim.tbl_extend('keep', opts, server:get_default_options() or {})
 
         -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
         opts.capabilities = capabilities
@@ -45,7 +53,6 @@ completion.startup = function(use)
 
       -- Ensure lsp servers
       local lsp_installer_servers = require'nvim-lsp-installer.servers'
-
       for lsp, lsp_config in pairs(lsp_configs.servers) do
         local ok, lsp_server = lsp_installer_servers.get_server(lsp)
         if ok then
@@ -57,7 +64,7 @@ completion.startup = function(use)
           -- TODO: use other attribute to record name
           if vim.fn.executable(lsp) then
             -- TODO: Reduce duplication
-            local cmp_lsp_config = vim.deepcopy(lsp_config)
+            local cmp_lsp_config = vim.deepcopy(lsp_config or {})
 
             -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
             cmp_lsp_config.capabilities = capabilities
@@ -69,6 +76,29 @@ completion.startup = function(use)
       end
     end
   }
+  use {
+    'tami5/lspsaga.nvim',
+    config = function()
+      require'lspsaga'.setup{}
+
+      nnoremap('gd', '<Cmd>Lspsaga lsp_finder<CR>', 'silent')
+      nnoremap('gi', '<Cmd>Lspsaga implement<CR>', 'silent')
+      nnoremap('gp', '<Cmd>Lspsaga preview_definition<CR>', 'silent')
+      nnoremap('gy', '<Cmd>Lspsaga signature_help<CR>', 'silent')
+      nnoremap('gr', '<Cmd>Lspsaga rename<CR>', 'silent')
+      nnoremap('gx', '<Cmd>Lspsaga code_action<CR>', 'silent')
+      xnoremap('gx', ':<C-U>Lspsaga range_code_action<CR>', 'silent')
+      nnoremap('K',  "<Cmd>lua require('vimrc.plugins.lspsaga').show_doc()<CR>", 'silent')
+      nnoremap('go', '<Cmd>Lspsaga show_line_diagnostics<CR>', 'silent')
+      nnoremap('gC', '<Cmd>Lspsaga show_cursor_dianostics<CR>', 'silent')
+      nnoremap(']c', '<Cmd>Lspsaga diagnostic_jump_next<CR>', 'silent')
+      nnoremap('[c', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', 'silent')
+      nnoremap('<C-U>', "<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>")
+      nnoremap('<C-D>', "<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>")
+    end
+  } 
+
+  -- Completion
   use {
     'hrsh7th/nvim-cmp',
     requires = {
