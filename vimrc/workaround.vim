@@ -1,8 +1,3 @@
-" Prevent CTRL-F to abort the selection (in visual mode)
-" This is caused by $VIM/_vimrc ':behave mswin' which sets 'keymodel' to
-" include 'stopsel' which means that non-shifted special keys stop selection.
-set keymodel=startsel
-
 " disable Background Color Erase (BC) by clearing the `t_ut` on Synology DSM
 " see https://sunaku.github.io/vim-256color-bce.html
 if vimrc#plugin#check#get_os() =~# 'synology' && !has('nvim')

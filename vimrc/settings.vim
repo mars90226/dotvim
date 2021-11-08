@@ -5,8 +5,7 @@ scriptencoding utf-8
 " source mswin.vim
 if vimrc#plugin#check#get_os() !~# 'synology'
   source $VIMRUNTIME/mswin.vim
-  " TODO Fix this in Linux
-  behave mswin
+  behave xterm
 
   if has('gui')
     " Fix CTRL-F in gui will popup find window problem
