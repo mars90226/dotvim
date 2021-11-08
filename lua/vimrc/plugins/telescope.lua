@@ -2,6 +2,7 @@ local state = require('telescope.state')
 
 local actions = require('telescope.actions')
 local action_set = require('telescope.actions.set')
+local action_state = require('telescope.actions.state')
 
 local trouble = require('trouble.providers.telescope')
 
@@ -23,6 +24,22 @@ local move_selection_previous_page = function(prompt_bufnr)
   local distance = vim.api.nvim_win_get_height(status.results_win)
 
   action_set.shift_selection(prompt_bufnr, -distance)
+end
+
+local select_rightbelow_horizontal = function(prompt_bufnr)
+  action_state.get_current_history():append(
+    action_state.get_current_line(),
+    action_state.get_current_picker(prompt_bufnr)
+  )
+  return action_set.edit(prompt_bufnr, "rightbelow new")
+end
+
+local select_rightbelow_vertical = function(prompt_bufnr)
+  action_state.get_current_history():append(
+    action_state.get_current_line(),
+    action_state.get_current_picker(prompt_bufnr)
+  )
+  return action_set.edit(prompt_bufnr, "rightbelow vnew")
 end
 
 -- Global remapping
@@ -48,12 +65,20 @@ require('telescope').setup{
         -- Use <C-S> to select horizontal
         ["<C-S>"] = actions.select_horizontal,
 
+        -- Use <M-g>/<M-v> to select rightbelow horizontal/vertical
+        ["<M-g>"] = select_rightbelow_horizontal,
+        ["<M-v>"] = select_rightbelow_vertical,
+
         -- Use <M-t> to open in trouble
         ["<M-t>"] = trouble.open_with_trouble,
       },
       n = {
         -- Use <C-S> to select horizontal
         ["<C-S>"] = actions.select_horizontal,
+
+        -- Use <M-g>/<M-v> to select rightbelow horizontal/vertical
+        ["<M-g>"] = select_rightbelow_horizontal,
+        ["<M-v>"] = select_rightbelow_vertical,
 
         -- Use <M-t> to open in trouble
         ["<M-t>"] = trouble.open_with_trouble,
