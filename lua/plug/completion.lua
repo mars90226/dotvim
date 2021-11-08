@@ -29,7 +29,8 @@ completion.startup = function(use)
 
           require("luasnip.loaders.from_vscode").lazy_load({
             paths = {
-              utils.get_packer_start_dir() .. '/friendly-snippets'
+              utils.get_packer_start_dir() .. '/friendly-snippets',
+              vim.env.HOME .. '/.vim_secret',
             }
           })
         end
