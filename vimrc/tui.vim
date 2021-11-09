@@ -25,6 +25,8 @@ if executable('btm')
   command! -nargs=* BtmSplit    call vimrc#tui#run('new', 'btm '.<q-args>)
   call vimrc#fuzzymenu#try_add('Btm', { 'exec': 'Btm' })
   call vimrc#fuzzymenu#try_add('BtmSplit', { 'exec': 'BtmSplit' })
+
+  nnoremap <Leader>bt :Btm<CR>
 endif
 
 if executable('broot')
