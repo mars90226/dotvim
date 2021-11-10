@@ -10,6 +10,7 @@ lsp.startup = function(use)
       nnoremap('gR',        '<Cmd>lua vim.lsp.buf.references()<CR>', 'silent')
       nnoremap('g0',        '<Cmd>lua vim.lsp.buf.document_symbol()<CR>', 'silent')
       nnoremap('<Space>lf', '<Cmd>lua vim.lsp.buf.formatting()<CR>', 'silent')
+      xnoremap('<Space>lf', '<Cmd>lua vim.lsp.buf.range_formatting()<CR>', 'silent')
 
       -- Remap for K
       nnoremap('gK', 'K')
