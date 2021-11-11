@@ -18,6 +18,7 @@ lsp.startup = function(use)
       vim.go.omnifunc = [[v:lua.vim.lsp.omnifunc]]
     end
   }
+
   use {
     'williamboman/nvim-lsp-installer',
     config = function()
@@ -62,6 +63,7 @@ lsp.startup = function(use)
       end
     end
   }
+
   use {
     'tami5/lspsaga.nvim',
     event = 'VimEnter',
@@ -84,6 +86,7 @@ lsp.startup = function(use)
       nnoremap('<C-D>', "<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>")
     end
   }
+
   use {
     'folke/trouble.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
@@ -98,6 +101,7 @@ lsp.startup = function(use)
       nnoremap('<Space>xr', '<Cmd>TroubleToggle lsp_references<CR>', 'silent')
     end
   }
+
   use {
     'jose-elias-alvarez/null-ls.nvim',
     requires = {
@@ -200,6 +204,7 @@ lsp.startup = function(use)
       require('lspconfig')['null-ls'].setup({})
     end
   }
+
   use {
     'mfussenegger/nvim-lint',
     config = function()
