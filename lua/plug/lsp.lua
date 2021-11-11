@@ -200,6 +200,21 @@ lsp.startup = function(use)
       require('lspconfig')['null-ls'].setup({})
     end
   }
+  use {
+    'mfussenegger/nvim-lint',
+    config = function()
+      require('lint').linters_by_ft = {
+        python = {'pylint'}
+      }
+
+      nnoremap('<Space>ll', "<Cmd>lua require('lint').try_lint()<CR>", 'silent')
+
+      vim.cmd [[augroup nvim_lint_settings]]
+      vim.cmd [[autocmd!]]
+      vim.cmd [[autocmd BufWritePost <buffer> lua require('lint').try_lint()]]
+      vim.cmd [[augroup END]]
+    end
+  }
 end
 
 return lsp
