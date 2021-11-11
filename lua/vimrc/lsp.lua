@@ -41,6 +41,7 @@ lsp.on_attach = function()
   nnoremap('gK', 'K', 'buffer')
 
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
+  vim.bo.formatexpr = [[v:lua.vim.lsp.formatexpr]]
 end
 
 lsp.setup_server = function(server, custom_opts)
