@@ -26,6 +26,7 @@ nnoremap <Space>o     :Denite outline<CR>
 " FIXME: Denite -auto-action=preview will preview last candidate
 
 " TODO: Add Denite buffer output:map
+nnoremap <Space><F2> :Denite output:map\ <buffer>
 
 nnoremap <Space>da :Denite location_list<CR>
 nnoremap <Space>db :DeniteBufferDir file<CR>
