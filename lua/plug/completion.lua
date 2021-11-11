@@ -44,6 +44,7 @@ completion.startup = function(use)
       -- Completion Sources
       'saadparwaiz1/cmp_luasnip',
       'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       {
@@ -53,7 +54,19 @@ completion.startup = function(use)
       'octaltree/cmp-look',
       'hrsh7th/cmp-calc',
       'ray-x/cmp-treesitter',
+      {
+        'petertriho/cmp-git',
+        config = function()
+          require('cmp_git').setup()
+        end
+      },
       'hrsh7th/cmp-emoji',
+      {
+        'lukas-reineke/cmp-rg',
+        condition = function()
+          return vim.fn.executable('rg') > 0
+        end
+      },
     },
     config = function()
 
@@ -71,7 +84,24 @@ completion.startup = function(use)
           end,
         },
         formatting = {
-          format = lspkind.cmp_format({maxwidth = 50})
+          format = lspkind.cmp_format({
+              with_text = true,
+              maxwidth = 50,
+              menu = {
+                nvim_lsp = '[LSP]',
+                path = '[Path]',
+                luasnip = '[LuaSnip]',
+                nvim_lua = '[Lua]',
+                buffer = '[Buffer]',
+                calc = '[Calc]',
+                emoji = '[Emoji]',
+                treesitter = '[Treesitter]',
+                cmp_git = '[Git]',
+                tmux = '[Tmux]',
+                rg = '[Rg]',
+                look = '[Look]',
+              }
+            })
         },
         mapping = {
           ['<C-D>'] = cmp.mapping.scroll_docs(-4),
@@ -114,7 +144,9 @@ completion.startup = function(use)
           { name = 'calc' },
           { name = 'emoji' },
           { name = 'treesitter' },
+          { name = 'cmp_git' },
           { name = 'tmux' },
+          { name = 'rg' },
           { name = 'look', keyword_length = 2, opts = { convert_case = true, loud = true } },
         }
       })
