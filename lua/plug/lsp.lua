@@ -2,46 +2,22 @@ local lsp = {}
 
 lsp.startup = function(use)
   -- Language Server Protocol
-  use {
-    'neovim/nvim-lspconfig',
-    config = function()
-      nnoremap('<C-]>',     '<Cmd>lua vim.lsp.buf.definition()<CR>', 'silent')
-      nnoremap('1gD',       '<Cmd>lua vim.lsp.buf.type_definition()<CR>', 'silent')
-      nnoremap('gR',        '<Cmd>lua vim.lsp.buf.references()<CR>', 'silent')
-      nnoremap('g0',        '<Cmd>lua vim.lsp.buf.document_symbol()<CR>', 'silent')
-      nnoremap('<Space>lf', '<Cmd>lua vim.lsp.buf.formatting()<CR>', 'silent')
-      xnoremap('<Space>lf', '<Cmd>lua vim.lsp.buf.range_formatting()<CR>', 'silent')
-
-      -- Remap for K
-      nnoremap('gK', 'K')
-
-      vim.go.omnifunc = [[v:lua.vim.lsp.omnifunc]]
-    end
-  }
+  use 'neovim/nvim-lspconfig'
 
   use {
     'williamboman/nvim-lsp-installer',
     config = function()
       local lsp_installer = require("nvim-lsp-installer")
       local lsp_configs = require('vimrc.lsp')
-      local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
       lsp_installer.on_server_ready(function(server)
-        local opts = lsp_configs[server.name] or {}
-        opts = vim.tbl_extend('keep', opts, server:get_default_options() or {})
-
-        -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-        opts.capabilities = capabilities
-
-        -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
-        server:setup(opts)
-        vim.cmd [[ do User LspAttachBuffers ]]
+        lsp_configs.setup_server(server.name, server:get_default_options())
       end)
 
       -- Ensure lsp servers
       local lsp_installer_servers = require'nvim-lsp-installer.servers'
-      for lsp, lsp_config in pairs(lsp_configs.servers) do
-        local ok, lsp_server = lsp_installer_servers.get_server(lsp)
+      for server_name, _ in pairs(lsp_configs.servers) do
+        local ok, lsp_server = lsp_installer_servers.get_server(server_name)
         if ok then
           if not lsp_server:is_installed() then
             lsp_server:install()
@@ -49,15 +25,8 @@ lsp.startup = function(use)
         else
           -- Maybe lsp_installer not supported language server, but already installed
           -- TODO: use other attribute to record name
-          if vim.fn.executable(lsp) then
-            -- TODO: Reduce duplication
-            local cmp_lsp_config = vim.deepcopy(lsp_config or {})
-
-            -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-            cmp_lsp_config.capabilities = capabilities
-
-            require'lspconfig'[lsp].setup(cmp_lsp_config)
-            vim.cmd [[ do User LspAttachBuffers ]]
+          if vim.fn.executable(server_name) then
+            lsp_configs.setup_server(server_name, {})
           end
         end
       end
