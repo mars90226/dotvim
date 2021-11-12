@@ -56,24 +56,6 @@ text_navigation.startup = function(use)
       map('<M-;>', '<Plug>Lightspeed_S')
     end
   }
-  use {
-    'ripxorip/aerojump.nvim',
-    run = ':UpdateRemotePlugins',
-    config = function()
-      vim.g.aerojump_keymaps = {
-        ['<Esc>'] = 'AerojumpExit',
-        ['<C-C>'] = 'AerojumpExit',
-        ['<Tab>'] = 'AerojumpSelNext',
-        ['<S-Tab>'] = 'AerojumpSelPrev',
-      }
-
-      nmap('<Space>as', '<Plug>(AerojumpSpace)')
-      nmap('<Space>ab', '<Plug>(AerojumpBolt)')
-      nmap('<Space>aa', '<Plug>(AerojumpFromCursorBolt)')
-      nmap('<Space>ad', '<Plug>(AerojumpDefault)')
-      nmap('<Space>am', '<Plug>(AerojumpMilk)')
-    end
-  }
 
   use {
     'kevinhwang91/nvim-hlslens',
