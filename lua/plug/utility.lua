@@ -279,6 +279,15 @@ utility.startup = function(use)
     end
   }
 
+  use {
+    'folke/todo-comments.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+    cmd = {'TodoQuickFix', 'TodoLocList', 'TodoTrouble', 'TodoTelescope'},
+    config = function()
+      require("todo-comments").setup {}
+    end
+  }
+
   -- Disabled by default, enable to profile
   -- Plug 'norcalli/profiler.nvim'
 
