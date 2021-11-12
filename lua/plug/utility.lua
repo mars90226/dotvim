@@ -297,6 +297,13 @@ utility.startup = function(use)
     end
   }
 
+  use {
+    'luukvbaal/stabilize.nvim',
+    config = function()
+      require('stabilize').setup()
+    end
+  }
+
   -- Disabled by default, enable to profile
   -- Plug 'norcalli/profiler.nvim'
 
