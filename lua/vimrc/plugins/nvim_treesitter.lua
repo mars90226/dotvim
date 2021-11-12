@@ -113,6 +113,13 @@ require'nvim-treesitter.configs'.setup {
   context_commentstring = {
     enable = true
   },
+  textsubjects = {
+    enable = true,
+    keymaps = {
+        ['.'] = 'textsubjects-smart',
+        ['g;'] = 'textsubjects-container-outer',
+    }
+  },
 }
 
 if vim.fn['vimrc#plugin#is_enabled_plugin']('nvim-treesitter-context') == 1 then

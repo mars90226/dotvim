@@ -28,6 +28,7 @@ languages.startup = function(use)
   use 'nvim-treesitter/playground'
   use 'JoosepAlviste/nvim-ts-context-commentstring'
   use 'mfussenegger/nvim-ts-hint-textobject'
+  use 'RRethy/nvim-treesitter-textsubjects'
 
   use 'jackguo380/vim-lsp-cxx-highlight'
 
