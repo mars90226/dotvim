@@ -76,73 +76,18 @@ text_navigation.startup = function(use)
   }
 
   use {
-    'haya14busa/vim-asterisk',
+    'kevinhwang91/nvim-hlslens',
     config = function()
-      map('*',   '<Plug>(incsearch-nohl)<Plug>(asterisk-*)')
-      map('#',   '<Plug>(incsearch-nohl)<Plug>(asterisk-#)')
-      map('g*',  '<Plug>(incsearch-nohl)<Plug>(asterisk-g*)')
-      map('g#',  '<Plug>(incsearch-nohl)<Plug>(asterisk-g#)')
-      map('z*',  '<Plug>(incsearch-nohl0)<Plug>(asterisk-z*)')
-      map('gz*', '<Plug>(incsearch-nohl0)<Plug>(asterisk-gz*)')
-      map('z#',  '<Plug>(incsearch-nohl0)<Plug>(asterisk-z#)')
-      map('gz#', '<Plug>(incsearch-nohl0)<Plug>(asterisk-gz#)')
-    end
-  }
-
-  -- incsearch
-  use {
-    'haya14busa/incsearch.vim',
-    config = function()
-      -- :h g:incsearch#auto_nohlsearch
-      vim.g['incsearch#auto_nohlsearch'] = 1
-
-      map('n', '<Plug>(incsearch-nohl-n)')
-      map('N', '<Plug>(incsearch-nohl-N)')
-
-      -- Replace by vim-asterisk
-      -- map('*',  '<Plug>(incsearch-nohl-*)')
-      -- map('#',  '<Plug>(incsearch-nohl-#)')
-      -- map('g*', '<Plug>(incsearch-nohl-g*)')
-      -- map('g#', '<Plug>(incsearch-nohl-g#)')
-
-      -- For original search incase need to insert special characters like NULL
-      nnoremap('<Leader><Leader>/', '/')
-      nnoremap('<Leader><Leader>?', '?')
-
-      map('/',  '<Plug>(incsearch-forward)')
-      map('?',  '<Plug>(incsearch-backward)')
-      map('g/', '<Plug>(incsearch-stay)')
+      noremap('n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], 'silent')
+      noremap('N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], 'silent')
+      noremap('*', [[*<Cmd>lua require('hlslens').start()<CR>]])
+      noremap('#', [[#<Cmd>lua require('hlslens').start()<CR>]])
+      noremap('g*', [[g*<Cmd>lua require('hlslens').start()<CR>]])
+      noremap('g#', [[g#<Cmd>lua require('hlslens').start()<CR>]])
 
       -- Search within visual selection
-      xmap('<M-/>', [[<Esc><Plug>(incsearch-forward)\%V]])
-      xmap('<M-?>', [[<Esc><Plug>(incsearch-backward)\%V]])
-
-      vim.cmd [[augroup incsearch_settings]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd BufWinLeave,WinLeave * call vimrc#incsearch#clear_nohlsearch()]]
-      vim.cmd [[augroup END]]
-
-      vim.cmd [[command! ClearIncsearchAutoNohlsearch call vimrc#incsearch#clear_auto_nohlsearch()]]
-    end
-  }
-  use {
-    'haya14busa/incsearch-fuzzy.vim',
-    config = function()
-      map('z/',  '<Plug>(incsearch-fuzzy-/)')
-      map('z?',  '<Plug>(incsearch-fuzzy-?)')
-      map('zg/', '<Plug>(incsearch-fuzzy-stay)')
-    end
-  }
-  use {
-    'haya14busa/incsearch-easymotion.vim',
-    config = function()
-      map('<Leader>/',  '<Plug>(incsearch-easymotion-/)')
-      map('<Leader>?',  '<Plug>(incsearch-easymotion-?)')
-      map('<Leader>g/', '<Plug>(incsearch-easymotion-stay)')
-
-    -- incsearch.vim x fuzzy x vim-easymotion
-      noremap([[\/]], 'incsearch#go(vimrc#incsearch#config_easyfuzzymotion())', 'silent', 'expr')
-      noremap([[Z/]], 'incsearch#go(vimrc#incsearch#config_easyfuzzymotion())', 'silent', 'expr')
+      xnoremap('<M-/>', [[<Esc>/\%V]])
+      xnoremap('<M-?>', [[<Esc>?\%V]])
     end
   }
 
