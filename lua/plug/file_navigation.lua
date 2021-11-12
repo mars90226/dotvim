@@ -116,14 +116,17 @@ file_navigation.startup = function(use)
   }
 
   use {
-    'dyng/ctrlsf.vim',
+    'windwp/nvim-spectre',
+    key = {'<Space>S', '<Space>sw', '<Space>ss', "<Space>s'"},
     config = function()
-      nmap('<Space><C-F>', "<Plug>CtrlSFPrompt")
+      nnoremap('<Space>S', [[:lua require('spectre').open()<CR>]])
 
-      nmap('<Leader><C-F>', "<Plug>CtrlSFCwordExec")
-      xmap('<Leader><C-F>', "<Plug>CtrlSFVwordExec")
+      -- Search current word
+      nnoremap('<Space>sw', [[:lua require('spectre').open_visual({select_word=true})<CR>]])
+      vnoremap('<Space>ss', [[:lua require('spectre').open_visual()<CR>]])
 
-      nnoremap('<F5>', ":CtrlSFToggle<CR>")
+      -- Search in current file
+      nnoremap("<Space>s'", [[viw:lua require('spectre').open_file_search()<CR>]])
     end
   }
 
