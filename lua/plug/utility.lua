@@ -288,6 +288,15 @@ utility.startup = function(use)
     end
   }
 
+  use 'winston0410/cmd-parser.nvim'
+  use {
+    'winston0410/range-highlight.nvim',
+    require = { 'winston0410/cmd-parser.nvim' },
+    config = function()
+      require'range-highlight'.setup{}
+    end
+  }
+
   -- Disabled by default, enable to profile
   -- Plug 'norcalli/profiler.nvim'
 
