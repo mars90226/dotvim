@@ -211,11 +211,13 @@ utility.startup = function(use)
   }
 
   use {
-    'junegunn/goyo.vim',
-    cmd = {'Goyo'},
-    keys = {'<Leader>gy'},
+    'Pocco81/TrueZen.nvim',
+    cmd = {'TZAtaraxis', 'TZFocus', 'TZMinimalist'},
+    keys = {'<Leader>za', '<Leader>zc', '<Leader>zm'},
     config = function()
-      nnoremap('<Leader>gy', ':Goyo<CR>')
+      nnoremap('<Leader>za', [[<Cmd>TZAtaraxis<CR>]])
+      nnoremap('<Leader>zc', [[<Cmd>TZFocus<CR>]])
+      nnoremap('<Leader>zm', [[<Cmd>TZMinimalist<CR>]])
     end
   }
 
