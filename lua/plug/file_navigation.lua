@@ -42,11 +42,6 @@ file_navigation.startup = function(use)
     end
   }
   use 'junegunn/fzf.vim'
-  -- TODO: Make Quickfix use g:fzf_action
-  use {
-    'fszymanski/fzf-quickfix',
-    cmd = 'Quickfix',
-  }
   use 'stsewd/fzf-checkout.vim'
   use {
     'laher/fuzzymenu.vim',
