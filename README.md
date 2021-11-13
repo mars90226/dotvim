@@ -23,6 +23,9 @@ mostly be neovim-only changes.
 * [trouble.nvim](https://github.com/folke/trouble.nvim) (diagnostics UI written in Lua)
 * [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) (integrate linter/formatter/code action to LSP, written in Lua)
 * [nvim-lint](https://github.com/mfussenegger/nvim-lint) (on-demand linter written in Lua)
+* [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) (fast semantic syntax highlighting)
+* [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-objects) (textobjects based on treesitter)
+* [nvim-treesitter-context](https://github.com/romgrk/nvim-treesitter-context) (context based on treesitter)
 * [vim-fugitive](https://github.com/tpope/vim-fugitive) (almost perfect git wrapper)
 * [vim-flog](https://github.com/rbong/vim-flog) (git commit browser)
 * [vim-floaterm](https://github.com/voldikss/vim-floaterm) (open terminal buffer in floating window)
@@ -55,6 +58,7 @@ mostly be neovim-only changes.
 * [neovim](https://neovim.io/) 0.5.1+ (required by neovim built-in LSP client)
 * [python](https://www.python.org/) 3.6.1+ (required by denite.nvim, and defx.nvim)
 * [universal-ctags](https://github.com/universal-ctags/ctags) (required by vista.vim)
+* C compiler and libstdc++ (required by nvim-treesitter)
 
 ### Vim
 * [python](https://www.python.org/) 3.6.1+ (required by completor.vim)
@@ -153,6 +157,16 @@ Open vim and execute `:PlugInstall`.
     * `<Leader>xw`: Show LSP workspace diagnostics in Trouble UI
 * nvim-lint key mappings
     * `<Leader>ll`: Execute linter
+* Treesitter key mappings
+    * `af` for textobject: outer function textobject
+    * `if` for textobject: inner function textobject
+    * `af` for textobject: outer class textobject
+    * `ic` for textobject: inner class textobject
+    * `]m`: Goto next function start
+    * `[m`: Goto previous function start
+    * `]]`: Goto next class start
+    * `[]`: Goto previous class start
+    * `<F6>`: Toggle context
 * fugitive key mappings
     * `<Leader>gs`: Show git status
     * `<Leader>gc`: Show git blame commit of current line
