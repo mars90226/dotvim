@@ -245,11 +245,11 @@ utility.startup = function(use)
   use {
     "folke/twilight.nvim",
     cmd = {'Twilight'},
-    setup = function()
-      nnoremap('<Leader><C-L>', ':Twilight<CR>')
-    end,
+    keys = {'<Leader><C-L>'},
     config = function()
       require("twilight").setup {}
+
+      nnoremap('<Leader><C-L>', ':Twilight<CR>')
     end
   }
 
