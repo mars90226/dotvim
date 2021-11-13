@@ -152,9 +152,9 @@ Open vim and execute `:PlugInstall`.
     * `;`: Forward search and goto 2 characters
     * `<M-;>`: Backward search and goto 2 characters
 * Trouble key mappings
-    * `<Leader>xx`: Toggle Trouble UI
-    * `<Leader>xd`: Show LSP document diagnostics in Trouble UI
-    * `<Leader>xw`: Show LSP workspace diagnostics in Trouble UI
+    * `<Space>xx`: Toggle Trouble UI
+    * `<Space>xd`: Show LSP document diagnostics in Trouble UI
+    * `<Space>xw`: Show LSP workspace diagnostics in Trouble UI
 * nvim-lint key mappings
     * `<Leader>ll`: Execute linter
 * Treesitter key mappings
