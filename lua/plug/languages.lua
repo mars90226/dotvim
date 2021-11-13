@@ -12,6 +12,7 @@ languages.startup = function(use)
       vim.g.polyglot_disabled = {'go'}
     end
   }
+  use {'leafo/moonscript-vim', ft = {'moon'}}
 
   -- Highlighing
   -- nvim-treesitter
