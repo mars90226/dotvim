@@ -299,6 +299,9 @@ utility.startup = function(use)
 
   use {
     'luukvbaal/stabilize.nvim',
+    -- Set commit to avoid filetype detection issue when loading a session
+    -- ref: https://github.com/luukvbaal/stabilize.nvim/issues/8
+    commit = '10bb37c82e94122be082651ee6ee58b5b2e51cb5',
     config = function()
       require('stabilize').setup()
     end
