@@ -29,8 +29,7 @@ endif
 if has('nvim') && has('termguicolors')
   set termguicolors
 
-  " highlight default link NormalFloat Pmenu
-  highlight NormalFloat guibg=#32302f
+  highlight default link NormalFloat Pmenu
 endif
 
 " highlighting strings inside C comments.
