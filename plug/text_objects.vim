@@ -14,7 +14,11 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-function'
 
 " Search in function
-map <Space>sF :call vimrc#incsearch#clear_nohlsearch()<CR>vaf<M-/>
+if vimrc#plugin#is_enabled_plugin('nvim-hlslens')
+  map <Space>sF vaf<M-/>
+else
+  map <Space>sF :call vimrc#incsearch#clear_nohlsearch()<CR>vaf<M-/>
+endif
 " }}}
 
 " textobj-word-column.vim {{{

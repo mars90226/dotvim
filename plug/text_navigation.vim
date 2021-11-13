@@ -79,73 +79,87 @@ if vimrc#plugin#is_enabled_plugin('aerojump.nvim')
 endif
 " }}}
 
+" Search {{{
 " vim-asterisk {{{
 Plug 'haya14busa/vim-asterisk'
-
-map *   <Plug>(incsearch-nohl)<Plug>(asterisk-*)
-map #   <Plug>(incsearch-nohl)<Plug>(asterisk-#)
-map g*  <Plug>(incsearch-nohl)<Plug>(asterisk-g*)
-map g#  <Plug>(incsearch-nohl)<Plug>(asterisk-g#)
-map z*  <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
-map gz* <Plug>(incsearch-nohl0)<Plug>(asterisk-gz*)
-map z#  <Plug>(incsearch-nohl0)<Plug>(asterisk-z#)
-map gz# <Plug>(incsearch-nohl0)<Plug>(asterisk-gz#)
 " }}}
 
-" incsearch {{{
-Plug 'haya14busa/incsearch.vim'
+" nvim-hlslens {{{
+if vimrc#plugin#is_enabled_plugin('nvim-hlslens')
+  Plug 'kevinhwang91/nvim-hlslens'
 
-" :h g:incsearch#auto_nohlsearch
-let g:incsearch#auto_nohlsearch = 1
-
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-
-" Replace by vim-asterisk
-"map *  <Plug>(incsearch-nohl-*)
-"map #  <Plug>(incsearch-nohl-#)
-"map g* <Plug>(incsearch-nohl-g*)
-"map g# <Plug>(incsearch-nohl-g#)
-
-" For original search incase need to insert special characters like NULL
-nnoremap <Leader><Leader>/ /
-nnoremap <Leader><Leader>? ?
-
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-
-" Search within visual selection
-xmap <M-/> <Esc><Plug>(incsearch-forward)\%V
-xmap <M-?> <Esc><Plug>(incsearch-backward)\%V
-
-augroup incsearch_settings
-  autocmd!
-  autocmd BufWinLeave,WinLeave * call vimrc#incsearch#clear_nohlsearch()
-augroup END
-
-command! ClearIncsearchAutoNohlsearch call vimrc#incsearch#clear_auto_nohlsearch()
+  map *   <Plug>(asterisk-*)<Cmd>lua require('hlslens').start()<CR>
+  map #   <Plug>(asterisk-#)<Cmd>lua require('hlslens').start()<CR>
+  map g*  <Plug>(asterisk-g*)<Cmd>lua require('hlslens').start()<CR>
+  map g#  <Plug>(asterisk-g#)<Cmd>lua require('hlslens').start()<CR>
+  map z*  <Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>
+  map gz* <Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>
+  map z#  <Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>
+  map gz# <Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>
+endif
 " }}}
 
-" incsearch-fuzzy {{{
-Plug 'haya14busa/incsearch-fuzzy.vim'
+" incsearch.vim {{{
+if vimrc#plugin#is_enabled_plugin('incsearch.vim')
+  Plug 'haya14busa/incsearch.vim'
 
-map z/  <Plug>(incsearch-fuzzy-/)
-map z?  <Plug>(incsearch-fuzzy-?)
-map zg/ <Plug>(incsearch-fuzzy-stay)
+  " :h g:incsearch#auto_nohlsearch
+  let g:incsearch#auto_nohlsearch = 1
+
+  map n  <Plug>(incsearch-nohl-n)
+  map N  <Plug>(incsearch-nohl-N)
+
+  " vim-asterisk
+  map *   <Plug>(incsearch-nohl)<Plug>(asterisk-*)
+  map #   <Plug>(incsearch-nohl)<Plug>(asterisk-#)
+  map g*  <Plug>(incsearch-nohl)<Plug>(asterisk-g*)
+  map g#  <Plug>(incsearch-nohl)<Plug>(asterisk-g#)
+  map z*  <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
+  map gz* <Plug>(incsearch-nohl0)<Plug>(asterisk-gz*)
+  map z#  <Plug>(incsearch-nohl0)<Plug>(asterisk-z#)
+  map gz# <Plug>(incsearch-nohl0)<Plug>(asterisk-gz#)
+
+  " For original search incase need to insert special characters like NULL
+  nnoremap <Leader><Leader>/ /
+  nnoremap <Leader><Leader>? ?
+
+  map /  <Plug>(incsearch-forward)
+  map ?  <Plug>(incsearch-backward)
+  map g/ <Plug>(incsearch-stay)
+
+  " Search within visual selection
+  xmap <M-/> <Esc><Plug>(incsearch-forward)\%V
+  xmap <M-?> <Esc><Plug>(incsearch-backward)\%V
+
+  augroup incsearch_settings
+    autocmd!
+    autocmd BufWinLeave,WinLeave * call vimrc#incsearch#clear_nohlsearch()
+  augroup END
+
+  command! ClearIncsearchAutoNohlsearch call vimrc#incsearch#clear_auto_nohlsearch()
+
+  " incsearch-fuzzy {{{
+  Plug 'haya14busa/incsearch-fuzzy.vim'
+
+  map z/  <Plug>(incsearch-fuzzy-/)
+  map z?  <Plug>(incsearch-fuzzy-?)
+  map zg/ <Plug>(incsearch-fuzzy-stay)
+  " }}}
+
+  " incsearch-easymotion {{{
+  Plug 'haya14busa/incsearch-easymotion.vim'
+
+  map <Leader>/  <Plug>(incsearch-easymotion-/)
+  map <Leader>?  <Plug>(incsearch-easymotion-?)
+  map <Leader>g/ <Plug>(incsearch-easymotion-stay)
+  " }}}
+
+  " incsearch.vim x fuzzy x vim-easymotion {{{
+  noremap <silent><expr> \/ incsearch#go(vimrc#incsearch#config_easyfuzzymotion())
+  noremap <silent><expr> Z/ incsearch#go(vimrc#incsearch#config_easyfuzzymotion())
 " }}}
-
-" incsearch-easymotion {{{
-Plug 'haya14busa/incsearch-easymotion.vim'
-
-map <Leader>/  <Plug>(incsearch-easymotion-/)
-map <Leader>?  <Plug>(incsearch-easymotion-?)
-map <Leader>g/ <Plug>(incsearch-easymotion-stay)
+endif
 " }}}
-
-" incsearch.vim x fuzzy x vim-easymotion {{{
-noremap <silent><expr> \/ incsearch#go(vimrc#incsearch#config_easyfuzzymotion())
-noremap <silent><expr> Z/ incsearch#go(vimrc#incsearch#config_easyfuzzymotion())
 " }}}
 
 " CamelCaseMotion {{{

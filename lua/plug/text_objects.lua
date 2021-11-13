@@ -22,7 +22,7 @@ text_objects.startup = function(use)
     'kana/vim-textobj-function',
     config = function()
       -- Search in function
-      map('<Space>sF', ':call vimrc#incsearch#clear_nohlsearch()<CR>vaf<M-/>')
+      map('<Space>sF', 'vaf<M-/>')
     end
   }
 

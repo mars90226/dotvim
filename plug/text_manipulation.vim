@@ -155,6 +155,15 @@ nmap <Leader>fr <Plug>(FerretAcks)
 Plug 'mg979/vim-visual-multi'
 
 " imap <BS> & <CR> is overwritten, need to be careful of bugs
+
+" nvim-hlslens integration
+if vimrc#plugin#is_enabled_plugin('nvim-hlslens')
+  augroup vmlens_settings
+    autocmd!
+    autocmd User visual_multi_start lua require('vimrc.plugins.vmlens').start()
+    autocmd User visual_multi_exit lua require('vimrc.plugins.vmlens').exit()
+  augroup END
+endif
 " }}}
 
 " Tabular {{{

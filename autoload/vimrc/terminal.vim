@@ -12,11 +12,13 @@ function! vimrc#terminal#settings() abort
   setlocal nonumber
   setlocal norelativenumber
 
-  " Only clear incsearch-nohlsearch autocmd in normal shell terminal
-  " Do not clear in other terminal like fzf, coc
-  if vimrc#terminal#is_shell_terminal(expand('<afile>'))
-    " Clear incsearch-nohlsearch autocmd on entering terminal mode
-    nnoremap <silent><buffer> i :ClearIncsearchAutoNohlsearch<CR>i
+  if vimrc#plugin#is_enabled_plugin('incsearch.vim')
+    " Only clear incsearch-nohlsearch autocmd in normal shell terminal
+    " Do not clear in other terminal like fzf, coc
+    if vimrc#terminal#is_shell_terminal(expand('<afile>'))
+      " Clear incsearch-nohlsearch autocmd on entering terminal mode
+      nnoremap <silent><buffer> i :ClearIncsearchAutoNohlsearch<CR>i
+    endif
   endif
 endfunction
 

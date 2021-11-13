@@ -57,15 +57,23 @@ text_navigation.startup = function(use)
     end
   }
 
+  -- Search
+  use 'haya14busa/vim-asterisk'
   use {
     'kevinhwang91/nvim-hlslens',
     config = function()
       noremap('n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], 'silent')
       noremap('N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], 'silent')
-      noremap('*', [[*<Cmd>lua require('hlslens').start()<CR>]])
-      noremap('#', [[#<Cmd>lua require('hlslens').start()<CR>]])
-      noremap('g*', [[g*<Cmd>lua require('hlslens').start()<CR>]])
-      noremap('g#', [[g#<Cmd>lua require('hlslens').start()<CR>]])
+
+      -- vim-asterisk
+      map('*', [[<Plug>(asterisk-*)<Cmd>lua require('hlslens').start()<CR>]])
+      map('#', [[<Plug>(asterisk-#)<Cmd>lua require('hlslens').start()<CR>]])
+      map('g*', [[<Plug>(asterisk-g*)<Cmd>lua require('hlslens').start()<CR>]])
+      map('g#', [[<Plug>(asterisk-g#)<Cmd>lua require('hlslens').start()<CR>]])
+      map('z*', [[<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>]])
+      map('gz*', [[<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>]])
+      map('z#', [[<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>]])
+      map('gz#', [[<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>]])
 
       -- Search within visual selection
       xnoremap('<M-/>', [[<Esc>/\%V]])
