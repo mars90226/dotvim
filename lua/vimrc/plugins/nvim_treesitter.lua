@@ -85,7 +85,14 @@ require'nvim-treesitter.configs'.setup {
         ["[]"] = "@class.outer",
       },
     },
-    -- TODO: Add lsp_interop, need nvim-lsp
+    lsp_interop = {
+      enable = true,
+      border = 'none',
+      peek_definition_code = {
+        ["<Space>hf"] = "@function.outer",
+        ["<Space>hc"] = "@class.outer",
+      },
+    },
   },
   playground = {
     enable = true,
