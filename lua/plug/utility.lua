@@ -50,13 +50,8 @@ utility.startup = function(use)
     end
   }
 
-  use {
-    'junegunn/vim-peekaboo',
-    config = function()
-      vim.g.peekaboo_window = 'vertical botright ' .. vim.fn.float2nr(vim.go.columns * 0.3) .. 'new'
-      vim.g.peekaboo_delay = 400
-    end
-  }
+  -- Registers
+  use 'tversteeg/registers.nvim'
 
   use {
     'gu-fan/colorv.vim',

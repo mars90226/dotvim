@@ -133,7 +133,9 @@ command! -nargs=1 ProjectTselect call vimrc#fzf#tag#project_tselect(<q-args>)
 command! Jumps call vimrc#fzf#jumps()
 
 " Registers
-command! Registers call vimrc#fzf#registers()
+if exists(':Registers') != 2
+  command! Registers call vimrc#fzf#registers()
+endif
 
 " DirectoryAncestors
 command! DirectoryAncestors call vimrc#fzf#dir#directory_ancestors()
