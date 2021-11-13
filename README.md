@@ -1,9 +1,12 @@
-# Vim config
+# Vim/Neovim config
 
-Carefully crafted vim/neovim config.
+Carefully crafted vim/neovim config. After switching to
+[packer.nvim](https://github.com/wbthomason/packer.nvim), future update will
+mostly be neovim-only changes.
 
 ## Major plugins
 
+### Neovim
 * [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) (fast custom status line written in Lua)
 * [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) (auto completion written in Lua)
 * [vista.vim](https://github.com/liuchengxu/vista.vim) (Display tags in sidebar and support LSP)
@@ -26,11 +29,36 @@ Carefully crafted vim/neovim config.
 * [vimwiki](https://github.com/vimwiki/vimwiki) (wiki plugin like orgmode)
 * [vim-localvimrc](https://github.com/embear/vim-localvimrc) (for setup project-local vim config, useful for ale)
 
+### Vim
+* [lightline.vim](https://github.com/itchyny/lightline.vim) (custom status line)
+* [completor.vim](https://github.com/maralla/completor.vim) (auto completion)
+* [vista.vim](https://github.com/liuchengxu/vista.vim) (Display tags in sidebar and support LSP)
+* [tagbar](https://github.com/majutsushi/tagbar) (Display tags in sidebar and more stable)
+* [fzf](https://github.com/junegunn/fzf) (fuzzy finder for almost everything)
+* [fzf.vim](https://github.com/junegunn/fzf.vim) (used with fzf)
+* [vim-dirvish](https://github.com/justinmk/vim-dirvish) (file explorer)
+* [vim-easymotion](https://github.com/easymotion/vim-easymotion) (quickly move cursor to certain place on screen)
+* [incsearch.vim](https://github.com/haya14busa/incsearch.vim) (goto next and previous matched result without leaving search mode)
+* [auto-pairs](https://github.com/jiangmiao/auto-pairs) (automatically insert paired brackets)
+* [vim-sandwich](https://github.com/machakann/vim-sandwich) (quicly add/delete/replace brackets)
+* [far.vim](https://github.com/brooth/far.vim) (find-and-replace globally)
+* [ale.vim](https://github.com/w0rp/ale) (asynchronous linter)
+* [vim-polyglot](https://github.com/sheerun/vim-polyglot) (syntax files for almost everything filetypes)
+* [vim-fugitive](https://github.com/tpope/vim-fugitive) (almost perfect git wrapper)
+* [gv.vim](https://github.com/junegunn/gv.vim) (git commit browser)
+* [vim-rooter](https://github.com/airblade/vim-rooter) (change working directory to project root)
+* [vimwiki](https://github.com/vimwiki/vimwiki) (wiki plugin like orgmode)
+
 ## Requirements
 
-* [neovim](https://neovim.io/) 0.5.1+ (strongly recommended)
+### Neovim
+* [neovim](https://neovim.io/) 0.5.1+ (required by neovim built-in LSP client)
 * [python](https://www.python.org/) 3.6.1+ (required by denite.nvim, and defx.nvim)
 * [universal-ctags](https://github.com/universal-ctags/ctags) (required by vista.vim)
+
+### Vim
+* [python](https://www.python.org/) 3.6.1+ (required by completor.vim)
+* [universal-ctags](https://github.com/universal-ctags/ctags) (required by vista.vim, and tagbar)
 
 ## Recommands
 
@@ -60,6 +88,7 @@ Open vim and execute `:PlugInstall`.
 
 ## Key mappings
 
+### Neovim
 `<Leader>` key is `,`.
 
 * FZF key mappings
@@ -157,6 +186,13 @@ Open vim and execute `:PlugInstall`.
     * `<M-F1>`: Escape terminal mode to normal mode
     * `<M-1>`: Switch to last tab
     * `<M-r>`: Paste from register
+
+### Vim
+
+Mostly like neovim, but without those for neovim plugins.
+
+* Dirvish key mappings
+    * `<F4>`: Toggle Dirvish UI
 
 ## TODO
 
