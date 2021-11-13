@@ -31,6 +31,7 @@ file_explorer.startup = function(use)
       end
   }
 
+  -- TODO: Replace this
   use 'Shougo/neossh.vim'
 end
 

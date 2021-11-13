@@ -231,6 +231,7 @@ utility.startup = function(use)
     end
   }
 
+  -- Focus
   use {
     'Pocco81/TrueZen.nvim',
     cmd = {'TZAtaraxis', 'TZFocus', 'TZMinimalist'},
@@ -266,7 +267,11 @@ utility.startup = function(use)
   use 'ciaranm/securemodelines'
 
   -- Do not lazy load vim-scriptease, as it breaks :Breakadd/:Breakdel
-  use 'tpope/vim-scriptease'
+  -- TODO: Check if lazy load works
+  use {
+    'tpope/vim-scriptease',
+    cmd = {'PP', 'Messages', 'Verbose', 'Time'}
+  }
 
   use 'tyru/open-browser.vim'
 
