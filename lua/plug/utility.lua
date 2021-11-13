@@ -222,11 +222,13 @@ utility.startup = function(use)
   }
 
   use {
-    'junegunn/limelight.vim',
-    cmd = {'Limelight'},
-    keys = {'<Leader><C-L>'},
+    "folke/twilight.nvim",
+    cmd = {'Twilight'},
+    setup = function()
+      nnoremap('<Leader><C-L>', ':Twilight<CR>')
+    end,
     config = function()
-      nnoremap('<Leader><C-L>', ':Limelight!!<CR>')
+      require("twilight").setup {}
     end
   }
 
