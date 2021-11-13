@@ -83,6 +83,7 @@ utility.startup = function(use)
     end
   }
 
+  -- Note Taking
   use {
     'vimwiki/vimwiki',
     branch = 'dev',
@@ -119,8 +120,28 @@ utility.startup = function(use)
       vim.cmd [[augroup END]]
     end
   }
-  use {'jceb/vim-orgmode', ft = {'org'}}
-  use {'vimoutliner/vimoutliner', ft = {'votl'}}
+
+  use {
+    'nvim-neorg/neorg',
+    ft = {'org'},
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require('neorg').setup {
+        -- Tell Neorg what modules to load
+        load = {
+          ["core.defaults"] = {}, -- Load all the default modules
+          ["core.norg.concealer"] = {}, -- Allows for use of icons
+          ["core.norg.dirman"] = { -- Manage your directories with Neorg
+            config = {
+              workspaces = {
+                my_workspace = "~/neorg"
+              }
+            }
+          }
+        },
+      }
+    end
+  }
 
   use {
     'lukas-reineke/indent-blankline.nvim',
