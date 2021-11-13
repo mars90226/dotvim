@@ -5,7 +5,7 @@ Carefully crafted vim/neovim config.
 ## Major plugins
 
 * [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) (fast custom status line written in Lua)
-* [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) (auto completion)
+* [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) (auto completion written in Lua)
 * [vista.vim](https://github.com/liuchengxu/vista.vim) (Display tags in sidebar and support LSP)
 * [fzf](https://github.com/junegunn/fzf) (fuzzy finder for almost everything)
 * [fzf.vim](https://github.com/junegunn/fzf.vim) (used with fzf)
@@ -22,13 +22,13 @@ Carefully crafted vim/neovim config.
 * [nvim-lint](https://github.com/mfussenegger/nvim-lint) (on-demand linter written in Lua)
 * [vim-fugitive](https://github.com/tpope/vim-fugitive) (almost perfect git wrapper)
 * [vim-flog](https://github.com/rbong/vim-flog) (git commit browser)
-* [vim-flog](https://github.com/rbong/vim-flog) (git commit browser)
 * [vim-floaterm](https://github.com/voldikss/vim-floaterm) (open terminal buffer in floating window)
 * [vimwiki](https://github.com/vimwiki/vimwiki) (wiki plugin like orgmode)
 * [vim-localvimrc](https://github.com/embear/vim-localvimrc) (for setup project-local vim config, useful for ale)
 
 ## Requirements
 
+* [neovim](https://neovim.io/) 0.5.1+ (strongly recommended)
 * [python](https://www.python.org/) 3.6.1+ (required by denite.nvim, and defx.nvim)
 * [universal-ctags](https://github.com/universal-ctags/ctags) (required by vista.vim)
 
@@ -41,7 +41,22 @@ Carefully crafted vim/neovim config.
 
 ## Installation
 
-Working in progress.
+### Neovim
+Clone the project as `~/.config/nvim`.
+```
+git clone https://github.com/mars90226/dotvim ~/.config/nvim
+```
+
+Open neovim and execute `:PackerSync`.
+
+### Vim
+Clone the project as `~/.vim` and symbolic link `~/.vimrc` to `main.vim`.
+```
+git clone https://github.com/mars90226/dotvim ~/.config/nvim
+ln -s ~/.vim/main.vim ~/.vimrc
+```
+
+Open vim and execute `:PlugInstall`.
 
 ## Key mappings
 
@@ -147,6 +162,9 @@ Working in progress.
 
 * [ ] Add full plugin dependencies
 * [ ] Add provider plugin for dependencies
+* [ ] Use [nvim-autopairs](https://github.com/windwp/nvim-autopairs) to replace auto-pairs.
+* [ ] Use [which-key.nvim](https://github.com/folke/which-key.nvim)
+* [ ] Use [dashboard-nvim](https://github.com/glepnir/dashboard-nvim)
 
 ## Screenshots
 
