@@ -26,14 +26,14 @@ Plug 'coderifous/textobj-word-column.vim'
 
 let g:skip_default_textobj_word_column_mappings = 1
 
-xnoremap <silent> au :<C-u>call TextObjWordBasedColumn("aw")<cr>
-xnoremap <silent> aU :<C-u>call TextObjWordBasedColumn("aW")<cr>
-xnoremap <silent> iu :<C-u>call TextObjWordBasedColumn("iw")<cr>
-xnoremap <silent> iU :<C-u>call TextObjWordBasedColumn("iW")<cr>
-onoremap <silent> au :call TextObjWordBasedColumn("aw")<cr>
-onoremap <silent> aU :call TextObjWordBasedColumn("aW")<cr>
-onoremap <silent> iu :call TextObjWordBasedColumn("iw")<cr>
-onoremap <silent> iU :call TextObjWordBasedColumn("iW")<cr>
+xnoremap <silent> au :<C-U>call TextObjWordBasedColumn("aw")<CR>
+xnoremap <silent> aU :<C-U>call TextObjWordBasedColumn("aW")<CR>
+xnoremap <silent> iu :<C-U>call TextObjWordBasedColumn("iw")<CR>
+xnoremap <silent> iU :<C-U>call TextObjWordBasedColumn("iW")<CR>
+onoremap <silent> au :call TextObjWordBasedColumn("aw")<CR>
+onoremap <silent> aU :call TextObjWordBasedColumn("aW")<CR>
+onoremap <silent> iu :call TextObjWordBasedColumn("iw")<CR>
+onoremap <silent> iU :call TextObjWordBasedColumn("iW")<CR>
 " }}}
 
 " vim-textobj-functioncall {{{
