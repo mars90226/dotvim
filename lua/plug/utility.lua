@@ -306,8 +306,12 @@ utility.startup = function(use)
     'folke/todo-comments.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
     cmd = {'TodoQuickFix', 'TodoLocList', 'TodoTrouble', 'TodoTelescope'},
+    keys = {'<F8>', '<Space><F8>'},
     config = function()
       require("todo-comments").setup {}
+
+      nnoremap('<F8>', '<Cmd>TodoTrouble<CR>')
+      nnoremap('<Space><F8>', '<Cmd>TodoTelescope<CR>')
     end
   }
 
