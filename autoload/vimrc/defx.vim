@@ -227,6 +227,7 @@ function! vimrc#defx#mappings() abort " {{{ abort
   nnoremap <silent><buffer><expr> k
         \ line('.') == 1 ? 'G' : 'k'
   nnoremap <silent><buffer><expr> <C-L>
+        \ ':<C-U>nohlsearch<CR>' .
         \ defx#do_action('redraw')
   xnoremap <silent><buffer><expr> <CR>
         \ defx#do_action('toggle_select_visual')
