@@ -18,7 +18,6 @@
     }
   },
   "coc.preferences.useQuickfixForLocations": false,
-  "coc.source.neosnippet.disableSyntaxes": ["string", "comment"],
   "suggest.acceptSuggestionOnCommitCharacter": true,
   "codeLens.enable": false,
   "python.linting.pylintEnabled": false,

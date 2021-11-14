@@ -37,9 +37,6 @@ imap <C-J> <Plug>(coc-snippets-expand-jump)
 " <Leader>cx: convert visual selected code to snippet
 xmap <Leader>cx <Plug>(coc-convert-snippet)
 
-" <C-X><C-G>: start neosnippet completion
-inoremap <silent> <C-X><C-G> <C-R>=coc#start({ 'source': 'neosnippet' })<CR>
-
 " Define mapping for diff mode to avoid recursive mapping
 nnoremap <silent> <Plug>(diff-prev) [c
 nnoremap <silent> <Plug>(diff-next) ]c

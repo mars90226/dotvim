@@ -74,7 +74,6 @@ imap            <C-X><C-K> <Plug>(fzf-complete-word)
 inoremap <expr> <C-X><C-F> fzf#vim#complete#path('fd -t f')
 
 " <C-J> is <NL>
-imap     <expr> <C-X><C-J> vimrc#fzf#neosnippet#neosnippet_in_insert_mode()
 imap            <C-X><C-L> <Plug>(fzf-complete-line)
 inoremap <expr> <C-X><C-D> fzf#vim#complete#path('fd -t d')
 inoremap <expr> <M-x><M-p> vimrc#fzf#chinese#punctuations_in_insert_mode()
@@ -152,9 +151,6 @@ command! CurrentPlacedSigns call vimrc#fzf#current_placed_signs()
 
 " Functions
 command! Functions call vimrc#fzf#functions()
-
-" NeoSnippets
-command! NeoSnippets call vimrc#fzf#neosnippet#neosnippet()
 
 " Punctuations
 command! Punctuations call vimrc#fzf#chinese#punctuations()
@@ -254,7 +250,6 @@ nnoremap <Space>fI     :call      vimrc#execute_and_save('RgFzf!')<CR>
 nnoremap <Space>f9     :call      vimrc#execute_and_save('RgFzf ' . input('RgFzf: '))<CR>
 nnoremap <Space>f(     :call      vimrc#execute_and_save('RgFzf! ' . input('RgFzf!: '))<CR>
 nnoremap <Space>fj     :call      vimrc#execute_and_save('Jumps')<CR>
-nnoremap <Space>fJ     :call      vimrc#execute_and_save('NeoSnippets')<CR>
 nnoremap <Space>fk     :call      vimrc#execute_and_save('Rg ' . expand('<cword>'))<CR>
 nnoremap <Space>fK     :call      vimrc#execute_and_save('Rg ' . expand('<cWORD>'))<CR>
 nnoremap <Space>f8     :call      vimrc#execute_and_save('Rg \b' . expand('<cword>') . '\b')<CR>
