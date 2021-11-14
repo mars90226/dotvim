@@ -90,18 +90,6 @@ languages.startup = function(use)
   }
 
   use {
-    'ternjs/tern_for_vim',
-    ft = {'javascript'},
-    run = 'npm install',
-    config = function()
-      vim.cmd [[augroup tern_for_vim_settings]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd FileType javascript call vimrc#tern#mappings()]]
-      vim.cmd [[augroup END]]
-    end
-  }
-
-  use {
     'rhysd/rust-doc.vim',
     ft = {'rust'},
     config = function()

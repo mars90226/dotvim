@@ -104,15 +104,6 @@ Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['go']
 " }}}
 
-" tern_for_vim {{{
-Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
-
-augroup tern_for_vim_settings
-  autocmd!
-  autocmd FileType javascript call vimrc#tern#mappings()
-augroup END
-" }}}
-
 " rust-doc.vim {{{
 Plug 'rhysd/rust-doc.vim', { 'for': 'rust' }
 
