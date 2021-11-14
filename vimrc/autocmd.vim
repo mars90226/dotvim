@@ -61,13 +61,8 @@ augroup END
 " Input Method autocmd
 augroup input_method_settings
   autocmd!
-
-  " TODO enable when getimstatus() is available
-  " ref: https://github.com/Shougo/deoplete.nvim/issues/1003
-  if vimrc#plugin#is_disabled_plugin('deoplete.nvim')
-    autocmd InsertEnter * setlocal iminsert=1
-    autocmd InsertLeave * setlocal iminsert=0
-  endif
+  autocmd InsertEnter * setlocal iminsert=1
+  autocmd InsertLeave * setlocal iminsert=0
 augroup END
 
 " Ignore foldmethod in insert mode to speed up

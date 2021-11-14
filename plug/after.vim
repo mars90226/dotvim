@@ -31,13 +31,6 @@ if vimrc#plugin#is_enabled_plugin('coc.nvim')
 endif
 " }}}
 
-" deoplete.nvim {{{
-if vimrc#plugin#is_enabled_plugin('deoplete.nvim')
-  " Use smartcase.
-  call deoplete#custom#option('smart_case', v:true)
-endif
-" }}}
-
 " nvim-lsp {{{
 if vimrc#plugin#is_enabled_plugin('nvim-lsp')
   lua require('vimrc.plugins.nvim_lsp')

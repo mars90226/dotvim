@@ -1,8 +1,8 @@
 " Choose autocompletion plugin
-" nvim-cmp, coc.nvim, deoplete.nvim, completor.vim, YouCompleteMe, supertab
+" nvim-cmp, coc.nvim, completor.vim
 " TODO: Add nvim-compe
 call vimrc#plugin#disable_plugins(
-      \ ['nvim-cmp', 'coc.nvim', 'deoplete.nvim', 'completor.vim', 'YouCompleteMe', 'supertab'])
+      \ ['nvim-cmp', 'coc.nvim', 'completor.vim'])
 
 if has('nvim') && has('nvim-0.5.1')
   call vimrc#plugin#enable_plugin('nvim-cmp')
@@ -13,21 +13,8 @@ elseif vimrc#plugin#check#has_async()
       \ && vimrc#get_vim_mode() !=# 'reader'
       \ && vimrc#get_vim_mode() !=# 'gitcommit'
   call vimrc#plugin#enable_plugin('coc.nvim')
-" TODO: Re-enable deoplete, currently disabled due to duplicate source error
-" when .vim is symbolic linked to other folder.
-" elseif vimrc#plugin#check#has_async()
-"       \ && vimrc#plugin#check#has_rpc()
-"       \ && has('python3')
-"       \ && vimrc#plugin#check#python_version() >=# '3.6.1'
-"       \ && vimrc#get_vim_mode() !=# 'reader'
-"       \ && vimrc#get_vim_mode() !=# 'gitcommit'
-"   call vimrc#plugin#enable_plugin('deoplete.nvim')
 elseif has('python') || has('python3')
   call vimrc#plugin#enable_plugin('completor.vim')
-elseif vimrc#plugin#check#has_linux_build_env()
-  call vimrc#plugin#enable_plugin('YouCompleteMe')
-else
-  call vimrc#plugin#enable_plugin('supertab')
 endif
 
 " nvim-lsp for builtin neovim lsp

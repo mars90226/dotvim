@@ -5,14 +5,10 @@ inoremap <expr> <Up>       pumvisible() ? "\<C-P>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-P>\<C-N>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-P>\<C-N>" : "\<PageUp>"
 inoremap <expr> <Tab>      pumvisible() ? "\<C-N>" : "\<Tab>"
+inoremap <expr> <S-Tab>    pumvisible() ? "\<C-P>" : "\<S-Tab>"
 
 " mapping for decrease number
 nnoremap <C-X><C-X> <C-X>
-
-" Workaround of supertab bug
-if vimrc#plugin#is_disabled_plugin('supertab')
-  inoremap <expr> <S-Tab>  pumvisible() ? "\<C-P>" : "\<S-Tab>"
-endif
 " }}}
 
 " Completion {{{
@@ -28,34 +24,12 @@ if vimrc#plugin#is_enabled_plugin('coc.nvim')
 endif
 " }}}
 
-" deoplete.nvim {{{
-if vimrc#plugin#is_enabled_plugin('deoplete.nvim')
-  call vimrc#source('plug/plugins/deoplete.vim')
-
-  call vimrc#source('vimrc/plugins/deoplete.vim')
-endif
-" }}}
-
 " completor.vim {{{
 if vimrc#plugin#is_enabled_plugin('completor.vim')
   Plug 'maralla/completor.vim'
   Plug 'maralla/completor-neosnippet'
 
   call vimrc#source('vimrc/plugins/completor.vim')
-endif
-" }}}
-
-" YouCompleteMe {{{
-if vimrc#plugin#is_enabled_plugin('YouCompleteMe')
-  Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang_completer' }
-
-  call vimrc#source('vimrc/plugins/YouCompleteMe.vim')
-endif
-" }}}
-
-" supertab {{{
-if vimrc#plugin#is_enabled_plugin('supertab')
-  Plug 'ervandew/supertab'
 endif
 " }}}
 
