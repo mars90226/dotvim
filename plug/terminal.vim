@@ -1,9 +1,3 @@
-" deol.nvim {{{
-if vimrc#plugin#is_enabled_plugin('deol.nvim')
-  Plug 'Shougo/deol.nvim'
-endif
-" }}}
-
 " neoterm {{{
 if vimrc#plugin#is_enabled_plugin('neoterm')
   Plug 'kassio/neoterm', { 'on': [] }
