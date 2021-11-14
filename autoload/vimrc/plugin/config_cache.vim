@@ -19,7 +19,6 @@ function! vimrc#plugin#config_cache#update() abort
   " Update plugin config
   call vimrc#plugin#config_cache#append("let g:os = '" . vimrc#plugin#check#get_os(v:true) . "'")
   call vimrc#plugin#config_cache#append("let g:distro = '" . vimrc#plugin#check#get_distro(v:true) . "'")
-  call vimrc#plugin#config_cache#append('let g:has_jedi = ' . vimrc#plugin#check#has_jedi(v:true))
   call vimrc#plugin#config_cache#append("let g:python_version = '" . vimrc#plugin#check#python_version(v:true) . "'")
 
   call vimrc#plugin#config_cache#write()

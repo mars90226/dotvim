@@ -125,24 +125,6 @@ function! vimrc#plugin#check#git_version() abort
   return s:git_version
 endfunction
 
-function! vimrc#plugin#check#has_jedi(...) abort
-  let force = (a:0 >= 1 && type(a:1) == type(v:true)) ? a:1 : v:false
-
-  if force || !exists('g:has_jedi')
-    if has('python3')
-      call system('pip3 show -qq jedi')
-      let g:has_jedi = !v:shell_error
-    elseif has('python')
-      call system('pip show -qq jedi')
-      let g:has_jedi = !v:shell_error
-    else
-      let g:has_jedi = 0
-    endif
-  endif
-
-  return g:has_jedi == 1
-endfunction
-
 " Assume DSM has no browser
 function! vimrc#plugin#check#has_browser() abort
   return vimrc#plugin#check#get_os() !~# 'synology'

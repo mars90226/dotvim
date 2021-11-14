@@ -57,17 +57,6 @@ languages.startup = function(use)
     end
   }
 
-  use {
-    'hwartig/vim-seeing-is-believing',
-    ft = {'ruby'},
-    config = function()
-      vim.cmd [[augroup seeing_is_believing_settings]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd FileType ruby call vimrc#seeing_is_believing#mappings()]]
-      vim.cmd [[augroup END]]
-    end
-  }
-
   -- Lint
   use {
     'w0rp/ale',
@@ -108,28 +97,6 @@ languages.startup = function(use)
       vim.cmd [[augroup tern_for_vim_settings]]
       vim.cmd [[autocmd!]]
       vim.cmd [[autocmd FileType javascript call vimrc#tern#mappings()]]
-      vim.cmd [[augroup END]]
-    end
-  }
-
-  use {
-    'davidhalter/jedi-vim',
-    ft = {'python'},
-    config = function()
-      vim.g['jedi#completions_enabled'] = 0
-
-      vim.g['jedi#goto_command']             = '<C-X><C-G>'
-      vim.g['jedi#goto_assignments_command'] = '<C-X>a'
-      vim.g['jedi#goto_definitions_command'] = '<C-X><C-D>'
-      vim.g['jedi#documentation_command']    = '<C-X><C-K>'
-      vim.g['jedi#usages_command']           = '<C-X>c'
-      vim.g['jedi#completions_command']      = '<C-X>x'
-      vim.g['jedi#rename_command']           = '<C-X><C-R>'
-      vim.g['jedi#goto_stubs_command']       = '<C-X><C-S>'
-
-      vim.cmd [[augroup jedi_vim_settings]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd FileType python call vimrc#jedi#mappings()]]
       vim.cmd [[augroup END]]
     end
   }

@@ -56,15 +56,6 @@ call vimrc#lazy#lazy_load('cscope_macros')
 call vimrc#source('vimrc/plugins/cscope.vim')
 " }}}
 
-" vim-seeing-is-believing {{{
-Plug 'hwartig/vim-seeing-is-believing', { 'for': 'ruby' }
-
-augroup seeing_is_believing_settings
-  autocmd!
-  autocmd FileType ruby call vimrc#seeing_is_believing#mappings()
-augroup END
-" }}}
-
 " Lint {{{
 " ale {{{
 if vimrc#plugin#is_enabled_plugin('ale')
@@ -120,28 +111,6 @@ augroup tern_for_vim_settings
   autocmd!
   autocmd FileType javascript call vimrc#tern#mappings()
 augroup END
-" }}}
-
-" jedi-vim {{{
-if vimrc#plugin#check#has_jedi()
-  Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-
-  let g:jedi#completions_enabled = 0
-
-  let g:jedi#goto_command             = '<C-X><C-G>'
-  let g:jedi#goto_assignments_command = '<C-X>a'
-  let g:jedi#goto_definitions_command = '<C-X><C-D>'
-  let g:jedi#documentation_command    = '<C-X><C-K>'
-  let g:jedi#usages_command           = '<C-X>c'
-  let g:jedi#completions_command      = '<C-X>x'
-  let g:jedi#rename_command           = '<C-X><C-R>'
-  let g:jedi#goto_stubs_command       = '<C-X><C-S>'
-
-  augroup jedi_vim_settings
-    autocmd!
-    autocmd FileType python call vimrc#jedi#mappings()
-  augroup END
-endif
 " }}}
 
 " rust-doc.vim {{{
