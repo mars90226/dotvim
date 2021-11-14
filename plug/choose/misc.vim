@@ -1,7 +1,3 @@
-if !has('python')
-  call vimrc#plugin#disable_plugin('github-issues.vim')
-endif
-
 if !has('python') && !has('python3')
   call vimrc#plugin#disable_plugin('vim-mundo')
 endif
