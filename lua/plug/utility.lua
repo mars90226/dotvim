@@ -315,9 +315,11 @@ utility.startup = function(use)
     end
   }
 
-  use 'winston0410/cmd-parser.nvim'
+  -- Show error when using execute() with :GFiles -co --exclude-standard in Defx
+  use {'winston0410/cmd-parser.nvim', disable = true}
   use {
     'winston0410/range-highlight.nvim',
+    disable = true,
     require = { 'winston0410/cmd-parser.nvim' },
     config = function()
       require'range-highlight'.setup{}
