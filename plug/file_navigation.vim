@@ -64,12 +64,6 @@ endif
 " }}}
 
 " Goto Definitions {{{
-" tagbar {{{
-Plug 'majutsushi/tagbar'
-
-call vimrc#source('vimrc/plugins/tagbar.vim')
-" }}}
-
 " vista.vim {{{
 Plug 'liuchengxu/vista.vim'
 

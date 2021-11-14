@@ -209,7 +209,6 @@ if has('nvim')
   command! -bang -nargs=* BTagsCaseSentitive       call fzf#vim#buffer_tags(<q-args>, vimrc#fzf#preview#buffer_tags_options({ 'options': ['+i'] }), <bang>0)
   command! -bang -nargs=* TagsCaseSentitive        call fzf#vim#tags(<q-args>,               { 'options': ['+i'] }, <bang>0)
   command! -bang -nargs=* ProjectTagsCaseSentitive call vimrc#fzf#tag#project_tags(<q-args>, { 'options': ['+i'] }, <bang>0)
-  command!                TagbarTags               call vimrc#fzf#tag#tagbar_tags()
 endif
 
 if vimrc#plugin#is_enabled_plugin('defx.nvim')
@@ -388,5 +387,4 @@ if has('nvim')
   nnoremap <Space>sp   :call      vimrc#execute_and_save('ProjectTagsCaseSentitive')<CR>
   nnoremap <Space>fP   :call      vimrc#execute_and_save("ProjectTags '" . expand('<cword>'))<CR>
   xnoremap <Space>fP   :<C-U>call vimrc#execute_and_save("ProjectTags '" . vimrc#utility#get_visual_selection())<CR>
-  nnoremap <Space><F8> :call      vimrc#execute_and_save('TagbarTags')<CR>
 endif

@@ -84,15 +84,3 @@ function! vimrc#fzf#tag#project_tselect(query) abort
 
   call call('vimrc#fzf#tag#tselect', [a:query])
 endfunction
-
-" Need neovim terminal
-function! vimrc#fzf#tag#tagbar_tags() abort
-  TagbarOpenAutoClose
-  augroup tagbar_tags_callback
-    autocmd!
-    autocmd TermClose term://*fzf*
-          \ call nvim_input('<CR>') |
-          \ autocmd! tagbar_tags_callback
-  augroup END
-  BLines
-endfunction

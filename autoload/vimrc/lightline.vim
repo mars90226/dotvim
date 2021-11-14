@@ -7,9 +7,7 @@ function! vimrc#lightline#filename() abort
   let fname = expand('%:t')
   let fpath = expand('%')
 
-  if fname =~# '__Tagbar__'
-    return get(g:lightline, 'fname', fname)
-  elseif fname ==# '__vista__'
+  if fname ==# '__vista__'
     return get(g:lightline, 'fname', fname)
   elseif fname ==# '__Mundo__'
     return 'Mundo'
@@ -96,8 +94,7 @@ endfunction
 
 function! vimrc#lightline#mode() abort
   let fname = expand('%:t')
-  return fname =~# '__Tagbar__' ? 'Tagbar' :
-        \ fname ==# '__vista__' ? 'Vista' :
+  return fname ==# '__vista__' ? 'Vista' :
         \ fname ==# '__Mundo__' ? 'Mundo' :
         \ fname ==# '__Mundo_Preview__' ? 'Mundo Preview' :
         \ &filetype ==# 'qf' ? vimrc#lightline#quickfix_mode() :
@@ -120,8 +117,7 @@ function! vimrc#lightline#tab_filename(n) abort
   let fname = expand('#' . bufnr . ':t')
   let ftype = getbufvar(bufnr, '&filetype')
   let FilenameFilter = { fname -> '' !=# fname ? fname : '[No Name]' }
-  return fname =~# '__Tagbar__' ? 'Tagbar' :
-        \ fname ==# '__vista__' ? 'Vista' :
+  return fname ==# '__vista__' ? 'Vista' :
         \ ftype ==# 'fzf' ? FilenameFilter(gettabvar(a:n, 'current_filename', fname)) :
         \ FilenameFilter(fname)
 endfunction
@@ -134,11 +130,6 @@ function! vimrc#lightline#tab_modified(n) abort
   return ftype ==# 'fzf' ? '' :
         \ buftype ==# 'terminal' ? '' :
         \ gettabwinvar(a:n, winnr, '&modified') ? '+' : gettabwinvar(a:n, winnr, '&modifiable') ? '' : '-'
-endfunction
-
-function! vimrc#lightline#tagbar_status_func(current, sort, fname, ...) abort
-  let g:lightline.fname = a:fname
-  return lightline#statusline(0)
 endfunction
 
 function! vimrc#lightline#refresh() abort

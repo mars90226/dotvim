@@ -36,7 +36,6 @@ mostly be neovim-only changes.
 * [lightline.vim](https://github.com/itchyny/lightline.vim) (custom status line)
 * [completor.vim](https://github.com/maralla/completor.vim) (auto completion)
 * [vista.vim](https://github.com/liuchengxu/vista.vim) (Display tags in sidebar and support LSP)
-* [tagbar](https://github.com/majutsushi/tagbar) (Display tags in sidebar and more stable)
 * [fzf](https://github.com/junegunn/fzf) (fuzzy finder for almost everything)
 * [fzf.vim](https://github.com/junegunn/fzf.vim) (used with fzf)
 * [vim-dirvish](https://github.com/justinmk/vim-dirvish) (file explorer)
@@ -62,7 +61,7 @@ mostly be neovim-only changes.
 
 ### Vim
 * [python](https://www.python.org/) 3.6.1+ (required by completor.vim)
-* [universal-ctags](https://github.com/universal-ctags/ctags) (required by vista.vim, and tagbar)
+* [universal-ctags](https://github.com/universal-ctags/ctags) (required by vista.vim)
 
 ## Recommands
 
