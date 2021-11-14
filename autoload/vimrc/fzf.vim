@@ -284,7 +284,7 @@ function! vimrc#fzf#current_placed_signs_source() abort
   let fmtexpr = 'printf(linefmt, v:val[0], v:val[1])'
   let current_placed_signs = split(execute('sign place buffer=' . bufnr('%'), 'silent!'), "\n")[2:]
   let line_numbers = map(current_placed_signs, "str2nr(matchstr(v:val, '\\d\\+', 9))")
-  let uniq_line_numbers = uniq(line_numbers) " Remove duplicate line numbers as both GitGutter and GitP will place sign on same lines
+  let uniq_line_numbers = uniq(line_numbers)
   let lines = map(uniq_line_numbers, '[v:val, getline(v:val)]')
   let formatted_lines = map(lines, fmtexpr)
   return formatted_lines
