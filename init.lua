@@ -44,6 +44,8 @@ require('packer').startup(function(use)
   end
 end)
 
+require('vimrc.mapping').setup()
+
 vim.fn['vimrc#source']('vimrc/settings.vim')
 vim.fn['vimrc#source']('vimrc/indent.vim')
 vim.fn['vimrc#source']('vimrc/search.vim')

@@ -12,6 +12,13 @@ utils.get_packer_opt_dir = function()
   return utils.get_packer_dir() .. '/packer/opt'
 end
 
+utils.helptags_all = function()
+  for _, path in ipairs(vim.fn.glob(utils.get_packer_opt_dir()..'/*', 1, 1)) do
+    vim.cmd('packadd '..vim.fn.fnamemodify(path, ':t'))
+  end
+  vim.cmd [[helptags ALL]]
+end
+
 -- The function is called `t` for `termcodes`.
 -- You don't have to call it that, but I find the terseness convenient
 -- ref: https://github.com/nanotee/nvim-lua-guide
