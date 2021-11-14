@@ -3,7 +3,7 @@ set ignorecase
 set incsearch
 set smartcase
 
-if has('nvim')
+if has('nvim-0.1.7')
   set inccommand=split
 endif
 

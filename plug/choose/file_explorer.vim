@@ -1,5 +1,5 @@
 " Choose file explorer
-" Defx requires python 3.6.1+
+" defx.nvim, nvim-tree.lua, dirvish.vim
 call vimrc#plugin#disable_plugins(
       \ ['defx.nvim', 'nvim-tree.lua', 'dirvish.vim'])
 if has('nvim') && vimrc#plugin#check#python_version() >=# '3.6.1'

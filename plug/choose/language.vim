@@ -1,13 +1,7 @@
 " Highlight {{{
 " nvim-treesitter for builtin neovim treesitter
-" TODO: Use nvim_exec_lua() instead. Currently it's in document but not exist.
-" Check if `vim.treesitter` is a table, not a nil
 call vimrc#plugin#disable_plugin('nvim-treesitter')
-" if has('nvim') && trim(execute('lua print(type(vim.treesitter) == type({}))')) ==# 'true'
-" TODO: Currently, use approximate check for nvim-0.5.0 to improve performance
-" Only enable nvim-treesitter on Linux build env
-if has('nvim')
-      \ && has('nvim-0.5.0')
+if has('nvim-0.5.1')
       \ && vimrc#get_vim_mode() !=# 'reader'
       \ && vimrc#get_vim_mode() !=# 'gitcommit'
       \ && vimrc#plugin#check#has_linux_build_env()
@@ -28,7 +22,7 @@ endif
 " Choose Lint plugin
 " null-ls.nvim, ale
 call vimrc#plugin#disable_plugins(['null-ls.nvim', 'ale'])
-if has('nvim-0.5.0')
+if has('nvim-0.5')
   call vimrc#plugin#enable_plugin('null-ls.nvim')
 else
   call vimrc#plugin#enable_plugin('ale')

@@ -278,12 +278,10 @@ nnoremap <Space>r5 :%retab<CR>
 " Man
 " :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
 " TODO Move this to 'after' folder
-if has('nvim')
+if has('nvim-0.4.4')
   " TODO Detect goyo mode and use normal :Man
   nnoremap <Leader><F1> :Man<Space>
-  if vimrc#plugin#check#has_floating_window()
-    nnoremap <Leader><F2> :VimrcFloatNew! Man<Space>
-  endif
+  nnoremap <Leader><F2> :VimrcFloatNew! Man<Space>
 endif
 
 " sdcv

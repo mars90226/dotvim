@@ -78,6 +78,7 @@ languages.startup = function(use)
   }
 
   -- Markdown preview
+  -- FIXME: Seems not correctly installed using packer.nvim
   use {
     'euclio/vim-markdown-composer',
     ft = {'markdown'},

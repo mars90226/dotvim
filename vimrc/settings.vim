@@ -61,8 +61,7 @@ endif
 " ignore pattern for wildmenu
 set wildmenu
 set wildignore+=*.a,*.o,*.pyc,*~,*.swp,*.tmp
-" wildoptions=pum added in 'NVIM v0.4.0-401-g5c836d2ef'
-if has('nvim-0.4.2') || (has('nvim-0.4.0') && vimrc#plugin#check#nvim_patch_version() >= 401)
+if has('nvim-0.4.2')
   set wildmode=full
   silent! set wildoptions+=pum
 else
