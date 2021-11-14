@@ -106,7 +106,6 @@ function! vimrc#lightline#mode() abort
         \ lightline#mode()
 endfunction
 
-" Borrowed from vim-airline {{{
 function! vimrc#lightline#quickfix_mode() abort
   let dict = getwininfo(win_getid())
   if len(dict) > 0 && get(dict[0], 'quickfix', 0) && !get(dict[0], 'loclist', 0)
@@ -115,7 +114,6 @@ function! vimrc#lightline#quickfix_mode() abort
     return 'Location'
   endif
 endfunction
-" }}}
 
 function! vimrc#lightline#tab_filename(n) abort
   let bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]

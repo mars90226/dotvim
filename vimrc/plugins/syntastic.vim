@@ -1,4 +1,4 @@
-" Automatically setup by airline
+" Automatically setup by statusline plugin
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*

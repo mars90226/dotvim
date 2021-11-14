@@ -1,12 +1,4 @@
 " Status Line {{{
-" vim-airline {{{
-if vimrc#plugin#is_enabled_plugin('vim-airline')
-  call vimrc#source('plug/plugins/airline.vim')
-
-  call vimrc#source('vimrc/plugins/airline.vim')
-endif
-" }}}
-
 " lightline.vim {{{
 if vimrc#plugin#is_enabled_plugin('lightline.vim')
   Plug 'itchyny/lightline.vim'
