@@ -7,7 +7,7 @@ text_navigation.startup = function(use)
 
   use {
     'easymotion/vim-easymotion',
-    event = 'VimEnter',
+    event = {'FocusLost', 'CursorHold', 'CursorHoldI'},
     setup = function()
       vim.g.EasyMotion_leader_key = '<Space>'
       vim.g.EasyMotion_smartcase = 1
@@ -104,7 +104,7 @@ text_navigation.startup = function(use)
     end
   }
 
-  use {'jeetsukumaran/vim-indentwise', event = 'VimEnter'}
+  use {'jeetsukumaran/vim-indentwise', event = {'FocusLost', 'CursorHold', 'CursorHoldI'}}
 end
 
 return text_navigation

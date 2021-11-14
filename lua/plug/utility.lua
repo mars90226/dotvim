@@ -18,7 +18,7 @@ utility.startup = function(use)
 
   use {
     'tpope/vim-unimpaired',
-    event = 'VimEnter',
+    event = {'FocusLost', 'CursorHold', 'CursorHoldI'},
     config = function()
       -- Ignore [a, ]a, [A, ]A for ale
       vim.g.nremap = {['[a'] = '', [']a'] = '', ['[A'] = '', [']A'] = ''}
@@ -217,7 +217,7 @@ utility.startup = function(use)
   -- cfilter
   vim.cmd [[packadd cfilter]]
 
-  use {'arthurxavierx/vim-caser', event = 'VimEnter'}
+  use {'arthurxavierx/vim-caser', event = {'FocusLost', 'CursorHold', 'CursorHoldI'}}
 
   use {
     'machakann/vim-highlightedyank',
@@ -251,7 +251,7 @@ utility.startup = function(use)
 
   use {
     'tpope/vim-dispatch',
-    event = 'VimEnter',
+    event = {'FocusLost', 'CursorHold', 'CursorHoldI'},
     config = function()
       vim.fn['vimrc#source']('vimrc/plugins/dispatch.vim')
     end

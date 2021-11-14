@@ -31,7 +31,7 @@ text_manipulation.startup = function(use)
 
   use {
     'tomtom/tcomment_vim',
-    event = 'VimEnter',
+    event = {'FocusLost', 'CursorHold', 'CursorHoldI'},
     config = function()
       vim.g.tcomment_textobject_inlinecomment = 'ilc'
     end

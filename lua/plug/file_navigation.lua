@@ -20,7 +20,7 @@ file_navigation.startup = function(use)
   -- denite.nvim
   use {
     'Shougo/denite.nvim',
-    event = 'VimEnter',
+    event = {'FocusLost', 'CursorHold', 'CursorHoldI'},
     config = function()
       vim.cmd [[silent! UpdateRemotePlugins]]
       vim.fn['vimrc#source']('vimrc/plugins/denite.vim')

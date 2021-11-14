@@ -35,7 +35,7 @@ lsp.startup = function(use)
 
   use {
     'tami5/lspsaga.nvim',
-    event = 'VimEnter',
+    event = {'FocusLost', 'CursorHold', 'CursorHoldI'},
     config = function()
       require'lspsaga'.setup{}
 

@@ -43,7 +43,7 @@ languages.startup = function(use)
 
   use {
     'mattn/emmet-vim',
-    event = 'VimEnter',
+    event = {'FocusLost', 'CursorHold', 'CursorHoldI'},
     config = function()
       vim.g.user_emmet_leader_key = '<C-E>'
     end
