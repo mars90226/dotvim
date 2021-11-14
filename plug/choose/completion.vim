@@ -6,8 +6,7 @@ call vimrc#plugin#disable_plugins(
 
 if has('nvim') && has('nvim-0.5.1')
   call vimrc#plugin#enable_plugin('nvim-cmp')
-elseif vimrc#plugin#check#has_async()
-      \ && vimrc#plugin#check#has_rpc()
+elseif has('nvim')
       \ && executable('node')
       \ && executable('yarn')
       \ && vimrc#get_vim_mode() !=# 'reader'

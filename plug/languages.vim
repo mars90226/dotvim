@@ -66,14 +66,6 @@ augroup END
 " }}}
 
 " Lint {{{
-" syntastic {{{
-if vimrc#plugin#is_enabled_plugin('syntastic')
-  Plug 'vim-syntastic/syntastic'
-
-  call vimrc#source('vimrc/plugins/syntastic.vim')
-end
-" }}}
-
 " ale {{{
 if vimrc#plugin#is_enabled_plugin('ale')
   Plug 'w0rp/ale'
