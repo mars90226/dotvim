@@ -315,7 +315,7 @@ utility.startup = function(use)
     end
   }
 
-  -- Show error when using execute() with :GFiles -co --exclude-standard in Defx
+  -- FIXME: Show error when using execute() with :GFiles -co --exclude-standard in Defx
   use {'winston0410/cmd-parser.nvim', disable = true}
   use {
     'winston0410/range-highlight.nvim',
@@ -326,8 +326,10 @@ utility.startup = function(use)
     end
   }
 
+  -- FIXME: Make fugitive commit move to wrong window
   use {
     'luukvbaal/stabilize.nvim',
+    disable = true,
     config = function()
       require('stabilize').setup()
     end
