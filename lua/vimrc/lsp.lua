@@ -39,6 +39,7 @@ lsp.on_attach = function()
   nnoremap('g0',        '<Cmd>lua vim.lsp.buf.document_symbol()<CR>', 'silent', 'buffer')
   nnoremap('<Space>lf', '<Cmd>lua vim.lsp.buf.formatting()<CR>', 'silent', 'buffer')
   xnoremap('<Space>lf', '<Cmd>lua vim.lsp.buf.range_formatting()<CR>', 'silent', 'buffer')
+  nnoremap('<Space>lI', '<Cmd>LspInfo<CR>', 'silent', 'buffer')
 
   -- Remap for K
   nnoremap('gK', 'K', 'buffer')
