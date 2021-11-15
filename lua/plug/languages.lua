@@ -13,6 +13,11 @@ languages.startup = function(use)
     end
   }
   use {'leafo/moonscript-vim', ft = {'moon'}}
+  use {
+    'plasticboy/vim-markdown',
+    ft = { 'markdown' },
+    require = { 'godlygeek/tabular' }
+  }
 
   -- Highlighing
   -- nvim-treesitter
