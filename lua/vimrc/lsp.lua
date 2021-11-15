@@ -21,7 +21,10 @@ lsp.servers = {
   cmake = {},
   gopls = {},
   perlls = {},
-  pyright = {},
+  pylsp = {},
+  -- TODO: Check pyright settings disableLanguageServices
+  -- ref: https://github.com/microsoft/pyright/blob/893d08be8c70297fcf082ba812c14cf4aecefc97/docs/settings.md
+  -- pyright = {},
   rust_analyzer = {},
   solargraph = {},
   sumneko_lua = {},
@@ -54,6 +57,16 @@ lsp.setup_server = function(server, custom_opts)
 
   require'lspconfig'[server].setup(lsp_opts)
   vim.cmd [[ do User LspAttachBuffers ]]
+end
+
+lsp.notify_settings = function(server, settings)
+  for _, lsp_client in ipairs(vim.lsp.get_active_clients()) do
+    if lsp_client.name == server then
+      lsp_client.notify('workspace/didChangeConfiguration', {
+        settings = settings
+      })
+    end
+  end
 end
 
 return lsp

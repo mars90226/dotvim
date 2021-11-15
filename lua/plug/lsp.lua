@@ -178,7 +178,7 @@ lsp.startup = function(use)
     'mfussenegger/nvim-lint',
     config = function()
       require('lint').linters_by_ft = {
-        python = {'pylint'}
+        python = {'mypy', 'pylint'}
       }
 
       nnoremap('<Space>ll', "<Cmd>lua require('lint').try_lint()<CR>", 'silent')
