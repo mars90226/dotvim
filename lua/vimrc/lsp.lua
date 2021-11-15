@@ -45,7 +45,7 @@ lsp.on_attach = function()
 end
 
 lsp.setup_server = function(server, custom_opts)
-  local lsp_opts = lsp[server] or {}
+  local lsp_opts = lsp.servers[server] or {}
   lsp_opts = vim.tbl_extend('keep', lsp_opts, custom_opts or {})
 
   -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
