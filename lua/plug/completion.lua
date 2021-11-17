@@ -53,7 +53,12 @@ completion.startup = function(use)
       },
       'octaltree/cmp-look',
       'hrsh7th/cmp-calc',
-      'ray-x/cmp-treesitter',
+      {
+        'ray-x/cmp-treesitter',
+        condition = function()
+          return vim.fn['vimrc#plugin#is_enabled_plugin']('nvim-treesitter') == 1
+        end
+      },
       {
         'petertriho/cmp-git',
         config = function()

@@ -24,17 +24,20 @@ languages.startup = function(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
+    cond = function()
+      return vim.fn['vimrc#plugin#is_enabled_plugin']('nvim-treesitter') == 1
+    end,
     config = function()
       vim.fn['vimrc#source']('vimrc/plugins/nvim_treesitter.vim')
       require('vimrc.plugins.nvim_treesitter')
     end
     }
-  use 'nvim-treesitter/nvim-treesitter-refactor'
-  use 'nvim-treesitter/nvim-treesitter-textobjects'
-  use 'nvim-treesitter/playground'
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
-  use 'mfussenegger/nvim-ts-hint-textobject'
-  use 'RRethy/nvim-treesitter-textsubjects'
+  use {'nvim-treesitter/nvim-treesitter-refactor', after = {'nvim-treesitter'}}
+  use {'nvim-treesitter/nvim-treesitter-textobjects', after = {'nvim-treesitter'}}
+  use {'nvim-treesitter/playground', after = {'nvim-treesitter'}}
+  use {'JoosepAlviste/nvim-ts-context-commentstring', after = {'nvim-treesitter'}}
+  use {'mfussenegger/nvim-ts-hint-textobject', after = {'nvim-treesitter'}}
+  use {'RRethy/nvim-treesitter-textsubjects', after = {'nvim-treesitter'}}
 
   use 'jackguo380/vim-lsp-cxx-highlight'
 
@@ -74,12 +77,11 @@ languages.startup = function(use)
   -- Markdown preview
   -- FIXME: Seems not correctly installed using packer.nvim
   use {
-    'euclio/vim-markdown-composer',
+    'iamcco/markdown-preview.nvim',
     ft = {'markdown'},
-    run = 'cargo build --release',
-    config = function()
-      -- Manually execute :ComposerStart instead
-      vim.g.markdown_composer_autostart = 0
+    run = 'cd app & npm install',
+    setup = function()
+      vim.g.mkdp_filetypes = {'markdown'}
     end
   }
 
