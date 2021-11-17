@@ -18,6 +18,7 @@ languages.startup = function(use)
     ft = { 'markdown' },
     require = { 'godlygeek/tabular' }
   }
+  use { 'mtdl9/vim-log-highlighting', ft = {'log'} }
 
   -- Highlighing
   -- nvim-treesitter
