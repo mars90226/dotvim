@@ -44,7 +44,12 @@ languages.startup = function(use)
   -- Context
   use {
     'romgrk/nvim-treesitter-context',
+    after = {'nvim-treesitter'},
     config = function()
+      require'treesitter-context.config'.setup {
+        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+      }
+
       nnoremap('<F6>', ':TSContextToggle<CR>')
     end
   }

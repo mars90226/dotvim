@@ -55,7 +55,7 @@ completion.startup = function(use)
       'hrsh7th/cmp-calc',
       {
         'ray-x/cmp-treesitter',
-        condition = function()
+        cond = function()
           return vim.fn['vimrc#plugin#is_enabled_plugin']('nvim-treesitter') == 1
         end
       },
@@ -68,7 +68,7 @@ completion.startup = function(use)
       'hrsh7th/cmp-emoji',
       {
         'lukas-reineke/cmp-rg',
-        condition = function()
+        cond = function()
           return vim.fn.executable('rg') > 0
         end
       },

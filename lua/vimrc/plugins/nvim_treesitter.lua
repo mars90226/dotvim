@@ -128,9 +128,3 @@ require'nvim-treesitter.configs'.setup {
     }
   },
 }
-
-if vim.fn['vimrc#plugin#is_enabled_plugin']('nvim-treesitter-context') == 1 then
-  require'treesitter-context.config'.setup {
-    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-  }
-end
