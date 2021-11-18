@@ -187,14 +187,17 @@ function! vimrc#terminal#get_open_command(cmd, ...) abort
   endif
 endfunction
 
-function! vimrc#terminal#send(winnr, cmd) abort
-  let bufnr = nvim_win_get_buf(winnr)
-  let job_id = nvim_buf_get_var(bufnr, 'terminal_job_id')
-  call chansend(job_id, cmd)
+function! vimrc#terminal#send(bufnr, cmd) abort
+  let job_id = getbufvar(a:bufnr, 'terminal_job_id', -1)
+  if job_id == -1
+    return
+  end
+
+  call chansend(job_id, a:cmd)
 endfunction
 
 function! vimrc#terminal#send_all(cmd) abort
-  for winnr in nvim_tabpage_list_wins(0)
-    call vimrc#terminal#send(winnr, cmd)
+  for bufnr in tabpagebuflist()
+    call vimrc#terminal#send(bufnr, a:cmd)
   endfor
 endfunction
