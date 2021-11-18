@@ -186,3 +186,15 @@ function! vimrc#terminal#get_open_command(cmd, ...) abort
     return '!'.a:cmd
   endif
 endfunction
+
+function! vimrc#terminal#send(winnr, cmd) abort
+  let bufnr = nvim_win_get_buf(winnr)
+  let job_id = nvim_buf_get_var(bufnr, 'terminal_job_id')
+  call chansend(job_id, cmd)
+endfunction
+
+function! vimrc#terminal#send_all(cmd) abort
+  for winnr in nvim_tabpage_list_wins(0)
+    call vimrc#terminal#send(winnr, cmd)
+  endfor
+endfunction
