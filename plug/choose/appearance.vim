@@ -28,3 +28,8 @@ call vimrc#plugin#disable_plugins(['nvim-web-devicons'])
 if has('nvim-0.5')
   call vimrc#plugin#enable_plugin('nvim-web-devicons')
 endif
+
+" Which key
+if !has('nvim-0.5')
+  call vimrc#plugin#disable_plugin('which-key.nvim')
+endif

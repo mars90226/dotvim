@@ -7,6 +7,7 @@ text_navigation.startup = function(use)
 
   use {
     'easymotion/vim-easymotion',
+    disable = true,
     event = {'FocusLost', 'CursorHold', 'CursorHoldI'},
     setup = function()
       vim.g.EasyMotion_leader_key = '<Space>'

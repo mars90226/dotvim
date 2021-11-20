@@ -19,6 +19,16 @@ appearance.startup = function(use)
   -- Colors
   use 'rktjmp/lush.nvim'
   use 'ellisonleao/gruvbox.nvim'
+
+  -- Which key
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup {}
+
+      vim.go.timeoutlen = 500
+    end
+  }
 end
 
 return appearance
