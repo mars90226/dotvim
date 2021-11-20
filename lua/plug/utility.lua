@@ -214,9 +214,6 @@ utility.startup = function(use)
     end
   }
 
-  -- cfilter
-  vim.cmd [[packadd cfilter]]
-
   use {'arthurxavierx/vim-caser', event = {'FocusLost', 'CursorHold', 'CursorHoldI'}}
 
   use {
