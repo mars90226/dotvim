@@ -1,3 +1,5 @@
+local utils = require('vimrc.utils')
+
 local completion = {}
 
 completion.setup_mapping = function()
@@ -20,7 +22,9 @@ completion.startup = function(use)
   -- Completion
   use {
     'hrsh7th/nvim-cmp',
-    requires = {
+    requires = vim.tbl_filter(function(plugin_spec)
+        return plugin_spec ~= nil
+      end, {
       -- Snippets
       {
         'L3MON4D3/LuaSnip',
@@ -53,12 +57,7 @@ completion.startup = function(use)
       },
       'octaltree/cmp-look',
       'hrsh7th/cmp-calc',
-      {
-        'ray-x/cmp-treesitter',
-        cond = function()
-          return vim.fn['vimrc#plugin#is_enabled_plugin']('nvim-treesitter') == 1
-        end
-      },
+      utils.check_condition('ray-x/cmp-treesitter', vim.fn['vimrc#plugin#is_enabled_plugin']('nvim-treesitter') == 1),
       {
         'petertriho/cmp-git',
         config = function()
@@ -66,13 +65,8 @@ completion.startup = function(use)
         end
       },
       'hrsh7th/cmp-emoji',
-      {
-        'lukas-reineke/cmp-rg',
-        cond = function()
-          return vim.fn.executable('rg') > 0
-        end
-      },
-    },
+      utils.check_condition('lukas-reineke/cmp-rg', vim.fn.executable('rg') > 0),
+    }),
     config = function()
 
       vim.cmd [[set completeopt=menu,menuone,noselect]]

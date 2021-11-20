@@ -37,7 +37,10 @@ set modeline
 " This config affect CursorHold event trigger time, default: 4000
 " Avoid being to small to avoid multiple CursorHold event triggered when
 " moving cursor fastly.
-set updatetime=300
+" NOTE: CursorHold updatetime is managed by FixCursorHold.nvim, so don't
+" change 'updatetime'.
+" set updatetime=300
+set updatetime=4000
 set cursorline
 set ruler " show the cursor position all the time
 " TODO: Remove this comment when neovim bug fixed

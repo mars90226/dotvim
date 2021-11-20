@@ -332,6 +332,14 @@ utility.startup = function(use)
     end
   }
 
+  use {
+    'antoinemadec/FixCursorHold.nvim',
+    config = function()
+      vim.go.updatetime = 4000 -- default
+      vim.g.cursorhold_updatetime = 300
+    end
+  }
+
   -- Disabled by default, enable to profile
   -- Plug 'norcalli/profiler.nvim'
 

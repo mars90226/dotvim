@@ -41,4 +41,13 @@ utils.check_backspace = function()
   return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
 end
 
+-- Plugin
+utils.check_condition = function(plugin_spec, condition)
+  if condition then
+    return plugin_spec
+  else
+    return nil
+  end
+end
+
 return utils

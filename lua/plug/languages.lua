@@ -22,38 +22,38 @@ languages.startup = function(use)
 
   -- Highlighing
   -- nvim-treesitter
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    cond = function()
-      return vim.fn['vimrc#plugin#is_enabled_plugin']('nvim-treesitter') == 1
-    end,
-    config = function()
-      vim.fn['vimrc#source']('vimrc/plugins/nvim_treesitter.vim')
-      require('vimrc.plugins.nvim_treesitter')
-    end
+  if vim.fn['vimrc#plugin#is_enabled_plugin']('nvim-treesitter') == 1 then
+    use {
+      'nvim-treesitter/nvim-treesitter',
+      run = ':TSUpdate',
+      config = function()
+        vim.fn['vimrc#source']('vimrc/plugins/nvim_treesitter.vim')
+        require('vimrc.plugins.nvim_treesitter')
+      end
     }
-  use {'nvim-treesitter/nvim-treesitter-refactor', after = {'nvim-treesitter'}}
-  use {'nvim-treesitter/nvim-treesitter-textobjects', after = {'nvim-treesitter'}}
-  use {'nvim-treesitter/playground', after = {'nvim-treesitter'}}
-  use {'JoosepAlviste/nvim-ts-context-commentstring', after = {'nvim-treesitter'}}
-  use {'mfussenegger/nvim-ts-hint-textobject', after = {'nvim-treesitter'}}
-  use {'RRethy/nvim-treesitter-textsubjects', after = {'nvim-treesitter'}}
+    use 'nvim-treesitter/nvim-treesitter-refactor'
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use 'nvim-treesitter/playground'
+    use 'JoosepAlviste/nvim-ts-context-commentstring'
+    use 'mfussenegger/nvim-ts-hint-textobject'
+    use 'RRethy/nvim-treesitter-textsubjects'
+  end
 
   use 'jackguo380/vim-lsp-cxx-highlight'
 
   -- Context
-  use {
-    'romgrk/nvim-treesitter-context',
-    after = {'nvim-treesitter'},
-    config = function()
-      require'treesitter-context.config'.setup {
-        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-      }
+  if vim.fn['vimrc#plugin#is_enabled_plugin']('nvim-treesitter') == 1 then
+    use {
+      'romgrk/nvim-treesitter-context',
+      config = function()
+        require'treesitter-context.config'.setup {
+          enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+        }
 
-      nnoremap('<F6>', ':TSContextToggle<CR>')
-    end
-  }
+        nnoremap('<F6>', ':TSContextToggle<CR>')
+      end
+    }
+  end
 
   use {
     'mattn/emmet-vim',

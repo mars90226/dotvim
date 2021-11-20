@@ -279,6 +279,13 @@ let g:winresizer_start_key = '<Leader>R'
 " Plug 'norcalli/profiler.nvim'
 " }}}
 
+" FixCursorHold.nvim {{{
+Plug 'antoinemadec/FixCursorHold.nvim'
+
+set updatetime = 4000
+let g:cursorhold_updatetime = 300
+" }}}
+
 Plug 'tpope/vim-dadbod', { 'on': 'DB' }
 Plug 'tpope/vim-abolish', { 'on': ['Abolish', 'Subvert', 'S'] }
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }
