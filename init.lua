@@ -1,9 +1,4 @@
--- Profile {{{
--- Disabled by default, enable to profile
--- vim.cmd [[profile start /tmp/profile.log]]
--- vim.cmd [[profile file *]]
--- vim.cmd [[profile func *]]
--- }}}
+require('vimrc.profile')
 
 vim.fn['vimrc#source']('plug/plugin_config_cache.vim')
 vim.fn['vimrc#source']('vimrc/basic.vim')
