@@ -90,8 +90,8 @@ utility.startup = function(use)
     ft = {'vimwiki'},
     setup = function()
       vim.cmd [[augroup vimwiki_filetypedetect]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd BufRead,BufNewFile *.wiki setfiletype vimwiki]]
+      vim.cmd [[  autocmd!]]
+      vim.cmd [[  autocmd BufRead,BufNewFile *.wiki setfiletype vimwiki]]
       vim.cmd [[augroup END]]
     end,
     config = function()
@@ -113,10 +113,10 @@ utility.startup = function(use)
       vim.cmd [[command! VimwikiExprAllFolding   call vimrc#vimwiki#expr_all_folding()]]
 
       vim.cmd [[augroup vimwiki_settings]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd FileType vimwiki call vimrc#vimwiki#settings()]]
-      vim.cmd [[autocmd FileType vimwiki call vimrc#vimwiki#mappings()]]
-      vim.cmd [[autocmd VimEnter *.wiki  VimwikiManualAllFolding]]
+      vim.cmd [[  autocmd!]]
+      vim.cmd [[  autocmd FileType vimwiki call vimrc#vimwiki#settings()]]
+      vim.cmd [[  autocmd FileType vimwiki call vimrc#vimwiki#mappings()]]
+      vim.cmd [[  autocmd VimEnter *.wiki  VimwikiManualAllFolding]]
       vim.cmd [[augroup END]]
     end
   }
@@ -202,8 +202,8 @@ utility.startup = function(use)
     ft = {'qf'},
     config = function()
       vim.cmd [[augroup qfreplace_settings]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd FileType qf call vimrc#qfreplace#mappings()]]
+      vim.cmd [[  autocmd!]]
+      vim.cmd [[  autocmd FileType qf call vimrc#qfreplace#mappings()]]
       vim.cmd [[augroup END]]
     end
   }

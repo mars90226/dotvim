@@ -117,11 +117,11 @@ languages.startup = function(use)
     'apeschel/vim-syntax-syslog-ng',
     config = function()
       vim.cmd [[augroup vim_syntax_syslog_ng_settings]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd BufNewFile,BufReadPost syslog-ng.conf       setlocal filetype=syslog-ng]]
-      vim.cmd [[autocmd BufNewFile,BufReadPost syslog-ng/*/*.conf   setlocal filetype=syslog-ng]]
-      vim.cmd [[autocmd BufNewFile,BufReadPost patterndb.d/*.conf   setlocal filetype=syslog-ng]]
-      vim.cmd [[autocmd BufNewFile,BufReadPost patterndb.d/*/*.conf setlocal filetype=syslog-ng]]
+      vim.cmd [[  autocmd!]]
+      vim.cmd [[  autocmd BufNewFile,BufReadPost syslog-ng.conf       setlocal filetype=syslog-ng]]
+      vim.cmd [[  autocmd BufNewFile,BufReadPost syslog-ng/*/*.conf   setlocal filetype=syslog-ng]]
+      vim.cmd [[  autocmd BufNewFile,BufReadPost patterndb.d/*.conf   setlocal filetype=syslog-ng]]
+      vim.cmd [[  autocmd BufNewFile,BufReadPost patterndb.d/*/*.conf setlocal filetype=syslog-ng]]
       vim.cmd [[augroup END]]
     end
   }

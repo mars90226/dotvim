@@ -184,8 +184,8 @@ lsp.startup = function(use)
       nnoremap('<Space>ll', "<Cmd>lua require('lint').try_lint()<CR>", 'silent')
 
       vim.cmd [[augroup nvim_lint_settings]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd BufWritePost lua require('lint').try_lint()]]
+      vim.cmd [[  autocmd!]]
+      vim.cmd [[  autocmd BufWritePost lua require('lint').try_lint()]]
       vim.cmd [[augroup END]]
     end
   }

@@ -153,9 +153,9 @@ text_manipulation.startup = function(use)
     config = function()
       -- nvim-hlslens integration
       vim.cmd [[augroup vmlens_settings]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd User visual_multi_start lua require('vimrc.plugins.vmlens').start()]]
-      vim.cmd [[autocmd User visual_multi_exit lua require('vimrc.plugins.vmlens').exit()]]
+      vim.cmd [[  autocmd!]]
+      vim.cmd [[  autocmd User visual_multi_start lua require('vimrc.plugins.vmlens').start()]]
+      vim.cmd [[  autocmd User visual_multi_exit lua require('vimrc.plugins.vmlens').exit()]]
       vim.cmd [[augroup END]]
     end
   }

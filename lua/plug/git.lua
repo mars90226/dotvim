@@ -50,8 +50,8 @@ git.startup = function(use)
       nnoremap('<Leader>g<C-V>', ":call vimrc#gv#show_file('%', {'author': g:company_email})<CR>")
 
       vim.cmd [[augroup gv_settings]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd FileType GV call vimrc#gv#mappings()]]
+      vim.cmd [[  autocmd!]]
+      vim.cmd [[  autocmd FileType GV call vimrc#gv#mappings()]]
       vim.cmd [[augroup END]]
     end
   }
@@ -83,8 +83,8 @@ git.startup = function(use)
       nnoremap('<Leader>g<C-F>', ":call vimrc#flog#show_file('%', {'author': g:company_email})<CR>")
 
       vim.cmd [[augroup flog_settings]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd FileType floggraph call vimrc#flog#mappings()]]
+      vim.cmd [[  autocmd!]]
+      vim.cmd [[  autocmd FileType floggraph call vimrc#flog#mappings()]]
       vim.cmd [[augroup END]]
     end
   }
@@ -119,8 +119,8 @@ git.startup = function(use)
       nmap('<Leader>gm', '<Plug>(git-messenger)')
 
       vim.cmd [[augroup git_messenger_settings]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd FileType gitmessengerpopup call vimrc#git_messenger#mappings()]]
+      vim.cmd [[  autocmd!]]
+      vim.cmd [[  autocmd FileType gitmessengerpopup call vimrc#git_messenger#mappings()]]
       vim.cmd [[augroup END]]
     end
   }
@@ -130,13 +130,13 @@ git.startup = function(use)
     cmd = {'DiffviewOpen', 'DiffviewFilesHistory'},
     config = function()
       vim.cmd [[augroup diffview_settings]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd FileType DiffviewFiles call vimrc#diffview#mappings()]]
+      vim.cmd [[  autocmd!]]
+      vim.cmd [[  autocmd FileType DiffviewFiles call vimrc#diffview#mappings()]]
       -- diffview.nvim use nvim_buf_set_name() to change buffer name to
       -- corresponding file, so use BufFilePost event
       -- diffview buffer pattern: "^diffview/(\d+_)?(\w{7})_.*$"
       --                                     ^index ^sha    ^filename
-      vim.cmd [[autocmd BufFilePost diffview/\(\d\\\{1,\}_\)\\\{0,1\}\w\\\{7\}_* call vimrc#diffview#buffer_mappings()]]
+      vim.cmd [[  autocmd BufFilePost diffview/\(\d\\\{1,\}_\)\\\{0,1\}\w\\\{7\}_* call vimrc#diffview#buffer_mappings()]]
       vim.cmd [[augroup END]]
     end
   }

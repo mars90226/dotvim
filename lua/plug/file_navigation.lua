@@ -95,8 +95,8 @@ file_navigation.startup = function(use)
       nnoremap('<Leader>al', ":AnyJumpLastResults<CR>")
 
       vim.cmd [[augroup any_jump_settings]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd FileType any-jump call vimrc#any_jump#settings()]]
+      vim.cmd [[  autocmd!]]
+      vim.cmd [[  autocmd FileType any-jump call vimrc#any_jump#settings()]]
       vim.cmd [[augroup END]]
     end
   }
@@ -137,8 +137,8 @@ file_navigation.startup = function(use)
     'pchynoweth/a.vim',
     config = function()
       vim.cmd [[augroup alternate_settings]]
-      vim.cmd [[autocmd!]]
-      vim.cmd [[autocmd VimEnter * call vimrc#alternative#settings()]]
+      vim.cmd [[  autocmd!]]
+      vim.cmd [[  autocmd VimEnter * call vimrc#alternative#settings()]]
       vim.cmd [[augroup END]]
     end
   }
