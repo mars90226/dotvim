@@ -1,4 +1,4 @@
-local utils = require('vimrc.utils')
+local plugin_utils = require('vimrc.plugin_utils')
 
 local completion = {}
 
@@ -57,7 +57,7 @@ completion.startup = function(use)
       },
       'octaltree/cmp-look',
       'hrsh7th/cmp-calc',
-      utils.check_condition('ray-x/cmp-treesitter', vim.fn['vimrc#plugin#is_enabled_plugin']('nvim-treesitter') == 1),
+      plugin_utils.check_condition('ray-x/cmp-treesitter', vim.fn['vimrc#plugin#is_enabled_plugin']('nvim-treesitter') == 1),
       {
         'petertriho/cmp-git',
         config = function()
@@ -65,7 +65,7 @@ completion.startup = function(use)
         end
       },
       'hrsh7th/cmp-emoji',
-      utils.check_condition('lukas-reineke/cmp-rg', vim.fn.executable('rg') > 0),
+      plugin_utils.check_condition('lukas-reineke/cmp-rg', vim.fn.executable('rg') > 0),
     }),
     config = function()
 
