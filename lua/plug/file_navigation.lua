@@ -70,9 +70,6 @@ file_navigation.startup = function(use)
     use {
       'nvim-telescope/telescope-fzf-native.nvim',
       run = 'make',
-      setup = function()
-        vim.cmd [[packadd telescope-fzf-native.nvim]]
-      end
     }
   end
 
