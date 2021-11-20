@@ -9,6 +9,9 @@ endif
 " plugin management
 command! ListDisabledPlugins call vimrc#plugin#get_disabled_plugins()
 
+" disable builtin plugin
+call vimrc#source('plug/disable_builtin.vim')
+
 " plugin secret
 call vimrc#source('plug/secret.vim')
 
