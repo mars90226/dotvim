@@ -4,6 +4,10 @@ local utils = require('vimrc.utils')
 local utility = {}
 
 utility.startup = function(use)
+  local use_builtin = function(plugin_spec)
+    plugin_utils.use_builtin(use, plugin_spec)
+  end
+
   use {
     'simnalamburt/vim-mundo',
     cmd = {'MundoToggle'},
@@ -373,11 +377,8 @@ utility.startup = function(use)
   use {'kristijanhusak/vim-carbon-now-sh', cmd = {'CarbonNowSh'}}
 
   -- builtin Termdebug plugin
-  use {
+  use_builtin {
     'neovim/termdebug',
-    url = '', -- FIXME: According to document, this is not needed
-    installer = plugin_utils.builtin_installer,
-    updater = plugin_utils.builtin_updater,
     cmd = {'Termdebug', 'TermdebugCommand'},
     config = function()
       -- Mappings
