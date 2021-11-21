@@ -33,6 +33,8 @@ lsp.startup = function(use)
     end
   }
 
+  use 'ii14/lsp-command'
+
   use {
     'tami5/lspsaga.nvim',
     event = {'FocusLost', 'CursorHold', 'CursorHoldI'},
