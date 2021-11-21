@@ -128,15 +128,6 @@ set sessionoptions-=blank
 
 " misc
 set shellslash
-" set appropriate grep programs
-if executable('rg')
-  set grepprg=rg\ --vimgrep\ --no-heading
-  set grepformat=%f:%l:%c:%m,%f:%l:%m
-elseif executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-else
-  set grepprg=grep\ -nH\ $*
-endif
 
 if !has('nvim')
   set t_Co=256

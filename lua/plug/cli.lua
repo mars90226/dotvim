@@ -30,6 +30,73 @@ cli.startup = function(use)
       end
     }
   end
+
+  if vim.fn.executable('tmux') == 1 then
+    use_config {
+      'mars90226/cli-tmux',
+      config = function()
+        vim.cmd [[command! RefreshDisplay call vimrc#utility#refresh_display()]]
+        vim.cmd [[command! RefreshSshClient call vimrc#utility#refresh_ssh_client()]]
+      end
+    }
+
+    if vim.fn.executable('ssh-agent') == 1 then
+      use_config {
+        'mars90226/cli-tmux-ssh-agent',
+        config = function()
+          vim.cmd [[command! RefreshSshAgent call vimrc#utility#refresh_ssh_agent()]]
+        end
+      }
+    end
+  end
+
+  -- Execute
+  if vim.fn['vimrc#plugin#check#get_os']() == 'windows' then
+    -- Win32
+    use_config {
+      'mars90226/cli-execute-windows',
+      config = function()
+        nnoremap('<Leader>xo', [[:call vimrc#windows#execute_current_file()<CR>]])
+        nnoremap('<Leader>X', [[:call vimrc#windows#open_terminal_in_current_file_folder()<CR>]])
+        nnoremap('<Leader>E', [[:call vimrc#windows#reveal_current_file_folder_in_explorer()<CR>]])
+      end
+    }
+  else
+    -- Linux
+    if vim.fn.executable('xdg-open') == 1 then
+      use_config {
+        'mars90226/cli-execute-xdg-open',
+        config = function()
+          nnoremap('<Leader>xo', [[execute vimrc#utility#get_xdg_open() . ' ' . expand('%:p')<CR>]])
+        end
+      }
+    end
+  end
+
+  -- grepprg
+  if vim.fn.executable('rg') == 1 then
+    use_config {
+      'mars90226/cli-grepprg-rg',
+      config = function()
+        vim.go.grepprg = 'rg --vimgrep --no-heading'
+        vim.go.grepformat = '%f:%l:%c:%m,%f:%l:%m'
+      end
+    }
+  elseif vim.fn.executable('ag') == 1 then
+    use_config {
+      'mars90226/cli-grepprg-ag',
+      config = function()
+        vim.go.grepprg = 'ag --nogroup --nocolor'
+      end
+    }
+  else
+    use_config {
+      'mars90226/cli-grepprg-grep',
+      config = function()
+        vim.go.grepprg = 'grep -nH $*'
+      end
+    }
+  end
 end
 
 return cli

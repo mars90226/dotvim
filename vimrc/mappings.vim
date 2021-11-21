@@ -80,19 +80,6 @@ nnoremap <Space><C-S> :wall<CR>
 nnoremap <Space>q :quit<CR>
 nnoremap <Space>Q :qall!<CR>
 
-" Quick execute
-if vimrc#plugin#check#get_os() =~# 'windows'
-  " Win32
-  nnoremap <Leader>xo :call vimrc#windows#execute_current_file()<CR>
-  nnoremap <Leader>X :call vimrc#windows#open_terminal_in_current_file_folder()<CR>
-  nnoremap <Leader>E :call vimrc#windows#reveal_current_file_folder_in_explorer()<CR>
-else
-  " Linux
-  if executable('xdg-open')
-    nnoremap <Leader>xo :execute vimrc#utility#get_xdg_open() . ' ' . expand('%:p')<CR>
-  endif
-endif
-
 " Easier file status
 nnoremap <Space><C-G> 2<C-G>
 
@@ -327,15 +314,6 @@ command! GetCursorSyntax echo vimrc#utility#get_cursor_syntax()
 
 " Find the cursor
 command! FindCursor call vimrc#utility#blink_cursor_location()
-
-if executable('tmux')
-  command! RefreshDisplay call vimrc#utility#refresh_display()
-  command! RefreshSshClient call vimrc#utility#refresh_ssh_client()
-
-  if executable('ssh-agent')
-    command! RefreshSshAgent call vimrc#utility#refresh_ssh_agent()
-  endif
-endif
 
 command! ClearWinfixsize call vimrc#clear_winfixsize()
 
