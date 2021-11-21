@@ -4,7 +4,7 @@
 " Colors {{{
 " NOTE: Set colorscheme before statusline & tabline to avoid loading wrong
 " colors in statusline & tabline
-colorscheme gruvbox
+execute 'colorscheme '.g:colorscheme
 " }}}
 
 " lualine.nvim {{{

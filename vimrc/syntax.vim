@@ -18,7 +18,9 @@ if !exists('g:loaded_color')
   set background=dark
 
   if !exists('g:gui_oni')
-    colorscheme gruvbox
+    if exists('g:colorscheme')
+      execute 'colorscheme '.g:colorscheme
+    endif
   endif
 
   highlight Pmenu ctermfg=187 ctermbg=239

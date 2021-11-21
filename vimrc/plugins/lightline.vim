@@ -3,7 +3,7 @@ let s:names = {'0': 'index', '1': 'orig', '2':'fetch', '3':'merge'}
 let s:sha1size = 7
 
 let g:lightline = {}
-let g:lightline.colorscheme = 'gruvbox'
+let g:lightline.colorscheme = g:colorscheme
 let g:lightline_gruvbox_style = 'hard_left'
 let g:lightline.component = {
       \ 'truncate': '%<',

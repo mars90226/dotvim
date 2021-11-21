@@ -5,7 +5,7 @@ if !has('nvim') && !has('gui_running') && vimrc#plugin#check#get_os() =~# 'windo
   set t_Co=256
   let &t_AB = "\e[48;5;%dm"
   let &t_AF = "\e[38;5;%dm"
-  colorscheme gruvbox
+  execute 'colorscheme '.g:colorscheme
   highlight Pmenu ctermfg=187 ctermbg=239
   highlight PmenuSel ctermbg=95
 endif

@@ -77,12 +77,15 @@ if vimrc#plugin#is_enabled_plugin('nvim-treesitter')
   Plug 'rktjmp/lush.nvim'
   Plug 'ellisonleao/gruvbox.nvim'
 
+  let g:colorscheme = 'gruvbox'
   " FIXME: lightline print error log when loading, but it's works now.
   " It's loading issue that lightline load colorschem before gruvbox.nvim load
   " lua and setup lightline support.
 else
   " TODO morhetz/gruvbox seems not updated for a while, use gruvbox-community/gruvbox
   Plug 'morhetz/gruvbox'
+
+  let g:colorscheme = 'gruvbox'
   " TODO disabled as it change color of floating and fzf prompt
   " Plug 'gruvbox-community/gruvbox'
 endif
