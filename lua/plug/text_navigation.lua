@@ -1,9 +1,22 @@
 local text_navigation = {}
 
 text_navigation.startup = function(use)
-  -- matchit
-  vim.cmd [[runtime macros/matchit.vim]]
-  use 'voithos/vim-python-matchit'
+  -- Match
+  use {
+    'andymass/vim-matchup',
+    config = function()
+      nnoremap('<Leader>mk', [[<Cmd>MatchupWhereAmI?<CR>]])
+
+      if vim.fn['vimrc#plugin#is_enabled_plugin']('nvim-treesitter') == 1 then
+        require'nvim-treesitter.configs'.setup {
+          matchup = {
+            enable = true,              -- mandatory, false will disable the whole extension
+            -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
+          },
+        }
+      end
+    end
+  }
 
   use {
     'easymotion/vim-easymotion',

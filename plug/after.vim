@@ -55,6 +55,18 @@ if vimrc#plugin#is_enabled_plugin('defx.nvim')
 endif
 " }}}
 
+" vim-matchup {{{
+if vimrc#plugin#is_enabled_plugin('nvim-treesitter')
+lua << EOF
+  require'nvim-treesitter.configs'.setup {
+    matchup = {
+      enable = true,              -- mandatory, false will disable the whole extension
+    },
+  }
+EOF
+endif
+" }}}
+
 " hop.nvim {{{
 if vimrc#plugin#is_enabled_plugin('hop.nvim')
   lua require'hop'.setup{}
@@ -68,6 +80,16 @@ call vimrc#source('vimrc/plugins/sandwich_after.vim')
 " nvim-treesitter {{{
 if vimrc#plugin#is_enabled_plugin('nvim-treesitter')
   lua require('vimrc.plugins.nvim_treesitter')
+endif
+" }}}
+
+" nvim-treesitter-contex {{{
+if vimrc#plugin#is_enabled_plugin('nvim-treesitter-context')
+lua << EOF
+  require'treesitter-context.config'.setup {
+    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+  }
+EOF
 endif
 " }}}
 

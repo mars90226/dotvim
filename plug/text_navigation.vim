@@ -1,6 +1,9 @@
-" matchit {{{
-runtime macros/matchit.vim
-Plug 'voithos/vim-python-matchit'
+" Match {{{
+" vim-matchup {{{
+Plug 'andymass/vim-matchup'
+
+nnoremap <Leader>mk :<C-U>MatchupWhereAmI?<CR>
+" }}}
 " }}}
 
 " EasyMotion {{{
