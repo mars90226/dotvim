@@ -8,16 +8,26 @@ utility.startup = function(use)
     plugin_utils.use_builtin(use, plugin_spec)
   end
 
+  -- Undo Tree
+  use {
+    'mbbill/undotree',
+    cmd = {'UndotreeToggle'},
+    keys = {'<F9>'},
+    config = function()
+      nnoremap('<F9>', ':UndotreeToggle<CR>')
+    end
+  }
+  -- NOTE: vim-mundo is slow, but featureful
   use {
     'simnalamburt/vim-mundo',
     cmd = {'MundoToggle'},
-    keys = {'<F9>'},
+    keys = {'<Space><F9>'},
     config = function()
       if vim.fn.has('python3') == 1 then
         vim.g.mundo_prefer_python3 = 1
       end
 
-      nnoremap('<F9>', ':MundoToggle<CR>')
+      nnoremap('<Space><F9>', ':MundoToggle<CR>')
     end
   }
 
