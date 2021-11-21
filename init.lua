@@ -31,6 +31,7 @@ require('packer').startup(function(use)
   require('plug.terminal').startup(use)
   require('plug.utility').startup(use)
   require('plug.job').startup(use)
+  require('plug.cli').startup(use)
   require('plug.tui').startup(use)
   require('plug.last').startup(use)
 
