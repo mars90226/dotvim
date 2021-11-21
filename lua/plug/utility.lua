@@ -355,6 +355,30 @@ utility.startup = function(use)
       vim.g.cursorhold_updatetime = 300
     end
   }
+  
+  -- Cmdline
+  use {
+    'VonHeikemen/fine-cmdline.nvim',
+    requires = {
+      {'MunifTanjim/nui.nvim'}
+    },
+    keys = {'<C-P>'},
+    config = function()
+      nnoremap('<C-P>', [[<Cmd>lua require('fine-cmdline').open()<CR>]])
+    end
+  }
+  use {
+    'gelguy/wilder.nvim',
+    run = ':UpdateRemotePlugins',
+    event = {'FocusLost', 'CursorHold', 'CursorHoldI'},
+    config = function()
+      -- NOTE: Currently hard to configure from Lua
+      -- ref: https://github.com/gelguy/wilder.nvim/issues/52
+      vim.fn['vimrc#source']('vimrc/plugins/wilder.vim')
+
+      vim.fn['wilder#main#start']()
+    end
+  }
 
   -- Disabled by default, enable to profile
   -- Plug 'norcalli/profiler.nvim'
