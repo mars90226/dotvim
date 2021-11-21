@@ -367,18 +367,22 @@ utility.startup = function(use)
       nnoremap('<C-P>', [[<Cmd>lua require('fine-cmdline').open()<CR>]])
     end
   }
-  use {
-    'gelguy/wilder.nvim',
-    run = ':UpdateRemotePlugins',
-    event = {'FocusLost', 'CursorHold', 'CursorHoldI'},
-    config = function()
-      -- NOTE: Currently hard to configure from Lua
-      -- ref: https://github.com/gelguy/wilder.nvim/issues/52
-      vim.fn['vimrc#source']('vimrc/plugins/wilder.vim')
+  if vim.fn['vimrc#plugin#is_enabled_plugin']('wilder.nvim') == 1 then
+    use {
+      'gelguy/wilder.nvim',
+      requires = {'romgrk/fzy-lua-native'},
+      rocks = {'pcre2'},
+      run = ':UpdateRemotePlugins',
+      event = {'FocusLost', 'CursorHold', 'CursorHoldI'},
+      config = function()
+        -- NOTE: Currently hard to configure from Lua
+        -- ref: https://github.com/gelguy/wilder.nvim/issues/52
+        vim.fn['vimrc#source']('vimrc/plugins/wilder.vim')
 
-      vim.fn['wilder#main#start']()
-    end
-  }
+        vim.fn['wilder#main#start']()
+      end
+    }
+  end
 
   -- Disabled by default, enable to profile
   -- Plug 'norcalli/profiler.nvim'

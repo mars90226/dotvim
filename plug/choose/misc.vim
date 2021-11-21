@@ -57,3 +57,7 @@ if has('nvim-0.4.0')
 else
   call vimrc#plugin#enable_plugin('Colorizer')
 endif
+
+if !(has('nvim-0.5') && vimrc#plugin#check#has_linux_build_env())
+  call vimrc#plugin#disable_plugin('wilder.nvim')
+endif
