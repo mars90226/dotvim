@@ -18,23 +18,12 @@ appearance.startup = function(use)
 
   -- Colors
   use 'rktjmp/lush.nvim'
-  use {
-    'ellisonleao/gruvbox.nvim',
-    config = function()
-      vim.g.colorscheme = 'gruvbox'
+  use 'ellisonleao/gruvbox.nvim'
+  vim.g.colorscheme = 'gruvbox'
 
-      vim.cmd('colorscheme '..vim.g.colorscheme)
-    end
-  }
-  -- use {
-  --   'marko-cerovac/material.nvim',
-  --   config = function()
-  --     vim.g.material_style = 'darker'
-  --     vim.g.colorscheme = 'material'
-  --
-  --     vim.cmd('colorscheme '..vim.g.colorscheme)
-  --   end
-  -- }
+  -- use 'marko-cerovac/material.nvim'
+  -- vim.g.material_style = 'darker'
+  -- vim.g.colorscheme = 'material'
 
   -- Which key
   use {
