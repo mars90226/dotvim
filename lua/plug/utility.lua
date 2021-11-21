@@ -308,6 +308,7 @@ utility.startup = function(use)
 
   use {
     'simeji/winresizer',
+    cmd = {'WinResizerStartResize'},
     keys = {'<Leader>R'},
     setup = function()
       vim.g.winresizer_start_key = '<Leader>R'
