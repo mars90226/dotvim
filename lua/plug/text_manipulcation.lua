@@ -16,13 +16,6 @@ text_manipulation.startup = function(use)
   }
 
   use {
-    'jiangmiao/auto-pairs',
-    config = function()
-      vim.fn['vimrc#source']('vimrc/plugins/auto_pairs.vim')
-    end
-  }
-
-  use {
     'vim-scripts/eraseSubword',
     config = function()
       vim.g.EraseSubword_insertMap = '<C-B>'

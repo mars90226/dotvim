@@ -156,6 +156,25 @@ completion.startup = function(use)
 
   -- Snippets source
   use 'rafamadriz/friendly-snippets'
+
+  -- Auto Pairs
+  use {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup{
+        check_ts = vim.fn['vimrc#plugin#is_enabled_plugin']('nvim-treesitter') == 1,
+        fast_wrap = {},
+      }
+
+      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+      local cmp = require('cmp')
+      cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
+
+      inoremap('<M-n>', [[<Cmd>call vimrc#auto_pairs#jump()<CR>]], '<silent>')
+      nnoremap('<M-n>', [[<Cmd>call vimrc#auto_pairs#jump()<CR>]], '<silent>')
+    end
+  }
+  -- TODO: use 'abecodes/tabout.nvim'
 end
 
 return completion
