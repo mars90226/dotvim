@@ -17,7 +17,7 @@ mostly be neovim-only changes.
 * [defx.nvim](https://github.com/Shougo/defx.nvim) (file explorer)
 * [hop.nvim](https://github.com/phaazon/hop.nvim) (quickly move cursor to certain place on screen, written in Lua)
 * [lightspeed.nvim](https://github.com/ggandor/lightspeed.nvim) (quickly move cursor by search, written in Lua)
-* [auto-pairs](https://github.com/jiangmiao/auto-pairs) (automatically insert paired brackets)
+* [nvim-autopairs](https://github.com/windwp/nvim-autopairs) (automatically insert paired brackets)
 * [vim-sandwich](https://github.com/machakann/vim-sandwich) (quicly add/delete/replace brackets)
 * [nvim-spectre](https://github.com/windwp/nvim-spectre) (find-and-replace globally, written in Lua)
 * [trouble.nvim](https://github.com/folke/trouble.nvim) (diagnostics UI written in Lua)
@@ -210,7 +210,7 @@ Mostly like neovim, but without those for neovim plugins.
 
 * [ ] Add full plugin dependencies
 * [ ] Add provider plugin for dependencies
-* [ ] Use [nvim-autopairs](https://github.com/windwp/nvim-autopairs) to replace auto-pairs.
+* [x] Use [nvim-autopairs](https://github.com/windwp/nvim-autopairs) to replace auto-pairs.
 * [x] Use [which-key.nvim](https://github.com/folke/which-key.nvim)
 * [ ] Use [dashboard-nvim](https://github.com/glepnir/dashboard-nvim)
 

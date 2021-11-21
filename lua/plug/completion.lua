@@ -175,6 +175,7 @@ completion.startup = function(use)
     end
   }
   -- TODO: use 'abecodes/tabout.nvim'
+  -- ref: https://github.com/windwp/nvim-autopairs/issues/167
 end
 
 return completion
