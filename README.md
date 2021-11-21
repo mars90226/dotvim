@@ -197,7 +197,6 @@ Open vim and execute `:PlugInstall`.
     * `<Leader>tt`: Open terminal in new tab
 * Terminal key mappings
     * `<M-F1>`: Escape terminal mode to normal mode
-    * `<M-1>`: Switch to last tab
     * `<M-r>`: Paste from register
 
 ### Vim
