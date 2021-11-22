@@ -22,3 +22,12 @@ if has('nvim-0.5.1')
       \ && vimrc#get_vim_mode() !=# 'gitcommit'
   call vimrc#plugin#enable_plugin('nvim-lsp')
 endif
+
+" Choose auto pairs plugin
+" nvim-autopairs, auto-pairs
+call vimrc#plugin#disable_plugins(['nvim-autopairs', 'auto-pairs'])
+if has('nvim-0.5')
+  call vimrc#plugin#enable_plugin('nvim-autopairs')
+else
+  call vimrc#plugin#enable_plugin('auto-pairs')
+end

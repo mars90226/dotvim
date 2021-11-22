@@ -31,6 +31,17 @@ if vimrc#plugin#is_enabled_plugin('coc.nvim')
 endif
 " }}}
 
+" nvim-autopairs {{{
+if vimrc#plugin#is_enabled_plugin('nvim-autopairs')
+lua << EOF
+  require('nvim-autopairs').setup{
+    check_ts = vim.fn['vimrc#plugin#is_enabled_plugin']('nvim-treesitter') == 1,
+    fast_wrap = {},
+  }
+EOF
+endif
+" }}}
+
 " nvim-lsp {{{
 if vimrc#plugin#is_enabled_plugin('nvim-lsp')
   lua require('vimrc.plugins.nvim_lsp')

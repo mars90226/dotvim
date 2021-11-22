@@ -52,3 +52,13 @@ if executable('tmux')
 endif
 " }}}
 " }}}
+
+" Auto Pairs {{{
+" auto-pairs {{{
+if vimrc#plugin#is_enabled_plugin('auto-pairs')
+  Plug 'jiangmiao/auto-pairs'
+
+  call vimrc#source('vimrc/plugins/auto_pairs.vim')
+endif
+" }}}
+" }}}

@@ -161,17 +161,26 @@ completion.startup = function(use)
   use {
     'windwp/nvim-autopairs',
     config = function()
-      require('nvim-autopairs').setup{
+      local Rule = require('nvim-autopairs.rule')
+      local npairs = require('nvim-autopairs')
+
+      npairs.setup{
         check_ts = vim.fn['vimrc#plugin#is_enabled_plugin']('nvim-treesitter') == 1,
         fast_wrap = {},
       }
 
+      -- nvim-cmp integration
       local cmp_autopairs = require('nvim-autopairs.completion.cmp')
       local cmp = require('cmp')
       cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 
       inoremap('<M-n>', [[<Cmd>call vimrc#auto_pairs#jump()<CR>]], '<silent>')
       nnoremap('<M-n>', [[<Cmd>call vimrc#auto_pairs#jump()<CR>]], '<silent>')
+
+      -- Rules
+      npairs.add_rule(Rule("%w<", ">", "cpp"):use_regex(true))
+      npairs.add_rule(Rule("%w<", ">", "rust"):use_regex(true))
+      npairs.add_rule(Rule("<", ">", "xml"))
     end
   }
   -- TODO: use 'abecodes/tabout.nvim'
