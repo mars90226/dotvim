@@ -167,6 +167,11 @@ lsp.startup = function(use)
               return vim.fn.executable('standardrb') > 0
             end
           }),
+          null_ls.builtins.formatting.stylua.with({
+            condition = function()
+              return vim.fn.executable('stylua') > 0
+            end
+          }),
 
           -- Hover sources
         }
