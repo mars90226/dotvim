@@ -12,6 +12,7 @@ languages.startup = function(use)
       vim.g.polyglot_disabled = { "go" }
     end,
   })
+  use({ "rust-lang/rust.vim", ft = { "rust" } })
   use({ "leafo/moonscript-vim", ft = { "moon" } })
   use({
     "plasticboy/vim-markdown",
@@ -146,7 +147,6 @@ languages.startup = function(use)
     end,
   })
 
-  use({ "rust-lang/rust.vim", ft = { "rust" } })
   use({ "mars90226/perldoc-vim", ft = { "perl" } })
   use({ "fs111/pydoc.vim", ft = { "python" } })
 end
