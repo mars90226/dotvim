@@ -48,7 +48,6 @@ lsp.on_attach = function(client)
   vim.bo.formatexpr = [[v:lua.vim.lsp.formatexpr]]
 
   -- format on save
-  print(vim.inspect(client.resolved_capabilities))
   if client.resolved_capabilities.document_formatting then
     vim.cmd [[augroup lsp_format_on_save]]
     vim.cmd [[  autocmd!]]
