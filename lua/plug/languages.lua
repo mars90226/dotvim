@@ -40,6 +40,8 @@ languages.startup = function(use)
     use("RRethy/nvim-treesitter-textsubjects")
   end
 
+  -- TODO: Check if this can be replaced by vim.lsp.buf.document_highlight()
+  -- ref: :help vim.lsp.buf.document_highlight()
   use("jackguo380/vim-lsp-cxx-highlight")
 
   -- Context
