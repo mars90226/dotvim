@@ -197,16 +197,16 @@ lsp.startup = function(use)
     end,
   })
 
-  use {
+  use({
     "nvim-lua/lsp-status.nvim",
     config = function()
-      local lsp_status = require('lsp-status')
+      local lsp_status = require("lsp-status")
 
-      lsp_status.config {
-        diagnostics = false
-      }
-    end
-  }
+      lsp_status.config({
+        diagnostics = false,
+      })
+    end,
+  })
 end
 
 return lsp

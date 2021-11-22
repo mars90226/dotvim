@@ -152,7 +152,9 @@ git.startup = function(use)
       -- corresponding file, so use BufFilePost event
       -- diffview buffer pattern: "^diffview/(\d+_)?(\w{7})_.*$"
       --                                     ^index ^sha    ^filename
-      vim.cmd([[  autocmd BufFilePost diffview/\(\d\\\{1,\}_\)\\\{0,1\}\w\\\{7\}_* call vimrc#diffview#buffer_mappings()]])
+      vim.cmd(
+        [[  autocmd BufFilePost diffview/\(\d\\\{1,\}_\)\\\{0,1\}\w\\\{7\}_* call vimrc#diffview#buffer_mappings()]]
+      )
       vim.cmd([[augroup END]])
     end,
   })
