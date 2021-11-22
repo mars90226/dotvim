@@ -60,3 +60,8 @@ if vimrc#plugin#is_enabled_plugin('nvim-treesitter')
 else
   call vimrc#plugin#enable_plugin('context.vim')
 end
+
+" Context in statusline
+if vimrc#plugin#is_disabled_plugin('nvim-treesitter')
+  call vimrc#plugin#disable_plugin('nvim-gps')
+endif

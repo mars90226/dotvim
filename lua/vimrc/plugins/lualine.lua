@@ -1,3 +1,5 @@
+local plugin_utils = require("vimrc.plugin_utils")
+
 require("lualine").setup({
   options = {
     icons_enabled = true,
@@ -7,7 +9,19 @@ require("lualine").setup({
   sections = {
     lualine_a = { "mode" },
     lualine_b = { "branch", "diff", { "diagnostics", sources = { "nvim_lsp", "coc" } } },
-    lualine_c = { { "filename", path = 1 } },
+    lualine_c = vim.tbl_filter(function(component)
+      return component ~= nil
+    end, {
+      { "filename", path = 1 },
+      plugin_utils.check_condition({
+        function()
+          return require("nvim-gps").get_location()
+        end,
+        cond = function()
+          return require("nvim-gps").is_available()
+        end,
+      }, vim.fn["vimrc#plugin#is_enabled_plugin"]("nvim-gps") == 1),
+    }),
     lualine_x = { "encoding", "fileformat", "filetype" },
     lualine_y = { "progress" },
     lualine_z = {

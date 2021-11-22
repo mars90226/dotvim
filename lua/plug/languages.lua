@@ -53,6 +53,14 @@ languages.startup = function(use)
         nnoremap("<F6>", ":TSContextToggle<CR>")
       end,
     })
+
+    use {
+      "SmiteshP/nvim-gps",
+      requires = "nvim-treesitter/nvim-treesitter",
+      config = function()
+        require("nvim-gps").setup()
+      end
+    }
   end
 
   use({
