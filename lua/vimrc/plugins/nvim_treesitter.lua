@@ -1,4 +1,4 @@
-require'nvim-treesitter.configs'.setup {
+require("nvim-treesitter.configs").setup({
   ensure_installed = "maintained",
   ignore_install = {},
   highlight = {
@@ -15,7 +15,7 @@ require'nvim-treesitter.configs'.setup {
     },
   },
   indent = {
-    enable = true -- Currently, nvim-treesitter indent is WIP and not ready for production use
+    enable = true, -- Currently, nvim-treesitter indent is WIP and not ready for production use
   },
   refactor = {
     highlight_definitions = { enable = true },
@@ -87,7 +87,7 @@ require'nvim-treesitter.configs'.setup {
     },
     lsp_interop = {
       enable = true,
-      border = 'none',
+      border = "none",
       peek_definition_code = {
         ["<Space>hf"] = "@function.outer",
         ["<Space>hc"] = "@class.outer",
@@ -100,31 +100,31 @@ require'nvim-treesitter.configs'.setup {
     updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
     persist_queries = false, -- Whether the query persists across vim sessions
     keybindings = {
-      toggle_query_editor = 'o',
-      toggle_hl_groups = 'i',
-      toggle_injected_languages = 't',
-      toggle_anonymous_nodes = 'a',
-      toggle_language_display = 'I',
-      focus_language = 'f',
-      unfocus_language = 'F',
-      update = 'R',
-      goto_node = '<cr>',
-      show_help = '?',
+      toggle_query_editor = "o",
+      toggle_hl_groups = "i",
+      toggle_injected_languages = "t",
+      toggle_anonymous_nodes = "a",
+      toggle_language_display = "I",
+      focus_language = "f",
+      unfocus_language = "F",
+      update = "R",
+      goto_node = "<cr>",
+      show_help = "?",
     },
   },
   query_linter = {
     enable = true,
     use_virtual_text = true,
-    lint_events = {"BufWrite", "CursorHold"},
+    lint_events = { "BufWrite", "CursorHold" },
   },
   context_commentstring = {
-    enable = true
+    enable = true,
   },
   textsubjects = {
     enable = true,
     keymaps = {
-        ['.'] = 'textsubjects-smart',
-        ['g;'] = 'textsubjects-container-outer',
-    }
+      ["."] = "textsubjects-smart",
+      ["g;"] = "textsubjects-container-outer",
+    },
   },
-}
+})

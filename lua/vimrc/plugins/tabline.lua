@@ -1,4 +1,4 @@
-require'tabline'.setup {
+require("tabline").setup({
   -- Defaults configuration options
   enable = true,
   options = {
@@ -7,5 +7,5 @@ require'tabline'.setup {
     show_devicons = true, -- this shows devicons in buffer section
     show_bufnr = true, -- this appends [bufnr] to buffer section,
     show_filename_only = true, -- shows base filename only instead of relative path in filename
-  }
-}
+  },
+})

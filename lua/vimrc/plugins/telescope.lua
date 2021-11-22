@@ -1,15 +1,15 @@
-local state = require('telescope.state')
+local state = require("telescope.state")
 
-local actions = require('telescope.actions')
-local action_set = require('telescope.actions.set')
-local action_state = require('telescope.actions.state')
+local actions = require("telescope.actions")
+local action_set = require("telescope.actions.set")
+local action_state = require("telescope.actions.state")
 
-local trouble = require('trouble.providers.telescope')
+local trouble = require("trouble.providers.telescope")
 
 -- Actions
 ------------------------------
 local exit_insert_mode = function(prompt_bufnr)
-  vim.cmd [[stopinsert]]
+  vim.cmd([[stopinsert]])
 end
 
 local move_selection_next_page = function(prompt_bufnr)
@@ -44,7 +44,7 @@ end
 
 -- Global remapping
 ------------------------------
-require('telescope').setup{
+require("telescope").setup({
   defaults = {
     mappings = {
       i = {
@@ -82,19 +82,19 @@ require('telescope').setup{
 
         -- Use <M-t> to open in trouble
         ["<M-t>"] = trouble.open_with_trouble,
-      }
+      },
     },
-  }
-}
+  },
+})
 
 -- Extensions
 ------------------------------
 
-if vim.fn['vimrc#plugin#is_enabled_plugin']('telescope-fzf-native.nvim') == 1 then
-  require('telescope').load_extension('fzf')
+if vim.fn["vimrc#plugin#is_enabled_plugin"]("telescope-fzf-native.nvim") == 1 then
+  require("telescope").load_extension("fzf")
 end
-require('telescope').load_extension('project')
-require('telescope').load_extension('zoxide')
-require('telescope').load_extension('media_files')
-require('telescope').load_extension('tele_tabby')
+require("telescope").load_extension("project")
+require("telescope").load_extension("zoxide")
+require("telescope").load_extension("media_files")
+require("telescope").load_extension("tele_tabby")
 -- require('telescope').load_extension('neoclip')

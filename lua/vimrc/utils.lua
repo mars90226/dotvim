@@ -1,30 +1,30 @@
 local utils = {}
 
 utils.get_packer_dir = function()
-  return require('packer').config.package_root
+  return require("packer").config.package_root
 end
 
 utils.get_packer_start_dir = function()
-  return utils.get_packer_dir() .. '/packer/start'
+  return utils.get_packer_dir() .. "/packer/start"
 end
 
 utils.get_packer_opt_dir = function()
-  return utils.get_packer_dir() .. '/packer/opt'
+  return utils.get_packer_dir() .. "/packer/opt"
 end
 
 utils.helptags_all = function()
-  for _, path in ipairs(vim.fn.glob(utils.get_packer_opt_dir()..'/*', 1, 1)) do
-    vim.cmd('packadd '..vim.fn.fnamemodify(path, ':t'))
+  for _, path in ipairs(vim.fn.glob(utils.get_packer_opt_dir() .. "/*", 1, 1)) do
+    vim.cmd("packadd " .. vim.fn.fnamemodify(path, ":t"))
   end
-  vim.cmd [[helptags ALL]]
+  vim.cmd([[helptags ALL]])
 end
 
 -- The function is called `t` for `termcodes`.
 -- You don't have to call it that, but I find the terseness convenient
 -- ref: https://github.com/nanotee/nvim-lua-guide
 utils.t = function(str)
-    -- Adjust boolean arguments as needed
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
+  -- Adjust boolean arguments as needed
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
 -- Concat two tables
@@ -37,8 +37,8 @@ end
 
 -- ref: https://github.com/LunarVim/LunarVim/blob/rolling/lua/lvim/core/cmp.lua
 utils.check_backspace = function()
-  local col = vim.fn.col "." - 1
-  return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
+  local col = vim.fn.col(".") - 1
+  return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 end
 
 return utils

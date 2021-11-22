@@ -2,38 +2,42 @@ local appearance = {}
 
 appearance.startup = function(use)
   -- Status Line
-  use {
-    'nvim-lualine/lualine.nvim',
-    config = function() require('vimrc.plugins.lualine') end
-  }
+  use({
+    "nvim-lualine/lualine.nvim",
+    config = function()
+      require("vimrc.plugins.lualine")
+    end,
+  })
 
   -- Tabline
-  use {
-    'nanozuki/tabby.nvim',
-    config = function() require('vimrc.plugins.tabby') end
-  }
+  use({
+    "nanozuki/tabby.nvim",
+    config = function()
+      require("vimrc.plugins.tabby")
+    end,
+  })
 
   -- Devicons
-  use {'kyazdani42/nvim-web-devicons', module = 'nvim-web-devicons'}
+  use({ "kyazdani42/nvim-web-devicons", module = "nvim-web-devicons" })
 
   -- Colors
-  use 'rktjmp/lush.nvim'
-  use 'ellisonleao/gruvbox.nvim'
-  vim.g.colorscheme = 'gruvbox'
+  use("rktjmp/lush.nvim")
+  use("ellisonleao/gruvbox.nvim")
+  vim.g.colorscheme = "gruvbox"
 
   -- use 'marko-cerovac/material.nvim'
   -- vim.g.material_style = 'darker'
   -- vim.g.colorscheme = 'material'
 
   -- Which key
-  use {
+  use({
     "folke/which-key.nvim",
     config = function()
-      require("which-key").setup {}
+      require("which-key").setup({})
 
       vim.go.timeoutlen = 500
-    end
-  }
+    end,
+  })
 end
 
 return appearance

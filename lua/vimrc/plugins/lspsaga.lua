@@ -1,11 +1,11 @@
 local lspsaga = {
   show_doc = function()
-    if vim.o.filetype == 'help' then
-      vim.cmd([[help ]]..vim.fn.expand('<cword>'))
+    if vim.o.filetype == "help" then
+      vim.cmd([[help ]] .. vim.fn.expand("<cword>"))
     else
-      vim.cmd [[Lspsaga hover_doc]]
+      vim.cmd([[Lspsaga hover_doc]])
     end
-  end
+  end,
 }
 
 return lspsaga

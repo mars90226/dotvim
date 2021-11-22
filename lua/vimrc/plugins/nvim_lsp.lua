@@ -1,6 +1,6 @@
-require'lspinstall'.setup() -- important
+require("lspinstall").setup() -- important
 
-local servers = require'lspinstall'.installed_servers()
+local servers = require("lspinstall").installed_servers()
 for _, server in pairs(servers) do
-  require'lspconfig'[server].setup{}
+  require("lspconfig")[server].setup({})
 end
