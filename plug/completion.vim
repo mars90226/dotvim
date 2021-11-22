@@ -54,6 +54,15 @@ endif
 " }}}
 
 " Auto Pairs {{{
+" nvim-autopairs {{{
+if vimrc#plugin#is_enabled_plugin('nvim-autopairs')
+  Plug 'windwp/nvim-autopairs'
+
+  inoremap <silent> <M-n> <Esc>:call vimrc#auto_pairs#jump()<CR>a
+  nnoremap <silent> <M-n> :call vimrc#auto_pairs#jump()<CR>
+endif
+" }}}
+
 " auto-pairs {{{
 if vimrc#plugin#is_enabled_plugin('auto-pairs')
   Plug 'jiangmiao/auto-pairs'

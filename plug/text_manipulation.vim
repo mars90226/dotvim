@@ -11,12 +11,6 @@ nmap <Leader>ga <Plug>(LiveEasyAlign)
 xmap <Leader>ga <Plug>(LiveEasyAlign)
 " }}}
 
-" auto-pairs {{{
-Plug 'jiangmiao/auto-pairs'
-
-call vimrc#source('vimrc/plugins/auto_pairs.vim')
-" }}}
-
 " eraseSubword {{{
 Plug 'vim-scripts/eraseSubword'
 
