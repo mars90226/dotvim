@@ -10,7 +10,19 @@ require("lualine").setup({
     lualine_c = { { "filename", path = 1 } },
     lualine_x = { "encoding", "fileformat", "filetype" },
     lualine_y = { "progress" },
-    lualine_z = { "location" },
+    lualine_z = {
+      "location",
+      {
+        -- NOTE: Need to wrap lua function in user function
+        -- ref: https://github.com/nvim-lualine/lualine.nvim/issues/392
+        function()
+          return require("lsp-status").status()
+        end,
+        cond = function()
+          return #vim.lsp.buf_get_clients() > 0
+        end,
+      },
+    },
   },
   inactive_sections = {
     lualine_a = {},

@@ -1,3 +1,5 @@
+local lsp_status = require("lsp-status")
+
 local lsp = {}
 
 lsp.servers = {
@@ -18,9 +20,15 @@ lsp.servers = {
       },
     },
   },
+  -- clangd = {
+  --   handlers = lsp_status.extensions.clangd.setup(),
+  -- },
   cmake = {},
   gopls = {},
   perlls = {},
+  -- myls_ms = {
+  --   handlers = lsp_status.extensions.pyls_ms.setup(),
+  -- },
   pylsp = {},
   -- TODO: Check pyright settings disableLanguageServices
   -- ref: https://github.com/microsoft/pyright/blob/893d08be8c70297fcf082ba812c14cf4aecefc97/docs/settings.md
@@ -33,6 +41,8 @@ lsp.servers = {
 }
 
 lsp.on_attach = function(client)
+  lsp_status.on_attach(client)
+
   nnoremap("<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "silent", "buffer")
   nnoremap("1gD", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", "silent", "buffer")
   nnoremap("gR", "<Cmd>lua vim.lsp.buf.references()<CR>", "silent", "buffer")
