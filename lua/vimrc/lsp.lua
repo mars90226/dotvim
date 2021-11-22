@@ -32,7 +32,7 @@ lsp.servers = {
   vimls = {},
 }
 
-lsp.on_attach = function()
+lsp.on_attach = function(client)
   nnoremap('<C-]>',     '<Cmd>lua vim.lsp.buf.definition()<CR>', 'silent', 'buffer')
   nnoremap('1gD',       '<Cmd>lua vim.lsp.buf.type_definition()<CR>', 'silent', 'buffer')
   nnoremap('gR',        '<Cmd>lua vim.lsp.buf.references()<CR>', 'silent', 'buffer')
@@ -46,6 +46,15 @@ lsp.on_attach = function()
 
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
   vim.bo.formatexpr = [[v:lua.vim.lsp.formatexpr]]
+
+  -- format on save
+  print(vim.inspect(client.resolved_capabilities))
+  if client.resolved_capabilities.document_formatting then
+    vim.cmd [[augroup lsp_format_on_save]]
+    vim.cmd [[  autocmd!]]
+    vim.cmd [[  autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
+    vim.cmd [[augroup END]]
+  end
 end
 
 lsp.setup_server = function(server, custom_opts)

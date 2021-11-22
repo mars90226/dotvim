@@ -177,7 +177,7 @@ lsp.startup = function(use)
         }
       })
 
-      require('lspconfig')['null-ls'].setup({})
+      require('vimrc.lsp').setup_server('null-ls', {})
     end
   }
 
