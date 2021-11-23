@@ -38,6 +38,31 @@ appearance.startup = function(use)
       vim.go.timeoutlen = 500
     end,
   })
+
+  -- Dashboard
+  use({
+    "goolord/alpha-nvim",
+    config = function()
+      local alpha = require('alpha')
+      local dashboard = require('alpha.themes.dashboard')
+      dashboard.section.buttons.val = {
+        dashboard.button( "e", "  New file"
+              , ":ene <CR>"       ),
+        dashboard.button("SPC f f", "  Find file"            ),
+        dashboard.button("SPC f o", "  Recently opened files"),
+        dashboard.button("SPC f m", "  Frecency/MRU"         ),
+        dashboard.button("SPC f r", "  Find word"            ),
+        dashboard.button("SPC f `", "  Jump to bookmarks"    ),
+      }
+      alpha.setup(dashboard.opts)
+
+      -- Workaround for opening session
+      vim.cmd([[augroup alpha_start]])
+      vim.cmd([[  autocmd!]])
+      vim.cmd([[  autocmd VimEnter * nested lua require'vimrc.plugins.alpha'.start(true)]])
+      vim.cmd([[augroup END]])
+    end,
+  })
 end
 
 return appearance

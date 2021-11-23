@@ -268,8 +268,8 @@ nnoremap <Space>fN     :call      vimrc#execute_and_save('FilesWithQuery ' . exp
 nnoremap <Space>f%     :call      vimrc#execute_and_save('FilesWithQuery ' . expand('%:t:r'))<CR>
 nnoremap <Space>f^     :call      vimrc#execute_and_save('FilesWithQuery ' . expand('%:t'))<CR>
 xnoremap <Space>fn     :<C-U>call vimrc#execute_and_save('FilesWithQuery ' . vimrc#utility#get_visual_selection())<CR>
-nnoremap <Space>fo     :call      vimrc#execute_and_save('Locate ' . input('Locate: '))<CR>
-nnoremap <Space>fO     :call      vimrc#execute_and_save('History')<CR>
+nnoremap <Space>fo     :call      vimrc#execute_and_save('History')<CR>
+nnoremap <Space>fO     :call      vimrc#execute_and_save('Locate ' . input('Locate: '))<CR>
 nnoremap <Space>f<M-p> :call      vimrc#execute_and_save('Punctuations')<CR>
 nnoremap <Space>fq     :call      vimrc#execute_and_save('Quickfix')<CR>
 nnoremap <Space>fr     :call      vimrc#execute_and_save('Rg ' . input('Rg: '))<CR>
