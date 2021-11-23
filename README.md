@@ -212,7 +212,7 @@ Mostly like neovim, but without those for neovim plugins.
 * [ ] Add provider plugin for dependencies
 * [x] Use [nvim-autopairs](https://github.com/windwp/nvim-autopairs) to replace auto-pairs.
 * [x] Use [which-key.nvim](https://github.com/folke/which-key.nvim)
-* [ ] Use [dashboard-nvim](https://github.com/glepnir/dashboard-nvim)
+* [x] ~~Use [dashboard-nvim](https://github.com/glepnir/dashboard-nvim)~~ Use [alpha.nvim](https://github.com/goolord/alpha-nvim)
 
 ## Screenshots
 
