@@ -14,7 +14,7 @@ require("packer").startup(function(use)
   -- Mapping utility
   use("b0o/mapx.nvim")
   local mapx = require("mapx")
-  if mapx.setup ~= true then
+  if mapx.globalized ~= true then
     mapx.setup({ global = true })
   end
 
