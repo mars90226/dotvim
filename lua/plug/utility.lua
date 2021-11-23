@@ -108,10 +108,7 @@ utility.startup = function(use)
       -- disable vimwiki on markdown file
       vim.g.vimwiki_ext2syntax = { [".wiki"] = "default" }
       -- disable <Tab> & <S-Tab> mappings in insert mode
-      vim.g.vimwiki_key_mappings = {
-        lists_return = 1,
-        table_mappings = 0,
-      }
+      vim.g.vimwiki_key_mappings = { lists_return = 1, table_mappings = 0 }
       -- Toggle after vim
       vim.g.vimwiki_folding = "expr:quick"
 
@@ -142,11 +139,7 @@ utility.startup = function(use)
           ["core.defaults"] = {}, -- Load all the default modules
           ["core.norg.concealer"] = {}, -- Allows for use of icons
           ["core.norg.dirman"] = { -- Manage your directories with Neorg
-            config = {
-              workspaces = {
-                my_workspace = "~/neorg",
-              },
-            },
+            config = { workspaces = { my_workspace = "~/neorg" } },
           },
         },
       })
@@ -193,7 +186,11 @@ utility.startup = function(use)
       -- Be careful of malicious localvimrc
       vim.g.localvimrc_sandbox = 0
 
-      vim.g.localvimrc_whitelist = { vim.env.HOME .. "/.vim", vim.env.HOME .. "/.tmux", vim.env.HOME .. "/test" }
+      vim.g.localvimrc_whitelist = {
+        vim.env.HOME .. "/.vim",
+        vim.env.HOME .. "/.tmux",
+        vim.env.HOME .. "/test",
+      }
 
       if vim.g.localvimrc_secret_whitelist ~= nil then
         vim.g.localvimrc_whitelist = utils.table_concat(vim.g.localvimrc_whitelist, vim.g.localvimrc_secret_whitelist)
@@ -229,7 +226,10 @@ utility.startup = function(use)
     end,
   })
 
-  use({ "arthurxavierx/vim-caser", event = { "FocusLost", "CursorHold", "CursorHoldI" } })
+  use({
+    "arthurxavierx/vim-caser",
+    event = { "FocusLost", "CursorHold", "CursorHoldI" },
+  })
 
   use({
     "machakann/vim-highlightedyank",
@@ -275,10 +275,7 @@ utility.startup = function(use)
 
   -- Do not lazy load vim-scriptease, as it breaks :Breakadd/:Breakdel
   -- TODO: Check if lazy load works
-  use({
-    "tpope/vim-scriptease",
-    cmd = { "PP", "Messages", "Verbose", "Time" },
-  })
+  use({ "tpope/vim-scriptease", cmd = { "PP", "Messages", "Verbose", "Time" } })
 
   use("tyru/open-browser.vim")
 
@@ -361,9 +358,7 @@ utility.startup = function(use)
   -- Cmdline
   use({
     "VonHeikemen/fine-cmdline.nvim",
-    requires = {
-      { "MunifTanjim/nui.nvim" },
-    },
+    requires = { { "MunifTanjim/nui.nvim" } },
     keys = { "<C-P>" },
     config = function()
       nnoremap("<C-P>", [[<Cmd>lua require('fine-cmdline').open()<CR>]])
@@ -425,15 +420,9 @@ utility.startup = function(use)
   use({ "DougBeney/pickachu", cmd = { "Pick" } })
   use({ "tweekmonster/helpful.vim", cmd = { "HelpfulVersion" } })
   use({ "tweekmonster/startuptime.vim", cmd = { "StartupTime" } })
-  use({
-    "gyim/vim-boxdraw",
-    keys = { "+o", "+O", "+c", "+-", "+_" },
-  })
+  use({ "gyim/vim-boxdraw", keys = { "+o", "+O", "+c", "+-", "+_" } })
   use("lambdalisue/reword.vim")
-  use({
-    "lpinilla/vim-codepainter",
-    keys = { "<F2>", "<F3>" },
-  })
+  use({ "lpinilla/vim-codepainter", keys = { "<F2>", "<F3>" } })
   use({ "nicwest/vim-http", cmd = { "Http", "Http!" } })
   use({ "kristijanhusak/vim-carbon-now-sh", cmd = { "CarbonNowSh" } })
 
