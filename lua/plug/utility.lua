@@ -386,6 +386,26 @@ utility.startup = function(use)
     })
   end
 
+  -- TODO: Failed to open todo-comments
+  use({
+    "sidebar-nvim/sidebar.nvim",
+    disable = true,
+    config = function()
+      local sidebar = require("sidebar-nvim")
+      sidebar.setup({
+        sections = {
+          "datetime",
+          "git-status",
+          "lsp-diagnostics",
+          "todos",
+        },
+      })
+
+      nnoremap("<F5>", "<Cmd>:SidebarNvimToggle<CR>")
+      nnoremap("<Space><F5>", "<Cmd>:SidebarNvimFocus<CR>")
+    end,
+  })
+
   -- Disabled by default, enable to profile
   -- Plug 'norcalli/profiler.nvim'
 
