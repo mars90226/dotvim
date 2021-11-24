@@ -75,6 +75,7 @@ nnoremap <M-S-o> O <C-U>
 " Save
 nnoremap <C-S>        :update<CR>
 nnoremap <Space><C-S> :wall<CR>
+nnoremap <Leader><C-S> :noautocmd write<CR>
 
 " Quit
 nnoremap <Space>q :quit<CR>
