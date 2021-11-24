@@ -40,21 +40,16 @@ completion.startup = function(use)
             }),
           })
         end,
-      },
-
+      }, -- stylua: force newline
       -- Formatting
-      "onsails/lspkind-nvim",
-
+      "onsails/lspkind-nvim", -- stylua: force newline
       -- Completion Sources
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      {
-        "andersevenrud/compe-tmux",
-        branch = "cmp",
-      },
+      { "andersevenrud/compe-tmux", branch = "cmp" },
       "octaltree/cmp-look",
       "hrsh7th/cmp-calc",
       plugin_utils.check_condition(
@@ -148,7 +143,11 @@ completion.startup = function(use)
           { name = "cmp_git" },
           { name = "tmux" },
           { name = "rg" },
-          { name = "look", keyword_length = 2, opts = { convert_case = true, loud = true } },
+          {
+            name = "look",
+            keyword_length = 2,
+            option = { convert_case = true, loud = true },
+          },
         },
       })
 
