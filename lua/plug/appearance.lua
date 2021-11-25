@@ -54,12 +54,6 @@ appearance.startup = function(use)
         dashboard.button("SPC f `", "  Jump to bookmarks"),
       }
       alpha.setup(dashboard.opts)
-
-      -- Workaround for opening session
-      vim.cmd([[augroup alpha_start]])
-      vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd VimEnter * nested lua require'vimrc.plugins.alpha'.start(true)]])
-      vim.cmd([[augroup END]])
     end,
   })
 end
