@@ -26,6 +26,7 @@ nnoremap <Space>ts <Cmd>Telescope git_status<CR>
 nnoremap <Space>tS <Cmd>Telescope treesitter<CR>
 nnoremap <Space>tt <Cmd>Telescope current_buffer_tags<CR>
 nnoremap <Space>tT <Cmd>Telescope tags<CR>
+nnoremap <Space>tu <Cmd>Telescope resume<CR>
 nnoremap <Space>tv <Cmd>Telescope colorscheme<CR>
 nnoremap <Space>tw <Cmd>Telescope tele_tabby list<CR>
 " nnoremap <Space>tx <Cmd>Telescope neoclip<CR>
