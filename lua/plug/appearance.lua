@@ -56,6 +56,19 @@ appearance.startup = function(use)
       alpha.setup(dashboard.opts)
     end,
   })
+
+  -- Scrollbar
+  use({
+    "Xuyuanp/scrollbar.nvim",
+    config = function()
+      vim.cmd([[augroup ScrollbarInit]])
+      vim.cmd([[  autocmd!]])
+      vim.cmd([[  autocmd WinScrolled,VimResized,QuitPre * silent! lua require('scrollbar').show()]])
+      vim.cmd([[  autocmd WinEnter,FocusGained           * silent! lua require('scrollbar').show()]])
+      vim.cmd([[  autocmd WinLeave,BufLeave,BufWinLeave,FocusLost            * silent! lua require('scrollbar').clear()]])
+      vim.cmd([[augroup end]])
+    end,
+  })
 end
 
 return appearance
