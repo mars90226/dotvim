@@ -5,6 +5,10 @@ text_navigation.startup = function(use)
   use({
     "andymass/vim-matchup",
     config = function()
+      vim.g.matchup_matchparen_offscreen = {
+        method = "status_manual", -- we already have nvim-treesitter-context
+      }
+
       nnoremap("<Leader>mk", [[<Cmd>MatchupWhereAmI?<CR>]])
 
       if vim.fn["vimrc#plugin#is_enabled_plugin"]("nvim-treesitter") == 1 then
