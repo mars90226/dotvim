@@ -263,6 +263,9 @@ xnoremap <silent> <Space>sw d:execute 'normal i'.vimrc#utility#sort_copied_words
 " Retab
 nnoremap <Space>r5 :%retab<CR>
 
+" Select Mode
+snoremap <M-c> <C-O>c
+
 " Man
 " :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
 " TODO Move this to 'after' folder
