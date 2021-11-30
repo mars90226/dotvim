@@ -179,8 +179,8 @@ completion.startup = function(use)
       nnoremap("<M-n>", [[<Cmd>call vimrc#auto_pairs#jump()<CR>]], "<silent>")
 
       -- Rules
-      npairs.add_rule(Rule("%w<", ">", "cpp"):use_regex(true))
-      npairs.add_rule(Rule("%w<", ">", "rust"):use_regex(true))
+      -- npairs.add_rule(Rule("%w<", ">", "cpp"):use_regex(true))
+      -- npairs.add_rule(Rule("%w<", ">", "rust"):use_regex(true))
       npairs.add_rule(Rule("<", ">", "xml"))
     end,
   })
