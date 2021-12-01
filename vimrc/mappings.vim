@@ -173,6 +173,7 @@ inoremap <expr> <C-G><C-R> expand('%:h')
 cnoremap <expr> <C-G><C-W> "\\b" . expand('<cword>') . "\\b"
 cnoremap <expr> <C-G><C-A> "\\b" . expand('<cWORD>') . "\\b"
 cnoremap <expr> <C-G>b     "\<C-B>\\b\<C-E>\\b"
+cnoremap <expr> <C-G>B     "\<C-B>\\<\<C-E>\\>"
 " Fugitive commit sha
 cnoremap <expr> <C-G><C-Y> vimrc#fugitive#commit_sha()
 inoremap <expr> <C-G><C-Y> vimrc#fugitive#commit_sha()
