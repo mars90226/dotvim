@@ -22,7 +22,10 @@ lsp.startup = function(use)
           if not lsp_server:is_installed() then
             lsp_server:install()
           end
-        else
+        end
+
+        -- nvim-lsp-installer unsupported servers or install failed servers
+        if not ok or not lsp_server:is_installed() then
           -- Maybe lsp_installer not supported language server, but already installed
           -- TODO: use other attribute to record name
           if vim.fn.executable(server_name) then
