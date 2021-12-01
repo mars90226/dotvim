@@ -36,6 +36,7 @@ languages.startup = function(use)
     use("nvim-treesitter/nvim-treesitter-textobjects")
     use("nvim-treesitter/playground")
     use("JoosepAlviste/nvim-ts-context-commentstring")
+    -- TODO: Rename to 'mfussenegger/nvim-treehopper'
     use("mfussenegger/nvim-ts-hint-textobject")
     use("RRethy/nvim-treesitter-textsubjects")
   end
