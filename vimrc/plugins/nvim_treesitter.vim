@@ -6,4 +6,4 @@
 
 " nvim-ts-hint-textobject
 onoremap <silent> m <Cmd>lua require('tsht').nodes()<CR>
-xnoremap <silent> m <Cmd>lua require('tsht').nodes()<CR>
+vnoremap <silent> m :lua require('tsht').nodes()<CR>
