@@ -4,25 +4,25 @@ local lsp = {}
 
 lsp.servers = {
   bashls = {},
-  ccls = {
-    init_options = {
-      cache = {
-        directory = vim.env.HOME .. "/.cache/ccls",
-      },
-      client = {
-        snippetSupport = true,
-      },
-      highlight = {
-        lsRanges = true,
-      },
-      index = {
-        threads = 2,
-      },
-    },
-  },
-  -- clangd = {
-  --   handlers = lsp_status.extensions.clangd.setup(),
+  -- ccls = {
+  --   init_options = {
+  --     cache = {
+  --       directory = vim.env.HOME .. "/.cache/ccls",
+  --     },
+  --     client = {
+  --       snippetSupport = true,
+  --     },
+  --     highlight = {
+  --       lsRanges = true,
+  --     },
+  --     index = {
+  --       threads = 2,
+  --     },
+  --   },
   -- },
+  clangd = {
+    handlers = lsp_status.extensions.clangd.setup(),
+  },
   cmake = {},
   gopls = {},
   perlls = {},
