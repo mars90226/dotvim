@@ -14,6 +14,12 @@ nnoremap <Space>tk <Cmd>execute 'Telescope grep_string use_regex=true search='.e
 nnoremap <Space>tK <Cmd>execute 'Telescope grep_string use_regex=true search='.expand('<cWORD>')<CR>
 nnoremap <Space>t8 <Cmd>execute 'Telescope grep_string use_regex=true search=\b'.expand('<cword>').'\b'<CR>
 nnoremap <Space>t* <Cmd>execute 'Telescope grep_string use_regex=true search=\b'.expand('<cWORD>').'\b'<CR>
+" NOTE: <Cmd> does not leave visual mode and therefore cannot use '<, '>,
+" which are required by vimrc#utility#get_visual_selection().
+" There seems no good way to get visual selection in visual mode except yanked
+" to register and restore it.
+xnoremap <Space>tk :<C-U>execute 'Telescope grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>
+xnoremap <Space>t8 :<C-U>execute 'Telescope grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>
 nnoremap <Space>tl <Cmd>Telescope current_buffer_fuzzy_find<CR>
 nnoremap <Space>tL <Cmd>Telescope builtin<CR>
 nnoremap <Space>tm <Cmd>Telescope oldfiles<CR>
