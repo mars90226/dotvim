@@ -40,6 +40,8 @@ lsp.servers = {
   sumneko_lua = {},
   tsserver = {},
   vimls = {},
+  -- TODO: add settings for schemas
+  yamlls = {},
 }
 
 lsp.on_attach = function(client)
