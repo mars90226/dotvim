@@ -195,6 +195,13 @@ lsp.startup = function(use)
       })
     end,
   })
+
+  use({
+    "rmagatti/goto-preview",
+    config = function()
+      require("goto-preview").setup({})
+    end,
+  })
 end
 
 return lsp

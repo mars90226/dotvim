@@ -9,7 +9,8 @@ local lspsaga = {
   on_attach = function(client)
     nnoremap("gd", "<Cmd>Lspsaga lsp_finder<CR>", "silent", "buffer")
     nnoremap("gi", "<Cmd>Lspsaga implement<CR>", "silent", "buffer")
-    nnoremap("gp", "<Cmd>Lspsaga preview_definition<CR>", "silent", "buffer")
+    -- NOTE: Seems not work
+    -- nnoremap("gp", "<Cmd>Lspsaga preview_definition<CR>", "silent", "buffer")
     nnoremap("gy", "<Cmd>Lspsaga signature_help<CR>", "silent", "buffer")
     nnoremap("gr", "<Cmd>Lspsaga rename<CR>", "silent", "buffer")
     nnoremap("gx", "<Cmd>Lspsaga code_action<CR>", "silent", "buffer")

@@ -1,5 +1,6 @@
 local lsp_status = require("lsp-status")
 local lspsaga = require("vimrc.plugins.lspsaga")
+local goto_preview = require("vimrc.plugins.goto-preview")
 
 local lsp = {}
 
@@ -44,6 +45,7 @@ lsp.servers = {
 lsp.on_attach = function(client)
   lsp_status.on_attach(client)
   lspsaga.on_attach(client)
+  goto_preview.on_attach(client)
 
   nnoremap("<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "silent", "buffer")
   nnoremap("1gD", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", "silent", "buffer")
@@ -77,6 +79,9 @@ lsp.setup_server = function(server, custom_opts)
 
   -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
   lsp_opts.capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  if server == "clangd" then
+    lsp_opts.capabilities.memoryUsageProvider = true
+  end
   lsp_opts.on_attach = lsp.on_attach
 
   require("lspconfig")[server].setup(lsp_opts)
