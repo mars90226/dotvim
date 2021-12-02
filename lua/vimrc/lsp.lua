@@ -52,7 +52,10 @@ lsp.on_attach = function(client)
   nnoremap("<Space>lI", "<Cmd>LspInfo<CR>", "silent", "buffer")
 
   -- Remap for K
-  nnoremap("gK", "K", "buffer")
+  local maparg = vim.fn.maparg('gK', 'n', false, true)
+  if maparg == {} or maparg['buffer'] ~= 1 then
+    nnoremap("gK", "K", "buffer")
+  end
 
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
   vim.bo.formatexpr = [[v:lua.vim.lsp.formatexpr]]

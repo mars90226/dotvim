@@ -135,4 +135,9 @@ endif
 
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'mars90226/perldoc-vim', { 'for': 'perl' }
+
+" pydoc.vim {{{
 Plug 'fs111/pydoc.vim', { 'for': 'python' }
+
+let g:pydoc_perform_mappings = 0
+" }}}

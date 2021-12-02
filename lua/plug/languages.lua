@@ -151,7 +151,13 @@ languages.startup = function(use)
   })
 
   use({ "mars90226/perldoc-vim", ft = { "perl" } })
-  use({ "fs111/pydoc.vim", ft = { "python" } })
+  use({
+    "fs111/pydoc.vim",
+    ft = { "python" },
+    config = function()
+      vim.g.pydoc_perform_mappings = 0
+    end,
+  })
 end
 
 return languages
