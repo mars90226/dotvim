@@ -43,21 +43,6 @@ lsp.startup = function(use)
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
       require("lspsaga").setup({})
-
-      nnoremap("gd", "<Cmd>Lspsaga lsp_finder<CR>", "silent")
-      nnoremap("gi", "<Cmd>Lspsaga implement<CR>", "silent")
-      nnoremap("gp", "<Cmd>Lspsaga preview_definition<CR>", "silent")
-      nnoremap("gy", "<Cmd>Lspsaga signature_help<CR>", "silent")
-      nnoremap("gr", "<Cmd>Lspsaga rename<CR>", "silent")
-      nnoremap("gx", "<Cmd>Lspsaga code_action<CR>", "silent")
-      xnoremap("gx", ":<C-U>Lspsaga range_code_action<CR>", "silent")
-      nnoremap("K", "<Cmd>lua require('vimrc.plugins.lspsaga').show_doc()<CR>", "silent")
-      nnoremap("go", "<Cmd>Lspsaga show_line_diagnostics<CR>", "silent")
-      nnoremap("gC", "<Cmd>Lspsaga show_cursor_dianostics<CR>", "silent")
-      nnoremap("]c", "<Cmd>Lspsaga diagnostic_jump_next<CR>", "silent")
-      nnoremap("[c", "<Cmd>Lspsaga diagnostic_jump_prev<CR>", "silent")
-      nnoremap("<C-U>", "<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>")
-      nnoremap("<C-D>", "<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>")
     end,
   })
 

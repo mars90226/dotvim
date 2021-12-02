@@ -1,4 +1,5 @@
 local lsp_status = require("lsp-status")
+local lspsaga = require("vimrc.plugins.lspsaga")
 
 local lsp = {}
 
@@ -42,6 +43,7 @@ lsp.servers = {
 
 lsp.on_attach = function(client)
   lsp_status.on_attach(client)
+  lspsaga.on_attach(client)
 
   nnoremap("<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "silent", "buffer")
   nnoremap("1gD", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", "silent", "buffer")
@@ -52,8 +54,8 @@ lsp.on_attach = function(client)
   nnoremap("<Space>lI", "<Cmd>LspInfo<CR>", "silent", "buffer")
 
   -- Remap for K
-  local maparg = vim.fn.maparg('gK', 'n', false, true)
-  if maparg == {} or maparg['buffer'] ~= 1 then
+  local maparg = vim.fn.maparg("gK", "n", false, true)
+  if maparg == {} or maparg["buffer"] ~= 1 then
     nnoremap("gK", "K", "buffer")
   end
 
