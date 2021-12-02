@@ -169,11 +169,13 @@ utility.startup = function(use)
   })
 
   use({
-    "farmergreg/vim-lastplace",
+    "ethanholz/nvim-lastplace",
     config = function()
-      vim.g.lastplace_ignore = "gitcommit,gitrebase,sv,hgcommit"
-      vim.g.lastplace_ignore_buftype = "quickfix,nofile,help,terminal"
-      vim.g.lastplace_open_folds = 0
+      require("nvim-lastplace").setup({
+        lastplace_ignore_buftype = { "quickfix", "nofile", "help", "terminal" },
+        lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
+        lastplace_open_folds = false,
+      })
     end,
   })
 
