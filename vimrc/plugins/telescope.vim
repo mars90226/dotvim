@@ -5,7 +5,7 @@ nnoremap <Space>tc <Cmd>Telescope git_bcommits<CR>
 nnoremap <Space>tC <Cmd>Telescope git_commits<CR>
 nnoremap <Space>te <Cmd>execute 'Telescope grep_string use_regex=true search_dirs='.input('Folder: ').' search='.input('Rg: ')<CR>
 nnoremap <Space>tf <Cmd>Telescope find_files<CR>
-nnoremap <Space>tF <Cmd>Telescope file_browser<CR>
+nnoremap <Space>tF <Cmd>Telescope find_files hidden=true no_ignore=true<CR>
 nnoremap <Space>tg <Cmd>Telescope git_files<CR>
 nnoremap <Space>th <Cmd>Telescope help_tags<CR>
 nnoremap <Space>ti <Cmd>Telescope live_grep<CR>
