@@ -49,7 +49,7 @@ completion.startup = function(use)
       "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      { "andersevenrud/compe-tmux", branch = "cmp" },
+      "andersevenrud/cmp-tmux",
       "octaltree/cmp-look",
       "hrsh7th/cmp-calc",
       plugin_utils.check_condition(
