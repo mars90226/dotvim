@@ -181,7 +181,10 @@ endfunction
 
 " Borrowed from gv.vim
 function! vimrc#utility#get_cursor_syntax() abort
-  return synIDattr(synID(line('.'), col('.'), 0), 'name')
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
 
 " Find the cursor {{{
