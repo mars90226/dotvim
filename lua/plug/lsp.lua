@@ -81,11 +81,12 @@ lsp.startup = function(use)
               return vim.fn.executable("eslint") > 0
             end,
           }),
-          null_ls.builtins.diagnostics.flake8.with({
-            condition = function()
-              return vim.fn.executable("flake8") > 0
-            end,
-          }),
+          -- NOTE: use pylsp pyls-flake8
+          -- null_ls.builtins.diagnostics.flake8.with({
+          --   condition = function()
+          --     return vim.fn.executable("flake8") > 0
+          --   end,
+          -- }),
           -- TODO: pylint is slow with lsp linting, disabled for now
           -- TODO: should use nvim-lint or other on-demand linting plugin to lint pylint
           -- null_ls.builtins.diagnostics.pylint.with({
@@ -110,11 +111,12 @@ lsp.startup = function(use)
           }),
 
           -- Formatting sources
-          null_ls.builtins.formatting.black.with({
-            condition = function()
-              return vim.fn.executable("black") > 0
-            end,
-          }),
+          -- NOTE: use pylsp python-lsp-black
+          -- null_ls.builtins.formatting.black.with({
+          --   condition = function()
+          --     return vim.fn.executable("black") > 0
+          --   end,
+          -- }),
           null_ls.builtins.formatting.clang_format.with({
             condition = function()
               return vim.fn.executable("clang-format") > 0

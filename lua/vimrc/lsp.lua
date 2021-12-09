@@ -31,6 +31,7 @@ lsp.servers = {
   -- myls_ms = {
   --   handlers = lsp_status.extensions.pyls_ms.setup(),
   -- },
+  -- NOTE: use plugins: pyflakes, pycodestyle, pyls-flake8, pylsp-mypy, python-lsp-black
   pylsp = {},
   -- TODO: Check pyright settings disableLanguageServices
   -- ref: https://github.com/microsoft/pyright/blob/893d08be8c70297fcf082ba812c14cf4aecefc97/docs/settings.md
