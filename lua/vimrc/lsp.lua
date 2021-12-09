@@ -50,7 +50,8 @@ lsp.on_attach = function(client)
   lspsaga.on_attach(client)
   goto_preview.on_attach(client)
 
-  nnoremap("<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "silent", "buffer")
+  -- NOTE: Use <C-]> to call 'tagfunc'
+  -- nnoremap("<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "silent", "buffer")
   nnoremap("1gD", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", "silent", "buffer")
   nnoremap("gR", "<Cmd>lua vim.lsp.buf.references()<CR>", "silent", "buffer")
   nnoremap("g0", "<Cmd>lua vim.lsp.buf.document_symbol()<CR>", "silent", "buffer")
@@ -65,6 +66,7 @@ lsp.on_attach = function(client)
   end
 
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
+  vim.bo.tagfunc = [[v:lua.vim.lsp.tagfunc]]
   vim.bo.formatexpr = [[v:lua.vim.lsp.formatexpr]]
 
   -- format on save
