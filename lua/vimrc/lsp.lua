@@ -28,7 +28,7 @@ lsp.servers = {
   cmake = {},
   gopls = {},
   perlls = {},
-  -- myls_ms = {
+  -- pyls_ms = {
   --   handlers = lsp_status.extensions.pyls_ms.setup(),
   -- },
   -- NOTE: use plugins: pyflakes, pycodestyle, pyls-flake8, pylsp-mypy, python-lsp-black
@@ -93,6 +93,7 @@ lsp.setup_server = function(server, custom_opts)
   vim.cmd([[ do User LspAttachBuffers ]])
 end
 
+-- TODO: project level notify
 lsp.notify_settings = function(server, settings)
   for _, lsp_client in ipairs(vim.lsp.get_active_clients()) do
     if lsp_client.name == server then
