@@ -58,16 +58,7 @@ appearance.startup = function(use)
   })
 
   -- Scrollbar
-  use({
-    "Xuyuanp/scrollbar.nvim",
-    config = function()
-      vim.cmd([[augroup ScrollbarInit]])
-      vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd WinScrolled,VimResized,WinEnter,FocusGained * silent! lua require('scrollbar').show()]])
-      vim.cmd([[  autocmd WinLeave,BufLeave,BufWinLeave,FocusLost,QuitPre * silent! lua require('scrollbar').clear()]])
-      vim.cmd([[augroup end]])
-    end,
-  })
+  use("dstein64/nvim-scrollview")
 end
 
 return appearance
