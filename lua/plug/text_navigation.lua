@@ -78,6 +78,7 @@ text_navigation.startup = function(use)
   use("haya14busa/vim-asterisk")
   use({
     "kevinhwang91/nvim-hlslens",
+    branch = "non-ffi",
     config = function()
       noremap("n", [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], "silent")
       noremap("N", [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], "silent")
