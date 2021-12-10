@@ -77,6 +77,15 @@ augroup insert_mode_foldmethod_settings
   autocmd InsertLeave,WinLeave * if exists("w:last_fdm") | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
 augroup END
 
+" Prompt buffer settings
+" FIXME: not work
+" augroup prompt_buffer_settings
+"   autocmd!
+"
+"   autocmd BufNewFile,BufReadPost * if &buftype ==# 'prompt' | inoremap <buffer> <C-W> <C-S-W> | endif
+"   autocmd BufNewFile,BufReadPost * if &buftype ==# 'prompt' | inoremap <buffer> <A-w> <C-W> | endif
+" augroup END
+
 " Secret project local settings
 if exists('*VimSecretProjectLocalSettings')
   call VimSecretProjectLocalSettings()
