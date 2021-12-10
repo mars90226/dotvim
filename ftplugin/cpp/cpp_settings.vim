@@ -9,3 +9,6 @@ endif
 
 " Our vimrc#auto_pairs#jump()
 let b:AutoPairsJumps = ['\w\zs>']
+
+" Clangd
+nnoremap <silent><buffer> <M-`> <Cmd>ClangdSwitchSourceHeader<CR>
