@@ -182,8 +182,8 @@ cnoremap <expr> <C-G><C-I> vimrc#fzf#git#commits_in_commandline(0, [])
 inoremap <expr> <C-G><C-I> vimrc#fzf#git#commits_in_commandline(0, [])
 " FIXME: Currently, use bcommits command with fzf-tmux will cause error
 " Vim(let):E684: list index out of range: 1
-" cnoremap <expr> <C-G><C-O> vimrc#fzf#git#commits_in_commandline(1, [])
-" inoremap <expr> <C-G><C-O> vimrc#fzf#git#commits_in_commandline(1, [])
+cnoremap <expr> <C-G><C-O> vimrc#fzf#git#commits_in_commandline(1, [])
+inoremap <expr> <C-G><C-O> vimrc#fzf#git#commits_in_commandline(1, [])
 " Fill branches
 cnoremap <expr> <C-G><C-B> vimrc#fzf#git#branches_in_commandline()
 inoremap <expr> <C-G><C-B> vimrc#fzf#git#branches_in_commandline()

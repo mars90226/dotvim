@@ -415,7 +415,8 @@ endfunction
 function! vimrc#fzf#git#commits_in_commandline(buffer_local, args) abort
   let s:git_root = vimrc#fzf#get_git_root()
   if empty(s:git_root)
-    return vimrc#utility#warn('Not in git repository')
+    call vimrc#utility#warn('Not in git repository')
+    return ''
   endif
 
   let source = 'git log '.get(g:, 'fzf_commits_log_options', '--color=always '.fzf#shellescape('--format=%C(auto)%h%d %s %C(green)%cr')).' --all'
@@ -428,7 +429,8 @@ function! vimrc#fzf#git#commits_in_commandline(buffer_local, args) abort
 
   if a:buffer_local
     if !managed
-      return vimrc#utility#warn('The current buffer is not in the working tree')
+      call vimrc#utility#warn('The current buffer is not in the working tree')
+      return ''
     endif
     let source .= ' --follow '.fzf#shellescape(current)
   else
