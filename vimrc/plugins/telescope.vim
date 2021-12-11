@@ -24,8 +24,9 @@ nnoremap <Space>tl <Cmd>Telescope current_buffer_fuzzy_find<CR>
 nnoremap <Space>tL <Cmd>Telescope builtin<CR>
 nnoremap <Space>tm <Cmd>Telescope oldfiles<CR>
 nnoremap <Space>to <Cmd>Telescope vim_options<CR>
-nnoremap <Space>tp <Cmd>Telescope file_browser<CR>
+nnoremap <Space>tp <Cmd>call vimrc#telescope#project_tags()<CR>
 nnoremap <Space>tP <Cmd>Telescope project<CR>
+nnoremap <Space>t0 <Cmd>Telescope file_browser<CR>
 nnoremap <Space>tq <Cmd>Telescope quickfix<CR>
 nnoremap <Space>tr <Cmd>execute 'Telescope grep_string use_regex=true search='.input('Rg: ')<CR>
 nnoremap <Space>ts <Cmd>Telescope git_status<CR>
