@@ -70,7 +70,7 @@ lsp.startup = function(use)
     config = function()
       local null_ls = require("null-ls")
 
-      null_ls.config({
+      null_ls.setup({
         sources = {
           -- Code Action sources
           null_ls.builtins.code_actions.gitsigns,
@@ -165,9 +165,8 @@ lsp.startup = function(use)
 
           -- Hover sources
         },
+        on_attach = require("vimrc.lsp").on_attach,
       })
-
-      require("vimrc.lsp").setup_server("null-ls", {})
     end,
   })
 

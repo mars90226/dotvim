@@ -76,6 +76,8 @@ lsp.on_attach = function(client)
     vim.cmd([[  autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]])
     vim.cmd([[augroup END]])
   end
+
+  vim.cmd([[ do User LspAttachBuffers ]])
 end
 
 lsp.setup_server = function(server, custom_opts)
@@ -90,7 +92,6 @@ lsp.setup_server = function(server, custom_opts)
   lsp_opts.on_attach = lsp.on_attach
 
   require("lspconfig")[server].setup(lsp_opts)
-  vim.cmd([[ do User LspAttachBuffers ]])
 end
 
 -- TODO: project level notify
