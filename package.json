@@ -1,4 +1,16 @@
 {
+  "name": "vim-secret",
+  "engines": {
+    "vscode": "^1.11.0"
+  },
+  "contributes": {
+    "snippets": [
+      {
+        "language": "vimwiki",
+        "path": "./snippets/vimwiki.json"
+      }
+    ]
+  },
   "devDependencies": {
     "cz-conventional-changelog": "3.1.0"
   },

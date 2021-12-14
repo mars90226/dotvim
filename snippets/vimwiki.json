@@ -1,0 +1,18 @@
+{
+  "ongoing": {
+    "prefix": "ongoing",
+    "body": ["`[ongoing]` $0"]
+  },
+  "postpone": {
+    "prefix": "postpone",
+    "body": ["`[postpone]` $0"]
+  },
+  "finished": {
+    "prefix": "finished",
+    "body": ["`[finished]` $0"]
+  },
+  "todo": {
+    "prefix": "todo",
+    "body": ["`[todo]` $0"]
+  }
+}
