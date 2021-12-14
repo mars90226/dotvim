@@ -56,6 +56,7 @@ git.startup = function(use)
     end,
   })
 
+  -- NOTE: Do not use vim-flog on large code base, it's very slow in git view
   use({
     "rbong/vim-flog",
     cmd = { "Flog", "Flogsplit" },
