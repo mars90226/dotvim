@@ -2,25 +2,17 @@ local text_navigation = {}
 
 text_navigation.startup = function(use)
   -- Match
-  use({
-    "andymass/vim-matchup",
-    config = function()
-      vim.g.matchup_matchparen_offscreen = {
-        method = "status_manual", -- we already have nvim-treesitter-context
-      }
-
-      nnoremap("<Leader>mk", [[<Cmd>MatchupWhereAmI?<CR>]])
-
-      if vim.fn["vimrc#plugin#is_enabled_plugin"]("nvim-treesitter") == 1 then
-        require("nvim-treesitter.configs").setup({
-          matchup = {
-            enable = true, -- mandatory, false will disable the whole extension
-            -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
-          },
-        })
-      end
-    end,
-  })
+  if vim.fn["vimrc#plugin#is_enabled_plugin"]("nvim-treesitter") == 1 then
+    -- Use matchparen.nvim to increase performance
+    use({
+      "monkoose/matchparen.nvim",
+      config = function()
+        require("matchparen").setup()
+      end,
+    })
+  else
+    use("andymass/vim-matchup")
+  end
 
   use({
     "easymotion/vim-easymotion",
