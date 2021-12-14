@@ -71,11 +71,11 @@ omap <Space><Tab> <Plug>(fzf-maps-o)
 
 " Insert mode completion
 imap            <C-X><C-K> <Plug>(fzf-complete-word)
-inoremap <expr> <C-X><C-F> fzf#vim#complete#path('fd -t f')
+inoremap <expr> <C-X><C-F> fzf#vim#complete#path('fd -t f --strip-cwd-prefix')
 
 " <C-J> is <NL>
 imap            <C-X><C-L> <Plug>(fzf-complete-line)
-inoremap <expr> <C-X><C-D> fzf#vim#complete#path('fd -t d')
+inoremap <expr> <C-X><C-D> fzf#vim#complete#path('fd -t d --strip-cwd-prefix')
 inoremap <expr> <M-x><M-p> vimrc#fzf#chinese#punctuations_in_insert_mode()
 
 " fzf functions & commands {{{
