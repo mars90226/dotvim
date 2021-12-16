@@ -59,9 +59,11 @@ if vimrc#plugin#is_enabled_plugin('nvim-lsp')
   nnoremap <Space>lo <Cmd>Telescope lsp_document_symbols<CR>
   nnoremap <Space>ls <Cmd>Telescope lsp_workspace_symbols<CR>
   nnoremap <Space>lS <Cmd>Telescope lsp_dynamic_workspace_symbols<CR>
-  nnoremap <Space>lc <Cmd>Telescope lsp_document_diagnostics<CR>
-  nnoremap <Space>lC <Cmd>Telescope lsp_workspace_diagnostics<CR>
 endif
+
+" Diagnostic
+nnoremap <Space>lc <Cmd>Telescope diagnostics bufnr=0<CR>
+nnoremap <Space>lC <Cmd>Telescope diagnostics<CR>
 
 " Cheatsheet Mappings
 nnoremap <Leader><Tab> :Cheatsheet<CR>
