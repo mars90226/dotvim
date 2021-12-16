@@ -75,6 +75,15 @@ file_navigation.startup = function(use)
     })
   end
 
+  -- fzf-lua
+  use({
+    "ibhagwan/fzf-lua",
+    requires = { "kyazdani42/nvim-web-devicons" },
+    config = function()
+      vim.fn["vimrc#source"]("vimrc/plugins/fzf_lua.vim")
+    end,
+  })
+
   -- Goto Definitions
   use({
     "liuchengxu/vista.vim",

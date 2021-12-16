@@ -21,7 +21,6 @@ nnoremap <Space>t* <Cmd>execute 'Telescope grep_string use_regex=true search=\b'
 xnoremap <Space>tk :<C-U>execute 'Telescope grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>
 xnoremap <Space>t8 :<C-U>execute 'Telescope grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>
 nnoremap <Space>tl <Cmd>Telescope current_buffer_fuzzy_find<CR>
-nnoremap <Space>tL <Cmd>Telescope builtin<CR>
 nnoremap <Space>tm <Cmd>Telescope oldfiles<CR>
 nnoremap <Space>to <Cmd>Telescope vim_options<CR>
 nnoremap <Space>tp <Cmd>call vimrc#telescope#project_tags()<CR>
@@ -39,6 +38,7 @@ nnoremap <Space>tw <Cmd>Telescope tele_tabby list<CR>
 " nnoremap <Space>tx <Cmd>Telescope neoclip<CR>
 nnoremap <Space>ty <Cmd>Telescope filetypes<CR>
 nnoremap <Space>tY <Cmd>Telescope highlights<CR>
+nnoremap <Space>t, <Cmd>Telescope builtin<CR>
 nnoremap <Space>t` <Cmd>Telescope marks<CR>
 nnoremap <Space>t' <Cmd>Telescope registers<CR>
 nnoremap <Space>t; <Cmd>Telescope commands<CR>
