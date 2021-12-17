@@ -22,6 +22,23 @@ local lspsaga = {
     nnoremap("[c", "<Cmd>Lspsaga diagnostic_jump_prev<CR>", "silent", "buffer")
     nnoremap("<C-U>", "<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", "buffer")
     nnoremap("<C-D>", "<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", "buffer")
+
+    -- Remap for K
+    local maparg
+    maparg = vim.fn.maparg("gK", "n", false, true)
+    if maparg == {} or maparg["buffer"] ~= 1 then
+      nnoremap("gK", "K", "buffer")
+    end
+    -- Remap for gi
+    maparg = vim.fn.maparg("gI", "n", false, true)
+    if maparg == {} or maparg["buffer"] ~= 1 then
+      nnoremap("gI", "gi", "buffer")
+    end
+    -- Remap for gI
+    maparg = vim.fn.maparg("g<C-I>", "n", false, true)
+    if maparg == {} or maparg["buffer"] ~= 1 then
+      nnoremap("g<C-I>", "gI", "buffer")
+    end
   end,
 }
 
