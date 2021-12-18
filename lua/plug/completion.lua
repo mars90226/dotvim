@@ -132,13 +132,12 @@ completion.startup = function(use)
           ["<C-E>"] = cmp.mapping.close(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
         },
-        sources = {
+        sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "path" },
           { name = "luasnip" },
-          { name = "nvim_lua" },
-          { name = "buffer" },
           { name = "calc" },
+          { name = "path" },
+          { name = "nvim_lua" },
           { name = "emoji" },
           { name = "treesitter" },
           { name = "cmp_git" },
@@ -149,7 +148,9 @@ completion.startup = function(use)
             keyword_length = 2,
             option = { convert_case = true, loud = true },
           },
-        },
+        }, {
+          { name = "buffer" },
+        }),
       })
 
       -- Setup lspconfig in nvim-lsp-installer config function
