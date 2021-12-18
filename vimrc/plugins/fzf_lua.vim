@@ -6,11 +6,11 @@ nnoremap <Space>zB <Cmd>FzfLua git_branches<CR>
 nnoremap <Space>zc <Cmd>FzfLua git_bcommits<CR>
 nnoremap <Space>zC <Cmd>FzfLua git_commits<CR>
 nnoremap <Space>zf <Cmd>FzfLua files<CR>
-nnoremap <Space>zF <Cmd>FzfLua files_resume<CR>
 nnoremap <Space>zg <Cmd>FzfLua git_files<CR>
 nnoremap <Space>zh <Cmd>FzfLua help_tags<CR>
 nnoremap <Space>zi <Cmd>FzfLua live_grep_native<CR>
 nnoremap <Space>zI <Cmd>FzfLua live_grep_resume<CR>
+nnoremap <Space>zj <Cmd>FzfLua jumps<CR>
 nnoremap <Space>zk <Cmd>FzfLua grep_cword<CR>
 nnoremap <Space>zK <Cmd>FzfLua grep_cWORD<CR>
 nnoremap <Space>zl <Cmd>FzfLua blines<CR>
@@ -25,8 +25,10 @@ nnoremap <Space>zs <Cmd>FzfLua git_status<CR>
 nnoremap <Space>zS <Cmd>FzfLua spell_suggest<CR>
 nnoremap <Space>zt <Cmd>FzfLua btags<CR>
 nnoremap <Space>zT <Cmd>FzfLua tags<CR>
+nnoremap <Space>zu <Cmd>FzfLua resume<CR>
 nnoremap <Space>zv <Cmd>FzfLua colorschemes<CR>
 nnoremap <Space>zw <Cmd>FzfLua tabs<CR>
+nnoremap <Space>zx <Cmd>FzfLua changes<CR>
 nnoremap <Space>zy <Cmd>FzfLua filetypes<CR>
 nnoremap <Space>z, <Cmd>FzfLua builtin<CR>
 nnoremap <Space>z` <Cmd>FzfLua marks<CR>
