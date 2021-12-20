@@ -71,6 +71,13 @@ require("telescope").setup({
 
         -- Use <M-t> to open in trouble
         ["<M-t>"] = trouble.open_with_trouble,
+
+        -- Use <C-W> to delete word
+        -- NOTE: Workaround for <C-W> mapped to window command in prompt buffer
+        -- Ref: https://github.com/nvim-telescope/telescope.nvim/issues/1579
+        ["<C-W>"] = function()
+          vim.cmd([[normal! bcw]])
+        end,
       },
       n = {
         -- Use <C-S> to select horizontal
