@@ -23,7 +23,7 @@ require("nvim-treesitter.configs").setup({
     smart_rename = {
       enable = true,
       keymaps = {
-        smart_rename = "<Space>hr",
+        smart_rename = "<Space>hR",
       },
     },
     navigation = {
