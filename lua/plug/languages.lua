@@ -44,7 +44,6 @@ languages.startup = function(use)
       "lewis6991/spellsitter.nvim",
       config = function()
         require("spellsitter").setup()
-        vim.go.spell = true
       end,
     })
   end
