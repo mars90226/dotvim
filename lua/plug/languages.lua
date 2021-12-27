@@ -40,6 +40,13 @@ languages.startup = function(use)
     -- TODO: Rename to 'mfussenegger/nvim-treehopper'
     use("mfussenegger/nvim-ts-hint-textobject")
     use("RRethy/nvim-treesitter-textsubjects")
+    use({
+      "lewis6991/spellsitter.nvim",
+      config = function()
+        require("spellsitter").setup()
+        vim.go.spell = true
+      end,
+    })
   end
 
   -- TODO: Check if this can be replaced by vim.lsp.buf.document_highlight()
