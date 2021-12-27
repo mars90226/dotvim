@@ -78,6 +78,17 @@ require("telescope").setup({
         ["<C-W>"] = function()
           vim.cmd([[normal! bcw]])
         end,
+
+        -- Use <C-a> to go to home
+        -- NOTE: <C-b> is used for eraseSubword
+        ["<C-a>"] = function()
+          vim.cmd([[normal! gI]])
+        end,
+
+        -- Use <C-e> to go to end
+        ["<C-e>"] = function()
+          vim.cmd([[normal! $a]])
+        end,
       },
       n = {
         -- Use <C-S> to select horizontal
