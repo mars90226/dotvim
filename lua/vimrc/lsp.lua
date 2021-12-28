@@ -84,6 +84,9 @@ lsp.setup_server = function(server, custom_opts)
     lsp_opts.capabilities.memoryUsageProvider = true
   end
   lsp_opts.on_attach = lsp.on_attach
+  lsp_opts.flags = {
+    debounce_text_changes = 150,
+  }
 
   require("lspconfig")[server].setup(lsp_opts)
 end
