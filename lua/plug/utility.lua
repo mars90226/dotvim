@@ -139,9 +139,10 @@ utility.startup = function(use)
     end,
   })
 
+  -- NOTE: require nvim-treesitter
   use({
     "nvim-neorg/neorg",
-    ft = { "org" },
+    ft = { "norg" },
     requires = { "nvim-lua/plenary.nvim" },
     config = function()
       require("neorg").setup({
@@ -153,6 +154,13 @@ utility.startup = function(use)
             config = { workspaces = { my_workspace = "~/neorg" } },
           },
         },
+      })
+
+      -- TODO: Add check for nvim-treesitter, and disable treesitter module
+      require("nvim-treesitter.install").ensure_installed({
+        "norg",
+        "norg_meta",
+        "norg_table",
       })
     end,
   })
