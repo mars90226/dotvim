@@ -165,6 +165,44 @@ utility.startup = function(use)
     end,
   })
 
+  if vim.fn.executable("zk") == 1 then
+    use({
+      "mickael-menu/zk-nvim",
+      requires = { "neovim/nvim-lspconfig" },
+      config = function()
+        local lsp_configs = require("vimrc.lsp")
+
+        -- TODO: Move lsp config to vimrc/lsp.lua
+        require("zk").setup({
+          -- create user commands such as :ZkNew
+          create_user_commands = true,
+
+          lsp = {
+            -- `config` is passed to `vim.lsp.start_client(config)`
+            config = {
+              cmd = { "zk", "lsp" },
+              name = "zk",
+              -- init_options = ...
+              on_attach = lsp_configs.on_attach,
+              flags = {
+                debounce_text_changes = 150,
+              }
+              -- etc, see `:h vim.lsp.start_client()`
+            },
+
+            -- automatically attach buffers in a zk notebook that match the given filetypes
+            auto_attach = {
+              enabled = true,
+              filetypes = { "markdown" },
+            },
+          },
+        })
+
+        require("telescope").load_extension("zk")
+      end,
+    })
+  end
+
   use({
     "lukas-reineke/indent-blankline.nvim",
     config = function()
