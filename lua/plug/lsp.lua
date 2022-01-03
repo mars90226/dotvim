@@ -87,6 +87,11 @@ lsp.startup = function(use)
           --     return vim.fn.executable("flake8") > 0
           --   end,
           -- }),
+          null_ls.builtins.diagnostics.gitlint.with({
+            condition = function()
+              return vim.fn.executable("gitlint") > 0
+            end,
+          }),
           -- TODO: pylint is slow with lsp linting, disabled for now
           -- TODO: should use nvim-lint or other on-demand linting plugin to lint pylint
           -- null_ls.builtins.diagnostics.pylint.with({
