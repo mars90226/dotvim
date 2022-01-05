@@ -14,5 +14,9 @@
   "todo": {
     "prefix": "todo",
     "body": ["`[todo]` $0"]
+  },
+  "important": {
+    "prefix": "important",
+    "body": ["`[important]` $0"]
   }
 }
