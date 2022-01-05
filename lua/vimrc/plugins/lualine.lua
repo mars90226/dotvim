@@ -3,7 +3,7 @@ local plugin_utils = require("vimrc.plugin_utils")
 require("lualine").setup({
   options = {
     icons_enabled = true,
-    theme = "auto",
+    theme = vim.g.lualine_theme,
     disabled_filetypes = {},
   },
   sections = {

@@ -24,10 +24,22 @@ appearance.startup = function(use)
   use("rktjmp/lush.nvim")
   use("ellisonleao/gruvbox.nvim")
   vim.g.colorscheme = "gruvbox"
+  vim.g.lualine_theme = "auto"
 
-  -- use 'marko-cerovac/material.nvim'
-  -- vim.g.material_style = 'darker'
-  -- vim.g.colorscheme = 'material'
+  -- use("marko-cerovac/material.nvim")
+  -- vim.g.material_style = "darker"
+  -- vim.g.colorscheme = "material"
+  -- vim.g.lualine_theme = "material-nvim"
+
+  -- use({
+  --   "catppuccin/nvim",
+  --   as = "catppuccin",
+  --   config = function()
+  --     require("catppuccin").setup()
+  --   end,
+  -- })
+  -- vim.g.colorscheme = "catppuccin"
+  -- vim.g.lualine_theme = "catppuccin"
 
   -- Which key
   use({
