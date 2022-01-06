@@ -20,7 +20,8 @@ languages.startup = function(use)
     require = { "godlygeek/tabular" },
   })
   use({ "mtdl9/vim-log-highlighting", ft = { "log" } })
-  use("ClockworkNet/vim-apparmor")
+  use({ "ClockworkNet/vim-apparmor", ft = { "apparmor" } })
+  use({ "chrisbra/csv.vim", ft = { "csv" } })
 
   -- Highlighing
   -- nvim-treesitter
