@@ -62,6 +62,7 @@ file_navigation.startup = function(use)
       require("vimrc.plugins.telescope")
     end,
   })
+  use("nvim-telescope/telescope-file-browser.nvim")
   use("nvim-telescope/telescope-project.nvim")
   use("jvgrootveld/telescope-zoxide")
   use("sudormrfbin/cheatsheet.nvim")

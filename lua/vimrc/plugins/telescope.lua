@@ -108,6 +108,7 @@ require("telescope").setup({
 -- Extensions
 ------------------------------
 
+require("telescope").load_extension("file_browser")
 if vim.fn["vimrc#plugin#is_enabled_plugin"]("telescope-fzf-native.nvim") == 1 then
   require("telescope").load_extension("fzf")
 end
