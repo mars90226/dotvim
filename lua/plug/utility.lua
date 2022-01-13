@@ -186,7 +186,7 @@ utility.startup = function(use)
               on_attach = lsp_configs.on_attach,
               flags = {
                 debounce_text_changes = 150,
-              }
+              },
               -- etc, see `:h vim.lsp.start_client()`
             },
 
@@ -457,6 +457,14 @@ utility.startup = function(use)
 
       nnoremap("<F5>", "<Cmd>:SidebarNvimToggle<CR>")
       nnoremap("<Space><F5>", "<Cmd>:SidebarNvimFocus<CR>")
+    end,
+  })
+
+  -- Marks
+  use({
+    "chentau/marks.nvim",
+    config = function()
+      require("marks").setup({})
     end,
   })
 
