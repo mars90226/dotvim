@@ -115,6 +115,15 @@ text_navigation.startup = function(use)
     end,
   })
 
+  -- Marks
+  use({
+    "chentau/marks.nvim",
+    config = function()
+      require("marks").setup({})
+    end,
+  })
+
+  -- Motion
   use({
     "bkad/CamelCaseMotion",
     config = function()

@@ -460,14 +460,6 @@ utility.startup = function(use)
     end,
   })
 
-  -- Marks
-  use({
-    "chentau/marks.nvim",
-    config = function()
-      require("marks").setup({})
-    end,
-  })
-
   -- Disabled by default, enable to profile
   -- Plug 'norcalli/profiler.nvim'
 
