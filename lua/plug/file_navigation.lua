@@ -85,6 +85,19 @@ file_navigation.startup = function(use)
     end,
   })
 
+  -- Bookmarks
+  use({
+    "ThePrimeagen/harpoon",
+    config = function()
+      require("harpoon").setup({})
+
+      nnoremap("<Leader>hm", [[<Cmd>lua require("harpoon.mark").add_file()<CR>]])
+      nnoremap("<Leader>hh", [[<Cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>]])
+      nnoremap("<Leader>h]", [[<Cmd>lua require("harpoon.ui").nav_next()<CR>]])
+      nnoremap("<Leader>h[", [[<Cmd>lua require("harpoon.ui").nav_prev()<CR>]])
+    end,
+  })
+
   -- Goto Definitions
   use({
     "liuchengxu/vista.vim",

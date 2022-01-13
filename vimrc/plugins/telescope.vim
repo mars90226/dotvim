@@ -67,3 +67,6 @@ nnoremap <Space>lC <Cmd>Telescope diagnostics<CR>
 
 " Cheatsheet Mappings
 nnoremap <Leader><Tab> :Cheatsheet<CR>
+
+" Harpoon
+nnoremap <Space>tH :Telescope harpoon marks<CR>
