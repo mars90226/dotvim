@@ -68,6 +68,8 @@ text_navigation.startup = function(use)
     end,
   })
   if vim.fn["vimrc#plugin#is_enabled_plugin"]("nvim-treesitter") == 1 then
+    -- FIXME: Broken in neovim v0.7.0, commit 297ff97647
+    -- Ref: https://github.com/neovim/neovim/pull/16745
     use({
       "indianboy42/hop-extensions",
       config = function()
