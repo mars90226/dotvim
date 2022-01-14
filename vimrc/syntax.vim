@@ -8,6 +8,8 @@ endif
 set synmaxcol=1500  " default: 3000, 0: unlimited
 
 " filetype
+" NOTE: enable filetype.lua
+let g:do_filetype_lua = 1
 filetype on
 filetype plugin on
 filetype indent on
