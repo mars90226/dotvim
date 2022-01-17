@@ -92,6 +92,14 @@ text_navigation.startup = function(use)
       map("<M-;>", "<Plug>Lightspeed_S")
     end,
   })
+  use({
+    "rlane/pounce.nvim",
+    cmd = { "Pounce"},
+    keys = { "<Leader>/" },
+    config = function()
+      map("<Leader>/", [[<Cmd>Pounce<CR>]])
+    end
+  })
 
   -- Search
   use("haya14busa/vim-asterisk")
