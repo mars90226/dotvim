@@ -443,15 +443,16 @@ utility.startup = function(use)
   -- TODO: Failed to open todo-comments
   use({
     "sidebar-nvim/sidebar.nvim",
-    disable = true,
     config = function()
       local sidebar = require("sidebar-nvim")
       sidebar.setup({
         sections = {
           "datetime",
-          "git-status",
-          "lsp-diagnostics",
+          "git",
+          "diagnostics",
           "todos",
+          "symbols",
+          "files",
         },
       })
 
