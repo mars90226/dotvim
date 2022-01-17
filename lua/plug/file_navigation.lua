@@ -142,7 +142,7 @@ file_navigation.startup = function(use)
 
   use({
     "windwp/nvim-spectre",
-    key = { "<Space>S", "<Space>sw", "<Space>ss", "<Space>s'" },
+    keys = { "<Space>S", "<Space>sw", "<Space>ss", "<Space>s'" },
     config = function()
       nnoremap("<Space>S", [[:lua require('spectre').open()<CR>]])
 

@@ -59,7 +59,7 @@ utility.startup = function(use)
 
   use({
     "tpope/vim-characterize",
-    key = { "gA" },
+    keys = { "gA" },
     config = function()
       nmap("gA", "<Plug>(characterize)")
     end,
