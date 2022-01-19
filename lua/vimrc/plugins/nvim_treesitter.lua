@@ -1,11 +1,11 @@
 -- TODO: Refactor to other files
-local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
+local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
 parser_configs.norg = {
   install_info = {
     url = "https://github.com/nvim-neorg/tree-sitter-norg",
     files = { "src/parser.c", "src/scanner.cc" },
-    branch = "main"
+    branch = "main",
   },
 }
 
@@ -13,7 +13,7 @@ parser_configs.norg_meta = {
   install_info = {
     url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
     files = { "src/parser.c" },
-    branch = "main"
+    branch = "main",
   },
 }
 
@@ -21,7 +21,7 @@ parser_configs.norg_table = {
   install_info = {
     url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
     files = { "src/parser.c" },
-    branch = "main"
+    branch = "main",
   },
 }
 
@@ -74,13 +74,6 @@ require("nvim-treesitter.configs").setup({
         ["if"] = "@function.inner",
         ["ac"] = "@class.outer",
         ["ic"] = "@class.inner",
-
-        ["iF"] = {
-          python = "(function_definition) @function",
-          cpp = "(function_definition) @function",
-          c = "(function_definition) @function",
-          java = "(method_declaration) @function",
-        },
       },
     },
     swap = {
