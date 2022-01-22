@@ -320,7 +320,7 @@ nnoremap <Space>sL :call      vimrc#execute_and_save('ScreenLines ' . expand('<c
 xnoremap <Space>sL :<C-U>call vimrc#execute_and_save('ScreenLines ' . vimrc#utility#get_visual_selection())<CR>
 nnoremap <Space>s1 :call      vimrc#execute_and_save('LastTabs')<CR>
 
-nnoremap <Space>sm :History:<CR>mks vim sessions
+nnoremap <Space>ss :History:<CR>mks vim sessions
 
 if vimrc#plugin#is_enabled_plugin('coc.nvim')
   nnoremap <Space>sv :call vimrc#fzf#range#select_operator('av')<CR>
