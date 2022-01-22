@@ -122,11 +122,12 @@ lsp.startup = function(use)
           --     return vim.fn.executable("black") > 0
           --   end,
           -- }),
-          null_ls.builtins.formatting.clang_format.with({
-            condition = function()
-              return vim.fn.executable("clang-format") > 0
-            end,
-          }),
+          -- NOTE: use clangd clang-format
+          -- null_ls.builtins.formatting.clang_format.with({
+          --   condition = function()
+          --     return vim.fn.executable("clang-format") > 0
+          --   end,
+          -- }),
           null_ls.builtins.formatting.eslint.with({
             condition = function()
               return vim.fn.executable("eslint") > 0
