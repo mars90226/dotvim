@@ -81,6 +81,9 @@ lsp.setup_server = function(server, custom_opts)
   -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
   lsp_opts.capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
   if server == "clangd" then
+    -- NOTE: Workaround for "warning: multiple different client offset_encodings detected for buffer, this is not supported yet".
+    -- Ref: https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428#issuecomment-997226723
+    lsp_opts.capabilities.offsetEncoding = { "utf-16" }
     lsp_opts.capabilities.memoryUsageProvider = true
   end
   lsp_opts.on_attach = lsp.on_attach
