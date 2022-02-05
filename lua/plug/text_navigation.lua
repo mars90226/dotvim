@@ -90,15 +90,18 @@ text_navigation.startup = function(use)
     config = function()
       map(";", "<Plug>Lightspeed_s")
       map("<M-;>", "<Plug>Lightspeed_S")
+
+      nmap("<M-s>", "<Plug>Lightspeed_gs")
+      nmap("<M-S>", "<Plug>Lightspeed_gS")
     end,
   })
   use({
     "rlane/pounce.nvim",
-    cmd = { "Pounce"},
+    cmd = { "Pounce" },
     keys = { "<Leader>/" },
     config = function()
       map("<Leader>/", [[<Cmd>Pounce<CR>]])
-    end
+    end,
   })
 
   -- Search
