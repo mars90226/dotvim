@@ -70,3 +70,6 @@ nnoremap <Leader><Tab> :Cheatsheet<CR>
 
 " Harpoon
 nnoremap <Space>tH :Telescope harpoon marks<CR>
+
+" Zoxide
+nnoremap <Space>tz :Telescope zoxide list<CR>
