@@ -86,6 +86,13 @@ augroup END
 "   autocmd BufNewFile,BufReadPost * if &buftype ==# 'prompt' | inoremap <buffer> <A-w> <C-W> | endif
 " augroup END
 
+" Command-line window settings
+augroup cmdline_window_settings
+  autocmd!
+  " Removing any key mapping for <CR> in cmdline-window
+  autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
+augroup END
+
 " Secret project local settings
 if exists('*VimSecretProjectLocalSettings')
   call VimSecretProjectLocalSettings()
