@@ -358,10 +358,7 @@ utility.startup = function(use)
 
   use({
     "lambdalisue/suda.vim",
-    cmd = { "Suda" },
-    setup = function()
-      vim.cmd([[command! Suda edit suda://%]])
-    end,
+    cmd = { "SudaRead", "SudaWrite" },
   })
 
   use({
