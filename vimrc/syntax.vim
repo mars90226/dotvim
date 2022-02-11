@@ -38,8 +38,3 @@ endif
 
 " highlighting strings inside C comments.
 let c_comment_strings = 1
-
-" More visible NonText
-" TODO: Affect indent-blankline.nvim guide and gitsigns.nvim blame line
-" ref: GruvboxFg4
-highlight NonText ctermfg=243 guifg=#7c6f64
