@@ -458,6 +458,26 @@ utility.startup = function(use)
     end,
   })
 
+  use({
+    "hoschi/yode-nvim",
+    keys = { "<Leader>yc", "<Leader>yr" },
+    config = function()
+      require("yode-nvim").setup({})
+
+      noremap("<Leader>yc", [[:YodeCreateSeditorFloating<CR>]])
+      noremap("<Leader>yr", [[:YodeCreateSeditorReplace<CR>]])
+      nnoremap("<Leader>bd", [[:YodeBufferDelete<CR>]])
+
+      nnoremap("<C-W>r", [[<Cmd>YodeLayoutShiftWinDown<CR>]])
+      nnoremap("<C-W>R", [[<Cmd>YodeLayoutShiftWinUp<CR>]])
+      nnoremap("<C-W>J", [[<Cmd>YodeLayoutShiftWinBottom<CR>]])
+      nnoremap("<C-W>K", [[<Cmd>YodeLayoutShiftWinTop<CR>]])
+
+      -- For no gap between floating windows
+      vim.go.showtabline = 2
+    end,
+  })
+
   -- Disabled by default, enable to profile
   -- Plug 'norcalli/profiler.nvim'
 
