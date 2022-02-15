@@ -88,7 +88,13 @@ text_navigation.startup = function(use)
   use({
     "ggandor/lightspeed.nvim",
     config = function()
-      map(";", "<Plug>Lightspeed_s")
+      require("lightspeed").setup({
+        ignore_case = true,
+      })
+
+      map(";", "<Plug>Lightspeed_omni_s")
+      -- To avoid 'S' being mapped
+      -- TODO: Use better way to avoid 'S' being mapped
       map("<M-;>", "<Plug>Lightspeed_S")
 
       nmap("<M-s>", "<Plug>Lightspeed_gs")
