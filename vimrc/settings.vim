@@ -50,7 +50,7 @@ set ruler " show the cursor position all the time
 
 set scrolloff=0
 
-set diffopt=internal,filler,vertical,closeoff
+set diffopt=internal,filler,vertical,closeoff,algorithm:histogram
 if has('patch-8.0.1361')
   set diffopt+=hiddenoff
 endif
