@@ -42,7 +42,14 @@ lsp.startup = function(use)
     "tami5/lspsaga.nvim",
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
-      require("lspsaga").setup({})
+      require("lspsaga").setup({
+        code_action_prompt = {
+          enable = true,
+          sign = true,
+          sign_priority = 40,
+          virtual_text = false,
+        },
+      })
     end,
   })
 
