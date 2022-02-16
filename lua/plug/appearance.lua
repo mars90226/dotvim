@@ -70,7 +70,15 @@ appearance.startup = function(use)
   })
 
   -- Scrollbar
-  use("dstein64/nvim-scrollview")
+  use({
+    "dstein64/nvim-scrollview",
+    config = function()
+      vim.cmd([[augroup nvim_scrollview_exclude_diff]])
+      vim.cmd([[  autocmd!]])
+      vim.cmd([[  autocmd DiffUpdated * execute &diff ? 'ScrollViewDisable' : 'ScrollViewEnable']])
+      vim.cmd([[augroup END]])
+    end,
+  })
 end
 
 return appearance
