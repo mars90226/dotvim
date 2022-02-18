@@ -1,5 +1,4 @@
 local plugin_utils = require("vimrc.plugin_utils")
-local utils = require("vimrc.utils")
 
 local utility = {}
 
@@ -35,6 +34,8 @@ utility.startup = function(use)
     "tpope/vim-unimpaired",
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
+      local utils = require("vimrc.utils")
+
       -- Ignore [a, ]a, [A, ]A for ale
       vim.g.nremap = { ["[a"] = "", ["]a"] = "", ["[A"] = "", ["]A"] = "" }
 
@@ -54,6 +55,10 @@ utility.startup = function(use)
       nnoremap("coo", ":set readonly!<CR>")
       nnoremap("cop", ":set paste!<CR>")
       nnoremap("yoa", ":setlocal autoread!<CR>")
+
+      vim.keymap.set("n", "codh", function()
+        utils.toggle_list_option_flag(vim.opt.diffopt, "algorithm:histogram")
+      end, { noremap = true })
     end,
   })
 

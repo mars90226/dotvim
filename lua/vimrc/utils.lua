@@ -41,4 +41,13 @@ utils.check_backspace = function()
   return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 end
 
+-- list_option should be Option object with list type
+utils.toggle_list_option_flag = function(list_option, flag)
+  if vim.tbl_contains(list_option:get(), flag) then
+    list_option:remove(flag)
+  else
+    list_option:append(flag)
+  end
+end
+
 return utils
