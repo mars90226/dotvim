@@ -95,7 +95,7 @@ text_navigation.startup = function(use)
       map(";", "<Plug>Lightspeed_omni_s")
       -- To avoid 'S' being mapped
       -- TODO: Use better way to avoid 'S' being mapped
-      map("<M-;>", "<Plug>Lightspeed_S")
+      noremap("S", "S")
 
       nmap("<M-s>", "<Plug>Lightspeed_gs")
       nmap("<M-S>", "<Plug>Lightspeed_gS")
