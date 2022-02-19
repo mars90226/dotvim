@@ -29,18 +29,6 @@ completion.startup = function(use)
       {
         "L3MON4D3/LuaSnip",
         config = function()
-          local utils = require("vimrc.utils")
-
-          require("luasnip.loaders.from_vscode").lazy_load({
-            paths = vim.tbl_filter(function(path)
-              return vim.fn.isdirectory(path) > 0
-            end, {
-              utils.get_packer_start_dir() .. "/friendly-snippets",
-              vim.env.HOME .. "/.vim",
-              vim.env.HOME .. "/.vim_secret",
-            }),
-          })
-
           -- FIXME: nvim-cmp doesn't show new snippets, but it actually reloaded
           vim.cmd([[command! ReloadLuaSnip call vimrc#source("after/plugin/luasnip.lua")]])
         end,
@@ -132,6 +120,11 @@ completion.startup = function(use)
               luasnip.jump(-1)
             end
           end, { "i", "s" }),
+          ["<C-L>"] = cmp.mapping(function(fallback)
+            if luasnip.choice_active() then
+              luasnip.change_choice(1)
+            end
+          end, { "i" }),
           ["<C-E>"] = cmp.mapping.close(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
         },
