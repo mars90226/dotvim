@@ -40,6 +40,9 @@ completion.startup = function(use)
               vim.env.HOME .. "/.vim_secret",
             }),
           })
+
+          -- FIXME: nvim-cmp doesn't show new snippets, but it actually reloaded
+          vim.cmd([[command! ReloadLuaSnip call vimrc#source("after/plugin/luasnip.lua")]])
         end,
       }, -- stylua: force newline
       -- Formatting
