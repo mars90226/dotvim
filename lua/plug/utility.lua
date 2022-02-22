@@ -446,6 +446,7 @@ utility.startup = function(use)
   use({
     "sidebar-nvim/sidebar.nvim",
     config = function()
+      local utils = require("vimrc.utils")
       local sidebar = require("sidebar-nvim")
       sidebar.setup({
         sections = {
@@ -455,6 +456,11 @@ utility.startup = function(use)
           "todos",
           "symbols",
           "files",
+        },
+        todos = {
+          icon = "",
+          ignored_paths = utils.table_concat({ "~" }, vim.g.sidebar_nvim_todo_secret_ignored_paths or {}), -- ignore certain paths, this will prevent huge folders like $HOME to hog Neovim with TODO searching
+          initially_closed = true, -- whether the groups should be initially closed on start. You can manually open/close groups later.
         },
       })
 
