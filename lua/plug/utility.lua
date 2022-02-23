@@ -428,6 +428,9 @@ utility.startup = function(use)
   if vim.fn["vimrc#plugin#is_enabled_plugin"]("wilder.nvim") == 1 then
     use({
       "gelguy/wilder.nvim",
+      -- FIXME: Seems to have huge memory usage, valgrind massif show recursive
+      -- calls, and valgrind show memory leak.
+      disable = true,
       requires = { "romgrk/fzy-lua-native" },
       rocks = { "pcre2" },
       run = ":UpdateRemotePlugins",
