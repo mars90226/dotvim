@@ -56,6 +56,7 @@ completion.startup = function(use)
       },
       "hrsh7th/cmp-emoji",
       plugin_utils.check_condition("lukas-reineke/cmp-rg", vim.fn.executable("rg") > 0),
+      "hrsh7th/cmp-cmdline",
     }),
     config = function()
       vim.cmd([[set completeopt=menu,menuone,noselect]])
@@ -147,6 +148,18 @@ completion.startup = function(use)
         }, {
           { name = "buffer" },
         }),
+      })
+
+      -- Setup cmp-cmdline
+      cmp.setup.cmdline(':', {
+        sources = {
+          { name = 'cmdline' }
+        }
+      })
+      cmp.setup.cmdline('/', {
+        sources = {
+          { name = 'buffer' }
+        }
       })
 
       -- Setup lspconfig in nvim-lsp-installer config function
