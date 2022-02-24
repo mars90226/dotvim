@@ -161,6 +161,18 @@ completion.startup = function(use)
           { name = 'buffer' }
         }
       })
+      cmp.setup.cmdline('?', {
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+      cmp.setup.cmdline('@', {
+        sources = {
+          { name = 'cmdline' },
+          { name = 'path' },
+          { name = 'buffer' }
+        }
+      })
 
       -- Setup lspconfig in nvim-lsp-installer config function
     end,
