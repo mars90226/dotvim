@@ -240,6 +240,9 @@ function! vimrc#denite#filter_mappings() abort
 
   inoremap <silent><buffer><expr> <C-J> vimrc#denite#do_map('move_cursor', 'j', 1)
   inoremap <silent><buffer><expr> <C-K> vimrc#denite#do_map('move_cursor', 'k', 1)
+  " Additional mapping to avoid overridden by nvim-cmp
+  inoremap <silent><buffer><expr> <Down> vimrc#denite#do_map('move_cursor', 'j', 1)
+  inoremap <silent><buffer><expr> <Up> vimrc#denite#do_map('move_cursor', 'k', 1)
   inoremap <silent><buffer><expr> <M-j> vimrc#denite#do_map('move_cursor', 'j', g:denite_height)
   inoremap <silent><buffer><expr> <M-k> vimrc#denite#do_map('move_cursor', 'k', g:denite_height)
   inoremap <silent><buffer><expr> <CR>  denite#do_map('do_action')
