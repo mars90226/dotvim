@@ -139,7 +139,7 @@ completion.startup = function(use)
           { name = "treesitter" },
           { name = "cmp_git" },
           { name = "tmux" },
-          { name = "rg" },
+          { name = "rg", option = { additional_arguments = "--max-depth 4 --max-count 100", debounce = 500 } },
           {
             name = "look",
             keyword_length = 2,
@@ -151,27 +151,27 @@ completion.startup = function(use)
       })
 
       -- Setup cmp-cmdline
-      cmp.setup.cmdline(':', {
+      cmp.setup.cmdline(":", {
         sources = {
-          { name = 'cmdline' }
-        }
+          { name = "cmdline" },
+        },
       })
-      cmp.setup.cmdline('/', {
+      cmp.setup.cmdline("/", {
         sources = {
-          { name = 'buffer' }
-        }
+          { name = "buffer" },
+        },
       })
-      cmp.setup.cmdline('?', {
+      cmp.setup.cmdline("?", {
         sources = {
-          { name = 'buffer' }
-        }
+          { name = "buffer" },
+        },
       })
-      cmp.setup.cmdline('@', {
+      cmp.setup.cmdline("@", {
         sources = {
-          { name = 'cmdline' },
-          { name = 'path' },
-          { name = 'buffer' }
-        }
+          { name = "cmdline" },
+          { name = "path" },
+          { name = "buffer" },
+        },
       })
 
       -- Setup lspconfig in nvim-lsp-installer config function
