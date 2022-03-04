@@ -1,5 +1,6 @@
 -- TODO: Refactor to other files
 local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+local is_light_vim_mode = require("vimrc.utils").is_light_vim_mode()
 
 parser_configs.norg = {
   install_info = {
@@ -45,8 +46,8 @@ require("nvim-treesitter.configs").setup({
     enable = false, -- Currently, nvim-treesitter indent is WIP and not ready for production use
   },
   refactor = {
-    highlight_definitions = { enable = true },
-    highlight_current_scope = { enable = true },
+    highlight_definitions = { enable = not is_light_vim_mode },
+    highlight_current_scope = { enable = not is_light_vim_mode },
     smart_rename = {
       enable = true,
       keymaps = {

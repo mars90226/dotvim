@@ -50,4 +50,9 @@ utils.toggle_list_option_flag = function(list_option, flag)
   end
 end
 
+utils.is_light_vim_mode = function()
+  local vim_mode = vim.fn["vimrc#get_vim_mode"]()
+  return vim_mode == "reader" or vim_mode == "gitcommit"
+end
+
 return utils
