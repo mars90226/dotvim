@@ -492,6 +492,23 @@ utility.startup = function(use)
     end,
   })
 
+  use({
+    "bennypowers/nvim-regexplainer",
+    cmd = { "RegexplainerShow" },
+    keys = { "<Leader>er" },
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+    },
+    config = function()
+      require("regexplainer").setup({
+        mappings = {
+          show = "<Leader>er",
+        },
+      })
+    end,
+  })
+
   -- Disabled by default, enable to profile
   -- Plug 'norcalli/profiler.nvim'
 
