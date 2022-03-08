@@ -1,0 +1,23 @@
+{
+  "files.exclude": {
+    ".git/**/": true
+  },
+  "Lua.diagnostics.globals": [
+    "vim",
+    "map",
+    "nmap",
+    "imap",
+    "xmap",
+    "vmap",
+    "smap",
+    "omap",
+    "noremap",
+    "nnoremap",
+    "inoremap",
+    "xnoremap",
+    "vnoremap",
+    "snoremap",
+    "onoremap",
+    "cmd"
+  ]
+}
