@@ -86,10 +86,12 @@ text_manipulation.startup = function(use)
       -- Add vim-surround key mapping for vim-visual-multi
       -- Borrowed from vim-sandwich/macros/sandwich/keymap/surround.vim
       nmap("ys", "<Plug>(operator-sandwich-add)")
-      onoremap("<SID>line", ":normal! ^vg_<CR>")
-      nmap("yss", "<Plug>(operator-sandwich-add)<SID>line", "silent")
-      onoremap("<SID>gul", "g_")
-      nmap("yS", "ys<SID>gul")
+      -- TODO: May conflict with vim-sandwich
+      onoremap("<Plug>(operator-sandwich-custom-line)", ":normal! ^vg_<CR>")
+      nmap("yss", "<Plug>(operator-sandwich-add)<Plug>(operator-sandwich-custom-line)", "silent")
+      -- TODO: May conflict with vim-sandwich
+      onoremap("<Plug>(operator-sandwich-custom-gul)", "g_")
+      nmap("yS", "ys<Plug>(operator-sandwich-custom-gul)")
 
       nmap(
         "ds",
