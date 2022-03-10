@@ -17,6 +17,9 @@ let s:rg_fzf_all_command_fmt = s:rg_all_command . ' -- %s || true'
 let s:rga_command = s:rga_binary . s:rg_options
 let s:rga_all_command = s:rga_binary . s:rg_all_options
 
+let s:rg_matched_command = s:rg_command . ' -l'
+let s:rg_all_matched_command = s:rg_all_command . ' -l'
+
 function! vimrc#fzf#rg#get_base_command() abort
   return s:rg_base_command
 endfunction
@@ -77,5 +80,24 @@ function! vimrc#fzf#rg#rga(command, bang) abort
         \ a:bang ? s:rga_all_command.' '.option.' -- '.shellescape(query).' '.folder
         \        : s:rga_command.' '.option.' -- '.shellescape(query).' '.folder, 1,
         \ vimrc#fzf#preview#with_preview(a:bang),
+        \ a:bang)
+endfunction
+
+" Matched files, using ':' to seperate folder and option and pattern
+" TODO Review arguments
+function! vimrc#fzf#rg#matched_files(command, bang) abort
+  let command_parts = split(a:command, ':', 1)
+  let folder = command_parts[0]
+  let option = command_parts[1]
+  let pattern = join(command_parts[2:], ':')
+  let cmd = a:bang ? s:rg_all_matched_command.' '.option.' '.shellescape(pattern)
+        \          : s:rg_matched_command.' '.option.' '.shellescape(pattern)
+  let options = {
+    \ 'source': cmd,
+    \ 'options': '--ansi'
+    \ }
+
+  call fzf#vim#files(folder,
+        \ vimrc#fzf#preview#with_preview(options, a:bang),
         \ a:bang)
 endfunction

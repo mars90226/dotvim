@@ -100,6 +100,9 @@ command! -bang -nargs=* RgFzf call vimrc#fzf#rg#grep_on_change(<q-args>, <bang>0
 " Rga - Ripgrep-all with custom command, using ':' to separate folder, option and query
 command! -bang -nargs=* Rga call vimrc#fzf#rg#rga(<q-args>, <bang>0)
 
+" Matched files
+command! -bang -nargs=? -complete=dir MatchedFiles call vimrc#fzf#rg#matched_files(<q-args>, <bang>0)
+
 " Fd all files
 command! -bang -nargs=? -complete=dir AllFiles call vimrc#fzf#dir#all_files(<q-args>, <bang>0)
 
@@ -227,6 +230,8 @@ nnoremap <Space>fa     :call      vimrc#execute_and_save('Quickfix!')<CR>
 nnoremap <Space>fA     :call      vimrc#execute_and_save('AllFiles')<CR>
 nnoremap <Space>f1     :call      vimrc#execute_and_save('CustomFiles :' . input('Option: ') . ':' . input('Fd: '))<CR>
 nnoremap <Space>f!     :call      vimrc#execute_and_save('CustomFiles ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Fd: '))<CR>
+nnoremap <Space>f2     :call      vimrc#execute_and_save('MatchedFiles :' . input('Option: ') . ':' . input('Rg: '))<CR>
+nnoremap <Space>f@     :call      vimrc#execute_and_save('MatchedFiles ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Rg: '))<CR>
 nnoremap <Space>fb     :call      vimrc#execute_and_save('Buffers')<CR>
 nnoremap <Space>fB     :call      vimrc#execute_and_save('Files %:h')<CR>
 nnoremap <Space>fc     :call      vimrc#execute_and_save('BCommits')<CR>
