@@ -494,7 +494,7 @@ utility.startup = function(use)
 
   use({
     "bennypowers/nvim-regexplainer",
-    cmd = { "RegexplainerShow" },
+    cmd = { "RegexplainerToggle" },
     keys = { "<Leader>er" },
     requires = {
       "nvim-lua/plenary.nvim",
@@ -503,7 +503,7 @@ utility.startup = function(use)
     config = function()
       require("regexplainer").setup({
         mappings = {
-          show = "<Leader>er",
+          toggle = "<Leader>er",
         },
       })
     end,
