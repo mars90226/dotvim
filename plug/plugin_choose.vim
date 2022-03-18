@@ -2,8 +2,21 @@
 " Python & Python3 setting for Windows & Synology should be in local vim
 " config
 if vimrc#plugin#check#get_os() !~# 'windows' && vimrc#plugin#check#get_os() !~# 'synology'
-  let g:python_host_prog = '/usr/bin/python'
-  let g:python3_host_prog = '/usr/bin/python3'
+  " Detect asdf
+  if filereadable($HOME.'/.asdf/shims/python')
+    let g:python_host_prog = $HOME.'/.asdf/shims/python'
+  endif
+  if filereadable($HOME.'/.asdf/shims/python3')
+    let g:python3_host_prog = $HOME.'/.asdf/shims/python3'
+  endif
+
+  " Use default Python & Python3
+  if !exists('g:python_host_prog')
+    let g:python_host_prog = '/usr/bin/python'
+  endif
+  if !exists('g:python3_host_prog')
+    let g:python3_host_prog = '/usr/bin/python3'
+  endif
 endif
 
 " plugin management
