@@ -7,6 +7,7 @@ nnoremap <Space>zc <Cmd>FzfLua git_bcommits<CR>
 nnoremap <Space>zC <Cmd>FzfLua git_commits<CR>
 nnoremap <Space>zf <Cmd>FzfLua files<CR>
 nnoremap <Space>zg <Cmd>FzfLua git_files<CR>
+nnoremap <Space>zG <Cmd>FzfLua live_grep_glob<CR>
 nnoremap <Space>zh <Cmd>FzfLua help_tags<CR>
 nnoremap <Space>zi <Cmd>FzfLua live_grep_native<CR>
 nnoremap <Space>zI <Cmd>FzfLua live_grep_resume<CR>
@@ -16,7 +17,9 @@ nnoremap <Space>zK <Cmd>FzfLua grep_cWORD<CR>
 nnoremap <Space>zl <Cmd>FzfLua blines<CR>
 nnoremap <Space>zL <Cmd>FzfLua lines<CR>
 nnoremap <Space>zm <Cmd>FzfLua oldfiles<CR>
-nnoremap <Space>zP <Cmd>FzfLua packadd<CR>
+nnoremap <Space>zp <Cmd>FzfLua tags_grep<CR>
+xnoremap <Space>zp <Cmd>FzfLua tags_grep_visual<CR>
+nnoremap <Space>zP <Cmd>FzfLua tags_grep_cword<CR>
 nnoremap <Space>zq <Cmd>FzfLua quickfix<CR>
 nnoremap <Space>zr <Cmd>FzfLua grep<CR>
 xnoremap <Space>zr <Cmd>FzfLua grep_visual<CR>
