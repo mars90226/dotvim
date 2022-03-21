@@ -425,7 +425,7 @@ utility.startup = function(use)
       nnoremap("<C-P>", [[<Cmd>lua require('fine-cmdline').open()<CR>]])
     end,
   })
-  if vim.fn["vimrc#plugin#is_enabled_plugin"]("wilder.nvim") == 1 then
+  if plugin_utils.is_enabled_plugin("wilder.nvim") then
     use({
       "gelguy/wilder.nvim",
       -- FIXME: Seems to have huge memory usage, valgrind massif show recursive

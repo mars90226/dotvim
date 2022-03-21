@@ -1,4 +1,4 @@
-local utils = require("vimrc.utils")
+local plugin_utils = require("vimrc.plugin_utils")
 
 local languages = {}
 
@@ -25,7 +25,7 @@ languages.startup = function(use)
 
   -- Highlighing
   -- nvim-treesitter
-  if vim.fn["vimrc#plugin#is_enabled_plugin"]("nvim-treesitter") == 1 then
+  if plugin_utils.is_enabled_plugin("nvim-treesitter") then
     use({
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
@@ -54,7 +54,7 @@ languages.startup = function(use)
   use("jackguo380/vim-lsp-cxx-highlight")
 
   -- Context
-  if vim.fn["vimrc#plugin#is_enabled_plugin"]("nvim-treesitter") == 1 then
+  if plugin_utils.is_enabled_plugin("nvim-treesitter") then
     use({
       "romgrk/nvim-treesitter-context",
       config = function()

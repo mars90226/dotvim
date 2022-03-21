@@ -1,3 +1,5 @@
+local plugin_utils = require("vimrc.plugin_utils")
+
 local file_navigation = {}
 
 file_navigation.startup = function(use)
@@ -69,7 +71,7 @@ file_navigation.startup = function(use)
   use("nvim-telescope/telescope-media-files.nvim")
   use("TC72/telescope-tele-tabby.nvim")
 
-  if vim.fn["vimrc#plugin#is_enabled_plugin"]("telescope-fzf-native.nvim") == 1 then
+  if plugin_utils.is_enabled_plugin("telescope-fzf-native.nvim") then
     use({
       "nvim-telescope/telescope-fzf-native.nvim",
       run = "make",

@@ -182,11 +182,14 @@ completion.startup = function(use)
   use({
     "windwp/nvim-autopairs",
     config = function()
+      ---@diagnostic disable-next-line -- packer.nvim will cache config function and cannot use outer local variables
+      local plugin_utils = require("vimrc.plugin_utils")
+
       local Rule = require("nvim-autopairs.rule")
       local npairs = require("nvim-autopairs")
 
       npairs.setup({
-        check_ts = vim.fn["vimrc#plugin#is_enabled_plugin"]("nvim-treesitter") == 1,
+        check_ts = plugin_utils.is_enabled_plugin("nvim-treesitter"),
         fast_wrap = {},
       })
 

@@ -1,3 +1,5 @@
+local plugin_utils = require("vimrc.plugin_utils")
+
 local state = require("telescope.state")
 
 local actions = require("telescope.actions")
@@ -109,7 +111,7 @@ require("telescope").setup({
 ------------------------------
 
 require("telescope").load_extension("file_browser")
-if vim.fn["vimrc#plugin#is_enabled_plugin"]("telescope-fzf-native.nvim") == 1 then
+if plugin_utils.is_enabled_plugin("telescope-fzf-native.nvim") then
   require("telescope").load_extension("fzf")
 end
 require("telescope").load_extension("project")

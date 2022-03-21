@@ -1,3 +1,5 @@
+local plugin_utils = require("vimrc.plugin_utils")
+
 local text_navigation = {}
 
 text_navigation.startup = function(use)
@@ -5,13 +7,16 @@ text_navigation.startup = function(use)
   use({
     "andymass/vim-matchup",
     config = function()
+      ---@diagnostic disable-next-line -- packer.nvim will cache config function and cannot use outer local variables
+      local plugin_utils = require("vimrc.plugin_utils")
+
       vim.g.matchup_matchparen_offscreen = {
         method = "status_manual", -- we already have nvim-treesitter-context
       }
 
       nnoremap("<Leader>mk", [[<Cmd>MatchupWhereAmI?<CR>]])
 
-      if vim.fn["vimrc#plugin#is_enabled_plugin"]("nvim-treesitter") == 1 then
+      if plugin_utils.is_enabled_plugin("nvim-treesitter") then
         require("nvim-treesitter.configs").setup({
           matchup = {
             enable = true, -- mandatory, false will disable the whole extension
@@ -67,7 +72,7 @@ text_navigation.startup = function(use)
       require("hop").setup({})
     end,
   })
-  if vim.fn["vimrc#plugin#is_enabled_plugin"]("nvim-treesitter") == 1 then
+  if plugin_utils.is_enabled_plugin("nvim-treesitter") then
     -- FIXME: Broken in neovim v0.7.0, commit 297ff97647
     -- Ref: https://github.com/neovim/neovim/pull/16745
     use({
