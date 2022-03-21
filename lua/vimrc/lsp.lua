@@ -1,6 +1,7 @@
 local lsp_status = require("lsp-status")
 local lspsaga = require("vimrc.plugins.lspsaga")
 local goto_preview = require("vimrc.plugins.goto-preview")
+local aerial = require("aerial")
 
 local lsp = {}
 
@@ -49,6 +50,7 @@ lsp.on_attach = function(client)
   lsp_status.on_attach(client)
   lspsaga.on_attach(client)
   goto_preview.on_attach(client)
+  aerial.on_attach(client)
 
   -- NOTE: Use <C-]> to call 'tagfunc'
   -- nnoremap("<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "silent", "buffer")

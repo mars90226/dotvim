@@ -216,6 +216,28 @@ lsp.startup = function(use)
       require("goto-preview").setup({})
     end,
   })
+
+  -- Goto Definitions
+  use({
+    "stevearc/aerial.nvim",
+    config = function()
+      require("aerial").setup({
+        backends = { "lsp", "treesitter", "markdown" },
+        filter_kind = false,
+        width = vim.g.right_sidebar_width,
+        on_attach = function(bufnr)
+          -- Toggle the aerial window with <F7>
+          nnoremap("<F7>", [[<Cmd>AerialToggle!<CR>]], "silent", "buffer")
+          -- Jump forwards/backwards with '{' and '}'
+          nnoremap("{", [[<Cmd>AerialPrev<CR>]], "silent", "buffer")
+          nnoremap("}", [[<Cmd>AerialNext<CR>]], "silent", "buffer")
+          -- Jump up the tree with '[[' or ']]'
+          nnoremap("[[", [[<Cmd>AerialPrevUp<CR>]], "silent", "buffer")
+          nnoremap("]]", [[<Cmd>AerialNextUp<CR>]], "silent", "buffer")
+        end,
+      })
+    end,
+  })
 end
 
 return lsp

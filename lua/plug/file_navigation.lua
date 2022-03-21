@@ -103,6 +103,7 @@ file_navigation.startup = function(use)
   -- Goto Definitions
   use({
     "liuchengxu/vista.vim",
+    disable = true,
     config = function()
       vim.fn["vimrc#source"]("vimrc/plugins/vista.vim")
     end,

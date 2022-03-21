@@ -118,4 +118,5 @@ require("telescope").load_extension("media_files")
 require("telescope").load_extension("tele_tabby")
 -- require('telescope').load_extension('neoclip')
 
+require("telescope").load_extension("aerial")
 require("telescope").load_extension("harpoon")

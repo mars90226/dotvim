@@ -65,11 +65,14 @@ endif
 nnoremap <Space>lc <Cmd>Telescope diagnostics bufnr=0<CR>
 nnoremap <Space>lC <Cmd>Telescope diagnostics<CR>
 
+" Aeriual
+nnoremap <Space>tA <Cmd>Telescope aerial<CR>
+
 " Cheatsheet Mappings
-nnoremap <Leader><Tab> :Cheatsheet<CR>
+nnoremap <Leader><Tab> <Cmd>Cheatsheet<CR>
 
 " Harpoon
-nnoremap <Space>tH :Telescope harpoon marks<CR>
+nnoremap <Space>tH <Cmd>Telescope harpoon marks<CR>
 
 " Zoxide
-nnoremap <Space>tz :Telescope zoxide list<CR>
+nnoremap <Space>tz <Cmd>Telescope zoxide list<CR>
