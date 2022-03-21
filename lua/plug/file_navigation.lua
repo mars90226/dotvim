@@ -112,6 +112,7 @@ file_navigation.startup = function(use)
   })
   use({
     "pechorin/any-jump.nvim",
+    keys = { "<Leader>aj" },
     config = function()
       vim.g.any_jump_window_width_ratio, vim.g.any_jump_window_height_ratio = unpack(
         vim.fn["vimrc#float#get_default_ratio"]()
@@ -123,11 +124,11 @@ file_navigation.startup = function(use)
 
       vim.g.any_jump_disable_default_keybindings = 1
 
-      nnoremap("<Leader>aj", ":AnyJump<CR>")
-      nnoremap("<Leader>aa", ":AnyJumpArg<Space>")
-      xnoremap("<Leader>aj", ":AnyJumpVisual<CR>")
-      nnoremap("<Leader>ab", ":AnyJumpBack<CR>")
-      nnoremap("<Leader>al", ":AnyJumpLastResults<CR>")
+      nnoremap("<Leader>aj", "<Cmd>AnyJump<CR>")
+      nnoremap("<Leader>aa", "<Cmd>AnyJumpArg<Space>")
+      xnoremap("<Leader>aj", "<Cmd>AnyJumpVisual<CR>")
+      nnoremap("<Leader>ab", "<Cmd>AnyJumpBack<CR>")
+      nnoremap("<Leader>al", "<Cmd>AnyJumpLastResults<CR>")
 
       vim.cmd([[augroup any_jump_settings]])
       vim.cmd([[  autocmd!]])
