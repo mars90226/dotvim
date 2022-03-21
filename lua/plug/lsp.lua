@@ -223,7 +223,17 @@ lsp.startup = function(use)
     config = function()
       require("aerial").setup({
         backends = { "lsp", "treesitter", "markdown" },
-        filter_kind = false,
+        filter_kind = {
+          "Class",
+          "Constructor",
+          "Enum",
+          "Function",
+          "Interface",
+          "Module",
+          "Method",
+          "Struct",
+          -- "Variable",
+        },
         width = vim.g.right_sidebar_width,
         on_attach = function(bufnr)
           -- Toggle the aerial window with <F7>
