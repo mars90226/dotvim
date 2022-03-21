@@ -1,5 +1,6 @@
 local plugin_utils = {}
 
+-- Utils
 plugin_utils.check_condition = function(plugin_spec, condition)
   if condition then
     return plugin_spec
@@ -44,6 +45,24 @@ plugin_utils.use_config = function(use, plugin_spec)
   plugin_spec.updater = plugin_utils.config_updater
 
   use(plugin_spec)
+end
+
+-- Plugin check
+plugin_utils.is_enabled_plugin = function(plugin)
+  -- TODO: rewrite in Lua
+  return vim.fn["vimrc#plugin#is_enabled_plugin"](plugin) == 1
+end
+
+plugin_utils.is_executable = function(executable)
+  return vim.fn.executable(executable) > 0
+end
+
+plugin_utils.check_enabled_plugin = function(plugin_spec, plugin)
+  return plugin_utils.check_condition(plugin_spec, plugin_utils.is_enabled_plugin(plugin))
+end
+
+plugin_utils.check_executable = function(plugin_spec, executable)
+  return plugin_utils.check_condition(plugin_spec, plugin_utils.is_executable(executable))
 end
 
 return plugin_utils

@@ -221,12 +221,14 @@ lsp.startup = function(use)
   use({
     "stevearc/aerial.nvim",
     config = function()
+      local plugin_utils = require("vimrc.plugin_utils")
+
       require("aerial").setup({
         backends = vim.tbl_filter(function(backend)
           return backend ~= nil
         end, {
           "lsp",
-          vim.fn["vimrc#plugin#is_enabled_plugin"]("nvim-treesitter") == 1 and "treesitter" or nil,
+          plugin_utils.check_enabled_plugin("treesitter", "nvim-treesitter"),
           "markdown",
         }),
         filter_kind = {

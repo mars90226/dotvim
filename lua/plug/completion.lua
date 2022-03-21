@@ -44,10 +44,7 @@ completion.startup = function(use)
       "andersevenrud/cmp-tmux",
       "octaltree/cmp-look",
       "hrsh7th/cmp-calc",
-      plugin_utils.check_condition(
-        "ray-x/cmp-treesitter",
-        vim.fn["vimrc#plugin#is_enabled_plugin"]("nvim-treesitter") == 1
-      ),
+      plugin_utils.check_enabled_plugin("ray-x/cmp-treesitter", "nvim-treesitter"),
       {
         "petertriho/cmp-git",
         config = function()
@@ -55,7 +52,7 @@ completion.startup = function(use)
         end,
       },
       "hrsh7th/cmp-emoji",
-      plugin_utils.check_condition("lukas-reineke/cmp-rg", vim.fn.executable("rg") > 0),
+      plugin_utils.check_executable("lukas-reineke/cmp-rg", "rg"),
       "hrsh7th/cmp-cmdline",
     }),
     config = function()
