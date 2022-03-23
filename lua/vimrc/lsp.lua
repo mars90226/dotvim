@@ -3,6 +3,8 @@ local lspsaga = require("vimrc.plugins.lspsaga")
 local goto_preview = require("vimrc.plugins.goto-preview")
 local aerial = require("aerial")
 
+local plugin_utils = require("vimrc.plugin_utils")
+
 local lsp = {}
 
 lsp.servers = {
@@ -25,9 +27,12 @@ lsp.servers = {
   -- },
   clangd = {
     handlers = lsp_status.extensions.clangd.setup(),
+    condition = plugin_utils.has_linux_build_env(),
   },
   cmake = {},
-  gopls = {},
+  gopls = {
+    condition = plugin_utils.has_linux_build_env(),
+  },
   perlls = {},
   -- pyls_ms = {
   --   handlers = lsp_status.extensions.pyls_ms.setup(),
@@ -38,8 +43,13 @@ lsp.servers = {
   -- ref: https://github.com/microsoft/pyright/blob/893d08be8c70297fcf082ba812c14cf4aecefc97/docs/settings.md
   -- pyright = {},
   rust_analyzer = {},
-  solargraph = {},
-  sumneko_lua = {},
+  solargraph = {
+    condition = plugin_utils.has_linux_build_env(),
+  },
+  sumneko_lua = {
+    -- TODO: Refine condition
+    condition = plugin_utils.has_linux_build_env(),
+  },
   tsserver = {},
   vimls = {},
   -- TODO: add settings for schemas
@@ -74,6 +84,22 @@ lsp.on_attach = function(client)
   end
 
   vim.cmd([[ do User LspAttachBuffers ]])
+end
+
+lsp.get_servers = function()
+  local checked_servers = {}
+
+  for server_name, server_opts in pairs(lsp.servers) do
+    -- NOTE: We only exclude server with condition == false, but include server
+    -- without condition
+    if server_opts.condition == false then
+      -- do not include server
+    else
+      checked_servers[server_name] = server_opts
+    end
+  end
+
+  return checked_servers
 end
 
 lsp.setup_server = function(server, custom_opts)

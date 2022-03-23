@@ -16,7 +16,7 @@ lsp.startup = function(use)
 
       -- Ensure lsp servers
       local lsp_installer_servers = require("nvim-lsp-installer.servers")
-      for server_name, _ in pairs(lsp_configs.servers) do
+      for server_name, _ in pairs(lsp_configs.get_servers()) do
         local ok, lsp_server = lsp_installer_servers.get_server(server_name)
         if ok then
           if not lsp_server:is_installed() then
