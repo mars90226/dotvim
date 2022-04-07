@@ -509,6 +509,15 @@ utility.startup = function(use)
     end,
   })
 
+  use({
+    "axieax/urlview.nvim",
+    config = function()
+      require("urlview").setup({
+        navigate_method = vim.fn["vimrc#plugin#check#has_ssh_host_client"]() and "client_open_browser" or "system",
+      })
+    end,
+  })
+
   -- Disabled by default, enable to profile
   -- Plug 'norcalli/profiler.nvim'
 

@@ -122,3 +122,4 @@ require("telescope").load_extension("tele_tabby")
 
 require("telescope").load_extension("aerial")
 require("telescope").load_extension("harpoon")
+require("telescope").load_extension("urlview")
