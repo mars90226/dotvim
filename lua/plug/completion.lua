@@ -63,6 +63,22 @@ completion.startup = function(use)
       local lspkind = require("lspkind")
       local utils = require("vimrc.utils")
 
+      local max_buffer_size = 1024 * 1024 -- 1 Megabyte max
+
+      local buffer_source = {
+        name = "buffer",
+        option = {
+          get_bufnrs = function()
+            local buf = vim.api.nvim_get_current_buf()
+            local byte_size = vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf))
+            if byte_size > max_buffer_size then
+              return {}
+            end
+            return { buf }
+          end,
+        },
+      }
+
       cmp.setup({
         snippet = {
           expand = function(args)
@@ -143,7 +159,7 @@ completion.startup = function(use)
             option = { convert_case = true, loud = true },
           },
         }, {
-          { name = "buffer" },
+          buffer_source,
         }),
       })
 
@@ -155,19 +171,19 @@ completion.startup = function(use)
       })
       cmp.setup.cmdline("/", {
         sources = {
-          { name = "buffer" },
+          buffer_source,
         },
       })
       cmp.setup.cmdline("?", {
         sources = {
-          { name = "buffer" },
+          buffer_source,
         },
       })
       cmp.setup.cmdline("@", {
         sources = {
           { name = "cmdline" },
           { name = "path" },
-          { name = "buffer" },
+          buffer_source,
         },
       })
 
