@@ -47,6 +47,13 @@ languages.startup = function(use)
         require("spellsitter").setup()
       end,
     })
+    use({
+      "m-demare/hlargs.nvim",
+      requires = { "nvim-treesitter/nvim-treesitter" },
+      config = function()
+        require("hlargs").setup()
+      end,
+    })
   end
 
   -- TODO: Check if this can be replaced by vim.lsp.buf.document_highlight()
