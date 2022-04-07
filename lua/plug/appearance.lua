@@ -12,8 +12,10 @@ appearance.startup = function(use)
   -- Tabline
   use({
     "nanozuki/tabby.nvim",
+    -- TODO: tabby.nvim broken in latest commit of "show-at-least-N-tabs"
+    commit = "2ac781cae7aedade8def03d48a3a0616dce279ae",
     config = function()
-      require("vimrc.plugins.tabby")
+      require("tabby").setup()
     end,
   })
 
