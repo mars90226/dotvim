@@ -25,9 +25,6 @@ nnoremap <Space>o     :Denite outline<CR>
 " Denite don't use auto-action=preview file because it's slow
 " FIXME: Denite -auto-action=preview will preview last candidate
 
-" TODO: Add Denite buffer output:map
-nnoremap <Space><F2> :Denite output:map\ <buffer><CR>
-
 nnoremap <Space>da :Denite location_list<CR>
 nnoremap <Space>db :DeniteBufferDir file<CR>
 nnoremap <Space>dc :Denite -auto-action=preview change<CR>

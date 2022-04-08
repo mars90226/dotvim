@@ -161,6 +161,9 @@ command! Punctuations call vimrc#fzf#chinese#punctuations()
 " Compilers
 command! -bang Compilers call vimrc#fzf#compilers(<bang>0)
 
+" Outputs
+command! -nargs=* Outputs call vimrc#fzf#outputs(<q-args>)
+
 " Git commit command {{{
 " GitGrepCommit
 command! -nargs=+ -complete=customlist,fugitive#CompleteObject GitGrepCommit call vimrc#fzf#git#grep_commit(<f-args>)
@@ -311,6 +314,10 @@ nnoremap <Space>f<C-]> :call      vimrc#execute_and_save('ProjectTselect ' . exp
 xnoremap <Space>f<C-]> :<C-U>call vimrc#execute_and_save('ProjectTselect ' . vimrc#utility#get_visual_selection())<CR>
 nnoremap <Space>f<M-]> :call      vimrc#execute_and_save('Tselect ' . expand('<cword>'))<CR>
 xnoremap <Space>f<M-]> :<C-U>call vimrc#execute_and_save('Tselect ' . vimrc#utility#get_visual_selection())<CR>
+
+" Output
+nnoremap <Space><F1> :call vimrc#execute_and_save('Outputs ' . input('Output: ', '', 'command'))<CR>
+nnoremap <Space><F2> :call vimrc#execute_and_save("Outputs map <buffer>")<CR>
 
 " DirectoryMru
 nnoremap <Space><C-D><C-D> :call vimrc#execute_and_save('DirectoryMru')<CR>

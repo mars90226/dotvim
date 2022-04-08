@@ -298,6 +298,10 @@ function! vimrc#fzf#compilers_source() abort
   return getcompletion('', 'compiler')
 endfunction
 
+function! vimrc#fzf#outputs_source(cmd) abort
+  return split(execute(a:cmd), "\n")
+endfunction
+
 " Sinks
 " Currently not used
 function! vimrc#fzf#files_sink(lines) abort
@@ -372,6 +376,10 @@ endfunction
 
 function! vimrc#fzf#compilers_sink(bang, line) abort
   execute 'compiler'.(a:bang ? '!' : '').' '.a:line
+endfunction
+
+function! vimrc#fzf#outputs_sink(line) abort
+  let @" = a:line
 endfunction
 
 " Borrowed from fzf.vim
@@ -493,4 +501,12 @@ function! vimrc#fzf#compilers(bang) abort
       \ 'sink':   function('vimrc#fzf#compilers_sink', [a:bang]),
       \ 'options': ['+s', '--prompt', 'Compilers> ']
       \ }, 0))
+endfunction
+
+function! vimrc#fzf#outputs(cmd) abort
+  call fzf#run(vimrc#fzf#wrap('Outputs', {
+        \ 'source': vimrc#fzf#outputs_source(a:cmd),
+        \ 'sink': function('vimrc#fzf#outputs_sink'),
+        \ 'options': ['+s', '--prompt', 'Outputs> ']
+        \ }, 0))
 endfunction
