@@ -161,6 +161,42 @@ file_navigation.startup = function(use)
     end,
   })
 
+  use({
+    "brooth/far.vim",
+    cmd = { "Far", "F", "Farp", "Farr", "Farf" },
+    config = function()
+      if vim.fn.has("python3") == 1 then
+        if vim.fn.executable("rg") == 1 then
+          vim.g["far#source"] = "rgnvim"
+        elseif vim.fn.executable("ag") == 1 then
+          vim.g["far#source"] = "agnvim"
+        elseif vim.fn.executable("ack") == 1 then
+          vim.g["far#source"] = "acknvim"
+        end
+      end
+
+      vim.g["far#ignore_files"] = { vim.env.HOME .. "/.gitignore" }
+
+      vim.g["far#mapping"] = {
+        replace_do = "S",
+      }
+    end,
+  })
+
+  use({
+    "wincent/ferret",
+    cmd = { "Ack", "Lack", "Back", "Black", "Quack", "Acks", "Lacks" },
+    config = function()
+      vim.g.FerretMap = 0
+      vim.g.FerretQFCommands = 0
+
+      nmap("<Leader>fa", "<Plug>(FerretAck)")
+      nmap("<Leader>fl", "<Plug>(FerretLack)")
+      nmap("<Leader>fs", "<Plug>(FerretAckWord)")
+      nmap("<Leader>fr", "<Plug>(FerretAcks)")
+    end,
+  })
+
   -- Window Switching
   use({
     "https://gitlab.com/yorickpeterse/nvim-window.git",

@@ -121,40 +121,6 @@ text_manipulation.startup = function(use)
   -- FIXME Due to usage of clipboard, it's slow in neovim in WSL
   use("tommcdo/vim-exchange")
 
-  use({
-    "brooth/far.vim",
-    config = function()
-      if vim.fn.has("python3") == 1 then
-        if vim.fn.executable("rg") == 1 then
-          vim.g["far#source"] = "rgnvim"
-        elseif vim.fn.executable("ag") == 1 then
-          vim.g["far#source"] = "agnvim"
-        elseif vim.fn.executable("ack") == 1 then
-          vim.g["far#source"] = "acknvim"
-        end
-      end
-
-      vim.g["far#ignore_files"] = { vim.env.HOME .. "/.gitignore" }
-
-      vim.g["far#mapping"] = {
-        replace_do = "S",
-      }
-    end,
-  })
-
-  use({
-    "wincent/ferret",
-    config = function()
-      vim.g.FerretMap = 0
-      vim.g.FerretQFCommands = 0
-
-      nmap("<Leader>fa", "<Plug>(FerretAck)")
-      nmap("<Leader>fl", "<Plug>(FerretLack)")
-      nmap("<Leader>fs", "<Plug>(FerretAckWord)")
-      nmap("<Leader>fr", "<Plug>(FerretAcks)")
-    end,
-  })
-
   -- imap <BS> & <CR> is overwritten, need to be careful of bugs
   use({
     "mg979/vim-visual-multi",
