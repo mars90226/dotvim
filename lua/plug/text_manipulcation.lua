@@ -1,6 +1,15 @@
 local text_manipulation = {}
 
 text_manipulation.startup = function(use)
+  -- Comment
+  use({
+    "numToStr/Comment.nvim",
+    event = { "FocusLost", "CursorHold", "CursorHoldI" },
+    config = function()
+      require("Comment").setup()
+    end,
+  })
+
   use({
     "junegunn/vim-easy-align",
     config = function()
@@ -19,14 +28,6 @@ text_manipulation.startup = function(use)
     "vim-scripts/eraseSubword",
     config = function()
       vim.g.EraseSubword_insertMap = "<C-B>"
-    end,
-  })
-
-  use({
-    "tomtom/tcomment_vim",
-    event = { "FocusLost", "CursorHold", "CursorHoldI" },
-    config = function()
-      vim.g.tcomment_textobject_inlinecomment = "ilc"
     end,
   })
 
