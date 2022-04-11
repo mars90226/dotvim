@@ -518,6 +518,10 @@ utility.startup = function(use)
     end,
   })
 
+  if vim.fn.executable("jq") == 1 then
+    use({ "gennaro-tedesco/nvim-jqx" })
+  end
+
   -- Disabled by default, enable to profile
   -- Plug 'norcalli/profiler.nvim'
 
