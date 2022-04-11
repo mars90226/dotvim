@@ -23,7 +23,6 @@ appearance.startup = function(use)
   use({ "kyazdani42/nvim-web-devicons", module = "nvim-web-devicons" })
 
   -- Colors
-  use("rktjmp/lush.nvim")
   use("ellisonleao/gruvbox.nvim")
   vim.g.colorscheme = "gruvbox"
   vim.g.lualine_theme = "auto"

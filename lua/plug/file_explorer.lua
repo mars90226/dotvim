@@ -11,9 +11,6 @@ file_explorer.startup = function(use)
   })
   use("kristijanhusak/defx-git")
   use("kristijanhusak/defx-icons")
-
-  -- TODO: Replace this
-  use("Shougo/neossh.vim")
 end
 
 return file_explorer
