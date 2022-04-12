@@ -323,6 +323,8 @@ command! FindCursor call vimrc#utility#blink_cursor_location()
 command! ClearWinfixsize call vimrc#clear_winfixsize()
 
 command! -nargs=1 ClearRegisters call vimrc#utility#clear_registers(<q-args>)
+
+command! MakeTodo call vimrc#todo#make_todo()
 " }}}
 
 " Custom command {{{
