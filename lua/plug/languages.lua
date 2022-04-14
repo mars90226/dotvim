@@ -54,6 +54,20 @@ languages.startup = function(use)
         require("hlargs").setup()
       end,
     })
+    use({
+      "ziontee113/syntax-tree-surfer",
+      config = function()
+        -- NAVIGATION: Only change the keymap to your liking. I would not recommend changing anything about the .surf() parameters!
+        xnoremap("<M-j>", [[<Cmd>lua require("syntax-tree-surfer").surf("next", "visual")<CR>]], "silent")
+        xnoremap("<M-k>", [[<Cmd>lua require("syntax-tree-surfer").surf("prev", "visual")<CR>]], "silent")
+        xnoremap("<M-h>", [[<Cmd>lua require("syntax-tree-surfer").surf("parent", "visual")<CR>]], "silent")
+        xnoremap("<M-l>", [[<Cmd>lua require("syntax-tree-surfer").surf("child", "visual")<CR>]], "silent")
+
+        -- SWAPPING WITH VISUAL SELECTION: Only change the keymap to your liking. Don't change the .surf() parameters!
+        xnoremap("<M-S-j>", [[<Cmd>lua require("syntax-tree-surfer").surf("next", "visual", true)<CR>]], "silent")
+        xnoremap("<M-S-k>", [[<Cmd>lua require("syntax-tree-surfer").surf("prev", "visual", true)<CR>]], "silent")
+      end,
+    })
   end
 
   -- TODO: Check if this can be replaced by vim.lsp.buf.document_highlight()
