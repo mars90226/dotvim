@@ -79,11 +79,11 @@ text_navigation.startup = function(use)
       "indianboy42/hop-extensions",
       config = function()
         -- Treesitter
-        map("<Space>hl", [[<Cmd>lua require('hop-extensions').hint_locals()<CR>]])
-        map("<Space>hd", [[<Cmd>lua require('hop-extensions').hint_definitions()<CR>]])
-        map("<Space>hr", [[<Cmd>lua require('hop-extensions').hint_references()<CR>]])
-        map("<Space>hs", [[<Cmd>lua require('hop-extensions').hint_scopes()<CR>]])
-        map("<Space>ht", [[<Cmd>lua require('hop-extensions').hint_textobjects()<CR>]])
+        map("<M-e>l", [[<Cmd>lua require('hop-extensions').hint_locals()<CR>]])
+        map("<M-e>d", [[<Cmd>lua require('hop-extensions').hint_definitions()<CR>]])
+        map("<M-e>r", [[<Cmd>lua require('hop-extensions').hint_references()<CR>]])
+        map("<M-e>s", [[<Cmd>lua require('hop-extensions').hint_scopes()<CR>]])
+        map("<M-e>t", [[<Cmd>lua require('hop-extensions').hint_textobjects()<CR>]])
 
         -- LSP
         -- TODO: LSP functions is incomplete
