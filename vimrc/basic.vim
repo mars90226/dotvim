@@ -1,5 +1,6 @@
 " Map Leader
 let g:mapleader = ','
+let g:maplocalleader = '\'
 
 " Language
 " Always use English to avoid plugin not catching exception due to translation
