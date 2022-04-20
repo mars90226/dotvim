@@ -105,7 +105,7 @@ completion.startup = function(use)
             },
           }),
         },
-        mapping = {
+        mapping = cmp.mapping.preset.insert({
           ["<C-D>"] = cmp.mapping.scroll_docs(-4),
           ["<C-F>"] = cmp.mapping.scroll_docs(4),
           ["<Tab>"] = cmp.mapping(function()
@@ -141,7 +141,7 @@ completion.startup = function(use)
           end, { "i" }),
           ["<C-E>"] = cmp.mapping.close(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
-        },
+        }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
@@ -165,21 +165,25 @@ completion.startup = function(use)
 
       -- Setup cmp-cmdline
       cmp.setup.cmdline(":", {
+        mapping = cmp.mapping.preset.cmdline(),
         sources = {
           { name = "cmdline" },
         },
       })
       cmp.setup.cmdline("/", {
+        mapping = cmp.mapping.preset.cmdline(),
         sources = {
           buffer_source,
         },
       })
       cmp.setup.cmdline("?", {
+        mapping = cmp.mapping.preset.cmdline(),
         sources = {
           buffer_source,
         },
       })
       cmp.setup.cmdline("@", {
+        mapping = cmp.mapping.preset.cmdline(),
         sources = {
           { name = "cmdline" },
           { name = "path" },
