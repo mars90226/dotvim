@@ -36,6 +36,7 @@ if executable('broot')
   call vimrc#fuzzymenu#try_add('BrootSplit', { 'exec': 'BrootSplit' })
 
   nnoremap <Leader>br :Broot<CR>
+  nnoremap <Leader>bR :Broot %:h<CR>
 endif
 
 if executable('ranger')
@@ -78,6 +79,9 @@ if executable('xplr')
   command! -nargs=* XplrSplit     call vimrc#tui#run('new', 'xplr '.<q-args>)
   call vimrc#fuzzymenu#try_add('Xplr', { 'exec': 'Xplr' })
   call vimrc#fuzzymenu#try_add('XplrSplit', { 'exec': 'XplrSplit' })
+
+  nnoremap <Leader>xp :Xplr<CR>
+  nnoremap <Leader>xP :Xplr %:h<CR>
 endif
 
 if executable('lazygit')
