@@ -7,6 +7,10 @@ local plugin_utils = require("vimrc.plugin_utils")
 
 local lsp = {}
 
+lsp.config = {
+  enable_format_on_sync = false,
+}
+
 lsp.servers = {
   bashls = {},
   -- ccls = {
@@ -70,6 +74,7 @@ lsp.on_attach = function(client)
   nnoremap("<Space>lf", "<Cmd>lua vim.lsp.buf.formatting()<CR>", "silent", "buffer")
   xnoremap("<Space>lf", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", "silent", "buffer")
   nnoremap("<Space>lI", "<Cmd>LspInfo<CR>", "silent", "buffer")
+  nnoremap("yof", [[<Cmd>lua require("vimrc.lsp").toggle_format_on_sync()<CR>]], "silent", "buffer")
 
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
   vim.bo.tagfunc = [[v:lua.vim.lsp.tagfunc]]
@@ -79,7 +84,7 @@ lsp.on_attach = function(client)
   if client.resolved_capabilities.document_formatting then
     vim.cmd([[augroup lsp_format_on_save]])
     vim.cmd([[  autocmd! * <buffer>]])
-    vim.cmd([[  autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]])
+    vim.cmd([[  autocmd BufWritePre <buffer> lua require("vimrc.lsp").formatting_sync()]])
     vim.cmd([[augroup END]])
   end
 
@@ -131,6 +136,21 @@ lsp.notify_settings = function(server, settings)
       })
     end
   end
+end
+
+-- TODO: Merge settings
+lsp.setup = function(settings)
+  lsp.config = vim.tbl_extend("force", lsp.config, settings)
+end
+
+lsp.formatting_sync = function()
+  if lsp.config.enable_format_on_sync then
+    vim.lsp.buf.formatting_sync()
+  end
+end
+
+lsp.toggle_format_on_sync = function()
+  lsp.config.enable_format_on_sync = not lsp.config.enable_format_on_sync
 end
 
 return lsp

@@ -2,7 +2,12 @@ local lsp = {}
 
 lsp.startup = function(use)
   -- Language Server Protocol
-  use("neovim/nvim-lspconfig")
+  use({
+    "neovim/nvim-lspconfig",
+    config = function()
+      require("vimrc.lsp").setup({})
+    end
+  })
 
   use({
     "williamboman/nvim-lsp-installer",
