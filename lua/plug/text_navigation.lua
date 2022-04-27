@@ -103,6 +103,9 @@ text_navigation.startup = function(use)
       noremap("S", "S")
 
       -- NOTE: lightspeed.nvim will map 'gs', which may cause a little problem with vim-caser mapping
+      -- To avoid 'S' being mapped
+      -- TODO: Use better way to avoid 'gs' being mapped
+      noremap("gs", "gs")
       nmap("<M-s>", "<Plug>Lightspeed_omni_gs")
     end,
   })
