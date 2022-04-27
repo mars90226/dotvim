@@ -519,11 +519,13 @@ function! vimrc#defx#execute_internal(path, split, ...) abort
 endfunction
 
 function! vimrc#defx#_get_commmand(cmd, path) abort
+  let path = shellescape(a:path)
+
   if a:cmd =~# '{}'
     " replace all '{}' to path
-    return substitute(a:cmd, '{}', a:path, 'g')
+    return substitute(a:cmd, '{}', path, 'g')
   else
-    return a:cmd . ' ' . a:path
+    return a:cmd . ' ' . path
   endif
 endfunction
 
