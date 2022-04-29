@@ -84,6 +84,12 @@ text_navigation.startup = function(use)
         map("<M-e>r", [[<Cmd>lua require('hop-extensions').hint_references()<CR>]])
         map("<M-e>s", [[<Cmd>lua require('hop-extensions').hint_scopes()<CR>]])
         map("<M-e>t", [[<Cmd>lua require('hop-extensions').hint_textobjects()<CR>]])
+        map("<M-e>x", [[<Cmd>lua require('hop-extensions').hint_textobjects('call')<CR>]])
+        map("<M-e>c", [[<Cmd>lua require('hop-extensions').hint_textobjects('class')<CR>]])
+        map("<M-e>v", [[<Cmd>lua require('hop-extensions').hint_textobjects('comment')<CR>]])
+        map("<M-e>f", [[<Cmd>lua require('hop-extensions').hint_textobjects('function')<CR>]])
+        map("<M-e>p", [[<Cmd>lua require('hop-extensions').hint_textobjects('parameter')<CR>]])
+        map("<M-e>m", [[<Cmd>lua require('hop-extensions').hint_textobjects('statement')<CR>]])
 
         -- LSP
         -- TODO: LSP functions is incomplete
