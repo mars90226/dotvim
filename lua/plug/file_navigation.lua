@@ -214,6 +214,40 @@ file_navigation.startup = function(use)
       vim.cmd([[augroup END]])
     end,
   })
+
+  use({
+    "rgroli/other.nvim",
+    config = function()
+      require("other-nvim").setup({
+        mappings = {
+          -- builtin mappings
+          -- "livewire",
+          -- "angular",
+          -- "laravel",
+          -- custom mapping
+          {
+            pattern = "/src/include/(.*)/(.*)/(.*).h$",
+            target = "/src/%1/lib/%2/%3.cpp",
+          },
+          {
+            pattern = "/src/(.*)/lib/(.*)/(.*).cpp$",
+            target = "/src/include/%1/%2/%3.h",
+          },
+        },
+        transformers = {
+          -- defining a custom transformer
+          lowercase = function(inputString)
+            return inputString:lower()
+          end,
+        },
+      })
+
+      nnoremap("<Leader>oo", "<Cmd>:Other<CR>", "silent")
+      nnoremap("<Leader>os", "<Cmd>:OtherSplit<CR>", "silent")
+      nnoremap("<Leader>ov", "<Cmd>:OtherVSplit<CR>", "silent")
+      nnoremap("<Leader>oc", "<Cmd>:OtherClear<CR>", "silent")
+    end,
+  })
 end
 
 return file_navigation
