@@ -15,18 +15,17 @@ lsp.startup = function(use)
       local lsp_installer = require("nvim-lsp-installer")
       local lsp_configs = require("vimrc.lsp")
 
-      lsp_installer.on_server_ready(function(server)
-        lsp_configs.setup_server(server.name, server:get_default_options())
-      end)
+      -- TODO: Add ensure_installed
+      lsp_installer.setup({
+        automatic_installation = true,
+      })
 
-      -- Ensure lsp servers
+      -- Setup lsp servers
       local lsp_installer_servers = require("nvim-lsp-installer.servers")
       for server_name, _ in pairs(lsp_configs.get_servers()) do
         local ok, lsp_server = lsp_installer_servers.get_server(server_name)
         if ok then
-          if not lsp_server:is_installed() then
-            lsp_server:install()
-          end
+          lsp_configs.setup_server(lsp_server.name, lsp_server:get_default_options())
         end
 
         -- nvim-lsp-installer unsupported servers or install failed servers
