@@ -192,3 +192,47 @@ require("nvim-treesitter.configs").setup({
 -- nvim-ts-hint-textobject
 onoremap('m', [[<Cmd>lua require('tsht').nodes()<CR>]], "silent")
 vnoremap('m', [[:lua require('tsht').nodes()<CR>]], "silent")
+
+-- Performance
+local augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_settings", {})
+
+local global_idle_disabled_modules = {"context_commentstring", "highlight", "matchup", "nvimGPS", "highlight_current_scope", "highlight_definitions", "navigation", "smart_rename"}
+local buffer_idle_disabled_modules = {"highlight_current_scope"}
+
+vim.api.nvim_create_autocmd({"FocusGained"}, {
+  group = augroup_id,
+  pattern = "*",
+  callback = function()
+    for _, module in ipairs(global_idle_disabled_modules) do
+      vim.cmd([[TSEnable ]]..module)
+    end
+  end
+})
+vim.api.nvim_create_autocmd({"FocusLost"}, {
+  group = augroup_id,
+  pattern = "*",
+  callback = function()
+    for _, module in ipairs(global_idle_disabled_modules) do
+      vim.cmd([[TSDisable ]]..module)
+    end
+  end
+})
+-- TODO: May cause open new file slow
+vim.api.nvim_create_autocmd({"BufEnter"}, {
+  group = augroup_id,
+  pattern = "*",
+  callback = function()
+    for _, module in ipairs(buffer_idle_disabled_modules) do
+      vim.cmd([[TSBufEnable ]]..module)
+    end
+  end
+})
+vim.api.nvim_create_autocmd({"BufLeave"}, {
+  group = augroup_id,
+  pattern = "*",
+  callback = function()
+    for _, module in ipairs(buffer_idle_disabled_modules) do
+      vim.cmd([[TSBufDisable ]]..module)
+    end
+  end
+})
