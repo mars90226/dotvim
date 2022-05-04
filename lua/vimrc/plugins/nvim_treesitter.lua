@@ -182,3 +182,13 @@ require("nvim-treesitter.configs").setup({
     },
   },
 })
+
+-- Settings
+-- TODO: Disable foldmethod=expr by default, it's too slow
+-- ref: https://github.com/nvim-treesitter/nvim-treesitter/issues/1100
+-- vim.o.foldmethod = 'expr'
+-- vim.o.foldexpr = [[nvim_treesitter#foldexpr()]]
+
+-- nvim-ts-hint-textobject
+onoremap('m', [[<Cmd>lua require('tsht').nodes()<CR>]], "silent")
+vnoremap('m', [[:lua require('tsht').nodes()<CR>]], "silent")

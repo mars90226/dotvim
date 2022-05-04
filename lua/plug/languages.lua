@@ -30,7 +30,6 @@ languages.startup = function(use)
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
       config = function()
-        vim.fn["vimrc#source"]("vimrc/plugins/nvim_treesitter.vim")
         require("vimrc.plugins.nvim_treesitter")
       end,
     })
