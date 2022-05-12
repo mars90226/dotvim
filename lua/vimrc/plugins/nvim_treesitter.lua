@@ -2,6 +2,11 @@
 local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 local is_light_vim_mode = require("vimrc.utils").is_light_vim_mode()
 
+local highlight_disable_check = function(lang, bufnr)
+  -- Disable in large C++ buffers
+  return lang == "cpp" and vim.api.nvim_buf_line_count(bufnr) > 10000
+end
+
 parser_configs.norg = {
   install_info = {
     url = "https://github.com/nvim-neorg/tree-sitter-norg",
@@ -79,8 +84,14 @@ require("nvim-treesitter.configs").setup({
     enable = false, -- Currently, nvim-treesitter indent is WIP and not ready for production use
   },
   refactor = {
-    highlight_definitions = { enable = not is_light_vim_mode },
-    highlight_current_scope = { enable = not is_light_vim_mode },
+    highlight_definitions = {
+      enable = not is_light_vim_mode,
+      disable = highlight_disable_check,
+    },
+    highlight_current_scope = {
+      enable = not is_light_vim_mode,
+      disable = highlight_disable_check,
+    },
     smart_rename = {
       enable = true,
       keymaps = {
