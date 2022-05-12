@@ -19,8 +19,10 @@ local lspsaga = {
     nnoremap("K", "<Cmd>lua require('vimrc.plugins.lspsaga').show_doc()<CR>", "silent", "buffer")
     nnoremap("go", "<Cmd>Lspsaga show_line_diagnostics<CR>", "silent", "buffer")
     nnoremap("gC", "<Cmd>Lspsaga show_cursor_dianostics<CR>", "silent", "buffer")
-    nnoremap("]c", "<Cmd>Lspsaga diagnostic_jump_next<CR>", "silent", "buffer")
-    nnoremap("[c", "<Cmd>Lspsaga diagnostic_jump_prev<CR>", "silent", "buffer")
+    nnoremap("<Plug>(diff-prev)", "[c", "silent", "buffer")
+    nnoremap("<Plug>(diff-next)", "]c", "silent", "buffer")
+    nmap("[c", [[&diff ? "\<Plug>(diff-prev)" : "\<Cmd>Lspsaga diagnostic_jump_prev\<CR>"]], "silent", "buffer", "expr")
+    nmap("]c", [[&diff ? "\<Plug>(diff-next)" : "\<Cmd>Lspsaga diagnostic_jump_next\<CR>"]], "silent", "buffer", "expr")
     nnoremap("<C-U>", "<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", "buffer")
     nnoremap("<C-D>", "<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", "buffer")
 
