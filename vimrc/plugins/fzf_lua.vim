@@ -55,4 +55,6 @@ if vimrc#plugin#is_enabled_plugin('nvim-lsp')
   nnoremap <Space>zlS <Cmd>FzfLua lsp_live_workspace_symbols<CR>
   nnoremap <Space>zlc <Cmd>FzfLua lsp_document_diagnostics<CR>
   nnoremap <Space>zlC <Cmd>FzfLua lsp_workspace_diagnostics<CR>
+  nnoremap <Space>zl, <Cmd>FzfLua lsp_incoming_calls<CR>
+  nnoremap <Space>zl. <Cmd>FzfLua lsp_outgoing_calls<CR>
 endif
