@@ -34,60 +34,53 @@ local cc_gitmessage = function(type)
   return fmt(type .. "({}): {}", { i(1, "module"), i(2, "message") })
 end
 
-ls.snippets = {
-  all = {},
-
-  lua = {},
-
-  gitcommit = {
-    s(
-      "cc",
-      fmt("{type}({module}): {message}", {
-        type = c(1, {
-          t("feat"),
-          t("fix"),
-          t("docs"),
-          t("style"),
-          t("refactor"),
-          t("perf"),
-          t("test"),
-          t("build"),
-          t("ci"),
-          t("chore"),
-          t("revert"),
-        }),
-        module = i(2, "module"),
-        message = i(3, "message"),
-      })
-    ),
-  },
-
-  markdown = {
-    s(
-      "cp",
-      c(1, {
-        t("，"),
-        t("。"),
-        t("、"),
-        t("："),
-        t("；"),
-        t("！"),
-        t("？"),
-        t("「"),
-        t("」"),
-      })
-    ),
-    s("cp,", t("，")),
-    s("cp.", t("。")),
-    s("cp'", t("、")),
-    s("cp:", t("：")),
-    s("cp;", t("；")),
-    s("cp!", t("！")),
-    s("cp?", t("？")),
-    s("cp[", t("「")),
-    s("cp]", t("」")),
-  },
-}
+ls.add_snippets("gitcommit", {
+  s(
+    "cc",
+    fmt("{type}({module}): {message}", {
+      type = c(1, {
+        t("feat"),
+        t("fix"),
+        t("docs"),
+        t("style"),
+        t("refactor"),
+        t("perf"),
+        t("test"),
+        t("build"),
+        t("ci"),
+        t("chore"),
+        t("revert"),
+      }),
+      module = i(2, "module"),
+      message = i(3, "message"),
+    })
+  ),
+})
+ls.add_snippets("markdown", {
+  s(
+    "cp",
+    c(1, {
+      t("，"),
+      t("。"),
+      t("、"),
+      t("："),
+      t("；"),
+      t("！"),
+      t("？"),
+      t("「"),
+      t("」"),
+    })
+  ),
+  s("cp,", t("，")),
+  s("cp.", t("。")),
+  s("cp'", t("、")),
+  s("cp:", t("：")),
+  s("cp;", t("；")),
+  s("cp!", t("！")),
+  s("cp?", t("？")),
+  s("cp[", t("「")),
+  s("cp]", t("」")),
+})
 
 local utils = require("vimrc.utils")
 
@@ -101,10 +94,4 @@ local load_opts = {
   }),
 }
 
-if _G.did_load_luasnip then
-  -- TODO: don't load entire friendly-snippets by only append snippets
-  require("luasnip.loaders.from_vscode").load(load_opts)
-else
-  require("luasnip.loaders.from_vscode").lazy_load(load_opts)
-end
-_G.did_load_luasnip = true
+require("luasnip.loaders.from_vscode").lazy_load(load_opts)
