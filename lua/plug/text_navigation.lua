@@ -150,7 +150,7 @@ text_navigation.startup = function(use)
 
   -- Marks
   use({
-    "chentau/marks.nvim",
+    "chentoast/marks.nvim",
     config = function()
       require("marks").setup({})
     end,
