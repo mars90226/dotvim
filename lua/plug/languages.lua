@@ -76,7 +76,7 @@ languages.startup = function(use)
   -- Context
   if plugin_utils.is_enabled_plugin("nvim-treesitter") then
     use({
-      "romgrk/nvim-treesitter-context",
+      "nvim-treesitter/nvim-treesitter-context",
       config = function()
         require("treesitter-context").setup({
           enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
