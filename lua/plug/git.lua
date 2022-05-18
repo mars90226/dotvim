@@ -171,6 +171,17 @@ git.startup = function(use)
       require("neogit").setup({})
     end,
   })
+
+  -- TODO: experimental
+  use({
+    "ipod825/igit.nvim",
+    -- FIXME: Core dump when trying to execute `:IGit status` before entered, maybe related to cmp-cmdline
+    disable = true,
+    requires = { "nvim-lua/plenary.nvim", "ipod825/libp.nvim" },
+    config = function()
+      require("igit").setup()
+    end,
+  })
 end
 
 return git
