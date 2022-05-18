@@ -3,8 +3,16 @@ local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 local is_light_vim_mode = require("vimrc.utils").is_light_vim_mode()
 
 local highlight_disable_check = function(lang, bufnr)
-  -- Disable in large C++ buffers
-  return lang == "cpp" and vim.api.nvim_buf_line_count(bufnr) > 10000
+  local line_count = vim.api.nvim_buf_line_count(bufnr)
+
+  -- Disable in large C++ buffers & JavaScript buffers
+  if lang == "cpp" and line_count > 10000 then
+    return true
+  elseif lang == "javascript" and line_count > 10000 then
+    return true
+  else
+    return false
+  end
 end
 
 parser_configs.norg = {
