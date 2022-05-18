@@ -9,6 +9,7 @@ local lsp = {}
 
 lsp.config = {
   enable_format_on_sync = false,
+  show_diagnostics = true,
 }
 
 lsp.servers = {
@@ -75,6 +76,7 @@ lsp.on_attach = function(client)
   xnoremap("<Space>lf", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", "silent", "buffer")
   nnoremap("<Space>lI", "<Cmd>LspInfo<CR>", "silent", "buffer")
   nnoremap("yof", [[<Cmd>lua require("vimrc.lsp").toggle_format_on_sync()<CR>]], "silent", "buffer")
+  nnoremap("yoo", [[<Cmd>lua require("vimrc.lsp").toggle_show_diagnostics()<CR>]], "silent", "buffer")
 
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
   vim.bo.tagfunc = [[v:lua.vim.lsp.tagfunc]]
@@ -151,6 +153,15 @@ end
 
 lsp.toggle_format_on_sync = function()
   lsp.config.enable_format_on_sync = not lsp.config.enable_format_on_sync
+end
+
+lsp.toggle_show_diagnostics = function()
+  lsp.config.show_diagnostics = not lsp.config.show_diagnostics
+  if lsp.config.show_diagnostics then
+    vim.diagnostic.show()
+  else
+    vim.diagnostic.hide()
+  end
 end
 
 return lsp
