@@ -17,4 +17,5 @@ require("indent_blankline").setup({
   },
   buftype_exclude = { "nofile", "terminal" },
   show_current_context = true,
+  show_current_context_start = true,
 })
