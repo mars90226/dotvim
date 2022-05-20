@@ -113,6 +113,7 @@ lsp.startup = function(use)
             condition = function()
               return vim.fn.executable("eslint_d") > 0
             end,
+            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
           }),
           -- NOTE: use pylsp pyls-flake8
           -- null_ls.builtins.diagnostics.flake8.with({
