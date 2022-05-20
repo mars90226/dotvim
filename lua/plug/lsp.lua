@@ -84,9 +84,15 @@ lsp.startup = function(use)
       null_ls.setup({
         sources = {
           -- Code Action sources
-          null_ls.builtins.code_actions.eslint.with({
+          -- NOTE: use eslint_d instead
+          -- null_ls.builtins.code_actions.eslint.with({
+          --   condition = function()
+          --     return vim.fn.executable("eslint") > 0
+          --   end,
+          -- }),
+          null_ls.builtins.code_actions.eslint_d.with({
             condition = function()
-              return vim.fn.executable("eslint") > 0
+              return vim.fn.executable("eslint_d") > 0
             end,
           }),
           null_ls.builtins.code_actions.gitsigns,
@@ -97,9 +103,15 @@ lsp.startup = function(use)
           }),
 
           -- Diagnostic sources
-          null_ls.builtins.diagnostics.eslint.with({
+          -- NOTE: use eslint_d instead
+          -- null_ls.builtins.diagnostics.eslint.with({
+          --   condition = function()
+          --     return vim.fn.executable("eslint") > 0
+          --   end,
+          -- }),
+          null_ls.builtins.diagnostics.eslint_d.with({
             condition = function()
-              return vim.fn.executable("eslint") > 0
+              return vim.fn.executable("eslint_d") > 0
             end,
           }),
           -- NOTE: use pylsp pyls-flake8
@@ -149,9 +161,15 @@ lsp.startup = function(use)
           --     return vim.fn.executable("clang-format") > 0
           --   end,
           -- }),
-          null_ls.builtins.formatting.eslint.with({
+          -- NOTE: use eslint_d instead
+          -- null_ls.builtins.formatting.eslint.with({
+          --   condition = function()
+          --     return vim.fn.executable("eslint") > 0
+          --   end,
+          -- }),
+          null_ls.builtins.formatting.eslint_d.with({
             condition = function()
-              return vim.fn.executable("eslint") > 0
+              return vim.fn.executable("eslint_d") > 0
             end,
           }),
           null_ls.builtins.formatting.json_tool.with({
