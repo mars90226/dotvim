@@ -84,7 +84,17 @@ lsp.startup = function(use)
       null_ls.setup({
         sources = {
           -- Code Action sources
+          null_ls.builtins.code_actions.eslint.with({
+            condition = function()
+              return vim.fn.executable("eslint") > 0
+            end,
+          }),
           null_ls.builtins.code_actions.gitsigns,
+          null_ls.builtins.code_actions.shellcheck.with({
+            condition = function()
+              return vim.fn.executable("shellcheck") > 0
+            end,
+          }),
 
           -- Diagnostic sources
           null_ls.builtins.diagnostics.eslint.with({
