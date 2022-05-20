@@ -78,10 +78,7 @@ languages.startup = function(use)
     use({
       "nvim-treesitter/nvim-treesitter-context",
       config = function()
-        require("treesitter-context").setup({
-          enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-        })
-
+        -- NOTE: nvim-treesitter config is in nvim_treesitter.lua
         nnoremap("<F6>", ":TSContextToggle<CR>")
       end,
     })

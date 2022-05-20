@@ -15,15 +15,7 @@ text_navigation.startup = function(use)
       }
 
       nnoremap("<Leader>mk", [[<Cmd>MatchupWhereAmI?<CR>]])
-
-      if plugin_utils.is_enabled_plugin("nvim-treesitter") then
-        require("nvim-treesitter.configs").setup({
-          matchup = {
-            enable = true, -- mandatory, false will disable the whole extension
-            -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
-          },
-        })
-      end
+      -- NOTE: nvim-treesitter config is in nvim_treesitter.lua
     end,
   })
 

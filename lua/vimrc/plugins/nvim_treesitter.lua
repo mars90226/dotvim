@@ -2,13 +2,35 @@
 local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 local is_light_vim_mode = require("vimrc.utils").is_light_vim_mode()
 
-local highlight_disable_check = function(lang, bufnr)
-  local line_count = vim.api.nvim_buf_line_count(bufnr)
+-- Disable check for highlight module
+local base_highlight_disable_check = function(lang, bufnr)
+  local LINE_THRESHOLD = 30000
+  local line_count = vim.api.nvim_buf_line_count(bufnr or 0)
 
   -- Disable in large C++ buffers & JavaScript buffers
-  if lang == "cpp" and line_count > 10000 then
+  if lang == "cpp" and line_count > LINE_THRESHOLD then
     return true
-  elseif lang == "javascript" and line_count > 10000 then
+  elseif lang == "javascript" and line_count > LINE_THRESHOLD then
+    return true
+  else
+    return false
+  end
+end
+local current_buffer_base_highlight_disable_check = function()
+  local ft = vim.bo.ft
+  local bufnr = vim.fn.bufnr()
+  return base_highlight_disable_check(ft, bufnr)
+end
+
+-- Disable check for highlight usage/context
+local highlight_disable_check = function(lang, bufnr)
+  local LINE_THRESHOLD = 10000
+  local line_count = vim.api.nvim_buf_line_count(bufnr or 0)
+
+  -- Disable in large C++ buffers & JavaScript buffers
+  if lang == "cpp" and line_count > LINE_THRESHOLD then
+    return true
+  elseif lang == "javascript" and line_count > LINE_THRESHOLD then
     return true
   else
     return false
@@ -77,7 +99,7 @@ require("nvim-treesitter.configs").setup({
   ignore_install = {},
   highlight = {
     enable = true,
-    disable = {},
+    disable = base_highlight_disable_check,
   },
   incremental_selection = {
     enable = true,
@@ -200,7 +222,39 @@ require("nvim-treesitter.configs").setup({
       ["g;"] = "textsubjects-container-outer",
     },
   },
+  matchup = {
+    enable = current_buffer_base_highlight_disable_check(), -- mandatory, false will disable the whole extension
+    -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
+  },
 })
+
+-- nvim-treesitter-context
+require("treesitter-context").setup({
+  enable = current_buffer_base_highlight_disable_check(), -- Enable this plugin (Can be enabled/disabled later via commands)
+})
+
+local ts_highlight_check_augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_highlight_check", {})
+-- FIXME: Currently this doesn't disable the modules as they are enabled in
+-- nvim-treesitter attach callback, which is executed after this autocmd.
+-- But this can fix the error that highlight is disabled on startup and also
+-- enables modules after startup.
+vim.api.nvim_create_autocmd({"BufEnter"}, {
+  group = ts_highlight_check_augroup_id,
+  pattern = "*",
+  callback = function()
+    if current_buffer_base_highlight_disable_check() then
+      vim.schedule(function()
+        vim.cmd([[TSContextDisable]])
+        vim.cmd([[NoMatchParen]])
+      end)
+    else
+      vim.schedule(function()
+        vim.cmd([[TSContextEnable]])
+        vim.cmd([[DoMatchParen]])
+      end)
+    end
+  end
+});
 
 -- Settings
 -- TODO: Disable foldmethod=expr by default, it's too slow
