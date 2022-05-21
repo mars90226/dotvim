@@ -22,6 +22,13 @@ file_explorer.startup = function(use)
     },
     config = function()
       vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+
+      nnoremap("<Space>nn", [[<Cmd>Neotree toggle<CR>]])
+      nnoremap("<Space>nf", [[<Cmd>Neotree float<CR>]])
+      nnoremap("<Space>n<Space>", [[<Cmd>Neotree toggle reveal_force_cwd<CR>]])
+      nnoremap("<Space>nd", [["<Cmd>Neotree float reveal_file=".expand("<cfile>")." reveal_force_cwd<CR>"]], "expr")
+      nnoremap("<Space>nb", [[<Cmd>Neotree toggle show buffers right<CR>]])
+      nnoremap("<Space>ns", [[<Cmd>Neotree float git_status<CR>]])
     end,
   })
 end
