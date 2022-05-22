@@ -126,7 +126,11 @@ lsp.setup_server = function(server, custom_opts)
     debounce_text_changes = 150,
   }
 
-  require("lspconfig")[server].setup(lsp_opts)
+  if server == "rust_analyzer" then
+    require("rust-tools").setup(lsp_opts)
+  else
+    require("lspconfig")[server].setup(lsp_opts)
+  end
 end
 
 -- TODO: project level notify
