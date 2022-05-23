@@ -297,6 +297,7 @@ lsp.startup = function(use)
       require("rust-tools").setup({})
     end,
   })
+  use({ "jose-elias-alvarez/nvim-lsp-ts-utils" })
 end
 
 return lsp

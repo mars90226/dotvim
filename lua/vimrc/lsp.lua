@@ -2,6 +2,7 @@ local lsp_status = require("lsp-status")
 local lspsaga = require("vimrc.plugins.lspsaga")
 local goto_preview = require("vimrc.plugins.goto-preview")
 local aerial = require("aerial")
+local ts_utils = require("nvim-lsp-ts-utils")
 
 local plugin_utils = require("vimrc.plugin_utils")
 
@@ -55,7 +56,15 @@ lsp.servers = {
     -- TODO: Refine condition
     condition = plugin_utils.has_linux_build_env(),
   },
-  tsserver = {},
+  tsserver = {
+    init_options = ts_utils.init_options,
+    on_attach = function(client)
+      lsp.on_attach(client)
+
+      ts_utils.setup({})
+      ts_utils.setup_client(client)
+    end,
+  },
   vimls = {},
   -- TODO: add settings for schemas
   yamlls = {},
@@ -114,17 +123,21 @@ lsp.setup_server = function(server, custom_opts)
   lsp_opts = vim.tbl_extend("keep", lsp_opts, custom_opts or {})
 
   -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-  lsp_opts.capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
   if server == "clangd" then
     -- NOTE: Workaround for "warning: multiple different client offset_encodings detected for buffer, this is not supported yet".
     -- Ref: https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428#issuecomment-997226723
-    lsp_opts.capabilities.offsetEncoding = { "utf-16" }
-    lsp_opts.capabilities.memoryUsageProvider = true
+    capabilities.offsetEncoding = { "utf-16" }
+    capabilities.memoryUsageProvider = true
   end
-  lsp_opts.on_attach = lsp.on_attach
-  lsp_opts.flags = {
-    debounce_text_changes = 150,
-  }
+
+  lsp_opts = vim.tbl_extend("keep", lsp_opts, {
+    on_attach = lsp.on_attach,
+    capabilities = capabilities,
+    flags = {
+      debounce_text_changes = 150,
+    },
+  })
 
   if server == "rust_analyzer" then
     require("rust-tools").setup(lsp_opts)
