@@ -34,6 +34,12 @@ lsp.servers = {
   clangd = {
     handlers = lsp_status.extensions.clangd.setup(),
     condition = plugin_utils.has_linux_build_env(),
+    -- NOTE: Workaround for "warning: multiple different client offset_encodings detected for buffer, this is not supported yet".
+    -- Ref: https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428#issuecomment-997226723
+    capabilities = {
+      offsetEncoding = { "utf-16" },
+      memoryUsageProvider = true,
+    },
   },
   cmake = {},
   gopls = {
@@ -48,7 +54,11 @@ lsp.servers = {
   -- TODO: Check pyright settings disableLanguageServices
   -- ref: https://github.com/microsoft/pyright/blob/893d08be8c70297fcf082ba812c14cf4aecefc97/docs/settings.md
   -- pyright = {},
-  rust_analyzer = {},
+  rust_analyzer = {
+    custom_setup = function(server, lsp_opts)
+      require("rust-tools").setup(lsp_opts)
+    end
+  },
   solargraph = {
     condition = plugin_utils.has_linux_build_env(),
   },
@@ -124,23 +134,20 @@ lsp.setup_server = function(server, custom_opts)
 
   -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
   local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  if server == "clangd" then
-    -- NOTE: Workaround for "warning: multiple different client offset_encodings detected for buffer, this is not supported yet".
-    -- Ref: https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428#issuecomment-997226723
-    capabilities.offsetEncoding = { "utf-16" }
-    capabilities.memoryUsageProvider = true
-  end
+  capabilities = vim.tbl_extend("force", capabilities, lsp_opts.capabilities or {})
 
   lsp_opts = vim.tbl_extend("keep", lsp_opts, {
     on_attach = lsp.on_attach,
-    capabilities = capabilities,
     flags = {
       debounce_text_changes = 150,
     },
   })
+  lsp_opts = vim.tbl_extend("force", lsp_opts, {
+    capabilities = capabilities,
+  })
 
-  if server == "rust_analyzer" then
-    require("rust-tools").setup(lsp_opts)
+  if lsp_opts.custom_setup then
+    lsp_opts.custom_setup(server, lsp_opts)
   else
     require("lspconfig")[server].setup(lsp_opts)
   end
