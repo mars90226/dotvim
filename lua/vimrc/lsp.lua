@@ -80,6 +80,11 @@ lsp.servers = {
   yamlls = {},
 }
 
+lsp.on_init = function(client)
+  client.config.flags = client.config.flags or {}
+  client.config.flags.allow_incremental_sync = true
+end
+
 lsp.on_attach = function(client)
   lsp_status.on_attach(client)
   lspsaga.on_attach(client)
@@ -137,6 +142,7 @@ lsp.setup_server = function(server, custom_opts)
   capabilities = vim.tbl_extend("force", capabilities, lsp_opts.capabilities or {})
 
   lsp_opts = vim.tbl_extend("keep", lsp_opts, {
+    on_init = lsp.on_init,
     on_attach = lsp.on_attach,
     flags = {
       debounce_text_changes = 150,
