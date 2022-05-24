@@ -118,7 +118,7 @@ require("nvim-treesitter.configs").setup({
   refactor = {
     highlight_definitions = {
       enable = not is_light_vim_mode,
-      disable = highlight_disable_check,
+      disable = base_highlight_disable_check,
     },
     highlight_current_scope = {
       enable = not is_light_vim_mode,
