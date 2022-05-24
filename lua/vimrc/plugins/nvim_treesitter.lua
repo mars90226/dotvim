@@ -4,13 +4,14 @@ local is_light_vim_mode = require("vimrc.utils").is_light_vim_mode()
 
 -- Disable check for highlight module
 local base_highlight_disable_check = function(lang, bufnr)
-  local LINE_THRESHOLD = 30000
+  -- Disable in large C++ buffers & JavaScript buffers
+  local LINE_THRESHOLDS = {
+    cpp = 30000,
+    javascript = 30000,
+  }
   local line_count = vim.api.nvim_buf_line_count(bufnr or 0)
 
-  -- Disable in large C++ buffers & JavaScript buffers
-  if lang == "cpp" and line_count > LINE_THRESHOLD then
-    return true
-  elseif lang == "javascript" and line_count > LINE_THRESHOLD then
+  if LINE_THRESHOLDS[lang] ~= nil and line_count > LINE_THRESHOLDS[lang] then
     return true
   else
     return false
@@ -24,13 +25,14 @@ end
 
 -- Disable check for highlight usage/context
 local highlight_disable_check = function(lang, bufnr)
-  local LINE_THRESHOLD = 10000
+  -- Disable in large C++ buffers & JavaScript buffers
+  local LINE_THRESHOLDS = {
+    cpp = 10000,
+    javascript = 3000,
+  }
   local line_count = vim.api.nvim_buf_line_count(bufnr or 0)
 
-  -- Disable in large C++ buffers & JavaScript buffers
-  if lang == "cpp" and line_count > LINE_THRESHOLD then
-    return true
-  elseif lang == "javascript" and line_count > LINE_THRESHOLD then
+  if LINE_THRESHOLDS[lang] ~= nil and line_count > LINE_THRESHOLDS[lang] then
     return true
   else
     return false
