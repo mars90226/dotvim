@@ -133,6 +133,7 @@ lsp.startup = function(use)
             condition = function()
               return vim.fn.executable("gitlint") > 0
             end,
+            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
           }),
           -- TODO: pylint is slow with lsp linting, disabled for now
           -- TODO: should use nvim-lint or other on-demand linting plugin to lint pylint
