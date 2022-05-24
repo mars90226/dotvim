@@ -72,6 +72,7 @@ lsp.startup = function(use)
     end,
   })
 
+  -- TODO: null-ls.nvim cause performance problem, need to find a way to fix this
   use({
     "jose-elias-alvarez/null-ls.nvim",
     requires = {
@@ -80,6 +81,12 @@ lsp.startup = function(use)
     },
     config = function()
       local null_ls = require("null-ls")
+      local utils = require("vimrc.utils")
+
+      -- Skip null-ls.nvim in light vim mode
+      if utils.is_light_vim_mode() then
+        return
+      end
 
       null_ls.setup({
         sources = {
