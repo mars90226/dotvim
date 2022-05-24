@@ -31,6 +31,18 @@ lsp.servers = {
   --     },
   --   },
   -- },
+  -- FIXME: Currently reply on globally installed vscode-langservers-extracted
+  cssls = {
+    capabilities = {
+      textDocument = {
+        completion = {
+          completionItem = {
+            snippetSupport = true,
+          },
+        },
+      },
+    },
+  },
   clangd = {
     handlers = lsp_status.extensions.clangd.setup(),
     condition = plugin_utils.has_linux_build_env(),
