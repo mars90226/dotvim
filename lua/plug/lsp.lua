@@ -190,9 +190,15 @@ lsp.startup = function(use)
               return vim.fn.executable("lua-format") > 0
             end,
           }),
-          null_ls.builtins.formatting.prettier.with({
+          -- NOTE: use prettierd instead
+          -- null_ls.builtins.formatting.prettier.with({
+          --   condition = function()
+          --     return vim.fn.executable("prettier") > 0
+          --   end,
+          -- }),
+          null_ls.builtins.formatting.prettierd.with({
             condition = function()
-              return vim.fn.executable("prettier") > 0
+              return vim.fn.executable("prettierd") > 0
             end,
           }),
           null_ls.builtins.formatting.rustfmt.with({
