@@ -102,7 +102,8 @@ lsp.startup = function(use)
           --     return vim.fn.executable("eslint_d") > 0
           --   end,
           -- }),
-          null_ls.builtins.code_actions.gitsigns,
+          -- NOTE: disabled for performance
+          -- null_ls.builtins.code_actions.gitsigns,
           null_ls.builtins.code_actions.shellcheck.with({
             condition = function()
               return vim.fn.executable("shellcheck") > 0
