@@ -175,7 +175,7 @@ git.startup = function(use)
   -- TODO: experimental
   use({
     "ipod825/igit.nvim",
-    -- FIXME: Core dump when trying to execute `:IGit status` before entered, maybe related to cmp-cmdline
+    -- FIXME: "igit" filetype syntax not work
     disable = true,
     requires = { "nvim-lua/plenary.nvim", "ipod825/libp.nvim" },
     config = function()
