@@ -97,11 +97,11 @@ lsp.startup = function(use)
           --     return vim.fn.executable("eslint") > 0
           --   end,
           -- }),
-          null_ls.builtins.code_actions.eslint_d.with({
-            condition = function()
-              return vim.fn.executable("eslint_d") > 0
-            end,
-          }),
+          -- null_ls.builtins.code_actions.eslint_d.with({
+          --   condition = function()
+          --     return vim.fn.executable("eslint_d") > 0
+          --   end,
+          -- }),
           null_ls.builtins.code_actions.gitsigns,
           null_ls.builtins.code_actions.shellcheck.with({
             condition = function()
@@ -116,12 +116,12 @@ lsp.startup = function(use)
           --     return vim.fn.executable("eslint") > 0
           --   end,
           -- }),
-          null_ls.builtins.diagnostics.eslint_d.with({
-            condition = function()
-              return vim.fn.executable("eslint_d") > 0
-            end,
-            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-          }),
+          -- null_ls.builtins.diagnostics.eslint_d.with({
+          --   condition = function()
+          --     return vim.fn.executable("eslint_d") > 0
+          --   end,
+          --   method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+          -- }),
           -- NOTE: use pylsp pyls-flake8
           -- null_ls.builtins.diagnostics.flake8.with({
           --   condition = function()
@@ -175,11 +175,11 @@ lsp.startup = function(use)
           --     return vim.fn.executable("eslint") > 0
           --   end,
           -- }),
-          null_ls.builtins.formatting.eslint_d.with({
-            condition = function()
-              return vim.fn.executable("eslint_d") > 0
-            end,
-          }),
+          -- null_ls.builtins.formatting.eslint_d.with({
+          --   condition = function()
+          --     return vim.fn.executable("eslint_d") > 0
+          --   end,
+          -- }),
           null_ls.builtins.formatting.json_tool.with({
             condition = function()
               return vim.fn.executable("json.tool") > 0

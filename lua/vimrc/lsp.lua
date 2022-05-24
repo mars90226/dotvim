@@ -42,6 +42,8 @@ lsp.servers = {
     },
   },
   cmake = {},
+  -- FIXME: Currently reply on globally installed vscode-langservers-extracted
+  eslint = {},
   gopls = {
     condition = plugin_utils.has_linux_build_env(),
   },
