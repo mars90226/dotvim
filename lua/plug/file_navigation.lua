@@ -226,6 +226,14 @@ file_navigation.startup = function(use)
           -- "laravel",
           -- custom mapping
           {
+            pattern = "/(.*).h$",
+            target = "/%1.cpp",
+          },
+          {
+            pattern = "/(.*).cpp$",
+            target = "/%1.h",
+          },
+          {
             pattern = "/src/include/(.*)/(.*)/(.*).h$",
             target = "/src/%1/lib/%2/%3.cpp",
           },
