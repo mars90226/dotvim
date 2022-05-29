@@ -218,9 +218,6 @@ completion.startup = function(use)
       local cmp = require("cmp")
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
 
-      inoremap("<M-n>", [[<Cmd>call vimrc#auto_pairs#jump()<CR>]], "<silent>")
-      nnoremap("<M-n>", [[<Cmd>call vimrc#auto_pairs#jump()<CR>]], "<silent>")
-
       -- Rules
       -- npairs.add_rule(Rule("%w<", ">", "cpp"):use_regex(true))
       -- npairs.add_rule(Rule("%w<", ">", "rust"):use_regex(true))
@@ -229,6 +226,17 @@ completion.startup = function(use)
   })
   -- TODO: use 'abecodes/tabout.nvim'
   -- ref: https://github.com/windwp/nvim-autopairs/issues/167
+  use {
+    'abecodes/tabout.nvim',
+    config = function()
+      require('tabout').setup {
+        tabkey = '<M-n>', -- key to trigger tabout, set to an empty string to disable
+        backwards_tabkey = '<M-N>', -- key to trigger backwards tabout, set to an empty string to disable
+      }
+    end,
+    wants = {'nvim-treesitter'}, -- or require if not used so far
+    after = {'nvim-cmp'} -- if a completion plugin is using tabs load it before
+  }
 end
 
 return completion
