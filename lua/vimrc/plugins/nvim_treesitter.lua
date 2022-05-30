@@ -263,6 +263,24 @@ vim.api.nvim_create_autocmd({"BufEnter"}, {
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = [[nvim_treesitter#foldexpr()]]
 
+local fold_augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_fold", {})
+vim.api.nvim_create_autocmd({"InsertEnter"}, {
+  group = fold_augroup_id,
+  pattern = "*",
+  callback = function()
+    vim.o.foldmethod = 'manual'
+    vim.o.foldexpr = '0'
+  end
+})
+vim.api.nvim_create_autocmd({"InsertLeave"}, {
+  group = fold_augroup_id,
+  pattern = "*",
+  callback = function()
+    vim.o.foldmethod = 'expr'
+    vim.o.foldexpr = [[nvim_treesitter#foldexpr()]]
+  end
+})
+
 -- nvim-ts-hint-textobject
 onoremap('m', [[<Cmd>lua require('tsht').nodes()<CR>]], "silent")
 vnoremap('m', [[:lua require('tsht').nodes()<CR>]], "silent")
