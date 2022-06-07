@@ -92,6 +92,7 @@ lsp.servers = {
   vimls = {},
   -- TODO: add settings for schemas
   yamlls = {},
+  zk = {},
 }
 
 lsp.on_init = function(client)
