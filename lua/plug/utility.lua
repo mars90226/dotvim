@@ -102,7 +102,9 @@ utility.startup = function(use)
     keys = { "<Leader>r" },
     config = function()
       vim.g.rooter_manual_only = 1
-      vim.g.rooter_cd_cmd = "lcd"
+      -- NOTE: some plugin automatically set buffer cwd to tab cwd. (cmp-cmdline?)
+      -- So use tcd to avoid overridden
+      vim.g.rooter_cd_cmd = "tcd"
       vim.g.rooter_patterns = { "Cargo.toml", ".git/", "package.json" }
 
       nnoremap("<Leader>r", ":Rooter<CR>")
