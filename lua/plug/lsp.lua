@@ -6,7 +6,7 @@ lsp.startup = function(use)
     "neovim/nvim-lspconfig",
     config = function()
       require("vimrc.lsp").setup({})
-    end
+    end,
   })
 
   use({
@@ -129,12 +129,13 @@ lsp.startup = function(use)
           --     return vim.fn.executable("flake8") > 0
           --   end,
           -- }),
-          null_ls.builtins.diagnostics.gitlint.with({
-            condition = function()
-              return vim.fn.executable("gitlint") > 0
-            end,
-            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-          }),
+          -- NOTE: Disabled as normal workflow will save & quit when writing git commit message
+          -- null_ls.builtins.diagnostics.gitlint.with({
+          --   condition = function()
+          --     return vim.fn.executable("gitlint") > 0
+          --   end,
+          --   method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+          -- }),
           -- TODO: pylint is slow with lsp linting, disabled for now
           -- TODO: should use nvim-lint or other on-demand linting plugin to lint pylint
           -- null_ls.builtins.diagnostics.pylint.with({
@@ -234,8 +235,23 @@ lsp.startup = function(use)
   use({
     "mfussenegger/nvim-lint",
     config = function()
-      require("lint").linters_by_ft = {
+      local lint = require("lint")
+
+      -- Custom linters
+      lint.linters.gitlint = {
+        cmd = "gitlint",
+        stdin = false,
+        args = { "--msg-filename" },
+        stream = "stderr",
+        ignore_exitcode = true,
+        env = nil,
+        parser = require("lint.parser").from_pattern([[(%d+): (%w+) (.+)]], { "lnum", "code", "message" }),
+      }
+
+      -- Setup linter
+      lint.linters_by_ft = {
         python = { "mypy", "pylint" },
+        gitcommit = { "gitlint" },
       }
 
       nnoremap("<Space>ll", "<Cmd>lua require('lint').try_lint()<CR>", "silent")
