@@ -182,6 +182,24 @@ git.startup = function(use)
       require("igit").setup()
     end,
   })
+
+  use({
+    "akinsho/git-conflict.nvim",
+    config = function()
+      require("git-conflict").setup({
+        default_mappings = false,
+      })
+
+      nmap("<Leader>co", "<Plug>(git-conflict-ours)")
+      nmap("<Leader>ct", "<Plug>(git-conflict-theirs)")
+      nmap("<Leader>cb", "<Plug>(git-conflict-both)")
+      nmap("<Leader>c0", "<Plug>(git-conflict-none)")
+
+      -- TODO: Use [x, ]x and handle conflict with unimpaired
+      nmap("]v", "<Plug>(git-conflict-prev-conflict)")
+      nmap("[v", "<Plug>(git-conflict-next-conflict)")
+    end,
+  })
 end
 
 return git
