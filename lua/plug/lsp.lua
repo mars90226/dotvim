@@ -240,8 +240,8 @@ lsp.startup = function(use)
       -- Custom linters
       lint.linters.gitlint = {
         cmd = "gitlint",
-        stdin = false,
-        args = { "--msg-filename" },
+        stdin = true,
+        args = { "--msg-filename", "-" },
         stream = "stderr",
         ignore_exitcode = true,
         env = nil,
