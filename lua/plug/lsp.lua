@@ -258,7 +258,7 @@ lsp.startup = function(use)
 
       vim.cmd([[augroup nvim_lint_settings]])
       vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd BufWritePost lua require('lint').try_lint()]])
+      vim.cmd([[  autocmd BufWritePost * lua require('lint').try_lint()]])
       vim.cmd([[augroup END]])
     end,
   })
