@@ -67,6 +67,10 @@ languages.startup = function(use)
         xnoremap("<M-S-k>", [[<Cmd>lua require("syntax-tree-surfer").surf("prev", "visual", true)<CR>]], "silent")
       end,
     })
+    use({
+      "yioneko/nvim-yati",
+      requires = "nvim-treesitter/nvim-treesitter",
+    })
   end
 
   -- TODO: Check if this can be replaced by vim.lsp.buf.document_highlight()
