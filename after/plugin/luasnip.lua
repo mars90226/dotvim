@@ -34,29 +34,7 @@ local cc_gitmessage = function(type)
   return fmt(type .. "({}): {}", { i(1, "module"), i(2, "message") })
 end
 
-ls.add_snippets("gitcommit", {
-  s(
-    "cc",
-    fmt("{type}({module}): {message}", {
-      type = c(1, {
-        t("feat"),
-        t("fix"),
-        t("docs"),
-        t("style"),
-        t("refactor"),
-        t("perf"),
-        t("test"),
-        t("build"),
-        t("ci"),
-        t("chore"),
-        t("revert"),
-      }),
-      module = i(2, "module"),
-      message = i(3, "message"),
-    })
-  ),
-})
-ls.add_snippets("markdown", {
+local chinese_punctuation_snippets = {
   s(
     "cp",
     c(1, {
@@ -80,7 +58,33 @@ ls.add_snippets("markdown", {
   s("cp?", t("？")),
   s("cp[", t("「")),
   s("cp]", t("」")),
+}
+
+ls.add_snippets("gitcommit", {
+  s(
+    "cc",
+    fmt("{type}({module}): {message}", {
+      type = c(1, {
+        t("feat"),
+        t("fix"),
+        t("docs"),
+        t("style"),
+        t("refactor"),
+        t("perf"),
+        t("test"),
+        t("build"),
+        t("ci"),
+        t("chore"),
+        t("revert"),
+      }),
+      module = i(2, "module"),
+      message = i(3, "message"),
+    })
+  ),
 })
+
+ls.add_snippets("markdown", chinese_punctuation_snippets)
+ls.add_snippets("vimwiki", chinese_punctuation_snippets)
 
 local utils = require("vimrc.utils")
 
