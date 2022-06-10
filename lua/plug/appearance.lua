@@ -23,13 +23,34 @@ appearance.startup = function(use)
   -- Colors
   -- NOTE: Reserved for now
   use("ellisonleao/gruvbox.nvim")
+  -- vim.g.colorscheme = "gruvbox"
+  -- vim.g.lualine_theme = "auto"
+
+  -- use({
+  --   "luisiacc/gruvbox-baby",
+  --   branch = "main",
+  -- })
+  -- vim.g.colorscheme = "gruvbox-baby"
+  -- vim.g.lualine_theme = "gruvbox-baby"
 
   use({
-    "luisiacc/gruvbox-baby",
-    branch = "main",
+    "navarasu/onedark.nvim",
+    config = function()
+      local color = require("onedark.colors")
+
+      require("onedark").setup({
+        toggle_style_key = "<Leader>cs",
+        highlights = {
+          DiffAdd = {bg = color.diff_add},
+          DiffChange = {bg = color.diff_change},
+          DiffDelete = {bg = color.diff_delete},
+          DiffText = {bg = color.diff_text},
+        }
+      })
+    end
   })
-  vim.g.colorscheme = "gruvbox-baby"
-  vim.g.lualine_theme = "gruvbox-baby"
+  vim.g.colorscheme = "onedark"
+  vim.g.lualine_theme = "onedark"
 
   -- use("marko-cerovac/material.nvim")
   -- vim.g.material_style = "darker"
