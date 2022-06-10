@@ -4,8 +4,10 @@ local file_navigation = {}
 
 file_navigation.startup = function(use)
   -- Sources
+  -- TODO: Raise neomru limit
   use("Shougo/neomru.vim")
   use("Shougo/neoyank.vim")
+  -- Yank
   use({
     "AckslD/nvim-neoclip.lua",
     disable = true,
@@ -16,7 +18,31 @@ file_navigation.startup = function(use)
       })
     end,
   })
-  -- TODO: Raise neomru limit
+  use({
+    "gbprod/yanky.nvim",
+    config = function()
+      local mapping = require("yanky.telescope.mapping")
+      local actions = require("telescope.actions")
+
+      require("yanky").setup({
+        picker = {
+          telescope = {
+            mappings = {
+              default = mapping.put("p"),
+              i = {
+                ["<C-X>"] = mapping.delete(),
+              },
+              n = {
+                d = mapping.delete(),
+              },
+            },
+          },
+        },
+      })
+
+      require("telescope").load_extension("yank_history")
+    end,
+  })
 
   -- Finders
   -- denite.nvim

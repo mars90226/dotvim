@@ -65,7 +65,7 @@ endif
 nnoremap <Space>lc <Cmd>Telescope diagnostics bufnr=0<CR>
 nnoremap <Space>lC <Cmd>Telescope diagnostics<CR>
 
-" Aeriual
+" Aerial
 nnoremap <Space>tA <Cmd>Telescope aerial<CR>
 
 " Cheatsheet Mappings
@@ -79,3 +79,6 @@ nnoremap <Space>tz <Cmd>Telescope zoxide list<CR>
 
 " Urlview
 nnoremap <Space>tU <Cmd>Telescope urlview<CR>
+
+" Yanky
+nnoremap <Space>tn <Cmd>Telescope yank_history<CR>

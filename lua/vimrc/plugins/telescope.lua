@@ -8,6 +8,8 @@ local action_state = require("telescope.actions.state")
 
 local trouble = require("trouble.providers.telescope")
 
+local yanky_mapping = require("yanky.telescope.mapping")
+
 -- Actions
 ------------------------------
 local exit_insert_mode = function(prompt_bufnr)
