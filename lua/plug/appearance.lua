@@ -12,8 +12,6 @@ appearance.startup = function(use)
   -- Tabline
   use({
     "nanozuki/tabby.nvim",
-    -- TODO: tabby.nvim broken in latest commit of "show-at-least-N-tabs"
-    commit = "2ac781cae7aedade8def03d48a3a0616dce279ae",
     config = function()
       require("tabby").setup()
     end,
@@ -23,9 +21,15 @@ appearance.startup = function(use)
   use({ "kyazdani42/nvim-web-devicons", module = "nvim-web-devicons" })
 
   -- Colors
+  -- NOTE: Reserved for now
   use("ellisonleao/gruvbox.nvim")
-  vim.g.colorscheme = "gruvbox"
-  vim.g.lualine_theme = "auto"
+
+  use({
+    "luisiacc/gruvbox-baby",
+    branch = "main",
+  })
+  vim.g.colorscheme = "gruvbox-baby"
+  vim.g.lualine_theme = "gruvbox-baby"
 
   -- use("marko-cerovac/material.nvim")
   -- vim.g.material_style = "darker"
