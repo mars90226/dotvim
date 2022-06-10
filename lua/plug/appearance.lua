@@ -33,22 +33,27 @@ appearance.startup = function(use)
   -- vim.g.colorscheme = "gruvbox-baby"
   -- vim.g.lualine_theme = "gruvbox-baby"
 
+  -- TODO: Fix fzf background color in terminal
   use({
     "navarasu/onedark.nvim",
     config = function()
       local color = require("onedark.colors")
 
       require("onedark").setup({
+        style = "warmer",
         toggle_style_key = "<Leader>cs",
         highlights = {
-          DiffAdd = {bg = color.diff_add},
-          DiffChange = {bg = color.diff_change},
-          DiffDelete = {bg = color.diff_delete},
-          DiffText = {bg = color.diff_text},
-        }
+          DiffAdd = { bg = color.diff_add },
+          DiffChange = { bg = color.diff_change },
+          DiffDelete = { bg = color.diff_delete },
+          DiffText = { bg = color.diff_text },
+        },
       })
-    end
+
+      require("onedark").load()
+    end,
   })
+  -- TODO: Avoid double loading & use correcty style
   vim.g.colorscheme = "onedark"
   vim.g.lualine_theme = "onedark"
 
