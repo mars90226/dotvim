@@ -65,6 +65,9 @@ languages.startup = function(use)
         -- SWAPPING WITH VISUAL SELECTION: Only change the keymap to your liking. Don't change the .surf() parameters!
         xnoremap("<M-S-j>", [[<Cmd>lua require("syntax-tree-surfer").surf("next", "visual", true)<CR>]], "silent")
         xnoremap("<M-S-k>", [[<Cmd>lua require("syntax-tree-surfer").surf("prev", "visual", true)<CR>]], "silent")
+
+        -- Targeted jump
+        nnoremap("<M-e>i", [[<Cmd>lua require("syntax-tree-surfer").targeted_jump({"string","number","true","false"})<CR>]])
       end,
     })
     use({
