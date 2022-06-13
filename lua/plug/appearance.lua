@@ -12,6 +12,8 @@ appearance.startup = function(use)
   -- Tabline
   use({
     "nanozuki/tabby.nvim",
+    -- TODO: tabby.nvim broken in latest commit of "show-at-least-N-tabs"
+    commit = "2ac781cae7aedade8def03d48a3a0616dce279ae",
     config = function()
       require("tabby").setup()
     end,
@@ -23,9 +25,10 @@ appearance.startup = function(use)
   -- Colors
   -- NOTE: Reserved for now
   use("ellisonleao/gruvbox.nvim")
-  -- vim.g.colorscheme = "gruvbox"
-  -- vim.g.lualine_theme = "auto"
+  vim.g.colorscheme = "gruvbox"
+  vim.g.lualine_theme = "auto"
 
+  -- TODO: Disabled as diagnostic & vertical line highlight missing
   -- use({
   --   "luisiacc/gruvbox-baby",
   --   branch = "main",
@@ -33,29 +36,29 @@ appearance.startup = function(use)
   -- vim.g.colorscheme = "gruvbox-baby"
   -- vim.g.lualine_theme = "gruvbox-baby"
 
-  -- TODO: Fix fzf background color in terminal
-  use({
-    "navarasu/onedark.nvim",
-    config = function()
-      local color = require("onedark.colors")
-
-      require("onedark").setup({
-        style = "warmer",
-        toggle_style_key = "<Leader>cs",
-        highlights = {
-          DiffAdd = { bg = color.diff_add },
-          DiffChange = { bg = color.diff_change },
-          DiffDelete = { bg = color.diff_delete },
-          DiffText = { bg = color.diff_text },
-        },
-      })
-
-      require("onedark").load()
-    end,
-  })
-  -- TODO: Avoid double loading & use correcty style
-  vim.g.colorscheme = "onedark"
-  vim.g.lualine_theme = "onedark"
+  -- TODO: Fix cterm 16 colors in terminal
+  -- use({
+  --   "navarasu/onedark.nvim",
+  --   config = function()
+  --     local color = require("onedark.colors")
+  --
+  --     require("onedark").setup({
+  --       style = "warmer",
+  --       toggle_style_key = "<Leader>cs",
+  --       highlights = {
+  --         DiffAdd = { bg = color.diff_add },
+  --         DiffChange = { bg = color.diff_change },
+  --         DiffDelete = { bg = color.diff_delete },
+  --         DiffText = { bg = color.diff_text },
+  --       },
+  --     })
+  --
+  --     require("onedark").load()
+  --   end,
+  -- })
+  -- -- TODO: Avoid double loading & use correcty style
+  -- vim.g.colorscheme = "onedark"
+  -- vim.g.lualine_theme = "onedark"
 
   -- use("marko-cerovac/material.nvim")
   -- vim.g.material_style = "darker"
