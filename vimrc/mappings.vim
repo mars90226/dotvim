@@ -354,6 +354,9 @@ nnoremap <Leader>oq :execute 'QuickfixOutput '.input('OuickfixOutput: ', '', 'co
 command! -nargs=1 -complete=command LocationOutput call vimrc#quickfix#loc_execute(<f-args>)
 nnoremap <Leader>ol :execute 'LocationOutput '.input('LocationOutput: ', '', 'command')<CR>
 
+command! QuickfixFromCurrentBuffer call vimrc#quickfix#build_from_buffer(bufnr())
+command! -nargs=1 QuickfixFromBuffer call vimrc#quickfix#build_from_buffer(<f-args>)
+
 if vimrc#plugin#check#get_os() !~# 'windows'
   command! Args echo system("ps -o command= -p " . getpid())
 endif

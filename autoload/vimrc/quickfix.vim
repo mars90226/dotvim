@@ -42,3 +42,12 @@ function! vimrc#quickfix#loc_execute(args) abort
   lexpr execute(a:args)
   lopen
 endfunction
+
+" NOTE: Assume file per line
+function! vimrc#quickfix#build_from_buffer(bufnr) abort
+  let lines = getbufline(a:bufnr, 1, '$')
+  let qflist = map(lines, '{"filename": v:val, "lnum": 1, "col": 1}')
+  call setqflist(qflist)
+  copen
+  cfirst
+endfunction
