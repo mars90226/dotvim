@@ -289,6 +289,14 @@ lsp.startup = function(use)
   })
 
   -- Goto Definitions
+  -- NOTE: Has symbol preview
+  use({
+    "simrat39/symbols-outline.nvim",
+    config = function()
+      nnoremap("<F7>", [[<Cmd>SymbolsOutline<CR>]])
+    end
+  })
+  -- NOTE: Support treesitter
   use({
     "stevearc/aerial.nvim",
     config = function()
@@ -315,8 +323,8 @@ lsp.startup = function(use)
         },
         width = vim.g.right_sidebar_width,
         on_attach = function(bufnr)
-          -- Toggle the aerial window with <F7>
-          nnoremap("<F7>", [[<Cmd>AerialToggle!<CR>]], "silent", "buffer")
+          -- Toggle the aerial window with <Space><F7>
+          nnoremap("<Space><F7>", [[<Cmd>AerialToggle!<CR>]], "silent", "buffer")
           -- Jump forwards/backwards with '{' and '}'
           nnoremap("{", [[<Cmd>AerialPrev<CR>]], "silent", "buffer")
           nnoremap("}", [[<Cmd>AerialNext<CR>]], "silent", "buffer")
