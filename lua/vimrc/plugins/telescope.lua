@@ -46,6 +46,22 @@ local select_rightbelow_vertical = function(prompt_bufnr)
   return action_set.edit(prompt_bufnr, "rightbelow vnew")
 end
 
+local switch_or_select = function(prompt_bufnr)
+  action_state.get_current_history():append(
+    action_state.get_current_line(),
+    action_state.get_current_picker(prompt_bufnr)
+  )
+  return action_set.edit(prompt_bufnr, "Switch")
+end
+
+local switch_or_select_tab = function(prompt_bufnr)
+  action_state.get_current_history():append(
+    action_state.get_current_line(),
+    action_state.get_current_picker(prompt_bufnr)
+  )
+  return action_set.edit(prompt_bufnr, "TabSwitch")
+end
+
 -- Global remapping
 ------------------------------
 require("telescope").setup({
@@ -93,6 +109,10 @@ require("telescope").setup({
         ["<C-e>"] = function()
           vim.cmd([[normal! $a]])
         end,
+
+        -- Use <M-o>/<M-l> to switch or select open/tab
+        ["<M-o>"] = switch_or_select,
+        ["<M-l>"] = switch_or_select_tab,
       },
       n = {
         -- Use <C-S> to select horizontal

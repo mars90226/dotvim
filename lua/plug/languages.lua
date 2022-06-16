@@ -87,7 +87,7 @@ languages.startup = function(use)
         xnoremap("<M-j>", [[<Cmd>STSSelectNextSiblingNode<CR>]], "silent")
         xnoremap("<M-k>", [[<Cmd>STSSelectPrevSiblingNode<CR>]], "silent")
         xnoremap("<M-h>", [[<Cmd>STSSelectParentNode<CR>]], "silent")
-        xnoremap("<M-l>", [[<Cmd>STSSelectFirstChildNode<CR>]], "silent")
+        xnoremap("<M-l>", [[<Cmd>STSSelectChildNode<CR>]], "silent")
 
         -- Swapping Nodes in Visual Mode
         xnoremap("<M-S-j>", [[<Cmd>STSSwapNextVisual<CR>]], "silent")
