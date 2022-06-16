@@ -95,6 +95,10 @@ languages.startup = function(use)
 
         -- Targeted jump
         nnoremap("<M-e>i", [[<Cmd>lua require("syntax-tree-surfer").targeted_jump({"string","number","true","false"})<CR>]])
+
+        -- filtered jump
+        nnoremap("<M-S-n>", [[<Cmd>lua require("syntax-tree-surfer").filtered_jump("default", true)<CR>]], "silent")
+        nnoremap("<M-S-p>", [[<Cmd>lua require("syntax-tree-surfer").filtered_jump("default", false)<CR>]], "silent")
       end,
     })
     use({
