@@ -263,6 +263,24 @@ lsp.startup = function(use)
     end,
   })
 
+  -- NOTE: Used in light vim mode when null-ls.nvim is disabled
+  use({
+    "mhartington/formatter.nvim",
+    config = function()
+      local plugin_utils = require("vimrc.plugin_utils")
+
+      require("formatter").setup({
+        filetype = {
+          markdown = {
+            plugin_utils.check_executable(require("formatter.defaults.prettierd"), "prettierd"),
+          },
+        },
+      })
+
+      nnoremap("<Leader>f", "<Cmd>Format<CR>", "silent")
+    end,
+  })
+
   use({
     "nvim-lua/lsp-status.nvim",
     config = function()
@@ -294,7 +312,7 @@ lsp.startup = function(use)
     "simrat39/symbols-outline.nvim",
     config = function()
       nnoremap("<F7>", [[<Cmd>SymbolsOutline<CR>]])
-    end
+    end,
   })
   -- NOTE: Support treesitter
   use({
