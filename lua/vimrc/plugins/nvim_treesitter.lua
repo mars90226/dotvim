@@ -265,6 +265,7 @@ vim.api.nvim_create_autocmd({"BufEnter"}, {
 -- TODO: Monitor performance of it
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = [[nvim_treesitter#foldexpr()]]
+vim.o.foldlevel = 99 -- Default expand all fold
 
 local fold_augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_fold", {})
 vim.api.nvim_create_autocmd({"InsertEnter"}, {
@@ -281,6 +282,7 @@ vim.api.nvim_create_autocmd({"InsertLeave"}, {
   callback = function()
     vim.o.foldmethod = 'expr'
     vim.o.foldexpr = [[nvim_treesitter#foldexpr()]]
+    vim.o.foldlevel = 99 -- Default expand all fold
   end
 })
 
