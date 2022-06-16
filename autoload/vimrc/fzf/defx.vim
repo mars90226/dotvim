@@ -9,7 +9,8 @@ let s:defx_fzf_action = vimrc#fzf#wrap_actions_for_trigger(extend({
       \ 'alt-x':      'DefxOpenDirSink',
       \ 'ctrl-alt-x': 'DefxSplitOpenDirSink',
       \ 'alt-z':      'DefxFloatOpenSink',
-      \ 'alt-l':      'DefxSwitch',
+      \ 'alt-o':      'DefxSwitch',
+      \ 'alt-l':      'DefxTabSwitch',
       \ 'ctrl-alt-e': 'DefxSearch',
       \ }, g:misc_fzf_action))
 function! vimrc#fzf#defx#get_defx_fzf_action() abort

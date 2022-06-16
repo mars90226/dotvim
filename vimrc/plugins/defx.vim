@@ -73,6 +73,7 @@ command! -nargs=1 -complete=dir DefxFloatOpenDirSink       call vimrc#defx#open_
 
 " Defx switch
 command! -nargs=1 -complete=file DefxSwitch call vimrc#open#switch(<q-args>, 'DefxOpenSink')
+command! -nargs=1 -complete=file DefxTabSwitch call vimrc#open#switch(<q-args>, 'DefxTabOpenSink')
 
 " Defx search
 command! -nargs=1 -complete=file DefxSearch call vimrc#defx#open(<q-args>, 'search')

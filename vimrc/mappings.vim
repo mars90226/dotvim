@@ -361,6 +361,7 @@ if vimrc#plugin#check#get_os() !~# 'windows'
   command! Args echo system("ps -o command= -p " . getpid())
 endif
 
-command! -nargs=1 -complete=file Switch  call vimrc#open#switch(<q-args>, 'edit')
-command! -nargs=1 -complete=file TabOpen call vimrc#open#tab(<q-args>)
+command! -nargs=1 -complete=file Switch    call vimrc#open#switch(<q-args>, 'edit')
+command! -nargs=1 -complete=file TabSwitch call vimrc#open#switch(<q-args>, 'tabedit')
+command! -nargs=1 -complete=file TabOpen   call vimrc#open#tab(<q-args>)
 " }}}
