@@ -23,19 +23,27 @@ appearance.startup = function(use)
   use({ "kyazdani42/nvim-web-devicons", module = "nvim-web-devicons" })
 
   -- Colors
-  -- NOTE: Reserved for now
+  use({ "rktjmp/lush.nvim" })
   use({
     "ellisonleao/gruvbox.nvim",
     config = function()
+      local hsl = require("lush").hsl
       local colors = require("gruvbox.colors")
       local utils = require("gruvbox.utils")
 
+      local diff_darken_percent = 20
+      local diff_colors = {
+        dark_red = hsl(colors.faded_red).darken(diff_darken_percent).hex,
+        dark_green = hsl(colors.faded_green).darken(diff_darken_percent).hex,
+        dark_yellow = hsl(colors.faded_yellow).darken(diff_darken_percent).hex,
+        dark_aqua = hsl(colors.faded_aqua).darken(diff_darken_percent).hex,
+      }
       local custom_highlights = {
         -- NOTE: Only change background color
-        DiffAdd = { bg = colors.faded_green },
-        DiffChange = { bg = colors.faded_aqua },
-        DiffDelete = { fg = colors.faded_red, bg = colors.dark0, reverse = vim.g.gruvbox_inverse },
-        DiffText = { bg = colors.faded_yellow },
+        DiffAdd = { bg = diff_colors.dark_green },
+        DiffChange = { bg = diff_colors.dark_aqua },
+        DiffDelete = { fg = diff_colors.dark_red, bg = colors.dark0, reverse = vim.g.gruvbox_inverse },
+        DiffText = { bg = diff_colors.dark_yellow },
 
         -- NOTE: Avoid highlight link to avoid breaking tabby.nvim
         TabLine = { fg = colors.dark4, bg = colors.dark1, reverse = vim.g.gruvbox_invert_tabline },
