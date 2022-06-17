@@ -24,7 +24,26 @@ appearance.startup = function(use)
 
   -- Colors
   -- NOTE: Reserved for now
-  use("ellisonleao/gruvbox.nvim")
+  use({
+    "ellisonleao/gruvbox.nvim",
+    config = function()
+      local colors = require("gruvbox.colors")
+      local utils = require("gruvbox.utils")
+
+      local custom_highlights = {
+        -- NOTE: Only change background color
+        DiffAdd = { bg = colors.faded_green },
+        DiffChange = { bg = colors.faded_aqua },
+        DiffDelete = { fg = colors.faded_red, bg = colors.dark0, reverse = vim.g.gruvbox_inverse },
+        DiffText = { bg = colors.faded_yellow },
+
+        -- NOTE: Avoid highlight link to avoid breaking tabby.nvim
+        TabLine = { fg = colors.dark4, bg = colors.dark1, reverse = vim.g.gruvbox_invert_tabline },
+      }
+
+      utils.add_highlights(custom_highlights)
+    end,
+  })
   vim.g.colorscheme = "gruvbox"
   vim.g.lualine_theme = "auto"
 
