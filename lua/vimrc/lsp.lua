@@ -1,8 +1,11 @@
-local lsp_status = require("lsp-status")
-local lspsaga = require("vimrc.plugins.lspsaga")
-local goto_preview = require("vimrc.plugins.goto-preview")
-local aerial = require("aerial")
 local ts_utils = require("nvim-lsp-ts-utils")
+
+local lsp_status = require("lsp-status")
+local aerial = require("aerial")
+local navic = require("nvim-navic")
+
+local my_lspsaga = require("vimrc.plugins.lspsaga")
+local my_goto_preview = require("vimrc.plugins.goto-preview")
 
 local plugin_utils = require("vimrc.plugin_utils")
 
@@ -100,11 +103,15 @@ lsp.on_init = function(client)
   client.config.flags.allow_incremental_sync = true
 end
 
-lsp.on_attach = function(client)
+lsp.on_attach = function(client, bufnr)
+  -- Plugins
   lsp_status.on_attach(client)
-  lspsaga.on_attach(client)
-  goto_preview.on_attach(client)
-  aerial.on_attach(client)
+  aerial.on_attach(client, bufnr)
+  navic.attach(client, bufnr)
+
+  -- My plugin configs
+  my_lspsaga.on_attach(client)
+  my_goto_preview.on_attach(client)
 
   -- NOTE: Use <C-]> to call 'tagfunc'
   -- nnoremap("<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "silent", "buffer")

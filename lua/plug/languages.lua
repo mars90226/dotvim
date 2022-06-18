@@ -94,7 +94,10 @@ languages.startup = function(use)
         xnoremap("<M-S-k>", [[<Cmd>STSSwapPrevVisual<CR>]], "silent")
 
         -- Targeted jump
-        nnoremap("<M-e>i", [[<Cmd>lua require("syntax-tree-surfer").targeted_jump({"string","number","true","false"})<CR>]])
+        nnoremap(
+          "<M-e>i",
+          [[<Cmd>lua require("syntax-tree-surfer").targeted_jump({"string","number","true","false"})<CR>]]
+        )
 
         -- filtered jump
         nnoremap("<M-S-n>", [[<Cmd>lua require("syntax-tree-surfer").filtered_jump("default", true)<CR>]], "silent")
@@ -121,13 +124,15 @@ languages.startup = function(use)
       end,
     })
 
-    use({
-      "SmiteshP/nvim-gps",
-      requires = "nvim-treesitter/nvim-treesitter",
-      config = function()
-        require("nvim-gps").setup()
-      end,
-    })
+    if plugin_utils.is_enabled_plugin('nvim-gps') then
+      use({
+        "SmiteshP/nvim-gps",
+        requires = "nvim-treesitter/nvim-treesitter",
+        config = function()
+          require("nvim-gps").setup()
+        end,
+      })
+    end
   end
 
   use({

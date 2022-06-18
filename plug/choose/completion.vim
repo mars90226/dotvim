@@ -30,3 +30,9 @@ if has('nvim-0.5')
 else
   call vimrc#plugin#enable_plugin('auto-pairs')
 end
+
+" Context in winbar
+call vimrc#plugin#disable_plugin('nvim-navic')
+if has('nvim-0.8') && vimrc#plugin#is_enabled_plugin('nvim-lsp') 
+  call vimrc#plugin#enable_plugin('nvim-navic')
+endif

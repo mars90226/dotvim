@@ -55,4 +55,12 @@ utils.is_light_vim_mode = function()
   return vim_mode == "reader" or vim_mode == "gitcommit"
 end
 
+utils.ternary = function(condition, true_value, false_value)
+  if condition then
+    return true_value
+  else
+    return false_value
+  end
+end
+
 return utils

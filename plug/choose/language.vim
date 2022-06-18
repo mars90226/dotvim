@@ -62,6 +62,6 @@ else
 end
 
 " Context in statusline
-if vimrc#plugin#is_disabled_plugin('nvim-treesitter')
+if vimrc#plugin#is_disabled_plugin('nvim-treesitter') || vimrc#plugin#is_enabled_plugin('nvim-navic')
   call vimrc#plugin#disable_plugin('nvim-gps')
 endif

@@ -47,6 +47,10 @@ appearance.startup = function(use)
 
         -- NOTE: Avoid highlight link to avoid breaking tabby.nvim
         TabLine = { fg = colors.dark4, bg = colors.dark1, reverse = vim.g.gruvbox_invert_tabline },
+
+        -- NOTE: Use similar highlight of StatusLine highlight for WinBar
+        WinBar = { fg = colors.dark1, bg = colors.light3, reverse = vim.g.gruvbox_inverse },
+        WinBarNC = { fg = colors.dark0, bg = colors.light4, reverse = vim.g.gruvbox_inverse },
       }
 
       utils.add_highlights(custom_highlights)

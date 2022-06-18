@@ -1,3 +1,5 @@
+local plugin_utils = require("vimrc.plugin_utils")
+
 local lsp = {}
 
 lsp.startup = function(use)
@@ -291,6 +293,19 @@ lsp.startup = function(use)
       })
     end,
   })
+
+  if plugin_utils.is_enabled_plugin('nvim-navic') then
+    use({
+      "SmiteshP/nvim-navic",
+      requires = "neovim/nvim-lspconfig",
+      config = function()
+        require("nvim-navic").setup({})
+
+        -- TODO: Move winbar to separate config
+        vim.go.winbar = [[%{v:lua.require('vimrc/winbar').winbar()}]]
+      end,
+    })
+  end
 
   use({
     "rmagatti/goto-preview",
