@@ -107,7 +107,10 @@ lsp.on_attach = function(client, bufnr)
   -- Plugins
   lsp_status.on_attach(client)
   aerial.on_attach(client, bufnr)
-  navic.attach(client, bufnr)
+
+	if client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
+	end
 
   -- My plugin configs
   my_lspsaga.on_attach(client)
