@@ -122,7 +122,7 @@ lsp.on_attach = function(client)
   vim.bo.formatexpr = [[v:lua.vim.lsp.formatexpr]]
 
   -- format on save
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.documentFormattingProvider then
     vim.cmd([[augroup lsp_format_on_save]])
     vim.cmd([[  autocmd! * <buffer>]])
     vim.cmd([[  autocmd BufWritePre <buffer> lua require("vimrc.lsp").formatting_sync()]])
