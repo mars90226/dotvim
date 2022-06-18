@@ -144,6 +144,16 @@ appearance.startup = function(use)
       vim.cmd([[augroup END]])
     end,
   })
+
+  -- Notify
+  use({
+    "rcarriga/nvim-notify",
+    -- TODO: Disabled as it cause other plugins slow?
+    disable = true,
+    config = function()
+      vim.notify = require("notify")
+    end
+  })
 end
 
 return appearance
