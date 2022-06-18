@@ -20,6 +20,8 @@ file_navigation.startup = function(use)
   })
   use({
     "gbprod/yanky.nvim",
+    -- TODO: Only lazy load in WSL
+    event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
       local mapping = require("yanky.telescope.mapping")
       local actions = require("telescope.actions")
