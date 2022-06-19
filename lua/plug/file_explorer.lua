@@ -6,7 +6,6 @@ file_explorer.startup = function(use)
     run = ":UpdateRemotePlugins",
     config = function()
       vim.fn["vimrc#source"]("vimrc/plugins/defx.vim")
-      vim.fn["vimrc#source"]("vimrc/plugins/defx_after.vim")
     end,
   })
   use("kristijanhusak/defx-git")

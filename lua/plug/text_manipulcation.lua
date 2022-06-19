@@ -114,7 +114,7 @@ text_manipulation.startup = function(use)
       -- To avoid mis-deleting character when cancelling sandwich operator
       nnoremap("s<Esc>", "<NOP>")
 
-      vim.fn["vimrc#source"]("vimrc/plugins/sandwich_after.vim")
+      vim.fn["vimrc#source"]("vimrc/plugins/sandwich.vim")
     end,
   })
 

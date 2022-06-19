@@ -15,7 +15,7 @@ text_objects.startup = function(use)
   use({
     "kana/vim-textobj-user",
     config = function()
-      vim.fn["vimrc#source"]("vimrc/plugins/textobj_user_after.vim")
+      vim.fn["vimrc#source"]("vimrc/plugins/textobj_user.vim")
     end,
   })
   use({

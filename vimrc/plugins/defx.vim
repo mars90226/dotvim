@@ -1,3 +1,6 @@
+" Script Encoding: UTF-8
+scriptencoding utf-8
+
 let [g:defx_width, g:defx_height] = vimrc#float#get_default_size()
 let [g:defx_left, g:defx_top] = vimrc#float#calculate_pos(g:defx_width, g:defx_height)
 let g:defx_sidebar_width = g:left_sidebar_width
@@ -85,3 +88,20 @@ augroup defx_detect_folder
   autocmd VimEnter * autocmd! FileExplorer
   autocmd BufEnter * call vimrc#defx#detect_folder(expand('<afile>'))
 augroup END
+
+" Setup {{{
+call defx#custom#option('_', {
+      \ 'columns': 'git:mark:indent:icon:space:icons:space:filename:type:size:time',
+      \ 'show_ignored_files': 1,
+      \ })
+call defx#custom#column('icon', {
+      \ 'directory_icon': '▸',
+      \ 'opened_icon': '▾',
+      \ 'root_icon': ' ',
+      \ })
+call defx#custom#column('mark', {
+      \ 'readonly_icon': '✗',
+      \ 'selected_icon': '✓',
+      \ })
+call defx#custom#column('time', {'format': '%Y/%m/%d %H:%M'})
+" }}}

@@ -58,7 +58,6 @@ file_navigation.startup = function(use)
     config = function()
       vim.cmd([[silent! UpdateRemotePlugins]])
       vim.fn["vimrc#source"]("vimrc/plugins/denite.vim")
-      vim.fn["vimrc#source"]("vimrc/plugins/denite_after.vim")
     end,
   })
   use({ "neoclide/denite-extra", after = "denite.nvim" })
@@ -83,7 +82,6 @@ file_navigation.startup = function(use)
     "laher/fuzzymenu.vim",
     config = function()
       vim.fn["vimrc#source"]("vimrc/plugins/fuzzymenu.vim")
-      vim.fn["vimrc#source"]("vimrc/plugins/fuzzymenu_after.vim")
     end,
   })
 
