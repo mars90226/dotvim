@@ -75,7 +75,7 @@ lsp.servers = {
   rust_analyzer = {
     custom_setup = function(server, lsp_opts)
       require("rust-tools").setup(lsp_opts)
-    end
+    end,
   },
   solargraph = {
     condition = plugin_utils.has_linux_build_env(),
@@ -111,9 +111,9 @@ lsp.on_attach = function(client, bufnr)
   end
   aerial.on_attach(client, bufnr)
 
-	if client.server_capabilities.documentSymbolProvider then
+  if client.server_capabilities.documentSymbolProvider then
     navic.attach(client, bufnr)
-	end
+  end
 
   -- My plugin configs
   my_lspsaga.on_attach(client)
