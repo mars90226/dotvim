@@ -65,12 +65,20 @@ lsp.startup = function(use)
     config = function()
       require("trouble").setup({})
 
-      nnoremap("<Space>xx", "<Cmd>TroubleToggle<CR>", "silent")
-      nnoremap("<Space>xw", "<Cmd>TroubleToggle workspace_diagnostics<CR>", "silent")
-      nnoremap("<Space>xd", "<Cmd>TroubleToggle document_diagnostics<CR>", "silent")
-      nnoremap("<Space>xq", "<Cmd>TroubleToggle quickfix<CR>", "silent")
-      nnoremap("<Space>xl", "<Cmd>TroubleToggle loclist<CR>", "silent")
-      nnoremap("<Space>xr", "<Cmd>TroubleToggle lsp_references<CR>", "silent")
+      local opts = { noremap = true, silent = true }
+
+      vim.keymap.set("n", "<Space>xx", "<Cmd>TroubleToggle<CR>", opts)
+      vim.keymap.set("n", "<Space>xw", "<Cmd>TroubleToggle workspace_diagnostics<CR>", opts)
+      vim.keymap.set("n", "<Space>xd", "<Cmd>TroubleToggle document_diagnostics<CR>", opts)
+      vim.keymap.set("n", "<Space>xq", "<Cmd>TroubleToggle quickfix<CR>", opts)
+      vim.keymap.set("n", "<Space>xl", "<Cmd>TroubleToggle loclist<CR>", opts)
+      vim.keymap.set("n", "<Space>xr", "<Cmd>TroubleToggle lsp_references<CR>", opts)
+
+      -- jump to the next item, skipping the groups
+      vim.keymap.set("n", "]g", [[<Cmd>lua require("trouble").next({ skip_groups = true, jump = true })<CR>]], opts)
+
+      -- jump to the previous item, skipping the groups
+      vim.keymap.set("n", "[g", [[<Cmd>lua require("trouble").previous({ skip_groups = true, jump = true })<CR>]], opts)
     end,
   })
 
