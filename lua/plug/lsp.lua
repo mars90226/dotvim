@@ -310,10 +310,6 @@ lsp.startup = function(use)
       requires = "neovim/nvim-lspconfig",
       config = function()
         require("nvim-navic").setup({})
-
-        -- TODO: Move winbar to separate config
-        -- TODO: Disable winbar in plugin window
-        vim.go.winbar = [[%{v:lua.require('vimrc/winbar').winbar()}]]
       end,
     })
   end

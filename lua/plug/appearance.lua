@@ -1,6 +1,12 @@
+local plugin_utils = require("vimrc.plugin_utils")
+
 local appearance = {}
 
 appearance.startup = function(use)
+  local use_config = function(plugin_spec)
+    plugin_utils.use_config(use, plugin_spec)
+  end
+
   -- Status Line
   use({
     "nvim-lualine/lualine.nvim",
@@ -17,6 +23,15 @@ appearance.startup = function(use)
     config = function()
       require("tabby").setup()
     end,
+  })
+
+  -- Winbar
+  use_config({
+    "mars90226/winbar",
+    config = function()
+      -- TODO: Disable winbar in plugin window
+      vim.go.winbar = [[%{v:lua.require('vimrc/winbar').winbar()}]]
+    end
   })
 
   -- Devicons
