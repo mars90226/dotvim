@@ -143,22 +143,3 @@ set dictionary=/usr/share/dict/words
 " Remove '=' from isfilename to complete filename in 'options'='filename' format
 " TODO Move to ftplugin setting
 set isfname-==
-
-if has('wsl') && has('nvim')
-  let g:clipboard = {
-        \ 'name': 'wsl_clipboard',
-        \ 'copy': {
-        \     '+': 'xsel -i',
-        \     '*': 'xsel -i',
-        \ },
-        \ 'paste': {
-        \     '+': 'xsel -o',
-        \     '*': 'xsel -o',
-        \ },
-        \ 'cache_enabled': 1,
-        \ }
-
-  " Force loading clipboard
-  " TODO Create issue in neovim, this should be fixed in neovim
-  call provider#clipboard#Executable()
-endif

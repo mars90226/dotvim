@@ -34,6 +34,7 @@ require("packer").startup(function(use)
   require("plug.job").startup(use)
   require("plug.cli").startup(use)
   require("plug.tui").startup(use)
+  require("plug.clipboard").startup(use)
   require("plug.last").startup(use)
 
   -- Automatically set up your configuration after cloning packer.nvim
