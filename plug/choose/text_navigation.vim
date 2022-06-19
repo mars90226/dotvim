@@ -7,10 +7,8 @@ if !has('nvim-0.5')
 endif
 
 " search utility
-" nvim-hlslens, incsearch.vim
-call vimrc#plugin#disable_plugins(['nvim-hlslens', 'incsearch.vim'])
+" nvim-hlslens
+call vimrc#plugin#disable_plugins(['nvim-hlslens'])
 if has('nvim-0.5')
   call vimrc#plugin#enable_plugin('nvim-hlslens')
-else
-  call vimrc#plugin#enable_plugin('incsearch.vim')
 endif

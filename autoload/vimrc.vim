@@ -53,11 +53,6 @@ function! vimrc#display_char() abort
   redraw | echomsg printf('Raw: "%s" | Char: "%s"', c, nr2char(c))
 endfunction
 
-" Clear and redraw
-function! vimrc#clear_and_redraw() abort
-  call vimrc#lightline#refresh()
-endfunction
-
 " Execute and save command
 function! vimrc#execute_and_save(command) abort
   call histadd('cmd', a:command)

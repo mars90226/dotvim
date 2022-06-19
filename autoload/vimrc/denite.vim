@@ -58,10 +58,6 @@ let s:denite_actions = {
   \ 'move_cursor': 'vimrc#denite#move_cursor_candidate_window'
   \ }
 
-function! vimrc#denite#use_clap() abort
-  return executable(vimrc#clap#get_clap_fuzzymatch_rs_so()) || (vimrc#plugin#is_enabled_plugin('vim-clap') && vimrc#plugin#check#has_cargo())
-endfunction
-
 " Borrowed from denite.nvim
 function! vimrc#denite#do_map(name, ...) abort
   let args = copy(a:000)
@@ -99,7 +95,6 @@ endfunction
 " Completions
 function! vimrc#denite#complete_matchers(ArgLead, CmdLine, CursorPos) abort
   return [
-    \ 'matcher/clap',
     \ 'matcher/cpsm',
     \ 'matcher/fuzzy',
     \ 'matcher/hide_hidden_files',
@@ -273,19 +268,9 @@ function! vimrc#denite#filter_mappings() abort
   " Switch between denite buffer & preview
   imap <silent><buffer> <M-l>      <Plug>(denite_filter_update):call vimrc#denite#goto_and_back_between_preview()<CR>
 
-  " Integration with other plugins
-  if vimrc#plugin#is_enabled_plugin('Colorizer')
-    imap <buffer>         <M-x><M-c> <Plug>(denite_filter_update):ColorToggle<CR>i
-  endif
-
   " Toggle matchers & sorters
-  if vimrc#denite#use_clap()
-    inoremap <silent><buffer><expr> <M-f>
-          \ denite#do_map('toggle_matchers', 'matcher/clap')
-  else
-    inoremap <silent><buffer><expr> <M-f>
-          \ denite#do_map('toggle_matchers', 'matcher/fruzzy')
-  endif
+  inoremap <silent><buffer><expr> <M-f>
+        \ denite#do_map('toggle_matchers', 'matcher/fruzzy')
   inoremap <silent><buffer><expr> <M-g>
         \ denite#do_map('toggle_matchers', 'matcher/substring')
   inoremap <silent><buffer><expr> <M-r>

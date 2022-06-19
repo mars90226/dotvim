@@ -334,10 +334,6 @@ nnoremap <Space>s1 :call      vimrc#execute_and_save('LastTabs')<CR>
 
 nnoremap <Space>ss :History:<CR>mks vim sessions
 
-if vimrc#plugin#is_enabled_plugin('coc.nvim')
-  nnoremap <Space>sv :call vimrc#fzf#range#select_operator('av')<CR>
-endif
-
 nnoremap <Space>sga :call vimrc#execute_and_save('GitGrepAllCommits ' . input('Git grep all commits: '))<CR>
 nnoremap <Space>sgA :call vimrc#execute_and_save('GitGrepAllCommits ' . input('Git grep all commits: ') . ' -- ' . input('File: ', '', 'file'))<CR>
 nnoremap <Space>sgb :call vimrc#execute_and_save('GitGrepBranches ' . input('Git grep branches: '))<CR>

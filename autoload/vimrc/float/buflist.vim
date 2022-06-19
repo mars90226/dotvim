@@ -141,7 +141,7 @@ function! s:buflist.to_string() dict abort
   return str
 endfunction
 
-" For source extensions(vim-clap, denite)
+" For source extensions(denite)
 " Return a list containing floaterm bufnr
 " Every bufnr should exist
 function! s:buflist.gather() dict abort

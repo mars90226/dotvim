@@ -1,7 +1,6 @@
 " Choose terminal plugin
 " vim-floaterm, neoterm
-call vimrc#plugin#disable_plugins(
-      \ ['vim-floaterm', 'neoterm'])
+call vimrc#plugin#disable_plugins(['vim-floaterm', 'neoterm'])
 
 " Currently, always enable neoterm plugin
 if has('nvim-0.4.4')

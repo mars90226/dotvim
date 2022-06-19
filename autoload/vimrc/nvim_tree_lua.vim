@@ -1,3 +1,4 @@
+" TODO: Rewrite in Lua
 " Mappings
 function! vimrc#nvim_tree_lua#mappings() abort
   nnoremap <silent><buffer> R :LuaTreeRefresh<CR>

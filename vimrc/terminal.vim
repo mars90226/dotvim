@@ -178,7 +178,7 @@ if has('nvim')
     autocmd BufLeave             term://* if &buftype ==# 'terminal' | stopinsert  | endif
 
     " Ignore various filetypes as those will close terminal automatically
-    " Ignore fzf, coc
+    " Ignore fzf
     autocmd TermClose term://* call vimrc#terminal#close_result_buffer(expand('<afile>'))
   augroup END
 endif

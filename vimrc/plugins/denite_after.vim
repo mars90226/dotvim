@@ -24,12 +24,7 @@ if executable('rg')
 endif
 
 " Denite options
-if vimrc#denite#use_clap()
-  call denite#custom#source('_', 'matchers', ['matcher/clap'])
-  call denite#custom#filter('matcher/clap', 'clap_path', vimrc#get_vim_plug_dir().'/vim-clap')
-else
-  call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
-end
+call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 
 call denite#custom#source('default', 'sorters', ['sorter/rank'])
 call denite#custom#source('defx/history', 'sorters', [''])

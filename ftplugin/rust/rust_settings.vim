@@ -3,10 +3,6 @@ if exists('b:loaded_rust_settings')
 endif
 let b:loaded_rust_settings = 1
 
-if vimrc#plugin#is_enabled_plugin('auto-pairs')
-let b:AutoPairs = AutoPairsDefine({'\w\zs<': '>'})
-endif
-
 let b:AutoPairsJumps = ['>']
 
 command! -nargs=+ RustupDoc     call vimrc#rust_doc#open_rustup_doc(<f-args>)

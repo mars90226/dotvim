@@ -11,15 +11,6 @@ function! vimrc#terminal#settings() abort
   setlocal colorcolumn=
   setlocal nonumber
   setlocal norelativenumber
-
-  if vimrc#plugin#is_enabled_plugin('incsearch.vim')
-    " Only clear incsearch-nohlsearch autocmd in normal shell terminal
-    " Do not clear in other terminal like fzf, coc
-    if vimrc#terminal#is_shell_terminal(expand('<afile>'))
-      " Clear incsearch-nohlsearch autocmd on entering terminal mode
-      nnoremap <silent><buffer> i :ClearIncsearchAutoNohlsearch<CR>i
-    endif
-  endif
 endfunction
 
 " Mappings
@@ -101,7 +92,7 @@ function! vimrc#terminal#is_floaterm() abort
 endfunction
 
 function! vimrc#terminal#is_exception_program(terminal) abort
-  let exception_programs = ['fzf', 'coc']
+  let exception_programs = ['fzf']
 
   let cmd = vimrc#terminal#get_terminal_command(a:terminal)
   if empty(cmd)

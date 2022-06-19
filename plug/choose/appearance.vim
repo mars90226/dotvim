@@ -1,10 +1,8 @@
 " Statusline
-" lualine.nvim, lightline.vim
-call vimrc#plugin#disable_plugins(['lualine.nvim', 'lightline.vim'])
+" lualine.nvim
+call vimrc#plugin#disable_plugins(['lualine.nvim'])
 if has('nvim-0.5')
   call vimrc#plugin#enable_plugin('lualine.nvim')
-else
-  call vimrc#plugin#enable_plugin('lightline.vim')
 endif
 
 " Tabline

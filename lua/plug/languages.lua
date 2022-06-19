@@ -151,15 +151,6 @@ languages.startup = function(use)
     end,
   })
 
-  -- Lint
-  use({
-    "w0rp/ale",
-    disable = true,
-    config = function()
-      vim.fn["vimrc#source"]("vimrc/plugins/ale.vim")
-    end,
-  })
-
   -- Markdown preview
   -- FIXME: Seems not correctly installed using packer.nvim
   use({

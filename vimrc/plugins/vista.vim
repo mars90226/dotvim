@@ -1,5 +1,5 @@
 " Don't use :Vista!! to toggle Vista window.
-" It will use :Vista not :Vista coc.
+" It will use :Vista not :Vista nvim_lsp.
 nnoremap <F7>        :Vista<CR>
 nnoremap <Space>vq   :Vista!<CR>
 nnoremap <Space>vf   :Vista finder<CR>
@@ -11,12 +11,7 @@ nnoremap <Space>vv   :Vista focus<CR>
 nnoremap <Space>vi   :Vista info<CR>
 nnoremap <Space>vI   :Vista info+<CR>
 
-if vimrc#plugin#is_enabled_plugin('coc.nvim')
-  nnoremap <Space><F7> :Vista coc<CR>
-  nnoremap <Space>vc   :Vista finder coc<CR>
-  nnoremap <Space>vk   :call vimrc#vista#finder_with_query('Vista finder coc', expand('<cword>'))<CR>
-  nnoremap <Space>vK   :call vimrc#vista#finder_with_query('Vista finder coc', expand('<cword>'))<CR>
-elseif vimrc#plugin#is_enabled_plugin('nvim-lsp')
+if vimrc#plugin#is_enabled_plugin('nvim-lsp')
   nnoremap <Space><F7> :Vista nvim_lsp<CR>
   nnoremap <Space>vc   :Vista finder nvim_lsp<CR>
   nnoremap <Space>vk   :call vimrc#vista#finder_with_query('Vista finder nvim_lsp', expand('<cword>'))<CR>

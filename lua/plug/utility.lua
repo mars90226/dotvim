@@ -36,9 +36,6 @@ utility.startup = function(use)
     config = function()
       local utils = require("vimrc.utils")
 
-      -- Ignore [a, ]a, [A, ]A for ale
-      vim.g.nremap = { ["[a"] = "", ["]a"] = "", ["[A"] = "", ["]A"] = "" }
-
       nnoremap([[\[a]], ":previous<CR>")
       nnoremap([[\]a]], ":next<CR>")
       nnoremap([[\[A]], ":first<CR>")
@@ -297,6 +294,7 @@ utility.startup = function(use)
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
   })
 
+  -- NOTE: Builtin vim.highlight.on_yank only highlight text background, not space background
   use({
     "machakann/vim-highlightedyank",
     config = function()
@@ -427,25 +425,6 @@ utility.startup = function(use)
       nnoremap("<C-P>", [[<Cmd>lua require('fine-cmdline').open()<CR>]])
     end,
   })
-  if plugin_utils.is_enabled_plugin("wilder.nvim") then
-    use({
-      "gelguy/wilder.nvim",
-      -- FIXME: Seems to have huge memory usage, valgrind massif show recursive
-      -- calls, and valgrind show memory leak.
-      disable = true,
-      requires = { "romgrk/fzy-lua-native" },
-      rocks = { "pcre2" },
-      run = ":UpdateRemotePlugins",
-      event = { "FocusLost", "CursorHold", "CursorHoldI" },
-      config = function()
-        -- NOTE: Currently hard to configure from Lua
-        -- ref: https://github.com/gelguy/wilder.nvim/issues/52
-        vim.fn["vimrc#source"]("vimrc/plugins/wilder.vim")
-
-        vim.fn["wilder#main#start"]()
-      end,
-    })
-  end
 
   -- TODO: Failed to open todo-comments
   use({

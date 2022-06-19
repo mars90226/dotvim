@@ -147,8 +147,8 @@ require("nvim-treesitter.configs").setup({
     select = {
       enable = true,
       keymaps = {
-        -- Override textobj-function & coc.nvim class
-        -- nvim-treesitter is preciser than textobj-function & coc.nvim
+        -- Override textobj-function
+        -- nvim-treesitter is preciser than textobj-function
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
         ["ac"] = "@class.outer",

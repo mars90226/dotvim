@@ -1,4 +1,5 @@
 " For auto-pairs
+" TODO: Move to nvim-autopairs
 
 " Functions
 function! vimrc#auto_pairs#toggle_multiline_close() abort

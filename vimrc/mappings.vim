@@ -6,7 +6,7 @@ nnoremap Q gq
 inoremap <C-U> <C-G>u<C-U>
 
 " CTRL-L clear hlsearch
-nnoremap <C-L> <C-L>:nohlsearch<CR>:call vimrc#clear_and_redraw()<CR>
+nnoremap <C-L> <C-L>:nohlsearch<CR>
 
 " Add key mapping for suspend
 nnoremap <Space><C-Z> :suspend<CR>

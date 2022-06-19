@@ -93,6 +93,13 @@ augroup cmdline_window_settings
   autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
 augroup END
 
+" Highlight yank
+" FIXME: Only highlight text background, not space background
+" augroup highlight_yank
+"   autocmd!
+"   autocmd TextYankPost * silent! lua vim.highlight.on_yank({ timeout = 200 })
+" augroup END
+
 " Secret project local settings
 if exists('*VimSecretProjectLocalSettings')
   call VimSecretProjectLocalSettings()

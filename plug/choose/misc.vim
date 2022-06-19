@@ -23,17 +23,11 @@ if !has('nvim-0.4')
   call vimrc#plugin#disable_plugin('firenvim')
 endif
 
-if vimrc#plugin#check#python_version() <# '3.6'
-  call vimrc#plugin#disable_plugin('aerojump.nvim')
-endif
-
 " Choose indent line plugin
-" indent-blankline.nvim, indentLine
-call vimrc#plugin#disable_plugins(['indent-blankline.nvim', 'indentLine'])
+" indent-blankline.nvim
+call vimrc#plugin#disable_plugins(['indent-blankline.nvim'])
 if has('nvim-0.5')
   call vimrc#plugin#enable_plugin('indent-blankline.nvim')
-else
-  call vimrc#plugin#enable_plugin('indentLine')
 endif
 
 if !has('nvim-0.5') || vimrc#plugin#is_disabled_plugin('nvim-web-devicons')
@@ -41,23 +35,15 @@ if !has('nvim-0.5') || vimrc#plugin#is_disabled_plugin('nvim-web-devicons')
 endif
 
 " Choose window switching plugin
-" nvim-window, vim-choosewin
-call vimrc#plugin#disable_plugins(['nvim-window', 'vim-choosewin'])
+" nvim-window
+call vimrc#plugin#disable_plugins(['nvim-window'])
 if has('nvim-0.5')
   call vimrc#plugin#enable_plugin('nvim-window')
-else
-  call vimrc#plugin#enable_plugin('vim-choosewin')
 endif
 
 " Choose colorizer plugin
-" nvim-colorizer.lua, Colorizer
-call vimrc#plugin#disable_plugins(['nvim-colorizer.lua', 'Colorizer'])
+" nvim-colorizer.lua
+call vimrc#plugin#disable_plugins(['nvim-colorizer.lua'])
 if has('nvim-0.4.0')
   call vimrc#plugin#enable_plugin('nvim-colorizer.lua')
-else
-  call vimrc#plugin#enable_plugin('Colorizer')
-endif
-
-if !(has('nvim-0.5') && vimrc#plugin#check#has_linux_build_env())
-  call vimrc#plugin#disable_plugin('wilder.nvim')
 endif
