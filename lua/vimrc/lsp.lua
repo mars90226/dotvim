@@ -8,7 +8,6 @@ local my_lspsaga = require("vimrc.plugins.lspsaga")
 local my_goto_preview = require("vimrc.plugins.goto-preview")
 
 local plugin_utils = require("vimrc.plugin_utils")
-local utils = require("vimrc.utils")
 
 local lsp = {}
 
