@@ -30,8 +30,8 @@ file_explorer.startup = function(use)
       nnoremap("<Space>nb", [[<Cmd>Neotree toggle show buffers right<CR>]])
       nnoremap("<Space>ns", [[<Cmd>Neotree float git_status<CR>]])
 
-      cnoremap("<C-X>d", [[v:lua.require('vimrc/plugins/neotree').get_current_dir('filesystem')]], "expr")
-      cnoremap("<C-X>f", [[v:lua.require('vimrc/plugins/neotree').get_current_path('filesystem')]], "expr")
+      cnoremap("<C-X>d", [[v:lua.require('vimrc.plugins.neotree').get_current_dir('filesystem')]], "expr")
+      cnoremap("<C-X>f", [[v:lua.require('vimrc.plugins.neotree').get_current_path('filesystem')]], "expr")
     end,
   })
 end
