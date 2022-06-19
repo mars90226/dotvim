@@ -7,7 +7,6 @@ let g:maplocalleader = '\'
 " E.g. vim-subversive tries to catch 'Unknown Exception'
 if !has('nvim')
   " neovim current seems not using system locale
-  " And language C seems to break :Denite file
   language C
 endif
 

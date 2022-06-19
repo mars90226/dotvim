@@ -296,10 +296,7 @@ function! vimrc#defx#mappings() abort " {{{ abort
         \ defx#do_action('call', 'vimrc#defx#execute_dir_split')
   nnoremap <silent><buffer><expr> \dv
         \ defx#do_action('call', 'vimrc#defx#execute_dir_vertical')
-  nnoremap <silent><buffer>       \dd
-        \ :Denite defx/dirmark<CR>
-  nnoremap <silent><buffer>       \h
-        \ :Denite -unique defx/history<CR>
+  " TODO: Add other solution for directory bookmark
   nnoremap <silent><buffer><expr> \P
         \ defx#do_action('call', 'vimrc#defx#paste_from_system_clipboard')
   nnoremap <silent><buffer><expr> \<C-P>

@@ -1,16 +1,4 @@
 " Functions
-" Escape colon, backslash and space
-" For denite
-" TODO: Move to better place
-function! vimrc#utility#denite_escape_symbol(expr) abort
-  let l:expr = a:expr
-  let l:expr = substitute(l:expr, '\\', '\\\\', 'g')
-  let l:expr = substitute(l:expr, ':', '\\:', 'g')
-  let l:expr = substitute(l:expr, ' ', '\\ ', 'g')
-
-  return l:expr
-endfunction
-
 " Escape backslash and space
 function! vimrc#utility#commandline_escape_symbol(expr) abort
   let l:expr = a:expr

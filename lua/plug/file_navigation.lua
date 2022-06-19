@@ -51,18 +51,6 @@ file_navigation.startup = function(use)
   })
 
   -- Finders
-  -- denite.nvim
-  use({
-    "Shougo/denite.nvim",
-    event = { "FocusLost", "CursorHold", "CursorHoldI" },
-    config = function()
-      vim.cmd([[silent! UpdateRemotePlugins]])
-      vim.fn["vimrc#source"]("vimrc/plugins/denite.vim")
-    end,
-  })
-  use({ "neoclide/denite-extra", after = "denite.nvim" })
-  use({ "kmnk/denite-dirmark", after = "denite.nvim" })
-
   -- fzf
   -- fzf#install() only install binary
   -- TODO: This install fzf inside packer.nvim plugin folder

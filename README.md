@@ -15,7 +15,6 @@ Vim specific config is removed, but you can use `vim` branch to access them.
 * [fzf](https://github.com/junegunn/fzf) (fuzzy finder for almost everything)
 * [fzf.vim](https://github.com/junegunn/fzf.vim) (used with fzf)
 * [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) (fuzzy finder written in Lua and support LSP)
-* [denite.nvim](https://github.com/Shougo/denite.nvim) (same as above but use for some cases that need regexp filter)
 * [defx.nvim](https://github.com/Shougo/defx.nvim) (file explorer)
 * [hop.nvim](https://github.com/phaazon/hop.nvim) (quickly move cursor to certain place on screen, written in Lua)
 * [lightspeed.nvim](https://github.com/ggandor/lightspeed.nvim) (quickly move cursor by search, written in Lua)
@@ -38,7 +37,7 @@ Vim specific config is removed, but you can use `vim` branch to access them.
 
 ### Neovim
 * [neovim](https://neovim.io/) 0.5.1+ (required by neovim built-in LSP client)
-* [python](https://www.python.org/) 3.6.1+ (required by denite.nvim, and defx.nvim)
+* [python](https://www.python.org/) 3.6.1+ (required by defx.nvim)
 * [universal-ctags](https://github.com/universal-ctags/ctags) (required by fzf)
 * C compiler and libstdc++ (required by nvim-treesitter)
 
@@ -89,10 +88,6 @@ Open neovim and execute `:PackerSync`.
     * `<Space>lo`: Search and goto LSP document symbols
     * `<Space>ls`: Search and goto LSP workspace symbols
     * `<Space>lx`: Search and execute LSP code actions
-* Denite key mappings
-    * `<Space>p`: Search and open files
-    * `<Space>o`: List and goto outline of current buffer (depends on tags)
-    * `<Space>do`: Execute vim command and search output
 * symbols-outline.nvim key mappings
     * `<F7>`: Toggle symbols-outline.nvim that showing LSP symbols outline in sidebar
 * LSP key mappings

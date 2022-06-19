@@ -141,7 +141,7 @@ function! s:buflist.to_string() dict abort
   return str
 endfunction
 
-" For source extensions(denite)
+" For source extensions
 " Return a list containing floaterm bufnr
 " Every bufnr should exist
 function! s:buflist.gather() dict abort
