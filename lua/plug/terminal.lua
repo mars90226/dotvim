@@ -23,8 +23,6 @@ terminal.startup = function(use)
 
   use({
     "hkupty/iron.nvim",
-    -- TODO: Seems broken in neovim 0.7? May retry it later.
-    disable = true,
     config = function()
       require("iron.core").setup({
         config = {
@@ -40,8 +38,12 @@ terminal.startup = function(use)
         keymaps = {
           send_motion = "<Leader>ic",
           visual_send = "<Leader>ic",
+          send_file = "<Leader>if",
           send_line = "<Leader>il",
-          repeat_cmd = "<Leader>i.",
+          send_mark = "<Leader>im",
+          mark_motion = "<Leader>mc",
+          mark_visual = "<Leader>mc",
+          remove_mark = "<Leader>md",
           cr = "<Leader>i<CR>",
           interrupt = "<Leader>i,",
           exit = "<Leader>iq",
