@@ -283,16 +283,18 @@ lsp.startup = function(use)
     end,
   })
 
-  use({
-    "nvim-lua/lsp-status.nvim",
-    config = function()
-      local lsp_status = require("lsp-status")
+  if plugin_utils.is_enabled_plugin('lsp-status') then
+    use({
+      "nvim-lua/lsp-status.nvim",
+      config = function()
+        local lsp_status = require("lsp-status")
 
-      lsp_status.config({
-        diagnostics = false,
-      })
-    end,
-  })
+        lsp_status.config({
+          diagnostics = false,
+        })
+      end,
+    })
+  end
 
   if plugin_utils.is_enabled_plugin('nvim-navic') then
     use({

@@ -1,6 +1,6 @@
 local ts_utils = require("nvim-lsp-ts-utils")
 
-local lsp_status = require("lsp-status")
+local has_lsp_status, lsp_status = pcall(require, "lsp-status")
 local aerial = require("aerial")
 local navic = require("nvim-navic")
 
@@ -8,6 +8,7 @@ local my_lspsaga = require("vimrc.plugins.lspsaga")
 local my_goto_preview = require("vimrc.plugins.goto-preview")
 
 local plugin_utils = require("vimrc.plugin_utils")
+local utils = require("vimrc.utils")
 
 local lsp = {}
 
@@ -47,7 +48,7 @@ lsp.servers = {
     },
   },
   clangd = {
-    handlers = lsp_status.extensions.clangd.setup(),
+    handlers = utils.ternary(has_lsp_status, lsp_status.extensions.clangd.setup(), function() end),
     condition = plugin_utils.has_linux_build_env(),
     -- NOTE: Workaround for "warning: multiple different client offset_encodings detected for buffer, this is not supported yet".
     -- Ref: https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428#issuecomment-997226723
@@ -64,7 +65,7 @@ lsp.servers = {
   },
   perlls = {},
   -- pyls_ms = {
-  --   handlers = lsp_status.extensions.pyls_ms.setup(),
+  --   handlers = utils.ternary(has_lsp_status, lsp_status.extensions.pyls_ms.setup(), function() end),
   -- },
   -- NOTE: use plugins: pyflakes, pycodestyle, pyls-flake8, pylsp-mypy, python-lsp-black
   pylsp = {},
@@ -105,7 +106,9 @@ end
 
 lsp.on_attach = function(client, bufnr)
   -- Plugins
-  lsp_status.on_attach(client)
+  if has_lsp_status then
+    lsp_status.on_attach(client)
+  end
   aerial.on_attach(client, bufnr)
 
 	if client.server_capabilities.documentSymbolProvider then
