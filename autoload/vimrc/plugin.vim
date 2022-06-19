@@ -1,10 +1,10 @@
 " Plugin Management
 
-let s:plugin_disabled = []
+let s:plugin_disabled = {}
 
 function! vimrc#plugin#disable_plugin(plugin) abort
-  if index(s:plugin_disabled, a:plugin) == -1
-    call add(s:plugin_disabled, a:plugin)
+  if !has_key(s:plugin_disabled, a:plugin)
+    let s:plugin_disabled[a:plugin] = v:true
   endif
 endfunction
 
@@ -15,23 +15,21 @@ function! vimrc#plugin#disable_plugins(plugins) abort
 endfunction
 
 function! vimrc#plugin#enable_plugin(plugin) abort
-  let index = index(s:plugin_disabled, a:plugin)
-
-  if index != -1
-    call remove(s:plugin_disabled, index)
+  if has_key(s:plugin_disabled, a:plugin)
+    call remove(s:plugin_disabled, a:plugin)
   end
 endfunction
 
 function! vimrc#plugin#clear_disabled_plugins() abort
-  let s:plugin_disabled = []
+  let s:plugin_disabled = {}
 endfunction
 
 function! vimrc#plugin#is_disabled_plugin(plugin) abort
-  return index(s:plugin_disabled, a:plugin) != -1
+  return has_key(s:plugin_disabled, a:plugin)
 endfunction
 
 function! vimrc#plugin#is_enabled_plugin(plugin) abort
-  return index(s:plugin_disabled, a:plugin) == -1
+  return !has_key(s:plugin_disabled, a:plugin)
 endfunction
 
 function! vimrc#plugin#get_disabled_plugins() abort
