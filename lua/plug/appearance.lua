@@ -31,19 +31,20 @@ appearance.startup = function(use)
       local colors = require("gruvbox.colors")
       local utils = require("gruvbox.utils")
 
-      local diff_darken_percent = 20
-      local diff_colors = {
-        dark_red = hsl(colors.faded_red).darken(diff_darken_percent).hex,
-        dark_green = hsl(colors.faded_green).darken(diff_darken_percent).hex,
-        dark_yellow = hsl(colors.faded_yellow).darken(diff_darken_percent).hex,
-        dark_aqua = hsl(colors.faded_aqua).darken(diff_darken_percent).hex,
+      local diff_percent = 20
+      local custom_colors = {
+        white_yellow = hsl(colors.bright_yellow).lighten(diff_percent * 2).hex,
+        dark_red = hsl(colors.faded_red).darken(diff_percent).hex,
+        dark_green = hsl(colors.faded_green).darken(diff_percent).hex,
+        dark_yellow = hsl(colors.faded_yellow).darken(diff_percent).hex,
+        dark_aqua = hsl(colors.faded_aqua).darken(diff_percent).hex,
       }
       local custom_highlights = {
         -- NOTE: Only change background color
-        DiffAdd = { bg = diff_colors.dark_green },
-        DiffChange = { bg = diff_colors.dark_aqua },
-        DiffDelete = { fg = diff_colors.dark_red, bg = colors.dark0, reverse = vim.g.gruvbox_inverse },
-        DiffText = { bg = diff_colors.dark_yellow },
+        DiffAdd = { bg = custom_colors.dark_green },
+        DiffChange = { bg = custom_colors.dark_aqua },
+        DiffDelete = { fg = custom_colors.dark_red, bg = colors.dark0, reverse = vim.g.gruvbox_inverse },
+        DiffText = { bg = custom_colors.dark_yellow },
 
         -- NOTE: Avoid highlight link to avoid breaking tabby.nvim
         TabLine = { fg = colors.dark4, bg = colors.dark1, reverse = vim.g.gruvbox_invert_tabline },
@@ -51,6 +52,8 @@ appearance.startup = function(use)
         -- NOTE: Use similar highlight of StatusLine highlight for WinBar
         WinBar = { fg = colors.dark1, bg = colors.light3, reverse = vim.g.gruvbox_inverse },
         WinBarNC = { fg = colors.dark0, bg = colors.light4, reverse = vim.g.gruvbox_inverse },
+
+        FocusedSymbol = { fg = colors.faded_blue, bg = custom_colors.white_yellow },
       }
 
       utils.add_highlights(custom_highlights)
@@ -152,7 +155,7 @@ appearance.startup = function(use)
     disable = true,
     config = function()
       vim.notify = require("notify")
-    end
+    end,
   })
 end
 
