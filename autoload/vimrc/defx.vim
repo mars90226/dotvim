@@ -1,5 +1,4 @@
 " Utilities
-" Borrowed from vinegar
 function! vimrc#defx#opendir(cmd) abort
   if expand('%') =~# '^$\|^term:[\/][\/]'
     let dir = '.'
@@ -78,12 +77,6 @@ endfunction
 function! vimrc#defx#settings() abort
   setlocal nonumber
   setlocal norelativenumber
-endfunction
-
-" Mappings
-function! vimrc#defx#netrw_mapping_for_defx() abort
-  " Cannot override Vinegar '-' mapping, so use '+' instead
-  nmap <silent><buffer> + :call vimrc#defx#opendir('Defx')<CR>
 endfunction
 
 function! vimrc#defx#mappings() abort " {{{ abort

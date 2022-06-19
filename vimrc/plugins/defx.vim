@@ -1,8 +1,3 @@
-augroup netrw_mapping_for_defx
-  autocmd!
-  autocmd FileType netrw call vimrc#defx#netrw_mapping_for_defx()
-augroup END
-
 let [g:defx_width, g:defx_height] = vimrc#float#get_default_size()
 let [g:defx_left, g:defx_top] = vimrc#float#calculate_pos(g:defx_width, g:defx_height)
 let g:defx_sidebar_width = g:left_sidebar_width
