@@ -8,6 +8,7 @@ local my_lspsaga = require("vimrc.plugins.lspsaga")
 local my_goto_preview = require("vimrc.plugins.goto-preview")
 
 local plugin_utils = require("vimrc.plugin_utils")
+local winbar = require("vimrc.winbar")
 
 local lsp = {}
 
@@ -129,6 +130,8 @@ lsp.on_attach = function(client, bufnr)
   -- My plugin configs
   my_lspsaga.on_attach(client)
   my_goto_preview.on_attach(client)
+  -- TODO: Move back to appearance.lua, see appearance.lua for reason
+  vim.wo.winbar = [[%{v:lua.require('vimrc.winbar').winbar()}]]
 
   -- NOTE: Use <C-]> to call 'tagfunc'
   -- nnoremap("<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "silent", "buffer")

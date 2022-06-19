@@ -30,7 +30,11 @@ appearance.startup = function(use)
     "mars90226/winbar",
     config = function()
       -- TODO: Disable winbar in plugin window
-      vim.go.winbar = [[%{v:lua.require('vimrc/winbar').winbar()}]]
+      -- NOTE: Currently, it's not possible to hide winbar based on 'winbar' evaluated result
+      -- Thus, we can only rely on autocmd to enable/disable winbar locally.
+      -- So, we move the winbar enable logic to lsp on_attach.
+      -- Ref: https://github.com/neovim/neovim/issues/18660
+      -- vim.go.winbar = [[%{v:lua.require('vimrc.winbar').winbar()}]]
     end
   })
 
