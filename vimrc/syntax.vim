@@ -24,9 +24,6 @@ if !exists('g:loaded_color')
       execute 'colorscheme '.g:colorscheme
     endif
   endif
-
-  highlight Pmenu ctermfg=187 ctermbg=239
-  highlight PmenuSel ctermbg=95
 endif
 
 " TODO Need to test in Windows
