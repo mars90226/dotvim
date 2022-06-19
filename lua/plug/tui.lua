@@ -104,6 +104,8 @@ tui.startup = function(use)
         vim.cmd([[command! -nargs=* VifmSplit   call vimrc#tui#run('new', 'vifm '.<q-args>)]])
         vim.fn["vimrc#fuzzymenu#try_add"]("Vifm", { exec = "Vifm" })
         vim.fn["vimrc#fuzzymenu#try_add"]("VifmSplit", { exec = "VifmSplit" })
+
+        nnoremap("<Leader>vi", [[:Vifm<CR>]])
       end,
     })
   end
@@ -140,6 +142,8 @@ tui.startup = function(use)
         vim.cmd([[command! -nargs=* XplrSplit     call vimrc#tui#run('new', 'xplr '.<q-args>)]])
         vim.fn["vimrc#fuzzymenu#try_add"]("Xplr", { exec = "Xplr" })
         vim.fn["vimrc#fuzzymenu#try_add"]("XplrSplit", { exec = "XplrSplit" })
+
+        nnoremap("<Leader>xp", [[:Xplr<CR>]])
       end,
     })
   end
