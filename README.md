@@ -1,8 +1,10 @@
 # Vim/Neovim config
 
-Carefully crafted vim/neovim config. After switching to
+Carefully crafted neovim config. After switching to
 [packer.nvim](https://github.com/wbthomason/packer.nvim), future update will
 mostly be neovim-only changes.
+
+Vim specific config is removed, but you can use `vim` branch to access them.
 
 ## Major plugins
 
@@ -32,20 +34,6 @@ mostly be neovim-only changes.
 * [vimwiki](https://github.com/vimwiki/vimwiki) (wiki plugin like orgmode)
 * [vim-localvimrc](https://github.com/embear/vim-localvimrc) (for setup project-local vim config, useful for LSP)
 
-### Vim
-* [vista.vim](https://github.com/liuchengxu/vista.vim) (Display tags in sidebar and support LSP)
-* [fzf](https://github.com/junegunn/fzf) (fuzzy finder for almost everything)
-* [fzf.vim](https://github.com/junegunn/fzf.vim) (used with fzf)
-* [vim-easymotion](https://github.com/easymotion/vim-easymotion) (quickly move cursor to certain place on screen)
-* [auto-pairs](https://github.com/jiangmiao/auto-pairs) (automatically insert paired brackets)
-* [vim-sandwich](https://github.com/machakann/vim-sandwich) (quicly add/delete/replace brackets)
-* [far.vim](https://github.com/brooth/far.vim) (find-and-replace globally)
-* [vim-polyglot](https://github.com/sheerun/vim-polyglot) (syntax files for almost everything filetypes)
-* [vim-fugitive](https://github.com/tpope/vim-fugitive) (almost perfect git wrapper)
-* [gv.vim](https://github.com/junegunn/gv.vim) (git commit browser)
-* [vim-rooter](https://github.com/airblade/vim-rooter) (change working directory to project root)
-* [vimwiki](https://github.com/vimwiki/vimwiki) (wiki plugin like orgmode)
-
 ## Requirements
 
 ### Neovim
@@ -53,9 +41,6 @@ mostly be neovim-only changes.
 * [python](https://www.python.org/) 3.6.1+ (required by denite.nvim, and defx.nvim)
 * [universal-ctags](https://github.com/universal-ctags/ctags) (required by vista.vim)
 * C compiler and libstdc++ (required by nvim-treesitter)
-
-### Vim
-* [universal-ctags](https://github.com/universal-ctags/ctags) (required by vista.vim)
 
 ## Recommands
 
@@ -73,15 +58,6 @@ git clone https://github.com/mars90226/dotvim ~/.config/nvim
 ```
 
 Open neovim and execute `:PackerSync`.
-
-### Vim
-Clone the project as `~/.vim` and symbolic link `~/.vimrc` to `main.vim`.
-```
-git clone https://github.com/mars90226/dotvim ~/.config/nvim
-ln -s ~/.vim/main.vim ~/.vimrc
-```
-
-Open vim and execute `:PlugInstall`.
 
 ## Key mappings
 
