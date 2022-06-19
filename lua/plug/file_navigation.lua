@@ -136,13 +136,6 @@ file_navigation.startup = function(use)
 
   -- Goto Definitions
   use({
-    "liuchengxu/vista.vim",
-    disable = true,
-    config = function()
-      vim.fn["vimrc#source"]("vimrc/plugins/vista.vim")
-    end,
-  })
-  use({
     "pechorin/any-jump.nvim",
     keys = { "<Leader>aj" },
     config = function()

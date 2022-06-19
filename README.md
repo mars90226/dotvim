@@ -11,7 +11,7 @@ Vim specific config is removed, but you can use `vim` branch to access them.
 ### Neovim
 * [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) (fast custom status line written in Lua)
 * [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) (auto completion written in Lua)
-* [vista.vim](https://github.com/liuchengxu/vista.vim) (Display tags in sidebar and support LSP)
+* [symbols-outline.nvim](https://github.com/simrat39/symbols-outline.nvim) (Display symbols in sidebar using LSP)
 * [fzf](https://github.com/junegunn/fzf) (fuzzy finder for almost everything)
 * [fzf.vim](https://github.com/junegunn/fzf.vim) (used with fzf)
 * [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) (fuzzy finder written in Lua and support LSP)
@@ -39,7 +39,7 @@ Vim specific config is removed, but you can use `vim` branch to access them.
 ### Neovim
 * [neovim](https://neovim.io/) 0.5.1+ (required by neovim built-in LSP client)
 * [python](https://www.python.org/) 3.6.1+ (required by denite.nvim, and defx.nvim)
-* [universal-ctags](https://github.com/universal-ctags/ctags) (required by vista.vim)
+* [universal-ctags](https://github.com/universal-ctags/ctags) (required by fzf)
 * C compiler and libstdc++ (required by nvim-treesitter)
 
 ## Recommands
@@ -93,9 +93,8 @@ Open neovim and execute `:PackerSync`.
     * `<Space>p`: Search and open files
     * `<Space>o`: List and goto outline of current buffer (depends on tags)
     * `<Space>do`: Execute vim command and search output
-* Vista key mappings
-    * `<F7>`: Toggle Vista that showing tags or LSP outline in sidebar
-    * `<Space><F7>`: Start Vista finder that goto tags or LSP symbols
+* symbols-outline.nvim key mappings
+    * `<F7>`: Toggle symbols-outline.nvim that showing LSP symbols outline in sidebar
 * LSP key mappings
     * `gd`: Open LSP definition/references UI
     * `gy`: Show signature help
