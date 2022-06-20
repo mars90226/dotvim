@@ -98,8 +98,8 @@ lsp.servers = {
   },
   tsserver = {
     init_options = ts_utils.init_options,
-    on_attach = function(client)
-      lsp.on_attach(client)
+    on_attach = function(client, bufnr)
+      lsp.on_attach(client, bufnr)
 
       ts_utils.setup({})
       ts_utils.setup_client(client)
