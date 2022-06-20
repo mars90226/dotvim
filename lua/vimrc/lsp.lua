@@ -48,13 +48,13 @@ lsp.servers = {
     },
   },
   clangd = {
-    handlers = function()
+    handlers = (function()
       if has_lsp_status then
         return lsp_status.extensions.clangd.setup()
       else
         return {}
       end
-    end,
+    end)(),
     condition = plugin_utils.has_linux_build_env(),
     -- NOTE: Workaround for "warning: multiple different client offset_encodings detected for buffer, this is not supported yet".
     -- Ref: https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428#issuecomment-997226723
@@ -71,13 +71,13 @@ lsp.servers = {
   },
   perlls = {},
   -- pyls_ms = {
-  --   handlers = function()
+  --   handlers = (function()
   --     if has_lsp_status then
   --       return lsp_status.extensions.myls_ms.setup()
   --     else
   --       return {}
   --     end
-  --   end,
+  --   end)(),
   -- },
   -- NOTE: use plugins: pyflakes, pycodestyle, pyls-flake8, pylsp-mypy, python-lsp-black
   pylsp = {},
