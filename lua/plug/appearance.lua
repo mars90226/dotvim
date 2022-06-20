@@ -22,6 +22,9 @@ appearance.startup = function(use)
     commit = "2ac781cae7aedade8def03d48a3a0616dce279ae",
     config = function()
       require("tabby").setup()
+
+      -- NOTE: Sometimes, 'tabline' will become empty due to unknown reason.
+      vim.cmd([[command! FixTabbyTabline set tabline=%!TabbyTabline()]])
     end,
   })
 
