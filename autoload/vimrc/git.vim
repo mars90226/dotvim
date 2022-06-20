@@ -23,6 +23,7 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
 
   if has_visual_shas
     execute 'xnoremap <silent><buffer> <Leader>gt :<C-U>execute "Git diff --pretty=medium --stat ".vimrc#git#expand_commits('.git_visual_shas_fn.')<CR>'
+    execute 'xnoremap <buffer> <Leader>gD :<C-U>Git diff <C-R>=vimrc#git#expand_commits('.git_visual_shas_fn.')<CR> '
   endif
 
   " Fzf
@@ -52,7 +53,7 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
 
     if has_visual_shas
       execute 'xnoremap <buffer> <Leader>dv :<C-U>DiffviewOpen <C-R>=vimrc#git#expand_commits('.git_visual_shas_fn.')<CR><CR>'
-      execute 'xnoremap <buffer> <Leader>dV :<C-U>DiffviewOpen <C-R>=vimrc#git#expand_commits('.git_visual_shas_fn.')<CR>'
+      execute 'xnoremap <buffer> <Leader>dV :<C-U>DiffviewOpen <C-R>=vimrc#git#expand_commits('.git_visual_shas_fn.')<CR> '
     endif
   endif
 
