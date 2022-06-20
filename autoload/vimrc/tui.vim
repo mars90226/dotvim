@@ -1,7 +1,7 @@
 " For TUI support
 let s:shells = [&shell, 'bash', 'zsh', 'fish', 'powershell', 'ash']
 let s:tui_processes = ['htop', 'atop', 'btm', 'broot', 'sr', 'ranger', 'nnn', 'vifm', 'fff', 'lf', 'lazygit', 'gitui', 'bandwhich', 'xplr']
-let s:floaterm_wrappers = ['broot', 'fff', 'fzf', 'lf', 'nnn', 'ranger', 'rg', 'vifm', 'xplr']
+let s:floaterm_wrappers = extend(['broot', 'fff', 'fzf', 'lf', 'nnn', 'ranger', 'rg', 'vifm', 'xplr'], ['vifm_dir'])
 
 function! vimrc#tui#get_shells() abort
   return s:shells
@@ -31,7 +31,7 @@ endfunction
 " 2. Check if command is tui process
 " 3. Check if command is shell
 function! vimrc#tui#is_tui(command) abort
-  if index(s:floaterm_wrappers, a:command) != -1
+  if index(s:floaterm_wrappers, trim(a:command)) != -1
     return v:true
   endif
 

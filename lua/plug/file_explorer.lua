@@ -33,6 +33,8 @@ file_explorer.startup = function(use)
       cnoremap("<C-X>f", [[v:lua.require('vimrc.plugins.neotree').get_current_path('filesystem')]], "expr")
     end,
   })
+
+  use({ "vifm/vifm.vim" })
 end
 
 return file_explorer

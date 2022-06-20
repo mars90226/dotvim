@@ -100,12 +100,18 @@ tui.startup = function(use)
     use_config({
       "mars90226/tui-vifm",
       config = function()
-        vim.cmd([[command! -nargs=* Vifm        call vimrc#tui#run('float', 'vifm '.<q-args>)]])
+        -- NOTE: vifm.vim use :Vifm command
+        vim.cmd([[command! -nargs=* VifmFloat   call vimrc#tui#run('float', 'vifm '.<q-args>)]])
         vim.cmd([[command! -nargs=* VifmSplit   call vimrc#tui#run('new', 'vifm '.<q-args>)]])
-        vim.fn["vimrc#fuzzymenu#try_add"]("Vifm", { exec = "Vifm" })
+        vim.cmd([[command! -nargs=* VifmDirFloat   call vimrc#tui#run('float', 'vifm_dir '.<q-args>)]])
+        vim.cmd([[command! -nargs=* VifmDirSplit   call vimrc#tui#run('new', 'vifm_dir '.<q-args>)]])
+        vim.fn["vimrc#fuzzymenu#try_add"]("VifmFloat", { exec = "VifmFloat" })
         vim.fn["vimrc#fuzzymenu#try_add"]("VifmSplit", { exec = "VifmSplit" })
+        vim.fn["vimrc#fuzzymenu#try_add"]("VifmDirFloat", { exec = "VifmDirFloat" })
+        vim.fn["vimrc#fuzzymenu#try_add"]("VifmDirSplit", { exec = "VifmDirSplit" })
 
-        nnoremap("<Leader>vi", [[:Vifm<CR>]])
+        nnoremap("<Leader>vi", [[:VifmFloat<CR>]])
+        nnoremap("<Leader>vd", [[:VifmDirFloat<CR>]])
       end,
     })
   end
