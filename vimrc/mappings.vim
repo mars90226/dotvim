@@ -185,6 +185,8 @@ inoremap <expr> <C-G><C-I> vimrc#fzf#git#commits_in_commandline(0, [])
 cnoremap <expr> <C-G><C-O> vimrc#fzf#git#commits_in_commandline(1, [])
 inoremap <expr> <C-G><C-O> vimrc#fzf#git#commits_in_commandline(1, [])
 " Fill branches
+cnoremap <expr> <C-X>b     vimrc#git#get_current_branch()
+inoremap <expr> <C-X>b     vimrc#git#get_current_branch()
 cnoremap <expr> <C-G><C-B> vimrc#fzf#git#branches_in_commandline()
 inoremap <expr> <C-G><C-B> vimrc#fzf#git#branches_in_commandline()
 cnoremap <expr> <C-G><C-T> vimrc#fzf#git#tags_in_commandline()

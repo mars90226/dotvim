@@ -92,3 +92,7 @@ function! vimrc#git#expand_commits(commits) abort
 
   return start_commit.'..'.end_commit
 endfunction
+
+function! vimrc#git#get_current_branch() abort
+  return systemlist('git rev-parse --abbrev-ref HEAD')[0]
+endfunction
