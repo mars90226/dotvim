@@ -24,6 +24,19 @@ appearance.startup = function(use)
       require("tabby").setup()
 
       -- NOTE: Sometimes, 'tabline' will become empty due to unknown reason.
+	  -- Error messages:
+      -- || Error detected while processing function
+      -- || TabbyTabline[1]
+      -- || E5108: Error executing lua vim/shared.lua:0: invalid type name: nil
+      -- || stack traceback:
+      -- || 	[C]: in function 'error'
+      -- || 	vim/shared.lua: in function 'validate'
+      -- || 	vim/shared.lua: in function 'tbl_extend'
+      -- || 	.../site/pack/packer/start/tabby.nvim/lua/tabby/element.lua:98: in function 'render_text'
+      -- || 	...ite/pack/packer/start/tabby.nvim/lua/tabby/component.lua:37: in function <...ite/pack/packer/start/tabby.nvim/lua/tabby/component.lua:31>
+      -- || 	vim/shared.lua: in function 'tbl_map'
+      -- || 	.../site/pack/packer/start/tabby.nvim/lua/tabby/tabline.lua:146: in function 'update'
+      -- || 	[string "luaeval()"]:1: in main chunk
       vim.cmd([[command! FixTabbyTabline set tabline=%!TabbyTabline()]])
     end,
   })
