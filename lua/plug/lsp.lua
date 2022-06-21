@@ -373,6 +373,8 @@ lsp.startup = function(use)
           nnoremap("]]", [[<Cmd>AerialNextUp<CR>]], "silent", "buffer")
         end,
       })
+
+      require("telescope").load_extension("aerial")
     end,
   })
 

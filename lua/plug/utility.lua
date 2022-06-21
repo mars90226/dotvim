@@ -496,6 +496,8 @@ utility.startup = function(use)
       require("urlview").setup({
         navigate_method = vim.fn["vimrc#plugin#check#has_ssh_host_client"]() and "client_open_browser" or "system",
       })
+
+      require("telescope").load_extension("urlview")
     end,
   })
 

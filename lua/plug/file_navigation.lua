@@ -16,6 +16,8 @@ file_navigation.startup = function(use)
       require("neoclip").setup({
         enable_persistant_history = true,
       })
+
+      require('telescope').load_extension('neoclip')
     end,
   })
   use({
@@ -82,17 +84,45 @@ file_navigation.startup = function(use)
       require("vimrc.plugins.telescope")
     end,
   })
-  use("nvim-telescope/telescope-file-browser.nvim")
-  use("nvim-telescope/telescope-project.nvim")
-  use("jvgrootveld/telescope-zoxide")
+  use({
+    "nvim-telescope/telescope-file-browser.nvim",
+    config = function()
+      require("telescope").load_extension("file_browser")
+    end
+  })
+  use({
+    "nvim-telescope/telescope-project.nvim",
+    config = function()
+      require("telescope").load_extension("project")
+    end
+  })
+  use({
+    "jvgrootveld/telescope-zoxide",
+    config = function()
+      require("telescope").load_extension("zoxide")
+    end
+  })
   use("sudormrfbin/cheatsheet.nvim")
-  use("nvim-telescope/telescope-media-files.nvim")
-  use("TC72/telescope-tele-tabby.nvim")
+  use({
+    "nvim-telescope/telescope-media-files.nvim",
+    config = function()
+      require("telescope").load_extension("media_files")
+    end
+  })
+  use({
+    "TC72/telescope-tele-tabby.nvim",
+    config = function()
+      require("telescope").load_extension("tele_tabby")
+    end
+  })
 
   if plugin_utils.is_enabled_plugin("telescope-fzf-native.nvim") then
     use({
       "nvim-telescope/telescope-fzf-native.nvim",
       run = "make",
+      config = function()
+        require("telescope").load_extension("fzf")
+      end
     })
   end
 
@@ -110,6 +140,8 @@ file_navigation.startup = function(use)
     "ThePrimeagen/harpoon",
     config = function()
       require("harpoon").setup({})
+
+      require("telescope").load_extension("harpoon")
 
       nnoremap("<Leader>hm", [[<Cmd>lua require("harpoon.mark").add_file()<CR>]])
       nnoremap("<Leader>hd", [[<Cmd>lua require("harpoon.mark").rm_file()<CR>]])
