@@ -69,7 +69,7 @@ lsp.servers = {
   gopls = {
     condition = plugin_utils.has_linux_build_env(),
   },
-  perlls = {},
+  perlnavigator = {},
   -- pyls_ms = {
   --   handlers = (function()
   --     if has_lsp_status then
