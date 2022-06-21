@@ -9,6 +9,7 @@ file_navigation.startup = function(use)
     "Shougo/neomru.vim",
     config = function()
       vim.g["neomru#do_validate"] = 0
+      vim.g["neomru#update_interval"] = 60 -- NOTE: 60 seconds
     end,
   })
   use("Shougo/neoyank.vim")
