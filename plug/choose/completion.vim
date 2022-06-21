@@ -27,6 +27,6 @@ if has('nvim-0.8') && vimrc#plugin#is_enabled_plugin('nvim-lsp')
 endif
 
 " Context in statusbar
-if vimrc#plugin#disable_plugin('nvim-lsp') || vimrc#plugin#is_enabled_plugin('nvim-navic')
+if vimrc#plugin#is_disabled_plugin('nvim-lsp') || vimrc#plugin#is_enabled_plugin('nvim-navic')
   call vimrc#plugin#disable_plugin('lsp-status')
 endif
