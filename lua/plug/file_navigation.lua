@@ -5,7 +5,12 @@ local file_navigation = {}
 file_navigation.startup = function(use)
   -- Sources
   -- TODO: Raise neomru limit
-  use("Shougo/neomru.vim")
+  use({
+    "Shougo/neomru.vim",
+    config = function()
+      vim.g["neomru#do_validate"] = 0
+    end,
+  })
   use("Shougo/neoyank.vim")
   -- Yank
   use({
@@ -17,7 +22,7 @@ file_navigation.startup = function(use)
         enable_persistant_history = true,
       })
 
-      require('telescope').load_extension('neoclip')
+      require("telescope").load_extension("neoclip")
     end,
   })
   use({
@@ -88,32 +93,32 @@ file_navigation.startup = function(use)
     "nvim-telescope/telescope-file-browser.nvim",
     config = function()
       require("telescope").load_extension("file_browser")
-    end
+    end,
   })
   use({
     "nvim-telescope/telescope-project.nvim",
     config = function()
       require("telescope").load_extension("project")
-    end
+    end,
   })
   use({
     "jvgrootveld/telescope-zoxide",
     config = function()
       require("telescope").load_extension("zoxide")
-    end
+    end,
   })
   use("sudormrfbin/cheatsheet.nvim")
   use({
     "nvim-telescope/telescope-media-files.nvim",
     config = function()
       require("telescope").load_extension("media_files")
-    end
+    end,
   })
   use({
     "TC72/telescope-tele-tabby.nvim",
     config = function()
       require("telescope").load_extension("tele_tabby")
-    end
+    end,
   })
 
   if plugin_utils.is_enabled_plugin("telescope-fzf-native.nvim") then
@@ -122,7 +127,7 @@ file_navigation.startup = function(use)
       run = "make",
       config = function()
         require("telescope").load_extension("fzf")
-      end
+      end,
     })
   end
 
