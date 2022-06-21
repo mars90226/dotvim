@@ -238,11 +238,7 @@ require("nvim-treesitter.configs").setup({
 -- nvim-treesitter-context
 local context_default_enable = not plugin_utils.is_enabled_plugin("nvim-navic")
 require("treesitter-context").setup({
-  enable = utils.ternary(
-    context_default_enable,
-    current_buffer_base_highlight_disable_check(),
-    false
-  ), -- Enable this plugin (Can be enabled/disabled later via commands)
+  enable = utils.ternary(context_default_enable, current_buffer_base_highlight_disable_check(), false), -- Enable this plugin (Can be enabled/disabled later via commands)
 })
 
 local ts_highlight_check_augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_highlight_check", {})
@@ -274,26 +270,57 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 
 -- Settings
 -- TODO: Monitor performance of it
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = [[nvim_treesitter#foldexpr()]]
-vim.o.foldlevel = 99 -- Default expand all fold
+-- Disabled for now, use toggle to open
+local ts_fold = {}
 
-local fold_augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_fold", {})
+ts_fold.enable = false
+
+ts_fold.enable_fold = function()
+  vim.o.foldmethod = "expr"
+  vim.o.foldexpr = [[nvim_treesitter#foldexpr()]]
+  vim.o.foldlevel = 99 -- Default expand all fold
+end
+ts_fold.disable_fold = function()
+  vim.o.foldmethod = "manual"
+  vim.o.foldexpr = "0"
+end
+ts_fold.toggle_fold = function()
+  ts_fold.enable = not ts_fold.enable
+
+  if ts_fold.enable then
+    ts_fold.enable_fold()
+  else
+    ts_fold.disable_fold()
+  end
+end
+nnoremap("<F10>", function()
+  ts_fold.toggle_fold()
+end)
+
+-- Fast fold, disable fold in insert mode
+-- TODO: Move to separate file, or use FastFold plugin
+local fast_fold = {}
+local fast_fold_augroup_id = vim.api.nvim_create_augroup("fast_fold_settings", {})
 vim.api.nvim_create_autocmd({ "InsertEnter" }, {
-  group = fold_augroup_id,
+  group = fast_fold_augroup_id,
   pattern = "*",
   callback = function()
+    fast_fold.origin_foldmethod = vim.o.foldmethod
+    fast_fold.origin_foldexpr = vim.o.foldexpr
+
     vim.o.foldmethod = "manual"
     vim.o.foldexpr = "0"
   end,
 })
 vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-  group = fold_augroup_id,
+  group = fast_fold_augroup_id,
   pattern = "*",
   callback = function()
-    vim.o.foldmethod = "expr"
-    vim.o.foldexpr = [[nvim_treesitter#foldexpr()]]
-    vim.o.foldlevel = 99 -- Default expand all fold
+    local foldmethod = fast_fold.origin_foldmethod or "manual"
+    local foldexpr = fast_fold.origin_foldexpr or "0"
+
+    vim.o.foldmethod = foldmethod
+    vim.o.foldexpr = foldexpr
   end,
 })
 
