@@ -11,6 +11,7 @@ completion.setup_mapping = function()
   inoremap("<PageUp>", [[pumvisible() ? "\<PageUp>\<C-P>\<C-N>" : "\<PageUp>"]], "expr")
   inoremap("<Tab>", [[pumvisible() ? "\<C-N>" : "\<Tab>"]], "expr")
   inoremap("<S-Tab>", [[pumvisible() ? "\<C-P>" : "\<S-Tab>"]], "expr")
+  inoremap("<M-K>", [[<C-K>]])
 
   -- mapping for decrease number
   nnoremap("<C-X><C-X>", "<C-X>")
