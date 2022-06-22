@@ -30,19 +30,6 @@ endfunction
 
 " Set nvim version
 if has('nvim')
-  function! vimrc#plugin#check#nvim_version() abort
-    if exists('g:nvim_version')
-      return g:nvim_version
-    endif
-
-    let g:nvim_version = split(execute('version'), "\n")[0]
-    return g:nvim_version
-  endfunction
-
-  function! vimrc#plugin#check#nvim_patch_version() abort
-    return matchlist(vimrc#plugin#check#nvim_version(), '\v^NVIM v\d+\.\d+\.\d+-%(dev\+)?(\d+)')[1]
-  endfunction
-
   " Check if $NVIM_TERMINAL is set or parent process is nvim
   function! vimrc#plugin#check#nvim_terminal() abort
     if exists('g:nvim_terminal')
