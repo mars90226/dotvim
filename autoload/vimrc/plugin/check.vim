@@ -61,10 +61,6 @@ if has('nvim')
   endfunction
 endif
 
-function! vimrc#plugin#check#has_floating_window() abort
-  return exists('*nvim_win_set_config')
-endfunction
-
 " return empty string when no python support found
 function! vimrc#plugin#check#python_version(...) abort
   let force = (a:0 >= 1 && type(a:1) == type(v:true)) ? a:1 : v:false
@@ -80,15 +76,6 @@ function! vimrc#plugin#check#python_version(...) abort
   endif
 
   return g:python_version
-endfunction
-
-" check if current vim/neovim has async function
-function! vimrc#plugin#check#has_async() abort
-  return v:version >= 800 || has('nvim')
-endfunction
-
-function! vimrc#plugin#check#has_rpc() abort
-  return has('nvim')
 endfunction
 
 function! vimrc#plugin#check#has_linux_build_env() abort
@@ -119,17 +106,4 @@ endfunction
 
 function! vimrc#plugin#check#has_ssh_host_client() abort
   return !empty($SSH_CLIENT_HOST)
-endfunction
-
-let s:clang_dir_prefix = '/usr/lib/llvm-'
-function! vimrc#plugin#check#detect_clang_dir(subpath) abort
-  let clang_versions = map(glob(s:clang_dir_prefix.'*', v:false, v:true),
-        \ { _, path -> matchstr(path, s:clang_dir_prefix.'\zs.*') } )
-
-  if empty(clang_versions)
-    return ''
-  endif
-
-  let newest_clang_version = sort(clang_versions, 'N')[-1]
-  return s:clang_dir_prefix.newest_clang_version.a:subpath
 endfunction

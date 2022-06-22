@@ -23,27 +23,6 @@ function! vimrc#terminal#mappings() abort
   call vimrc#search#define_search_mappings()
 endfunction
 
-function! vimrc#terminal#meta_key_fix() abort
-  set <M-a>=a
-  set <M-c>=c
-  set <M-h>=h
-  set <M-g>=g
-  set <M-j>=j
-  set <M-k>=k
-  set <M-l>=l
-  set <M-n>=n
-  set <M-o>=o
-  set <M-p>=p
-  set <M-s>=s
-  set <M-t>=t
-  set <M-/>=/
-  set <M-?>=?
-  set <M-]>=]
-  set <M-`>=`
-  set <M-1>=1
-  set <M-S-o>=O
-endfunction
-
 " Utilities
 function! vimrc#terminal#open(split, folder, cmd) abort
   let split = empty(a:split) ? 'edit' : a:split

@@ -32,12 +32,6 @@ endfunction
 " Utilities {{{
 " Asynchronously browse internal
 function! vimrc#browser#async_execute(command) abort
-  " Currently only support neovim
-  if !vimrc#plugin#check#has_rpc()
-    echoerr 'This version of vim does not have RPC!'
-    return
-  endif
-
   call jobstart(a:command, {})
 endfunction
 

@@ -1,35 +1,3 @@
-" xterm-256 in Windows {{{
-if !has('nvim') && !has('gui_running') && vimrc#plugin#check#get_os() =~# 'windows'
-  set term=xterm
-  set mouse=a
-  set t_Co=256
-  let &t_AB = "\e[48;5;%dm"
-  let &t_AF = "\e[38;5;%dm"
-  execute 'colorscheme '.g:colorscheme
-  highlight Pmenu ctermfg=187 ctermbg=239
-  highlight PmenuSel ctermbg=95
-endif
-" }}}
-
-" Pair up with 'set winaltkeys=no' in ginit.vim
-" Fix meta key in vim
-" terminal meta key fix {{{
-if !has('nvim') && !has('gui_running') && vimrc#plugin#check#get_os() !~# 'windows'
-  " TODO Check if the "windows" condition is wrong
-  if vimrc#plugin#check#get_os() =~# 'windows'
-    " Windows Terminal keycode will change after startup
-    " Maybe it's related to ConEmu
-    " This fix will not work after reload .vimrc/_vimrc/init.vim
-    augroup windows_terminal_key_fix
-      autocmd!
-      autocmd VimEnter * call vimrc#terminal#meta_key_fix()
-    augroup END
-  else
-    call vimrc#terminal#meta_key_fix()
-  endif
-endif
-" }}}
-
 " neovim terminal key mapping and settings
 if has('nvim')
   " Set terminal buffer size to unlimited

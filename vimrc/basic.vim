@@ -2,16 +2,9 @@
 let g:mapleader = ','
 let g:maplocalleader = '\'
 
-" Language
-" Always use English to avoid plugin not catching exception due to translation
-" E.g. vim-subversive tries to catch 'Unknown Exception'
-if !has('nvim')
-  " neovim current seems not using system locale
-  language C
-endif
-
 " Change Menu language
 " This should happen before loading plugins to avoid deleting plugins' menus
+" TODO: Check if neovim don't need this
 if has('gui')
   if &langmenu !=# 'en_US.UTF-8'
     set langmenu=en_US.UTF-8

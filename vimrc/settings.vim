@@ -113,12 +113,7 @@ else
 endif
 
 " Persistent Undo
-if has('persistent_undo')
-  set undofile
-  if !has('nvim')
-    set undodir^=~/.vimtmp
-  endif
-endif
+set undofile
 
 " session options
 set sessionoptions-=options
@@ -127,10 +122,6 @@ set sessionoptions-=blank
 
 " misc
 set shellslash
-
-if !has('nvim')
-  set t_Co=256
-endif
 
 " Fold
 set foldtext=vimrc#fold#neat_fold_text()
