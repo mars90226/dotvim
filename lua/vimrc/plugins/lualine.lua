@@ -78,5 +78,13 @@ require("lualine").setup({
 
   -- barbar.nvim, luatab.nvim, tabby.nvim
   tabline = {},
-  extensions = { "fugitive", "fzf", "quickfix" },
+  extensions = {
+    "aerial",
+    "fugitive",
+    "fzf",
+    "man",
+    "neo-tree",
+    "quickfix",
+    "symbols-outline",
+  },
 })
