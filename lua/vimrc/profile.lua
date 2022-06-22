@@ -1,4 +1,4 @@
-local plenary_profile = require("plenary.profile")
+local has_plenary_profile, plenary_profile = pcall(require, "plenary.profile")
 
 local profile = {}
 
@@ -18,11 +18,19 @@ profile.stop_vim_profile = function()
 end
 
 profile.start_plenary_profile = function()
-  plenary_profile.start("/tmp/output_flame.log", { flame = true })
+  if has_plenary_profile then
+    plenary_profile.start("/tmp/output_flame.log", { flame = true })
+  else
+    vim.notify("plenary.profile does not exist!", vim.log.levels.ERROR)
+  end
 end
 
 profile.stop_plenary_profile = function()
-  plenary_profile.stop()
+  if has_plenary_profile then
+    plenary_profile.stop()
+  else
+    vim.notify("plenary.profile does not exist!", vim.log.levels.ERROR)
+  end
 end
 
 profile.setup = function(opts)
