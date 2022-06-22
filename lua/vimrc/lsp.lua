@@ -141,7 +141,15 @@ lsp.on_attach = function(client, bufnr)
   nnoremap("g0", "<Cmd>lua vim.lsp.buf.document_symbol()<CR>", "silent", "buffer")
   nnoremap("<Space>lf", "<Cmd>lua vim.lsp.buf.formatting()<CR>", "silent", "buffer")
   xnoremap("<Space>lf", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", "silent", "buffer")
-  nnoremap("<Space>lI", "<Cmd>LspInfo<CR>", "silent", "buffer")
+  nnoremap("<Space>lI", function()
+    if vim.fn.exists(":LspInfo") == 2 then
+      vim.cmd([[LspInfo]])
+    elseif vim.fn.exists(":Lsp") == 2 then
+      vim.cmd([[Lsp info]])
+    else
+      vim.notify("No LSP info!", vim.log.levels.ERROR)
+    end
+  end, "silent", "buffer")
   nnoremap("yof", [[<Cmd>lua require("vimrc.lsp").toggle_format_on_sync()<CR>]], "silent", "buffer")
   nnoremap("yoo", [[<Cmd>lua require("vimrc.lsp").toggle_show_diagnostics()<CR>]], "silent", "buffer")
 
