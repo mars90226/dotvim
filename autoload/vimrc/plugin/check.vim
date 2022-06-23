@@ -28,38 +28,35 @@ function! vimrc#plugin#check#get_distro(...) abort
   return g:distro
 endfunction
 
-" Set nvim version
-if has('nvim')
-  " Check if $NVIM_TERMINAL is set or parent process is nvim
-  function! vimrc#plugin#check#nvim_terminal() abort
-    if exists('g:nvim_terminal')
-      return g:nvim_terminal
-    endif
-
-    " Check bash environment variable in neovim terminal
-    if $NVIM_TERMINAL ==# 'yes'
-      let g:nvim_terminal = 'yes'
-      return g:nvim_terminal
-    endif
-
-    if vimrc#plugin#check#get_os() =~# 'windows'
-      " FIXME: Implement parent process check in Windows
-      let g:nvim_terminal = 'no'
-      return g:nvim_terminal
-    endif
-
-    " Use /proc to get parent process info
-    let parent_pid = split(readfile('/proc/'.getpid().'/stat')[0])[3]
-    let parent_cmdline = readfile('/proc/'.parent_pid.'/cmdline')[0]
-    if parent_cmdline =~# 'nvim'
-      let g:nvim_terminal = 'yes'
-    else
-      let g:nvim_terminal = 'no'
-    endif
-
+" Check if $NVIM_TERMINAL is set or parent process is nvim
+function! vimrc#plugin#check#nvim_terminal() abort
+  if exists('g:nvim_terminal')
     return g:nvim_terminal
-  endfunction
-endif
+  endif
+
+  " Check bash environment variable in neovim terminal
+  if $NVIM_TERMINAL ==# 'yes'
+    let g:nvim_terminal = 'yes'
+    return g:nvim_terminal
+  endif
+
+  if vimrc#plugin#check#get_os() =~# 'windows'
+    " FIXME: Implement parent process check in Windows
+    let g:nvim_terminal = 'no'
+    return g:nvim_terminal
+  endif
+
+  " Use /proc to get parent process info
+  let parent_pid = split(readfile('/proc/'.getpid().'/stat')[0])[3]
+  let parent_cmdline = readfile('/proc/'.parent_pid.'/cmdline')[0]
+  if parent_cmdline =~# 'nvim'
+    let g:nvim_terminal = 'yes'
+  else
+    let g:nvim_terminal = 'no'
+  endif
+
+  return g:nvim_terminal
+endfunction
 
 " return empty string when no python support found
 function! vimrc#plugin#check#python_version(...) abort

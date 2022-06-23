@@ -6,10 +6,8 @@ let s:current_filename = expand('<sfile>')
 function! vimrc#reload#reload() abort
   " Reload in floating window to avoid affecting current buffer & window
   " settings
-  if has('nvim-0.4.4')
-    let [width, height] = vimrc#float#get_default_size()
-    call vimrc#float#open(-1, width, height)
-  endif
+  let [width, height] = vimrc#float#get_default_size()
+  call vimrc#float#open(-1, width, height)
 
   " Reload autoload
   call vimrc#reload#recurive_reload(vimrc#get_vimhome() . '/autoload')
@@ -27,9 +25,7 @@ function! vimrc#reload#reload() abort
   call vimrc#reload#recurive_reload(vimrc#get_vimhome() . '/after/plugin')
 
   " Close floating window
-  if has('nvim-0.4.4')
-    close
-  endif
+  close
 
   " Source $MYVIMRC will reset editorconfig to default config, so reload
   " editorconfig

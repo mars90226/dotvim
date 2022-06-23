@@ -49,27 +49,17 @@ set ruler " show the cursor position all the time
 
 set scrolloff=0
 
-set diffopt=internal,filler,vertical,closeoff,algorithm:histogram
-if has('patch-8.0.1361')
-  set diffopt+=hiddenoff
-endif
+set diffopt=internal,filler,vertical,closeoff,algorithm:histogram,hiddenoff
 
 " completion menu
 set pumheight=40
-if exists('&pumblend')
-  set pumblend=0
-endif
+set pumblend=0
 
 " ignore pattern for wildmenu
 set wildmenu
 set wildignore+=*.a,*.o,*.pyc,*~,*.swp,*.tmp
-if has('nvim-0.4.2')
-  set wildmode=full
-  silent! set wildoptions+=pum
-else
-  set wildmode=list:longest,full
-endif
-set wildoptions+=tagfile
+set wildmode=full
+set wildoptions=pum,tagfile
 
 " fillchars
 set fillchars=diff:⣿,fold:-,vert:│
@@ -86,31 +76,19 @@ set laststatus=2
 set showcmd
 
 " no distraction
-if has('balloon_eval')
-  set noballooneval
-endif
 set belloff=all
 
 " Backup
 " neovim has default folders for backup, undo, swap files
 " Only move temporary files in vanilla vim
 " TODO Use original backupdir and use other backupdir in Windows
-if has('nvim')
-  let g:backupdir = $HOME.'/.local/share/nvim/backup'
-else
-  let g:backupdir = $HOME.'/.vimtmp'
-endif
+let g:backupdir = $HOME.'/.local/share/nvim/backup'
 if !isdirectory(g:backupdir)
   call mkdir(g:backupdir, 'p')
 endif
 
 set backup " keep a backup file (restore to previous version)
-if has('nvim')
-  let &backupdir = g:backupdir.',.'
-else
-  execute 'set backupdir^='.g:backupdir
-  set directory^=~/.vimtmp
-endif
+let &backupdir = g:backupdir.',.'
 
 " Persistent Undo
 set undofile

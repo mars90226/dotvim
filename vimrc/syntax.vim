@@ -27,11 +27,8 @@ if !exists('g:loaded_color')
 endif
 
 " TODO Need to test in Windows
-if has('nvim-0.1.5')
-  set termguicolors
-
-  highlight default link NormalFloat Pmenu
-endif
+set termguicolors
+highlight default link NormalFloat Pmenu
 
 " highlighting strings inside C comments.
 let c_comment_strings = 1

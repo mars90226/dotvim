@@ -272,11 +272,9 @@ snoremap <M-c> <C-O>c
 " Man
 " :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
 " TODO Move this to 'after' folder
-if has('nvim-0.4.4')
-  " TODO Detect goyo mode and use normal :Man
-  nnoremap <Leader><F1> :Man<Space>
-  nnoremap <Leader><F2> :VimrcFloatNew! Man<Space>
-endif
+" TODO Detect goyo mode and use normal :Man
+nnoremap <Leader><F1> :Man<Space>
+nnoremap <Leader><F2> :VimrcFloatNew! Man<Space>
 
 " Quickfix & Locaiton List {{{
 augroup quickfix_settings

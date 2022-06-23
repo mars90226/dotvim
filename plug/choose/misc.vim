@@ -7,7 +7,7 @@ if !exists('##TextYankPost')
 endif
 
 " Disable vim-gutentags when in nested neovim
-if has('nvim') && vimrc#plugin#check#nvim_terminal() ==# 'yes'
+if vimrc#plugin#check#nvim_terminal() ==# 'yes'
   call vimrc#plugin#disable_plugin('vim-gutentags')
 endif
 

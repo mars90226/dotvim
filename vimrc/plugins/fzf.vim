@@ -18,16 +18,7 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-if has('nvim')
-  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
-else
-  " Borrowed from fzf
-  if has('terminal') && has('patch-8.0.995')
-    let g:fzf_layout = { 'window': 'belowright '.float2nr(&lines * 0.4).'new' }
-  else
-    let g:fzf_layout = { 'down': '~40%' }
-  endif
-endif
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 let g:fzf_tmux_layout = { 'tmux': '-p 90%,80%' }
 
 let g:fzf_history_dir = $HOME.'/.local/share/fzf-history'
@@ -36,11 +27,9 @@ let g:misc_fzf_action = {
       \ 'ctrl-q': function('vimrc#fzf#build_quickfix_list'),
       \ 'alt-c':  function('vimrc#fzf#copy_results'),
       \ 'alt-e':  'cd',
+      \ 'alt-t': function('vimrc#fzf#open_terminal'),
       \ 'f4':     'diffsplit',
       \ }
-if has('nvim')
-  let g:misc_fzf_action['alt-t'] = function('vimrc#fzf#open_terminal')
-endif
 let g:default_fzf_action = vimrc#fzf#wrap_actions_for_trigger(extend({
       \ 'ctrl-t': 'tab split',
       \ 'ctrl-s': 'split',
@@ -199,19 +188,12 @@ command! FixmesInDisk RgWithOption :-w:FIXME
 " LastTabs
 command! LastTabs call vimrc#fzf#last_tab#last_tabs()
 
-if has('nvim')
-  augroup fzf_statusline
-    autocmd!
-    autocmd User FzfStatusLine call vimrc#fzf#statusline()
-  augroup END
-
-  " Tags
-  " Too bad fzf cannot toggle case sensitive interactively
-  command! -bang -nargs=* ProjectTags              call vimrc#fzf#tag#project_tags(<q-args>, <bang>0)
-  command! -bang -nargs=* BTagsCaseSentitive       call fzf#vim#buffer_tags(<q-args>, vimrc#fzf#preview#buffer_tags_options({ 'options': ['+i'] }), <bang>0)
-  command! -bang -nargs=* TagsCaseSentitive        call fzf#vim#tags(<q-args>,               { 'options': ['+i'] }, <bang>0)
-  command! -bang -nargs=* ProjectTagsCaseSentitive call vimrc#fzf#tag#project_tags(<q-args>, { 'options': ['+i'] }, <bang>0)
-endif
+" Tags
+" Too bad fzf cannot toggle case sensitive interactively
+command! -bang -nargs=* ProjectTags              call vimrc#fzf#tag#project_tags(<q-args>, <bang>0)
+command! -bang -nargs=* BTagsCaseSentitive       call fzf#vim#buffer_tags(<q-args>, vimrc#fzf#preview#buffer_tags_options({ 'options': ['+i'] }), <bang>0)
+command! -bang -nargs=* TagsCaseSentitive        call fzf#vim#tags(<q-args>,               { 'options': ['+i'] }, <bang>0)
+command! -bang -nargs=* ProjectTagsCaseSentitive call vimrc#fzf#tag#project_tags(<q-args>, { 'options': ['+i'] }, <bang>0)
 
 if vimrc#plugin#is_enabled_plugin('defx.nvim')
   command! -bang -nargs=? -complete=dir Files        call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#files(<q-args>, <bang>0) })
@@ -352,6 +334,12 @@ if vimrc#plugin#is_enabled_plugin('vim-floaterm')
   nnoremap <Space><M-2> :call vimrc#execute_and_save('Floaterms')<CR>
 endif
 
+" ProjectTags
+nnoremap <Space>fp   :call      vimrc#execute_and_save('ProjectTags')<CR>
+nnoremap <Space>sp   :call      vimrc#execute_and_save('ProjectTagsCaseSentitive')<CR>
+nnoremap <Space>fP   :call      vimrc#execute_and_save("ProjectTags '" . expand('<cword>'))<CR>
+xnoremap <Space>fP   :<C-U>call vimrc#execute_and_save("ProjectTags '" . vimrc#utility#get_visual_selection())<CR>
+
 " fzf & cscope key mappings {{{
 let s:fzf_cscope_prefix = '\c'
 execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'s :call vimrc#fzf#cscope#cscope("0", expand("<cword>"))<CR>'
@@ -385,9 +373,7 @@ execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'I :call vimrc#fzf#cscope#cscop
 execute 'nnoremap <silent> '.s:fzf_cscope_prefix.'A :call vimrc#fzf#cscope#cscope_query("9")<CR>'
 " }}}
 
-if has('nvim')
-  nnoremap <Space>fp   :call      vimrc#execute_and_save('ProjectTags')<CR>
-  nnoremap <Space>sp   :call      vimrc#execute_and_save('ProjectTagsCaseSentitive')<CR>
-  nnoremap <Space>fP   :call      vimrc#execute_and_save("ProjectTags '" . expand('<cword>'))<CR>
-  xnoremap <Space>fP   :<C-U>call vimrc#execute_and_save("ProjectTags '" . vimrc#utility#get_visual_selection())<CR>
-endif
+augroup fzf_statusline
+  autocmd!
+  autocmd User FzfStatusLine call vimrc#fzf#statusline()
+augroup END

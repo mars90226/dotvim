@@ -28,15 +28,13 @@ if has('nvim-0.5')
 end
 
 " Choose markdown-preview plugin
-" vim-markdown-composer, markdown-preview.nvim, markdown-preview.vim
+" vim-markdown-composer, markdown-preview.nvim
 " TODO: Check if which plugin works
-call vimrc#plugin#disable_plugins(['vim-markdown-composer', 'markdown-preview.nvim', 'markdown-preview.vim'])
+call vimrc#plugin#disable_plugins(['vim-markdown-composer', 'markdown-preview.nvim'])
 if vimrc#plugin#check#has_cargo()
   call vimrc#plugin#enable_plugin('vim-markdown-composer')
-elseif has('nvim')
-  call vimrc#plugin#enable_plugin('markdown-preview.nvim')
 else
-  call vimrc#plugin#enable_plugin('markdown-preview.vim')
+  call vimrc#plugin#enable_plugin('markdown-preview.nvim')
 endif
 
 " Enable language documentation generation

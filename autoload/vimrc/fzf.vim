@@ -1,9 +1,5 @@
 " Variables
-if has('nvim')
-  let s:fzf_default_options = { 'options': ['--layout', 'reverse', '--inline-info'] }
-else
-  let s:fzf_default_options = { 'options': ['--layout', 'default', '--inline-info'] }
-endif
+let s:fzf_default_options = { 'options': ['--layout', 'reverse', '--inline-info'] }
 
 function! vimrc#fzf#get_default_options() abort
   return s:fzf_default_options
@@ -391,7 +387,7 @@ function! vimrc#fzf#helptag_sink(lines) abort
     let &runtimepath += s:escape(rtp)
   endif
 
-  if has('nvim') && use_float
+  if use_float
     execute 'VimrcFloatNew! help' tag
   else
     execute 'help' tag
