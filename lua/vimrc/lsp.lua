@@ -165,6 +165,8 @@ lsp.on_attach = function(client, bufnr)
     vim.cmd([[augroup END]])
   end
 
+  -- TODO: Fix the 'signcolumn' of not-current window to avoid window layout kept being changed
+
   vim.cmd([[ do User LspAttachBuffers ]])
 end
 
