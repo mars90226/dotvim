@@ -22,9 +22,27 @@ file_explorer.startup = function(use)
     config = function()
       vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
+      require("neo-tree").setup({
+        window = {
+          mappings = {
+            ["z"] = function(_) end, -- Do nothing
+            ["zr"] = "close_all_nodes",
+            ["zz"] = function(_)
+              vim.cmd([[normal! zz]])
+            end,
+            ["zt"] = function(_)
+              vim.cmd([[normal! zt]])
+            end,
+            ["zb"] = function(_)
+              vim.cmd([[normal! zb]])
+            end,
+          },
+        },
+      })
+
       nnoremap("<Space>nn", [[<Cmd>Neotree left<CR>]])
       nnoremap("<Space>nf", [[<Cmd>Neotree float<CR>]])
-      nnoremap("<Space>n<Space>", [[<Cmd>Neotree toggle reveal_force_cwd<CR>]])
+      nnoremap("<Space>n<Space>", [[<Cmd>Neotree reveal_force_cwd<CR>]])
       nnoremap("<Space>nd", [["<Cmd>Neotree float reveal_file=".expand("<cfile>")." reveal_force_cwd<CR>"]], "expr")
       nnoremap("<Space>nb", [[<Cmd>Neotree toggle show buffers right<CR>]])
       nnoremap("<Space>ns", [[<Cmd>Neotree float git_status<CR>]])
