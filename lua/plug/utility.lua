@@ -343,14 +343,6 @@ utility.startup = function(use)
 
   use("tyru/open-browser.vim")
 
-  use({
-    "glacambre/firenvim",
-    disable = true,
-    run = function()
-      vim.fn["firenvim#install"](0)
-    end,
-  })
-
   -- Colorizer
   use({
     "norcalli/nvim-colorizer.lua",
@@ -388,18 +380,8 @@ utility.startup = function(use)
     end,
   })
 
-  -- FIXME: Show error when using execute() with :GFiles -co --exclude-standard in Defx
-  use({ "winston0410/cmd-parser.nvim", disable = true })
-  use({
-    "winston0410/range-highlight.nvim",
-    disable = true,
-    require = { "winston0410/cmd-parser.nvim" },
-    config = function()
-      require("range-highlight").setup({})
-    end,
-  })
-
   -- FIXME: Make fugitive commit move to wrong window
+  -- Ref: https://github.com/luukvbaal/stabilize.nvim/issues/6#issuecomment-966684804
   use({
     "luukvbaal/stabilize.nvim",
     disable = true,

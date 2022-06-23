@@ -21,36 +21,6 @@ text_navigation.startup = function(use)
 
   -- Jump
   use({
-    "easymotion/vim-easymotion",
-    disable = true,
-    event = { "FocusLost", "CursorHold", "CursorHoldI" },
-    setup = function()
-      vim.g.EasyMotion_leader_key = "<Space>"
-      vim.g.EasyMotion_smartcase = 1
-    end,
-    config = function()
-      map([[\w]], "<Plug>(easymotion-bd-wl)")
-      map([[\f]], "<Plug>(easymotion-bd-fl)")
-      map([[\s]], "<Plug>(easymotion-sl2)")
-
-      map("<Space><Space>t", "<Plug>(easymotion-bd-t)")
-      map("<Plug>(easymotion-prefix)s", "<Plug>(easymotion-bd-f2)")
-      map("<Plug>(easymotion-prefix)w", "<Plug>(easymotion-bd-w)")
-      map("<Plug>(easymotion-prefix)W", "<Plug>(easymotion-bd-W)")
-      map("<Plug>(easymotion-prefix)e", "<Plug>(easymotion-bd-e)")
-      map("<Plug>(easymotion-prefix)E", "<Plug>(easymotion-bd-E)")
-
-      nmap("<Leader>'", "<Plug>(easymotion-next)")
-      nmap("<Leader>;", "<Plug>(easymotion-prev)")
-      nmap("<Leader>.", "<Plug>(easymotion-repeat)")
-
-      map("<Plug>(easymotion-prefix)J", "<Plug>(easymotion-eol-j)")
-      map("<Plug>(easymotion-prefix)K", "<Plug>(easymotion-eol-k)")
-
-      map("<Plug>(easymotion-prefix);", "<Plug>(easymotion-jumptoanywhere)")
-    end,
-  })
-  use({
     "phaazon/hop.nvim",
     config = function()
       map("<Space>w", "<Cmd>HopWord<CR>")

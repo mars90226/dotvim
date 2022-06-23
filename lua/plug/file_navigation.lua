@@ -15,18 +15,6 @@ file_navigation.startup = function(use)
   use("Shougo/neoyank.vim")
   -- Yank
   use({
-    "AckslD/nvim-neoclip.lua",
-    disable = true,
-    requires = { "tami5/sqlite.lua", module = "sqlite" },
-    config = function()
-      require("neoclip").setup({
-        enable_persistant_history = true,
-      })
-
-      require("telescope").load_extension("neoclip")
-    end,
-  })
-  use({
     "gbprod/yanky.nvim",
     -- TODO: Only lazy load in WSL
     event = { "FocusLost", "CursorHold", "CursorHoldI" },

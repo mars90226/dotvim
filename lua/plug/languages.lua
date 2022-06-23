@@ -4,14 +4,6 @@ local languages = {}
 
 languages.startup = function(use)
   -- filetype
-  use({
-    "sheerun/vim-polyglot",
-    disable = true,
-    setup = function()
-      -- Avoid conflict with vim-go, must after vim-go loaded
-      vim.g.polyglot_disabled = { "go" }
-    end,
-  })
   use({ "rust-lang/rust.vim", ft = { "rust" } })
   use({ "leafo/moonscript-vim", ft = { "moon" } })
   use({

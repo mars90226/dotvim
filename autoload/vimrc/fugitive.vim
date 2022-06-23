@@ -20,11 +20,9 @@ endfunction
 
 " Settings
 function! vimrc#fugitive#settings() abort
-  let b:qs_local_disable = 1
 endfunction
 
 function! vimrc#fugitive#git_settings() abort
-  let b:qs_local_disable = 1
 endfunction
 
 function! vimrc#fugitive#gitcommit_settings() abort
@@ -34,7 +32,6 @@ function! vimrc#fugitive#gitcommit_settings() abort
 endfunction
 
 function! vimrc#fugitive#blame_settings() abort
-  let b:qs_local_disable = 1
 endfunction
 
 " For fugitive://* buffers
