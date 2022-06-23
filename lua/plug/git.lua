@@ -19,7 +19,10 @@ git.startup = function(use)
     "idanarye/vim-merginal",
     branch = "develop",
     config = function()
-      vim.fn["vimrc#source"]("vimrc/plugins/merginal.vim")
+      vim.cmd([[augroup merginal_settings]])
+      vim.cmd([[  autocmd!]])
+      vim.cmd([[  autocmd BufEnter Merginal:branchList:* call vimrc#merginal#settings()]])
+      vim.cmd([[augroup END]])
     end,
   })
 

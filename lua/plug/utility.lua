@@ -329,7 +329,13 @@ utility.startup = function(use)
     "tpope/vim-dispatch",
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
-      vim.fn["vimrc#source"]("vimrc/plugins/dispatch.vim")
+      -- TODO Check if disabling tmux is good
+      -- As currently, it break tmux zoom.
+      -- But using Job makes closing vim while git push failed
+      vim.g.dispatch_no_tmux_make = 1
+
+      -- Mappings
+      nnoremap("<Leader>dq", [[<Cmd>Copen<CR>]])
     end,
   })
 

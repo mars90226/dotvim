@@ -65,7 +65,18 @@ file_navigation.startup = function(use)
   use({
     "laher/fuzzymenu.vim",
     config = function()
-      vim.fn["vimrc#source"]("vimrc/plugins/fuzzymenu.vim")
+      -- Utility
+      vim.fn['vimrc#fuzzymenu#try_add']('ToggleFold', { exec = 'ToggleFold' })
+      vim.fn['vimrc#fuzzymenu#try_add']('ToggleIndent', { exec = 'ToggleIndent' })
+
+      -- Terminal
+      vim.fn['vimrc#fuzzymenu#try_add']('SplitTerm', { exec = 'new | terminal' })
+      vim.fn['vimrc#fuzzymenu#try_add']('TabTerm', { exec = 'tabe | terminal' })
+      vim.fn['vimrc#fuzzymenu#try_add']('VerticalTerm', { exec = 'vnew | terminal' })
+
+      -- Mappings
+      nmap("<Space>m", [[<Plug>(Fzm)]])
+      xmap("<Space>m", [[<Plug>(FzmVisual)]])
     end,
   })
 
