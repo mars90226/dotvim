@@ -502,6 +502,17 @@ utility.startup = function(use)
       require("window-picker").setup()
     end,
   })
+  use({
+    "lpinilla/vim-codepainter",
+    keys = { "<Leader>cp", "<Leader>cn" },
+    config = function()
+      vim.g.codepainter_default_mappings = 0
+
+      vnoremap("<Leader>cp", [[:<C-U>call codepainter#paintText(visualmode())<CR>]])
+      nnoremap("<Leader>cp", [[:<C-U>call codepainter#paintText('')<CR>]])
+      nnoremap("<Leader>cn", [[:<C-U>call codepainter#navigate()<CR>]])
+    end
+  })
 
   use({ "tpope/vim-dadbod", cmd = { "DB" } })
   use({ "tpope/vim-abolish", cmd = { "Abolish", "Subvert", "S" } })
@@ -521,7 +532,6 @@ utility.startup = function(use)
   use({ "tweekmonster/startuptime.vim", cmd = { "StartupTime" } })
   use({ "gyim/vim-boxdraw", keys = { "+o", "+O", "+c", "+-", "+_" } })
   use("lambdalisue/reword.vim")
-  use({ "lpinilla/vim-codepainter", keys = { "<F2>", "<F3>" } })
   use({ "nicwest/vim-http", cmd = { "Http", "Http!" } })
   use({ "kristijanhusak/vim-carbon-now-sh", cmd = { "CarbonNowSh" } })
 
