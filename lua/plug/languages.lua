@@ -139,8 +139,8 @@ languages.startup = function(use)
     "mars90226/cscope_macros.vim",
     keys = { "<F11>", "<Space><F11>" },
     config = function()
-      nnoremap("<F11>",        [[<Cmd>call vimrc#cscope#generate_files()<CR>]])
-      nnoremap("<Space><F11>", [[<Cmd>call vimrc#cscope#reload()<CR>]])
+      nnoremap("<F11>",        [[<Cmd>lua require("vimrc.cscope").generate_files()<CR>]])
+      nnoremap("<Space><F11>", [[<Cmd>lua require("vimrc.cscope").reload()<CR>]])
     end,
   })
 

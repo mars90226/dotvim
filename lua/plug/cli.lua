@@ -68,9 +68,9 @@ cli.startup = function(use)
     use_config({
       "mars90226/cli-execute-windows",
       config = function()
-        nnoremap("<Leader>xo", [[:call vimrc#windows#execute_current_file()<CR>]])
-        nnoremap("<Leader>X", [[:call vimrc#windows#open_terminal_in_current_file_folder()<CR>]])
-        nnoremap("<Leader>E", [[:call vimrc#windows#reveal_current_file_folder_in_explorer()<CR>]])
+        nnoremap("<Leader>xo", [[<Cmd>lua require("vimrc.windows").execute_current_file()<CR>]])
+        nnoremap("<Leader>X", [[<Cmd>lua require("vimrc.windows").open_terminal_in_current_file_folder()<CR>]])
+        nnoremap("<Leader>E", [[<Cmd>lua require("vimrc.windows").reveal_current_file_folder_in_explorer()<CR>]])
       end,
     })
   else

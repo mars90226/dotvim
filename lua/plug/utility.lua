@@ -496,6 +496,14 @@ utility.startup = function(use)
   -- Disabled by default, enable to profile
   -- Plug 'norcalli/profiler.nvim'
 
+  use({
+    "s1n7ax/nvim-window-picker",
+    tag = "v1.*",
+    config = function()
+      require("window-picker").setup()
+    end,
+  })
+
   use({ "tpope/vim-dadbod", cmd = { "DB" } })
   use({ "tpope/vim-abolish", cmd = { "Abolish", "Subvert", "S" } })
   use({ "will133/vim-dirdiff", cmd = { "DirDiff" } })

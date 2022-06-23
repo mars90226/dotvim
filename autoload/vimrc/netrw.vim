@@ -1,3 +1,4 @@
+" TODO: Remove this
 " Functions
 function! vimrc#netrw#toggle_pin() abort
   let w:netrw_pin = get(w:, 'netrw_pin', v:false) ? v:false : v:true
