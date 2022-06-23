@@ -30,18 +30,16 @@ cnoremap <M-p> <Up>
 " }}}
 
 " Tab key mapping {{{
-if vimrc#plugin#is_disabled_plugin('barbar.nvim')
-  " Move to previous/next
-  nnoremap <C-J> gT
-  nnoremap <C-K> gt
+" Move to previous/next
+nnoremap <C-J> gT
+nnoremap <C-K> gt
 
-  " Re-order to previous/next
-  nnoremap <Leader>t< :tabmove -1<CR>
-  nnoremap <Leader>t> :tabmove +1<CR>
+" Re-order to previous/next
+nnoremap <Leader>t< :tabmove -1<CR>
+nnoremap <Leader>t> :tabmove +1<CR>
 
-  " Goto buffer in position
-  nnoremap g4 :tablast<CR>
-endif
+" Goto buffer in position
+nnoremap g4 :tablast<CR>
 
 nnoremap QQ :call vimrc#utility#quit_tab()<CR>
 " }}}
