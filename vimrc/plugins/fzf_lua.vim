@@ -43,18 +43,16 @@ nnoremap <Space>z<Tab> <Cmd>FzfLua keymaps<CR>
 nnoremap <Space>z<F1> <Cmd>FzfLua man_pages<CR>
 
 " Lsp
-if vimrc#plugin#is_enabled_plugin('nvim-lsp')
-  nnoremap <Space>zlr <Cmd>FzfLua lsp_references<CR>
-  nnoremap <Space>zld <Cmd>FzfLua lsp_definitions<CR>
-  nnoremap <Space>zlD <Cmd>FzfLua lsp_declarations<CR>
-  nnoremap <Space>zlt <Cmd>FzfLua lsp_typedefs<CR>
-  nnoremap <Space>zli <Cmd>FzfLua lsp_implementations<CR>
-  nnoremap <Space>zlx <Cmd>FzfLua lsp_code_actions<CR>
-  nnoremap <Space>zlo <Cmd>FzfLua lsp_document_symbols<CR>
-  nnoremap <Space>zls <Cmd>FzfLua lsp_workspace_symbols<CR>
-  nnoremap <Space>zlS <Cmd>FzfLua lsp_live_workspace_symbols<CR>
-  nnoremap <Space>zlc <Cmd>FzfLua lsp_document_diagnostics<CR>
-  nnoremap <Space>zlC <Cmd>FzfLua lsp_workspace_diagnostics<CR>
-  nnoremap <Space>zl, <Cmd>FzfLua lsp_incoming_calls<CR>
-  nnoremap <Space>zl. <Cmd>FzfLua lsp_outgoing_calls<CR>
-endif
+nnoremap <Space>zlr <Cmd>FzfLua lsp_references<CR>
+nnoremap <Space>zld <Cmd>FzfLua lsp_definitions<CR>
+nnoremap <Space>zlD <Cmd>FzfLua lsp_declarations<CR>
+nnoremap <Space>zlt <Cmd>FzfLua lsp_typedefs<CR>
+nnoremap <Space>zli <Cmd>FzfLua lsp_implementations<CR>
+nnoremap <Space>zlx <Cmd>FzfLua lsp_code_actions<CR>
+nnoremap <Space>zlo <Cmd>FzfLua lsp_document_symbols<CR>
+nnoremap <Space>zls <Cmd>FzfLua lsp_workspace_symbols<CR>
+nnoremap <Space>zlS <Cmd>FzfLua lsp_live_workspace_symbols<CR>
+nnoremap <Space>zlc <Cmd>FzfLua lsp_document_diagnostics<CR>
+nnoremap <Space>zlC <Cmd>FzfLua lsp_workspace_diagnostics<CR>
+nnoremap <Space>zl, <Cmd>FzfLua lsp_incoming_calls<CR>
+nnoremap <Space>zl. <Cmd>FzfLua lsp_outgoing_calls<CR>

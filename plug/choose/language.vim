@@ -1,8 +1,7 @@
 " Highlight {{{
 " nvim-treesitter for builtin neovim treesitter
 call vimrc#plugin#disable_plugin('nvim-treesitter')
-if has('nvim-0.5.1')
-      \ && vimrc#get_vim_mode() !=# 'reader'
+if vimrc#get_vim_mode() !=# 'reader'
       \ && vimrc#get_vim_mode() !=# 'gitcommit'
       \ && vimrc#plugin#check#has_linux_build_env()
   call vimrc#plugin#enable_plugin('nvim-treesitter')
@@ -12,20 +11,12 @@ endif
 " vim-lsp-cxx-highlight for highlighting using lsp
 " Do not vim-lsp-cxx-highlight when nvim-treesitter as nvim-treesitter cannot
 " recognize C/C++ macro semantics.
-call vimrc#plugin#disable_plugin('vim-lsp-cxx-highlight')
-if vimrc#plugin#is_enabled_plugin('nvim-lsp')
-  call vimrc#plugin#enable_plugin('vim-lsp-cxx-highlight')
-endif
 " }}}
 
 " Lint {{{
 " Choose Lint plugin
 " null-ls.nvim
 " Always enable nvim-lint
-call vimrc#plugin#disable_plugins(['null-ls.nvim'])
-if has('nvim-0.5')
-  call vimrc#plugin#enable_plugin('null-ls.nvim')
-end
 
 " Choose markdown-preview plugin
 " vim-markdown-composer, markdown-preview.nvim

@@ -49,17 +49,15 @@ nnoremap <Space>t<F1> <Cmd>Telescope man_pages sections=["ALL"]<CR>
 nnoremap <Space>t<F5> <Cmd>Telescope reloader<CR>
 
 " Lsp
-if vimrc#plugin#is_enabled_plugin('nvim-lsp')
-  nnoremap <Space>lr <Cmd>Telescope lsp_references<CR>
-  nnoremap <Space>ld <Cmd>Telescope lsp_definitions<CR>
-  nnoremap <Space>lt <Cmd>Telescope lsp_type_definitions<CR>
-  nnoremap <Space>li <Cmd>Telescope lsp_implementations<CR>
-  nnoremap <Space>lx <Cmd>Telescope lsp_code_actions<CR>
-  xnoremap <Space>lx <Cmd>Telescope lsp_range_code_actions<CR>
-  nnoremap <Space>lo <Cmd>Telescope lsp_document_symbols<CR>
-  nnoremap <Space>ls <Cmd>Telescope lsp_workspace_symbols<CR>
-  nnoremap <Space>lS <Cmd>Telescope lsp_dynamic_workspace_symbols<CR>
-endif
+nnoremap <Space>lr <Cmd>Telescope lsp_references<CR>
+nnoremap <Space>ld <Cmd>Telescope lsp_definitions<CR>
+nnoremap <Space>lt <Cmd>Telescope lsp_type_definitions<CR>
+nnoremap <Space>li <Cmd>Telescope lsp_implementations<CR>
+nnoremap <Space>lx <Cmd>Telescope lsp_code_actions<CR>
+xnoremap <Space>lx <Cmd>Telescope lsp_range_code_actions<CR>
+nnoremap <Space>lo <Cmd>Telescope lsp_document_symbols<CR>
+nnoremap <Space>ls <Cmd>Telescope lsp_workspace_symbols<CR>
+nnoremap <Space>lS <Cmd>Telescope lsp_dynamic_workspace_symbols<CR>
 
 " Diagnostic
 nnoremap <Space>lc <Cmd>Telescope diagnostics bufnr=0<CR>

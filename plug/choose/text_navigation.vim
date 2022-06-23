@@ -1,14 +1,5 @@
-if !has('nvim-0.5')
-  call vimrc#plugin#disable_plugin('hop.nvim')
-endif
+" Choose quick navigation plugin
+" hop.nvim, lightspeed.nvim
 
-if !has('nvim-0.5')
-  call vimrc#plugin#disable_plugin('lightspeed.nvim')
-endif
-
-" search utility
+" Choose search utility plugin
 " nvim-hlslens
-call vimrc#plugin#disable_plugins(['nvim-hlslens'])
-if has('nvim-0.5')
-  call vimrc#plugin#enable_plugin('nvim-hlslens')
-endif
