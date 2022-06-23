@@ -414,7 +414,6 @@ utility.startup = function(use)
     end,
   })
 
-  -- TODO: Failed to open todo-comments
   use({
     "sidebar-nvim/sidebar.nvim",
     config = function()
