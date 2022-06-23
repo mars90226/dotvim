@@ -111,3 +111,26 @@ set dictionary=/usr/share/dict/words
 " Remove '=' from isfilename to complete filename in 'options'='filename' format
 " TODO Move to ftplugin setting
 set isfname-==
+
+" Indent {{{
+set smarttab
+set noexpandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+" Use cop instead
+" set pastetoggle=<F10>
+" }}}
+
+" Search {{{
+set hlsearch
+set ignorecase
+set incsearch
+set smartcase
+set inccommand=split
+
+" For builtin 'incsearch'
+cnoremap <C-J> <C-G>
+cnoremap <C-K> <C-T>
+" }}}

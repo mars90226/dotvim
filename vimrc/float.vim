@@ -1,3 +1,4 @@
+" TODO: Move these config to other place
 " Zoom {{{
 nnoremap <silent> <Leader>zz :call vimrc#zoom#zoom()<CR>
 xnoremap <silent> <Leader>zz :<C-U>call vimrc#zoom#selected(vimrc#utility#get_visual_selection())<CR>
