@@ -1,10 +1,14 @@
 local has_plenary_profile, plenary_profile = pcall(require, "plenary.profile")
 
+local utils = require("vimrc.utils")
+
 local profile = {}
 
 profile.config = {
   vim_profile_load = false,
   plenary_profile_load = false,
+  use_flame = true,
+  setup_command = true,
 }
 
 profile.start_vim_profile = function()
@@ -17,9 +21,13 @@ profile.stop_vim_profile = function()
   vim.cmd([[profile stop]])
 end
 
-profile.start_plenary_profile = function()
+profile.start_plenary_profile = function(use_flame)
+  local opts = {
+    flame = utils.ternary(use_flame ~= nil, use_flame, profile.config.use_flame)
+  }
+
   if has_plenary_profile then
-    plenary_profile.start("/tmp/output_flame.log", { flame = true })
+    plenary_profile.start("/tmp/output_flame.log", opts)
   else
     vim.notify("plenary.profile does not exist!", vim.log.levels.ERROR)
   end
@@ -42,7 +50,14 @@ profile.setup = function(opts)
   end
 
   if profile.config.plenary_profile_load then
-    profile.start_plenary_profile()
+    profile.start_plenary_profile(profile.config.use_flame)
+  end
+
+  if profile.config.setup_command then
+    vim.cmd([[command! StartVimProfile lua require("vimrc.profile").start_vim_profile()]])
+    vim.cmd([[command! StopVimProfile lua require("vimrc.profile").stop_vim_profile()]])
+    vim.cmd([[command! -bang StartPlenaryProfile lua require("vimrc.profile").start_plenary_profile("<bang>" ~= "!")]])
+    vim.cmd([[command! StopPlenaryProfile lua require("vimrc.profile").stop_plenary_profile()]])
   end
 end
 
