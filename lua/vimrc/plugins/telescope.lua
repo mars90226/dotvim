@@ -76,9 +76,11 @@ require("telescope").setup({
         ["<C-J>"] = actions.move_selection_next,
         ["<C-K>"] = actions.move_selection_previous,
 
-        -- Use <M-j>/<M-k> to move next/previous page
-        ["<M-j>"] = move_selection_next_page,
-        ["<M-k>"] = move_selection_previous_page,
+        -- Use <M-j>/<M-k> to move previous/next page
+        -- NOTE: Since telescope prompt is at bottom, previous_page means page down, next_page means page up
+        -- We want <M-j> to page down, <M-l> to page up
+        ["<M-j>"] = move_selection_previous_page,
+        ["<M-k>"] = move_selection_next_page,
 
         -- Use <C-S> to select horizontal
         ["<C-S>"] = actions.select_horizontal,
