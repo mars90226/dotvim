@@ -9,7 +9,7 @@ languages.startup = function(use)
   use({
     "plasticboy/vim-markdown",
     ft = { "markdown" },
-    require = { "godlygeek/tabular" },
+    requires = { "godlygeek/tabular" },
   })
   use({ "mtdl9/vim-log-highlighting", ft = { "log" } })
   use({ "ClockworkNet/vim-apparmor", ft = { "apparmor" } })
@@ -25,15 +25,34 @@ languages.startup = function(use)
         require("vimrc.plugins.nvim_treesitter")
       end,
     })
-    use("nvim-treesitter/nvim-treesitter-refactor")
-    use("nvim-treesitter/nvim-treesitter-textobjects")
-    use("nvim-treesitter/playground")
-    use("JoosepAlviste/nvim-ts-context-commentstring")
+    use({
+      "nvim-treesitter/nvim-treesitter-refactor",
+      requires = { "nvim-treesitter/nvim-treesitter" },
+    })
+    use({
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      requires = { "nvim-treesitter/nvim-treesitter" },
+    })
+    use({
+      "nvim-treesitter/playground",
+      requires = { "nvim-treesitter/nvim-treesitter" },
+    })
+    use({
+      "JoosepAlviste/nvim-ts-context-commentstring",
+      requires = { "nvim-treesitter/nvim-treesitter" },
+    })
     -- TODO: Rename to 'mfussenegger/nvim-treehopper'
-    use("mfussenegger/nvim-ts-hint-textobject")
-    use("RRethy/nvim-treesitter-textsubjects")
+    use({
+      "mfussenegger/nvim-ts-hint-textobject",
+      requires = { "nvim-treesitter/nvim-treesitter" },
+    })
+    use({
+      "RRethy/nvim-treesitter-textsubjects",
+      requires = { "nvim-treesitter/nvim-treesitter" },
+    })
     use({
       "lewis6991/spellsitter.nvim",
+      requires = { "nvim-treesitter/nvim-treesitter" },
       config = function()
         require("spellsitter").setup()
       end,
@@ -47,6 +66,7 @@ languages.startup = function(use)
     })
     use({
       "ziontee113/syntax-tree-surfer",
+      requires = { "nvim-treesitter/nvim-treesitter" },
       config = function()
         require("syntax-tree-surfer").setup({})
 
@@ -98,7 +118,7 @@ languages.startup = function(use)
     })
     use({
       "yioneko/nvim-yati",
-      requires = "nvim-treesitter/nvim-treesitter",
+      requires = { "nvim-treesitter/nvim-treesitter" },
     })
   end
 
@@ -110,6 +130,7 @@ languages.startup = function(use)
   if plugin_utils.is_enabled_plugin("nvim-treesitter") then
     use({
       "nvim-treesitter/nvim-treesitter-context",
+      requires = { "nvim-treesitter/nvim-treesitter" },
       config = function()
         -- NOTE: nvim-treesitter config is in nvim_treesitter.lua
         nnoremap("<F6>", ":TSContextToggle<CR>")
@@ -119,7 +140,7 @@ languages.startup = function(use)
     if plugin_utils.is_enabled_plugin('nvim-gps') then
       use({
         "SmiteshP/nvim-gps",
-        requires = "nvim-treesitter/nvim-treesitter",
+        requires = { "nvim-treesitter/nvim-treesitter" },
         config = function()
           require("nvim-gps").setup()
         end,
