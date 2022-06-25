@@ -153,7 +153,12 @@ git.startup = function(use)
   use({
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+    keys = { "<Space>gh", "<Space>gH" },
     config = function()
+      -- TODO: Add mapping for author filter & current file
+      nnoremap("<Space>gh", "<Cmd>DiffviewFileHistory<CR>")
+      nnoremap("<Space>gH", "<Cmd>DiffviewFileHistory --all<CR>")
+
       vim.cmd([[augroup diffview_settings]])
       vim.cmd([[  autocmd!]])
       vim.cmd([[  autocmd FileType DiffviewFiles call vimrc#diffview#mappings()]])
