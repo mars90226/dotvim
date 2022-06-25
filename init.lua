@@ -46,7 +46,7 @@ end)
 require("vimrc.mapping").setup()
 
 vim.fn["vimrc#source"]("vimrc/settings.vim")
-vim.fn["vimrc#source"]("vimrc/syntax.vim")
+require("vimrc.syntax").setup()
 vim.fn["vimrc#source"]("vimrc/digraphs.vim")
 vim.fn["vimrc#source"]("vimrc/mappings.vim")
 vim.fn["vimrc#source"]("vimrc/float.vim")
