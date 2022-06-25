@@ -35,6 +35,15 @@ utils.table_concat = function(table1, table2)
   return table1
 end
 
+-- Map table
+utils.table_map = function(table, fn)
+    local new_table = {}
+    for key, value in pairs(table) do
+        new_table[key] = fn(value)
+    end
+    return new_table
+end
+
 -- ref: https://github.com/LunarVim/LunarVim/blob/rolling/lua/lvim/core/cmp.lua
 utils.check_backspace = function()
   local col = vim.fn.col(".") - 1

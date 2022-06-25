@@ -152,11 +152,12 @@ git.startup = function(use)
 
   use({
     "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewFilesHistory" },
+    cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     config = function()
       vim.cmd([[augroup diffview_settings]])
       vim.cmd([[  autocmd!]])
       vim.cmd([[  autocmd FileType DiffviewFiles call vimrc#diffview#mappings()]])
+      vim.cmd([[  autocmd FileType DiffviewFileHistory call vimrc#diffview#history_mappings()]])
       -- diffview.nvim use nvim_buf_set_name() to change buffer name to
       -- corresponding file, so use BufFilePost event
       -- diffview buffer pattern: "^diffview/(\d+_)?(\w{7})_.*$"
