@@ -6,6 +6,8 @@ function! vimrc#plugin#check#get_os(...) abort
     " Detect operating system
     if has('win32') || has('win64')
       let g:os = 'windows'
+    elseif has('mac')
+      let g:os = 'mac'
     else
       let g:os = systemlist('uname -a')[0]
     endif
@@ -40,8 +42,8 @@ function! vimrc#plugin#check#nvim_terminal() abort
     return g:nvim_terminal
   endif
 
-  if vimrc#plugin#check#get_os() =~# 'windows'
-    " FIXME: Implement parent process check in Windows
+  if vimrc#plugin#check#get_os() =~# 'windows' || vimrc#plugin#check#get_os() =~# 'mac'
+    " FIXME: Implement parent process check in Windows and macOS
     let g:nvim_terminal = 'no'
     return g:nvim_terminal
   endif
