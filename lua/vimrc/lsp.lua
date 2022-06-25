@@ -156,6 +156,8 @@ lsp.on_attach = function(client, bufnr)
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
   vim.bo.tagfunc = [[v:lua.vim.lsp.tagfunc]]
   vim.bo.formatexpr = [[v:lua.vim.lsp.formatexpr]]
+  -- NOTE: Always enable 'signcolumn' on LSP attached buffer to avoid diagnostics keeping toggling 'signcolumn'
+  vim.wo.signcolumn = "yes"
 
   -- format on save
   if client.server_capabilities.documentFormattingProvider then
