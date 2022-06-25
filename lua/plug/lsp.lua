@@ -153,11 +153,12 @@ lsp.startup = function(use)
           --     return vim.fn.executable('pylint') > 0
           --   end
           -- }),
-          null_ls.builtins.diagnostics.shellcheck.with({
-            condition = function()
-              return vim.fn.executable("shellcheck") > 0
-            end,
-          }),
+          -- NOTE: use bashls shellcheck instead
+          -- null_ls.builtins.diagnostics.shellcheck.with({
+          --   condition = function()
+          --     return vim.fn.executable("shellcheck") > 0
+          --   end,
+          -- }),
           null_ls.builtins.diagnostics.standardrb.with({
             condition = function()
               return vim.fn.executable("standardrb") > 0
