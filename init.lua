@@ -36,11 +36,7 @@ require("packer").startup(function(use)
   require("plug.clipboard").startup(use)
   require("plug.last").startup(use)
 
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if auto_packer.packer_bootstrap ~= nil then
-    require("packer").sync()
-  end
+  auto_packer.check_sync()
 end)
 
 require("vimrc.mapping").setup()
