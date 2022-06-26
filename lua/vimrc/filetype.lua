@@ -108,7 +108,8 @@ filetype.setup = function()
       ["sa-update-rules/.*%.cf"] = "spamassassin",
 
       -- syslog-ng
-      ["patterndb.d/.*%.conf"] = { "syslog-ng", { priority = 10 } },
+      ["syslog-ng/.*%.conf"] = { "syslog-ng", { priority = 10 } },
+      ["patterndb%.d/.*%.conf"] = { "syslog-ng", { priority = 10 } },
 
       -- upstart
       [".*/upstart/.*conf"] = { "upstart", { priority = 10 } },

@@ -137,7 +137,7 @@ languages.startup = function(use)
       end,
     })
 
-    if plugin_utils.is_enabled_plugin('nvim-gps') then
+    if plugin_utils.is_enabled_plugin("nvim-gps") then
       use({
         "SmiteshP/nvim-gps",
         requires = { "nvim-treesitter/nvim-treesitter" },
@@ -160,7 +160,7 @@ languages.startup = function(use)
     "mars90226/cscope_macros.vim",
     keys = { "<F11>", "<Space><F11>" },
     config = function()
-      nnoremap("<F11>",        [[<Cmd>lua require("vimrc.cscope").generate_files()<CR>]])
+      nnoremap("<F11>", [[<Cmd>lua require("vimrc.cscope").generate_files()<CR>]])
       nnoremap("<Space><F11>", [[<Cmd>lua require("vimrc.cscope").reload()<CR>]])
     end,
   })
@@ -198,18 +198,7 @@ languages.startup = function(use)
     end,
   })
 
-  use({
-    "apeschel/vim-syntax-syslog-ng",
-    config = function()
-      vim.cmd([[augroup vim_syntax_syslog_ng_settings]])
-      vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd BufNewFile,BufReadPost syslog-ng.conf       setlocal filetype=syslog-ng]])
-      vim.cmd([[  autocmd BufNewFile,BufReadPost syslog-ng/*/*.conf   setlocal filetype=syslog-ng]])
-      vim.cmd([[  autocmd BufNewFile,BufReadPost patterndb.d/*.conf   setlocal filetype=syslog-ng]])
-      vim.cmd([[  autocmd BufNewFile,BufReadPost patterndb.d/*/*.conf setlocal filetype=syslog-ng]])
-      vim.cmd([[augroup END]])
-    end,
-  })
+  use({ "apeschel/vim-syntax-syslog-ng" })
 
   use({
     "kkoomen/vim-doge",
