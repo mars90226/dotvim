@@ -64,6 +64,22 @@ appearance.startup = function(use)
     end,
   })
 
+  -- Signcolumn
+  use_config({
+    "mars90226/signcolumn",
+    config = function()
+      local signcolumn_settings_augroup_id = vim.api.nvim_create_augroup("signcolumn_settings", {})
+      vim.api.nvim_create_autocmd({ "WinNew" }, {
+        group = signcolumn_settings_augroup_id,
+        pattern = "*",
+        callback = function()
+          -- NOTE: Reset signcolumn to "auto" to avoid inheriting winbar setting from other window
+          vim.wo.signcolumn = "auto"
+        end,
+      })
+    end
+  })
+
   -- Devicons
   use({ "kyazdani42/nvim-web-devicons", module = "nvim-web-devicons" })
 
