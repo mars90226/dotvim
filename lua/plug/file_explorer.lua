@@ -19,6 +19,8 @@ file_explorer.startup = function(use)
       "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
     },
+    cmd = { "Neotree" },
+    keys = { "<Space>nn", "<Space>nf", "<Space>n<Space>", "<Space>nd", "<Space>nb", "<Space>ns" },
     config = function()
       vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
