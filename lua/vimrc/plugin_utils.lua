@@ -57,6 +57,10 @@ plugin_utils.is_executable = function(executable)
   return vim.fn.executable(executable) > 0
 end
 
+plugin_utils.get_os = function()
+  return vim.fn["vimrc#plugin#check#get_os"]()
+end
+
 plugin_utils.has_linux_build_env = function()
   return vim.fn["vimrc#plugin#check#has_linux_build_env"]() == 1
 end

@@ -66,7 +66,9 @@ parser_configs.norg_table = {
 }
 
 require("nvim-treesitter.configs").setup({
-  ensure_installed = {
+  ensure_installed = vim.tbl_filter(function(language)
+    return language ~= nil
+  end, {
     "bash",
     "c",
     "cmake",
@@ -85,7 +87,7 @@ require("nvim-treesitter.configs").setup({
     "lua",
     "make",
     "markdown",
-    "norg",
+    plugin_utils.check_condition("norg", plugin_utils.get_os() ~= "mac"),
     "perl",
     "php",
     "python",
@@ -99,7 +101,7 @@ require("nvim-treesitter.configs").setup({
     "vim",
     "vue",
     "yaml",
-  },
+  }),
   ignore_install = {},
   highlight = {
     enable = true,
