@@ -1,4 +1,4 @@
-# Vim/Neovim config
+# Neovim config
 
 Carefully crafted neovim config. After switching to
 [packer.nvim](https://github.com/wbthomason/packer.nvim), future update will
