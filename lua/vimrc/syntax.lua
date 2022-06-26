@@ -12,13 +12,6 @@ syntax.setup = function()
   -- TODO: Remove this or check it in autocmd as it's buffer local option
   vim.o.synmaxcol = 1500  -- default: 3000, 0: unlimited
 
-  -- filetype
-  -- NOTE: enable filetype.lua
-  vim.g.do_filetype_lua = 1
-  vim.cmd([[filetype on]])
-  vim.cmd([[filetype plugin on]])
-  vim.cmd([[filetype indent on]])
-
   if not vim.g.loaded_color then
     vim.g.loaded_color = 1
 
