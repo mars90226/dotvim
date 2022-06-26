@@ -53,6 +53,7 @@ augroup filetype_detection_settings
   autocmd BufNewFile,BufReadPost justfile             setlocal filetype=make
   autocmd BufNewFile,BufReadPost .pylintrc            setlocal filetype=dosini
   autocmd BufNewFile,BufReadPost .flake8              setlocal filetype=dosini
+  autocmd BufNewFile,BufReadPost .plugin_config_cache setlocal filetype=vim
 
   " Custom build log syntax
   autocmd BufNewFile,BufReadPost *.build              setlocal filetype=cerr
