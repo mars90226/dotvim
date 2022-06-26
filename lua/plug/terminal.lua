@@ -23,6 +23,8 @@ terminal.startup = function(use)
 
   use({
     "hkupty/iron.nvim",
+    cmd = { "IronRepl", "IronReplHere", "IronSend" },
+    keys = { "<Leader>ic", "<Leader>if", "<Leader>il", "<Leader>mc" },
     config = function()
       require("iron.core").setup({
         config = {
