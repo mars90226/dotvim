@@ -153,7 +153,7 @@ lsp.startup = function(use)
           --     return vim.fn.executable('pylint') > 0
           --   end
           -- }),
-          -- NOTE: use bashls shellcheck instead
+          -- NOTE: use nvim-lint to lint
           -- null_ls.builtins.diagnostics.shellcheck.with({
           --   condition = function()
           --     return vim.fn.executable("shellcheck") > 0
@@ -263,6 +263,7 @@ lsp.startup = function(use)
       lint.linters_by_ft = {
         python = { "mypy", "pylint" },
         gitcommit = { "gitlint" },
+        sh = { "shellcheck" },
       }
 
       nnoremap("<Space>ll", "<Cmd>lua require('lint').try_lint()<CR>", "silent")

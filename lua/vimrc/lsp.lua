@@ -18,7 +18,10 @@ lsp.config = {
 }
 
 lsp.servers = {
-  bashls = {},
+  bashls = {
+    -- NOTE: Disable shellcheck integration and use nvim-lint to lint on save
+    cmd_env = { SHELLCHECK_PATH = '' },
+  },
   -- ccls = {
   --   init_options = {
   --     cache = {
