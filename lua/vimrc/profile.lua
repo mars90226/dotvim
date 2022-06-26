@@ -7,12 +7,14 @@ local profile = {}
 profile.config = {
   vim_profile_load = false,
   plenary_profile_load = false,
+  vim_profile_path = "/tmp/profile.log",
+  plenary_profile_path = "/tmp/output_flame.log",
   use_flame = true,
   setup_command = true,
 }
 
 profile.start_vim_profile = function()
-  vim.cmd([[profile start /tmp/profile.log]])
+  vim.cmd([[profile start ]]..profile.config.vim_profile_path)
   vim.cmd([[profile file *]])
   vim.cmd([[profile func *]])
 end
@@ -21,13 +23,17 @@ profile.stop_vim_profile = function()
   vim.cmd([[profile stop]])
 end
 
+profile.open_vim_profile_log = function()
+  vim.cmd([[tabedit ]]..profile.config.vim_profile_path)
+end
+
 profile.start_plenary_profile = function(use_flame)
   local opts = {
     flame = utils.ternary(use_flame ~= nil, use_flame, profile.config.use_flame)
   }
 
   if has_plenary_profile then
-    plenary_profile.start("/tmp/output_flame.log", opts)
+    plenary_profile.start(profile.config.plenary_profile_path, opts)
   else
     vim.notify("plenary.profile does not exist!", vim.log.levels.ERROR)
   end
@@ -39,6 +45,10 @@ profile.stop_plenary_profile = function()
   else
     vim.notify("plenary.profile does not exist!", vim.log.levels.ERROR)
   end
+end
+
+profile.open_plenary_profile_log = function()
+  vim.cmd([[tabedit ]]..profile.config.plenary_profile_path)
 end
 
 profile.setup = function(opts)
