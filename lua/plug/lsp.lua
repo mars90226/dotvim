@@ -263,6 +263,7 @@ lsp.startup = function(use)
       }
 
       -- Setup linter
+      -- TODO: Check for executable
       lint.linters_by_ft = {
         python = { "mypy", "pylint" },
         gitcommit = { "gitlint" },
