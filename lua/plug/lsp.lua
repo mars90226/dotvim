@@ -23,6 +23,7 @@ lsp.startup = function(use)
       })
 
       -- Setup lsp servers
+      -- TODO: Lazy load lsp on ft?
       local lsp_installer_servers = require("nvim-lsp-installer.servers")
       for server_name, _ in pairs(lsp_configs.get_servers()) do
         local ok, lsp_server = lsp_installer_servers.get_server(server_name)
