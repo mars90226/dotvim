@@ -1,3 +1,5 @@
+local has_secret_filetype, secret_filetype = pcall(require, "secret.filetype")
+
 local filetype = {}
 
 filetype.setup = function()
@@ -97,10 +99,10 @@ filetype.setup = function()
       [".*/backup/info.dynamic"] = "sh",
 
       -- rspamd
-      ["conf/rspamd.conf.*"] = { "rspamd", { priority = 10 } },
+      ["conf/rspamd%.conf.*"] = { "rspamd", { priority = 10 } },
       [".*/rspamd/.*%.inc"] = { "rspamd", { priority = 10 } },
-      ["conf/modules.d/.*%.conf"] = { "rspamd", { priority = 10 } },
-      ["conf/local.d/.*%.conf"] = { "rspamd", { priority = 10 } },
+      ["conf/modules%.d/.*%.conf"] = { "rspamd", { priority = 10 } },
+      ["conf/local%.d/.*%.conf"] = { "rspamd", { priority = 10 } },
 
       -- spamassassin
       ["sa-update-rules/.*%.cf"] = "spamassassin",
@@ -112,6 +114,10 @@ filetype.setup = function()
       [".*/upstart/.*conf"] = { "upstart", { priority = 10 } },
     },
   })
+
+  if has_secret_filetype then
+    secret_filetype.setup()
+  end
 
   vim.cmd([[filetype on]])
   vim.cmd([[filetype plugin on]])
