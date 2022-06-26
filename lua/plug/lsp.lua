@@ -62,6 +62,8 @@ lsp.startup = function(use)
   use({
     "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
+    cmd = { "Trouble", "TroubleToggle" },
+    keys = { "<Space>xx", "<Space>xw", "<Space>xd", "<Space>xq", "<Space>xl", "<Space>xr" },
     config = function()
       require("trouble").setup({})
 
@@ -293,7 +295,7 @@ lsp.startup = function(use)
     end,
   })
 
-  if plugin_utils.is_enabled_plugin('lsp-status') then
+  if plugin_utils.is_enabled_plugin("lsp-status") then
     use({
       "nvim-lua/lsp-status.nvim",
       config = function()
@@ -306,7 +308,7 @@ lsp.startup = function(use)
     })
   end
 
-  if plugin_utils.is_enabled_plugin('nvim-navic') then
+  if plugin_utils.is_enabled_plugin("nvim-navic") then
     use({
       "SmiteshP/nvim-navic",
       requires = "neovim/nvim-lspconfig",

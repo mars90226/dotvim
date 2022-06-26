@@ -375,7 +375,7 @@ utility.startup = function(use)
 
   use({
     "folke/todo-comments.nvim",
-    requires = { "nvim-lua/plenary.nvim" },
+    requires = { "nvim-lua/plenary.nvim", "folke/todo-comments.nvim" },
     cmd = { "TodoQuickFix", "TodoLocList", "TodoTrouble", "TodoTelescope" },
     keys = { "<F8>", "<Space><F8>" },
     config = function()
@@ -411,32 +411,6 @@ utility.startup = function(use)
     keys = { "<C-P>" },
     config = function()
       nnoremap("<C-P>", [[<Cmd>lua require('fine-cmdline').open()<CR>]])
-    end,
-  })
-
-  use({
-    "sidebar-nvim/sidebar.nvim",
-    config = function()
-      local utils = require("vimrc.utils")
-      local sidebar = require("sidebar-nvim")
-      sidebar.setup({
-        sections = {
-          "datetime",
-          "git",
-          "diagnostics",
-          "todos",
-          "symbols",
-          "files",
-        },
-        todos = {
-          icon = "",
-          ignored_paths = utils.table_concat({ "~" }, vim.g.sidebar_nvim_todo_secret_ignored_paths or {}), -- ignore certain paths, this will prevent huge folders like $HOME to hog Neovim with TODO searching
-          initially_closed = true, -- whether the groups should be initially closed on start. You can manually open/close groups later.
-        },
-      })
-
-      nnoremap("<F5>", "<Cmd>:SidebarNvimToggle<CR>")
-      nnoremap("<Space><F5>", "<Cmd>:SidebarNvimFocus<CR>")
     end,
   })
 
@@ -511,7 +485,7 @@ utility.startup = function(use)
       vnoremap("<Leader>cp", [[:<C-U>call codepainter#paintText(visualmode())<CR>]])
       nnoremap("<Leader>cp", [[:<C-U>call codepainter#paintText('')<CR>]])
       nnoremap("<Leader>cn", [[:<C-U>call codepainter#navigate()<CR>]])
-    end
+    end,
   })
 
   use({ "tpope/vim-dadbod", cmd = { "DB" } })

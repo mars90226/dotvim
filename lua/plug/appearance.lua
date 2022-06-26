@@ -24,7 +24,7 @@ appearance.startup = function(use)
       require("tabby").setup()
 
       -- NOTE: Sometimes, 'tabline' will become empty due to unknown reason.
-	  -- Error messages:
+      -- Error messages:
       -- || Error detected while processing function
       -- || TabbyTabline[1]
       -- || E5108: Error executing lua vim/shared.lua:0: invalid type name: nil
@@ -38,6 +38,35 @@ appearance.startup = function(use)
       -- || 	.../site/pack/packer/start/tabby.nvim/lua/tabby/tabline.lua:146: in function 'update'
       -- || 	[string "luaeval()"]:1: in main chunk
       vim.cmd([[command! FixTabbyTabline set tabline=%!TabbyTabline()]])
+    end,
+  })
+
+  -- Sidebar
+  use({
+    "sidebar-nvim/sidebar.nvim",
+    cmd = { "SidebarNvimToggle", "SidebarNvimOpen" },
+    keys = { "<F5>", "<Space><F5>" },
+    config = function()
+      local utils = require("vimrc.utils")
+      local sidebar = require("sidebar-nvim")
+      sidebar.setup({
+        sections = {
+          "datetime",
+          "git",
+          "diagnostics",
+          "todos",
+          "symbols",
+          "files",
+        },
+        todos = {
+          icon = "",
+          ignored_paths = utils.table_concat({ "~" }, vim.g.sidebar_nvim_todo_secret_ignored_paths or {}), -- ignore certain paths, this will prevent huge folders like $HOME to hog Neovim with TODO searching
+          initially_closed = true, -- whether the groups should be initially closed on start. You can manually open/close groups later.
+        },
+      })
+
+      nnoremap("<F5>", "<Cmd>:SidebarNvimToggle<CR>")
+      nnoremap("<Space><F5>", "<Cmd>:SidebarNvimFocus<CR>")
     end,
   })
 
@@ -77,7 +106,7 @@ appearance.startup = function(use)
           vim.wo.signcolumn = "auto"
         end,
       })
-    end
+    end,
   })
 
   -- Devicons

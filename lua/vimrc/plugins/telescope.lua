@@ -6,8 +6,6 @@ local actions = require("telescope.actions")
 local action_set = require("telescope.actions.set")
 local action_state = require("telescope.actions.state")
 
-local trouble = require("trouble.providers.telescope")
-
 -- Actions
 ------------------------------
 local exit_insert_mode = function(prompt_bufnr)
@@ -60,6 +58,15 @@ local switch_or_select_tab = function(prompt_bufnr)
   return action_set.edit(prompt_bufnr, "TabSwitch")
 end
 
+-- FIXME: Seems trouble.nvim has some problem with telescope
+local open_with_trouble = function(...)
+  local has_trouble, trouble = pcall(require, "trouble.providers.telescope")
+
+  if has_trouble then
+    return trouble.open_with_trouble(...)
+  end
+end
+
 -- Global remapping
 ------------------------------
 require("telescope").setup({
@@ -90,7 +97,7 @@ require("telescope").setup({
         ["<M-v>"] = select_rightbelow_vertical,
 
         -- Use <M-t> to open in trouble
-        ["<M-t>"] = trouble.open_with_trouble,
+        ["<M-t>"] = open_with_trouble,
 
         -- Use <C-W> to delete word
         -- NOTE: Workaround for <C-W> mapped to window command in prompt buffer
@@ -123,7 +130,7 @@ require("telescope").setup({
         ["<M-v>"] = select_rightbelow_vertical,
 
         -- Use <M-t> to open in trouble
-        ["<M-t>"] = trouble.open_with_trouble,
+        ["<M-t>"] = open_with_trouble,
       },
     },
   },
