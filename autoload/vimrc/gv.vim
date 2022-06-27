@@ -70,6 +70,13 @@ endfunction
 function! vimrc#gv#close_detail_or_window() abort
   let winids = nvim_tabpage_list_wins(0)
   let winids = filter(winids, { _, winid -> nvim_win_get_config(winid).relative ==# "" })
+
+  " Close tab if only 1 non-floating window exists, to avoid closing window while floating windows exist error.
+  if len(winids) == 1
+    tabclose
+    return
+  endif
+
   let winnr = win_id2win(winids[-1])
 
   execute winnr.'wincmd w | close'
