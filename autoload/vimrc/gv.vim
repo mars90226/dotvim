@@ -5,6 +5,7 @@ let s:gv_bang_cmd = 'GV!'
 " Mappings
 function! vimrc#gv#mappings() abort
   nnoremap <silent><buffer> + :call vimrc#gv#expand()<CR>
+  nnoremap <silent><buffer> gq :call vimrc#gv#close_detail_or_window()<CR>
 
   call vimrc#git#include_git_mappings('gv', v:true, v:true)
 endfunction
@@ -62,4 +63,14 @@ function! vimrc#gv#show_file(file, options) abort
     let a:options['follow'] = v:true
     call vimrc#gv#_open(s:gv_cmd, a:options, a:file)
   endif
+endfunction
+
+" Mimic behavior of GV's 'q' keymap: close commit detail panel or close GV
+" This try to avoid floating window, like scrollbar
+function! vimrc#gv#close_detail_or_window() abort
+  let winids = nvim_tabpage_list_wins(0)
+  let winids = filter(winids, { _, winid -> nvim_win_get_config(winid).relative ==# "" })
+  let winnr = win_id2win(winids[-1])
+
+  execute winnr.'wincmd w | close'
 endfunction
