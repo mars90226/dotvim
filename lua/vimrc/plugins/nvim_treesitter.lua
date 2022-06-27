@@ -334,58 +334,59 @@ vnoremap("m", [[:lua require('tsht').nodes()<CR>]], "silent")
 -- Performance
 -- TODO: Check if these actually help performance, initial test reveals that these may reduce highlighter time, but increase "[string]:0" time which is probably the time spent on autocmd & syntax enable/disable.
 -- TODO: These config help reduce memory usage, see if there's other way to fix high memory usage.
--- local augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_settings", {})
---
--- local global_idle_disabled_modules = vim.tbl_filter(function(module)
---   return module ~= nil
--- end, {
---   "context_commentstring",
---   "highlight",
---   "matchup",
---   plugin_utils.check_enabled_plugin("nvimGPS", "nvim-gps"),
---   "highlight_current_scope",
---   "highlight_definitions",
---   "navigation",
---   "smart_rename",
--- })
--- local buffer_idle_disabled_modules = {
---   "highlight_current_scope",
--- }
---
--- vim.api.nvim_create_autocmd({ "FocusGained" }, {
---   group = augroup_id,
---   pattern = "*",
---   callback = function()
---     for _, module in ipairs(global_idle_disabled_modules) do
---       vim.cmd([[TSEnable ]] .. module)
---     end
---   end,
--- })
--- vim.api.nvim_create_autocmd({ "FocusLost" }, {
---   group = augroup_id,
---   pattern = "*",
---   callback = function()
---     for _, module in ipairs(global_idle_disabled_modules) do
---       vim.cmd([[TSDisable ]] .. module)
---     end
---   end,
--- })
--- -- TODO: May cause open new file slow
--- vim.api.nvim_create_autocmd({ "BufEnter" }, {
---   group = augroup_id,
---   pattern = "*",
---   callback = function()
---     for _, module in ipairs(buffer_idle_disabled_modules) do
---       vim.cmd([[TSBufEnable ]] .. module)
---     end
---   end,
--- })
--- vim.api.nvim_create_autocmd({ "BufLeave" }, {
---   group = augroup_id,
---   pattern = "*",
---   callback = function()
---     for _, module in ipairs(buffer_idle_disabled_modules) do
---       vim.cmd([[TSBufDisable ]] .. module)
---     end
---   end,
--- })
+local augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_settings", {})
+
+local global_idle_disabled_modules = vim.tbl_filter(function(module)
+  return module ~= nil
+end, {
+  "context_commentstring",
+  "highlight",
+  "matchup",
+  plugin_utils.check_enabled_plugin("nvimGPS", "nvim-gps"),
+  "highlight_current_scope",
+  "highlight_definitions",
+  "navigation",
+  "smart_rename",
+})
+local buffer_idle_disabled_modules = {
+  "highlight_current_scope",
+}
+
+vim.api.nvim_create_autocmd({ "FocusGained" }, {
+  group = augroup_id,
+  pattern = "*",
+  callback = function()
+    for _, module in ipairs(global_idle_disabled_modules) do
+      vim.cmd([[TSEnable ]] .. module)
+    end
+  end,
+})
+vim.api.nvim_create_autocmd({ "FocusLost" }, {
+  group = augroup_id,
+  pattern = "*",
+  callback = function()
+    for _, module in ipairs(global_idle_disabled_modules) do
+      vim.cmd([[TSDisable ]] .. module)
+    end
+  end,
+})
+-- TODO: May cause open new file slow
+-- TODO: Use TabEnter & TabLeave?
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+  group = augroup_id,
+  pattern = "*",
+  callback = function()
+    for _, module in ipairs(buffer_idle_disabled_modules) do
+      vim.cmd([[TSBufEnable ]] .. module)
+    end
+  end,
+})
+vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
+  group = augroup_id,
+  pattern = "*",
+  callback = function()
+    for _, module in ipairs(buffer_idle_disabled_modules) do
+      vim.cmd([[TSBufDisable ]] .. module)
+    end
+  end,
+})
