@@ -121,12 +121,12 @@ require("nvim-treesitter.configs").setup({
   },
   refactor = {
     highlight_definitions = {
-      enable = not is_light_vim_mode,
+      enable = false,
       disable = base_highlight_disable_check,
       clear_on_cursor_move = false,
     },
     highlight_current_scope = {
-      enable = not is_light_vim_mode,
+      enable = false,
       disable = highlight_disable_check,
     },
     smart_rename = {
@@ -230,7 +230,7 @@ require("nvim-treesitter.configs").setup({
     },
   },
   matchup = {
-    enable = current_buffer_base_highlight_disable_check(), -- mandatory, false will disable the whole extension
+    enable = false, -- mandatory, false will disable the whole extension
     -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
   },
   yati = {
