@@ -37,6 +37,9 @@ filetype.setup = function()
       -- config
       [".ignore"] = "conf",
 
+      -- doxygen
+      ["Doxyfile"] = "dosini",
+
       -- just
       ["justfile"] = "make",
 
