@@ -6,8 +6,6 @@ git.startup = function(use)
   -- vim-fugitive
   use({
     "tpope/vim-fugitive",
-    -- TODO: vim-fugitive drop obsolete functions and break gv.vim & vim-flog
-    commit = "92c73bb0507338441733198d630a1fe5e7fdac3a",
     config = function()
       vim.fn["vimrc#source"]("vimrc/plugins/fugitive.vim")
     end,
