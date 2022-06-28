@@ -230,7 +230,7 @@ require("nvim-treesitter.configs").setup({
     },
   },
   matchup = {
-    enable = false, -- mandatory, false will disable the whole extension
+    enable = current_buffer_base_highlight_disable_check(), -- mandatory, false will disable the whole extension
     -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
   },
   yati = {

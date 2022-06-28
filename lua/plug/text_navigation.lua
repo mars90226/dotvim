@@ -10,6 +10,12 @@ text_navigation.startup = function(use)
       ---@diagnostic disable-next-line -- packer.nvim will cache config function and cannot use outer local variables
       local plugin_utils = require("vimrc.plugin_utils")
 
+      vim.g.matchup_matchparen_deferred = 1
+      vim.g.matchup_matchparen_deferred_show_delay = 1000
+      vim.g.matchup_matchparen_deferred_hide_delay = 1000
+      vim.g.matchup_matchparen_timeout = 100
+      vim.g.matchup_matchparen_insert_timeout = 20
+      vim.g.matchup_matchparen_nomode = 'i'
       vim.g.matchup_matchparen_offscreen = {
         method = "status_manual", -- we already have nvim-treesitter-context
       }
