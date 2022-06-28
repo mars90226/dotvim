@@ -338,11 +338,14 @@ lsp.startup = function(use)
   -- NOTE: Has symbol preview
   use({
     "simrat39/symbols-outline.nvim",
+    cmd = { "SymbolsOutline", "SymbolsOutlineOpen" },
+    keys = { "<F7>" },
     config = function()
       nnoremap("<F7>", [[<Cmd>SymbolsOutline<CR>]])
     end,
   })
   -- NOTE: Support treesitter
+  -- TODO: Cannot lazy load due to lsp attach
   use({
     "stevearc/aerial.nvim",
     config = function()
