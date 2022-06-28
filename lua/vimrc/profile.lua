@@ -66,8 +66,10 @@ profile.setup = function(opts)
   if profile.config.setup_command then
     vim.cmd([[command! StartVimProfile lua require("vimrc.profile").start_vim_profile()]])
     vim.cmd([[command! StopVimProfile lua require("vimrc.profile").stop_vim_profile()]])
+    vim.cmd([[command! OpenVimProfile lua require("vimrc.profile").open_vim_profile_log()]])
     vim.cmd([[command! -bang StartPlenaryProfile lua require("vimrc.profile").start_plenary_profile("<bang>" ~= "!")]])
     vim.cmd([[command! StopPlenaryProfile lua require("vimrc.profile").stop_plenary_profile()]])
+    vim.cmd([[command! OpenPlenaryProfile lua require("vimrc.profile").open_plenary_profile_log()]])
   end
 end
 
