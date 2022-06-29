@@ -11,6 +11,7 @@ function! vimrc#terminal#settings() abort
   setlocal colorcolumn=
   setlocal nonumber
   setlocal norelativenumber
+  setlocal signcolumn=no
 endfunction
 
 " Mappings
