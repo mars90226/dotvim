@@ -1,6 +1,7 @@
 local file_explorer = {}
 
 file_explorer.startup = function(use)
+  -- NOTE: Lazy load doesn't improve much and break the :UpdateRemotePlugins
   use({
     "Shougo/defx.nvim",
     run = ":UpdateRemotePlugins",
