@@ -143,53 +143,88 @@ completion.startup = function(use)
           ["<C-E>"] = cmp.mapping.close(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
         }),
+        -- Ref: https://github.com/lukas-reineke/dotfiles/blob/master/vim/lua/plugins/nvim-cmp.lua#L54-L77
         sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "calc" },
-          { name = "path" },
-          { name = "nvim_lua" },
-          { name = "emoji" },
-          { name = "treesitter" },
-          { name = "cmp_git" },
-          { name = "tmux" },
-          { name = "rg", option = { additional_arguments = "--max-depth 4 --max-count 100", debounce = 500 } },
+          { name = "path", priority_weight = 110 },
+          { name = "nvim_lsp", max_item_count = 20, priority_weight = 100 },
+          { name = "nvim_lua", priority_weight = 90 },
+          { name = "luasnip", priority_weight = 80 },
+          { name = "calc", priority_weight = 70 },
+          { name = "emoji", priority_weight = 70 },
+          { name = "treesitter", priority_weight = 70 },
+          { name = "cmp_git", priority_weight = 70 },
+          {
+            name = "tmux",
+            max_item_count = 5,
+            option = {
+              all_panes = false,
+            },
+            priority_weight = 50,
+          },
           {
             name = "look",
-            keyword_length = 2,
+            keyword_length = 5,
+            max_item_count = 5,
             option = { convert_case = true, loud = true },
+            priority_weight = 40,
           },
         }, {
-          buffer_source,
+          vim.tbl_extend("force", buffer_source, {
+            max_item_count = 5,
+          }),
+        }, {
+          -- TODO: Timeout slow source?
+          {
+            name = "rg",
+            keyword_length = 5,
+            max_item_count = 5,
+            option = {
+              additional_arguments = "--max-depth 4 --max-count 5",
+              debounce = 500,
+            },
+            priority_weight = 60,
+          },
         }),
       })
 
       -- Setup cmp-cmdline
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
-        sources = {
+        sources = cmp.config.sources({
+          { name = "path" },
+        }, {
           { name = "cmdline" },
-        },
+        }, {
+          buffer_source,
+        }, {
+          { name = "cmdline_history" },
+        }),
       })
       cmp.setup.cmdline("/", {
         mapping = cmp.mapping.preset.cmdline(),
-        sources = {
+        sources = cmp.config.sources({
           buffer_source,
-        },
+        }, {
+          { name = "cmdline_history" },
+        }),
       })
       cmp.setup.cmdline("?", {
         mapping = cmp.mapping.preset.cmdline(),
-        sources = {
+        sources = cmp.config.sources({
           buffer_source,
-        },
+        }, {
+          { name = "cmdline_history" },
+        }),
       })
       cmp.setup.cmdline("@", {
         mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = "cmdline" },
+        sources = cmp.config.sources({
           { name = "path" },
+        }, {
+          { name = "cmdline" },
+        }, {
           buffer_source,
-        },
+        }),
       })
 
       -- Setup lspconfig in nvim-lsp-installer config function
@@ -227,17 +262,17 @@ completion.startup = function(use)
   })
   -- TODO: use 'abecodes/tabout.nvim'
   -- ref: https://github.com/windwp/nvim-autopairs/issues/167
-  use {
-    'abecodes/tabout.nvim',
+  use({
+    "abecodes/tabout.nvim",
     config = function()
-      require('tabout').setup {
-        tabkey = '<M-n>', -- key to trigger tabout, set to an empty string to disable
-        backwards_tabkey = '<M-N>', -- key to trigger backwards tabout, set to an empty string to disable
-      }
+      require("tabout").setup({
+        tabkey = "<M-n>", -- key to trigger tabout, set to an empty string to disable
+        backwards_tabkey = "<M-N>", -- key to trigger backwards tabout, set to an empty string to disable
+      })
     end,
-    wants = {'nvim-treesitter'}, -- or require if not used so far
-    after = {'nvim-cmp'} -- if a completion plugin is using tabs load it before
-  }
+    wants = { "nvim-treesitter" }, -- or require if not used so far
+    after = { "nvim-cmp" }, -- if a completion plugin is using tabs load it before
+  })
 end
 
 return completion
