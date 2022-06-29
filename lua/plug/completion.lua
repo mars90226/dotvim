@@ -3,6 +3,7 @@ local plugin_utils = require("vimrc.plugin_utils")
 local completion = {}
 
 completion.setup_mapping = function()
+  -- NOTE: Use nvim-cmp mapping
   -- Completion setting
   inoremap("<CR>", [[pumvisible() ? "\<C-Y>" : "\<CR>"]], "expr")
   inoremap("<Down>", [[pumvisible() ? "\<C-N>" : "\<Down>"]], "expr")
@@ -81,6 +82,9 @@ completion.startup = function(use)
       }
 
       cmp.setup({
+        performance = {
+          debounce = 150, -- Same as LSP debounce
+        },
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
