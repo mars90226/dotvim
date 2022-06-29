@@ -116,6 +116,9 @@ appearance.startup = function(use)
   use({ "rktjmp/lush.nvim" })
   use({
     "ellisonleao/gruvbox.nvim",
+    -- TODO: Upgrade and handle breaking changes
+    -- Ref: https://github.com/ellisonleao/gruvbox.nvim/issues/116
+    commit = "3352c12c083d0ab6285a9738b7679e24e7602411",
     config = function()
       local hsl = require("lush").hsl
       local colors = require("gruvbox.colors")
