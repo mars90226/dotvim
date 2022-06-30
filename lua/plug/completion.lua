@@ -140,7 +140,7 @@ completion.startup = function(use)
               luasnip.change_choice(1)
             end
           end, { "i" }),
-          ["<C-E>"] = cmp.mapping.close(),
+          ["<C-Space>"] = cmp.mapping.complete(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
         }),
         -- Ref: https://github.com/lukas-reineke/dotfiles/blob/master/vim/lua/plugins/nvim-cmp.lua#L54-L77
