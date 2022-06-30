@@ -3,15 +3,7 @@ local plugin_utils = require("vimrc.plugin_utils")
 local completion = {}
 
 completion.setup_mapping = function()
-  -- NOTE: Use nvim-cmp mapping
-  -- Completion setting
-  inoremap("<CR>", [[pumvisible() ? "\<C-Y>" : "\<CR>"]], "expr")
-  inoremap("<Down>", [[pumvisible() ? "\<C-N>" : "\<Down>"]], "expr")
-  inoremap("<Up>", [[pumvisible() ? "\<C-P>" : "\<Up>"]], "expr")
-  inoremap("<PageDown>", [[pumvisible() ? "\<PageDown>\<C-P>\<C-N>" : "\<PageDown>"]], "expr")
-  inoremap("<PageUp>", [[pumvisible() ? "\<PageUp>\<C-P>\<C-N>" : "\<PageUp>"]], "expr")
-  inoremap("<Tab>", [[pumvisible() ? "\<C-N>" : "\<Tab>"]], "expr")
-  inoremap("<S-Tab>", [[pumvisible() ? "\<C-P>" : "\<S-Tab>"]], "expr")
+  -- diagraph
   inoremap("<M-K>", [[<C-K>]])
 
   -- mapping for decrease number
