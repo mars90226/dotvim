@@ -273,36 +273,53 @@ file_navigation.startup = function(use)
           -- "angular",
           -- "laravel",
           -- custom mapping
+          -- TODO: Simplify the pattern
           {
             pattern = "/(.*).h$",
-            target = "/%1.cpp",
+            target = "/%1\\(.cpp\\|.c\\)",
           },
           {
             pattern = "/(.*).cpp$",
             target = "/%1.h",
           },
           {
+            pattern = "/(.*).c$",
+            target = "/%1.h",
+          },
+          {
             pattern = "/src/include/(.*)/(.*)/(.*).h$",
-            target = "/src/%1/lib/%2/%3.cpp",
+            target = "/src/%1/lib/%2/%3\\(.cpp\\|.c\\)",
           },
           {
             pattern = "/src/(.*)/lib/(.*)/(.*).cpp$",
             target = "/src/include/%1/%2/%3.h",
           },
           {
+            pattern = "/src/(.*)/lib/(.*)/(.*).c$",
+            target = "/src/include/%1/%2/%3.h",
+          },
+          {
             pattern = "/src/include/.*/(.*)/(.*).h$",
-            target = "/src/lib/%1/%2.cpp",
+            target = "/src/lib/%1/%2\\(.cpp\\|.c\\)",
           },
           {
             pattern = "/src/lib/(.*)/(.*).cpp$",
             target = "/src/include/*/%1/%2.h",
           },
           {
+            pattern = "/src/lib/(.*)/(.*).c$",
+            target = "/src/include/*/%1/%2.h",
+          },
+          {
             pattern = "/include/.*/(.*).h$",
-            target = "/lib/%1.cpp",
+            target = "/lib/%1\\(.cpp\\|.c\\)",
           },
           {
             pattern = "/lib/(.*).cpp$",
+            target = "/include/*/%1.h",
+          },
+          {
+            pattern = "/lib/(.*).c$",
             target = "/include/*/%1.h",
           },
         },
