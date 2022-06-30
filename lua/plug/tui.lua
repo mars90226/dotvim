@@ -20,7 +20,7 @@ tui.startup = function(use)
 
   if vim.fn.executable("htop") == 1 then
     use_config({
-      "mars90226/tui-hop",
+      "mars90226/tui-htop",
       config = function()
         vim.cmd([[command! -nargs=* Htop        call vimrc#tui#run('float', 'htop '.<q-args>)]])
         vim.cmd([[command! -nargs=* HtopSplit   call vimrc#tui#run('new', 'htop '.<q-args>)]])
