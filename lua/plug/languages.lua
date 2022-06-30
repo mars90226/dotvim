@@ -35,8 +35,9 @@ languages.startup = function(use)
     })
     use({
       "nvim-treesitter/playground",
-      cmd = { "TSPlaygroundToggle" },
+      cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
       requires = { "nvim-treesitter/nvim-treesitter" },
+      keys = { "<Space>hp", "<Space>hh" },
       config = function()
         require("nvim-treesitter.configs").setup({
           playground = {
@@ -56,9 +57,12 @@ languages.startup = function(use)
               goto_node = "<cr>",
               show_help = "?",
             },
-          }
+          },
         })
-      end
+
+        nnoremap("<Space>hp", [[<Cmd>TSPlaygroundToggle<CR>]])
+        nnoremap("<Space>hh", [[<Cmd>TSHighlightCapturesUnderCursor<CR>]])
+      end,
     })
     use({
       "JoosepAlviste/nvim-ts-context-commentstring",
