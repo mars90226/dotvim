@@ -10,6 +10,9 @@ local auto_packer = require("plug.auto_packer")
 require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
 
+  -- TODO: Monitor if any plugins break by module resolution cache
+  use("lewis6991/impatient.nvim")
+
   -- Mapping utility
   use("b0o/mapx.nvim")
   local has_mapx, mapx = pcall(require, "mapx")
