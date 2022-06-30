@@ -90,6 +90,10 @@ completion.startup = function(use)
             luasnip.lsp_expand(args.body)
           end,
         },
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+        },
         formatting = {
           format = lspkind.cmp_format({
             with_text = true,
@@ -189,6 +193,9 @@ completion.startup = function(use)
             priority_weight = 60,
           },
         }),
+        experimental = {
+          native_menu = false,
+        },
       })
 
       -- Setup cmp-cmdline
