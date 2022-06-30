@@ -1,4 +1,5 @@
 " Plugin Check Utility
+" TODO: use vim.loop.os_uname()
 function! vimrc#plugin#check#get_os(...) abort
   let force = (a:0 >= 1 && type(a:1) == type(v:true)) ? a:1 : v:false
 
@@ -16,6 +17,7 @@ function! vimrc#plugin#check#get_os(...) abort
   return g:os
 endfunction
 
+" TODO: use vim.loop.os_uname()
 function! vimrc#plugin#check#get_distro(...) abort
   let force = (a:0 >= 1 && type(a:1) == type(v:true)) ? a:1 : v:false
 
