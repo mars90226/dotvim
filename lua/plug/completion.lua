@@ -108,7 +108,14 @@ completion.startup = function(use)
         },
         mapping = cmp.mapping.preset.insert({
           ["<C-D>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-F>"] = cmp.mapping.scroll_docs(4),
+          ["<C-F>"] = cmp.mapping({
+            c = function(fallback)
+              cmp.abort()
+              fallback()
+            end,
+            i = cmp.mapping.scroll_docs(4),
+            s = cmp.mapping.scroll_docs(4),
+          }),
           ["<Tab>"] = cmp.mapping(function()
             if cmp.visible() then
               cmp.select_next_item()
