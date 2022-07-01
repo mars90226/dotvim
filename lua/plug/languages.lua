@@ -199,7 +199,14 @@ languages.startup = function(use)
     ft = { "markdown" },
     run = "cd app & npm install",
     setup = function()
+      local plugin_utils = require("vimrc.plugin_utils")
+
       vim.g.mkdp_filetypes = { "markdown" }
+      vim.g.mkdp_open_to_the_world = 1
+
+      if plugin_utils.is_executable('open_url.sh') then
+        vim.g.mkdp_browser = 'open_url.sh'
+      end
     end,
   })
 
