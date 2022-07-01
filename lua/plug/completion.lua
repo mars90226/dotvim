@@ -179,7 +179,7 @@ completion.startup = function(use)
             keyword_length = 5,
             max_item_count = 5,
             option = {
-              additional_arguments = "--max-depth 4 --max-count 5",
+              additional_arguments = "--threads 2 --max-count 5",
               debounce = 500,
             },
             priority_weight = 60,
