@@ -316,6 +316,7 @@ vnoremap("m", [[:lua require('tsht').nodes()<CR>]], "silent")
 -- Performance
 -- TODO: Check if these actually help performance, initial test reveals that these may reduce highlighter time, but increase "[string]:0" time which is probably the time spent on autocmd & syntax enable/disable.
 -- TODO: These config help reduce memory usage, see if there's other way to fix high memory usage.
+-- TODO: Change to tab based toggling
 local augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_settings", {})
 
 local global_idle_disabled_modules = vim.tbl_filter(function(module)
