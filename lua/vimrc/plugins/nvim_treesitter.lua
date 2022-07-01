@@ -310,6 +310,7 @@ vim.api.nvim_create_autocmd({ "InsertLeave" }, {
 })
 
 -- nvim-ts-hint-textobject
+-- TODO: Only setup mapping on treesitter supported filetype
 onoremap("m", [[<Cmd>lua require('tsht').nodes()<CR>]], "silent")
 vnoremap("m", [[:lua require('tsht').nodes()<CR>]], "silent")
 
