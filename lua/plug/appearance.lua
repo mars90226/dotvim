@@ -129,6 +129,8 @@ appearance.startup = function(use)
         dark_aqua = hsl(palette.faded_aqua).darken(diff_percent).hex,
       }
       local overrides = {
+        NonText = { fg = palette.dark4 },
+
         -- NOTE: Only change background color
         DiffAdd = { fg = nil, bg = custom_palette.dark_green },
         DiffChange = { bg = custom_palette.dark_aqua },
