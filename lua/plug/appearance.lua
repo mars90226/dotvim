@@ -116,43 +116,44 @@ appearance.startup = function(use)
   use({ "rktjmp/lush.nvim" })
   use({
     "ellisonleao/gruvbox.nvim",
-    -- TODO: Upgrade and handle breaking changes
-    -- Ref: https://github.com/ellisonleao/gruvbox.nvim/issues/116
-    commit = "3352c12c083d0ab6285a9738b7679e24e7602411",
     config = function()
       local hsl = require("lush").hsl
-      local colors = require("gruvbox.colors")
-      local utils = require("gruvbox.utils")
+      local palette = require("gruvbox.palette")
 
       local diff_percent = 20
-      local custom_colors = {
-        white_yellow = hsl(colors.bright_yellow).lighten(diff_percent * 2).hex,
-        dark_red = hsl(colors.faded_red).darken(diff_percent).hex,
-        dark_green = hsl(colors.faded_green).darken(diff_percent).hex,
-        dark_yellow = hsl(colors.faded_yellow).darken(diff_percent).hex,
-        dark_aqua = hsl(colors.faded_aqua).darken(diff_percent).hex,
+      local custom_palette = {
+        white_yellow = hsl(palette.bright_yellow).lighten(diff_percent * 2).hex,
+        dark_red = hsl(palette.faded_red).darken(diff_percent).hex,
+        dark_green = hsl(palette.faded_green).darken(diff_percent).hex,
+        dark_yellow = hsl(palette.faded_yellow).darken(diff_percent).hex,
+        dark_aqua = hsl(palette.faded_aqua).darken(diff_percent).hex,
       }
-      local custom_highlights = {
+      local overrides = {
         -- NOTE: Only change background color
-        DiffAdd = { bg = custom_colors.dark_green },
-        DiffChange = { bg = custom_colors.dark_aqua },
-        DiffDelete = { fg = custom_colors.dark_red, bg = colors.dark0, reverse = vim.g.gruvbox_inverse },
-        DiffText = { bg = custom_colors.dark_yellow },
-
-        -- NOTE: Avoid highlight link to avoid breaking tabby.nvim
-        TabLine = { fg = colors.dark4, bg = colors.dark1, reverse = vim.g.gruvbox_invert_tabline },
+        DiffAdd = { fg = nil, bg = custom_palette.dark_green },
+        DiffChange = { bg = custom_palette.dark_aqua },
+        DiffDelete = { fg = palette.dark0, bg = custom_palette.dark_red },
+        DiffText = { bg = custom_palette.dark_yellow },
 
         -- NOTE: Use similar highlight of StatusLine highlight for WinBar
-        WinBar = { fg = colors.dark1, bg = colors.light3, reverse = vim.g.gruvbox_inverse },
-        WinBarNC = { fg = colors.dark0, bg = colors.light4, reverse = vim.g.gruvbox_inverse },
+        WinBar = { fg = palette.light3, bg = palette.dark1 },
+        WinBarNC = { fg = palette.light4, bg = palette.dark0 },
 
-        FocusedSymbol = { fg = colors.faded_blue, bg = custom_colors.white_yellow },
+        FocusedSymbol = { fg = palette.faded_blue, bg = custom_palette.white_yellow },
       }
 
-      utils.add_highlights(custom_highlights)
+      require("gruvbox").setup({})
+      vim.cmd([[colorscheme gruvbox]])
+
+      -- Manually override as using "overrides" settings will merge "overrides"
+      -- with default highlight groups, and cause unwanted results
+      for group, settings in pairs(overrides) do
+        vim.api.nvim_set_hl(0, group, settings)
+      end
     end,
   })
-  vim.g.colorscheme = "gruvbox"
+  -- NOTE: Setup colorscheme in gruvbox.nvim config
+  -- vim.g.colorscheme = "gruvbox"
   vim.g.lualine_theme = "auto"
 
   -- TODO: Disabled as diagnostic & vertical line highlight missing
