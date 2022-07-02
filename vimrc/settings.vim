@@ -101,10 +101,6 @@ set sessionoptions-=blank
 " misc
 set shellslash
 
-" Fold
-set foldtext=vimrc#fold#neat_fold_text()
-set foldlevelstart=99
-
 " Complete
 set dictionary=/usr/share/dict/words
 

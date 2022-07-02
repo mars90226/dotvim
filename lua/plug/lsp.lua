@@ -395,6 +395,36 @@ lsp.startup = function(use)
     end,
   })
   use({ "jose-elias-alvarez/nvim-lsp-ts-utils" })
+
+  -- Fold
+  -- TODO: Check if folding not work in vimwiki
+  -- TODO: Find a better place for fold
+  -- There's several place for fold settings:
+  -- 1. Here for nvim-ufo
+  -- 2. vimwiki.vim for vimwiki specific config
+  use({
+    "kevinhwang91/nvim-ufo",
+    requires = "kevinhwang91/promise-async",
+    config = function()
+      local ufo = require("vimrc.plugins.ufo")
+
+      -- TODO: Display fold symbol in foldcolumn
+      -- Ref: https://github.com/kevinhwang91/nvim-ufo/issues/4#issuecomment-1157716294
+      vim.wo.foldcolumn = "0"
+      vim.wo.foldlevel = 99 -- feel free to decrease the value
+      vim.wo.foldenable = true
+      vim.o.foldlevelstart = 99
+
+      nnoremap("<F10>", function()
+        ufo.toggle_treesitter()
+      end)
+
+      require("ufo").setup({
+        fold_virt_text_handler = ufo.fold_virt_text_handler,
+        provider_selector = ufo.provider_selector,
+      })
+    end,
+  })
 end
 
 return lsp
