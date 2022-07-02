@@ -12,6 +12,7 @@
     "smap",
     "omap",
     "tmap",
+    "cmap",
     "noremap",
     "nnoremap",
     "inoremap",
@@ -20,6 +21,7 @@
     "snoremap",
     "onoremap",
     "tnoremap",
+    "cnoremap",
     "cmd"
   ]
 }
