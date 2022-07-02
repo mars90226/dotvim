@@ -137,6 +137,9 @@ appearance.startup = function(use)
         DiffDelete = { fg = palette.dark0, bg = custom_palette.dark_red },
         DiffText = { bg = custom_palette.dark_yellow },
 
+        -- NOTE: Avoid highlight link to avoid breaking tabby.nvim
+        TabLine = { fg = palette.dark1, bg = palette.dark4 },
+
         -- NOTE: Use similar highlight of StatusLine highlight for WinBar
         WinBar = { fg = palette.light3, bg = palette.dark1 },
         WinBarNC = { fg = palette.light4, bg = palette.dark0 },
