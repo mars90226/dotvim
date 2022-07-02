@@ -39,6 +39,12 @@ file_explorer.startup = function(use)
             ["zb"] = function(_)
               vim.cmd([[normal! zb]])
             end,
+            ["z/"] = function(_)
+              vim.api.nvim_feedkeys('/', 'n', false)
+            end,
+            ["z?"] = function(_)
+              vim.api.nvim_feedkeys('?', 'n', false)
+            end,
           },
         },
       })
