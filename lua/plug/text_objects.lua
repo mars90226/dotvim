@@ -1,6 +1,18 @@
 local text_objects = {}
 
+text_objects.setup_text_objects = function()
+  -- ie = inner entire buffer
+  onoremap("ie", ':exec "normal! ggVG"<CR>')
+  xnoremap("ie", ':<C-U>exec "normal! ggVG"<CR>')
+
+  -- iV = current viewable text in the buffer
+  onoremap("iV", ':exec "normal! HVL"<CR>')
+  xnoremap("iV", ':<C-U>exec "normal! HVL"<CR>')
+end
+
 text_objects.startup = function(use)
+  text_objects.setup_text_objects()
+
   use({
     "wellle/targets.vim",
     config = function()

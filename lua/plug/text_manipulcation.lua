@@ -31,40 +31,52 @@ text_manipulation.startup = function(use)
     end,
   })
 
+  -- Substitute & Exchange
   use({
-    "svermeulen/vim-subversive",
+    "gbprod/substitute.nvim",
     config = function()
-      nmap("ss", "<Plug>(SubversiveSubstitute)")
-      nmap("sS", "<Plug>(SubversiveSubstituteLine)")
-      nmap("sl", "<Plug>(SubversiveSubstituteToEndOfLine)")
+      require("substitute").setup({
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      })
 
-      nmap("<Leader>s", "<Plug>(SubversiveSubstituteRange)")
-      xmap("<Leader>s", "<Plug>(SubversiveSubstituteRange)")
-      nmap("<Leader>ss", "<Plug>(SubversiveSubstituteWordRange)")
+      -- Substitute
+      nnoremap("ss", "<Cmd>lua require('substitute').operator()<CR>")
+      nnoremap("sS", "<Cmd>lua require('substitute').line()<CR>")
+      nnoremap("sl", "<Cmd>lua require('substitute').eol()<CR>")
+      xnoremap("ss", "<Cmd>lua require('substitute').visual()<CR>")
 
-      nmap("scr", "<Plug>(SubversiveSubstituteRangeConfirm)")
-      xmap("scr", "<Plug>(SubversiveSubstituteRangeConfirm)")
-      nmap("scrr", "<Plug>(SubversiveSubstituteWordRangeConfirm)")
+      -- Substitute using system clipboard
+      nnoremap("=ss", "<Cmd>lua require('substitute').operator({ register = '+' })<CR>")
+      nnoremap("=sS", "<Cmd>lua require('substitute').line({ register = '+' })<CR>")
+      nnoremap("=sl", "<Cmd>lua require('substitute').eol({ register = '+' })<CR>")
+      xnoremap("=ss", "<Cmd>lua require('substitute').visual({ register = '+' })<CR>")
 
-      nmap("<Leader><Leader>s", "<Plug>(SubversiveSubvertRange)")
-      xmap("<Leader><Leader>s", "<Plug>(SubversiveSubvertRange)")
-      nmap("<Leader><Leader>ss", "<Plug>(SubversiveSubvertWordRange)")
+      -- Substitute over range
+      nnoremap("<Leader>s", "<Cmd>lua require('substitute.range').operator()<CR>")
+      xnoremap("<Leader>s", "<Cmd>lua require('substitute.range').visual()<CR>")
+      nnoremap("<Leader>ss", "<Cmd>lua require('substitute.range').word()<CR>")
 
-      -- ie = inner entire buffer
-      onoremap("ie", ':exec "normal! ggVG"<CR>')
-      xnoremap("ie", ':<C-U>exec "normal! ggVG"<CR>')
+      -- Substitute over range confirm
+      nnoremap("scr", "<Cmd>lua require('substitute.range').operator({ confirm = true })<CR>")
+      xnoremap("scr", "<Cmd>lua require('substitute.range').visual({ confirm = true })<CR>")
+      nnoremap("scrr", "<Cmd>lua require('substitute.range').word({ confirm = true })<CR>")
 
-      -- iV = current viewable text in the buffer
-      onoremap("iV", ':exec "normal! HVL"<CR>')
-      xnoremap("iV", ':<C-U>exec "normal! HVL"<CR>')
+      -- Substitute over range Subvert (depends on vim-abolish)
+      nnoremap("<Leader><Leader>s", "<Cmd>lua require('substitute.range').operator({ prefix = 'S' })<CR>")
+      xnoremap("<Leader><Leader>s", "<Cmd>lua require('substitute.range').visual({ prefix = 'S' })<CR>")
+      nnoremap("<Leader><Leader>ss", "<Cmd>lua require('substitute.range').word({ prefix = 'S' })<CR>")
 
-      -- Quick substitute from system clipboard
-      nmap("=ss", '"+<Plug>(SubversiveSubstitute)')
-      nmap("=sS", '"+<Plug>(SubversiveSubstituteLine)')
-      nmap("=sl", '"+<Plug>(SubversiveSubstituteToEndOfLine)')
-    end,
+      -- Exchange
+      nnoremap("cx", "<Cmd>lua require('substitute.exchange').operator()<CR>")
+      nnoremap("cxx", "<Cmd>lua require('substitute.exchange').line()<CR>")
+      xnoremap("X", "<Cmd>lua require('substitute.exchange').visual()<CR>")
+      nnoremap("cxc", "<Cmd>lua require('substitute.exchange').cancel()<CR>")
+    end
   })
 
+  -- Surround
   use({
     "machakann/vim-sandwich",
     config = function()
@@ -117,9 +129,6 @@ text_manipulation.startup = function(use)
       vim.fn["vimrc#source"]("vimrc/plugins/sandwich.vim")
     end,
   })
-
-  -- FIXME Due to usage of clipboard, it's slow in neovim in WSL
-  use("tommcdo/vim-exchange")
 
   -- imap <BS> & <CR> is overwritten, need to be careful of bugs
   use({
