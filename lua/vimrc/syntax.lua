@@ -26,7 +26,6 @@ syntax.setup = function()
 
   -- TODO: Need to test in Windows
   vim.go.termguicolors = true
-  vim.cmd([[highlight default link NormalFloat Pmenu]])
 
   -- highlighting strings inside C comments.
   -- TODO: No way to set vim local variable in Lua?

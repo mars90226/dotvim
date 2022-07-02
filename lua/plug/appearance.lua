@@ -129,7 +129,7 @@ appearance.startup = function(use)
         dark_aqua = hsl(palette.faded_aqua).darken(diff_percent).hex,
       }
       local overrides = {
-        GitSignsCurrentLineBlame = { fg = palette.dark4 },
+        NormalFloat = { fg = palette.light1, bg = palette.dark1 },
 
         -- NOTE: Only change background color
         DiffAdd = { fg = nil, bg = custom_palette.dark_green },
@@ -144,7 +144,9 @@ appearance.startup = function(use)
         WinBar = { fg = palette.light3, bg = palette.dark1 },
         WinBarNC = { fg = palette.light4, bg = palette.dark0 },
 
+        -- Plugin
         FocusedSymbol = { fg = palette.faded_blue, bg = custom_palette.white_yellow },
+        GitSignsCurrentLineBlame = { fg = palette.dark4 },
       }
 
       require("gruvbox").setup({})

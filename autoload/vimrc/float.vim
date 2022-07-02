@@ -43,7 +43,8 @@ function! vimrc#float#open(bufnr, width, height, ...) abort
     \ 'col': col,
     \ 'width': a:width,
     \ 'height': a:height,
-    \ 'style':'minimal'
+    \ 'style':'minimal',
+    \ 'border': 'rounded'
     \ }
   " FIXME noautocmd to prevent terminal startinsert WinEnter autocmd
   " This may be a bug that nvim_open_win() trigger WinEnter autocmd and <afile>
