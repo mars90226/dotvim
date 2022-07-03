@@ -22,11 +22,10 @@ augroup cmdline_window_settings
 augroup END
 
 " Highlight yank
-" FIXME: Only highlight text background, not space background
-" augroup highlight_yank
-"   autocmd!
-"   autocmd TextYankPost * silent! lua vim.highlight.on_yank({ timeout = 200 })
-" augroup END
+augroup highlight_yank
+  autocmd!
+  autocmd TextYankPost * silent! lua vim.highlight.on_yank({ timeout = 200 })
+augroup END
 
 " Since NVIM v0.4.0-464-g5eaa45547, commit 5eaa45547975c652e594d0d6dbe34c1316873dc7
 " 'secure' is set when 'modeline' is set, which will cause a lot of commands

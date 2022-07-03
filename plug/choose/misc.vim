@@ -3,7 +3,7 @@ if !has('python') && !has('python3')
 endif
 
 " Choose highlight plugin
-" vim-highlightedyank, or builtin vim.highlight
+" builtin vim.highlight
 
 " Disable vim-gutentags when in nested neovim
 if vimrc#plugin#check#nvim_terminal() ==# 'yes'

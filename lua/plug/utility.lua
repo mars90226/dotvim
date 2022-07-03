@@ -294,14 +294,6 @@ utility.startup = function(use)
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
   })
 
-  -- NOTE: Builtin vim.highlight.on_yank only highlight text background, not space background
-  use({
-    "machakann/vim-highlightedyank",
-    config = function()
-      vim.g.highlightedyank_highlight_duration = 200
-    end,
-  })
-
   -- Focus
   use({
     "Pocco81/TrueZen.nvim",
