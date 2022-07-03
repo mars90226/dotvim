@@ -2,7 +2,11 @@
 local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
-local is_light_vim_mode = require("vimrc.utils").is_light_vim_mode()
+
+local enable_config = {
+  highlight_definitions = false,
+  highlight_current_scope = false,
+}
 
 -- Disable check for highlight module
 local base_highlight_disable_check = function(lang, bufnr)
@@ -121,12 +125,12 @@ require("nvim-treesitter.configs").setup({
   },
   refactor = {
     highlight_definitions = {
-      enable = false,
+      enable = enable_config.highlight_definitions,
       disable = base_highlight_disable_check,
       clear_on_cursor_move = false,
     },
     highlight_current_scope = {
-      enable = false,
+      enable = enable_config.highlight_current_scope,
       disable = highlight_disable_check,
     },
     smart_rename = {
@@ -272,14 +276,11 @@ end, {
   "highlight",
   "matchup",
   plugin_utils.check_enabled_plugin("nvimGPS", "nvim-gps"),
-  "highlight_current_scope",
-  "highlight_definitions",
+  plugin_utils.check_condition("highlight_current_scope", enable_config.highlight_current_scope),
+  plugin_utils.check_condition("highlight_definitions", enable_config.highlight_definitions),
   "navigation",
   "smart_rename",
 })
-local buffer_idle_disabled_modules = {
-  "highlight_current_scope",
-}
 
 vim.api.nvim_create_autocmd({ "FocusGained" }, {
   group = augroup_id,
@@ -296,26 +297,6 @@ vim.api.nvim_create_autocmd({ "FocusLost" }, {
   callback = function()
     for _, module in ipairs(global_idle_disabled_modules) do
       vim.cmd([[TSDisable ]] .. module)
-    end
-  end,
-})
--- TODO: May cause open new file slow
--- TODO: Use TabEnter & TabLeave?
-vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-  group = augroup_id,
-  pattern = "*",
-  callback = function()
-    for _, module in ipairs(buffer_idle_disabled_modules) do
-      vim.cmd([[TSBufEnable ]] .. module)
-    end
-  end,
-})
-vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
-  group = augroup_id,
-  pattern = "*",
-  callback = function()
-    for _, module in ipairs(buffer_idle_disabled_modules) do
-      vim.cmd([[TSBufDisable ]] .. module)
     end
   end,
 })
