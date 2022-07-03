@@ -408,7 +408,8 @@ lsp.startup = function(use)
     "kevinhwang91/nvim-ufo",
     requires = "kevinhwang91/promise-async",
     config = function()
-      local ufo = require("vimrc.plugins.ufo")
+      local ufo = require("ufo")
+      local my_ufo = require("vimrc.plugins.ufo")
 
       -- TODO: Display fold symbol in foldcolumn
       -- Ref: https://github.com/kevinhwang91/nvim-ufo/issues/4#issuecomment-1157716294
@@ -418,12 +419,12 @@ lsp.startup = function(use)
       vim.o.foldlevelstart = 99
 
       nnoremap("<F10>", function()
-        ufo.toggle_treesitter()
+        my_ufo.toggle_treesitter()
       end)
 
-      require("ufo").setup({
-        fold_virt_text_handler = ufo.fold_virt_text_handler,
-        provider_selector = ufo.provider_selector,
+      ufo.setup({
+        fold_virt_text_handler = my_ufo.fold_virt_text_handler,
+        provider_selector = my_ufo.provider_selector,
       })
     end,
   })
