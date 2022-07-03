@@ -66,7 +66,9 @@ set fillchars=diff:⣿,fold:-,vert:│
 
 " show hidden characters
 set list
-set listchars=tab:▸\ ,extends:»,precedes:«,nbsp:␣,space:⋅,eol:↴
+" NOTE: indent-blankline.nvim will override first charater of tab.
+" So use second character to differentiate tab & space
+set listchars=tab:▸─,extends:»,precedes:«,nbsp:␣,eol:↴
 if vimrc#get_vim_mode() =~# 'reader'
   " Don't show trailing space in reader vim mode
   set listchars+=trail:•

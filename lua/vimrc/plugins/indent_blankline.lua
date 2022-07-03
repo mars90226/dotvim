@@ -1,8 +1,6 @@
 require("indent_blankline").setup({
   char = "│",
   show_end_of_line = true,
-  -- space_char_blankline = '·',
-  space_char_blankline = " ",
   filetype_exclude = {
     "any-jump",
     "defx",
