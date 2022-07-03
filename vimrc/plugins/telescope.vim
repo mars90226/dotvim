@@ -1,3 +1,4 @@
+" TODO: Move extension mapping?
 " Mappings
 nnoremap <Space>ta <Cmd>Telescope loclist<CR>
 nnoremap <Space>tb <Cmd>Telescope buffers<CR>
@@ -24,7 +25,8 @@ nnoremap <Space>tl <Cmd>Telescope current_buffer_fuzzy_find<CR>
 nnoremap <Space>tm <Cmd>Telescope oldfiles<CR>
 nnoremap <Space>to <Cmd>Telescope vim_options<CR>
 nnoremap <Space>tp <Cmd>call vimrc#telescope#project_tags()<CR>
-nnoremap <Space>tP <Cmd>Telescope project<CR>
+nnoremap <Space>tP <Cmd>Telescope projects<CR>
+nnoremap <Space>t<C-P> <Cmd>Telescope project<CR>
 nnoremap <Space>t0 <Cmd>Telescope file_browser<CR>
 nnoremap <Space>tq <Cmd>Telescope quickfix<CR>
 nnoremap <Space>tr <Cmd>execute 'Telescope grep_string use_regex=true search='.input('Rg: ')<CR>

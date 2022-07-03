@@ -93,18 +93,18 @@ utility.startup = function(use)
     end,
   })
 
+  -- Project
   use({
-    "airblade/vim-rooter",
-    cmd = { "Rooter" },
-    keys = { "<Leader>r" },
+    "ahmedkhalf/project.nvim",
     config = function()
-      vim.g.rooter_manual_only = 1
-      -- NOTE: some plugin automatically set buffer cwd to tab cwd. (cmp-cmdline?)
-      -- So use tcd to avoid overridden
-      vim.g.rooter_cd_cmd = "tcd"
-      vim.g.rooter_patterns = { "Cargo.toml", ".git/", "package.json" }
+      require("project_nvim").setup({
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      })
+      require("telescope").load_extension("projects")
 
-      nnoremap("<Leader>r", ":Rooter<CR>")
+      nnoremap("<Leader>r", "<Cmd>ProjectRoot<CR>")
     end,
   })
 
