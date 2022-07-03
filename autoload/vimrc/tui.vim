@@ -1,5 +1,5 @@
 " For TUI support
-let s:shells = [&shell, 'bash', 'zsh', 'fish', 'powershell', 'ash']
+let s:shells = [&shell, 'bash', 'zsh', 'fish', 'powershell', 'ash', 'nu']
 let s:tui_processes = ['htop', 'atop', 'btm', 'broot', 'sr', 'ranger', 'nnn', 'vifm', 'fff', 'lf', 'lazygit', 'gitui', 'bandwhich', 'xplr']
 let s:floaterm_wrappers = extend(['broot', 'fff', 'fzf', 'lf', 'nnn', 'ranger', 'rg', 'vifm', 'xplr'], ['vifm_dir'])
 
