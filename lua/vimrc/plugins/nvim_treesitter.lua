@@ -273,7 +273,6 @@ local global_idle_disabled_modules = vim.tbl_filter(function(module)
   return module ~= nil
 end, {
   "context_commentstring",
-  "highlight",
   "matchup",
   plugin_utils.check_enabled_plugin("nvimGPS", "nvim-gps"),
   plugin_utils.check_condition("highlight_current_scope", enable_config.highlight_current_scope),
