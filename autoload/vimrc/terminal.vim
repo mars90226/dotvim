@@ -33,11 +33,9 @@ function! vimrc#terminal#open(split, folder, cmd) abort
     " So we need to open shell and prepend cd command
     let cd_cmd = empty(a:folder) ? '' : 'cd '.fnameescape(a:folder)
     if vimrc#tui#is_shell(a:cmd)
-      " FIXME: the function arguments are changed
       let bufnr = floaterm#terminal#open(-1, a:cmd, {}, {})
       call floaterm#terminal#send(bufnr, [cd_cmd])
     else
-      " FIXME: the function arguments are changed
       let bufnr = floaterm#terminal#open(-1, &shell, {}, {})
       call floaterm#terminal#send(bufnr, [cd_cmd, a:cmd])
     endif

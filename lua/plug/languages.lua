@@ -193,7 +193,6 @@ languages.startup = function(use)
   })
 
   -- Markdown preview
-  -- FIXME: Seems not correctly installed using packer.nvim
   use({
     "iamcco/markdown-preview.nvim",
     ft = { "markdown" },
