@@ -45,6 +45,8 @@ lsp.startup = function(use)
 
   use("ii14/lsp-command")
 
+  -- TODO: Use glepnir/lspsaga.nvim
+  -- Currently not changed due to CursorLine highlight overridden after :Lspsaga lsp_finder
   use({
     "tami5/lspsaga.nvim",
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
