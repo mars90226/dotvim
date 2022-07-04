@@ -72,8 +72,10 @@ appearance.startup = function(use)
   })
 
   -- Winbar
+  -- Managed by lspsaga.nvim, disabled for now
   use_config({
     "mars90226/winbar",
+    disable = true,
     config = function()
       -- TODO: Disable winbar in plugin window
       -- NOTE: Currently, it's not possible to hide winbar based on 'winbar' evaluated result
@@ -142,7 +144,8 @@ appearance.startup = function(use)
         TabLine = { fg = palette.dark1, bg = palette.dark4 },
 
         -- NOTE: Use similar highlight of StatusLine highlight for WinBar
-        WinBar = { fg = palette.light3, bg = palette.dark1 },
+        -- Color is affected by lspsaga.nvim
+        WinBar = { fg = palette.light3, bg = palette.dark0 },
         WinBarNC = { fg = palette.light4, bg = palette.dark0 },
 
         -- Plugin
