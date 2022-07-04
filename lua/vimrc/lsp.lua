@@ -38,7 +38,6 @@ lsp.servers = {
   --     },
   --   },
   -- },
-  -- FIXME: Currently reply on globally installed vscode-langservers-extracted
   cssls = {
     capabilities = {
       textDocument = {
@@ -67,10 +66,31 @@ lsp.servers = {
     },
   },
   cmake = {},
-  -- FIXME: Currently reply on globally installed vscode-langservers-extracted
   eslint = {},
   gopls = {
     condition = plugin_utils.has_linux_build_env(),
+  },
+  html = {
+    capabilities = {
+      textDocument = {
+        completion = {
+          completionItem = {
+            snippetSupport = true,
+          },
+        },
+      },
+    },
+  },
+  jsonls = {
+    capabilities = {
+      textDocument = {
+        completion = {
+          completionItem = {
+            snippetSupport = true,
+          },
+        },
+      },
+    },
   },
   perlnavigator = {},
   -- pyls_ms = {
