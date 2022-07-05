@@ -162,7 +162,7 @@ lsp.on_attach = function(client, bufnr)
   nnoremap("1gD", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", "silent", "buffer")
   nnoremap("gR", "<Cmd>lua vim.lsp.buf.references()<CR>", "silent", "buffer")
   nnoremap("g0", "<Cmd>lua vim.lsp.buf.document_symbol()<CR>", "silent", "buffer")
-  nnoremap("<Space>lf", "<Cmd>lua vim.lsp.buf.formatting()<CR>", "silent", "buffer")
+  nnoremap("<Space>lf", "<Cmd>lua vim.lsp.buf.format({ async = true })<CR>", "silent", "buffer")
   xnoremap("<Space>lf", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", "silent", "buffer")
   nnoremap("<Space>lI", function()
     if vim.fn.exists(":LspInfo") == 2 then
@@ -259,6 +259,7 @@ lsp.setup = function(settings)
   lsp.config = vim.tbl_extend("force", lsp.config, settings)
 end
 
+-- TODO: Rename to format to follow neovim's API
 lsp.formatting_sync = function()
   if lsp.config.enable_format_on_sync then
     vim.lsp.buf.formatting_sync()
