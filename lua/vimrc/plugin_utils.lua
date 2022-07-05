@@ -57,6 +57,10 @@ plugin_utils.is_executable = function(executable)
   return vim.fn.executable(executable) > 0
 end
 
+plugin_utils.file_readable = function(file)
+  return vim.fn.filereadable(file) > 0
+end
+
 plugin_utils.get_os = function()
   return vim.fn["vimrc#plugin#check#get_os"]()
 end

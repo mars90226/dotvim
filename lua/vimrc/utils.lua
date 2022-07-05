@@ -37,11 +37,11 @@ end
 
 -- Map table
 utils.table_map = function(table, fn)
-    local new_table = {}
-    for key, value in pairs(table) do
-        new_table[key] = fn(value)
-    end
-    return new_table
+  local new_table = {}
+  for key, value in pairs(table) do
+    new_table[key] = fn(value)
+  end
+  return new_table
 end
 
 -- ref: https://github.com/LunarVim/LunarVim/blob/rolling/lua/lvim/core/cmp.lua
@@ -59,8 +59,16 @@ utils.toggle_list_option_flag = function(list_option, flag)
   end
 end
 
+utils.get_vim_home = function()
+  return vim.env.HOME .. "/.vim"
+end
+
+utils.get_vim_mode = function()
+  return vim.fn["vimrc#get_vim_mode"]()
+end
+
 utils.is_light_vim_mode = function()
-  local vim_mode = vim.fn["vimrc#get_vim_mode"]()
+  local vim_mode = utils.get_vim_mode()
   return vim_mode == "reader" or vim_mode == "gitcommit"
 end
 

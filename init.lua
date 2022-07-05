@@ -1,6 +1,6 @@
 require("vimrc.profile").setup()
 
-vim.fn["vimrc#source"]("plug/plugin_config_cache.vim")
+require("plug.plugin_config_cache").setup()
 vim.fn["vimrc#source"]("vimrc/basic.vim")
 vim.fn["vimrc#source"]("plug/plugin_choose.vim")
 
