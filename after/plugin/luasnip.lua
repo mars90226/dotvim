@@ -1,6 +1,8 @@
 local ls = require("luasnip")
 local types = require("luasnip.util.types")
 
+local has_secret_luasnip, secret_luasnip = pcall(require, "secret.luasnip")
+
 -- Borrowed from TJ's dotfile: https://github.com/tjdevries/config_manager
 ls.config.setup({
   -- This tells LuaSnip to remember to keep around the last snippet.
@@ -85,6 +87,10 @@ ls.add_snippets("gitcommit", {
 
 ls.add_snippets("markdown", chinese_punctuation_snippets)
 ls.add_snippets("vimwiki", chinese_punctuation_snippets)
+
+if has_secret_luasnip then
+  secret_luasnip.setup()
+end
 
 local utils = require("vimrc.utils")
 
