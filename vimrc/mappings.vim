@@ -16,12 +16,6 @@ nnoremap <M-h> <C-W>h
 nnoremap <M-j> <C-W>j
 nnoremap <M-k> <C-W>k
 nnoremap <M-l> <C-W>l
-
-" Move in insert mode
-inoremap <M-h> <Left>
-inoremap <M-j> <Down>
-inoremap <M-k> <Up>
-inoremap <M-l> <Right>
 " }}}
 
 " Saner command-line history {{{

@@ -142,9 +142,14 @@ completion.startup = function(use)
               luasnip.jump(-1)
             end
           end, { "i", "s" }),
-          ["<C-L>"] = cmp.mapping(function(fallback)
+          ["<M-j>"] = cmp.mapping(function(fallback)
             if luasnip.choice_active() then
               luasnip.change_choice(1)
+            end
+          end, { "i" }),
+          ["<M-k>"] = cmp.mapping(function(fallback)
+            if luasnip.choice_active() then
+              luasnip.change_choice(-1)
             end
           end, { "i" }),
           ["<C-Space>"] = cmp.mapping.complete(),
