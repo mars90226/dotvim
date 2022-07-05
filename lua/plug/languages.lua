@@ -175,11 +175,12 @@ languages.startup = function(use)
     end
   end
 
+  -- TODO: Replace with emmet lsp
   use({
     "mattn/emmet-vim",
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
-    config = function()
-      vim.g.user_emmet_leader_key = "<C-E>"
+    setup = function()
+      vim.g.user_emmet_leader_key = "<M-m>"
     end,
   })
 
@@ -203,8 +204,8 @@ languages.startup = function(use)
       vim.g.mkdp_filetypes = { "markdown" }
       vim.g.mkdp_open_to_the_world = 1
 
-      if plugin_utils.is_executable('open_url.sh') then
-        vim.g.mkdp_browser = 'open_url.sh'
+      if plugin_utils.is_executable("open_url.sh") then
+        vim.g.mkdp_browser = "open_url.sh"
       end
     end,
   })
