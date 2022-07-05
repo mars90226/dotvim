@@ -66,13 +66,13 @@ file_navigation.startup = function(use)
     "laher/fuzzymenu.vim",
     config = function()
       -- Utility
-      vim.fn['vimrc#fuzzymenu#try_add']('ToggleFold', { exec = 'ToggleFold' })
-      vim.fn['vimrc#fuzzymenu#try_add']('ToggleIndent', { exec = 'ToggleIndent' })
+      vim.fn["vimrc#fuzzymenu#try_add"]("ToggleFold", { exec = "ToggleFold" })
+      vim.fn["vimrc#fuzzymenu#try_add"]("ToggleIndent", { exec = "ToggleIndent" })
 
       -- Terminal
-      vim.fn['vimrc#fuzzymenu#try_add']('SplitTerm', { exec = 'new | terminal' })
-      vim.fn['vimrc#fuzzymenu#try_add']('TabTerm', { exec = 'tabe | terminal' })
-      vim.fn['vimrc#fuzzymenu#try_add']('VerticalTerm', { exec = 'vnew | terminal' })
+      vim.fn["vimrc#fuzzymenu#try_add"]("SplitTerm", { exec = "new | terminal" })
+      vim.fn["vimrc#fuzzymenu#try_add"]("TabTerm", { exec = "tabe | terminal" })
+      vim.fn["vimrc#fuzzymenu#try_add"]("VerticalTerm", { exec = "vnew | terminal" })
 
       -- Mappings
       nmap("<Space>m", [[<Plug>(Fzm)]])
@@ -160,7 +160,8 @@ file_navigation.startup = function(use)
   -- Goto Definitions
   use({
     "pechorin/any-jump.nvim",
-    keys = { "<Leader>aj" },
+    cmd = { "AnyJump", "AnyJumpArg", "AnyJumpVisual" },
+    keys = { "<Leader>aj", "<Leader>aa" },
     config = function()
       vim.g.any_jump_window_width_ratio, vim.g.any_jump_window_height_ratio = unpack(
         vim.fn["vimrc#float#get_default_ratio"]()
