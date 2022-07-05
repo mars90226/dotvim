@@ -1,7 +1,7 @@
 require("vimrc.profile").setup()
 
 require("plug.config_cache").setup()
-vim.fn["vimrc#source"]("vimrc/basic.vim")
+require("vimrc.basic").setup()
 vim.fn["vimrc#source"]("plug/plugin_choose.vim")
 
 local auto_packer = require("plug.auto_packer")
