@@ -72,7 +72,7 @@ nnoremap <Space>tA <Cmd>Telescope aerial<CR>
 nnoremap <Leader><Tab> <Cmd>Cheatsheet<CR>
 
 " Harpoon
-nnoremap <Space>tH <Cmd>Telescope harpoon marks<CR>
+nnoremap <Space>tM <Cmd>Telescope harpoon marks<CR>
 
 " Zoxide
 nnoremap <Space>tz <Cmd>Telescope zoxide list<CR>
