@@ -259,9 +259,18 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 
 -- Settings
 -- nvim-ts-hint-textobject
--- TODO: Only setup mapping on treesitter supported filetype
-onoremap("m", [[<Cmd>lua require('tsht').nodes()<CR>]], "silent")
-vnoremap("m", [[:lua require('tsht').nodes()<CR>]], "silent")
+local tsht_nodes = function(fallback)
+  local tsht = require('tsht')
+  local res, nodes = pcall(tsht.nodes)
+
+  if res then
+    return nodes
+  end
+
+  vim.api.nvim_feedkeys(fallback, 'n', false)
+end
+onoremap("m", function() tsht_nodes("m") end, "silent")
+vnoremap("m", function() tsht_nodes("m") end, "silent")
 
 -- Performance
 -- TODO: Check if these actually help performance, initial test reveals that these may reduce highlighter time, but increase "[string]:0" time which is probably the time spent on autocmd & syntax enable/disable.
