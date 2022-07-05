@@ -155,7 +155,7 @@ lsp.on_attach = function(client, bufnr)
   my_lspsaga.on_attach(client)
   my_goto_preview.on_attach(client)
   -- TODO: Move back to appearance.lua, see appearance.lua for reason
-  vim.wo.winbar = [[%{v:lua.require('vimrc.winbar').winbar()}]]
+  winbar.attach(bufnr)
 
   -- NOTE: Use <C-]> to call 'tagfunc'
   -- nnoremap("<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "silent", "buffer")

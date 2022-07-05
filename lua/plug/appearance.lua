@@ -82,15 +82,7 @@ appearance.startup = function(use)
       -- Ref: https://github.com/neovim/neovim/issues/18660
       -- vim.go.winbar = [[%{v:lua.require('vimrc.winbar').winbar()}]]
 
-      local winbar_settings_augroup_id = vim.api.nvim_create_augroup("winbar_settings", {})
-      vim.api.nvim_create_autocmd({ "WinNew" }, {
-        group = winbar_settings_augroup_id,
-        pattern = "*",
-        callback = function()
-          -- NOTE: Clear winbar to avoid inheriting winbar setting from other window
-          vim.wo.winbar = ""
-        end,
-      })
+      require("vimrc.winbar").setup()
     end,
   })
 
