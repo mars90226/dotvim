@@ -15,8 +15,8 @@ plugged
 # old vim-plug file
 autoload/plug.vim.old
 
-# plugin config cache
-.plugin_config_cache
+# config cache
+.config_cache
 
 # node_modules for commitizen
 node_modules

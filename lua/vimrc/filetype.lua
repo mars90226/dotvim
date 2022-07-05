@@ -64,7 +64,7 @@ filetype.setup = function()
       [".flake8"] = "dosini",
 
       -- vim
-      [".plugin_config_cache"] = "vim",
+      [".config_cache"] = "vim",
 
       -- syslog-ng
       ["syslog-ng.conf"] = "syslog-ng",
