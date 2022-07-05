@@ -5,21 +5,25 @@ local plugin_utils = require("vimrc.plugin_utils")
 local winbar = {}
 
 winbar.plugin_check = {
-  ['nvim-navic'] = plugin_utils.is_enabled_plugin('nvim-navic')
+  ["nvim-navic"] = plugin_utils.is_enabled_plugin("nvim-navic"),
 }
 
 winbar.winbar = function()
-  local winbar_content = ""
+  local winbar_content = "%f"
 
-  if winbar.plugin_check['nvim-navic'] and navic.is_available() then
-    winbar_content = winbar_content .. navic.get_location()
+  if winbar.plugin_check["nvim-navic"] and navic.is_available() then
+    local location = navic.get_location()
+
+    if location ~= "" then
+      winbar_content = winbar_content .. " > " .. location
+    end
   end
 
   return winbar_content
 end
 
 winbar.attach = function(bufnr)
-  vim.wo.winbar = [[%{v:lua.require('vimrc.winbar').winbar()}]]
+  vim.wo.winbar = [[%{%v:lua.require('vimrc.winbar').winbar()%}]]
 end
 
 winbar.setup = function()
