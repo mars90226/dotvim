@@ -405,6 +405,7 @@ utility.startup = function(use)
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
+      local my_fine_cmdline = require("vimrc.plugins.fine-cmdline")
 
       -- TODO: Check if tab variable is needed
       local related_bufnr = 0
@@ -417,7 +418,7 @@ utility.startup = function(use)
         },
         hooks = {
           before_mount = function(_)
-            related_bufnr = vim.api.nvim_get_current_buf()
+            my_fine_cmdline.set_related_bufnr(vim.api.nvim_get_current_buf())
           end,
           set_keymaps = function(imap, feedkeys)
             -- TODO: Refactor
@@ -427,7 +428,7 @@ utility.startup = function(use)
               name = "buffer",
               option = {
                 get_bufnrs = function()
-                  local buf = related_bufnr
+                  local buf = my_fine_cmdline.get_related_bufnr()
                   local byte_size = vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf))
                   if byte_size > max_buffer_size then
                     return {}

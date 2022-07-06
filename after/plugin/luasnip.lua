@@ -29,6 +29,7 @@ local sn = ls.snippet_node
 local t = ls.text_node
 local i = ls.insert_node
 local c = ls.choice_node
+local f = ls.function_node
 
 local fmt = require("luasnip.extras.fmt").fmt
 
@@ -87,6 +88,27 @@ ls.add_snippets("gitcommit", {
 
 ls.add_snippets("markdown", chinese_punctuation_snippets)
 ls.add_snippets("vimwiki", chinese_punctuation_snippets)
+
+local fine_cmdline_exp = function(modifier)
+  return f(function()
+    local fine_cmdline = require("vimrc.plugins.fine-cmdline")
+    local filename = vim.api.nvim_buf_get_name(fine_cmdline.get_related_bufnr())
+
+    return vim.fn.fnamemodify(filename, modifier)
+  end)
+end
+
+ls.add_snippets("fine-cmdline", {
+  s(
+    "exp",
+    c(1, {
+      fine_cmdline_exp(":t"),
+      fine_cmdline_exp(":t:r"),
+      fine_cmdline_exp(":p"),
+      fine_cmdline_exp(":h"),
+    })
+  )
+})
 
 if has_secret_luasnip then
   secret_luasnip.setup()

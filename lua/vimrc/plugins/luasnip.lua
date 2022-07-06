@@ -48,7 +48,19 @@ local function window_for_choice_node(choice_node)
   return { win_id = win, extmark = extmark, buf = buf }
 end
 
+luasnip.exclude_filetypes = {
+  "fine-cmdline",
+}
+
+luasnip.is_exclude_filetype = function(filetype)
+  return vim.tbl_contains(luasnip.exclude_filetypes, filetype)
+end
+
 luasnip.choice_popup = function(choiceNode)
+  if luasnip.is_exclude_filetype(vim.bo.ft) then
+    return
+  end
+
   -- build stack for nested choiceNodes.
   if current_win then
     vim.api.nvim_win_close(current_win.win_id, true)
@@ -65,6 +77,10 @@ luasnip.choice_popup = function(choiceNode)
 end
 
 luasnip.update_choice_popup = function(choiceNode)
+  if luasnip.is_exclude_filetype(vim.bo.ft) then
+    return
+  end
+
   vim.api.nvim_win_close(current_win.win_id, true)
   vim.api.nvim_buf_del_extmark(current_win.buf, current_nsid, current_win.extmark)
   local create_win = window_for_choice_node(choiceNode)
@@ -74,6 +90,10 @@ luasnip.update_choice_popup = function(choiceNode)
 end
 
 luasnip.choice_popup_close = function()
+  if luasnip.is_exclude_filetype(vim.bo.ft) then
+    return
+  end
+
   vim.api.nvim_win_close(current_win.win_id, true)
   vim.api.nvim_buf_del_extmark(current_win.buf, current_nsid, current_win.extmark)
   -- now we are checking if we still have previous choice we were in after exit nested choice
