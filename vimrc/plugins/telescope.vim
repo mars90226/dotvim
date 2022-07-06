@@ -28,6 +28,7 @@ nnoremap <Space>tp <Cmd>call vimrc#telescope#project_tags()<CR>
 nnoremap <Space>tP <Cmd>Telescope projects<CR>
 nnoremap <Space>t<C-P> <Cmd>Telescope project<CR>
 nnoremap <Space>t0 <Cmd>Telescope file_browser<CR>
+nnoremap <Space>t) <Cmd>execute 'Telescope file_browser path='.expand('%:h')<CR>
 nnoremap <Space>tq <Cmd>Telescope quickfix<CR>
 nnoremap <Space>tr <Cmd>execute 'Telescope grep_string use_regex=true search='.input('Rg: ')<CR>
 nnoremap <Space>ts <Cmd>Telescope git_status<CR>
