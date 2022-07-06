@@ -13,13 +13,7 @@ require("packer").startup(function(use)
   -- TODO: Monitor if any plugins break by module resolution cache
   use("lewis6991/impatient.nvim")
 
-  -- Mapping utility
-  use("b0o/mapx.nvim")
-  local has_mapx, mapx = pcall(require, "mapx")
-  if has_mapx and mapx.globalized ~= true then
-    mapx.setup({ global = true })
-  end
-
+  require("plug.mapx").startup(use)
   require("plug.appearance").startup(use)
   require("plug.lsp").startup(use)
   require("plug.completion").startup(use)
