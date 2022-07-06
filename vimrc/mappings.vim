@@ -337,7 +337,7 @@ nnoremap <Leader><C-Q> :Bwi!<CR>
 
 command! TrimWhitespace call vimrc#utility#trim_whitespace()
 
-command! DisplayChar call vimrc#display_char()
+command! DisplayChar lua require("vimrc.utils").display_char()
 
 command! ReloadVimrc call vimrc#reload#reload()
 

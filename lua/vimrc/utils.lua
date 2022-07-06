@@ -1,5 +1,6 @@
 local utils = {}
 
+-- Packer
 utils.get_packer_dir = function()
   return require("packer").config.package_root
 end
@@ -78,6 +79,41 @@ utils.ternary = function(condition, true_value, false_value)
   else
     return false_value
   end
+end
+
+utils.remap = function(old_key, new_key, mode)
+  local maparg
+  maparg = vim.fn.maparg(old_key, mode, false, true)
+
+  if maparg then
+    vim.keymap.del(mode, old_key)
+    vim.keymap.set(mode, new_key, maparg.rhs)
+  end
+end
+
+utils.get_char = function(opts)
+  local options = vim.tbl_extend("force", { prompt = "Press any key: " }, opts or {})
+
+  local _get_char = function()
+    print(options.prompt)
+    return vim.fn.getchar()
+  end
+
+  local char = _get_char()
+  while char == utils.t("<CursorHold>") do
+    char = _get_char()
+  end
+
+  return char
+end
+
+utils.get_char_string = function(opts)
+  return vim.fn.nr2char(utils.get_char(opts))
+end
+
+utils.display_char = function()
+  local char = utils.get_char()
+  vim.notify(vim.fn.printf('Raw: "%s" | Char: "%s', char, vim.fn.nr2char(char)), vim.log.levels.INFO)
 end
 
 return utils

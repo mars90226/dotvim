@@ -17,10 +17,10 @@ text_objects.startup = function(use)
     "wellle/targets.vim",
     config = function()
       -- Reach targets
-      nmap("]r", [['vin'.vimrc#getchar_string()."o\<Esc>"]], "expr")
-      nmap("[r", [['vil'.vimrc#getchar_string()."\<Esc>"]], "expr")
-      nmap("]R", [['van'.vimrc#getchar_string()."o\<Esc>"]], "expr")
-      nmap("[R", [['val'.vimrc#getchar_string()."\<Esc>"]], "expr")
+      nmap("]r", [['vin'.v:lua.require("vimrc.utils").get_char_string()."o\<Esc>"]], "expr")
+      nmap("[r", [['vil'.v:lua.require("vimrc.utils").get_char_string()."\<Esc>"]], "expr")
+      nmap("]R", [['van'.v:lua.require("vimrc.utils").get_char_string()."o\<Esc>"]], "expr")
+      nmap("[R", [['val'.v:lua.require("vimrc.utils").get_char_string()."\<Esc>"]], "expr")
     end,
   })
 

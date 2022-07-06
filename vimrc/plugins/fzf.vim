@@ -264,7 +264,7 @@ nnoremap <Space>f<M-p> :call      vimrc#execute_and_save('Punctuations')<CR>
 nnoremap <Space>fq     :call      vimrc#execute_and_save('Quickfix')<CR>
 nnoremap <Space>fr     :call      vimrc#execute_and_save('Rg ' . input('Rg: '))<CR>
 nnoremap <Space>fR     :call      vimrc#execute_and_save('Rg! ' . input('Rg!: '))<CR>
-nnoremap <Space>f<C-R> :call      vimrc#execute_and_save('Rg ' . getreg(vimrc#getchar_string()))<CR>
+nnoremap <Space>f<C-R> :call      vimrc#execute_and_save('Rg ' . getreg(v:lua.require("vimrc.utils").get_char_string()))<CR>
 nnoremap <Space>f4     :call      vimrc#execute_and_save('RgWithOption .:' . input('Option: ') . ':' . input('Rg: '))<CR>
 nnoremap <Space>f$     :call      vimrc#execute_and_save('RgWithOption! .:' . input('Option: ') . ':' . input('Rg!: '))<CR>
 nnoremap <Space>f?     :call      vimrc#execute_and_save('RgWithOption .:' . vimrc#rg#current_type_option() . ':' . input('Rg: '))<CR>

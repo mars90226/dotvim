@@ -4,10 +4,10 @@ let s:nested_neovim_key_mappings = {}
 " TODO Add key mapping for inserting <M-q>
 function! vimrc#terminal#nested_neovim#start(prefix, start_count) abort
   let prefix_count = a:start_count
-  let c = vimrc#getchar_string('Nested neovim, press any key: ')
+  let c = v:lua.require("vimrc.utils").get_char_string({ 'prompt': 'Nested neovim, press any key: ' })
   while c ==# a:prefix
     let prefix_count += 1
-    let c = vimrc#getchar_string('Nested neovim, press any key: ')
+    let c = v:lua.require("vimrc.utils").get_char_string({ 'prompt': 'Nested neovim, press any key: ' })
   endwhile
 
   if !has_key(s:nested_neovim_key_mappings, c)

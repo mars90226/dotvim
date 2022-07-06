@@ -32,7 +32,7 @@ tnoremap <M-C-K> <C-\><C-N>gt
 tnoremap <M-1> <C-\><C-N>:LastTab<CR>
 
 " Quickly paste from register
-tnoremap <M-r>      <C-\><C-N>:execute 'normal! "'.vimrc#getchar_string().'pi'<CR>
+tnoremap <M-r>      <C-\><C-N>:execute 'normal! "'.v:lua.require("vimrc.utils").get_char_string().'pi'<CR>
 tnoremap <M-r><M-r> <M-r>
 
 " Quickly suspend neovim
@@ -74,7 +74,7 @@ tnoremap <M-m><M-m> <C-\><C-N>:call fuzzymenu#Run({})<CR>
   tnoremap <M-q><M-1> <C-\><C-\><C-N>:LastTab<CR>
 
   " Quickly paste from register
-  tnoremap <M-q><M-r> <C-\><C-\><C-N>:execute 'normal! "'.vimrc#getchar_string().'pi'<CR>
+  tnoremap <M-q><M-r> <C-\><C-\><C-N>:execute 'normal! "'.v:lua.require("vimrc.utils").get_char_string().'pi'<CR>
 
   " Quickly suspend neovim
   tnoremap <M-q><C-Z> <C-\><C-\><C-N>:suspend<CR>
@@ -114,7 +114,7 @@ tnoremap <M-m><M-m> <C-\><C-N>:call fuzzymenu#Run({})<CR>
     call vimrc#terminal#nested_neovim#register("\<M-1>", ":LastTab\<CR>")
 
     " Quickly paste from register
-    call vimrc#terminal#nested_neovim#register("\<M-r>", ":execute 'normal! \"'.vimrc#getchar_string().'pi'\<CR>")
+    call vimrc#terminal#nested_neovim#register("\<M-r>", ":execute 'normal! \"'.v:lua.require('vimrc.utils').get_char_string().'pi'\<CR>")
 
     " Quickly suspend neovim
     call vimrc#terminal#nested_neovim#register("\<C-Z>", ":suspend\<CR>")
