@@ -105,3 +105,5 @@ local load_opts = {
 }
 
 require("luasnip.loaders.from_vscode").lazy_load(load_opts)
+
+require("vimrc.plugins.luasnip").setup_choice_popup()
