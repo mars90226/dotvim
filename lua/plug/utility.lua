@@ -402,6 +402,40 @@ utility.startup = function(use)
     requires = { { "MunifTanjim/nui.nvim" } },
     keys = { "<C-P>" },
     config = function()
+      local luasnip = require("luasnip")
+
+      require("fine-cmdline").setup({
+        popup = {
+          buf_options = {
+            ft = 'fine-cmdline'
+          }
+        },
+        hooks = {
+          set_keymaps = function(imap, feedkeys)
+            inoremap("<C-J>", function()
+              if luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+              end
+            end, "silent")
+            inoremap("<C-K>", function()
+              if luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+              end
+            end, "silent")
+            inoremap("<M-j>", function()
+              if luasnip.choice_active() then
+                luasnip.change_choice(1)
+              end
+            end, "silent")
+            inoremap("<M-k>", function()
+              if luasnip.choice_active() then
+                luasnip.change_choice(-1)
+              end
+            end, "silent")
+          end
+        }
+      })
+
       nnoremap("<C-P>", [[<Cmd>lua require('fine-cmdline').open()<CR>]])
     end,
   })
