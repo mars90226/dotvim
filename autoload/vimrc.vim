@@ -1,7 +1,6 @@
 " Use directory junction in Windows to link $HOME."/.vim" to $VIM."/vimfiles"
 let s:vimhome = $HOME . '/.vim'
 let s:vim_mode = $VIM_MODE
-let s:vim_plug_dir = s:vimhome.'/plugged'
 
 function! vimrc#get_vimhome() abort
   return s:vimhome
@@ -9,10 +8,6 @@ endfunction
 
 function! vimrc#get_vim_mode() abort
   return s:vim_mode
-endfunction
-
-function! vimrc#get_vim_plug_dir() abort
-  return s:vim_plug_dir
 endfunction
 
 function! vimrc#source(path) abort
