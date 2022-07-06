@@ -66,6 +66,7 @@ lsp.servers = {
     },
   },
   cmake = {},
+  -- TODO: Suppress the error log of not finding eslint in local repo
   eslint = {},
   gopls = {
     condition = plugin_utils.has_linux_build_env(),
