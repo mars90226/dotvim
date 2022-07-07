@@ -1,4 +1,5 @@
 local lsp_installer_servers = require("nvim-lsp-installer.servers")
+local metadata = require("nvim-lsp-installer._generated.metadata")
 
 local ts_utils = require("nvim-lsp-ts-utils")
 
@@ -18,6 +19,7 @@ lsp.config = {
   show_diagnostics = true,
 }
 
+-- NOTE: Change it also need to change lsp.servers_by_filetype
 lsp.servers = {
   bashls = {
     -- NOTE: Disable shellcheck integration and use nvim-lint to lint on save
@@ -136,6 +138,8 @@ lsp.servers = {
   yamlls = {},
   zk = {},
 }
+-- TODO: Maybe utilize nvim-lsp-installer._generated.metadata?
+lsp.servers_by_filetype = {}
 lsp.server_setuped = {}
 
 lsp.on_init = function(client)
@@ -247,27 +251,76 @@ lsp.setup_server = function(server, custom_opts)
   lsp.server_setuped[server] = true
 end
 
-lsp.setup_servers = function()
-  -- TODO: Lazy load lsp on ft?
-  for server, _ in pairs(lsp.get_servers()) do
-    if lsp.server_setuped[server] then
-      return
-    end
-
-    local ok, lsp_server = lsp_installer_servers.get_server(server)
-    if ok then
-      lsp.setup_server(lsp_server.name, lsp_server:get_default_options())
-    end
-
-    -- nvim-lsp-installer unsupported servers or install failed servers
-    if not ok or not lsp_server:is_installed() then
-      -- Maybe lsp_installer not supported language server, but already installed
-      -- TODO: use other attribute to record name
-      if vim.fn.executable(server) then
-        lsp.setup_server(server, {})
+lsp.supported_servers = nil
+lsp.is_supported_server = function(server)
+  if not lsp.supported_servers then
+    lsp.supported_servers = {}
+    for server_name, server_opts in pairs(lsp.servers) do
+      -- NOTE: We only exclude server with condition == false, but include server
+      -- without condition
+      if server_opts.condition == false then
+        -- do not include server
+      else
+        lsp.supported_servers[server_name] = server_opts
       end
     end
   end
+
+  return lsp.supported_servers[server] ~= nil
+end
+
+lsp.init_servers_by_filetype = function()
+  for server, opts in pairs(metadata) do
+    if lsp.is_supported_server(server) then
+      for _, filetype in ipairs(opts.filetypes) do
+        if not lsp.servers_by_filetype[filetype] then
+          lsp.servers_by_filetype[filetype] = {}
+        end
+
+        table.insert(lsp.servers_by_filetype[filetype], server)
+      end
+    end
+  end
+end
+
+lsp.setup_servers_on_filetype = function(filetype)
+  if not lsp.servers_by_filetype[filetype] then
+    return
+  end
+
+  for _, server in ipairs(lsp.servers_by_filetype[filetype]) do
+    if not lsp.server_setuped[server] then
+      local ok, lsp_server = lsp_installer_servers.get_server(server)
+      if ok then
+        lsp.setup_server(lsp_server.name, lsp_server:get_default_options())
+      end
+
+      -- nvim-lsp-installer unsupported servers or install failed servers
+      if not ok or not lsp_server:is_installed() then
+        -- Maybe lsp_installer not supported language server, but already installed
+        -- TODO: use other attribute to record name
+        if vim.fn.executable(server) then
+          lsp.setup_server(server, {})
+        end
+      end
+    end
+  end
+end
+
+lsp.setup = function(settings)
+  lsp.config = vim.tbl_extend("force", lsp.config, settings)
+
+  lsp.init_servers_by_filetype()
+
+  -- TODO: Maybe setup basic lsp server?
+  local lsp_setup_server_on_ft_augroup_id = vim.api.nvim_create_augroup("lsp_setup_server_on_ft", {})
+  vim.api.nvim_create_autocmd({"FileType" }, {
+    group = lsp_setup_server_on_ft_augroup_id,
+    pattern = "*",
+    callback = function()
+      lsp.setup_servers_on_filetype(vim.bo.filetype)
+    end
+  })
 end
 
 -- TODO: project level notify
@@ -279,11 +332,6 @@ lsp.notify_settings = function(server, settings)
       })
     end
   end
-end
-
--- TODO: Merge settings
-lsp.setup = function(settings)
-  lsp.config = vim.tbl_extend("force", lsp.config, settings)
 end
 
 -- TODO: Rename to format to follow neovim's API

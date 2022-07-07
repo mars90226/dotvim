@@ -26,7 +26,9 @@ command_palette.setup_menu = function()
 end
 
 command_palette.insert_commands = function(category, commands)
-  command_palette.menus[category] = command_palette.menus[category] or {}
+  if not command_palette.menus[category] then
+    command_palette.menus[category] = {}
+  end
   utils.table_concat(command_palette.menus[category], commands)
 end
 
