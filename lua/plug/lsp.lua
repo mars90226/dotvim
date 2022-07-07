@@ -23,23 +23,7 @@ lsp.startup = function(use)
       })
 
       -- Setup lsp servers
-      -- TODO: Lazy load lsp on ft?
-      local lsp_installer_servers = require("nvim-lsp-installer.servers")
-      for server_name, _ in pairs(lsp_configs.get_servers()) do
-        local ok, lsp_server = lsp_installer_servers.get_server(server_name)
-        if ok then
-          lsp_configs.setup_server(lsp_server.name, lsp_server:get_default_options())
-        end
-
-        -- nvim-lsp-installer unsupported servers or install failed servers
-        if not ok or not lsp_server:is_installed() then
-          -- Maybe lsp_installer not supported language server, but already installed
-          -- TODO: use other attribute to record name
-          if vim.fn.executable(server_name) then
-            lsp_configs.setup_server(server_name, {})
-          end
-        end
-      end
+      lsp_configs.setup_servers()
     end,
   })
 

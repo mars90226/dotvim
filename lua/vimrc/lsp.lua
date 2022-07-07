@@ -1,3 +1,5 @@
+local lsp_installer_servers = require("nvim-lsp-installer.servers")
+
 local ts_utils = require("nvim-lsp-ts-utils")
 
 local has_lsp_status, lsp_status = pcall(require, "lsp-status")
@@ -134,6 +136,7 @@ lsp.servers = {
   yamlls = {},
   zk = {},
 }
+lsp.server_setuped = {}
 
 lsp.on_init = function(client)
   client.config.flags = client.config.flags or {}
@@ -239,6 +242,31 @@ lsp.setup_server = function(server, custom_opts)
     lsp_opts.custom_setup(server, lsp_opts)
   else
     require("lspconfig")[server].setup(lsp_opts)
+  end
+
+  lsp.server_setuped[server] = true
+end
+
+lsp.setup_servers = function()
+  -- TODO: Lazy load lsp on ft?
+  for server, _ in pairs(lsp.get_servers()) do
+    if lsp.server_setuped[server] then
+      return
+    end
+
+    local ok, lsp_server = lsp_installer_servers.get_server(server)
+    if ok then
+      lsp.setup_server(lsp_server.name, lsp_server:get_default_options())
+    end
+
+    -- nvim-lsp-installer unsupported servers or install failed servers
+    if not ok or not lsp_server:is_installed() then
+      -- Maybe lsp_installer not supported language server, but already installed
+      -- TODO: use other attribute to record name
+      if vim.fn.executable(server) then
+        lsp.setup_server(server, {})
+      end
+    end
   end
 end
 
