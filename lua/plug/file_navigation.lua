@@ -62,23 +62,6 @@ file_navigation.startup = function(use)
   })
   use("junegunn/fzf.vim")
   use("stsewd/fzf-checkout.vim")
-  use({
-    "laher/fuzzymenu.vim",
-    config = function()
-      -- Utility
-      vim.fn["vimrc#fuzzymenu#try_add"]("ToggleFold", { exec = "ToggleFold" })
-      vim.fn["vimrc#fuzzymenu#try_add"]("ToggleIndent", { exec = "ToggleIndent" })
-
-      -- Terminal
-      vim.fn["vimrc#fuzzymenu#try_add"]("SplitTerm", { exec = "new | terminal" })
-      vim.fn["vimrc#fuzzymenu#try_add"]("TabTerm", { exec = "tabe | terminal" })
-      vim.fn["vimrc#fuzzymenu#try_add"]("VerticalTerm", { exec = "vnew | terminal" })
-
-      -- Mappings
-      nmap("<Space>m", [[<Plug>(Fzm)]])
-      xmap("<Space>m", [[<Plug>(FzmVisual)]])
-    end,
-  })
 
   -- telescope.nvim
   use({
@@ -118,6 +101,65 @@ file_navigation.startup = function(use)
     "TC72/telescope-tele-tabby.nvim",
     config = function()
       require("telescope").load_extension("tele_tabby")
+    end,
+  })
+  use({
+    "LinArcX/telescope-command-palette.nvim",
+    config = function()
+      require("telescope").setup({
+        extensions = {
+          command_palette = {
+            {
+              "File",
+              { "entire selection (C-a)", ':call feedkeys("GVgg")' },
+              { "save current file (C-s)", ":w" },
+              { "save all files (C-A-s)", ":wa" },
+              { "quit (C-q)", ":qa" },
+              { "file browser (C-i)", ":lua require'telescope'.extensions.file_browser.file_browser()", 1 },
+              { "search word (A-w)", ":lua require('telescope.builtin').live_grep()", 1 },
+              { "git files (A-f)", ":lua require('telescope.builtin').git_files()", 1 },
+              { "files (C-f)", ":lua require('telescope.builtin').find_files()", 1 },
+            },
+            {
+              "Help",
+              { "tips", ":help tips" },
+              { "cheatsheet", ":help index" },
+              { "tutorial", ":help tutor" },
+              { "summary", ":help summary" },
+              { "quick reference", ":help quickref" },
+              { "search help(F1)", ":lua require('telescope.builtin').help_tags()", 1 },
+            },
+            {
+              "Vim",
+              { "reload vimrc", ":source $MYVIMRC" },
+              { "check health", ":checkhealth" },
+              { "jumps (Alt-j)", ":lua require('telescope.builtin').jumplist()" },
+              { "commands", ":lua require('telescope.builtin').commands()" },
+              { "command history", ":lua require('telescope.builtin').command_history()" },
+              { "registers (A-e)", ":lua require('telescope.builtin').registers()" },
+              { "colorshceme", ":lua require('telescope.builtin').colorscheme()", 1 },
+              { "vim options", ":lua require('telescope.builtin').vim_options()" },
+              { "keymaps", ":lua require('telescope.builtin').keymaps()" },
+              { "buffers", ":Telescope buffers" },
+              { "search history (C-h)", ":lua require('telescope.builtin').search_history()" },
+              { "paste mode", ":set paste!" },
+              { "cursor line", ":set cursorline!" },
+              { "cursor column", ":set cursorcolumn!" },
+              { "spell checker", ":set spell!" },
+              { "relative number", ":set relativenumber!" },
+              { "search highlighting (F12)", ":set hlsearch!" },
+              { "toggle fold", ":ToggleFold" },
+              { "toggle indent", ":ToggleIndent" },
+              { "terminal in split", ":new | terminal" },
+              { "terminal in tab", ":tabedit | terminal" },
+              { "terminal in vertical split", ":vnew | terminal" },
+            },
+          },
+        },
+      })
+      require("vimrc.plugins.command_palette").setup()
+
+      require("telescope").load_extension("command_palette")
     end,
   })
 

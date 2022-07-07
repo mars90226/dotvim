@@ -49,8 +49,8 @@ tnoremap <M-s><C-U> <C-\><C-N>:call vimrc#search#search_url(0)<CR>
 tnoremap <M-s><C-I> <C-\><C-N>:call vimrc#search#search_ip(0)<CR>
 tnoremap <M-s><M-s> <M-s>
 
-" Fuzzymenu
-tnoremap <M-m><M-m> <C-\><C-N>:call fuzzymenu#Run({})<CR>
+" Command palette
+tnoremap <M-m><M-m> <C-\><C-N>:Telescope command_palette<CR>
 
 " For nested neovim {{{
   " Use <M-q> as prefix
@@ -89,8 +89,8 @@ tnoremap <M-m><M-m> <C-\><C-N>:call fuzzymenu#Run({})<CR>
   tnoremap <M-q><C-U> <C-\><C-\><C-N>:call vimrc#search#search_url(0)<CR>
   tnoremap <M-q><C-I> <C-\><C-\><C-N>:call vimrc#search#search_ip(0)<CR>
 
-  " Fuzzymenu
-  tnoremap <M-q><M-m> <C-\><C-\><C-N>:call fuzzymenu#Run({})<CR>
+  " Command palette
+  tnoremap <M-q><M-m> <C-\><C-\><C-N>:Telescope command_palette<CR>
 
   " For nested nested neovim {{{
     tnoremap <silent> <expr> <M-q><M-q> vimrc#terminal#nested_neovim#start("\<M-q>", 2)
@@ -129,8 +129,8 @@ tnoremap <M-m><M-m> <C-\><C-N>:call fuzzymenu#Run({})<CR>
     call vimrc#terminal#nested_neovim#register("\<C-U>", ":call vimrc#search#search_url(0)\<CR>")
     call vimrc#terminal#nested_neovim#register("\<C-I>", ":call vimrc#search#search_ip(0)\<CR>")
 
-    " Fuzzymenu
-    call vimrc#terminal#nested_neovim#register("\<M-m><M-m>", ":call fuzzymenu#Run({})\<CR>")
+    " Command palette
+    call vimrc#terminal#nested_neovim#register("\<M-m><M-m>", ":Telescope command_palette\<CR>")
   " }}}
 " }}}
 

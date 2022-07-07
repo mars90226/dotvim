@@ -24,8 +24,10 @@ tui.startup = function(use)
       config = function()
         vim.cmd([[command! -nargs=* Htop        call vimrc#tui#run('float', 'htop '.<q-args>)]])
         vim.cmd([[command! -nargs=* HtopSplit   call vimrc#tui#run('new', 'htop '.<q-args>)]])
-        vim.fn["vimrc#fuzzymenu#try_add"]("Htop", { exec = "Htop" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("HtopSplit", { exec = "HtopSplit" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Htop", ":Htop" },
+          { "HtopSplit", ":HtopSplit" },
+        })
 
         nnoremap("<Leader>ht", [[:Htop<CR>]])
       end,
@@ -38,8 +40,10 @@ tui.startup = function(use)
       config = function()
         vim.cmd([[command! -nargs=* Atop        call vimrc#tui#run('float', 'atop '.<q-args>)]])
         vim.cmd([[command! -nargs=* AtopSplit   call vimrc#tui#run('new', 'atop '.<q-args>)]])
-        vim.fn["vimrc#fuzzymenu#try_add"]("Atop", { exec = "Atop" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("AtopSplit", { exec = "AtopSplit" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Atop", ":Atop" },
+          { "AtopSplit", ":AtopSplit" },
+        })
       end,
     })
   end
@@ -50,8 +54,10 @@ tui.startup = function(use)
       config = function()
         vim.cmd([[command! -nargs=* Btm         call vimrc#tui#run('float', 'btm '.<q-args>)]])
         vim.cmd([[command! -nargs=* BtmSplit    call vimrc#tui#run('new', 'btm '.<q-args>)]])
-        vim.fn["vimrc#fuzzymenu#try_add"]("Btm", { exec = "Btm" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("BtmSplit", { exec = "BtmSplit" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Btm", ":Btm" },
+          { "BtmSplit", ":BtmSplit" },
+        })
 
         nnoremap("<Leader>bt", [[:Btm<CR>]])
       end,
@@ -64,8 +70,10 @@ tui.startup = function(use)
       config = function()
         vim.cmd([[command! -nargs=* Broot       call vimrc#tui#run('float', 'broot -p '.<q-args>)]])
         vim.cmd([[command! -nargs=* BrootSplit  call vimrc#tui#run('vnew', 'broot -p '.<q-args>)]])
-        vim.fn["vimrc#fuzzymenu#try_add"]("Broot", { exec = "Broot" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("BrootSplit", { exec = "BrootSplit" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Broot", ":Broot" },
+          { "BrootSplit", ":BrootSplit" },
+        })
 
         nnoremap("<Leader>br", [[:Broot<CR>]])
       end,
@@ -78,8 +86,10 @@ tui.startup = function(use)
       config = function()
         vim.cmd([[command! -nargs=* Ranger      call vimrc#tui#run('float', 'ranger '.<q-args>)]])
         vim.cmd([[command! -nargs=* RangerSplit call vimrc#tui#run('new', 'ranger '.<q-args>)]])
-        vim.fn["vimrc#fuzzymenu#try_add"]("Ranger", { exec = "Ranger" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("RangerSplit", { exec = "RangerSplit" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Ranger", ":Ranger" },
+          { "RangerSplit", ":RangerSplit" },
+        })
       end,
     })
   end
@@ -90,8 +100,10 @@ tui.startup = function(use)
       config = function()
         vim.cmd([[command! -nargs=* Nnn         call vimrc#tui#run('float', 'nnn '.<q-args>)]])
         vim.cmd([[command! -nargs=* NnnSplit    call vimrc#tui#run('new', 'nnn '.<q-args>)]])
-        vim.fn["vimrc#fuzzymenu#try_add"]("Nnn", { exec = "Nnn" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("NnnSplit", { exec = "NnnSplit" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Nnn", ":Nnn" },
+          { "NnnSplit", ":NnnSplit" },
+        })
       end,
     })
   end
@@ -105,10 +117,12 @@ tui.startup = function(use)
         vim.cmd([[command! -nargs=* VifmSplit   call vimrc#tui#run('new', 'vifm '.<q-args>)]])
         vim.cmd([[command! -nargs=* VifmDirFloat   call vimrc#tui#run('float', 'vifm_dir '.<q-args>)]])
         vim.cmd([[command! -nargs=* VifmDirSplit   call vimrc#tui#run('new', 'vifm_dir '.<q-args>)]])
-        vim.fn["vimrc#fuzzymenu#try_add"]("VifmFloat", { exec = "VifmFloat" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("VifmSplit", { exec = "VifmSplit" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("VifmDirFloat", { exec = "VifmDirFloat" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("VifmDirSplit", { exec = "VifmDirSplit" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Vifm", ":Vifm" },
+          { "VifmSplit", ":VifmSplit" },
+          { "VifmDir", ":VifmDir" },
+          { "VifmDirSplit", ":VifmDirSplit" },
+        })
 
         nnoremap("<Leader>vi", [[:VifmFloat<CR>]])
         nnoremap("<Leader>vd", [[:VifmDirFloat<CR>]])
@@ -122,8 +136,10 @@ tui.startup = function(use)
       config = function()
         vim.cmd([[command! -nargs=* Fff         call vimrc#tui#run('float', 'fff '.<q-args>)]])
         vim.cmd([[command! -nargs=* FffSplit    call vimrc#tui#run('new', 'fff '.<q-args>)]])
-        vim.fn["vimrc#fuzzymenu#try_add"]("Fff", { exec = "Fff" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("FffSplit", { exec = "FffSplit" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Fff", ":Fff" },
+          { "FffSplit", ":FffSplit" },
+        })
       end,
     })
   end
@@ -134,8 +150,10 @@ tui.startup = function(use)
       config = function()
         vim.cmd([[command! -nargs=* Lf          call vimrc#tui#run('float', 'lf '.<q-args>)]])
         vim.cmd([[command! -nargs=* LfSplit     call vimrc#tui#run('new', 'lf '.<q-args>)]])
-        vim.fn["vimrc#fuzzymenu#try_add"]("Lf", { exec = "Lf" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("LfSplit", { exec = "LfSplit" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Lf", ":Lf" },
+          { "LfSplit", ":LfSplit" },
+        })
       end,
     })
   end
@@ -146,8 +164,10 @@ tui.startup = function(use)
       config = function()
         vim.cmd([[command! -nargs=* Xplr          call vimrc#tui#run('float', 'xplr '.<q-args>)]])
         vim.cmd([[command! -nargs=* XplrSplit     call vimrc#tui#run('new', 'xplr '.<q-args>)]])
-        vim.fn["vimrc#fuzzymenu#try_add"]("Xplr", { exec = "Xplr" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("XplrSplit", { exec = "XplrSplit" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Xplr", ":Xplr" },
+          { "XplrSplit", ":XplrSplit" },
+        })
 
         nnoremap("<Leader>xp", [[:Xplr<CR>]])
       end,
@@ -160,8 +180,10 @@ tui.startup = function(use)
       config = function()
         vim.cmd([[command! -nargs=* LazyGit      call vimrc#tui#run('float', 'lazygit '.<q-args>)]])
         vim.cmd([[command! -nargs=* LazyGitSplit call vimrc#tui#run('new', 'lazygit '.<q-args>)]])
-        vim.fn["vimrc#fuzzymenu#try_add"]("LazyGit", { exec = "LazyGit" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("LazyGitSplit", { exec = "LazyGitSplit" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "LazyGit", ":LazyGit" },
+          { "LazyGitSplit", ":LazyGitSplit" },
+        })
 
         nnoremap("<Leader>gz", [[:LazyGit<CR>]])
       end,
@@ -174,8 +196,10 @@ tui.startup = function(use)
       config = function()
         vim.cmd([[command! -nargs=* Gitui       call vimrc#tui#run('float', 'gitui '.<q-args>)]])
         vim.cmd([[command! -nargs=* GituiSplit  call vimrc#tui#run('new', 'gitui '.<q-args>)]])
-        vim.fn["vimrc#fuzzymenu#try_add"]("Gitui", { exec = "Gitui" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("GituiSplit", { exec = "GituiSplit" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Gitui", ":Gitui" },
+          { "GituiSplit", ":GituiSplit" },
+        })
 
         nnoremap("<Leader>gi", [[:Gitui<CR>]])
       end,
@@ -188,8 +212,10 @@ tui.startup = function(use)
       config = function()
         vim.cmd([[command! -nargs=* Bandwhich      call vimrc#tui#run('float', 'bandwhich '.<q-args>)]])
         vim.cmd([[command! -nargs=* BandwhichSplit call vimrc#tui#run('new', 'bandwhich '.<q-args>)]])
-        vim.fn["vimrc#fuzzymenu#try_add"]("Bandwhich", { exec = "Bandwhich" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("BandwhichSplit", { exec = "BandwhichSplit" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Bandwhich", ":Bandwhich" },
+          { "BandwhichSplit", ":BandwhichSplit" },
+        })
       end,
     })
   end
@@ -203,8 +229,10 @@ tui.startup = function(use)
       config = function()
         vim.cmd([[command! -nargs=* Fish        call vimrc#tui#run('float', 'fish '.<q-args>)]])
         vim.cmd([[command! -nargs=* FishSplit   call vimrc#tui#run('new', 'fish '.<q-args>)]])
-        vim.fn["vimrc#fuzzymenu#try_add"]("Fish", { exec = "Fish" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("FishSplit", { exec = "FishSplit" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Fish", ":Fish" },
+          { "FishSplit", ":FishSplit" },
+        })
       end,
     })
   end
@@ -215,8 +243,10 @@ tui.startup = function(use)
       config = function()
         vim.cmd([[command! -nargs=* Zsh         call vimrc#tui#run('float', 'zsh '.<q-args>)]])
         vim.cmd([[command! -nargs=* ZshSplit    call vimrc#tui#run('new', 'zsh '.<q-args>)]])
-        vim.fn["vimrc#fuzzymenu#try_add"]("Zsh", { exec = "Zsh" })
-        vim.fn["vimrc#fuzzymenu#try_add"]("ZshSplit", { exec = "ZshSplit" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Zsh", ":Zsh" },
+          { "ZshSplit", ":ZshSplit" },
+        })
       end,
     })
   end
