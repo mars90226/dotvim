@@ -303,6 +303,8 @@ lsp.setup_servers_on_filetype = function(filetype)
           lsp.setup_server(server, {})
         end
       end
+
+      require("lspconfig")[server].launch()
     end
   end
 end
