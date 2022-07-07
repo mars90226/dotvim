@@ -5,7 +5,7 @@ set scrollback=100000
 command! -nargs=* TermOpen call vimrc#terminal#open_current_folder('edit', <q-args>)
 
 " For quick terminal access
-nnoremap <silent> <Leader>tr :call vimrc#terminal#open_current_shell('edit')<CR>
+nnoremap <silent> <Leader>te :call vimrc#terminal#open_current_shell('edit')<CR>
 nnoremap <silent> <Leader>tt :call vimrc#terminal#open_current_shell('tabnew')<CR>
 nnoremap <silent> <Leader>ts :call vimrc#terminal#open_current_shell('new')<CR>
 nnoremap <silent> <Leader>tv :call vimrc#terminal#open_current_shell('vnew')<CR>

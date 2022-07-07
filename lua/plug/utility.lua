@@ -583,6 +583,31 @@ utility.startup = function(use)
       nnoremap("<Leader>cn", [[:<C-U>call codepainter#navigate()<CR>]])
     end,
   })
+  -- FIXME: curl exit code 2
+  use({
+    "potamides/pantran.nvim",
+    cmd = { "Pantran" },
+    keys = { "<Leader>tr", "<Leader>trr" },
+    config = function()
+      local pantran = require("pantran")
+
+      pantran.setup({
+        engines = {
+          argos = {
+            default_target = "zh"
+          }
+        }
+      })
+
+
+      local opts = { noremap = true, silent = true, expr = true }
+      vim.keymap.set("n", "<Leader>tr", pantran.motion_translate, opts)
+      vim.keymap.set("n", "<Leader>trr", function()
+        return pantran.motion_translate() .. "_"
+      end, opts)
+      vim.keymap.set("x", "<Leader>tr", pantran.motion_translate, opts)
+    end,
+  })
 
   use({ "tpope/vim-dadbod", cmd = { "DB" } })
   use({ "tpope/vim-abolish", cmd = { "Abolish", "Subvert", "S" } })
@@ -650,4 +675,3 @@ utility.startup = function(use)
 end
 
 return utility
-

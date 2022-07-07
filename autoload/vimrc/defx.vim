@@ -226,7 +226,7 @@ function! vimrc#defx#mappings() abort " {{{ abort
         \ defx#do_action('toggle_select_visual')
   nnoremap <silent><buffer><expr> <C-G>
         \ defx#do_action('print')
-  nnoremap <silent><buffer><expr> <C-T><C-R>
+  nnoremap <silent><buffer><expr> <C-T><C-E>
         \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . vimrc#defx#do_map('open_current_shell', 'edit')
   nnoremap <silent><buffer><expr> <C-T><C-T>
         \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . vimrc#defx#do_map('open_current_shell', 'tabnew')
@@ -271,10 +271,10 @@ function! vimrc#defx#mappings() abort " {{{ abort
         \ defx#do_action('call', 'vimrc#defx#execute_file_float')
   " Add this mapping to prevent from executing 'x' mapping
   nnoremap <silent><buffer><expr> \x
-        \ defx#do_action('call', 'vimrc#defx#execute_file')
+        \ defx#do_action('call', 'vimrc#defx#execute_file_float')
   nnoremap <silent><buffer><expr> \xx
         \ defx#do_action('call', 'vimrc#defx#execute_file')
-  nnoremap <silent><buffer><expr> \xr
+  nnoremap <silent><buffer><expr> \xe
         \ defx#do_action('call', 'vimrc#defx#execute_file')
   nnoremap <silent><buffer><expr> \xf
         \ defx#do_action('call', 'vimrc#defx#execute_file_float')
@@ -286,7 +286,7 @@ function! vimrc#defx#mappings() abort " {{{ abort
         \ defx#do_action('call', 'vimrc#defx#execute_file_vertical')
   nnoremap <silent><buffer><expr> \dx
         \ defx#do_action('call', 'vimrc#defx#execute_dir_float')
-  nnoremap <silent><buffer><expr> \dr
+  nnoremap <silent><buffer><expr> \de
         \ defx#do_action('call', 'vimrc#defx#execute_dir')
   nnoremap <silent><buffer><expr> \df
         \ defx#do_action('call', 'vimrc#defx#execute_dir_float')
