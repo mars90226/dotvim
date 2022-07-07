@@ -123,6 +123,7 @@ appearance.startup = function(use)
       }
       local overrides = {
         NormalFloat = { fg = palette.light1, bg = palette.dark1 },
+        TSOperator = { link = "Special" },
 
         -- NOTE: Only change background color
         DiffAdd = { fg = nil, bg = custom_palette.dark_green },
