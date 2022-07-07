@@ -89,6 +89,12 @@ ls.add_snippets("gitcommit", {
 ls.add_snippets("markdown", chinese_punctuation_snippets)
 ls.add_snippets("vimwiki", chinese_punctuation_snippets)
 
+ls.add_snippets("markdown", {
+  s("desc", t("**[Description]**")),
+  s("htf", t("**[How to fix]**")),
+  s("htv", t("**[How to verify]**")),
+})
+
 local fine_cmdline_exp = function(modifier)
   return f(function()
     local fine_cmdline = require("vimrc.plugins.fine-cmdline")
@@ -107,7 +113,7 @@ ls.add_snippets("fine-cmdline", {
       fine_cmdline_exp(":p"),
       fine_cmdline_exp(":h"),
     })
-  )
+  ),
 })
 
 if has_secret_luasnip then
