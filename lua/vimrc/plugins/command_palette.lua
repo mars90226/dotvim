@@ -1,4 +1,3 @@
-local cp = require("command_palette")
 local utils = require("vimrc.utils")
 
 local command_palette = {}
@@ -6,6 +5,8 @@ local command_palette = {}
 command_palette.menus = {}
 
 local function add_to_cp_menu(category, commands)
+  local cp = require("command_palette")
+
   for _, cp_category in ipairs(cp.CpMenu) do
     if cp_category[1] == category then
       utils.table_concat(cp_category, commands)

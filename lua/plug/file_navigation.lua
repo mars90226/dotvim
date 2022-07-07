@@ -105,6 +105,7 @@ file_navigation.startup = function(use)
   })
   use({
     "LinArcX/telescope-command-palette.nvim",
+    event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
       require("telescope").setup({
         extensions = {
