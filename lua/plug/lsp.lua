@@ -329,9 +329,7 @@ lsp.startup = function(use)
   -- Specific LSP Support
   use({
     "simrat39/rust-tools.nvim",
-    config = function()
-      require("rust-tools").setup({})
-    end,
+    module = { "rust-tools" },
   })
   use({ "jose-elias-alvarez/nvim-lsp-ts-utils" })
 
