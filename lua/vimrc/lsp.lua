@@ -1,7 +1,6 @@
 local ts_utils = require("nvim-lsp-ts-utils")
 
 local has_lsp_status, lsp_status = pcall(require, "lsp-status")
-local aerial = require("aerial")
 local navic = require("nvim-navic")
 
 local my_lspsaga = require("vimrc.plugins.lspsaga")
@@ -146,7 +145,6 @@ lsp.on_attach = function(client, bufnr)
   if has_lsp_status then
     lsp_status.on_attach(client)
   end
-  aerial.on_attach(client, bufnr)
 
   if client.server_capabilities.documentSymbolProvider then
     navic.attach(client, bufnr)

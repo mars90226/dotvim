@@ -66,9 +66,6 @@ nnoremap <Space>lS <Cmd>Telescope lsp_dynamic_workspace_symbols<CR>
 nnoremap <Space>lc <Cmd>Telescope diagnostics bufnr=0<CR>
 nnoremap <Space>lC <Cmd>Telescope diagnostics<CR>
 
-" Aerial
-nnoremap <Space>tA <Cmd>Telescope aerial<CR>
-
 " Cheatsheet Mappings
 nnoremap <Leader><Tab> <Cmd>Cheatsheet<CR>
 

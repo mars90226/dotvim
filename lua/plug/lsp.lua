@@ -347,48 +347,6 @@ lsp.startup = function(use)
       nnoremap("<F7>", [[<Cmd>SymbolsOutline<CR>]])
     end,
   })
-  -- NOTE: Support treesitter
-  -- TODO: Cannot lazy load due to lsp attach
-  use({
-    "stevearc/aerial.nvim",
-    config = function()
-      local plugin_utils = require("vimrc.plugin_utils")
-
-      require("aerial").setup({
-        backends = vim.tbl_filter(function(backend)
-          return backend ~= nil
-        end, {
-          "lsp",
-          plugin_utils.check_enabled_plugin("treesitter", "nvim-treesitter"),
-          "markdown",
-        }),
-        filter_kind = {
-          "Class",
-          "Constructor",
-          "Enum",
-          "Function",
-          "Interface",
-          "Module",
-          "Method",
-          "Struct",
-          -- "Variable",
-        },
-        width = vim.g.right_sidebar_width,
-        on_attach = function(bufnr)
-          -- Toggle the aerial window with <Space><F7>
-          nnoremap("<Space><F7>", [[<Cmd>AerialToggle!<CR>]], "silent", "buffer")
-          -- Jump forwards/backwards with '{' and '}'
-          nnoremap("{", [[<Cmd>AerialPrev<CR>]], "silent", "buffer")
-          nnoremap("}", [[<Cmd>AerialNext<CR>]], "silent", "buffer")
-          -- Jump up the tree with '[[' or ']]'
-          nnoremap("[[", [[<Cmd>AerialPrevUp<CR>]], "silent", "buffer")
-          nnoremap("]]", [[<Cmd>AerialNextUp<CR>]], "silent", "buffer")
-        end,
-      })
-
-      require("telescope").load_extension("aerial")
-    end,
-  })
 
   -- Specific LSP Support
   use({
