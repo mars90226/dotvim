@@ -41,6 +41,7 @@ command_palette.setup = function()
     pattern = "*",
     callback = function()
       command_palette.setup_menu()
+      -- NOTE: Due to multiple event, cannot use `once = true`.
       vim.api.nvim_del_augroup_by_id(augroup_id)
     end,
   })
