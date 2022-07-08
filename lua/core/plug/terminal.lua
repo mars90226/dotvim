@@ -10,7 +10,6 @@ terminal.startup = function(use)
   use_config({
     "mars90226/terminal",
     config = function()
-      -- neovim terminal key mapping and settings {{{
       -- Set terminal buffer size to unlimited
       -- TODO: Move to setting.lua
       vim.opt.scrollback = 100000
@@ -161,21 +160,46 @@ terminal.startup = function(use)
       -- }}}
       -- }}}
 
-      vim.cmd([[augroup terminal_settings]])
-      vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd TermOpen * call vimrc#terminal#settings()]])
-      vim.cmd([[  autocmd TermOpen * call vimrc#terminal#mappings()]])
+      local terminal_augroup_id = vim.api.nvim_create_augroup("terminal_settings", {})
+      vim.api.nvim_create_autocmd({ "TermOpen" }, {
+        group = terminal_augroup_id,
+        pattern = "*",
+        callback = function()
+          vim.fn["vimrc#terminal#settings"]()
+          vim.fn["vimrc#terminal#mappings"]()
+        end,
+      })
 
       -- TODO Start insert mode when cancelling :Windows in terminal mode or
       -- selecting another terminal buffer
-      vim.cmd([[  autocmd BufWinEnter,WinEnter term://* if &buftype ==# 'terminal' | startinsert | endif]])
-      vim.cmd([[  autocmd BufLeave             term://* if &buftype ==# 'terminal' | stopinsert  | endif]])
+      vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
+        group = terminal_augroup_id,
+        pattern = "term://*",
+        callback = function()
+          if vim.bo.buftype == "terminal" then
+            vim.cmd([[startinsert]])
+          end
+        end,
+      })
+      vim.api.nvim_create_autocmd({ "BufLeave" }, {
+        group = terminal_augroup_id,
+        pattern = "term://*",
+        callback = function()
+          if vim.bo.buftype == "terminal" then
+            vim.cmd([[stopinsert]])
+          end
+        end,
+      })
 
       -- Ignore various filetypes as those will close terminal automatically
       -- Ignore fzf
-      vim.cmd([[  autocmd TermClose term://* call vimrc#terminal#close_result_buffer(expand('<afile>'))]])
-      vim.cmd([[augroup END]])
-      -- }}}
+      vim.api.nvim_create_autocmd({ "TermClose" }, {
+        group = terminal_augroup_id,
+        pattern = "term://*",
+        callback = function()
+          vim.fn["vimrc#terminal#close_result_buffer"](vim.fn.expand("<afile>"))
+        end,
+      })
     end,
   })
 end

@@ -285,10 +285,15 @@ mapping.startup = function(use)
       nnoremap("<Leader><F2>", [[:VimrcFloatNew! Man<Space>]])
 
       -- Quickfix & Locaiton List {{{
-      vim.cmd([[augroup quickfix_settings]])
-      vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd FileType qf call vimrc#quickfix#mappings()]])
-      vim.cmd([[augroup END]])
+      -- TODO: Use ftplugin
+      local quickfix_augroup_id = vim.api.nvim_create_augroup("quickfix_settings", {})
+      vim.api.nvim_create_autocmd({ "FileType" }, {
+        group = quickfix_augroup_id,
+        pattern = "qf",
+        callback = function()
+          vim.fn["vimrc#quickfix#mappings"]()
+        end,
+      })
       -- }}}
 
       -- Custom function {{{
@@ -300,11 +305,21 @@ mapping.startup = function(use)
       vim.api.nvim_create_user_command("LastTab", [[call vimrc#last_tab#jump(<count>)]], { count = true, bar = true })
       nnoremap("<M-1>", [[:call vimrc#last_tab#jump(v:count)<CR>]])
 
-      vim.cmd([[augroup last_tab_settings]])
-      vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd TabLeave * call vimrc#last_tab#insert(tabpagenr())]])
-      vim.cmd([[  autocmd TabClosed * call vimrc#last_tab#clear_invalid()]])
-      vim.cmd([[augroup END]])
+      local last_tab_augroup_id = vim.api.nvim_create_augroup("last_tab_settings", {})
+      vim.api.nvim_create_autocmd({ "TabLeave" }, {
+        group = last_tab_augroup_id,
+        pattern = "*",
+        callback = function()
+          vim.fn["vimrc#last_tab#insert"](vim.api.nvim_get_current_tabpage())
+        end,
+      })
+      vim.api.nvim_create_autocmd({ "TabClosed" }, {
+        group = last_tab_augroup_id,
+        pattern = "*",
+        callback = function()
+          vim.fn["vimrc#last_tab#clear_invalid"]()
+        end,
+      })
 
       -- Toggle parent folder tag
       vim.api.nvim_create_user_command("ToggleParentFolderTag", [[call vimrc#toggle#parent_folder_tag()]], {})

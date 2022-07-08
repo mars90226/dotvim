@@ -183,11 +183,6 @@ lsp.startup = function(use)
               return vim.fn.executable("json.tool") > 0
             end,
           }),
-          null_ls.builtins.formatting.lua_format.with({
-            condition = function()
-              return vim.fn.executable("lua-format") > 0
-            end,
-          }),
           -- NOTE: use prettierd instead
           -- null_ls.builtins.formatting.prettier.with({
           --   condition = function()
