@@ -41,6 +41,7 @@ command_palette.setup = function()
     pattern = "*",
     callback = function()
       command_palette.setup_menu()
+      vim.api.nvim_del_augroup_by_id(augroup_id)
     end,
   })
 end
