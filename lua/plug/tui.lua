@@ -68,6 +68,10 @@ tui.startup = function(use)
     use_config({
       "mars90226/tui-broot",
       config = function()
+        -- NOTE: vim-floaterm wrapper for broot need to update
+        -- Change `broot --conf "/path/configs" --out "path/temp/file"`
+        -- to `broot --conf "/path/configs" >> "path/temp/file"`
+        -- Ref: https://github.com/voldikss/vim-floaterm/issues/364
         vim.cmd([[command! -nargs=* Broot       call vimrc#tui#run('float', 'broot -p '.<q-args>)]])
         vim.cmd([[command! -nargs=* BrootSplit  call vimrc#tui#run('vnew', 'broot -p '.<q-args>)]])
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
