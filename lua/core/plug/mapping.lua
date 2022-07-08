@@ -12,7 +12,7 @@ mapping.startup = function(use)
     config = function()
       local plugin_utils = require("vimrc.plugin_utils")
 
-      vim.cmd([[command! HelptagsAll lua require('vimrc.utils').helptags_all()]])
+      vim.api.nvim_create_user_command("HelptagsAll", [[lua require('vimrc.utils').helptags_all()]], {})
 
       -- Don't use Ex mode, use Q for formatting
       nnoremap("Q", [[gq]])
@@ -292,12 +292,12 @@ mapping.startup = function(use)
       -- }}}
 
       -- Custom function {{{
-      vim.cmd([[command! ToggleIndent call vimrc#toggle#toggle#indent()]])
-      vim.cmd([[command! ToggleFold call vimrc#toggle#fold_method()]])
+      vim.api.nvim_create_user_command("ToggleIndent", [[call vimrc#toggle#toggle#indent()]], {})
+      vim.api.nvim_create_user_command("ToggleFold", [[call vimrc#toggle#fold_method()]], {})
       nnoremap("cof", [[:ToggleFold<CR>]])
 
       -- LastTab
-      vim.cmd([[command! -count -bar LastTab call vimrc#last_tab#jump(<count>)]])
+      vim.api.nvim_create_user_command("LastTab", [[call vimrc#last_tab#jump(<count>)]], { count = true, bar = true })
       nnoremap("<M-1>", [[:call vimrc#last_tab#jump(v:count)<CR>]])
 
       vim.cmd([[augroup last_tab_settings]])
@@ -307,25 +307,33 @@ mapping.startup = function(use)
       vim.cmd([[augroup END]])
 
       -- Toggle parent folder tag
-      vim.cmd([[command! ToggleParentFolderTag call vimrc#toggle#parent_folder_tag()]])
+      vim.api.nvim_create_user_command("ToggleParentFolderTag", [[call vimrc#toggle#parent_folder_tag()]], {})
       nnoremap("yoP", [[:ToggleParentFolderTag<CR>]], "<silent>")
 
       -- Display file size
-      vim.cmd([[command! -nargs=1 -complete=file FileSize call vimrc#utility#file_size(<q-args>)]])
+      vim.api.nvim_create_user_command(
+        "FileSize",
+        [[call vimrc#utility#file_size(<q-args>)]],
+        { nargs = 1, complete = "file" }
+      )
 
       -- Set tab size
-      vim.cmd([[command! -nargs=1 SetTabSize call vimrc#utility#set_tab_size(<q-args>)]])
+      vim.api.nvim_create_user_command("SetTabSize", [[call vimrc#utility#set_tab_size(<q-args>)]], { nargs = 1 })
 
-      vim.cmd([[command! GetCursorSyntax echo vimrc#utility#get_cursor_syntax()]])
+      vim.api.nvim_create_user_command("GetCursorSyntax", [[echo vimrc#utility#get_cursor_syntax()]], {})
 
       -- Find the cursor
-      vim.cmd([[command! FindCursor call vimrc#utility#blink_cursor_location()]])
+      vim.api.nvim_create_user_command("FindCursor", [[call vimrc#utility#blink_cursor_location()]], {})
 
-      vim.cmd([[command! ClearWinfixsize call vimrc#clear_winfixsize()]])
+      vim.api.nvim_create_user_command("ClearWinfixsize", [[call vimrc#clear_winfixsize()]], {})
 
-      vim.cmd([[command! -nargs=1 ClearRegisters call vimrc#utility#clear_registers(<q-args>)]])
+      vim.api.nvim_create_user_command(
+        "ClearRegisters",
+        [[call vimrc#utility#clear_registers(<q-args>)]],
+        { nargs = 1 }
+      )
 
-      vim.cmd([[command! MakeTodo lua require("vimrc.todo").make_todo()]])
+      vim.api.nvim_create_user_command("MakeTodo", [[lua require("vimrc.todo").make_todo()]], {})
       -- }}}
 
       -- Custom command {{{
@@ -333,38 +341,70 @@ mapping.startup = function(use)
       -- file it was loaded from, thus the changes you made.
       -- Only define it when not defined already.
       if vim.fn.exists(":DiffOrig") ~= 2 then
-        vim.cmd([[command DiffOrig call vimrc#utility#diff_original()]])
+        vim.api.nvim_create_user_command("DiffOrig", [[call vimrc#utility#diff_original()]], {})
       end
 
       -- Delete inactive buffers
-      vim.cmd([[command! -bang Bdi call vimrc#utility#delete_inactive_buffers(0, <bang>0)]])
-      vim.cmd([[command! -bang Bwi call vimrc#utility#delete_inactive_buffers(1, <bang>0)]])
+      vim.api.nvim_create_user_command(
+        "Bdi",
+        [[call vimrc#utility#delete_inactive_buffers(0, <bang>0)]],
+        { bang = true }
+      )
+      vim.api.nvim_create_user_command(
+        "Bwi",
+        [[call vimrc#utility#delete_inactive_buffers(1, <bang>0)]],
+        { bang = true }
+      )
       nnoremap("<Leader>D", [[:Bdi<CR>]])
       nnoremap("<Leader><C-D>", [[:Bdi!<CR>]])
       nnoremap("<Leader>Q", [[:Bwi<CR>]])
       nnoremap("<Leader><C-Q>", [[:Bwi!<CR>]])
 
-      vim.cmd([[command! TrimWhitespace call vimrc#utility#trim_whitespace()]])
+      vim.api.nvim_create_user_command("TrimWhitespace", [[call vimrc#utility#trim_whitespace()]], {})
 
-      vim.cmd([[command! DisplayChar lua require("vimrc.utils").display_char()]])
+      vim.api.nvim_create_user_command("DisplayChar", [[lua require("vimrc.utils").display_char()]], {})
 
-      vim.cmd([[command! ReloadVimrc call vimrc#reload#reload()]])
+      vim.api.nvim_create_user_command("ReloadVimrc", [[call vimrc#reload#reload()]], {})
 
-      vim.cmd([[command! -nargs=1 -complete=command QuickfixOutput call vimrc#quickfix#execute(<f-args>)]])
+      vim.api.nvim_create_user_command(
+        "QuickfixOutput",
+        [[call vimrc#quickfix#execute(<f-args>)]],
+        { nargs = 1, complete = "command" }
+      )
       nnoremap("<Leader>oq", [[:execute 'QuickfixOutput '.input('OuickfixOutput: ', '', 'command')<CR>]])
-      vim.cmd([[command! -nargs=1 -complete=command LocationOutput call vimrc#quickfix#loc_execute(<f-args>)]])
+      vim.api.nvim_create_user_command(
+        "LocationOutput",
+        [[call vimrc#quickfix#loc_execute(<f-args>)]],
+        { nargs = 1, complete = "command" }
+      )
       nnoremap("<Leader>ol", [[:execute 'LocationOutput '.input('LocationOutput: ', '', 'command')<CR>]])
 
-      vim.cmd([[command! QuickfixFromCurrentBuffer call vimrc#quickfix#build_from_buffer(bufnr())]])
-      vim.cmd([[command! -nargs=1 QuickfixFromBuffer call vimrc#quickfix#build_from_buffer(<f-args>)]])
+      vim.api.nvim_create_user_command(
+        "QuickfixFromCurrentBuffer",
+        [[call vimrc#quickfix#build_from_buffer(bufnr())]],
+        {}
+      )
+      vim.api.nvim_create_user_command(
+        "QuickfixFromBuffer",
+        [[call vimrc#quickfix#build_from_buffer(<f-args>)]],
+        { nargs = 1 }
+      )
 
       if plugin_utils.get_os() ~= "windows" then
-        vim.cmd([[command! Args echo system("ps -o command= -p " . getpid())]])
+        vim.api.nvim_create_user_command("Args", [[echo system("ps -o command= -p " . getpid())]], {})
       end
 
-      vim.cmd([[command! -nargs=1 -complete=file Switch    call vimrc#open#switch(<q-args>, 'edit')]])
-      vim.cmd([[command! -nargs=1 -complete=file TabSwitch call vimrc#open#switch(<q-args>, 'tabedit')]])
-      vim.cmd([[command! -nargs=1 -complete=file TabOpen   call vimrc#open#tab(<q-args>)]])
+      vim.api.nvim_create_user_command(
+        "Switch",
+        [[call vimrc#open#switch(<q-args>, 'edit')]],
+        { nargs = 1, complete = "file" }
+      )
+      vim.api.nvim_create_user_command(
+        "TabSwitch",
+        [[call vimrc#open#switch(<q-args>, 'tabedit')]],
+        { nargs = 1, complete = "file" }
+      )
+      vim.api.nvim_create_user_command("TabOpen", [[call vimrc#open#tab(<q-args>)]], { nargs = 1, complete = "file" })
       -- }}}
     end,
   })
