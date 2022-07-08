@@ -25,15 +25,25 @@ float.startup = function(use)
       -- }}}
 
       -- Float {{{
-      vim.cmd([[command! -bang -nargs=?                   VimrcFloatToggle call vimrc#float#toggle(<q-args>, <bang>0)]])
-      vim.cmd([[command! -bang -nargs=? -complete=command VimrcFloatNew    call vimrc#float#new(<q-args>, <bang>0)]])
-      vim.cmd([[command!                                  VimrcFloatPrev   call vimrc#float#prev()]])
-      vim.cmd([[command!                                  VimrcFloatNext   call vimrc#float#next()]])
-      vim.cmd([[command!                                  VimrcFloatRemove call vimrc#float#remove()]])
+      vim.api.nvim_create_user_command(
+        "VimrcFloatToggle",
+        [[call vimrc#float#toggle(<q-args>, <bang>0)]],
+        { bang = true, nargs = "?" }
+      )
+      vim.api.nvim_create_user_command(
+        "VimrcFloatNew",
+        [[call vimrc#float#new(<q-args>, <bang>0)]],
+        { bang = true, nargs = "?", complete = "command" }
+      )
+      vim.api.nvim_create_user_command("VimrcFloatPrev", [[call vimrc#float#prev()]], {})
+      vim.api.nvim_create_user_command("VimrcFloatNext", [[call vimrc#float#next()]], {})
+      vim.api.nvim_create_user_command("VimrcFloatRemove", [[call vimrc#float#remove()]], {})
       -- TODO: Use floaterm & g:floaterm_autoclose = v:false for non-interactive
       -- terminal command
-      vim.cmd(
-        [[command! -bang -nargs=? -complete=command VimrcFloatermNew call vimrc#float#new('TermOpen '.<q-args>, <bang>0)]]
+      vim.api.nvim_create_user_command(
+        "VimrcFloatermNew",
+        [[call vimrc#float#new('TermOpen '.<q-args>, <bang>0)]],
+        { bang = true, nargs = "?", complete = "command" }
       )
 
       nnoremap("<M-,><M-l>", [[:VimrcFloatToggle<CR>]], "silent")

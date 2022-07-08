@@ -12,7 +12,7 @@ tui.startup = function(use)
     use_config({
       "mars90226/tui-sr",
       config = function()
-        vim.cmd([[command! -nargs=1 GoogleKeyword call vimrc#tui#google_keyword(<q-args>)]])
+        vim.api.nvim_create_user_command("GoogleKeyword", [[call vimrc#tui#google_keyword(<q-args>)]], { nargs = 1 })
         nnoremap("<Leader>gk", [[:execute 'GoogleKeyword ' . expand('<cword>')<CR>]])
       end,
     })
@@ -22,8 +22,8 @@ tui.startup = function(use)
     use_config({
       "mars90226/tui-htop",
       config = function()
-        vim.cmd([[command! -nargs=* Htop        call vimrc#tui#run('float', 'htop '.<q-args>)]])
-        vim.cmd([[command! -nargs=* HtopSplit   call vimrc#tui#run('new', 'htop '.<q-args>)]])
+        vim.api.nvim_create_user_command("Htop", [[call vimrc#tui#run('float', 'htop '.<q-args>)]], { nargs = "*" })
+        vim.api.nvim_create_user_command("HtopSplit", [[call vimrc#tui#run('new', 'htop '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
           { "Htop", ":Htop" },
           { "HtopSplit", ":HtopSplit" },
@@ -38,8 +38,8 @@ tui.startup = function(use)
     use_config({
       "mars90226/tui-atop",
       config = function()
-        vim.cmd([[command! -nargs=* Atop        call vimrc#tui#run('float', 'atop '.<q-args>)]])
-        vim.cmd([[command! -nargs=* AtopSplit   call vimrc#tui#run('new', 'atop '.<q-args>)]])
+        vim.api.nvim_create_user_command("Atop", [[call vimrc#tui#run('float', 'atop '.<q-args>)]], { nargs = "*" })
+        vim.api.nvim_create_user_command("AtopSplit", [[call vimrc#tui#run('new', 'atop '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
           { "Atop", ":Atop" },
           { "AtopSplit", ":AtopSplit" },
@@ -52,8 +52,8 @@ tui.startup = function(use)
     use_config({
       "mars90226/tui-btm",
       config = function()
-        vim.cmd([[command! -nargs=* Btm         call vimrc#tui#run('float', 'btm '.<q-args>)]])
-        vim.cmd([[command! -nargs=* BtmSplit    call vimrc#tui#run('new', 'btm '.<q-args>)]])
+        vim.api.nvim_create_user_command("Btm", [[call vimrc#tui#run('float', 'btm '.<q-args>)]], { nargs = "*" })
+        vim.api.nvim_create_user_command("BtmSplit", [[call vimrc#tui#run('new', 'btm '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
           { "Btm", ":Btm" },
           { "BtmSplit", ":BtmSplit" },
@@ -72,8 +72,16 @@ tui.startup = function(use)
         -- Change `broot --conf "/path/configs" --out "path/temp/file"`
         -- to `broot --conf "/path/configs" >> "path/temp/file"`
         -- Ref: https://github.com/voldikss/vim-floaterm/issues/364
-        vim.cmd([[command! -nargs=* Broot       call vimrc#tui#run('float', 'broot -p '.<q-args>)]])
-        vim.cmd([[command! -nargs=* BrootSplit  call vimrc#tui#run('vnew', 'broot -p '.<q-args>)]])
+        vim.api.nvim_create_user_command(
+          "Broot",
+          [[call vimrc#tui#run('float', 'broot -p '.<q-args>)]],
+          { nargs = "*" }
+        )
+        vim.api.nvim_create_user_command(
+          "BrootSplit",
+          [[call vimrc#tui#run('vnew', 'broot -p '.<q-args>)]],
+          { nargs = "*" }
+        )
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
           { "Broot", ":Broot" },
           { "BrootSplit", ":BrootSplit" },
@@ -88,8 +96,12 @@ tui.startup = function(use)
     use_config({
       "mars90226/tui-ranger",
       config = function()
-        vim.cmd([[command! -nargs=* Ranger      call vimrc#tui#run('float', 'ranger '.<q-args>)]])
-        vim.cmd([[command! -nargs=* RangerSplit call vimrc#tui#run('new', 'ranger '.<q-args>)]])
+        vim.api.nvim_create_user_command("Ranger", [[call vimrc#tui#run('float', 'ranger '.<q-args>)]], { nargs = "*" })
+        vim.api.nvim_create_user_command(
+          "RangerSplit",
+          [[call vimrc#tui#run('new', 'ranger '.<q-args>)]],
+          { nargs = "*" }
+        )
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
           { "Ranger", ":Ranger" },
           { "RangerSplit", ":RangerSplit" },
@@ -102,8 +114,8 @@ tui.startup = function(use)
     use_config({
       "mars90226/tui-nnn",
       config = function()
-        vim.cmd([[command! -nargs=* Nnn         call vimrc#tui#run('float', 'nnn '.<q-args>)]])
-        vim.cmd([[command! -nargs=* NnnSplit    call vimrc#tui#run('new', 'nnn '.<q-args>)]])
+        vim.api.nvim_create_user_command("Nnn", [[call vimrc#tui#run('float', 'nnn '.<q-args>)]], { nargs = "*" })
+        vim.api.nvim_create_user_command("NnnSplit", [[call vimrc#tui#run('new', 'nnn '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
           { "Nnn", ":Nnn" },
           { "NnnSplit", ":NnnSplit" },
@@ -117,10 +129,22 @@ tui.startup = function(use)
       "mars90226/tui-vifm",
       config = function()
         -- NOTE: vifm.vim use :Vifm command
-        vim.cmd([[command! -nargs=* VifmFloat   call vimrc#tui#run('float', 'vifm '.<q-args>)]])
-        vim.cmd([[command! -nargs=* VifmSplit   call vimrc#tui#run('new', 'vifm '.<q-args>)]])
-        vim.cmd([[command! -nargs=* VifmDirFloat   call vimrc#tui#run('float', 'vifm_dir '.<q-args>)]])
-        vim.cmd([[command! -nargs=* VifmDirSplit   call vimrc#tui#run('new', 'vifm_dir '.<q-args>)]])
+        vim.api.nvim_create_user_command(
+          "VifmFloat",
+          [[call vimrc#tui#run('float', 'vifm '.<q-args>)]],
+          { nargs = "*" }
+        )
+        vim.api.nvim_create_user_command("VifmSplit", [[call vimrc#tui#run('new', 'vifm '.<q-args>)]], { nargs = "*" })
+        vim.api.nvim_create_user_command(
+          "VifmDirFloat",
+          [[call vimrc#tui#run('float', 'vifm_dir '.<q-args>)]],
+          { nargs = "*" }
+        )
+        vim.api.nvim_create_user_command(
+          "VifmDirSplit",
+          [[call vimrc#tui#run('new', 'vifm_dir '.<q-args>)]],
+          { nargs = "*" }
+        )
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
           { "Vifm", ":Vifm" },
           { "VifmSplit", ":VifmSplit" },
@@ -138,8 +162,8 @@ tui.startup = function(use)
     use_config({
       "mars90226/tui-fff",
       config = function()
-        vim.cmd([[command! -nargs=* Fff         call vimrc#tui#run('float', 'fff '.<q-args>)]])
-        vim.cmd([[command! -nargs=* FffSplit    call vimrc#tui#run('new', 'fff '.<q-args>)]])
+        vim.api.nvim_create_user_command("Fff", [[call vimrc#tui#run('float', 'fff '.<q-args>)]], { nargs = "*" })
+        vim.api.nvim_create_user_command("FffSplit", [[call vimrc#tui#run('new', 'fff '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
           { "Fff", ":Fff" },
           { "FffSplit", ":FffSplit" },
@@ -152,8 +176,8 @@ tui.startup = function(use)
     use_config({
       "mars90226/tui-lf",
       config = function()
-        vim.cmd([[command! -nargs=* Lf          call vimrc#tui#run('float', 'lf '.<q-args>)]])
-        vim.cmd([[command! -nargs=* LfSplit     call vimrc#tui#run('new', 'lf '.<q-args>)]])
+        vim.api.nvim_create_user_command("Lf", [[call vimrc#tui#run('float', 'lf '.<q-args>)]], { nargs = "*" })
+        vim.api.nvim_create_user_command("LfSplit", [[call vimrc#tui#run('new', 'lf '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
           { "Lf", ":Lf" },
           { "LfSplit", ":LfSplit" },
@@ -166,8 +190,8 @@ tui.startup = function(use)
     use_config({
       "mars90226/tui-xplr",
       config = function()
-        vim.cmd([[command! -nargs=* Xplr          call vimrc#tui#run('float', 'xplr '.<q-args>)]])
-        vim.cmd([[command! -nargs=* XplrSplit     call vimrc#tui#run('new', 'xplr '.<q-args>)]])
+        vim.api.nvim_create_user_command("Xplr", [[call vimrc#tui#run('float', 'xplr '.<q-args>)]], { nargs = "*" })
+        vim.api.nvim_create_user_command("XplrSplit", [[call vimrc#tui#run('new', 'xplr '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
           { "Xplr", ":Xplr" },
           { "XplrSplit", ":XplrSplit" },
@@ -182,8 +206,16 @@ tui.startup = function(use)
     use_config({
       "mars90226/tui-lazygit",
       config = function()
-        vim.cmd([[command! -nargs=* LazyGit      call vimrc#tui#run('float', 'lazygit '.<q-args>)]])
-        vim.cmd([[command! -nargs=* LazyGitSplit call vimrc#tui#run('new', 'lazygit '.<q-args>)]])
+        vim.api.nvim_create_user_command(
+          "LazyGit",
+          [[call vimrc#tui#run('float', 'lazygit '.<q-args>)]],
+          { nargs = "*" }
+        )
+        vim.api.nvim_create_user_command(
+          "LazyGitSplit",
+          [[call vimrc#tui#run('new', 'lazygit '.<q-args>)]],
+          { nargs = "*" }
+        )
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
           { "LazyGit", ":LazyGit" },
           { "LazyGitSplit", ":LazyGitSplit" },
@@ -198,8 +230,12 @@ tui.startup = function(use)
     use_config({
       "mars90226/tui-gitui",
       config = function()
-        vim.cmd([[command! -nargs=* Gitui       call vimrc#tui#run('float', 'gitui '.<q-args>)]])
-        vim.cmd([[command! -nargs=* GituiSplit  call vimrc#tui#run('new', 'gitui '.<q-args>)]])
+        vim.api.nvim_create_user_command("Gitui", [[call vimrc#tui#run('float', 'gitui '.<q-args>)]], { nargs = "*" })
+        vim.api.nvim_create_user_command(
+          "GituiSplit",
+          [[call vimrc#tui#run('new', 'gitui '.<q-args>)]],
+          { nargs = "*" }
+        )
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
           { "Gitui", ":Gitui" },
           { "GituiSplit", ":GituiSplit" },
@@ -214,8 +250,16 @@ tui.startup = function(use)
     use_config({
       "mars90226/tui-bandwhich",
       config = function()
-        vim.cmd([[command! -nargs=* Bandwhich      call vimrc#tui#run('float', 'bandwhich '.<q-args>)]])
-        vim.cmd([[command! -nargs=* BandwhichSplit call vimrc#tui#run('new', 'bandwhich '.<q-args>)]])
+        vim.api.nvim_create_user_command(
+          "Bandwhich",
+          [[call vimrc#tui#run('float', 'bandwhich '.<q-args>)]],
+          { nargs = "*" }
+        )
+        vim.api.nvim_create_user_command(
+          "BandwhichSplit",
+          [[call vimrc#tui#run('new', 'bandwhich '.<q-args>)]],
+          { nargs = "*" }
+        )
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
           { "Bandwhich", ":Bandwhich" },
           { "BandwhichSplit", ":BandwhichSplit" },
@@ -231,8 +275,8 @@ tui.startup = function(use)
     use_config({
       "mars90226/tui-fish",
       config = function()
-        vim.cmd([[command! -nargs=* Fish        call vimrc#tui#run('float', 'fish '.<q-args>)]])
-        vim.cmd([[command! -nargs=* FishSplit   call vimrc#tui#run('new', 'fish '.<q-args>)]])
+        vim.api.nvim_create_user_command("Fish", [[call vimrc#tui#run('float', 'fish '.<q-args>)]], { nargs = "*" })
+        vim.api.nvim_create_user_command("FishSplit", [[call vimrc#tui#run('new', 'fish '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
           { "Fish", ":Fish" },
           { "FishSplit", ":FishSplit" },
@@ -245,8 +289,8 @@ tui.startup = function(use)
     use_config({
       "mars90226/tui-zsh",
       config = function()
-        vim.cmd([[command! -nargs=* Zsh         call vimrc#tui#run('float', 'zsh '.<q-args>)]])
-        vim.cmd([[command! -nargs=* ZshSplit    call vimrc#tui#run('new', 'zsh '.<q-args>)]])
+        vim.api.nvim_create_user_command("Zsh", [[call vimrc#tui#run('float', 'zsh '.<q-args>)]], { nargs = "*" })
+        vim.api.nvim_create_user_command("ZshSplit", [[call vimrc#tui#run('new', 'zsh '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
           { "Zsh", ":Zsh" },
           { "ZshSplit", ":ZshSplit" },

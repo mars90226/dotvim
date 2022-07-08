@@ -47,8 +47,8 @@ cli.startup = function(use)
     use_config({
       "mars90226/cli-tmux",
       config = function()
-        vim.cmd([[command! RefreshDisplay call vimrc#utility#refresh_display()]])
-        vim.cmd([[command! RefreshSshClient call vimrc#utility#refresh_ssh_client()]])
+        vim.api.nvim_create_user_command("RefreshDisplay", [[call vimrc#utility#refresh_display()]], {})
+        vim.api.nvim_create_user_command("RefreshSshClient", [[call vimrc#utility#refresh_ssh_client()]], {})
       end,
     })
 
@@ -56,7 +56,7 @@ cli.startup = function(use)
       use_config({
         "mars90226/cli-tmux-ssh-agent",
         config = function()
-          vim.cmd([[command! RefreshSshAgent call vimrc#utility#refresh_ssh_agent()]])
+          vim.api.nvim_create_user_command("RefreshSshAgent", [[call vimrc#utility#refresh_ssh_agent()]], {})
         end,
       })
     end

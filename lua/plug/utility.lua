@@ -73,6 +73,7 @@ utility.startup = function(use)
     "tversteeg/registers.nvim",
     disable = true,
   })
+  -- TODO: Cursor moved up when pressing '"'?
   use({
     "junegunn/vim-peekaboo",
     config = function()

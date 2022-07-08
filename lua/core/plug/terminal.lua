@@ -15,7 +15,11 @@ terminal.startup = function(use)
       -- TODO: Move to setting.lua
       vim.opt.scrollback = 100000
 
-      vim.cmd([[command! -nargs=* TermOpen call vimrc#terminal#open_current_folder('edit', <q-args>)]])
+      vim.api.nvim_create_user_command(
+        "TermOpen",
+        [[call vimrc#terminal#open_current_folder('edit', <q-args>)]],
+        { nargs = "*" }
+      )
 
       -- For quick terminal access
       nnoremap("<Leader>te", [[:call vimrc#terminal#open_current_shell('edit')<CR>]], "<silent>")
