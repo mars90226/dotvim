@@ -62,19 +62,6 @@ autocmd.startup = function(use)
         end,
       })
 
-      -- Since NVIM v0.4.0-464-g5eaa45547, commit 5eaa45547975c652e594d0d6dbe34c1316873dc7
-      -- 'secure' is set when 'modeline' is set, which will cause a lot of commands
-      -- cannot run in autocmd when opening help page.
-      -- TODO: Check if this is still needed
-      local secure_modeline_augroup_id = vim.api.nvim_create_augroup("secure_modeline_conflict_workaround", {})
-      vim.api.nvim_create_autocmd({ "FileType" }, {
-        group = secure_modeline_augroup_id,
-        pattern = "help",
-        callback = function()
-          vim.bo.modeline = false
-        end,
-      })
-
       -- Secret project local settings
       if vim.fn.exists("*VimSecretProjectLocalSettings") ~= 0 then
         vim.fn["VimSecretProjectLocalSettings"]()
