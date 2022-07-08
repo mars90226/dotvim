@@ -38,7 +38,7 @@ end)
 
 require("vimrc.mapping").setup()
 
-require("vimrc.settings").setup()
+require("vimrc.setting").setup()
 require("vimrc.filetype").setup()
 require("vimrc.syntax").setup()
 require("vimrc.diagraphs").setup()
