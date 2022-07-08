@@ -283,6 +283,8 @@ lsp.init_servers_by_filetype = function()
   end
 end
 
+-- TODO: Monitor if there's multiple lsp servers attached to buffer which has
+-- different lsp server configuration
 lsp.setup_servers_on_filetype = function(filetype)
   if not lsp.servers_by_filetype[filetype] then
     return
