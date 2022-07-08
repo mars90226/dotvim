@@ -38,7 +38,7 @@ end)
 
 require("vimrc.mapping").setup()
 
-vim.fn["vimrc#source"]("vimrc/settings.vim")
+require("vimrc.settings").setup()
 require("vimrc.filetype").setup()
 require("vimrc.syntax").setup()
 require("vimrc.diagraphs").setup()
