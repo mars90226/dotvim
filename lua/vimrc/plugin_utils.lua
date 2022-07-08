@@ -39,6 +39,7 @@ end
 plugin_utils.config_installer = plugin_utils.builtin_installer
 plugin_utils.config_updater = plugin_utils.builtin_updater
 
+-- NOTE: Cannot be opt package, so need to be careful of ordering
 plugin_utils.use_config = function(use, plugin_spec)
   plugin_spec.url = "" -- FIXME: According to document, this is not needed
   plugin_spec.installer = plugin_utils.config_installer

@@ -109,6 +109,7 @@ appearance.startup = function(use)
   use({ "rktjmp/lush.nvim" })
   use({
     "ellisonleao/gruvbox.nvim",
+    after = "syntax",
     config = function()
       local hsl = require("lush").hsl
       local palette = require("gruvbox.palette")
