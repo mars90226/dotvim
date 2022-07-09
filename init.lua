@@ -1,3 +1,5 @@
+pcall(require, "impatient")
+
 require("vimrc.profile").setup()
 
 require("plug.config_cache").setup()
