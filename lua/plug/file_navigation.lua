@@ -293,16 +293,6 @@ file_navigation.startup = function(use)
   })
 
   use({
-    "pchynoweth/a.vim",
-    config = function()
-      vim.cmd([[augroup alternate_settings]])
-      vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd VimEnter * call vimrc#alternative#settings()]])
-      vim.cmd([[augroup END]])
-    end,
-  })
-
-  use({
     "rgroli/other.nvim",
     config = function()
       require("other-nvim").setup({
