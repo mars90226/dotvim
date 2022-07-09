@@ -1,2 +1,4 @@
 vim.fn["vimrc#quickfix#mappings"]()
-vim.fn["vimrc#qfreplace#mappings"]()
+
+-- Qfreplace
+nnoremap("r", [[:<C-U>Qfreplace<CR>]], "<silent>", "<buffer>")

@@ -1,1 +1,1 @@
-vim.fn["vimrc#floaterm#settings"]()
+vim.wo.signcolumn = "no"
