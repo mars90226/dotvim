@@ -51,11 +51,6 @@ git.startup = function(use)
       nnoremap("<Leader>gv", ":call vimrc#gv#show_file('%', {})<CR>")
       nnoremap("<Leader>gV", ":call vimrc#gv#show_file('%', {'author': g:company_domain})<CR>")
       nnoremap("<Leader>g<C-V>", ":call vimrc#gv#show_file('%', {'author': g:company_email})<CR>")
-
-      vim.cmd([[augroup gv_settings]])
-      vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd FileType GV call vimrc#gv#mappings()]])
-      vim.cmd([[augroup END]])
     end,
   })
 
@@ -101,11 +96,6 @@ git.startup = function(use)
       nnoremap("<Leader>gf", ":call vimrc#flog#show_file('%', {})<CR>")
       nnoremap("<Leader>gF", ":call vimrc#flog#show_file('%', {'author': g:company_domain})<CR>")
       nnoremap("<Leader>g<C-F>", ":call vimrc#flog#show_file('%', {'author': g:company_email})<CR>")
-
-      vim.cmd([[augroup flog_settings]])
-      vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd FileType floggraph call vimrc#flog#mappings()]])
-      vim.cmd([[augroup END]])
     end,
   })
 
@@ -140,11 +130,6 @@ git.startup = function(use)
     keys = { "<Leader>gm" },
     config = function()
       nmap("<Leader>gm", "<Plug>(git-messenger)")
-
-      vim.cmd([[augroup git_messenger_settings]])
-      vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd FileType gitmessengerpopup call vimrc#git_messenger#mappings()]])
-      vim.cmd([[augroup END]])
     end,
   })
 
@@ -159,8 +144,6 @@ git.startup = function(use)
 
       vim.cmd([[augroup diffview_settings]])
       vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd FileType DiffviewFiles call vimrc#diffview#mappings()]])
-      vim.cmd([[  autocmd FileType DiffviewFileHistory call vimrc#diffview#history_mappings()]])
       -- diffview.nvim use nvim_buf_set_name() to change buffer name to
       -- corresponding file, so use BufFilePost event
       -- diffview buffer pattern: "^diffview/(\d+_)?(\w{7})_.*$"

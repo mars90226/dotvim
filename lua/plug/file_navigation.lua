@@ -221,11 +221,6 @@ file_navigation.startup = function(use)
       xnoremap("<Leader>aj", "<Cmd>AnyJumpVisual<CR>")
       nnoremap("<Leader>ab", "<Cmd>AnyJumpBack<CR>")
       nnoremap("<Leader>al", "<Cmd>AnyJumpLastResults<CR>")
-
-      vim.cmd([[augroup any_jump_settings]])
-      vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd FileType any-jump call vimrc#any_jump#settings()]])
-      vim.cmd([[augroup END]])
     end,
   })
   -- Automatically update tags

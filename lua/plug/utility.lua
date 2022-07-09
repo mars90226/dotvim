@@ -137,8 +137,7 @@ utility.startup = function(use)
 
       vim.cmd([[augroup vimwiki_settings]])
       vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd FileType vimwiki call vimrc#vimwiki#settings()]])
-      vim.cmd([[  autocmd FileType vimwiki call vimrc#vimwiki#mappings()]])
+      -- TODO: Need to check if this is needed
       vim.cmd([[  autocmd VimEnter *.wiki  VimwikiManualAllFolding]])
       vim.cmd([[augroup END]])
     end,
@@ -268,16 +267,7 @@ utility.startup = function(use)
 
   use({ "kevinhwang91/nvim-bqf", ft = { "qf" } })
 
-  use({
-    "thinca/vim-qfreplace",
-    ft = { "qf" },
-    config = function()
-      vim.cmd([[augroup qfreplace_settings]])
-      vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd FileType qf call vimrc#qfreplace#mappings()]])
-      vim.cmd([[augroup END]])
-    end,
-  })
+  use({ "thinca/vim-qfreplace", ft = { "qf" } })
 
   use({
     "romainl/vim-qf",
@@ -595,11 +585,10 @@ utility.startup = function(use)
       pantran.setup({
         engines = {
           argos = {
-            default_target = "zh"
-          }
-        }
+            default_target = "zh",
+          },
+        },
       })
-
 
       local opts = { noremap = true, silent = true, expr = true }
       vim.keymap.set("n", "<Leader>tr", pantran.motion_translate, opts)
