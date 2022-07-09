@@ -70,15 +70,15 @@ plugin_choose.setup = function()
   -- Start choosing
   vim.fn["vimrc#plugin#clear_disabled_plugins"]()
 
-  vim.fn["vimrc#source"]("plug/choose/appearance.vim")
-  vim.fn["vimrc#source"]("plug/choose/completion.vim")
-  vim.fn["vimrc#source"]("plug/choose/file_explorer.vim")
-  vim.fn["vimrc#source"]("plug/choose/finder.vim")
-  vim.fn["vimrc#source"]("plug/choose/text_navigation.vim")
-  vim.fn["vimrc#source"]("plug/choose/language.vim")
-  vim.fn["vimrc#source"]("plug/choose/git.vim")
-  vim.fn["vimrc#source"]("plug/choose/terminal.vim")
-  vim.fn["vimrc#source"]("plug/choose/misc.vim")
+  require("plug.choose.appearance").setup()
+  require("plug.choose.completion").setup()
+  require("plug.choose.file_explorer").setup()
+  require("plug.choose.finder").setup()
+  require("plug.choose.text_navigation").setup()
+  require("plug.choose.language").setup()
+  require("plug.choose.git").setup()
+  require("plug.choose.terminal").setup()
+  require("plug.choose.misc").setup()
 end
 
 return plugin_choose
