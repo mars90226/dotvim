@@ -284,18 +284,6 @@ mapping.startup = function(use)
       nnoremap("<Leader><F1>", [[:Man<Space>]])
       nnoremap("<Leader><F2>", [[:VimrcFloatNew! Man<Space>]])
 
-      -- Quickfix & Locaiton List {{{
-      -- TODO: Use ftplugin
-      local quickfix_augroup_id = vim.api.nvim_create_augroup("quickfix_settings", {})
-      vim.api.nvim_create_autocmd({ "FileType" }, {
-        group = quickfix_augroup_id,
-        pattern = "qf",
-        callback = function()
-          vim.fn["vimrc#quickfix#mappings"]()
-        end,
-      })
-      -- }}}
-
       -- Custom function {{{
       vim.api.nvim_create_user_command("ToggleIndent", [[call vimrc#toggle#toggle#indent()]], {})
       vim.api.nvim_create_user_command("ToggleFold", [[call vimrc#toggle#fold_method()]], {})

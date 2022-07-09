@@ -37,13 +37,6 @@ nnoremap <silent> <Leader>g` :call vimrc#fugitive#review_last_commit()<CR>
 
 augroup fugitive_settings
   autocmd!
-  autocmd FileType gitcommit       call vimrc#fugitive#gitcommit_settings()
-  autocmd FileType fugitive        call vimrc#fugitive#settings()
-  autocmd FileType fugitive        call vimrc#fugitive#mappings()
-  autocmd FileType git             call vimrc#fugitive#git_settings()
-  autocmd FileType git             call vimrc#fugitive#git_mappings()
-  autocmd FileType fugitiveblame   call vimrc#fugitive#blame_settings()
-  autocmd FileType fugitiveblame   call vimrc#fugitive#blame_mappings()
   autocmd BufReadPost fugitive://* call vimrc#fugitive#fugitive_buffer_settings()
 augroup END
 

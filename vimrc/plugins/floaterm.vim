@@ -37,8 +37,3 @@ call vimrc#terminal#nested_neovim#register("\<M-2>", ":FloatermToggle\<CR>")
 call vimrc#terminal#nested_neovim#register("\<M-3>", ":FloatermPrev\<CR>")
 call vimrc#terminal#nested_neovim#register("\<M-4>", ":FloatermNext\<CR>")
 call vimrc#terminal#nested_neovim#register("\<M-5>", ":FloatermNew!\<CR>")
-
-augroup floaterm_settings
-  autocmd!
-  autocmd FileType floaterm call vimrc#floaterm#settings()
-augroup END

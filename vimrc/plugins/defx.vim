@@ -76,12 +76,6 @@ command! -nargs=1 -complete=file DefxTabSwitch call vimrc#open#switch(<q-args>, 
 " Defx search
 command! -nargs=1 -complete=file DefxSearch call vimrc#defx#open(<q-args>, 'search')
 
-augroup defx_mappings
-  autocmd!
-  autocmd FileType defx call vimrc#defx#settings()
-  autocmd FileType defx call vimrc#defx#mappings()
-augroup END
-
 augroup defx_detect_folder
   autocmd!
   " Disable netrw autocmd
