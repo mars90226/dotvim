@@ -73,13 +73,15 @@ text_manipulation.startup = function(use)
       nnoremap("cxx", "<Cmd>lua require('substitute.exchange').line()<CR>")
       xnoremap("X", "<Cmd>lua require('substitute.exchange').visual()<CR>")
       nnoremap("cxc", "<Cmd>lua require('substitute.exchange').cancel()<CR>")
-    end
+    end,
   })
 
   -- Surround
   use({
     "machakann/vim-sandwich",
     config = function()
+      local utils = require("vimrc.utils")
+
       xmap("iss", "<Plug>(textobj-sandwich-auto-i)")
       xmap("ass", "<Plug>(textobj-sandwich-auto-a)")
       omap("iss", "<Plug>(textobj-sandwich-auto-i)")
@@ -126,7 +128,71 @@ text_manipulation.startup = function(use)
       -- To avoid mis-deleting character when cancelling sandwich operator
       nnoremap("s<Esc>", "<NOP>")
 
-      vim.fn["vimrc#source"]("vimrc/plugins/sandwich.vim")
+      -- if you have not copied default recipes
+      local sandwich_recipes = vim.fn.deepcopy(vim.g["sandwich#default_recipes"])
+
+      -- add spaces inside bracket
+      utils.table_concat(sandwich_recipes, {
+        {
+          buns = { "{ ", " }" },
+          nesting = 1,
+          match_syntax = 1,
+          kind = { "add", "replace" },
+          action = { "add" },
+          input = {
+            "}",
+          },
+        },
+        {
+          buns = { "[ ", " ]" },
+          nesting = 1,
+          match_syntax = 1,
+          kind = { "add", "replace" },
+          action = { "add" },
+          input = {
+            "]",
+          },
+        },
+        {
+          buns = { "( ", " )" },
+          nesting = 1,
+          match_syntax = 1,
+          kind = { "add", "replace" },
+          action = { "add" },
+          input = {
+            ")",
+          },
+        },
+        {
+          buns = { "{\\s*", "\\s*}" },
+          nesting = 1,
+          regex = 1,
+          match_syntax = 1,
+          kind = { "delete", "replace", "textobj" },
+          action = { "delete" },
+          input = { "}" },
+        },
+        {
+          buns = { "\\[\\s*", "\\s*\\]" },
+          nesting = 1,
+          regex = 1,
+          match_syntax = 1,
+          kind = { "delete", "replace", "textobj" },
+          action = { "delete" },
+          input = { "]" },
+        },
+        {
+          buns = { "(\\s*", "\\s*)" },
+          nesting = 1,
+          regex = 1,
+          match_syntax = 1,
+          kind = { "delete", "replace", "textobj" },
+          action = { "delete" },
+          input = { ")" },
+        },
+      })
+
+      vim.g["sandwich#recipes"] = sandwich_recipes
     end,
   })
 
