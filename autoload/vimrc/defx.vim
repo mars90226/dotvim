@@ -602,10 +602,7 @@ endfunction
 " Defx detect folder
 function! vimrc#defx#detect_folder(path) abort
   if a:path !=# '' && isdirectory(a:path)
-    " Check for netrw pin
-    if !vimrc#netrw#check_pin()
-      execute 'silent! Defx '.a:path
-    endif
+    execute 'silent! Defx '.a:path
   endif
 endfunction
 
