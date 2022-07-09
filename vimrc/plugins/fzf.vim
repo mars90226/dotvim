@@ -195,7 +195,7 @@ command! -bang -nargs=* BTagsCaseSentitive       call fzf#vim#buffer_tags(<q-arg
 command! -bang -nargs=* TagsCaseSentitive        call fzf#vim#tags(<q-args>,               { 'options': ['+i'] }, <bang>0)
 command! -bang -nargs=* ProjectTagsCaseSentitive call vimrc#fzf#tag#project_tags(<q-args>, { 'options': ['+i'] }, <bang>0)
 
-if vimrc#plugin#is_enabled_plugin('defx.nvim')
+if v:lua.require('vimrc.choose').is_enabled_plugin('defx.nvim')
   command! -bang -nargs=? -complete=dir Files        call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#files(<q-args>, <bang>0) })
   command! -bang -nargs=?               GFiles       call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#gitfiles(<q-args>, <bang>0) })
   command! -bang -nargs=+ -complete=dir Locate       call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#locate(<q-args>, <bang>0) })
@@ -330,7 +330,7 @@ nnoremap <Space>sA :call vimrc#execute_and_save('Rga! ' . input('Folder: ', '', 
 nnoremap <Space>gc :GBranches<CR>
 nnoremap <Space>gt :GTag<CR>
 
-if vimrc#plugin#is_enabled_plugin('vim-floaterm')
+if v:lua.require('vimrc.choose').is_enabled_plugin('vim-floaterm')
   nnoremap <Space><M-2> :call vimrc#execute_and_save('Floaterms')<CR>
 endif
 

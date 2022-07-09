@@ -1,11 +1,11 @@
 local navic = require("nvim-navic")
 
-local plugin_utils = require("vimrc.plugin_utils")
+local choose = require("vimrc.choose")
 
 local winbar = {}
 
 winbar.plugin_check = {
-  ["nvim-navic"] = plugin_utils.is_enabled_plugin("nvim-navic"),
+  ["nvim-navic"] = choose.is_enabled_plugin("nvim-navic"),
 }
 
 winbar.winbar = function()

@@ -1,3 +1,4 @@
+local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
 
 local finder = {}
@@ -7,7 +8,7 @@ finder.setup = function()
   -- telescope.nvim
 
   if not plugin_utils.has_linux_build_env() then
-    vim.fn["vimrc#plugin#disable_plugin"]("telescope-fzf-native.nvim")
+    choose.disable_plugin("telescope-fzf-native.nvim")
   end
 end
 

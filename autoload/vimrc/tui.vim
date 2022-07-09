@@ -54,7 +54,7 @@ endfunction
 " TODO Rename function as it's not really TUI when not using floaterm
 function! vimrc#tui#run(split, command, ...) abort
   let force_noshell = a:0 > 0 && type(a:1) == type(0) ? a:1 : 0
-  let split = a:split ==# 'float' && vimrc#plugin#is_disabled_plugin('vim-floaterm') ? 'new' : a:split
+  let split = a:split ==# 'float' && v:lua.require('vimrc.choose').is_disabled_plugin('vim-floaterm') ? 'new' : a:split
 
   if split ==# 'float' && (vimrc#tui#is_tui(a:command) || force_noshell)
     execute 'FloatermNew '.a:command

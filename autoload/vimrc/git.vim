@@ -39,13 +39,13 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
   endif
 
   " Plugin
-  if vimrc#plugin#is_enabled_plugin('vim-floaterm')
+  if v:lua.require('vimrc.choose').is_enabled_plugin('vim-floaterm')
     if has_sha
       execute 'nnoremap <silent><buffer> <Leader>df :execute "FloatermNew git diff ".'.git_sha_fn.'."^!"<CR>'
     endif
   endif
 
-  if vimrc#plugin#is_enabled_plugin('diffview.nvim')
+  if v:lua.require('vimrc.choose').is_enabled_plugin('diffview.nvim')
     if has_sha
       execute 'nnoremap <buffer> <Leader>dv :DiffviewOpen <C-R>=vimrc#git#expand_commits('.git_sha_fn.')<CR>^!<CR>'
       execute 'nnoremap <buffer> <Leader>dV :DiffviewOpen <C-R>=vimrc#git#expand_commits('.git_sha_fn.')<CR>^!'

@@ -1,4 +1,4 @@
-local plugin_utils = require("vimrc.plugin_utils")
+local choose = require("vimrc.choose")
 
 local completion = {}
 
@@ -13,14 +13,14 @@ completion.setup = function()
   -- nvim-autopairs
 
   -- Context in winbar
-  vim.fn["vimrc#plugin#disable_plugin"]("nvim-navic")
-  if vim.fn.has("nvim-0.8") == 1 and vim.fn["vimrc#plugin#is_enabled_plugin"]("nvim-lsp") then
-    vim.fn["vimrc#plugin#enable_plugin"]("nvim-navic")
+  choose.disable_plugin("nvim-navic")
+  if vim.fn.has("nvim-0.8") == 1 and choose.is_enabled_plugin("nvim-lsp") then
+    choose.enable_plugin("nvim-navic")
   end
 
   -- Context in statusbar
-  if not plugin_utils.is_enabled_plugin("nvim-lsp") or plugin_utils.is_enabled_plugin("nvim-navic") then
-    vim.fn["vimrc#plugin#disable_plugin"]("lsp-status")
+  if not choose.is_enabled_plugin("nvim-lsp") or choose.is_enabled_plugin("nvim-navic") then
+    choose.disable_plugin("lsp-status")
   end
 end
 

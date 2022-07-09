@@ -1,4 +1,4 @@
-local plugin_utils = require("vimrc.plugin_utils")
+local choose = require("vimrc.choose")
 
 local languages = {}
 
@@ -17,7 +17,7 @@ languages.startup = function(use)
 
   -- Highlighing
   -- nvim-treesitter
-  if plugin_utils.is_enabled_plugin("nvim-treesitter") then
+  if choose.is_enabled_plugin("nvim-treesitter") then
     use({
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
@@ -154,7 +154,7 @@ languages.startup = function(use)
   use("jackguo380/vim-lsp-cxx-highlight")
 
   -- Context
-  if plugin_utils.is_enabled_plugin("nvim-treesitter") then
+  if choose.is_enabled_plugin("nvim-treesitter") then
     use({
       "nvim-treesitter/nvim-treesitter-context",
       requires = { "nvim-treesitter/nvim-treesitter" },
@@ -164,7 +164,7 @@ languages.startup = function(use)
       end,
     })
 
-    if plugin_utils.is_enabled_plugin("nvim-gps") then
+    if choose.is_enabled_plugin("nvim-gps") then
       use({
         "SmiteshP/nvim-gps",
         requires = { "nvim-treesitter/nvim-treesitter" },

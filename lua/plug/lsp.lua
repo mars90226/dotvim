@@ -1,4 +1,4 @@
-local plugin_utils = require("vimrc.plugin_utils")
+local choose = require("vimrc.choose")
 
 local lsp = {}
 
@@ -273,7 +273,7 @@ lsp.startup = function(use)
     end,
   })
 
-  if plugin_utils.is_enabled_plugin("lsp-status") then
+  if choose.is_enabled_plugin("lsp-status") then
     use({
       "nvim-lua/lsp-status.nvim",
       config = function()
@@ -286,7 +286,7 @@ lsp.startup = function(use)
     })
   end
 
-  if plugin_utils.is_enabled_plugin("nvim-navic") then
+  if choose.is_enabled_plugin("nvim-navic") then
     use({
       "SmiteshP/nvim-navic",
       requires = "neovim/nvim-lspconfig",

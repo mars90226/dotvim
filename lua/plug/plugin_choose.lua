@@ -1,3 +1,4 @@
+local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
 
 local plugin_choose = {}
@@ -25,7 +26,7 @@ plugin_choose.setup_python_host = function()
   end
 end
 
-plugin_choose.disable_builtin_plugin = function ()
+plugin_choose.disable_builtin_plugin = function()
   vim.g.loaded_vimball = 1
   vim.g.loaded_vimballPlugin = 1
   vim.g.loaded_2html_plugin = 1
@@ -34,8 +35,8 @@ plugin_choose.disable_builtin_plugin = function ()
 end
 
 plugin_choose.setup_secret = function()
-  local secret_config = vim.env.HOME .. '/.vim_secret.vim'
-  local secret_config_dir = vim.env.HOME .. '/.vim_secret'
+  local secret_config = vim.env.HOME .. "/.vim_secret.vim"
+  local secret_config_dir = vim.env.HOME .. "/.vim_secret"
 
   vim.opt.runtimepath:append(secret_config_dir)
 
@@ -45,7 +46,7 @@ plugin_choose.setup_secret = function()
 end
 
 plugin_choose.setup_local = function()
-  local local_config = vim.env.HOME .. '/.vim_local.vim'
+  local local_config = vim.env.HOME .. "/.vim_local.vim"
 
   if plugin_utils.file_readable(local_config) then
     plugin_utils.source(local_config)
@@ -56,7 +57,9 @@ plugin_choose.setup = function()
   plugin_choose.setup_python_host()
 
   -- plugin management
-  vim.cmd([[command! ListDisabledPlugins call vimrc#plugin#get_disabled_plugins()]])
+  vim.api.nvim_create_user_command("ListDisabledPlugins", function()
+    choose.print_disabled_plugins()
+  end, {})
 
   -- disable builtin plugin
   plugin_choose.disable_builtin_plugin()
@@ -68,7 +71,7 @@ plugin_choose.setup = function()
   plugin_choose.setup_local()
 
   -- Start choosing
-  vim.fn["vimrc#plugin#clear_disabled_plugins"]()
+  choose.clear_disabled_plugins()
 
   require("plug.choose.appearance").setup()
   require("plug.choose.completion").setup()

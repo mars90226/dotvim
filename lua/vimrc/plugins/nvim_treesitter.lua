@@ -1,5 +1,7 @@
 -- TODO: Refactor to other files
 local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+
+local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
 
@@ -228,7 +230,7 @@ require("nvim-treesitter.configs").setup({
 })
 
 -- nvim-treesitter-context
-local context_default_enable = not plugin_utils.is_enabled_plugin("nvim-navic")
+local context_default_enable = not choose.is_enabled_plugin("nvim-navic")
 require("treesitter-context").setup({
   enable = utils.ternary(context_default_enable, current_buffer_base_highlight_disable_check(), false), -- Enable this plugin (Can be enabled/disabled later via commands)
 })

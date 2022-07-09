@@ -1,8 +1,10 @@
+local choose = require("vimrc.choose")
+
 local misc = {}
 
 misc.setup = function()
   if vim.fn.has("python") == 0 and vim.fn.has("python3") == 0 then
-    vim.fn["vimrc#plugin#disable_plugin"]("vim-mundo")
+    choose.disable_plugin("vim-mundo")
   end
 
   -- Choose highlight plugin
@@ -10,11 +12,11 @@ misc.setup = function()
 
   -- Disable vim-gutentags when in nested neovim
   if vim.fn["vimrc#plugin#check#nvim_terminal"]() == "yes" then
-    vim.fn["vimrc#plugin#disable_plugin"]("vim-gutentags")
+    choose.disable_plugin("vim-gutentags")
   end
 
   if vim.fn["vimrc#plugin#check#has_browser"]() == 0 then
-    vim.fn["vimrc#plugin#disable_plugin"]("open-browser.vim")
+    choose.disable_plugin("open-browser.vim")
   end
 
   -- Choose indent line plugin

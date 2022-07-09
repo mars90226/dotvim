@@ -1,4 +1,4 @@
-local plugin_utils = require("vimrc.plugin_utils")
+local choose = require("vimrc.choose")
 
 local text_navigation = {}
 
@@ -40,7 +40,7 @@ text_navigation.startup = function(use)
       require("hop").setup({})
     end,
   })
-  if plugin_utils.is_enabled_plugin("nvim-treesitter") then
+  if choose.is_enabled_plugin("nvim-treesitter") then
     use({
       "indianboy42/hop-extensions",
       config = function()
