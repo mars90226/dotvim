@@ -1,8 +1,3 @@
-if exists('b:loaded_python_settings')
-  finish
-endif
-let b:loaded_python_settings = 1
-
 setlocal shiftwidth=4
 setlocal tabstop=4
 setlocal softtabstop=4

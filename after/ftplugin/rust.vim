@@ -1,8 +1,3 @@
-if exists('b:loaded_rust_settings')
-  finish
-endif
-let b:loaded_rust_settings = 1
-
 let b:AutoPairsJumps = ['>']
 
 command! -nargs=+ RustupDoc     call vimrc#rust_doc#open_rustup_doc(<f-args>)

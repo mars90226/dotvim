@@ -1,8 +1,3 @@
-if exists('b:loaded_todo_settings')
-  finish
-endif
-let b:loaded_todo_settings = 1
-
 setlocal shiftwidth=2
 setlocal tabstop=2
 setlocal softtabstop=2
