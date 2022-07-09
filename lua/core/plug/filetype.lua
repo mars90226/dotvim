@@ -35,6 +35,12 @@ filetype.startup = function(use)
           -- sieve
           sieve = "sieve",
 
+          -- UltiSnips
+          snippets = "snippets",
+
+          -- todo
+          todo = "todo",
+
           -- upstart
           upstart = "upstart",
         },

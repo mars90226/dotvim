@@ -113,7 +113,7 @@ utility.startup = function(use)
   use({
     "vimwiki/vimwiki",
     branch = "dev",
-    ft = { "vimwiki" },
+    ft = { "vimwiki", "todo" }, -- NOTE: Add custom todo filetype
     setup = function()
       vim.cmd([[augroup vimwiki_filetypedetect]])
       vim.cmd([[  autocmd!]])
