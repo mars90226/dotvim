@@ -9,6 +9,10 @@ plugin_utils.check_condition = function(plugin_spec, condition)
   end
 end
 
+plugin_utils.source = function(path)
+  vim.cmd('source ' .. path)
+end
+
 -- For builtin plugin
 plugin_utils.builtin_installer = function(_)
   local async = require("packer.async").sync

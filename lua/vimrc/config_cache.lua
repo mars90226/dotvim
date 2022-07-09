@@ -8,7 +8,7 @@ config_cache.cache = {}
 
 config_cache.read = function()
   if plugin_utils.file_readable(config_cache.path) then
-    vim.cmd([[source ]] .. config_cache.path)
+    plugin_utils.source(config_cache.path)
   end
 end
 

@@ -10,10 +10,12 @@ settings.startup = function(use)
   use_config({
     "mars90226/setting",
     config = function()
+      local plugin_utils = require("vimrc.plugin_utils")
+
       -- Vim basic setting {{{
       -- source mswin.vim
       if vim.fn["vimrc#plugin#check#get_os"]() ~= "synology" then
-        vim.cmd([[source $VIMRUNTIME/mswin.vim]])
+        plugin_utils.source(vim.env.VIMRUNTIME .. "/mswin.vim")
         vim.cmd([[behave xterm]])
 
         if vim.fn.has("gui") == 1 then

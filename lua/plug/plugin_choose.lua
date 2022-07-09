@@ -25,6 +25,33 @@ plugin_choose.setup_python_host = function()
   end
 end
 
+plugin_choose.disable_builtin_plugin = function ()
+  vim.g.loaded_vimball = 1
+  vim.g.loaded_vimballPlugin = 1
+  vim.g.loaded_2html_plugin = 1
+  vim.g.loaded_matchit = 1
+  vim.g.loaded_matchparen = 1
+end
+
+plugin_choose.setup_secret = function()
+  local secret_config = vim.env.HOME .. '/.vim_secret.vim'
+  local secret_config_dir = vim.env.HOME .. '/.vim_secret'
+
+  vim.opt.runtimepath:append(secret_config_dir)
+
+  if plugin_utils.file_readable(secret_config) then
+    plugin_utils.source(secret_config)
+  end
+end
+
+plugin_choose.setup_local = function()
+  local local_config = vim.env.HOME .. '/.vim_local.vim'
+
+  if plugin_utils.file_readable(local_config) then
+    plugin_utils.source(local_config)
+  end
+end
+
 plugin_choose.setup = function()
   plugin_choose.setup_python_host()
 
@@ -32,13 +59,13 @@ plugin_choose.setup = function()
   vim.cmd([[command! ListDisabledPlugins call vimrc#plugin#get_disabled_plugins()]])
 
   -- disable builtin plugin
-  vim.fn["vimrc#source"]("plug/disable_builtin.vim")
+  plugin_choose.disable_builtin_plugin()
 
   -- plugin secret
-  vim.fn["vimrc#source"]("plug/secret.vim")
+  plugin_choose.setup_secret()
 
   -- plugin local
-  vim.fn["vimrc#source"]("plug/local.vim")
+  plugin_choose.setup_local()
 
   -- Start choosing
   vim.fn["vimrc#plugin#clear_disabled_plugins"]()
