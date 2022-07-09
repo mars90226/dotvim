@@ -27,7 +27,27 @@ text_objects.startup = function(use)
   use({
     "kana/vim-textobj-user",
     config = function()
-      vim.fn["vimrc#source"]("vimrc/plugins/textobj_user.vim")
+      -- FIXME Not working
+      -- vim.fn["textobj#user#plugin"]("surroundunicode", {
+      --   surroundunicode = {
+      --     pattern = { "[^\x00-\x7F]", "[^\x00-\x7F]" },
+      --     ["select-a"] = "au",
+      --     ["select-i"] = "iu",
+      --   },
+      -- })
+
+      vim.fn["textobj#user#plugin"]("comment", {
+        ["-"] = {
+          ["select-a-function"] = "textobj#comment#select_a",
+          ["select-a"] = "am",
+          ["select-i-function"] = "textobj#comment#select_i",
+          ["select-i"] = "im",
+        },
+        big = {
+          ["select-a-function"] = "textobj#comment#select_big_a",
+          ["select-a"] = "aM",
+        },
+      })
     end,
   })
   use({
