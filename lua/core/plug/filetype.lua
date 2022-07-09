@@ -8,10 +8,6 @@ filetype.startup = function(use)
     plugin_utils.use_config(use, plugin_spec)
   end
 
-  -- NOTE: filetype.lua need to be loaded before syntax.lua as ":syntax on" will also execute ":filetype on"
-  -- NOTE: enable filetype.lua
-  vim.g.do_filetype_lua = 1
-
   use_config({
     "mars90226/filetype",
     config = function()
