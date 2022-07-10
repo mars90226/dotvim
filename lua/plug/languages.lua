@@ -22,7 +22,7 @@ languages.startup = function(use)
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
       config = function()
-        require("vimrc.plugins.nvim_treesitter")
+        require("vimrc.plugins.nvim_treesitter").setup()
       end,
     })
     use({
