@@ -37,6 +37,12 @@ local cc_gitmessage = function(type)
   return fmt(type .. "({}): {}", { i(1, "module"), i(2, "message") })
 end
 
+local same = function(index)
+  return f(function(args)
+    return args[1]
+  end, { index })
+end
+
 local chinese_punctuation_snippets = {
   s(
     "cp",
@@ -90,6 +96,10 @@ ls.add_snippets("markdown", chinese_punctuation_snippets)
 ls.add_snippets("vimwiki", chinese_punctuation_snippets)
 
 ls.add_snippets("markdown", {
+  -- emmet
+  s("el", fmt("<{}>{}</{}>", { i(1, "div"), i(0), same(1) })),
+
+  -- description
   s("desc", t("**[Description]**")),
   s("htf", t("**[How to fix]**")),
   s("htv", t("**[How to verify]**")),
