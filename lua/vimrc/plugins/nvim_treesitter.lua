@@ -243,7 +243,7 @@ end
 
 nvim_treesitter.setup_extensions = function()
   -- nvim-treesitter-context
-  local context_default_enable = not choose.is_enabled_plugin("nvim-navic")
+  local context_default_enable = choose.is_enabled_plugin("nvim-treesitter-context")
   require("treesitter-context").setup({
     enable = utils.ternary(context_default_enable, current_buffer_base_highlight_disable_check(), false), -- Enable this plugin (Can be enabled/disabled later via commands)
   })

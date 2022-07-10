@@ -99,21 +99,28 @@ plugin_choose.setup_language = function()
     choose.enable_plugin("vim-doge")
   end
 
-  -- Choose context plugin
-  -- nvim-treesitter-context
-  choose.disable_plugins({ "nvim-treesitter-context" })
-  if choose.is_enabled_plugin("nvim-treesitter") then
-    choose.enable_plugin("nvim-treesitter-context")
-  end
-
   -- Choose context component (statusline, winbar) plugin
   -- glepnir/lspsaga.nvim, nvim-navic, nvim-gps
-  choose.disable_plugins({ "lspsaga.nvim-context", "nvim-navic", "nvim-gps" })
+  local context_component_plugins = { "lspsaga.nvim-context", "nvim-navic", "nvim-gps" }
+  choose.disable_plugins(context_component_plugins)
   if vim.fn.has("nvim-0.8") == 1 and choose.is_enabled_plugin("nvim-lsp") then
     choose.enable_plugin("lspsaga.nvim-context")
     -- choose.enable_plugin("nvim-navic")
   elseif choose.is_enabled_plugin("nvim-treesitter") then
     choose.enable_plugin("nvim-gps")
+  end
+
+  -- Choose context plugin
+  -- nvim-treesitter-context
+  -- NOTE: Only for default enable/disable
+  if choose.is_disabled_plugin("nvim-treesitter") then
+    choose.disable_plugin("nvim-treesitter-context")
+  end
+  for _, context_component_plugin in ipairs(context_component_plugins) do
+    if choose.is_enabled_plugin(context_component_plugin) then
+      choose.disable_plugin("nvim-treesitter-context")
+      break
+    end
   end
 end
 
