@@ -91,12 +91,6 @@ file_navigation.startup = function(use)
   })
   use("sudormrfbin/cheatsheet.nvim")
   use({
-    "nvim-telescope/telescope-media-files.nvim",
-    config = function()
-      require("telescope").load_extension("media_files")
-    end,
-  })
-  use({
     "TC72/telescope-tele-tabby.nvim",
     config = function()
       require("telescope").load_extension("tele_tabby")
