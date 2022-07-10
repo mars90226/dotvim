@@ -10,41 +10,47 @@ nvim_treesitter.enable_config = {
   highlight_current_scope = false,
 }
 
--- Disable check for highlight module
-local base_highlight_disable_check = function(lang, bufnr)
-  -- Disable in large C++ buffers & JavaScript buffers
-  local LINE_THRESHOLDS = {
+nvim_treesitter.line_threshold = {
+  base = {
     cpp = 30000,
     javascript = 30000,
-  }
-  local line_count = vim.api.nvim_buf_line_count(bufnr or 0)
+  },
+  extension = {
+    cpp = 10000,
+    javascript = 3000,
+  },
+}
 
-  if LINE_THRESHOLDS[lang] ~= nil and line_count > LINE_THRESHOLDS[lang] then
+-- Disable check for highlight, highlight usage, highlight context module
+local disable_check = function(type, lang, bufnr)
+  if type == nil then
+    type = "base"
+  end
+
+  local line_count = vim.api.nvim_buf_line_count(bufnr or 0)
+  local line_threshold_map = vim.F.if_nil(nvim_treesitter.line_threshold[type], {})
+  local line_threshold = line_threshold_map[lang]
+
+  if line_threshold ~= nil and line_count > line_threshold then
     return true
   else
     return false
   end
+end
+
+-- Disable check for highlight module
+local base_disable_check = function(lang, bufnr)
+  return disable_check("base", lang, bufnr)
 end
 local current_buffer_base_highlight_disable_check = function()
   local ft = vim.bo.ft
   local bufnr = vim.fn.bufnr()
-  return base_highlight_disable_check(ft, bufnr)
+  return base_disable_check(ft, bufnr)
 end
 
 -- Disable check for highlight usage/context
-local highlight_disable_check = function(lang, bufnr)
-  -- Disable in large C++ buffers & JavaScript buffers
-  local LINE_THRESHOLDS = {
-    cpp = 10000,
-    javascript = 3000,
-  }
-  local line_count = vim.api.nvim_buf_line_count(bufnr or 0)
-
-  if LINE_THRESHOLDS[lang] ~= nil and line_count > LINE_THRESHOLDS[lang] then
-    return true
-  else
-    return false
-  end
+local extension_disable_check = function(lang, bufnr)
+  return disable_check("extension", lang, bufnr)
 end
 
 nvim_treesitter.setup_parser_config = function()
@@ -119,7 +125,7 @@ nvim_treesitter.setup_config = function()
     ignore_install = {},
     highlight = {
       enable = true,
-      disable = base_highlight_disable_check,
+      disable = base_disable_check,
     },
     incremental_selection = {
       enable = true,
@@ -136,12 +142,12 @@ nvim_treesitter.setup_config = function()
     refactor = {
       highlight_definitions = {
         enable = nvim_treesitter.enable_config.highlight_definitions,
-        disable = base_highlight_disable_check,
+        disable = base_disable_check,
         clear_on_cursor_move = false,
       },
       highlight_current_scope = {
         enable = nvim_treesitter.enable_config.highlight_current_scope,
-        disable = highlight_disable_check,
+        disable = extension_disable_check,
       },
       smart_rename = {
         enable = true,
