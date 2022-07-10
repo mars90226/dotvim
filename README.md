@@ -15,18 +15,19 @@ Vim specific config is removed, but you can use `vim` branch to access them.
 * [fzf](https://github.com/junegunn/fzf) (fuzzy finder for almost everything)
 * [fzf.vim](https://github.com/junegunn/fzf.vim) (used with fzf)
 * [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) (fuzzy finder written in Lua and support LSP)
-* [defx.nvim](https://github.com/Shougo/defx.nvim) (file explorer)
+* [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) (lua file explorer)
+* [defx.nvim](https://github.com/Shougo/defx.nvim) (file explorer for better multiple project folder)
 * [hop.nvim](https://github.com/phaazon/hop.nvim) (quickly move cursor to certain place on screen, written in Lua)
 * [lightspeed.nvim](https://github.com/ggandor/lightspeed.nvim) (quickly move cursor by search, written in Lua)
 * [nvim-autopairs](https://github.com/windwp/nvim-autopairs) (automatically insert paired brackets)
 * [vim-sandwich](https://github.com/machakann/vim-sandwich) (quicly add/delete/replace brackets)
 * [nvim-spectre](https://github.com/windwp/nvim-spectre) (find-and-replace globally, written in Lua)
+* [lspsaga.nvim](https://github.com/glepnir/lspsaga.nvim) (lsp UI and lsp context for winbar)
 * [trouble.nvim](https://github.com/folke/trouble.nvim) (diagnostics UI written in Lua)
 * [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) (integrate linter/formatter/code action to LSP, written in Lua)
 * [nvim-lint](https://github.com/mfussenegger/nvim-lint) (on-demand linter written in Lua)
 * [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) (fast semantic syntax highlighting)
-* [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-objects) (textobjects based on treesitter)
-* [nvim-treesitter-context](https://github.com/romgrk/nvim-treesitter-context) (context based on treesitter)
+* [syntax-tree-surfer](https://github.com/ziontee113/syntax-tree-surfer) (text navigation and manipulation based on treesitter)
 * [vim-fugitive](https://github.com/tpope/vim-fugitive) (almost perfect git wrapper)
 * [vim-flog](https://github.com/rbong/vim-flog) (git commit browser)
 * [vim-floaterm](https://github.com/voldikss/vim-floaterm) (open terminal buffer in floating window)
@@ -36,7 +37,7 @@ Vim specific config is removed, but you can use `vim` branch to access them.
 ## Requirements
 
 ### Neovim
-* [neovim](https://neovim.io/) 0.5.1+ (required by neovim built-in LSP client)
+* [neovim](https://neovim.io/) 0.7.2+ (stable), 0.8.0 (nightly, required by winbar)
 * [python](https://www.python.org/) 3.6.1+ (required by defx.nvim)
 * [universal-ctags](https://github.com/universal-ctags/ctags) (required by fzf)
 * C compiler and libstdc++ (required by nvim-treesitter)
@@ -130,6 +131,10 @@ Open neovim and execute `:PackerSync`.
     * `]]`: Goto next class start
     * `[]`: Goto previous class start
     * `<F6>`: Toggle context
+    * `<CR>`: Select node
+    * `<CR>` in visual mode: scope incremental
+    * `<M-h>`, `<M-j>`, `<M-k>`, `<M-l>` in visual mode: navigate node
+    * `<M-S-j>`, `<M-S-k>` in visual mode: swap node
 * fugitive key mappings
     * `<Leader>gs`: Show git status
     * `<Leader>gc`: Show git blame commit of current line
@@ -149,8 +154,6 @@ Open neovim and execute `:PackerSync`.
     * `<M-3>`: Goto previous Floaterm terminal
     * `<M-4>`: Goto next Floaterm terminal
     * `<M-5>`: Open new Floaterm terminal
-* Rooter key mappings
-    * `<Leader>r`: Change current window working directory to project root
 * Custom key mappings
     * `<M-h>`, `<M-j>`, `<M-k>`, `<M-l>`: Move between windows, like `<C-W>h`, `<C-W>j`, `<C-W>k`, and `<C-W>l`
     * `<C-J>`, `<C-K>`: Move between tabs, like `gT` and `gt`
