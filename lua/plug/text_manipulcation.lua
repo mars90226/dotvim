@@ -35,6 +35,7 @@ text_manipulation.startup = function(use)
   use({
     "gbprod/substitute.nvim",
     config = function()
+      -- TODO: Create issue for substitute not change cursor position back to original position for expand('<cword>')
       require("substitute").setup({
         -- your configuration comes here
         -- or leave it empty to use the default settings
