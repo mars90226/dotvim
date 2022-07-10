@@ -255,6 +255,10 @@ appearance.startup = function(use)
       vim.notify = require("notify")
     end,
   })
+
+  -- UI
+  -- TODO: Move nui.nvim here
+  use({ "stevearc/dressing.nvim" })
 end
 
 return appearance
