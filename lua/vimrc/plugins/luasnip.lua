@@ -34,7 +34,7 @@ local function window_for_choice_node(choice_node)
     { hl_group = "incsearch", end_line = row_selection + row_offset }
   )
 
-  -- shows window at a beginning of choiceNode.
+  -- shows window at a beginning of choice_node.
   local win = vim.api.nvim_open_win(buf, false, {
     relative = "win",
     width = w,
@@ -56,34 +56,34 @@ luasnip.is_exclude_filetype = function(filetype)
   return vim.tbl_contains(luasnip.exclude_filetypes, filetype)
 end
 
-luasnip.choice_popup = function(choiceNode)
+luasnip.choice_popup = function(choice_node)
   if luasnip.is_exclude_filetype(vim.bo.ft) then
     return
   end
 
-  -- build stack for nested choiceNodes.
+  -- build stack for nested choice_nodes.
   if current_win then
     vim.api.nvim_win_close(current_win.win_id, true)
     vim.api.nvim_buf_del_extmark(current_win.buf, current_nsid, current_win.extmark)
   end
-  local create_win = window_for_choice_node(choiceNode)
+  local create_win = window_for_choice_node(choice_node)
   current_win = {
     win_id = create_win.win_id,
     prev = current_win,
-    node = choiceNode,
+    node = choice_node,
     extmark = create_win.extmark,
     buf = create_win.buf,
   }
 end
 
-luasnip.update_choice_popup = function(choiceNode)
+luasnip.update_choice_popup = function(choice_node)
   if luasnip.is_exclude_filetype(vim.bo.ft) then
     return
   end
 
   vim.api.nvim_win_close(current_win.win_id, true)
   vim.api.nvim_buf_del_extmark(current_win.buf, current_nsid, current_win.extmark)
-  local create_win = window_for_choice_node(choiceNode)
+  local create_win = window_for_choice_node(choice_node)
   current_win.win_id = create_win.win_id
   current_win.extmark = create_win.extmark
   current_win.buf = create_win.buf
