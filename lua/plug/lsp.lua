@@ -31,6 +31,12 @@ lsp.startup = function(use)
       local choose = require("vimrc.choose")
 
       saga.init_lsp_saga({
+        code_action_lightbulb = {
+          enable = true,
+          sign = true,
+          sign_priority = 20,
+          virtual_text = false,
+        },
         symbol_in_winbar = {
           enable = choose.is_enabled_plugin("lspsaga.nvim-context"),
           click_support = function(node, clicks, button, modifiers)
