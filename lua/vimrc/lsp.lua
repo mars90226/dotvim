@@ -1,15 +1,11 @@
 local lsp_installer_servers = require("nvim-lsp-installer.servers")
 local metadata = require("nvim-lsp-installer._generated.metadata")
 
-local ts_utils = require("nvim-lsp-ts-utils")
-
-local has_navic, navic = pcall(require, "nvim-navic")
-
 local my_lspsaga = require("vimrc.plugins.lspsaga")
 local my_goto_preview = require("vimrc.plugins.goto-preview")
 
+local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
-local winbar = require("vimrc.winbar")
 
 local lsp = {}
 
@@ -109,8 +105,12 @@ lsp.servers = {
     condition = plugin_utils.has_linux_build_env(),
   },
   tsserver = {
-    init_options = ts_utils.init_options,
+    init_options = function()
+      return require("nvim-lsp-ts-utils").init_options
+    end,
     on_attach = function(client, bufnr)
+      local ts_utils = require("nvim-lsp-ts-utils")
+
       lsp.on_attach(client, bufnr)
 
       ts_utils.setup({})
@@ -133,17 +133,17 @@ end
 
 lsp.on_attach = function(client, bufnr)
   -- Plugins
-  if has_navic and client.server_capabilities.documentSymbolProvider then
-    navic.attach(client, bufnr)
+  if choose.is_enabled_plugin("nvim-navic") and client.server_capabilities.documentSymbolProvider then
+    require("nvim-navic").attach(client, bufnr)
   end
 
   -- My plugin configs
   my_lspsaga.on_attach(client)
   my_goto_preview.on_attach(client)
 
-  if has_navic then
+  if choose.is_enabled_plugin("nvim-navic") then
     -- TODO: Move back to appearance.lua, see appearance.lua for reason
-    winbar.attach(bufnr)
+    require("vimrc.winbar").attach(bufnr)
   end
 
   -- NOTE: Use <C-]> to call 'tagfunc'
@@ -225,6 +225,11 @@ lsp.setup_server = function(server, custom_opts)
     capabilities = capabilities,
   })
 
+  -- NOTE: Lazy load init options
+  if type(lsp_opts.init_options) == "function" then
+    lsp_opts.init_options = lsp_opts.init_options()
+  end
+
   if lsp_opts.custom_setup then
     lsp_opts.custom_setup(server, lsp_opts)
   else
@@ -301,12 +306,12 @@ lsp.setup = function(settings)
 
   -- TODO: Maybe setup basic lsp server?
   local lsp_setup_server_on_ft_augroup_id = vim.api.nvim_create_augroup("lsp_setup_server_on_ft", {})
-  vim.api.nvim_create_autocmd({"FileType" }, {
+  vim.api.nvim_create_autocmd({ "FileType" }, {
     group = lsp_setup_server_on_ft_augroup_id,
     pattern = "*",
     callback = function()
       lsp.setup_servers_on_filetype(vim.bo.filetype)
-    end
+    end,
   })
 end
 
