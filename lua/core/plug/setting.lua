@@ -102,9 +102,17 @@ settings.startup = function(use)
       vim.opt.undofile = true
 
       -- session options
-      vim.opt.sessionoptions:remove("options")
-      vim.opt.sessionoptions:remove("folds")
-      vim.opt.sessionoptions:remove("blank")
+      vim.opt.sessionoptions = {
+        "blank",
+        "buffers",
+        "curdir",
+        "folds",
+        "help",
+        "tabpages",
+        "winsize",
+        "winpos",
+        "terminal",
+      }
 
       -- misc
       vim.opt.shellslash = true
