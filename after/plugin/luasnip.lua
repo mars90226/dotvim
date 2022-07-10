@@ -105,6 +105,29 @@ ls.add_snippets("markdown", {
   s("htv", t("**[How to verify]**")),
 })
 
+ls.add_snippets("lua", {
+  s(
+    "mod",
+    fmt(
+      [[
+        local {} = {{}}
+
+        {}.setup = function()
+          {}
+        end
+
+        return {}
+      ]],
+      {
+        i(1, "module"),
+        same(1),
+        i(0),
+        same(1),
+      }
+    )
+  ),
+})
+
 local fine_cmdline_exp = function(modifier)
   return f(function()
     local fine_cmdline = require("vimrc.plugins.fine-cmdline")
