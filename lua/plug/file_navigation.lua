@@ -12,7 +12,6 @@ file_navigation.startup = function(use)
       vim.g["neomru#update_interval"] = 60 -- NOTE: 60 seconds
     end,
   })
-  use("Shougo/neoyank.vim")
   -- Yank
   use({
     "gbprod/yanky.nvim",
