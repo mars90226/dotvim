@@ -23,12 +23,6 @@ lsp.startup = function(use)
 
   use("ii14/lsp-command")
 
-  -- TODO: Use glepnir/lspsaga.nvim
-  -- Currently not changed due to CursorLine highlight overridden after :Lspsaga lsp_finder
-  -- Currently, glepnir/lspsaga.nvim cannot handle lsp that still response old SymbolInformation
-  -- TODO: Currently CursorLine highlight being overridden once after :Lspsaga lsp_finder
-  -- But will become normal after open & go back.
-  -- Probably autocmd not trigger?
   use({
     "glepnir/lspsaga.nvim",
     branch = "main",
@@ -39,6 +33,28 @@ lsp.startup = function(use)
       saga.init_lsp_saga({
         symbol_in_winbar = {
           enable = choose.is_enabled_plugin("lspsaga.nvim-context"),
+          click_support = function(node, clicks, button, modifiers)
+            -- To see all avaiable details: vim.pretty_print(node)
+            local st = node.range.start
+            local en = node.range["end"]
+            if button == "l" then
+              if clicks == 2 then
+                -- double left click to do nothing
+              else -- jump to node's starting line+char
+                vim.fn.cursor(st.line + 1, st.character + 1)
+              end
+            elseif button == "r" then
+              if modifiers == "s" then
+                print("lspsaga") -- shift right click to print "lspsaga"
+              end -- jump to node's ending line+char
+              vim.fn.cursor(en.line + 1, en.character + 1)
+            elseif button == "m" then
+              -- middle click to visual select node
+              vim.fn.cursor(st.line + 1, st.character + 1)
+              vim.cmd("normal v")
+              vim.fn.cursor(en.line + 1, en.character + 1)
+            end
+          end,
         },
       })
     end,
