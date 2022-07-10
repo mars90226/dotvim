@@ -1,5 +1,3 @@
-local navic = require("nvim-navic")
-
 local choose = require("vimrc.choose")
 
 local winbar = {}
@@ -11,11 +9,15 @@ winbar.plugin_check = {
 winbar.winbar = function()
   local winbar_content = "%f"
 
-  if winbar.plugin_check["nvim-navic"] and navic.is_available() then
-    local location = navic.get_location()
+  if winbar.plugin_check["nvim-navic"] then
+    local has_navic, navic = pcall(require, "nvim-navic")
 
-    if location ~= "" then
-      winbar_content = winbar_content .. " > " .. location
+    if has_navic and navic.is_available() then
+      local location = navic.get_location()
+
+      if location ~= "" then
+        winbar_content = winbar_content .. " > " .. location
+      end
     end
   end
 

@@ -29,17 +29,6 @@ plugin_choose.setup_completion = function()
 
   -- Choose auto pairs plugin
   -- nvim-autopairs
-
-  -- Context in winbar
-  choose.disable_plugin("nvim-navic")
-  if vim.fn.has("nvim-0.8") == 1 and choose.is_enabled_plugin("nvim-lsp") then
-    choose.enable_plugin("nvim-navic")
-  end
-
-  -- Context in statusbar
-  if not choose.is_enabled_plugin("nvim-lsp") or choose.is_enabled_plugin("nvim-navic") then
-    choose.disable_plugin("lsp-status")
-  end
 end
 
 plugin_choose.setup_file_explorer = function()
@@ -117,9 +106,14 @@ plugin_choose.setup_language = function()
     choose.enable_plugin("nvim-treesitter-context")
   end
 
-  -- Context in statusline
-  if not choose.is_enabled_plugin("nvim-treesitter") or choose.is_enabled_plugin("nvim-navic") then
-    choose.disable_plugin("nvim-gps")
+  -- Choose context component (statusline, winbar) plugin
+  -- glepnir/lspsaga.nvim, nvim-navic, nvim-gps
+  choose.disable_plugins({ "lspsaga.nvim-context", "nvim-navic", "nvim-gps" })
+  if vim.fn.has("nvim-0.8") == 1 and choose.is_enabled_plugin("nvim-lsp") then
+    choose.enable_plugin("lspsaga.nvim-context")
+    -- choose.enable_plugin("nvim-navic")
+  elseif choose.is_enabled_plugin("nvim-treesitter") then
+    choose.enable_plugin("nvim-gps")
   end
 end
 

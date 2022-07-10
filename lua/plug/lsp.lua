@@ -26,16 +26,19 @@ lsp.startup = function(use)
   -- TODO: Use glepnir/lspsaga.nvim
   -- Currently not changed due to CursorLine highlight overridden after :Lspsaga lsp_finder
   -- Currently, glepnir/lspsaga.nvim cannot handle lsp that still response old SymbolInformation
+  -- TODO: Currently CursorLine highlight being overridden once after :Lspsaga lsp_finder
+  -- But will become normal after open & go back.
+  -- Probably autocmd not trigger?
   use({
-    "tami5/lspsaga.nvim",
-    event = { "FocusLost", "CursorHold", "CursorHoldI" },
+    "glepnir/lspsaga.nvim",
+    branch = "main",
     config = function()
-      require("lspsaga").setup({
-        code_action_prompt = {
-          enable = true,
-          sign = true,
-          sign_priority = 40,
-          virtual_text = false,
+      local saga = require("lspsaga")
+      local choose = require("vimrc.choose")
+
+      saga.init_lsp_saga({
+        symbol_in_winbar = {
+          enable = choose.is_enabled_plugin("lspsaga.nvim-context"),
         },
       })
     end,
