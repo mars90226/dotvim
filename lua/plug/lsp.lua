@@ -276,19 +276,6 @@ lsp.startup = function(use)
     end,
   })
 
-  if choose.is_enabled_plugin("lsp-status") then
-    use({
-      "nvim-lua/lsp-status.nvim",
-      config = function()
-        local lsp_status = require("lsp-status")
-
-        lsp_status.config({
-          diagnostics = false,
-        })
-      end,
-    })
-  end
-
   if choose.is_enabled_plugin("nvim-navic") then
     use({
       "SmiteshP/nvim-navic",

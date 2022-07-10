@@ -24,19 +24,7 @@ require("lualine").setup({
     }),
     lualine_x = { "encoding", "fileformat", "filetype" },
     lualine_y = { "progress" },
-    lualine_z = {
-      "location",
-      plugin_utils.check_enabled_plugin({
-        -- NOTE: Need to wrap lua function in user function
-        -- ref: https://github.com/nvim-lualine/lualine.nvim/issues/392
-        function()
-          return require("lsp-status").status()
-        end,
-        cond = function()
-          return #vim.lsp.buf_get_clients() > 0
-        end,
-      }, "lsp-status"),
-    },
+    lualine_z = { "location" },
   },
   inactive_sections = {
     lualine_a = {},
