@@ -57,6 +57,8 @@ lsp.servers = {
     },
   },
   cmake = {},
+  -- TODO: Migrate from tsserver to denols for JavaScript
+  -- denols = {},
   -- TODO: Suppress the error log of not finding eslint in local repo
   eslint = {},
   gopls = {
@@ -113,7 +115,9 @@ lsp.servers = {
 
       lsp.on_attach(client, bufnr)
 
-      ts_utils.setup({})
+      ts_utils.setup({
+        auto_inlay_hints = false, -- We're not writing TypeScript
+      })
       ts_utils.setup_client(client)
     end,
   },
