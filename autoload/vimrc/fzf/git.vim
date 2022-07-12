@@ -298,10 +298,13 @@ function! vimrc#fzf#git#grep_commits(commits, query, ...) abort
         \ vimrc#fzf#preview#get_command() . ' --line-range "$FIRST:$LAST" --highlight-line "$LINE" "$TEMPFILE";'.
         \ 'rm "$TEMPFILE"'
 
+  " NOTE: Provide sort toggle for commits with chronological order
   call fzf#run(vimrc#fzf#wrap('GitGrepCommit', {
         \ 'source': final_command,
         \ 'sink*': function('vimrc#fzf#git#grep_commit_sink', [!empty(a:commits), s:git_grep_with_column]),
-        \ 'options': ['-m', '-s', '--prompt', 'GitGrepCommit> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
+        \ 'options': ['-m', '-s', '--prompt', 'GitGrepCommit> ',
+        \   '--bind=ctrl-y:toggle-sort', '--header', ':: Press '.vimrc#fzf#magenta('CTRL-Y', 'Special').' to toggle sort',
+        \   '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
 endfunction
 
 function! vimrc#fzf#git#grep_commit(commit, ...) abort
