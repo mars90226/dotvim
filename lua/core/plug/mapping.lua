@@ -267,6 +267,8 @@ mapping.startup = function(use)
       -- Diff
       nnoremap("<Leader>dft", [[:windo diffthis<CR>]])
       nnoremap("<Leader>dfo", [[:windo diffoff<CR>]])
+      nnoremap("<Leader>dfh", [[:diffthis<CR>:wincmd l<CR>:diffthis<CR>:2wincmd h<CR>:diffthis<CR>]])
+      nnoremap("<Leader>dfv", [[:diffthis<CR>:wincmd j<CR>:diffthis<CR>:2wincmd k<CR>:diffthis<CR>]])
 
       -- Sort
       xnoremap("<Space>sw", [[d:execute 'normal i'.vimrc#utility#sort_copied_words()<CR>]], "<silent>")
