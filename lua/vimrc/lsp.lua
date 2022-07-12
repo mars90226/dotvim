@@ -57,8 +57,13 @@ lsp.servers = {
     },
   },
   cmake = {},
-  -- TODO: Migrate from tsserver to denols for JavaScript
-  -- denols = {},
+  denols = {
+    init_options = {
+      enable = true,
+      lint = true,
+      unstable = true,
+    }
+  },
   -- TODO: Suppress the error log of not finding eslint in local repo
   eslint = {},
   gopls = {
@@ -106,21 +111,22 @@ lsp.servers = {
     -- TODO: Refine condition
     condition = plugin_utils.has_linux_build_env(),
   },
-  tsserver = {
-    init_options = function()
-      return require("nvim-lsp-ts-utils").init_options
-    end,
-    on_attach = function(client, bufnr)
-      local ts_utils = require("nvim-lsp-ts-utils")
-
-      lsp.on_attach(client, bufnr)
-
-      ts_utils.setup({
-        auto_inlay_hints = false, -- We're not writing TypeScript
-      })
-      ts_utils.setup_client(client)
-    end,
-  },
+  -- NOTE: Disabled due to poor performance
+  -- tsserver = {
+  --   init_options = function()
+  --     return require("nvim-lsp-ts-utils").init_options
+  --   end,
+  --   on_attach = function(client, bufnr)
+  --     local ts_utils = require("nvim-lsp-ts-utils")
+  --
+  --     lsp.on_attach(client, bufnr)
+  --
+  --     ts_utils.setup({
+  --       auto_inlay_hints = false, -- We're not writing TypeScript
+  --     })
+  --     ts_utils.setup_client(client)
+  --   end,
+  -- },
   vimls = {},
   -- TODO: add settings for schemas
   yamlls = {},
