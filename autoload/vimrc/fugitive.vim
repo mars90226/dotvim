@@ -43,6 +43,11 @@ function! vimrc#fugitive#fugitive_buffer_settings() abort
   nmap <buffer> <silent> <Space>-        :split<CR>-
   nmap <buffer> <silent> <Space><Space>- :tab split<CR>-
 
+  " :cnext and :cprevious like mapping with fugitive
+  " TODO: Organize code
+  nnoremap <silent><buffer> ]g :copen<CR>:lua require('vimrc.quickfix').move_next()<CR>:call vimrc#quickfix#open('Gedit')<CR>
+  nnoremap <silent><buffer> [g :copen<CR>:lua require('vimrc.quickfix').move_previous()<CR>:call vimrc#quickfix#open('Gedit')<CR>
+
   " Avoid conflicting with git filetype mappings
   if &filetype !=# 'git'
     call vimrc#git#include_git_mappings('fugitive_buffer')
