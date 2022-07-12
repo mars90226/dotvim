@@ -7,16 +7,11 @@ function! vimrc#quickfix#mappings() abort
 
   " Use fugitive to open file
   " TODO Add key mapping for :cnext and :cprevious for opening with fugitive
-  " nnoremap <silent><buffer> <M-f> :call vimrc#quickfix#open('Gedit')<CR>
-  " nnoremap <silent><buffer> <M-t> :call vimrc#quickfix#open('Gtabedit')<CR>
-  " nnoremap <silent><buffer> <M-s> :call vimrc#quickfix#open('Gsplit')<CR>
-  " nnoremap <silent><buffer> <M-v> :call vimrc#quickfix#open('Gvsplit')<CR>
-  " Use nvim-bqf & fugitive to open file
   " TODO: Organize code
-  nnoremap <silent><buffer> <M-f> :lua require('bqf.qfwin.handler').open(true, 'Gedit')<CR>
-  nnoremap <silent><buffer> <M-t> :lua require('bqf.qfwin.handler').open(true, 'Gtabedit')<CR>
-  nnoremap <silent><buffer> <M-s> :lua require('bqf.qfwin.handler').open(true, 'Gsplit')<CR>
-  nnoremap <silent><buffer> <M-v> :lua require('bqf.qfwin.handler').open(true, 'Gvsplit')<CR>
+  nnoremap <silent><buffer> <M-f> :call vimrc#quickfix#open('Gedit')<CR>
+  nnoremap <silent><buffer> <M-t> :call vimrc#quickfix#open('Gtabedit')<CR>
+  nnoremap <silent><buffer> <M-s> :call vimrc#quickfix#open('Gsplit')<CR>
+  nnoremap <silent><buffer> <M-v> :call vimrc#quickfix#open('Gvsplit')<CR>
 
   " Use fugitive to open commit
   nnoremap <silent><buffer><nowait> gc 0:execute 'Gsplit '.expand('<cword>')<CR>
