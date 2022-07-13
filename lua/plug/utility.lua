@@ -619,7 +619,7 @@ utility.startup = function(use)
   })
 
   use({ "tpope/vim-dadbod", cmd = { "DB" } })
-  use({ "tpope/vim-abolish", cmd = { "Abolish", "Subvert", "S" } })
+  use({ "tpope/vim-abolish", cmd = { "Abolish", "Subvert", "S" }, keys = { "cr" } })
   use({ "will133/vim-dirdiff", cmd = { "DirDiff" } })
   use({ "AndrewRadev/linediff.vim", cmd = { "Linediff" } })
   use({ "Shougo/vinarise.vim", cmd = { "Vinarise" } })
