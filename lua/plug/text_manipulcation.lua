@@ -88,6 +88,7 @@ text_manipulation.startup = function(use)
         group = nvim_surround_augroup_id,
         pattern = "*",
         callback = function()
+          -- NOTE: Second key mapping
           require("nvim-surround").buffer_setup({
             keymaps = { -- vim-sandwich style keymaps
               insert = "sa",
