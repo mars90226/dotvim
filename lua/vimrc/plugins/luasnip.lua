@@ -288,7 +288,7 @@ luasnip.setup = function()
 
   require("luasnip.loaders.from_vscode").lazy_load(load_opts)
 
-  require("vimrc.plugins.luasnip").setup_choice_popup()
+  luasnip.setup_choice_popup()
 end
 
 return luasnip
