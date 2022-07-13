@@ -22,33 +22,39 @@ completion.startup = function(use)
       -- Snippets
       {
         "L3MON4D3/LuaSnip",
+        after = "nvim-cmp",
         config = function()
+          require("vimrc.plugins.luasnip").setup()
+
           -- FIXME: nvim-cmp doesn't show new snippets, but it actually reloaded
-          vim.cmd([[command! ReloadLuaSnip call vimrc#source("after/plugin/luasnip.lua")]])
+          -- FIXME: Fix ReloadLuaSnip
+          -- vim.cmd([[command! ReloadLuaSnip call vimrc#source("after/plugin/luasnip.lua")]])
         end,
-      }, -- stylua: force newline
+      },
       -- Formatting
-      "onsails/lspkind-nvim", -- stylua: force newline
+      "onsails/lspkind-nvim",
       -- Completion Sources
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-nvim-lua",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "andersevenrud/cmp-tmux",
-      "octaltree/cmp-look",
-      "hrsh7th/cmp-calc",
-      plugin_utils.check_enabled_plugin("ray-x/cmp-treesitter", "nvim-treesitter"),
+      { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
+      { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
+      { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
+      { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
+      { "hrsh7th/cmp-path", after = "nvim-cmp" },
+      { "andersevenrud/cmp-tmux", after = "nvim-cmp" },
+      { "octaltree/cmp-look", after = "nvim-cmp" },
+      { "hrsh7th/cmp-calc", after = "nvim-cmp" },
+      plugin_utils.check_enabled_plugin({ "ray-x/cmp-treesitter", after = "nvim-cmp" }, "nvim-treesitter"),
       {
         "petertriho/cmp-git",
+        after = "nvim-cmp",
         config = function()
           require("cmp_git").setup()
         end,
       },
-      "hrsh7th/cmp-emoji",
-      plugin_utils.check_executable("lukas-reineke/cmp-rg", "rg"),
-      "hrsh7th/cmp-cmdline",
+      { "hrsh7th/cmp-emoji", after = "nvim-cmp" },
+      plugin_utils.check_executable({ "lukas-reineke/cmp-rg", after = "nvim-cmp" }, "rg"),
+      { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
     }),
+    event = { "InsertEnter", "CmdlineEnter" },
     config = function()
       vim.cmd([[set completeopt=menu,menuone,noselect]])
 
