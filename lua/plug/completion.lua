@@ -23,6 +23,7 @@ completion.startup = function(use)
       {
         "L3MON4D3/LuaSnip",
         after = "nvim-cmp",
+        module = "luasnip",
         config = function()
           require("vimrc.plugins.luasnip").setup()
 
