@@ -277,7 +277,9 @@ mapping.startup = function(use)
       nnoremap("<Space>r5", [[:%retab<CR>]])
 
       -- Select Mode
-      snoremap("<M-c>", [[<C-O>c]])
+      snoremap("<CR>", [[<C-O>c]])
+      snoremap("<M-a>", [[<Esc>a]])
+      snoremap("<M-i>", [[<C-O>o<Esc>i]])
 
       -- Man
       -- :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
