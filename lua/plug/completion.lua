@@ -35,7 +35,7 @@ completion.startup = function(use)
       "onsails/lspkind-nvim",
       -- Completion Sources
       { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
-      { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
+      { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp", module = "cmp_nvim_lsp" },
       { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
       { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
       { "hrsh7th/cmp-path", after = "nvim-cmp" },
@@ -55,6 +55,7 @@ completion.startup = function(use)
       { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
     }),
     event = { "InsertEnter", "CmdlineEnter" },
+    module = { "cmp" },
     config = function()
       vim.cmd([[set completeopt=menu,menuone,noselect]])
 
