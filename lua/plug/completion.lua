@@ -259,6 +259,7 @@ completion.startup = function(use)
   -- Auto Pairs
   use({
     "windwp/nvim-autopairs",
+    after = "nvim-cmp",
     config = function()
       ---@diagnostic disable-next-line -- packer.nvim will cache config function and cannot use outer local variables
       local choose = require("vimrc.choose")
