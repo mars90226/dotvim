@@ -79,121 +79,26 @@ text_manipulation.startup = function(use)
 
   -- Surround
   use({
-    "machakann/vim-sandwich",
+    "krlechui/nvim-surround",
     config = function()
-      local utils = require("vimrc.utils")
+      require("nvim-surround").setup({})
 
-      xmap("iss", "<Plug>(textobj-sandwich-auto-i)")
-      xmap("ass", "<Plug>(textobj-sandwich-auto-a)")
-      omap("iss", "<Plug>(textobj-sandwich-auto-i)")
-      omap("ass", "<Plug>(textobj-sandwich-auto-a)")
-
-      xmap("iy", "<Plug>(textobj-sandwich-literal-query-i)")
-      xmap("ay", "<Plug>(textobj-sandwich-literal-query-a)")
-      omap("iy", "<Plug>(textobj-sandwich-literal-query-i)")
-      omap("ay", "<Plug>(textobj-sandwich-literal-query-a)")
-
-      -- Seems bundled vim-textobj-functioncall does not work
-      -- xmap ad <Plug>(textobject-sandwich-function-a)
-      -- xmap id <Plug>(textobject-sandwich-function-i)
-      -- omap ad <Plug>(textobject-sandwich-function-a)
-      -- omap id <Plug>(textobject-sandwich-function-i)
-
-      -- Add vim-surround key mapping for vim-visual-multi
-      -- Borrowed from vim-sandwich/macros/sandwich/keymap/surround.vim
-      nmap("ys", "<Plug>(operator-sandwich-add)")
-      -- TODO: May conflict with vim-sandwich
-      onoremap("<Plug>(operator-sandwich-custom-line)", ":normal! ^vg_<CR>")
-      nmap("yss", "<Plug>(operator-sandwich-add)<Plug>(operator-sandwich-custom-line)", "silent")
-      -- TODO: May conflict with vim-sandwich
-      onoremap("<Plug>(operator-sandwich-custom-gul)", "g_")
-      nmap("yS", "ys<Plug>(operator-sandwich-custom-gul)")
-
-      nmap(
-        "ds",
-        "<Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)"
-      )
-      nmap(
-        "dss",
-        "<Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)"
-      )
-      nmap(
-        "cs",
-        "<Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)"
-      )
-      nmap(
-        "css",
-        "<Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)"
-      )
-
-      -- To avoid mis-deleting character when cancelling sandwich operator
-      nnoremap("s<Esc>", "<NOP>")
-
-      -- if you have not copied default recipes
-      local sandwich_recipes = vim.fn.deepcopy(vim.g["sandwich#default_recipes"])
-
-      -- add spaces inside bracket
-      utils.table_concat(sandwich_recipes, {
-        {
-          buns = { "{ ", " }" },
-          nesting = 1,
-          match_syntax = 1,
-          kind = { "add", "replace" },
-          action = { "add" },
-          input = {
-            "}",
-          },
-        },
-        {
-          buns = { "[ ", " ]" },
-          nesting = 1,
-          match_syntax = 1,
-          kind = { "add", "replace" },
-          action = { "add" },
-          input = {
-            "]",
-          },
-        },
-        {
-          buns = { "( ", " )" },
-          nesting = 1,
-          match_syntax = 1,
-          kind = { "add", "replace" },
-          action = { "add" },
-          input = {
-            ")",
-          },
-        },
-        {
-          buns = { "{\\s*", "\\s*}" },
-          nesting = 1,
-          regex = 1,
-          match_syntax = 1,
-          kind = { "delete", "replace", "textobj" },
-          action = { "delete" },
-          input = { "}" },
-        },
-        {
-          buns = { "\\[\\s*", "\\s*\\]" },
-          nesting = 1,
-          regex = 1,
-          match_syntax = 1,
-          kind = { "delete", "replace", "textobj" },
-          action = { "delete" },
-          input = { "]" },
-        },
-        {
-          buns = { "(\\s*", "\\s*)" },
-          nesting = 1,
-          regex = 1,
-          match_syntax = 1,
-          kind = { "delete", "replace", "textobj" },
-          action = { "delete" },
-          input = { ")" },
-        },
+      local nvim_surround_augroup_id = vim.api.nvim_create_augroup("nvim_surround_settings", {})
+      vim.api.nvim_create_autocmd({ "BufRead" }, {
+        group = nvim_surround_augroup_id,
+        pattern = "*",
+        callback = function()
+          require("nvim-surround").buffer_setup({
+            keymaps = { -- vim-sandwich style keymaps
+              insert = "sa",
+              insert_line = "sas",
+              visual = "sa",
+              delete = "sd",
+              change = "sr",
+            },
+          })
+        end,
       })
-
-      vim.g["sandwich#recipes"] = sandwich_recipes
     end,
   })
 
