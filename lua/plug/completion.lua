@@ -55,7 +55,6 @@ completion.startup = function(use)
       { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
     }),
     event = { "InsertEnter", "CmdlineEnter" },
-    module = { "cmp" },
     config = function()
       vim.cmd([[set completeopt=menu,menuone,noselect]])
 
