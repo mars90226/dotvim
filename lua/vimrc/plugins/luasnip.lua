@@ -29,6 +29,8 @@ local function window_for_choice_node(choice_node)
 
   vim.api.nvim_buf_set_text(buf, 0, 0, 0, 0, buf_text)
   local w, h = vim.lsp.util._make_floating_popup_size(buf_text)
+  -- NOTE: function node may have 0 width initially and is expanded on select.
+  w = w > 0 and w or 1
 
   -- adding highlight so we can see which one is been selected.
   local extmark = vim.api.nvim_buf_set_extmark(
@@ -53,9 +55,7 @@ local function window_for_choice_node(choice_node)
   return { win_id = win, extmark = extmark, buf = buf }
 end
 
-luasnip.exclude_filetypes = {
-  "fine-cmdline",
-}
+luasnip.exclude_filetypes = {}
 
 luasnip.is_exclude_filetype = function(filetype)
   return vim.tbl_contains(luasnip.exclude_filetypes, filetype)
@@ -224,15 +224,33 @@ luasnip.setup_snippet = function()
     ),
   })
 
-  local fine_cmdline_exp = function(modifier)
-    return f(function()
-      local fine_cmdline = require("vimrc.plugins.fine-cmdline")
-      local filename = vim.api.nvim_buf_get_name(fine_cmdline.get_related_bufnr())
+  local exp_generator = function(get_bufnr_fn)
+    return function(modifier)
+      return f(function()
+        local filename = vim.api.nvim_buf_get_name(get_bufnr_fn())
 
-      return vim.fn.fnamemodify(filename, modifier)
-    end)
+        return vim.fn.fnamemodify(filename, modifier)
+      end)
+    end
   end
+  local insert_exp = exp_generator(function()
+    return vim.api.nvim_get_current_buf()
+  end)
+  local fine_cmdline_exp = exp_generator(function()
+    return require("vimrc.plugins.fine-cmdline").get_related_bufnr()
+  end)
 
+  ls.add_snippets("all", {
+    s(
+      "exp",
+      c(1, {
+        insert_exp(":t"),
+        insert_exp(":t:r"),
+        insert_exp(":p"),
+        insert_exp(":h"),
+      })
+    ),
+  })
   ls.add_snippets("fine-cmdline", {
     s(
       "exp",
