@@ -79,7 +79,7 @@ text_manipulation.startup = function(use)
 
   -- Surround
   use({
-    "krlechui/nvim-surround",
+    "kylechui/nvim-surround",
     config = function()
       require("nvim-surround").setup({})
 
