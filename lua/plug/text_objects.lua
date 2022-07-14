@@ -17,6 +17,7 @@ text_objects.startup = function(use)
     "wellle/targets.vim",
     config = function()
       -- Reach targets
+      -- TODO: Other input method to avoid cursor moving?
       nmap("]r", [['vin'.v:lua.require("vimrc.utils").get_char_string()."o\<Esc>"]], "expr")
       nmap("[r", [['vil'.v:lua.require("vimrc.utils").get_char_string()."\<Esc>"]], "expr")
       nmap("]R", [['van'.v:lua.require("vimrc.utils").get_char_string()."o\<Esc>"]], "expr")
