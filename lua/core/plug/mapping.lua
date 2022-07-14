@@ -228,6 +228,7 @@ mapping.startup = function(use)
       inoremap("<C-G>D", [[<C-R>=systemlist('env LC_ALL=C date +"%Y/%m/%d"')[0]<CR>]])
       -- Insert shell output
       cnoremap("<C-X><C-X>", [[vimrc#fzf#shell_outputs_in_commandline()]], "<expr>")
+      inoremap("<C-X><C-X>", [[vimrc#fzf#shell_outputs_in_commandline()]], "<expr>")
 
       -- Ex mode for special buffer that map("'q'", [[as ':quit']])
       nnoremap("\\q:", [[q:]])
