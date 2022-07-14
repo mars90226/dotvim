@@ -15,7 +15,8 @@ neotree.get_state = function(source, tabnr)
 end
 
 neotree.get_tree = function(source)
-  local state = neotree.get_state(source, vim.api.nvim_get_current_tabpage())
+  local tabpage = vim.api.nvim_get_current_tabpage()
+  local state = neotree.get_state(source, vim.api.nvim_tabpage_get_number(tabpage))
 
   if state == nil then
     return nil

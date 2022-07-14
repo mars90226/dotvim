@@ -302,7 +302,8 @@ mapping.startup = function(use)
         group = last_tab_augroup_id,
         pattern = "*",
         callback = function()
-          vim.fn["vimrc#last_tab#insert"](vim.api.nvim_get_current_tabpage())
+          local tabpage = vim.api.nvim_get_current_tabpage()
+          vim.fn["vimrc#last_tab#insert"](vim.api.nvim_tabpage_get_number(tabpage))
         end,
       })
       vim.api.nvim_create_autocmd({ "TabClosed" }, {
