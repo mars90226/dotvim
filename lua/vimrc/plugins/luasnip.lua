@@ -123,28 +123,7 @@ luasnip.setup_choice_popup = function()
   ]])
 end
 
-luasnip.setup = function()
-  -- Borrowed from TJ's dotfile: https://github.com/tjdevries/config_manager
-  ls.config.setup({
-    -- This tells LuaSnip to remember to keep around the last snippet.
-    -- You can jump back into it even if you move outside of the selection
-    history = true,
-
-    -- This one is cool cause if you have dynamic snippets, it updates as you type!
-    updateevents = "TextChanged,TextChangedI",
-
-    -- Autosnippets:
-    enable_autosnippets = true,
-
-    ext_opts = {
-      [types.choiceNode] = {
-        active = {
-          virt_text = { { "<-", "Error" } },
-        },
-      },
-    },
-  })
-
+luasnip.setup_snippet = function()
   local s = ls.snippet
   local sn = ls.snippet_node
   local t = ls.text_node
@@ -153,10 +132,6 @@ luasnip.setup = function()
   local f = ls.function_node
 
   local fmt = require("luasnip.extras.fmt").fmt
-
-  local cc_gitmessage = function(type)
-    return fmt(type .. "({}): {}", { i(1, "module"), i(2, "message") })
-  end
 
   local same = function(index)
     return f(function(args)
@@ -269,6 +244,31 @@ luasnip.setup = function()
       })
     ),
   })
+end
+
+luasnip.setup = function()
+  -- Borrowed from TJ's dotfile: https://github.com/tjdevries/config_manager
+  ls.config.setup({
+    -- This tells LuaSnip to remember to keep around the last snippet.
+    -- You can jump back into it even if you move outside of the selection
+    history = true,
+
+    -- This one is cool cause if you have dynamic snippets, it updates as you type!
+    updateevents = "TextChanged,TextChangedI",
+
+    -- Autosnippets:
+    enable_autosnippets = true,
+
+    ext_opts = {
+      [types.choiceNode] = {
+        active = {
+          virt_text = { { "<-", "Error" } },
+        },
+      },
+    },
+  })
+
+  luasnip.setup_snippet()
 
   if has_secret_luasnip then
     secret_luasnip.setup()
