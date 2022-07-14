@@ -16,9 +16,7 @@ endfunction
 
 " Mappings
 function! vimrc#terminal#mappings() abort
-  " Navigate prompts
-  nnoremap <silent><buffer> [[ ?❯<CR>
-  nnoremap <silent><buffer> ]] /❯<CR>
+  lua require("vimrc.terminal").setup_mapping()
 
   " Search pattern
   call vimrc#search#define_search_mappings()
