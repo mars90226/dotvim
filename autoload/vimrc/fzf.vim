@@ -441,6 +441,24 @@ function! vimrc#fzf#files_in_commandline() abort
   return get(results, 0, '')
 endfunction
 
+function! vimrc#fzf#shell_outputs_in_commandline() abort
+  let results = []
+
+  " NOTE: nvim-cmp error when switching commandline to input
+  lua require("vimrc.plugins.nvim_cmp").disable()
+  let command = input('Command: ', '', 'shellcmd')
+  lua require("vimrc.plugins.nvim_cmp").enable()
+
+  call vimrc#fzf#fzf(
+        \ 'Outputs',
+        \ fzf#vim#with_preview(extend({
+        \   'source': systemlist(command),
+        \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
+        \ }, g:fzf_tmux_layout)),
+        \ 0)
+  return get(results, 0, '')
+endfunction
+
 " Commands
 function! vimrc#fzf#jumps() abort
   call fzf#run(vimrc#fzf#wrap('Jumps', {

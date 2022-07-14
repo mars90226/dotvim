@@ -326,6 +326,12 @@ luasnip.setup_snippet = function()
       "ce",
       t(vim.g.company_email)
     ),
+    s(
+      "xx",
+      f(function()
+        return vim.fn["vimrc#fzf#shell_outputs_in_commandline"]()
+      end)
+    ),
   })
 end
 

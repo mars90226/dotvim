@@ -81,6 +81,9 @@ completion.startup = function(use)
       }
 
       cmp.setup({
+        enabled = function()
+          return require("vimrc.plugins.nvim_cmp").is_enabled()
+        end,
         performance = {
           debounce = 150, -- Same as LSP debounce
         },
