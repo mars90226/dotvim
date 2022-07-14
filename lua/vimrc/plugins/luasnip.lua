@@ -262,6 +262,71 @@ luasnip.setup_snippet = function()
       })
     ),
   })
+
+  ls.add_snippets("all", {
+    s(
+      "gf",
+      f(function()
+        return vim.fn["vimrc#fzf#files_in_commandline"]()
+      end)
+    ),
+    s(
+      "gm",
+      f(function()
+        return vim.fn["vimrc#fzf#mru#mru_in_commandline"]()
+      end)
+    ),
+    s(
+      "gd",
+      f(function()
+        return vim.fn["vimrc#fzf#mru#directory_mru_in_commandline"]()
+      end)
+    ),
+    s(
+      "gy",
+      f(function()
+        return vim.fn["vimrc#fugitive#commit_sha"]()
+      end)
+    ),
+    s(
+      "gc",
+      f(function()
+        return vim.fn["vimrc#git#get_current_branch"]()
+      end)
+    ),
+    s(
+      "gi",
+      f(function()
+        return vim.fn["vimrc#fzf#git#commits_in_commandline"]()
+      end)
+    ),
+    s(
+      "gb",
+      f(function()
+        return vim.fn["vimrc#fzf#git#branches_in_commandline"]()
+      end)
+    ),
+    s(
+      "gt",
+      f(function()
+        return vim.fn["vimrc#fzf#git#tags_in_commandline"]()
+      end)
+    ),
+    s(
+      "ge",
+      f(function()
+        return vim.fn["vimrc#git#get_email"]()
+      end)
+    ),
+    s(
+      "cd",
+      t(vim.g.company_domain)
+    ),
+    s(
+      "ce",
+      t(vim.g.company_email)
+    ),
+  })
 end
 
 luasnip.setup = function()

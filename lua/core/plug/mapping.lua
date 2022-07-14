@@ -166,6 +166,7 @@ mapping.startup = function(use)
       cnoremap("<C-G><C-L>", [[vimrc#rg#types_in_commandline()]], "<expr>")
       inoremap("<C-G><C-L>", [[vimrc#rg#types_in_commandline()]], "<expr>")
       -- Expand filename
+      -- TODO: Use one key to invoke fzf and expand to different filenames
       cnoremap("<C-G><C-^>", [[expand('%:t')]], "<expr>")
       inoremap("<C-G><C-^>", [[expand('%:t')]], "<expr>")
       -- <C-]> and <C-%> are the same key
