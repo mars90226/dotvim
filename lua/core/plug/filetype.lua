@@ -82,7 +82,12 @@ filetype.startup = function(use)
           -- tmux
           [".tmux.conf"] = "tmux",
         },
+        -- FIXME: Seems broken in neovim nightly?
         pattern = {
+          -- bash
+          -- TODO: Create neovim issue
+          ["bash-fc.*"] = "sh",
+
           -- config
           [".*conf"] = "conf",
           [".*conf%.local"] = "conf",
