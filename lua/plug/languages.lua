@@ -17,6 +17,7 @@ languages.startup = function(use)
 
   -- Highlighing
   -- nvim-treesitter
+  -- TODO: Move to dedicate place?
   if choose.is_enabled_plugin("nvim-treesitter") then
     use({
       "nvim-treesitter/nvim-treesitter",
@@ -146,6 +147,75 @@ languages.startup = function(use)
     use({
       "yioneko/nvim-yati",
       requires = { "nvim-treesitter/nvim-treesitter" },
+    })
+    use({
+      "ThePrimeagen/refactoring.nvim",
+      requires = {
+        { "nvim-lua/plenary.nvim" },
+        { "nvim-treesitter/nvim-treesitter" },
+      },
+      config = function()
+        require("refactoring").setup({})
+
+        -- Remaps for the refactoring operations currently offered by the plugin
+        vim.api.nvim_set_keymap(
+          "v",
+          "<Space>re",
+          [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],
+          { noremap = true, silent = true, expr = false }
+        )
+        vim.api.nvim_set_keymap(
+          "v",
+          "<Space>rf",
+          [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]],
+          { noremap = true, silent = true, expr = false }
+        )
+        vim.api.nvim_set_keymap(
+          "v",
+          "<Space>rv",
+          [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]],
+          { noremap = true, silent = true, expr = false }
+        )
+        vim.api.nvim_set_keymap(
+          "v",
+          "<Space>ri",
+          [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],
+          { noremap = true, silent = true, expr = false }
+        )
+
+        -- Extract block doesn't need visual mode
+        vim.api.nvim_set_keymap(
+          "n",
+          "<Space>rb",
+          [[ <Cmd>lua require('refactoring').refactor('Extract Block')<CR>]],
+          { noremap = true, silent = true, expr = false }
+        )
+        vim.api.nvim_set_keymap(
+          "n",
+          "<Space>rbf",
+          [[ <Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>]],
+          { noremap = true, silent = true, expr = false }
+        )
+
+        -- Inline variable can also pick up the identifier currently under the cursor without visual mode
+        vim.api.nvim_set_keymap(
+          "n",
+          "<Space>ri",
+          [[ <Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],
+          { noremap = true, silent = true, expr = false }
+        )
+
+        -- remap to open the Telescope refactoring menu in visual mode
+        vim.api.nvim_set_keymap(
+          "v",
+          "<Space>rr",
+          "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
+          { noremap = true }
+        )
+
+        -- load refactoring Telescope extension
+        require("telescope").load_extension("refactoring")
+      end,
     })
   end
 
