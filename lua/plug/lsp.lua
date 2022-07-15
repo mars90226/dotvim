@@ -123,11 +123,13 @@ lsp.startup = function(use)
           -- }),
           -- NOTE: disabled for performance
           -- null_ls.builtins.code_actions.gitsigns,
-          null_ls.builtins.code_actions.shellcheck.with({
-            condition = function()
-              return vim.fn.executable("shellcheck") > 0
-            end,
-          }),
+          -- NOTE: disabled for performance
+          -- TODO: Check if there's way to toggle it?
+          -- null_ls.builtins.code_actions.shellcheck.with({
+          --   condition = function()
+          --     return vim.fn.executable("shellcheck") > 0
+          --   end,
+          -- }),
 
           -- Diagnostic sources
           -- NOTE: use eslint_d instead
