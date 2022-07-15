@@ -55,6 +55,19 @@ lsp.servers = {
       offsetEncoding = { "utf-16" },
       memoryUsageProvider = true,
     },
+    custom_setup = function(server, lsp_opts)
+      require("clangd_extensions").setup({
+        server = lsp_opts,
+        extensions = {
+          memory_usage = {
+            border = "rounded",
+          },
+          symbol_info = {
+            border = "rounded",
+          },
+        },
+      })
+    end,
   },
   cmake = {},
   denols = {
@@ -62,7 +75,7 @@ lsp.servers = {
       enable = true,
       lint = true,
       unstable = true,
-    }
+    },
   },
   -- TODO: Suppress the error log of not finding eslint in local repo
   eslint = {},
@@ -101,7 +114,9 @@ lsp.servers = {
   -- pyright = {},
   rust_analyzer = {
     custom_setup = function(server, lsp_opts)
-      require("rust-tools").setup(lsp_opts)
+      require("rust-tools").setup({
+        server = lsp_opts,
+      })
     end,
   },
   solargraph = {

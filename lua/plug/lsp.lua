@@ -338,6 +338,10 @@ lsp.startup = function(use)
 
   -- Specific LSP Support
   use({
+    "p00f/clangd_extensions.nvim",
+    module = "clangd_extensions",
+  })
+  use({
     "simrat39/rust-tools.nvim",
     module = { "rust-tools" },
   })
