@@ -9,13 +9,30 @@ command_palette.same = function(text)
 end
 
 command_palette.menus = {}
-command_palette.terminal_commands = {
-  tldr = command_palette.same("tldr "),
-  navi = command_palette.same("navi "),
+command_palette.custom_commands = {
+  -- Insert command result in terminal
+  terminal = {
+    tldr = command_palette.same("tldr "),
+    navi = command_palette.same("navi "),
+  },
+  -- Insert command result in cmdline
+  cmdline = {
+    file = function()
+      return vim.fn["vimrc#fzf#files_in_commandline"]()
+    end,
+  },
 }
-command_palette.cmdline_commands = {
-  file = function()
-    return vim.fn["vimrc#fzf#files_in_commandline"]()
+command_palette.custom_command_handlers = {
+  terminal = function(result)
+    vim.api.nvim_paste(result, true, -1)
+
+    vim.schedule(function()
+      vim.cmd([[startinsert!]])
+    end)
+  end,
+  cmdline = function(result)
+    -- FIXME: If cmdline is currently empty, then this will insert to previous commmand
+    vim.api.nvim_feedkeys(utils.t(":<Up>") .. result, "m", true)
   end,
 }
 
@@ -47,62 +64,45 @@ command_palette.insert_commands = function(category, commands)
   utils.table_concat(command_palette.menus[category], commands)
 end
 
-command_palette.insert_terminal_commands = function(terminal_commands)
-  command_palette.terminal_commands = vim.tbl_extend(
+command_palette.insert_custom_commands = function(category, custome_commands)
+  command_palette.custom_commands[category] = vim.F.if_nil(command_palette.custom_commands[category], {})
+  command_palette.custom_commands[category] = vim.tbl_extend(
     "force",
-    command_palette.terminal_commands,
-    terminal_commands or {}
+    command_palette.custom_commands[category],
+    custome_commands or {}
   )
 end
 
-command_palette.execute_terminal_command = function(command)
-  local fn = command_palette.terminal_commands[command]
+command_palette.execute_custom_command = function(category, command)
+  local custom_commands = vim.F.if_nil(command_palette.custom_commands[category], {})
+  local fn = custom_commands[command]
   local result = fn and fn() or ""
-  vim.api.nvim_paste(result, true, -1)
-end
 
-command_palette.create_terminal_command = function(command)
-  -- TODO: Escape
-  return string.format([[lua require("vimrc.plugins.command_palette").execute_terminal_command("%s")]], command)
-end
-
-command_palette.setup_terminal = function()
-  for command, _ in pairs(command_palette.terminal_commands) do
-    command_palette.insert_commands("Terminal", {
-      { command, command_palette.create_terminal_command(command), 1 },
-    })
+  local custom_command_handler = command_palette.custom_command_handlers[category]
+  if custom_command_handler ~= nil then
+    custom_command_handler(result)
   end
 end
 
-command_palette.insert_cmdline_commands = function(cmdline_commands)
-  command_palette.cmdline_commands = vim.tbl_extend("force", command_palette.cmdline_commands, cmdline_commands or {})
-end
-
--- FIXME: If cmdline is currently empty, then this will insert to previous commmand
-command_palette.execute_cmdline_command = function(command)
-  local fn = command_palette.cmdline_commands[command]
-  local result = fn and fn() or ""
-  vim.api.nvim_feedkeys(utils.t(":<Up>")..result, 'm', true)
-end
-
-command_palette.create_cmdline_command = function(command)
+command_palette.create_custom_command = function(category, command)
   -- TODO: Escape
-  return string.format([[lua require("vimrc.plugins.command_palette").execute_cmdline_command("%s")]], command)
+  return string.format([[lua require("vimrc.plugins.command_palette").execute_custom_command("%s", "%s")]], category, command)
 end
 
-command_palette.setup_cmdline = function()
-  for command, _ in pairs(command_palette.cmdline_commands) do
-    command_palette.insert_commands("Cmdline", {
-      { command, command_palette.create_cmdline_command(command) },
-    })
+command_palette.setup_custom_command = function()
+  for category, custom_commands in pairs(command_palette.custom_commands) do
+    for command, _ in pairs(custom_commands) do
+      command_palette.insert_commands(category, {
+        { command, command_palette.create_custom_command(category, command) },
+      })
+    end
   end
 end
 
 command_palette.setup = function()
   local augroup_id = vim.api.nvim_create_augroup("command_palette_setup", {})
 
-  command_palette.setup_terminal()
-  command_palette.setup_cmdline()
+  command_palette.setup_custom_command()
 
   -- Lazy load
   vim.api.nvim_create_autocmd({ "FocusLost", "CursorHold", "CursorHoldI" }, {
