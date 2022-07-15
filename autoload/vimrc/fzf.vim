@@ -459,6 +459,19 @@ function! vimrc#fzf#shell_outputs_in_commandline() abort
   return get(results, 0, '')
 endfunction
 
+function! vimrc#fzf#choices_in_commandline(choices, ...) abort
+  let name = (a:0 && type(a:1) == type('')) ? a:1 : 'Choices'
+  let results = []
+  call vimrc#fzf#fzf(
+        \ name,
+        \ fzf#vim#with_preview(extend({
+        \   'source': a:choices,
+        \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
+        \ }, g:fzf_tmux_layout)),
+        \ 0)
+  return get(results, 0, '')
+endfunction
+
 " Commands
 function! vimrc#fzf#jumps() abort
   call fzf#run(vimrc#fzf#wrap('Jumps', {

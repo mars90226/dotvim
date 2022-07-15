@@ -139,6 +139,14 @@ luasnip.setup_snippet = function()
     end, { index })
   end
 
+  -- TODO: Add index
+  -- TODO: Add dynamic node
+  local fzf_tmux_choice = function(choices)
+    return f(function()
+      return vim.fn["vimrc#fzf#choices_in_commandline"](choices)
+    end)
+  end
+
   local chinese_punctuation_snippets = {
     s(
       "cp",
@@ -163,6 +171,20 @@ luasnip.setup_snippet = function()
     s("cp?", t("？")),
     s("cp[", t("「")),
     s("cp]", t("」")),
+    s(
+      "cpf",
+      fzf_tmux_choice({
+        "，",
+        "。",
+        "、",
+        "：",
+        "；",
+        "！",
+        "？",
+        "「",
+        "」",
+      })
+    ),
   }
 
   ls.add_snippets("gitcommit", {
@@ -318,14 +340,8 @@ luasnip.setup_snippet = function()
         return vim.fn["vimrc#git#get_email"]()
       end)
     ),
-    s(
-      "cd",
-      t(vim.g.company_domain)
-    ),
-    s(
-      "ce",
-      t(vim.g.company_email)
-    ),
+    s("cd", t(vim.g.company_domain)),
+    s("ce", t(vim.g.company_email)),
     s(
       "xx",
       f(function()
