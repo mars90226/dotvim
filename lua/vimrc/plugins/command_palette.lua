@@ -4,8 +4,8 @@ local command_palette = {}
 
 command_palette.menus = {}
 command_palette.terminal_commands = {
-	"tldr ",
-	"navi ",
+  tldr = "tldr ",
+  navi = "navi ",
 }
 
 local function add_to_cp_menu(category, commands)
@@ -37,24 +37,28 @@ command_palette.insert_commands = function(category, commands)
 end
 
 command_palette.insert_terminal_commands = function(terminal_commands)
-  utils.table_concat(command_palette.terminal_commands, terminal_commands)
+  command_palette.terminal_commands = vim.tbl_extend(
+    "force",
+    command_palette.terminal_commands,
+    terminal_commands or {}
+  )
 end
 
-command_palette.execute_terminal_command = function(text)
-	vim.api.nvim_paste(text, true, -1)
+command_palette.execute_terminal_command = function(command)
+  vim.api.nvim_paste(command_palette.terminal_commands[command] or "", true, -1)
 end
 
-command_palette.create_terminal_command = function(text)
-	-- TODO: Escape
-	return string.format([[lua require("vimrc.plugins.command_palette").execute_terminal_command("%s")]], text)
+command_palette.create_terminal_command = function(command)
+  -- TODO: Escape
+  return string.format([[lua require("vimrc.plugins.command_palette").execute_terminal_command("%s")]], command)
 end
 
 command_palette.setup_terminal = function()
-	for _, command in ipairs(command_palette.terminal_commands) do
-		command_palette.insert_commands("Terminal", {
-			{ command, command_palette.create_terminal_command(command), 1 },
-		})
-	end
+  for command, _ in pairs(command_palette.terminal_commands) do
+    command_palette.insert_commands("Terminal", {
+      { command, command_palette.create_terminal_command(command), 1 },
+    })
+  end
 end
 
 command_palette.setup = function()
