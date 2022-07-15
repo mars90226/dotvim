@@ -8,6 +8,13 @@ command_palette.same = function(text)
   end
 end
 
+command_palette.terminal_join = function(terminal_commands)
+  local commands = vim.deepcopy(terminal_commands)
+  table.insert(commands, "\n")
+  local command = table.concat(commands, "; ")
+  return command_palette.same(command)
+end
+
 command_palette.menus = {}
 command_palette.custom_commands = {
   -- Insert command result in terminal
@@ -86,7 +93,11 @@ end
 
 command_palette.create_custom_command = function(category, command)
   -- TODO: Escape
-  return string.format([[lua require("vimrc.plugins.command_palette").execute_custom_command("%s", "%s")]], category, command)
+  return string.format(
+    [[lua require("vimrc.plugins.command_palette").execute_custom_command("%s", "%s")]],
+    category,
+    command
+  )
 end
 
 command_palette.setup_custom_command = function()
