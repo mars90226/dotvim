@@ -3,6 +3,10 @@ local utils = require("vimrc.utils")
 local command_palette = {}
 
 command_palette.menus = {}
+command_palette.terminal_commands = {
+	"tldr ",
+	"navi ",
+}
 
 local function add_to_cp_menu(category, commands)
   local cp = require("command_palette")
@@ -32,8 +36,31 @@ command_palette.insert_commands = function(category, commands)
   utils.table_concat(command_palette.menus[category], commands)
 end
 
+command_palette.insert_terminal_commands = function(terminal_commands)
+  utils.table_concat(command_palette.terminal_commands, terminal_commands)
+end
+
+command_palette.execute_terminal_command = function(text)
+	vim.api.nvim_paste(text, true, -1)
+end
+
+command_palette.create_terminal_command = function(text)
+	-- TODO: Escape
+	return string.format([[lua require("vimrc.plugins.command_palette").execute_terminal_command("%s")]], text)
+end
+
+command_palette.setup_terminal = function()
+	for _, command in ipairs(command_palette.terminal_commands) do
+		command_palette.insert_commands("Terminal", {
+			{ command, command_palette.create_terminal_command(command), 1 },
+		})
+	end
+end
+
 command_palette.setup = function()
   local augroup_id = vim.api.nvim_create_augroup("command_palette_setup", {})
+
+  command_palette.setup_terminal()
 
   -- Lazy load
   vim.api.nvim_create_autocmd({ "FocusLost", "CursorHold", "CursorHoldI" }, {

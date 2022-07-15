@@ -100,6 +100,10 @@ file_navigation.startup = function(use)
     "LinArcX/telescope-command-palette.nvim",
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
+      local has_secret_command_palette, secret_command_palette = pcall(require, "secret.command_palette")
+
+      -- NOTE: Command second part is executed by `vim.api.nvim_exec()`
+      -- Command third part is 1 means it will execute `:startinsert!` after second part is executed
       require("telescope").setup({
         extensions = {
           command_palette = {
@@ -151,6 +155,11 @@ file_navigation.startup = function(use)
           },
         },
       })
+
+      if has_secret_command_palette then
+        secret_command_palette.setup()
+      end
+
       require("vimrc.plugins.command_palette").setup()
 
       require("telescope").load_extension("command_palette")
