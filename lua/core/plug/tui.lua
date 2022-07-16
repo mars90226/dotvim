@@ -25,8 +25,8 @@ tui.startup = function(use)
         vim.api.nvim_create_user_command("Htop", [[call vimrc#tui#run('float', 'htop '.<q-args>)]], { nargs = "*" })
         vim.api.nvim_create_user_command("HtopSplit", [[call vimrc#tui#run('new', 'htop '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
-          { "Htop", ":Htop" },
-          { "HtopSplit", ":HtopSplit" },
+          { "Htop", ":Htop", 1 },
+          { "HtopSplit", ":HtopSplit", 1 },
         })
 
         nnoremap("<Leader>ht", [[:Htop<CR>]])
@@ -41,8 +41,8 @@ tui.startup = function(use)
         vim.api.nvim_create_user_command("Atop", [[call vimrc#tui#run('float', 'atop '.<q-args>)]], { nargs = "*" })
         vim.api.nvim_create_user_command("AtopSplit", [[call vimrc#tui#run('new', 'atop '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
-          { "Atop", ":Atop" },
-          { "AtopSplit", ":AtopSplit" },
+          { "Atop", ":Atop", 1 },
+          { "AtopSplit", ":AtopSplit", 1 },
         })
       end,
     })
@@ -55,8 +55,8 @@ tui.startup = function(use)
         vim.api.nvim_create_user_command("Btm", [[call vimrc#tui#run('float', 'btm '.<q-args>)]], { nargs = "*" })
         vim.api.nvim_create_user_command("BtmSplit", [[call vimrc#tui#run('new', 'btm '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
-          { "Btm", ":Btm" },
-          { "BtmSplit", ":BtmSplit" },
+          { "Btm", ":Btm", 1 },
+          { "BtmSplit", ":BtmSplit", 1 },
         })
 
         nnoremap("<Leader>bt", [[:Btm<CR>]])
@@ -83,8 +83,8 @@ tui.startup = function(use)
           { nargs = "*" }
         )
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
-          { "Broot", ":Broot" },
-          { "BrootSplit", ":BrootSplit" },
+          { "Broot", ":Broot", 1 },
+          { "BrootSplit", ":BrootSplit", 1 },
         })
 
         nnoremap("<Leader>br", [[:Broot<CR>]])
@@ -103,8 +103,8 @@ tui.startup = function(use)
           { nargs = "*" }
         )
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
-          { "Ranger", ":Ranger" },
-          { "RangerSplit", ":RangerSplit" },
+          { "Ranger", ":Ranger", 1 },
+          { "RangerSplit", ":RangerSplit", 1 },
         })
       end,
     })
@@ -117,8 +117,8 @@ tui.startup = function(use)
         vim.api.nvim_create_user_command("Nnn", [[call vimrc#tui#run('float', 'nnn '.<q-args>)]], { nargs = "*" })
         vim.api.nvim_create_user_command("NnnSplit", [[call vimrc#tui#run('new', 'nnn '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
-          { "Nnn", ":Nnn" },
-          { "NnnSplit", ":NnnSplit" },
+          { "Nnn", ":Nnn", 1 },
+          { "NnnSplit", ":NnnSplit", 1 },
         })
       end,
     })
@@ -140,16 +140,17 @@ tui.startup = function(use)
           [[call vimrc#tui#run('float', 'vifm_dir '.<q-args>)]],
           { nargs = "*" }
         )
+        -- FIXME: Currently not works
         vim.api.nvim_create_user_command(
           "VifmDirSplit",
           [[call vimrc#tui#run('new', 'vifm_dir '.<q-args>)]],
           { nargs = "*" }
         )
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
-          { "Vifm", ":Vifm" },
-          { "VifmSplit", ":VifmSplit" },
-          { "VifmDir", ":VifmDir" },
-          { "VifmDirSplit", ":VifmDirSplit" },
+          { "Vifm", ":Vifm", 1 },
+          { "VifmSplit", ":VifmSplit", 1 },
+          { "VifmDir", ":VifmDirFloat", 1 },
+          { "VifmDirSplit", ":VifmDirSplit", 1 },
         })
 
         nnoremap("<Leader>vi", [[:VifmFloat<CR>]])
@@ -165,8 +166,8 @@ tui.startup = function(use)
         vim.api.nvim_create_user_command("Fff", [[call vimrc#tui#run('float', 'fff '.<q-args>)]], { nargs = "*" })
         vim.api.nvim_create_user_command("FffSplit", [[call vimrc#tui#run('new', 'fff '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
-          { "Fff", ":Fff" },
-          { "FffSplit", ":FffSplit" },
+          { "Fff", ":Fff", 1 },
+          { "FffSplit", ":FffSplit", 1 },
         })
       end,
     })
@@ -179,8 +180,8 @@ tui.startup = function(use)
         vim.api.nvim_create_user_command("Lf", [[call vimrc#tui#run('float', 'lf '.<q-args>)]], { nargs = "*" })
         vim.api.nvim_create_user_command("LfSplit", [[call vimrc#tui#run('new', 'lf '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
-          { "Lf", ":Lf" },
-          { "LfSplit", ":LfSplit" },
+          { "Lf", ":Lf", 1 },
+          { "LfSplit", ":LfSplit", 1 },
         })
       end,
     })
@@ -193,8 +194,8 @@ tui.startup = function(use)
         vim.api.nvim_create_user_command("Xplr", [[call vimrc#tui#run('float', 'xplr '.<q-args>)]], { nargs = "*" })
         vim.api.nvim_create_user_command("XplrSplit", [[call vimrc#tui#run('new', 'xplr '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
-          { "Xplr", ":Xplr" },
-          { "XplrSplit", ":XplrSplit" },
+          { "Xplr", ":Xplr", 1 },
+          { "XplrSplit", ":XplrSplit", 1 },
         })
 
         nnoremap("<Leader>xp", [[:Xplr<CR>]])
@@ -217,8 +218,8 @@ tui.startup = function(use)
           { nargs = "*" }
         )
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
-          { "LazyGit", ":LazyGit" },
-          { "LazyGitSplit", ":LazyGitSplit" },
+          { "LazyGit", ":LazyGit", 1 },
+          { "LazyGitSplit", ":LazyGitSplit", 1 },
         })
 
         nnoremap("<Leader>gz", [[:LazyGit<CR>]])
@@ -237,8 +238,8 @@ tui.startup = function(use)
           { nargs = "*" }
         )
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
-          { "Gitui", ":Gitui" },
-          { "GituiSplit", ":GituiSplit" },
+          { "Gitui", ":Gitui", 1 },
+          { "GituiSplit", ":GituiSplit", 1 },
         })
 
         nnoremap("<Leader>gi", [[:Gitui<CR>]])
@@ -261,8 +262,8 @@ tui.startup = function(use)
           { nargs = "*" }
         )
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
-          { "Bandwhich", ":Bandwhich" },
-          { "BandwhichSplit", ":BandwhichSplit" },
+          { "Bandwhich", ":Bandwhich", 1 },
+          { "BandwhichSplit", ":BandwhichSplit", 1 },
         })
       end,
     })
@@ -278,8 +279,8 @@ tui.startup = function(use)
         vim.api.nvim_create_user_command("Fish", [[call vimrc#tui#run('float', 'fish '.<q-args>)]], { nargs = "*" })
         vim.api.nvim_create_user_command("FishSplit", [[call vimrc#tui#run('new', 'fish '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
-          { "Fish", ":Fish" },
-          { "FishSplit", ":FishSplit" },
+          { "Fish", ":Fish", 1 },
+          { "FishSplit", ":FishSplit", 1 },
         })
       end,
     })
@@ -292,8 +293,8 @@ tui.startup = function(use)
         vim.api.nvim_create_user_command("Zsh", [[call vimrc#tui#run('float', 'zsh '.<q-args>)]], { nargs = "*" })
         vim.api.nvim_create_user_command("ZshSplit", [[call vimrc#tui#run('new', 'zsh '.<q-args>)]], { nargs = "*" })
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
-          { "Zsh", ":Zsh" },
-          { "ZshSplit", ":ZshSplit" },
+          { "Zsh", ":Zsh", 1 },
+          { "ZshSplit", ":ZshSplit", 1 },
         })
       end,
     })
