@@ -88,6 +88,15 @@ text_manipulation.startup = function(use)
         group = nvim_surround_augroup_id,
         pattern = "*",
         callback = function()
+          require("nvim-surround").buffer_setup({
+            keymaps = { -- vim-surround style keymaps
+              insert = "ys",
+              insert_line = "yss",
+              visual = "S",
+              delete = "ds",
+              change = "cs",
+            },
+          })
           -- NOTE: Second key mapping
           require("nvim-surround").buffer_setup({
             keymaps = { -- vim-sandwich style keymaps
