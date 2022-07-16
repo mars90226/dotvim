@@ -86,7 +86,9 @@ endfunction
 function! vimrc#browser#async_open(uri) abort
   " Detect URI and use browser
   if a:uri =~# '\v^https?://'
-    if vimrc#plugin#check#has_ssh_host_client()
+    if has('wsl')
+      call vimrc#browser#async_open_url(a:uri, 1)
+    elseif vimrc#plugin#check#has_ssh_host_client()
       call vimrc#browser#client_async_open_url(a:uri, 1)
     else
       call vimrc#browser#async_open_url(a:uri, 1)
