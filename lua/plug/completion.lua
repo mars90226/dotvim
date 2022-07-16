@@ -37,6 +37,7 @@ completion.startup = function(use)
       -- Completion Sources
       { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
       { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp", module = "cmp_nvim_lsp" },
+      { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
       { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
       { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
       { "hrsh7th/cmp-path", after = "nvim-cmp" },
@@ -169,6 +170,7 @@ completion.startup = function(use)
         sources = cmp.config.sources({
           { name = "path", priority_weight = 110 },
           { name = "nvim_lsp", max_item_count = 20, priority_weight = 100 },
+          { name = "nvim_lsp_signature_help", priority_weight = 100 },
           { name = "nvim_lua", priority_weight = 90 },
           { name = "luasnip", priority_weight = 80 },
           { name = "calc", priority_weight = 70 },
