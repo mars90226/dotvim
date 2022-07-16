@@ -24,14 +24,14 @@ function! vimrc#tui#get_floaterm_wrappers() abort
 endfunction
 
 function! vimrc#tui#is_floaterm_wrapper(cmd) abort
-  return index(s:floaterm_wrappers, a:cmd) != -1
+  return index(s:floaterm_wrappers, split(a:cmd, '\s')[0]) != -1
 endfunction
 
 " 1. Check if command is floaterm wrapper
 " 2. Check if command is tui process
 " 3. Check if command is shell
 function! vimrc#tui#is_tui(command) abort
-  if index(s:floaterm_wrappers, trim(a:command)) != -1
+  if vimrc#tui#is_floaterm_wrapper(a:command)
     return v:true
   endif
 

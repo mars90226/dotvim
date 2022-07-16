@@ -30,6 +30,7 @@ function! s:vifm_dir_callback(job, data, event, opener) abort
         let dict = {'filename': fnamemodify(filename, ':p')}
         call add(locations, dict)
       endfor
+      " FIXME: Do nothing in cancel
       if len(locations) != 0
         call floaterm#util#open(locations, a:opener)
       endif
