@@ -13,7 +13,6 @@ cmdline.delete_subword = function()
   for index = pos, 1, -1 do
     local char = cmd:sub(index, index)
     local char_is_sep = is_sep(char)
-    vim.pretty_print("index: ", index, ", char: ", char, ", char_is_sep: ", char_is_sep)
 
     if not char_is_sep then
       meet_non_sep = true
