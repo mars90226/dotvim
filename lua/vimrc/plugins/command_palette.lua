@@ -18,6 +18,7 @@ end
 command_palette.menus = {}
 command_palette.custom_commands = {
   -- Insert command result in terminal
+  -- FIXME: Cancel will leave in normal mode
   terminal = {
     tldr = command_palette.same("tldr "),
     navi = command_palette.same("navi "),
