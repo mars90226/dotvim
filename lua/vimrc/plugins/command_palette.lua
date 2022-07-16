@@ -33,6 +33,11 @@ command_palette.custom_commands = {
     devdocs = command_palette.same("https://devdocs.io"),
     duckduckgo = command_palette.same("https://duckduckgo.com/"),
   },
+  -- Search command result in browser
+  search = {
+    devdocs = command_palette.same("https://devdocs.io/?q=%s"),
+    duckduckgo = command_palette.same("https://duckduckgo.com/?q=%s"),
+  },
 }
 command_palette.custom_command_handlers = {
   terminal = function(result)
@@ -49,6 +54,11 @@ command_palette.custom_command_handlers = {
   browse = function(result)
     vim.cmd([[Browse ]]..result)
   end,
+  search = function(result)
+    local keyword = vim.fn.input('Search keyword: ', '')
+    local url = string.format(result, keyword)
+    vim.cmd([[Browse ]]..url)
+  end
 }
 
 local function add_to_cp_menu(category, commands)
