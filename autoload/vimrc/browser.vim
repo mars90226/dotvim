@@ -74,7 +74,7 @@ function! vimrc#browser#define_command(command, browser, type, prefix, suffix) a
 
   if a:type ==# 'open_url' || a:type ==# 'open'
     call vimrc#browser#include_open_url_mappings(a:command, a:prefix, a:suffix)
-  elseif a:type ==# 'search_keyword'
+  elseif a:type ==# 'search_keyword' || a:type ==# 'open_keyword'
     call vimrc#browser#include_search_mappings(a:command, a:prefix, a:suffix)
   endif
 endfunction
@@ -101,6 +101,19 @@ function! vimrc#browser#async_open(uri) abort
     endif
 
     call vimrc#browser#async_execute('xdg-open '.a:uri)
+  endif
+endfunction
+
+" Asynchronously browse keyword
+function! vimrc#browser#async_open_keyword(...) abort
+  let args = copy(a:000)
+
+  if has('wsl')
+    call call('vimrc#browser#async_search_keyword', args)
+  elseif vimrc#plugin#check#has_ssh_host_client()
+    call call('vimrc#browser#client_async_search_keyword', args)
+  else
+    call call('vimrc#browser#async_search_keyword', args)
   endif
 endfunction
 

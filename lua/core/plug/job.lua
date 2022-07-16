@@ -29,9 +29,11 @@ job.startup = function(use)
         ClientSearchKeywordDdg = { "client", "duckduckgo", search_keyword_prefix, "v" },
         ClientSearchKeywordDevDocs = { "client", "devdocs", search_keyword_prefix, "b" },
       }
-
+      local execute_maps = {
       -- Required by fugitive :GBrowse
-      vim.fn["vimrc#browser#define_command"]("Browse", "current", "open", execute_prefix, "x")
+        Browse = { "current", "open", execute_prefix, "x" },
+        BrowseKeyword = { "current", "open_keyword", execute_prefix, "x" },
+      }
 
       for command, definition in pairs(browser_maps) do
         local browser = definition[1]
@@ -49,6 +51,15 @@ job.startup = function(use)
         local suffix = definition[4]
 
         vim.fn["vimrc#search_engine#define_command"](command, browser, search_engine, prefix, suffix)
+      end
+
+      for command, definition in pairs(execute_maps) do
+        local browser = definition[1]
+        local type = definition[2]
+        local prefix = definition[3]
+        local suffix = definition[4]
+
+        vim.fn["vimrc#browser#define_command"](command, browser, type, prefix, suffix)
       end
     end,
   })
