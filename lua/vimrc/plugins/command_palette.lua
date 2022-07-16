@@ -28,6 +28,11 @@ command_palette.custom_commands = {
       return vim.fn["vimrc#fzf#files_in_commandline"]()
     end,
   },
+  -- Browse command result in browser
+  browse = {
+    devdocs = command_palette.same("https://devdocs.io"),
+    duckduckgo = command_palette.same("https://duckduckgo.com/"),
+  },
 }
 command_palette.custom_command_handlers = {
   terminal = function(result)
@@ -40,6 +45,9 @@ command_palette.custom_command_handlers = {
   cmdline = function(result)
     -- FIXME: If cmdline is currently empty, then this will insert to previous commmand
     vim.api.nvim_feedkeys(utils.t(":<Up>") .. result, "m", true)
+  end,
+  browse = function(result)
+    vim.cmd([[Browse ]]..result)
   end,
 }
 
