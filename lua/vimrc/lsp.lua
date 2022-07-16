@@ -12,6 +12,14 @@ local lsp = {}
 lsp.config = {
   enable_format_on_sync = false,
   show_diagnostics = true,
+  -- Borrowed from trouble.nvim
+  signs = {
+    -- icons / text used for a diagnostic
+    error = { name = "Error", text = "" },
+    warning = { name = "Warn", text = "" },
+    hint = { name = "Hint", text = "" },
+    information = { name = "Info", text = "" },
+  },
 }
 
 -- NOTE: Change it also need to change lsp.servers_by_filetype
@@ -324,10 +332,18 @@ lsp.setup_servers_on_filetype = function(filetype)
   end
 end
 
+lsp.setup_diagnostic = function()
+  for _, signs in pairs(lsp.config.signs) do
+    local hl = "DiagnosticSign" .. signs.name
+    vim.fn.sign_define(hl, { text = signs.text, texthl = hl })
+  end
+end
+
 lsp.setup = function(settings)
   lsp.config = vim.tbl_extend("force", lsp.config, settings)
 
   lsp.init_servers_by_filetype()
+  lsp.setup_diagnostic()
 
   -- TODO: Maybe setup basic lsp server?
   local lsp_setup_server_on_ft_augroup_id = vim.api.nvim_create_augroup("lsp_setup_server_on_ft", {})
