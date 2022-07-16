@@ -188,6 +188,9 @@ command! FixmesInDisk RgWithOption :-w:FIXME
 " LastTabs
 command! LastTabs call vimrc#fzf#last_tab#last_tabs()
 
+" Command Palette
+command! CommandPalette lua require("vimrc.plugins.command_palette").open_with_fzf()
+
 " Tags
 " Too bad fzf cannot toggle case sensitive interactively
 command! -bang -nargs=* ProjectTags              call vimrc#fzf#tag#project_tags(<q-args>, <bang>0)
@@ -339,6 +342,9 @@ nnoremap <Space>fp   :call      vimrc#execute_and_save('ProjectTags')<CR>
 nnoremap <Space>sp   :call      vimrc#execute_and_save('ProjectTagsCaseSentitive')<CR>
 nnoremap <Space>fP   :call      vimrc#execute_and_save("ProjectTags '" . expand('<cword>'))<CR>
 xnoremap <Space>fP   :<C-U>call vimrc#execute_and_save("ProjectTags '" . vimrc#utility#get_visual_selection())<CR>
+
+" Command Palette
+nnoremap <Space>M :call vimrc#execute_and_save('CommandPalette')<CR>
 
 " fzf & cscope key mappings {{{
 let s:fzf_cscope_prefix = '\c'

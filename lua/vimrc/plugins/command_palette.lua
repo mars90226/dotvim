@@ -53,13 +53,13 @@ command_palette.custom_command_handlers = {
     vim.api.nvim_feedkeys(utils.t(":<Up>") .. result, "m", true)
   end,
   browse = function(result)
-    vim.cmd([[Browse ]]..result)
+    vim.cmd([[Browse ]] .. result)
   end,
   search = function(result)
-    local keyword = vim.fn.input('Search keyword: ', '')
+    local keyword = vim.fn.input("Search keyword: ", "")
     local url = string.format(result, keyword)
-    vim.cmd([[Browse ]]..url)
-  end
+    vim.cmd([[Browse ]] .. url)
+  end,
 }
 
 local function add_to_cp_menu(category, commands)
@@ -127,6 +127,47 @@ command_palette.setup_custom_command = function()
       })
     end
   end
+end
+
+-- Open with fzf-tmux, slow but is able to invoke in anywhere including cmdline.
+command_palette.open_with_fzf = function()
+  local cp = require("command_palette")
+
+  -- TODO: Data structure of CpMenu is so bad...
+  local categories = {}
+  local category_index_map = {}
+  for index, cp_category in ipairs(cp.CpMenu) do
+    table.insert(categories, cp_category[1])
+    category_index_map[cp_category[1]] = index
+  end
+
+  local category = vim.fn["vimrc#fzf#choices_in_commandline"](categories, "Command Palette Category")
+  if category == "" then
+    return
+  end
+
+  local commands = {}
+  local command_index_map = {}
+  for index, category_command in ipairs({ unpack(cp.CpMenu[category_index_map[category]], 2) }) do
+    table.insert(commands, category_command[1])
+    command_index_map[category_command[1]] = index + 2 - 1 -- Add command index offset
+  end
+
+  local command = vim.fn["vimrc#fzf#choices_in_commandline"](commands, "Command Palette")
+  if command == "" then
+    return
+  end
+
+  local command_value = cp.CpMenu[category_index_map[category]][command_index_map[command]][2]
+  local should_start_insert = cp.CpMenu[category_index_map[category]][command_index_map[command]][3] == 1
+
+  if should_start_insert then
+    vim.schedule(function()
+      vim.cmd([[startinsert!]])
+    end)
+  end
+
+  vim.api.nvim_exec(command_value, true)
 end
 
 command_palette.setup = function()

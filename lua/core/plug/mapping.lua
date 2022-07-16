@@ -231,6 +231,7 @@ mapping.startup = function(use)
       inoremap("<C-X><C-X>", [[vimrc#fzf#shell_outputs_in_commandline()]], "<expr>")
       -- Command palette
       cnoremap("<C-X><C-Z>", [[<C-C><Cmd>Telescope command_palette<CR>]])
+      cnoremap("<C-X><C-S>", [[<C-C><Cmd>CommandPalette<CR>]])
 
       -- Ex mode for special buffer that map("'q'", [[as ':quit']])
       nnoremap("\\q:", [[q:]])

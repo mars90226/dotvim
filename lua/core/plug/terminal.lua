@@ -71,6 +71,7 @@ terminal.startup = function(use)
 
       -- Command palette
       tnoremap("<M-m><M-m>", [[<C-\><C-N>:Telescope command_palette<CR>]])
+      tnoremap("<M-m><M-M>", [[<C-\><C-N>:CommandPalette<CR>]])
 
       -- For nested neovim {{{
       -- Use <M-q> as prefix
@@ -114,6 +115,7 @@ terminal.startup = function(use)
 
       -- Command palette
       tnoremap("<M-q><M-m>", [[<C-\><C-\><C-N>:Telescope command_palette<CR>]])
+      tnoremap("<M-q><M-M>", [[<C-\><C-\><C-N>:CommandPalette<CR>]])
 
       -- For nested nested neovim {{{
       tnoremap("<expr>", [[<M-q><M-q> vimrc#terminal#nested_neovim#start("\<M-q>", 2)]], "<silent>")
@@ -157,6 +159,7 @@ terminal.startup = function(use)
 
       -- Command palette
       vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m><M-m>", ":Telescope command_palette<CR>")
+      vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m><M-M>", ":CommandPalette<CR>")
       -- }}}
       -- }}}
 
