@@ -211,6 +211,8 @@ mapping.startup = function(use)
       cnoremap("<C-G>t", [[<C-\>e<Space>vimrc#insert#trim_cmdline()<CR>]])
       -- Delete whole word (Use <Space> to separate `<C-\>e` and function)
       cnoremap("<C-G>w", [[<C-\>e<Space>vimrc#insert#delete_whole_word()<CR>]])
+      -- Delete subword (Use <Space> to separate `<C-\>e` and function)
+      cnoremap("<C-X><C-B>", [[<C-\>e<Space>v:lua.require("vimrc.cmdline").delete_subword()<CR>]])
       -- Company related data
       cnoremap("<C-G>d", [[<C-R>=g:company_domain<CR>]])
       cnoremap("<C-G>e", [[<C-R>=g:company_email<CR>]])
