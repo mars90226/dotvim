@@ -53,6 +53,18 @@ local extension_disable_check = function(lang, bufnr)
   return disable_check("extension", lang, bufnr)
 end
 
+-- nvim-ts-hint-textobject
+nvim_treesitter.tsht_nodes = function(fallback)
+  local tsht = require("tsht")
+  local res, nodes = pcall(tsht.nodes)
+
+  if res then
+    return nodes
+  end
+
+  vim.api.nvim_feedkeys(fallback, "n", false)
+end
+
 nvim_treesitter.setup_parser_config = function()
   local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
@@ -275,23 +287,8 @@ nvim_treesitter.setup_extensions = function()
     end,
   })
 
-  -- nvim-ts-hint-textobject
-  local tsht_nodes = function(fallback)
-    local tsht = require("tsht")
-    local res, nodes = pcall(tsht.nodes)
-
-    if res then
-      return nodes
-    end
-
-    vim.api.nvim_feedkeys(fallback, "n", false)
-  end
-  onoremap("m", function()
-    tsht_nodes("m")
-  end, "silent")
-  vnoremap("m", function()
-    tsht_nodes("m")
-  end, "silent")
+  onoremap("m", [[<Cmd>lua require("vimrc.plugins.nvim_treesitter").tsht_nodes("m")<CR>]], "silent")
+  vnoremap("m", [[:lua require("vimrc.plugins.nvim_treesitter").tsht_nodes("m")<CR>]], "silent")
 end
 
 nvim_treesitter.setup_performance_trick = function()
