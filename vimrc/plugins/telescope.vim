@@ -26,6 +26,7 @@ nnoremap <Space>tm <Cmd>Telescope oldfiles<CR>
 nnoremap <Space>to <Cmd>Telescope vim_options<CR>
 nnoremap <Space>tp <Cmd>call vimrc#telescope#project_tags()<CR>
 nnoremap <Space>tP <Cmd>Telescope projects<CR>
+" TODO: May need to adjust key mapping as used for project bookmark
 nnoremap <Space>t<C-P> <Cmd>Telescope project<CR>
 nnoremap <Space>t0 <Cmd>Telescope file_browser<CR>
 nnoremap <Space>t) <Cmd>execute 'Telescope file_browser path='.expand('%:h')<CR>
