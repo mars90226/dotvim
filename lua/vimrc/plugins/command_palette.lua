@@ -129,7 +129,8 @@ command_palette.setup_custom_command = function()
   end
 end
 
--- Open with fzf-tmux, slow but is able to invoke in anywhere including cmdline.
+-- Open with fzf-tmux, able to invoke in anywhere including cmdline.
+-- fzf-tmux may be slow if using slow terminal emulator
 command_palette.open_with_fzf = function()
   local cp = require("command_palette")
 

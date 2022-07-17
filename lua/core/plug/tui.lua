@@ -161,6 +161,7 @@ tui.startup = function(use)
 
         nnoremap("<Leader>vi", [[:VifmFloat<CR>]])
         nnoremap("<Leader>vd", [[:VifmDirFloat<CR>]])
+        nnoremap("<Leader>vm", [[:VifmDirBMarks<CR>]])
       end,
     })
   end
