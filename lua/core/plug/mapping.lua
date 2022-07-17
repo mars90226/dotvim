@@ -290,6 +290,10 @@ mapping.startup = function(use)
       snoremap("<M-a>", [[<Esc>a]])
       snoremap("<M-i>", [[<C-O>o<Esc>i]])
 
+      -- Smart dd
+      -- Ref: https://www.reddit.com/r/neovim/comments/w0jzzv/smart_dd/
+      nnoremap("dd", [[v:lua.require("vimrc.mapping").smart_dd()]], "<expr>")
+
       -- Man
       -- :Man is defined in $VIMRUNTIME/plugin/man.vim which is loaded after .vimrc
       -- TODO Move this to 'after' folder
