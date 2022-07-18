@@ -8,6 +8,7 @@ basic.setup_python_host = function()
   local os = plugin_utils.get_os()
   if os ~= "windows" and os ~= "synology" then
     -- Detect asdf
+    -- TODO: Currently, asdf is disabled. But this is not changed for now.
     if plugin_utils.file_readable(vim.env.HOME .. "/.asdf/shims/python") then
       vim.g.python_host_prog = vim.env.HOME .. "/.asdf/shims/python"
     end
