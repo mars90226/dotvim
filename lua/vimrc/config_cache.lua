@@ -3,6 +3,7 @@ local utils = require("vimrc.utils")
 
 local config_cache = {}
 
+-- TODO: This requires utils.get_vim_home() exists
 config_cache.path = utils.get_vim_home() .. "/.config_cache"
 config_cache.cache = {}
 
