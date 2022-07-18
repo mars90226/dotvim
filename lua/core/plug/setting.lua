@@ -37,7 +37,8 @@ settings.startup = function(use)
       vim.opt.number = true
       vim.opt.hidden = true
       vim.opt.lazyredraw = true
-      vim.opt.mouse = "a"
+      vim.opt.mouse = "nvi" -- NOTE: Test neovim 0.8 nightly popup-menu
+      vim.opt.mousemodel = "popup_setpos"
       vim.opt.modeline = true
       -- This config affect CursorHold event trigger time, default: 4000
       -- Avoid being to small to avoid multiple CursorHold event triggered when
