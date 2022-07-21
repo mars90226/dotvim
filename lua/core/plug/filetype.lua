@@ -89,11 +89,11 @@ filetype.startup = function(use)
           ["bash-fc.*"] = "sh",
 
           -- config
-          [".*conf"] = "conf",
-          [".*conf%.local"] = "conf",
-          [".*conf%.local%.override"] = "conf",
-          [".*/conf/template/.*"] = "conf",
-          [".*/.*%.template"] = "conf",
+          [".*conf"] = { "conf", { priority = -10 } },
+          [".*conf%.local"] = { "conf", { priority = -10 } },
+          [".*conf%.local%.override"] = { "conf", { priority = -10 } },
+          [".*/conf/template/.*"] = { "conf", { priority = -10 } },
+          [".*/.*%.template"] = { "conf", { priority = -10 } },
 
           -- git
           ["%.gitconfig-.*"] = "gitconfig",
@@ -104,9 +104,10 @@ filetype.startup = function(use)
           [".*maillog%.%d+%.xz"] = "messages",
 
           -- project
-          ["depends-virutal-.*"] = "dosini",
-          ["settings-virutal-.*"] = "dosini",
-          ["strings-virutal-.*"] = "dosini",
+          -- FIXME: Still not work, why?
+          [".*/depends-virtual-.*"] = "dosini",
+          [".*/settings-virtual-.*"] = "dosini",
+          [".*/strings-virtual-.*"] = "dosini",
           [".*/conf/resource.*"] = { "json", { priority = 10 } },
           [".*/conf/privilege.*"] = { "json", { priority = 10 } },
           [".*/backup/export"] = "sh",
