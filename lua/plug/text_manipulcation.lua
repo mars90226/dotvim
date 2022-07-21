@@ -90,9 +90,12 @@ text_manipulation.startup = function(use)
         callback = function()
           require("nvim-surround").buffer_setup({
             keymaps = { -- vim-surround style keymaps
-              insert = "ys",
-              insert_line = "yss",
+              normal = "ys",
+              normal_cur = "yss",
+              normal_line = "yS",
+              normal_cur_line = "ySS",
               visual = "S",
+              visual_line = "gS",
               delete = "ds",
               change = "cs",
             },
@@ -100,9 +103,12 @@ text_manipulation.startup = function(use)
           -- NOTE: Second key mapping
           require("nvim-surround").buffer_setup({
             keymaps = { -- vim-sandwich style keymaps
-              insert = "sa",
-              insert_line = "sas",
+              normal = "sa",
+              normal_cur = "sas",
+              normal_line = "sA",
+              normal_cur_line = "sAs",
               visual = "sa",
+              visual_line = "sA",
               delete = "sd",
               change = "sr",
             },
