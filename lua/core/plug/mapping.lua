@@ -22,7 +22,7 @@ mapping.startup = function(use)
       inoremap("<C-U>", [[<C-G>u<C-U>]])
 
       -- CTRL-L clear hlsearch
-      nnoremap("<C-L>", [[<C-L>:nohlsearch<CR>]])
+      nnoremap("<C-L>", [[<C-L>:nohlsearch<CR>]], "<silent>")
 
       -- Add key mapping for suspend
       nnoremap("<Space><C-Z>", [[:suspend<CR>]])
