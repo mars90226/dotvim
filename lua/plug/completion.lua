@@ -78,6 +78,7 @@ completion.startup = function(use)
             end
             return { buf }
           end,
+          indexing_interval = 1000,
         },
       }
 
@@ -177,11 +178,6 @@ completion.startup = function(use)
           { name = "emoji", priority_weight = 70 },
           { name = "treesitter", priority_weight = 70 },
           { name = "cmp_git", priority_weight = 70 },
-          vim.tbl_extend("force", buffer_source, {
-            keyword_length = 5,
-            max_item_count = 5,
-            priority_weight = 70,
-          }),
           {
             name = "tmux",
             max_item_count = 5,
@@ -198,6 +194,14 @@ completion.startup = function(use)
             priority_weight = 40,
           },
         }, {
+          vim.tbl_deep_extend("force", buffer_source, {
+            keyword_length = 5,
+            max_item_count = 5,
+            option = {
+              keyword_length = 5,
+            },
+            priority_weight = 70,
+          }),
           -- TODO: Timeout slow source?
           {
             name = "rg",
