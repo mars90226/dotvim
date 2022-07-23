@@ -14,9 +14,6 @@ mapping.startup = function(use)
 
       vim.api.nvim_create_user_command("HelptagsAll", [[lua require('vimrc.utils').helptags_all()]], {})
 
-      -- Don't use Ex mode, use Q for formatting
-      nnoremap("Q", [[gq]])
-
       -- CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
       -- so that you can undo CTRL-U after inserting a line break.
       inoremap("<C-U>", [[<C-G>u<C-U>]])
@@ -50,8 +47,6 @@ mapping.startup = function(use)
 
       -- Goto buffer in position
       nnoremap("g4", [[:tablast<CR>]])
-
-      nnoremap("QQ", [[:call vimrc#utility#quit_tab()<CR>]])
       -- }}}
 
       -- Quickly adjust window size
@@ -87,7 +82,8 @@ mapping.startup = function(use)
 
       -- Quit
       nnoremap("<Space>q", [[:quit<CR>]])
-      nnoremap("<Space>Q", [[:qall!<CR>]])
+      nnoremap("<Space>Q", [[:call vimrc#utility#quit_tab()<CR>]])
+      nnoremap("<Space><C-Q>", [[:qall!<CR>]])
 
       -- Easier file status
       nnoremap("<Space><C-G>", [[2<C-G>]])
