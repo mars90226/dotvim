@@ -23,7 +23,6 @@ nnoremap("<M-]>", function()
       local switched_bufnr = vim.api.nvim_get_current_buf()
       if switched_bufnr == current_bufnr then
         -- NOTE: Clangd cannot find corresponding files, use other.nvim
-        vim.pretty_print("Use other.nvim")
         vim.api.nvim_exec([[Other]], false)
 
         -- FIXME: Not work...
