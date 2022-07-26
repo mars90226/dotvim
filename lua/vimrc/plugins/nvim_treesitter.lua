@@ -300,6 +300,7 @@ nvim_treesitter.setup_performance_trick = function()
   local global_idle_disabled_modules = vim.tbl_filter(function(module)
     return module ~= nil
   end, {
+    "highlight",
     "context_commentstring",
     "matchup",
     plugin_utils.check_enabled_plugin("nvimGPS", "nvim-gps"),
