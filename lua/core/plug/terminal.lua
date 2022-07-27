@@ -49,6 +49,7 @@ terminal.startup = function(use)
       tnoremap("<M-C-K>", [[<C-\><C-N>gt]])
 
       -- Quickly switch to last tab in terminal
+      -- NOTE: Similar to <C-Tab>, but support fzf
       tnoremap("<M-1>", [[<C-\><C-N>:LastTab<CR>]])
 
       -- Quickly paste from register
