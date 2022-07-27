@@ -104,6 +104,7 @@ nvim_treesitter.setup_config = function()
       "comment",
       "cpp",
       "css",
+      "fennel",
       "go",
       "gomod",
       "gowork",
