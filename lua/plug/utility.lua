@@ -191,6 +191,8 @@ utility.startup = function(use)
   if vim.fn.executable("zk") == 1 then
     use({
       "mickael-menu/zk-nvim",
+      -- NOTE: Try marksman
+      disable = true,
       requires = { "neovim/nvim-lspconfig" },
       config = function()
         local lsp_configs = require("vimrc.lsp")

@@ -112,6 +112,7 @@ lsp.servers = {
       },
     },
   },
+  marksman = {},
   perlnavigator = {},
   -- pyls_ms = {},
   -- NOTE: use plugins: pyflakes, pycodestyle, pyls-flake8, pylsp-mypy, python-lsp-black
@@ -153,7 +154,8 @@ lsp.servers = {
   vimls = {},
   -- TODO: add settings for schemas
   yamlls = {},
-  zk = {},
+  -- NOTE: Failed to install zk 0.11.1, try marksman
+  -- zk = {},
 }
 -- TODO: Maybe utilize nvim-lsp-installer._generated.metadata?
 lsp.servers_by_filetype = {}
