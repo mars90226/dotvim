@@ -441,12 +441,12 @@ function! vimrc#fzf#files_in_commandline() abort
   return get(results, 0, '')
 endfunction
 
-function! vimrc#fzf#shell_outputs_in_commandline() abort
+function! vimrc#fzf#shell_outputs_in_commandline(...) abort
   let results = []
 
   " NOTE: nvim-cmp error when switching commandline to input
   lua require("vimrc.plugins.nvim_cmp").disable()
-  let command = input('Command: ', '', 'shellcmd')
+  let command = (a:0 && type(a:1) == type('')) ? a:1 : ''
   lua require("vimrc.plugins.nvim_cmp").enable()
 
   call vimrc#fzf#fzf(
