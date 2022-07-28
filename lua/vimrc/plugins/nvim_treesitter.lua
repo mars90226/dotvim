@@ -315,14 +315,18 @@ nvim_treesitter.setup_performance_trick = function()
     group = augroup_id,
     pattern = "*",
     callback = function()
-      vim.cmd([[TSEnable ]] .. table.concat(global_idle_disabled_modules, " "))
+      for _, module in ipairs(global_idle_disabled_modules) do
+        vim.cmd([[TSEnable ]] .. module)
+      end
     end,
   })
   vim.api.nvim_create_autocmd({ "FocusLost" }, {
     group = augroup_id,
     pattern = "*",
     callback = function()
-      vim.cmd([[TSDisable ]] .. table.concat(global_idle_disabled_modules, " "))
+      for _, module in ipairs(global_idle_disabled_modules) do
+        vim.cmd([[TSDisable ]] .. module)
+      end
     end,
   })
 end
