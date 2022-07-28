@@ -293,6 +293,8 @@ nvim_treesitter.setup_extensions = function()
 end
 
 nvim_treesitter.setup_performance_trick = function()
+  local configs_commands = require("nvim-treesitter.configs").commands
+
   -- TODO: Check if these actually help performance, initial test reveals that these may reduce highlighter time, but increase "[string]:0" time which is probably the time spent on autocmd & syntax enable/disable.
   -- TODO: These config help reduce memory usage, see if there's other way to fix high memory usage.
   -- TODO: Change to tab based toggling
@@ -310,13 +312,14 @@ nvim_treesitter.setup_performance_trick = function()
     "navigation",
     "smart_rename",
   })
+  local tab_idle_disabled_modules = global_idle_disabled_modules
 
   vim.api.nvim_create_autocmd({ "FocusGained" }, {
     group = augroup_id,
     pattern = "*",
     callback = function()
       for _, module in ipairs(global_idle_disabled_modules) do
-        vim.cmd([[TSEnable ]] .. module)
+        configs_commands.TSEnable.run(module)
       end
     end,
   })
@@ -325,7 +328,29 @@ nvim_treesitter.setup_performance_trick = function()
     pattern = "*",
     callback = function()
       for _, module in ipairs(global_idle_disabled_modules) do
-        vim.cmd([[TSDisable ]] .. module)
+        configs_commands.TSDisable.run(module)
+      end
+    end,
+  })
+  vim.api.nvim_create_autocmd({ "TabEnter" }, {
+    group = augroup_id,
+    pattern = "*",
+    callback = function()
+      for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        for _, module in ipairs(tab_idle_disabled_modules) do
+          configs_commands.TSBufEnable.run(module, vim.api.nvim_win_get_buf(winid))
+        end
+      end
+    end,
+  })
+  vim.api.nvim_create_autocmd({ "TabLeave" }, {
+    group = augroup_id,
+    pattern = "*",
+    callback = function()
+      for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        for _, module in ipairs(tab_idle_disabled_modules) do
+          configs_commands.TSBufDisable.run(module, vim.api.nvim_win_get_buf(winid))
+        end
       end
     end,
   })
