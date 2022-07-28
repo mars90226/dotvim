@@ -114,6 +114,7 @@ appearance.startup = function(use)
   use({ "rktjmp/lush.nvim" })
   use({
     "ellisonleao/gruvbox.nvim",
+    -- TODO: Remove after to avoid other plugin capture wrong highlight
     after = "syntax",
     config = function()
       local hsl = require("lush").hsl
@@ -148,6 +149,9 @@ appearance.startup = function(use)
         -- Plugin
         FocusedSymbol = { fg = palette.faded_blue, bg = custom_palette.white_yellow },
         GitSignsCurrentLineBlame = { fg = palette.dark4 },
+        -- TODO: Make nvim-ufo capture correct Folded highlight
+        UfoFoldedFg = { fg = palette.gray },
+        UfoFoldedBg = { bg = palette.dark1 },
       }
 
       require("gruvbox").setup({})
