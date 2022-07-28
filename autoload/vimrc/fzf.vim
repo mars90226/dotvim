@@ -452,7 +452,7 @@ function! vimrc#fzf#shell_outputs_in_commandline() abort
   call vimrc#fzf#fzf(
         \ 'Outputs',
         \ fzf#vim#with_preview(extend({
-        \   'source': systemlist(command),
+        \   'source': command,
         \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
         \ }, g:fzf_tmux_layout)),
         \ 0)
