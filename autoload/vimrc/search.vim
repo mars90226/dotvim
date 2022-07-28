@@ -33,9 +33,7 @@ endfunction
 
 " Includes {{{
 function! vimrc#search#define_search_mappings() abort
-  nnoremap <silent><buffer> <M-s>f :call vimrc#search#search_file(0)<CR>
-  nnoremap <silent><buffer> <M-s>y :call vimrc#search#search_hash(0)<CR>
-  nnoremap <silent><buffer> <M-s>u :call vimrc#search#search_url(0)<CR>
-  nnoremap <silent><buffer> <M-s>i :call vimrc#search#search_ip(0)<CR>
+  nmap <silent><buffer> <M-s> <Plug>(search-prefix)
+  nnoremap <silent><buffer> <M-s><M-s> <M-s>
 endfunction
 " }}}

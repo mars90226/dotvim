@@ -269,6 +269,14 @@ mapping.startup = function(use)
       xnoremap("<M-P>", [[:<C-U>call vimrc#textobj#past_character(v:count1, 'v', v:false)<CR>]], "<silent>")
       onoremap("<M-P>", [[:<C-U>call vimrc#textobj#past_character(v:count1, 'o', v:false)<CR>]], "<silent>")
 
+      -- Search
+      -- TODO: Try to define search mapping in all buffer
+      noremap("<Plug>(search-prefix)", [[<NOP>]])
+      nnoremap("<Plug>(search-prefix)f", [[<Cmd>call vimrc#search#search_file(0)<CR>]])
+      nnoremap("<Plug>(search-prefix)y", [[<Cmd>call vimrc#search#search_hash(0)<CR>]])
+      nnoremap("<Plug>(search-prefix)u", [[<Cmd>call vimrc#search#search_url(0)<CR>]])
+      nnoremap("<Plug>(search-prefix)i", [[<Cmd>call vimrc#search#search_ip(0)<CR>]])
+
       -- Diff
       nnoremap("<Leader>dft", [[:windo diffthis<CR>]])
       nnoremap("<Leader>dfo", [[:windo diffoff<CR>]])

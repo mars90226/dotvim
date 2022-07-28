@@ -64,10 +64,7 @@ terminal.startup = function(use)
       tnoremap("<M-PageDown>", [[<C-\><C-N><PageDown>]])
 
       -- Search pattern
-      tnoremap("<M-s>f", [[<C-\><C-N>:call vimrc#search#search_file(0)<CR>]])
-      tnoremap("<M-s>y", [[<C-\><C-N>:call vimrc#search#search_hash(0)<CR>]])
-      tnoremap("<M-s>u", [[<C-\><C-N>:call vimrc#search#search_url(0)<CR>]])
-      tnoremap("<M-s>i", [[<C-\><C-N>:call vimrc#search#search_ip(0)<CR>]])
+      tmap("<M-s>", [[<C-\><C-N><Plug>(search-prefix)]])
       tnoremap("<M-s><M-s>", [[<M-s>]])
 
       -- Command palette
@@ -109,10 +106,7 @@ terminal.startup = function(use)
       tnoremap("<M-q><PageDown>", [[<C-\><C-\><C-N><PageDown>]])
 
       -- Search pattern
-      tnoremap("<M-q>f", [[<C-\><C-\><C-N>:call vimrc#search#search_file(0)<CR>]])
-      tnoremap("<M-q>y", [[<C-\><C-\><C-N>:call vimrc#search#search_hash(0)<CR>]])
-      tnoremap("<M-q>u", [[<C-\><C-\><C-N>:call vimrc#search#search_url(0)<CR>]])
-      tnoremap("<M-q>i", [[<C-\><C-\><C-N>:call vimrc#search#search_ip(0)<CR>]])
+      tmap("<M-q><M-s>", [[<C-\><C-\><C-N><Plug>(search-prefix)]])
 
       -- Command palette
       tnoremap("<M-q><M-m>", [[<C-\><C-\><C-N>:Telescope command_palette<CR>]])
@@ -153,10 +147,7 @@ terminal.startup = function(use)
       vim.fn["vimrc#terminal#nested_neovim#register"]("<PageDown>", "<PageDown>")
 
       -- Search pattern
-      vim.fn["vimrc#terminal#nested_neovim#register"]("f", ":call vimrc#search#search_file(0)<CR>")
-      vim.fn["vimrc#terminal#nested_neovim#register"]("y", ":call vimrc#search#search_hash(0)<CR>")
-      vim.fn["vimrc#terminal#nested_neovim#register"]("u", ":call vimrc#search#search_url(0)<CR>")
-      vim.fn["vimrc#terminal#nested_neovim#register"]("i", ":call vimrc#search#search_ip(0)<CR>")
+      vim.fn["vimrc#terminal#nested_neovim#register"]("<M-s>", [[<Plug>(search-prefix)]])
 
       -- Command palette
       vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m><M-m>", ":Telescope command_palette<CR>")
