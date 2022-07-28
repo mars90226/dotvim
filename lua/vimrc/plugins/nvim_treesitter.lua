@@ -323,6 +323,15 @@ nvim_treesitter.setup_performance_trick = function()
       end
     end,
   })
+  -- NOTE: We want to disable highlight if FocusLost is caused by following reasons:
+  -- 1. neovim goes to background
+  -- 2. tmux switch window, client
+  -- 3. Terminal emulator switch tab
+  -- We don't want to disable highlight if FocusLost is caused by following reasons:
+  -- 1. tmux switch pane
+  -- 2. Terminal emulator switch pane
+  -- 3. OS switch application
+  -- In other words, we want treesitter highlight if the buffer is actually displayed on the screen.
   vim.api.nvim_create_autocmd({ "FocusLost" }, {
     group = augroup_id,
     pattern = "*",
