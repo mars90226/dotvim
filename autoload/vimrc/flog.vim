@@ -6,6 +6,7 @@ function! vimrc#flog#mappings() abort
   nnoremap <buffer><expr> q winnr('$') != 1 ? ':<C-U>wincmd w<CR>:<C-U>close<CR>' : 'q'
 
   call vimrc#git#include_git_mappings('flog', v:true, v:true)
+  call vimrc#search#define_search_mappings()
 endfunction
 
 " Functions

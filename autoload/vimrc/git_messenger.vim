@@ -5,6 +5,7 @@ function! vimrc#git_messenger#mappings() abort
 
   " FIXME Display some error message when using these key mappings
   call vimrc#git#include_git_mappings('git_messenger')
+  call vimrc#search#define_search_mappings()
 endfunction
 
 " Functions

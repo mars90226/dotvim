@@ -8,6 +8,7 @@ function! vimrc#gv#mappings() abort
   nnoremap <silent><buffer> gq :call vimrc#gv#close_detail_or_window()<CR>
 
   call vimrc#git#include_git_mappings('gv', v:true, v:true)
+  call vimrc#search#define_search_mappings()
 endfunction
 
 " Functions

@@ -64,10 +64,10 @@ terminal.startup = function(use)
       tnoremap("<M-PageDown>", [[<C-\><C-N><PageDown>]])
 
       -- Search pattern
-      tnoremap("<M-s><C-F>", [[<C-\><C-N>:call vimrc#search#search_file(0)<CR>]])
-      tnoremap("<M-s><C-Y>", [[<C-\><C-N>:call vimrc#search#search_hash(0)<CR>]])
-      tnoremap("<M-s><C-U>", [[<C-\><C-N>:call vimrc#search#search_url(0)<CR>]])
-      tnoremap("<M-s><C-I>", [[<C-\><C-N>:call vimrc#search#search_ip(0)<CR>]])
+      tnoremap("<M-s>f", [[<C-\><C-N>:call vimrc#search#search_file(0)<CR>]])
+      tnoremap("<M-s>y", [[<C-\><C-N>:call vimrc#search#search_hash(0)<CR>]])
+      tnoremap("<M-s>u", [[<C-\><C-N>:call vimrc#search#search_url(0)<CR>]])
+      tnoremap("<M-s>i", [[<C-\><C-N>:call vimrc#search#search_ip(0)<CR>]])
       tnoremap("<M-s><M-s>", [[<M-s>]])
 
       -- Command palette
@@ -109,10 +109,10 @@ terminal.startup = function(use)
       tnoremap("<M-q><PageDown>", [[<C-\><C-\><C-N><PageDown>]])
 
       -- Search pattern
-      tnoremap("<M-q><C-F>", [[<C-\><C-\><C-N>:call vimrc#search#search_file(0)<CR>]])
-      tnoremap("<M-q><C-Y>", [[<C-\><C-\><C-N>:call vimrc#search#search_hash(0)<CR>]])
-      tnoremap("<M-q><C-U>", [[<C-\><C-\><C-N>:call vimrc#search#search_url(0)<CR>]])
-      tnoremap("<M-q><C-I>", [[<C-\><C-\><C-N>:call vimrc#search#search_ip(0)<CR>]])
+      tnoremap("<M-q>f", [[<C-\><C-\><C-N>:call vimrc#search#search_file(0)<CR>]])
+      tnoremap("<M-q>y", [[<C-\><C-\><C-N>:call vimrc#search#search_hash(0)<CR>]])
+      tnoremap("<M-q>u", [[<C-\><C-\><C-N>:call vimrc#search#search_url(0)<CR>]])
+      tnoremap("<M-q>i", [[<C-\><C-\><C-N>:call vimrc#search#search_ip(0)<CR>]])
 
       -- Command palette
       tnoremap("<M-q><M-m>", [[<C-\><C-\><C-N>:Telescope command_palette<CR>]])
@@ -153,10 +153,10 @@ terminal.startup = function(use)
       vim.fn["vimrc#terminal#nested_neovim#register"]("<PageDown>", "<PageDown>")
 
       -- Search pattern
-      vim.fn["vimrc#terminal#nested_neovim#register"]("<C-F>", ":call vimrc#search#search_file(0)<CR>")
-      vim.fn["vimrc#terminal#nested_neovim#register"]("<C-Y>", ":call vimrc#search#search_hash(0)<CR>")
-      vim.fn["vimrc#terminal#nested_neovim#register"]("<C-U>", ":call vimrc#search#search_url(0)<CR>")
-      vim.fn["vimrc#terminal#nested_neovim#register"]("<C-I>", ":call vimrc#search#search_ip(0)<CR>")
+      vim.fn["vimrc#terminal#nested_neovim#register"]("f", ":call vimrc#search#search_file(0)<CR>")
+      vim.fn["vimrc#terminal#nested_neovim#register"]("y", ":call vimrc#search#search_hash(0)<CR>")
+      vim.fn["vimrc#terminal#nested_neovim#register"]("u", ":call vimrc#search#search_url(0)<CR>")
+      vim.fn["vimrc#terminal#nested_neovim#register"]("i", ":call vimrc#search#search_ip(0)<CR>")
 
       -- Command palette
       vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m><M-m>", ":Telescope command_palette<CR>")
