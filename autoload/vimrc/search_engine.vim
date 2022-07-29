@@ -28,7 +28,8 @@ endfunction
 " Configs
 let s:search_engines = {
       \ 'duckduckgo': 'https://duckduckgo.com/?q=%s',
-      \ 'devdocs': 'https://devdocs.io/?q=%s'
+      \ 'devdocs': 'https://devdocs.io/?q=%s',
+      \ 'mdn': 'https://developer.mozilla.org/en-US/search?q=%s'
       \ }
 
 " Functions

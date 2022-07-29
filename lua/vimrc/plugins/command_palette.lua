@@ -33,11 +33,13 @@ command_palette.custom_commands = {
   browse = {
     devdocs = command_palette.same("https://devdocs.io"),
     duckduckgo = command_palette.same("https://duckduckgo.com/"),
+    mdn = command_palette.same("https://developer.mozilla.org/en-US/"),
   },
   -- Search command result in browser
   search = {
     devdocs = command_palette.same("https://devdocs.io/?q=%s"),
     duckduckgo = command_palette.same("https://duckduckgo.com/?q=%s"),
+    mdn = command_palette.same("https://developer.mozilla.org/en-US/search?q=%s"),
   },
 }
 command_palette.custom_command_handlers = {
@@ -92,11 +94,8 @@ end
 
 command_palette.insert_custom_commands = function(category, custome_commands)
   command_palette.custom_commands[category] = vim.F.if_nil(command_palette.custom_commands[category], {})
-  command_palette.custom_commands[category] = vim.tbl_extend(
-    "force",
-    command_palette.custom_commands[category],
-    custome_commands or {}
-  )
+  command_palette.custom_commands[category] =
+    vim.tbl_extend("force", command_palette.custom_commands[category], custome_commands or {})
 end
 
 command_palette.execute_custom_command = function(category, command)

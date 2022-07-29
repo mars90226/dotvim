@@ -23,11 +23,14 @@ job.startup = function(use)
         ClientOpenUrl = { "client", "open_url", open_url_prefix, "c" },
         ClientSearchKeyword = { "client", "search_keyword", search_keyword_prefix, "c" },
       }
+      -- TODO: Refactor
       local search_engine_maps = {
         SearchKeywordDdg = { "current", "duckduckgo", search_keyword_prefix, "d" },
         SearchKeywordDevDocs = { "current", "devdocs", search_keyword_prefix, "e" },
+        SearchKeywordMdn = { "current", "mdn", search_keyword_prefix, "m" },
         ClientSearchKeywordDdg = { "client", "duckduckgo", search_keyword_prefix, "v" },
         ClientSearchKeywordDevDocs = { "client", "devdocs", search_keyword_prefix, "b" },
+        ClientSearchKeywordMdn = { "client", "mdn", search_keyword_prefix, "m" },
       }
       local execute_maps = {
       -- Required by fugitive :GBrowse
