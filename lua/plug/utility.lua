@@ -308,13 +308,15 @@ utility.startup = function(use)
 
   -- Focus
   use({
-    "Pocco81/TrueZen.nvim",
-    cmd = { "TZAtaraxis", "TZFocus", "TZMinimalist" },
-    keys = { "<Leader>za", "<Leader>zc", "<Leader>zm" },
+    "Pocco81/true-zen.nvim",
+    cmd = { "TZAtaraxis", "TZFocus", "TZMinimalist", "TZNarrow" },
+    keys = { "<Leader>za", "<Leader>zc", "<Leader>zm", "<Leader>zn" },
     config = function()
       nnoremap("<Leader>za", [[<Cmd>TZAtaraxis<CR>]])
       nnoremap("<Leader>zc", [[<Cmd>TZFocus<CR>]])
       nnoremap("<Leader>zm", [[<Cmd>TZMinimalist<CR>]])
+      nnoremap("<Leader>zn", [[<Cmd>TZNarrow<CR>]])
+      xnoremap("<Leader>zn", [[:'<,'>TZNarrow<CR>]])
     end,
   })
 
