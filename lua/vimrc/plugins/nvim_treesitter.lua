@@ -342,6 +342,7 @@ nvim_treesitter.setup_performance_trick = function()
     end,
   })
   -- FIXME: Open buffer in other tab doesn't have highlight
+  -- FIXME: Seems to conflict with true-zen.nvim
   vim.api.nvim_create_autocmd({ "TabEnter" }, {
     group = augroup_id,
     pattern = "*",
