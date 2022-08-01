@@ -305,6 +305,7 @@ file_navigation.startup = function(use)
           -- "laravel",
           -- custom mapping
           -- TODO: Simplify the pattern
+          -- Same folder
           {
             pattern = "/(.*).h$",
             target = "/%1\\(.cpp\\|.c\\)",
@@ -317,6 +318,7 @@ file_navigation.startup = function(use)
             pattern = "/(.*).c$",
             target = "/%1.h",
           },
+          -- 3-level folder
           {
             pattern = "/src/include/(.*)/(.*)/(.*).h$",
             target = "/src/%1/lib/%2/%3\\(.cpp\\|.c\\)",
@@ -329,6 +331,7 @@ file_navigation.startup = function(use)
             pattern = "/src/(.*)/lib/(.*)/(.*).c$",
             target = "/src/include/%1/%2/%3.h",
           },
+          -- 2-level folder
           {
             pattern = "/src/include/.*/(.*)/(.*).h$",
             target = "/src/lib/%1/%2\\(.cpp\\|.c\\)",
@@ -341,6 +344,7 @@ file_navigation.startup = function(use)
             pattern = "/src/lib/(.*)/(.*).c$",
             target = "/src/include/*/%1/%2.h",
           },
+          -- 1-level folder
           {
             pattern = "/include/.*/(.*).h$",
             target = "/lib/%1\\(.cpp\\|.c\\)",
@@ -352,6 +356,19 @@ file_navigation.startup = function(use)
           {
             pattern = "/lib/(.*).c$",
             target = "/include/*/%1.h",
+          },
+          -- 2-level lib prefix folder
+          {
+            pattern = "/src/include/.*/(.*)/(.*).h$",
+            target = "/src/lib-%1/%2\\(.cpp\\|.c\\)",
+          },
+          {
+            pattern = "/src/lib%-(.*)/(.*).cpp$",
+            target = "/src/include/*/%1/%2.h",
+          },
+          {
+            pattern = "/src/lib%-(.*)/(.*).c$",
+            target = "/src/include/*/%1/%2.h",
           },
         },
         transformers = {
