@@ -370,20 +370,20 @@ mapping.startup = function(use)
       end
 
       -- Delete inactive buffers
-      vim.api.nvim_create_user_command(
-        "Bdi",
-        [[call vimrc#utility#delete_inactive_buffers(0, <bang>0)]],
-        { bang = true }
-      )
-      vim.api.nvim_create_user_command(
-        "Bwi",
-        [[call vimrc#utility#delete_inactive_buffers(1, <bang>0)]],
-        { bang = true }
-      )
-      nnoremap("<Leader>D", [[:Bdi<CR>]])
-      nnoremap("<Leader><C-D>", [[:Bdi!<CR>]])
-      nnoremap("<Leader>Q", [[:Bwi<CR>]])
-      nnoremap("<Leader><C-Q>", [[:Bwi!<CR>]])
+      vim.api.nvim_create_user_command("Bdi", function(opts)
+        local args = opts.fargs
+        if opts.bang then
+          table.insert(args, "bang")
+        end
+
+        require("vimrc.buffer").delete_inactive_buffers(unpack(args))
+      end, { bang = true, nargs = "*" })
+      nnoremap("Zd", [[:Bdi<CR>]])
+      nnoremap("ZD", [[:Bdi!<CR>]])
+      nnoremap("Z<C-D>", [[:Bdi! include_modified<CR>]])
+      nnoremap("Zw", [[:Bdi wipeout<CR>]])
+      nnoremap("ZW", [[:Bdi! wipeout<CR>]])
+      nnoremap("Z<C-W>", [[:Bdi! wipeout include_modified<CR>]])
 
       vim.api.nvim_create_user_command("TrimWhitespace", [[call vimrc#utility#trim_whitespace()]], {})
 

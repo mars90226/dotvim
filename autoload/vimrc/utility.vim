@@ -42,43 +42,6 @@ function! vimrc#utility#window_equal() abort
   wincmd =
 endfunction
 
-" Delete inactive buffers
-function! vimrc#utility#delete_inactive_buffers(wipeout, bang) abort
-  "From tabpagebuflist() help, get a list of all buffers in all tabs
-  let visible_buffers = {}
-  for t in range(tabpagenr('$'))
-    for b in tabpagebuflist(t + 1)
-      let visible_buffers[b] = 1
-    endfor
-  endfor
-
-  "Below originally inspired by Hara Krishna Dara and Keith Roberts
-  "http://tech.groups.yahoo.com/group/vim/message/56425
-  let wipeout_count = 0
-  if a:wipeout
-    let cmd = 'bwipeout'
-  else
-    let cmd = 'bdelete'
-  endif
-  for b in range(1, bufnr('$'))
-    if buflisted(b) && !getbufvar(b,'&mod') && !has_key(visible_buffers, b)
-      "bufno listed AND isn't modified AND isn't in the list of buffers open in windows and tabs
-      if a:bang
-        silent exec cmd . '!' b
-      else
-        silent exec cmd b
-      endif
-      let wipeout_count = wipeout_count + 1
-    endif
-  endfor
-
-  if a:wipeout
-    echomsg wipeout_count . ' buffer(s) wiped out'
-  else
-    echomsg wipeout_count . ' buffer(s) deleted'
-  endif
-endfunction
-
 " vimrc#utility#execute_command() for executing command with query
 function! vimrc#utility#execute_command(command, prompt, ...) abort
   let no_space = a:0 > 0 && type(a:1) == type(0) ? a:1 : 0
