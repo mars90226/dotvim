@@ -118,4 +118,12 @@ utils.display_char = function()
   vim.notify(vim.fn.printf('Raw: "%s" | Char: "%s', char, vim.fn.nr2char(char)), vim.log.levels.INFO)
 end
 
+utils.get_buffer_variable = function(buf, var)
+  local status, result = pcall(vim.api.nvim_buf_get_var, buf, var)
+  if status then
+    return result
+  end
+  return nil
+end
+
 return utils

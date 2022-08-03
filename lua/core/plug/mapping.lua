@@ -237,7 +237,8 @@ mapping.startup = function(use)
       nnoremap("\\q?", [[q?]])
 
       -- <F10> for syncing syntax highlight from start
-      nnoremap("<F10>", [[:syntax sync fromstart<CR>]])
+      -- TODO: Removed?
+      -- nnoremap("<F10>", [[:syntax sync fromstart<CR>]])
 
       -- Execute last command
       -- Note: @: should execute last command, but didn't work when using

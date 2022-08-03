@@ -130,7 +130,7 @@ Open neovim and execute `:PackerSync`.
     * `[m`: Goto previous function start
     * `]]`: Goto next class start
     * `[]`: Goto previous class start
-    * `<F6>`: Toggle context
+    * `<Space><F6>`: Toggle context
     * `<CR>`: Select node
     * `<CR>` in visual mode: scope incremental
     * `<M-h>`, `<M-j>`, `<M-k>`, `<M-l>` in visual mode: navigate node

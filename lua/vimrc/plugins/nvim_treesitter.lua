@@ -53,6 +53,26 @@ local extension_disable_check = function(lang, bufnr)
   return disable_check("extension", lang, bufnr)
 end
 
+local force_disable_var = 'nvim_treesitter_force_disable'
+local buffer_toggle_module = function(enable, module, bufnr)
+  local configs_commands = require("nvim-treesitter.configs").commands
+  local force_disable = utils.get_buffer_variable(bufnr, force_disable_var) or false
+
+  if enable then
+    if not force_disable then
+      configs_commands.TSBufEnable.run(module, bufnr)
+    end
+  else
+    configs_commands.TSBufDisable.run(module, bufnr)
+  end
+end
+local buffer_toggle_force_disable_and_module = function(module, bufnr)
+  local force_disable = not (utils.get_buffer_variable(bufnr, force_disable_var) or false)
+  vim.api.nvim_buf_set_var(bufnr, force_disable_var, force_disable)
+
+  buffer_toggle_module(not force_disable, module, bufnr)
+end
+
 -- nvim-ts-hint-textobject
 nvim_treesitter.tsht_nodes = function(fallback)
   local tsht = require("tsht")
@@ -350,7 +370,7 @@ nvim_treesitter.setup_performance_trick = function()
     callback = function()
       for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
         for _, module in ipairs(tab_idle_disabled_modules) do
-          configs_commands.TSBufEnable.run(module, vim.api.nvim_win_get_buf(winid))
+          buffer_toggle_module(true, module, vim.api.nvim_win_get_buf(winid))
         end
       end
     end,
@@ -361,11 +381,19 @@ nvim_treesitter.setup_performance_trick = function()
     callback = function()
       for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
         for _, module in ipairs(tab_idle_disabled_modules) do
-          configs_commands.TSBufDisable.run(module, vim.api.nvim_win_get_buf(winid))
+          buffer_toggle_module(false, module, vim.api.nvim_win_get_buf(winid))
         end
       end
     end,
   })
+end
+
+nvim_treesitter.setup_mapping = function()
+  nnoremap("<F6>", function()
+    -- TODO: Disable global enable/disable performance trick
+    local bufnr = vim.api.nvim_get_current_buf()
+    buffer_toggle_force_disable_and_module("highlight", bufnr)
+  end)
 end
 
 nvim_treesitter.setup = function()
@@ -373,6 +401,7 @@ nvim_treesitter.setup = function()
   nvim_treesitter.setup_config()
   nvim_treesitter.setup_extensions()
   nvim_treesitter.setup_performance_trick()
+  nvim_treesitter.setup_mapping()
 end
 
 return nvim_treesitter

@@ -230,7 +230,7 @@ languages.startup = function(use)
       requires = { "nvim-treesitter/nvim-treesitter" },
       config = function()
         -- NOTE: nvim-treesitter config is in nvim_treesitter.lua
-        nnoremap("<F6>", ":TSContextToggle<CR>")
+        nnoremap("<Space><F6>", ":TSContextToggle<CR>")
       end,
     })
 
