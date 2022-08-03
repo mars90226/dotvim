@@ -1,4 +1,3 @@
-local has_secret_filetype, secret_filetype = pcall(require, "secret.filetype")
 local plugin_utils = require("vimrc.plugin_utils")
 
 local filetype = {}
@@ -11,6 +10,8 @@ filetype.startup = function(use)
   use_config({
     "mars90226/filetype",
     config = function()
+      local has_secret_filetype, secret_filetype = pcall(require, "secret.filetype")
+
       vim.filetype.add({
         extension = {
           -- bash
@@ -86,7 +87,7 @@ filetype.startup = function(use)
         pattern = {
           -- bash
           -- TODO: Create neovim issue
-          ["bash-fc.*"] = "sh",
+          ["bash%-fc.*"] = "sh",
 
           -- config
           [".*conf"] = { "conf", { priority = -10 } },
@@ -96,7 +97,7 @@ filetype.startup = function(use)
           [".*/.*%.template"] = { "conf", { priority = -10 } },
 
           -- git
-          ["%.gitconfig-.*"] = "gitconfig",
+          ["%.gitconfig%-.*"] = "gitconfig",
 
           -- maillog
           [".*maillog"] = "messages",
@@ -104,10 +105,9 @@ filetype.startup = function(use)
           [".*maillog%.%d+%.xz"] = "messages",
 
           -- project
-          -- FIXME: Still not work, why?
-          [".*/depends-virtual-.*"] = "dosini",
-          [".*/settings-virtual-.*"] = "dosini",
-          [".*/strings-virtual-.*"] = "dosini",
+          ["depends%-virtual%-.*"] = "dosini",
+          ["settings%-virtual%-.*"] = "dosini",
+          ["strings%-virtual%-.*"] = "dosini",
           [".*/conf/resource.*"] = { "json", { priority = 10 } },
           [".*/conf/privilege.*"] = { "json", { priority = 10 } },
           [".*/backup/export"] = "sh",
@@ -124,10 +124,10 @@ filetype.startup = function(use)
           ["conf/local%.d/.*%.conf"] = { "rspamd", { priority = 10 } },
 
           -- spamassassin
-          ["sa-update-rules/.*%.cf"] = "spamassassin",
+          ["sa%-update%-rules/.*%.cf"] = "spamassassin",
 
           -- syslog-ng
-          ["syslog-ng/.*%.conf"] = { "syslog-ng", { priority = 10 } },
+          ["syslog%-ng/.*%.conf"] = { "syslog-ng", { priority = 10 } },
           ["patterndb%.d/.*%.conf"] = { "syslog-ng", { priority = 10 } },
 
           -- upstart
