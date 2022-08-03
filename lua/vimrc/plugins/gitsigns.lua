@@ -1,52 +1,81 @@
-require("gitsigns").setup({
-  signs = {
-    add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-    change = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
-    delete = { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-    topdelete = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-    changedelete = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
-  },
-  signcolumn = true,
-  numhl = false,
-  linehl = false,
-  word_diff = false,
-  keymaps = {
-    -- Default keymap options
-    noremap = true,
-    buffer = true,
+local gitsigns = {}
 
-    ["n ]h"] = { '<Cmd>lua require"gitsigns.actions".next_hunk()<CR>' },
-    ["n [h"] = { '<Cmd>lua require"gitsigns.actions".prev_hunk()<CR>' },
+gitsigns.on_attach = function(bufnr)
+  local gs = require("gitsigns")
 
-    ["n <Leader>hs"] = '<Cmd>lua require"gitsigns".stage_hunk()<CR>',
-    ["v <Leader>hs"] = '<Cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    ["n <Leader>hu"] = '<Cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-    ["n <Leader>hr"] = '<Cmd>lua require"gitsigns".reset_hunk()<CR>',
-    ["v <Leader>hr"] = '<Cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    ["n <Leader>hR"] = '<Cmd>lua require"gitsigns".reset_buffer()<CR>',
-    ["n <Leader>hp"] = '<Cmd>lua require"gitsigns".preview_hunk()<CR>',
-    ["n <Leader>hb"] = '<Cmd>lua require"gitsigns".blame_line(true)<CR>',
-    ["n <Leader>hS"] = '<Cmd>lua require"gitsigns".stage_buffer()<CR>',
-    ["n <Leader>hU"] = '<Cmd>lua require"gitsigns".reset_buffer_index()<CR>',
+  local function map(mode, l, r, opts)
+    opts = opts or {}
+    opts.buffer = bufnr
+    vim.keymap.set(mode, l, r, opts)
+  end
 
-    -- Text objects
-    ["o ih"] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
-    ["x ih"] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
-  },
-  watch_gitdir = {
-    interval = 1000,
-    follow_files = true,
-  },
-  current_line_blame = true,
-  current_line_blame_opts = {
-    virt_text = true,
-    virt_text_pos = "eol",
-    delay = 500,
-  },
-  sign_priority = 6,
-  update_debounce = 100,
-  status_formatter = nil, -- Use default
-  diff_opts = {
-    internal = true,
-  },
-})
+  -- Navigation
+  map("n", "]h", function()
+    vim.schedule(function()
+      gs.next_hunk()
+    end)
+    return "<Ignore>"
+  end, { expr = true, desc = "Gitsigns next_hunk" })
+
+  map("n", "[h", function()
+    vim.schedule(function()
+      gs.prev_hunk()
+    end)
+    return "<Ignore>"
+  end, { expr = true, desc = "Gitsigns preview_hunk" })
+
+  -- Actions
+  map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", { desc = "Gitsigns stage_hunk" })
+  map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>", { desc = "Gitsigns reset_hunk" })
+  map("n", "<leader>hS", gs.stage_buffer, { desc = "Gitsigns stage_buffer" })
+  map("n", "<leader>hu", gs.undo_stage_hunk, { desc = "Gitsigns undo_stage_hunk" })
+  map("n", "<leader>hR", gs.reset_buffer, { desc = "Gitsigns reset_buffer" })
+  map("n", "<leader>hp", gs.preview_hunk, { desc = "Gitsigns preview_hunk" })
+  map("n", "<leader>hb", function()
+    gs.blame_line({ full = true })
+  end, { desc = "Gitsigns blame_line" })
+  map("n", "<leader>htb", gs.toggle_current_line_blame, { desc = "Gitsigns toggle_current_line_blame" })
+  map("n", "<leader>hd", gs.diffthis, { desc = "Gitsigns diffthis" })
+  map("n", "<leader>hD", function()
+    gs.diffthis("~")
+  end, { desc = "Gitsigns diffthis with parent of HEAD" })
+  map("n", "<leader>htd", gs.toggle_deleted, { desc = "Gitsigns toggle_deleted" })
+
+  -- Text object
+  map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+end
+
+gitsigns.setup = function()
+  require("gitsigns").setup({
+    signs = {
+      add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
+      change = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+      delete = { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
+      topdelete = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
+      changedelete = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+    },
+    signcolumn = true,
+    numhl = false,
+    linehl = false,
+    word_diff = false,
+    on_attach = gitsigns.on_attach,
+    watch_gitdir = {
+      interval = 1000,
+      follow_files = true,
+    },
+    current_line_blame = true,
+    current_line_blame_opts = {
+      virt_text = true,
+      virt_text_pos = "eol",
+      delay = 500,
+    },
+    sign_priority = 6,
+    update_debounce = 100,
+    status_formatter = nil, -- Use default
+    diff_opts = {
+      internal = true,
+    },
+  })
+end
+
+return gitsigns

@@ -103,7 +103,7 @@ git.startup = function(use)
     "lewis6991/gitsigns.nvim",
     requires = { "nvim-lua/plenary.nvim" },
     config = function()
-      require("vimrc.plugins.gitsigns")
+      require("vimrc.plugins.gitsigns").setup()
 
       -- ref: GruvboxFg4
       vim.cmd([[highlight GitSignsCurrentLineBlame ctermfg=243 guifg=#7c6f64]])
