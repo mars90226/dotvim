@@ -128,6 +128,7 @@ nvim_treesitter.setup_config = function()
       "rst",
       "ruby",
       "scss",
+      "teal",
       "toml",
       "tsx",
       "typescript",
