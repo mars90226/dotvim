@@ -114,10 +114,10 @@ git.startup = function(use)
     "codeindulgence/vim-tig",
     cmd = { "Tig", "Tig!" },
     keys = {
-      [[\tr]],
-      [[\tt]],
-      [[\ts]],
-      [[\tv]],
+      [[\\tr]],
+      [[\\tt]],
+      [[\\ts]],
+      [[\\tv]],
     },
     config = function()
       -- Add '' to open tig main view
