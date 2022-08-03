@@ -236,9 +236,10 @@ file_navigation.startup = function(use)
   })
 
   use({
-    "windwp/nvim-spectre",
+    "nvim-pack/nvim-spectre",
     keys = { "<Space>S", "<Space>sw", "<Space>s'" },
     config = function()
+      -- TODO: Try replace with nvim-oxi
       nnoremap("<Space>S", [[:lua require('spectre').open()<CR>]])
 
       -- Search current word
