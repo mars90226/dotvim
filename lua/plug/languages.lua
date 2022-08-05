@@ -296,6 +296,15 @@ languages.startup = function(use)
   })
 
   use({
+    "AckslD/nvim-FeMaco.lua",
+    ft = { "markdown" },
+    cmd = { "FeMaco" },
+    config = function()
+      require("femaco").setup()
+    end,
+  })
+
+  use({
     "fatih/vim-go",
     ft = { "go" },
     run = ":GoUpdateBinaries",
