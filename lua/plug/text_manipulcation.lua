@@ -137,6 +137,16 @@ text_manipulation.startup = function(use)
     cmd = "Tabularize",
   })
 
+  use({
+    "AckslD/nvim-trevJ.lua",
+    keys = { "<Leader>j" },
+    config = function()
+      require("trevj").setup()
+
+      nnoremap("<Leader>j", [[<Cmd>lua require('trevj').format_at_cursor()<CR>]])
+    end,
+  })
+
   use("editorconfig/editorconfig-vim")
   use("AndrewRadev/splitjoin.vim")
   use("tpope/vim-repeat")
