@@ -217,6 +217,21 @@ languages.startup = function(use)
         require("telescope").load_extension("refactoring")
       end,
     })
+    use({
+      "mizlan/iswap.nvim",
+      cmd = { "ISwap", "ISwapWith", "ISwapNode", "ISwapNodeWith", "ISwapNodeWithLeft", "ISwapNodeWithRight" },
+      keys = { "<Space>ii", "<Space>iw", "<Space>in", "<Space>im", "<Space>i,", "<Space>i." },
+      config = function()
+        require("iswap").setup()
+
+        nnoremap("<Space>ii", [[<Cmd>ISwap<CR>]])
+        nnoremap("<Space>iw", [[<Cmd>ISwapWith<CR>]])
+        nnoremap("<Space>in", [[<Cmd>ISwapNode<CR>]])
+        nnoremap("<Space>im", [[<Cmd>ISwapNodeWith<CR>]])
+        nnoremap("<Space>i,", [[<Cmd>ISwapNodeWithLeft<CR>]])
+        nnoremap("<Space>i.", [[<Cmd>ISwapNodeWithRight<CR>]])
+      end,
+    })
   end
 
   -- TODO: Check if this can be replaced by vim.lsp.buf.document_highlight()
