@@ -194,11 +194,14 @@ git.startup = function(use)
 
   use({
     "akinsho/git-conflict.nvim",
+    cmd = { "GitConflictRefresh", "GitConflictNextConflict", "GitConflictPrevConflict" },
+    keys = { "<Leadercr", "]v", "[v" },
     config = function()
       require("git-conflict").setup({
         default_mappings = false,
       })
 
+      nnoremap("<Leader>cr", [[<Cmd>GitConflictRefresh<CR>]])
       nmap("<Leader>co", "<Plug>(git-conflict-ours)")
       nmap("<Leader>ct", "<Plug>(git-conflict-theirs)")
       nmap("<Leader>cb", "<Plug>(git-conflict-both)")
