@@ -355,17 +355,30 @@ nvim_treesitter.setup_performance_trick = function()
       end
     end,
   })
+
+  local tab_trick_enable = false
+  local tab_trick_debounce = 200
   -- FIXME: Open buffer in other tab doesn't have highlight
   -- FIXME: Seems to conflict with true-zen.nvim
   vim.api.nvim_create_autocmd({ "TabEnter" }, {
     group = augroup_id,
     pattern = "*",
     callback = function()
-      for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-        for _, module in ipairs(tab_idle_disabled_modules) do
-          configs_commands.TSBufEnable.run(module, vim.api.nvim_win_get_buf(winid))
+      tab_trick_enable = true
+
+      vim.defer_fn(function()
+        if tab_trick_enable then
+          local winids = vim.api.nvim_tabpage_list_wins(0)
+
+          for _, module in ipairs(tab_idle_disabled_modules) do
+            for _, winid in ipairs(winids) do
+              configs_commands.TSBufEnable.run(module, vim.api.nvim_win_get_buf(winid))
+            end
+          end
+
+          tab_trick_enable = false
         end
-      end
+      end, tab_trick_debounce)
     end,
   })
   vim.api.nvim_create_autocmd({ "TabLeave" }, {
