@@ -1,5 +1,6 @@
-local lsp_installer_servers = require("nvim-lsp-installer.servers")
-local metadata = require("nvim-lsp-installer._generated.metadata")
+local mason_lspconfig_mappings_filetype = require("mason-lspconfig.mappings.filetype")
+local mason_lspconfig_mappings_server = require("mason-lspconfig.mappings.server")
+local mason_tool_installer = require("mason-tool-installer")
 
 local my_lspsaga = require("vimrc.plugins.lspsaga")
 local my_goto_preview = require("vimrc.plugins.goto-preview")
@@ -157,7 +158,6 @@ lsp.servers = {
   -- NOTE: Failed to install zk 0.11.1, try marksman
   -- zk = {},
 }
--- TODO: Maybe utilize nvim-lsp-installer._generated.metadata?
 lsp.servers_by_filetype = {}
 lsp.server_setuped = {}
 
@@ -293,9 +293,9 @@ lsp.is_supported_server = function(server)
 end
 
 lsp.init_servers_by_filetype = function()
-  for server, opts in pairs(metadata) do
-    if lsp.is_supported_server(server) then
-      for _, filetype in ipairs(opts.filetypes) do
+  for filetype, servers in pairs(mason_lspconfig_mappings_filetype) do
+    for _, server in ipairs(servers) do
+      if lsp.is_supported_server(server) then
         if not lsp.servers_by_filetype[filetype] then
           lsp.servers_by_filetype[filetype] = {}
         end
@@ -315,19 +315,10 @@ lsp.setup_servers_on_filetype = function(filetype)
 
   for _, server in ipairs(lsp.servers_by_filetype[filetype]) do
     if not lsp.server_setuped[server] then
-      local ok, lsp_server = lsp_installer_servers.get_server(server)
-      if ok then
-        lsp.setup_server(lsp_server.name, lsp_server:get_default_options())
-      end
-
-      -- nvim-lsp-installer unsupported servers or install failed servers
-      if not ok or not lsp_server:is_installed() then
-        -- Maybe lsp_installer not supported language server, but already installed
-        -- TODO: use other attribute to record name
-        if vim.fn.executable(server) then
-          lsp.setup_server(server, {})
-        end
-      end
+      -- NOTE: We delegate install to mason-tool-installer.nvim and do not try
+      -- to install LSP on filetype. Because it seems a little hard to wait for
+      -- installation finished.
+      lsp.setup_server(server, {})
 
       require("lspconfig")[server].launch()
     end
@@ -341,11 +332,26 @@ lsp.setup_diagnostic = function()
   end
 end
 
+lsp.setup_lsp_install = function()
+  local lspconfig_servers = vim.tbl_keys(lsp.get_servers())
+  -- TODO: Check if this can be precompiled to improve startup time
+  local mason_package_servers = {}
+
+  for _, lspconfig_server in ipairs(lspconfig_servers) do
+    table.insert(mason_package_servers, mason_lspconfig_mappings_server.lspconfig_to_package[lspconfig_server])
+  end
+
+  mason_tool_installer.setup({
+    ensure_installed = mason_package_servers
+  })
+end
+
 lsp.setup = function(settings)
   lsp.config = vim.tbl_extend("force", lsp.config, settings)
 
   lsp.init_servers_by_filetype()
   lsp.setup_diagnostic()
+  lsp.setup_lsp_install()
 
   -- TODO: Maybe setup basic lsp server?
   local lsp_setup_server_on_ft_augroup_id = vim.api.nvim_create_augroup("lsp_setup_server_on_ft", {})

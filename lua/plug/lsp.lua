@@ -6,19 +6,24 @@ lsp.startup = function(use)
   -- Language Server Protocol
   use({ "neovim/nvim-lspconfig" })
   use({
-    "williamboman/nvim-lsp-installer",
+    "williamboman/mason.nvim",
     config = function()
-      local lsp_installer = require("nvim-lsp-installer")
       local lsp_configs = require("vimrc.lsp")
 
-      -- TODO: Add ensure_installed
-      lsp_installer.setup({
-        automatic_installation = true,
-      })
+      require("mason").setup()
+      require("mason-lspconfig").setup()
 
       -- Setup lsp servers
       lsp_configs.setup({})
     end,
+  })
+  use({
+    "williamboman/mason-lspconfig.nvim",
+    require = { "williamboman/mason.nvim" },
+  })
+  use({
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    require = { "williamboman/mason.nvim" },
   })
 
   use("ii14/lsp-command")

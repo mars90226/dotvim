@@ -259,7 +259,7 @@ completion.startup = function(use)
         }),
       })
 
-      -- Setup lspconfig in nvim-lsp-installer config function
+      -- Setup lspconfig in mason.nvim config function
     end,
   })
 
