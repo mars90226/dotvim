@@ -357,11 +357,15 @@ utility.startup = function(use)
 
   -- Colorizer
   use({
-    "norcalli/nvim-colorizer.lua",
+    "NvChad/nvim-colorizer.lua",
     config = function()
       vim.go.termguicolors = true
 
-      require("colorizer").setup()
+      require("colorizer").setup({
+        "*",
+        css = { css = true },
+        scss = { css = true },
+      })
     end,
   })
 
