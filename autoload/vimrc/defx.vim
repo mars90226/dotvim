@@ -15,6 +15,15 @@ function! vimrc#defx#openpwd(cmd) abort
   call vimrc#defx#opencmd(a:cmd.' .')
 endfunction
 
+function! vimrc#defx#open_worktree(cmd) abort
+  if !FugitiveIsGitDir()
+    echo 'Not in a git repository:' expand('%:p')
+    return
+  endif
+
+  call vimrc#defx#opencmd(a:cmd.' '.FugitiveWorkTree())
+endfunction
+
 function! vimrc#defx#opencmd(cmd) abort
   let cmd = a:cmd =~# '%' ? vimrc#defx#fill_buffer_name(a:cmd) : a:cmd
   execute cmd

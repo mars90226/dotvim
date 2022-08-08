@@ -349,7 +349,7 @@ let s:git_diff_commit_command = 'git diff --name-only'
 let s:git_diff_commit_preview_command_fmt = 'git diff --color=always %s %s -- {}'
 function! vimrc#fzf#git#diff_commit(commit) abort
   if !exists('b:git_dir')
-    echo 'No git a git repository:' expand('%:p')
+    echo 'Not in a git repository:' expand('%:p')
   endif
 
   let start_commit = a:commit.'^'
@@ -364,7 +364,7 @@ endfunction
 
 function! vimrc#fzf#git#diff_commits(start_commit, end_commit) abort
   if !exists('b:git_dir')
-    echo 'No git a git repository:' expand('%:p')
+    echo 'Not in a git repository:' expand('%:p')
   endif
 
   let preview_command = printf(s:git_diff_commit_preview_command_fmt, a:start_commit, a:end_commit)

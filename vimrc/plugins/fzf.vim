@@ -198,6 +198,9 @@ command! -bang -nargs=* BTagsCaseSentitive       call fzf#vim#buffer_tags(<q-arg
 command! -bang -nargs=* TagsCaseSentitive        call fzf#vim#tags(<q-args>,               { 'options': ['+i'] }, <bang>0)
 command! -bang -nargs=* ProjectTagsCaseSentitive call vimrc#fzf#tag#project_tags(<q-args>, { 'options': ['+i'] }, <bang>0)
 
+" WorkTreeFiles
+command! -bang -nargs=? WorkTreeFiles call vimrc#fzf#work_tree_files(<bang>0)
+
 if v:lua.require('vimrc.choose').is_enabled_plugin('defx.nvim')
   command! -bang -nargs=? -complete=dir Files        call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#files(<q-args>, <bang>0) })
   command! -bang -nargs=?               GFiles       call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#gitfiles(<q-args>, <bang>0) })
@@ -210,6 +213,9 @@ if v:lua.require('vimrc.choose').is_enabled_plugin('defx.nvim')
   " DirectoryMru
   command! -bang                        DirectoryMru call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#mru#directory_mru(<bang>0) })
   command! -bang -nargs=?               Directories  call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#dir#directories(<q-args>, <bang>0) })
+
+  " WorkTreeFiles
+  command! -bang -nargs=?               WorkTreeFiles call vimrc#fzf#work_tree_files(<bang>0)
 endif
 " }}}
 
@@ -280,7 +286,8 @@ nnoremap <Space>fu     :call      vimrc#execute_and_save('DirectoryAncestors')<C
 nnoremap <Space>fU     :call      vimrc#execute_and_save('DirectoryFiles ..')<CR>
 nnoremap <Space>f<C-U> :call      vimrc#execute_and_save('DirectoryRg ..')<CR>
 nnoremap <Space>fv     :call      vimrc#execute_and_save('Colors')<CR>
-nnoremap <Space>fw     :call      vimrc#execute_and_save('Windows')<CR>
+nnoremap <Space>fw     :call      vimrc#execute_and_save('WorkTreeFiles')<CR>
+nnoremap <Space>fW     :call      vimrc#execute_and_save('Windows')<CR>
 nnoremap <Space>fy     :call      vimrc#execute_and_save('Filetypes')<CR>
 nnoremap <Space>fY     :call      vimrc#execute_and_save('GitFilesCommit ' . vimrc#fugitive#commit_sha())<CR>
 nnoremap <Space>f<C-Y> :call      vimrc#execute_and_save('GitGrepCommit ' . vimrc#fugitive#commit_sha() . ' ' . input('Git grep: '))<CR>

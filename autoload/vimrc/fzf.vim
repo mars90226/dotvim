@@ -413,6 +413,15 @@ function! vimrc#fzf#files(path, ...) abort
   call fzf#vim#files(a:path, merged, bang)
 endfunction
 
+function! vimrc#fzf#work_tree_files(...) abort
+  if !FugitiveIsGitDir()
+    echo 'Not in a git repository:' expand('%:p')
+    return
+  endif
+
+  call call("vimrc#fzf#files", [FugitiveWorkTree()] + a:000)
+endfunction
+
 function! vimrc#fzf#gitfiles(args, ...) abort
   let [merged, bang] = s:extract_and_merge_options(a:args !=# '?' ? fzf#vim#with_preview() : {}, a:000)
   return call('fzf#vim#gitfiles', [a:args, merged, bang])
