@@ -37,7 +37,7 @@ lsp.startup = function(use)
 
       saga.init_lsp_saga({
         code_action_lightbulb = {
-          enable = true,
+          enable = false, -- NOTE: We already set hint in lsp.setup_diagnostic
           sign = true,
           sign_priority = 20,
           virtual_text = false,
