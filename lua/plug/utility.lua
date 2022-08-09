@@ -365,7 +365,7 @@ utility.startup = function(use)
         "*",
         css = { css = true },
         scss = { css = true },
-      })
+      }, { names = false })
     end,
   })
 
