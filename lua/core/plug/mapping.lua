@@ -431,6 +431,9 @@ mapping.startup = function(use)
         { nargs = 1, complete = "file" }
       )
       vim.api.nvim_create_user_command("TabOpen", [[call vimrc#open#tab(<q-args>)]], { nargs = 1, complete = "file" })
+      vim.api.nvim_create_user_command("Inspect", function(opts)
+        require("vimrc.inspect").inspect(vim.fn.luaeval(opts.args))
+      end, { nargs = "*", complete = "lua" })
       -- }}}
     end,
   })
