@@ -311,7 +311,9 @@ lsp.startup = function(use)
       "SmiteshP/nvim-navic",
       requires = "neovim/nvim-lspconfig",
       config = function()
-        require("nvim-navic").setup({})
+        require("nvim-navic").setup({
+          highlight = true,
+        })
       end,
     })
   end

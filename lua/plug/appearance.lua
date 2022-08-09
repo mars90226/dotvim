@@ -152,6 +152,36 @@ appearance.startup = function(use)
         -- TODO: Make nvim-ufo capture correct Folded highlight
         UfoFoldedFg = { fg = palette.gray },
         UfoFoldedBg = { bg = palette.dark1 },
+
+        -- Navic
+        NavicIconsFile = { fg = palette.bright_blue, bg = "NONE" },
+        NavicIconsModule = { fg = palette.bright_blue, bg = "NONE" },
+        NavicIconsNamespace = { fg = palette.bright_blue, bg = "NONE" },
+        NavicIconsPackage = { fg = palette.bright_blue, bg = "NONE" },
+        NavicIconsClass = { fg = palette.bright_yellow, bg = "NONE" },
+        NavicIconsMethod = { fg = palette.bright_blue, bg = "NONE" },
+        NavicIconsProperty = { fg = palette.bright_green, bg = "NONE" },
+        NavicIconsField = { fg = palette.bright_green, bg = "NONE" },
+        NavicIconsConstructor = { fg = palette.bright_blue, bg = "NONE" },
+        NavicIconsEnum = { fg = palette.bright_green, bg = "NONE" },
+        NavicIconsInterface = { fg = palette.bright_yellow, bg = "NONE" },
+        NavicIconsFunction = { fg = palette.bright_blue, bg = "NONE" },
+        NavicIconsVariable = { fg = palette.bright_purple, bg = "NONE" },
+        NavicIconsConstant = { fg = palette.bright_orange, bg = "NONE" },
+        NavicIconsString = { fg = palette.bright_green, bg = "NONE" },
+        NavicIconsNumber = { fg = palette.bright_orange, bg = "NONE" },
+        NavicIconsBoolean = { fg = palette.bright_orange, bg = "NONE" },
+        NavicIconsArray = { fg = palette.bright_orange, bg = "NONE" },
+        NavicIconsObject = { fg = palette.bright_orange, bg = "NONE" },
+        NavicIconsKey = { fg = palette.neutral_purple, bg = "NONE" },
+        NavicIconsNull = { fg = palette.bright_orange, bg = "NONE" },
+        NavicIconsEnumMember = { fg = palette.neutral_red, bg = "NONE" },
+        NavicIconsStruct = { fg = palette.bright_blue, bg = "NONE" },
+        NavicIconsEvent = { fg = palette.bright_blue, bg = "NONE" },
+        NavicIconsOperator = { fg = palette.neutral_blue, bg = "NONE" },
+        NavicIconsTypeParameter = { fg = palette.bright_blue, bg = "NONE" },
+        NavicText = { fg = palette.bright_blue, bg = "NONE" },
+        NavicSeparator = { fg = palette.gray, bg = "NONE" },
       }
 
       require("gruvbox").setup({})
