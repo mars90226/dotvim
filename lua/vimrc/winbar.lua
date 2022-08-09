@@ -28,6 +28,7 @@ winbar.attach = function(bufnr)
   vim.wo.winbar = [[%{%v:lua.require('vimrc.winbar').winbar()%}]]
 end
 
+-- TODO: Fix winbar in BufWinEnter
 winbar.setup = function()
   local winbar_settings_augroup_id = vim.api.nvim_create_augroup("winbar_settings", {})
   vim.api.nvim_create_autocmd({ "WinNew" }, {
