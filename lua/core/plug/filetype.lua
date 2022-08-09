@@ -83,7 +83,7 @@ filetype.startup = function(use)
           -- tmux
           [".tmux.conf"] = "tmux",
         },
-        -- FIXME: Seems broken in neovim nightly?
+        -- NOTE: pattern match full path & tail, so do not use relative path to git root
         pattern = {
           -- bash
           -- TODO: Create neovim issue
@@ -118,17 +118,17 @@ filetype.startup = function(use)
           [".*/backup/info.dynamic"] = "sh",
 
           -- rspamd
-          ["conf/rspamd%.conf.*"] = { "rspamd", { priority = 10 } },
+          [".*/conf/rspamd%.conf.*"] = { "rspamd", { priority = 10 } },
           [".*/rspamd/.*%.inc"] = { "rspamd", { priority = 10 } },
-          ["conf/modules%.d/.*%.conf"] = { "rspamd", { priority = 10 } },
-          ["conf/local%.d/.*%.conf"] = { "rspamd", { priority = 10 } },
+          [".*/conf/modules%.d/.*%.conf"] = { "rspamd", { priority = 10 } },
+          [".*/conf/local%.d/.*%.conf"] = { "rspamd", { priority = 10 } },
 
           -- spamassassin
-          ["sa%-update%-rules/.*%.cf"] = "spamassassin",
+          [".*/sa%-update%-rules/.*%.cf"] = { "spamassassin", { priority = 10 } },
 
           -- syslog-ng
-          ["syslog%-ng/.*%.conf"] = { "syslog-ng", { priority = 10 } },
-          ["patterndb%.d/.*%.conf"] = { "syslog-ng", { priority = 10 } },
+          [".*/syslog%-ng/.*%.conf"] = { "syslog-ng", { priority = 10 } },
+          [".*/patterndb%.d/.*%.conf"] = { "syslog-ng", { priority = 10 } },
 
           -- upstart
           [".*/upstart/.*conf"] = { "upstart", { priority = 10 } },
