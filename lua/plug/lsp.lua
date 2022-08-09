@@ -37,7 +37,7 @@ lsp.startup = function(use)
 
       saga.init_lsp_saga({
         code_action_lightbulb = {
-          enable = false, -- NOTE: We already set hint in lsp.setup_diagnostic
+          enable = true, -- NOTE: lspsaga will show error once when lsp not support codeAction
           sign = true,
           sign_priority = 20,
           virtual_text = false,
