@@ -22,7 +22,7 @@ nvim_treesitter.line_threshold = {
 }
 
 -- Force disable
-local force_disable_var = 'nvim_treesitter_force_disable'
+local force_disable_var = "nvim_treesitter_force_disable"
 local get_force_disable = function(bufnr)
   return utils.get_buffer_variable(bufnr, force_disable_var) or false
 end
@@ -103,6 +103,15 @@ nvim_treesitter.setup_parser_config = function()
       files = { "src/parser.c" },
       branch = "main",
     },
+  }
+
+  parser_configs.just = {
+    install_info = {
+      url = "https://github.com/IndianBoy42/tree-sitter-just", -- local path or git repo
+      files = { "src/parser.c", "src/scanner.cc" },
+      branch = "main",
+    },
+    maintainers = { "@IndianBoy42" },
   }
 end
 

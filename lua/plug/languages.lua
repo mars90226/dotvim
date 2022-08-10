@@ -219,6 +219,7 @@ languages.startup = function(use)
     })
     use({
       "mizlan/iswap.nvim",
+      requires = { "nvim-treesitter/nvim-treesitter" },
       cmd = { "ISwap", "ISwapWith", "ISwapNode", "ISwapNodeWith", "ISwapNodeWithLeft", "ISwapNodeWithRight" },
       keys = { "<Space>ii", "<Space>iw", "<Space>in", "<Space>im", "<Space>i,", "<Space>i." },
       config = function()
@@ -230,6 +231,18 @@ languages.startup = function(use)
         nnoremap("<Space>im", [[<Cmd>ISwapNodeWith<CR>]])
         nnoremap("<Space>i,", [[<Cmd>ISwapNodeWithLeft<CR>]])
         nnoremap("<Space>i.", [[<Cmd>ISwapNodeWithRight<CR>]])
+      end,
+    })
+
+    -- treesitter parser
+    use({
+      "IndianBoy42/tree-sitter-just",
+      ft = { "just" },
+      requires = { "nvim-treesitter/nvim-treesitter" },
+      config = function()
+        require("tree-sitter-just").setup({})
+
+        require("nvim-treesitter.install").ensure_installed({ "just" })
       end,
     })
   end

@@ -51,9 +51,6 @@ filetype.startup = function(use)
           -- doxygen
           ["Doxyfile"] = "dosini",
 
-          -- just
-          ["justfile"] = "make",
-
           -- make
           ["Makefile.inc"] = "make",
 
