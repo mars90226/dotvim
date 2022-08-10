@@ -37,9 +37,9 @@ text_manipulation.startup = function(use)
     config = function()
       -- TODO: Create issue for substitute not change cursor position back to original position for expand('<cword>')
       require("substitute").setup({
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
+        range = {
+          complete_word = true,
+        },
       })
 
       -- Substitute
