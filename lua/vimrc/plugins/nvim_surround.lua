@@ -1,6 +1,34 @@
+local surround = require("nvim-surround")
 local surround_config = require("nvim-surround.config")
 
 local nvim_surround = {}
+
+nvim_surround.presets = {
+  vim_surround = {
+    keymaps = {
+      normal = "ys",
+      normal_cur = "yss",
+      normal_line = "yS",
+      normal_cur_line = "ySS",
+      visual = "S",
+      visual_line = "gS",
+      delete = "ds",
+      change = "cs",
+    },
+  },
+  vim_sandwich = {
+    keymaps = {
+      normal = "sa",
+      normal_cur = "sas",
+      normal_line = "sA",
+      normal_cur_line = "sAs",
+      visual = "sa",
+      visual_line = "sA",
+      delete = "sd",
+      change = "sr",
+    },
+  },
+}
 
 -- Ref: nvim-surround invalid_key_behavior in nvim_surround/lua/config.lua
 nvim_surround.create = {
@@ -67,6 +95,13 @@ nvim_surround.same_all = function(chars)
     delete = nvim_surround.same.delete(chars),
     change = nvim_surround.same.change(chars),
   }
+end
+
+nvim_surround.buffer_setup_preset = function(preset_name)
+  local preset = nvim_surround.presets[preset_name]
+  if preset then
+    surround.buffer_setup(preset)
+  end
 end
 
 return nvim_surround

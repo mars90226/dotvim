@@ -84,35 +84,12 @@ text_manipulation.startup = function(use)
       require("nvim-surround").setup({})
 
       local nvim_surround_augroup_id = vim.api.nvim_create_augroup("nvim_surround_settings", {})
-      vim.api.nvim_create_autocmd({ "BufRead" }, {
+      vim.api.nvim_create_autocmd({ "BufRead", "CmdWinEnter" }, {
         group = nvim_surround_augroup_id,
         pattern = "*",
         callback = function()
-          require("nvim-surround").buffer_setup({
-            keymaps = { -- vim-surround style keymaps
-              normal = "ys",
-              normal_cur = "yss",
-              normal_line = "yS",
-              normal_cur_line = "ySS",
-              visual = "S",
-              visual_line = "gS",
-              delete = "ds",
-              change = "cs",
-            },
-          })
-          -- NOTE: Second key mapping
-          require("nvim-surround").buffer_setup({
-            keymaps = { -- vim-sandwich style keymaps
-              normal = "sa",
-              normal_cur = "sas",
-              normal_line = "sA",
-              normal_cur_line = "sAs",
-              visual = "sa",
-              visual_line = "sA",
-              delete = "sd",
-              change = "sr",
-            },
-          })
+          require("vimrc.plugins.nvim_surround").buffer_setup_preset("vim_surround")
+          require("vimrc.plugins.nvim_surround").buffer_setup_preset("vim_sandwich")
         end,
       })
     end,

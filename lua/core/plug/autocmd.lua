@@ -47,8 +47,7 @@ autocmd.startup = function(use)
         group = cmdline_window_augroup_id,
         pattern = "*",
         callback = function()
-          -- Removing any key mapping for <CR> in cmdline-window
-          nnoremap("<CR>", "<CR>", "<buffer>")
+          require("vimrc.cmdwin").setup()
         end,
       })
 
