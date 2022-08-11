@@ -122,6 +122,7 @@ filetype.startup = function(use)
 
           -- spamassassin
           [".*/sa%-update%-rules/.*%.cf"] = { "spamassassin", { priority = 10 } },
+          [".*/spamassassin/.*%.cf"] = { "spamassassin", { priority = 10 } },
 
           -- syslog-ng
           [".*/syslog%-ng/.*%.conf"] = { "syslog-ng", { priority = 10 } },
