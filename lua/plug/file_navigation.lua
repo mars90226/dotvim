@@ -19,7 +19,7 @@ file_navigation.startup = function(use)
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
       local mapping = require("yanky.telescope.mapping")
-      local actions = require("telescope.actions")
+      local slow_system_clipboard = vim.fn.has("wsl") == 1
 
       require("yanky").setup({
         picker = {
@@ -34,6 +34,9 @@ file_navigation.startup = function(use)
               },
             },
           },
+        },
+        system_clipboard = {
+          sync_with_ring = not slow_system_clipboard,
         },
         highlight = {
           on_put = false,
