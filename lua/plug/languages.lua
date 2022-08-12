@@ -213,6 +213,39 @@ languages.startup = function(use)
           { noremap = true }
         )
 
+        -- Debug print
+        vim.api.nvim_set_keymap(
+          "n",
+          "<Space>rp",
+          ":lua require('refactoring').debug.printf({below = true})<CR>",
+          { noremap = true }
+        )
+
+        -- Print var
+
+        -- Remap in normal mode and passing { normal = true } will automatically find the variable under the cursor and print it
+        vim.api.nvim_set_keymap(
+          "n",
+          "<Space>rk",
+          ":lua require('refactoring').debug.print_var({ normal = true })<CR>",
+          { noremap = true }
+        )
+        -- Remap in visual mode will print whatever is in the visual selection
+        vim.api.nvim_set_keymap(
+          "v",
+          "<Space>rk",
+          ":lua require('refactoring').debug.print_var({})<CR>",
+          { noremap = true }
+        )
+
+        -- Cleanup function: this remap should be made in normal mode
+        vim.api.nvim_set_keymap(
+          "n",
+          "<Space>rc",
+          ":lua require('refactoring').debug.cleanup({})<CR>",
+          { noremap = true }
+        )
+
         -- load refactoring Telescope extension
         require("telescope").load_extension("refactoring")
       end,
