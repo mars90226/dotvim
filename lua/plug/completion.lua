@@ -288,8 +288,8 @@ completion.startup = function(use)
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
 
       -- Rules
-      -- npairs.add_rule(Rule("%w<", ">", "cpp"):use_regex(true))
-      -- npairs.add_rule(Rule("%w<", ">", "rust"):use_regex(true))
+      npairs.add_rule(Rule("%w<$", ">", "cpp"):use_regex(true))
+      npairs.add_rule(Rule("%w<$", ">", "rust"):use_regex(true))
       npairs.add_rule(Rule("<", ">", "xml"))
     end,
   })
