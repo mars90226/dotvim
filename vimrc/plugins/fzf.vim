@@ -278,6 +278,8 @@ nnoremap <Space>f4     :call      vimrc#execute_and_save('RgWithOption .:' . inp
 nnoremap <Space>f$     :call      vimrc#execute_and_save('RgWithOption! .:' . input('Option: ') . ':' . input('Rg!: '))<CR>
 nnoremap <Space>f?     :call      vimrc#execute_and_save('RgWithOption .:' . vimrc#rg#current_type_option() . ':' . input('Rg: '))<CR>
 nnoremap <Space>f5     :call      vimrc#execute_and_save('RgWithOption ' . expand('%:h') . '::' . input('Rg: '))<CR>
+" TODO: Fix error if not in git repo
+nnoremap <Space>f6     :call      vimrc#execute_and_save('RgWithOption ' . FugitiveWorkTree() . '::' . input('Rg: '))<CR>
 nnoremap <Space>fs     :call      vimrc#execute_and_save('GFiles?')<CR>
 nnoremap <Space>fS     :call      vimrc#execute_and_save('CurrentPlacedSigns')<CR>
 nnoremap <Space>ft     :call      vimrc#execute_and_save('BTags')<CR>
