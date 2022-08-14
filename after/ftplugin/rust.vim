@@ -9,3 +9,8 @@ xnoremap <silent><buffer> gK         :<C-U>call vimrc#rust_doc#search_under_curs
 nnoremap <silent><buffer> <C-X><C-K> :call vimrc#rust_doc#open_rustup_doc(vimrc#rust_doc#get_cursor_word())<CR>
 nnoremap <silent><buffer> <C-X><C-q> :RustFmt<CR>
 nnoremap <silent><buffer> <C-X><C-S> :execute 'RustupDoc '.input('topic: ')<CR>
+
+" Cargo
+nnoremap <silent><buffer> <Space>a<CR> :Make build<CR>
+nnoremap <silent><buffer> <Space>ax    :Make run<CR>
+nnoremap <silent><buffer> <Space>ac    :Make clippy<CR>
