@@ -266,6 +266,10 @@ languages.startup = function(use)
         nnoremap("<Space>i.", [[<Cmd>ISwapNodeWithRight<CR>]])
       end,
     })
+    use({
+      "p00f/nvim-ts-rainbow",
+      requires = { "nvim-treesitter/nvim-treesitter" },
+    })
 
     -- treesitter parser
     use({

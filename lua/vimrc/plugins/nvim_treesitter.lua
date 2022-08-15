@@ -66,6 +66,13 @@ local extension_disable_check = function(lang, bufnr)
   return disable_check("extension", lang, bufnr)
 end
 
+-- Disable check for checking not in enable_filetype list
+local enable_check = function(enable_filetype)
+  return function(lang, bufnr)
+    return not vim.tbl_contains(enable_filetype, lang)
+  end
+end
+
 -- nvim-ts-hint-textobject
 nvim_treesitter.tsht_nodes = function(fallback)
   local tsht = require("tsht")
@@ -273,6 +280,15 @@ nvim_treesitter.setup_config = function()
     },
     yati = {
       enable = true,
+    },
+    rainbow = {
+      enable = true,
+      -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+      disable = enable_check({ "fennel", "query" }), -- NOTE: Only lisp like languages
+      extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+      max_file_lines = nil, -- Do not enable for files with more than n lines, int
+      -- colors = {}, -- table of hex strings
+      -- termcolors = {} -- table of colour name strings
     },
   })
 end
