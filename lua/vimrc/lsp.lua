@@ -1,6 +1,7 @@
 local mason_lspconfig_mappings_filetype = require("mason-lspconfig.mappings.filetype")
 local mason_lspconfig_mappings_server = require("mason-lspconfig.mappings.server")
 local mason_tool_installer = require("mason-tool-installer")
+local ufo = require('ufo')
 
 local my_lspsaga = require("vimrc.plugins.lspsaga")
 local my_goto_preview = require("vimrc.plugins.goto-preview")
@@ -166,6 +167,18 @@ lsp.on_init = function(client)
   client.config.flags.allow_incremental_sync = true
 end
 
+lsp.show_doc = function()
+  -- preview fold > vim help | lsp hover
+  local winid = ufo.peekFoldedLinesUnderCursor()
+  if not winid then
+    if vim.o.filetype == "help" then
+      vim.cmd([[help ]] .. vim.fn.expand("<cword>"))
+    else
+      vim.cmd([[Lspsaga hover_doc]])
+    end
+  end
+end
+
 lsp.on_attach = function(client, bufnr)
   -- Plugins
   if choose.is_enabled_plugin("nvim-navic") and client.server_capabilities.documentSymbolProvider then
@@ -181,6 +194,7 @@ lsp.on_attach = function(client, bufnr)
     require("vimrc.winbar").attach(bufnr)
   end
 
+  nnoremap("K", "<Cmd>lua require('vimrc.lsp').show_doc()<CR>", "silent", "buffer")
   -- NOTE: Use <C-]> to call 'tagfunc'
   -- nnoremap("<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "silent", "buffer")
   nnoremap("1gD", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", "silent", "buffer")

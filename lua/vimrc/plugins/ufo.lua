@@ -8,7 +8,7 @@ ufo.toggle_treesitter = function()
   ufo.enable_treesitter = not ufo.enable_treesitter
 end
 
-ufo.provider_selector = function(bufnr, filetype)
+ufo.provider_selector = function(bufnr, filetype, buftype)
   return ufo.enable_treesitter and ufo.with_treesitter_providers or ufo.default_providers
 end
 
