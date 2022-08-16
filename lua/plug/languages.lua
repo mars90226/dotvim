@@ -155,7 +155,8 @@ languages.startup = function(use)
         { "nvim-treesitter/nvim-treesitter" },
       },
       config = function()
-        require("refactoring").setup({})
+        local refactoring = require("vimrc.plugins.refactoring")
+        refactoring.setup({})
 
         -- Remaps for the refactoring operations currently offered by the plugin
         vim.api.nvim_set_keymap(
@@ -245,6 +246,10 @@ languages.startup = function(use)
           ":lua require('refactoring').debug.cleanup({})<CR>",
           { noremap = true }
         )
+
+        -- Customize Debug Command
+        vim.api.nvim_create_user_command('RefactoringAddPrintf', refactoring.add_printf, {})
+        vim.api.nvim_create_user_command('RefactoringAddPrintVar', refactoring.add_print_var, {})
 
         -- load refactoring Telescope extension
         require("telescope").load_extension("refactoring")
