@@ -3,8 +3,18 @@ local refactoring_plugin = require("refactoring")
 local refactoring = {}
 
 refactoring.config = {
-  printf_statements = {},
-  print_var_statements = {},
+  printf_statements = {
+    c = {
+      'printf("%s(%%d): \\n", __LINE__);', -- NOTE: Default
+      'syslog(LOG_WARNING, "%s(%%d): \\n", __LINE__);',
+    },
+  },
+  print_var_statements = {
+    c = {
+      'printf("%s %%s \\n", %s);', -- NOTE: Default
+      'syslog(LOG_WARNING, "%s %%s \\n", %s);',
+    },
+  },
 }
 
 refactoring.add_printf_config = function(filetype, printf_statement)
@@ -13,7 +23,8 @@ refactoring.add_printf_config = function(filetype, printf_statement)
 end
 
 refactoring.add_print_var_config = function(filetype, print_var_statement)
-  refactoring.config.print_var_statements[filetype] = vim.F.if_nil(refactoring.config.print_var_statements[filetype], {})
+  refactoring.config.print_var_statements[filetype] =
+    vim.F.if_nil(refactoring.config.print_var_statements[filetype], {})
   table.insert(refactoring.config.print_var_statements[filetype], print_var_statement)
 end
 
