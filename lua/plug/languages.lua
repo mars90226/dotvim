@@ -221,6 +221,12 @@ languages.startup = function(use)
           ":lua require('refactoring').debug.printf({below = true})<CR>",
           { noremap = true }
         )
+        vim.api.nvim_set_keymap(
+          "n",
+          "<Space>rP",
+          ":lua require('refactoring').debug.printf({below = false})<CR>",
+          { noremap = true }
+        )
 
         -- Print var
 
