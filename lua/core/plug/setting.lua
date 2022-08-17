@@ -13,24 +13,10 @@ settings.startup = function(use)
       local plugin_utils = require("vimrc.plugin_utils")
 
       -- Vim basic setting {{{
-      -- source mswin.vim
+      -- source custom mswin.vim
       if vim.fn["vimrc#plugin#check#get_os"]() ~= "synology" then
-        plugin_utils.source(vim.env.VIMRUNTIME .. "/mswin.vim")
+        vim.fn["vimrc#source"]("vimrc/mswin.vim")
         vim.cmd([[behave xterm]])
-
-        if vim.fn.has("gui") == 1 then
-          -- Fix CTRL-F in gui will popup find window problem
-          vim.keymap.del({ "", "!" }, "<C-F>")
-        end
-
-        -- Unmap CTRL-A for selecting all
-        vim.keymap.del({ "", "!" }, "<C-A>")
-
-        -- Unmap CTRL-Z for undo
-        vim.keymap.del({ "", "i" }, "<C-Z>")
-
-        -- Unmap CTRL-Z for redo
-        vim.keymap.del({ "", "i" }, "<C-Y>")
       end
       -- }}}
 
