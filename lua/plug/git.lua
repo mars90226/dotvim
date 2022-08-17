@@ -195,7 +195,7 @@ git.startup = function(use)
   use({
     "akinsho/git-conflict.nvim",
     cmd = { "GitConflictRefresh", "GitConflictNextConflict", "GitConflictPrevConflict" },
-    keys = { "<Leadercr", "]v", "[v" },
+    keys = { "<Leader>cr", "]v", "[v" },
     config = function()
       require("git-conflict").setup({
         default_mappings = false,
