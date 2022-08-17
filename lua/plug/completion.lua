@@ -5,9 +5,6 @@ local completion = {}
 completion.setup_mapping = function()
   -- diagraph
   inoremap("<M-K>", [[<C-K>]])
-
-  -- mapping for decrease number
-  nnoremap("<C-X><C-X>", "<C-X>")
 end
 
 completion.startup = function(use)
