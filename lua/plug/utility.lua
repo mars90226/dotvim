@@ -309,14 +309,21 @@ utility.startup = function(use)
   -- Focus
   use({
     "Pocco81/true-zen.nvim",
-    cmd = { "TZAtaraxis", "TZFocus", "TZMinimalist", "TZNarrow" },
-    keys = { "<Leader>za", "<Leader>zc", "<Leader>zm", "<Leader>zn" },
+    cmd = { "TZAtaraxis", "TZFocus", "TZMinimalist", "TZNarrow", "TZForCopy" },
+    keys = { "<Leader>za", "<Leader>zc", "<Leader>zm", "<Leader>zn", "<Leader>zM" },
     config = function()
       nnoremap("<Leader>za", [[<Cmd>TZAtaraxis<CR>]])
       nnoremap("<Leader>zc", [[<Cmd>TZFocus<CR>]])
       nnoremap("<Leader>zm", [[<Cmd>TZMinimalist<CR>]])
       nnoremap("<Leader>zn", [[<Cmd>TZNarrow<CR>]])
       xnoremap("<Leader>zn", [[:'<,'>TZNarrow<CR>]])
+
+      vim.api.nvim_create_user_command("TZForCopy", function()
+        vim.wo.list = not vim.wo.list
+        vim.cmd([[IndentBlanklineToggle]])
+        vim.cmd([[TZMinimalist]])
+      end, {})
+      nnoremap("<Leader>zM", [[<Cmd>TZForCopy<CR>]])
     end,
   })
 
