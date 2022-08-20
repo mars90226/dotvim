@@ -15,6 +15,10 @@ function! vimrc#quickfix#mappings() abort
 
   " Use fugitive to open commit
   nnoremap <silent><buffer><nowait> gc 0:execute 'Gsplit '.expand('<cword>')<CR>
+
+  " vim-qf
+  nmap <silent><buffer> <Left> <Plug>(qf_older)
+  nmap <silent><buffer> <Right> <Plug>(qf_newer)
 endfunction
 
 " Functions
