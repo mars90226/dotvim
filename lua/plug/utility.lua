@@ -36,11 +36,6 @@ utility.startup = function(use)
     config = function()
       local utils = require("vimrc.utils")
 
-      nnoremap([[\[a]], ":previous<CR>")
-      nnoremap([[\]a]], ":next<CR>")
-      nnoremap([[\[A]], ":first<CR>")
-      nnoremap([[\]A]], ":last<CR>")
-
       nmap([[\[u]], "<Plug>unimpaired_url_encode")
       nmap([[\[uu]], "<Plug>unimpaired_line_url_encode")
       nmap([[\]u]], "<Plug>unimpaired_url_decode")
