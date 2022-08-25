@@ -340,6 +340,8 @@ lsp.startup = function(use)
     cmd = { "SymbolsOutline", "SymbolsOutlineOpen" },
     keys = { "<F7>" },
     config = function()
+      require("symbols-outline").setup({})
+
       nnoremap("<F7>", [[<Cmd>SymbolsOutline<CR>]])
     end,
   })
