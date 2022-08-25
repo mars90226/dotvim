@@ -156,7 +156,14 @@ languages.startup = function(use)
       },
       config = function()
         local refactoring = require("vimrc.plugins.refactoring")
-        refactoring.setup({})
+        local has_secret_refactoring, secret_refactoring = pcall(require, "secret.refactoring")
+        local config = {}
+
+        if has_secret_refactoring then
+          config = vim.tbl_deep_extend("force", config, secret_refactoring.config or {})
+        end
+
+        refactoring.setup(config)
 
         -- Remaps for the refactoring operations currently offered by the plugin
         vim.api.nvim_set_keymap(
