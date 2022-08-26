@@ -434,6 +434,10 @@ mapping.startup = function(use)
       vim.api.nvim_create_user_command("Inspect", function(opts)
         require("vimrc.inspect").inspect(vim.fn.luaeval(opts.args))
       end, { nargs = "*", complete = "lua" })
+
+      vim.api.nvim_create_user_command("ToggleOpenUrlForceLocal", function()
+        require("vimrc.mapping").toggle_open_url_force_local()
+      end, {})
       -- }}}
     end,
   })
