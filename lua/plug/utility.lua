@@ -111,12 +111,6 @@ utility.startup = function(use)
     branch = "dev",
     ft = { "vimwiki", "todo" }, -- NOTE: Add custom todo filetype
     setup = function()
-      vim.cmd([[augroup vimwiki_filetypedetect]])
-      vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd BufRead,BufNewFile *.wiki setfiletype vimwiki]])
-      vim.cmd([[augroup END]])
-    end,
-    config = function()
       -- disable vimwiki on markdown file
       vim.g.vimwiki_ext2syntax = { [".wiki"] = "default" }
       -- disable <Tab> & <S-Tab> mappings in insert mode
@@ -124,6 +118,13 @@ utility.startup = function(use)
       -- Toggle after vim
       vim.g.vimwiki_folding = "expr:quick"
 
+      -- NOTE: For lazy load vimwiki as it doesn't use ftdetect
+      vim.cmd([[augroup vimwiki_filetypedetect]])
+      vim.cmd([[  autocmd!]])
+      vim.cmd([[  autocmd BufRead,BufNewFile *.wiki setfiletype vimwiki]])
+      vim.cmd([[augroup END]])
+    end,
+    config = function()
       vim.cmd([[command! VimwikiToggleFolding    call vimrc#vimwiki#toggle_folding()]])
       vim.cmd([[command! VimwikiToggleAllFolding call vimrc#vimwiki#toggle_all_folding()]])
       vim.cmd([[command! VimwikiManualFolding    call vimrc#vimwiki#manual_folding()]])
