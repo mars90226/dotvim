@@ -15,8 +15,6 @@ lspsaga.on_attach = function(client)
   nnoremap("<Plug>(diff-next)", "]c", "silent", "buffer")
   nmap("[c", [[&diff ? "\<Plug>(diff-prev)" : "\<Cmd>Lspsaga diagnostic_jump_prev\<CR>"]], "silent", "buffer", "expr")
   nmap("]c", [[&diff ? "\<Plug>(diff-next)" : "\<Cmd>Lspsaga diagnostic_jump_next\<CR>"]], "silent", "buffer", "expr")
-  nnoremap("<C-U>", "<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", "buffer")
-  nnoremap("<C-D>", "<Cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", "buffer")
 
   -- Remap for K
   local maparg
