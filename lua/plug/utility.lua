@@ -649,6 +649,7 @@ utility.startup = function(use)
   use("lambdalisue/reword.vim")
   use({ "nicwest/vim-http", cmd = { "Http", "Http!" } })
   use({ "kristijanhusak/vim-carbon-now-sh", cmd = { "CarbonNowSh" } })
+  use({ "taybart/b64.nvim", cmd = { "B64Encode", "B64Decode" } })
 
   -- builtin Termdebug plugin
   use_builtin({
