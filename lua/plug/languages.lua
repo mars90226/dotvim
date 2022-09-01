@@ -32,6 +32,7 @@ languages.startup = function(use)
     })
     use({
       "nvim-treesitter/nvim-treesitter-textobjects",
+      commit = "761e283a8e3ab80ee5ec8daf4f19d92d23ee37e4",
       requires = { "nvim-treesitter/nvim-treesitter" },
     })
     use({
