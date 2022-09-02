@@ -179,6 +179,7 @@ lsp.startup = function(use)
             condition = function()
               return vim.fn.executable("standardrb") > 0
             end,
+            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
           }),
           null_ls.builtins.diagnostics.vint.with({
             condition = function()
