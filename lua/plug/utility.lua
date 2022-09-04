@@ -365,10 +365,15 @@ utility.startup = function(use)
       vim.go.termguicolors = true
 
       require("colorizer").setup({
-        "*",
-        css = { css = true },
-        scss = { css = true },
-      }, { names = false })
+        filetypes = {
+          "*",
+          css = { css = true },
+          scss = { css = true },
+        },
+        user_default_options = {
+          names = false,
+        },
+      })
     end,
   })
 
