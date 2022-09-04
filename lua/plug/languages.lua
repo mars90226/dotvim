@@ -358,7 +358,10 @@ languages.startup = function(use)
       vim.g.mkdp_filetypes = { "markdown" }
       vim.g.mkdp_open_to_the_world = 1
 
-      if plugin_utils.is_executable("open_url.sh") then
+      -- NOTE: markdown-preview.nvim will detect wsl and use Windows start to
+      -- execute browser. Currently, open_url.sh exists only in WSL and cannot
+      -- be called from Windows.
+      if vim.fn.has("wsl") ~= 1 and plugin_utils.is_executable("open_url.sh") then
         vim.g.mkdp_browser = "open_url.sh"
       end
     end,
