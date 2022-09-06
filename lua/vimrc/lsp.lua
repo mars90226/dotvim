@@ -189,7 +189,7 @@ lsp.on_attach = function(client, bufnr)
   my_lspsaga.on_attach(client)
   my_goto_preview.on_attach(client)
 
-  if choose.is_enabled_plugin("nvim-navic") then
+  if choose.is_enabled_plugin("winbar") then
     -- TODO: Move back to appearance.lua, see appearance.lua for reason
     require("vimrc.winbar").attach(bufnr)
   end

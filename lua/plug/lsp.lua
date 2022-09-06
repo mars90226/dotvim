@@ -43,7 +43,7 @@ lsp.startup = function(use)
           virtual_text = false,
         },
         symbol_in_winbar = {
-          enable = choose.is_enabled_plugin("lspsaga.nvim-context"),
+          enable = choose.is_enabled_plugin("winbar") and choose.is_enabled_plugin("lspsaga.nvim-context"),
           click_support = function(node, clicks, button, modifiers)
             -- To see all avaiable details: vim.pretty_print(node)
             local st = node.range.start

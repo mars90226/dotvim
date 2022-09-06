@@ -78,7 +78,7 @@ appearance.startup = function(use)
   -- Managed by lspsaga.nvim, disabled for now
   use_config({
     "mars90226/winbar",
-    disable = choose.is_enabled_plugin("lspsaga.nvim-context"),
+    disable = choose.is_disabled_plugin("winbar") or choose.is_enabled_plugin("lspsaga.nvim-context"),
     config = function()
       -- TODO: Disable winbar in plugin window
       -- NOTE: Currently, it's not possible to hide winbar based on 'winbar' evaluated result
