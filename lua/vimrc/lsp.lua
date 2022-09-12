@@ -133,6 +133,7 @@ lsp.servers = {
   solargraph = {
     condition = plugin_utils.has_linux_build_env(),
   },
+  sqls = {},
   sumneko_lua = {
     -- TODO: Refine condition
     condition = plugin_utils.has_linux_build_env(),
