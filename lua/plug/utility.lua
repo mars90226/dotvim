@@ -77,6 +77,7 @@ utility.startup = function(use)
     end,
   })
 
+  -- Colors
   use({
     "gu-fan/colorv.vim",
     cmd = { "ColorV", "ColorVName", "ColorVView" },
@@ -86,6 +87,23 @@ utility.startup = function(use)
       nnoremap("<Leader>vv", ":ColorV<CR>", "silent")
       nnoremap("<Leader>vn", ":ColorVName<CR>", "silent")
       nnoremap("<Leader>vw", ":ColorVView<CR>", "silent")
+    end,
+  })
+  use({
+    "max397574/colortils.nvim",
+    cmd = { "Colortils" },
+    keys = { "<Leader>ct" },
+    config = function()
+      require("colortils").setup({
+        mappings = {
+          -- Use gr to avoid <M-CR> used by wezterm
+          replace_default_format = "rr",
+          replace_choose_format = "grr",
+        }
+      })
+
+      nnoremap("<Leader>ct", [[<Cmd>Colortils picker black<CR>]])
+      xnoremap("<Leader>ct", [[:<C-U>execute 'Colortils picker '..vimrc#utility#get_visual_selection()<CR>]])
     end,
   })
 
