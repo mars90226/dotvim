@@ -631,7 +631,7 @@ utility.startup = function(use)
   use({
     "potamides/pantran.nvim",
     cmd = { "Pantran" },
-    keys = { "<Leader>tr", "<Leader>trr" },
+    keys = { "<Leader>pt", "<Leader>ptt" },
     config = function()
       local pantran = require("pantran")
 
@@ -644,11 +644,11 @@ utility.startup = function(use)
       })
 
       local opts = { noremap = true, silent = true, expr = true }
-      vim.keymap.set("n", "<Leader>tr", pantran.motion_translate, opts)
-      vim.keymap.set("n", "<Leader>trr", function()
+      vim.keymap.set("n", "<Leader>pt", pantran.motion_translate, opts)
+      vim.keymap.set("n", "<Leader>ptt", function()
         return pantran.motion_translate() .. "_"
       end, opts)
-      vim.keymap.set("x", "<Leader>tr", pantran.motion_translate, opts)
+      vim.keymap.set("x", "<Leader>pt", pantran.motion_translate, opts)
     end,
   })
 

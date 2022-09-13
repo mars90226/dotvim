@@ -262,8 +262,8 @@ languages.startup = function(use)
         )
 
         -- Customize Debug Command
-        vim.api.nvim_create_user_command('RefactoringAddPrintf', refactoring.add_printf, {})
-        vim.api.nvim_create_user_command('RefactoringAddPrintVar', refactoring.add_print_var, {})
+        vim.api.nvim_create_user_command("RefactoringAddPrintf", refactoring.add_printf, {})
+        vim.api.nvim_create_user_command("RefactoringAddPrintVar", refactoring.add_print_var, {})
 
         -- load refactoring Telescope extension
         require("telescope").load_extension("refactoring")
@@ -374,6 +374,12 @@ languages.startup = function(use)
     config = function()
       require("femaco").setup()
     end,
+  })
+
+  -- NOTE: Mappings may conflict with other plugin (mapping prefix: <Leader>t/<Leader>T)
+  use({
+    "dhruvasagar/vim-table-mode",
+    ft = { "markdown" },
   })
 
   use({
