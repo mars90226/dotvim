@@ -66,11 +66,11 @@ utility.startup = function(use)
   -- FIXME: Cannot copy to registers when using nvim-0.7.0-dev?
   use({
     "tversteeg/registers.nvim",
-    disable = true,
   })
   -- TODO: Cursor moved up when pressing '"'?
   use({
     "junegunn/vim-peekaboo",
+    disable = true,
     config = function()
       vim.g.peekaboo_window = "vertical botright " .. vim.fn.float2nr(vim.go.columns * 0.3) .. "new"
       vim.g.peekaboo_delay = 400
