@@ -1,7 +1,7 @@
 local mason_lspconfig_mappings_filetype = require("mason-lspconfig.mappings.filetype")
 local mason_lspconfig_mappings_server = require("mason-lspconfig.mappings.server")
 local mason_tool_installer = require("mason-tool-installer")
-local ufo = require('ufo')
+local ufo = require("ufo")
 
 local my_lspsaga = require("vimrc.plugins.lspsaga")
 local my_goto_preview = require("vimrc.plugins.goto-preview")
@@ -357,7 +357,7 @@ lsp.setup_lsp_install = function()
   end
 
   mason_tool_installer.setup({
-    ensure_installed = mason_package_servers
+    ensure_installed = mason_package_servers,
   })
 end
 
@@ -381,12 +381,11 @@ end
 
 -- TODO: project level notify
 lsp.notify_settings = function(server, settings)
-  for _, lsp_client in ipairs(vim.lsp.get_active_clients()) do
-    if lsp_client.name == server then
-      lsp_client.notify("workspace/didChangeConfiguration", {
-        settings = settings,
-      })
-    end
+  for _, lsp_client in ipairs(vim.lsp.get_active_clients({ name = server })) do
+    lsp_client.config.settings = settings
+    lsp_client.notify("workspace/didChangeConfiguration", {
+      settings = lsp_client.config.settings,
+    })
   end
 end
 
