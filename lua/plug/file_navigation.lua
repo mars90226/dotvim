@@ -100,6 +100,12 @@ file_navigation.startup = function(use)
     end,
   })
   use({
+    "nvim-telescope/telescope-live-grep-args.nvim",
+    config = function()
+      require("telescope").load_extension("live_grep_args")
+    end,
+  })
+  use({
     "LinArcX/telescope-command-palette.nvim",
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
@@ -211,9 +217,8 @@ file_navigation.startup = function(use)
     cmd = { "AnyJump", "AnyJumpArg", "AnyJumpVisual" },
     keys = { "<Leader>aj", "<Leader>aa" },
     config = function()
-      vim.g.any_jump_window_width_ratio, vim.g.any_jump_window_height_ratio = unpack(
-        vim.fn["vimrc#float#get_default_ratio"]()
-      )
+      vim.g.any_jump_window_width_ratio, vim.g.any_jump_window_height_ratio =
+        unpack(vim.fn["vimrc#float#get_default_ratio"]())
       vim.g.any_jump_window_top_offset = vim.fn["vimrc#float#calculate_pos_from_ratio"](
         vim.g.any_jump_window_width_ratio,
         vim.g.any_jump_window_height_ratio

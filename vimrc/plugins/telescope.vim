@@ -10,6 +10,7 @@ nnoremap <Space>tF <Cmd>Telescope find_files hidden=true no_ignore=true<CR>
 nnoremap <Space>tg <Cmd>Telescope git_files<CR>
 nnoremap <Space>th <Cmd>Telescope help_tags<CR>
 nnoremap <Space>ti <Cmd>Telescope live_grep<CR>
+nnoremap <Space>tI <Cmd>Telescope live_grep_args<CR>
 nnoremap <Space>tj <Cmd>Telescope jumplist<CR>
 nnoremap <Space>tk <Cmd>execute 'Telescope grep_string use_regex=true search='.expand('<cword>')<CR>
 nnoremap <Space>tK <Cmd>execute 'Telescope grep_string use_regex=true search='.expand('<cWORD>')<CR>
