@@ -593,7 +593,7 @@ utility.startup = function(use)
     "axieax/urlview.nvim",
     config = function()
       require("urlview").setup({
-        navigate_method = vim.fn["vimrc#plugin#check#has_ssh_host_client"]() and "client_open_browser" or "system",
+        default_action = vim.fn["vimrc#plugin#check#has_ssh_host_client"]() and "client_open_browser" or "system",
       })
 
       require("telescope").load_extension("urlview")
