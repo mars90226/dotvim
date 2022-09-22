@@ -625,7 +625,8 @@ utility.startup = function(use)
       nnoremap("<Leader>cn", [[:<C-U>call codepainter#navigate()<CR>]])
     end,
   })
-  -- FIXME: curl exit code 2
+  -- NOTE: Requires curl 7.76.0. Otherwise, curl do not understand `--fail-with-body` and return exit status 2
+  -- TODO: Check for curl version
   use({
     "potamides/pantran.nvim",
     cmd = { "Pantran" },
