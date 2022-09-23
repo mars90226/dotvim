@@ -412,9 +412,10 @@ utility.startup = function(use)
     requires = { "nvim-lua/plenary.nvim", "folke/todo-comments.nvim" },
     cmd = { "TodoQuickFix", "TodoLocList", "TodoTrouble", "TodoTelescope" },
     keys = { "<F8>", "<Space><F8>" },
-    config = function()
+    setup = function()
       require("todo-comments").setup({})
-
+    end,
+    config = function()
       nnoremap("<F8>", "<Cmd>TodoTrouble<CR>")
       nnoremap("<Space><F8>", "<Cmd>TodoTelescope<CR>")
     end,
