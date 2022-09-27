@@ -245,6 +245,7 @@ file_navigation.startup = function(use)
 
   use({
     "nvim-pack/nvim-spectre",
+    cmd = { "Spectre" },
     keys = { "<Space>S", "<Space>sw", "<Space>s'" },
     config = function()
       -- TODO: Try replace with nvim-oxi
