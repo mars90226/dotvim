@@ -400,6 +400,24 @@ lsp.startup = function(use)
           vim.api.nvim_feedkeys("K", "n", false)
         end
       end)
+
+      -- Performance trick
+      -- Ref: nvim_treesitter.lua performance trick
+      local augroup_id = vim.api.nvim_create_augroup("nvim_ufo_settings", {})
+      vim.api.nvim_create_autocmd({ "FocusGained" }, {
+        group = augroup_id,
+        pattern = "*",
+        callback = function()
+          vim.cmd([[UfoEnable]])
+        end
+      })
+      vim.api.nvim_create_autocmd({ "FocusLost" }, {
+        group = augroup_id,
+        pattern = "*",
+        callback = function()
+          vim.cmd([[UfoDisable]])
+        end
+      })
     end,
   })
 end
