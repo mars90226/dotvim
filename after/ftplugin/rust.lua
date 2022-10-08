@@ -19,6 +19,21 @@ nnoremap("<C-X><C-Q>", [[:RustFmt<CR>]], "<silent>", "<buffer>")
 nnoremap("<C-X><C-S>", [[:execute 'RustupDoc '.input('topic: ')<CR>]], "<silent>", "<buffer>")
 
 -- Cargo
+local cargo_makeprg = 'cargo $*'
+local rust_backtrace_cargo = {
+  no = cargo_makeprg,
+  yes = 'RUST_BACKTRACE=1 '..cargo_makeprg,
+  full = 'RUST_BACKTRACE=full '..cargo_makeprg,
+}
+local switch_cargo_rust_backtrace = function(rust_backtrace)
+  local new_cargo_makeprg = vim.F.if_nil(rust_backtrace_cargo[rust_backtrace], cargo_makeprg)
+
+  vim.bo.makeprg = new_cargo_makeprg
+end
+vim.api.nvim_create_user_command("SwitchCargoRustBacktrace", function(opts)
+  switch_cargo_rust_backtrace(opts.fargs[1])
+end, { nargs = "*" })
+
 nnoremap("<Space>a<CR>", [[:Make build<CR>]], "<silent>", "<buffer>")
 nnoremap("<Space>ax", [[:Make run<CR>]], "<silent>", "<buffer>")
 nnoremap("<Space>ac", [[:Make clippy<CR>]], "<silent>", "<buffer>")
