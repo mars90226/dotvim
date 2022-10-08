@@ -20,5 +20,5 @@ nnoremap("<C-X><C-S>", [[:execute 'RustupDoc '.input('topic: ')<CR>]], "<silent>
 
 -- Cargo
 nnoremap("<Space>a<CR>", [[:Make build<CR>]], "<silent>", "<buffer>")
-xnoremap("<Space>ax", [[:Make run<CR>]], "<silent>", "<buffer>")
-xnoremap("<Space>ac", [[:Make clippy<CR>]], "<silent>", "<buffer>")
+nnoremap("<Space>ax", [[:Make run<CR>]], "<silent>", "<buffer>")
+nnoremap("<Space>ac", [[:Make clippy<CR>]], "<silent>", "<buffer>")
