@@ -106,6 +106,13 @@ file_navigation.startup = function(use)
     end,
   })
   use({
+    "nvim-telescope/telescope-frecency.nvim",
+    config = function()
+      require("telescope").load_extension("frecency")
+    end,
+    requires = { "kkharji/sqlite.lua" },
+  })
+  use({
     "LinArcX/telescope-command-palette.nvim",
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()

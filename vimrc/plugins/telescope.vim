@@ -23,8 +23,9 @@ nnoremap <Space>t* <Cmd>execute 'Telescope grep_string use_regex=true search=\b'
 xnoremap <Space>tk :<C-U>execute 'Telescope grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>
 xnoremap <Space>t8 :<C-U>execute 'Telescope grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>
 nnoremap <Space>tl <Cmd>Telescope current_buffer_fuzzy_find<CR>
-nnoremap <Space>tm <Cmd>Telescope oldfiles<CR>
-nnoremap <Space>to <Cmd>Telescope vim_options<CR>
+nnoremap <Space>tm <Cmd>Telescope frecency<CR>
+nnoremap <Space>to <Cmd>Telescope oldfiles<CR>
+nnoremap <Space>tO <Cmd>Telescope vim_options<CR>
 nnoremap <Space>tp <Cmd>call vimrc#telescope#project_tags()<CR>
 nnoremap <Space>tP <Cmd>Telescope projects<CR>
 " TODO: May need to adjust key mapping as used for project bookmark
