@@ -12,7 +12,7 @@ appearance.startup = function(use)
   use({
     "nvim-lualine/lualine.nvim",
     config = function()
-      require("vimrc.plugins.lualine")
+      require("vimrc.plugins.lualine").setup()
 
       vim.cmd([[command! FixLualineStatusline set statusline=%{%v:lua.require'lualine'.statusline()%}]])
     end,

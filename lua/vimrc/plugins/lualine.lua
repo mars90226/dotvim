@@ -1,13 +1,17 @@
 local plugin_utils = require("vimrc.plugin_utils")
 
--- TODO: Refactor to normal module
-local lualine = require("lualine")
+local lualine = {}
 
-lualine.setup({
+lualine.default_option = {
   options = {
     icons_enabled = true,
     theme = vim.g.lualine_theme,
     disabled_filetypes = {},
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 1000,
+    }
   },
   sections = {
     lualine_a = { "mode" },
@@ -77,22 +81,47 @@ lualine.setup({
     "quickfix",
     "symbols-outline",
   },
-})
+}
 
--- Performance trick
--- Ref: nvim_treesitter.lua performance trick
-local augroup_id = vim.api.nvim_create_augroup("lualine_settings", {})
-vim.api.nvim_create_autocmd({ "FocusGained" }, {
-  group = augroup_id,
-  pattern = "*",
-  callback = function()
-    lualine.hide({ unhide = true })
-  end,
-})
-vim.api.nvim_create_autocmd({ "FocusLost" }, {
-  group = augroup_id,
-  pattern = "*",
-  callback = function()
-    lualine.hide()
-  end,
-})
+lualine.setup_refresh_interval = function(interval)
+  local new_interval = vim.F.if_nil(interval, 1000)
+  local new_config = vim.tbl_deep_extend("force", lualine.default_option, {
+    options = {
+      refresh = {
+        statusline = new_interval,
+        tabline = new_interval,
+        winbar = new_interval,
+      }
+    }
+  })
+
+  require("lualine").setup(new_config)
+end
+
+lualine.setup_performance_trick = function()
+  -- Performance trick
+  -- Ref: nvim_treesitter.lua performance trick
+  local augroup_id = vim.api.nvim_create_augroup("lualine_settings", {})
+  vim.api.nvim_create_autocmd({ "FocusGained" }, {
+    group = augroup_id,
+    pattern = "*",
+    callback = function()
+      lualine.setup_refresh_interval()
+    end,
+  })
+  vim.api.nvim_create_autocmd({ "FocusLost" }, {
+    group = augroup_id,
+    pattern = "*",
+    callback = function()
+      lualine.setup_refresh_interval(60 * 1000)
+    end,
+  })
+end
+
+lualine.setup = function()
+  require("lualine").setup(lualine.default_option)
+
+  lualine.setup_performance_trick()
+end
+
+return lualine
