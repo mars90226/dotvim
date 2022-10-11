@@ -1,6 +1,9 @@
 local plugin_utils = require("vimrc.plugin_utils")
 
-require("lualine").setup({
+-- TODO: Refactor to normal module
+local lualine = require("lualine")
+
+lualine.setup({
   options = {
     icons_enabled = true,
     theme = vim.g.lualine_theme,
@@ -74,4 +77,22 @@ require("lualine").setup({
     "quickfix",
     "symbols-outline",
   },
+})
+
+-- Performance trick
+-- Ref: nvim_treesitter.lua performance trick
+local augroup_id = vim.api.nvim_create_augroup("lualine_settings", {})
+vim.api.nvim_create_autocmd({ "FocusGained" }, {
+  group = augroup_id,
+  pattern = "*",
+  callback = function()
+    lualine.hide({ unhide = true })
+  end,
+})
+vim.api.nvim_create_autocmd({ "FocusLost" }, {
+  group = augroup_id,
+  pattern = "*",
+  callback = function()
+    lualine.hide()
+  end,
 })
