@@ -10,6 +10,7 @@ mapping.startup = function(use)
   use_config({
     "mars90226/mapping",
     config = function()
+      local choose = require("vimrc.choose")
       local plugin_utils = require("vimrc.plugin_utils")
 
       vim.api.nvim_create_user_command("HelptagsAll", [[lua require('vimrc.utils').helptags_all()]], {})
@@ -283,6 +284,9 @@ mapping.startup = function(use)
       nnoremap("<Leader>dfo", [[:windo diffoff<CR>]])
       nnoremap("<Leader>dfh", [[:diffthis<CR>:wincmd l<CR>:diffthis<CR>:2wincmd h<CR>:diffthis<CR>]])
       nnoremap("<Leader>dfv", [[:diffthis<CR>:wincmd j<CR>:diffthis<CR>:2wincmd k<CR>:diffthis<CR>]])
+      if choose.is_enabled_plugin('vim-floaterm') then
+        nnoremap("<Leader>dff", [[<Cmd>lua require('vimrc.diff').diff_in_delta()<CR>]])
+      end
 
       -- Sort
       xnoremap("<Space>sw", [[d:execute 'normal i'.vimrc#utility#sort_copied_words()<CR>]], "<silent>")
