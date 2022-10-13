@@ -97,7 +97,7 @@ utility.startup = function(use)
           -- Use gr to avoid <M-CR> used by wezterm
           replace_default_format = "rr",
           replace_choose_format = "grr",
-        }
+        },
       })
 
       nnoremap("<Leader>ct", [[<Cmd>Colortils picker black<CR>]])
@@ -649,10 +649,19 @@ utility.startup = function(use)
     end,
   })
 
+  use({
+    "AndrewRadev/linediff.vim",
+    cmd = { "Linediff" },
+    keys = { "<M-d>l" },
+    config = function()
+      nnoremap("<M-d>l", [[V:Linediff<CR>]])
+      xnoremap("<M-d>l", [[:Linediff<CR>]])
+    end,
+  })
+
   use({ "tpope/vim-dadbod", cmd = { "DB" } })
   use({ "tpope/vim-abolish", cmd = { "Abolish", "Subvert", "S" }, keys = { "cr" } })
   use({ "will133/vim-dirdiff", cmd = { "DirDiff" } })
-  use({ "AndrewRadev/linediff.vim", cmd = { "Linediff" } })
   use({ "Shougo/vinarise.vim", cmd = { "Vinarise" } })
   use({ "alx741/vinfo", cmd = { "Vinfo" } })
   use("kopischke/vim-fetch")

@@ -280,12 +280,13 @@ mapping.startup = function(use)
       nnoremap("<Plug>(search-prefix)i", [[<Cmd>call vimrc#search#search_ip(0)<CR>]])
 
       -- Diff
-      nnoremap("<Leader>dft", [[:windo diffthis<CR>]])
-      nnoremap("<Leader>dfo", [[:windo diffoff<CR>]])
-      nnoremap("<Leader>dfh", [[:diffthis<CR>:wincmd l<CR>:diffthis<CR>:2wincmd h<CR>:diffthis<CR>]])
-      nnoremap("<Leader>dfv", [[:diffthis<CR>:wincmd j<CR>:diffthis<CR>:2wincmd k<CR>:diffthis<CR>]])
+      -- Use <M-d> as prefix
+      nnoremap("<M-d>t", [[:windo diffthis<CR>]])
+      nnoremap("<M-d>o", [[:windo diffoff<CR>]])
+      nnoremap("<M-d>h", [[:diffthis<CR>:wincmd l<CR>:diffthis<CR>:2wincmd h<CR>:diffthis<CR>]])
+      nnoremap("<M-d>v", [[:diffthis<CR>:wincmd j<CR>:diffthis<CR>:2wincmd k<CR>:diffthis<CR>]])
       if choose.is_enabled_plugin('vim-floaterm') then
-        nnoremap("<Leader>dff", [[<Cmd>lua require('vimrc.diff').diff_in_delta()<CR>]])
+        nnoremap("<M-d>f", [[<Cmd>lua require('vimrc.diff').diff_in_delta()<CR>]])
       end
 
       -- Sort
