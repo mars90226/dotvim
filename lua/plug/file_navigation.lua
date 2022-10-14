@@ -387,6 +387,19 @@ file_navigation.startup = function(use)
             pattern = "/src/lib%-(.*)/(.*).c$",
             target = "/src/include/*/%1/%2.h",
           },
+          -- 2-level no src folder
+          {
+            pattern = "/include/(.*)/(.*).h$",
+            target = "/%1/%2\\(.cpp\\|.c\\)",
+          },
+          {
+            pattern = "/(.*)/(.*).cpp$",
+            target = "/include/*/%1/%2.h",
+          },
+          {
+            pattern = "/(.*)/(.*).c$",
+            target = "/include/*/%1/%2.h",
+          },
         },
         transformers = {
           -- defining a custom transformer
