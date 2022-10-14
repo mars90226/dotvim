@@ -589,12 +589,22 @@ utility.startup = function(use)
 
   use({
     "axieax/urlview.nvim",
+    requires = { "nvim-telescope/telescope.nvim" },
     config = function()
+      local urlview = require("vimrc.plugins.urlview")
+      local has_secret_urlview, secret_urlview = pcall(require, "secret.urlview")
+
       require("urlview").setup({
         default_action = vim.fn["vimrc#plugin#check#has_ssh_host_client"]() and "client_open_browser" or "system",
       })
+      urlview.setup()
 
-      require("telescope").load_extension("urlview")
+      if has_secret_urlview then
+        secret_urlview.setup()
+      end
+
+      nnoremap("<Leader>uu", [[<Cmd>UrlView buffer picker=telescope<CR>]], { desc = "view buffer URLs" })
+      nnoremap("<Leader>up", [[<Cmd>UrlView packer picker=telescope<CR>]], { desc = "view plugin URLs" })
     end,
   })
 

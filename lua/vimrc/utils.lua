@@ -45,6 +45,25 @@ utils.table_map = function(table, fn)
   return new_table
 end
 
+-- str:gmatch() with variable captures support
+utils.gmatch_as_table = function(str, ...)
+  local matches = {}
+
+  -- Implement gmatch with variable captures using while & iterator
+  -- Ref: https://www.lua.org/manual/5.3/manual.html#3.3.5
+  do
+    local f, s, var = str:gmatch(...)
+    while true do
+      local items = { f(s, var) } -- NOTE: Use {} to create table
+      if items[1] == nil then break end
+      var = items[1]
+      table.insert(matches, items)
+    end
+  end
+
+  return matches
+end
+
 -- ref: https://github.com/LunarVim/LunarVim/blob/rolling/lua/lvim/core/cmp.lua
 utils.check_backspace = function()
   local col = vim.fn.col(".") - 1

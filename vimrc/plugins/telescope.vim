@@ -78,9 +78,6 @@ nnoremap <Space>tM <Cmd>Telescope harpoon marks<CR>
 " Zoxide
 nnoremap <Space>tz <Cmd>Telescope zoxide list<CR>
 
-" Urlview
-nnoremap <Space>tU <Cmd>Telescope urlview<CR>
-
 " Yanky
 nnoremap <Space>tn <Cmd>Telescope yank_history<CR>
 
