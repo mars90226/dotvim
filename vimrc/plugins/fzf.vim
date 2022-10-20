@@ -326,7 +326,7 @@ nnoremap <Space>sL :call      vimrc#execute_and_save('ScreenLines ' . expand('<c
 xnoremap <Space>sL :<C-U>call vimrc#execute_and_save('ScreenLines ' . vimrc#utility#get_visual_selection())<CR>
 nnoremap <Space>s1 :call      vimrc#execute_and_save('LastTabs')<CR>
 
-nnoremap <Space>ss :History:<CR>mks vim sessions
+nnoremap <Space>ss :History:<CR>'mks 'vim-sessions<Space>
 
 nnoremap <Space>sga :call vimrc#execute_and_save('GitGrepAllCommits ' . input('Git grep all commits: '))<CR>
 nnoremap <Space>sgA :call vimrc#execute_and_save('GitGrepAllCommits ' . input('Git grep all commits: ') . ' -- ' . input('File: ', '', 'file'))<CR>
