@@ -15,7 +15,7 @@ text_navigation.startup = function(use)
       vim.g.matchup_matchparen_deferred_hide_delay = 1000
       vim.g.matchup_matchparen_timeout = 100
       vim.g.matchup_matchparen_insert_timeout = 20
-      vim.g.matchup_matchparen_nomode = 'i'
+      vim.g.matchup_matchparen_nomode = "i"
       vim.g.matchup_matchparen_offscreen = {
         method = "status_manual", -- we already have nvim-treesitter-context
       }
@@ -95,6 +95,8 @@ text_navigation.startup = function(use)
   use({
     "kevinhwang91/nvim-hlslens",
     config = function()
+      require("hlslens").setup()
+
       noremap("n", [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], "silent")
       noremap("N", [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], "silent")
 
