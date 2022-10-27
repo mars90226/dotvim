@@ -297,7 +297,7 @@ mapping.startup = function(use)
 
       -- Select Mode
       snoremap("<CR>", [[<C-O>c]])
-      snoremap("<M-a>", [[<Esc>a]])
+      snoremap("<M-a>", [[<Esc>A]])
       snoremap("<M-i>", [[<C-O>o<Esc>i]])
 
       -- Smart dd
