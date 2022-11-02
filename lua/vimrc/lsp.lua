@@ -137,6 +137,13 @@ lsp.servers = {
   sumneko_lua = {
     -- TODO: Refine condition
     condition = plugin_utils.has_linux_build_env(),
+    settings = {
+      Lua = {
+        runtime = {
+          version = "LuaJIT"
+        }
+      }
+    }
   },
   -- NOTE: Disabled due to poor performance
   -- tsserver = {
