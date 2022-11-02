@@ -156,6 +156,7 @@ nvim_treesitter.setup_config = function()
       "regex",
       "rst",
       "ruby",
+      "rust",
       "scss",
       "teal",
       "toml",
