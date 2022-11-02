@@ -25,6 +25,18 @@ lsp.startup = function(use)
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     require = { "williamboman/mason.nvim" },
   })
+  use({
+    "tamago324/nlsp-settings.nvim",
+    config = function()
+      require("nlspsettings").setup({
+        config_home = vim.fn.stdpath("config") .. "/nlsp-settings",
+        local_settings_dir = ".nlsp-settings",
+        local_settings_root_markers_fallback = { ".git" },
+        append_default_schemas = true,
+        loader = "json",
+      })
+    end,
+  })
 
   use("ii14/lsp-command")
 
@@ -409,14 +421,14 @@ lsp.startup = function(use)
         pattern = "*",
         callback = function()
           vim.cmd([[UfoEnable]])
-        end
+        end,
       })
       vim.api.nvim_create_autocmd({ "FocusLost" }, {
         group = augroup_id,
         pattern = "*",
         callback = function()
           vim.cmd([[UfoDisable]])
-        end
+        end,
       })
     end,
   })
