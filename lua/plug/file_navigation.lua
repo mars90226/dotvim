@@ -110,6 +110,7 @@ file_navigation.startup = function(use)
     config = function()
       require("telescope").load_extension("frecency")
     end,
+    -- NOTE: Require sqlite3, specifically libsqlite3.so
     requires = { "kkharji/sqlite.lua" },
   })
   use({
