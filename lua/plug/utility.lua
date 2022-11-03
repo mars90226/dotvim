@@ -398,12 +398,25 @@ utility.startup = function(use)
     cmd = { "SudaRead", "SudaWrite" },
   })
 
+  -- Window Layout
   use({
     "simeji/winresizer",
     cmd = { "WinResizerStartResize" },
     keys = { "<Leader>R" },
     setup = function()
       vim.g.winresizer_start_key = "<Leader>R"
+    end,
+  })
+  use({
+    "sindrets/winshift.nvim",
+    cmd = { "WinShift" },
+    keys = { "<C-W><C-M>", "<C-W>m", "<C-W>X" },
+    config = function()
+      require("winshift").setup({})
+
+      nnoremap("<C-W><C-M>", [[<Cmd>WinShift<CR>]])
+      nnoremap("<C-W>m", [[<Cmd>WinShift<CR>]])
+      nnoremap("<C-W>X", [[<Cmd>WinShift swap<CR>]])
     end,
   })
 
