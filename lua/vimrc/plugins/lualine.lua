@@ -11,7 +11,7 @@ lualine.default_option = {
       statusline = 1000,
       tabline = 1000,
       winbar = 1000,
-    }
+    },
   },
   sections = {
     lualine_a = { "mode" },
@@ -36,7 +36,7 @@ lualine.default_option = {
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = { "filename" },
+    lualine_c = { { "filename", path = 1 } },
     lualine_x = { "location" },
     lualine_y = {},
     lualine_z = {},
@@ -91,8 +91,8 @@ lualine.setup_refresh_interval = function(interval)
         statusline = new_interval,
         tabline = new_interval,
         winbar = new_interval,
-      }
-    }
+      },
+    },
   })
 
   require("lualine").setup(new_config)
