@@ -10,7 +10,13 @@ file_explorer.startup = function(use)
     end,
   })
   use("kristijanhusak/defx-git")
-  use("kristijanhusak/defx-icons")
+  use({
+    "kristijanhusak/defx-icons",
+    event = { "FocusLost", "CursorHold", "CursorHoldI" },
+    config = function()
+      vim.fn["vimrc#defx#setup"](true)
+    end,
+  })
 
   use({
     "nvim-neo-tree/neo-tree.nvim",
@@ -40,10 +46,10 @@ file_explorer.startup = function(use)
               vim.cmd([[normal! zb]])
             end,
             ["z/"] = function(_)
-              vim.api.nvim_feedkeys('/', 'n', false)
+              vim.api.nvim_feedkeys("/", "n", false)
             end,
             ["z?"] = function(_)
-              vim.api.nvim_feedkeys('?', 'n', false)
+              vim.api.nvim_feedkeys("?", "n", false)
             end,
           },
         },

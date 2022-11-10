@@ -82,6 +82,31 @@ function! vimrc#defx#call_map(function, args) abort
   call call(a:function, a:args)
 endfunction
 
+" Setup
+function! vimrc#defx#setup(enable_icons) abort
+  let columns = a:enable_icons ? 'git:mark:indent:icon:space:icons:space:filename:type:size:time' : 'git:mark:indent:icon:space:filename:type:size:time'
+
+  call defx#custom#option('_', {
+        \ 'columns': columns,
+        \ 'show_ignored_files': 1,
+        \ })
+  call defx#custom#column('icon', {
+        \ 'directory_icon': '▸',
+        \ 'opened_icon': '▾',
+        \ 'root_icon': ' ',
+        \ })
+  call defx#custom#column('mark', {
+        \ 'readonly_icon': '✗',
+        \ 'selected_icon': '✓',
+        \ })
+  call defx#custom#column('time', {'format': '%Y/%m/%d %H:%M'})
+endfunction
+
+" Load lazy-loaded defx extensions
+function! vimrc#defx#load_opt_extensions() abort
+  PackerLoad defx-icons
+endfunction
+
 " Settings
 function! vimrc#defx#settings() abort
   setlocal nonumber
@@ -609,6 +634,7 @@ endfunction
 " Defx detect folder
 function! vimrc#defx#detect_folder(path) abort
   if a:path !=# '' && isdirectory(a:path)
+    call vimrc#defx#load_opt_extensions()
     execute 'silent! Defx '.a:path
   endif
 endfunction
