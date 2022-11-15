@@ -133,17 +133,19 @@ lsp.servers = {
   solargraph = {
     condition = plugin_utils.has_linux_build_env(),
   },
-  sqls = {},
+  sqls = {
+    condition = plugin_utils.has_linux_build_env(),
+  },
   sumneko_lua = {
     -- TODO: Refine condition
     condition = plugin_utils.has_linux_build_env(),
     settings = {
       Lua = {
         runtime = {
-          version = "LuaJIT"
-        }
-      }
-    }
+          version = "LuaJIT",
+        },
+      },
+    },
   },
   -- NOTE: Disabled due to poor performance
   -- tsserver = {
