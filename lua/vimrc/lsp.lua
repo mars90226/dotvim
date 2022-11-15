@@ -124,6 +124,7 @@ lsp.servers = {
   -- ref: https://github.com/microsoft/pyright/blob/893d08be8c70297fcf082ba812c14cf4aecefc97/docs/settings.md
   -- pyright = {},
   rust_analyzer = {
+    condition = plugin_utils.has_linux_build_env(),
     custom_setup = function(server, lsp_opts)
       require("rust-tools").setup({
         server = lsp_opts,
