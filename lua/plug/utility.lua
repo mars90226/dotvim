@@ -94,9 +94,8 @@ utility.startup = function(use)
     config = function()
       require("colortils").setup({
         mappings = {
-          -- Use gr to avoid <M-CR> used by wezterm
-          replace_default_format = "rr",
-          replace_choose_format = "grr",
+          replace_default_format = "<M-CR>",
+          replace_choose_format = "g<M-CR>",
         },
       })
 
