@@ -1,3 +1,4 @@
+local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
 
 local completion = {}
@@ -290,19 +291,22 @@ completion.startup = function(use)
       npairs.add_rule(Rule("<", ">", "xml"))
     end,
   })
-  -- TODO: use 'abecodes/tabout.nvim'
-  -- ref: https://github.com/windwp/nvim-autopairs/issues/167
-  use({
-    "abecodes/tabout.nvim",
-    config = function()
-      require("tabout").setup({
-        tabkey = "<M-n>", -- key to trigger tabout, set to an empty string to disable
-        backwards_tabkey = "<M-N>", -- key to trigger backwards tabout, set to an empty string to disable
-      })
-    end,
-    wants = { "nvim-treesitter" }, -- or require if not used so far
-    after = { "nvim-cmp" }, -- if a completion plugin is using tabs load it before
-  })
+
+  if choose.is_enabled_plugin("nvim-treesitter") then
+    -- TODO: use 'abecodes/tabout.nvim'
+    -- ref: https://github.com/windwp/nvim-autopairs/issues/167
+    use({
+      "abecodes/tabout.nvim",
+      config = function()
+        require("tabout").setup({
+          tabkey = "<M-n>", -- key to trigger tabout, set to an empty string to disable
+          backwards_tabkey = "<M-N>", -- key to trigger backwards tabout, set to an empty string to disable
+        })
+      end,
+      wants = { "nvim-treesitter" }, -- or require if not used so far
+      after = { "nvim-cmp" }, -- if a completion plugin is using tabs load it before
+    })
+  end
 end
 
 return completion
