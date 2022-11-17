@@ -21,11 +21,26 @@ appearance.startup = function(use)
   -- Tabline
   use({
     "nanozuki/tabby.nvim",
-    -- TODO: tabby.nvim broken in latest commit of "show-at-least-N-tabs"
-    commit = "2ac781cae7aedade8def03d48a3a0616dce279ae",
+    -- TODO: Currently highlight is weird when entering command mode
+    -- Ref: https://github.com/nanozuki/tabby.nvim/issues/92
     after = "gruvbox.nvim",
     config = function()
-      require("tabby").setup()
+      vim.o.showtabline = 2
+
+      require("tabby.tabline").use_preset("tab_only", {
+        theme = {
+          fill = "TabLineFill", -- tabline background
+          head = "TabLine", -- head element highlight
+          current_tab = "TabLineSel", -- current tab label highlight
+          tab = "TabLine", -- other tab label highlight
+          win = "TabLine", -- window highlight
+          tail = "TabLine", -- tail element highlight
+        },
+        nerdfont = true, -- whether use nerdfont
+        buf_name = {
+          mode = "'unique'|'relative'|'tail'|'shorten'",
+        },
+      })
 
       -- NOTE: Sometimes, 'tabline' will become empty due to unknown reason.
       -- Error messages:
@@ -41,7 +56,7 @@ appearance.startup = function(use)
       -- || 	vim/shared.lua: in function 'tbl_map'
       -- || 	.../site/pack/packer/start/tabby.nvim/lua/tabby/tabline.lua:146: in function 'update'
       -- || 	[string "luaeval()"]:1: in main chunk
-      vim.cmd([[command! FixTabbyTabline set tabline=%!TabbyTabline()]])
+      vim.cmd([[command! FixTabbyTabline set tabline=%!TabbyRenderTabline()]])
     end,
   })
 
@@ -140,6 +155,7 @@ appearance.startup = function(use)
 
         -- NOTE: Avoid highlight link to avoid breaking tabby.nvim
         TabLine = { fg = palette.dark1, bg = palette.dark4 },
+        TabLineFill = { fg = palette.dark4, bg = palette.dark1 },
 
         -- NOTE: Use similar highlight of StatusLine highlight for WinBar
         -- Color is affected by lspsaga.nvim
