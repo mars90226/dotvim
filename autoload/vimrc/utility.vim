@@ -30,7 +30,7 @@ endfunction
 
 function! vimrc#utility#quit_tab() abort
   try
-    tabclose
+    tabclose!
   catch /E784/ " Can't close last tab
     qall
   endtry
