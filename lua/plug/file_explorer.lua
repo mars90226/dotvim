@@ -1,22 +1,26 @@
+local choose = require("vimrc.choose")
+
 local file_explorer = {}
 
 file_explorer.startup = function(use)
-  -- NOTE: Lazy load doesn't improve much and break the :UpdateRemotePlugins
-  use({
-    "Shougo/defx.nvim",
-    run = ":UpdateRemotePlugins",
-    config = function()
-      vim.fn["vimrc#source"]("vimrc/plugins/defx.vim")
-    end,
-  })
-  use("kristijanhusak/defx-git")
-  use({
-    "kristijanhusak/defx-icons",
-    event = { "FocusLost", "CursorHold", "CursorHoldI" },
-    config = function()
-      vim.fn["vimrc#defx#setup"](true)
-    end,
-  })
+  if choose.is_enabled_plugin("defx.nvim") then
+    -- NOTE: Lazy load doesn't improve much and break the :UpdateRemotePlugins
+    use({
+      "Shougo/defx.nvim",
+      run = ":UpdateRemotePlugins",
+      config = function()
+        vim.fn["vimrc#source"]("vimrc/plugins/defx.vim")
+      end,
+    })
+    use("kristijanhusak/defx-git")
+    use({
+      "kristijanhusak/defx-icons",
+      event = { "FocusLost", "CursorHold", "CursorHoldI" },
+      config = function()
+        vim.fn["vimrc#defx#setup"](true)
+      end,
+    })
+  end
 
   use({
     "nvim-neo-tree/neo-tree.nvim",
