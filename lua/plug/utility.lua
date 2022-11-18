@@ -645,6 +645,8 @@ utility.startup = function(use)
       nnoremap("<Leader>cn", [[:<C-U>call codepainter#navigate()<CR>]])
     end,
   })
+
+  -- Translate
   -- NOTE: Requires curl 7.76.0. Otherwise, curl do not understand `--fail-with-body` and return exit status 2
   -- TODO: Check for curl version
   use({
@@ -668,6 +670,17 @@ utility.startup = function(use)
         return pantran.motion_translate() .. "_"
       end, opts)
       vim.keymap.set("x", "<Leader>pt", pantran.motion_translate, opts)
+    end,
+  })
+  use({
+    "uga-rosa/translate.nvim",
+    cmd = { "Translate" },
+    keys = { "<Leader>tr" },
+    config = function()
+      require("translate").setup({})
+
+      nnoremap("<Leader>tr", [[viw:Translate ZH-TW<CR>]])
+      xnoremap("<Leader>tr", [[:Translate ZH-TW<CR>]])
     end,
   })
 
