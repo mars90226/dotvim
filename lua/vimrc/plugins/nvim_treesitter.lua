@@ -73,7 +73,7 @@ local enable_check = function(enable_filetype)
   end
 end
 
--- nvim-ts-hint-textobject
+-- nvim-treehopper
 nvim_treesitter.tsht_nodes = function(fallback)
   local tsht = require("tsht")
   local res, nodes = pcall(tsht.nodes)

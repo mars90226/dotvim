@@ -70,9 +70,8 @@ languages.startup = function(use)
       "JoosepAlviste/nvim-ts-context-commentstring",
       requires = { "nvim-treesitter/nvim-treesitter" },
     })
-    -- TODO: Rename to 'mfussenegger/nvim-treehopper'
     use({
-      "mfussenegger/nvim-ts-hint-textobject",
+      "mfussenegger/nvim-treehopper",
       requires = { "nvim-treesitter/nvim-treesitter" },
     })
     use({
