@@ -283,6 +283,14 @@ lsp.startup = function(use)
         parser = require("lint.parser").from_pattern([[(%d+): (%w+) (.+)]], { "lnum", "code", "message" }),
       }
 
+      -- Customize built-in linter parameters
+      require("lint.linters.shellcheck").args = {
+        "-x",
+        "--format",
+        "json",
+        "-",
+      }
+
       -- Setup linter
       -- TODO: Check for executable
       lint.linters_by_ft = {
