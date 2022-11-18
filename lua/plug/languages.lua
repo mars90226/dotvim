@@ -10,6 +10,10 @@ languages.startup = function(use)
     "plasticboy/vim-markdown",
     ft = { "markdown" },
     requires = { "godlygeek/tabular" },
+    config = function()
+      -- TODO: Find a way to retain folding without confusing diff mode
+      vim.g.vim_markdown_folding_disabled = 1
+    end
   })
   use({ "mtdl9/vim-log-highlighting", ft = { "log" } })
   use({ "ClockworkNet/vim-apparmor", ft = { "apparmor" } })
