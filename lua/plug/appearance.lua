@@ -19,8 +19,10 @@ appearance.startup = function(use)
   })
 
   -- Tabline
+  -- TODO: Disable tabby.nvim due to relative large CPU usage in background
   use({
     "nanozuki/tabby.nvim",
+    disable = true,
     -- TODO: Currently highlight is weird when entering command mode
     -- Ref: https://github.com/nanozuki/tabby.nvim/issues/92
     after = "gruvbox.nvim",

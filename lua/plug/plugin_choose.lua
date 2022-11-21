@@ -16,11 +16,11 @@ plugin_choose.setup_appearance = function()
     choose.disable_plugin("winbar")
   end
 
-  -- Choose tabby.nvim
-  -- TODO: Disable luatab.nvim due to not showing current tab when too many tabs
+  -- Choose tabline bundled in statusline
   -- TODO: Disable tabline.nvim due to lack of normal tabline
   -- TODO: Disable barbar.nvim due to slowness
   -- TODO: Is fast in LunarVim, need to study why
+  -- TODO: Disable tabby.nvim due to relative large CPU usage in background
 
   -- Devicons
   -- nvim-web-devicons, vim-devicons

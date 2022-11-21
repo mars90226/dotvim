@@ -42,24 +42,30 @@ lualine.default_option = {
     lualine_z = {},
   },
   -- builtin tabline
-  -- tabline = {
-  --   lualine_a = {},
-  --   lualine_b = {},
-  --   lualine_c = {
-  --     {
-  --       'tabs',
-  --       max_length = vim.o.columns,
-  --       mode = 2,
-  --       tabs_color = {
-  --         -- bg = GruvboxFg2, bg = GruvboxBg2
-  --         active = {fg = '#D4C3A0', bg = '#4F4945'},
-  --       }
-  --     }
-  --   },
-  --   lualine_x = {},
-  --   lualine_y = {},
-  --   lualine_z = {}
-  -- },
+  tabline = {
+    lualine_a = {},
+    lualine_b = { "branch" },
+    lualine_c = { "filename" },
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {
+      {
+        "tabs",
+        max_length = vim.o.columns / 3, -- Maximum width of tabs component.
+                                        -- Note:
+                                        -- It can also be a function that returns
+                                        -- the value of `max_length` dynamically.
+        mode = 2, -- 0: Shows tab_nr
+                  -- 1: Shows tab_name
+                  -- 2: Shows tab_nr + tab_name
+        tabs_color = {
+          -- Same values as the general color option can be used here.
+          active = "TabLineSel", -- Color for active tab.
+          inactive = "TabLine", -- Color for inactive tab.
+        },
+      },
+    },
+  },
 
   -- tabline.nvim
   -- tabline = {
@@ -72,7 +78,7 @@ lualine.default_option = {
   -- },
 
   -- barbar.nvim, luatab.nvim, tabby.nvim
-  tabline = {},
+  -- tabline = {},
   extensions = {
     "fugitive",
     "fzf",
