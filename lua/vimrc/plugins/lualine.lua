@@ -43,27 +43,56 @@ lualine.default_option = {
   },
   -- builtin tabline
   tabline = {
-    lualine_a = {},
-    lualine_b = { "branch" },
-    lualine_c = { "filename" },
+    lualine_a = {
+      {
+        "tabs",
+        max_length = vim.o.columns * 2 / 3, -- Maximum width of tabs component.
+                                            -- Note:
+                                            -- It can also be a function that returns
+                                            -- the value of `max_length` dynamically.
+        mode = 2, -- 0: Shows tab_nr
+                  -- 1: Shows tab_name
+                  -- 2: Shows tab_nr + tab_name
+        -- tabs_color = {
+        --   -- Same values as the general color option can be used here.
+        --   active = "TabLineSel", -- Color for active tab.
+        --   inactive = "TabLine", -- Color for inactive tab.
+        -- },
+      },
+    },
+    lualine_b = {},
+    lualine_c = {},
     lualine_x = {},
     lualine_y = {},
     lualine_z = {
       {
-        "tabs",
-        max_length = vim.o.columns / 3, -- Maximum width of tabs component.
-                                        -- Note:
-                                        -- It can also be a function that returns
+        'windows',
+        show_filename_only = true,   -- Shows shortened relative path when set to false.
+        show_modified_status = true, -- Shows indicator when the window is modified.
+
+        mode = 0, -- 0: Shows window name
+                  -- 1: Shows window index
+                  -- 2: Shows window name + window index
+
+        max_length = vim.o.columns / 3, -- Maximum width of windows component,
+                                        -- it can also be a function that returns
                                         -- the value of `max_length` dynamically.
-        mode = 2, -- 0: Shows tab_nr
-                  -- 1: Shows tab_name
-                  -- 2: Shows tab_nr + tab_name
-        tabs_color = {
-          -- Same values as the general color option can be used here.
-          active = "TabLineSel", -- Color for active tab.
-          inactive = "TabLine", -- Color for inactive tab.
-        },
-      },
+        filetype_names = {
+          TelescopePrompt = 'Telescope',
+          dashboard = 'Dashboard',
+          packer = 'Packer',
+          fzf = 'FZF',
+          alpha = 'Alpha'
+        }, -- Shows specific window name for that filetype ( { `filetype` = `window_name`, ... } )
+
+        disabled_buftypes = { 'quickfix', 'prompt' }, -- Hide a window if its buffer's type is disabled
+
+        -- windows_color = {
+        --   -- Same values as the general color option can be used here.
+        --   active = 'lualine_{section}_normal',     -- Color for active window.
+        --   inactive = 'lualine_{section}_inactive', -- Color for inactive window.
+        -- },
+      }
     },
   },
 
