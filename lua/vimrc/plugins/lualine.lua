@@ -67,17 +67,7 @@ lualine.default_option = {
     },
   },
 
-  -- tabline.nvim
-  -- tabline = {
-  --   lualine_a = {},
-  --   lualine_b = {},
-  --   lualine_c = { require'tabline'.tabline_buffers },
-  --   lualine_x = { require'tabline'.tabline_tabs },
-  --   lualine_y = {},
-  --   lualine_z = {},
-  -- },
-
-  -- barbar.nvim, luatab.nvim, tabby.nvim
+  -- barbar.nvim, tabby.nvim
   -- tabline = {},
   extensions = {
     "fugitive",
