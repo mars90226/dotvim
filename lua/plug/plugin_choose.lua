@@ -12,8 +12,12 @@ plugin_choose.setup_appearance = function()
   -- tabby.nvim, luatab.nvim, tabline.nvim, barbar.nvim, or tabline bundled in statusline
 
   -- Winbar
-  if vim.fn.has("nvim-0.8") == 0 then
-    choose.disable_plugin("winbar")
+  -- custom winbar, lualine.nvim, lspsaga.nvim
+  choose.disable_plugins({ "winbar", "lualine.nvim-winbar", "lspsaga.nvim-winbar" })
+  if vim.fn.has("nvim-0.8") == 1 then
+    -- choose.enable_plugin("winbar")
+    choose.enable_plugin("lualine.nvim-winbar")
+    -- choose.enable_plugin("lspsaga-nvim-winbar")
   end
 
   -- Choose tabline bundled in statusline
@@ -109,7 +113,7 @@ plugin_choose.setup_language = function()
   -- glepnir/lspsaga.nvim, nvim-navic, nvim-gps
   local context_component_plugins = { "lspsaga.nvim-context", "nvim-navic", "nvim-gps" }
   choose.disable_plugins(context_component_plugins)
-  if choose.is_enabled_plugin("winbar") and choose.is_enabled_plugin("nvim-lsp") then
+  if vim.fn.has("nvim-0.8") == 1 and choose.is_enabled_plugin("nvim-lsp") then
     -- NOTE: Disable lspsaga.nvim as it request lsp symbols on every CursorMoved which is too slow
     -- choose.enable_plugin("lspsaga.nvim-context")
     choose.enable_plugin("nvim-navic")

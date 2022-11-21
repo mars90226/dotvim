@@ -98,6 +98,36 @@ lualine.default_option = {
 
   -- barbar.nvim, tabby.nvim
   -- tabline = {},
+
+  winbar = plugin_utils.check_enabled_plugin({
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = vim.tbl_filter(function(component)
+      return component ~= nil
+    end, {
+      { "filename", path = 1 },
+      plugin_utils.check_enabled_plugin({
+        function()
+          return require("nvim-navic").get_location()
+        end,
+        cond = function()
+          return require("nvim-navic").is_available()
+        end,
+      }, "nvim-navic"),
+    }),
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {},
+  }, "lualine.nvim-winbar") or {},
+  inactive_winbar = plugin_utils.check_condition({
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { { "filename", path = 1 } },
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {},
+  }, "lualine.nvim-winbar") or {},
+
   extensions = {
     "fugitive",
     "fzf",
