@@ -92,7 +92,6 @@ appearance.startup = function(use)
   })
 
   -- Winbar
-  -- Managed by lspsaga.nvim, disabled for now
   use_config({
     "mars90226/winbar",
     disable = choose.is_disabled_plugin("winbar"),
