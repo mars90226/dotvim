@@ -132,6 +132,7 @@ lualine.default_option = {
     "fugitive",
     "fzf",
     "man",
+    "mundo",
     "neo-tree",
     "quickfix",
     "symbols-outline",
