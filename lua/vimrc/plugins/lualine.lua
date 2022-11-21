@@ -105,7 +105,7 @@ lualine.default_option = {
     lualine_c = vim.tbl_filter(function(component)
       return component ~= nil
     end, {
-      { "filename", path = 1 },
+      { "filename", path = 1, color = "WinBar" },
       plugin_utils.check_enabled_plugin({
         function()
           return require("nvim-navic").get_location()
@@ -122,7 +122,7 @@ lualine.default_option = {
   inactive_winbar = plugin_utils.check_condition({
     lualine_a = {},
     lualine_b = {},
-    lualine_c = { { "filename", path = 1 } },
+    lualine_c = { { "filename", path = 1, color = "WinBarNC" } },
     lualine_x = {},
     lualine_y = {},
     lualine_z = {},
