@@ -349,6 +349,19 @@ file_navigation.startup = function(use)
             pattern = "/src/(.*)/lib/(.*)/(.*).c$",
             target = "/src/include/%1/%2/%3.h",
           },
+          -- 3-level no src folder
+          {
+            pattern = "/include/(.*)/(.*)/(.*).h$",
+            target = "/%1/lib/%2/%3\\(.cpp\\|.c\\)",
+          },
+          {
+            pattern = "/(.*)/lib/(.*)/(.*).cpp$",
+            target = "/include/%1/%2/%3.h",
+          },
+          {
+            pattern = "/(.*)/lib/(.*)/(.*).c$",
+            target = "/include/%1/%2/%3.h",
+          },
           -- 3-level no lib folder
           {
             pattern = "/src/include/(.*)/(.*)/(.*).h$",
