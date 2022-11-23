@@ -9,7 +9,7 @@ plugin_choose.setup_appearance = function()
   -- lualine.nvim
 
   -- Tabline
-  -- tabby.nvim, luatab.nvim, tabline.nvim, barbar.nvim, or tabline bundled in statusline
+  -- tabby.nvim, barbar.nvim, or tabline bundled in statusline
 
   -- Winbar
   -- custom winbar, lualine.nvim, lspsaga.nvim
@@ -21,7 +21,6 @@ plugin_choose.setup_appearance = function()
   end
 
   -- Choose tabline bundled in statusline
-  -- TODO: Disable tabline.nvim due to lack of normal tabline
   -- TODO: Disable barbar.nvim due to slowness
   -- TODO: Is fast in LunarVim, need to study why
   -- TODO: Disable tabby.nvim due to relative large CPU usage in background
