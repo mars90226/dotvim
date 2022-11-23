@@ -408,6 +408,13 @@ lsp.startup = function(use)
     module = { "rust-tools" },
   })
   use({ "jose-elias-alvarez/nvim-lsp-ts-utils" })
+  -- NOTE: Maybe a little slow?
+  use({
+    "folke/neodev.nvim",
+    config = function()
+      require("neodev").setup({})
+    end
+  })
 
   -- Fold
   -- TODO: Check if folding not work in vimwiki
