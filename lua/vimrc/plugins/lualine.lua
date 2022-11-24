@@ -82,7 +82,8 @@ lualine.default_option = {
           dashboard = 'Dashboard',
           packer = 'Packer',
           fzf = 'FZF',
-          alpha = 'Alpha'
+          alpha = 'Alpha',
+          fugitive = 'Fugitive',
         }, -- Shows specific window name for that filetype ( { `filetype` = `window_name`, ... } )
 
         disabled_buftypes = { 'quickfix', 'prompt' }, -- Hide a window if its buffer's type is disabled
