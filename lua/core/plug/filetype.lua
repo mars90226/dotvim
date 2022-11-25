@@ -84,7 +84,7 @@ filetype.startup = function(use)
         pattern = {
           -- bash
           -- TODO: Create neovim issue
-          ["bash%-fc.*"] = "sh",
+          ["bash%-fc.*"] = { "sh", { priority = -10 } },
 
           -- config
           [".*conf"] = { "conf", { priority = -10 } },
