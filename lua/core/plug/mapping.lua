@@ -442,6 +442,11 @@ mapping.startup = function(use)
       vim.api.nvim_create_user_command("ToggleOpenUrlForceLocal", function()
         require("vimrc.mapping").toggle_open_url_force_local()
       end, {})
+
+      local initial_working_directory = vim.fn.getcwd()
+      vim.api.nvim_create_user_command("ResetWorkingDirectory", function()
+        vim.cmd.cd(initial_working_directory)
+      end, {})
       -- }}}
     end,
   })
