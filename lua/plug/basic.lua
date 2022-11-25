@@ -5,8 +5,7 @@ local basic = {}
 basic.setup_python_host = function()
   -- Python & Python3 setting for Windows & Synology should be in local vim
   -- config
-  local os = plugin_utils.get_os()
-  if os ~= "windows" and os ~= "synology" then
+  if not plugin_utils.os_is("windows") and not plugin_utils.os_is("synology") then
     -- Detect asdf
     -- TODO: asdf is disabled
     -- if plugin_utils.file_readable(vim.env.HOME .. "/.asdf/shims/python") then

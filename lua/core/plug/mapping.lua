@@ -420,7 +420,7 @@ mapping.startup = function(use)
         { nargs = 1 }
       )
 
-      if plugin_utils.get_os() ~= "windows" then
+      if not plugin_utils.os_is("windows") then
         vim.api.nvim_create_user_command("Args", [[echo system("ps -o command= -p " . getpid())]], {})
       end
 

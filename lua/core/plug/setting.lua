@@ -14,7 +14,7 @@ settings.startup = function(use)
 
       -- Vim basic setting {{{
       -- source custom mswin.vim
-      if vim.fn["vimrc#plugin#check#get_os"]() ~= "synology" then
+      if not plugin_utils.os_is("synology") then
         vim.fn["vimrc#source"]("vimrc/mswin.vim")
         vim.cmd([[behave xterm]])
       end

@@ -7,7 +7,7 @@ basic.setup = function ()
   vim.g.maplocalleader = '\\'
 
   -- TODO: No need in neovim?
-  if plugin_utils.get_os() ~= "windows" then
+  if not plugin_utils.os_is("windows") then
     vim.o.encoding = 'utf8'
   end
 

@@ -147,7 +147,7 @@ nvim_treesitter.setup_config = function()
       "make",
       "markdown",
       "markdown_inline",
-      plugin_utils.check_condition("norg", plugin_utils.get_os() ~= "mac"),
+      plugin_utils.check_condition("norg", not plugin_utils.os_is("mac")),
       "perl",
       "php",
       "proto",

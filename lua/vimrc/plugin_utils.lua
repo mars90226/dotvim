@@ -67,6 +67,12 @@ plugin_utils.get_os = function()
   return vim.fn["vimrc#plugin#check#get_os"]()
 end
 
+plugin_utils.os_is = function(target_os)
+  local os = plugin_utils.get_os()
+
+  return string.match(os, target_os) ~= nil
+end
+
 plugin_utils.has_linux_build_env = function()
   return vim.fn["vimrc#plugin#check#has_linux_build_env"]() == 1
 end
