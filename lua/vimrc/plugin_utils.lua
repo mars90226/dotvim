@@ -73,6 +73,13 @@ plugin_utils.os_is = function(target_os)
   return string.match(os, target_os) ~= nil
 end
 
+plugin_utils.get_kernel_version = function()
+  local os = plugin_utils.get_os()
+  local kernel_version = string.sub(string.match(os, "#%d+"), 2)
+
+  return tonumber(kernel_version)
+end
+
 plugin_utils.has_linux_build_env = function()
   return vim.fn["vimrc#plugin#check#has_linux_build_env"]() == 1
 end
@@ -84,5 +91,9 @@ end
 plugin_utils.check_executable = function(plugin_spec, executable)
   return plugin_utils.check_condition(plugin_spec, plugin_utils.is_executable(executable))
 end
+
+plugin_utils.KERNEL_VERSIONS = {
+  SYNOLOGY_DSM_7 = 40000
+}
 
 return plugin_utils

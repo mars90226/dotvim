@@ -5,21 +5,29 @@ local basic = {}
 basic.setup_python_host = function()
   -- Python & Python3 setting for Windows & Synology should be in local vim
   -- config
-  if not plugin_utils.os_is("windows") and not plugin_utils.os_is("synology") then
-    -- Detect asdf
-    -- TODO: asdf is disabled
-    -- if plugin_utils.file_readable(vim.env.HOME .. "/.asdf/shims/python") then
-    --   vim.g.python_host_prog = vim.env.HOME .. "/.asdf/shims/python"
-    -- end
-    -- if plugin_utils.file_readable(vim.env.HOME .. "/.asdf/shims/python3") then
-    --   vim.g.python3_host_prog = vim.env.HOME .. "/.asdf/shims/python3"
-    -- end
+  if plugin_utils.os_is("Linux") then
+    if plugin_utils.os_is("synology") then
+      local kernel_version = plugin_utils.get_kernel_version()
 
-    -- Use default Python & Python3
-    if not vim.g.python_host_prog then
+      if kernel_version > plugin_utils.KERNEL_VERSIONS.SYNOLOGY_DSM_7 then
+        vim.g.python_host_prog = "/bin/python"
+        vim.g.python3_host_prog = "/bin/python3"
+      else
+        vim.g.python_host_prog = "/bin/python"
+        vim.g.python3_host_prog = "/usr/local/bin/python3"
+      end
+    else
+      -- Detect asdf
+      -- TODO: asdf is disabled
+      -- if plugin_utils.file_readable(vim.env.HOME .. "/.asdf/shims/python") then
+      --   vim.g.python_host_prog = vim.env.HOME .. "/.asdf/shims/python"
+      -- end
+      -- if plugin_utils.file_readable(vim.env.HOME .. "/.asdf/shims/python3") then
+      --   vim.g.python3_host_prog = vim.env.HOME .. "/.asdf/shims/python3"
+      -- end
+
+      -- Use default Python & Python3
       vim.g.python_host_prog = "/usr/bin/python"
-    end
-    if not vim.g.python3_host_prog then
       vim.g.python3_host_prog = "/usr/bin/python3"
     end
   end
