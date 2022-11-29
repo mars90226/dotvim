@@ -212,7 +212,7 @@ lsp.on_attach = function(client, bufnr)
   nnoremap("gR", "<Cmd>lua vim.lsp.buf.references()<CR>", "silent", "buffer")
   nnoremap("g0", "<Cmd>lua vim.lsp.buf.document_symbol()<CR>", "silent", "buffer")
   nnoremap("<Space>lf", "<Cmd>lua vim.lsp.buf.format({ async = true })<CR>", "silent", "buffer")
-  xnoremap("<Space>lf", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", "silent", "buffer")
+  vim.keymap.set('x', "<Space>lf", vim.lsp.buf.format, { silent = true, buffer = true })
   nnoremap("<Space>lI", function()
     if vim.fn.exists(":LspInfo") == 2 then
       vim.cmd([[LspInfo]])
@@ -227,7 +227,7 @@ lsp.on_attach = function(client, bufnr)
 
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
   vim.bo.tagfunc = [[v:lua.vim.lsp.tagfunc]]
-  vim.bo.formatexpr = [[v:lua.vim.lsp.formatexpr]]
+  vim.bo.formatexpr = [[v:lua.vim.lsp.formatexpr({})]]
   -- NOTE: Always enable 'signcolumn' on LSP attached buffer to avoid diagnostics keeping toggling 'signcolumn'
   vim.wo.signcolumn = "yes"
 
