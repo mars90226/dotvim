@@ -117,6 +117,7 @@ mapping.startup = function(use)
       -- TODO This overrides jump to mark
       nnoremap("=y", [["+y]])
       xnoremap("=y", [["+y]])
+      nnoremap("=Y", [["+Y]])
       nnoremap("+p", [["+p]])
       xnoremap("+p", [["+p]])
       nnoremap("+P", [["+P]])
