@@ -27,34 +27,30 @@ local move_selection_previous_page = function(prompt_bufnr)
 end
 
 local select_rightbelow_horizontal = function(prompt_bufnr)
-  action_state.get_current_history():append(
-    action_state.get_current_line(),
-    action_state.get_current_picker(prompt_bufnr)
-  )
+  action_state
+    .get_current_history()
+    :append(action_state.get_current_line(), action_state.get_current_picker(prompt_bufnr))
   return action_set.edit(prompt_bufnr, "rightbelow new")
 end
 
 local select_rightbelow_vertical = function(prompt_bufnr)
-  action_state.get_current_history():append(
-    action_state.get_current_line(),
-    action_state.get_current_picker(prompt_bufnr)
-  )
+  action_state
+    .get_current_history()
+    :append(action_state.get_current_line(), action_state.get_current_picker(prompt_bufnr))
   return action_set.edit(prompt_bufnr, "rightbelow vnew")
 end
 
 local switch_or_select = function(prompt_bufnr)
-  action_state.get_current_history():append(
-    action_state.get_current_line(),
-    action_state.get_current_picker(prompt_bufnr)
-  )
+  action_state
+    .get_current_history()
+    :append(action_state.get_current_line(), action_state.get_current_picker(prompt_bufnr))
   return action_set.edit(prompt_bufnr, "Switch")
 end
 
 local switch_or_select_tab = function(prompt_bufnr)
-  action_state.get_current_history():append(
-    action_state.get_current_line(),
-    action_state.get_current_picker(prompt_bufnr)
-  )
+  action_state
+    .get_current_history()
+    :append(action_state.get_current_line(), action_state.get_current_picker(prompt_bufnr))
   return action_set.edit(prompt_bufnr, "TabSwitch")
 end
 
@@ -99,23 +95,12 @@ require("telescope").setup({
         -- Use <M-t> to open in trouble
         ["<M-t>"] = open_with_trouble,
 
-        -- Use <C-W> to delete word
-        -- NOTE: Workaround for <C-W> mapped to window command in prompt buffer
-        -- Ref: https://github.com/nvim-telescope/telescope.nvim/issues/1579
-        ["<C-W>"] = function()
-          vim.cmd([[normal! bcw]])
-        end,
-
-        -- Use <C-a> to go to home
+        -- Use <C-A> to go to home
         -- NOTE: <C-b> is used for eraseSubword
-        ["<C-a>"] = function()
-          vim.cmd([[normal! gI]])
-        end,
+        ["<C-A>"] = { "<C-O>gI", type = "command" },
 
-        -- Use <C-e> to go to end
-        ["<C-e>"] = function()
-          vim.cmd([[normal! $a]])
-        end,
+        -- Use <C-E> to go to end
+        ["<C-E>"] = { "<C-O>A", type = "command" },
 
         -- Use <M-o>/<M-l> to switch or select open/tab
         ["<M-o>"] = switch_or_select,
