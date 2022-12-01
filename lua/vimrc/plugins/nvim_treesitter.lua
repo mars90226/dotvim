@@ -6,7 +6,7 @@ local utils = require("vimrc.utils")
 local nvim_treesitter = {}
 
 nvim_treesitter.enable_config = {
-  highlight_definitions = true,
+  highlight_definitions = false,
   highlight_current_scope = false,
 }
 
