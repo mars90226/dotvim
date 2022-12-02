@@ -105,6 +105,10 @@ require("telescope").setup({
         -- Use <M-o>/<M-l> to switch or select open/tab
         ["<M-o>"] = switch_or_select,
         ["<M-l>"] = switch_or_select_tab,
+
+        -- Use <M-a>/<M-s> to select/drop all
+        ["<M-a>"] = actions.select_all,
+        ["<M-s>"] = actions.drop_all,
       },
       n = {
         -- Use <C-S> to select horizontal
