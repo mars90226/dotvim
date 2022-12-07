@@ -34,9 +34,14 @@ terminal.startup = function(use)
       )
 
       -- Quick terminal function
+      -- For Alt + Function keys, the keycode may be wrong when using "<M-Fn>" in different `$TERM`s.
+      -- When $TERM is `tmux`/`tmux-256color`, the generated keycode for <M-F1> ~ <M-F12> recognized as <F49> ~ <F60> by neovim.
       tnoremap("<M-F1>", [[<C-\><C-N>]])
+      tnoremap("<F49>", [[<C-\><C-N>]]) -- For $TERM = tmux or tmux-256color
       tnoremap("<M-F2>", [[<C-\><C-N>:call vimrc#terminal#open_current_shell('tabnew')<CR>]])
+      tnoremap("<F50>", [[<C-\><C-N>]]) -- For $TERM = tmux or tmux-256color
       tnoremap("<M-F3>", [[<C-\><C-N>:Windows<CR>]])
+      tnoremap("<F51>", [[<C-\><C-N>]]) -- For $TERM = tmux or tmux-256color
 
       -- Quickly switch window in terminal
       tnoremap("<M-S-h>", [[<C-\><C-N><C-W>h]])
