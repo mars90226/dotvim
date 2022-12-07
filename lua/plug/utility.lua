@@ -159,6 +159,7 @@ utility.startup = function(use)
   use({
     "nvim-neorg/neorg",
     ft = { "norg" },
+    cmd = { "Neorg" },
     requires = { "nvim-lua/plenary.nvim" },
     config = function()
       require("neorg").setup({
