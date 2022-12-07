@@ -116,6 +116,8 @@ text_manipulation.startup = function(use)
     cmd = "Tabularize",
   })
 
+  -- Split-Join
+  use("AndrewRadev/splitjoin.vim")
   if choose.is_enabled_plugin("nvim-treesitter") then
     use({
       "AckslD/nvim-trevJ.lua",
@@ -217,7 +219,6 @@ text_manipulation.startup = function(use)
   })
 
   use("editorconfig/editorconfig-vim")
-  use("AndrewRadev/splitjoin.vim")
   use("tpope/vim-repeat")
 end
 
