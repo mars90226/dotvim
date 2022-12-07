@@ -1,3 +1,5 @@
+local choose = require("vimrc.choose")
+
 local text_manipulation = {}
 
 text_manipulation.startup = function(use)
@@ -114,15 +116,52 @@ text_manipulation.startup = function(use)
     cmd = "Tabularize",
   })
 
-  use({
-    "AckslD/nvim-trevJ.lua",
-    keys = { "<Leader>j" },
-    config = function()
-      require("trevj").setup()
+  if choose.is_enabled_plugin("nvim-treesitter") then
+    use({
+      "AckslD/nvim-trevJ.lua",
+      keys = { "<Leader>jr" },
+      requires = { "nvim-treesitter/nvim-treesitter" },
+      config = function()
+        require("trevj").setup()
 
-      nnoremap("<Leader>j", [[<Cmd>lua require('trevj').format_at_cursor()<CR>]])
-    end,
-  })
+        nnoremap("<Leader>jr", [[<Cmd>lua require('trevj').format_at_cursor()<CR>]])
+      end,
+    })
+    use({
+      "Wansmer/treesj",
+      cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
+      keys = { "<Leader>jm", "<Leader>js", "<Leader>jj" },
+      requires = { "nvim-treesitter/nvim-treesitter" },
+      config = function()
+        require("treesj").setup({
+          -- Use default keymaps
+          -- (<space>m - toggle, <space>j - join, <space>s - split)
+          use_default_keymaps = false,
+
+          -- Node with syntax error will not be formatted
+          check_syntax_error = true,
+
+          -- If line after join will be longer than max value,
+          -- node will not be formatted
+          max_join_length = 120,
+
+          -- hold|start|end:
+          -- hold - cursor follows the node/place on which it was called
+          -- start - cursor jumps to the first symbol of the node being formatted
+          -- end - cursor jumps to the last symbol of the node being formatted
+          cursor_behavior = "hold",
+
+          -- Notify about possible problems or not
+          notify = true,
+          -- langs = langs,
+        })
+
+        nnoremap("<Leader>jm", [[<Cmd>TSJToggle<CR>]])
+        nnoremap("<Leader>js", [[<Cmd>TSJSplit<CR>]])
+        nnoremap("<Leader>jj", [[<Cmd>TSJJoin<CR>]])
+      end,
+    })
+  end
 
   -- Increment/Decrement
   use({

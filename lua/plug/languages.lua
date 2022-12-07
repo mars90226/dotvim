@@ -42,8 +42,8 @@ languages.startup = function(use)
     use({
       "nvim-treesitter/playground",
       cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
-      requires = { "nvim-treesitter/nvim-treesitter" },
       keys = { "<Space>hp", "<Space>hh" },
+      requires = { "nvim-treesitter/nvim-treesitter" },
       config = function()
         require("nvim-treesitter.configs").setup({
           playground = {
