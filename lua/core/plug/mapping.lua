@@ -293,7 +293,7 @@ mapping.startup = function(use)
       xnoremap("<Space>sw", [[d:execute 'normal i'.vimrc#utility#sort_copied_words()<CR>]], "<silent>")
 
       -- Retab
-      nnoremap("<Space>r5", [[:%retab<CR>]])
+      nnoremap("<Space>r5", [[:%retab!<CR>]])
 
       -- Select Mode
       snoremap("<CR>", [[<C-O>c]])
