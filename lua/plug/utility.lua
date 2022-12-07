@@ -262,6 +262,7 @@ utility.startup = function(use)
           "gitrebase",
           "gitsendemail",
           "man",
+          "norg",
         },
         buftype_exclude = { "nofile", "terminal" },
         show_current_context = true,
