@@ -354,12 +354,18 @@ nvim_treesitter.setup_performance_trick = function()
   })
   local tab_idle_disabled_modules = global_idle_disabled_modules
 
+  local global_trick_delay_enable = false
+  local global_trick_delay = 10 * 1000 -- 10 seconds
   vim.api.nvim_create_autocmd({ "FocusGained" }, {
     group = augroup_id,
     pattern = "*",
     callback = function()
-      for _, module in ipairs(global_idle_disabled_modules) do
-        configs_commands.TSEnable.run(module)
+      if global_trick_delay_enable then
+        global_trick_delay_enable = false
+      else
+        for _, module in ipairs(global_idle_disabled_modules) do
+          configs_commands.TSEnable.run(module)
+        end
       end
     end,
   })
@@ -376,9 +382,17 @@ nvim_treesitter.setup_performance_trick = function()
     group = augroup_id,
     pattern = "*",
     callback = function()
-      for _, module in ipairs(global_idle_disabled_modules) do
-        configs_commands.TSDisable.run(module)
-      end
+      global_trick_delay_enable = true
+
+      vim.defer_fn(function()
+        if global_trick_delay_enable then
+          for _, module in ipairs(global_idle_disabled_modules) do
+            configs_commands.TSDisable.run(module)
+          end
+
+          global_trick_delay_enable = false
+        end
+      end, global_trick_delay)
     end,
   })
 
