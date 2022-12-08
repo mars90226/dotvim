@@ -120,6 +120,17 @@ nvim_treesitter.setup_parser_config = function()
     },
     maintainers = { "@IndianBoy42" },
   }
+
+  -- TODO: Use repo in https://github.com/serenadeai/tree-sitter-scss/pull/19
+  parser_configs.scss = {
+    install_info = {
+      url = "https://github.com/goncharov/tree-sitter-scss",
+      files = { "src/parser.c", "src/scanner.c" },
+      branch = "placeholders",
+      revision = "30c9dc19d3292fa8d1134373f0f0abd8547076e8",
+    },
+    maintainers = { "@goncharov" },
+  }
 end
 
 nvim_treesitter.setup_config = function()
@@ -167,6 +178,7 @@ nvim_treesitter.setup_config = function()
       "yaml",
     }),
     ignore_install = {},
+    -- update_strategy = "github", -- Enable when installing alternative parsers for built-in parsers
     highlight = {
       enable = true,
       disable = base_disable_check,
