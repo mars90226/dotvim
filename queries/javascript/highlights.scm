@@ -1,1 +1,3 @@
+;; extends
+
 (undefined) @constant.builtin

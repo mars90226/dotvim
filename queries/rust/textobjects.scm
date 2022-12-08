@@ -1,3 +1,5 @@
+;; extends
+
 (_) @node
 
 (array_expression (_) @swappable)
