@@ -350,6 +350,7 @@ utility.startup = function(use)
 
       vim.api.nvim_create_user_command("TZForCopy", function()
         vim.wo.list = not vim.wo.list
+        require("vimrc.lsp").toggle_show_diagnostics()
         vim.cmd([[IndentBlanklineToggle]])
         vim.cmd([[TZMinimalist]])
       end, {})
