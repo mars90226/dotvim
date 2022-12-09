@@ -114,6 +114,12 @@ utility.startup = function(use)
         -- or leave it empty to use the default settings
         -- refer to the configuration section below
         ignore_lsp = { "null-ls" },
+
+        -- What scope to change the directory, valid options are
+        -- * global (default)
+        -- * tab
+        -- * win
+        scope_chdir = 'win',
       })
       require("telescope").load_extension("projects")
 
