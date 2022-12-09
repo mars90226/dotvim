@@ -76,6 +76,7 @@ utility.startup = function(use)
   })
 
   -- Colors
+  -- TODO: Change ColorV global leader to avoid key mapping conflict
   use({
     "gu-fan/colorv.vim",
     cmd = { "ColorV", "ColorVName", "ColorVView" },
