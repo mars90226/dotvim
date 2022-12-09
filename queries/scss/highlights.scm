@@ -9,3 +9,9 @@
 
 ;; $variable
 (variable_value) @variable
+
+;; @if
+"@if" @conditional
+
+;; ==
+"==" @operator
