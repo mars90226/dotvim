@@ -255,10 +255,10 @@ endfunction
 
 " Git commit command {{{
 if vimrc#plugin#check#git_version() >=# 'git version 2.19.0'
-  let s:git_grep_commit_command = 'git grep -nP --column'
+  let s:git_grep_commit_command = 'git grep -nP --full-name --column'
   let s:git_grep_with_column = v:true
 else
-  let s:git_grep_commit_command = 'git grep -nP'
+  let s:git_grep_commit_command = 'git grep -nP --full-name'
   let s:git_grep_with_column = v:false
 endif
 function! vimrc#fzf#git#grep_commits(commits, query, ...) abort
@@ -375,7 +375,7 @@ function! vimrc#fzf#git#diff_commits(start_commit, end_commit) abort
         \ 'options': ['-m', '-s', '--prompt', 'GitDiffCommits> ', '--preview-window', 'right:50%', '--preview', preview_command]}, 0))
 endfunction
 
-let s:git_files_commit_command = 'git ls-tree -r --name-only'
+let s:git_files_commit_command = 'git ls-tree -r --name-only --full-tree'
 function! vimrc#fzf#git#files_commit(commit) abort
   " TODO Think of a better way to avoid temp file and can still let bat detect language
   " Depends on bat
