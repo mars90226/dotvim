@@ -33,13 +33,23 @@ utility.startup = function(use)
   use({
     "tpope/vim-unimpaired",
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
+    setup = function()
+      vim.g.nremap = {
+        -- url encode/decode
+        ["[u"] = [[\[u]],
+        ["]u"] = [[\]u]],
+        ["[uu"] = [[\[uu]],
+        ["]uu"] = [[\]uu]],
+
+        -- xml encode/decode
+        ["[x"] = [[\[x]],
+        ["]x"] = [[\]x]],
+        ["[xx"] = [[\[xx]],
+        ["]xx"] = [[\]xx]],
+      }
+    end,
     config = function()
       local utils = require("vimrc.utils")
-
-      nmap([[\[u]], "<Plug>unimpaired_url_encode")
-      nmap([[\[uu]], "<Plug>unimpaired_line_url_encode")
-      nmap([[\]u]], "<Plug>unimpaired_url_decode")
-      nmap([[\]uu]], "<Plug>unimpaired_line_url_decode")
 
       nnoremap("coc", ":set termguicolors!<CR>")
       nnoremap("coe", ":set expandtab!<CR>")
@@ -454,6 +464,12 @@ utility.startup = function(use)
 
       nnoremap("<F8>", "<Cmd>TodoTrouble<CR>")
       nnoremap("<Space><F8>", "<Cmd>TodoTelescope<CR>")
+      nnoremap("[x", function()
+        require("todo-comments").jump_prev()
+      end, { desc = "Previous todo comment"})
+      nnoremap("]x", function()
+        require("todo-comments").jump_next()
+      end, { desc = "Next todo comment"})
     end,
   })
 
