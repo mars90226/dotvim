@@ -342,6 +342,15 @@ function! vimrc#defx#mappings() abort " {{{ abort
           \ defx#do_action('call', 'vimrc#defx#show_image')
   endif
 
+  nnoremap <silent><buffer><expr> <Leader>gv
+        \ defx#do_action('call', 'vimrc#defx#gv_show_file')
+  nnoremap <silent><buffer><expr> <Leader>gV
+        \ defx#do_action('call', 'vimrc#defx#gv_show_file_by_me')
+  nnoremap <silent><buffer><expr> <Leader>gf
+        \ defx#do_action('call', 'vimrc#defx#flog_show_file')
+  nnoremap <silent><buffer><expr> <Leader>gF
+        \ defx#do_action('call', 'vvimrc#defx#flog_show_file_by_me')
+
   " TODO: Add buffer output:map
 
   cnoremap <buffer><expr> <C-X>d
@@ -674,6 +683,32 @@ function! vimrc#defx#show_image(context) abort
   " So the image is not fully renderred in terminal.
   " So we add a little sleep time to wait for renderring.
   call vimrc#defx#execute_file_internal(a:context, 'float', 'viu {}; sleep 0.1')
+endfunction
+
+" Depends on GV
+function! vimrc#defx#gv_show_file(context) abort
+  let file = vimrc#defx#get_target()
+
+  call vimrc#gv#show_file(file, {})
+endfunction
+
+function! vimrc#defx#gv_show_file_by_me(context) abort
+  let file = vimrc#defx#get_target()
+
+  call vimrc#gv#show_file(file, {'author': g:company_email})
+endfunction
+
+" Depends on Flog
+function! vimrc#defx#flog_show_file(context) abort
+  let file = vimrc#defx#get_target()
+
+  call vimrc#flog#show_file(file, {})
+endfunction
+
+function! vimrc#defx#flog_show_file_by_me(context) abort
+  let file = vimrc#defx#get_target()
+
+  call vimrc#flog#show_file(file, {'author': g:company_email})
 endfunction
 
 " Command line function
