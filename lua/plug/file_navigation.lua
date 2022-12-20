@@ -182,6 +182,12 @@ file_navigation.startup = function(use)
       require("telescope").load_extension("command_palette")
     end,
   })
+  use({
+    "debugloop/telescope-undo.nvim",
+    config = function()
+      require("telescope").load_extension("undo")
+    end,
+  })
 
   if choose.is_enabled_plugin("telescope-fzf-native.nvim") then
     use({

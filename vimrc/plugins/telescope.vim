@@ -83,3 +83,6 @@ nnoremap <Space>tn <Cmd>Telescope yank_history<CR>
 
 " Command palette
 nnoremap <Space>m <Cmd>Telescope command_palette<CR>
+
+" Undo
+nnoremap <Space>tU <Cmd>Telescope undo<CR>
