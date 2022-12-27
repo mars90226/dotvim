@@ -107,6 +107,7 @@ filetype.startup = function(use)
           ["strings%-virtual%-.*"] = "dosini",
           [".*/conf/resource.*"] = { "json", { priority = 10 } },
           [".*/conf/privilege.*"] = { "json", { priority = 10 } },
+          [".*/conf/PKG_DEPS.*"] = { "dosini", { priority = 10 } },
           [".*/backup/export"] = "sh",
           [".*/backup/import"] = "sh",
           [".*/backup/can_export"] = "sh",
