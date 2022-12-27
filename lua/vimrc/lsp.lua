@@ -165,6 +165,7 @@ lsp.servers = {
   --   end,
   -- },
   vimls = {},
+  vuels = {},
   -- TODO: add settings for schemas
   yamlls = {},
   -- NOTE: Failed to install zk 0.11.1, try marksman
