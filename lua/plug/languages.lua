@@ -13,7 +13,7 @@ languages.startup = function(use)
     config = function()
       -- TODO: Find a way to retain folding without confusing diff mode
       vim.g.vim_markdown_folding_disabled = 1
-    end
+    end,
   })
   use({ "mtdl9/vim-log-highlighting", ft = { "log" } })
   use({ "ClockworkNet/vim-apparmor", ft = { "apparmor" } })
@@ -138,14 +138,20 @@ languages.startup = function(use)
         xnoremap("<M-S-k>", [[<Cmd>STSSwapPrevVisual<CR>]], "silent")
 
         -- Targeted jump
+        -- Default desired types according to syntax-tree-surfer
+        -- Ref: https://github.com/ziontee113/syntax-tree-surfer/blob/master/lua/syntax-tree-surfer/init.lua#L371-L380
+        nnoremap(
+          "<M-e>e",
+          [[<Cmd>lua require("syntax-tree-surfer").targeted_jump({"function", "if_statement", "else_clause", "else_statement", "elseif_statement", "for_statement", "while_statement", "switch_statement"})<CR>]]
+        )
         nnoremap(
           "<M-e>i",
           [[<Cmd>lua require("syntax-tree-surfer").targeted_jump({"string", "string_literal","number", "number_literal","true","false"})<CR>]]
         )
 
         -- filtered jump
-        nnoremap("<M-S-n>", [[<Cmd>lua require("syntax-tree-surfer").filtered_jump("default", true)<CR>]], "silent")
-        nnoremap("<M-S-p>", [[<Cmd>lua require("syntax-tree-surfer").filtered_jump("default", false)<CR>]], "silent")
+        nnoremap("<M-s>n", [[<Cmd>lua require("syntax-tree-surfer").filtered_jump("default", true)<CR>]], "silent")
+        nnoremap("<M-s>p", [[<Cmd>lua require("syntax-tree-surfer").filtered_jump("default", false)<CR>]], "silent")
       end,
     })
     use({
