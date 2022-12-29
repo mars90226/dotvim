@@ -96,10 +96,13 @@ text_objects.startup = function(use)
       -- 1. nearEoL use `n` which is conflict with nvim-hlslens.
       -- 2. cssSelector use `ic`, `ac` which is conflict with nvim-treesitter-textobjects.
       require("various-textobjs").setup({ useDefaultKeymaps = true })
+
+      -- restOfParagraph
+      vim.keymap.del({"o", "x"}, "r")
+      vim.keymap.set({"o", "x"}, "ir", function () require("various-textobjs").restOfParagraph() end, { desc = "restOfParagraph textobj"})
     end,
   })
 
-  use("michaeljsmith/vim-indent-object")
   use("glts/vim-textobj-comment")
 end
 
