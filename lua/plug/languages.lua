@@ -88,12 +88,8 @@ languages.startup = function(use)
         requires = { "nvim-treesitter/nvim-treesitter" },
         config = function()
           require("spellsitter").setup()
-
-          vim.go.spell = true
         end,
       })
-    else
-      vim.go.spell = true
     end
     use({
       "m-demare/hlargs.nvim",
