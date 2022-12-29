@@ -82,13 +82,19 @@ languages.startup = function(use)
       "RRethy/nvim-treesitter-textsubjects",
       requires = { "nvim-treesitter/nvim-treesitter" },
     })
-    use({
-      "lewis6991/spellsitter.nvim",
-      requires = { "nvim-treesitter/nvim-treesitter" },
-      config = function()
-        require("spellsitter").setup()
-      end,
-    })
+    if choose.is_enabled_plugin("spellsitter.nvim") then
+      use({
+        "lewis6991/spellsitter.nvim",
+        requires = { "nvim-treesitter/nvim-treesitter" },
+        config = function()
+          require("spellsitter").setup()
+
+          vim.go.spell = true
+        end,
+      })
+    else
+      vim.go.spell = true
+    end
     use({
       "m-demare/hlargs.nvim",
       requires = { "nvim-treesitter/nvim-treesitter" },

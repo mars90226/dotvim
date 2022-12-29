@@ -132,6 +132,12 @@ plugin_choose.setup_language = function()
       break
     end
   end
+
+  -- Choose spellsitter plugin
+  -- neovim 0.8, spellsitter.nvim
+  if vim.fn.has("nvim-0.8") == 1 then
+    choose.disable_plugin("spellsitter.nvim")
+  end
 end
 
 plugin_choose.setup_misc = function()
