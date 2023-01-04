@@ -145,12 +145,12 @@ languages.startup = function(use)
         nnoremap(
           "<M-e>e",
           [[<Cmd>lua require("syntax-tree-surfer").targeted_jump({"function", "if_statement", "else_clause", "else_statement", "elseif_statement", "for_statement", "while_statement", "switch_statement"})<CR>]],
-          { desc = "Statement targeted jump" }
+          { desc = "Default targeted jump" }
         )
         nnoremap(
           "<M-e>i",
           [[<Cmd>lua require("syntax-tree-surfer").targeted_jump({"string", "string_literal","number", "number_literal","true","false"})<CR>]],
-          { desc = "Default targeted jump" }
+          { desc = "literal targeted jump" }
         )
 
         -- filtered jump
