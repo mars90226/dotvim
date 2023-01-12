@@ -149,7 +149,7 @@ plugin_choose.setup_misc = function()
   -- builtin vim.highlight
 
   -- Disable vim-gutentags when in nested neovim
-  if vim.fn["vimrc#plugin#check#nvim_terminal"]() == "yes" then
+  if vim.fn["vimrc#plugin#check#in_nvim_terminal"]() == 1 then
     choose.disable_plugin("vim-gutentags")
   end
 

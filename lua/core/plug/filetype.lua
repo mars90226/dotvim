@@ -101,6 +101,9 @@ filetype.startup = function(use)
           [".*maillog%.%d+"] = "messages",
           [".*maillog%.%d+%.xz"] = "messages",
 
+          -- nginx
+          [".*/www/.*%.conf"] = { "nginx", { priority = 10 } },
+
           -- project
           ["depends%-virtual%-.*"] = "dosini",
           ["settings%-virtual%-.*"] = "dosini",

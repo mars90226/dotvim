@@ -6,7 +6,7 @@ from pynvim import attach
 
 
 def get_buffer_content(tab, win, lines):
-    nvim = attach("socket", path=os.getenv("NVIM_LISTEN_ADDRESS"))
+    nvim = attach("socket", path=os.getenv("NVIM"))
     win_id = nvim.call("win_getid", win, tab)
     win_height = nvim.call("winheight", win_id)
     buffer_handle = nvim.call("winbufnr", win_id)
