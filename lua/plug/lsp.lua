@@ -47,13 +47,15 @@ lsp.startup = function(use)
       local saga = require("lspsaga")
       local choose = require("vimrc.choose")
 
-      saga.init_lsp_saga({
-        code_action_lightbulb = {
+      saga.setup({
+        lightbulb = {
           enable = true, -- NOTE: lspsaga will show error once when lsp not support codeAction
+          enable_in_insert = true,
           sign = true,
-          sign_priority = 20,
+          sign_priority = 40,
           virtual_text = false,
         },
+        -- TODO: Check if lspsaga.nvim symbol is greater than nvim-navic
         symbol_in_winbar = {
           enable = choose.is_enabled_plugin("lspsaga.nvim-winbar") and choose.is_enabled_plugin("lspsaga.nvim-context"),
           click_support = function(node, clicks, button, modifiers)
