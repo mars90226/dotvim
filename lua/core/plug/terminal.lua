@@ -41,6 +41,7 @@ terminal.startup = function(use)
       tnoremap("<F49>", [[<C-\><C-N>]]) -- For $TERM = tmux or tmux-256color
       tnoremap("<M-F2>", [[<C-\><C-N>:call vimrc#terminal#open_current_shell('tabnew')<CR>]])
       tnoremap("<F50>", [[<C-\><C-N>]]) -- For $TERM = tmux or tmux-256color
+      -- FIXME: Not working now
       tnoremap("<M-F3>", [[<C-\><C-N>:Windows<CR>]])
       tnoremap("<F51>", [[<C-\><C-N>]]) -- For $TERM = tmux or tmux-256color
 
