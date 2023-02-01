@@ -157,6 +157,7 @@ file_navigation.startup = function(use)
               { "keymaps", ":lua require('telescope.builtin').keymaps()" },
               { "buffers", ":Telescope buffers" },
               { "search history (C-h)", ":lua require('telescope.builtin').search_history()" },
+              { "windows", ":Telescope tele_tabby list" },
               { "paste mode", ":set paste!" },
               { "cursor line", ":set cursorline!" },
               { "cursor column", ":set cursorcolumn!" },
