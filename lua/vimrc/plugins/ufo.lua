@@ -40,4 +40,56 @@ ufo.fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
   return newVirtText
 end
 
+ufo.setup = function()
+  local origin_ufo = require("ufo")
+
+  -- TODO: Display fold symbol in foldcolumn
+  -- Ref: https://github.com/kevinhwang91/nvim-ufo/issues/4#issuecomment-1157716294
+  vim.wo.foldcolumn = "0"
+  vim.wo.foldlevel = 99 -- feel free to decrease the value
+  vim.wo.foldenable = true
+  vim.o.foldlevelstart = 99
+
+  nnoremap("<F10>", function()
+    ufo.toggle_treesitter()
+  end)
+
+  origin_ufo.setup({
+    open_fold_hl_timeout = 150,
+    close_fold_kinds = { "imports", "comment" },
+    fold_virt_text_handler = ufo.fold_virt_text_handler,
+    provider_selector = ufo.provider_selector,
+  })
+
+  vim.keymap.set("n", "zR", origin_ufo.openAllFolds)
+  vim.keymap.set("n", "zM", origin_ufo.closeAllFolds)
+  vim.keymap.set("n", "zr", origin_ufo.openFoldsExceptKinds)
+  vim.keymap.set("n", "zm", origin_ufo.closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
+  vim.keymap.set("n", "K", function()
+    local winid = origin_ufo.peekFoldedLinesUnderCursor()
+    if not winid then
+      -- fallback to 'keywordprg'
+      vim.api.nvim_feedkeys("K", "n", false)
+    end
+  end)
+
+  -- Performance trick
+  -- Ref: nvim_treesitter.lua performance trick
+  local augroup_id = vim.api.nvim_create_augroup("nvim_ufo_settings", {})
+  vim.api.nvim_create_autocmd({ "FocusGained" }, {
+    group = augroup_id,
+    pattern = "*",
+    callback = function()
+      vim.cmd([[UfoEnable]])
+    end,
+  })
+  vim.api.nvim_create_autocmd({ "FocusLost" }, {
+    group = augroup_id,
+    pattern = "*",
+    callback = function()
+      vim.cmd([[UfoDisable]])
+    end,
+  })
+end
+
 return ufo

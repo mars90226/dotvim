@@ -178,56 +178,7 @@ lsp.startup = function(use)
     "kevinhwang91/nvim-ufo",
     requires = "kevinhwang91/promise-async",
     config = function()
-      local ufo = require("ufo")
-      local my_ufo = require("vimrc.plugins.ufo")
-
-      -- TODO: Display fold symbol in foldcolumn
-      -- Ref: https://github.com/kevinhwang91/nvim-ufo/issues/4#issuecomment-1157716294
-      vim.wo.foldcolumn = "0"
-      vim.wo.foldlevel = 99 -- feel free to decrease the value
-      vim.wo.foldenable = true
-      vim.o.foldlevelstart = 99
-
-      nnoremap("<F10>", function()
-        my_ufo.toggle_treesitter()
-      end)
-
-      ufo.setup({
-        open_fold_hl_timeout = 150,
-        close_fold_kinds = { "imports", "comment" },
-        fold_virt_text_handler = my_ufo.fold_virt_text_handler,
-        provider_selector = my_ufo.provider_selector,
-      })
-
-      vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-      vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
-      vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
-      vim.keymap.set("n", "zm", require("ufo").closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
-      vim.keymap.set("n", "K", function()
-        local winid = require("ufo").peekFoldedLinesUnderCursor()
-        if not winid then
-          -- fallback to 'keywordprg'
-          vim.api.nvim_feedkeys("K", "n", false)
-        end
-      end)
-
-      -- Performance trick
-      -- Ref: nvim_treesitter.lua performance trick
-      local augroup_id = vim.api.nvim_create_augroup("nvim_ufo_settings", {})
-      vim.api.nvim_create_autocmd({ "FocusGained" }, {
-        group = augroup_id,
-        pattern = "*",
-        callback = function()
-          vim.cmd([[UfoEnable]])
-        end,
-      })
-      vim.api.nvim_create_autocmd({ "FocusLost" }, {
-        group = augroup_id,
-        pattern = "*",
-        callback = function()
-          vim.cmd([[UfoDisable]])
-        end,
-      })
+      require("vimrc.plugins.ufo").setup()
     end,
   })
 end
