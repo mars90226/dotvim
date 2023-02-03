@@ -19,48 +19,7 @@ appearance.startup = function(use)
   })
 
   -- Tabline
-  -- TODO: Disable tabby.nvim due to relative large CPU usage in background
-  use({
-    "nanozuki/tabby.nvim",
-    disable = true,
-    -- TODO: Currently highlight is weird when entering command mode
-    -- Ref: https://github.com/nanozuki/tabby.nvim/issues/92
-    after = "gruvbox.nvim",
-    config = function()
-      vim.o.showtabline = 2
-
-      require("tabby.tabline").use_preset("tab_only", {
-        theme = {
-          fill = "TabLineFill", -- tabline background
-          head = "TabLine", -- head element highlight
-          current_tab = "TabLineSel", -- current tab label highlight
-          tab = "TabLine", -- other tab label highlight
-          win = "TabLine", -- window highlight
-          tail = "TabLine", -- tail element highlight
-        },
-        nerdfont = true, -- whether use nerdfont
-        buf_name = {
-          mode = "'unique'|'relative'|'tail'|'shorten'",
-        },
-      })
-
-      -- NOTE: Sometimes, 'tabline' will become empty due to unknown reason.
-      -- Error messages:
-      -- || Error detected while processing function
-      -- || TabbyTabline[1]
-      -- || E5108: Error executing lua vim/shared.lua:0: invalid type name: nil
-      -- || stack traceback:
-      -- || 	[C]: in function 'error'
-      -- || 	vim/shared.lua: in function 'validate'
-      -- || 	vim/shared.lua: in function 'tbl_extend'
-      -- || 	.../site/pack/packer/start/tabby.nvim/lua/tabby/element.lua:98: in function 'render_text'
-      -- || 	...ite/pack/packer/start/tabby.nvim/lua/tabby/component.lua:37: in function <...ite/pack/packer/start/tabby.nvim/lua/tabby/component.lua:31>
-      -- || 	vim/shared.lua: in function 'tbl_map'
-      -- || 	.../site/pack/packer/start/tabby.nvim/lua/tabby/tabline.lua:146: in function 'update'
-      -- || 	[string "luaeval()"]:1: in main chunk
-      vim.cmd([[command! FixTabbyTabline set tabline=%!TabbyRenderTabline()]])
-    end,
-  })
+  -- NOTE: Use lualine.nvim tabline
 
   -- Sidebar
   use({
@@ -291,16 +250,7 @@ appearance.startup = function(use)
   })
 
   -- Scrollbar
-  use({
-    "dstein64/nvim-scrollview",
-    disable = true,
-    config = function()
-      vim.cmd([[augroup nvim_scrollview_exclude_diff]])
-      vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd DiffUpdated * execute &diff ? 'ScrollViewDisable' : 'ScrollViewEnable']])
-      vim.cmd([[augroup END]])
-    end,
-  })
+  -- TODO: Try https://github.com/petertriho/nvim-scrollbar instead
 
   -- Notify
   use({

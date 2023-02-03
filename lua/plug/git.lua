@@ -183,17 +183,6 @@ git.startup = function(use)
     end,
   })
 
-  -- TODO: experimental
-  use({
-    "ipod825/igit.nvim",
-    -- FIXME: "igit" filetype syntax not work
-    disable = true,
-    requires = { "nvim-lua/plenary.nvim", "ipod825/libp.nvim" },
-    config = function()
-      require("igit").setup()
-    end,
-  })
-
   use({
     "akinsho/git-conflict.nvim",
     cmd = { "GitConflictRefresh", "GitConflictNextConflict", "GitConflictPrevConflict" },
