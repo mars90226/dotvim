@@ -116,6 +116,7 @@ languages.startup = function(use)
         { "nvim-treesitter/nvim-treesitter" },
       },
       config = function()
+        -- TODO: Extract into setup function
         local refactoring = require("vimrc.plugins.refactoring")
         local has_secret_refactoring, secret_refactoring = pcall(require, "secret.refactoring")
         local config = {}
