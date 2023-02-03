@@ -79,7 +79,8 @@ lsp.servers = {
       })
     end,
   },
-  cmake = {},
+  -- NOTE: Replaced by neocmake
+  -- cmake = {},
   denols = {
     init_options = {
       enable = true,
@@ -87,6 +88,7 @@ lsp.servers = {
       unstable = true,
     },
   },
+  esbonio = {},
   -- TODO: Suppress the error log of not finding eslint in local repo
   eslint = {},
   gopls = {
@@ -115,6 +117,7 @@ lsp.servers = {
     },
   },
   marksman = {},
+  neocmake = {},
   perlnavigator = {},
   -- pyls_ms = {},
   -- NOTE: use plugins: pyflakes, pycodestyle, pyls-flake8, pylsp-mypy, python-lsp-black
