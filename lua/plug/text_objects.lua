@@ -97,9 +97,19 @@ text_objects.startup = function(use)
       -- 2. cssSelector use `ic`, `ac` which is conflict with nvim-treesitter-textobjects.
       require("various-textobjs").setup({ useDefaultKeymaps = true })
 
+      -- `aN` for outer number, `iN` for inner number
+      vim.keymap.del({"o", "x"}, "an")
+      vim.keymap.del({"o", "x"}, "in")
+      vim.keymap.set({"o", "x"}, "aN", function () require("various-textobjs").number(false) end, { desc = "outer number textobj"})
+      vim.keymap.set({"o", "x"}, "iN", function () require("various-textobjs").number(true) end, { desc = "inner number textobj"})
+
       -- restOfParagraph
       vim.keymap.del({"o", "x"}, "r")
       vim.keymap.set({"o", "x"}, "ir", function () require("various-textobjs").restOfParagraph() end, { desc = "restOfParagraph textobj"})
+
+      -- url
+      vim.keymap.del({"o", "x"}, "L")
+      vim.keymap.set({"o", "x"}, "U", function () require("various-textobjs").url() end, { desc = "url textobj"})
     end,
   })
 
