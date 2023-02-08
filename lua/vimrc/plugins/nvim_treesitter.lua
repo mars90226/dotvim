@@ -14,10 +14,12 @@ nvim_treesitter.line_threshold = {
   base = {
     cpp = 30000,
     javascript = 30000,
+    perl = 10000,
   },
   extension = {
     cpp = 10000,
     javascript = 3000,
+    perl = 3000,
   },
 }
 
