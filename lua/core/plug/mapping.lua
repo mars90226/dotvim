@@ -95,6 +95,17 @@ mapping.startup = function(use)
       -- Change current window working directory to folder containing current buffer
       nnoremap("<Leader>dh", [[:lcd %:h<CR>]])
 
+      -- Change current window working directory to git root folder
+      nnoremap("<Leader>dg", function()
+        if vim.fn["FugitiveIsGitDir"]() == 0 then
+          vim.notify("Not in a git repository: "..vim.fn.expand('%:p'))
+          return
+        end
+
+        local git_root_folder = vim.fn["FugitiveWorkTree"]()
+        vim.cmd.lcd(git_root_folder)
+      end, { desc = "Change current window working directory to git root folder"})
+
       -- Horizontally scroll to center of window, like horizontal 'zz'
       nnoremap("zc", [[zszH]])
 

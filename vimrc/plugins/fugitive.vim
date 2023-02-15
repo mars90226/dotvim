@@ -25,7 +25,7 @@ nnoremap <silent> <Leader>gL :0Gclog<CR>
 xnoremap <silent> <Leader>gl :<C-U>execute 'Git log -L '.getpos("'<")[1].','.getpos("'>")[1].':%'<CR>
 nnoremap <silent> <Leader>gP :Git log -p -- %<CR>
 nnoremap <silent> <Leader>gr :Gread<CR>
-nnoremap <silent> <Leader>gR :Gread<space>
+nnoremap <silent> <Leader>gR :Gread<Space>
 nnoremap <silent> <Leader>gu :Gsplit HEAD<CR>
 nnoremap <silent> <Leader>gw :Gwrite<CR>
 nnoremap <silent> <Leader>gW :Gwrite!<CR>
