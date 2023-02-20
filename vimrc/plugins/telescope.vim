@@ -4,24 +4,29 @@ nnoremap <Space>ta <Cmd>Telescope loclist<CR>
 nnoremap <Space>tb <Cmd>Telescope buffers<CR>
 nnoremap <Space>tc <Cmd>Telescope git_bcommits<CR>
 nnoremap <Space>tC <Cmd>Telescope git_commits<CR>
-nnoremap <Space>te <Cmd>execute 'Telescope grep_string use_regex=true search_dirs='.input('Folder: ').' search='.input('Rg: ')<CR>
-nnoremap <Space>tf <Cmd>Telescope find_files<CR>
+" NOTE: Use telescope-menufacture grep_string
+" nnoremap <Space>te <Cmd>execute 'Telescope grep_string use_regex=true search_dirs='.input('Folder: ').' search='.input('Rg: ')<CR>
+" NOTE: Use telescope-menufacture find_files
+" nnoremap <Space>tf <Cmd>Telescope find_files<CR>
 nnoremap <Space>tF <Cmd>Telescope find_files hidden=true no_ignore=true<CR>
 nnoremap <Space>tg <Cmd>Telescope git_files<CR>
 nnoremap <Space>th <Cmd>Telescope help_tags<CR>
-nnoremap <Space>ti <Cmd>Telescope live_grep<CR>
+" NOTE: Use telescope-menufacture live_grep
+" nnoremap <Space>ti <Cmd>Telescope live_grep<CR>
 nnoremap <Space>tI <Cmd>Telescope live_grep_args<CR>
 nnoremap <Space>tj <Cmd>Telescope jumplist<CR>
-nnoremap <Space>tk <Cmd>execute 'Telescope grep_string use_regex=true search='.expand('<cword>')<CR>
-nnoremap <Space>tK <Cmd>execute 'Telescope grep_string use_regex=true search='.expand('<cWORD>')<CR>
-nnoremap <Space>t8 <Cmd>execute 'Telescope grep_string use_regex=true search=\b'.expand('<cword>').'\b'<CR>
-nnoremap <Space>t* <Cmd>execute 'Telescope grep_string use_regex=true search=\b'.expand('<cWORD>').'\b'<CR>
+" NOTE: Use telescope-menufacture grep_string
+" nnoremap <Space>tk <Cmd>execute 'Telescope grep_string use_regex=true search='.expand('<cword>')<CR>
+" nnoremap <Space>tK <Cmd>execute 'Telescope grep_string use_regex=true search='.expand('<cWORD>')<CR>
+" nnoremap <Space>t8 <Cmd>execute 'Telescope grep_string use_regex=true search=\b'.expand('<cword>').'\b'<CR>
+" nnoremap <Space>t* <Cmd>execute 'Telescope grep_string use_regex=true search=\b'.expand('<cWORD>').'\b'<CR>
 " NOTE: <Cmd> does not leave visual mode and therefore cannot use '<, '>,
 " which are required by vimrc#utility#get_visual_selection().
 " There seems no good way to get visual selection in visual mode except yanked
 " to register and restore it.
-xnoremap <Space>tk :<C-U>execute 'Telescope grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>
-xnoremap <Space>t8 :<C-U>execute 'Telescope grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>
+" NOTE: Use telescope-menufacture grep_string
+" xnoremap <Space>tk :<C-U>execute 'Telescope grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>
+" xnoremap <Space>t8 :<C-U>execute 'Telescope grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>
 nnoremap <Space>tl <Cmd>Telescope current_buffer_fuzzy_find<CR>
 nnoremap <Space>tm <Cmd>Telescope frecency<CR>
 nnoremap <Space>to <Cmd>Telescope oldfiles<CR>
@@ -33,7 +38,8 @@ nnoremap <Space>t<C-P> <Cmd>Telescope project<CR>
 nnoremap <Space>t0 <Cmd>Telescope file_browser<CR>
 nnoremap <Space>t) <Cmd>execute 'Telescope file_browser path='.expand('%:h')<CR>
 nnoremap <Space>tq <Cmd>Telescope quickfix<CR>
-nnoremap <Space>tr <Cmd>execute 'Telescope grep_string use_regex=true search='.input('Rg: ')<CR>
+" NOTE: Use telescope-menufacture grep_string
+" nnoremap <Space>tr <Cmd>execute 'Telescope grep_string use_regex=true search='.input('Rg: ')<CR>
 nnoremap <Space>ts <Cmd>Telescope git_status<CR>
 nnoremap <Space>tS <Cmd>Telescope treesitter<CR>
 nnoremap <Space>tt <Cmd>Telescope current_buffer_tags<CR>
@@ -83,6 +89,18 @@ nnoremap <Space>tn <Cmd>Telescope yank_history<CR>
 
 " Command palette
 nnoremap <Space>m <Cmd>Telescope command_palette<CR>
+
+" Menufacture
+nnoremap <Space>tf <Cmd>Telescope menufacture find_files<CR>
+nnoremap <Space>ti <Cmd>Telescope menufacture live_grep<CR>
+nnoremap <Space>te <Cmd>execute 'Telescope menufacture grep_string use_regex=true search_dirs='.input('Folder: ').' search='.input('Rg: ')<CR>
+nnoremap <Space>tk <Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.expand('<cword>')<CR>
+nnoremap <Space>tK <Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.expand('<cWORD>')<CR>
+nnoremap <Space>t8 <Cmd>execute 'Telescope menufacture grep_string use_regex=true search=\b'.expand('<cword>').'\b'<CR>
+nnoremap <Space>t* <Cmd>execute 'Telescope menufacture grep_string use_regex=true search=\b'.expand('<cWORD>').'\b'<CR>
+nnoremap <Space>tr <Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.input('Rg: ')<CR>
+xnoremap <Space>tk :<C-U>execute 'Telescope menufacture grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>
+xnoremap <Space>t8 :<C-U>execute 'Telescope menufacture grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>
 
 " Undo
 nnoremap <Space>tU <Cmd>Telescope undo<CR>

@@ -189,6 +189,12 @@ file_navigation.startup = function(use)
       require("telescope").load_extension("undo")
     end,
   })
+  use({
+    "molecule-man/telescope-menufacture",
+    config = function()
+      require("telescope").load_extension("menufacture")
+    end,
+  })
 
   if choose.is_enabled_plugin("telescope-fzf-native.nvim") then
     use({
