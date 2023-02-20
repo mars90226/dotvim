@@ -369,7 +369,7 @@ nvim_treesitter.setup_performance_trick = function()
   local tab_idle_disabled_modules = global_idle_disabled_modules
 
   local global_trick_delay_enable = false
-  local global_trick_delay = 10 * 1000 -- 10 seconds
+  local global_trick_delay = 60 * 1000 -- 60 seconds
   vim.api.nvim_create_autocmd({ "FocusGained" }, {
     group = augroup_id,
     pattern = "*",
