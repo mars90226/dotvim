@@ -2,7 +2,7 @@ local gruvbox = {}
 
 gruvbox.setup = function()
   local hsl = require("lush").hsl
-  local palette = require("gruvbox.palette")
+  local palette = require("gruvbox.palette").colors
 
   local diff_percent = 20
   local custom_palette = {
