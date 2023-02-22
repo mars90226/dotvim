@@ -45,7 +45,7 @@ ufo.setup = function()
 
   -- TODO: Display fold symbol in foldcolumn
   -- Ref: https://github.com/kevinhwang91/nvim-ufo/issues/4#issuecomment-1157716294
-  vim.wo.foldcolumn = "0"
+  vim.wo.foldcolumn = "1"
   vim.wo.foldlevel = 99 -- feel free to decrease the value
   vim.wo.foldenable = true
   vim.o.foldlevelstart = 99

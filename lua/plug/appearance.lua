@@ -66,6 +66,19 @@ appearance.startup = function(use)
     end,
   })
 
+  -- Statuscolumn
+  if choose.is_enabled_plugin("statuscol.nvim") then
+    use({
+      "luukvbaal/statuscol.nvim",
+      config = function()
+        require("statuscol").setup({
+          foldfunc = "builtin",
+          setopt = true,
+        })
+      end,
+    })
+  end
+
   -- Signcolumn
   use_config({
     "mars90226/signcolumn",

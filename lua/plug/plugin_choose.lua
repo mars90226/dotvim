@@ -25,6 +25,13 @@ plugin_choose.setup_appearance = function()
   -- TODO: Is fast in LunarVim, need to study why
   -- TODO: Disable tabby.nvim due to relative large CPU usage in background
 
+  -- Statuscolumn
+  -- statuscol.nvim
+  choose.disable_plugin("statuscol.nvim")
+  if vim.fn.has("nvim-0.9") == 1 then
+    choose.enable_plugin("statuscol.nvim")
+  end
+
   -- Devicons
   -- nvim-web-devicons, vim-devicons
 end
