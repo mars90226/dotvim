@@ -103,6 +103,9 @@ settings.startup = function(use)
 
       -- misc
       vim.opt.shellslash = true
+      if vim.fn.has("nvim-0.9.0") == 1 then
+        vim.opt.splitkeep = "screen"
+      end
 
       -- Complete
       vim.opt.dictionary = "/usr/share/dict/words"
