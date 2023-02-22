@@ -158,7 +158,7 @@ lsp.startup = function(use)
     module = { "rust-tools" },
   })
   use({ "jose-elias-alvarez/nvim-lsp-ts-utils" })
-  -- NOTE: Disabled as it'll cause sumneko_lua use too much memory
+  -- NOTE: Disabled as it'll cause lua_ls use too much memory
   -- TODO: Add a method to load neodev.nvim on-demand
   use({
     "folke/neodev.nvim",

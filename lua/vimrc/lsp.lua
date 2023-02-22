@@ -116,6 +116,17 @@ lsp.servers = {
       },
     },
   },
+  lua_ls = {
+    -- TODO: Refine condition
+    condition = plugin_utils.has_linux_build_env(),
+    settings = {
+      Lua = {
+        runtime = {
+          version = "LuaJIT",
+        },
+      },
+    },
+  },
   marksman = {},
   neocmake = {},
   perlnavigator = {},
@@ -139,17 +150,6 @@ lsp.servers = {
   },
   sqls = {
     condition = plugin_utils.has_linux_build_env(),
-  },
-  sumneko_lua = {
-    -- TODO: Refine condition
-    condition = plugin_utils.has_linux_build_env(),
-    settings = {
-      Lua = {
-        runtime = {
-          version = "LuaJIT",
-        },
-      },
-    },
   },
   -- NOTE: Disabled due to poor performance
   -- tsserver = {
