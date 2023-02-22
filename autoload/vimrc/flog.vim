@@ -12,7 +12,7 @@ endfunction
 " Functions
 function! vimrc#flog#sha(...) abort
   let line = get(a:000, 0, line('.'))
-  return flog#get_commit_at_line(line).short_commit_hash
+  return flog#floggraph#commit#GetAtLine(line).hash
 endfunction
 
 function! vimrc#flog#_open(cmd, options, raw_args) abort
