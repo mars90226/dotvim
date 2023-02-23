@@ -118,6 +118,9 @@ git.startup = function(use)
       [[\tt]],
       [[\ts]],
       [[\tv]],
+      [[\tl]],
+      [[\tL]],
+      [[\t<C->L]],
     },
     config = function()
       require("vimrc.plugins.tig").setup()
