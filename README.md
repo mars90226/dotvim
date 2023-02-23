@@ -20,7 +20,7 @@ Vim specific config is removed, but you can use `vim` branch to access them.
 * [hop.nvim](https://github.com/phaazon/hop.nvim) (quickly move cursor to certain place on screen, written in Lua)
 * [lightspeed.nvim](https://github.com/ggandor/lightspeed.nvim) (quickly move cursor by search, written in Lua)
 * [nvim-autopairs](https://github.com/windwp/nvim-autopairs) (automatically insert paired brackets)
-* [vim-sandwich](https://github.com/machakann/vim-sandwich) (quicly add/delete/replace brackets)
+* [nvim-surround](https://github.com/kylechui/nvim-surround) (quickly add/delete/replace brackets)
 * [nvim-spectre](https://github.com/windwp/nvim-spectre) (find-and-replace globally, written in Lua)
 * [lspsaga.nvim](https://github.com/glepnir/lspsaga.nvim) (lsp UI and lsp context for winbar)
 * [trouble.nvim](https://github.com/folke/trouble.nvim) (diagnostics UI written in Lua)
@@ -33,11 +33,12 @@ Vim specific config is removed, but you can use `vim` branch to access them.
 * [vim-floaterm](https://github.com/voldikss/vim-floaterm) (open terminal buffer in floating window)
 * [vimwiki](https://github.com/vimwiki/vimwiki) (wiki plugin like orgmode)
 * [vim-localvimrc](https://github.com/embear/vim-localvimrc) (for setup project-local vim config, useful for LSP)
+* [statuscol.nvim](https://github.com/luukvbaal/statuscol.nvim) (customizable predefined 'statuscolumn')
 
 ## Requirements
 
 ### Neovim
-* [neovim](https://neovim.io/) 0.7.2+ (stable), 0.8.0 (nightly, required by winbar)
+* [neovim](https://neovim.io/) 0.8.3+ (stable), 0.9.0 (nightly, required by 'signcolumn')
 * [python](https://www.python.org/) 3.6.1+ (required by defx.nvim)
 * [universal-ctags](https://github.com/universal-ctags/ctags) (required by fzf)
 * C compiler and libstdc++ (required by nvim-treesitter)
