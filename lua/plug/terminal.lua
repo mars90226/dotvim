@@ -1,5 +1,3 @@
-local utils = require("vimrc.utils")
-
 local terminal = {}
 
 terminal.startup = function(use)
