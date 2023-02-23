@@ -1,5 +1,3 @@
-local plugin_utils = require("vimrc.plugin_utils")
-
 local state = require("telescope.state")
 
 local actions = require("telescope.actions")
