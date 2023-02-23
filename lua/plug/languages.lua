@@ -18,6 +18,11 @@ languages.startup = function(use)
   use({ "mtdl9/vim-log-highlighting", ft = { "log" } })
   use({ "ClockworkNet/vim-apparmor", ft = { "apparmor" } })
   use({ "chrisbra/csv.vim", ft = { "csv" } })
+  use({
+    "bfredl/nvim-luadev",
+    ft = { "lua" },
+    cmd = { "Luadev" },
+  })
 
   -- Highlighing
   -- nvim-treesitter

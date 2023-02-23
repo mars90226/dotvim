@@ -28,7 +28,6 @@ require("packer").startup(function(use)
   require("plug.languages").startup(use)
   require("plug.git").startup(use)
   require("plug.terminal").startup(use)
-  require("plug.lua_dev").startup(use)
   require("plug.utility").startup(use)
   require("plug.last").startup(use)
 
