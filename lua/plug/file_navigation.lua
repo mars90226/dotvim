@@ -70,8 +70,7 @@ file_navigation.startup = function(use)
     "nvim-telescope/telescope.nvim",
     requires = { "nvim-lua/plenary.nvim" },
     config = function()
-      vim.fn["vimrc#source"]("vimrc/plugins/telescope.vim")
-      require("vimrc.plugins.telescope")
+      require("vimrc.plugins.telescope").setup()
     end,
   })
   use({
