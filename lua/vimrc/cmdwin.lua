@@ -11,8 +11,8 @@ cmdwin.setup = function()
 
   surround.buffer_setup({
     surrounds = {
-      ["*"] = my_nvim_surround.create_all("\\<", "\\>"),
-      ["B"] = my_nvim_surround.create_all("\\b", "\\b"),
+      ["*"] = my_nvim_surround.create_all([[\<]], [[\>]]),
+      ["B"] = my_nvim_surround.create_all([[\b]], [[\b]]),
     }
   })
 end

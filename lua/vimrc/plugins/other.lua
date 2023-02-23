@@ -11,107 +11,107 @@ other.setup = function()
       -- TODO: Simplify the pattern
       -- Same folder
       {
-        pattern = "/(.*).h$",
-        target = "/%1\\(.cpp\\|.c\\)",
+        pattern = [[/(.*).h$]],
+        target = [[/%1\(.cpp\|.c\)]],
       },
       {
-        pattern = "/(.*).cpp$",
-        target = "/%1.h",
+        pattern = [[/(.*).cpp$]],
+        target = [[/%1.h]],
       },
       {
-        pattern = "/(.*).c$",
-        target = "/%1.h",
+        pattern = [[/(.*).c$]],
+        target = [[/%1.h]],
       },
       -- 3-level folder
       {
-        pattern = "/src/include/(.*)/(.*)/(.*).h$",
-        target = "/src/%1/lib/%2/%3\\(.cpp\\|.c\\)",
+        pattern = [[/src/include/(.*)/(.*)/(.*).h$]],
+        target = [[/src/%1/lib/%2/%3\(.cpp\|.c\)]],
       },
       {
-        pattern = "/src/(.*)/lib/(.*)/(.*).cpp$",
-        target = "/src/include/%1/%2/%3.h",
+        pattern = [[/src/(.*)/lib/(.*)/(.*).cpp$]],
+        target = [[/src/include/%1/%2/%3.h]],
       },
       {
-        pattern = "/src/(.*)/lib/(.*)/(.*).c$",
-        target = "/src/include/%1/%2/%3.h",
+        pattern = [[/src/(.*)/lib/(.*)/(.*).c$]],
+        target = [[/src/include/%1/%2/%3.h]],
       },
       -- 3-level no src folder
       {
-        pattern = "/include/(.*)/(.*)/(.*).h$",
-        target = "/%1/lib/%2/%3\\(.cpp\\|.c\\)",
+        pattern = [[/include/(.*)/(.*)/(.*).h$]],
+        target = [[/%1/lib/%2/%3\(.cpp\|.c\)]],
       },
       {
-        pattern = "/(.*)/lib/(.*)/(.*).cpp$",
-        target = "/include/%1/%2/%3.h",
+        pattern = [[/(.*)/lib/(.*)/(.*).cpp$]],
+        target = [[/include/%1/%2/%3.h]],
       },
       {
-        pattern = "/(.*)/lib/(.*)/(.*).c$",
-        target = "/include/%1/%2/%3.h",
+        pattern = [[/(.*)/lib/(.*)/(.*).c$]],
+        target = [[/include/%1/%2/%3.h]],
       },
       -- 3-level no lib folder
       {
-        pattern = "/src/include/(.*)/(.*)/(.*).h$",
-        target = "/src/%1/%2/%3\\(.cpp\\|.c\\)",
+        pattern = [[/src/include/(.*)/(.*)/(.*).h$]],
+        target = [[/src/%1/%2/%3\(.cpp\|.c\)]],
       },
       {
-        pattern = "/src/(.*)/(.*)/(.*).cpp$",
-        target = "/src/include/%1/%2/%3.h",
+        pattern = [[/src/(.*)/(.*)/(.*).cpp$]],
+        target = [[/src/include/%1/%2/%3.h]],
       },
       {
-        pattern = "/src/(.*)/(.*)/(.*).c$",
-        target = "/src/include/%1/%2/%3.h",
+        pattern = [[/src/(.*)/(.*)/(.*).c$]],
+        target = [[/src/include/%1/%2/%3.h]],
       },
       -- 2-level folder
       {
-        pattern = "/src/include/.*/(.*)/(.*).h$",
-        target = "/src/lib/%1/%2\\(.cpp\\|.c\\)",
+        pattern = [[/src/include/.*/(.*)/(.*).h$]],
+        target = [[/src/lib/%1/%2\(.cpp\|.c\)]],
       },
       {
-        pattern = "/src/lib/(.*)/(.*).cpp$",
-        target = "/src/include/*/%1/%2.h",
+        pattern = [[/src/lib/(.*)/(.*).cpp$]],
+        target = [[/src/include/*/%1/%2.h]],
       },
       {
-        pattern = "/src/lib/(.*)/(.*).c$",
-        target = "/src/include/*/%1/%2.h",
+        pattern = [[/src/lib/(.*)/(.*).c$]],
+        target = [[/src/include/*/%1/%2.h]],
       },
       -- 1-level folder
       {
-        pattern = "/include/.*/(.*).h$",
-        target = "/lib/%1\\(.cpp\\|.c\\)",
+        pattern = [[/include/.*/(.*).h$]],
+        target = [[/lib/%1\(.cpp\|.c\)]],
       },
       {
-        pattern = "/lib/(.*).cpp$",
-        target = "/include/*/%1.h",
+        pattern = [[/lib/(.*).cpp$]],
+        target = [[/include/*/%1.h]],
       },
       {
-        pattern = "/lib/(.*).c$",
-        target = "/include/*/%1.h",
+        pattern = [[/lib/(.*).c$]],
+        target = [[/include/*/%1.h]],
       },
       -- 2-level lib prefix folder
       {
-        pattern = "/src/include/.*/(.*)/(.*).h$",
-        target = "/src/lib-%1/%2\\(.cpp\\|.c\\)",
+        pattern = [[/src/include/.*/(.*)/(.*).h$]],
+        target = [[/src/lib-%1/%2\(.cpp\|.c\)]],
       },
       {
-        pattern = "/src/lib%-(.*)/(.*).cpp$",
-        target = "/src/include/*/%1/%2.h",
+        pattern = [[/src/lib%-(.*)/(.*).cpp$]],
+        target = [[/src/include/*/%1/%2.h]],
       },
       {
-        pattern = "/src/lib%-(.*)/(.*).c$",
-        target = "/src/include/*/%1/%2.h",
+        pattern = [[/src/lib%-(.*)/(.*).c$]],
+        target = [[/src/include/*/%1/%2.h]],
       },
       -- 2-level no src folder
       {
-        pattern = "/include/(.*)/(.*).h$",
-        target = "/%1/%2\\(.cpp\\|.c\\)",
+        pattern = [[/include/(.*)/(.*).h$]],
+        target = [[/%1/%2\(.cpp\|.c\)]],
       },
       {
-        pattern = "/(.*)/(.*).cpp$",
-        target = "/include/*/%1/%2.h",
+        pattern = [[/(.*)/(.*).cpp$]],
+        target = [[/include/*/%1/%2.h]],
       },
       {
-        pattern = "/(.*)/(.*).c$",
-        target = "/include/*/%1/%2.h",
+        pattern = [[/(.*)/(.*).c$]],
+        target = [[/include/*/%1/%2.h]],
       },
     },
     transformers = {

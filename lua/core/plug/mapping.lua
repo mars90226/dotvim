@@ -182,8 +182,8 @@ mapping.startup = function(use)
       cnoremap("<C-G><C-]>", [[expand('%:t:r')]], "<expr>")
       inoremap("<C-G><C-]>", [[expand('%:t:r')]], "<expr>")
       -- <C-\> and <C-$> are the same key
-      cnoremap("<C-G><C-\\>", [[expand('%:p')]], "<expr>")
-      inoremap("<C-G><C-\\>", [[expand('%:p')]], "<expr>")
+      cnoremap([[<C-G><C-\>]], [[expand('%:p')]], "<expr>")
+      inoremap([[<C-G><C-\>]], [[expand('%:p')]], "<expr>")
       -- Expand buffer folder
       cnoremap("<C-G><C-R>", [[expand('%:h')]], "<expr>")
       inoremap("<C-G><C-R>", [[expand('%:h')]], "<expr>")
@@ -245,9 +245,9 @@ mapping.startup = function(use)
       cnoremap("<C-X><C-S>", [[<C-C><Cmd>CommandPalette<CR>]])
 
       -- Ex mode for special buffer that map("'q'", [[as ':quit']])
-      nnoremap("\\q:", [[q:]])
-      nnoremap("\\q/", [[q/]])
-      nnoremap("\\q?", [[q?]])
+      nnoremap([[\q:]], [[q:]])
+      nnoremap([[\q/]], [[q/]])
+      nnoremap([[\q?]], [[q?]])
 
       -- <Leader><F10> for syncing syntax highlight from start
       nnoremap("<Leader><F10>", [[:syntax sync fromstart<CR>]])

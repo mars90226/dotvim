@@ -13,9 +13,9 @@ tig.setup = function()
   vim.cmd([[command! -bang -nargs=* TigLogFileSplit split | call vimrc#tig#log(<q-args>, <bang>0, 1)]])
 
   -- Add non-follow version as --follow will include many merge commits
-  nnoremap("\\tl", [[:TigLogFileSplit!<CR>]])
-  nnoremap("\\tL", [[:TigLogFileSplit! --follow<CR>]])
-  nnoremap("\\t<C-L>", [[:execute 'TigLogSplit! $(git log --format=format:%H --follow -- ' . expand('%:p') . ')'<CR>]])
+  nnoremap([[\tl]], [[:TigLogFileSplit!<CR>]])
+  nnoremap([[\tL]], [[:TigLogFileSplit! --follow<CR>]])
+  nnoremap([[\t<C-L>]], [[:execute 'TigLogSplit! $(git log --format=format:%H --follow -- ' . expand('%:p') . ')'<CR>]])
 end
 
 return tig

@@ -9,7 +9,7 @@ windows.open_terminal_in_current_file_folder = function()
 end
 
 windows.reveal_current_file_folder_in_explorer = function()
-  vim.cmd('!start explorer "' .. vim.fn.expand("%:p:h:gs?\\??:gs?/?\\?") .. '"')
+  vim.cmd('!start explorer "' .. vim.fn.expand([[%:p:h:gs?\??:gs?/?\?]]) .. '"')
 end
 
 return windows

@@ -5,14 +5,14 @@ local refactoring = {}
 refactoring.config = {
   printf_statements = {
     c = {
-      'printf("%s(%%d): \\n", __LINE__);', -- NOTE: Default
-      'syslog(LOG_WARNING, "%s(%%d): \\n", __LINE__);',
+      [[printf("%s(%%d): \n", __LINE__);]], -- NOTE: Default
+      [[syslog(LOG_WARNING, "%s(%%d): \n", __LINE__);]],
     },
   },
   print_var_statements = {
     c = {
-      'printf("%s %%s \\n", %s);', -- NOTE: Default
-      'syslog(LOG_WARNING, "%s %%s \\n", %s);',
+      [[printf("%s %%s \n", %s);]], -- NOTE: Default
+      [[syslog(LOG_WARNING, "%s %%s \n", %s);]],
     },
   },
 }

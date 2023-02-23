@@ -30,7 +30,7 @@ text_navigation.startup = function(use)
     "phaazon/hop.nvim",
     config = function()
       map("<Space>w", "<Cmd>HopWord<CR>")
-      map("<Space>e", [[<Cmd>lua require('hop').hint_patterns({}, '\\k\\>')<CR>]])
+      map("<Space>e", [=[<Cmd>lua require('hop').hint_patterns({}, [[\k\>]])<CR>]=])
       map("<Space>;", "<Cmd>HopPattern<CR>")
       map("<LocalLeader>f", "<Cmd>HopChar1<CR>")
       map("<LocalLeader>l", "<Cmd>HopLine<CR>")

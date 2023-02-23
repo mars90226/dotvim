@@ -4,7 +4,7 @@ local basic = {}
 
 basic.setup = function ()
   vim.g.mapleader = ','
-  vim.g.maplocalleader = '\\'
+  vim.g.maplocalleader = [[\]]
 
   -- TODO: No need in neovim?
   if not plugin_utils.os_is("windows") then
