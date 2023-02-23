@@ -59,7 +59,7 @@ file_navigation.startup = function(use)
       vim.fn["fzf#install"]()
     end,
     config = function()
-      vim.fn["vimrc#source"]("vimrc/plugins/fzf.vim")
+      require("vimrc.plugins.fzf").setup()
     end,
   })
   use("junegunn/fzf.vim")
