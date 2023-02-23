@@ -2,10 +2,10 @@ local tig = {}
 
 tig.setup = function()
   -- Add '' to open tig main view
-  nnoremap("\\tr", [[:Tig ''<CR>]])
-  nnoremap("\\tt", [[:tabnew <Bar> Tig ''<CR>]])
-  nnoremap("\\ts", [[:new    <Bar> Tig ''<CR>]])
-  nnoremap("\\tv", [[:vnew   <Bar> Tig ''<CR>]])
+  nnoremap([[\tr]], [[:Tig ''<CR>]])
+  nnoremap([[\tt]], [[:tabnew <Bar> Tig ''<CR>]])
+  nnoremap([[\ts]], [[:new    <Bar> Tig ''<CR>]])
+  nnoremap([[\tv]], [[:vnew   <Bar> Tig ''<CR>]])
 
   vim.cmd([[command! -bang -nargs=* TigLog          call vimrc#tig#log(<q-args>, <bang>0, 0)]])
   vim.cmd([[command! -bang -nargs=* TigLogSplit     split | call vimrc#tig#log(<q-args>, <bang>0, 0)]])
