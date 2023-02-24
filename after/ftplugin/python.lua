@@ -21,5 +21,5 @@ elseif vim.fn.executable("autopep8") == 1 then
 end
 
 if vim.fn.executable("isort") == 1 then
-  vim.cmd([[command -range SortImport :<line1>,<line2>!isort -]])
+  vim.cmd([[command! -range SortImport :<line1>,<line2>!isort -]])
 end
