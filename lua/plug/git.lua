@@ -7,7 +7,7 @@ git.startup = function(use)
   use({
     "tpope/vim-fugitive",
     config = function()
-      vim.fn["vimrc#source"]("vimrc/plugins/fugitive.vim")
+      require("vimrc.plugins.fugitive").setup()
     end,
   })
   use("shumphrey/fugitive-gitlab.vim")
