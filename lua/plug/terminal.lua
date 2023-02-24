@@ -5,7 +5,7 @@ terminal.startup = function(use)
   use({
     "voldikss/vim-floaterm",
     config = function()
-      vim.fn["vimrc#source"]("vimrc/plugins/floaterm.vim")
+      require("vimrc.plugins.floaterm").setup()
     end,
   })
   use("voldikss/fzf-floaterm")
