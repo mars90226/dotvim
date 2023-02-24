@@ -91,7 +91,7 @@ utility.startup = function(use)
     end,
   })
   use({
-    "max397574/colortils.nvim",
+    "nvim-colortils/colortils.nvim",
     cmd = { "Colortils" },
     keys = { "<Leader>ct" },
     config = function()
