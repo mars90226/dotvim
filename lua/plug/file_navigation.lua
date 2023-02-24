@@ -210,7 +210,7 @@ file_navigation.startup = function(use)
     "ibhagwan/fzf-lua",
     requires = { "kyazdani42/nvim-web-devicons" },
     config = function()
-      vim.fn["vimrc#source"]("vimrc/plugins/fzf_lua.vim")
+      require("vimrc.plugins.fzf_lua").setup()
     end,
   })
 
