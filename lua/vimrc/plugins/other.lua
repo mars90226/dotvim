@@ -7,12 +7,21 @@ other.setup = function()
       -- "livewire",
       -- "angular",
       -- "laravel",
+      -- "rails",
+
       -- custom mapping
       -- TODO: Simplify the pattern
       -- Same folder
       {
         pattern = [[/(.*).h$]],
-        target = [[/%1\(.cpp\|.c\)]],
+        target = {
+          {
+            target = [[/%1.cpp]],
+          },
+          {
+            target = [[/%1.c]],
+          },
+        },
       },
       {
         pattern = [[/(.*).cpp$]],
@@ -25,7 +34,14 @@ other.setup = function()
       -- 3-level folder
       {
         pattern = [[/src/include/(.*)/(.*)/(.*).h$]],
-        target = [[/src/%1/lib/%2/%3\(.cpp\|.c\)]],
+        target = {
+          {
+            target = [[/src/%1/lib/%2/%3.cpp]],
+          },
+          {
+            target = [[/src/%1/lib/%2/%3.c]],
+          },
+        },
       },
       {
         pattern = [[/src/(.*)/lib/(.*)/(.*).cpp$]],
@@ -38,7 +54,14 @@ other.setup = function()
       -- 3-level no src folder
       {
         pattern = [[/include/(.*)/(.*)/(.*).h$]],
-        target = [[/%1/lib/%2/%3\(.cpp\|.c\)]],
+        target = {
+          {
+            target = [[/%1/lib/%2/%3.cpp]],
+          },
+          {
+            target = [[/%1/lib/%2/%3.c]],
+          },
+        },
       },
       {
         pattern = [[/(.*)/lib/(.*)/(.*).cpp$]],
@@ -51,7 +74,14 @@ other.setup = function()
       -- 3-level no lib folder
       {
         pattern = [[/src/include/(.*)/(.*)/(.*).h$]],
-        target = [[/src/%1/%2/%3\(.cpp\|.c\)]],
+        target = {
+          {
+            target = [[/src/%1/%2/%3.cpp]],
+          },
+          {
+            target = [[/src/%1/%2/%3.c]],
+          },
+        },
       },
       {
         pattern = [[/src/(.*)/(.*)/(.*).cpp$]],
@@ -64,7 +94,14 @@ other.setup = function()
       -- 2-level folder
       {
         pattern = [[/src/include/.*/(.*)/(.*).h$]],
-        target = [[/src/lib/%1/%2\(.cpp\|.c\)]],
+        target = {
+          {
+            target = [[/src/lib/%1/%2.cpp]],
+          },
+          {
+            target = [[/src/lib/%1/%2.c]],
+          },
+        },
       },
       {
         pattern = [[/src/lib/(.*)/(.*).cpp$]],
@@ -77,7 +114,14 @@ other.setup = function()
       -- 1-level folder
       {
         pattern = [[/include/.*/(.*).h$]],
-        target = [[/lib/%1\(.cpp\|.c\)]],
+        target = {
+          {
+            target = [[/lib/%1.cpp]],
+          },
+          {
+            target = [[/lib/%1.c]],
+          },
+        },
       },
       {
         pattern = [[/lib/(.*).cpp$]],
@@ -90,7 +134,14 @@ other.setup = function()
       -- 2-level lib prefix folder
       {
         pattern = [[/src/include/.*/(.*)/(.*).h$]],
-        target = [[/src/lib-%1/%2\(.cpp\|.c\)]],
+        target = {
+          {
+            target = [[/src/lib-%1/%2.cpp]],
+          },
+          {
+            target = [[/src/lib-%1/%2.c]],
+          },
+        },
       },
       {
         pattern = [[/src/lib%-(.*)/(.*).cpp$]],
@@ -103,7 +154,14 @@ other.setup = function()
       -- 2-level no src folder
       {
         pattern = [[/include/(.*)/(.*).h$]],
-        target = [[/%1/%2\(.cpp\|.c\)]],
+        target = {
+          {
+            target = [[/%1/%2.cpp]],
+          },
+          {
+            target = [[/%1/%2.c]],
+          },
+        },
       },
       {
         pattern = [[/(.*)/(.*).cpp$]],
