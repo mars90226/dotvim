@@ -71,9 +71,19 @@ appearance.startup = function(use)
     use({
       "luukvbaal/statuscol.nvim",
       config = function()
+        local builtin = require("statuscol.builtin")
+
         require("statuscol").setup({
-          foldfunc = "builtin",
-          setopt = true,
+          segments = {
+            -- Default segments (fold -> sign -> line number -> separator)
+            { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+            { text = { "%s" }, click = "v:lua.ScSa" },
+            {
+              text = { builtin.lnumfunc, " " },
+              condition = { true, builtin.not_empty },
+              click = "v:lua.ScLa",
+            },
+          },
         })
       end,
     })
