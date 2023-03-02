@@ -354,14 +354,6 @@ utility.startup = function(use)
   -- TODO: Enable `splitkeep` option when upgrading to neovim 0.9.0
   -- TODO: Remove this comment after raising minimal version requirement of neovim to 0.9.0
 
-  use({
-    "antoinemadec/FixCursorHold.nvim",
-    config = function()
-      vim.go.updatetime = 4000 -- default
-      vim.g.cursorhold_updatetime = 300
-    end,
-  })
-
   -- Cmdline
   use({
     "VonHeikemen/fine-cmdline.nvim",
