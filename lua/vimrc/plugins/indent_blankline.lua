@@ -1,7 +1,7 @@
 local indent_blankline = {}
 
 indent_blankline.line_threshold = 10000
-indent_blankline.max_filesize = 100 * 1024 -- 100 KB
+indent_blankline.max_filesize = 1024 * 1024 -- 1 MB
 
 indent_blankline.setup_config = function()
   require("indent_blankline").setup({
