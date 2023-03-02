@@ -6,10 +6,9 @@ text_navigation.startup = function(use)
   -- Match
   use({
     "andymass/vim-matchup",
-    config = function()
-      ---@diagnostic disable-next-line -- packer.nvim will cache config function and cannot use outer local variables
-      local plugin_utils = require("vimrc.plugin_utils")
-
+    cmd = { "DoMatchParen" },
+    event = { "FocusLost", "CursorHold", "CursorHoldI" },
+    setup = function()
       vim.g.matchup_matchparen_deferred = 1
       vim.g.matchup_matchparen_deferred_show_delay = 1000
       vim.g.matchup_matchparen_deferred_hide_delay = 1000
@@ -19,7 +18,8 @@ text_navigation.startup = function(use)
       vim.g.matchup_matchparen_offscreen = {
         method = "status_manual", -- we already have nvim-treesitter-context
       }
-
+    end,
+    config = function()
       nnoremap("<Leader>mk", [[<Cmd>MatchupWhereAmI?<CR>]])
       -- NOTE: nvim-treesitter config is in nvim_treesitter.lua
     end,
