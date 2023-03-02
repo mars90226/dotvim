@@ -459,7 +459,8 @@ nvim_treesitter.setup = function()
   nvim_treesitter.setup_parser_config()
   nvim_treesitter.setup_config()
   nvim_treesitter.setup_extensions()
-  nvim_treesitter.setup_performance_trick()
+  -- TODO: On neovim nightly, nvim-treesitter re-attach will result in error. (found swp)
+  -- nvim_treesitter.setup_performance_trick()
   nvim_treesitter.setup_mapping()
 end
 
