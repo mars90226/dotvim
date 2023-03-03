@@ -18,6 +18,7 @@ text_navigation.startup = function(use)
       vim.g.matchup_matchparen_offscreen = {
         method = "status_manual", -- we already have nvim-treesitter-context
       }
+      vim.g.matchup_surround_enabled = 1
     end,
     config = function()
       nnoremap("<Leader>mk", [[<Cmd>MatchupWhereAmI?<CR>]])
