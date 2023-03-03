@@ -223,35 +223,14 @@ telescope.setup_mapping = function()
   -- Menufacture
   nnoremap([[<Space>tf]], [[<Cmd>Telescope menufacture find_files<CR>]])
   nnoremap([[<Space>ti]], [[<Cmd>Telescope menufacture live_grep<CR>]])
-  nnoremap(
-    [[<Space>te]],
-    [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search_dirs='.input('Folder: ').' search='.input('Rg: ')<CR>]]
-  )
-  nnoremap(
-    [[<Space>tk]],
-    [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.expand('<cword>')<CR>]]
-  )
-  nnoremap(
-    [[<Space>tK]],
-    [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.expand('<cWORD>')<CR>]]
-  )
-  nnoremap(
-    [[<Space>t8]],
-    [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search=\b'.expand('<cword>').'\b'<CR>]]
-  )
-  nnoremap(
-    [[<Space>t*]],
-    [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search=\b'.expand('<cWORD>').'\b'<CR>]]
-  )
+  nnoremap([[<Space>te]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search_dirs='.input('Folder: ').' search='.input('Rg: ')<CR>]])
+  nnoremap([[<Space>tk]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.expand('<cword>')<CR>]])
+  nnoremap([[<Space>tK]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.expand('<cWORD>')<CR>]])
+  nnoremap([[<Space>t8]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search=\b'.expand('<cword>').'\b'<CR>]])
+  nnoremap([[<Space>t*]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search=\b'.expand('<cWORD>').'\b'<CR>]])
   nnoremap([[<Space>tr]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.input('Rg: ')<CR>]])
-  xnoremap(
-    [[<Space>tk]],
-    [[:<C-U>execute 'Telescope menufacture grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>]]
-  )
-  xnoremap(
-    [[<Space>t8]],
-    [[:<C-U>execute 'Telescope menufacture grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>]]
-  )
+  xnoremap([[<Space>tk]], [[:<C-U>execute 'Telescope menufacture grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>]])
+  xnoremap([[<Space>t8]], [[:<C-U>execute 'Telescope menufacture grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>]])
 
   -- Undo
   nnoremap([[<Space>tU]], [[<Cmd>Telescope undo<CR>]])
