@@ -110,6 +110,10 @@ text_objects.startup = function(use)
       -- url
       vim.keymap.del({"o", "x"}, "L")
       vim.keymap.set({"o", "x"}, "U", function () require("various-textobjs").url() end, { desc = "url textobj"})
+
+      -- toNextClosingBracket
+      vim.keymap.del({"o", "x"}, "%")
+      vim.keymap.set({"o", "x"}, "]b", function () require("various-textobjs").toNextClosingBracket() end, { desc = "toNextClosingBracket textobj"})
     end,
   })
 
