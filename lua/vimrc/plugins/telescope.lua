@@ -200,6 +200,8 @@ telescope.setup_mapping = function()
   nnoremap([[<Space>lo]], [[<Cmd>Telescope lsp_document_symbols<CR>]])
   nnoremap([[<Space>ls]], [[<Cmd>Telescope lsp_workspace_symbols<CR>]])
   nnoremap([[<Space>lS]], [[<Cmd>Telescope lsp_dynamic_workspace_symbols<CR>]])
+  nnoremap([[<Space>l,]], [[<Cmd>Telescope lsp_incoming_calls<CR>]])
+  nnoremap([[<Space>l.]], [[<Cmd>Telescope lsp_outgoing_calls<CR>]])
 
   -- Diagnostic
   nnoremap([[<Space>lc]], [[<Cmd>Telescope diagnostics bufnr=0<CR>]])
