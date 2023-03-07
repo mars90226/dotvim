@@ -355,6 +355,7 @@ utility.startup = function(use)
   -- TODO: Remove this comment after raising minimal version requirement of neovim to 0.9.0
 
   -- Cmdline
+  -- TODO: Replace this with noice.nvim
   use({
     "VonHeikemen/fine-cmdline.nvim",
     requires = { { "MunifTanjim/nui.nvim" } },
@@ -497,7 +498,6 @@ utility.startup = function(use)
     end,
   })
 
-  use({ "tpope/vim-dadbod", cmd = { "DB" } })
   use({ "tpope/vim-abolish", cmd = { "Abolish", "Subvert", "S" }, keys = { "cr" } })
   use({ "will133/vim-dirdiff", cmd = { "DirDiff" } })
   use({ "Shougo/vinarise.vim", cmd = { "Vinarise" } })
