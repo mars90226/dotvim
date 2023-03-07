@@ -222,6 +222,9 @@ telescope.setup_mapping = function()
   -- Command palette
   nnoremap([[<Space>m]], [[<Cmd>Telescope command_palette<CR>]])
 
+  -- Undo
+  nnoremap([[<Space>tU]], [[<Cmd>Telescope undo<CR>]])
+
   -- Menufacture
   nnoremap([[<Space>tf]], [[<Cmd>Telescope menufacture find_files<CR>]])
   nnoremap([[<Space>ti]], [[<Cmd>Telescope menufacture live_grep<CR>]])
@@ -234,8 +237,15 @@ telescope.setup_mapping = function()
   xnoremap([[<Space>tk]], [[:<C-U>execute 'Telescope menufacture grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>]])
   xnoremap([[<Space>t8]], [[:<C-U>execute 'Telescope menufacture grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>]])
 
-  -- Undo
-  nnoremap([[<Space>tU]], [[<Cmd>Telescope undo<CR>]])
+  -- advanced-git-search.nvim
+  nnoremap([[<Space>db]], [[<Cmd>Telescope advanced_git_search diff_branch_file<CR>]])
+  nnoremap([[<Space>dl]], [[<Cmd>Telescope advanced_git_search diff_commit_line<CR>]])
+  xnoremap([[<Space>dl]], [[:<C-U>Telescope advanced_git_search diff_commit_line<CR>]])
+  nnoremap([[<Space>df]], [[<Cmd>Telescope advanced_git_search diff_commit_file<CR>]])
+  nnoremap([[<Space>dsl]], [[<Cmd>Telescope advanced_git_search search_log_content<CR>]])
+  nnoremap([[<Space>dsf]], [[<Cmd>Telescope advanced_git_search search_log_content_file<CR>]])
+  nnoremap([[<Space>dc]], [[<Cmd>Telescope advanced_git_search checkout_reflog<CR>]])
+  nnoremap([[<Space>dss]], [[<Cmd>Telescope advanced_git_search show_custom_functions<CR>]])
 end
 
 telescope.setup = function()
