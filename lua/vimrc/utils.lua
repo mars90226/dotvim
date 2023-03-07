@@ -28,6 +28,12 @@ utils.t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
+utils.plug_key = function()
+  -- HACK: Seems no proper way to express "<Plug>" in Lua string when used in `feedkeys()`/`nvim_feedkeys()`.
+  -- ref: https://www.reddit.com/r/neovim/comments/kup1g0/comment/givujwd/?utm_source=reddit&utm_medium=web2x&context=3
+  return string.format("%c%c%c", 0x80, 253, 83)
+end
+
 -- Concat two tables
 utils.table_concat = function(table1, table2)
   for i = 1, #table2 do
