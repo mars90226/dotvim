@@ -114,6 +114,7 @@ terminal.startup = function(use)
 
       -- Search pattern
       tmap("<M-q><M-s>", [[<C-\><C-\><C-N><Plug>(search-prefix)]])
+      -- FIXME: Cannot send `<M-s>` to nested neovim
 
       -- Command palette
       tnoremap("<M-q><M-m>", [[<C-\><C-\><C-N>:Telescope command_palette<CR>]])
