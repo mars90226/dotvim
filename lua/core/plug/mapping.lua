@@ -283,7 +283,9 @@ mapping.startup = function(use)
       onoremap("<M-P>", [[:<C-U>call vimrc#textobj#past_character(v:count1, 'o', v:false)<CR>]], "<silent>")
 
       -- Search
-      -- TODO: Try to define search mapping in all buffer
+      -- TODO: Extract to search.vim?
+      nmap("<M-s>", "<Plug>(search-prefix)")
+      nnoremap("<M-s><M-s>", [[<M-s>]])
       noremap("<Plug>(search-prefix)", [[<NOP>]])
       nnoremap("<Plug>(search-prefix)f", [[<Cmd>call vimrc#search#search_file(0)<CR>]])
       nnoremap("<Plug>(search-prefix)y", [[<Cmd>call vimrc#search#search_hash(0)<CR>]])
