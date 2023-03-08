@@ -332,6 +332,14 @@ languages.startup = function(use)
       end
     end,
   })
+  use({
+    "ellisonleao/glow.nvim",
+    ft = { "markdown" },
+    cmd = { "Glow" },
+    config = function()
+      require("glow").setup()
+    end,
+  })
 
   use({
     "AckslD/nvim-FeMaco.lua",
