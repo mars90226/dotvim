@@ -23,6 +23,7 @@ languages.startup = function(use)
     ft = { "lua" },
     cmd = { "Luadev" },
   })
+  use({ "mustache/vim-mustache-handlebars", ft = { "handlebars", "mustache" } })
 
   -- Highlighing
   -- nvim-treesitter
