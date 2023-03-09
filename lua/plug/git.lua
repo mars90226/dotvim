@@ -141,7 +141,13 @@ git.startup = function(use)
     cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     keys = { "<Space>gd", "<Space>gh", "<Space>gH" },
     config = function()
-      nnoremap("<Space>gd", "<Cmd>DiffviewOpen<CR>")
+      nnoremap("<Space>gd", function()
+        if next(require("diffview.lib").views) == nil then
+          vim.cmd([[DiffviewOpen]])
+        else
+          vim.cmd([[DiffviewClose]])
+        end
+      end, { desc = "Diffview toggle"})
 
       -- TODO: Add mapping for author filter & current file
       nnoremap("<Space>gh", "<Cmd>DiffviewFileHistory<CR>")
