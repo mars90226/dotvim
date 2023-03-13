@@ -461,6 +461,7 @@ nvim_treesitter.setup = function()
   nvim_treesitter.setup_extensions()
   -- TODO: On neovim nightly, nvim-treesitter re-attach will result in error. (found swp)
   -- TODO: Monitor the error
+  -- FIXME: Highlight is missing on filetype that has no treesitter?
   nvim_treesitter.setup_performance_trick()
   nvim_treesitter.setup_mapping()
 end
