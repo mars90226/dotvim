@@ -1,6 +1,7 @@
 local state = require("telescope.state")
 
 local actions = require("telescope.actions")
+local action_layout = require("telescope.actions.layout")
 local action_set = require("telescope.actions.set")
 local action_state = require("telescope.actions.state")
 
@@ -110,6 +111,9 @@ telescope.setup_config = function()
           -- Use <M-a>/<M-s> to select/drop all
           ["<M-a>"] = actions.select_all,
           ["<M-s>"] = actions.drop_all,
+
+          -- Use <M-/> to toggle preview
+          ["<M-/>"] = action_layout.toggle_preview,
         },
         n = {
           -- Use <C-S> to select horizontal
