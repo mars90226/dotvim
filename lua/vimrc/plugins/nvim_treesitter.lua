@@ -3,6 +3,8 @@ local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
 
+local parsers = require("nvim-treesitter.parsers")
+
 local nvim_treesitter = {}
 
 nvim_treesitter.enable_config = {
@@ -73,6 +75,30 @@ local enable_check = function(enable_filetype)
   return function(lang, bufnr)
     return not vim.tbl_contains(enable_filetype, lang)
   end
+end
+
+nvim_treesitter.buf_is_supported = function(buf)
+  return parsers.has_parser(parsers.get_buf_lang(buf or 0))
+end
+
+nvim_treesitter.win_is_supported = function(winid)
+  local buf = vim.api.nvim_win_get_buf(winid or 0)
+  return nvim_treesitter.buf_is_supported(buf)
+end
+
+nvim_treesitter.tab_get_supported_bufs = function(tab)
+  local winids = vim.api.nvim_tabpage_list_wins(tab or 0)
+  local bufs = vim.tbl_map(vim.api.nvim_win_get_buf, winids)
+  local supported_bufs = vim.tbl_filter(nvim_treesitter.buf_is_supported, bufs)
+
+  return supported_bufs
+end
+
+nvim_treesitter.tab_get_supported_winids = function(tab)
+  local winids = vim.api.nvim_tabpage_list_wins(tab or 0)
+  local supported_wins = vim.tbl_filter(nvim_treesitter.win_is_supported, winids)
+
+  return supported_wins
 end
 
 -- nvim-treehopper
@@ -412,6 +438,22 @@ nvim_treesitter.setup_performance_trick = function()
 
   local tab_trick_enable = false
   local tab_trick_debounce = 200
+  local tab_loop_supported_wins = function(callback)
+    -- FIXME: Switch current window to treesitter supported windows can fix highlight missing problem, but is very slow.
+
+    -- local current_win = vim.api.nvim_get_current_win()
+    -- local view = vim.fn.winsaveview()
+    -- local winids = nvim_treesitter.tab_get_supported_winids(0)
+    local winids = vim.api.nvim_tabpage_list_wins(0)
+
+    for _, winid in ipairs(winids) do
+      -- vim.api.nvim_set_current_win(winid)
+      callback(winid)
+    end
+
+    -- vim.api.nvim_set_current_win(current_win)
+    -- vim.fn.winrestview(view)
+  end
   -- FIXME: Open buffer in other tab doesn't have highlight
   -- FIXME: Seems to conflict with true-zen.nvim
   vim.api.nvim_create_autocmd({ "TabEnter" }, {
@@ -422,13 +464,11 @@ nvim_treesitter.setup_performance_trick = function()
 
       vim.defer_fn(function()
         if tab_trick_enable then
-          local winids = vim.api.nvim_tabpage_list_wins(0)
-
-          for _, module in ipairs(tab_idle_disabled_modules) do
-            for _, winid in ipairs(winids) do
+          tab_loop_supported_wins(function(winid)
+            for _, module in ipairs(tab_idle_disabled_modules) do
               configs_commands.TSBufEnable.run(module, vim.api.nvim_win_get_buf(winid))
             end
-          end
+          end)
 
           tab_trick_enable = false
         end
@@ -439,11 +479,11 @@ nvim_treesitter.setup_performance_trick = function()
     group = augroup_id,
     pattern = "*",
     callback = function()
-      for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+      tab_loop_supported_wins(function(winid)
         for _, module in ipairs(tab_idle_disabled_modules) do
           configs_commands.TSBufDisable.run(module, vim.api.nvim_win_get_buf(winid))
         end
-      end
+      end)
     end,
   })
 end
@@ -461,7 +501,7 @@ nvim_treesitter.setup = function()
   nvim_treesitter.setup_extensions()
   -- TODO: On neovim nightly, nvim-treesitter re-attach will result in error. (found swp)
   -- TODO: Monitor the error
-  -- FIXME: Highlight is missing on filetype that has no treesitter?
+  -- FIXME: Highlight is missing on filetype that has no treesitter & is focused window
   nvim_treesitter.setup_performance_trick()
   nvim_treesitter.setup_mapping()
 end
