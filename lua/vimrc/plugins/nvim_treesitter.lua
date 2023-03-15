@@ -439,20 +439,31 @@ nvim_treesitter.setup_performance_trick = function()
   local tab_trick_enable = {}
   local tab_trick_debounce = 500
   local tab_loop_supported_wins = function(callback)
-    -- FIXME: Switch current window to treesitter supported windows can fix highlight missing problem, but is very slow.
+    local supported_winids = nvim_treesitter.tab_get_supported_winids(0)
 
-    -- local current_win = vim.api.nvim_get_current_win()
-    -- local view = vim.fn.winsaveview()
-    -- local winids = nvim_treesitter.tab_get_supported_winids(0)
-    local winids = vim.api.nvim_tabpage_list_wins(0)
+    if not vim.tbl_isempty(supported_winids) then
+      local current_win = vim.api.nvim_get_current_win()
+      local current_win_supported = nvim_treesitter.win_is_supported(current_win)
+      local view = nil
 
-    for _, winid in ipairs(winids) do
-      -- vim.api.nvim_set_current_win(winid)
-      callback(winid)
+      if not current_win_supported then
+        current_win = vim.api.nvim_get_current_win()
+        view = vim.fn.winsaveview()
+
+        -- NOTE: Switch to supported window to avoid highlight missing
+        -- TODO: Check if neovim fix this bug on 0.9.0 release
+        vim.api.nvim_set_current_win(supported_winids[1])
+      end
+
+      for _, supported_winid in ipairs(supported_winids) do
+        callback(supported_winid)
+      end
+
+      if not current_win_supported then
+        vim.api.nvim_set_current_win(current_win)
+        vim.fn.winrestview(view)
+      end
     end
-
-    -- vim.api.nvim_set_current_win(current_win)
-    -- vim.fn.winrestview(view)
   end
   -- FIXME: Open buffer in other tab doesn't have highlight
   -- FIXME: Seems to conflict with true-zen.nvim
@@ -470,7 +481,7 @@ nvim_treesitter.setup_performance_trick = function()
             end
           end)
 
-        tab_trick_enable[vim.api.nvim_get_current_tabpage()] = false
+          tab_trick_enable[vim.api.nvim_get_current_tabpage()] = false
         end
       end, tab_trick_debounce)
     end,
@@ -501,9 +512,6 @@ nvim_treesitter.setup = function()
   nvim_treesitter.setup_parser_config()
   nvim_treesitter.setup_config()
   nvim_treesitter.setup_extensions()
-  -- TODO: On neovim nightly, nvim-treesitter re-attach will result in error. (found swp)
-  -- TODO: Monitor the error
-  -- FIXME: Highlight is missing on filetype that has no treesitter & is focused window
   nvim_treesitter.setup_performance_trick()
   nvim_treesitter.setup_mapping()
 end
