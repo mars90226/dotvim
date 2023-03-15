@@ -101,6 +101,13 @@ nvim_treesitter.tab_get_supported_winids = function(tab)
   return supported_wins
 end
 
+nvim_treesitter.list_supported_winids = function()
+  local winids = vim.api.nvim_list_wins()
+  local supported_wins = vim.tbl_filter(nvim_treesitter.win_is_supported, winids)
+
+  return supported_wins
+end
+
 -- nvim-treehopper
 nvim_treesitter.tsht_nodes = function(fallback)
   local tsht = require("tsht")
@@ -394,6 +401,49 @@ nvim_treesitter.setup_performance_trick = function()
   })
   local tab_idle_disabled_modules = global_idle_disabled_modules
 
+  ---Run callback on treesitter supported window to avoid highlight missing
+  ---@param supported_winids table<number> window ids that will run treesitter command
+  ---@param callback fun(): nil callback to run
+  local run_callback_on_supported_win = function(supported_winids, callback)
+    if not vim.tbl_isempty(supported_winids) then
+      local current_win = vim.api.nvim_get_current_win()
+      local current_win_supported = nvim_treesitter.win_is_supported(current_win)
+      local view = nil
+
+      if not current_win_supported then
+        current_win = vim.api.nvim_get_current_win()
+        view = vim.fn.winsaveview()
+
+        -- NOTE: Switch to supported window to avoid highlight missing
+        -- TODO: Check if neovim fix this bug on 0.9.0 release
+        vim.api.nvim_set_current_win(supported_winids[1])
+      end
+
+      callback()
+
+      if not current_win_supported then
+        vim.api.nvim_set_current_win(current_win)
+        vim.fn.winrestview(view)
+      end
+    end
+  end
+  ---Global run callback on supported window to avoid highlight missing
+  ---@param callback fun(): nil callback to run
+  local global_run_callback = function(callback)
+    local supported_winids = nvim_treesitter.list_supported_winids()
+    run_callback_on_supported_win(supported_winids, callback)
+  end
+  ---Run callback on each supported window in current tab to avoid highlight missing
+  ---@param callback fun(winid: number): nil callback to run
+  local tab_loop_supported_wins = function(callback)
+    local supported_winids = nvim_treesitter.tab_get_supported_winids(0)
+    run_callback_on_supported_win(supported_winids, function()
+      for _, supported_winid in ipairs(supported_winids) do
+        callback(supported_winid)
+      end
+    end)
+  end
+
   local global_trick_delay_enable = false
   local global_trick_delay = 60 * 1000 -- 60 seconds
   vim.api.nvim_create_autocmd({ "FocusGained" }, {
@@ -403,9 +453,11 @@ nvim_treesitter.setup_performance_trick = function()
       if global_trick_delay_enable then
         global_trick_delay_enable = false
       else
-        for _, module in ipairs(global_idle_disabled_modules) do
-          configs_commands.TSEnable.run(module)
-        end
+        global_run_callback(function()
+          for _, module in ipairs(global_idle_disabled_modules) do
+            configs_commands.TSEnable.run(module)
+          end
+        end)
       end
     end,
   })
@@ -426,9 +478,11 @@ nvim_treesitter.setup_performance_trick = function()
 
       vim.defer_fn(function()
         if global_trick_delay_enable then
-          for _, module in ipairs(global_idle_disabled_modules) do
-            configs_commands.TSDisable.run(module)
-          end
+          global_run_callback(function()
+            for _, module in ipairs(global_idle_disabled_modules) do
+              configs_commands.TSDisable.run(module)
+            end
+          end)
 
           global_trick_delay_enable = false
         end
@@ -438,33 +492,6 @@ nvim_treesitter.setup_performance_trick = function()
 
   local tab_trick_enable = {}
   local tab_trick_debounce = 500
-  local tab_loop_supported_wins = function(callback)
-    local supported_winids = nvim_treesitter.tab_get_supported_winids(0)
-
-    if not vim.tbl_isempty(supported_winids) then
-      local current_win = vim.api.nvim_get_current_win()
-      local current_win_supported = nvim_treesitter.win_is_supported(current_win)
-      local view = nil
-
-      if not current_win_supported then
-        current_win = vim.api.nvim_get_current_win()
-        view = vim.fn.winsaveview()
-
-        -- NOTE: Switch to supported window to avoid highlight missing
-        -- TODO: Check if neovim fix this bug on 0.9.0 release
-        vim.api.nvim_set_current_win(supported_winids[1])
-      end
-
-      for _, supported_winid in ipairs(supported_winids) do
-        callback(supported_winid)
-      end
-
-      if not current_win_supported then
-        vim.api.nvim_set_current_win(current_win)
-        vim.fn.winrestview(view)
-      end
-    end
-  end
   -- FIXME: Open buffer in other tab doesn't have highlight
   -- FIXME: Seems to conflict with true-zen.nvim
   vim.api.nvim_create_autocmd({ "TabEnter" }, {
