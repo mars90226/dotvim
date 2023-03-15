@@ -492,7 +492,7 @@ nvim_treesitter.setup_performance_trick = function()
   })
 
   local tab_trick_enable = {}
-  local tab_trick_debounce = 500
+  local tab_trick_debounce = 200
   -- FIXME: Open buffer in other tab doesn't have highlight
   -- FIXME: Seems to conflict with true-zen.nvim
   vim.api.nvim_create_autocmd({ "TabEnter" }, {
