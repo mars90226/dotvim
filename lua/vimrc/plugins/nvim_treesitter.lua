@@ -436,8 +436,8 @@ nvim_treesitter.setup_performance_trick = function()
     end,
   })
 
-  local tab_trick_enable = false
-  local tab_trick_debounce = 200
+  local tab_trick_enable = {}
+  local tab_trick_debounce = 500
   local tab_loop_supported_wins = function(callback)
     -- FIXME: Switch current window to treesitter supported windows can fix highlight missing problem, but is very slow.
 
@@ -460,7 +460,7 @@ nvim_treesitter.setup_performance_trick = function()
     group = augroup_id,
     pattern = "*",
     callback = function()
-      tab_trick_enable = true
+      tab_trick_enable[vim.api.nvim_get_current_tabpage()] = true
 
       vim.defer_fn(function()
         if tab_trick_enable then
@@ -470,7 +470,7 @@ nvim_treesitter.setup_performance_trick = function()
             end
           end)
 
-          tab_trick_enable = false
+        tab_trick_enable[vim.api.nvim_get_current_tabpage()] = false
         end
       end, tab_trick_debounce)
     end,
@@ -479,6 +479,8 @@ nvim_treesitter.setup_performance_trick = function()
     group = augroup_id,
     pattern = "*",
     callback = function()
+      tab_trick_enable[vim.api.nvim_get_current_tabpage()] = false
+
       tab_loop_supported_wins(function(winid)
         for _, module in ipairs(tab_idle_disabled_modules) do
           configs_commands.TSBufDisable.run(module, vim.api.nvim_win_get_buf(winid))
