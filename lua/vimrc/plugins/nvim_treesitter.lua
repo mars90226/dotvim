@@ -422,8 +422,9 @@ nvim_treesitter.setup_performance_trick = function()
       callback()
 
       if not current_win_supported then
-        vim.api.nvim_set_current_win(current_win)
-        vim.fn.winrestview(view)
+        -- NOTE: Avoid invalid window id
+        pcall(vim.api.nvim_set_current_win, current_win)
+        pcall(vim.fn.winrestview, view)
       end
     end
   end
