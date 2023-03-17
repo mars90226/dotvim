@@ -3,6 +3,8 @@ local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
 
+local configs = require("nvim-treesitter.configs")
+local configs_commands = configs.commands
 local parsers = require("nvim-treesitter.parsers")
 
 local nvim_treesitter = {}
@@ -75,6 +77,12 @@ local enable_check = function(enable_filetype)
   return function(lang, bufnr)
     return not vim.tbl_contains(enable_filetype, lang)
   end
+end
+
+nvim_treesitter.is_enabled = function(module, buf)
+  buf = buf or 0
+  local lang = parsers.get_buf_lang(buf)
+  return configs.is_enabled(module, lang, buf)
 end
 
 nvim_treesitter.buf_is_supported = function(buf)
@@ -169,7 +177,7 @@ nvim_treesitter.setup_parser_config = function()
 end
 
 nvim_treesitter.setup_config = function()
-  require("nvim-treesitter.configs").setup({
+  configs.setup({
     ensure_installed = vim.tbl_filter(function(language)
       return language ~= nil
     end, {
@@ -380,8 +388,6 @@ nvim_treesitter.setup_extensions = function()
 end
 
 nvim_treesitter.setup_performance_trick = function()
-  local configs_commands = require("nvim-treesitter.configs").commands
-
   -- TODO: Check if these actually help performance, initial test reveals that these may reduce highlighter time, but increase "[string]:0" time which is probably the time spent on autocmd & syntax enable/disable.
   -- TODO: These config help reduce memory usage, see if there's other way to fix high memory usage.
   -- TODO: Change to tab based toggling
@@ -493,7 +499,6 @@ nvim_treesitter.setup_performance_trick = function()
 
   local tab_trick_enable = {}
   local tab_trick_debounce = 200
-  -- FIXME: Open buffer in other tab doesn't have highlight
   -- FIXME: Seems to conflict with true-zen.nvim
   vim.api.nvim_create_autocmd({ "TabEnter" }, {
     group = augroup_id,
@@ -525,6 +530,18 @@ nvim_treesitter.setup_performance_trick = function()
           configs_commands.TSBufDisable.run(module, vim.api.nvim_win_get_buf(winid))
         end
       end)
+    end,
+  })
+  -- NOTE: Open buffer in other tab doesn't have highlight, enable highlight on BufWinEnter
+  vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+    group = augroup_id,
+    pattern = "*",
+    callback = function()
+      if nvim_treesitter.win_is_supported() then
+        for _, module in ipairs(tab_idle_disabled_modules) do
+          configs_commands.TSBufEnable.run(module, vim.api.nvim_get_current_buf())
+        end
+      end
     end,
   })
 end
