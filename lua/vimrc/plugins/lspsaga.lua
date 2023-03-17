@@ -39,6 +39,9 @@ end
 
 lspsaga.setup = function()
   saga.setup({
+    diagnostic = {
+      on_insert = false,
+    },
     lightbulb = {
       enable = true, -- NOTE: lspsaga will show error once when lsp not support codeAction
       enable_in_insert = true,
