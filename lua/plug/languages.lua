@@ -270,9 +270,11 @@ languages.startup = function(use)
     })
   end
 
-  -- TODO: Check if this can be replaced by vim.lsp.buf.document_highlight()
-  -- ref: :help vim.lsp.buf.document_highlight()
-  use("jackguo380/vim-lsp-cxx-highlight")
+  -- TODO: Remove vim-lsp-cxx-highlight when neovim 0.9.0 is stable
+  -- ref: :help lsp-semantic-highlight
+  if choose.is_enabled_plugin("vim-lsp-cxx-highlight") then
+    use("jackguo380/vim-lsp-cxx-highlight")
+  end
 
   -- Context
   if choose.is_enabled_plugin("nvim-treesitter") then

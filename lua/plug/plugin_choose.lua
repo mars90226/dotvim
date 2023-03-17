@@ -86,10 +86,12 @@ plugin_choose.setup_language = function()
     choose.enable_plugin("nvim-treesitter")
   end
 
-  -- Enable lsp-based highlighting
-  -- vim-lsp-cxx-highlight for highlighting using lsp
-  -- Do not vim-lsp-cxx-highlight when nvim-treesitter as nvim-treesitter cannot
-  -- recognize C/C++ macro semantics.
+  -- Choose lsp semantic highlighting plugin
+  -- neovim 0.9.0 lsp-semantic-highlight, vim-lsp-cxx-highlight
+  choose.disable_plugin("vim-lsp-cxx-highlight")
+  if vim.fn.has("nvim-0.9") == 0 then
+    choose.enable_plugin("vim-lsp-cxx-highlight")
+  end
   -- }}}
 
   -- Lint {{{
