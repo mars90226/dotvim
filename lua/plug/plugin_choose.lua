@@ -129,6 +129,13 @@ plugin_choose.setup_language = function()
     choose.enable_plugin("nvim-gps")
   end
 
+  -- Choose breadcrumbs plugin
+  -- nvim-navbuddy
+  choose.disable_plugin("navi")
+  if choose.is_enabled_plugin("nvim-navic") then
+    choose.enable_plugin("nvim-navbuddy")
+  end
+
   -- Choose context plugin
   -- nvim-treesitter-context
   -- NOTE: Only for default enable/disable

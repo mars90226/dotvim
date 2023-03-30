@@ -165,7 +165,7 @@ lsp.startup = function(use)
     disable = true,
     config = function()
       require("neodev").setup({})
-    end
+    end,
   })
 
   -- Fold
@@ -181,6 +181,23 @@ lsp.startup = function(use)
       require("vimrc.plugins.ufo").setup()
     end,
   })
+
+  -- Breadcrumbs
+  if choose.is_enabled_plugin("nvim-navbuddy") then
+    use({
+      "SmiteshP/nvim-navbuddy",
+      requires = {
+        "neovim/nvim-lspconfig",
+        "SmiteshP/nvim-navic",
+        "MunifTanjim/nui.nvim",
+      },
+      config = function()
+        require("nvim-navbuddy").setup()
+
+        nnoremap("<Space><Leader>", "<Cmd>Navbuddy<CR>")
+      end
+    })
+  end
 end
 
 return lsp

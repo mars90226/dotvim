@@ -199,6 +199,9 @@ lsp.on_attach = function(client, bufnr)
   if choose.is_enabled_plugin("nvim-navic") and client.server_capabilities.documentSymbolProvider then
     require("nvim-navic").attach(client, bufnr)
   end
+  if choose.is_enabled_plugin("nvim-navbuddy") and client.server_capabilities.documentSymbolProvider then
+    require("nvim-navbuddy").attach(client, bufnr)
+  end
 
   -- My plugin configs
   my_lspsaga.on_attach(client)
