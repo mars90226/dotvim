@@ -104,7 +104,7 @@ settings.startup = function(use)
       -- misc
       vim.opt.shellslash = true
       if vim.fn.has("nvim-0.9.0") == 1 then
-        vim.opt.splitkeep = "screen"
+        vim.opt.splitkeep = "cursor"
       end
 
       -- Complete
