@@ -40,7 +40,6 @@ utility.startup = function(use)
         ["]u"] = [[\]u]],
         ["[uu"] = [[\[uu]],
         ["]uu"] = [[\]uu]],
-
         -- xml encode/decode
         ["[x"] = [[\[x]],
         ["]x"] = [[\]x]],
@@ -115,17 +114,15 @@ utility.startup = function(use)
         -- Manual mode doesn't automatically change your root directory, so you have
         -- the option to manually do so using `:ProjectRoot` command.
         manual_mode = true,
-
         -- your configuration comes here
         -- or leave it empty to use the default settings
         -- refer to the configuration section below
         ignore_lsp = { "null-ls" },
-
         -- What scope to change the directory, valid options are
         -- * global (default)
         -- * tab
         -- * win
-        scope_chdir = 'win',
+        scope_chdir = "win",
       })
       require("telescope").load_extension("projects")
 
@@ -342,10 +339,10 @@ utility.startup = function(use)
       nnoremap("<Space><F8>", "<Cmd>TodoTelescope<CR>")
       nnoremap("[x", function()
         require("todo-comments").jump_prev()
-      end, { desc = "Previous todo comment"})
+      end, { desc = "Previous todo comment" })
       nnoremap("]x", function()
         require("todo-comments").jump_next()
-      end, { desc = "Next todo comment"})
+      end, { desc = "Next todo comment" })
     end,
   })
 
@@ -485,6 +482,15 @@ utility.startup = function(use)
 
       nnoremap("<Leader>tr", [[viw:Translate ZH-TW<CR>]])
       xnoremap("<Leader>tr", [[:Translate ZH-TW<CR>]])
+    end,
+  })
+
+  use({
+    "Bekaboo/deadcolumn.nvim",
+    config = function()
+      -- NOTE: Monitor this
+      vim.opt.textwidth = 100
+      vim.opt.colorcolumn = "+2"
     end,
   })
 
