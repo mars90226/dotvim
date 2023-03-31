@@ -116,11 +116,15 @@ nvim_cmp.setup = function()
       ["<M-j>"] = cmp.mapping(function(fallback)
         if luasnip.choice_active() then
           luasnip.change_choice(1)
+        else
+          fallback()
         end
       end, { "i" }),
       ["<M-k>"] = cmp.mapping(function(fallback)
         if luasnip.choice_active() then
           luasnip.change_choice(-1)
+        else
+          fallback()
         end
       end, { "i" }),
       ["<C-Space>"] = cmp.mapping.complete(),

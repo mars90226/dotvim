@@ -195,9 +195,12 @@ lsp.startup = function(use)
         require("nvim-navbuddy").setup()
 
         nnoremap("<Space><Leader>", "<Cmd>Navbuddy<CR>")
-      end
+      end,
     })
   end
+
+  -- Overloads
+  use({ "Issafalcon/lsp-overloads.nvim" })
 end
 
 return lsp

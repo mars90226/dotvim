@@ -202,6 +202,17 @@ lsp.on_attach = function(client, bufnr)
   if choose.is_enabled_plugin("nvim-navbuddy") and client.server_capabilities.documentSymbolProvider then
     require("nvim-navbuddy").attach(client, bufnr)
   end
+  if client.server_capabilities.signatureHelpProvider then
+    vim.cmd([[echomsg "setup lsp-overloads"]])
+    require("lsp-overloads").setup(client, {
+      keymaps = {
+        next_signature = "<C-j>",
+        previous_signature = "<C-k>",
+        next_parameter = "<C-l>",
+        previous_parameter = "<C-h>",
+      },
+    })
+  end
 
   -- My plugin configs
   my_lspsaga.on_attach(client)
@@ -220,7 +231,7 @@ lsp.on_attach = function(client, bufnr)
   nnoremap("g0", "<Cmd>lua vim.lsp.buf.document_symbol()<CR>", "silent", "buffer")
   nnoremap("gy", "<Cmd>lua vim.lsp.buf.signature_help()<CR>", "silent", "buffer")
   nnoremap("<Space>lf", "<Cmd>lua vim.lsp.buf.format({ async = true })<CR>", "silent", "buffer")
-  vim.keymap.set('x', "<Space>lf", vim.lsp.buf.format, { silent = true, buffer = true })
+  vim.keymap.set("x", "<Space>lf", vim.lsp.buf.format, { silent = true, buffer = true })
   nnoremap("<Space>lI", function()
     if vim.fn.exists(":LspInfo") == 2 then
       vim.cmd([[LspInfo]])
