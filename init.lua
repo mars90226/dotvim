@@ -2,36 +2,17 @@ pcall(require, "impatient")
 
 require("vimrc.profile").setup()
 
+-- Basic
 require("plug.config_cache").setup()
 require("vimrc.basic").setup()
 require("plug.basic").setup()
 require("plug.plugin_choose").setup()
 
-local auto_packer = require("plug.auto_packer")
+-- Lazy
+require("plug.auto_lazy").setup()
+require("lazy").setup("plug.plugins")
 
--- Plugin Settings Begin
-require("packer").startup(function(use)
-  use("wbthomason/packer.nvim")
-
-  require("plug.plugins.impatient").startup(use)
-  require("plug.plugins.mapx").startup(use)
-  require("plug.plugins.appearance").startup(use)
-  require("plug.plugins.lsp").startup(use)
-  require("plug.plugins.completion").startup(use)
-  require("plug.plugins.file_explorer").startup(use)
-  require("plug.plugins.file_navigation").startup(use)
-  require("plug.plugins.text_navigation").startup(use)
-  require("plug.plugins.text_manipulcation").startup(use)
-  require("plug.plugins.text_objects").startup(use)
-  require("plug.plugins.languages").startup(use)
-  require("plug.plugins.git").startup(use)
-  require("plug.plugins.terminal").startup(use)
-  require("plug.plugins.utility").startup(use)
-  require("plug.plugins.last").startup(use)
-
-  auto_packer.check_sync()
-end)
-
+-- Core
 require("core.mapping").setup()
 require("core.setting").setup()
 require("core.filetype").setup()
@@ -44,3 +25,4 @@ require("core.job").setup()
 require("core.cli").setup()
 require("core.tui").setup()
 require("core.clipboard").setup()
+require("core.termdebug").setup()

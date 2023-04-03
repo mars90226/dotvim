@@ -1,19 +1,17 @@
 local choose = require("vimrc.choose")
 
-local file_navigation = {}
-
-file_navigation.startup = function(use)
+local file_navigation = {
   -- Sources
   -- TODO: Raise neomru limit
-  use({
+  {
     "Shougo/neomru.vim",
     config = function()
       vim.g["neomru#do_validate"] = 0
       vim.g["neomru#update_interval"] = 60 -- NOTE: 60 seconds
     end,
-  })
+  },
   -- Yank
-  use({
+  {
     "gbprod/yanky.nvim",
     -- TODO: Only lazy load in WSL
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
@@ -46,73 +44,73 @@ file_navigation.startup = function(use)
 
       require("telescope").load_extension("yank_history")
     end,
-  })
+  },
 
   -- Finders
   -- fzf
   -- fzf#install() only install binary
   -- TODO: This install fzf inside packer.nvim plugin folder
   -- Need to change corresponding script that try to use fzf in ~/.fzf
-  use({
+  {
     "junegunn/fzf",
-    run = function()
+    build = function()
       vim.fn["fzf#install"]()
     end,
     config = function()
       require("vimrc.plugins.fzf").setup()
     end,
-  })
-  use("junegunn/fzf.vim")
-  use("stsewd/fzf-checkout.vim")
+  },
+  "junegunn/fzf.vim",
+  "stsewd/fzf-checkout.vim",
 
   -- telescope.nvim
-  use({
+  {
     "nvim-telescope/telescope.nvim",
-    requires = { "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("vimrc.plugins.telescope").setup()
     end,
-  })
-  use({
+  },
+  {
     "nvim-telescope/telescope-file-browser.nvim",
     config = function()
       require("telescope").load_extension("file_browser")
     end,
-  })
-  use({
+  },
+  {
     "nvim-telescope/telescope-project.nvim",
     config = function()
       require("telescope").load_extension("project")
     end,
-  })
-  use({
+  },
+  {
     "jvgrootveld/telescope-zoxide",
     config = function()
       require("telescope").load_extension("zoxide")
     end,
-  })
-  use("sudormrfbin/cheatsheet.nvim")
-  use({
+  },
+  "sudormrfbin/cheatsheet.nvim",
+  {
     "TC72/telescope-tele-tabby.nvim",
     config = function()
       require("telescope").load_extension("tele_tabby")
     end,
-  })
-  use({
+  },
+  {
     "nvim-telescope/telescope-live-grep-args.nvim",
     config = function()
       require("telescope").load_extension("live_grep_args")
     end,
-  })
-  use({
+  },
+  {
     "nvim-telescope/telescope-frecency.nvim",
     config = function()
       require("telescope").load_extension("frecency")
     end,
     -- NOTE: Require sqlite3, specifically libsqlite3.so
-    requires = { "kkharji/sqlite.lua" },
-  })
-  use({
+    dependencies = { "kkharji/sqlite.lua" },
+  },
+  {
     "LinArcX/telescope-command-palette.nvim",
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
@@ -181,52 +179,50 @@ file_navigation.startup = function(use)
 
       require("telescope").load_extension("command_palette")
     end,
-  })
-  use({
+  },
+  {
     "debugloop/telescope-undo.nvim",
     config = function()
       require("telescope").load_extension("undo")
     end,
-  })
-  use({
+  },
+  {
     "molecule-man/telescope-menufacture",
     config = function()
       require("telescope").load_extension("menufacture")
     end,
-  })
-  use({
+  },
+  {
     "aaronhallaert/advanced-git-search.nvim",
     config = function()
       require("telescope").load_extension("advanced_git_search")
     end,
-    requires = {
+    dependencies = {
       "nvim-telescope/telescope.nvim",
       -- to show diff splits and open commits in browser
       "tpope/vim-fugitive",
     },
-  })
-
-  if choose.is_enabled_plugin("telescope-fzf-native.nvim") then
-    use({
-      "nvim-telescope/telescope-fzf-native.nvim",
-      run = "make",
-      config = function()
-        require("telescope").load_extension("fzf")
-      end,
-    })
-  end
+  },
+  {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    cond = choose.is_enabled_plugin("telescope-fzf-native.nvim"),
+    build = "make",
+    config = function()
+      require("telescope").load_extension("fzf")
+    end,
+  },
 
   -- fzf-lua
-  use({
+  {
     "ibhagwan/fzf-lua",
-    requires = { "kyazdani42/nvim-web-devicons" },
+    dependencies = { "kyazdani42/nvim-web-devicons" },
     config = function()
       require("vimrc.plugins.fzf_lua").setup()
     end,
-  })
+  },
 
   -- Bookmarks
-  use({
+  {
     "ThePrimeagen/harpoon",
     config = function()
       require("harpoon").setup({})
@@ -240,10 +236,10 @@ file_navigation.startup = function(use)
       nnoremap("<Leader>h]", [[<Cmd>lua require("harpoon.ui").nav_next()<CR>]])
       nnoremap("<Leader>h[", [[<Cmd>lua require("harpoon.ui").nav_prev()<CR>]])
     end,
-  })
+  },
 
   -- Goto Definitions
-  use({
+  {
     "pechorin/any-jump.nvim",
     cmd = { "AnyJump", "AnyJumpArg", "AnyJumpVisual" },
     keys = { "<Leader>aj", "<Leader>aa" },
@@ -263,19 +259,19 @@ file_navigation.startup = function(use)
       nnoremap("<Leader>ab", "<Cmd>AnyJumpBack<CR>")
       nnoremap("<Leader>al", "<Cmd>AnyJumpLastResults<CR>")
     end,
-  })
+  },
 
   -- Automatically update tags
-  use({
+  {
     "ludovicchabant/vim-gutentags",
-    config = function()
+    init = function()
       -- Don't update cscope, workload is too heavy
       vim.g.gutentags_modules = { "ctags" }
       vim.g.gutentags_ctags_exclude = { ".git", "node_modules", ".ccls-cache" }
     end,
-  })
+  },
 
-  use({
+  {
     "nvim-pack/nvim-spectre",
     cmd = { "Spectre" },
     keys = { "<Space>S", "<Space>sw", "<Space>s'" },
@@ -290,22 +286,22 @@ file_navigation.startup = function(use)
       -- Search in current file
       nnoremap("<Space>s'", [[viw:lua require('spectre').open_file_search()<CR>]])
     end,
-  })
+  },
 
   -- Window Switching
-  use({
+  {
     "https://gitlab.com/yorickpeterse/nvim-window.git",
     config = function()
       nnoremap("=-", "<Cmd>lua require('nvim-window').pick()<CR>", "silent")
     end,
-  })
+  },
 
-  use({
+  {
     "rgroli/other.nvim",
     config = function()
       require("vimrc.plugins.other").setup()
     end,
-  })
-end
+  },
+}
 
 return file_navigation

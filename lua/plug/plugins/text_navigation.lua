@@ -1,14 +1,12 @@
 local choose = require("vimrc.choose")
 
-local text_navigation = {}
-
-text_navigation.startup = function(use)
+local text_navigation = {
   -- Match
-  use({
+  {
     "andymass/vim-matchup",
     cmd = { "DoMatchParen" },
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
-    setup = function()
+    init = function()
       vim.g.matchup_matchparen_deferred = 1
       vim.g.matchup_matchparen_deferred_show_delay = 1000
       vim.g.matchup_matchparen_deferred_hide_delay = 1000
@@ -24,10 +22,10 @@ text_navigation.startup = function(use)
       nnoremap("<Leader>mk", [[<Cmd>MatchupWhereAmI?<CR>]])
       -- NOTE: nvim-treesitter config is in nvim_treesitter.lua
     end,
-  })
+  },
 
   -- Jump
-  use({
+  {
     "phaazon/hop.nvim",
     config = function()
       map("<Space>w", "<Cmd>HopWord<CR>")
@@ -40,16 +38,15 @@ text_navigation.startup = function(use)
 
       require("hop").setup({})
     end,
-  })
-  if choose.is_enabled_plugin("nvim-treesitter") then
-    use({
-      "indianboy42/hop-extensions",
-      config = function()
-        require("vimrc.plugins.hop_extensions").setup()
-      end,
-    })
-  end
-  use({
+  },
+  {
+    "indianboy42/hop-extensions",
+    cond = choose.is_enabled_plugin("nvim-treesitter"),
+    config = function()
+      require("vimrc.plugins.hop_extensions").setup()
+    end,
+  },
+  {
     "ggandor/lightspeed.nvim",
     config = function()
       require("lightspeed").setup({
@@ -67,19 +64,19 @@ text_navigation.startup = function(use)
       noremap("gs", "gs")
       nmap("<M-;>", "<Plug>Lightspeed_omni_gs")
     end,
-  })
-  use({
+  },
+  {
     "rlane/pounce.nvim",
     cmd = { "Pounce" },
     keys = { "<Leader>/" },
     config = function()
       map("<Leader>/", [[<Cmd>Pounce<CR>]])
     end,
-  })
+  },
 
   -- Search
-  use("haya14busa/vim-asterisk")
-  use({
+  "haya14busa/vim-asterisk",
+  {
     "kevinhwang91/nvim-hlslens",
     config = function()
       require("hlslens").setup()
@@ -101,18 +98,18 @@ text_navigation.startup = function(use)
       xnoremap("<M-/>", [[<Esc>/\%V]])
       xnoremap("<M-?>", [[<Esc>?\%V]])
     end,
-  })
+  },
 
   -- Marks
-  use({
+  {
     "chentoast/marks.nvim",
     config = function()
       require("marks").setup({})
     end,
-  })
+  },
 
   -- Motion
-  use({
+  {
     "bkad/CamelCaseMotion",
     config = function()
       map("<Leader>mw", "<Plug>CamelCaseMotion_w")
@@ -127,17 +124,17 @@ text_navigation.startup = function(use)
       omap("ime", "<Plug>CamelCaseMotion_ie", "silent")
       xmap("ime", "<Plug>CamelCaseMotion_ie", "silent")
     end,
-  })
+  },
 
-  use({
+  {
     "haya14busa/vim-edgemotion",
     config = function()
       map("<Space><Space>j", "<Plug>(edgemotion-j)")
       map("<Space><Space>k", "<Plug>(edgemotion-k)")
     end,
-  })
+  },
 
-  use({ "jeetsukumaran/vim-indentwise", event = { "FocusLost", "CursorHold", "CursorHoldI" } })
-end
+  { "jeetsukumaran/vim-indentwise", event = { "FocusLost", "CursorHold", "CursorHoldI" } },
+}
 
 return text_navigation

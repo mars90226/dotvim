@@ -1,8 +1,6 @@
-local impatient = {}
-
-impatient.startup = function(use)
+local impatient = {
   -- TODO: Monitor if any plugins break by module resolution cache
-  use("lewis6991/impatient.nvim")
-end
+  "lewis6991/impatient.nvim"
+}
 
 return impatient

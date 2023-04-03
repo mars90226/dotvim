@@ -385,7 +385,7 @@ luasnip.setup = function()
     paths = vim.tbl_filter(function(path)
       return vim.fn.isdirectory(path) > 0
     end, {
-      utils.get_packer_start_dir() .. "/friendly-snippets",
+      utils.get_lazy_dir() .. "/friendly-snippets",
       vim.env.HOME .. "/.vim",
       vim.env.HOME .. "/.vim_secret",
     }),

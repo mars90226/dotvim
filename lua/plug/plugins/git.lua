@@ -1,19 +1,17 @@
 local utils = require("vimrc.utils")
 
-local git = {}
-
-git.startup = function(use)
+local git = {
   -- vim-fugitive
-  use({
+  {
     "tpope/vim-fugitive",
     config = function()
       require("vimrc.plugins.fugitive").setup()
     end,
-  })
-  use("shumphrey/fugitive-gitlab.vim")
-  use("tommcdo/vim-fubitive")
-  use("tpope/vim-rhubarb")
-  use({
+  },
+  "shumphrey/fugitive-gitlab.vim",
+  "tommcdo/vim-fubitive",
+  "tpope/vim-rhubarb",
+  {
     "idanarye/vim-merginal",
     branch = "develop",
     config = function()
@@ -22,9 +20,9 @@ git.startup = function(use)
       vim.cmd([[  autocmd BufEnter Merginal:branchList:* call vimrc#merginal#settings()]])
       vim.cmd([[augroup END]])
     end,
-  })
+  },
 
-  use({
+  {
     "junegunn/gv.vim",
     cmd = { "GV", "GVA", "GVD", "GVDA", "GVDE", "GVEA" },
     keys = {
@@ -52,10 +50,10 @@ git.startup = function(use)
       nnoremap("<Leader>gV", ":call vimrc#gv#show_file('%', {'author': g:company_domain})<CR>")
       nnoremap("<Leader>g<C-V>", ":call vimrc#gv#show_file('%', {'author': g:company_email})<CR>")
     end,
-  })
+  },
 
   -- NOTE: Do not use vim-flog on large code base, it's very slow in git view
-  use({
+  {
     "rbong/vim-flog",
     cmd = { "Flog", "Flogsplit" },
     keys = {
@@ -97,22 +95,22 @@ git.startup = function(use)
       nnoremap("<Leader>gF", ":call vimrc#flog#show_file('%', {'author': g:company_domain})<CR>")
       nnoremap("<Leader>g<C-F>", ":call vimrc#flog#show_file('%', {'author': g:company_email})<CR>")
     end,
-  })
+  },
 
-  use({
+  {
     "lewis6991/gitsigns.nvim",
-    requires = { "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("vimrc.plugins.gitsigns").setup()
 
       -- ref: GruvboxFg4
       vim.cmd([[highlight GitSignsCurrentLineBlame ctermfg=243 guifg=#7c6f64]])
     end,
-  })
+  },
 
-  use({
+  {
     "codeindulgence/vim-tig",
-    cmd = { "Tig", "Tig!" },
+    cmd = { "Tig" },
     keys = {
       [[\tr]],
       [[\tt]],
@@ -125,18 +123,18 @@ git.startup = function(use)
     config = function()
       require("vimrc.plugins.tig").setup()
     end,
-  })
+  },
 
-  use({
+  {
     "rhysd/git-messenger.vim",
     cmd = { "GitMessenger" },
     keys = { "<Leader>gm" },
     config = function()
       nmap("<Leader>gm", "<Plug>(git-messenger)")
     end,
-  })
+  },
 
-  use({
+  {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     keys = { "<Space>gd", "<Space>gh", "<Space>gH" },
@@ -147,7 +145,7 @@ git.startup = function(use)
         else
           vim.cmd([[DiffviewClose]])
         end
-      end, { desc = "Diffview toggle"})
+      end, { desc = "Diffview toggle" })
 
       -- TODO: Add mapping for author filter & current file
       nnoremap("<Space>gh", "<Cmd>DiffviewFileHistory<CR>")
@@ -164,18 +162,18 @@ git.startup = function(use)
       )
       vim.cmd([[augroup END]])
     end,
-  })
+  },
 
-  use({
+  {
     "TimUntersberger/neogit",
-    disable = true,
-    requires = { "nvim-lua/plenary.nvim" },
+    enabled = false,
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("neogit").setup({})
     end,
-  })
+  },
 
-  use({
+  {
     "akinsho/git-conflict.nvim",
     cmd = { "GitConflictRefresh", "GitConflictNextConflict", "GitConflictPrevConflict" },
     keys = { "<Leader>cr", "]v", "[v" },
@@ -194,7 +192,7 @@ git.startup = function(use)
       nmap("]v", "<Plug>(git-conflict-prev-conflict)")
       nmap("[v", "<Plug>(git-conflict-next-conflict)")
     end,
-  })
-end
+  },
+}
 
 return git

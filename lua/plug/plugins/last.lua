@@ -1,8 +1,6 @@
-local last = {}
-
-last.startup = function(use)
+local last = {
   -- This plugin should be the last plugin
-  use("ryanoasis/vim-devicons")
-end
+  "ryanoasis/vim-devicons",
+}
 
 return last

@@ -12,10 +12,9 @@ plugin_choose.setup_appearance = function()
   -- tabby.nvim, barbar.nvim, or tabline bundled in statusline
 
   -- Winbar
-  -- custom winbar, lualine.nvim, lspsaga.nvim
-  choose.disable_plugins({ "winbar", "lualine.nvim-winbar", "lspsaga.nvim-winbar" })
+  -- lualine.nvim, lspsaga.nvim
+  choose.disable_plugins({ "lualine.nvim-winbar", "lspsaga.nvim-winbar" })
   if vim.fn.has("nvim-0.8") == 1 then
-    -- choose.enable_plugin("winbar")
     choose.enable_plugin("lualine.nvim-winbar")
     -- choose.enable_plugin("lspsaga-nvim-winbar")
   end

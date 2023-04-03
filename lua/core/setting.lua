@@ -136,6 +136,24 @@ settings.setup = function()
       vim.keymap.set({ "c" }, "<C-J>", "<C-G>", { noremap = true })
       vim.keymap.set({ "c" }, "<C-K>", "<C-T>", { noremap = true })
       -- }}}
+
+    end,
+  })
+
+  -- TODO: Move to better place
+  -- Signcolumn
+  use_config({
+    "mars90226/signcolumn",
+    config = function()
+      local signcolumn_settings_augroup_id = vim.api.nvim_create_augroup("signcolumn_settings", {})
+      vim.api.nvim_create_autocmd({ "WinNew" }, {
+        group = signcolumn_settings_augroup_id,
+        pattern = "*",
+        callback = function()
+          -- NOTE: Reset signcolumn to "auto" to avoid inheriting winbar setting from other window
+          vim.wo.signcolumn = "auto"
+        end,
+      })
     end,
   })
 end

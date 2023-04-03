@@ -13,10 +13,20 @@ utils.get_packer_opt_dir = function()
   return utils.get_packer_dir() .. "/packer/opt"
 end
 
+-- Lazy
+utils.get_lazy_dir = function()
+  return require("lazy.core.config").options.root
+end
+
 utils.helptags_all = function()
-  for _, path in ipairs(vim.fn.glob(utils.get_packer_opt_dir() .. "/*", 1, 1)) do
-    vim.cmd("packadd " .. vim.fn.fnamemodify(path, ":t"))
-  end
+  -- Packer
+  -- for _, path in ipairs(vim.fn.glob(utils.get_packer_opt_dir() .. "/*", 1, 1)) do
+  --   vim.cmd("packadd " .. vim.fn.fnamemodify(path, ":t"))
+  -- end
+
+  -- Lazy
+  -- TODO: Implement
+
   vim.cmd([[helptags ALL]])
 end
 

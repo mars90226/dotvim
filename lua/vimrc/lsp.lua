@@ -218,11 +218,6 @@ lsp.on_attach = function(client, bufnr)
   my_lspsaga.on_attach(client)
   my_goto_preview.on_attach(client)
 
-  if choose.is_enabled_plugin("winbar") then
-    -- TODO: Move back to appearance.lua, see appearance.lua for reason
-    require("vimrc.winbar").attach(bufnr)
-  end
-
   nnoremap("K", "<Cmd>lua require('vimrc.lsp').show_doc()<CR>", "silent", "buffer")
   -- NOTE: Use <C-]> to call 'tagfunc'
   -- nnoremap("<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "silent", "buffer")
@@ -390,12 +385,17 @@ lsp.setup_lsp_install = function()
   })
 end
 
+lsp.setup_plugins = function()
+  my_lspsaga.setup()
+end
+
 lsp.setup = function(settings)
   lsp.config = vim.tbl_extend("force", lsp.config, settings)
 
   lsp.init_servers_by_filetype()
   lsp.setup_diagnostic()
   lsp.setup_lsp_install()
+  lsp.setup_plugins()
 
   -- TODO: Maybe setup basic lsp server?
   local lsp_setup_server_on_ft_augroup_id = vim.api.nvim_create_augroup("lsp_setup_server_on_ft", {})

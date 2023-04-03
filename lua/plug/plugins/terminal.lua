@@ -1,26 +1,24 @@
-local terminal = {}
-
-terminal.startup = function(use)
+local terminal = {
   -- vim-floaterm
-  use({
+  {
     "voldikss/vim-floaterm",
     config = function()
       require("vimrc.plugins.floaterm").setup()
     end,
-  })
-  use("voldikss/fzf-floaterm")
+  },
+  "voldikss/fzf-floaterm",
 
   -- FIXME: Seems broken in neovim 0.9.0? Replace it with other terminal plugin
-  use({
+  {
     "kassio/neoterm",
     cmd = { "T", "Ttoggle", "Texec" },
     keys = { "<Space>`", "<Leader>`" },
     config = function()
       require("vimrc.plugins.neoterm").setup()
     end,
-  })
+  },
 
-  use({
+  {
     "hkupty/iron.nvim",
     cmd = { "IronRepl", "IronReplHere", "IronSend" },
     keys = { "<Leader>ic", "<Leader>if", "<Leader>il", "<Leader>mc" },
@@ -52,7 +50,7 @@ terminal.startup = function(use)
         },
       })
     end,
-  })
-end
+  },
+}
 
 return terminal

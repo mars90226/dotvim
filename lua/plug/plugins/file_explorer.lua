@@ -1,31 +1,32 @@
 local choose = require("vimrc.choose")
 
-local file_explorer = {}
+local file_explorer = {
+  -- NOTE: Lazy load doesn't improve much and break the :UpdateRemotePlugins
+  {
+    "Shougo/defx.nvim",
+    cond = choose.is_enabled_plugin("defx.nvim"),
+    build = ":UpdateRemotePlugins",
+    config = function()
+      vim.fn["vimrc#source"]("vimrc/plugins/defx.vim")
+    end,
+  },
+  {
+    "kristijanhusak/defx-git",
+    cond = choose.is_enabled_plugin("defx.nvim"),
+  },
+  {
+    "kristijanhusak/defx-icons",
+    cond = choose.is_enabled_plugin("defx.nvim"),
+    event = { "FocusLost", "CursorHold", "CursorHoldI" },
+    config = function()
+      vim.fn["vimrc#defx#setup"](true)
+    end,
+  },
 
-file_explorer.startup = function(use)
-  if choose.is_enabled_plugin("defx.nvim") then
-    -- NOTE: Lazy load doesn't improve much and break the :UpdateRemotePlugins
-    use({
-      "Shougo/defx.nvim",
-      run = ":UpdateRemotePlugins",
-      config = function()
-        vim.fn["vimrc#source"]("vimrc/plugins/defx.vim")
-      end,
-    })
-    use("kristijanhusak/defx-git")
-    use({
-      "kristijanhusak/defx-icons",
-      event = { "FocusLost", "CursorHold", "CursorHoldI" },
-      config = function()
-        vim.fn["vimrc#defx#setup"](true)
-      end,
-    })
-  end
-
-  use({
+  {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
@@ -69,9 +70,9 @@ file_explorer.startup = function(use)
       cnoremap("<C-X>d", [[v:lua.require('vimrc.plugins.neotree').get_current_dir('filesystem')]], "expr")
       cnoremap("<C-X>f", [[v:lua.require('vimrc.plugins.neotree').get_current_path('filesystem')]], "expr")
     end,
-  })
+  },
 
-  use({ "vifm/vifm.vim" })
-end
+  { "vifm/vifm.vim" },
+}
 
 return file_explorer

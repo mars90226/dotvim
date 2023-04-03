@@ -15,6 +15,9 @@ mapping.setup = function()
 
       vim.api.nvim_create_user_command("HelptagsAll", [[lua require('vimrc.utils').helptags_all()]], {})
 
+      -- diagraph
+      inoremap("<M-K>", [[<C-K>]])
+
       -- CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
       -- so that you can undo CTRL-U after inserting a line break.
       inoremap("<C-U>", [[<C-G>u<C-U>]])
@@ -281,6 +284,15 @@ mapping.setup = function()
       nnoremap("<M-P>", [[:<C-U>call vimrc#textobj#past_character(v:count1, 'n', v:false)<CR>]], "<silent>")
       xnoremap("<M-P>", [[:<C-U>call vimrc#textobj#past_character(v:count1, 'v', v:false)<CR>]], "<silent>")
       onoremap("<M-P>", [[:<C-U>call vimrc#textobj#past_character(v:count1, 'o', v:false)<CR>]], "<silent>")
+
+      -- Text Objects
+      -- ie = inner entire buffer
+      onoremap("ie", ':exec "normal! ggVG"<CR>')
+      xnoremap("ie", ':<C-U>exec "normal! ggVG"<CR>')
+
+      -- iV = current viewable text in the buffer
+      onoremap("iV", ':exec "normal! HVL"<CR>')
+      xnoremap("iV", ':<C-U>exec "normal! HVL"<CR>')
 
       -- Search
       -- TODO: Extract to search.vim?

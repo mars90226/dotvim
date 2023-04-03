@@ -1,19 +1,5 @@
-local text_objects = {}
-
-text_objects.setup_text_objects = function()
-  -- ie = inner entire buffer
-  onoremap("ie", ':exec "normal! ggVG"<CR>')
-  xnoremap("ie", ':<C-U>exec "normal! ggVG"<CR>')
-
-  -- iV = current viewable text in the buffer
-  onoremap("iV", ':exec "normal! HVL"<CR>')
-  xnoremap("iV", ':<C-U>exec "normal! HVL"<CR>')
-end
-
-text_objects.startup = function(use)
-  text_objects.setup_text_objects()
-
-  use({
+local text_objects = {
+  {
     "wellle/targets.vim",
     config = function()
       -- Reach targets
@@ -23,9 +9,9 @@ text_objects.startup = function(use)
       nmap("]R", [['van'.v:lua.require("vimrc.utils").get_char_string()."o\<Esc>"]], "expr")
       nmap("[R", [['val'.v:lua.require("vimrc.utils").get_char_string()."\<Esc>"]], "expr")
     end,
-  })
+  },
 
-  use({
+  {
     "kana/vim-textobj-user",
     config = function()
       -- FIXME Not working
@@ -50,16 +36,16 @@ text_objects.startup = function(use)
         },
       })
     end,
-  })
-  use({
+  },
+  {
     "kana/vim-textobj-function",
     config = function()
       -- Search in function
       map("<Space>sF", "vaf<M-/>")
     end,
-  })
+  },
 
-  use({
+  {
     "coderifous/textobj-word-column.vim",
     config = function()
       vim.g.skip_default_textobj_word_column_mappings = 1
@@ -73,11 +59,11 @@ text_objects.startup = function(use)
       onoremap("iu", ':call TextObjWordBasedColumn("iw")<cr>', "silent")
       onoremap("iU", ':call TextObjWordBasedColumn("iW")<cr>', "silent")
     end,
-  })
+  },
 
   -- Should already be bundled in vim-sandwich, but not work
   -- So, explicitly install this plugin
-  use({
+  {
     "machakann/vim-textobj-functioncall",
     config = function()
       vim.g.textobj_functioncall_no_default_key_mappings = 1
@@ -87,9 +73,9 @@ text_objects.startup = function(use)
       xmap("ad", "<Plug>(textobj-functioncall-a)")
       omap("ad", "<Plug>(textobj-functioncall-a)")
     end,
-  })
+  },
 
-  use({
+  {
     "chrisgrieser/nvim-various-textobjs",
     config = function()
       -- TODO: Currently has key mapping conflicts:
@@ -115,9 +101,12 @@ text_objects.startup = function(use)
       vim.keymap.del({"o", "x"}, "%")
       vim.keymap.set({"o", "x"}, "]b", function () require("various-textobjs").toNextClosingBracket() end, { desc = "toNextClosingBracket textobj"})
     end,
-  })
+  },
 
-  use("glts/vim-textobj-comment")
-end
+  {
+    "glts/vim-textobj-comment",
+    dependencies = { "kana/vim-textobj-user" },
+  },
+}
 
 return text_objects

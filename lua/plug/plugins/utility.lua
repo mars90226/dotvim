@@ -1,23 +1,15 @@
-local plugin_utils = require("vimrc.plugin_utils")
-
-local utility = {}
-
-utility.startup = function(use)
-  local use_builtin = function(plugin_spec)
-    plugin_utils.use_builtin(use, plugin_spec)
-  end
-
+local utility = {
   -- Undo Tree
-  use({
+  {
     "mbbill/undotree",
     cmd = { "UndotreeToggle" },
     keys = { "<F9>" },
     config = function()
       nnoremap("<F9>", ":UndotreeToggle<CR>")
     end,
-  })
+  },
   -- NOTE: vim-mundo is slow, but featureful
-  use({
+  {
     "simnalamburt/vim-mundo",
     cmd = { "MundoToggle" },
     keys = { "<Space><F9>" },
@@ -28,12 +20,12 @@ utility.startup = function(use)
 
       nnoremap("<Space><F9>", ":MundoToggle<CR>")
     end,
-  })
+  },
 
-  use({
+  {
     "tpope/vim-unimpaired",
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
-    setup = function()
+    init = function()
       vim.g.nremap = {
         -- url encode/decode
         ["[u"] = [[\[u]],
@@ -61,35 +53,35 @@ utility.startup = function(use)
         utils.toggle_list_option_flag(vim.opt.diffopt, "algorithm:histogram")
       end, { noremap = true })
     end,
-  })
+  },
 
-  use({
+  {
     "tpope/vim-characterize",
     keys = { "gA" },
     config = function()
       nmap("gA", "<Plug>(characterize)")
     end,
-  })
+  },
 
   -- Registers
-  use({
+  {
     "tversteeg/registers.nvim",
-  })
+  },
 
   -- Colors
   -- TODO: Change ColorV global leader to avoid key mapping conflict
-  use({
+  {
     "gu-fan/colorv.vim",
     cmd = { "ColorV", "ColorVName", "ColorVView" },
     keys = { "<Leader>vv", "<Leader>vn", "<Leader>vw" },
-    requires = { "mattn/webapi-vim" },
+    dependencies = { "mattn/webapi-vim" },
     config = function()
       nnoremap("<Leader>vv", ":ColorV<CR>", "silent")
       nnoremap("<Leader>vn", ":ColorVName<CR>", "silent")
       nnoremap("<Leader>vw", ":ColorVView<CR>", "silent")
     end,
-  })
-  use({
+  },
+  {
     "nvim-colortils/colortils.nvim",
     cmd = { "Colortils" },
     keys = { "<Leader>ct" },
@@ -104,10 +96,10 @@ utility.startup = function(use)
       nnoremap("<Leader>ct", [[<Cmd>Colortils picker black<CR>]])
       xnoremap("<Leader>ct", [[:<C-U>execute 'Colortils picker '..vimrc#utility#get_visual_selection()<CR>]])
     end,
-  })
+  },
 
   -- Project
-  use({
+  {
     "ahmedkhalf/project.nvim",
     config = function()
       require("project_nvim").setup({
@@ -128,49 +120,49 @@ utility.startup = function(use)
 
       nnoremap("<Leader>r", "<Cmd>ProjectRoot<CR>")
     end,
-  })
+  },
 
   -- Note Taking
-  use({
+  {
     "vimwiki/vimwiki",
     branch = "dev",
     ft = { "vimwiki", "todo" }, -- NOTE: Add custom todo filetype
-    setup = function()
+    init = function()
       require("vimrc.plugins.vimwiki").pre_setup()
     end,
     config = function()
       require("vimrc.plugins.vimwiki").setup()
     end,
-  })
+  },
 
   -- NOTE: require nvim-treesitter
-  use({
+  {
     "nvim-neorg/neorg",
     ft = { "norg" },
     cmd = { "Neorg" },
-    requires = { "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("vimrc.plugins.neorg").setup()
     end,
-  })
+  },
 
-  use({
+  {
     "lukas-reineke/indent-blankline.nvim",
     config = function()
       require("vimrc.plugins.indent_blankline").setup()
     end,
-  })
+  },
 
-  use({
+  {
     "powerman/vim-plugin-AnsiEsc",
     cmd = { "AnsiEsc" },
     keys = { "coa" },
     config = function()
       nnoremap("coa", ":AnsiEsc<CR>")
     end,
-  })
+  },
 
-  use({
+  {
     "ethanholz/nvim-lastplace",
     config = function()
       require("nvim-lastplace").setup({
@@ -179,11 +171,11 @@ utility.startup = function(use)
         lastplace_open_folds = false,
       })
     end,
-  })
+  },
 
-  use({
+  {
     "embear/vim-localvimrc",
-    config = function()
+    init = function()
       -- NOTE: Avoid lazy load error with upvalues (captured values)
       local utils = require("vimrc.utils")
 
@@ -204,13 +196,13 @@ utility.startup = function(use)
         vim.g.localvimrc_whitelist = utils.table_concat(vim.g.localvimrc_whitelist, vim.g.localvimrc_local_whitelist)
       end
     end,
-  })
+  },
 
-  use({ "kevinhwang91/nvim-bqf", ft = { "qf" } })
+  { "kevinhwang91/nvim-bqf", ft = { "qf" } },
 
-  use({ "thinca/vim-qfreplace", ft = { "qf" } })
+  { "thinca/vim-qfreplace", ft = { "qf" } },
 
-  use({
+  {
     "romainl/vim-qf",
     ft = { "qf" },
     config = function()
@@ -219,15 +211,15 @@ utility.startup = function(use)
       -- https://github.com/tpope/vim-dispatch/issues/254
       vim.g.qf_auto_open_quickfix = 0
     end,
-  })
+  },
 
-  use({
+  {
     "arthurxavierx/vim-caser",
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
-  })
+  },
 
   -- Focus
-  use({
+  {
     "Pocco81/true-zen.nvim",
     cmd = { "TZAtaraxis", "TZFocus", "TZMinimalist", "TZNarrow", "TZForCopy" },
     keys = { "<Leader>za", "<Leader>zc", "<Leader>zm", "<Leader>zn", "<Leader>zM" },
@@ -246,9 +238,9 @@ utility.startup = function(use)
       end, {})
       nnoremap("<Leader>zM", [[<Cmd>TZForCopy<CR>]])
     end,
-  })
+  },
 
-  use({
+  {
     "folke/twilight.nvim",
     cmd = { "Twilight" },
     keys = { "<Leader><C-L>" },
@@ -257,9 +249,9 @@ utility.startup = function(use)
 
       nnoremap("<Leader><C-L>", ":Twilight<CR>")
     end,
-  })
+  },
 
-  use({
+  {
     "tpope/vim-dispatch",
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
@@ -271,20 +263,20 @@ utility.startup = function(use)
       -- Mappings
       nnoremap("<Leader>dq", [[<Cmd>Copen<CR>]])
     end,
-  })
+  },
 
   -- See https://www.reddit.com/r/vim/comments/bwp7q3/code_execution_vulnerability_in_vim_811365_and/
   -- and https://github.com/numirias/security/blob/master/doc/2019-06-04_ace-vim-neovim.md for more details
-  use("ciaranm/securemodelines")
+  "ciaranm/securemodelines",
 
   -- Do not lazy load vim-scriptease, as it breaks :Breakadd/:Breakdel
   -- TODO: Check if lazy load works
-  use({ "tpope/vim-scriptease", cmd = { "PP", "Messages", "Verbose", "Time" } })
+  { "tpope/vim-scriptease", cmd = { "PP", "Messages", "Verbose", "Time" } },
 
-  use("tyru/open-browser.vim")
+  "tyru/open-browser.vim",
 
   -- Colorizer
-  use({
+  {
     "NvChad/nvim-colorizer.lua",
     config = function()
       vim.go.termguicolors = true
@@ -300,23 +292,23 @@ utility.startup = function(use)
         },
       })
     end,
-  })
+  },
 
-  use({
+  {
     "lambdalisue/suda.vim",
     cmd = { "SudaRead", "SudaWrite" },
-  })
+  },
 
   -- Window Layout
-  use({
+  {
     "simeji/winresizer",
     cmd = { "WinResizerStartResize" },
     keys = { "<Leader>R" },
-    setup = function()
+    init = function()
       vim.g.winresizer_start_key = "<Leader>R"
     end,
-  })
-  use({
+  },
+  {
     "sindrets/winshift.nvim",
     cmd = { "WinShift" },
     keys = { "<C-W><C-M>", "<C-W>m", "<C-W>X" },
@@ -327,11 +319,11 @@ utility.startup = function(use)
       nnoremap("<C-W>m", [[<Cmd>WinShift<CR>]])
       nnoremap("<C-W>X", [[<Cmd>WinShift swap<CR>]])
     end,
-  })
+  },
 
-  use({
+  {
     "folke/todo-comments.nvim",
-    requires = { "nvim-lua/plenary.nvim", "folke/todo-comments.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim", "folke/todo-comments.nvim" },
     config = function()
       require("todo-comments").setup({})
 
@@ -344,7 +336,7 @@ utility.startup = function(use)
         require("todo-comments").jump_next()
       end, { desc = "Next todo comment" })
     end,
-  })
+  },
 
   -- NOTE: stabilize.nvim is merged into neovim 0.9.0 as `splitkeep` option
   -- Ref: https://github.com/neovim/neovim/pull/19243
@@ -353,17 +345,17 @@ utility.startup = function(use)
 
   -- Cmdline
   -- TODO: Replace this with noice.nvim
-  use({
+  {
     "VonHeikemen/fine-cmdline.nvim",
-    requires = { { "MunifTanjim/nui.nvim" } },
+    dependencies = { { "MunifTanjim/nui.nvim" } },
     cmd = { "FineCmdline" },
     keys = { "<C-P>" },
     config = function()
       require("vimrc.plugins.fine-cmdline").setup()
     end,
-  })
+  },
 
-  use({
+  {
     "hoschi/yode-nvim",
     keys = { "<Leader>yc", "<Leader>yr" },
     config = function()
@@ -381,13 +373,13 @@ utility.startup = function(use)
       -- For no gap between floating windows
       vim.go.showtabline = 2
     end,
-  })
+  },
 
-  use({
+  {
     "bennypowers/nvim-regexplainer",
     cmd = { "RegexplainerToggle" },
     keys = { "<Leader>er" },
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
     },
@@ -398,11 +390,11 @@ utility.startup = function(use)
         },
       })
     end,
-  })
+  },
 
-  use({
+  {
     "axieax/urlview.nvim",
-    requires = { "nvim-telescope/telescope.nvim" },
+    dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
       local urlview = require("vimrc.plugins.urlview")
       local has_secret_urlview, secret_urlview = pcall(require, "secret.urlview")
@@ -419,23 +411,24 @@ utility.startup = function(use)
       nnoremap("<Leader>uu", [[<Cmd>UrlView buffer picker=telescope<CR>]], { desc = "view buffer URLs" })
       nnoremap("<Leader>up", [[<Cmd>UrlView packer picker=telescope<CR>]], { desc = "view plugin URLs" })
     end,
-  })
+  },
 
-  if vim.fn.executable("jq") == 1 then
-    use({ "gennaro-tedesco/nvim-jqx" })
-  end
+  {
+    "gennaro-tedesco/nvim-jqx",
+    cond = vim.fn.executable("jq") == 1,
+  },
 
   -- Disabled by default, enable to profile
-  -- Plug 'norcalli/profiler.nvim'
+  -- "norcalli/profiler.nvim"
 
-  use({
+  {
     "s1n7ax/nvim-window-picker",
-    tag = "v1.*",
+    version = "v1.*",
     config = function()
       require("window-picker").setup()
     end,
-  })
-  use({
+  },
+  {
     "lpinilla/vim-codepainter",
     keys = { "<Leader>cp", "<Leader>cn" },
     config = function()
@@ -445,12 +438,12 @@ utility.startup = function(use)
       nnoremap("<Leader>cp", [[:<C-U>call codepainter#paintText('')<CR>]])
       nnoremap("<Leader>cn", [[:<C-U>call codepainter#navigate()<CR>]])
     end,
-  })
+  },
 
   -- Translate
   -- NOTE: Requires curl 7.76.0. Otherwise, curl do not understand `--fail-with-body` and return exit status 2
   -- TODO: Check for curl version
-  use({
+  {
     "potamides/pantran.nvim",
     cmd = { "Pantran" },
     keys = { "<Leader>pt", "<Leader>ptt" },
@@ -472,8 +465,8 @@ utility.startup = function(use)
       end, opts)
       vim.keymap.set("x", "<Leader>pt", pantran.motion_translate, opts)
     end,
-  })
-  use({
+  },
+  {
     "uga-rosa/translate.nvim",
     cmd = { "Translate" },
     keys = { "<Leader>tr" },
@@ -483,18 +476,18 @@ utility.startup = function(use)
       nnoremap("<Leader>tr", [[viw:Translate ZH-TW<CR>]])
       xnoremap("<Leader>tr", [[:Translate ZH-TW<CR>]])
     end,
-  })
+  },
 
-  use({
+  {
     "Bekaboo/deadcolumn.nvim",
     config = function()
       -- NOTE: Monitor this
       vim.opt.textwidth = 100
       vim.opt.colorcolumn = "+2"
     end,
-  })
+  },
 
-  use({
+  {
     "AndrewRadev/linediff.vim",
     cmd = { "Linediff" },
     keys = { "<M-d>l" },
@@ -502,70 +495,35 @@ utility.startup = function(use)
       nnoremap("<M-d>l", [[V:Linediff<CR>]])
       xnoremap("<M-d>l", [[:Linediff<CR>]])
     end,
-  })
+  },
 
-  use({ "tpope/vim-abolish", cmd = { "Abolish", "Subvert", "S" }, keys = { "cr" } })
-  use({ "will133/vim-dirdiff", cmd = { "DirDiff" } })
-  use({ "Shougo/vinarise.vim", cmd = { "Vinarise" } })
-  use({ "alx741/vinfo", cmd = { "Vinfo" } })
-  use("kopischke/vim-fetch")
-  use({
+  { "tpope/vim-abolish", cmd = { "Abolish", "Subvert", "S" }, keys = { "cr" } },
+  { "will133/vim-dirdiff", cmd = { "DirDiff" } },
+  { "Shougo/vinarise.vim", cmd = { "Vinarise" } },
+  { "alx741/vinfo", cmd = { "Vinfo" } },
+  "kopischke/vim-fetch",
+  {
     "Valloric/ListToggle",
     cmd = { "QToggle", "LToggle" },
     keys = { "<Leader>q", "<Leader>l" },
-  })
-  use("tpope/vim-eunuch")
-  use({ "DougBeney/pickachu", cmd = { "Pick" } })
-  use({ "tweekmonster/helpful.vim", cmd = { "HelpfulVersion" } })
-  use({ "tweekmonster/startuptime.vim", cmd = { "StartupTime" } })
-  use({ "gyim/vim-boxdraw", keys = { "+o", "+O", "+c", "+-", "+_" } })
-  use("lambdalisue/reword.vim")
-  use({ "nicwest/vim-http", cmd = { "Http", "Http!" } })
-  use({ "kristijanhusak/vim-carbon-now-sh", cmd = { "CarbonNowSh" } })
-  use({ "taybart/b64.nvim", cmd = { "B64Encode", "B64Decode" } })
-
-  -- builtin Termdebug plugin
-  use_builtin({
-    "neovim/termdebug",
-    cmd = { "Termdebug", "TermdebugCommand" },
-    config = function()
-      -- Mappings
-      nnoremap("<Leader>dd", [[:Termdebug<Space>]])
-      nnoremap("<Leader>dD", [[:TermdebugCommand<Space>]])
-
-      nnoremap("<Leader>dr", [[:Run<Space>]])
-      nnoremap("<Leader>da", [[:Arguments<Space>]])
-
-      nnoremap("<Leader>db", [[<Cmd>Break<CR>]])
-      nnoremap("<Leader>dC", [[<Cmd>Clear<CR>]])
-
-      nnoremap("<Leader>ds", [[<Cmd>Step<CR>]])
-      nnoremap("<Leader>do", [[<Cmd>Over<CR>]])
-      nnoremap("<Leader>df", [[<Cmd>Finish<CR>]])
-      nnoremap("<Leader>dc", [[<Cmd>Continue<CR>]])
-      nnoremap("<Leader>dS", [[<Cmd>Stop<CR>]])
-
-      -- `:Evaluate` evaluate cursor variable and show result in floating window
-      -- which may not be large enough to contain all result
-      nnoremap("<Leader>de", [[:Evaluate<Space>]])
-      xnoremap("<Leader>de", [[<Cmd>Evaluate]])
-      -- `:Evaluate variable` show result in echo
-      nnoremap("<Leader>dk", [[<Cmd>execute 'Evaluate '.expand('<cword>')<CR>]])
-      nnoremap("<Leader>dK", [[<Cmd>execute 'Evaluate '.expand('<cWORD>')<CR>]])
-
-      nnoremap("<Leader>dg", [[<Cmd>Gdb<CR>]])
-      nnoremap("<Leader>dp", [[<Cmd>Program<CR>]])
-      nnoremap("<Leader>dO", [[<Cmd>Source<CR>]])
-
-      nnoremap("<Leader>d,", [[<Cmd>call TermDebugSendCommand(input('Gdb command> '))<CR>]])
-    end,
-  })
+  },
+  "tpope/vim-eunuch",
+  { "DougBeney/pickachu", cmd = { "Pick" } },
+  { "tweekmonster/helpful.vim", cmd = { "HelpfulVersion" } },
+  { "tweekmonster/startuptime.vim", cmd = { "StartupTime" } },
+  { "gyim/vim-boxdraw", keys = { "+o", "+O", "+c", "+-", "+_" } },
+  "lambdalisue/reword.vim",
+  { "nicwest/vim-http", cmd = { "Http" } },
+  { "kristijanhusak/vim-carbon-now-sh", cmd = { "CarbonNowSh" } },
+  { "taybart/b64.nvim", cmd = { "B64Encode", "B64Decode" } },
 
   -- nvim-gdb
   -- Disabled for now as neovim's neovim_gdb.vim seems not exists
-  -- if vim.fn.has("nvim") == 1 then
-  -- use {'sakhnik/nvim-gdb', run = './install.sh'}
-  -- end
-end
+  -- {
+  --   'sakhnik/nvim-gdb',
+  --   build = './install.sh',
+  --   cond = vim.fn.has("nvim") == 1,
+  -- }
+}
 
 return utility
