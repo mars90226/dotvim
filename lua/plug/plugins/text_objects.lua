@@ -39,6 +39,7 @@ local text_objects = {
   },
   {
     "kana/vim-textobj-function",
+    dependencies = { "kana/vim-textobj-user" },
     config = function()
       -- Search in function
       map("<Space>sF", "vaf<M-/>")
@@ -65,6 +66,7 @@ local text_objects = {
   -- So, explicitly install this plugin
   {
     "machakann/vim-textobj-functioncall",
+    dependencies = { "kana/vim-textobj-user" },
     config = function()
       vim.g.textobj_functioncall_no_default_key_mappings = 1
 
