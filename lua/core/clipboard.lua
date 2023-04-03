@@ -2,9 +2,9 @@ local plugin_utils = require("vimrc.plugin_utils")
 
 local clipboard = {}
 
-clipboard.startup = function(use)
+clipboard.setup = function()
   local use_config = function(plugin_spec)
-    plugin_utils.use_config(use, plugin_spec)
+    plugin_spec.config()
   end
 
   if vim.fn.has("wsl") == 1 then

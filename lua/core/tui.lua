@@ -2,9 +2,9 @@ local plugin_utils = require("vimrc.plugin_utils")
 
 local tui = {}
 
-tui.startup = function(use)
+tui.setup = function()
   local use_config = function(plugin_spec)
-    plugin_utils.use_config(use, plugin_spec)
+    plugin_spec.config()
   end
 
   -- Search keyword with Google using surfraw

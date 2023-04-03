@@ -2,9 +2,9 @@ local plugin_utils = require("vimrc.plugin_utils")
 
 local digraph = {}
 
-digraph.startup = function(use)
+digraph.setup = function()
   local use_config = function(plugin_spec)
-    plugin_utils.use_config(use, plugin_spec)
+    plugin_spec.config()
   end
 
   use_config({

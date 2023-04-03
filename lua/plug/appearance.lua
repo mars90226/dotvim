@@ -113,7 +113,7 @@ appearance.startup = function(use)
   use({
     "ellisonleao/gruvbox.nvim",
     -- TODO: Remove after to avoid other plugin capture wrong highlight
-    after = "syntax",
+    -- after = "syntax",
     config = function()
       require("vimrc.plugins.gruvbox").setup()
     end,
