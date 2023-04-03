@@ -1,8 +1,7 @@
 # Neovim config
 
-Carefully crafted neovim config. After switching to
-[packer.nvim](https://github.com/wbthomason/packer.nvim), future update will
-mostly be neovim-only changes.
+Carefully crafted neovim config. Use 
+[lazy.nvim](https://github.com/folke/lazy.nvim) as plugin manager.
 
 Vim specific config is removed, but you can use `vim` branch to access them.
 
@@ -53,12 +52,13 @@ Vim specific config is removed, but you can use `vim` branch to access them.
 ## Installation
 
 ### Neovim
+
 Clone the project as `~/.config/nvim`.
 ```
 git clone https://github.com/mars90226/dotvim ~/.config/nvim
 ```
 
-Open neovim and execute `:PackerSync`.
+Open neovim and wait for `lazy.nvim` to finish the job.
 
 ## Key mappings
 
