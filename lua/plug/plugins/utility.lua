@@ -480,7 +480,7 @@ local utility = {
 
   {
     "Bekaboo/deadcolumn.nvim",
-    config = function()
+    init = function()
       -- NOTE: Monitor this
       vim.opt.textwidth = 100
       vim.opt.colorcolumn = "+2"
