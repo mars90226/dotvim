@@ -69,7 +69,8 @@ local appearance = {
   },
 
   -- Devicons
-    { "kyazdani42/nvim-web-devicons" },
+  { "kyazdani42/nvim-web-devicons" },
+  { "ryanoasis/vim-devicons" },
 
   -- Colors
   { "rktjmp/lush.nvim" },

@@ -381,6 +381,7 @@ luasnip.setup = function()
 
   local utils = require("vimrc.utils")
 
+  -- TODO: Remove this, use default lazy_load()/
   local load_opts = {
     paths = vim.tbl_filter(function(path)
       return vim.fn.isdirectory(path) > 0
