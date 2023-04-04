@@ -29,6 +29,7 @@ local languages = {
   -- TODO: Simplify condition
   {
     "nvim-treesitter/nvim-treesitter",
+    cond = choose.is_enabled_plugin("nvim-treesitter"),
     build = ":TSUpdate",
     config = function()
       require("vimrc.plugins.nvim_treesitter").setup()
@@ -289,7 +290,7 @@ local languages = {
   -- Context
   {
     "nvim-treesitter/nvim-treesitter-context",
-    cond = choose.is_enabled_plugin("nvim-treesitter"),
+    cond = choose.is_enabled_plugin("nvim-treesitter") and choose.is_enabled_plugin("nvim-treesitter-context"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
       -- NOTE: nvim-treesitter config is in nvim_treesitter.lua
