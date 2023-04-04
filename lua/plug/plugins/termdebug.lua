@@ -31,7 +31,7 @@ local termdebug = {
       nnoremap("<Leader>dk", [[<Cmd>execute 'Evaluate '.expand('<cword>')<CR>]])
       nnoremap("<Leader>dK", [[<Cmd>execute 'Evaluate '.expand('<cWORD>')<CR>]])
 
-      nnoremap("<Leader>dg", [[<Cmd>Gdb<CR>]])
+      nnoremap("<Leader>dG", [[<Cmd>Gdb<CR>]])
       nnoremap("<Leader>dp", [[<Cmd>Program<CR>]])
       nnoremap("<Leader>dO", [[<Cmd>Source<CR>]])
 
