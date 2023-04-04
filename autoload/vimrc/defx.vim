@@ -104,7 +104,7 @@ endfunction
 
 " Load lazy-loaded defx extensions
 function! vimrc#defx#load_opt_extensions() abort
-  PackerLoad defx-icons
+  Lazy load defx-icons
 endfunction
 
 " Settings

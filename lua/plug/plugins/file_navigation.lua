@@ -49,7 +49,7 @@ local file_navigation = {
   -- Finders
   -- fzf
   -- fzf#install() only install binary
-  -- TODO: This install fzf inside packer.nvim plugin folder
+  -- TODO: This install fzf inside lazy.nvim plugin folder
   -- Need to change corresponding script that try to use fzf in ~/.fzf
   {
     "junegunn/fzf",

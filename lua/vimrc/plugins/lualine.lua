@@ -80,7 +80,6 @@ lualine.default_option = {
         filetype_names = {
           TelescopePrompt = 'Telescope',
           dashboard = 'Dashboard',
-          packer = 'Packer',
           fzf = 'FZF',
           alpha = 'Alpha',
           fugitive = 'Fugitive',

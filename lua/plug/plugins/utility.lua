@@ -409,7 +409,7 @@ local utility = {
       end
 
       nnoremap("<Leader>uu", [[<Cmd>UrlView buffer picker=telescope<CR>]], { desc = "view buffer URLs" })
-      nnoremap("<Leader>up", [[<Cmd>UrlView packer picker=telescope<CR>]], { desc = "view plugin URLs" })
+      nnoremap("<Leader>ul", [[<Cmd>UrlView lazy picker=telescope<CR>]], { desc = "view plugin URLs" })
     end,
   },
 

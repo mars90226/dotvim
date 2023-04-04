@@ -57,9 +57,6 @@ local completion = {
   {
     "windwp/nvim-autopairs",
     config = function()
-      ---@diagnostic disable-next-line -- packer.nvim will cache config function and cannot use outer local variables
-      local choose = require("vimrc.choose")
-
       local Rule = require("nvim-autopairs.rule")
       local npairs = require("nvim-autopairs")
 
