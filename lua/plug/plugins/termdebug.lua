@@ -1,18 +1,12 @@
-local plugin_utils = require("vimrc.plugin_utils")
-
-local termdebug = {}
-
-termdebug.setup = function()
-  local use_builtin = function(plugin_spec)
-    plugin_spec.config()
-  end
-
-  -- TODO: Lazy load on cmd by lazy.nvim
+local termdebug = {
   -- builtin Termdebug plugin
-  use_builtin({
-    "neovim/termdebug",
+  {
+    dir = "",
+    name = "termdebug",
     cmd = { "Termdebug", "TermdebugCommand" },
     config = function()
+      vim.cmd([[packadd termdebug]])
+
       -- Mappings
       nnoremap("<Leader>dd", [[:Termdebug<Space>]])
       nnoremap("<Leader>dD", [[:TermdebugCommand<Space>]])
@@ -43,7 +37,7 @@ termdebug.setup = function()
 
       nnoremap("<Leader>d,", [[<Cmd>call TermDebugSendCommand(input('Gdb command> '))<CR>]])
     end,
-  })
-end
+  },
+}
 
 return termdebug
