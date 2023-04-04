@@ -290,7 +290,7 @@ local languages = {
   -- Context
   {
     "nvim-treesitter/nvim-treesitter-context",
-    cond = choose.is_enabled_plugin("nvim-treesitter") and choose.is_enabled_plugin("nvim-treesitter-context"),
+    cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
       -- NOTE: nvim-treesitter config is in nvim_treesitter.lua
