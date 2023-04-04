@@ -56,6 +56,7 @@ local completion = {
   -- Auto Pairs
   {
     "windwp/nvim-autopairs",
+    event = { "InsertEnter", "CmdlineEnter" },
     config = function()
       local Rule = require("nvim-autopairs.rule")
       local npairs = require("nvim-autopairs")
