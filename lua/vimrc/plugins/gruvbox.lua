@@ -42,11 +42,18 @@ gruvbox.setup = function()
   require("gruvbox").setup({})
   vim.cmd([[colorscheme gruvbox]])
 
-  -- Manually override as using "overrides" settings will merge "overrides"
-  -- with default highlight groups, and cause unwanted results
-  for group, settings in pairs(overrides) do
-    vim.api.nvim_set_hl(0, group, settings)
-  end
+  local augroup_id = vim.api.nvim_create_augroup("gruvbox_settings", {})
+  vim.api.nvim_create_autocmd({ "VimEnter" }, {
+    group = augroup_id,
+    pattern = "*",
+    callback = function()
+      -- Manually override as using "overrides" settings will merge "overrides"
+      -- with default highlight groups, and cause unwanted results
+      for group, settings in pairs(overrides) do
+        vim.api.nvim_set_hl(0, group, settings)
+      end
+    end,
+  })
 end
 
 return gruvbox
