@@ -45,6 +45,8 @@ indent_blankline.setup_autocmd = function()
     pattern = "*",
     callback = function()
       local line_count = vim.api.nvim_buf_line_count(vim.api.nvim_get_current_buf())
+      -- TODO: indent-blankline.nvim is still slow down even if these option are disabled.
+      -- Maybe it's not disabled properly after the initial global enable.
       if line_count > indent_blankline.line_threshold then
         vim.b.indent_blankline_show_current_context = false
         vim.b.indent_blankline_show_current_context_start = false
