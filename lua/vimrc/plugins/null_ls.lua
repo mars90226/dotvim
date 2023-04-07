@@ -1,14 +1,8 @@
 local null_ls = require("null-ls")
-local utils = require("vimrc.utils")
 
 local my_null_ls = {}
 
 my_null_ls.setup = function()
-  -- Skip null-ls.nvim in light vim mode
-  if utils.is_light_vim_mode() then
-    return
-  end
-
   null_ls.setup({
     sources = {
       -- Code Action sources

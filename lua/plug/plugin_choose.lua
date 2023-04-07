@@ -42,6 +42,14 @@ plugin_choose.setup_completion = function()
   -- nvim-lsp for builtin neovim lsp
   -- builtin neovim lsp should be fast enough to be used in light vim mode
 
+  -- Choose linter integration plugin
+  -- null-ls.nvim, nvim-lint
+  -- Always enable nvim-lint
+  choose.disable_plugin("null-ls.nvim")
+  if not utils.is_light_vim_mode() then
+    choose.enable_plugin("null-ls.nvim")
+  end
+
   -- Choose auto pairs plugin
   -- nvim-autopairs
 end

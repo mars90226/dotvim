@@ -73,6 +73,7 @@ local lsp = {
   -- TODO: null-ls.nvim cause performance problem, need to find a way to fix this
   {
     "jose-elias-alvarez/null-ls.nvim",
+    cond = choose.is_enabled_plugin("null-ls.nvim"),
     dependencies = {
       "nvim-lua/plenary.nvim",
       "neovim/nvim-lspconfig",
