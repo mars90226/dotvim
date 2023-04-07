@@ -1,5 +1,3 @@
-local has_plenary_profile, plenary_profile = pcall(require, "plenary.profile")
-
 local utils = require("vimrc.utils")
 
 local profile = {}
@@ -28,6 +26,8 @@ profile.open_vim_profile_log = function()
 end
 
 profile.start_plenary_profile = function(use_flame)
+local has_plenary_profile, plenary_profile = pcall(require, "plenary.profile")
+
   local opts = {
     flame = utils.ternary(use_flame ~= nil, use_flame, profile.config.use_flame)
   }
@@ -40,6 +40,8 @@ profile.start_plenary_profile = function(use_flame)
 end
 
 profile.stop_plenary_profile = function()
+local has_plenary_profile, plenary_profile = pcall(require, "plenary.profile")
+
   if has_plenary_profile then
     plenary_profile.stop()
   else
