@@ -81,7 +81,7 @@ plugin_choose.setup_language = function()
   -- Highlight {{{
   -- nvim-treesitter for builtin neovim treesitter
   choose.disable_plugin("nvim-treesitter")
-  if not utils.is_light_vim_mode() and plugin_utils.has_linux_build_env() then
+  if plugin_utils.has_linux_build_env() then
     choose.enable_plugin("nvim-treesitter")
   end
 
