@@ -12,6 +12,7 @@ local text_manipulation = {
 
   {
     "junegunn/vim-easy-align",
+    event = { "VeryLazy" },
     config = function()
       -- Start interactive EasyAlign in visual mode (e.g. vipga)
       xmap("ga", "<Plug>(EasyAlign)")
@@ -26,6 +27,9 @@ local text_manipulation = {
 
   {
     "vim-scripts/eraseSubword",
+    keys = {
+      "<C-B>",
+    },
     init = function()
       vim.g.EraseSubword_insertMap = "<C-B>"
     end,
@@ -34,6 +38,7 @@ local text_manipulation = {
   -- Substitute & Exchange
   {
     "gbprod/substitute.nvim",
+    event = { "VeryLazy" },
     config = function()
       require("vimrc.plugins.substitute").setup()
     end,
@@ -42,6 +47,7 @@ local text_manipulation = {
   -- Surround
   {
     "kylechui/nvim-surround",
+    event = { "VeryLazy" },
     config = function()
       require("nvim-surround").setup({})
 
@@ -60,6 +66,7 @@ local text_manipulation = {
   -- imap <BS> & <CR> is overwritten, need to be careful of bugs
   {
     "mg979/vim-visual-multi",
+    event = { "VeryLazy" },
     config = function()
       -- nvim-hlslens integration
       vim.cmd([[augroup vmlens_settings]])
@@ -134,6 +141,7 @@ local text_manipulation = {
     end,
   },
 
+  -- TODO: Remove editorconfig-vim as neovim 0.9 already support it
   "editorconfig/editorconfig-vim",
   "tpope/vim-repeat",
 }

@@ -286,6 +286,7 @@ local languages = {
   {
     "jackguo380/vim-lsp-cxx-highlight",
     cond = choose.is_enabled_plugin("vim-lsp-cxx-highlight"),
+    event = { "BufReadPre", "BufNewFile" },
   },
 
   -- Context
@@ -310,12 +311,13 @@ local languages = {
   -- TODO: Replace with emmet lsp
   {
     "mattn/emmet-vim",
-    event = { "FocusLost", "CursorHold", "CursorHoldI" },
+    keys = { "<M-m>" },
     init = function()
       vim.g.user_emmet_leader_key = "<M-m>"
     end,
   },
 
+  -- TODO: Use cscope plugin as cscope is removed in neovim 0.9
   {
     "mars90226/cscope_macros.vim",
     keys = { "<F11>", "<Space><F11>" },

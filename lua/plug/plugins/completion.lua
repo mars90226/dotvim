@@ -51,7 +51,10 @@ local completion = {
   },
 
   -- Snippets source
-  "rafamadriz/friendly-snippets",
+  {
+    "rafamadriz/friendly-snippets",
+    event = { "InsertEnter", "CmdlineEnter" },
+  },
 
   -- Auto Pairs
   {
