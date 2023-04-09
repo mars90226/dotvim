@@ -14,14 +14,8 @@ local text_manipulation = {
     "junegunn/vim-easy-align",
     event = { "VeryLazy" },
     config = function()
-      -- Start interactive EasyAlign in visual mode (e.g. vipga)
-      xmap("ga", "<Plug>(EasyAlign)")
-
-      -- Start interactive EasyAlign for a motion/text object (e.g. gaip)
-      nmap("ga", "<Plug>(EasyAlign)")
-
-      nmap("<Leader>ga", "<Plug>(LiveEasyAlign)")
-      xmap("<Leader>ga", "<Plug>(LiveEasyAlign)")
+      vim.keymap.set({ "n", "x" }, "ga", "<Plug>(EasyAlign)")
+      vim.keymap.set({ "n", "x" }, "<Leader>ga", "<Plug>(LiveEasyAlign)")
     end,
   },
 
