@@ -77,6 +77,7 @@ local appearance = {
   { "rktjmp/lush.nvim", lazy = true },
   {
     "ellisonleao/gruvbox.nvim",
+    priority = 999,
     -- TODO: Remove after to avoid other plugin capture wrong highlight
     init = function()
       vim.g.lualine_theme = "auto"
