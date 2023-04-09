@@ -304,6 +304,10 @@ mapping.setup = function()
       nnoremap("<Plug>(search-prefix)u", [[<Cmd>call vimrc#search#search_url(0)<CR>]])
       nnoremap("<Plug>(search-prefix)i", [[<Cmd>call vimrc#search#search_ip(0)<CR>]])
 
+      -- Search within visual selection
+      xnoremap("<M-/>", [[<Esc>/\%V]])
+      xnoremap("<M-?>", [[<Esc>?\%V]])
+
       -- Diff
       -- Use <M-d> as prefix
       nnoremap("<M-d>t", [[:windo diffthis<CR>]])

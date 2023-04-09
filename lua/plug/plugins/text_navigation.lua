@@ -27,6 +27,15 @@ local text_navigation = {
   -- Jump
   {
     "phaazon/hop.nvim",
+    keys = {
+      "<Space>w",
+      "<Space>e",
+      "<Space>;",
+      "<LocalLeader>f",
+      "<LocalLeader>l",
+      "<Space>j",
+      "<Space>k",
+    },
     config = function()
       map("<Space>w", "<Cmd>HopWord<CR>")
       map("<Space>e", [=[<Cmd>lua require('hop').hint_patterns({}, [[\k\>]])<CR>]=])
@@ -42,12 +51,30 @@ local text_navigation = {
   {
     "indianboy42/hop-extensions",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
+    -- TODO: Organize this
+    keys = {
+      "<M-e>l",
+      "<M-e>d",
+      "<M-e>r",
+      "<M-e>s",
+      "<M-e>t",
+      "<M-e>x",
+      "<M-e>c",
+      "<M-e>v",
+      "<M-e>f",
+      "<M-e>p",
+      "<M-e>m",
+    },
     config = function()
       require("vimrc.plugins.hop_extensions").setup()
     end,
   },
   {
     "ggandor/lightspeed.nvim",
+    keys = {
+      ";",
+      "<M-;>",
+    },
     config = function()
       require("lightspeed").setup({
         ignore_case = true,
@@ -75,9 +102,33 @@ local text_navigation = {
   },
 
   -- Search
-  "haya14busa/vim-asterisk",
+  {
+    "haya14busa/vim-asterisk",
+    keys = {
+      "*",
+      "#",
+      "g*",
+      "g#",
+      "z*",
+      "gz*",
+      "z#",
+      "gz#",
+    },
+  },
   {
     "kevinhwang91/nvim-hlslens",
+    keys = {
+      "n",
+      "N",
+      "*",
+      "#",
+      "g*",
+      "g#",
+      "z*",
+      "gz*",
+      "z#",
+      "gz#",
+    },
     config = function()
       require("hlslens").setup()
 
@@ -93,16 +144,13 @@ local text_navigation = {
       map("gz*", [[<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>]])
       map("z#", [[<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>]])
       map("gz#", [[<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>]])
-
-      -- Search within visual selection
-      xnoremap("<M-/>", [[<Esc>/\%V]])
-      xnoremap("<M-?>", [[<Esc>?\%V]])
     end,
   },
 
   -- Marks
   {
     "chentoast/marks.nvim",
+    event = { "VeryLazy" },
     config = function()
       require("marks").setup({})
     end,
@@ -111,6 +159,7 @@ local text_navigation = {
   -- Motion
   {
     "bkad/CamelCaseMotion",
+    event = { "VeryLazy" },
     config = function()
       map("<Leader>mw", "<Plug>CamelCaseMotion_w")
       map("<Leader>mb", "<Plug>CamelCaseMotion_b")
@@ -128,13 +177,17 @@ local text_navigation = {
 
   {
     "haya14busa/vim-edgemotion",
+    event = { "VeryLazy" },
     config = function()
       map("<Space><Space>j", "<Plug>(edgemotion-j)")
       map("<Space><Space>k", "<Plug>(edgemotion-k)")
     end,
   },
 
-  { "jeetsukumaran/vim-indentwise", event = { "FocusLost", "CursorHold", "CursorHoldI" } },
+  {
+    "jeetsukumaran/vim-indentwise",
+    event = { "FocusLost", "CursorHold", "CursorHoldI" },
+  },
 }
 
 return text_navigation
