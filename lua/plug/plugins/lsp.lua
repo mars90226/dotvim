@@ -2,30 +2,38 @@ local choose = require("vimrc.choose")
 
 local lsp = {
   -- Language Server Protocol
-  { "neovim/nvim-lspconfig" },
   {
-    "williamboman/mason.nvim",
-    dependencies = { "neovim/nvim-lspconfig" },
+    "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       local lsp_configs = require("vimrc.lsp")
-
-      require("mason").setup()
-      require("mason-lspconfig").setup()
 
       -- Setup lsp servers
       lsp_configs.setup({})
     end,
   },
   {
+    "williamboman/mason.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "neovim/nvim-lspconfig" },
+    config = function()
+      require("mason").setup()
+      require("mason-lspconfig").setup()
+    end,
+  },
+  {
     "williamboman/mason-lspconfig.nvim",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = { "williamboman/mason.nvim" },
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = { "williamboman/mason.nvim" },
   },
   {
     "tamago324/nlsp-settings.nvim",
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("nlspsettings").setup({
         config_home = vim.fn.stdpath("config") .. "/nlsp-settings",
@@ -37,11 +45,15 @@ local lsp = {
     end,
   },
 
-  "ii14/lsp-command",
+  {
+    "ii14/lsp-command",
+    event = { "VeryLazy" },
+  },
 
   {
     "glepnir/lspsaga.nvim",
     branch = "main",
+    event = { "BufReadPre", "BufNewFile" },
     -- NOTE: config setup in vimrc.lsp.setup_plugins()
   },
 
@@ -96,6 +108,7 @@ local lsp = {
   -- NOTE: Used in light vim mode when null-ls.nvim is disabled
   {
     "mhartington/formatter.nvim",
+    event = { "VeryLazy" },
     config = function()
       local plugin_utils = require("vimrc.plugin_utils")
 
@@ -114,6 +127,7 @@ local lsp = {
   {
     "SmiteshP/nvim-navic",
     cond = choose.is_enabled_plugin("nvim-navic"),
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = "neovim/nvim-lspconfig",
     config = function()
       require("nvim-navic").setup({
@@ -124,6 +138,7 @@ local lsp = {
 
   {
     "rmagatti/goto-preview",
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("goto-preview").setup({})
     end,
@@ -131,6 +146,7 @@ local lsp = {
 
   {
     "j-hui/fidget.nvim",
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("fidget").setup({})
     end,
@@ -179,6 +195,7 @@ local lsp = {
   {
     "SmiteshP/nvim-navbuddy",
     cond = choose.is_enabled_plugin("nvim-navbuddy"),
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "neovim/nvim-lspconfig",
       "SmiteshP/nvim-navic",
@@ -192,7 +209,10 @@ local lsp = {
   },
 
   -- Overloads
-  { "Issafalcon/lsp-overloads.nvim" },
+  {
+    "Issafalcon/lsp-overloads.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+  },
 }
 
 return lsp
