@@ -83,6 +83,7 @@ local completion = {
   {
     "abecodes/tabout.nvim",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
+    event = { "InsertEnter", "CmdlineEnter" },
     config = function()
       require("tabout").setup({
         tabkey = "<M-n>", -- key to trigger tabout, set to an empty string to disable

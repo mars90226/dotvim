@@ -1,6 +1,7 @@
 local text_objects = {
   {
     "wellle/targets.vim",
+    event = { "VeryLazy" },
     config = function()
       -- Reach targets
       -- TODO: Other input method to avoid cursor moving?
@@ -13,6 +14,7 @@ local text_objects = {
 
   {
     "kana/vim-textobj-user",
+    event = { "VeryLazy" },
     config = function()
       -- FIXME Not working
       -- vim.fn["textobj#user#plugin"]("surroundunicode", {
@@ -39,6 +41,7 @@ local text_objects = {
   },
   {
     "kana/vim-textobj-function",
+    event = { "VeryLazy" },
     dependencies = { "kana/vim-textobj-user" },
     config = function()
       -- Search in function
@@ -48,6 +51,7 @@ local text_objects = {
 
   {
     "coderifous/textobj-word-column.vim",
+    event = { "VeryLazy" },
     config = function()
       vim.g.skip_default_textobj_word_column_mappings = 1
 
@@ -66,6 +70,7 @@ local text_objects = {
   -- So, explicitly install this plugin
   {
     "machakann/vim-textobj-functioncall",
+    event = { "VeryLazy" },
     dependencies = { "kana/vim-textobj-user" },
     config = function()
       vim.g.textobj_functioncall_no_default_key_mappings = 1
@@ -79,6 +84,7 @@ local text_objects = {
 
   {
     "chrisgrieser/nvim-various-textobjs",
+    event = { "VeryLazy" },
     config = function()
       -- TODO: Currently has key mapping conflicts:
       -- 1. nearEoL use `n` which is conflict with nvim-hlslens.
@@ -107,6 +113,7 @@ local text_objects = {
 
   {
     "glts/vim-textobj-comment",
+    event = { "VeryLazy" },
     dependencies = { "kana/vim-textobj-user" },
   },
 }

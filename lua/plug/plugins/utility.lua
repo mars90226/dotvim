@@ -66,6 +66,7 @@ local utility = {
   -- Registers
   {
     "tversteeg/registers.nvim",
+    event = { "VeryLazy" },
   },
 
   -- Colors
@@ -147,6 +148,7 @@ local utility = {
     end,
   },
 
+  -- TODO: Move to appearance.lua
   {
     "lukas-reineke/indent-blankline.nvim",
     config = function()
@@ -266,15 +268,14 @@ local utility = {
     end,
   },
 
-  -- See https://www.reddit.com/r/vim/comments/bwp7q3/code_execution_vulnerability_in_vim_811365_and/
-  -- and https://github.com/numirias/security/blob/master/doc/2019-06-04_ace-vim-neovim.md for more details
-  "ciaranm/securemodelines",
-
   -- Do not lazy load vim-scriptease, as it breaks :Breakadd/:Breakdel
   -- TODO: Check if lazy load works
-  { "tpope/vim-scriptease", cmd = { "PP", "Messages", "Verbose", "Time" } },
+  { "tpope/vim-scriptease", cmd = { "PP", "Messages", "Verbose", "Time", "Scriptnames" } },
 
-  "tyru/open-browser.vim",
+  {
+    "tyru/open-browser.vim",
+    event = { "VeryLazy" },
+  },
 
   -- Colorizer
   {
@@ -418,6 +419,7 @@ local utility = {
   {
     "gennaro-tedesco/nvim-jqx",
     cond = vim.fn.executable("jq") == 1,
+    event = { "VeryLazy" },
   },
 
   -- Disabled by default, enable to profile
@@ -426,6 +428,7 @@ local utility = {
   {
     "s1n7ax/nvim-window-picker",
     version = "v1.*",
+    lazy = true,
     config = function()
       require("window-picker").setup()
     end,
@@ -510,12 +513,12 @@ local utility = {
     cmd = { "QToggle", "LToggle" },
     keys = { "<Leader>q", "<Leader>l" },
   },
-  "tpope/vim-eunuch",
+  { "tpope/vim-eunuch", event = { "VeryLazy" } },
   { "DougBeney/pickachu", cmd = { "Pick" } },
   { "tweekmonster/helpful.vim", cmd = { "HelpfulVersion" } },
   { "tweekmonster/startuptime.vim", cmd = { "StartupTime" } },
   { "gyim/vim-boxdraw", keys = { "+o", "+O", "+c", "+-", "+_" } },
-  "lambdalisue/reword.vim",
+  { "lambdalisue/reword.vim", event = { "VeryLazy" } },
   { "nicwest/vim-http", cmd = { "Http" } },
   { "kristijanhusak/vim-carbon-now-sh", cmd = { "CarbonNowSh" } },
   { "taybart/b64.nvim", cmd = { "B64Encode", "B64Decode" } },

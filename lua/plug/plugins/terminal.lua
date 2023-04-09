@@ -2,11 +2,15 @@ local terminal = {
   -- vim-floaterm
   {
     "voldikss/vim-floaterm",
+    event = { "VeryLazy" },
     config = function()
       require("vimrc.plugins.floaterm").setup()
     end,
   },
-  "voldikss/fzf-floaterm",
+  {
+    "voldikss/fzf-floaterm",
+    event = { "VeryLazy" },
+  },
 
   -- FIXME: Seems broken in neovim 0.9.0? Replace it with other terminal plugin
   {
