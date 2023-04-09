@@ -4,6 +4,7 @@ local appearance = {
   -- Status Line
   {
     "nvim-lualine/lualine.nvim",
+    event = { "VeryLazy" },
     config = function()
       require("vimrc.plugins.lualine").setup()
 
@@ -69,11 +70,11 @@ local appearance = {
   },
 
   -- Devicons
-  { "kyazdani42/nvim-web-devicons" },
-  { "ryanoasis/vim-devicons" },
+  { "kyazdani42/nvim-web-devicons", lazy = true },
+  { "ryanoasis/vim-devicons", lazy = true },
 
   -- Colors
-  { "rktjmp/lush.nvim" },
+  { "rktjmp/lush.nvim", lazy = true },
   {
     "ellisonleao/gruvbox.nvim",
     -- TODO: Remove after to avoid other plugin capture wrong highlight
@@ -138,6 +139,7 @@ local appearance = {
   -- Which key
     {
       "folke/which-key.nvim",
+      event = { "VeryLazy" },
       config = function()
         require("which-key").setup({})
 
@@ -148,6 +150,7 @@ local appearance = {
   -- Dashboard
   {
     "goolord/alpha-nvim",
+    event = { "VimEnter" },
     config = function()
       local alpha = require("alpha")
       local dashboard = require("alpha.themes.dashboard")
@@ -177,8 +180,23 @@ local appearance = {
   },
 
   -- UI
-  -- TODO: Move nui.nvim here
-  { "stevearc/dressing.nvim" },
+  {
+    "stevearc/dressing.nvim",
+    lazy = true,
+  },
+  {
+    "MunifTanjim/nui.nvim",
+    lazy = true,
+  },
+
+  -- Indent Guide
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require("vimrc.plugins.indent_blankline").setup()
+    end,
+  },
 }
 
 return appearance

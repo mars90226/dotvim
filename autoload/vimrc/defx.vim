@@ -104,7 +104,9 @@ endfunction
 
 " Load lazy-loaded defx extensions
 function! vimrc#defx#load_opt_extensions() abort
-  Lazy load defx-icons
+  if exists(':Lazy') == 2
+    Lazy! load defx-icons
+  endif
 endfunction
 
 " Settings

@@ -8,12 +8,22 @@ local git = {
       require("vimrc.plugins.fugitive").setup()
     end,
   },
-  "shumphrey/fugitive-gitlab.vim",
-  "tommcdo/vim-fubitive",
-  "tpope/vim-rhubarb",
+  {
+    "shumphrey/fugitive-gitlab.vim",
+    event = { "VeryLazy" },
+  },
+  {
+    "tommcdo/vim-fubitive",
+    event = { "VeryLazy" },
+  },
+  {
+    "tpope/vim-rhubarb",
+    event = { "VeryLazy" },
+  },
   {
     "idanarye/vim-merginal",
     branch = "develop",
+    keys = { ":Merginal<CR>" },
     config = function()
       vim.cmd([[augroup merginal_settings]])
       vim.cmd([[  autocmd!]])
@@ -99,6 +109,7 @@ local git = {
 
   {
     "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("vimrc.plugins.gitsigns").setup()

@@ -148,14 +148,6 @@ local utility = {
     end,
   },
 
-  -- TODO: Move to appearance.lua
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    config = function()
-      require("vimrc.plugins.indent_blankline").setup()
-    end,
-  },
-
   {
     "powerman/vim-plugin-AnsiEsc",
     cmd = { "AnsiEsc" },

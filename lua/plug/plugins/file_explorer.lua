@@ -2,6 +2,7 @@ local choose = require("vimrc.choose")
 
 local file_explorer = {
   -- NOTE: Lazy load doesn't improve much and break the :UpdateRemotePlugins
+  -- TODO: Try again after switch to lazy.nvim
   {
     "Shougo/defx.nvim",
     cond = choose.is_enabled_plugin("defx.nvim"),
@@ -17,7 +18,7 @@ local file_explorer = {
   {
     "kristijanhusak/defx-icons",
     cond = choose.is_enabled_plugin("defx.nvim"),
-    event = { "FocusLost", "CursorHold", "CursorHoldI" },
+    event = { "VeryLazy" },
     config = function()
       vim.fn["vimrc#defx#setup"](true)
     end,
