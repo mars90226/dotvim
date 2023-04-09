@@ -125,6 +125,7 @@ local languages = {
   {
     "ThePrimeagen/refactoring.nvim",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
+    event = { "VeryLazy" },
     dependencies = {
       { "nvim-lua/plenary.nvim" },
       { "nvim-treesitter/nvim-treesitter" },

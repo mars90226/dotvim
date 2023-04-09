@@ -74,6 +74,7 @@ local lsp = {
   {
     "jose-elias-alvarez/null-ls.nvim",
     cond = choose.is_enabled_plugin("null-ls.nvim"),
+    event = { "VeryLazy" },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "neovim/nvim-lspconfig",
@@ -86,6 +87,7 @@ local lsp = {
 
   {
     "mfussenegger/nvim-lint",
+    event = { "VeryLazy" },
     config = function()
       require("vimrc.plugins.nvim_lint").setup()
     end,

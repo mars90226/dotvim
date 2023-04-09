@@ -66,6 +66,7 @@ local file_navigation = {
   -- telescope.nvim
   {
     "nvim-telescope/telescope.nvim",
+    event = { "VeryLazy" },
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("vimrc.plugins.telescope").setup()
@@ -73,37 +74,46 @@ local file_navigation = {
   },
   {
     "nvim-telescope/telescope-file-browser.nvim",
+    event = { "VeryLazy" },
     config = function()
       require("telescope").load_extension("file_browser")
     end,
   },
   {
     "nvim-telescope/telescope-project.nvim",
+    event = { "VeryLazy" },
     config = function()
       require("telescope").load_extension("project")
     end,
   },
   {
     "jvgrootveld/telescope-zoxide",
+    event = { "VeryLazy" },
     config = function()
       require("telescope").load_extension("zoxide")
     end,
   },
-  "sudormrfbin/cheatsheet.nvim",
+  {
+    "sudormrfbin/cheatsheet.nvim",
+    event = { "VeryLazy" },
+  },
   {
     "TC72/telescope-tele-tabby.nvim",
+    event = { "VeryLazy" },
     config = function()
       require("telescope").load_extension("tele_tabby")
     end,
   },
   {
     "nvim-telescope/telescope-live-grep-args.nvim",
+    event = { "VeryLazy" },
     config = function()
       require("telescope").load_extension("live_grep_args")
     end,
   },
   {
     "nvim-telescope/telescope-frecency.nvim",
+    event = { "VeryLazy" },
     config = function()
       require("telescope").load_extension("frecency")
     end,
@@ -112,7 +122,7 @@ local file_navigation = {
   },
   {
     "LinArcX/telescope-command-palette.nvim",
-    event = { "FocusLost", "CursorHold", "CursorHoldI" },
+    event = { "VeryLazy" },
     config = function()
       local has_secret_command_palette, secret_command_palette = pcall(require, "secret.command_palette")
 
@@ -182,18 +192,21 @@ local file_navigation = {
   },
   {
     "debugloop/telescope-undo.nvim",
+    event = { "VeryLazy" },
     config = function()
       require("telescope").load_extension("undo")
     end,
   },
   {
     "molecule-man/telescope-menufacture",
+    event = { "VeryLazy" },
     config = function()
       require("telescope").load_extension("menufacture")
     end,
   },
   {
     "aaronhallaert/advanced-git-search.nvim",
+    event = { "VeryLazy" },
     config = function()
       require("telescope").load_extension("advanced_git_search")
     end,
@@ -206,6 +219,7 @@ local file_navigation = {
   {
     "nvim-telescope/telescope-fzf-native.nvim",
     cond = choose.is_enabled_plugin("telescope-fzf-native.nvim"),
+    event = { "VeryLazy" },
     build = "make",
     config = function()
       require("telescope").load_extension("fzf")
@@ -215,6 +229,7 @@ local file_navigation = {
   -- fzf-lua
   {
     "ibhagwan/fzf-lua",
+    event = { "VeryLazy" },
     dependencies = { "kyazdani42/nvim-web-devicons" },
     config = function()
       require("vimrc.plugins.fzf_lua").setup()
@@ -224,6 +239,7 @@ local file_navigation = {
   -- Bookmarks
   {
     "ThePrimeagen/harpoon",
+    event = { "VeryLazy" },
     config = function()
       require("harpoon").setup({})
 
@@ -264,6 +280,7 @@ local file_navigation = {
   -- Automatically update tags
   {
     "ludovicchabant/vim-gutentags",
+    event = { "VeryLazy" },
     init = function()
       -- Don't update cscope, workload is too heavy
       vim.g.gutentags_modules = { "ctags" }
@@ -291,6 +308,7 @@ local file_navigation = {
   -- Window Switching
   {
     "https://gitlab.com/yorickpeterse/nvim-window.git",
+    event = { "VeryLazy" },
     config = function()
       nnoremap("=-", "<Cmd>lua require('nvim-window').pick()<CR>", "silent")
     end,
@@ -298,6 +316,7 @@ local file_navigation = {
 
   {
     "rgroli/other.nvim",
+    event = { "VeryLazy" },
     config = function()
       require("vimrc.plugins.other").setup()
     end,

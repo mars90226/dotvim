@@ -128,6 +128,7 @@ local text_manipulation = {
   -- Increment/Decrement
   {
     "monaqa/dial.nvim",
+    event = { "VeryLazy" },
     config = function()
       require("vimrc.plugins.dial").setup()
     end,

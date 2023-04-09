@@ -101,6 +101,7 @@ local utility = {
   -- Project
   {
     "ahmedkhalf/project.nvim",
+    event = { "VeryLazy" },
     config = function()
       require("project_nvim").setup({
         -- Manual mode doesn't automatically change your root directory, so you have
@@ -394,6 +395,7 @@ local utility = {
 
   {
     "axieax/urlview.nvim",
+    event = { "VeryLazy" },
     dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
       local urlview = require("vimrc.plugins.urlview")
@@ -480,6 +482,7 @@ local utility = {
 
   {
     "Bekaboo/deadcolumn.nvim",
+    event = { "VeryLazy" },
     init = function()
       -- NOTE: Monitor this
       vim.opt.textwidth = 100
