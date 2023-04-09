@@ -23,7 +23,7 @@ local git = {
   {
     "idanarye/vim-merginal",
     branch = "develop",
-    keys = { ":Merginal<CR>" },
+    cmd = { "Merginal" },
     config = function()
       vim.cmd([[augroup merginal_settings]])
       vim.cmd([[  autocmd!]])
