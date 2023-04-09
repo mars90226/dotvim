@@ -73,7 +73,10 @@ local file_explorer = {
     end,
   },
 
-  { "vifm/vifm.vim" },
+  {
+    "vifm/vifm.vim",
+    cmd = { "EditVifm", "Vifm", "SplitVifm", "VsplitVifm", "TabVifm" },
+  },
 }
 
 return file_explorer
