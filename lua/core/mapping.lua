@@ -340,6 +340,9 @@ mapping.setup = function()
       nnoremap("<Leader><F1>", [[:Man<Space>]])
       nnoremap("<Leader><F2>", [[:VimrcFloatNew! Man<Space>]])
 
+      -- Inspect
+      nnoremap("<Space>hi", [[<Cmd>Inspect<CR>]])
+
       -- Custom function {{{
       vim.api.nvim_create_user_command("ToggleIndent", [[call vimrc#toggle#toggle#indent()]], {})
       vim.api.nvim_create_user_command("ToggleFold", [[call vimrc#toggle#fold_method()]], {})
