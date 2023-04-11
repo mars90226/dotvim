@@ -103,19 +103,6 @@ local text_navigation = {
 
   -- Search
   {
-    "haya14busa/vim-asterisk",
-    keys = {
-      "*",
-      "#",
-      "g*",
-      "g#",
-      "z*",
-      "gz*",
-      "z#",
-      "gz#",
-    },
-  },
-  {
     "kevinhwang91/nvim-hlslens",
     keys = {
       "n",
@@ -129,6 +116,7 @@ local text_navigation = {
       "z#",
       "gz#",
     },
+    dependencies = { "haya14busa/vim-asterisk" },
     config = function()
       require("hlslens").setup()
 
