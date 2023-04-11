@@ -317,7 +317,16 @@ local languages = {
     end,
   },
 
-  -- TODO: Use cscope plugin as cscope is removed in neovim 0.9
+  -- Cscope
+  {
+    "dhananjaylatkar/cscope_maps.nvim",
+    cmd = { "Cscope" },
+    config = function()
+      require("cscope_maps").setup({
+        disable_maps = true,
+      })
+    end
+  },
   {
     "mars90226/cscope_macros.vim",
     keys = { "<F11>", "<Space><F11>" },
