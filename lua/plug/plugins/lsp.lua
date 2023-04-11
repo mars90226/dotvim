@@ -18,13 +18,15 @@ local lsp = {
     dependencies = { "neovim/nvim-lspconfig" },
     config = function()
       require("mason").setup()
-      require("mason-lspconfig").setup()
     end,
   },
   {
     "williamboman/mason-lspconfig.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "williamboman/mason.nvim" },
+    config = function()
+      require("mason-lspconfig").setup()
+    end
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",

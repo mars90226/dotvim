@@ -1,8 +1,3 @@
-local mason_lspconfig_mappings_filetype = require("mason-lspconfig.mappings.filetype")
-local mason_lspconfig_mappings_server = require("mason-lspconfig.mappings.server")
-local mason_tool_installer = require("mason-tool-installer")
-local ufo = require("ufo")
-
 local my_lspsaga = require("vimrc.plugins.lspsaga")
 local my_goto_preview = require("vimrc.plugins.goto-preview")
 
@@ -183,6 +178,8 @@ lsp.on_init = function(client)
 end
 
 lsp.show_doc = function()
+  local ufo = require("ufo")
+
   -- preview fold > vim help | lsp hover
   local winid = ufo.peekFoldedLinesUnderCursor()
   if not winid then
@@ -331,6 +328,8 @@ lsp.is_supported_server = function(server)
 end
 
 lsp.init_servers_by_filetype = function()
+  local mason_lspconfig_mappings_filetype = require("mason-lspconfig.mappings.filetype")
+
   for filetype, servers in pairs(mason_lspconfig_mappings_filetype) do
     for _, server in ipairs(servers) do
       if lsp.is_supported_server(server) then
@@ -371,6 +370,9 @@ lsp.setup_diagnostic = function()
 end
 
 lsp.setup_lsp_install = function()
+  local mason_lspconfig_mappings_server = require("mason-lspconfig.mappings.server")
+  local mason_tool_installer = require("mason-tool-installer")
+
   local lspconfig_servers = vim.tbl_keys(lsp.get_servers())
   -- TODO: Check if this can be precompiled to improve startup time
   local mason_package_servers = {}
