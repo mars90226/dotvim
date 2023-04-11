@@ -478,6 +478,7 @@ nvim_treesitter.setup_performance_trick = function()
   -- 2. Terminal emulator switch pane
   -- 3. OS switch application
   -- In other words, we want treesitter highlight if the buffer is actually displayed on the screen.
+  -- TODO: Check if VimResume/VimSuspend helps
   vim.api.nvim_create_autocmd({ "FocusLost" }, {
     group = augroup_id,
     pattern = "*",
