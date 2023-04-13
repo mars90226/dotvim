@@ -142,9 +142,9 @@ local appearance = {
       "folke/which-key.nvim",
       event = { "VeryLazy" },
       config = function()
+        vim.go.timeout = true
+        vim.go.timeoutlen = 300
         require("which-key").setup({})
-
-        vim.go.timeoutlen = 500
       end,
     },
 

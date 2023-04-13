@@ -343,6 +343,10 @@ mapping.setup = function()
       -- Inspect
       nnoremap("<Space>hi", [[<Cmd>Inspect<CR>]])
 
+      -- Print visual selection info
+      -- TODO: Do not leave visual mode, use nvim-notify
+      xnoremap("g<C-G>", "g<C-G>:<C-U>lua vim.notify(vim.v.statusmsg)<CR>")
+
       -- Custom function {{{
       vim.api.nvim_create_user_command("ToggleIndent", [[call vimrc#toggle#toggle#indent()]], {})
       vim.api.nvim_create_user_command("ToggleFold", [[call vimrc#toggle#fold_method()]], {})
