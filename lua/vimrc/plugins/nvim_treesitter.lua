@@ -411,6 +411,7 @@ nvim_treesitter.setup_performance_trick = function()
   ---Run callback on treesitter supported window to avoid highlight missing
   ---@param supported_winids table<number> window ids that will run treesitter command
   ---@param callback fun(): nil callback to run
+  -- FIXME: Some special float buffers will close itself once leave the buffer, like Mason buffer.
   local run_callback_on_supported_win = function(supported_winids, callback)
     if not vim.tbl_isempty(supported_winids) then
       local current_win = vim.api.nvim_get_current_win()
