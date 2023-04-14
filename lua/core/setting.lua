@@ -16,7 +16,6 @@ settings.setup = function()
       -- source custom mswin.vim
       if not plugin_utils.os_is("synology") then
         vim.fn["vimrc#source"]("vimrc/mswin.vim")
-        vim.cmd([[behave xterm]])
       end
       -- }}}
 
