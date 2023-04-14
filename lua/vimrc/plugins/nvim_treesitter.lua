@@ -432,6 +432,11 @@ nvim_treesitter.setup_performance_trick = function()
         -- NOTE: Avoid invalid window id
         pcall(vim.api.nvim_set_current_win, current_win)
         pcall(vim.fn.winrestview, view)
+
+        -- Restore terminal insert mode
+        if vim.b.buftype == "terminal" and vim.api.nvim_get_mode().mode == "n" then
+          vim.cmd([[startinsert]])
+        end
       end
     end
   end
