@@ -46,7 +46,7 @@ local text_manipulation = {
       require("nvim-surround").setup({})
 
       local nvim_surround_augroup_id = vim.api.nvim_create_augroup("nvim_surround_settings", {})
-      vim.api.nvim_create_autocmd({ "BufRead", "CmdWinEnter" }, {
+      vim.api.nvim_create_autocmd({ "BufRead", "CmdWinEnter", "VimEnter" }, {
         group = nvim_surround_augroup_id,
         pattern = "*",
         callback = function()
