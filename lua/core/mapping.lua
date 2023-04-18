@@ -400,7 +400,7 @@ mapping.setup = function()
         { nargs = 1 }
       )
 
-      vim.api.nvim_create_user_command("MakeTodo", [[lua require("vimrc.todo").make_todo()]], {})
+      vim.api.nvim_create_user_command("MakeTodo", [[lua require("vimrc.todo").make_todo()]], { range = true })
       -- }}}
 
       -- Custom command {{{
