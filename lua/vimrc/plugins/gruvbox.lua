@@ -32,22 +32,7 @@ gruvbox.setup = function()
     WinBarNC = { fg = palette.light4, bg = palette.dark0 },
 
     -- LSP semantic highlighting
-    -- TODO: Remove these after gruvbox.nvim add LSP semantic highlighting suppport
-    -- FIXME: Some mis-highlighting like local variable instead of function
-    ['@lsp.type.namespace'] = { link = '@namespace', default = true },
-    ['@lsp.type.type'] = { link = '@type', default = true },
-    ['@lsp.type.class'] = { link = '@type', default = true },
-    ['@lsp.type.enum'] = { link = '@type', default = true },
-    ['@lsp.type.interface'] = { link = '@type', default = true },
-    ['@lsp.type.struct'] = { link = '@structure', default = true },
-    ['@lsp.type.parameter'] = { link = '@parameter', default = true },
-    ['@lsp.type.variable'] = { link = '@variable', default = true },
-    ['@lsp.type.property'] = { link = '@property', default = true },
-    ['@lsp.type.enumMember'] = { link = '@constant', default = true },
-    ['@lsp.type.function'] = { link = '@function', default = true },
-    ['@lsp.type.method'] = { link = '@method', default = true },
-    ['@lsp.type.macro'] = { link = '@macro', default = true },
-    ['@lsp.type.decorator'] = { link =  '@function', default = true },
+    -- Use gruvbox.nvim highlight
 
     -- Plugin
     FocusedSymbol = { fg = palette.faded_blue, bg = custom_palette.white_yellow },
