@@ -31,7 +31,7 @@ choose.is_enabled_plugin = function(plugin)
 end
 
 choose.print_disabled_plugins = function()
-  vim.pretty_print(choose.disabled_plugins)
+  vim.print(choose.disabled_plugins)
 end
 
 return choose
