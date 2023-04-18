@@ -261,7 +261,7 @@ endfunction
 
 " ref: https://stackoverflow.com/a/39216373
 function! vimrc#utility#get_script_id(script_name) abort
-  let snr = matchstr(matchstr(split(execute('scriptnames'), "\n"), a:script_name), '^\d\+')
+  let snr = trim(matchstr(matchstr(split(execute('scriptnames'), "\n"), a:script_name), '^\s*\d\+'))
   return snr
 endfunction
 
