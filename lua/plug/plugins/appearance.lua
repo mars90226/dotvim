@@ -193,7 +193,7 @@ local appearance = {
   -- Indent Guide
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = { "BufReadPost", "BufNewFile" },
+    event = { "VeryLazy" },
     config = function()
       require("vimrc.plugins.indent_blankline").setup()
     end,
