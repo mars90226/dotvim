@@ -1,7 +1,7 @@
 local todo = {}
 
-todo.make_todo = function()
-  vim.cmd([['<,'>yank]])
+todo.make_todo = function(line1, line2)
+  vim.cmd(line1 .. ',' .. line2 .. [[yank]])
   vim.cmd([[new]])
   vim.cmd([[norm p]])
   vim.cmd([[1,2delete ]])
