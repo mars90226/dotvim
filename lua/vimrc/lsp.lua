@@ -128,6 +128,8 @@ lsp.servers = {
   -- pyls_ms = {},
   -- NOTE: use plugins: pyflakes, pycodestyle, pyls-flake8, pylsp-mypy, python-lsp-black
   pylsp = {},
+  -- TODO: pylyzer not supporting documentSymbolProvider, disabled for now
+  -- pylyzer = {},
   -- TODO: Use pyright again, seems to have better performance with higher CPU usages
   -- TODO: Check pyright settings disableLanguageServices
   -- ref: https://github.com/microsoft/pyright/blob/893d08be8c70297fcf082ba812c14cf4aecefc97/docs/settings.md
