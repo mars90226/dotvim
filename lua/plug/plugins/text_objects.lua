@@ -1,10 +1,11 @@
 local text_objects = {
   {
     "wellle/targets.vim",
-    event = { "VeryLazy" },
+    event = { "VimEnter" },
     config = function()
       -- Reach targets
       -- TODO: Other input method to avoid cursor moving?
+      -- FIXME: Setup which-key.nvim & lazy load
       nmap("]r", [['vin'.v:lua.require("vimrc.utils").get_char_string()."o\<Esc>"]], "expr")
       nmap("[r", [['vil'.v:lua.require("vimrc.utils").get_char_string()."\<Esc>"]], "expr")
       nmap("]R", [['van'.v:lua.require("vimrc.utils").get_char_string()."o\<Esc>"]], "expr")
