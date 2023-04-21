@@ -143,6 +143,7 @@ telescope.setup_config = function()
           -- Use <M-/> to toggle preview
           ["<M-/>"] = action_layout.toggle_preview,
 
+          -- Use <M-y> to yank selection
           ["<M-y>"] = yank_selection,
         },
         n = {
