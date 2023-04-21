@@ -123,7 +123,9 @@ lsp.servers = {
     },
   },
   marksman = {},
-  neocmake = {},
+  neocmake = {
+    condition = plugin_utils.has_linux_build_env()
+  },
   perlnavigator = {},
   -- pyls_ms = {},
   -- NOTE: use plugins: pyflakes, pycodestyle, pyls-flake8, pylsp-mypy, python-lsp-black
