@@ -7,6 +7,19 @@ local action_state = require("telescope.actions.state")
 
 local telescope = {}
 
+-- Utils
+------------------------------
+local get_single_multi_selection = function(prompt_bufnr)
+  local picker = action_state.get_current_picker(prompt_bufnr)
+  local multi_selection = picker:get_multi_selection()
+
+  if not vim.tbl_isempty(multi_selection) then
+    return picker:get_multi_selection()
+  else
+    return {action_state:get_selected_entry()}
+  end
+end
+
 -- Actions
 ------------------------------
 local exit_insert_mode = function(prompt_bufnr)
@@ -64,6 +77,21 @@ local open_with_trouble = function(...)
   end
 end
 
+local yank_selection = function(prompt_bufnr)
+  local selection = get_single_multi_selection(prompt_bufnr)
+
+  local entry_displays = vim.tbl_map(function(entry)
+    if entry.display then
+      return vim.split(entry:display(), '\n')[1]
+    else
+      return ''
+    end
+  end, selection)
+
+  local content = vim.fn.join(entry_displays, '\n')
+  vim.fn.setreg('"', content)
+end
+
 -- Global remapping
 ------------------------------
 telescope.setup_config = function()
@@ -114,6 +142,8 @@ telescope.setup_config = function()
 
           -- Use <M-/> to toggle preview
           ["<M-/>"] = action_layout.toggle_preview,
+
+          ["<M-y>"] = yank_selection,
         },
         n = {
           -- Use <C-S> to select horizontal
