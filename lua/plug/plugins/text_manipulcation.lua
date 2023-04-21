@@ -4,7 +4,17 @@ local text_manipulation = {
   -- Comment
   {
     "numToStr/Comment.nvim",
-    event = { "FocusLost", "CursorHold", "CursorHoldI" },
+    keys = {
+      "gcO",
+      "gco",
+      "gc",
+      "gb",
+      "gcA",
+      "gcc",
+      "gbc",
+      "gc",
+      "gb",
+    },
     config = function()
       require("Comment").setup()
     end,
