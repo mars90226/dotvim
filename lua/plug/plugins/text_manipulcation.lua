@@ -58,6 +58,17 @@ local text_manipulation = {
       end)
     end,
   },
+  {
+    "AckslD/muren.nvim",
+    cmd = { "MurenToggle", "MurenOpen", "MurenUnique" },
+    keys = { "<Leader>mr" },
+    config = function()
+      require("muren").setup()
+
+      nnoremap("<Leader>mr", [[<Cmd>MurenToggle<CR>]])
+      nnoremap("<Leader>mu", [[<Cmd>MurenUnique<CR>]])
+    end
+  },
 
   -- Surround
   {
