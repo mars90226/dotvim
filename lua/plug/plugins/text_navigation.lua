@@ -18,10 +18,7 @@ local text_navigation = {
       }
       vim.g.matchup_surround_enabled = 1
     end,
-    config = function()
-      nnoremap("<Leader>mk", [[<Cmd>MatchupWhereAmI?<CR>]])
-      -- NOTE: nvim-treesitter config is in nvim_treesitter.lua
-    end,
+    -- NOTE: nvim-treesitter config is in nvim_treesitter.lua
   },
 
   -- Jump
