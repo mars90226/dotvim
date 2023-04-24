@@ -47,6 +47,17 @@ local text_manipulation = {
       require("vimrc.plugins.substitute").setup()
     end,
   },
+  {
+    "cshuaimin/ssr.nvim",
+    keys = { "<Leader>sr" },
+    config = function()
+      require("ssr").setup()
+
+      vim.keymap.set({ "n", "x" }, "<Leader>sr", function()
+        require("ssr").open()
+      end)
+    end,
+  },
 
   -- Surround
   {

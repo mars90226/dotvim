@@ -288,12 +288,12 @@ local file_navigation = {
     end,
   },
 
+  -- Search/Replace
   {
     "nvim-pack/nvim-spectre",
     cmd = { "Spectre" },
     keys = { "<Space>S", "<Space>sw", "<Space>s'" },
     config = function()
-      -- TODO: Try replace with nvim-oxi
       nnoremap("<Space>S", [[:lua require('spectre').open()<CR>]])
 
       -- Search current word
