@@ -143,4 +143,30 @@ utils.get_buffer_variable = function(buf, var)
   return nil
 end
 
+-- Return 0-based range (start with 0) and the ending range is exclusive.
+utils.get_visual_selection_range = function()
+  local _, start_row, start_col, _ = unpack(vim.fn.getpos("'<"))
+  local _, end_row, end_col, _ = unpack(vim.fn.getpos("'>"))
+
+  if start_row < end_row or (start_row == end_row and start_col <= end_col) then
+    return start_row - 1, start_col - 1, end_row - 1, end_col
+  else
+    return end_row - 1, end_col - 1, start_row - 1, start_col
+  end
+end
+
+utils.get_visual_selection = function()
+  local start_row, start_col, end_row, end_col = utils.get_visual_selection_range()
+  local lines = vim.api.nvim_buf_get_lines(0, start_row, end_row + 1, false)
+
+  if vim.tbl_isempty(lines) then
+    return ''
+  end
+
+  lines[#lines] = string.sub(lines[#lines], 1, end_col - (vim.go.selection == 'inclusive' and 0 or 1))
+  lines[1] = string.sub(lines[1], start_col + 1)
+
+  return vim.fn.join(lines, "\n")
+end
+
 return utils
