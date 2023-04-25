@@ -1,6 +1,19 @@
 local gruvbox = {}
 
-gruvbox.setup = function()
+gruvbox.config = {
+  bold = true,
+  error_inverse = true,
+}
+
+gruvbox.load_overrides = function(overrides)
+  -- Manually override as using "overrides" settings will merge "overrides"
+  -- with default highlight groups, and cause unwanted results
+  for group, settings in pairs(overrides) do
+    vim.api.nvim_set_hl(0, group, settings)
+  end
+end
+
+gruvbox.custom_overrides = function()
   local hsl = require("lush").hsl
   local palette = require("gruvbox.palette").colors
 
@@ -42,19 +55,41 @@ gruvbox.setup = function()
     UfoFoldedBg = { bg = palette.dark1 },
   }
 
-  require("gruvbox").setup({})
+  return overrides
+end
+
+gruvbox.toggle_error_inverse = function()
+  gruvbox.config.error_inverse = not gruvbox.config.error_inverse
+
+  local palette = require("gruvbox.palette").colors
+
+  local overrides = {
+    Error = { fg = palette.bright_red, bold = gruvbox.config.bold, reverse = gruvbox.config.error_inverse },
+  }
+
+  gruvbox.load_overrides(overrides)
+end
+
+gruvbox.reload = function()
+  require("gruvbox").setup(gruvbox.config)
+  require("gruvbox").load()
+end
+
+gruvbox.setup = function()
+  require("gruvbox").setup(gruvbox.config)
   vim.cmd([[colorscheme gruvbox]])
+
+  vim.api.nvim_create_user_command("ToggleErrorInverse", function()
+    gruvbox.toggle_error_inverse()
+  end, {})
 
   local augroup_id = vim.api.nvim_create_augroup("gruvbox_settings", {})
   vim.api.nvim_create_autocmd({ "VimEnter" }, {
     group = augroup_id,
     pattern = "*",
     callback = function()
-      -- Manually override as using "overrides" settings will merge "overrides"
-      -- with default highlight groups, and cause unwanted results
-      for group, settings in pairs(overrides) do
-        vim.api.nvim_set_hl(0, group, settings)
-      end
+      local custom_overrides = gruvbox.custom_overrides()
+      gruvbox.load_overrides(custom_overrides)
     end,
   })
 end
