@@ -15,6 +15,8 @@ local text_manipulation = {
       "gbc",
       "gc",
       "gb",
+      { "gc", mode = "x" },
+      { "gb", mode = "x" },
     },
     config = function()
       require("Comment").setup()
