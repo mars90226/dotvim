@@ -136,6 +136,7 @@ settings.setup = function()
       vim.keymap.set({ "c" }, "<C-K>", "<C-T>", { noremap = true })
       -- }}}
 
+      vim.opt.maxmempattern = 2000 -- 2000 KB
     end,
   })
 
