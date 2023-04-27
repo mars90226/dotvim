@@ -1,6 +1,8 @@
 local ls = require("luasnip")
 local types = require("luasnip.util.types")
 
+local luasnip_utils = require("vimrc.plugins.luasnip_utils")
+
 local has_secret_luasnip, secret_luasnip = pcall(require, "secret.luasnip")
 
 local luasnip = {}
@@ -132,20 +134,8 @@ luasnip.setup_snippet = function()
   local f = ls.function_node
 
   local fmt = require("luasnip.extras.fmt").fmt
-
-  local same = function(index)
-    return f(function(args)
-      return args[1]
-    end, { index })
-  end
-
-  -- TODO: Add index
-  -- TODO: Add dynamic node
-  local fzf_tmux_choice = function(choices)
-    return f(function()
-      return vim.fn["vimrc#fzf#choices_in_commandline"](choices)
-    end)
-  end
+  local same = luasnip_utils.same
+  local fzf_tmux_choice = luasnip_utils.fzf_tmux_choice
 
   local chinese_punctuation_snippets = {
     s(
