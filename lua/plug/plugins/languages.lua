@@ -22,6 +22,7 @@ local languages = {
     cmd = { "Luadev" },
   },
   { "mustache/vim-mustache-handlebars", ft = { "handlebars", "mustache" } },
+  { "wavded/vim-stylus", ft = "stylus" },
 
   -- Highlighing
   -- nvim-treesitter
