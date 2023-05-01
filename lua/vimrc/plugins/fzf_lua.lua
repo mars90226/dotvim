@@ -59,6 +59,12 @@ fzf_lua.setup = function()
   nnoremap([[<Space>zlC]], [[<Cmd>FzfLua lsp_workspace_diagnostics<CR>]])
   nnoremap([[<Space>zl,]], [[<Cmd>FzfLua lsp_incoming_calls<CR>]])
   nnoremap([[<Space>zl.]], [[<Cmd>FzfLua lsp_outgoing_calls<CR>]])
+
+  -- Complete
+  inoremap([[<C-Z><C-D>]], [[<Cmd>lua require("fzf-lua").complete_path()<CR>]])
+  inoremap([[<C-Z><C-F>]], [[<Cmd>lua require("fzf-lua").complete_file()<CR>]])
+  inoremap([[<C-Z><C-L>]], [[<Cmd>lua require("fzf-lua").complete_bline()<CR>]])
+  inoremap([[<C-Z><M-l>]], [[<Cmd>lua require("fzf-lua").complete_line()<CR>]])
 end
 
 return fzf_lua
