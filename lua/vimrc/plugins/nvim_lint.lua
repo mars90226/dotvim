@@ -42,12 +42,18 @@ nvim_lint.setup = function()
   lint.linters_by_ft = {
     gitcommit = { "gitlint" },
     javascript = { "jshint" },
+    markdown = { "markdownlint" },
     python = { "mypy", "pylint" },
     sh = { "shellcheck" },
   }
 
   nnoremap("<Space>ll", "<Cmd>lua require('lint').try_lint()<CR>", "silent")
   nnoremap("col", "<Cmd>lua require('vimrc.plugins.nvim_lint').toggle_enable()<CR>", "silent")
+
+  -- Add errorformat for 'markdownlint'
+  -- FIXME: Cannot use vim.opt, it will break 'errorformat'.
+  -- vim.opt.errorformat:append('%f:%l %m')
+  vim.cmd([[set errorformat+=%f:%l\ %m]])
 
   vim.cmd([[augroup nvim_lint_settings]])
   vim.cmd([[  autocmd!]])
