@@ -4,6 +4,10 @@ local my_nvim_surround = require("vimrc.plugins.nvim_surround")
 
 vim.bo.expandtab = true
 
+if vim.fn.executable('markdownlint') == 1 then
+  vim.bo.makeprg = 'markdownlint'
+end
+
 -- NOTE: 2-characters cannot use default find & delete & change implementation
 surround.buffer_setup({
   surrounds = {
