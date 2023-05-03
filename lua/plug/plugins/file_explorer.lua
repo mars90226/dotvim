@@ -41,6 +41,7 @@ local file_explorer = {
         window = {
           mappings = {
             ["z"] = function(_) end, -- Do nothing
+            ["zm"] = "expand_all_nodes",
             ["zr"] = "close_all_nodes",
             ["zz"] = function(_)
               vim.cmd([[normal! zz]])
