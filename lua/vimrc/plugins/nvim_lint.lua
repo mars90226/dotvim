@@ -2,6 +2,21 @@ local lint = require("lint")
 
 local nvim_lint = {}
 
+nvim_lint.config = {
+  enable = true,
+}
+
+nvim_lint.toggle_enable = function()
+  nvim_lint.config.enable = not nvim_lint.config.enable
+  vim.notify("nvim-lint is " .. (nvim_lint.config.enable and "enabled" or "disabled"))
+end
+
+nvim_lint.try_lint = function()
+  if nvim_lint.config.enable then
+    require('lint').try_lint()
+  end
+end
+
 nvim_lint.setup = function()
   -- Custom linters
   lint.linters.gitlint = {
@@ -32,10 +47,11 @@ nvim_lint.setup = function()
   }
 
   nnoremap("<Space>ll", "<Cmd>lua require('lint').try_lint()<CR>", "silent")
+  nnoremap("col", "<Cmd>lua require('vimrc.plugins.nvim_lint').toggle_enable()<CR>", "silent")
 
   vim.cmd([[augroup nvim_lint_settings]])
   vim.cmd([[  autocmd!]])
-  vim.cmd([[  autocmd BufWritePost * lua require('lint').try_lint()]])
+  vim.cmd([[  autocmd BufWritePost * lua require('vimrc.plugins.nvim_lint').try_lint()]])
   vim.cmd([[augroup END]])
 end
 
