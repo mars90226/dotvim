@@ -367,6 +367,15 @@ lsp.setup_servers_on_filetype = function(filetype)
 end
 
 lsp.setup_diagnostic = function()
+  vim.diagnostic.config({
+    virtual_text = {
+      source = "if_many",
+    },
+    float = {
+      source = "if_many",
+    }
+  })
+
   for _, signs in pairs(lsp.config.signs) do
     local hl = "DiagnosticSign" .. signs.name
     vim.fn.sign_define(hl, { text = signs.text, texthl = hl })
