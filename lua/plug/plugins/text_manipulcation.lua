@@ -72,13 +72,13 @@ local text_manipulation = {
 
       vim.api.nvim_create_user_command("MurenUniqueVisual", function()
         vim.print(utils.get_visual_selection())
-        muren.open_unique(utils.get_visual_selection())
+        muren.open_unique_ui(utils.get_visual_selection())
       end, { range = true })
 
       nnoremap("<Leader>mr", [[<Cmd>MurenToggle<CR>]])
       nnoremap("<Leader>mu", [[<Cmd>MurenUnique<CR>]])
       nnoremap("<Leader>mk", function()
-        muren.open_unique(vim.fn.expand('<cword>'))
+        muren.open_unique_ui(vim.fn.expand('<cword>'))
       end)
       xnoremap("<Leader>mk", [[:MurenUniqueVisual<CR>]])
     end
