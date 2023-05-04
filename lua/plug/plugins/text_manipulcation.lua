@@ -35,7 +35,7 @@ local text_manipulation = {
   {
     "vim-scripts/eraseSubword",
     keys = {
-      "<C-B>",
+      { "<C-B>", mode = "i" },
     },
     init = function()
       vim.g.EraseSubword_insertMap = "<C-B>"
