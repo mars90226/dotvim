@@ -27,8 +27,8 @@ command_palette.luasnip_expand_handler = function(filetype)
     vim.api.nvim_buf_set_text(buf, 0, 0, 0, 0, { result })
     local win = vim.api.nvim_open_win(buf, true, {
       relative = "cursor",
-      width = vim.api.nvim_win_get_width(0) * 0.9,
-      height = vim.api.nvim_win_get_height(0) * 0.8,
+      width = math.floor(vim.api.nvim_win_get_width(0) * 0.9),
+      height = math.floor(vim.api.nvim_win_get_height(0) * 0.8),
       bufpos = { 0, 0 },
       style = "minimal",
       border = "rounded",
