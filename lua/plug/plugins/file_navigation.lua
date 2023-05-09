@@ -181,13 +181,13 @@ local file_navigation = {
         },
       })
 
+      require("telescope").load_extension("command_palette")
+
       if has_secret_command_palette then
         secret_command_palette.setup()
       end
 
       require("vimrc.plugins.command_palette").setup()
-
-      require("telescope").load_extension("command_palette")
     end,
   },
   {

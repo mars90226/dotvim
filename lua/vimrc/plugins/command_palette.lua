@@ -172,20 +172,8 @@ command_palette.open_with_fzf = function()
 end
 
 command_palette.setup = function()
-  local augroup_id = vim.api.nvim_create_augroup("command_palette_setup", {})
-
   command_palette.setup_custom_command()
-
-  -- Lazy load
-  vim.api.nvim_create_autocmd({ "FocusLost", "CursorHold", "CursorHoldI" }, {
-    group = augroup_id,
-    pattern = "*",
-    callback = function()
-      command_palette.setup_menu()
-      -- NOTE: Due to multiple event, cannot use `once = true`.
-      vim.api.nvim_del_augroup_by_id(augroup_id)
-    end,
-  })
+  command_palette.setup_menu()
 end
 
 return command_palette
