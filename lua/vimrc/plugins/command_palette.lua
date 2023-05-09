@@ -1,3 +1,5 @@
+local luasnip = require("luasnip")
+
 local utils = require("vimrc.utils")
 
 local command_palette = {}
@@ -13,6 +15,35 @@ command_palette.terminal_join = function(terminal_commands)
   table.insert(commands, "\n")
   local command = table.concat(commands, "; ")
   return command_palette.same(command)
+end
+
+command_palette.luasnip_expand_handler = function(filetype)
+  return function(result)
+    -- 1. Create a new [filetype] buffer with result.
+    -- 2. Expand with LuaSnip.
+    -- 3. Copy/Paste the expand result to orignal buffer.
+    local buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_set_option(buf, 'filetype', filetype)
+    vim.api.nvim_buf_set_text(buf, 0, 0, 0, 0, { result })
+    local win = vim.api.nvim_open_win(buf, true, {
+      relative = "cursor",
+      width = vim.api.nvim_win_get_width(0) * 0.9,
+      height = vim.api.nvim_win_get_height(0) * 0.8,
+      bufpos = { 0, 0 },
+      style = "minimal",
+      border = "rounded",
+    })
+    vim.cmd([[startinsert!]])
+    luasnip.expand()
+
+    local expand_result = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+    vim.api.nvim_win_close(win, true)
+    vim.api.nvim_paste(vim.fn.join(expand_result, "\n"), true, -1)
+
+    vim.schedule(function()
+      vim.cmd([[startinsert!]])
+    end)
+  end
 end
 
 command_palette.menus = {}
@@ -42,6 +73,29 @@ command_palette.custom_commands = {
     duckduckgo = command_palette.same("https://duckduckgo.com/?q=%s"),
     mdn = command_palette.same("https://developer.mozilla.org/en-US/search?q=%s"),
   },
+  -- TODO: List all LuaSnip/Ask filetype from input()
+  -- TODO: Merge all filetype
+  -- LuaSnip shell command result in expanding LuaSnip shell snippets
+  ['LuaSnip shell'] = {
+    files = command_palette.same("gf"),
+    ['MRU files'] = command_palette.same("gm"),
+    ['MRU directories'] = command_palette.same("gd"),
+    ['commit SHA'] = command_palette.same("gy"),
+    ['git current branch'] = command_palette.same("gc"),
+    ['git commits'] = command_palette.same("gi"),
+    ['git branches'] = command_palette.same("gb"),
+    ['git tags'] = command_palette.same("gt"),
+    ['git email'] = command_palette.same("ge"),
+    ['company domain'] = command_palette.same("cd"),
+    ['company email'] = command_palette.same("ce"),
+    ['shell outputs'] = command_palette.same("xx"),
+  },
+  -- LuaSnip gitcommit command result in expanding LuaSnip gitcommit snippets
+  ['LuaSnip gitcommit'] = {},
+  -- LuaSnip markdown command result in expanding LuaSnip markdown snippets
+  ['LuaSnip markdown'] = {
+    ['Chinese punctuation'] = command_palette.same("cpf"),
+  },
 }
 command_palette.custom_command_handlers = {
   terminal = function(result)
@@ -63,6 +117,9 @@ command_palette.custom_command_handlers = {
     local url = string.format(result, keyword)
     vim.cmd([[Browse ]] .. url)
   end,
+  ['LuaSnip shell'] = command_palette.luasnip_expand_handler('sh'),
+  ['LuaSnip gitcommit'] = command_palette.luasnip_expand_handler('gitcommit'),
+  ['LuaSnip markdown'] = command_palette.luasnip_expand_handler('markdown'),
 }
 
 local function add_to_cp_menu(category, commands)
