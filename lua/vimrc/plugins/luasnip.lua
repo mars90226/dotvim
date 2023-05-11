@@ -136,6 +136,7 @@ luasnip.setup_snippet = function()
   local fmt = require("luasnip.extras.fmt").fmt
   local same = luasnip_utils.same
   local fzf_tmux_choice = luasnip_utils.fzf_tmux_choice
+  local ui_select_choice = luasnip_utils.ui_select_choice
 
   local chinese_punctuation_snippets = {
     s(

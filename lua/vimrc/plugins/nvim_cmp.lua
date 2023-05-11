@@ -1,5 +1,6 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
+local select_choice = require("luasnip.extras.select_choice")
 local lspkind = require("lspkind")
 local utils = require("vimrc.utils")
 
@@ -123,6 +124,13 @@ nvim_cmp.setup = function()
       ["<M-k>"] = cmp.mapping(function(fallback)
         if luasnip.choice_active() then
           luasnip.change_choice(-1)
+        else
+          fallback()
+        end
+      end, { "i" }),
+      ["<M-s>"] = cmp.mapping(function(fallback)
+        if luasnip.choice_active() then
+          select_choice()
         else
           fallback()
         end
