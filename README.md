@@ -4,6 +4,7 @@ Carefully crafted neovim config. Use
 [lazy.nvim](https://github.com/folke/lazy.nvim) as plugin manager.
 
 Vim specific config is removed, but you can use `vim` branch to access them.
+Packer specific config is removed, but you can use `packer` branch to access them.
 
 ## Major plugins
 
