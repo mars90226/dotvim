@@ -62,26 +62,26 @@ command_palette.custom_commands = {
   },
   -- Browse command result in browser
   browse = {
-    devdocs = command_palette.same("https://devdocs.io"),
-    duckduckgo = command_palette.same("https://duckduckgo.com/"),
-    mdn = command_palette.same("https://developer.mozilla.org/en-US/"),
+    DevDocs = command_palette.same("https://devdocs.io"),
+    DuckDuckGo = command_palette.same("https://duckduckgo.com/"),
+    MDN = command_palette.same("https://developer.mozilla.org/en-US/"),
 
     -- AI
     -- TODO: Use a list?
-    chatgpt = command_palette.same("https://chat.openai.com/"),
-    bing = command_palette.same("https://bing.com/chat"),
-    bard = command_palette.same("https://bard.google.com/"),
-    you = command_palette.same("https://you.com/chat"),
-    fronfront = command_palette.same("https://chat.forefront.ai"),
-    phind = command_palette.same("https://phind.com"),
-    perplexity = command_palette.same("https://perplexity.ai"),
-    devgpt = command_palette.same("https://www.getdevkit.com/devgpt"),
+    ChatGPT = command_palette.same("https://chat.openai.com/"),
+    Bing = command_palette.same("https://bing.com/chat"),
+    Bard = command_palette.same("https://bard.google.com/"),
+    YOU = command_palette.same("https://you.com/chat"),
+    Fronfront = command_palette.same("https://chat.forefront.ai"),
+    Phind = command_palette.same("https://phind.com"),
+    Perplexity = command_palette.same("https://perplexity.ai"),
+    DevGPT = command_palette.same("https://www.getdevkit.com/devgpt"),
   },
   -- Search command result in browser
   search = {
-    devdocs = command_palette.same("https://devdocs.io/?q=%s"),
-    duckduckgo = command_palette.same("https://duckduckgo.com/?q=%s"),
-    mdn = command_palette.same("https://developer.mozilla.org/en-US/search?q=%s"),
+    DevDocs = command_palette.same("https://devdocs.io/?q=%s"),
+    DuckDuckGo = command_palette.same("https://duckduckgo.com/?q=%s"),
+    MDN = command_palette.same("https://developer.mozilla.org/en-US/search?q=%s"),
   },
   -- TODO: List all LuaSnip/Ask filetype from input()
   -- TODO: Merge all filetype
