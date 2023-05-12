@@ -65,7 +65,17 @@ command_palette.custom_commands = {
     devdocs = command_palette.same("https://devdocs.io"),
     duckduckgo = command_palette.same("https://duckduckgo.com/"),
     mdn = command_palette.same("https://developer.mozilla.org/en-US/"),
+
+    -- AI
+    -- TODO: Use a list?
     chatgpt = command_palette.same("https://chat.openai.com/"),
+    bing = command_palette.same("https://bing.com/chat"),
+    bard = command_palette.same("https://bard.google.com/"),
+    you = command_palette.same("https://you.com/chat"),
+    fronfront = command_palette.same("https://chat.forefront.ai"),
+    phind = command_palette.same("https://phind.com"),
+    perplexity = command_palette.same("https://perplexity.ai"),
+    devgpt = command_palette.same("https://www.getdevkit.com/devgpt"),
   },
   -- Search command result in browser
   search = {
