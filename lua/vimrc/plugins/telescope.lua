@@ -291,6 +291,7 @@ telescope.setup_autocmd = function()
   -- Neovim commit pull request: https://github.com/neovim/neovim/pull/22984
   -- Workaround: Leave insert mode when leaving Telescope prompt.
   -- Ref: https://github.com/nvim-telescope/telescope.nvim/issues/2027#issuecomment-1510001730
+  -- TODO: Remove this if upstream fix the bug, this workaround severe the performance
   local telescope_augroup_id = vim.api.nvim_create_augroup("telescope_settings", {})
   vim.api.nvim_create_autocmd({ "WinLeave" }, {
     group = telescope_augroup_id,
