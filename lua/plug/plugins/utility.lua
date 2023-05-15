@@ -495,6 +495,33 @@ local utility = {
     end,
   },
 
+  -- DB
+  {
+    "tpope/vim-dadbod",
+    dependencies = {
+      "kristijanhusak/vim-dadbod-ui",
+    },
+    cmd = { "DB", "DBUI" },
+  },
+
+  -- NOTE: Try again after it can add connections interactively
+  {
+    "kndndrj/nvim-dbee",
+    enabled = false,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    },
+    build = function()
+      -- Install tries to automatically detect the install method.
+      -- if it fails, try calling it with one of these parameters:
+      --    "curl", "wget", "bitsadmin", "go"
+      require("dbee").install()
+    end,
+    config = function()
+      require("dbee").setup(--[[optional config]])
+    end,
+  },
+
   { "tpope/vim-abolish", cmd = { "Abolish", "Subvert", "S" }, keys = { "cr" } },
   { "will133/vim-dirdiff", cmd = { "DirDiff" } },
   { "Shougo/vinarise.vim", cmd = { "Vinarise" } },
