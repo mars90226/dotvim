@@ -1,4 +1,5 @@
 local plugin_utils = require("vimrc.plugin_utils")
+local utils = require("vimrc.utils")
 
 local terminal = {}
 
@@ -73,6 +74,14 @@ terminal.setup = function()
       -- Search pattern
       tmap("<M-s>", [[<C-\><C-N><Plug>(search-prefix)]])
       tnoremap("<M-s><M-s>", [[<M-s>]])
+
+      -- Jump to pattern
+      tnoremap("<M-m>w", [=[<C-\><C-N>:lua require('hop').hint_patterns({}, [[\v\k+]])<CR>]=])
+      tnoremap("<M-m>W", [=[<C-\><C-N>:lua require('hop').hint_patterns({}, [[\v\S+]])<CR>]=])
+      tnoremap("<M-m>f", [=[<C-\><C-N>:lua require('vimrc.plugins.hop').search_patterns({}, 'file')<CR>]=])
+      tnoremap("<M-m>y", [=[<C-\><C-N>:lua require('vimrc.plugins.hop').search_patterns({}, 'hash')<CR>]=])
+      tnoremap("<M-m>u", [=[<C-\><C-N>:lua require('vimrc.plugins.hop').search_patterns({}, 'url')<CR>]=])
+      tnoremap("<M-m>i", [=[<C-\><C-N>:lua require('vimrc.plugins.hop').search_patterns({}, 'ip')<CR>]=])
 
       -- Command palette
       tnoremap("<M-m><M-m>", [[<C-\><C-N>:Telescope command_palette<CR>]])
