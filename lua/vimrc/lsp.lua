@@ -147,9 +147,7 @@ lsp.servers = {
   solargraph = {
     condition = plugin_utils.has_linux_build_env(),
   },
-  sqls = {
-    condition = plugin_utils.has_linux_build_env(),
-  },
+  sqlls = {},
   -- NOTE: Disabled due to poor performance
   -- tsserver = {
   --   init_options = function()
