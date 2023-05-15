@@ -166,6 +166,14 @@ terminal.setup = function()
       -- Search pattern
       vim.fn["vimrc#terminal#nested_neovim#register"]("<M-s>", [[<Plug>(search-prefix)]])
 
+      -- Jump to pattern
+      vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m>w", [=[:lua require('hop').hint_patterns({}, [[\v\k+]])<CR>]=])
+      vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m>W", [=[:lua require('hop').hint_patterns({}, [[\v\S+]])<CR>]=])
+      vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m>f", [=[:lua require('vimrc.plugins.hop').search_patterns({}, 'file')<CR>]=])
+      vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m>y", [=[:lua require('vimrc.plugins.hop').search_patterns({}, 'hash')<CR>]=])
+      vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m>u", [=[:lua require('vimrc.plugins.hop').search_patterns({}, 'url')<CR>]=])
+      vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m>i", [=[:lua require('vimrc.plugins.hop').search_patterns({}, 'ip')<CR>]=])
+
       -- Command palette
       vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m><M-m>", ":Telescope command_palette<CR>")
       vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m><M-M>", ":CommandPalette<CR>")
