@@ -298,6 +298,9 @@ local languages = {
     config = function()
       -- NOTE: nvim-treesitter config is in nvim_treesitter.lua
       nnoremap("<Space><F6>", ":TSContextToggle<CR>")
+      nnoremap("gup", function()
+        require("treesitter-context").go_to_context()
+      end, { desc = "Go to parent context" })
     end,
   },
   {
