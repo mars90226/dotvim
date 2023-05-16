@@ -77,6 +77,7 @@ lspsaga.setup = function()
     },
     -- NOTE: This should use 'winblend' to fade-out, but the terminal emulator doesn't support
     -- 'winblend', so raise frequency to 15 to get the total beacon time = 60 / 15 * 0.1s = 0.4s
+    -- Ref: https://github.com/nvimdev/lspsaga.nvim/blob/main/lua/lspsaga/libs.lua#L321-L341
     beacon = {
       enable = true,
       frequency = 15, -- default is 7
