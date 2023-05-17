@@ -215,29 +215,31 @@ local utility = {
 
   -- Focus
   {
-    "Pocco81/true-zen.nvim",
-    cmd = { "TZAtaraxis", "TZFocus", "TZMinimalist", "TZNarrow", "TZForCopy" },
-    keys = { "<Leader>za", "<Leader>zc", "<Leader>zm", "<Leader>zn", "<Leader>zM" },
+    "folke/zen-mode.nvim",
+    cmd = { "ZenMode", "ZenModeCopy" },
+    keys = { "<Leader>zm", "<Leader>zc" },
     config = function()
-      nnoremap("<Leader>za", [[<Cmd>TZAtaraxis<CR>]])
-      nnoremap("<Leader>zc", [[<Cmd>TZFocus<CR>]])
-      nnoremap("<Leader>zm", [[<Cmd>TZMinimalist<CR>]])
-      nnoremap("<Leader>zn", [[<Cmd>TZNarrow<CR>]])
-      xnoremap("<Leader>zn", [[:'<,'>TZNarrow<CR>]])
+      require("zen-mode").setup({})
 
-      vim.api.nvim_create_user_command("TZForCopy", function()
+      vim.api.nvim_create_user_command("ZenModeCopy", function()
+        vim.cmd([[ZenMode]])
+        vim.wo.number = false
+        vim.wo.statuscolumn = ''
+        vim.wo.winbar = ''
         vim.wo.list = not vim.wo.list
         require("vimrc.lsp").toggle_show_diagnostics()
         vim.cmd([[IndentBlanklineToggle]])
-        vim.cmd([[TZMinimalist]])
+        vim.cmd([[TwilightDisable]])
       end, {})
-      nnoremap("<Leader>zM", [[<Cmd>TZForCopy<CR>]])
-    end,
+
+      nnoremap("<Leader>zm", [[<Cmd>ZenMode<CR>]])
+      nnoremap("<Leader>zc", [[<Cmd>ZenModeCopy<CR>]])
+    end
   },
 
   {
     "folke/twilight.nvim",
-    cmd = { "Twilight" },
+    cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
     keys = { "<Leader><C-L>" },
     config = function()
       require("twilight").setup({})
