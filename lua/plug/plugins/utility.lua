@@ -219,7 +219,11 @@ local utility = {
     cmd = { "ZenMode", "ZenModeCopy" },
     keys = { "<Leader>zm", "<Leader>zc" },
     config = function()
-      require("zen-mode").setup({})
+      require("zen-mode").setup({
+        plugins = {
+          twilight = { enabled = false }, -- twilight.nvim with treesitter in zen-mode.nvim is extremely slow
+        }
+      })
 
       vim.api.nvim_create_user_command("ZenModeCopy", function()
         vim.cmd([[ZenMode]])
