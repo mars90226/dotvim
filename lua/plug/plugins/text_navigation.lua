@@ -69,8 +69,14 @@ local text_navigation = {
   {
     "ggandor/lightspeed.nvim",
     keys = {
+      "f",
+      "F",
+      "t",
+      "T",
       ";",
       "<M-;>",
+      { "x", mode = "o" },
+      { "X", mode = "o" },
     },
     config = function()
       require("lightspeed").setup({
