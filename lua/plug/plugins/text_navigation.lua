@@ -5,6 +5,15 @@ local text_navigation = {
   {
     "andymass/vim-matchup",
     cmd = { "DoMatchParen" },
+    keys = {
+      { "%", mode = { "n", "o", "x" } },
+      { "g%", mode = { "n", "o", "x" } },
+      { "z%", mode = { "n", "o", "x" } },
+      { "a%", mode = { "o", "x" } },
+      { "i%", mode = { "o", "x" } },
+      "cs%",
+      "ds%",
+    },
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     init = function()
       vim.g.matchup_matchparen_deferred = 1
@@ -25,13 +34,13 @@ local text_navigation = {
   {
     "phaazon/hop.nvim",
     keys = {
-      { "<Space>w", mode = { "n", "x" } },
-      { "<Space>e", mode = { "n", "x" } },
-      { "<Space>;", mode = { "n", "x" } },
-      { "<LocalLeader>f", mode = { "n", "x" } },
-      { "<LocalLeader>l", mode = { "n", "x" } },
-      { "<Space>j", mode = { "n", "x" } },
-      { "<Space>k", mode = { "n", "x" } },
+      { "<Space>w", mode = { "n", "o", "x" } },
+      { "<Space>e", mode = { "n", "o", "x" } },
+      { "<Space>;", mode = { "n", "o", "x" } },
+      { "<LocalLeader>f", mode = { "n", "o", "x" } },
+      { "<LocalLeader>l", mode = { "n", "o", "x" } },
+      { "<Space>j", mode = { "n", "o", "x" } },
+      { "<Space>k", mode = { "n", "o", "x" } },
     },
     config = function()
       map("<Space>w", "<Cmd>HopWord<CR>")
@@ -50,17 +59,17 @@ local text_navigation = {
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     -- TODO: Organize this
     keys = {
-      "<M-e>l",
-      "<M-e>d",
-      "<M-e>r",
-      "<M-e>s",
-      "<M-e>t",
-      "<M-e>x",
-      "<M-e>c",
-      "<M-e>v",
-      "<M-e>f",
-      "<M-e>p",
-      "<M-e>m",
+      { "<M-e>l", mode = { "n", "o", "x" } },
+      { "<M-e>d", mode = { "n", "o", "x" } },
+      { "<M-e>r", mode = { "n", "o", "x" } },
+      { "<M-e>s", mode = { "n", "o", "x" } },
+      { "<M-e>t", mode = { "n", "o", "x" } },
+      { "<M-e>x", mode = { "n", "o", "x" } },
+      { "<M-e>c", mode = { "n", "o", "x" } },
+      { "<M-e>v", mode = { "n", "o", "x" } },
+      { "<M-e>f", mode = { "n", "o", "x" } },
+      { "<M-e>p", mode = { "n", "o", "x" } },
+      { "<M-e>m", mode = { "n", "o", "x" } },
     },
     config = function()
       require("vimrc.plugins.hop_extensions").setup()
@@ -150,7 +159,15 @@ local text_navigation = {
   -- Motion
   {
     "bkad/CamelCaseMotion",
-    event = { "VeryLazy" },
+    keys = {
+      { "<Leader>mw", mode = { "n", "o", "x" } },
+      { "<Leader>mb", mode = { "n", "o", "x" } },
+      { "<Leader>me", mode = { "n", "o", "x" } },
+      { "<Leader>mge", mode = { "n", "o", "x" } },
+      { "cmw", mode = { "o", "x" } },
+      { "cmb", mode = { "o", "x" } },
+      { "cme", mode = { "o", "x" } },
+    },
     config = function()
       map("<Leader>mw", "<Plug>CamelCaseMotion_w")
       map("<Leader>mb", "<Plug>CamelCaseMotion_b")
@@ -168,7 +185,10 @@ local text_navigation = {
 
   {
     "haya14busa/vim-edgemotion",
-    event = { "VeryLazy" },
+    keys = {
+      { "<Space><Space>j", mode = { "n", "o", "x" } },
+      { "<Space><Space>k", mode = { "n", "o", "x" } },
+    },
     config = function()
       map("<Space><Space>j", "<Plug>(edgemotion-j)")
       map("<Space><Space>k", "<Plug>(edgemotion-k)")
@@ -177,7 +197,18 @@ local text_navigation = {
 
   {
     "jeetsukumaran/vim-indentwise",
-    event = { "FocusLost", "CursorHold", "CursorHoldI" },
+    keys = {
+      { "[-", mode = { "n", "o", "v" } },
+      { "[=", mode = { "n", "o", "v" } },
+      { "[+", mode = { "n", "o", "v" } },
+      { "]-", mode = { "n", "o", "v" } },
+      { "]=", mode = { "n", "o", "v" } },
+      { "]+", mode = { "n", "o", "v" } },
+      { "[_", mode = { "n", "o", "v" } },
+      { "]_", mode = { "n", "o", "v" } },
+      { "[%", mode = { "n", "o", "v" } },
+      { "]%", mode = { "n", "o", "v" } },
+    },
   },
 }
 
