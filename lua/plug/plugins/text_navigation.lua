@@ -157,12 +157,12 @@ local text_navigation = {
       map("<Leader>me", "<Plug>CamelCaseMotion_e")
       map("<Leader>mge", "<Plug>CamelCaseMotion_ge")
 
-      omap("imw", "<Plug>CamelCaseMotion_iw", "silent")
-      xmap("imw", "<Plug>CamelCaseMotion_iw", "silent")
-      omap("imb", "<Plug>CamelCaseMotion_ib", "silent")
-      xmap("imb", "<Plug>CamelCaseMotion_ib", "silent")
-      omap("ime", "<Plug>CamelCaseMotion_ie", "silent")
-      xmap("ime", "<Plug>CamelCaseMotion_ie", "silent")
+      omap("cmw", "<Plug>CamelCaseMotion_iw", "silent")
+      xmap("cmw", "<Plug>CamelCaseMotion_iw", "silent")
+      omap("cmb", "<Plug>CamelCaseMotion_ib", "silent")
+      xmap("cmb", "<Plug>CamelCaseMotion_ib", "silent")
+      omap("cme", "<Plug>CamelCaseMotion_ie", "silent")
+      xmap("cme", "<Plug>CamelCaseMotion_ie", "silent")
     end,
   },
 

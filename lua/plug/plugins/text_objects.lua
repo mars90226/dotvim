@@ -13,40 +13,63 @@ local text_objects = {
     end,
   },
 
-  {
-    "kana/vim-textobj-user",
-    event = { "VeryLazy" },
-    config = function()
-      -- FIXME Not working
-      -- vim.fn["textobj#user#plugin"]("surroundunicode", {
-      --   surroundunicode = {
-      --     pattern = { "[^\x00-\x7F]", "[^\x00-\x7F]" },
-      --     ["select-a"] = "au",
-      --     ["select-i"] = "iu",
-      --   },
-      -- })
-
-      vim.fn["textobj#user#plugin"]("comment", {
-        ["-"] = {
-          ["select-a-function"] = "textobj#comment#select_a",
-          ["select-a"] = "am",
-          ["select-i-function"] = "textobj#comment#select_i",
-          ["select-i"] = "im",
-        },
-        big = {
-          ["select-a-function"] = "textobj#comment#select_big_a",
-          ["select-a"] = "aM",
-        },
-      })
-    end,
-  },
+  -- vim-textobj-user
   {
     "kana/vim-textobj-function",
-    event = { "VeryLazy" },
+    keys = {
+      { "af", mode = { "o", "x" } },
+      { "if", mode = { "o", "x" } },
+      { "aF", mode = { "o", "x" } },
+      { "iF", mode = { "o", "x" } },
+      "<Space>sF",
+    },
     dependencies = { "kana/vim-textobj-user" },
     config = function()
       -- Search in function
       map("<Space>sF", "vaf<M-/>")
+    end,
+  },
+
+  -- Should already be bundled in vim-sandwich, but not work
+  -- So, explicitly install this plugin
+  {
+    "machakann/vim-textobj-functioncall",
+    keys = {
+      { "ad", mode = { "o", "x" } },
+      { "id", mode = { "o", "x" } },
+    },
+    dependencies = { "kana/vim-textobj-user" },
+    config = function()
+      vim.g.textobj_functioncall_no_default_key_mappings = 1
+
+      xmap("id", "<Plug>(textobj-functioncall-i)")
+      omap("id", "<Plug>(textobj-functioncall-i)")
+      xmap("ad", "<Plug>(textobj-functioncall-a)")
+      omap("ad", "<Plug>(textobj-functioncall-a)")
+    end,
+  },
+
+  {
+    "glts/vim-textobj-comment",
+    keys = {
+      { "ae", mode = { "o", "x" } },
+      { "ie", mode = { "o", "x" } },
+      { "aE", mode = { "o", "x" } },
+    },
+    dependencies = { "kana/vim-textobj-user" },
+    config = function()
+      vim.fn["textobj#user#plugin"]("comment", {
+        ["-"] = {
+          ["select-a-function"] = "textobj#comment#select_a",
+          ["select-a"] = "ae",
+          ["select-i-function"] = "textobj#comment#select_i",
+          ["select-i"] = "ie",
+        },
+        big = {
+          ["select-a-function"] = "textobj#comment#select_big_a",
+          ["select-a"] = "aE",
+        },
+      })
     end,
   },
 
@@ -67,30 +90,18 @@ local text_objects = {
     end,
   },
 
-  -- Should already be bundled in vim-sandwich, but not work
-  -- So, explicitly install this plugin
-  {
-    "machakann/vim-textobj-functioncall",
-    event = { "VeryLazy" },
-    dependencies = { "kana/vim-textobj-user" },
-    config = function()
-      vim.g.textobj_functioncall_no_default_key_mappings = 1
-
-      xmap("id", "<Plug>(textobj-functioncall-i)")
-      omap("id", "<Plug>(textobj-functioncall-i)")
-      xmap("ad", "<Plug>(textobj-functioncall-a)")
-      omap("ad", "<Plug>(textobj-functioncall-a)")
-    end,
-  },
-
   {
     "chrisgrieser/nvim-various-textobjs",
+    -- TODO: Add lazy load keys
     event = { "VeryLazy" },
     config = function()
       -- TODO: Currently has key mapping conflicts:
       -- 1. nearEoL use `n` which is conflict with nvim-hlslens.
       -- 2. cssSelector use `ic`, `ac` which is conflict with nvim-treesitter-textobjects.
       require("various-textobjs").setup({ useDefaultKeymaps = true })
+
+      -- entireBuffer
+      vim.keymap.set({"o", "x"}, "gg", function () require("various-textobjs").entireBuffer() end, { desc = "entireBuffer textobj"})
 
       -- `aN` for outer number, `iN` for inner number
       vim.keymap.del({"o", "x"}, "an")
@@ -110,12 +121,6 @@ local text_objects = {
       vim.keymap.del({"o", "x"}, "%")
       vim.keymap.set({"o", "x"}, "]b", function () require("various-textobjs").toNextClosingBracket() end, { desc = "toNextClosingBracket textobj"})
     end,
-  },
-
-  {
-    "glts/vim-textobj-comment",
-    event = { "VeryLazy" },
-    dependencies = { "kana/vim-textobj-user" },
   },
 }
 
