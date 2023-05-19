@@ -25,13 +25,13 @@ local text_navigation = {
   {
     "phaazon/hop.nvim",
     keys = {
-      "<Space>w",
-      "<Space>e",
-      "<Space>;",
-      "<LocalLeader>f",
-      "<LocalLeader>l",
-      "<Space>j",
-      "<Space>k",
+      { "<Space>w", mode = { "n", "x" } },
+      { "<Space>e", mode = { "n", "x" } },
+      { "<Space>;", mode = { "n", "x" } },
+      { "<LocalLeader>f", mode = { "n", "x" } },
+      { "<LocalLeader>l", mode = { "n", "x" } },
+      { "<Space>j", mode = { "n", "x" } },
+      { "<Space>k", mode = { "n", "x" } },
     },
     config = function()
       map("<Space>w", "<Cmd>HopWord<CR>")
@@ -108,16 +108,16 @@ local text_navigation = {
   {
     "kevinhwang91/nvim-hlslens",
     keys = {
-      "n",
-      "N",
-      "*",
-      "#",
-      "g*",
-      "g#",
-      "z*",
-      "gz*",
-      "z#",
-      "gz#",
+      { "n", mode = { "n", "o", "x" } },
+      { "N", mode = { "n", "o", "x" } },
+      { "*", mode = { "n", "o", "x" } },
+      { "#", mode = { "n", "o", "x" } },
+      { "g*", mode = { "n", "o", "x" } },
+      { "g#", mode = { "n", "o", "x" } },
+      { "z*", mode = { "n", "o", "x" } },
+      { "gz*", mode = { "n", "o", "x" } },
+      { "z#", mode = { "n", "o", "x" } },
+      { "gz#", mode = { "n", "o", "x" } },
     },
     dependencies = { "haya14busa/vim-asterisk" },
     config = function()
