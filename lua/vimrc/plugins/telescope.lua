@@ -292,6 +292,7 @@ telescope.setup_autocmd = function()
   -- Workaround: Leave insert mode when leaving Telescope prompt.
   -- Ref: https://github.com/nvim-telescope/telescope.nvim/issues/2027#issuecomment-1510001730
   -- TODO: Remove this if upstream fix the bug, this workaround severe the performance
+  -- FIXME: Telescope command_history that open fzf will not result in insert mode.
   local telescope_augroup_id = vim.api.nvim_create_augroup("telescope_settings", {})
   vim.api.nvim_create_autocmd({ "WinLeave" }, {
     group = telescope_augroup_id,
