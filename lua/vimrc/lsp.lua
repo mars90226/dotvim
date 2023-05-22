@@ -277,7 +277,8 @@ lsp.setup_server = function(server, custom_opts)
   lsp_opts = vim.tbl_extend("keep", lsp_opts, custom_opts or {})
 
   -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-  local capabilities = require("cmp_nvim_lsp").default_capabilities()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities = vim.tbl_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
   capabilities = vim.tbl_extend("force", capabilities, lsp_opts.capabilities or {})
 
   -- nvim-ufo support foldingRange
@@ -285,6 +286,11 @@ lsp.setup_server = function(server, custom_opts)
     dynamicRegistration = false,
     lineFoldingOnly = true,
   }
+
+  -- FIXME: Disable workspace/didChangeWatchedFiles as it has huge performance issue for now (using poll instead of watch)
+  -- TODO: Enable it after the following pull request is merged
+  -- Ref: https://github.com/neovim/neovim/pull/23500
+  capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
   lsp_opts = vim.tbl_extend("keep", lsp_opts, {
     on_init = lsp.on_init,
