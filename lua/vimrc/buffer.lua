@@ -26,7 +26,7 @@ buffer.delete_inactive_buffers = function(...)
   local cmd = (args.wipeout and "bwipeout" or "bdelete") .. (args.bang and "!" or "")
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     if vim.fn.buflisted(bufnr) == 1 and not visible_buffers[bufnr] then
-      if args.include_modified or (not args.include_modified and not vim.api.nvim_buf_get_option(bufnr, "mod")) then
+      if args.include_modified or (not args.include_modified and not vim.api.nvim_get_option_value("mod", { buf = bufnr })) then
         vim.cmd(cmd .. " " .. bufnr)
         wipeout_count = wipeout_count + 1
       end
