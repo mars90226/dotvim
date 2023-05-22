@@ -79,8 +79,10 @@ local lsp = {
   },
 
   -- TODO: null-ls.nvim cause performance problem, need to find a way to fix this
+  -- TODO: Due to performance issue, null-ls.nvim is disabled now
   {
     "jose-elias-alvarez/null-ls.nvim",
+    enabled = false,
     cond = choose.is_enabled_plugin("null-ls.nvim"),
     event = { "VeryLazy" },
     dependencies = {
