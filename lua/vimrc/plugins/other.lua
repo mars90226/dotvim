@@ -111,6 +111,26 @@ other.setup = function()
         pattern = [[/src/lib/(.*)/(.*).c$]],
         target = [[/src/include/*/%1/%2.h]],
       },
+      -- 2-level no src folder
+      {
+        pattern = [[/include/(.*)/(.*).h$]],
+        target = {
+          {
+            target = [[/lib/%1/%2.cpp]],
+          },
+          {
+            target = [[/lib/%1/%2.c]],
+          },
+        },
+      },
+      {
+        pattern = [[/lib/(.*)/(.*).cpp$]],
+        target = [[/include/%1/%2.h]],
+      },
+      {
+        pattern = [[/lib/(.*)/(.*).c$]],
+        target = [[/include/%1/%2.h]],
+      },
       -- 1-level folder
       {
         pattern = [[/include/.*/(.*).h$]],
