@@ -55,7 +55,7 @@ local lsp = {
 
   {
     "folke/trouble.nvim",
-    dependencies = "kyazdani42/nvim-web-devicons",
+    dependencies = "nvim-tree/nvim-web-devicons",
     cmd = { "Trouble", "TroubleToggle" },
     keys = { "<Space>xx", "<Space>xw", "<Space>xd", "<Space>xq", "<Space>xl", "<Space>xr" },
     config = function()

@@ -29,7 +29,7 @@ local file_explorer = {
     branch = "v2.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
     },
     cmd = { "Neotree" },
@@ -77,6 +77,18 @@ local file_explorer = {
   {
     "vifm/vifm.vim",
     cmd = { "EditVifm", "Vifm", "SplitVifm", "VsplitVifm", "TabVifm" },
+  },
+
+  {
+    "stevearc/oil.nvim",
+    opts = {},
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = { "Oil" },
+    keys = { "<Space>o", "<Space>O" },
+    config = function()
+      require("vimrc.plugins.oil").setup()
+    end,
   },
 }
 

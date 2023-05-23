@@ -230,7 +230,7 @@ local file_navigation = {
   {
     "ibhagwan/fzf-lua",
     event = { "VeryLazy" },
-    dependencies = { "kyazdani42/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("vimrc.plugins.fzf_lua").setup()
     end,
