@@ -56,7 +56,6 @@ local text_navigation = {
   },
   {
     "indianboy42/hop-extensions",
-    -- FIXME: Seems conflict with which-key.nvim?
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     -- TODO: Organize this
     keys = {
