@@ -85,6 +85,22 @@ oil.setup_config = function()
       ["gX"] = "actions.open_cmdline_dir",
       ["y<C-G>"] = "actions.copy_entry_path",
 
+      -- fzf.nvim support
+      ["\\f"] = {
+        callback = function()
+          local dir = origin_oil.get_current_dir()
+          vim.cmd.Files(dir)
+        end,
+        desc = "FZF Files in current folder",
+      },
+      ["\\r"] = {
+        callback = function()
+          local dir = origin_oil.get_current_dir()
+          vim.cmd.RgWithOption(dir .. '::' .. vim.fn.input('Rg: '))
+        end,
+        desc = "FZF Rg in current folder",
+      },
+
       -- Simulate Defx.nvim
       ["h"] = "actions.parent",
       ["l"] = "actions.select",
@@ -103,6 +119,20 @@ oil.setup_config = function()
           vim.cmd.Defx(dir .. ' -split=vertical')
         end,
         desc = "Open current folder in Defx.nvim",
+      },
+
+      -- Paste
+      ["\\p"] = {
+        callback = function()
+          local dir = origin_oil.get_current_dir()
+          if not dir then
+            return
+          end
+
+          -- NOTE: Use defx.vim function
+          vim.fn["vimrc#defx#_paste_from_system_clipboard"](dir)
+        end,
+        desc = "Paste from system clipboard"
       },
     },
     -- Set to false to disable all of the above keymaps
