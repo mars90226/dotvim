@@ -202,14 +202,7 @@ lsp.on_attach = function(client, bufnr)
     require("nvim-navbuddy").attach(client, bufnr)
   end
   if client.server_capabilities.signatureHelpProvider then
-    require("lsp-overloads").setup(client, {
-      keymaps = {
-        next_signature = "<C-j>",
-        previous_signature = "<C-k>",
-        next_parameter = "<C-l>",
-        previous_parameter = "<C-h>",
-      },
-    })
+    require("vimrc.plugins.lsp_overloads").on_attach(client)
   end
 
   -- My plugin configs
