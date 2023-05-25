@@ -61,10 +61,29 @@ oil.setup_config = function()
         desc = "clear highlight search & refresh current directory list",
       },
       ["-"] = "actions.parent",
-      ["_"] = "actions.open_cwd",
+      ["_"] = {
+        callback = function()
+          local folder = origin_oil.get_current_dir()
+          vim.cmd("vertical split")
+          origin_oil.open(folder)
+        end,
+        desc = "Open oil.nvim current folder in vertical split"
+      },
+      ["<Space>-"] = {
+        callback = function()
+          local folder = origin_oil.get_current_dir()
+          vim.cmd("split")
+          origin_oil.open(folder)
+        end,
+        desc = "Open oil.nvim current folder in horizontal split"
+      },
       ["`"] = "actions.cd",
       ["~"] = "actions.tcd",
+      ["cb"] = "actions.open_cwd",
       ["g."] = "actions.toggle_hidden",
+      ["gx"] = "actions.open_cmdline",
+      ["gX"] = "actions.open_cmdline_dir",
+      ["y<C-G>"] = "actions.copy_entry_path",
 
       -- Simulate Defx.nvim
       ["h"] = "actions.parent",
@@ -170,7 +189,11 @@ oil.setup_mapping = function()
   vim.keymap.set("n", "<Space>O", function(...)
     vim.cmd("vertical split")
     origin_oil.open(...)
-  end, { desc = "Open parent directory" })
+  end, { desc = "Open parent directory in vertical split" })
+  vim.keymap.set("n", "<Space><C-O>", function(...)
+    vim.cmd("split")
+    origin_oil.open(...)
+  end, { desc = "Open parent directory in horizontal split" })
 end
 
 oil.setup = function()

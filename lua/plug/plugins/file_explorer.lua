@@ -85,7 +85,7 @@ local file_explorer = {
     -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = { "Oil" },
-    keys = { "<Space>o", "<Space>O" },
+    keys = { "<Space>o", "<Space>O", "<Space><C-O>" },
     config = function()
       require("vimrc.plugins.oil").setup()
     end,
