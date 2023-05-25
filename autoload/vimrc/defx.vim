@@ -351,7 +351,12 @@ function! vimrc#defx#mappings() abort " {{{ abort
   nnoremap <silent><buffer><expr> <Leader>gf
         \ defx#do_action('call', 'vimrc#defx#flog_show_file')
   nnoremap <silent><buffer><expr> <Leader>gF
-        \ defx#do_action('call', 'vvimrc#defx#flog_show_file_by_me')
+        \ defx#do_action('call', 'vimrc#defx#flog_show_file_by_me')
+
+  nnoremap <silent><buffer><expr> <Space>o
+        \ defx#do_action('call', 'vimrc#defx#open_in_oil')
+  nnoremap <silent><buffer><expr> <Space>O
+        \ defx#do_action('call', 'vimrc#defx#open_in_oil_split')
 
   " TODO: Add buffer output:map
 
@@ -711,6 +716,18 @@ function! vimrc#defx#flog_show_file_by_me(context) abort
   let file = vimrc#defx#get_target()
 
   call vimrc#flog#show_file(file, {'author': g:company_email})
+endfunction
+
+" Oil support
+function! vimrc#defx#open_in_oil(context) abort
+  let path = vimrc#defx#get_current_path()
+  execute 'Oil ' . path
+endfunction
+
+function! vimrc#defx#open_in_oil_split(context) abort
+  let path = vimrc#defx#get_current_path()
+  vertical split
+  execute 'Oil ' . path
 endfunction
 
 " Command line function

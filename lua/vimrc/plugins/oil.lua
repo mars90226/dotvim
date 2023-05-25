@@ -69,6 +69,22 @@ oil.setup_config = function()
       -- Simulate Defx.nvim
       ["h"] = "actions.parent",
       ["l"] = "actions.select",
+
+      -- Defx.nvim support
+      ["\\d"] = {
+        callback = function()
+          local dir = origin_oil.get_current_dir()
+          vim.cmd.Defx(dir)
+        end,
+        desc = "Open current folder in Defx.nvim",
+      },
+      ["\\D"] = {
+        callback = function()
+          local dir = origin_oil.get_current_dir()
+          vim.cmd.Defx(dir .. ' -split=vertical')
+        end,
+        desc = "Open current folder in Defx.nvim",
+      },
     },
     -- Set to false to disable all of the above keymaps
     use_default_keymaps = true,
