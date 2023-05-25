@@ -151,6 +151,20 @@ oil.setup_config = function()
   })
 end
 
+oil.setup_filetype_mapping = function()
+  vim.keymap.set("c", "<C-X>d", function()
+    return origin_oil.get_current_dir()
+  end, { desc = "Insert oil current folder", expr = true })
+  vim.keymap.set("c", "<C-X>f", function()
+    local entry = origin_oil.get_cursor_entry()
+    if not entry then
+      return ''
+    end
+
+    return origin_oil.get_current_dir() .. entry.name
+  end, { desc = "Insert oil cursor entry full path", expr = true })
+end
+
 oil.setup_mapping = function()
   vim.keymap.set("n", "<Space>o", origin_oil.open, { desc = "Open parent directory" })
   vim.keymap.set("n", "<Space>O", function(...)
