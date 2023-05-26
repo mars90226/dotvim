@@ -29,7 +29,23 @@ local completion = {
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-path" },
       { "andersevenrud/cmp-tmux" },
-      { "octaltree/cmp-look" },
+      {
+        "uga-rosa/cmp-dictionary",
+        config = function()
+          require("cmp_dictionary").setup({
+            -- The following are default values.
+            exact = 2,
+            first_case_insensitive = false,
+            document = false,
+            document_command = "wn %s -over",
+            async = false,
+            sqlite = false,
+            max_items = 10,
+            capacity = 5,
+            debug = false,
+          })
+        end,
+      },
       { "hrsh7th/cmp-calc" },
       plugin_utils.check_enabled_plugin({ "ray-x/cmp-treesitter" }, "nvim-treesitter"),
       {

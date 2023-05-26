@@ -74,7 +74,7 @@ nvim_cmp.setup = function()
           cmp_git = "[Git]",
           tmux = "[Tmux]",
           rg = "[Rg]",
-          look = "[Look]",
+          dictionary = "[Dictionary]",
         },
       }),
     },
@@ -141,7 +141,7 @@ nvim_cmp.setup = function()
     -- Ref: https://github.com/lukas-reineke/dotfiles/blob/master/vim/lua/plugins/nvim-cmp.lua#L54-L77
     sources = cmp.config.sources({
       { name = "path", priority_weight = 110 },
-      { name = "nvim_lsp", max_item_count = 20, priority_weight = 100 },
+      { name = "nvim_lsp", max_view_entries = 20, priority_weight = 100 },
       { name = "nvim_lsp_signature_help", priority_weight = 100 },
       { name = "nvim_lua", priority_weight = 90 },
       { name = "luasnip", priority_weight = 80 },
@@ -151,23 +151,22 @@ nvim_cmp.setup = function()
       { name = "cmp_git", priority_weight = 70 },
       {
         name = "tmux",
-        max_item_count = 5,
+        max_view_entries = 5,
         option = {
           all_panes = false,
         },
         priority_weight = 50,
       },
       {
-        name = "look",
-        keyword_length = 5,
-        max_item_count = 5,
-        option = { convert_case = true, loud = true },
+        name = "dictionary",
+        keyword_length = 2,
+        max_view_entries = 10,
         priority_weight = 40,
       },
     }, {
       vim.tbl_deep_extend("force", buffer_source, {
         keyword_length = 5,
-        max_item_count = 5,
+        max_view_entries = 5,
         option = {
           keyword_length = 5,
         },
@@ -177,7 +176,7 @@ nvim_cmp.setup = function()
       {
         name = "rg",
         keyword_length = 5,
-        max_item_count = 5,
+        max_view_entries = 5,
         option = {
           additional_arguments = "--threads 2 --max-count 5",
           debounce = 500,
