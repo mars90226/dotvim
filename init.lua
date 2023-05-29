@@ -10,7 +10,11 @@ require("plug.plugin_choose").setup()
 
 -- Lazy
 require("plug.auto_lazy").setup()
-require("lazy").setup("plug.plugins")
+require("lazy").setup("plug.plugins", {
+  change_detection = {
+    notify = false, -- avoid loads of notification when changine config
+  }
+})
 
 -- Core
 require("core.mapping").setup()
