@@ -286,6 +286,7 @@ fzf.setup_mapping = function()
   nnoremap([[<Space>fO]],     [[:call      vimrc#execute_and_save('Locate ' . input('Locate: '))<CR>]])
   nnoremap([[<Space>f<M-p>]], [[:call      vimrc#execute_and_save('Punctuations')<CR>]])
   nnoremap([[<Space>fq]],     [[:call      vimrc#execute_and_save('Quickfix')<CR>]])
+  -- TODO: Add :silent to silent E10 error from cmp-cmdline when input pattern is not proper lua string
   nnoremap([[<Space>fr]],     [[:call      vimrc#execute_and_save('Rg ' . input('Rg: '))<CR>]])
   nnoremap([[<Space>fR]],     [[:call      vimrc#execute_and_save('Rg! ' . input('Rg!: '))<CR>]])
   nnoremap([[<Space>f<C-R>]], [[:call      vimrc#execute_and_save('Rg ' . getreg(v:lua.require("vimrc.utils").get_char_string()))<CR>]])
