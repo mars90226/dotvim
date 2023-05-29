@@ -131,6 +131,7 @@ local git = {
       [[\tL]],
       [[\t<C->L]],
     },
+    dependencies = { "rbgrouleff/bclose.vim" },
     config = function()
       require("vimrc.plugins.tig").setup()
     end,
