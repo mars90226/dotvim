@@ -108,29 +108,7 @@ local lsp = {
     "mhartington/formatter.nvim",
     keys = { "<Leader>f" },
     config = function()
-      local plugin_utils = require("vimrc.plugin_utils")
-
-      require("formatter").setup({
-        filetype = {
-          lua = {
-            plugin_utils.check_executable(require("formatter.filetypes.lua").stylua, "stylua"),
-          },
-          markdown = {
-            plugin_utils.check_executable(require("formatter.defaults.prettierd"), "prettierd"),
-          },
-          ruby = {
-            plugin_utils.check_executable(require("formatter.filetypes.ruby").standardrb, "standardrb"),
-          },
-          rust = {
-            plugin_utils.check_executable(require("formatter.filetypes.rust").rustfmt, "rustfmt"),
-          },
-          sh = {
-            plugin_utils.check_executable(require("formatter.filetypes.sh").shfmt, "shfmt"),
-          },
-        },
-      })
-
-      nnoremap("<Leader>f", "<Cmd>Format<CR>", "silent")
+      require("vimrc.plugins.formatter").setup()
     end,
   },
 
