@@ -165,6 +165,7 @@
   "telescope.nvim": { "branch": "master", "commit": "6d3fbffe426794296a77bb0b37b6ae0f4f14f807" },
   "textobj-word-column.vim": { "branch": "master", "commit": "cb40e1459817a7fa23741ff6df05e4481bde5a33" },
   "todo-comments.nvim": { "branch": "main", "commit": "09b0b17d824d2d56f02ff15967e8a2499a89c731" },
+  "toggle-checkbox.nvim": { "branch": "main", "commit": "856b3d99cde6eac0a0ab6085d2a5fca695b02352" },
   "translate.nvim": { "branch": "main", "commit": "35b71090a398eaca4d7cd2478f6a09d0fa3130bd" },
   "tree-sitter-just": { "branch": "main", "commit": "4e5f5f3ff37b12a1bbf664eb3966b3019e924594" },
   "treesj": { "branch": "main", "commit": "b1e2976c2d7ba922371cc7f3ab08b75136c27231" },
