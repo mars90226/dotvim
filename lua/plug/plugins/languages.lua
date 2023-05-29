@@ -7,10 +7,12 @@ local languages = {
   {
     "plasticboy/vim-markdown",
     ft = { "markdown" },
-    dependencies = { "godlygeek/tabular" },
+    dependencies = { "godlygeek/tabular", "opdavies/toggle-checkbox.nvim" },
     config = function()
       -- TODO: Find a way to retain folding without confusing diff mode
       vim.g.vim_markdown_folding_disabled = 1
+
+      nnoremap("<Leader>wg", "<Cmd>lua require('toggle-checkbox').toggle()<CR>")
     end,
   },
   { "mtdl9/vim-log-highlighting", ft = { "log" } },
@@ -231,12 +233,7 @@ local languages = {
       )
 
       -- Cleanup function: this remap should be made in normal mode
-      vim.api.nvim_set_keymap(
-        "n",
-        "<Space>rc",
-        ":lua require('refactoring').debug.cleanup({})<CR>",
-        { noremap = true }
-      )
+      vim.api.nvim_set_keymap("n", "<Space>rc", ":lua require('refactoring').debug.cleanup({})<CR>", { noremap = true })
 
       -- Customize Debug Command
       vim.api.nvim_create_user_command("RefactoringAddPrintf", refactoring.add_printf, {})
@@ -329,7 +326,7 @@ local languages = {
       require("cscope_maps").setup({
         disable_maps = true,
       })
-    end
+    end,
   },
   {
     "mars90226/cscope_macros.vim",
