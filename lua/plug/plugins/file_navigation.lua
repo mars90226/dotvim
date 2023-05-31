@@ -292,13 +292,17 @@ local file_navigation = {
   {
     "nvim-pack/nvim-spectre",
     cmd = { "Spectre" },
-    keys = { "<Space>S", "<Space>sw", "<Space>s'" },
+    keys = {
+      "<Space>S",
+      { "<Space>sw", mode = { "n", "v" } },
+      "<Space>s'",
+    },
     config = function()
       nnoremap("<Space>S", [[:lua require('spectre').open()<CR>]])
 
       -- Search current word
       nnoremap("<Space>sw", [[:lua require('spectre').open_visual({select_word=true})<CR>]])
-      vnoremap("<Space>ss", [[:lua require('spectre').open_visual()<CR>]])
+      vnoremap("<Space>sw", [[:lua require('spectre').open_visual()<CR>]])
 
       -- Search in current file
       nnoremap("<Space>s'", [[viw:lua require('spectre').open_file_search()<CR>]])

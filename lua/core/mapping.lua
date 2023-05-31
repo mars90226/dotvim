@@ -320,7 +320,7 @@ mapping.setup = function()
       end
 
       -- Sort
-      xnoremap("<Space>sw", [[d:execute 'normal i'.vimrc#utility#sort_copied_words()<CR>]], "<silent>")
+      xnoremap("<Space>ss", [[d:execute 'normal i'.vimrc#utility#sort_copied_words()<CR>]], "<silent>")
 
       -- Retab
       nnoremap("<Space>r5", [[:%retab!<CR>]])
