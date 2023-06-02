@@ -45,7 +45,6 @@ local languages = {
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
-    commit = "761e283a8e3ab80ee5ec8daf4f19d92d23ee37e4",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
