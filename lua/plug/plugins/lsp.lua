@@ -154,7 +154,7 @@ local lsp = {
   -- Specific LSP Support
   { "p00f/clangd_extensions.nvim" },
   { "simrat39/rust-tools.nvim" },
-  { "jose-elias-alvarez/nvim-lsp-ts-utils" },
+  { "jose-elias-alvarez/typescript.nvim" },
   -- NOTE: Disabled as it'll cause lua_ls use too much memory
   -- TODO: Add a method to load neodev.nvim on-demand
   {

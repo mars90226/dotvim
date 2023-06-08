@@ -76,13 +76,14 @@ lsp.servers = {
   },
   -- NOTE: Replaced by neocmake
   -- cmake = {},
-  denols = {
-    init_options = {
-      enable = true,
-      lint = true,
-      unstable = true,
-    },
-  },
+  -- NOTE: Use tsserver again
+  -- denols = {
+  --   init_options = {
+  --     enable = true,
+  --     lint = true,
+  --     unstable = true,
+  --   },
+  -- },
   esbonio = {},
   -- TODO: Suppress the error log of not finding eslint in local repo
   eslint = {},
@@ -148,22 +149,18 @@ lsp.servers = {
     condition = plugin_utils.has_linux_build_env(),
   },
   sqlls = {},
-  -- NOTE: Disabled due to poor performance
-  -- tsserver = {
-  --   init_options = function()
-  --     return require("nvim-lsp-ts-utils").init_options
-  --   end,
-  --   on_attach = function(client, bufnr)
-  --     local ts_utils = require("nvim-lsp-ts-utils")
-  --
-  --     lsp.on_attach(client, bufnr)
-  --
-  --     ts_utils.setup({
-  --       auto_inlay_hints = false, -- We're not writing TypeScript
-  --     })
-  --     ts_utils.setup_client(client)
-  --   end,
-  -- },
+  tsserver = {
+    custom_setup = function(server, lsp_opts)
+      require("typescript").setup({
+          disable_commands = false, -- prevent the plugin from creating Vim commands
+          debug = false, -- enable debug logging for commands
+          go_to_source_definition = {
+              fallback = true, -- fall back to standard LSP definition on failure
+          },
+          server = lsp_opts,
+      })
+    end,
+  },
   vimls = {},
   vuels = {},
   -- TODO: add settings for schemas
