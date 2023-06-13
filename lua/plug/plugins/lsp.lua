@@ -134,6 +134,7 @@ local lsp = {
 
   {
     "j-hui/fidget.nvim",
+    tag = "legacy",
     event = { "LspAttach" },
     config = function()
       require("fidget").setup({})
