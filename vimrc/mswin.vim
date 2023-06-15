@@ -6,6 +6,9 @@
 " - Remove <C-A>
 " Set options and add mapping such that Vim behaves a lot like MS-Windows
 "
+" neovim nightly #23054 remove `:behave`
+" Ref: https://github.com/neovim/neovim/pull/23054
+"
 " Maintainer:	Bram Moolenaar <Bram@vim.org>
 " Last Change:	2018 Dec 07
 
