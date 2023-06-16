@@ -235,6 +235,7 @@ local utility = {
         require("vimrc.lsp").toggle_show_diagnostics()
         vim.cmd([[IndentBlanklineToggle]])
         vim.cmd([[TwilightDisable]])
+        vim.cmd([[BlockOff]])
       end, {})
 
       nnoremap("<Leader>zm", [[<Cmd>ZenMode<CR>]])

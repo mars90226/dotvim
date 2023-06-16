@@ -280,6 +280,16 @@ local languages = {
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
+  {
+    "HampusHauffman/block.nvim",
+    cmd = { "Block", "BlockOn", "BlockOff" },
+    keys = { "<Leader>bo" },
+    config = function()
+      require("block").setup({})
+
+      nnoremap("<Leader>bo", "<Cmd>Block<CR>")
+    end
+  },
 
   -- treesitter parser
   {
