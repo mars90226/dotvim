@@ -152,7 +152,26 @@ local text_navigation = {
     "chentoast/marks.nvim",
     event = { "VeryLazy" },
     config = function()
-      require("marks").setup({})
+      local marks = require("marks")
+
+      -- NOTE: Do not use marks.nvim refresh due to high CPU usage caused by uv timer with 0
+      -- timeout that cause huge amount of epoll_pwait() with 0 timeout.
+      -- Instead, use "CursorHold" for refresh.
+      -- Ref: https://github.com/chentoast/marks.nvim/issues/62
+      -- Ref: https://github.com/chentoast/marks.nvim/issues/40#issuecomment-992709453
+      marks.setup({
+        refresh_interval = 0
+      })
+
+      -- TODO: Add "WinScrolled" event
+      local marks_augroup_id = vim.api.nvim_create_augroup("marks_settings", {})
+      vim.api.nvim_create_autocmd({ "CursorHold" }, {
+        group = marks_augroup_id,
+        pattern = "*",
+        callback = function()
+          marks.refresh()
+        end,
+      })
     end,
   },
 
