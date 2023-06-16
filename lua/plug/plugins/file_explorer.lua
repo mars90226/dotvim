@@ -79,6 +79,8 @@ local file_explorer = {
     cmd = { "EditVifm", "Vifm", "SplitVifm", "VsplitVifm", "TabVifm" },
   },
 
+  -- TODO: Lazy load for oil:// schema
+  -- Ref: https://github.com/stevearc/oil.nvim/issues/75
   {
     "stevearc/oil.nvim",
     opts = {},
