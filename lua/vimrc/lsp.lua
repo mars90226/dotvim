@@ -280,6 +280,8 @@ lsp.setup_server = function(server, custom_opts)
   -- FIXME: Disable workspace/didChangeWatchedFiles as it has huge performance issue for now (using poll instead of watch)
   -- TODO: Enable it after the following pull request is merged
   -- Ref: https://github.com/neovim/neovim/pull/23500
+  -- NOTE:Some LSP ask for file watching even through the registration is disabled.
+  -- Ref: https://github.com/neovim/neovim/pull/23500#issuecomment-1585986913
   capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
   lsp_opts = vim.tbl_extend("keep", lsp_opts, {
