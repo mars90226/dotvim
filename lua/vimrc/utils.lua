@@ -53,7 +53,9 @@ utils.gmatch_as_table = function(str, ...)
     local f, s, var = str:gmatch(...)
     while true do
       local items = { f(s, var) } -- NOTE: Use {} to create table
-      if items[1] == nil then break end
+      if items[1] == nil then
+        break
+      end
       var = items[1]
       table.insert(matches, items)
     end
@@ -160,13 +162,39 @@ utils.get_visual_selection = function()
   local lines = vim.api.nvim_buf_get_lines(0, start_row, end_row + 1, false)
 
   if vim.tbl_isempty(lines) then
-    return ''
+    return ""
   end
 
-  lines[#lines] = string.sub(lines[#lines], 1, end_col - (vim.go.selection == 'inclusive' and 0 or 1))
+  lines[#lines] = string.sub(lines[#lines], 1, end_col - (vim.go.selection == "inclusive" and 0 or 1))
   lines[1] = string.sub(lines[1], start_col + 1)
 
   return vim.fn.join(lines, "\n")
+end
+
+-- NOTE: JavaScript setTimeout like function
+utils.set_timeout = function(timeout, callback)
+  local timer = vim.loop.new_timer()
+  timer:start(timeout, 0, function()
+    timer:stop()
+    timer:close()
+    callback()
+  end)
+  return timer
+end
+
+-- NOTE: JavaScript setInterval like function
+utils.set_interval = function(interval, callback)
+  local timer = vim.loop.new_timer()
+  timer:start(interval, interval, function()
+    callback()
+  end)
+  return timer
+end
+
+-- NOTE: JavaScript clearInterval like function
+utils.clear_interval = function(timer)
+  timer:stop()
+  timer:close()
 end
 
 return utils
