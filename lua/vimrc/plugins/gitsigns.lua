@@ -53,7 +53,7 @@ gitsigns.setup_config = function()
     word_diff = false,
     on_attach = gitsigns.on_attach,
     watch_gitdir = {
-      interval = 1000,
+      interval = 60 * 1000, -- NOTE: Reduce the `epoll_pwait()` amount to reduce CPU usage
       follow_files = true,
     },
     current_line_blame = true,
