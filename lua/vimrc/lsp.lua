@@ -149,18 +149,19 @@ lsp.servers = {
     condition = plugin_utils.has_linux_build_env(),
   },
   sqlls = {},
-  tsserver = {
-    custom_setup = function(server, lsp_opts)
-      require("typescript").setup({
-          disable_commands = false, -- prevent the plugin from creating Vim commands
-          debug = false, -- enable debug logging for commands
-          go_to_source_definition = {
-              fallback = true, -- fall back to standard LSP definition on failure
-          },
-          server = lsp_opts,
-      })
-    end,
-  },
+  -- NOTE: Use typescript-tools.nvim to setup custom lsp to use tsserver
+  -- tsserver = {
+  --   custom_setup = function(server, lsp_opts)
+  --     require("typescript").setup({
+  --         disable_commands = false, -- prevent the plugin from creating Vim commands
+  --         debug = false, -- enable debug logging for commands
+  --         go_to_source_definition = {
+  --             fallback = true, -- fall back to standard LSP definition on failure
+  --         },
+  --         server = lsp_opts,
+  --     })
+  --   end,
+  -- },
   vimls = {},
   vuels = {},
   -- TODO: add settings for schemas

@@ -155,7 +155,38 @@ local lsp = {
   -- Specific LSP Support
   { "p00f/clangd_extensions.nvim" },
   { "simrat39/rust-tools.nvim" },
-  { "jose-elias-alvarez/typescript.nvim" },
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    config = function()
+      -- TODO: typescript-tools.nvim do not support mason-installed tsserver for now.
+      require("typescript-tools").setup({
+        on_attach = require("vimrc.lsp").on_attach,
+        settings = {
+          -- spawn additional tsserver instance to calculate diagnostics on it
+          separate_diagnostic_server = true,
+          -- "change"|"insert_leave" determine when the client asks the server about diagnostic
+          publish_diagnostic_on = "insert_leave",
+          -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
+          -- (see 💅 `styled-components` support section)
+          tsserver_plugins = {},
+          -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
+          -- memory limit in megabytes or "auto"(basically no limit)
+          tsserver_max_memory = "auto",
+          -- described below
+          tsserver_file_preferences = {
+            includeInlayParameterNameHints = "all",
+            includeCompletionsForModuleExports = true,
+            quotePreference = "auto",
+          },
+          tsserver_format_options = {
+            allowIncompleteCompletions = false,
+            allowRenameOfImportPath = false,
+          }
+        },
+      })
+    end,
+  },
   -- NOTE: Disabled as it'll cause lua_ls use too much memory
   -- TODO: Add a method to load neodev.nvim on-demand
   {
