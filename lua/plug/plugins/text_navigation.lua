@@ -39,8 +39,8 @@ local text_navigation = {
       { "<Space>;", mode = { "n", "o", "x" } },
       { "<LocalLeader>f", mode = { "n", "o", "x" } },
       { "<LocalLeader>l", mode = { "n", "o", "x" } },
-      { "<Space>j", mode = { "n", "o", "x" } },
-      { "<Space>k", mode = { "n", "o", "x" } },
+      -- { "<Space>j", mode = { "n", "o", "x" } },
+      -- { "<Space>k", mode = { "n", "o", "x" } },
     },
     config = function()
       map("<Space>w", "<Cmd>HopWord<CR>")
@@ -48,8 +48,8 @@ local text_navigation = {
       map("<Space>;", "<Cmd>HopPattern<CR>")
       map("<LocalLeader>f", "<Cmd>HopChar1<CR>")
       map("<LocalLeader>l", "<Cmd>HopLine<CR>")
-      map("<Space>j", "<Cmd>HopLineAC<CR>")
-      map("<Space>k", "<Cmd>HopLineBC<CR>")
+      -- map("<Space>j", "<Cmd>HopLineAC<CR>")
+      -- map("<Space>k", "<Cmd>HopLineBC<CR>")
 
       require("hop").setup({})
     end,
@@ -161,6 +161,19 @@ local text_navigation = {
           require("flash").treesitter_search()
         end,
         desc = "Treesitter Search",
+      },
+      {
+        "<Space>j",
+        mode = { "n", "o", "x" },
+        function()
+          -- jump to a line
+          require("flash").jump({
+            search = { mode = "search", max_length = 0 },
+            highlight = { label = { after = { 0, 0 } } },
+            pattern = "^",
+          })
+        end,
+        desc = "Jump to a line",
       },
     },
   },
