@@ -116,7 +116,15 @@ local text_navigation = {
   {
     "folke/flash.nvim",
     event = "VeryLazy",
-    opts = {},
+    opts = {
+      modes = {
+        search = {
+          -- TODO: When not matched, flash.nvim will make vim exit search mode. Disable it for now.
+          -- Ref: https://github.com/folke/flash.nvim/issues/85
+          enabled = false,
+        },
+      },
+    },
     keys = {
       {
         "<Leader>f",
@@ -153,7 +161,7 @@ local text_navigation = {
           require("flash").treesitter_search()
         end,
         desc = "Treesitter Search",
-      }
+      },
     },
   },
 
@@ -204,7 +212,7 @@ local text_navigation = {
       -- Ref: https://github.com/chentoast/marks.nvim/issues/62
       -- Ref: https://github.com/chentoast/marks.nvim/issues/40#issuecomment-992709453
       marks.setup({
-        refresh_interval = 0
+        refresh_interval = 0,
       })
 
       -- TODO: Add "WinScrolled" event
