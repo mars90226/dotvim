@@ -49,7 +49,7 @@ formatter.setup = function()
 
   require("formatter").setup(formatter_config)
 
-  nnoremap("<Leader>ff", "<Cmd>Format<CR>", "silent")
+  nnoremap("<Space>lF", "<Cmd>Format<CR>", "silent")
 end
 
 return formatter

@@ -106,7 +106,7 @@ local lsp = {
   -- NOTE: Used in light vim mode when null-ls.nvim is disabled
   {
     "mhartington/formatter.nvim",
-    keys = { "<Leader>f" },
+    keys = { "<Space>lF" },
     config = function()
       require("vimrc.plugins.formatter").setup()
     end,
