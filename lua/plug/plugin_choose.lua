@@ -12,9 +12,11 @@ plugin_choose.setup_appearance = function()
   -- tabby.nvim, barbar.nvim, or tabline bundled in statusline
 
   -- Winbar
-  -- lualine.nvim, lspsaga.nvim
-  choose.disable_plugins({ "lualine.nvim-winbar", "lspsaga.nvim-winbar" })
-  if vim.fn.has("nvim-0.8") == 1 then
+  -- dropbar.nvim-winbar, lualine.nvim, lspsaga.nvim
+  choose.disable_plugins({ "dropbar.nvim-winbar", "lualine.nvim-winbar", "lspsaga.nvim-winbar" })
+  if vim.fn.has("nvim-0.10") == 1 then
+    choose.enable_plugin("dropbar.nvim-winbar")
+  elseif vim.fn.has("nvim-0.8") == 1 then
     choose.enable_plugin("lualine.nvim-winbar")
     -- choose.enable_plugin("lspsaga-nvim-winbar")
   end
@@ -125,16 +127,20 @@ plugin_choose.setup_language = function()
   end
 
   -- Choose context component (statusline, winbar) plugin
-  -- glepnir/lspsaga.nvim, nvim-navic, nvim-gps
-  local context_component_plugins = { "lspsaga.nvim-context", "nvim-navic", "nvim-gps" }
+  -- dropbar.nvim, nvim-navic, glepnir/lspsaga.nvim, nvim-gps
+  local context_component_plugins = { "dropbar.nvim", "nvim-navic", "lspsaga.nvim-context", "nvim-gps" }
   choose.disable_plugins(context_component_plugins)
-  if vim.fn.has("nvim-0.8") == 1 and choose.is_enabled_plugin("nvim-lsp") then
+  if vim.fn.has("nvim-0.10") == 1 then
+    choose.enable_plugin("dropbar.nvim")
+  elseif vim.fn.has("nvim-0.8") == 1 and choose.is_enabled_plugin("nvim-lsp") then
+    choose.enable_plugin("nvim-navic")
     -- NOTE: Disable lspsaga.nvim as it request lsp symbols on every CursorMoved which is too slow
     -- choose.enable_plugin("lspsaga.nvim-context")
-    choose.enable_plugin("nvim-navic")
   elseif choose.is_enabled_plugin("nvim-treesitter") then
     choose.enable_plugin("nvim-gps")
   end
+  -- nvim-navic is required by nvim-navbuddy
+  choose.enable_plugin("nvim-navic")
 
   -- Choose breadcrumbs plugin
   -- nvim-navbuddy

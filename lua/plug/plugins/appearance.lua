@@ -46,6 +46,13 @@ local appearance = {
 
   -- Winbar
   -- NOTE: Use lualine.nvim winbar
+  {
+    "Bekaboo/dropbar.nvim",
+    cond = choose.is_enabled_plugin("dropbar.nvim") and choose.is_enabled_plugin("dropbar.nvim-winbar"),
+    config = function()
+      require("vimrc.plugins.dropbar").setup()
+    end,
+  },
 
   -- Statuscolumn
   {
@@ -138,15 +145,15 @@ local appearance = {
   -- vim.g.lualine_theme = "catppuccin"
 
   -- Which key
-    {
-      "folke/which-key.nvim",
-      event = { "VeryLazy" },
-      config = function()
-        vim.go.timeout = true
-        vim.go.timeoutlen = 300
-        require("which-key").setup({})
-      end,
-    },
+  {
+    "folke/which-key.nvim",
+    event = { "VeryLazy" },
+    config = function()
+      vim.go.timeout = true
+      vim.go.timeoutlen = 300
+      require("which-key").setup({})
+    end,
+  },
 
   -- Dashboard
   {
@@ -194,7 +201,7 @@ local appearance = {
         require("lazy").load({ plugins = { "dressing.nvim" } })
         return vim.ui.input(...)
       end
-    end
+    end,
   },
   {
     "MunifTanjim/nui.nvim",
