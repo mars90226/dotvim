@@ -52,22 +52,22 @@ local text_objects = {
   {
     "glts/vim-textobj-comment",
     keys = {
-      { "ae", mode = { "o", "x" } },
-      { "ie", mode = { "o", "x" } },
-      { "aE", mode = { "o", "x" } },
+      { "ao", mode = { "o", "x" } },
+      { "io", mode = { "o", "x" } },
+      { "aO", mode = { "o", "x" } },
     },
     dependencies = { "kana/vim-textobj-user" },
     config = function()
       vim.fn["textobj#user#plugin"]("comment", {
         ["-"] = {
           ["select-a-function"] = "textobj#comment#select_a",
-          ["select-a"] = "ae",
+          ["select-a"] = "ao",
           ["select-i-function"] = "textobj#comment#select_i",
-          ["select-i"] = "ie",
+          ["select-i"] = "io",
         },
         big = {
           ["select-a-function"] = "textobj#comment#select_big_a",
-          ["select-a"] = "aE",
+          ["select-a"] = "aO",
         },
       })
     end,
@@ -99,9 +99,6 @@ local text_objects = {
       -- 1. nearEoL use `n` which is conflict with nvim-hlslens.
       -- 2. cssSelector use `ic`, `ac` which is conflict with nvim-treesitter-textobjects.
       require("various-textobjs").setup({ useDefaultKeymaps = true })
-
-      -- entireBuffer
-      vim.keymap.set({"o", "x"}, "gg", function () require("various-textobjs").entireBuffer() end, { desc = "entireBuffer textobj"})
 
       -- `aN` for outer number, `iN` for inner number
       vim.keymap.del({"o", "x"}, "an")

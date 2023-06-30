@@ -283,10 +283,9 @@ mapping.setup = function()
       onoremap("<M-P>", [[:<C-U>call vimrc#textobj#past_character(v:count1, 'o', v:false)<CR>]], "<silent>")
 
       -- Text Objects
-      -- NOTE: In favor of 'gg' using nvim-various-textobjs
       -- ie = inner entire buffer
-      -- onoremap("ie", ':exec "normal! ggVG"<CR>')
-      -- xnoremap("ie", ':<C-U>exec "normal! ggVG"<CR>')
+      onoremap("ie", ':exec "normal! ggVG"<CR>')
+      xnoremap("ie", ':<C-U>exec "normal! ggVG"<CR>')
 
       -- iV = current viewable text in the buffer
       onoremap("iV", ':exec "normal! HVL"<CR>')
