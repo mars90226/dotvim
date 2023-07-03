@@ -48,7 +48,7 @@ settings.setup = function()
 
       -- ignore pattern for wildmenu
       vim.opt.wildmenu = true
-      vim.opt.wildignore:append({ "*.a", "*.o", "*.pyc", "*~", "*.swp", "*.tmp" })
+      vim.opt.wildignore:append({ "*.a", "*.o", "*.pyc", "*~", "*.swp", "*.tmp", "*.mypy_cache*" })
       vim.opt.wildmode = "full"
       vim.opt.wildoptions = { "pum", "tagfile" }
 
