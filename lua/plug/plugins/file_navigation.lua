@@ -1,4 +1,5 @@
 local choose = require("vimrc.choose")
+local utils = require("vimrc.utils")
 
 local file_navigation = {
   -- Sources
@@ -286,6 +287,10 @@ local file_navigation = {
       -- Don't update cscope, workload is too heavy
       vim.g.gutentags_modules = { "ctags" }
       vim.g.gutentags_ctags_exclude = { ".git", "node_modules", ".ccls-cache" }
+
+      if vim.g.gutentags_secret_ctags_exclude ~= nil then
+        vim.g.gutentags_ctags_exclude = utils.table_concat(vim.g.gutentags_ctags_exclude, vim.g.gutentags_secret_ctags_exclude)
+      end
     end,
   },
 
