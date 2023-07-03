@@ -286,7 +286,7 @@ local file_navigation = {
     init = function()
       -- Don't update cscope, workload is too heavy
       vim.g.gutentags_modules = { "ctags" }
-      vim.g.gutentags_ctags_exclude = { ".git", "node_modules", ".ccls-cache" }
+      vim.g.gutentags_ctags_exclude = { ".git", "node_modules", ".ccls-cache", "*.mypy_cache*", ".venv" }
 
       if vim.g.gutentags_secret_ctags_exclude ~= nil then
         vim.g.gutentags_ctags_exclude = utils.table_concat(vim.g.gutentags_ctags_exclude, vim.g.gutentags_secret_ctags_exclude)
