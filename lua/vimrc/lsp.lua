@@ -54,6 +54,16 @@ lsp.servers = {
   },
   clangd = {
     condition = plugin_utils.has_linux_build_env(),
+    cmd = {
+      "clangd",
+      "--background-index",
+      "--clang-tidy",
+      "--header-insertion=iwyu",
+      "--completion-style=detailed",
+      "--function-arg-placeholders",
+      "--fallback-style=llvm",
+      "--suggest-missing-includes",
+    },
     -- NOTE: Workaround for "warning: multiple different client offset_encodings detected for buffer, this is not supported yet".
     -- Ref: https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428#issuecomment-997226723
     capabilities = {
