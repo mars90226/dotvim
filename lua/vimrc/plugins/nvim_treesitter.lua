@@ -401,10 +401,12 @@ nvim_treesitter.setup_performance_trick = function()
     "context_commentstring",
     "matchup",
     plugin_utils.check_enabled_plugin("nvimGPS", "nvim-gps"),
-    plugin_utils.check_condition("highlight_current_scope", nvim_treesitter.enable_config.highlight_current_scope),
-    plugin_utils.check_condition("highlight_definitions", nvim_treesitter.enable_config.highlight_definitions),
-    "navigation",
-    "smart_rename",
+    plugin_utils.check_condition("refactor.highlight_current_scope", nvim_treesitter.enable_config.highlight_current_scope),
+    plugin_utils.check_condition("refactor.highlight_definitions", nvim_treesitter.enable_config.highlight_definitions),
+    "refactor.navigation",
+    "refactor.smart_rename",
+    "textsubjects",
+    "rainbow",
   })
   local tab_idle_disabled_modules = global_idle_disabled_modules
 
