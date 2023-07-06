@@ -12,7 +12,7 @@ require("plug.plugin_choose").setup()
 require("plug.auto_lazy").setup()
 require("lazy").setup("plug.plugins", {
   change_detection = {
-    notify = false, -- avoid loads of notification when changine config
+    notify = false, -- avoid loads of notification when changing config
   }
 })
 
