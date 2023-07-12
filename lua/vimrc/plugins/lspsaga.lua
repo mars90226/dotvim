@@ -5,7 +5,7 @@ local lspsaga = {}
 
 lspsaga.on_attach = function(client)
   -- TODO: ignore some key mapping if it's null-ls.nvim lsp
-  nnoremap("gd", "<Cmd>Lspsaga lsp_finder<CR>", "silent", "buffer")
+  nnoremap("gd", "<Cmd>Lspsaga finder<CR>", "silent", "buffer")
   nnoremap("gi", "<Cmd>Lspsaga implement<CR>", "silent", "buffer")
   nnoremap("gpp", "<Cmd>Lspsaga peek_definition<CR>", "silent", "buffer")
   nnoremap("gr", "<Cmd>Lspsaga rename<CR>", "silent", "buffer")
