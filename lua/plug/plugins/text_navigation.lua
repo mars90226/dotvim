@@ -169,7 +169,7 @@ local text_navigation = {
           -- jump to a line
           require("flash").jump({
             search = { mode = "search", max_length = 0 },
-            highlight = { label = { after = { 0, 0 } } },
+            label = { after = { 0, 0 } },
             pattern = "^",
           })
         end,
