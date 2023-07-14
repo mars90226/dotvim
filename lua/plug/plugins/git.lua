@@ -180,7 +180,7 @@ local git = {
     "TimUntersberger/neogit",
     dependencies = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
     cmd = { "Neogit" },
-    key = { "<Leader>gn" },
+    keys = { "<Leader>gn" },
     config = function()
       require("neogit").setup({
         integrations = {
