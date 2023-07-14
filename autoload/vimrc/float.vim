@@ -1,6 +1,6 @@
 " Functions
-let s:float_default_width_ratio = 0.9
-let s:float_default_height_ratio = 0.8
+let s:float_default_width_ratio = g:float_width_ratio
+let s:float_default_height_ratio = g:float_height_ratio
 let s:float_default_width = float2nr(&columns * s:float_default_width_ratio)
 let s:float_default_height = float2nr(&lines * s:float_default_height_ratio)
 let s:float_default_ratio = [s:float_default_width_ratio, s:float_default_height_ratio]

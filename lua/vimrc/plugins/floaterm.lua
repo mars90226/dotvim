@@ -3,8 +3,8 @@ local floaterm = {}
 floaterm.setup = function()
   -- Config
   vim.g.floaterm_position = 'center'
-  vim.g.floaterm_width = 0.9
-  vim.g.floaterm_height = 0.8
+  vim.g.floaterm_width = vim.g.float_width_ratio
+  vim.g.floaterm_height = vim.g.float_height_ratio
   vim.g.floaterm_winblend = 0
   vim.g.floaterm_autoclose = false
 

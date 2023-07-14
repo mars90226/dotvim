@@ -26,7 +26,7 @@ fzf.setup_config = function()
     ["header"] = { "fg", "Comment" },
   }
 
-  vim.g.fzf_layout = { window = { width = 0.9, height = 0.8 } }
+  vim.g.fzf_layout = { window = { width = vim.g.float_width_ratio, height = vim.g.float_height_ratio } }
   vim.g.fzf_tmux_layout = { tmux = "-p 90%,80%" }
 
   vim.g.fzf_history_dir = vim.env.HOME .. "/.local/share/fzf-history"
