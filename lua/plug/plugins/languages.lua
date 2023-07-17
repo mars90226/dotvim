@@ -275,8 +275,9 @@ local languages = {
       nnoremap("<Space>i.", [[<Cmd>ISwapNodeWithRight<CR>]])
     end,
   },
+  -- TODO: Migrate HiPhish/rainbow-delimiters.nvim as HiPhish/nvim-ts-rainbow2 is deprecated due to nvim-treesitter will eventually drop module system.
   {
-    "p00f/nvim-ts-rainbow",
+    "HiPhish/nvim-ts-rainbow2",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
