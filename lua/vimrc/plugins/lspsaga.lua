@@ -80,7 +80,7 @@ lspsaga.setup = function()
     -- Ref: https://github.com/nvimdev/lspsaga.nvim/blob/main/lua/lspsaga/libs.lua#L321-L341
     beacon = {
       enable = true,
-      frequency = 15, -- default is 7
+      frequency = 7, -- default is 7
     }
   })
 end
