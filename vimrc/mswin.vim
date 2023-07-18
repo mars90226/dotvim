@@ -3,7 +3,7 @@
 " - Remove behave mswin
 " - Remove gui <C-F> & <C-H>
 " - Remove <C-Z> & <C-Y>
-" - Remove <C-A>
+" - Remove <C-A>, <C-X>
 " Set options and add mapping such that Vim behaves a lot like MS-Windows
 "
 " neovim nightly #23054 remove `:behave`
@@ -30,8 +30,7 @@ set backspace=indent,eol,start whichwrap+=<,>,[,]
 vnoremap <BS> d
 
 if has("clipboard")
-    " CTRL-X and SHIFT-Del are Cut
-    vnoremap <C-X> "+x
+    " SHIFT-Del are Cut
     vnoremap <S-Del> "+x
 
     " CTRL-C and CTRL-Insert are Copy

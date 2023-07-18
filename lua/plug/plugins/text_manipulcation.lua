@@ -179,10 +179,10 @@ local text_manipulation = {
   {
     "monaqa/dial.nvim",
     keys = {
-      { "<C-A>", mode = { "n", "v"} },
-      { "<C-X>", mode = { "n", "v"} },
-      { "g<C-A>", mode = "v" },
-      { "g<C-X>", mode = "v" },
+      { "<C-A>", mode = { "n", "x"} },
+      { "<C-X>", mode = { "n", "x"} },
+      { "g<C-A>", mode = "x" },
+      { "g<C-X>", mode = "x" },
     },
     config = function()
       require("vimrc.plugins.dial").setup()
