@@ -4,3 +4,5 @@ local plugin_utils = require("vimrc.plugin_utils")
 if plugin_utils.is_executable('browser-sync') then
   vim.api.nvim_create_user_command("BrowserSync", [[Dispatch browser-sync start --server --files "*.js, *.html, *.css"]], {})
 end
+
+vim.bo.keywordprg = ':Browse https://developer.mozilla.org/search?topic=api\\&topic=html\\&q=\\'
