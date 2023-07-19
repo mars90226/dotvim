@@ -160,8 +160,7 @@ local lsp = {
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     config = function()
       -- TODO: typescript-tools.nvim do not support mason-installed tsserver for now.
-      require("typescript-tools").setup({
-        on_attach = require("vimrc.lsp").on_attach,
+      require("typescript-tools").setup(require("vimrc.lsp").calculate_server_opts("typescript-tools", {
         settings = {
           -- spawn additional tsserver instance to calculate diagnostics on it
           separate_diagnostic_server = true,
@@ -182,9 +181,9 @@ local lsp = {
           tsserver_format_options = {
             allowIncompleteCompletions = false,
             allowRenameOfImportPath = false,
-          }
+          },
         },
-      })
+      }))
     end,
   },
   -- NOTE: Disabled as it'll cause lua_ls use too much memory

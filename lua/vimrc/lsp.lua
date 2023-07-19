@@ -172,6 +172,28 @@ lsp.servers = {
   --     })
   --   end,
   -- },
+  ["typescript-tools"] = {
+    settings = {
+      -- Ref: LazyVim
+      typescript = {
+        format = {
+          indentSize = vim.o.shiftwidth,
+          convertTabsToSpaces = vim.o.expandtab,
+          tabSize = vim.o.tabstop,
+        },
+      },
+      javascript = {
+        format = {
+          indentSize = vim.o.shiftwidth,
+          convertTabsToSpaces = vim.o.expandtab,
+          tabSize = vim.o.tabstop,
+        },
+      },
+      completions = {
+        completeFunctionCalls = true,
+      },
+    },
+  },
   vimls = {},
   vuels = {},
   -- TODO: add settings for schemas
@@ -273,14 +295,14 @@ lsp.get_servers = function()
   return checked_servers
 end
 
-lsp.setup_server = function(server, custom_opts)
+lsp.calculate_server_opts = function(server, custom_opts)
   local lsp_opts = lsp.servers[server] or {}
-  lsp_opts = vim.tbl_extend("keep", lsp_opts, custom_opts or {})
+  lsp_opts = vim.tbl_deep_extend("keep", lsp_opts, custom_opts or {})
 
   -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = vim.tbl_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-  capabilities = vim.tbl_extend("force", capabilities, lsp_opts.capabilities or {})
+  capabilities = vim.tbl_deep_extend("force", capabilities, lsp_opts.capabilities or {})
 
   -- nvim-ufo support foldingRange
   capabilities.textDocument.foldingRange = {
@@ -305,6 +327,12 @@ lsp.setup_server = function(server, custom_opts)
   lsp_opts = vim.tbl_extend("force", lsp_opts, {
     capabilities = capabilities,
   })
+
+  return lsp_opts
+end
+
+lsp.setup_server = function(server, custom_opts)
+  local lsp_opts = lsp.calculate_server_opts(server, custom_opts)
 
   -- NOTE: Lazy load init options
   if type(lsp_opts.init_options) == "function" then
