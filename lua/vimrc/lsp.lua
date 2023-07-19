@@ -173,6 +173,13 @@ lsp.servers = {
   --   end,
   -- },
   ["typescript-tools"] = {
+    capabilities = {
+      textDocument = {
+        foldingRange = {
+          dynamicRegistration = true,
+        }
+      }
+    },
     settings = {
       -- Ref: LazyVim
       typescript = {
@@ -302,7 +309,6 @@ lsp.calculate_server_opts = function(server, custom_opts)
   -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = vim.tbl_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-  capabilities = vim.tbl_deep_extend("force", capabilities, lsp_opts.capabilities or {})
 
   -- nvim-ufo support foldingRange
   capabilities.textDocument.foldingRange = {
@@ -316,6 +322,9 @@ lsp.calculate_server_opts = function(server, custom_opts)
   -- NOTE:Some LSP ask for file watching even through the registration is disabled.
   -- Ref: https://github.com/neovim/neovim/pull/23500#issuecomment-1585986913
   capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+
+  -- Allow customizing each lsp server's capabilities
+  capabilities = vim.tbl_deep_extend("force", capabilities, lsp_opts.capabilities or {})
 
   lsp_opts = vim.tbl_extend("keep", lsp_opts, {
     on_init = lsp.on_init,
