@@ -6,6 +6,16 @@ nvim_lint.config = {
   enable = true,
 }
 
+nvim_lint.disable = function()
+  nvim_lint.config.enable = false
+  vim.notify("nvim-lint is disabled")
+end
+
+nvim_lint.enable = function()
+  nvim_lint.config.enable = true
+  vim.notify("nvim-lint is enabled")
+end
+
 nvim_lint.toggle_enable = function()
   nvim_lint.config.enable = not nvim_lint.config.enable
   vim.notify("nvim-lint is " .. (nvim_lint.config.enable and "enabled" or "disabled"))
