@@ -189,8 +189,6 @@ local text_manipulation = {
     end,
   },
 
-  -- TODO: Remove editorconfig-vim as neovim 0.9 already support it
-  "editorconfig/editorconfig-vim",
   "tpope/vim-repeat",
 }
 
