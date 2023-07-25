@@ -238,10 +238,11 @@ tui.setup = function()
     use_config({
       "mars90226/tui-gitui",
       config = function()
-        vim.api.nvim_create_user_command("Gitui", [[call vimrc#tui#run('float', 'gitui '.<q-args>)]], { nargs = "*" })
+        local base_gitui_cmd = 'env GIT_EDITOR=$EDITOR gitui'
+        vim.api.nvim_create_user_command("Gitui", [[call vimrc#tui#run('float', ']] .. base_gitui_cmd .. [[ '.<q-args>)]], { nargs = "*" })
         vim.api.nvim_create_user_command(
           "GituiSplit",
-          [[call vimrc#tui#run('new', 'gitui '.<q-args>)]],
+          [[call vimrc#tui#run('new', ']] .. base_gitui_cmd .. [[ '.<q-args>)]],
           { nargs = "*" }
         )
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
