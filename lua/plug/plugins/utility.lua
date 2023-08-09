@@ -256,6 +256,8 @@ local utility = {
 
   {
     "tpope/vim-dispatch",
+    cmd = { "Make", "Copen", "Dispatch", "Start", "Spawn" },
+    keys = { "<Leader>dq" },
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
       -- TODO Check if disabling tmux is good
