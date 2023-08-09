@@ -153,7 +153,21 @@ local lsp = {
   },
 
   -- Specific LSP Support
-  { "p00f/clangd_extensions.nvim" },
+  {
+    "p00f/clangd_extensions.nvim",
+    config = function()
+      require("clangd_extensions").setup({
+        extensions = {
+          memory_usage = {
+            border = "rounded",
+          },
+          symbol_info = {
+            border = "rounded",
+          },
+        },
+      })
+    end
+  },
   { "simrat39/rust-tools.nvim" },
   {
     "pmizio/typescript-tools.nvim",

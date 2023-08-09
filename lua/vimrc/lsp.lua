@@ -70,18 +70,10 @@ lsp.servers = {
       offsetEncoding = { "utf-16" },
       memoryUsageProvider = true,
     },
-    custom_setup = function(server, lsp_opts)
-      require("clangd_extensions").setup({
-        server = lsp_opts,
-        extensions = {
-          memory_usage = {
-            border = "rounded",
-          },
-          symbol_info = {
-            border = "rounded",
-          },
-        },
-      })
+    on_attach = function(client, bufnr)
+      local clangd_inlay_hints = require("clangd_extensions.inlay_hints")
+      clangd_inlay_hints.setup_autocmd()
+      clangd_inlay_hints.set_inlay_hints()
     end,
   },
   -- NOTE: Replaced by neocmake
@@ -329,13 +321,26 @@ lsp.calculate_server_opts = function(server, custom_opts)
   capabilities = vim.tbl_deep_extend("force", capabilities, lsp_opts.capabilities or {})
 
   lsp_opts = vim.tbl_extend("keep", lsp_opts, {
-    on_init = lsp.on_init,
-    on_attach = lsp.on_attach,
     flags = {
       debounce_text_changes = 150,
     },
   })
+  -- NOTE: Call general on_init/on_attach then LSP-specific on_init/on_attach.
+  local lsp_opts_on_init = lsp_opts.on_init
+  local lsp_opts_on_attach = lsp_opts.on_attach
   lsp_opts = vim.tbl_extend("force", lsp_opts, {
+    on_init = function(...)
+      lsp.on_init(...)
+      if lsp_opts_on_init then
+        lsp_opts_on_init(...)
+      end
+    end,
+    on_attach = function(...)
+      lsp.on_attach(...)
+      if lsp_opts_on_attach then
+        lsp_opts_on_attach(...)
+      end
+    end,
     capabilities = capabilities,
   })
 
@@ -407,6 +412,7 @@ lsp.setup_servers_on_filetype = function(filetype)
       -- installation finished.
       lsp.setup_server(server, {})
 
+      -- TODO: Change to vim.lsp.start()
       require("lspconfig")[server].launch()
     end
   end
