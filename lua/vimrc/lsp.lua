@@ -260,6 +260,7 @@ lsp.on_attach = function(client, bufnr)
   end, "silent", "buffer")
   nnoremap("yof", [[<Cmd>lua require("vimrc.lsp").toggle_format_on_sync()<CR>]], "silent", "buffer")
   nnoremap("yoo", [[<Cmd>lua require("vimrc.lsp").toggle_show_diagnostics()<CR>]], "silent", "buffer")
+  nnoremap("yoI", [[<Cmd>lua vim.lsp.inlay_hint(0)<CR>]], "silent", "buffer")
 
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
   vim.bo.tagfunc = [[v:lua.vim.lsp.tagfunc]]
