@@ -101,7 +101,9 @@ settings.setup = function()
       }
 
       -- misc
-      vim.opt.shellslash = true
+      if vim.fn.exists('+shellslash') == 1 then
+        vim.opt.shellslash = true
+      end
       if vim.fn.has("nvim-0.9.0") == 1 then
         vim.opt.splitkeep = "cursor"
       end
