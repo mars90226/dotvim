@@ -15,7 +15,7 @@ filetype.setup = function()
       vim.filetype.add({
         extension = {
           -- bash
-          bashrc = "sh",
+          bashrc = "bash",
 
           -- c/c++ build
           build = "cerr",
@@ -85,7 +85,7 @@ filetype.setup = function()
           -- bash
           -- TODO: Remove this when neovim 0.10 is released
           -- Fixed in https://github.com/neovim/neovim/commit/fdf5013e218c55ca8f9bdb7cf5f16f8596330ea2
-          ["bash%-fc.*"] = { "sh", { priority = -10 } },
+          ["bash%-fc.*"] = { "bash", { priority = -10 } },
 
           -- config
           [".*conf"] = { "conf", { priority = -10 } },
@@ -112,12 +112,12 @@ filetype.setup = function()
           [".*/conf/resource.*"] = { "json", { priority = 10 } },
           [".*/conf/privilege.*"] = { "json", { priority = 10 } },
           [".*/conf/PKG_DEPS.*"] = { "dosini", { priority = 10 } },
-          [".*/backup/export"] = "sh",
-          [".*/backup/import"] = "sh",
-          [".*/backup/can_export"] = "sh",
-          [".*/backup/can_import"] = "sh",
+          [".*/backup/export"] = "bash",
+          [".*/backup/import"] = "bash",
+          [".*/backup/can_export"] = "bash",
+          [".*/backup/can_import"] = "bash",
           [".*/backup/info"] = "json",
-          [".*/backup/info.dynamic"] = "sh",
+          [".*/backup/info.dynamic"] = "bash",
 
           -- rspamd
           [".*/conf/rspamd%.conf.*"] = { "rspamd", { priority = 10 } },
