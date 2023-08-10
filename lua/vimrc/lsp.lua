@@ -152,6 +152,7 @@ lsp.servers = {
   solargraph = {
     condition = plugin_utils.has_linux_build_env(),
   },
+  -- FIXME: Cannot start LSP, maybe the path provided by mason is wrong?
   sqlls = {},
   -- NOTE: Use typescript-tools.nvim to setup custom lsp to use tsserver
   -- tsserver = {
@@ -413,6 +414,7 @@ lsp.setup_servers_on_filetype = function(filetype)
       -- installation finished.
       lsp.setup_server(server, {})
 
+      vim.print(server)
       -- TODO: Change to vim.lsp.start()
       require("lspconfig")[server].launch()
     end
