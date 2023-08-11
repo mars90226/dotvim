@@ -417,17 +417,6 @@ local languages = {
     end,
   },
 
-  {
-    "rhysd/rust-doc.vim",
-    ft = { "rust" },
-    config = function()
-      vim.g["rust_doc#define_map_K"] = 0
-      vim.g["rust_doc#vim_open_cmd"] = "RustDocOpen"
-
-      vim.cmd([[command! -nargs=1 RustDocOpen call vimrc#rust_doc#open(<f-args>)]])
-    end,
-  },
-
   { "apeschel/vim-syntax-syslog-ng" },
 
   {
@@ -442,6 +431,42 @@ local languages = {
     end,
   },
 
+  -- Documentation
+  {
+    "luckasRanarison/nvim-devdocs",
+    cond = choose.is_enabled_plugin("nvim-treesitter"),
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    cmd = {
+      "DevdocsFetch",
+      "DevdocsInstall",
+      "DevdocsUninstall",
+      "DevdocsOpen",
+      "DevdocsOpenFloat",
+      "DevdocsUpdate",
+      "DevdocsUpdateAll",
+    },
+    keys = { "<Space>do", "<Space>dO" },
+    config = function()
+      require("nvim-devdocs").setup()
+
+      nnoremap("<Space>do", [[<Cmd>DevdocsOpen<CR>]])
+      nnoremap("<Space>dO", [[<Cmd>DevdocsOpenFloat<CR>]])
+    end
+  },
+  {
+    "rhysd/rust-doc.vim",
+    ft = { "rust" },
+    config = function()
+      vim.g["rust_doc#define_map_K"] = 0
+      vim.g["rust_doc#vim_open_cmd"] = "RustDocOpen"
+
+      vim.cmd([[command! -nargs=1 RustDocOpen call vimrc#rust_doc#open(<f-args>)]])
+    end,
+  },
   { "mars90226/perldoc-vim", ft = { "perl" } },
   {
     "fs111/pydoc.vim",
