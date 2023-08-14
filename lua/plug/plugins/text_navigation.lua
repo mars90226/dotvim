@@ -4,17 +4,7 @@ local text_navigation = {
   -- Match
   {
     "andymass/vim-matchup",
-    cmd = { "DoMatchParen" },
-    keys = {
-      { "%", mode = { "n", "o", "x" } },
-      { "g%", mode = { "n", "o", "x" } },
-      { "z%", mode = { "n", "o", "x" } },
-      { "a%", mode = { "o", "x" } },
-      { "i%", mode = { "o", "x" } },
-      "cs%",
-      "ds%",
-    },
-    event = { "FocusLost", "CursorHold", "CursorHoldI" },
+    -- NOTE: Cannot lazy load, will break `%` function
     init = function()
       vim.g.matchup_matchparen_deferred = 1
       vim.g.matchup_matchparen_deferred_show_delay = 1000
