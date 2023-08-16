@@ -165,6 +165,20 @@ local text_navigation = {
         end,
         desc = "Jump to a line",
       },
+      {
+        -- NOTE: Identical to `<Space>j` for muscle memory
+        "<Space>k",
+        mode = { "n", "o", "x" },
+        function()
+          -- jump to a line
+          require("flash").jump({
+            search = { mode = "search", max_length = 0 },
+            label = { after = { 0, 0 } },
+            pattern = "^",
+          })
+        end,
+        desc = "Jump to a line",
+      },
     },
   },
 
