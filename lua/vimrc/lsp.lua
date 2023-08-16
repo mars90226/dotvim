@@ -414,7 +414,6 @@ lsp.setup_servers_on_filetype = function(filetype)
       -- installation finished.
       lsp.setup_server(server, {})
 
-      vim.print(server)
       -- TODO: Change to vim.lsp.start()
       require("lspconfig")[server].launch()
     end
