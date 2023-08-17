@@ -57,6 +57,12 @@ local completion = {
       { "hrsh7th/cmp-emoji" },
       plugin_utils.check_executable({ "lukas-reineke/cmp-rg" }, "rg"),
       { "hrsh7th/cmp-cmdline" },
+      {
+        "zbirenbaum/copilot-cmp",
+        config = function ()
+          require("copilot_cmp").setup()
+        end
+      }
     }),
     event = { "InsertEnter", "CmdlineEnter" },
     config = function()
@@ -107,6 +113,29 @@ local completion = {
       require("tabout").setup({
         tabkey = "<M-n>", -- key to trigger tabout, set to an empty string to disable
         backwards_tabkey = "<M-N>", -- key to trigger backwards tabout, set to an empty string to disable
+      })
+    end,
+  },
+
+  -- Copilot
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        panel = {
+          auto_refresh = true,
+          keymap = {
+            accept = "<M-CR>",
+          }
+        },
+        suggestion = {
+          auto_trigger = true,
+          keymap = {
+            accept = false,
+          }
+        }
       })
     end,
   },

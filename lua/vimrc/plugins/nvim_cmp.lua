@@ -75,6 +75,7 @@ nvim_cmp.setup = function()
           tmux = "[Tmux]",
           rg = "[Rg]",
           dictionary = "[Dictionary]",
+          copilot = "[Copilot]",
         },
       }),
     },
@@ -136,10 +137,19 @@ nvim_cmp.setup = function()
         end
       end, { "i" }),
       ["<C-Space>"] = cmp.mapping.complete(),
-      ["<CR>"] = cmp.mapping.confirm({ select = true }),
+      ["<CR>"] = cmp.mapping(function(fallback)
+        local copilot_suggestion = require("copilot.suggestion")
+
+        if copilot_suggestion.is_visible() then
+          copilot_suggestion.accept()
+        else
+          cmp.mapping.confirm({ select = true })(fallback)
+        end
+      end),
     }),
     -- Ref: https://github.com/lukas-reineke/dotfiles/blob/master/vim/lua/plugins/nvim-cmp.lua#L54-L77
     sources = cmp.config.sources({
+      { name = "copilot", priority_weight = 120 },
       { name = "path", priority_weight = 110 },
       { name = "nvim_lsp", max_view_entries = 20, priority_weight = 100 },
       { name = "nvim_lsp_signature_help", priority_weight = 100 },
@@ -228,6 +238,15 @@ nvim_cmp.setup = function()
       buffer_source,
     }),
   })
+
+  -- Setup event for copilot.lua
+  cmp.event:on("menu_opened", function()
+    vim.b.copilot_suggestion_hidden = true
+  end)
+
+  cmp.event:on("menu_closed", function()
+    vim.b.copilot_suggestion_hidden = false
+  end)
 end
 
 return nvim_cmp
