@@ -20,6 +20,15 @@ local text_manipulation = {
     },
     config = function()
       require("Comment").setup()
+
+      local ft = require("Comment.ft")
+      ft({
+        'dosini',
+        'pfmain',
+        'rspamd',
+        'squid',
+        'sshdconfig',
+      }, '#%s')
     end,
   },
 
