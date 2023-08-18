@@ -25,7 +25,11 @@ local utility = {
   {
     "tpope/vim-unimpaired",
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
-    keys = { "yo" },
+    keys = {
+      "yo",
+      "[<Space>",
+      "]<Space>",
+    },
     init = function()
       vim.g.nremap = {
         -- url encode/decode
