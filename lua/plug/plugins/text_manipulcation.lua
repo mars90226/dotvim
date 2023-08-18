@@ -87,10 +87,10 @@ local text_manipulation = {
       nnoremap("<Leader>mr", [[<Cmd>MurenToggle<CR>]])
       nnoremap("<Leader>mu", [[<Cmd>MurenUnique<CR>]])
       nnoremap("<Leader>mk", function()
-        muren.open_unique_ui(vim.fn.expand('<cword>'))
+        muren.open_unique_ui(vim.fn.expand("<cword>"))
       end)
       xnoremap("<Leader>mk", [[:MurenUniqueVisual<CR>]])
-    end
+    end,
   },
 
   -- Surround
@@ -188,8 +188,8 @@ local text_manipulation = {
   {
     "monaqa/dial.nvim",
     keys = {
-      { "<C-A>", mode = { "n", "x"} },
-      { "<C-X>", mode = { "n", "x"} },
+      { "<C-A>", mode = { "n", "x" } },
+      { "<C-X>", mode = { "n", "x" } },
       { "g<C-A>", mode = "x" },
       { "g<C-X>", mode = "x" },
     },

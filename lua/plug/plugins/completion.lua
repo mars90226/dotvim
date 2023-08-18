@@ -59,10 +59,10 @@ local completion = {
       { "hrsh7th/cmp-cmdline" },
       {
         "zbirenbaum/copilot-cmp",
-        config = function ()
+        config = function()
           require("copilot_cmp").setup()
-        end
-      }
+        end,
+      },
     }),
     event = { "InsertEnter", "CmdlineEnter" },
     config = function()
@@ -128,14 +128,11 @@ local completion = {
           auto_refresh = true,
           keymap = {
             accept = "<M-CR>",
-          }
+          },
         },
         suggestion = {
           auto_trigger = true,
-          keymap = {
-            accept = false,
-          }
-        }
+        },
       })
     end,
   },
