@@ -15,6 +15,8 @@ require("lazy").setup("plug.plugins", {
     notify = false, -- avoid loads of notification when changing config
   }
 })
+-- NOTE: Seems not work in lazy.nvim's config callback
+require("vimrc.plugins.lazy").setup()
 
 -- Core
 require("core.mapping").setup()
