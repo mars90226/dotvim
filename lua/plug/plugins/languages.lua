@@ -446,15 +446,25 @@ local languages = {
       "DevdocsUninstall",
       "DevdocsOpen",
       "DevdocsOpenFloat",
+      "DevdocsOpenCurrent",
+      "DevdocsOpenCurrentFloat",
       "DevdocsUpdate",
       "DevdocsUpdateAll",
     },
-    keys = { "<Space>do", "<Space>dO" },
+    keys = {
+      "<Space>dc",
+      "<Space>dC",
+      "<Space>do",
+      "<Space>dO",
+    },
     config = function()
       require("nvim-devdocs").setup()
 
-      nnoremap("<Space>do", [[<Cmd>DevdocsOpen<CR>]])
-      nnoremap("<Space>dO", [[<Cmd>DevdocsOpenFloat<CR>]])
+      nnoremap("<Space>dc", [[<Cmd>DevdocsOpenCurrentFloat<CR>]],
+        { desc = "Open DevDocs of current file in floating window" })
+      nnoremap("<Space>dC", [[<Cmd>DevdocsOpenCurrent<CR>]], { desc = "Open DevDocs of current file" })
+      nnoremap("<Space>do", [[<Cmd>DevdocsOpenFloat<CR>]], { desc = "Open DevDocs in floating window" })
+      nnoremap("<Space>dO", [[<Cmd>DevdocsOpen<CR>]], { desc = "Open DevDocs" })
     end
   },
   {

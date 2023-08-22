@@ -281,7 +281,7 @@ telescope.setup_mapping = function()
   nnoremap([[<Space>df]], [[<Cmd>Telescope advanced_git_search diff_commit_file<CR>]])
   nnoremap([[<Space>dsl]], [[<Cmd>Telescope advanced_git_search search_log_content<CR>]])
   nnoremap([[<Space>dsf]], [[<Cmd>Telescope advanced_git_search search_log_content_file<CR>]])
-  nnoremap([[<Space>dc]], [[<Cmd>Telescope advanced_git_search checkout_reflog<CR>]])
+  nnoremap([[<Space>dr]], [[<Cmd>Telescope advanced_git_search checkout_reflog<CR>]])
   nnoremap([[<Space>dss]], [[<Cmd>Telescope advanced_git_search show_custom_functions<CR>]])
 end
 
