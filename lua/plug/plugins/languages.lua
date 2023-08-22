@@ -2,7 +2,7 @@ local choose = require("vimrc.choose")
 
 local languages = {
   -- filetype
-  { "rust-lang/rust.vim", ft = { "rust" } },
+  { "rust-lang/rust.vim",   ft = { "rust" } },
   { "leafo/moonscript-vim", ft = { "moon" } },
   {
     "plasticboy/vim-markdown",
@@ -16,15 +16,15 @@ local languages = {
     end,
   },
   { "mtdl9/vim-log-highlighting", ft = { "log" } },
-  { "ClockworkNet/vim-apparmor", ft = { "apparmor" } },
-  { "chrisbra/csv.vim", ft = { "csv" } },
+  { "ClockworkNet/vim-apparmor",  ft = { "apparmor" } },
+  { "chrisbra/csv.vim",           ft = { "csv" } },
   {
     "bfredl/nvim-luadev",
     ft = { "lua" },
     cmd = { "Luadev" },
   },
   { "mustache/vim-mustache-handlebars", ft = { "handlebars", "mustache" } },
-  { "wavded/vim-stylus", ft = "stylus" },
+  { "wavded/vim-stylus",                ft = "stylus" },
 
   -- Highlighing
   -- nvim-treesitter
@@ -59,7 +59,7 @@ local languages = {
         playground = {
           enable = true,
           disable = {},
-          updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+          updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
           persist_queries = false, -- Whether the query persists across vim sessions
           keybindings = {
             toggle_query_editor = "o",
@@ -501,7 +501,7 @@ local languages = {
       vim.cmd([[command! -nargs=1 RustDocOpen call vimrc#rust_doc#open(<f-args>)]])
     end,
   },
-  { "mars90226/perldoc-vim", ft = { "perl" } },
+  { "mars90226/perldoc-vim",        ft = { "perl" } },
   {
     "fs111/pydoc.vim",
     ft = { "python" },
