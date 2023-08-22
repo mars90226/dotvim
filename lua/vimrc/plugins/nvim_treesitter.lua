@@ -337,15 +337,6 @@ nvim_treesitter.setup_config = function()
     yati = {
       enable = true,
     },
-    rainbow = {
-      enable = true,
-      -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-      disable = enable_check({ "fennel", "query" }), -- NOTE: Only lisp like languages
-      extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-      max_file_lines = nil, -- Do not enable for files with more than n lines, int
-      -- colors = {}, -- table of hex strings
-      -- termcolors = {} -- table of colour name strings
-    },
   })
 end
 

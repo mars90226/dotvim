@@ -275,11 +275,35 @@ local languages = {
       nnoremap("<Space>i.", [[<Cmd>ISwapNodeWithRight<CR>]])
     end,
   },
-  -- TODO: Migrate HiPhish/rainbow-delimiters.nvim as HiPhish/nvim-ts-rainbow2 is deprecated due to nvim-treesitter will eventually drop module system.
   {
-    "HiPhish/nvim-ts-rainbow2",
+    "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      -- This module contains a number of default definitions
+      local rainbow_delimiters = require('rainbow-delimiters')
+
+      vim.g.rainbow_delimiters = {
+        strategy = {
+          [''] = rainbow_delimiters.strategy['global'],
+          commonlisp = rainbow_delimiters.strategy['local'],
+        },
+        query = {
+          [''] = 'rainbow-delimiters',
+          lua = 'rainbow-blocks',
+        },
+        highlight = {
+          'RainbowDelimiterRed',
+          'RainbowDelimiterYellow',
+          'RainbowDelimiterBlue',
+          'RainbowDelimiterOrange',
+          'RainbowDelimiterGreen',
+          'RainbowDelimiterViolet',
+          'RainbowDelimiterCyan',
+        },
+        whitelist = { 'fennel', 'query' },
+      }
+    end
   },
   {
     "HampusHauffman/block.nvim",
