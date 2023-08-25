@@ -132,6 +132,9 @@ local completion = {
         },
         suggestion = {
           auto_trigger = true,
+          keymap = {
+            accept = "<M-l>",
+          }
         },
       })
     end,
