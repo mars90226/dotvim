@@ -283,6 +283,9 @@ telescope.setup_mapping = function()
   nnoremap([[<Space>dsf]], [[<Cmd>Telescope advanced_git_search search_log_content_file<CR>]])
   nnoremap([[<Space>dr]], [[<Cmd>Telescope advanced_git_search checkout_reflog<CR>]])
   nnoremap([[<Space>dss]], [[<Cmd>Telescope advanced_git_search show_custom_functions<CR>]])
+
+  -- sg
+  nnoremap([[<Space>ag]], [[<Cmd>Telescope ast_grep<CR>]])
 end
 
 telescope.setup_autocmd = function()

@@ -1,4 +1,5 @@
 local choose = require("vimrc.choose")
+local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
 
 local file_navigation = {
@@ -225,6 +226,14 @@ local file_navigation = {
     build = "make",
     config = function()
       require("telescope").load_extension("fzf")
+    end,
+  },
+  {
+    "Marskey/telescope-sg",
+    cond = plugin_utils.is_executable("sg"),
+    event = { "VeryLazy" },
+    config = function()
+      require("telescope").load_extension("ast_grep")
     end,
   },
 
