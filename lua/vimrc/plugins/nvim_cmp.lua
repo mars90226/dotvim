@@ -146,6 +146,21 @@ nvim_cmp.setup = function()
           cmp.mapping.confirm({ select = true })(fallback)
         end
       end),
+      -- Copilot
+      -- Close nvim-cmp and show copilot next suggestion
+      ["<M-]>"] = cmp.mapping(function(fallback)
+        local copilot_suggestion = require("copilot.suggestion")
+
+        cmp.mapping.close()(fallback)
+        copilot_suggestion.next()
+      end),
+      -- Close nvim-cmp and show copilot prev suggestion
+      ["<M-[>"] = cmp.mapping(function(fallback)
+        local copilot_suggestion = require("copilot.suggestion")
+
+        cmp.mapping.close()(fallback)
+        copilot_suggestion.prev()
+      end),
     }),
     -- Ref: https://github.com/lukas-reineke/dotfiles/blob/master/vim/lua/plugins/nvim-cmp.lua#L54-L77
     sources = cmp.config.sources({
