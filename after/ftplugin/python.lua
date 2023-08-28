@@ -2,6 +2,7 @@ vim.bo.shiftwidth = 4
 vim.bo.tabstop = 4
 vim.bo.softtabstop = 4
 vim.bo.expandtab = true
+vim.bo.textwidth = 0
 
 -- pydoc.vim mappings
 nnoremap([[<Leader>pw]], [[:call vimrc#pydoc#show_pydoc('<C-R><C-W>', 1)<CR>]], { silent = true, buffer = true })
