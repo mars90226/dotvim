@@ -147,6 +147,17 @@ nvim_cmp.setup = function()
         end
       end),
       -- Copilot
+      -- Close nvim-cmp and accept copilot suggestion if visible
+      ["<M-l>"] = cmp.mapping(function(fallback)
+        local copilot_suggestion = require("copilot.suggestion")
+
+        if copilot_suggestion.is_visible() then
+          cmp.mapping.close()(fallback)
+          copilot_suggestion.accept()
+        else
+          fallback()
+        end
+      end),
       -- Close nvim-cmp and show copilot next suggestion
       ["<M-]>"] = cmp.mapping(function(fallback)
         local copilot_suggestion = require("copilot.suggestion")
