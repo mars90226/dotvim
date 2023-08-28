@@ -155,6 +155,19 @@ local text_manipulation = {
     keys = { "<Leader>jm", "<Leader>js", "<Leader>jj" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
+      -- Setup comment for all languages
+      -- Ref: https://github.com/Wansmer/treesj/issues/116#issuecomment-1666911090
+      local langs = require('treesj.langs').presets
+      for _, nodes in pairs(langs) do
+        nodes.comment = {
+          both = {
+            fallback = function(tsn)
+              vim.cmd('normal! gww')
+            end,
+          },
+        }
+      end
+
       require("treesj").setup({
         -- Use default keymaps
         -- (<space>m - toggle, <space>j - join, <space>s - split)
@@ -175,7 +188,7 @@ local text_manipulation = {
 
         -- Notify about possible problems or not
         notify = true,
-        -- langs = langs,
+        langs = langs,
       })
 
       nnoremap("<Leader>jm", [[<Cmd>TSJToggle<CR>]])
