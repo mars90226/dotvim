@@ -83,6 +83,9 @@ terminal.setup = function()
       tnoremap("<M-m>u", [=[<C-\><C-N>:lua require('vimrc.plugins.hop').search_patterns({}, 'url')<CR>]=])
       tnoremap("<M-m>i", [=[<C-\><C-N>:lua require('vimrc.plugins.hop').search_patterns({}, 'ip')<CR>]=])
 
+      -- Jump to pattern by flash
+      tnoremap("<M-m><M-,>", [=[<C-\><C-N>:lua require('flash').jump()<CR>]=])
+
       -- Command palette
       tnoremap("<M-m><M-m>", [[<C-\><C-N>:Telescope command_palette<CR>]])
       tnoremap("<M-m><M-M>", [[<C-\><C-N>:CommandPalette<CR>]])
@@ -173,6 +176,9 @@ terminal.setup = function()
       vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m>y", [=[:lua require('vimrc.plugins.hop').search_patterns({}, 'hash')<CR>]=])
       vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m>u", [=[:lua require('vimrc.plugins.hop').search_patterns({}, 'url')<CR>]=])
       vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m>i", [=[:lua require('vimrc.plugins.hop').search_patterns({}, 'ip')<CR>]=])
+
+      -- Jump to pattern by flash
+      vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m><M-,>", [=[:lua require('flash').jump()<CR>]=])
 
       -- Command palette
       vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m><M-m>", ":Telescope command_palette<CR>")
