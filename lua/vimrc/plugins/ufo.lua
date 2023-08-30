@@ -76,14 +76,14 @@ ufo.setup = function()
   -- Performance trick
   -- Ref: nvim_treesitter.lua performance trick
   local augroup_id = vim.api.nvim_create_augroup("nvim_ufo_settings", {})
-  vim.api.nvim_create_autocmd({ "FocusGained" }, {
+  vim.api.nvim_create_autocmd({ "FocusGained", "VimResume" }, {
     group = augroup_id,
     pattern = "*",
     callback = function()
       vim.cmd([[UfoEnable]])
     end,
   })
-  vim.api.nvim_create_autocmd({ "FocusLost" }, {
+  vim.api.nvim_create_autocmd({ "FocusLost", "VimSuspend" }, {
     group = augroup_id,
     pattern = "*",
     callback = function()

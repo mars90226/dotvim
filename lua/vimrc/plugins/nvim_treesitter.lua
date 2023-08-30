@@ -454,7 +454,7 @@ nvim_treesitter.setup_performance_trick = function()
 
   local global_trick_delay_enable = false
   local global_trick_delay = 60 * 1000 -- 60 seconds
-  vim.api.nvim_create_autocmd({ "FocusGained" }, {
+  vim.api.nvim_create_autocmd({ "FocusGained", "VimResume" }, {
     group = augroup_id,
     pattern = "*",
     callback = function()
@@ -479,7 +479,7 @@ nvim_treesitter.setup_performance_trick = function()
   -- 3. OS switch application
   -- In other words, we want treesitter highlight if the buffer is actually displayed on the screen.
   -- TODO: Check if VimResume/VimSuspend helps
-  vim.api.nvim_create_autocmd({ "FocusLost" }, {
+  vim.api.nvim_create_autocmd({ "FocusLost", "VimSuspend" }, {
     group = augroup_id,
     pattern = "*",
     callback = function()

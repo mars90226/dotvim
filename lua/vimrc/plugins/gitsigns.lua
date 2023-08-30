@@ -80,7 +80,7 @@ gitsigns.setup_performance_trick = function()
   local origin_working_folder = ""
   local tmp_working_folder = vim.fn.stdpath('state')
   local gitsigns_augroup_id = vim.api.nvim_create_augroup("gitsigns_settings", {})
-  vim.api.nvim_create_autocmd({ "FocusGained" }, {
+  vim.api.nvim_create_autocmd({ "FocusGained", "VimResume" }, {
     group = gitsigns_augroup_id,
     pattern = "*",
     nested = true, -- NOTE: To allow gitsigns.nvim to execute DirChanged autocmd
@@ -92,7 +92,7 @@ gitsigns.setup_performance_trick = function()
       end)
     end,
   })
-  vim.api.nvim_create_autocmd({ "FocusLost" }, {
+  vim.api.nvim_create_autocmd({ "FocusLost", "VimSuspend" }, {
     group = gitsigns_augroup_id,
     pattern = "*",
     nested = true, -- NOTE: To allow gitsigns.nvim to execute DirChanged autocmd
