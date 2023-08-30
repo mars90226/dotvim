@@ -1,4 +1,4 @@
-local plugin_utils = require("vimrc.plugin_utils")
+local utils = require("vimrc.utils")
 
 local settings = {}
 
@@ -61,7 +61,7 @@ settings.setup = function()
       -- So use second character to differentiate tab & space
       -- Use default for space to avoid Search highlight been override by Whitespace highlight
       vim.opt.listchars = { tab = "▸─", extends = "»", precedes = "«", nbsp = "␣", eol = "↴" }
-      if vim.fn["vimrc#get_vim_mode"]() ~= "reader" then
+      if utils.is_reader_mode() then
         -- Don't show trailing space in reader vim mode
         vim.opt.listchars:append({ trail = "•" })
       end

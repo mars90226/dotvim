@@ -89,9 +89,16 @@ utils.get_vim_mode = function()
   return vim.fn["vimrc#get_vim_mode"]()
 end
 
+utils.is_reader_mode = function()
+  return utils.get_vim_mode() == "reader"
+end
+
+utils.is_gitcommit_mode = function()
+  return utils.get_vim_mode() == "gitcommit"
+end
+
 utils.is_light_vim_mode = function()
-  local vim_mode = utils.get_vim_mode()
-  return vim_mode == "reader" or vim_mode == "gitcommit"
+  return utils.is_reader_mode() or utils.is_gitcommit_mode()
 end
 
 utils.ternary = function(condition, true_value, false_value)
