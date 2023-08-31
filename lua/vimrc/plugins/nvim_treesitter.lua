@@ -14,6 +14,10 @@ nvim_treesitter.enable_config = {
   highlight_current_scope = false,
 }
 
+nvim_treesitter.filetype_disable = {
+  diff = true -- NOTE: tree-sitter-diff doesn't support `git format-patch` diffs
+}
+
 nvim_treesitter.line_threshold = {
   base = {
     cpp = 30000,
@@ -42,6 +46,10 @@ local disable_check = function(type, lang, bufnr)
   if get_force_disable(bufnr) then
     return true
   end
+  if nvim_treesitter.filetype_disable[lang] then
+    return true
+  end
+
   if type == nil then
     type = "base"
   end
