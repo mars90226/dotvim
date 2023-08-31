@@ -4,6 +4,7 @@ local tui = {}
 
 tui.setup = function()
   local use_config = function(plugin_spec)
+    -- TODO: Lazy load config
     plugin_spec.config()
   end
 
@@ -276,6 +277,28 @@ tui.setup = function()
       end,
     })
   end
+
+  if vim.fn.executable("jless") == 1 then
+      use_config({
+        "mars90226/tui-jless",
+        config = function()
+          vim.api.nvim_create_user_command(
+            "Jless",
+            [[call vimrc#tui#run('float', 'jless '.<q-args>)]],
+            { nargs = "*", complete = "file" }
+          )
+          vim.api.nvim_create_user_command(
+            "JlessSplit",
+            [[call vimrc#tui#run('new', 'jless '.<q-args>)]],
+            { nargs = "*", complete = "file" }
+          )
+          require("vimrc.plugins.command_palette").insert_commands("TUI", {
+            { "Jless", ":Jless", 1 },
+            { "JlessSplit", ":JlessSplit", 1 },
+          })
+        end,
+      })
+    end
 
   -- TODO: Add tig
 
