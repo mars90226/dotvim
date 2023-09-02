@@ -200,7 +200,7 @@ local utility = {
 
   { "kevinhwang91/nvim-bqf", ft = { "qf" } },
 
-  { "thinca/vim-qfreplace", ft = { "qf" } },
+  { "thinca/vim-qfreplace",  ft = { "qf" } },
 
   {
     "romainl/vim-qf",
@@ -258,6 +258,7 @@ local utility = {
     end,
   },
 
+  -- Code Runner
   {
     "tpope/vim-dispatch",
     cmd = { "Make", "Copen", "Dispatch", "Start", "Spawn" },
@@ -271,6 +272,37 @@ local utility = {
 
       -- Mappings
       nnoremap("<Leader>dq", [[<Cmd>Copen<CR>]])
+    end,
+  },
+  {
+    'stevearc/overseer.nvim',
+    cmd = {
+      "OverseerOpen",
+      "OverseerToggle",
+      "OverseerRUnCmd",
+      "OverseerRun",
+      "OverseerInfo",
+      "OverseerBuild",
+      "OverseerQuickAction",
+      "OverseerTaskAction",
+    },
+    keys = {
+      "<Space>ro",
+      "<Space>rr",
+      "<Space>rR",
+      "<Space>rn",
+      "<Space>rq",
+      "<Space>rt",
+    },
+    config = function()
+      require("overseer").setup()
+
+      nnoremap("<Space>ro", [[<Cmd>OverseerToggle<CR>]])
+      nnoremap("<Space>rr", [[<Cmd>OverseerRun<CR>]])
+      nnoremap("<Space>rR", [[<Cmd>OverseerRunCmd<CR>]])
+      nnoremap("<Space>rn", [[<Cmd>OverseerBuild<CR>]])
+      nnoremap("<Space>rq", [[<Cmd>OverseerQuickAction<CR>]])
+      nnoremap("<Space>rt", [[<Cmd>OverseerTaskAction<CR>]])
     end,
   },
 
@@ -532,29 +564,29 @@ local utility = {
       require("dbee").install()
     end,
     config = function()
-      require("dbee").setup(--[[optional config]])
+      require("dbee").setup( --[[optional config]])
     end,
   },
 
-  { "tpope/vim-abolish", cmd = { "Abolish", "Subvert", "S" }, keys = { "cr" } },
-  { "will133/vim-dirdiff", cmd = { "DirDiff" } },
-  { "Shougo/vinarise.vim", cmd = { "Vinarise" } },
-  { "alx741/vinfo", cmd = { "Vinfo" } },
+  { "tpope/vim-abolish",    cmd = { "Abolish", "Subvert", "S" },                         keys = { "cr" } },
+  { "will133/vim-dirdiff",  cmd = { "DirDiff" } },
+  { "Shougo/vinarise.vim",  cmd = { "Vinarise" } },
+  { "alx741/vinfo",         cmd = { "Vinfo" } },
   "kopischke/vim-fetch",
   {
     "Valloric/ListToggle",
     cmd = { "QToggle", "LToggle" },
     keys = { "<Leader>q", "<Leader>l" },
   },
-  { "tpope/vim-eunuch", event = { "VeryLazy" } },
-  { "DougBeney/pickachu", cmd = { "Pick" } },
-  { "tweekmonster/helpful.vim", cmd = { "HelpfulVersion" } },
-  { "tweekmonster/startuptime.vim", cmd = { "StartupTime" } },
-  { "gyim/vim-boxdraw", keys = { "+o", "+O", "+c", "+-", "+_" } },
-  { "lambdalisue/reword.vim", event = { "VeryLazy" } },
-  { "nicwest/vim-http", cmd = { "Http" } },
+  { "tpope/vim-eunuch",                 event = { "VeryLazy" } },
+  { "DougBeney/pickachu",               cmd = { "Pick" } },
+  { "tweekmonster/helpful.vim",         cmd = { "HelpfulVersion" } },
+  { "tweekmonster/startuptime.vim",     cmd = { "StartupTime" } },
+  { "gyim/vim-boxdraw",                 keys = { "+o", "+O", "+c", "+-", "+_" } },
+  { "lambdalisue/reword.vim",           event = { "VeryLazy" } },
+  { "nicwest/vim-http",                 cmd = { "Http" } },
   { "kristijanhusak/vim-carbon-now-sh", cmd = { "CarbonNowSh" } },
-  { "taybart/b64.nvim", cmd = { "B64Encode", "B64Decode" } },
+  { "taybart/b64.nvim",                 cmd = { "B64Encode", "B64Decode" } },
 
   -- nvim-gdb
   -- Disabled for now as neovim's neovim_gdb.vim seems not exists
