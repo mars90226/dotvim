@@ -4,7 +4,7 @@ let s:rga_binary = 'rga '
 " Manually specify ignore file as ripgrep 0.9.0 will not respect to .gitignore outside of git repository
 " Require ripgrep v12.0.0 for --engine
 let s:rg_base_options = '--engine=auto --column --line-number --no-heading --smart-case --color=always --follow --with-filename'
-let s:rg_options = s:rg_base_options . ' --ignore-file ' . $HOME . '/.gitignore' " TODO Use '.ignore'?
+let s:rg_options = s:rg_base_options . ' --ignore-file ' . $HOME . '/.gitignore' . ' --ignore-file ' . $HOME . '/.ignore'
 let s:rg_all_options = s:rg_base_options . ' --no-ignore --hidden'
 
 let s:rg_base_command = s:rg_binary . s:rg_base_options
