@@ -178,12 +178,17 @@ local git = {
 
   {
     "TimUntersberger/neogit",
-    dependencies = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "sindrets/diffview.nvim",
+    },
     cmd = { "Neogit" },
     keys = { "<Leader>gn" },
     config = function()
       require("neogit").setup({
         integrations = {
+          telescope = true,
           diffview = true,
         }
       })
