@@ -26,6 +26,17 @@ utils.plug_key = function()
   return string.format("%c%c%c", 0x80, 253, 83)
 end
 
+-- Return keys for Meta + Fn key
+-- For Alt + Function keys, the keycode may be wrong when using "<M-Fn>" in different `$TERM`s.
+-- When $TERM is `tmux`/`tmux-256color`, the generated keycode for <M-F1> ~ <M-F12> recognized as <F49> ~ <F60> by neovim.
+-- Ref: https://github.com/neovim/neovim/issues/8317
+utils.meta_fn_key = function(key)
+  return {
+    string.format("<M-F%d>", key),
+    string.format("<F%d>", key + 48), -- For $TERM = tmux or tmux-256color
+  }
+end
+
 -- Concat two tables
 utils.table_concat = function(table1, table2)
   for i = 1, #table2 do

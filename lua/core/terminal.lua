@@ -1,4 +1,3 @@
-local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
 
 local terminal = {}
@@ -38,13 +37,16 @@ terminal.setup = function()
       -- For Alt + Function keys, the keycode may be wrong when using "<M-Fn>" in different `$TERM`s.
       -- When $TERM is `tmux`/`tmux-256color`, the generated keycode for <M-F1> ~ <M-F12> recognized as <F49> ~ <F60> by neovim.
       -- Ref: https://github.com/neovim/neovim/issues/8317
-      tnoremap("<M-F1>", [[<C-\><C-N>]])
-      tnoremap("<F49>", [[<C-\><C-N>]]) -- For $TERM = tmux or tmux-256color
-      tnoremap("<M-F2>", [[<C-\><C-N>:call vimrc#terminal#open_current_shell('tabnew')<CR>]])
-      tnoremap("<F50>", [[<C-\><C-N>]]) -- For $TERM = tmux or tmux-256color
-      -- FIXME: Not working now
-      tnoremap("<M-F3>", [[<C-\><C-N>:Windows<CR>]])
-      tnoremap("<F51>", [[<C-\><C-N>]]) -- For $TERM = tmux or tmux-256color
+      -- TODO: Better syntax
+      for _, key in ipairs(utils.meta_fn_key(1)) do
+        tnoremap(key, [[<C-\><C-N>]])
+      end
+      for _, key in ipairs(utils.meta_fn_key(2)) do
+        tnoremap(key, [[<C-\><C-N>:call vimrc#terminal#open_current_shell('tabnew')<CR>]])
+      end
+      for _, key in ipairs(utils.meta_fn_key(3)) do
+        tnoremap(key, [[<C-\><C-N>:Windows<CR>]])
+      end
 
       -- Quickly switch window in terminal
       tnoremap("<M-S-h>", [[<C-\><C-N><C-W>h]])
