@@ -384,7 +384,7 @@ nvim_treesitter.setup_extensions = function()
 
   -- nvim-treehopper
   onoremap("m", [[<Cmd>lua require("vimrc.plugins.nvim_treesitter").tsht_nodes("m")<CR>]], "silent")
-  vnoremap("m", [[:lua require("vimrc.plugins.nvim_treesitter").tsht_nodes("m")<CR>]], "silent")
+  xnoremap("m", [[:lua require("vimrc.plugins.nvim_treesitter").tsht_nodes("m")<CR>]], "silent")
 end
 
 nvim_treesitter.setup_performance_trick = function()
