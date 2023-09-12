@@ -534,7 +534,7 @@ local utility = {
   {
     "AndrewRadev/linediff.vim",
     cmd = { "Linediff" },
-    keys = { "<M-d>l" },
+    keys = { { "<M-d>l", mode = { "n", "x" } } },
     config = function()
       nnoremap("<M-d>l", [[V:Linediff<CR>]])
       xnoremap("<M-d>l", [[:Linediff<CR>]])
