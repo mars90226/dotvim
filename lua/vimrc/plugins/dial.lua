@@ -37,6 +37,11 @@ dial.setup = function()
         word = true,
         cyclic = true,
       }),
+      augend.constant.new({
+        elements = { "True", "False" }, -- Python bool
+        word = true,
+        cyclic = true,
+      }),
       augend.semver.alias.semver,
     },
   })
