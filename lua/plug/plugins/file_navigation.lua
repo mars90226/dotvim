@@ -118,11 +118,14 @@ local file_navigation = {
     "nvim-telescope/telescope-frecency.nvim",
     event = { "VeryLazy" },
     config = function()
-      require('frecency').setup({
-        -- Ref: https://github.com/nvim-telescope/telescope-frecency.nvim#remove-dependency-for-sqlitelua
-        use_sqlite = false,
+      require("telescope").setup({
+        extensions = {
+          frecency = {
+            -- Ref: https://github.com/nvim-telescope/telescope-frecency.nvim#remove-dependency-for-sqlitelua
+            use_sqlite = false,
+          }
+        }
       })
-
       require("telescope").load_extension("frecency")
     end,
     -- NOTE: Require sqlite3, specifically libsqlite3.so
