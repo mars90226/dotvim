@@ -80,7 +80,6 @@ local text_manipulation = {
       require("muren").setup()
 
       vim.api.nvim_create_user_command("MurenUniqueVisual", function()
-        vim.print(utils.get_visual_selection())
         muren.open_unique_ui(utils.get_visual_selection())
       end, { range = true })
 
