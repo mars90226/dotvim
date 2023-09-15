@@ -477,6 +477,9 @@ local languages = {
   },
 
   -- Documentation
+  -- FIXME: Strange bug that cancel breaks telescope.nvim picker when search has no match on the
+  -- first time. If cancelling the picker when search has match, and then cancelling again when search
+  -- has no match, then it doesn't break telescope.nvim picker.
   {
     "luckasRanarison/nvim-devdocs",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
