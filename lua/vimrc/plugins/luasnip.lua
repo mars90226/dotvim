@@ -339,6 +339,10 @@ luasnip.setup_snippet = function()
         return vim.fn["vimrc#fzf#shell_outputs_in_commandline"]()
       end)
     ),
+    -- Copilot
+    s("q:", f(function()
+      return string.format(vim.o.commentstring, "q: ")
+    end)),
   })
 end
 
