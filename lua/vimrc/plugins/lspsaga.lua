@@ -48,6 +48,7 @@ lspsaga.setup = function()
       sign = true,
       sign_priority = 40,
       virtual_text = false,
+      debounce = 150, -- Same as LSP debounce
     },
     -- TODO: Check if lspsaga.nvim symbol is greater than nvim-navic
     symbol_in_winbar = {
