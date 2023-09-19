@@ -672,9 +672,9 @@ function! vimrc#defx#paste_from_system_clipboard_target(context) abort
   call vimrc#defx#_paste_from_system_clipboard(path)
 endfunction
 
-" Depends on exa
+" Depends on eza
 function! vimrc#defx#show_detail(context) abort
-  call vimrc#defx#execute_file_internal(a:context, 'float', 'exa -l {}')
+  call vimrc#defx#execute_file_internal(a:context, 'float', 'eza -l {}')
 endfunction
 
 " Depends on file

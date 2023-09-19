@@ -4,8 +4,8 @@ if executable('bat')
   let s:fzf_preview_command = 'bat --style=numbers --color=always'
 endif
 let s:fzf_dir_preview_command = 'ls -la --color=always'
-if executable('exa')
-  let s:fzf_dir_preview_command = 'exa -lag --color=always'
+if executable('eza')
+  let s:fzf_dir_preview_command = 'eza -lag --color=always'
 endif
 
 let s:fzf_preview_toggle_key = 'ctrl-/'

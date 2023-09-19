@@ -47,7 +47,7 @@ Packer specific config is removed, but you can use `packer` branch to access the
 
 * [ripgrep](https://github.com/BurntSushi/ripgrep) (required for grepping files using FZF)
 * [fd](https://github.com/sharkdp/fd) (required for goto to directory using FZF)
-* [exa](https://github.com/ogham/exa) (required for previewing directory using FZF)
+* [eza](https://github.com/eza-community/eza) (required for previewing directory using FZF)
 * [bat](https://github.com/sharkdp/bat) (required for various preview commands using FZF)
 
 ## Installation
