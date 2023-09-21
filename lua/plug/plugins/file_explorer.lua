@@ -92,6 +92,18 @@ local file_explorer = {
       require("vimrc.plugins.oil").setup()
     end,
   },
+
+  -- TODO: Move to other place for other modules
+  {
+    'echasnovski/mini.nvim',
+    version = false,
+    keys = { "<Leader>mf" },
+    config = function()
+      require('mini.files').setup()
+
+      nnoremap("<Leader>mf", [[<Cmd>lua MiniFiles.open()<CR>]])
+    end,
+  },
 }
 
 return file_explorer
