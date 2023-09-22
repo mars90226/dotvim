@@ -99,9 +99,7 @@ local file_explorer = {
     version = false,
     keys = { "<Leader>mf" },
     config = function()
-      require('mini.files').setup()
-
-      nnoremap("<Leader>mf", [[<Cmd>lua MiniFiles.open()<CR>]])
+      require('vimrc.plugins.mini').setup()
     end,
   },
 }
