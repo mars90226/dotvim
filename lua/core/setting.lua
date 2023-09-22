@@ -38,6 +38,8 @@ settings.setup = function()
       -- Fix neovim VimResized bug: https://github.com/neovim/neovim/issues/12432
       -- vim.opt.display:remove("msgsep")
 
+      vim.opt.commentstring = "# %s" -- NOTE: Default is "# %s", set other 'commentstring' in ftplugin
+
       vim.opt.scrolloff = 0
 
       vim.opt.diffopt = { "internal", "filler", "vertical", "closeoff", "algorithm:histogram", "hiddenoff" }
