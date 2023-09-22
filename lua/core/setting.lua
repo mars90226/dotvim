@@ -37,6 +37,7 @@ settings.setup = function()
       -- TODO: Remove this comment when neovim bug fixed
       -- Fix neovim VimResized bug: https://github.com/neovim/neovim/issues/12432
       -- vim.opt.display:remove("msgsep")
+      vim.opt.spell = true
 
       vim.opt.commentstring = "# %s" -- NOTE: Default is "# %s", set other 'commentstring' in ftplugin
 
