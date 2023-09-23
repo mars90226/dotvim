@@ -3,6 +3,7 @@ local surround = require("nvim-surround")
 local my_nvim_surround = require("vimrc.plugins.nvim_surround")
 
 vim.bo.expandtab = true
+vim.wo.spell = false -- NOTE: Chinese is not supported
 
 if vim.fn.executable('markdownlint') == 1 then
   vim.bo.makeprg = 'markdownlint'
