@@ -246,6 +246,20 @@ local lsp = {
     "Issafalcon/lsp-overloads.nvim",
     event = { "LspAttach" },
   },
+
+  -- Rename
+  {
+    "smjonas/inc-rename.nvim",
+    event = { "LspAttach" },
+    config = function()
+      require("inc_rename").setup()
+
+      nnoremap("<Leader>ir", ":IncRename ")
+      nnoremap("<Leader>ik", function()
+        return ":IncRename " .. vim.fn.expand("<cword>")
+      end, { expr = true })
+    end,
+  },
 }
 
 return lsp
