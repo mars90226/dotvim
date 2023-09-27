@@ -443,36 +443,28 @@ local languages = {
 
   { "apeschel/vim-syntax-syslog-ng" },
 
+  -- Documentation generator
   {
-    "kkoomen/vim-doge",
-    build = function()
-      vim.fn["doge#install"]()
-    end,
-    cmd = { "DogeGenerate", "DogeCreateDocStandard" },
-    keys = { "<Leader><Leader>d" },
-    ft = {
-      "bash",
-      "c",
-      "cpp",
-      "cs",
-      "go",
-      "groovy",
-      "java",
-      "javascript",
-      "javascriptreact",
-      "lua",
-      "r",
-      "php",
-      "python",
-      "ruby",
-      "rust",
-      "scala",
-      "sh",
-      "typescript",
-      "typescriptreact",
+    "danymat/neogen",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    cmd = { "Neogen" },
+    keys = {
+      "<Leader>ng",
+      "<Leader>nf",
+      "<Leader>ni",
+      "<Leader>nt",
+      "<Leader>nt",
     },
-    init = function()
-      vim.g.doge_mapping = "<Leader><Leader>d"
+    config = function()
+      require("neogen").setup({
+        snippet_engine = "luasnip"
+      })
+
+      nnoremap("<Leader>ng", [[<Cmd>Neogen<CR>]])
+      nnoremap("<Leader>nf", [[<Cmd>Neogen func<CR>]])
+      nnoremap("<Leader>ni", [[<Cmd>Neogen file<CR>]])
+      nnoremap("<Leader>nt", [[<Cmd>Neogen type<CR>]])
+      nnoremap("<Leader>nc", [[<Cmd>Neogen class<CR>]])
     end,
   },
 

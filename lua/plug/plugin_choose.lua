@@ -120,11 +120,7 @@ plugin_choose.setup_language = function()
   end
 
   -- Enable language documentation generation
-  -- vim-doge for generating documentation
-  choose.disable_plugin("vim-doge")
-  if plugin_utils.is_executable("node") and plugin_utils.is_executable("npm") then
-    choose.enable_plugin("vim-doge")
-  end
+  -- neogen for generating documentation
 
   -- Choose context component (statusline, winbar) plugin
   -- dropbar.nvim, nvim-navic, glepnir/lspsaga.nvim, nvim-gps
