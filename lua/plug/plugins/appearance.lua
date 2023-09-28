@@ -209,8 +209,11 @@ local appearance = {
   },
 
   -- Indent Guide
+  -- TODO: Migrate to version 3
+  -- Migrate guide: https://github.com/lukas-reineke/indent-blankline.nvim/wiki/Migrate-to-version-3
   {
     "lukas-reineke/indent-blankline.nvim",
+    version = "v2.*",
     event = { "VeryLazy" },
     config = function()
       require("vimrc.plugins.indent_blankline").setup()
