@@ -12,6 +12,7 @@ function! vimrc#terminal#settings() abort
   setlocal nonumber
   setlocal norelativenumber
   setlocal signcolumn=no
+  setlocal nospell
 endfunction
 
 " Mappings
