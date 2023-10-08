@@ -15,7 +15,7 @@ end
 
 gruvbox.custom_overrides = function()
   local hsl = require("lush").hsl
-  local palette = require("gruvbox.palette").colors
+  local palette = require("gruvbox").palette
 
   local diff_percent = 20
   local custom_palette = {
