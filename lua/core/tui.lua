@@ -210,6 +210,21 @@ tui.setup = function()
       end,
     })
   end
+  if vim.fn.executable("yazi") == 1 then
+    use_config({
+      "mars90226/tui-yazi",
+      config = function()
+        vim.api.nvim_create_user_command("Yazi", [[call vimrc#tui#run('float', 'yazi '.<q-args>)]], { nargs = "*" })
+        vim.api.nvim_create_user_command("YaziSplit", [[call vimrc#tui#run('new', 'yazi '.<q-args>)]], { nargs = "*" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Yazi", ":Yazi", 1 },
+          { "YaziSplit", ":YaziSplit", 1 },
+        })
+
+        nnoremap("<Leader>ya", [[:Yazi<CR>]])
+      end,
+    })
+  end
 
   if vim.fn.executable("lazygit") == 1 then
     use_config({

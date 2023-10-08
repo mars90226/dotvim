@@ -1,7 +1,7 @@
 " For TUI support
 let s:shells = [&shell, 'bash', 'zsh', 'fish', 'powershell', 'ash', 'nu']
 " NOTE: Use env for passing enviroment variablet to tui processes
-let s:tui_processes = ['htop', 'atop', 'btm', 'broot', 'sr', 'ranger', 'nnn', 'vifm', 'fff', 'lf', 'lazygit', 'gitui', 'bandwhich', 'xplr', 'jless', 'env']
+let s:tui_processes = ['htop', 'atop', 'btm', 'broot', 'sr', 'ranger', 'nnn', 'vifm', 'fff', 'lf', 'lazygit', 'gitui', 'bandwhich', 'xplr', 'jless', 'env', 'yazi']
 let s:floaterm_wrappers = extend(['broot', 'fff', 'fzf', 'lf', 'nnn', 'ranger', 'rg', 'vifm', 'xplr'], ['vifm_dir'])
 
 function! vimrc#tui#get_shells() abort
