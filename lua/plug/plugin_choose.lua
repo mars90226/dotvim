@@ -52,6 +52,8 @@ plugin_choose.setup_completion = function()
     choose.enable_plugin("null-ls.nvim")
   end
 
+  -- TODO: Add light vim mode check for copilot.lua
+
   -- Choose auto pairs plugin
   -- nvim-autopairs
 end
