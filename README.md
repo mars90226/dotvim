@@ -9,23 +9,24 @@ Packer specific config is removed, but you can use `packer` branch to access the
 ## Major plugins
 
 ### Neovim
-* [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) (fast custom status line written in Lua)
-* [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) (auto completion written in Lua)
+* [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) (fast custom status line)
+* [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) (auto completion)
 * [symbols-outline.nvim](https://github.com/simrat39/symbols-outline.nvim) (Display symbols in sidebar using LSP)
 * [fzf](https://github.com/junegunn/fzf) (fuzzy finder for almost everything)
 * [fzf.vim](https://github.com/junegunn/fzf.vim) (used with fzf)
 * [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) (fuzzy finder written in Lua and support LSP)
 * [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) (lua file explorer)
-* [defx.nvim](https://github.com/Shougo/defx.nvim) (file explorer for better multiple project folder)
-* [hop.nvim](https://github.com/phaazon/hop.nvim) (quickly move cursor to certain place on screen, written in Lua)
-* [lightspeed.nvim](https://github.com/ggandor/lightspeed.nvim) (quickly move cursor by search, written in Lua)
+* [oil.nvim](https://github.com/stevearc/oil.nvim) (buffer-based file explorer with folder synchronization)
+* [defx.nvim](https://github.com/Shougo/defx.nvim) (buffer-based file explorer for better multiple project folder)
+* [flash.nvim](https://github.com/folke/flash.nvim) (quickly move cursor to certain place on screen)
+* [lightspeed.nvim](https://github.com/ggandor/lightspeed.nvim) (quickly move cursor by search)
 * [nvim-autopairs](https://github.com/windwp/nvim-autopairs) (automatically insert paired brackets)
 * [nvim-surround](https://github.com/kylechui/nvim-surround) (quickly add/delete/replace brackets)
-* [nvim-spectre](https://github.com/windwp/nvim-spectre) (find-and-replace globally, written in Lua)
+* [nvim-spectre](https://github.com/windwp/nvim-spectre) (find-and-replace globally)
 * [lspsaga.nvim](https://github.com/glepnir/lspsaga.nvim) (lsp UI and lsp context for winbar)
-* [trouble.nvim](https://github.com/folke/trouble.nvim) (diagnostics UI written in Lua)
-* [null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) (integrate linter/formatter/code action to LSP, written in Lua)
-* [nvim-lint](https://github.com/mfussenegger/nvim-lint) (on-demand linter written in Lua)
+* [trouble.nvim](https://github.com/folke/trouble.nvim) (diagnostics UI)
+* [formatter.nvim](https://github.com/stevearc/oil.nvim) (on-demand formatter)
+* [nvim-lint](https://github.com/mfussenegger/nvim-lint) (on-demand linter)
 * [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) (fast semantic syntax highlighting)
 * [syntax-tree-surfer](https://github.com/ziontee113/syntax-tree-surfer) (text navigation and manipulation based on treesitter)
 * [vim-fugitive](https://github.com/tpope/vim-fugitive) (almost perfect git wrapper)
@@ -34,11 +35,13 @@ Packer specific config is removed, but you can use `packer` branch to access the
 * [vimwiki](https://github.com/vimwiki/vimwiki) (wiki plugin like orgmode)
 * [vim-localvimrc](https://github.com/embear/vim-localvimrc) (for setup project-local vim config, useful for LSP)
 * [statuscol.nvim](https://github.com/luukvbaal/statuscol.nvim) (customizable predefined 'statuscolumn')
+* [diffview.nvim](https://github.com/sindrets/diffview.nvim) (git diff viewer & git history viewer)
+* [dropbar.nvim](https://github.com/Bekaboo/dropbar.nvim#requirements) (vscode-like winbar)
 
 ## Requirements
 
 ### Neovim
-* [neovim](https://neovim.io/) 0.8.3+ (stable), 0.9.0 (nightly, required by 'signcolumn')
+* [neovim](https://neovim.io/) 0.9.2+ (stable), 0.10.0 (nightly, required by 'dropbar.nvim')
 * [python](https://www.python.org/) 3.6.1+ (required by defx.nvim)
 * [universal-ctags](https://github.com/universal-ctags/ctags) (required by fzf)
 * C compiler and libstdc++ (required by nvim-treesitter)
@@ -175,6 +178,8 @@ Open neovim and wait for `lazy.nvim` to finish the job.
 * [x] Use [nvim-autopairs](https://github.com/windwp/nvim-autopairs) to replace auto-pairs.
 * [x] Use [which-key.nvim](https://github.com/folke/which-key.nvim)
 * [x] ~~Use [dashboard-nvim](https://github.com/glepnir/dashboard-nvim)~~ Use [alpha.nvim](https://github.com/goolord/alpha-nvim)
+* [ ] Use [conform.nvim](https://github.com/stevearc/conform.nvim) to replace formatter.nvim.
+* [ ] Add [nvim-dap](https://github.com/mfussenegger/nvim-dap) and related plugins.
 
 ## Screenshots
 
