@@ -11,7 +11,7 @@ endfunction
 
 " Settings
 function! vimrc#vimwiki#settings() abort
-  " Currently, do nothing
+  setlocal nospell " NOTE: Chinese is not supported
 endfunction
 
 " Mappings
