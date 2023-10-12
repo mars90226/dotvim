@@ -23,6 +23,7 @@ function! vimrc#fugitive#settings() abort
 endfunction
 
 function! vimrc#fugitive#git_settings() abort
+  setlocal nospell
 endfunction
 
 function! vimrc#fugitive#gitcommit_settings() abort
