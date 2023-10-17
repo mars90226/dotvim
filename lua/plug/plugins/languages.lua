@@ -25,6 +25,7 @@ local languages = {
   },
   { "mustache/vim-mustache-handlebars", ft = { "handlebars", "mustache" } },
   { "wavded/vim-stylus",                ft = "stylus" },
+  { "alunny/pegjs-vim",                 ft = "pegjs" },
 
   -- Highlighing
   -- nvim-treesitter
