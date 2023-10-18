@@ -256,6 +256,16 @@ local file_navigation = {
     end,
   },
 
+  -- mini.nvim
+  -- NOTE: mini.nvim has many modules, currently the most used is mini.pick, so place it here.
+  {
+    'echasnovski/mini.nvim',
+    version = false,
+    config = function()
+      require('vimrc.plugins.mini').setup()
+    end,
+  },
+
   -- Bookmarks
   {
     "ThePrimeagen/harpoon",

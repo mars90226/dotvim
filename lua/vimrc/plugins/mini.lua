@@ -37,11 +37,27 @@ end
 
 mini.setup_config = function()
   require('mini.files').setup()
-  require('mini.pick').setup()
+  require('mini.pick').setup({
+    mappings = {
+      move_down = "<C-j>",
+      move_up = "<C-k>",
+    }
+  })
 end
 
 mini.setup_mapping = function()
+  -- mini.files
   nnoremap("<Leader>mf", [[<Cmd>lua MiniFiles.open()<CR>]])
+
+  -- mini.pick
+  nnoremap("<Space>mb", [[<Cmd>Pick buffers<CR>]])
+  nnoremap("<Space>mf", [[<Cmd>Pick files<CR>]])
+  nnoremap("<Space>mg", [[<Cmd>Pick grep<CR>]])
+  nnoremap("<Space>mh", [[<Cmd>Pick help<CR>]])
+  nnoremap("<Space>mi", [[<Cmd>Pick grep_live<CR>]])
+  nnoremap("<Space>mu", [[<Cmd>Pick resume<CR>]])
+
+  -- TODO: Add key mapping for `:Pick cli` 
 end
 
 mini.setup = function()

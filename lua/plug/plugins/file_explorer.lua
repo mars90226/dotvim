@@ -92,15 +92,6 @@ local file_explorer = {
       require("vimrc.plugins.oil").setup()
     end,
   },
-
-  -- TODO: Move to other place for other modules
-  {
-    'echasnovski/mini.nvim',
-    version = false,
-    config = function()
-      require('vimrc.plugins.mini').setup()
-    end,
-  },
 }
 
 return file_explorer
