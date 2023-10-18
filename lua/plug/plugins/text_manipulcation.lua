@@ -190,9 +190,9 @@ local text_manipulation = {
         langs = langs,
       })
 
-      nnoremap("<Leader>jm", [[<Cmd>TSJToggle<CR>]])
-      nnoremap("<Leader>js", [[<Cmd>TSJSplit<CR>]])
-      nnoremap("<Leader>jj", [[<Cmd>TSJJoin<CR>]])
+      nnoremap("<Space>hm", [[<Cmd>TSJToggle<CR>]])
+      nnoremap("<Space>hs", [[<Cmd>TSJSplit<CR>]])
+      nnoremap("<Space>hj", [[<Cmd>TSJJoin<CR>]])
     end,
   },
 
