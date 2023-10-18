@@ -97,7 +97,6 @@ local file_explorer = {
   {
     'echasnovski/mini.nvim',
     version = false,
-    keys = { "<Leader>mf" },
     config = function()
       require('vimrc.plugins.mini').setup()
     end,

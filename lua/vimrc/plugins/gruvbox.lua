@@ -26,7 +26,6 @@ gruvbox.custom_overrides = function()
     dark_aqua = hsl(palette.faded_aqua).darken(diff_percent).hex,
   }
   local overrides = {
-    NormalFloat = { fg = palette.light1, bg = palette.dark1 },
     TSOperator = { link = "Special" },
 
     -- NOTE: Only change background color
@@ -53,6 +52,7 @@ gruvbox.custom_overrides = function()
     -- TODO: Make nvim-ufo capture correct Folded highlight
     UfoFoldedFg = { fg = palette.gray },
     UfoFoldedBg = { bg = palette.dark1 },
+    MiniPickNormal = { link = "Normal" },
   }
 
   return overrides

@@ -10,9 +10,13 @@ require("plug.plugin_choose").setup()
 
 -- Lazy
 require("plug.auto_lazy").setup()
+-- TODO: Move config to lazy.lua
 require("lazy").setup("plug.plugins", {
   change_detection = {
     notify = false, -- avoid loads of notification when changing config
+  },
+  ui = {
+    border = "single",
   }
 })
 -- NOTE: Seems not work in lazy.nvim's config callback

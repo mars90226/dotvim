@@ -37,6 +37,7 @@ end
 
 mini.setup_config = function()
   require('mini.files').setup()
+  require('mini.pick').setup()
 end
 
 mini.setup_mapping = function()
