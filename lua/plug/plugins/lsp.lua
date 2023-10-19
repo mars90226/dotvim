@@ -99,6 +99,7 @@ local lsp = {
     end,
   },
 
+  -- Lint
   {
     "mfussenegger/nvim-lint",
     event = { "VeryLazy" },
@@ -107,12 +108,21 @@ local lsp = {
     end,
   },
 
+  -- Format
   -- NOTE: Used in light vim mode when null-ls.nvim is disabled
   {
     "mhartington/formatter.nvim",
+    cond = choose.is_enabled_plugin("formatter.nvim"),
     keys = { "<Space>lF" },
     config = function()
       require("vimrc.plugins.formatter").setup()
+    end,
+  },
+  {
+    "stevearc/conform.nvim",
+    cond = choose.is_enabled_plugin("conform.nvim"),
+    config = function()
+      require("vimrc.plugins.conform").setup()
     end,
   },
 

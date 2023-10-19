@@ -52,6 +52,12 @@ plugin_choose.setup_completion = function()
     choose.enable_plugin("null-ls.nvim")
   end
 
+  -- Choose formatter integration plugin
+  -- conform.nvim, formatter.nvim
+  choose.disable_plugins({ "conform.nvim", "formatter.nvim" })
+  -- Always enable conform.nvim
+  choose.enable_plugin("conform.nvim")
+
   -- TODO: Add light vim mode check for copilot.lua
 
   -- Choose auto pairs plugin

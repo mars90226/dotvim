@@ -151,7 +151,7 @@ local text_manipulation = {
     "Wansmer/treesj",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
-    keys = { "<Leader>jm", "<Leader>js", "<Leader>jj" },
+    keys = { "<Space>hm", "<Space>hs", "<Space>hj" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
       -- Setup comment for all languages

@@ -25,7 +25,7 @@ Packer specific config is removed, but you can use `packer` branch to access the
 * [nvim-spectre](https://github.com/windwp/nvim-spectre) (find-and-replace globally)
 * [lspsaga.nvim](https://github.com/glepnir/lspsaga.nvim) (lsp UI and lsp context for winbar)
 * [trouble.nvim](https://github.com/folke/trouble.nvim) (diagnostics UI)
-* [formatter.nvim](https://github.com/stevearc/oil.nvim) (on-demand formatter)
+* [conform.nvim](https://github.com/stevearc/conform.nvim) (on-demand formatter)
 * [nvim-lint](https://github.com/mfussenegger/nvim-lint) (on-demand linter)
 * [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) (fast semantic syntax highlighting)
 * [syntax-tree-surfer](https://github.com/ziontee113/syntax-tree-surfer) (text navigation and manipulation based on treesitter)
@@ -178,7 +178,7 @@ Open neovim and wait for `lazy.nvim` to finish the job.
 * [x] Use [nvim-autopairs](https://github.com/windwp/nvim-autopairs) to replace auto-pairs.
 * [x] Use [which-key.nvim](https://github.com/folke/which-key.nvim)
 * [x] ~~Use [dashboard-nvim](https://github.com/glepnir/dashboard-nvim)~~ Use [alpha.nvim](https://github.com/goolord/alpha-nvim)
-* [ ] Use [conform.nvim](https://github.com/stevearc/conform.nvim) to replace formatter.nvim.
+* [x] Use [conform.nvim](https://github.com/stevearc/conform.nvim) to replace formatter.nvim.
 * [ ] Add [nvim-dap](https://github.com/mfussenegger/nvim-dap) and related plugins.
 
 ## Screenshots
