@@ -92,8 +92,8 @@ local text_objects = {
 
   {
     "chrisgrieser/nvim-various-textobjs",
-    -- TODO: Add lazy load keys
-    event = { "VeryLazy" },
+    -- HACK: Load this first to allow other plugins to override the key mappings
+    priority = 100,
     config = function()
       -- TODO: Currently has key mapping conflicts:
       -- 1. nearEoL use `n` which is conflict with nvim-hlslens.
@@ -113,10 +113,6 @@ local text_objects = {
       -- url
       vim.keymap.del({"o", "x"}, "L")
       vim.keymap.set({"o", "x"}, "U", function () require("various-textobjs").url() end, { desc = "url textobj"})
-
-      -- toNextClosingBracket
-      vim.keymap.del({"o", "x"}, "%")
-      vim.keymap.set({"o", "x"}, "]b", function () require("various-textobjs").toNextClosingBracket() end, { desc = "toNextClosingBracket textobj"})
     end,
   },
 }
