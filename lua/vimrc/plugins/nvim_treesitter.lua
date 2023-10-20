@@ -425,14 +425,20 @@ nvim_treesitter.setup_performance_trick = function()
 
         -- NOTE: Switch to supported window to avoid highlight missing
         -- TODO: Check if neovim fix this bug on 0.9.0 release
-        vim.api.nvim_set_current_win(supported_winids[1])
+        -- HACK: Use `:noautocmd` to ignore telescope-frecency.nvim autocmd to update database. As
+        -- it often run into "failed to get lock" error.
+        vim.cmd(string.format([[noautocmd lua vim.api.nvim_set_current_win(%d)]], supported_winids[1]))
       end
 
       callback()
 
       if not current_win_supported then
         -- NOTE: Avoid invalid window id
-        pcall(vim.api.nvim_set_current_win, current_win)
+        -- HACK: Use `:noautocmd` to ignore telescope-frecency.nvim autocmd to update database. As
+        -- it often run into "failed to get lock" error.
+        pcall(function()
+          vim.cmd(string.format([[noautocmd lua vim.api.nvim_set_current_win(%d)]], current_win))
+        end)
         pcall(vim.fn.winrestview, view)
 
         -- Restore terminal insert mode
