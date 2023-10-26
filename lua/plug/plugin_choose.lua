@@ -208,7 +208,7 @@ end
 
 plugin_choose.setup_text_navigation = function()
   -- Choose quick navigation plugin
-  -- hop.nvim, lightspeed.nvim
+  -- hop.nvim, lightspeed.nvim, flash.nvim
 
   -- Choose search utility plugin
   -- nvim-hlslens

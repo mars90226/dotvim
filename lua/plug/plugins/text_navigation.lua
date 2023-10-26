@@ -22,7 +22,7 @@ local text_navigation = {
 
   -- Jump
   {
-    "phaazon/hop.nvim",
+    "smoka7/hop.nvim",
     keys = {
       { "<Space>w", mode = { "n", "o", "x" } },
       { "<Space>e", mode = { "n", "o", "x" } },
@@ -31,6 +31,7 @@ local text_navigation = {
       { "<LocalLeader>l", mode = { "n", "o", "x" } },
       -- { "<Space>j", mode = { "n", "o", "x" } },
       -- { "<Space>k", mode = { "n", "o", "x" } },
+      { "<Space>cw", mode = { "n", "o", "x" } },
     },
     config = function()
       map("<Space>w", "<Cmd>HopWord<CR>")
@@ -40,6 +41,7 @@ local text_navigation = {
       map("<LocalLeader>l", "<Cmd>HopLine<CR>")
       -- map("<Space>j", "<Cmd>HopLineAC<CR>")
       -- map("<Space>k", "<Cmd>HopLineBC<CR>")
+      map("<Space>cw", "<Cmd>HopCamelCase<CR>")
 
       require("hop").setup({})
     end,
