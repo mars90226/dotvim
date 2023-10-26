@@ -2,8 +2,9 @@ local choose = require("vimrc.choose")
 
 local languages = {
   -- filetype
-  { "rust-lang/rust.vim",   ft = { "rust" } },
-  { "leafo/moonscript-vim", ft = { "moon" } },
+  { "rust-lang/rust.vim",      ft = { "rust" } },
+  { "leafo/moonscript-vim",    ft = { "moon" } },
+  { "vim-crystal/vim-crystal", ft = { "crystal" } },
   {
     "plasticboy/vim-markdown",
     ft = { "markdown" },
