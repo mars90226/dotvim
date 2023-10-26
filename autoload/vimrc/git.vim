@@ -11,7 +11,7 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
 
   " Git built-in
   if has_sha
-    execute 'nnoremap <silent><buffer> <Leader>gt :execute "Git show --pretty=medium --stat ".'.git_sha_fn.'<CR>'
+    execute 'nnoremap <silent><buffer> <Leader>gt :execute "Git show --pretty=medium --stat --summary ".'.git_sha_fn.'<CR>'
     execute 'nnoremap <silent><buffer> <Leader>gp :execute "Git cherry-pick -n ".'.git_sha_fn.'<CR>'
     execute 'nnoremap <silent><buffer> <Leader>gP :execute "Git cherry-pick ".'.git_sha_fn.'<CR>'
     execute 'nnoremap <silent><buffer> <Leader>gob :execute "Git branch --all --contains ".'.git_sha_fn.'<CR>'
@@ -22,7 +22,7 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
   endif
 
   if has_visual_shas
-    execute 'xnoremap <silent><buffer> <Leader>gt :<C-U>execute "Git diff --pretty=medium --stat ".vimrc#git#expand_commits('.git_visual_shas_fn.')<CR>'
+    execute 'xnoremap <silent><buffer> <Leader>gt :<C-U>execute "Git diff --pretty=medium --stat --summary ".vimrc#git#expand_commits('.git_visual_shas_fn.')<CR>'
     execute 'xnoremap <buffer> <Leader>gD :<C-U>Git diff <C-R>=vimrc#git#expand_commits('.git_visual_shas_fn.')<CR> '
   endif
 
