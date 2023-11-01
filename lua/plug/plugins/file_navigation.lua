@@ -70,7 +70,10 @@ local file_navigation = {
   {
     "nvim-telescope/telescope.nvim",
     event = { "VeryLazy" },
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-symbols.nvim",
+    },
     config = function()
       require("vimrc.plugins.telescope").setup()
     end,
