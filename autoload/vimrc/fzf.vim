@@ -295,7 +295,7 @@ function! vimrc#fzf#compilers_source() abort
 endfunction
 
 function! vimrc#fzf#outputs_source(cmd) abort
-  return a:cmd
+  return split(execute(a:cmd), "\n")
 endfunction
 
 " Sinks
