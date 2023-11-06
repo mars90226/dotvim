@@ -49,6 +49,7 @@ local text_navigation = {
   {
     "indianboy42/hop-extensions",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
+    -- FIXME: Broken with new hop.nvim fork
     -- TODO: Organize this
     keys = {
       { "<M-e>l", mode = { "n", "o", "x" } },
