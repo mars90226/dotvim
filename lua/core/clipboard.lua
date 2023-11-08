@@ -7,6 +7,8 @@ clipboard.setup = function()
     plugin_spec.config()
   end
 
+  -- TODO: Use neovim builtin OSC52 clipboard provider
+  -- Ref: https://github.com/neovim/neovim/pull/25872
   if vim.fn.has("wsl") == 1 then
     use_config({
       "mars90226/clipboard",
