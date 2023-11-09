@@ -59,6 +59,7 @@ local completion = {
       { "hrsh7th/cmp-cmdline" },
       {
         "zbirenbaum/copilot-cmp",
+        cond = choose.is_enabled_plugin("copilot-cmp"),
         config = function()
           require("copilot_cmp").setup()
         end,
@@ -120,6 +121,7 @@ local completion = {
   -- Copilot
   {
     "zbirenbaum/copilot.lua",
+    cond = choose.is_enabled_plugin("copilot.lua"),
     cmd = "Copilot",
     event = "InsertEnter",
     config = function()

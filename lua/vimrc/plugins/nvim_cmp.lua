@@ -2,6 +2,8 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 local select_choice = require("luasnip.extras.select_choice")
 local lspkind = require("lspkind")
+local choose = require("vimrc.choose")
+local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
 
 local cmp_config_default = require("cmp.config.default")()
@@ -62,7 +64,7 @@ nvim_cmp.setup = function()
       format = lspkind.cmp_format({
         with_text = true,
         maxwidth = 50,
-        menu = {
+        menu = vim.tbl_extend("keep", {
           nvim_lsp = "[LSP]",
           path = "[Path]",
           luasnip = "[LuaSnip]",
@@ -75,11 +77,12 @@ nvim_cmp.setup = function()
           tmux = "[Tmux]",
           rg = "[Rg]",
           dictionary = "[Dictionary]",
+        }, plugin_utils.check_enabled_plugin({
           copilot = "[Copilot]",
-        },
+        }, "copilot-cmp") or {}),
       }),
     },
-    mapping = cmp.mapping.preset.insert({
+    mapping = cmp.mapping.preset.insert(vim.tbl_extend("keep", {
       ["<C-D>"] = cmp.mapping.scroll_docs(-4),
       ["<C-F>"] = cmp.mapping({
         c = function(fallback)
@@ -137,6 +140,7 @@ nvim_cmp.setup = function()
         end
       end, { "i" }),
       ["<C-Space>"] = cmp.mapping.complete(),
+    }, plugin_utils.check_enabled_plugin({
       ["<CR>"] = cmp.mapping(function(fallback)
         local copilot_suggestion = require("copilot.suggestion")
 
@@ -172,10 +176,12 @@ nvim_cmp.setup = function()
         cmp.mapping.close()(fallback)
         copilot_suggestion.prev()
       end),
-    }),
+    }, "copilot-cmp") or {})),
     -- Ref: https://github.com/lukas-reineke/dotfiles/blob/master/vim/lua/plugins/nvim-cmp.lua#L54-L77
-    sources = cmp.config.sources({
-      { name = "copilot", priority_weight = 120 },
+    sources = cmp.config.sources(vim.tbl_filter(function(component)
+      return component ~= nil
+    end, {
+      plugin_utils.check_enabled_plugin({ name = "copilot", priority_weight = 120 }, "copilot-cmp"),
       { name = "path", priority_weight = 110 },
       { name = "nvim_lsp", max_view_entries = 20, priority_weight = 100 },
       { name = "nvim_lsp_signature_help", priority_weight = 100 },
@@ -199,7 +205,7 @@ nvim_cmp.setup = function()
         max_view_entries = 10,
         priority_weight = 40,
       },
-    }, {
+    }), {
       vim.tbl_deep_extend("force", buffer_source, {
         keyword_length = 5,
         max_view_entries = 5,
@@ -265,14 +271,16 @@ nvim_cmp.setup = function()
     }),
   })
 
-  -- Setup event for copilot.lua
-  cmp.event:on("menu_opened", function()
-    vim.b.copilot_suggestion_hidden = true
-  end)
+  if choose.enable_plugin("copilot-cmp") then
+    -- Setup event for copilot.lua
+    cmp.event:on("menu_opened", function()
+      vim.b.copilot_suggestion_hidden = true
+    end)
 
-  cmp.event:on("menu_closed", function()
-    vim.b.copilot_suggestion_hidden = false
-  end)
+    cmp.event:on("menu_closed", function()
+      vim.b.copilot_suggestion_hidden = false
+    end)
+  end
 end
 
 return nvim_cmp
