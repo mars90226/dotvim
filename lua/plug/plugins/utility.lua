@@ -465,7 +465,7 @@ local utility = {
 
   {
     "s1n7ax/nvim-window-picker",
-    version = "v1.*",
+    version = "1.*",
     lazy = true,
     config = function()
       require("window-picker").setup()
