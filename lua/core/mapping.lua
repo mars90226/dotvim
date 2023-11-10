@@ -1,5 +1,7 @@
 local plugin_utils = require("vimrc.plugin_utils")
 
+local has_secret_mapping, secret_mapping = pcall(require, "secret.mapping")
+
 local mapping = {}
 
 mapping.setup = function()
@@ -488,6 +490,10 @@ mapping.setup = function()
         vim.cmd.cd(initial_working_directory)
       end, {})
       -- }}}
+
+      if has_secret_mapping then
+        secret_mapping.setup()
+      end
     end,
   })
 end
