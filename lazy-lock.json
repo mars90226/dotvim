@@ -169,6 +169,7 @@
   "telescope-menufacture": { "branch": "main", "commit": "a12ba19b6e750707c5a63488d02c6b7f2b9d745b" },
   "telescope-project.nvim": { "branch": "master", "commit": "7c64b181dd4e72deddcf6f319e3bf1e95b2a2f30" },
   "telescope-sg": { "branch": "main", "commit": "2e770cda77cb893035a5db5e67ea3ff45e6fc458" },
+  "telescope-symbols.nvim": { "branch": "master", "commit": "f2060117d965df4a626f068a4ebbd8ee051aa076" },
   "telescope-tele-tabby.nvim": { "branch": "main", "commit": "e58710e9ef5aecbf7b16e0c2e5d7959d46ec55fc" },
   "telescope-undo.nvim": { "branch": "main", "commit": "3dec002ea3e7952071d26fbb5d01e2038a58a554" },
   "telescope-zoxide": { "branch": "main", "commit": "68966349aa1b8e9ade403e18479ecf79447389a7" },
