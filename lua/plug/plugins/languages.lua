@@ -86,6 +86,12 @@ local languages = {
     "JoosepAlviste/nvim-ts-context-commentstring",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    init = function()
+      vim.g.skip_ts_context_commentstring_module = true
+    end,
+    config = function()
+      require('ts_context_commentstring').setup({})
+    end
   },
   {
     "mfussenegger/nvim-treehopper",
