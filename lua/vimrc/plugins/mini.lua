@@ -43,6 +43,7 @@ mini.setup_config = function()
       move_up = "<C-k>",
     }
   })
+  require('mini.extra').setup()
 end
 
 mini.setup_mapping = function()
@@ -56,6 +57,39 @@ mini.setup_mapping = function()
   nnoremap("<Space>mh", [[<Cmd>Pick help<CR>]])
   nnoremap("<Space>mi", [[<Cmd>Pick grep_live<CR>]])
   nnoremap("<Space>mu", [[<Cmd>Pick resume<CR>]])
+
+  -- mini.extra
+  nnoremap("<Space>mll", [[<Cmd>Pick buf_lines scope='current'<CR>]])
+  nnoremap("<Space>mL", [[<Cmd>Pick buf_lines<CR>]])
+  nnoremap("<Space>m;", [[<Cmd>Pick commands<CR>]])
+  nnoremap("<Space>md", [[<Cmd>Pick diagnostic scope='current'<CR>]])
+  nnoremap("<Space>mD", [[<Cmd>Pick diagnostic<CR>]])
+  nnoremap("<Space>m0", [[<Cmd>Pick explorer<CR>]])
+  nnoremap("<Space>mB", [[<Cmd>Pick git_branches<CR>]])
+  nnoremap("<Space>mc", [[<Cmd>Pick git_commits path='%'<CR>]])
+  nnoremap("<Space>mC", [[<Cmd>Pick git_commits<CR>]])
+  nnoremap("<Space>my", [[<Cmd>Pick git_hunks<CR>]])
+  nnoremap("<Space>mo", [[<Cmd>Pick history<CR>]])
+  nnoremap("<Space>m:", [[<Cmd>Pick history scope='cmd'<CR>]])
+  nnoremap("<Space>m/", [[<Cmd>Pick history scope='search'<CR>]])
+  nnoremap("<Space>mY", [[<Cmd>Pick hl_groups<CR>]])
+  nnoremap("<Space>m<Tab>", [[<Cmd>Pick keymaps<CR>]])
+  nnoremap("<Space>mq", [[<Cmd>Pick list scope='quickfix'<CR>]])
+  nnoremap("<Space>ma", [[<Cmd>Pick list scope='location'<CR>]])
+  nnoremap("<Space>mj", [[<Cmd>Pick list scope='jump'<CR>]])
+  nnoremap("<Space>mx", [[<Cmd>Pick list scope='change'<CR>]])
+  nnoremap("<Space>mld", [[<Cmd>Pick lsp scope='definition'<CR>]])
+  nnoremap("<Space>mlD", [[<Cmd>Pick lsp scope='declaration'<CR>]])
+  nnoremap("<Space>mlr", [[<Cmd>Pick lsp scope='references'<CR>]])
+  nnoremap("<Space>mlc", [[<Cmd>Pick lsp scope='document_symbol'<CR>]])
+  nnoremap("<Space>mlC", [[<Cmd>Pick lsp scope='workspace_symbol'<CR>]])
+  nnoremap("<Space>mli", [[<Cmd>Pick lsp scope='implementation'<CR>]])
+  nnoremap("<Space>mlt", [[<Cmd>Pick lsp scope='type_definition'<CR>]])
+  nnoremap("<Space>m`", [[<Cmd>Pick marks<CR>]])
+  nnoremap("<Space>mO", [[<Cmd>Pick oldfiles<CR>]])
+  nnoremap("<Space>m<C-O>", [[<Cmd>Pick options<CR>]])
+  nnoremap("<Space>mS", [[<Cmd>Pick registers<CR>]])
+  nnoremap("<Space>mt", [[<Cmd>Pick treesitter<CR>]])
 
   -- TODO: Add key mapping for `:Pick cli` 
 end
