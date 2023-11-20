@@ -42,6 +42,11 @@ lspsaga.setup = function()
     diagnostic = {
       on_insert = false,
     },
+    finder = {
+      max_height = 0.8,
+      left_width = 0.45,
+      right_width = 0.45,
+    },
     lightbulb = {
       enable = true, -- NOTE: lspsaga will show error once when lsp not support codeAction
       enable_in_insert = true,
