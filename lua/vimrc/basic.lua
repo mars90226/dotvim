@@ -15,6 +15,8 @@ basic.setup = function ()
   vim.g.right_sidebar_width = 40
   vim.g.float_width_ratio = 0.9
   vim.g.float_height_ratio = 0.9
+
+  vim.g.text_navigation_leader = '<M-r>'
 end
 
 return basic

@@ -52,17 +52,17 @@ local text_navigation = {
     -- FIXME: Broken with new hop.nvim fork
     -- TODO: Organize this
     keys = {
-      { "<M-e>l", mode = { "n", "o", "x" } },
-      { "<M-e>d", mode = { "n", "o", "x" } },
-      { "<M-e>r", mode = { "n", "o", "x" } },
-      { "<M-e>s", mode = { "n", "o", "x" } },
-      { "<M-e>t", mode = { "n", "o", "x" } },
-      { "<M-e>x", mode = { "n", "o", "x" } },
-      { "<M-e>c", mode = { "n", "o", "x" } },
-      { "<M-e>v", mode = { "n", "o", "x" } },
-      { "<M-e>f", mode = { "n", "o", "x" } },
-      { "<M-e>p", mode = { "n", "o", "x" } },
-      { "<M-e>m", mode = { "n", "o", "x" } },
+      { vim.g.text_navigation_leader .. "l", mode = { "n", "o", "x" } },
+      { vim.g.text_navigation_leader .. "d", mode = { "n", "o", "x" } },
+      { vim.g.text_navigation_leader .. "r", mode = { "n", "o", "x" } },
+      { vim.g.text_navigation_leader .. "s", mode = { "n", "o", "x" } },
+      { vim.g.text_navigation_leader .. "t", mode = { "n", "o", "x" } },
+      { vim.g.text_navigation_leader .. "x", mode = { "n", "o", "x" } },
+      { vim.g.text_navigation_leader .. "c", mode = { "n", "o", "x" } },
+      { vim.g.text_navigation_leader .. "v", mode = { "n", "o", "x" } },
+      { vim.g.text_navigation_leader .. "f", mode = { "n", "o", "x" } },
+      { vim.g.text_navigation_leader .. "p", mode = { "n", "o", "x" } },
+      { vim.g.text_navigation_leader .. "m", mode = { "n", "o", "x" } },
     },
     config = function()
       require("vimrc.plugins.hop_extensions").setup()
@@ -248,6 +248,32 @@ local text_navigation = {
   },
 
   -- Motion
+  {
+    "chrisgrieser/nvim-spider",
+    keys = {
+      {
+        "<M-w>",
+        "<cmd>lua require('spider').motion('w')<CR>",
+        mode = { "n", "o", "x" },
+      },
+      {
+        "<M-b>",
+        "<cmd>lua require('spider').motion('b')<CR>",
+        mode = { "n", "o", "x" },
+      },
+      {
+        "<M-e>",
+        "<cmd>lua require('spider').motion('e')<CR>",
+        mode = { "n", "o", "x" },
+      },
+      {
+        "<M-g>e",
+        "<cmd>lua require('spider').motion('ge')<CR>",
+        mode = { "n", "o", "x" },
+      },
+    },
+  },
+
   {
     "bkad/CamelCaseMotion",
     keys = {

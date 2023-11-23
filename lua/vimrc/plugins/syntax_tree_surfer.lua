@@ -42,12 +42,12 @@ syntax_tree_surfer.setup = function()
   -- Default desired types according to syntax-tree-surfer
   -- Ref: https://github.com/ziontee113/syntax-tree-surfer/blob/master/lua/syntax-tree-surfer/init.lua#L371-L380
   nnoremap(
-    "<M-e>e",
+    vim.g.text_navigation_leader .. "e",
     [[<Cmd>lua require("syntax-tree-surfer").targeted_jump({"function", "if_statement", "else_clause", "else_statement", "elseif_statement", "for_statement", "while_statement", "switch_statement"})<CR>]],
     { desc = "Default targeted jump" }
   )
   nnoremap(
-    "<M-e>i",
+    vim.g.text_navigation_leader .. "i",
     [[<Cmd>lua require("syntax-tree-surfer").targeted_jump({"string", "string_literal","number", "number_literal","true","false"})<CR>]],
     { desc = "literal targeted jump" }
   )
