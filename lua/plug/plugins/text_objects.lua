@@ -79,14 +79,14 @@ local text_objects = {
     config = function()
       vim.g.skip_default_textobj_word_column_mappings = 1
 
-      xnoremap("au", ':<C-u>call TextObjWordBasedColumn("aw")<cr>', "silent")
-      xnoremap("aU", ':<C-u>call TextObjWordBasedColumn("aW")<cr>', "silent")
-      xnoremap("iu", ':<C-u>call TextObjWordBasedColumn("iw")<cr>', "silent")
-      xnoremap("iU", ':<C-u>call TextObjWordBasedColumn("iW")<cr>', "silent")
-      onoremap("au", ':call TextObjWordBasedColumn("aw")<cr>', "silent")
-      onoremap("aU", ':call TextObjWordBasedColumn("aW")<cr>', "silent")
-      onoremap("iu", ':call TextObjWordBasedColumn("iw")<cr>', "silent")
-      onoremap("iU", ':call TextObjWordBasedColumn("iW")<cr>', "silent")
+      xnoremap("au", ':<C-u>call TextObjWordBasedColumn("aw")<CR>', "silent")
+      xnoremap("aU", ':<C-u>call TextObjWordBasedColumn("aW")<CR>', "silent")
+      xnoremap("iu", ':<C-u>call TextObjWordBasedColumn("iw")<CR>', "silent")
+      xnoremap("iU", ':<C-u>call TextObjWordBasedColumn("iW")<CR>', "silent")
+      onoremap("au", ':call TextObjWordBasedColumn("aw")<CR>', "silent")
+      onoremap("aU", ':call TextObjWordBasedColumn("aW")<CR>', "silent")
+      onoremap("iu", ':call TextObjWordBasedColumn("iw")<CR>', "silent")
+      onoremap("iU", ':call TextObjWordBasedColumn("iW")<CR>', "silent")
     end,
   },
 

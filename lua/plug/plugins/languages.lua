@@ -72,7 +72,7 @@ local languages = {
             focus_language = "f",
             unfocus_language = "F",
             update = "R",
-            goto_node = "<cr>",
+            goto_node = "<CR>",
             show_help = "?",
           },
         },
@@ -220,7 +220,7 @@ local languages = {
       vim.api.nvim_set_keymap(
         "v",
         "<Space>rr",
-        "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
+        "<Esc><Cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
         { noremap = true }
       )
 

@@ -305,6 +305,27 @@ local utility = {
       nnoremap("<Space>rt", [[<Cmd>OverseerTaskAction<CR>]])
     end,
   },
+  {
+    "Zeioth/compiler.nvim",
+    cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
+    keys = { "<Leader>cc", "<Leader>cC", "<Leader>cl" },
+    dependencies = { "stevearc/overseer.nvim" },
+    config = function()
+      require("compiler").setup({})
+
+      -- Open compiler
+      vim.api.nvim_set_keymap('n', '<Leader>cc', "<Cmd>CompilerOpen<CR>", { noremap = true, silent = true })
+
+      -- Redo last selected option
+      vim.api.nvim_set_keymap('n', '<Leader>cl',
+           "<Cmd>CompilerStop<CR>" -- (Optional, to dispose all tasks before redo)
+        .. "<Cmd>CompilerRedo<CR>",
+       { noremap = true, silent = true })
+
+      -- Toggle compiler results
+      vim.api.nvim_set_keymap('n', '<Leader>cv', "<Cmd>CompilerToggleResults<CR>", { noremap = true, silent = true })
+    end,
+  },
 
   -- Do not lazy load vim-scriptease, as it breaks :Breakadd/:Breakdel
   -- TODO: Check if lazy load works
