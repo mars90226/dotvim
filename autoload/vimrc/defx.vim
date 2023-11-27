@@ -224,6 +224,8 @@ function! vimrc#defx#mappings() abort " {{{ abort
         \ defx#do_action('cd', $VIMRUNTIME)
   nnoremap <silent><buffer><expr> gV
         \ defx#do_action('cd', stdpath('data'))
+  nnoremap <silent><buffer><expr> gC
+        \ defx#do_action('cd', stdpath('cache'))
   nnoremap <silent><buffer><expr> gp
         \ defx#do_action('cd', vimrc#git#root())
   nnoremap <silent><buffer><nowait><expr> \\
@@ -672,7 +674,7 @@ function! vimrc#defx#paste_from_system_clipboard_target(context) abort
   call vimrc#defx#_paste_from_system_clipboard(path)
 endfunction
 
-" Depends on eza
+" Depends on exa
 function! vimrc#defx#show_detail(context) abort
   call vimrc#defx#execute_file_internal(a:context, 'float', 'eza -l {}')
 endfunction
