@@ -9,14 +9,6 @@ local lsp = {}
 lsp.config = {
   enable_format_on_sync = false,
   show_diagnostics = true,
-  -- Borrowed from trouble.nvim
-  signs = {
-    -- icons / text used for a diagnostic
-    error = { name = "Error", text = "" },
-    warning = { name = "Warn", text = "" },
-    hint = { name = "Hint", text = "" },
-    information = { name = "Info", text = "" },
-  },
 }
 
 -- NOTE: Change it also need to change lsp.servers_by_filetype
@@ -420,22 +412,6 @@ lsp.setup_servers_on_filetype = function(filetype)
   end
 end
 
-lsp.setup_diagnostic = function()
-  vim.diagnostic.config({
-    virtual_text = {
-      source = "if_many",
-    },
-    float = {
-      source = "if_many",
-    }
-  })
-
-  for _, signs in pairs(lsp.config.signs) do
-    local hl = "DiagnosticSign" .. signs.name
-    vim.fn.sign_define(hl, { text = signs.text, texthl = hl })
-  end
-end
-
 lsp.setup_lsp_install = function()
   local mason_lspconfig_mappings_server = require("mason-lspconfig.mappings.server")
   local mason_tool_installer = require("mason-tool-installer")
@@ -461,7 +437,6 @@ lsp.setup = function(settings)
   lsp.config = vim.tbl_extend("force", lsp.config, settings)
 
   lsp.init_servers_by_filetype()
-  lsp.setup_diagnostic()
   lsp.setup_lsp_install()
   lsp.setup_plugins()
 
