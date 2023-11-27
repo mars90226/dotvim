@@ -230,9 +230,7 @@ local git = {
     },
     build = function () require("gitlab.server").build(true) end, -- Builds the Go binary
     config = function()
-      require("gitlab").setup({
-        debug = { go_request = true, go_response = true },
-      })
+      require("vimrc.plugins.gitlab").setup()
     end,
   },
 }
