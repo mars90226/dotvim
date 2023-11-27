@@ -217,6 +217,24 @@ local git = {
       nmap("[v", "<Plug>(git-conflict-next-conflict)")
     end,
   },
+
+  -- GitLab
+  {
+    "harrisoncramer/gitlab.nvim",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "stevearc/dressing.nvim", -- Recommended but not required. Better UI for pickers.
+      enabled = true,
+    },
+    build = function () require("gitlab.server").build(true) end, -- Builds the Go binary
+    config = function()
+      require("gitlab").setup({
+        debug = { go_request = true, go_response = true },
+      })
+    end,
+  },
 }
 
 return git
