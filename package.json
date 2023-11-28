@@ -10,13 +10,5 @@
         "path": "./snippets/vimwiki.json"
       }
     ]
-  },
-  "devDependencies": {
-    "cz-conventional-changelog": "^3.0.1"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }
