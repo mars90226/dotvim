@@ -2,8 +2,8 @@ local choose = require("vimrc.choose")
 
 local languages = {
   -- filetype
-  { "rust-lang/rust.vim",      ft = { "rust" } },
-  { "leafo/moonscript-vim",    ft = { "moon" } },
+  { "rust-lang/rust.vim", ft = { "rust" } },
+  { "leafo/moonscript-vim", ft = { "moon" } },
   { "vim-crystal/vim-crystal", ft = { "crystal" } },
   {
     "plasticboy/vim-markdown",
@@ -17,16 +17,16 @@ local languages = {
     end,
   },
   { "mtdl9/vim-log-highlighting", ft = { "log" } },
-  { "ClockworkNet/vim-apparmor",  ft = { "apparmor" } },
-  { "chrisbra/csv.vim",           ft = { "csv" } },
+  { "ClockworkNet/vim-apparmor", ft = { "apparmor" } },
+  { "chrisbra/csv.vim", ft = { "csv" } },
   {
     "bfredl/nvim-luadev",
     ft = { "lua" },
     cmd = { "Luadev" },
   },
   { "mustache/vim-mustache-handlebars", ft = { "handlebars", "mustache" } },
-  { "wavded/vim-stylus",                ft = "stylus" },
-  { "alunny/pegjs-vim",                 ft = "pegjs" },
+  { "wavded/vim-stylus", ft = "stylus" },
+  { "alunny/pegjs-vim", ft = "pegjs" },
 
   -- Highlighing
   -- nvim-treesitter
@@ -61,7 +61,7 @@ local languages = {
         playground = {
           enable = true,
           disable = {},
-          updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
+          updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
           persist_queries = false, -- Whether the query persists across vim sessions
           keybindings = {
             toggle_query_editor = "o",
@@ -90,8 +90,8 @@ local languages = {
       vim.g.skip_ts_context_commentstring_module = true
     end,
     config = function()
-      require('ts_context_commentstring').setup({})
-    end
+      require("ts_context_commentstring").setup({})
+    end,
   },
   {
     "mfussenegger/nvim-treehopper",
@@ -289,29 +289,29 @@ local languages = {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
       -- This module contains a number of default definitions
-      local rainbow_delimiters = require('rainbow-delimiters')
+      local rainbow_delimiters = require("rainbow-delimiters")
 
       vim.g.rainbow_delimiters = {
         strategy = {
-          [''] = rainbow_delimiters.strategy['global'],
-          commonlisp = rainbow_delimiters.strategy['local'],
+          [""] = rainbow_delimiters.strategy["global"],
+          commonlisp = rainbow_delimiters.strategy["local"],
         },
         query = {
-          [''] = 'rainbow-delimiters',
-          lua = 'rainbow-blocks',
+          [""] = "rainbow-delimiters",
+          lua = "rainbow-blocks",
         },
         highlight = {
-          'RainbowDelimiterRed',
-          'RainbowDelimiterYellow',
-          'RainbowDelimiterBlue',
-          'RainbowDelimiterOrange',
-          'RainbowDelimiterGreen',
-          'RainbowDelimiterViolet',
-          'RainbowDelimiterCyan',
+          "RainbowDelimiterRed",
+          "RainbowDelimiterYellow",
+          "RainbowDelimiterBlue",
+          "RainbowDelimiterOrange",
+          "RainbowDelimiterGreen",
+          "RainbowDelimiterViolet",
+          "RainbowDelimiterCyan",
         },
-        whitelist = { 'fennel', 'query' },
+        whitelist = { "fennel", "query" },
       }
-    end
+    end,
   },
   {
     "HampusHauffman/block.nvim",
@@ -321,7 +321,7 @@ local languages = {
       require("block").setup({})
 
       nnoremap("<Leader>bo", "<Cmd>Block<CR>")
-    end
+    end,
   },
 
   -- treesitter parser
@@ -465,7 +465,7 @@ local languages = {
     },
     config = function()
       require("neogen").setup({
-        snippet_engine = "luasnip"
+        snippet_engine = "luasnip",
       })
 
       nnoremap("<Leader>ng", [[<Cmd>Neogen<CR>]])
@@ -508,12 +508,15 @@ local languages = {
     config = function()
       require("nvim-devdocs").setup()
 
-      nnoremap("<Space>dc", [[<Cmd>DevdocsOpenCurrentFloat<CR>]],
-        { desc = "Open DevDocs of current file in floating window" })
+      nnoremap(
+        "<Space>dc",
+        [[<Cmd>DevdocsOpenCurrentFloat<CR>]],
+        { desc = "Open DevDocs of current file in floating window" }
+      )
       nnoremap("<Space>dC", [[<Cmd>DevdocsOpenCurrent<CR>]], { desc = "Open DevDocs of current file" })
       nnoremap("<Space>do", [[<Cmd>DevdocsOpenFloat<CR>]], { desc = "Open DevDocs in floating window" })
       nnoremap("<Space>dO", [[<Cmd>DevdocsOpen<CR>]], { desc = "Open DevDocs" })
-    end
+    end,
   },
   {
     "rhysd/rust-doc.vim",
@@ -525,12 +528,34 @@ local languages = {
       vim.cmd([[command! -nargs=1 RustDocOpen call vimrc#rust_doc#open(<f-args>)]])
     end,
   },
-  { "mars90226/perldoc-vim",        ft = { "perl" } },
+  { "mars90226/perldoc-vim", ft = { "perl" } },
   {
     "fs111/pydoc.vim",
     ft = { "python" },
     config = function()
       vim.g.pydoc_perform_mappings = 0
+    end,
+  },
+
+  -- Utility
+  -- Rust
+  {
+    "saecki/crates.nvim",
+    tag = "v0.4.0",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("crates").setup({
+        -- NOTE: This config is for nightly
+        -- src = {
+        --   cmp = {
+        --     enabled = true,
+        --   },
+        -- },
+        null_ls = {
+          enabled = true,
+          name = "crates.nvim",
+        },
+      })
     end,
   },
 }

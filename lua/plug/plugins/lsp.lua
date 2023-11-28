@@ -12,7 +12,7 @@ local lsp = {
           require("mason").setup({
             ui = {
               border = "single",
-            }
+            },
           })
         end,
       },
@@ -20,7 +20,7 @@ local lsp = {
         "williamboman/mason-lspconfig.nvim",
         config = function()
           require("mason-lspconfig").setup()
-        end
+        end,
       },
       "WhoIsSethDaniel/mason-tool-installer.nvim",
     },
@@ -83,11 +83,11 @@ local lsp = {
   },
 
   -- TODO: none-ls.nvim cause performance problem, need to find a way to fix this
-  -- TODO: Due to performance issue, none-ls.nvim is disabled now
+  -- TODO: Due to performance issue, none-ls.nvim is only enabled for code action integration from other plugins.
   -- NOTE: Above TODO is based on null-ls.nvim, need to check if it's still true for none-ls.nvim
   {
     "nvimtools/none-ls.nvim",
-    enabled = false,
+    enabled = true,
     cond = choose.is_enabled_plugin("none-ls.nvim"),
     event = { "VeryLazy" },
     dependencies = {
@@ -96,6 +96,7 @@ local lsp = {
       "williamboman/mason.nvim",
     },
     config = function()
+      -- NOTE: none-ls.nvim is still using null-ls as module name, so we don't rename the module.
       require("vimrc.plugins.null_ls").setup()
     end,
   },
@@ -181,7 +182,7 @@ local lsp = {
           },
         },
       })
-    end
+    end,
   },
   { "simrat39/rust-tools.nvim" },
   {
