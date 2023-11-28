@@ -468,11 +468,11 @@ local languages = {
         snippet_engine = "luasnip",
       })
 
-      nnoremap("<Leader>ng", [[<Cmd>Neogen<CR>]])
-      nnoremap("<Leader>nf", [[<Cmd>Neogen func<CR>]])
-      nnoremap("<Leader>ni", [[<Cmd>Neogen file<CR>]])
-      nnoremap("<Leader>nt", [[<Cmd>Neogen type<CR>]])
-      nnoremap("<Leader>nc", [[<Cmd>Neogen class<CR>]])
+      nnoremap("<Leader>ng", [[<Cmd>Neogen<CR>]], { desc = "Generate documentation" })
+      nnoremap("<Leader>nf", [[<Cmd>Neogen func<CR>]], { desc = "Generate function documentation" })
+      nnoremap("<Leader>ni", [[<Cmd>Neogen file<CR>]], { desc = "Generate file documentation" })
+      nnoremap("<Leader>nt", [[<Cmd>Neogen type<CR>]], { desc = "Generate type documentation" })
+      nnoremap("<Leader>nc", [[<Cmd>Neogen class<CR>]], { desc = "Generate class documentation" })
     end,
   },
 
