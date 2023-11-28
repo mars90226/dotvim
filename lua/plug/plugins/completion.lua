@@ -64,6 +64,20 @@ local completion = {
           require("copilot_cmp").setup()
         end,
       },
+      {
+        'saecki/crates.nvim',
+        tag = 'v0.4.0',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        config = function()
+          require('crates').setup({
+            src = {
+              cmp = {
+                enabled = true,
+              }
+            }
+          })
+        end,
+      },
     }),
     event = { "InsertEnter", "CmdlineEnter" },
     config = function()

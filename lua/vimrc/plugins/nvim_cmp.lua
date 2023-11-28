@@ -205,6 +205,10 @@ nvim_cmp.setup = function()
         max_view_entries = 10,
         priority_weight = 40,
       },
+      {
+        name = "crates",
+        priority_weight = 30,
+      },
     }), {
       vim.tbl_deep_extend("force", buffer_source, {
         keyword_length = 5,
