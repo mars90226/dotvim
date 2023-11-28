@@ -82,12 +82,13 @@ local lsp = {
     end,
   },
 
-  -- TODO: null-ls.nvim cause performance problem, need to find a way to fix this
-  -- TODO: Due to performance issue, null-ls.nvim is disabled now
+  -- TODO: none-ls.nvim cause performance problem, need to find a way to fix this
+  -- TODO: Due to performance issue, none-ls.nvim is disabled now
+  -- NOTE: Above TODO is based on null-ls.nvim, need to check if it's still true for none-ls.nvim
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     enabled = false,
-    cond = choose.is_enabled_plugin("null-ls.nvim"),
+    cond = choose.is_enabled_plugin("none-ls.nvim"),
     event = { "VeryLazy" },
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -109,7 +110,7 @@ local lsp = {
   },
 
   -- Format
-  -- NOTE: Used in light vim mode when null-ls.nvim is disabled
+  -- NOTE: Used in light vim mode when none-ls.nvim is disabled
   {
     "mhartington/formatter.nvim",
     cond = choose.is_enabled_plugin("formatter.nvim"),

@@ -4,7 +4,7 @@ local choose = require("vimrc.choose")
 local lspsaga = {}
 
 lspsaga.on_attach = function(client)
-  -- TODO: ignore some key mapping if it's null-ls.nvim lsp
+  -- TODO: ignore some key mapping if it's none-ls.nvim lsp
   nnoremap("gd", "<Cmd>Lspsaga finder<CR>", "silent", "buffer")
   nnoremap("gi", "<Cmd>Lspsaga implement<CR>", "silent", "buffer")
   nnoremap("gpp", "<Cmd>Lspsaga peek_definition<CR>", "silent", "buffer")

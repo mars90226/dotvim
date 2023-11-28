@@ -116,7 +116,7 @@ local utility = {
         -- your configuration comes here
         -- or leave it empty to use the default settings
         -- refer to the configuration section below
-        ignore_lsp = { "null-ls" },
+        ignore_lsp = { "none-ls" },
         -- What scope to change the directory, valid options are
         -- * global (default)
         -- * tab
