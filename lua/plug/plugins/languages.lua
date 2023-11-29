@@ -552,7 +552,7 @@ local languages = {
         --   },
         -- },
         null_ls = {
-          enabled = true,
+          enabled = choose.is_enabled_plugin("none-ls.nvim"),
           name = "crates.nvim",
         },
       })
