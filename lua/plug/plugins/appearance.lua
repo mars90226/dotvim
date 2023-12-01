@@ -180,8 +180,6 @@ local appearance = {
   -- Notify
   {
     "rcarriga/nvim-notify",
-    -- TODO: Disabled as it cause other plugins slow?
-    enabled = false,
     config = function()
       vim.notify = require("notify")
     end,
