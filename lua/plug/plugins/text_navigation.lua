@@ -267,7 +267,7 @@ local text_navigation = {
         mode = { "n", "o", "x" },
       },
       {
-        "<M-g>e",
+        "<M-g><M-e>",
         "<Cmd>lua require('spider').motion('ge')<CR>",
         mode = { "n", "o", "x" },
       },
