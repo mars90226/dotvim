@@ -11,6 +11,9 @@ local completion = {
       -- Snippets
       {
         "L3MON4D3/LuaSnip",
+        version = "v2.*",
+        -- TODO: Check if it works on non-build env
+        build = choose.is_enabled_plugin("LuaSnip-transform") and "make install_jsregexp" or "", -- optional
         config = function()
           require("vimrc.plugins.luasnip").setup()
 

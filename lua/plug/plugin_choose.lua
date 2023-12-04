@@ -44,6 +44,14 @@ plugin_choose.setup_completion = function()
   -- nvim-lsp for builtin neovim lsp
   -- builtin neovim lsp should be fast enough to be used in light vim mode
 
+  -- Choose snippet plugin
+  -- Always enable LuaSnip
+  -- Enable placeholder transformations
+  if not plugin_utils.has_linux_build_env() then
+    choose.disable_plugin("LuaSnip-transform")
+  end
+
+
   -- Choose linter integration plugin
   -- none-ls.nvim, nvim-lint
   -- Always enable nvim-lint
