@@ -58,6 +58,7 @@ local appearance = {
   {
     "luukvbaal/statuscol.nvim",
     cond = choose.is_enabled_plugin("statuscol.nvim"),
+    branch = "0.10",
     config = function()
       local builtin = require("statuscol.builtin")
 
