@@ -90,6 +90,8 @@ ufo.setup = function()
       vim.cmd([[UfoDisable]])
     end,
   })
+
+  -- TODO: UfoDetach on huge file
 end
 
 return ufo
