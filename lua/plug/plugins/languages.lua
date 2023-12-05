@@ -506,7 +506,18 @@ local languages = {
       "<Space>dO",
     },
     config = function()
-      require("nvim-devdocs").setup()
+      require("nvim-devdocs").setup({
+        float_win = {
+          relative = "editor",
+          height = math.floor(vim.o.lines * 0.9),
+          width = math.floor(vim.o.columns * 0.8),
+          border = "rounded",
+        },
+        after_open = function(bufnr)
+          vim.wo.wrap = true
+          nnoremap("gq", [[<Cmd>close<CR>]], { silent = true, buffer = true })
+        end,
+      })
 
       nnoremap(
         "<Space>dc",
