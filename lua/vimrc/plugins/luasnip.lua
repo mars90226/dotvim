@@ -209,9 +209,9 @@ luasnip.setup_snippet = function()
     s("el", fmt("<{}>{}</{}>", { i(1, "div"), i(0), same(1) })),
 
     -- description
-    s("desc", t("**[Description]**")),
-    s("htf", t("**[How to fix]**")),
-    s("htv", t("**[How to verify]**")),
+    s("desc", t("# [Description]")),
+    s("htf", t("# [How to fix]")),
+    s("htv", t("# [How to verify]")),
   })
 
   ls.add_snippets("lua", {
