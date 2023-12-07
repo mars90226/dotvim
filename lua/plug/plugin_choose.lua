@@ -82,7 +82,8 @@ plugin_choose.setup_file_explorer = function()
   -- Choose file explorer
   -- defx.nvim
   choose.disable_plugins({ "defx.nvim" })
-  if vim.fn["vimrc#plugin#check#python_version"]() >= "3.6.1" then
+  
+  if vim.version.cmp(vim.fn["vimrc#plugin#check#python_version"](), "3.6.1") >= 0 then
     choose.enable_plugin("defx.nvim")
   end
 
