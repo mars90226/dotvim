@@ -28,10 +28,12 @@ end
 nvim_cmp.handle_tab_completion = function(direction)
   return function(fallback)
     if vim.api.nvim_get_mode().mode == "c" and cmp.get_selected_entry() == nil then
-      -- NOTE: Manually expand command line to handle '%' and '#'
+      -- NOTE: Manually expand command line to handle '%'
       local text = vim.fn.getcmdline()
       ---@diagnostic disable-next-line: param-type-mismatch
-      local expanded = vim.fn.expandcmd(text)
+      -- NOTE: Explicitly check for '#' to avoid expanding '#', as it's used in VimScript as
+      -- namespace separator.
+      local expanded = string.find(text, "#") == nil and vim.fn.expandcmd(text) or text
       if expanded ~= text then
         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, true, true) .. expanded, "n", false)
         cmp.complete()
