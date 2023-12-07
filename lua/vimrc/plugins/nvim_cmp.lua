@@ -24,6 +24,35 @@ nvim_cmp.disable = function()
   nvim_cmp.enabled = false
 end
 
+-- Ref: https://github.com/hrsh7th/cmp-cmdline/issues/33#issuecomment-1793891721
+nvim_cmp.handle_tab_completion = function(direction)
+  return function(fallback)
+    if vim.api.nvim_get_mode().mode == "c" and cmp.get_selected_entry() == nil then
+      -- NOTE: Manually expand command line to handle '%' and '#'
+      local text = vim.fn.getcmdline()
+      ---@diagnostic disable-next-line: param-type-mismatch
+      local expanded = vim.fn.expandcmd(text)
+      if expanded ~= text then
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, true, true) .. expanded, "n", false)
+        cmp.complete()
+      elseif cmp.visible() then
+        direction()
+      else
+        cmp.complete()
+      end
+    else
+      if cmp.visible() then
+        direction()
+      elseif utils.check_backspace() then
+        -- NOTE: both <Tab> & <S-Tab> are inserting <Tab>
+        vim.fn.feedkeys(utils.t("<Tab>"), "n")
+      else
+        cmp.complete()
+      end
+    end
+  end
+end
+
 nvim_cmp.setup = function()
   vim.cmd([[set completeopt=menu,menuone,noselect]])
 
@@ -92,22 +121,8 @@ nvim_cmp.setup = function()
         i = cmp.mapping.scroll_docs(4),
         s = cmp.mapping.scroll_docs(4),
       }),
-      ["<Tab>"] = cmp.mapping(function()
-        if cmp.visible() then
-          cmp.select_next_item()
-        elseif utils.check_backspace() then
-          vim.fn.feedkeys(utils.t("<Tab>"), "n")
-        else
-          cmp.complete()
-        end
-      end, { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
+      ["<Tab>"] = cmp.mapping(nvim_cmp.handle_tab_completion(cmp.select_next_item), { "i", "s" }),
+      ["<S-Tab>"] = cmp.mapping(nvim_cmp.handle_tab_completion(cmp.select_prev_item), { "i", "s" }),
       ["<C-J>"] = cmp.mapping(function(fallback)
         if luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
@@ -178,58 +193,61 @@ nvim_cmp.setup = function()
       end),
     }, "copilot-cmp") or {})),
     -- Ref: https://github.com/lukas-reineke/dotfiles/blob/master/vim/lua/plugins/nvim-cmp.lua#L54-L77
-    sources = cmp.config.sources(vim.tbl_filter(function(component)
-      return component ~= nil
-    end, {
-      plugin_utils.check_enabled_plugin({ name = "copilot", priority_weight = 120 }, "copilot-cmp"),
-      { name = "path", priority_weight = 110 },
-      { name = "nvim_lsp", max_view_entries = 20, priority_weight = 100 },
-      { name = "nvim_lsp_signature_help", priority_weight = 100 },
-      { name = "nvim_lua", priority_weight = 90 },
-      { name = "luasnip", priority_weight = 80 },
-      { name = "calc", priority_weight = 70 },
-      { name = "emoji", priority_weight = 70 },
-      { name = "treesitter", priority_weight = 70 },
-      { name = "cmp_git", priority_weight = 70 },
-      {
-        name = "tmux",
-        max_view_entries = 5,
-        option = {
-          all_panes = false,
+    sources = cmp.config.sources(
+      vim.tbl_filter(function(component)
+        return component ~= nil
+      end, {
+        plugin_utils.check_enabled_plugin({ name = "copilot", priority_weight = 120 }, "copilot-cmp"),
+        { name = "path", priority_weight = 110 },
+        { name = "nvim_lsp", max_view_entries = 20, priority_weight = 100 },
+        { name = "nvim_lsp_signature_help", priority_weight = 100 },
+        { name = "nvim_lua", priority_weight = 90 },
+        { name = "luasnip", priority_weight = 80 },
+        { name = "calc", priority_weight = 70 },
+        { name = "emoji", priority_weight = 70 },
+        { name = "treesitter", priority_weight = 70 },
+        { name = "cmp_git", priority_weight = 70 },
+        {
+          name = "tmux",
+          max_view_entries = 5,
+          option = {
+            all_panes = false,
+          },
+          priority_weight = 50,
         },
-        priority_weight = 50,
-      },
-      {
-        name = "dictionary",
-        keyword_length = 2,
-        max_view_entries = 10,
-        priority_weight = 40,
-      },
-      {
-        name = "crates",
-        priority_weight = 30,
-      },
-    }), {
-      vim.tbl_deep_extend("force", buffer_source, {
-        keyword_length = 5,
-        max_view_entries = 5,
-        option = {
-          keyword_length = 5,
+        {
+          name = "dictionary",
+          keyword_length = 2,
+          max_view_entries = 10,
+          priority_weight = 40,
         },
-        priority_weight = 70,
+        {
+          name = "crates",
+          priority_weight = 30,
+        },
       }),
-      -- TODO: Timeout slow source?
       {
-        name = "rg",
-        keyword_length = 5,
-        max_view_entries = 5,
-        option = {
-          additional_arguments = "--threads 2 --max-count 5",
-          debounce = 500,
+        vim.tbl_deep_extend("force", buffer_source, {
+          keyword_length = 5,
+          max_view_entries = 5,
+          option = {
+            keyword_length = 5,
+          },
+          priority_weight = 70,
+        }),
+        -- TODO: Timeout slow source?
+        {
+          name = "rg",
+          keyword_length = 5,
+          max_view_entries = 5,
+          option = {
+            additional_arguments = "--threads 2 --max-count 5",
+            debounce = 500,
+          },
+          priority_weight = 60,
         },
-        priority_weight = 60,
-      },
-    }),
+      }
+    ),
     experimental = {
       native_menu = false,
     },
@@ -237,7 +255,10 @@ nvim_cmp.setup = function()
 
   -- Setup cmp-cmdline
   cmp.setup.cmdline(":", {
-    mapping = cmp.mapping.preset.cmdline(),
+    mapping = cmp.mapping.preset.cmdline({
+      ["<Tab>"] = cmp.mapping(nvim_cmp.handle_tab_completion(cmp.select_next_item), { "c" }),
+      ["<S-Tab>"] = cmp.mapping(nvim_cmp.handle_tab_completion(cmp.select_prev_item), { "c" }),
+    }),
     sources = cmp.config.sources({
       { name = "path" },
     }, {
