@@ -199,6 +199,7 @@ luasnip.setup_snippet = function()
         message = i(3, "message"),
       })
     ),
+    s("rev", fmt("reviewer: {}", { i(1, "reviewer") })),
   })
 
   ls.add_snippets("markdown", chinese_punctuation_snippets)
