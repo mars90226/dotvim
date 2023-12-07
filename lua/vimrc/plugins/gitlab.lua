@@ -1,20 +1,7 @@
 local gitlab = require("gitlab")
 local gitlab_server = require("gitlab.server")
 
-local job = require("vimrc.job")
-
 local my_gitlab = {}
-
-my_gitlab.restart_server = function()
-  -- TODO: Fix callback hell
-  job.find_neovim_child_process("gitlab.nvim", function(pid)
-    job.kill_pid(pid, function()
-      gitlab_server.start(function() vim.print("gitlab.nvim server started") end)
-    end)
-  end)
-
-  -- NOTE: After restarting server, we need to execute gitlab.review() again to refresh git project info
-end
 
 my_gitlab.setup_config = function()
   gitlab.setup({
@@ -39,9 +26,17 @@ my_gitlab.setup_mapping = function()
   vim.keymap.set("n", "glrd", gitlab.delete_reviewer, { desc = "GitLab delete reviewer" })
   vim.keymap.set("n", "glp", gitlab.pipeline, { desc = "GitLab pipeline" })
   vim.keymap.set("n", "glo", gitlab.open_in_browser, { desc = "GitLab open in browser" })
-
-  -- Custom mappings
-  vim.keymap.set("n", "glk", my_gitlab.restart_server, { desc = "Restart gitlab.nvim server" })
+  vim.keymap.set("n", "glB", function ()
+      gitlab_server.restart(function ()
+          vim.cmd.tabclose()
+          gitlab.review() -- Reopen the reviewer after the server restarts
+      end)
+  end, { desc = "Restart gitlab.nvim server & review" })
+  vim.keymap.set("n", "glk", function ()
+      gitlab_server.restart(function ()
+        vim.notifiy("GitLab server restarted")
+      end)
+  end, { desc = "Restart gitlab.nvim server" })
 end
 
 my_gitlab.setup = function()
