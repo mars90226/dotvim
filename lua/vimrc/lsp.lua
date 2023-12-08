@@ -106,6 +106,8 @@ lsp.servers = {
       },
     },
   },
+  -- TODO: Grammar check is unhelpful when article is not in English.
+  ltex = {},
   -- TODO: Add recommended config from nvim-lspconfig.
   -- Ref: https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/lua_ls.lua
   lua_ls = {
