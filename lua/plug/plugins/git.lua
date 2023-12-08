@@ -213,8 +213,8 @@ local git = {
       nmap("<Leader>c0", "<Plug>(git-conflict-none)")
 
       -- TODO: Use [x, ]x and handle conflict with unimpaired
-      nmap("]v", "<Plug>(git-conflict-prev-conflict)")
-      nmap("[v", "<Plug>(git-conflict-next-conflict)")
+      nmap("[v", "<Plug>(git-conflict-prev-conflict)")
+      nmap("]v", "<Plug>(git-conflict-next-conflict)")
     end,
   },
 
