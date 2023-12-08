@@ -288,14 +288,14 @@ telescope.setup_mapping = function()
   xnoremap([[<Space>t8]], [[:<C-U>execute 'Telescope menufacture grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>]])
 
   -- advanced-git-search.nvim
-  nnoremap([[<Space>db]], [[<Cmd>Telescope advanced_git_search diff_branch_file<CR>]])
-  nnoremap([[<Space>dl]], [[<Cmd>Telescope advanced_git_search diff_commit_line<CR>]])
-  xnoremap([[<Space>dl]], [[:<C-U>Telescope advanced_git_search diff_commit_line<CR>]])
-  nnoremap([[<Space>df]], [[<Cmd>Telescope advanced_git_search diff_commit_file<CR>]])
-  nnoremap([[<Space>dsl]], [[<Cmd>Telescope advanced_git_search search_log_content<CR>]])
-  nnoremap([[<Space>dsf]], [[<Cmd>Telescope advanced_git_search search_log_content_file<CR>]])
-  nnoremap([[<Space>dr]], [[<Cmd>Telescope advanced_git_search checkout_reflog<CR>]])
-  nnoremap([[<Space>dss]], [[<Cmd>Telescope advanced_git_search show_custom_functions<CR>]])
+  nnoremap([[<Space>ab]], [[<Cmd>AdvancedGitSearch diff_branch_file<CR>]])
+  nnoremap([[<Space>al]], [[<Cmd>AdvancedGitSearch diff_commit_line<CR>]])
+  xnoremap([[<Space>al]], [[:<C-U>AdvancedGitSearch diff_commit_line<CR>]])
+  nnoremap([[<Space>af]], [[<Cmd>AdvancedGitSearch diff_commit_file<CR>]])
+  nnoremap([[<Space>as]], [[<Cmd>AdvancedGitSearch search_log_content<CR>]])
+  nnoremap([[<Space>aS]], [[<Cmd>AdvancedGitSearch search_log_content_file<CR>]])
+  nnoremap([[<Space>ar]], [[<Cmd>AdvancedGitSearch checkout_reflog<CR>]])
+  nnoremap([[<Space>aa]], [[<Cmd>AdvancedGitSearch show_custom_functions<CR>]])
 
   -- sg
   nnoremap([[<Space>ag]], [[<Cmd>Telescope ast_grep<CR>]])
