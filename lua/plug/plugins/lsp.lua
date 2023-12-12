@@ -225,6 +225,7 @@ local lsp = {
       require("neodev").setup({})
     end,
   },
+  { "barreiroleo/ltex_extra.nvim" },
 
   -- Fold
   -- TODO: Check if folding not work in vimwiki
