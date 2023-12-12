@@ -1,6 +1,9 @@
 local fzf_lua = {}
 
 fzf_lua.setup = function()
+  -- TODO: Setup code action preview
+  -- Ref: https://github.com/ibhagwan/fzf-lua/issues/944#issuecomment-1849104750
+
   -- Mappings
   nnoremap([[<Space>za]], [[<Cmd>FzfLua loclist<CR>]])
   nnoremap([[<Space>zA]], [[<Cmd>FzfLua args<CR>]])
