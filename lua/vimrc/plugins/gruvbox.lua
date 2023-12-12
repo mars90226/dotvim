@@ -53,6 +53,13 @@ gruvbox.custom_overrides = function()
     UfoFoldedFg = { fg = palette.gray },
     UfoFoldedBg = { bg = palette.dark1 },
     MiniPickNormal = { link = "Normal" },
+
+    -- Fix Vim's default highlight group linking
+    -- Ref: https://github.com/neovim/neovim/issues/26378
+    -- Ref: https://github.com/ellisonleao/gruvbox.nvim/issues/307
+    ["@punctuation.bracket"] = { link = "Special" },
+    ["@punctuation.delimiter"] = { link = "Special" },
+    ["@punctuation.special"] = { link = "Special" },
   }
 
   return overrides
