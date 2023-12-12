@@ -26,7 +26,7 @@ my_gitlab.setup_mapping = function()
   vim.keymap.set("n", "glrd", gitlab.delete_reviewer, { desc = "GitLab delete reviewer" })
   vim.keymap.set("n", "glp", gitlab.pipeline, { desc = "GitLab pipeline" })
   vim.keymap.set("n", "glo", gitlab.open_in_browser, { desc = "GitLab open in browser" })
-  vim.keymap.set("n", "glB", function ()
+  vim.keymap.set("n", "glb", function ()
       gitlab_server.restart(function ()
           vim.cmd.tabclose()
           gitlab.review() -- Reopen the reviewer after the server restarts
