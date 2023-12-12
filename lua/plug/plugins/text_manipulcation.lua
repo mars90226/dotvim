@@ -35,9 +35,13 @@ local text_manipulation = {
   {
     "junegunn/vim-easy-align",
     event = { "VeryLazy" },
+    keys = {
+      { "<Leader>ga", mode = { "n", "x" } },
+      { "<Leader>gA", mode = { "n", "x" } },
+    },
     config = function()
-      vim.keymap.set({ "n", "x" }, "ga", "<Plug>(EasyAlign)")
-      vim.keymap.set({ "n", "x" }, "<Leader>ga", "<Plug>(LiveEasyAlign)")
+      vim.keymap.set({ "n", "x" }, "<Leader>ga", "<Plug>(EasyAlign)")
+      vim.keymap.set({ "n", "x" }, "<Leader>gA", "<Plug>(LiveEasyAlign)")
     end,
   },
 

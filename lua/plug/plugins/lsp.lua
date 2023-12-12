@@ -276,6 +276,15 @@ local lsp = {
       end, { expr = true })
     end,
   },
+
+  -- Code Action
+  {
+    "aznhe21/actions-preview.nvim",
+    event = { "LspAttach" },
+    config = function()
+      vim.keymap.set({ "v", "n" }, "ga", require("actions-preview").code_actions)
+    end,
+  },
 }
 
 return lsp
