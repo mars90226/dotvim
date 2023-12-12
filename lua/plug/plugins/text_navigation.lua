@@ -272,6 +272,11 @@ local text_navigation = {
         mode = { "n", "o", "x" },
       },
     },
+    config = function()
+      require("spider").setup({
+        subwordMovement = false,
+      })
+    end,
   },
 
   {
