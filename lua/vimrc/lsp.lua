@@ -127,7 +127,7 @@ lsp.servers = {
   },
   marksman = {},
   neocmake = {
-    condition = plugin_utils.has_linux_build_env()
+    condition = plugin_utils.has_linux_build_env(),
   },
   perlnavigator = {},
   -- pyls_ms = {},
@@ -170,8 +170,8 @@ lsp.servers = {
       textDocument = {
         foldingRange = {
           dynamicRegistration = true,
-        }
-      }
+        },
+      },
     },
     settings = {
       -- Ref: LazyVim
@@ -439,12 +439,23 @@ lsp.setup_plugins = function()
   my_lspsaga.setup()
 end
 
+lsp.setup_commands = function()
+  vim.api.nvim_create_user_command("LspStopIdleServers", function()
+    for _, client in ipairs(vim.lsp.get_clients()) do
+      if #client.attached_buffers == 0 then
+        client.stop()
+      end
+    end
+  end, {})
+end
+
 lsp.setup = function(settings)
   lsp.config = vim.tbl_extend("force", lsp.config, settings)
 
   lsp.init_servers_by_filetype()
   lsp.setup_lsp_install()
   lsp.setup_plugins()
+  lsp.setup_commands()
 
   -- TODO: Maybe setup basic lsp server?
   local lsp_setup_server_on_ft_augroup_id = vim.api.nvim_create_augroup("lsp_setup_server_on_ft", {})
