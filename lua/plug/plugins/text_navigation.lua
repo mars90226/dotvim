@@ -24,7 +24,10 @@ local text_navigation = {
   {
     "smoka7/hop.nvim",
     keys = {
-      { "<Space>w", mode = { "n", "o", "x" } },
+      -- NOTE: When in diffview.nvim buffer, `HopWord` ignore a few characters as if it's
+      -- horizontally scrolled.
+      -- NOTE: Use flash.nvim instead
+      -- { "<Space>w", mode = { "n", "o", "x" } },
       { "<Space>e", mode = { "n", "o", "x" } },
       { "<Space>;", mode = { "n", "o", "x" } },
       { "<LocalLeader>f", mode = { "n", "o", "x" } },
@@ -34,7 +37,7 @@ local text_navigation = {
       { "<Space>cw", mode = { "n", "o", "x" } },
     },
     config = function()
-      map("<Space>w", "<Cmd>HopWord<CR>")
+      -- map("<Space>w", "<Cmd>HopWord<CR>")
       map("<Space>e", [=[<Cmd>lua require('hop').hint_patterns({}, [[\k\>]])<CR>]=])
       map("<Space>;", "<Cmd>HopPattern<CR>")
       map("<LocalLeader>f", "<Cmd>HopChar1<CR>")
@@ -181,6 +184,15 @@ local text_navigation = {
           })
         end,
         desc = "Jump to a line",
+      },
+      {
+        "<Space>w",
+        mode = { "n", "o", "x" },
+        function()
+          -- jump to a word
+          require("vimrc.plugins.flash").jump_word()
+        end,
+        desc = "Jump to a word",
       },
     },
   },
