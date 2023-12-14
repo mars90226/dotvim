@@ -126,8 +126,8 @@ local file_navigation = {
           frecency = {
             -- Ref: https://github.com/nvim-telescope/telescope-frecency.nvim#remove-dependency-for-sqlitelua
             use_sqlite = false,
-          }
-        }
+          },
+        },
       })
       require("telescope").load_extension("frecency")
     end,
@@ -262,10 +262,10 @@ local file_navigation = {
   -- mini.nvim
   -- NOTE: mini.nvim has many modules, currently the most used is mini.pick, so place it here.
   {
-    'echasnovski/mini.nvim',
+    "echasnovski/mini.nvim",
     version = false,
     config = function()
-      require('vimrc.plugins.mini').setup()
+      require("vimrc.plugins.mini").setup()
     end,
   },
 
@@ -317,10 +317,12 @@ local file_navigation = {
     init = function()
       -- Don't update cscope, workload is too heavy
       vim.g.gutentags_modules = { "ctags" }
-      vim.g.gutentags_ctags_exclude = { ".git", "node_modules", ".ccls-cache", "*.mypy_cache*", ".venv", "*.min.js", "*.min.css" }
+      vim.g.gutentags_ctags_exclude =
+        { ".git", "node_modules", ".ccls-cache", "*.mypy_cache*", ".venv", "*.min.js", "*.min.css" }
 
       if vim.g.gutentags_secret_ctags_exclude ~= nil then
-        vim.g.gutentags_ctags_exclude = utils.table_concat(vim.g.gutentags_ctags_exclude, vim.g.gutentags_secret_ctags_exclude)
+        vim.g.gutentags_ctags_exclude =
+          utils.table_concat(vim.g.gutentags_ctags_exclude, vim.g.gutentags_secret_ctags_exclude)
       end
     end,
   },
@@ -335,6 +337,15 @@ local file_navigation = {
       "<Space>s'",
     },
     config = function()
+      -- Ref: https://github.com/nvim-pack/nvim-spectre/issues/131
+      require("spectre").setup({
+        highlight = {
+          ui = "String",
+          search = "SpectreSearch",
+          replace = "DiffAdd", -- NOTE: default it DiffDelete, which is almost always red
+        },
+      })
+
       nnoremap("<Space>S", [[:lua require('spectre').open()<CR>]])
 
       -- Search current word
