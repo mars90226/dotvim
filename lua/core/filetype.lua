@@ -97,6 +97,9 @@ filetype.setup = function()
           -- git
           ["%.gitconfig%-.*"] = "gitconfig",
 
+          -- logrotate
+          [".*%.logrotate"] = "logrotate",
+
           -- maillog
           [".*maillog"] = "messages",
           [".*maillog%.%d+"] = "messages",
