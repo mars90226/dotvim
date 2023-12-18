@@ -7,6 +7,10 @@ local action_state = require("telescope.actions.state")
 
 local utils = require("vimrc.utils")
 
+-- Extensions
+local command_palette_config = require("vimrc.plugins.command_palette").config
+local frecency_config = require("vimrc.plugins.frecency").config
+
 local telescope = {}
 
 -- Utils
@@ -165,6 +169,10 @@ telescope.setup_config = function()
         },
       },
     },
+    extensions = {
+      command_palette = command_palette_config,
+      frecency = frecency_config,
+    }
   })
 end
 
