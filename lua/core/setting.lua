@@ -25,13 +25,7 @@ settings.setup = function()
       vim.opt.mouse = "nvi" -- NOTE: Test neovim 0.8 nightly popup-menu
       vim.opt.mousemodel = "popup_setpos"
       vim.opt.modeline = true
-      -- This config affect CursorHold event trigger time, default: 4000
-      -- Avoid being to small to avoid multiple CursorHold event triggered when
-      -- moving cursor fastly.
-      -- NOTE: CursorHold updatetime is managed by FixCursorHold.nvim, so don't
-      -- change 'updatetime'.
-      -- vim.opt.updatetime = 300
-      vim.opt.updatetime = 4000
+      vim.opt.updatetime = 200
       vim.opt.cursorline = true
       vim.opt.ruler = true -- show the cursor position all the time
       -- TODO: Remove this comment when neovim bug fixed
@@ -142,6 +136,9 @@ settings.setup = function()
       -- }}}
 
       vim.opt.maxmempattern = 2000 -- 2000 KB
+
+      -- Set terminal buffer size to maximum
+      vim.opt.scrollback = 100000
     end,
   })
 

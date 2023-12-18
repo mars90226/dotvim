@@ -10,10 +10,6 @@ terminal.setup = function()
   use_config({
     "mars90226/terminal",
     config = function()
-      -- Set terminal buffer size to unlimited
-      -- TODO: Move to setting.lua
-      vim.opt.scrollback = 100000
-
       vim.api.nvim_create_user_command(
         "TermOpen",
         [[call vimrc#terminal#open_current_folder('edit', <q-args>)]],
