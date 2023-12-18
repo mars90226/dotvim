@@ -122,6 +122,10 @@ local file_navigation = {
     event = { "VeryLazy" },
     config = function()
       require("telescope").load_extension("frecency")
+
+      vim.api.nvim_create_user_command("FrecencyRemovePattern", function(opts)
+        require("vimrc.plugins.frecency").remove_pattern(opts.fargs[1])
+      end, { nargs = 1 })
     end,
   },
   {
