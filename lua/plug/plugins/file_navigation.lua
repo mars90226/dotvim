@@ -131,9 +131,6 @@ local file_navigation = {
       })
       require("telescope").load_extension("frecency")
     end,
-    -- NOTE: Require sqlite3, specifically libsqlite3.so
-    -- TODO: Check if use_sqlite is enabled before requiring sqlite.lua
-    dependencies = { "kkharji/sqlite.lua" },
   },
   {
     "LinArcX/telescope-command-palette.nvim",
