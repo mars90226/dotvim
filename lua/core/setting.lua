@@ -137,8 +137,8 @@ settings.setup = function()
 
       vim.opt.maxmempattern = 2000 -- 2000 KB
 
-      -- Set terminal buffer size to maximum
-      vim.opt.scrollback = 100000
+      -- Set terminal buffer size to 10000 (default: 10000)
+      vim.opt.scrollback = 10000
     end,
   })
 
