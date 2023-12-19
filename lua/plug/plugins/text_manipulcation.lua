@@ -214,6 +214,23 @@ local text_manipulation = {
     end,
   },
 
+  -- Case
+  {
+    "arthurxavierx/vim-caser",
+    event = { "FocusLost", "CursorHold", "CursorHoldI" },
+  },
+  {
+    "johmsalas/text-case.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    keys = {
+      { "<Leader>ca", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "v" }, desc = "Telescope" },
+    },
+    config = function()
+      require("textcase").setup({})
+      require("telescope").load_extension("textcase")
+    end,
+  },
+
   "tpope/vim-repeat",
 }
 

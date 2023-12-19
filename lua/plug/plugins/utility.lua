@@ -213,11 +213,6 @@ local utility = {
     end,
   },
 
-  {
-    "arthurxavierx/vim-caser",
-    event = { "FocusLost", "CursorHold", "CursorHoldI" },
-  },
-
   -- Focus
   {
     "folke/zen-mode.nvim",
