@@ -16,6 +16,7 @@ local appearance = {
   -- NOTE: Use lualine.nvim tabline
 
   -- Sidebar
+  -- FIXME: Sidebar.nvim not working in neovim nightly
   {
     "sidebar-nvim/sidebar.nvim",
     cmd = { "SidebarNvimToggle", "SidebarNvimOpen" },
