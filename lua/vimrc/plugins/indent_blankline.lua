@@ -12,6 +12,7 @@ indent_blankline.setup_config = function()
   ibl.setup({
     indent = {
       char = "│",
+      tab_char = "│", -- NOTE: Use 'listchars' tab second character '─' to differentiate space & tab
     },
     scope = {
       enabled = choose.is_enabled_plugin("nvim-treesitter"),
