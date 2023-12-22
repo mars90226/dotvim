@@ -494,6 +494,14 @@ mapping.setup = function()
       if has_secret_mapping then
         secret_mapping.setup()
       end
+
+      -- Add space between English word and Chinese word
+      vim.api.nvim_create_user_command("AddSpaceBetweenEnglishAndChinese", function()
+        -- NOTE: English word: [\da-zA-Z]
+        -- NOTE: Chinese word: [\u4E00-\u9FA5]
+        vim.cmd([[%s/[\da-zA-Z]\zs\ze[\u4E00-\u9FA5]/ /g]]) -- Add space between English word and Chinese word
+        vim.cmd([[%s/[\u4E00-\u9FA5]\zs\ze[\da-zA-Z]/ /g]]) -- Add space between Chinese word and English word
+      end, {})
     end,
   })
 end
