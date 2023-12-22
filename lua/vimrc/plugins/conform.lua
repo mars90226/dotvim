@@ -66,6 +66,7 @@ end
 
 conform.setup_mapping = function()
   nnoremap("<Space>lF", "<Cmd>Format<CR>", "silent", { desc = "Format by conform" })
+  xnoremap("<Space>lF", "<Cmd>Format<CR>", "silent", { desc = "Format by conform" })
 end
 
 conform.setup = function()
