@@ -1,3 +1,5 @@
+local schemastore = require('schemastore')
+
 local my_lspsaga = require("vimrc.plugins.lspsaga")
 local my_goto_preview = require("vimrc.plugins.goto-preview")
 
@@ -105,6 +107,13 @@ lsp.servers = {
         },
       },
     },
+    settings = {
+      json = {
+        -- TODO: Use custom_setup to lazy load schemastore
+        schemas = schemastore.json.schemas(),
+        validate = { enable = true },
+      },
+    },
   },
   -- TODO: Grammar check is unhelpful when article is not in English.
   ltex = {
@@ -197,7 +206,20 @@ lsp.servers = {
   vimls = {},
   vuels = {},
   -- TODO: add settings for schemas
-  yamlls = {},
+  yamlls = {
+    settings = {
+      yaml = {
+        schemaStore = {
+          -- You must disable built-in schemaStore support if you want to use
+          -- this plugin and its advanced options like `ignore`.
+          enable = false,
+          -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+          url = "",
+        },
+        schemas = schemastore.yaml.schemas(),
+      },
+    }
+  },
   -- NOTE: Failed to install zk 0.11.1, try marksman
   -- zk = {},
 }

@@ -226,6 +226,7 @@ local lsp = {
     end,
   },
   { "barreiroleo/ltex_extra.nvim" },
+  { "b0o/schemastore.nvim" },
 
   -- Fold
   -- TODO: Check if folding not work in vimwiki
