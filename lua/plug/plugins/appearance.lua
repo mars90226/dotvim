@@ -75,6 +75,11 @@ local appearance = {
           },
         },
       })
+
+      vim.api.nvim_create_user_command("ResetStatusColumn", function()
+        vim.wo.statuscolumn = ""
+        vim.wo.statuscolumn = "%!v:lua.StatusCol()"
+      end, {})
     end,
   },
 
