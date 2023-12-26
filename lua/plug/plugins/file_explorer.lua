@@ -92,6 +92,16 @@ local file_explorer = {
       require("vimrc.plugins.oil").setup()
     end,
   },
+
+  -- Protocol
+  {
+    "miversen33/netman.nvim",
+    enabled = false,
+    branch = "v1.15",
+    config = function()
+      require("netman")
+    end
+  }
 }
 
 return file_explorer
