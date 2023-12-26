@@ -34,7 +34,9 @@ nvim_cmp.handle_tab_completion = function(direction)
       -- NOTE: Explicitly check for the following characters:
       -- 1. '#' to avoid expanding '#', as it's used in VimScript as namespace separator.
       -- 2. '\\' to avoid expanding '\', as it's used in pattern.
-      local expanded = string.find(text, "[#\\]") == nil and vim.fn.expandcmd(text) or text
+      -- 3. '%' in the beginning of the command line to avoid expanding '%', as it's command range, not current filename.
+      local disable_expansion = string.find(text, "[#\\]") or string.find(text, "^%%")
+      local expanded = (not disable_expansion) and vim.fn.expandcmd(text) or text
       if expanded ~= text then
         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, true, true) .. expanded, "n", false)
         cmp.complete()
