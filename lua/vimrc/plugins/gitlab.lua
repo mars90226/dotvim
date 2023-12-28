@@ -5,7 +5,10 @@ local my_gitlab = {}
 
 my_gitlab.setup_config = function()
   gitlab.setup({
-    debug = { go_request = true, go_response = true },
+    debug = { go_request = false, go_response = false },
+    popup = {
+      exit = "gq",
+    }
   })
 end
 
