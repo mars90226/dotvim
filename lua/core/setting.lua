@@ -86,7 +86,6 @@ settings.setup = function()
         "blank",
         "buffers",
         "curdir",
-        "folds",
         "help",
         "tabpages",
         "winsize",
