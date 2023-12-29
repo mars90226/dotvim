@@ -204,7 +204,8 @@ lsp.servers = {
     },
   },
   vimls = {},
-  vuels = {},
+  volar = {},
+  -- vuels = {},
   -- TODO: add settings for schemas
   yamlls = {
     settings = {
