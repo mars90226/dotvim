@@ -1,10 +1,20 @@
-local fzf_lua = {}
+local fzf_lua = require("fzf-lua")
 
-fzf_lua.setup = function()
+local my_fzf_lua = {}
+
+my_fzf_lua.setup_config = function()
+  fzf_lua.setup({
+    winopts = {
+      width = 0.9,
+      height = 0.9,
+    }
+  })
+
   -- TODO: Setup code action preview
   -- Ref: https://github.com/ibhagwan/fzf-lua/issues/944#issuecomment-1849104750
+end
 
-  -- Mappings
+my_fzf_lua.setup_mapping = function()
   nnoremap([[<Space>za]], [[<Cmd>FzfLua loclist<CR>]])
   nnoremap([[<Space>zA]], [[<Cmd>FzfLua args<CR>]])
   nnoremap([[<Space>zb]], [[<Cmd>FzfLua buffers<CR>]])
@@ -73,4 +83,9 @@ fzf_lua.setup = function()
   inoremap([[<C-Z><M-l>]], [[<Cmd>lua require("fzf-lua").complete_line()<CR>]])
 end
 
-return fzf_lua
+my_fzf_lua.setup = function()
+  my_fzf_lua.setup_config()
+  my_fzf_lua.setup_mapping()
+end
+
+return my_fzf_lua
