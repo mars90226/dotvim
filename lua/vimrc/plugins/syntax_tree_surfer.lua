@@ -1,7 +1,19 @@
+local sts = require("syntax-tree-surfer")
+
 local syntax_tree_surfer = {}
 
+syntax_tree_surfer.default_targeted_jump = function()
+  -- Default desired types according to syntax-tree-surfer with little addition
+  -- Ref: https://github.com/ziontee113/syntax-tree-surfer/blob/master/lua/syntax-tree-surfer/init.lua#L371-L380
+  sts.targeted_jump({"function", "if_statement", "else_clause", "else_statement", "elseif_statement", "for_statement", "while_statement", "switch_statement", "call_expression"})
+end
+
+syntax_tree_surfer.literal_targeted_jump = function ()
+  sts.targeted_jump({"string", "string_literal","number", "number_literal","true","false"})
+end
+
 syntax_tree_surfer.setup = function()
-  require("syntax-tree-surfer").setup({})
+  sts.setup({})
 
   -- Normal Mode Swapping:
   -- Swap The Master Node relative to the cursor with it's siblings, Dot Repeatable
@@ -39,17 +51,23 @@ syntax_tree_surfer.setup = function()
   xnoremap("<M-S-k>", [[<Cmd>STSSwapPrevVisual<CR>]], "silent")
 
   -- Targeted jump
-  -- Default desired types according to syntax-tree-surfer
-  -- Ref: https://github.com/ziontee113/syntax-tree-surfer/blob/master/lua/syntax-tree-surfer/init.lua#L371-L380
   nnoremap(
-    vim.g.text_navigation_leader .. "e",
-    [[<Cmd>lua require("syntax-tree-surfer").targeted_jump({"function", "if_statement", "else_clause", "else_statement", "elseif_statement", "for_statement", "while_statement", "switch_statement"})<CR>]],
-    { desc = "Default targeted jump" }
+    vim.g.text_navigation_leader .. "r",
+    function()
+      syntax_tree_surfer.default_targeted_jump()
+    end, { desc = "Default targeted jump" }
+  )
+  nnoremap(
+    vim.g.text_navigation_leader .. vim.g.text_navigation_leader,
+    function()
+      syntax_tree_surfer.default_targeted_jump()
+    end, { desc = "Default targeted jump" }
   )
   nnoremap(
     vim.g.text_navigation_leader .. "i",
-    [[<Cmd>lua require("syntax-tree-surfer").targeted_jump({"string", "string_literal","number", "number_literal","true","false"})<CR>]],
-    { desc = "literal targeted jump" }
+    function()
+      syntax_tree_surfer.literal_targeted_jump()
+    end, { desc = "literal targeted jump" }
   )
 
   -- filtered jump
