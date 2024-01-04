@@ -135,7 +135,7 @@ Open neovim and wait for `lazy.nvim` to finish the job.
     * `[m`: Goto previous function start
     * `]]`: Goto next class start
     * `[]`: Goto previous class start
-    * `<Space><F6>`: Toggle context
+    * `<F6>`: Toggle context
     * `<CR>`: Select node
     * `<CR>` in visual mode: scope incremental
     * `<M-h>`, `<M-j>`, `<M-k>`, `<M-l>` in visual mode: navigate node
