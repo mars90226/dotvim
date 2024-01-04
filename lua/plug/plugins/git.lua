@@ -229,6 +229,8 @@ local git = {
       enabled = true,
     },
     build = function () require("gitlab.server").build(true) end, -- Builds the Go binary
+    -- TODO: Fill complete gitlab.nvim keys
+    keys = { "glrr", "gls" },
     config = function()
       require("vimrc.plugins.gitlab").setup()
     end,
