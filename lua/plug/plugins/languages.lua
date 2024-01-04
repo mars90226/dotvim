@@ -555,6 +555,7 @@ local languages = {
     "saecki/crates.nvim",
     tag = "v0.4.0",
     dependencies = { "nvim-lua/plenary.nvim" },
+    event = { "BufRead Cargo.toml" },
     config = function()
       require("crates").setup({
         -- NOTE: This config is for nightly
