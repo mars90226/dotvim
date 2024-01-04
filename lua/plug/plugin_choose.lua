@@ -174,12 +174,6 @@ plugin_choose.setup_language = function()
   if choose.is_disabled_plugin("nvim-treesitter") then
     choose.disable_plugin("nvim-treesitter-context")
   end
-  for _, context_component_plugin in ipairs(context_component_plugins) do
-    if choose.is_enabled_plugin(context_component_plugin) then
-      choose.disable_plugin("nvim-treesitter-context")
-      break
-    end
-  end
 
   -- Choose spellsitter plugin
   -- neovim 0.8, spellsitter.nvim
