@@ -119,6 +119,8 @@ local file_navigation = {
   },
   {
     "nvim-telescope/telescope-frecency.nvim",
+    -- TODO: Disabled as telescope-frecency.nvim loading to slow
+    enabled = false,
     event = { "VeryLazy" },
     config = function()
       require("telescope").load_extension("frecency")

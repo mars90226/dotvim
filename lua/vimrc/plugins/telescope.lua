@@ -9,7 +9,8 @@ local utils = require("vimrc.utils")
 
 -- Extensions
 local command_palette_config = require("vimrc.plugins.command_palette").config
-local frecency_config = require("vimrc.plugins.frecency").config
+-- TODO: Disabled as telescope-frecency.nvim loading to slow
+-- local frecency_config = require("vimrc.plugins.frecency").config
 
 local telescope = {}
 
@@ -171,7 +172,8 @@ telescope.setup_config = function()
     },
     extensions = {
       command_palette = command_palette_config,
-      frecency = frecency_config,
+      -- TODO: Disabled as telescope-frecency.nvim loading to slow
+      -- frecency = frecency_config,
     }
   })
 end
