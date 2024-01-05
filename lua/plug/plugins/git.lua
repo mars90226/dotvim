@@ -151,6 +151,14 @@ local git = {
     cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     keys = { "<Space>gd", "<Space>gh", "<Space>gH" },
     config = function()
+      require("diffview").setup({
+        file_panel = {
+          win_config = {
+            width = vim.g.left_sidebar_width,
+          }
+        }
+      })
+
       nnoremap("<Space>gd", function()
         if next(require("diffview.lib").views) == nil then
           vim.cmd([[DiffviewOpen]])
@@ -230,7 +238,7 @@ local git = {
     },
     build = function () require("gitlab.server").build(true) end, -- Builds the Go binary
     -- TODO: Fill complete gitlab.nvim keys
-    keys = { "glrr", "gls" },
+    keys = { "glrr", "gls", "glrm" },
     config = function()
       require("vimrc.plugins.gitlab").setup()
     end,
