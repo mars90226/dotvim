@@ -226,6 +226,8 @@ function! vimrc#defx#mappings() abort " {{{ abort
         \ defx#do_action('cd', stdpath('data'))
   nnoremap <silent><buffer><expr> gC
         \ defx#do_action('cd', stdpath('cache'))
+  nnoremap <silent><buffer><expr> gS
+        \ defx#do_action('cd', stdpath('state'))
   nnoremap <silent><buffer><expr> gp
         \ defx#do_action('cd', vimrc#git#root())
   nnoremap <silent><buffer><nowait><expr> \\
