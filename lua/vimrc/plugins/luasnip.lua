@@ -279,69 +279,109 @@ luasnip.setup_snippet = function()
 
   ls.add_snippets("all", {
     s(
-      "gf",
+      {
+        trig = "gf",
+        desc = "Fill files",
+      },
       f(function()
         return vim.fn["vimrc#fzf#files_in_commandline"]()
       end)
     ),
     s(
-      "gm",
+      {
+        trig = "gm",
+        desc = "Fill MRU",
+      },
       f(function()
         return vim.fn["vimrc#fzf#mru#mru_in_commandline"]()
       end)
     ),
     s(
-      "gd",
+      {
+        trig = "gd",
+        desc = "Fill directory MRU",
+      },
       f(function()
         return vim.fn["vimrc#fzf#mru#directory_mru_in_commandline"]()
       end)
     ),
     s(
-      "gy",
+      {
+        trig = "gy",
+        desc = "Fill commit sha",
+      },
       f(function()
         return vim.fn["vimrc#fugitive#commit_sha"]()
       end)
     ),
     s(
-      "gc",
+      {
+        trig = "gc",
+        desc = "Fill current branch",
+      },
       f(function()
         return vim.fn["vimrc#git#get_current_branch"]()
       end)
     ),
+    -- FIXME: Not enough arguments for vimrc#fzf#git#commits_in_commandline
     s(
-      "gi",
+      {
+        trig = "gi",
+        desc = "Fill commits",
+      },
       f(function()
         return vim.fn["vimrc#fzf#git#commits_in_commandline"]()
       end)
     ),
     s(
-      "gb",
+      {
+        trig = "gb",
+        desc = "Fill branches",
+      },
       f(function()
         return vim.fn["vimrc#fzf#git#branches_in_commandline"]()
       end)
     ),
     s(
-      "gt",
+      {
+        trig = "gt",
+        desc = "Fill tags",
+      },
       f(function()
         return vim.fn["vimrc#fzf#git#tags_in_commandline"]()
       end)
     ),
     s(
-      "ge",
+      {
+        trig = "ge",
+        desc = "Fill email",
+      },
       f(function()
         return vim.fn["vimrc#git#get_email"]()
       end)
     ),
-    s("cd", t(vim.g.company_domain)),
-    s("ce", t(vim.g.company_email)),
+    s({
+      trig = "cd",
+      desc = "Fill company domain",
+    }, t(vim.g.company_domain)),
+    s({
+      trig = "ce",
+      desc = "Fill company email",
+    }, t(vim.g.company_email)),
     s(
-      "xx",
+      {
+        trig = "xx",
+        desc = "Fill shell outputs",
+      },
       f(function()
         return vim.fn["vimrc#fzf#shell_outputs_in_commandline"]()
       end)
     ),
     -- Copilot
-    s("q:", f(function()
+    s({
+      trig = "q:",
+      desc = "Fill question prefix for Copilot",
+    }, f(function()
       return string.format(vim.o.commentstring, "q: ")
     end)),
   })
