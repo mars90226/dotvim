@@ -6,8 +6,10 @@ local my_nvim_surround = require("vimrc.plugins.nvim_surround")
 local cmdwin = {}
 
 cmdwin.setup = function()
-  -- Removing any key mapping for <CR> in cmdline-window
+  -- Removing any key mapping for special keys in cmdline-window
   nnoremap("<CR>", "<CR>", "<buffer>")
+  nnoremap("<C-P>", "<C-P>", "<buffer>")
+  nnoremap("<C-N>", "<C-N>", "<buffer>")
 
   surround.buffer_setup({
     surrounds = {
