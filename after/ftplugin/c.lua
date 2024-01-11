@@ -34,4 +34,4 @@ nnoremap("<M-]>", function()
       end
     end)
   end
-end, "<silent>", "<buffer>")
+end, { silent = true, buffer = true, desc = "Switch between source/header using Clangd & tags"})

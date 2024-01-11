@@ -353,7 +353,7 @@ local languages = {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
       -- NOTE: nvim-treesitter config is in nvim_treesitter.lua
-      nnoremap("<F6>", ":TSContextToggle<CR>")
+      nnoremap("<F6>", ":TSContextToggle<CR>", { desc = "Toggle treesitter context" })
       nnoremap("gup", function()
         require("treesitter-context").go_to_context()
       end, { desc = "Go to parent context" })

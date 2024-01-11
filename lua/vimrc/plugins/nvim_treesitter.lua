@@ -566,7 +566,7 @@ nvim_treesitter.setup_mapping = function()
   nnoremap("<Space><F6>", function()
     buffer_toggle_force_disable(vim.api.nvim_get_current_buf())
     vim.cmd([[TSBufToggle highlight]])
-  end)
+  end, { desc = "Toggle treesitter highlight" })
 end
 
 nvim_treesitter.setup = function()

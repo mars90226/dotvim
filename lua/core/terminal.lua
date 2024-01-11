@@ -17,16 +17,16 @@ terminal.setup = function()
       )
 
       -- For quick terminal access
-      nnoremap("<Leader>te", [[:call vimrc#terminal#open_current_shell('edit')<CR>]], "<silent>")
-      nnoremap("<Leader>tt", [[:call vimrc#terminal#open_current_shell('tabnew')<CR>]], "<silent>")
-      nnoremap("<Leader>ts", [[:call vimrc#terminal#open_current_shell('new')<CR>]], "<silent>")
-      nnoremap("<Leader>tv", [[:call vimrc#terminal#open_current_shell('vnew')<CR>]], "<silent>")
-      nnoremap("<Leader>tb", [[:call vimrc#terminal#open_current_shell('rightbelow vnew')<CR>]], "<silent>")
-      nnoremap("<Leader>td", [[:call vimrc#terminal#open_shell('new', input('Folder: ', '', 'dir'))<CR>]], "<silent>")
+      nnoremap("<Leader>te", [[:call vimrc#terminal#open_current_shell('edit')<CR>]], { silent = true, desc = "Open shell in current buffer" })
+      nnoremap("<Leader>tt", [[:call vimrc#terminal#open_current_shell('tabnew')<CR>]], { silent = true, desc = "Open shell in new tab" })
+      nnoremap("<Leader>ts", [[:call vimrc#terminal#open_current_shell('new')<CR>]], { silent = true, desc = "Open shell in horizontal split" })
+      nnoremap("<Leader>tv", [[:call vimrc#terminal#open_current_shell('vnew')<CR>]], { silent = true, desc = "Open shell in vertical split" })
+      nnoremap("<Leader>tb", [[:call vimrc#terminal#open_current_shell('rightbelow vnew')<CR>]], { silent = true, desc = "Open shell in right below vertical split" })
+      nnoremap("<Leader>td", [[:call vimrc#terminal#open_shell('new', input('Folder: ', '', 'dir'))<CR>]], { silent = true, desc = "Open shell with input folder" })
       nnoremap(
         "<Leader>tD",
         [[:call vimrc#terminal#open_shell('tabnew', input('Folder: ', '', 'dir'))<CR>]],
-        "<silent>"
+        { silent = true, desc = "Open shell with input folder in new tab" }
       )
 
       -- Quick terminal function

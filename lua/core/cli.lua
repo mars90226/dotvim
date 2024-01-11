@@ -29,16 +29,16 @@ cli.setup = function()
       config = function()
         nnoremap(
           "<Leader><C-K><C-K>",
-          [[:execute vimrc#utility#get_translate_shell_command() . ' ' . expand('<cword>')<CR>]]
-        )
+          [[:execute vimrc#utility#get_translate_shell_command() . ' ' . expand('<cword>')<CR>]],
+          { desc = "Translate current word" })
         xnoremap(
           "<Leader><C-K><C-K>",
-          [[:<C-U>execute vimrc#utility#get_translate_shell_command() . ' ' . expand('<cword>')<CR>]]
-        )
+          [[:<C-U>execute vimrc#utility#get_translate_shell_command() . " '" . vimrc#utility#get_visual_selection() . "'"<CR>]],
+          { desc = "Translate selected word" })
         nnoremap(
           "<Space><C-K><C-K>",
-          [[:call vimrc#utility#execute_command(vimrc#utility#get_translate_shell_command(), 'trans: ')<CR>]]
-        )
+          [[:call vimrc#utility#execute_command(vimrc#utility#get_translate_shell_command(), 'trans: ')<CR>]],
+          { desc = "Translate input word" })
       end,
     })
   end

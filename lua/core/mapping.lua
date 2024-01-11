@@ -18,84 +18,84 @@ mapping.setup = function()
       vim.api.nvim_create_user_command("HelptagsAll", [[lua require('vimrc.utils').helptags_all()]], {})
 
       -- diagraph
-      inoremap("<M-K>", [[<C-K>]])
+      inoremap("<M-K>", [[<C-K>]], { desc = "Insert diagraph" })
 
       -- CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
       -- so that you can undo CTRL-U after inserting a line break.
       inoremap("<C-U>", [[<C-G>u<C-U>]])
 
       -- Add key mapping for suspend
-      nnoremap("<Space><C-Z>", [[:suspend<CR>]])
+      nnoremap("<Space><C-Z>", [[:suspend<CR>]], { desc = "Suspend" })
 
       -- Quickly switch window {{{
-      nnoremap("<M-h>", [[<C-W>h]])
-      nnoremap("<M-j>", [[<C-W>j]])
-      nnoremap("<M-k>", [[<C-W>k]])
-      nnoremap("<M-l>", [[<C-W>l]])
+      nnoremap("<M-h>", [[<C-W>h]], { desc = "Switch to left window" })
+      nnoremap("<M-j>", [[<C-W>j]], { desc = "Switch to below window" })
+      nnoremap("<M-k>", [[<C-W>k]], { desc = "Switch to above window" })
+      nnoremap("<M-l>", [[<C-W>l]], { desc = "Switch to right window" })
       -- }}}
 
       -- Saner command-line history {{{
-      cnoremap("<M-n>", [[<Down>]])
-      cnoremap("<M-p>", [[<Up>]])
+      cnoremap("<M-n>", [[<Down>]], { desc = "Next command-line history" })
+      cnoremap("<M-p>", [[<Up>]], { desc = "Previous command-line history" })
       -- }}}
 
       -- Tab key mapping {{{
       -- Move to previous/next
-      nnoremap("<C-J>", [[gT]])
-      nnoremap("<C-K>", [[gt]])
+      nnoremap("<C-J>", [[gT]], { desc = "Previous tab" })
+      nnoremap("<C-K>", [[gt]], { desc = "Next tab" })
 
       -- Re-order to previous/next
-      nnoremap("<Leader>t<", [[:tabmove -1<CR>]])
-      nnoremap("<Leader>t>", [[:tabmove +1<CR>]])
+      nnoremap("<Leader>t<", [[:tabmove -1<CR>]], { desc = "Move tab to previous" })
+      nnoremap("<Leader>t>", [[:tabmove +1<CR>]], { desc = "Move tab to next" })
 
       -- Goto buffer in position
-      nnoremap("g4", [[:tablast<CR>]])
+      nnoremap("g4", [[:tablast<CR>]], { desc = "Goto last tab" })
       -- }}}
 
       -- Quickly adjust window size
-      nnoremap("<C-W><Space>-", [[<C-W>10-]])
-      nnoremap("<C-W><Space>+", [[<C-W>10+]])
-      nnoremap("<C-W><Space><", [[<C-W>10<]])
-      nnoremap("<C-W><Space>>", [[<C-W>10>]])
-      nnoremap("<C-W><Space>=", [[:call vimrc#utility#window_equal()<CR>]])
-      nnoremap("<C-W><Space>x", [[<C-W>_<C-W><Bar>]])
-      xnoremap("<C-W><Space>_", [[:call vimrc#utility#resize_height_to_selected()<CR>]])
-      xnoremap("<C-W><Space><Bar>", [[:call vimrc#utility#resize_width_to_selected()<CR>]])
-      xnoremap("<C-W><Space>x", [[:call vimrc#utility#resize_to_selected()<CR>]])
-      nnoremap("<C-W><Space>s", [[:call vimrc#utility#reset_sidebar_size()<CR>]])
+      nnoremap("<C-W><Space>-", [[<C-W>10-]], { desc = "Decrease window height by 10" })
+      nnoremap("<C-W><Space>+", [[<C-W>10+]], { desc = "Increase window height by 10" })
+      nnoremap("<C-W><Space><", [[<C-W>10<]], { desc = "Decrease window width by 10" })
+      nnoremap("<C-W><Space>>", [[<C-W>10>]], { desc = "Increase window width by 10" })
+      nnoremap("<C-W><Space>=", [[:call vimrc#utility#window_equal()<CR>]], { desc = "Make all windows equal" })
+      nnoremap("<C-W><Space>x", [[<C-W>_<C-W><Bar>]], { desc = "Maximize current window" })
+      xnoremap("<C-W><Space>_", [[:call vimrc#utility#resize_height_to_selected()<CR>]], { desc = "Resize height to selected text lines" })
+      xnoremap("<C-W><Space><Bar>", [[:call vimrc#utility#resize_width_to_selected()<CR>]], { desc = "Resize width to selected text columns" })
+      xnoremap("<C-W><Space>x", [[:call vimrc#utility#resize_to_selected()<CR>]], { desc = "Resize to selected text lines & columns" })
+      nnoremap("<C-W><Space>s", [[:call vimrc#utility#reset_sidebar_size()<CR>]], { desc = "Reset sidebar size" })
 
       -- Create new line in insert mode
-      inoremap("<M-o>", [[<C-O>o]])
-      inoremap("<M-S-o>", [[<C-O>O]])
+      inoremap("<M-o>", [[<C-O>o]], { desc = "Create new line below" })
+      inoremap("<M-S-o>", [[<C-O>O]], { desc = "Create new line above" })
 
       -- Go to matched bracket in insert mode
-      imap("<M-5>", [[<C-O>%]])
+      imap("<M-5>", [[<C-O>%]], { desc = "Go to matched bracket" })
 
       -- Go to WORD end in insert mode
-      inoremap("<M-E>", [[<Esc>Ea]])
+      inoremap("<M-E>", [[<Esc>Ea]], { desc = "Go to WORD end" })
 
       -- Create new line without indent & prefix
-      nnoremap("<M-o>", [[o <C-U>]])
-      nnoremap("<M-S-o>", [[O <C-U>]])
+      nnoremap("<M-o>", [[o <C-U>]], { desc = "Create new line below and remove indent & prefix" })
+      nnoremap("<M-S-o>", [[O <C-U>]], { desc = "Create new line above and remove indent & prefix" })
 
       -- Save
-      nnoremap("<C-S>", [[:update<CR>]])
-      nnoremap("<Space><C-S>", [[:wall<CR>]])
-      nnoremap("<Leader><C-S>", [[:noautocmd write<CR>]])
+      nnoremap("<C-S>", [[:update<CR>]], { desc = "Save" })
+      nnoremap("<Space><C-S>", [[:wall<CR>]], { desc = "Save all" })
+      nnoremap("<Leader><C-S>", [[:noautocmd write<CR>]], { desc = "Save without triggering autocommand" })
 
       -- Quit
-      nnoremap("<Space>q", [[:quit<CR>]])
-      nnoremap("<Space>Q", [[:call vimrc#utility#quit_tab()<CR>]])
-      nnoremap("<Space><C-Q>", [[:qall!<CR>]])
+      nnoremap("<Space>q", [[:quit<CR>]], { desc = "Quit" })
+      nnoremap("<Space>Q", [[:call vimrc#utility#quit_tab()<CR>]], { desc = "Quit tab" })
+      nnoremap("<Space><C-Q>", [[:qall!<CR>]], { desc = "Quit all" })
 
       -- Easier file status
-      nnoremap("<Space><C-G>", [[2<C-G>]])
+      nnoremap("<Space><C-G>", [[2<C-G>]], { desc = "Show file status" })
 
       -- Change current window working directory to parent folder
-      nnoremap("<Leader>du", [[:lcd ..<CR>]])
+      nnoremap("<Leader>du", [[:lcd ..<CR>]], { desc = "Change current window working directory to parent folder" })
 
       -- Change current window working directory to folder containing current buffer
-      nnoremap("<Leader>dh", [[:lcd %:h<CR>]])
+      nnoremap("<Leader>dh", [[:lcd %:h<CR>]], { desc = "Change current window working directory to folder containing current buffer" })
 
       -- Change current window working directory to git root folder
       nnoremap("<Leader>dg", function()
@@ -109,162 +109,162 @@ mapping.setup = function()
       end, { desc = "Change current window working directory to git root folder"})
 
       -- Horizontally scroll to center of window, like horizontal 'zz'
-      nnoremap("zc", [[zszH]])
+      nnoremap("zc", [[zszH]], { desc = "Horizontally scroll to center of window" })
 
       -- Scroll to 1/4 top/bottom of window
-      nnoremap("zT", [['zt' . float2nr(winheight(0) * 0.25) . "\<C-Y>"]], "<expr>")
-      nnoremap("zB", [['zb' . float2nr(winheight(0) * 0.25) . "\<C-E>"]], "<expr>")
+      nnoremap("zT", [['zt' . float2nr(winheight(0) * 0.25) . "\<C-Y>"]], "<expr>", { desc = "Scroll to 1/4 top of window" })
+      nnoremap("zB", [['zb' . float2nr(winheight(0) * 0.25) . "\<C-E>"]], "<expr>", { desc = "Scroll to 1/4 bottom of window" })
 
       -- Operator mapping for current word
-      nnoremap("sx", [[ciw]])
-      nnoremap("sX", [[ciW]])
+      nnoremap("sx", [[ciw]], { desc = "Change current word" })
+      nnoremap("sX", [[ciW]], { desc = "Change current WORD" })
 
       -- Quick yank cursor word
       -- TODO This overrides jump to mark
-      nnoremap("y'", [[""yiw]])
-      nnoremap([[y"]], [[""yiW]])
-      nnoremap("y=", [["+yiw]])
-      nnoremap("y+", [["+yiW]])
+      nnoremap("y'", [[""yiw]], { desc = "Yank current word" })
+      nnoremap([[y"]], [[""yiW]], { desc = "Yank current WORD" })
+      nnoremap("y=", [["+yiw]], { desc = "Yank current word to system clipboard" })
+      nnoremap("y+", [["+yiW]], { desc = "Yank current WORD to system clipboard" })
 
       -- Quick yank/paste to/from system clipboard
       -- TODO This overrides jump to mark
-      nnoremap("=y", [["+y]])
-      xnoremap("=y", [["+y]])
-      nnoremap("=Y", [["+y$]]) -- NOTE: Follow Nvim builtin map of `Y` to `y$`
-      nnoremap("+p", [["+p]])
-      xnoremap("+p", [["+p]])
-      nnoremap("+P", [["+P]])
-      xnoremap("+P", [["+P]])
-      nnoremap("+gp", [["+gp]])
-      xnoremap("+gp", [["+gp]])
-      nnoremap("+gP", [["+gP]])
-      xnoremap("+gP", [["+gP]])
+      nnoremap("=y", [["+y]], { desc = "Yank to system clipboard" })
+      xnoremap("=y", [["+y]], { desc = "Yank to system clipboard" })
+      nnoremap("=Y", [["+y$]], { desc = "Yank to the line end to system clipboard" }) -- NOTE: Follow Nvim builtin map of `Y` to `y$`
+      nnoremap("+p", [["+p]], { desc = "Paste after from system clipboard" })
+      xnoremap("+p", [["+p]], { desc = "Paste after from system clipboard" })
+      nnoremap("+P", [["+P]], { desc = "Paste before from system clipboard" })
+      xnoremap("+P", [["+P]], { desc = "Paste before from system clipboard" })
+      nnoremap("+gp", [["+gp]], { desc = "Paste after from system clipboard and leave cursor after new text" })
+      xnoremap("+gp", [["+gp]], { desc = "Paste after from system clipboard and leave cursor after new text" })
+      nnoremap("+gP", [["+gP]], { desc = "Paste before from system clipboard and leave cursor after new text" })
+      xnoremap("+gP", [["+gP]], { desc = "Paste before from system clipboard and leave cursor after new text" })
       -- TODO Previous key mappings not work in vimwiki as it use '=' & '+'
-      nmap("<p", [["+[p]])
-      nmap(">p", [["+]p]])
+      nmap("<p", [["+[p]], { desc = "Paste before from system clipboard and adjust indent" })
+      nmap(">p", [["+]p]], { desc = "Paste after from system clipboard and adjust indent" })
 
       -- Quick yank filename
-      nnoremap("<Leader>y6", [[:let @" = expand('%:t')<CR>]])
-      nnoremap("<Leader>y5", [[:let @" = expand('%:t:r')<CR>]])
-      nnoremap("<Leader>y%", [[:let @" = @%<CR>]])
-      nnoremap("<Leader>y4", [[:let @" = expand('%:p')<CR>]])
+      nnoremap("<Leader>y6", [[:let @" = expand('%:t')<CR>]], { desc = "Yank current filename" })
+      nnoremap("<Leader>y5", [[:let @" = expand('%:t:r')<CR>]], { desc = "Yank current filename without extension" })
+      nnoremap("<Leader>y%", [[:let @" = @%<CR>]], { desc = "Yank current filename with full path" })
+      nnoremap("<Leader>y4", [[:let @" = expand('%:p')<CR>]], { desc = "Yank current filename with full path" })
 
       -- Quick yank current directory
-      nnoremap("<Leader>yd", [[:let @" = getcwd()<CR>]])
+      nnoremap("<Leader>yd", [[:let @" = getcwd()<CR>]], { desc = "Yank current directory" })
 
       -- Quick split
-      nnoremap("<Leader>yt", [[:tab split<CR>]])
-      nnoremap("<Leader>ys", [[:split<CR>]])
-      nnoremap("<Leader>yv", [[:vertical split<CR>]])
+      nnoremap("<Leader>yt", [[:tab split<CR>]], { desc = "Split in new tab" })
+      nnoremap("<Leader>ys", [[:split<CR>]], { desc = "Split in new window" })
+      nnoremap("<Leader>yv", [[:vertical split<CR>]], { desc = "Split in new vertical window" })
 
       -- Copy unnamed register to system clipboard
-      nnoremap("<Space>sr", [[:let @+ = @"<CR>]])
-      nnoremap("<Space>sR", [[:let @" = @+<CR>]])
+      nnoremap("<Space>sr", [[:let @+ = @"<CR>]], { desc = "Copy unnamed register to system clipboard" })
+      nnoremap("<Space>sR", [[:let @" = @+<CR>]], { desc = "Copy system clipboard to unnamed register" })
 
       -- Trim system clipboard to 7 chars (for git commit sha)
-      nnoremap("<Space>s7", [[:let @+ = @+[0:6]<CR>]])
+      nnoremap("<Space>s7", [[:let @+ = @+[0:6]<CR>]], { desc = "Trim system clipboard to 7 chars" })
 
       -- Command line & Insert mode mapping
-      cnoremap("<C-G><C-G>", [[<C-G>]])
-      inoremap("<C-G><C-G>", [[<C-G>]])
-      cnoremap("<C-G><C-F>", [[vimrc#fzf#files_in_commandline()]], "<expr>")
-      inoremap("<C-G><C-F>", [[vimrc#fzf#files_in_commandline()]], "<expr>")
+      cnoremap("<C-G><C-G>", [[<C-G>]], { desc = "Insert <C-G>" })
+      inoremap("<C-G><C-G>", [[<C-G>]], { desc = "Insert <C-G>" })
+      cnoremap("<C-G><C-F>", [[vimrc#fzf#files_in_commandline()]], "<expr>", { desc = "Fill files" })
+      inoremap("<C-G><C-F>", [[vimrc#fzf#files_in_commandline()]], "<expr>", { desc = "Fill files" })
       -- <BS> and <C-H> are the same key when $TERM is 'xterm'
-      cnoremap("<C-G><BS>", [[vimrc#fzf#mru#mru_in_commandline()]], "<expr>")
-      inoremap("<C-G><BS>", [[vimrc#fzf#mru#mru_in_commandline()]], "<expr>")
-      cnoremap("<C-G><C-H>", [[vimrc#fzf#mru#mru_in_commandline()]], "<expr>")
-      inoremap("<C-G><C-H>", [[vimrc#fzf#mru#mru_in_commandline()]], "<expr>")
-      cnoremap("<C-G><C-M>", [[vimrc#fzf#mru#directory_mru_in_commandline()]], "<expr>")
-      inoremap("<C-G><C-M>", [[vimrc#fzf#mru#directory_mru_in_commandline()]], "<expr>")
-      cnoremap("<C-G><C-P>", [[vimrc#rg#current_type_option()]], "<expr>")
-      inoremap("<C-G><C-P>", [[vimrc#rg#current_type_option()]], "<expr>")
-      cnoremap("<C-G><C-L>", [[vimrc#rg#types_in_commandline()]], "<expr>")
-      inoremap("<C-G><C-L>", [[vimrc#rg#types_in_commandline()]], "<expr>")
+      cnoremap("<C-G><BS>", [[vimrc#fzf#mru#mru_in_commandline()]], "<expr>", { desc = "Fill MRU" })
+      inoremap("<C-G><BS>", [[vimrc#fzf#mru#mru_in_commandline()]], "<expr>", { desc = "Fill MRU" })
+      cnoremap("<C-G><C-H>", [[vimrc#fzf#mru#mru_in_commandline()]], "<expr>", { desc = "Fill MRU" })
+      inoremap("<C-G><C-H>", [[vimrc#fzf#mru#mru_in_commandline()]], "<expr>", { desc = "Fill MRU" })
+      cnoremap("<C-G><C-M>", [[vimrc#fzf#mru#directory_mru_in_commandline()]], "<expr>", { desc = "Fill directory MRU" })
+      inoremap("<C-G><C-M>", [[vimrc#fzf#mru#directory_mru_in_commandline()]], "<expr>", { desc = "Fill directory MRU" })
+      cnoremap("<C-G><C-P>", [[vimrc#rg#current_type_option()]], "<expr>", { desc = "Fill current type option for ripgrep" })
+      inoremap("<C-G><C-P>", [[vimrc#rg#current_type_option()]], "<expr>", { desc = "Fill current type option for ripgrep" })
+      cnoremap("<C-G><C-L>", [[vimrc#rg#types_in_commandline()]], "<expr>", { desc = "Fill types for ripgrep" })
+      inoremap("<C-G><C-L>", [[vimrc#rg#types_in_commandline()]], "<expr>", { desc = "Fill types for ripgrep" })
       -- Expand filename
       -- TODO: Use one key to invoke fzf and expand to different filenames
-      cnoremap("<C-G><C-^>", [[expand('%:t')]], "<expr>")
-      inoremap("<C-G><C-^>", [[expand('%:t')]], "<expr>")
+      cnoremap("<C-G><C-^>", [[expand('%:t')]], "<expr>", { desc = "Expand filename" })
+      inoremap("<C-G><C-^>", [[expand('%:t')]], "<expr>", { desc = "Expand filename" })
       -- <C-]> and <C-%> are the same key
-      cnoremap("<C-G><C-]>", [[expand('%:t:r')]], "<expr>")
-      inoremap("<C-G><C-]>", [[expand('%:t:r')]], "<expr>")
+      cnoremap("<C-G><C-]>", [[expand('%:t:r')]], "<expr>", { desc = "Expand filename without extension" })
+      inoremap("<C-G><C-]>", [[expand('%:t:r')]], "<expr>", { desc = "Expand filename without extension" })
       -- <C-\> and <C-$> are the same key
-      cnoremap([[<C-G><C-\>]], [[expand('%:p')]], "<expr>")
-      inoremap([[<C-G><C-\>]], [[expand('%:p')]], "<expr>")
+      cnoremap([[<C-G><C-\>]], [[expand('%:p')]], "<expr>", { desc = "Expand buffer folder with full path" })
+      inoremap([[<C-G><C-\>]], [[expand('%:p')]], "<expr>", { desc = "Expand buffer folder with full path" })
       -- Expand buffer folder
-      cnoremap("<C-G><C-R>", [[expand('%:h')]], "<expr>")
-      inoremap("<C-G><C-R>", [[expand('%:h')]], "<expr>")
+      cnoremap("<C-G><C-R>", [[expand('%:h')]], "<expr>", { desc = "Expand buffer folder" })
+      inoremap("<C-G><C-R>", [[expand('%:h')]], "<expr>", { desc = "Expand buffer folder" })
       -- For grepping word
-      cnoremap("<C-G><C-W>", [["\\b" . expand('<cword>') . "\\b"]], "<expr>")
-      cnoremap("<C-G><C-A>", [["\\b" . expand('<cWORD>') . "\\b"]], "<expr>")
-      cnoremap("<C-G>b", [["\<C-B>\\b\<C-E>\\b"]], "<expr>")
-      cnoremap("<C-G>B", [["\<C-B>\\<\<C-E>\\>"]], "<expr>")
+      cnoremap("<C-G><C-W>", [["\\b" . expand('<cword>') . "\\b"]], "<expr>", { desc = "Expand word with regex boundary" })
+      cnoremap("<C-G><C-A>", [["\\b" . expand('<cWORD>') . "\\b"]], "<expr>", { desc = "Expand WORD with regex boundary" })
+      cnoremap("<C-G>b", [["\<C-B>\\b\<C-E>\\b"]], "<expr>", { desc = "Wrap word with regex boundary" })
+      cnoremap("<C-G>B", [["\<C-B>\\<\<C-E>\\>"]], "<expr>", { desc = "Wrap word with vim boundary" })
       -- Fugitive commit sha
-      cnoremap("<C-G><C-Y>", [[vimrc#fugitive#commit_sha()]], "<expr>")
-      inoremap("<C-G><C-Y>", [[vimrc#fugitive#commit_sha()]], "<expr>")
+      cnoremap("<C-G><C-Y>", [[vimrc#fugitive#commit_sha()]], "<expr>", { desc = "Fill commit sha" })
+      inoremap("<C-G><C-Y>", [[vimrc#fugitive#commit_sha()]], "<expr>", { desc = "Fill commit sha" })
       -- Fill commit
-      cnoremap("<C-G><C-I>", [[vimrc#fzf#git#commits_in_commandline(0, [])]], "<expr>")
-      inoremap("<C-G><C-I>", [[vimrc#fzf#git#commits_in_commandline(0, [])]], "<expr>")
+      cnoremap("<C-G><C-I>", [[vimrc#fzf#git#commits_in_commandline(0, [])]], "<expr>", { desc = "Fill commits" })
+      inoremap("<C-G><C-I>", [[vimrc#fzf#git#commits_in_commandline(0, [])]], "<expr>", { desc = "Fill commits" })
       -- FIXME: Currently, use bcommits command with fzf-tmux will cause error
       -- Vim(let):E684: list index out of range: 1
-      cnoremap("<C-G><C-O>", [[vimrc#fzf#git#commits_in_commandline(1, [])]], "<expr>")
-      inoremap("<C-G><C-O>", [[vimrc#fzf#git#commits_in_commandline(1, [])]], "<expr>")
+      cnoremap("<C-G><C-O>", [[vimrc#fzf#git#commits_in_commandline(1, [])]], "<expr>", { desc = "Fill buffer commits"})
+      inoremap("<C-G><C-O>", [[vimrc#fzf#git#commits_in_commandline(1, [])]], "<expr>", { desc = "Fill buffer commits"})
       -- Fill branches
-      cnoremap("<C-X>b", [[vimrc#git#get_current_branch()]], "<expr>")
-      inoremap("<C-X>b", [[vimrc#git#get_current_branch()]], "<expr>")
-      cnoremap("<C-G><C-B>", [[vimrc#fzf#git#branches_in_commandline()]], "<expr>")
-      inoremap("<C-G><C-B>", [[vimrc#fzf#git#branches_in_commandline()]], "<expr>")
-      cnoremap("<C-G><C-T>", [[vimrc#fzf#git#tags_in_commandline()]], "<expr>")
-      inoremap("<C-G><C-T>", [[vimrc#fzf#git#tags_in_commandline()]], "<expr>")
-      cnoremap("<C-G><C-X>", [[vimrc#fzf#git#diff_files_in_commandline()]], "<expr>")
-      inoremap("<C-G><C-X>", [[vimrc#fzf#git#diff_files_in_commandline()]], "<expr>")
+      cnoremap("<C-X>b", [[vimrc#git#get_current_branch()]], "<expr>", { desc = "Fill current branch" })
+      inoremap("<C-X>b", [[vimrc#git#get_current_branch()]], "<expr>", { desc = "Fill current branch" })
+      cnoremap("<C-G><C-B>", [[vimrc#fzf#git#branches_in_commandline()]], "<expr>", { desc = "Fill branches" })
+      inoremap("<C-G><C-B>", [[vimrc#fzf#git#branches_in_commandline()]], "<expr>", { desc = "Fill branches" })
+      cnoremap("<C-G><C-T>", [[vimrc#fzf#git#tags_in_commandline()]], "<expr>", { desc = "Fill tags" })
+      inoremap("<C-G><C-T>", [[vimrc#fzf#git#tags_in_commandline()]], "<expr>", { desc = "Fill tags" })
+      cnoremap("<C-G><C-X>", [[vimrc#fzf#git#diff_files_in_commandline()]], "<expr>", { desc = "Fill diff files" })
+      inoremap("<C-G><C-X>", [[vimrc#fzf#git#diff_files_in_commandline()]], "<expr>", { desc = "Fill diff files" })
       -- Fill git email
-      cnoremap("<C-G><C-E>", [[vimrc#git#get_email()]], "<expr>")
-      inoremap("<C-G><C-E>", [[vimrc#git#get_email()]], "<expr>")
+      cnoremap("<C-G><C-E>", [[vimrc#git#get_email()]], "<expr>", { desc = "Fill git email" })
+      inoremap("<C-G><C-E>", [[vimrc#git#get_email()]], "<expr>", { desc = "Fill git email" })
       -- Get visual selection
-      cnoremap("<C-G><C-V>", [[vimrc#utility#get_visual_selection()]], "<expr>")
+      cnoremap("<C-G><C-V>", [[vimrc#utility#get_visual_selection()]], "<expr>", { desc = "Get visual selection" })
       -- Trim command line content (Use <Space> to separate `<C-\>e` and function)
-      cnoremap("<C-G>t", [[<C-\>e<Space>vimrc#insert#trim_cmdline()<CR>]])
+      cnoremap("<C-G>t", [[<C-\>e<Space>vimrc#insert#trim_cmdline()<CR>]], "<expr>", { desc = "Trim command line content" })
       -- Delete whole word (Use <Space> to separate `<C-\>e` and function)
-      cnoremap("<C-G>w", [[<C-\>e<Space>vimrc#insert#delete_whole_word()<CR>]])
+      cnoremap("<C-G>w", [[<C-\>e<Space>vimrc#insert#delete_whole_word()<CR>]], "<expr>", { desc = "Delete whole word" })
       -- Delete subword (Use <Space> to separate `<C-\>e` and function)
-      cnoremap("<C-X><C-B>", [[<C-\>e<Space>v:lua.require("vimrc.cmdline").delete_subword()<CR>]])
+      cnoremap("<C-X><C-B>", [[<C-\>e<Space>v:lua.require("vimrc.cmdline").delete_subword()<CR>]], { desc = "Delete subword" })
       -- Company related data
-      cnoremap("<C-G>d", [[<C-R>=g:company_domain<CR>]])
-      cnoremap("<C-G>e", [[<C-R>=g:company_email<CR>]])
+      cnoremap("<C-G>d", [[g:company_domain]], "<expr>", { desc = "Insert company domain" })
+      cnoremap("<C-G>e", [[g:company_email]], "<expr>", { desc = "Insert company email" })
       -- Manipulate register content
-      cnoremap("<C-G>4", [[<C-R>=fnamemodify(@", ':p')<CR>]])
-      inoremap("<C-G>4", [[<C-R>=fnamemodify(@", ':p')<CR>]])
-      cnoremap("<C-G>5", [[<C-R>=fnamemodify(@", ':t:r')<CR>]])
-      inoremap("<C-G>5", [[<C-R>=fnamemodify(@", ':t:r')<CR>]])
-      cnoremap("<C-G>6", [[<C-R>=fnamemodify(@", ':t')<CR>]])
-      inoremap("<C-G>6", [[<C-R>=fnamemodify(@", ':t')<CR>]])
-      cnoremap("<C-G>r", [[<C-R>=fnamemodify(@", ':h')<CR>]])
-      inoremap("<C-G>r", [[<C-R>=fnamemodify(@", ':h')<CR>]])
+      cnoremap("<C-G>4", [[<C-R>=fnamemodify(@", ':p')<CR>]], { desc = "Insert register content with full path" })
+      inoremap("<C-G>4", [[<C-R>=fnamemodify(@", ':p')<CR>]], { desc = "Insert register content with full path" })
+      cnoremap("<C-G>5", [[<C-R>=fnamemodify(@", ':t:r')<CR>]], { desc = "Insert register content without extension" })
+      inoremap("<C-G>5", [[<C-R>=fnamemodify(@", ':t:r')<CR>]], { desc = "Insert register content without extension" })
+      cnoremap("<C-G>6", [[<C-R>=fnamemodify(@", ':t')<CR>]], { desc = "Insert register content filename" })
+      inoremap("<C-G>6", [[<C-R>=fnamemodify(@", ':t')<CR>]], { desc = "Insert register content filename" })
+      cnoremap("<C-G>r", [[<C-R>=fnamemodify(@", ':h')<CR>]], { desc = "Insert register content folder" })
+      inoremap("<C-G>r", [[<C-R>=fnamemodify(@", ':h')<CR>]], { desc = "Insert register content folder" })
       -- Insert date
-      cnoremap("<C-G>D", [[<C-R>=systemlist('env LC_ALL=C date +"%Y/%m/%d"')[0]<CR>]])
-      inoremap("<C-G>D", [[<C-R>=systemlist('env LC_ALL=C date +"%Y/%m/%d"')[0]<CR>]])
+      cnoremap("<C-G>D", [[<C-R>=systemlist('env LC_ALL=C date +"%Y/%m/%d"')[0]<CR>]], { desc = "Insert date" })
+      inoremap("<C-G>D", [[<C-R>=systemlist('env LC_ALL=C date +"%Y/%m/%d"')[0]<CR>]], { desc = "Insert date" })
       -- Insert shell output
-      cnoremap("<C-X><C-X>", [[vimrc#fzf#shell_outputs_in_commandline()]], "<expr>")
-      inoremap("<C-X><C-X>", [[vimrc#fzf#shell_outputs_in_commandline()]], "<expr>")
+      cnoremap("<C-X><C-X>", [[vimrc#fzf#shell_outputs_in_commandline()]], "<expr>", { desc = "Insert shell output" })
+      inoremap("<C-X><C-X>", [[vimrc#fzf#shell_outputs_in_commandline()]], "<expr>", { desc = "Insert shell output" })
       -- Command palette
-      cnoremap("<C-X><C-Z>", [[<C-C><Cmd>Telescope command_palette<CR>]])
-      cnoremap("<C-X><C-S>", [[<C-C><Cmd>CommandPalette<CR>]])
+      cnoremap("<C-X><C-Z>", [[<C-C><Cmd>Telescope command_palette<CR>]], { desc = "Telescope command palette" })
+      cnoremap("<C-X><C-S>", [[<C-C><Cmd>CommandPalette<CR>]], { desc = "Telescope command palette" })
 
       -- Ex mode for special buffer that map("'q'", [[as ':quit']])
-      nnoremap([[\q:]], [[q:]])
-      nnoremap([[\q/]], [[q/]])
-      nnoremap([[\q?]], [[q?]])
+      nnoremap([[\q:]], [[q:]], { desc = "Ex mode for command line history" })
+      nnoremap([[\q/]], [[q/]] , { desc = "Ex mode for forward search history" })
+      nnoremap([[\q?]], [[q?]], { desc = "Ex mode for backward search history" })
 
       -- <Leader><F10> for syncing syntax highlight from start
-      nnoremap("<Leader><F10>", [[:syntax sync fromstart<CR>]])
+      nnoremap("<Leader><F10>", [[:syntax sync fromstart<CR>]], { desc = "Sync syntax highlight from start" })
 
       -- Execute last command
       -- Note: @: should execute last command, but didn't work when using
       -- vimrc#execute_and_save()
-      nnoremap("<M-x><M-x>", [[:<C-P><CR>]])
+      nnoremap("<M-x><M-x>", [[:<C-P><CR>]], { desc = "Execute last command" })
 
       -- Substitute visual selection
-      xnoremap("<M-s>", [[:s/\%V]])
+      xnoremap("<M-s>", [[:s/\%V]], { desc = "Substitute visual selection" })
 
       -- Find non-ASCII character
       map("<M-x>", [[<Plug>(non-ascii-find)]])
