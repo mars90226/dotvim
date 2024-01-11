@@ -175,11 +175,9 @@ Open neovim and wait for `lazy.nvim` to finish the job.
 
 * [ ] Add full plugin dependencies
 * [ ] Add provider plugin for dependencies
-* [x] Use [nvim-autopairs](https://github.com/windwp/nvim-autopairs) to replace auto-pairs.
-* [x] Use [which-key.nvim](https://github.com/folke/which-key.nvim)
-* [x] ~~Use [dashboard-nvim](https://github.com/glepnir/dashboard-nvim)~~ Use [alpha.nvim](https://github.com/goolord/alpha-nvim)
-* [x] Use [conform.nvim](https://github.com/stevearc/conform.nvim) to replace formatter.nvim.
 * [ ] Add [nvim-dap](https://github.com/mfussenegger/nvim-dap) and related plugins.
+* [ ] Add description to key mappings
+* [ ] Add description to LuaSnip snippets
 
 ## Screenshots
 
