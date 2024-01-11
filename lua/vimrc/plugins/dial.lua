@@ -42,7 +42,12 @@ dial.setup = function()
         word = true,
         cyclic = true,
       }),
-      augend.semver.alias.semver,
+       augend.constant.new({
+        elements = { "DEBUG", "INFO", "WARN", "ERROR" }, -- Log level
+        word = true,
+        cyclic = true,
+      }),
+     augend.semver.alias.semver,
     },
   })
 
