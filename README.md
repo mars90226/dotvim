@@ -180,6 +180,7 @@ Open neovim and wait for `lazy.nvim` to finish the job.
 * [ ] Add description to key mappings
 * [ ] Add description to LuaSnip snippets
 * [ ] Add noice.nvim
+* [ ] Add other terminal plugin
 
 ## Screenshots
 

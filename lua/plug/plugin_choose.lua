@@ -180,8 +180,7 @@ end
 
 plugin_choose.setup_terminal = function()
   -- Choose terminal plugin
-  -- vim-floaterm, neoterm
-  -- Currently, always enable neoterm plugin
+  -- vim-floaterm
 end
 
 plugin_choose.setup_text_navigation = function()

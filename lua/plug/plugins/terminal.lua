@@ -12,15 +12,7 @@ local terminal = {
     event = { "VeryLazy" },
   },
 
-  -- FIXME: Seems broken in neovim 0.9.0? Replace it with other terminal plugin
-  {
-    "kassio/neoterm",
-    cmd = { "T", "Ttoggle", "Texec" },
-    keys = { "<Space>`", "<Leader>`" },
-    config = function()
-      require("vimrc.plugins.neoterm").setup()
-    end,
-  },
+  -- TODO: Add other terminal plugin
 
   {
     "hkupty/iron.nvim",
