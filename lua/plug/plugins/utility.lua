@@ -69,6 +69,7 @@ local utility = {
   },
 
   -- Registers
+  -- NOTE: Cannot lazy load on keys
   {
     "tversteeg/registers.nvim",
     event = { "VeryLazy" },
@@ -332,6 +333,7 @@ local utility = {
   },
 
   -- Colorizer
+  -- NOTE: Cannot lazy load on key, first buffer doesn't have color highlight
   {
     "NvChad/nvim-colorizer.lua",
     config = function()
@@ -377,6 +379,7 @@ local utility = {
     end,
   },
 
+  -- NOTE: Cannot lazy load on key, first buffer doesn't have TODO highlight
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -433,7 +436,8 @@ local utility = {
 
   {
     "axieax/urlview.nvim",
-    event = { "VeryLazy" },
+    cmd = { "UrlView" },
+    keys = { "<Leader>uu", "<Leader>ul" },
     dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
       local urlview = require("vimrc.plugins.urlview")
@@ -449,6 +453,7 @@ local utility = {
       end
 
       nnoremap("<Leader>uu", [[<Cmd>UrlView buffer picker=telescope<CR>]], { desc = "view buffer URLs" })
+      -- FIXME: Not working
       nnoremap("<Leader>ul", [[<Cmd>UrlView lazy picker=telescope<CR>]], { desc = "view plugin URLs" })
     end,
   },
