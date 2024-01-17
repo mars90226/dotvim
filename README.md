@@ -185,3 +185,8 @@ Open neovim and wait for `lazy.nvim` to finish the job.
 ![normal](https://user-images.githubusercontent.com/1523214/141642117-9660db2d-b116-48af-83f1-af93184b2bd8.png)
 ![lsp](https://user-images.githubusercontent.com/1523214/141642118-fbf887c8-6939-4818-977a-132a41071e21.png)
 ![telescope](https://user-images.githubusercontent.com/1523214/141642124-4342b201-6589-40d9-9959-fd937fe3de49.png)
+
+## Resources
+
+* [rockerBOO/awesome-neovim Collections of awesome neovim plugins.](https://github.com/rockerBOO/awesome-neovim)
+* [Dotfyle | Neovim Plugins & Neovim News](https://dotfyle.com/)
