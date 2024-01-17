@@ -26,10 +26,14 @@ local git = {
     branch = "develop",
     cmd = { "Merginal" },
     config = function()
-      vim.cmd([[augroup merginal_settings]])
-      vim.cmd([[  autocmd!]])
-      vim.cmd([[  autocmd BufEnter Merginal:branchList:* call vimrc#merginal#settings()]])
-      vim.cmd([[augroup END]])
+      local merginal_augroup_id = vim.api.nvim_create_augroup("merginal_settings", {})
+      vim.api.nvim_create_autocmd({ "BufEnter" }, {
+        group = merginal_augroup_id,
+        pattern = "Merginal:branchList:*",
+        callback = function()
+          vim.fn["vimrc#merginal#settings"]()
+        end,
+      })
     end,
   },
 
