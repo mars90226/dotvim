@@ -316,6 +316,7 @@ local languages = {
     "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    ft = { "fennel", "query" },
     config = function()
       -- This module contains a number of default definitions
       local rainbow_delimiters = require("rainbow-delimiters")
