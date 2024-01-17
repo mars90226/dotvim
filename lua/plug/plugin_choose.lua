@@ -79,8 +79,7 @@ plugin_choose.setup_file_explorer = function()
   if vim.version.cmp(vim.fn["vimrc#plugin#check#python_version"](), "3.6.1") >= 0 then
     choose.enable_plugin("defx.nvim")
   end
-
-  -- NOTE: Always use neo-tree.nvim
+  -- Always use neo-tree.nvim
   -- TODO: Remove others
 end
 
@@ -96,11 +95,9 @@ end
 plugin_choose.setup_git = function()
   -- Choose between git-gutter plugin
   -- gitsigns.nvim
-  -- TODO: Check for git version >= 2.13.0
 
   -- Choose git-blame plugin
   -- gitsigns.nvim
-  -- TODO: Check for git version >= 2.13.0
 end
 
 plugin_choose.setup_language = function()
