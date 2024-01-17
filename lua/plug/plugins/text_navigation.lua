@@ -50,28 +50,6 @@ local text_navigation = {
     end,
   },
   {
-    "indianboy42/hop-extensions",
-    cond = choose.is_enabled_plugin("nvim-treesitter"),
-    -- FIXME: Broken with new hop.nvim fork
-    -- TODO: Organize this
-    keys = {
-      { vim.g.text_navigation_leader .. "l", mode = { "n", "o", "x" } },
-      { vim.g.text_navigation_leader .. "d", mode = { "n", "o", "x" } },
-      { vim.g.text_navigation_leader .. "r", mode = { "n", "o", "x" } },
-      { vim.g.text_navigation_leader .. "s", mode = { "n", "o", "x" } },
-      { vim.g.text_navigation_leader .. "t", mode = { "n", "o", "x" } },
-      { vim.g.text_navigation_leader .. "x", mode = { "n", "o", "x" } },
-      { vim.g.text_navigation_leader .. "c", mode = { "n", "o", "x" } },
-      { vim.g.text_navigation_leader .. "v", mode = { "n", "o", "x" } },
-      { vim.g.text_navigation_leader .. "f", mode = { "n", "o", "x" } },
-      { vim.g.text_navigation_leader .. "p", mode = { "n", "o", "x" } },
-      { vim.g.text_navigation_leader .. "m", mode = { "n", "o", "x" } },
-    },
-    config = function()
-      require("vimrc.plugins.hop_extensions").setup()
-    end,
-  },
-  {
     "ggandor/lightspeed.nvim",
     keys = {
       "f",
