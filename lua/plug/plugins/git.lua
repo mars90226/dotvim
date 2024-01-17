@@ -114,6 +114,7 @@ local git = {
     config = function()
       require("vimrc.plugins.gitsigns").setup()
 
+      -- TODO: Move to gruvbox.nvim config
       -- ref: GruvboxFg4
       vim.cmd([[highlight GitSignsCurrentLineBlame ctermfg=243 guifg=#7c6f64]])
     end,
