@@ -461,7 +461,7 @@ local utility = {
   {
     "gennaro-tedesco/nvim-jqx",
     cond = vim.fn.executable("jq") == 1,
-    event = { "VeryLazy" },
+    ft = { "json", "yaml" },
   },
 
   -- Disabled by default, enable to profile
