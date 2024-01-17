@@ -141,12 +141,6 @@ tui.setup = function()
           [[call vimrc#tui#run('float', 'vifm_dir '.<q-args>)]],
           { nargs = "*" }
         )
-        -- FIXME: Currently not works
-        vim.api.nvim_create_user_command(
-          "VifmDirSplit",
-          [[call vimrc#tui#run('new', 'vifm_dir '.<q-args>)]],
-          { nargs = "*" }
-        )
         vim.api.nvim_create_user_command(
           "VifmDirBMarks",
           [[call vimrc#tui#run('float', 'vifm_dir +bmarks '.<q-args>)]],
