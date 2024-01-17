@@ -90,8 +90,6 @@ utils.toggle_list_option_flag = function(list_option, flag)
   end
 end
 
--- FIXME: Use neovim API to get config home to avoid "~/.vim" not exist problem
--- Also need to fix vimrc#get_vimhome()
 utils.get_vim_home = function()
   return vim.env.HOME .. "/.vim"
 end
