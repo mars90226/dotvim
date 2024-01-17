@@ -28,10 +28,6 @@ plugin_choose.setup_appearance = function()
 
   -- Statuscolumn
   -- statuscol.nvim
-  choose.disable_plugin("statuscol.nvim")
-  if vim.fn.has("nvim-0.9") == 1 then
-    choose.enable_plugin("statuscol.nvim")
-  end
 
   -- Devicons
   -- nvim-web-devicons, vim-devicons
@@ -61,10 +57,7 @@ plugin_choose.setup_completion = function()
   end
 
   -- Choose formatter integration plugin
-  -- conform.nvim, formatter.nvim
-  choose.disable_plugins({ "conform.nvim", "formatter.nvim" })
-  -- Always enable conform.nvim
-  choose.enable_plugin("conform.nvim")
+  -- conform.nvim
 
   -- Choose copilot
   -- copilot.lua
@@ -118,14 +111,6 @@ plugin_choose.setup_language = function()
     choose.enable_plugin("nvim-treesitter")
   end
 
-  -- Choose lsp semantic highlighting plugin
-  -- neovim 0.9.0 lsp-semantic-highlight, vim-lsp-cxx-highlight
-  choose.disable_plugin("vim-lsp-cxx-highlight")
-  if vim.fn.has("nvim-0.9") == 0 then
-    choose.enable_plugin("vim-lsp-cxx-highlight")
-  end
-  -- }}}
-
   -- Lint {{{
   -- Choose Lint plugin
   -- none-ls.nvim
@@ -146,8 +131,8 @@ plugin_choose.setup_language = function()
   -- neogen for generating documentation
 
   -- Choose context component (statusline, winbar) plugin
-  -- dropbar.nvim, nvim-navic, glepnir/lspsaga.nvim, nvim-gps
-  local context_component_plugins = { "dropbar.nvim", "nvim-navic", "lspsaga.nvim-context", "nvim-gps" }
+  -- dropbar.nvim, nvim-navic, glepnir/lspsaga.nvim
+  local context_component_plugins = { "dropbar.nvim", "nvim-navic", "lspsaga.nvim-context" }
   choose.disable_plugins(context_component_plugins)
   if vim.fn.has("nvim-0.10") == 1 then
     choose.enable_plugin("dropbar.nvim")
@@ -155,15 +140,13 @@ plugin_choose.setup_language = function()
     choose.enable_plugin("nvim-navic")
     -- NOTE: Disable lspsaga.nvim as it request lsp symbols on every CursorMoved which is too slow
     -- choose.enable_plugin("lspsaga.nvim-context")
-  elseif choose.is_enabled_plugin("nvim-treesitter") then
-    choose.enable_plugin("nvim-gps")
   end
   -- nvim-navic is required by nvim-navbuddy
   choose.enable_plugin("nvim-navic")
 
   -- Choose breadcrumbs plugin
   -- nvim-navbuddy
-  choose.disable_plugin("navi")
+  choose.disable_plugin("nvim-navbuddy")
   if choose.is_enabled_plugin("nvim-navic") then
     choose.enable_plugin("nvim-navbuddy")
   end
@@ -175,11 +158,8 @@ plugin_choose.setup_language = function()
     choose.disable_plugin("nvim-treesitter-context")
   end
 
-  -- Choose spellsitter plugin
-  -- neovim 0.8, spellsitter.nvim
-  if vim.fn.has("nvim-0.8") == 1 then
-    choose.disable_plugin("spellsitter.nvim")
-  end
+  -- Choose spell check plugin
+  -- neovim 0.8
 end
 
 plugin_choose.setup_misc = function()

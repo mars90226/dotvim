@@ -105,14 +105,6 @@ local languages = {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
   {
-    "lewis6991/spellsitter.nvim",
-    cond = choose.is_enabled_plugin("nvim-treesitter") and choose.is_enabled_plugin("spellsitter.nvim"),
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = function()
-      require("spellsitter").setup()
-    end,
-  },
-  {
     "m-demare/hlargs.nvim",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
@@ -338,14 +330,6 @@ local languages = {
     end,
   },
 
-  -- TODO: Remove vim-lsp-cxx-highlight when neovim 0.9.0 is stable
-  -- ref: :help lsp-semantic-highlight
-  {
-    "jackguo380/vim-lsp-cxx-highlight",
-    cond = choose.is_enabled_plugin("vim-lsp-cxx-highlight"),
-    event = { "BufReadPre", "BufNewFile" },
-  },
-
   -- Context
   {
     "nvim-treesitter/nvim-treesitter-context",
@@ -357,14 +341,6 @@ local languages = {
       nnoremap("gup", function()
         require("treesitter-context").go_to_context()
       end, { desc = "Go to parent context" })
-    end,
-  },
-  {
-    "SmiteshP/nvim-gps",
-    cond = choose.is_enabled_plugin("nvim-treesitter") and choose.is_enabled_plugin("nvim-gps"),
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = function()
-      require("nvim-gps").setup()
     end,
   },
 

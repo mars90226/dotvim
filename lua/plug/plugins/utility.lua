@@ -394,11 +394,6 @@ local utility = {
     end,
   },
 
-  -- NOTE: stabilize.nvim is merged into neovim 0.9.0 as `splitkeep` option
-  -- Ref: https://github.com/neovim/neovim/pull/19243
-  -- TODO: Enable `splitkeep` option when upgrading to neovim 0.9.0
-  -- TODO: Remove this comment after raising minimal version requirement of neovim to 0.9.0
-
   {
     "hoschi/yode-nvim",
     keys = { "<Leader>yc", "<Leader>yr" },

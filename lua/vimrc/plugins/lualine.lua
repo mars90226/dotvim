@@ -20,14 +20,6 @@ lualine.default_option = {
       return component ~= nil
     end, {
       { "filename", path = 1 },
-      plugin_utils.check_enabled_plugin({
-        function()
-          return require("nvim-gps").get_location()
-        end,
-        cond = function()
-          return require("nvim-gps").is_available()
-        end,
-      }, "nvim-gps"),
     }),
     lualine_x = { "encoding", "fileformat", "filetype" },
     lualine_y = { "progress" },

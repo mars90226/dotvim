@@ -399,7 +399,6 @@ nvim_treesitter.setup_performance_trick = function()
     "highlight",
     "context_commentstring",
     "matchup",
-    plugin_utils.check_enabled_plugin("nvimGPS", "nvim-gps"),
     plugin_utils.check_condition("refactor.highlight_current_scope", nvim_treesitter.enable_config.highlight_current_scope),
     plugin_utils.check_condition("refactor.highlight_definitions", nvim_treesitter.enable_config.highlight_definitions),
     "refactor.navigation",
