@@ -161,6 +161,7 @@ local lsp = {
   -- Specific LSP Support
   {
     "p00f/clangd_extensions.nvim",
+    ft = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
     config = function()
       require("clangd_extensions").setup({
         extensions = {
@@ -174,10 +175,11 @@ local lsp = {
       })
     end,
   },
-  { "simrat39/rust-tools.nvim" },
+  { "simrat39/rust-tools.nvim", ft = { "rust" } },
   {
     "pmizio/typescript-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    ft = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
     config = function()
       -- TODO: typescript-tools.nvim do not support mason-installed tsserver for now.
       require("typescript-tools").setup(require("vimrc.lsp").calculate_server_opts("typescript-tools", {
@@ -215,8 +217,8 @@ local lsp = {
       require("neodev").setup({})
     end,
   },
-  { "barreiroleo/ltex_extra.nvim" },
-  { "b0o/schemastore.nvim" },
+  { "barreiroleo/ltex_extra.nvim", ft = { "bib", "gitcommit", "markdown", "org", "plaintex", "rst", "rnoweb", "tex", "pandoc", "quarto", "rmd" } },
+  { "b0o/schemastore.nvim", ft = { "json", "yaml" } },
 
   -- Fold
   -- TODO: Check if folding not work in vimwiki
