@@ -130,6 +130,8 @@ local file_navigation = {
       end, { nargs = 1 })
     end,
   },
+  -- FIXME: Seems not working now
+  -- This plugin is archived, author suggest using which-key.nvim instead
   {
     "LinArcX/telescope-command-palette.nvim",
     event = { "VeryLazy" },
