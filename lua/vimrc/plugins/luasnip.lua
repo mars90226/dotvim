@@ -309,14 +309,13 @@ luasnip.setup_snippet = function()
         return vim.fn["vimrc#git#get_current_branch"]()
       end)
     ),
-    -- FIXME: Not enough arguments for vimrc#fzf#git#commits_in_commandline
     s(
       {
         trig = "gi",
         desc = "Fill commits",
       },
       f(function()
-        return vim.fn["vimrc#fzf#git#commits_in_commandline"]()
+        return vim.fn["vimrc#fzf#git#commits_in_commandline"](0, {})
       end)
     ),
     s(
