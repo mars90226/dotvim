@@ -4,6 +4,7 @@ local git = {
   -- vim-fugitive
   {
     "tpope/vim-fugitive",
+    event = { "VeryLazy" },
     config = function()
       require("vimrc.plugins.fugitive").setup()
     end,
