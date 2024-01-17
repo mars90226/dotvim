@@ -246,6 +246,7 @@ local text_manipulation = {
   },
 
   -- Case
+  -- TODO: Lazy load on keys
   {
     "arthurxavierx/vim-caser",
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
