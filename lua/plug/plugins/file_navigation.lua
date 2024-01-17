@@ -171,9 +171,20 @@ local file_navigation = {
     end,
   },
   -- TODO: Lazy load on keys
+  -- FIXME: Lazy load on keys conflict with wihch-key.nvim?
   {
     "molecule-man/telescope-menufacture",
     event = { "VeryLazy" },
+    -- keys = {
+    --   { "<Space>tf", desc = "Telescope menufacture find_files" },
+    --   { "<Space>ti", desc = "Telescope menufacture live_grep" },
+    --   { "<Space>te", desc = "Telescope menufacture grep_string with folder & pattern" },
+    --   { "<Space>tk", mode = { "n", "x" }, desc = "Telescope menufacture grep_string with cword or visual selection" },
+    --   { "<Space>tK", desc = "Telescope menufacture grep_string with cWORD" },
+    --   { "<Space>t8", mode = { "n", "x" }, desc = "Telescope menufacture grep_string with cword or visual selection with word boundary" },
+    --   { "<Space>t*", desc = "Telescope menufacture grep_string with cWORD with word boundary" },
+    --   { "<Space>tr", desc = "Telescope menufacture grep_string with pattern" },
+    -- },
     config = function()
       require("telescope").load_extension("menufacture")
     end,
