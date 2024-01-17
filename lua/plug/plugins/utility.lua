@@ -399,18 +399,6 @@ local utility = {
   -- TODO: Enable `splitkeep` option when upgrading to neovim 0.9.0
   -- TODO: Remove this comment after raising minimal version requirement of neovim to 0.9.0
 
-  -- Cmdline
-  -- TODO: Replace this with noice.nvim
-  {
-    "VonHeikemen/fine-cmdline.nvim",
-    dependencies = { { "MunifTanjim/nui.nvim" } },
-    cmd = { "FineCmdline" },
-    keys = { "<C-P>" },
-    config = function()
-      require("vimrc.plugins.fine-cmdline").setup()
-    end,
-  },
-
   {
     "hoschi/yode-nvim",
     keys = { "<Leader>yc", "<Leader>yr" },

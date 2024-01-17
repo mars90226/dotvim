@@ -178,6 +178,7 @@ Open neovim and wait for `lazy.nvim` to finish the job.
 * [ ] Add [nvim-dap](https://github.com/mfussenegger/nvim-dap) and related plugins.
 * [ ] Add description to key mappings
 * [ ] Add description to LuaSnip snippets
+* [ ] Add noice.nvim
 
 ## Screenshots
 

@@ -250,9 +250,6 @@ luasnip.setup_snippet = function()
   local insert_exp = exp_generator(function()
     return vim.api.nvim_get_current_buf()
   end)
-  local fine_cmdline_exp = exp_generator(function()
-    return require("vimrc.plugins.fine-cmdline").get_related_bufnr()
-  end)
 
   ls.add_snippets("all", {
     s(
@@ -262,17 +259,6 @@ luasnip.setup_snippet = function()
         insert_exp(":t:r"),
         insert_exp(":p"),
         insert_exp(":h"),
-      })
-    ),
-  })
-  ls.add_snippets("fine-cmdline", {
-    s(
-      "exp",
-      c(1, {
-        fine_cmdline_exp(":t"),
-        fine_cmdline_exp(":t:r"),
-        fine_cmdline_exp(":p"),
-        fine_cmdline_exp(":h"),
       })
     ),
   })

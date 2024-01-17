@@ -212,6 +212,7 @@ local appearance = {
     "MunifTanjim/nui.nvim",
     lazy = true,
   },
+  -- TODO: Add noice.nvim
 
   -- Indent Guide
   {
