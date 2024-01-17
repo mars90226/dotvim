@@ -75,7 +75,6 @@ local switch_or_select_tab = function(prompt_bufnr)
   return action_set.edit(prompt_bufnr, "TabSwitch")
 end
 
--- FIXME: Seems trouble.nvim has some problem with telescope
 local open_with_trouble = function(...)
   local has_trouble, trouble = pcall(require, "trouble.providers.telescope")
 
