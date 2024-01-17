@@ -34,7 +34,6 @@ local text_manipulation = {
 
   {
     "junegunn/vim-easy-align",
-    event = { "VeryLazy" },
     keys = {
       { "<Leader>ga", mode = { "n", "x" } },
       { "<Leader>gA", mode = { "n", "x" } },
@@ -58,7 +57,35 @@ local text_manipulation = {
   -- Substitute & Exchange
   {
     "gbprod/substitute.nvim",
-    event = { "VeryLazy" },
+    keys = {
+      -- Substitute
+      { "ss", mode = { "n", "x" } },
+      "sS",
+      "sl",
+
+      -- Substitute using system clipboard
+      { "=ss", mode = { "n", "x" } },
+      "=sS",
+      "=sl",
+
+      -- Substitute over range
+      { "<Leader>s", mode = { "n", "x" } },
+      "<Leader>ss",
+
+      -- Substitute over range confirm
+      { "scr", mode = { "n", "x" } },
+      "scrr",
+
+      -- Substitute over range Subvert (depends on vim-abolish)
+      { "<Leader><Leader>s", mode = { "n", "x" } },
+      "<Leader><Leader>ss",
+
+      -- Exchange
+      "cx",
+      "cxx",
+      { "X", mode = "x" },
+      "cxc",
+    },
     config = function()
       require("vimrc.plugins.substitute").setup()
     end,
