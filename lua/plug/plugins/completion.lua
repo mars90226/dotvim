@@ -17,7 +17,7 @@ local completion = {
         config = function()
           require("vimrc.plugins.luasnip").setup()
 
-          -- FIXME: nvim-cmp doesn't show new snippets, but it actually reloaded
+          -- NOTE: nvim-cmp doesn't show new snippets, but it actually reloaded
           -- FIXME: Fix ReloadLuaSnip
           -- vim.cmd([[command! ReloadLuaSnip call vimrc#source("after/plugin/luasnip.lua")]])
         end,
