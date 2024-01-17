@@ -2,14 +2,42 @@ local terminal = {
   -- vim-floaterm
   {
     "voldikss/vim-floaterm",
-    event = { "VeryLazy" },
+    cmd = {
+      "FloatermNew",
+      "FloatermPrev",
+      "FloatermNext",
+      "FloatermFirst",
+      "FloatermLast",
+      "FloatermUpdate",
+      "FloatermToggle",
+      "FloatermShow",
+      "FloatermHide",
+      "FloatermKill",
+      "FloatermSend",
+    },
+    keys = {
+      { "<M-2>", mode = { "n", "t" } },
+      { "<M-3>", mode = { "n", "t" } },
+      { "<M-4>", mode = { "n", "t" } },
+      { "<M-5>", mode = { "n", "t" } },
+      { "<Leader>xh", mode = "n" },
+      { "<Leader>xs", mode = "n" },
+      { "<Leader>xc", mode = { "n", "x" } },
+      { "<Leader>xC", mode = { "n", "x" } },
+      { "<Leader>xw", mode = "n" },
+      { "<M-q><M-2>", mode = "t" },
+      { "<M-q><M-3>", mode = "t" },
+      { "<M-q><M-4>", mode = "t" },
+      { "<M-q><M-5>", mode = "t" },
+    },
     config = function()
       require("vimrc.plugins.floaterm").setup()
     end,
   },
   {
     "voldikss/fzf-floaterm",
-    event = { "VeryLazy" },
+    cmd = { "Floaterms" },
+    keys = { "<Space><M-2>" },
   },
 
   -- TODO: Add other terminal plugin
