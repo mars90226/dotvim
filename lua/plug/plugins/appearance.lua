@@ -70,56 +70,6 @@ local appearance = {
       require("vimrc.plugins.gruvbox").setup()
     end,
   },
-  -- NOTE: Setup colorscheme in gruvbox.nvim config
-  -- vim.g.colorscheme = "gruvbox"
-  -- vim.g.lualine_theme = "auto"
-
-  -- TODO: Disabled as diagnostic & vertical line highlight missing
-  -- {
-  --   "luisiacc/gruvbox-baby",
-  --   branch = "main",
-  -- }
-  -- vim.g.colorscheme = "gruvbox-baby"
-  -- vim.g.lualine_theme = "gruvbox-baby"
-
-  -- TODO: Fix cterm 16 colors in terminal
-  -- {
-  --   "navarasu/onedark.nvim",
-  --   config = function()
-  --     local color = require("onedark.colors")
-  --
-  --     require("onedark").setup({
-  --       style = "warmer",
-  --       toggle_style_key = "<Leader>cs",
-  --       highlights = {
-  --         DiffAdd = { bg = color.diff_add },
-  --         DiffChange = { bg = color.diff_change },
-  --         DiffDelete = { bg = color.diff_delete },
-  --         DiffText = { bg = color.diff_text },
-  --       },
-  --     })
-  --
-  --     require("onedark").load()
-  --   end,
-  -- }
-  -- -- TODO: Avoid double loading & use correcty style
-  -- vim.g.colorscheme = "onedark"
-  -- vim.g.lualine_theme = "onedark"
-
-  -- "marko-cerovac/material.nvim"
-  -- vim.g.material_style = "darker"
-  -- vim.g.colorscheme = "material"
-  -- vim.g.lualine_theme = "material-nvim"
-
-  -- {
-  --   "catppuccin/nvim",
-  --   name = "catppuccin",
-  --   config = function()
-  --     require("catppuccin").setup()
-  --   end,
-  -- }
-  -- vim.g.colorscheme = "catppuccin"
-  -- vim.g.lualine_theme = "catppuccin"
 
   -- Which key
   {
