@@ -212,7 +212,7 @@ local text_navigation = {
   -- Marks
   {
     "chentoast/marks.nvim",
-    event = { "VeryLazy" },
+    event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
       local marks = require("marks")
 
