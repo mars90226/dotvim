@@ -152,7 +152,35 @@ local languages = {
   {
     "ThePrimeagen/refactoring.nvim",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
-    event = { "VeryLazy" },
+    cmd = { "Refactor", "RefactoringAddPrintf", "RefactoringAddPrintVar" },
+    keys = {
+      -- Remaps for the refactoring operations currently offered by the plugin
+      { "<Space>re", mode = { "v" } },
+      { "<Space>rf", mode = { "v" } },
+      { "<Space>rv", mode = { "v" } },
+      { "<Space>ri", mode = { "v" } },
+
+      -- Extract block doesn't need visual mode
+      -- FIXME: Not working
+      { "<Space>rb", mode = { "n" } },
+      { "<Space>rbf", mode = { "n" } },
+
+      -- Inline variable can also pick up the identifier currently under the cursor without visual mode
+      { "<Space>ri", mode = { "n" } },
+
+      -- remap to open the Telescope refactoring menu in visual mode
+      { "<Space>rr", mode = { "v" } },
+
+      -- Debug print
+      { "<Space>rp", mode = { "n" } },
+      { "<Space>rP", mode = { "n" } },
+
+      -- Print var
+      -- Remap in normal mode and passing { normal = true } will automatically find the variable under the cursor and print it
+      -- Remap in visual mode will print whatever is in the visual selection
+      { "<Space>rk", mode = { "n", "v" } },
+      { "<Space>rc", mode = { "v" } },
+    },
     dependencies = {
       { "nvim-lua/plenary.nvim" },
       { "nvim-treesitter/nvim-treesitter" },
