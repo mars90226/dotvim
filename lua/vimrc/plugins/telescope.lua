@@ -104,10 +104,7 @@ end
 telescope.setup_config = function()
   require("telescope").setup({
     defaults = {
-      -- FIXME: Temporarily set "sorting_strategy" to "ascending" to fix item missing problem in
-      -- neovim nightly
-      -- Ref: https://github.com/nvim-telescope/telescope.nvim/issues/2667#issuecomment-1699649814
-      sorting_strategy = "ascending",
+      sorting_strategy = "descending",
       mappings = {
         i = {
           -- Use <Esc> to quit
