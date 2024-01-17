@@ -309,7 +309,8 @@ local file_navigation = {
 
   {
     "rgroli/other.nvim",
-    event = { "VeryLazy" },
+    cmd = { "Other", "OtherTabNew", "OtherSplit", "OtherVSplit", "OtherClose" },
+    keys = { "<Leader>oo", "<Leader>os", "<Leader>ov", "<Leader>oc" },
     config = function()
       require("vimrc.plugins.other").setup()
     end,
