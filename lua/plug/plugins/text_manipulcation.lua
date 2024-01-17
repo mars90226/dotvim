@@ -148,7 +148,7 @@ local text_manipulation = {
   -- imap <BS> & <CR> is overwritten, need to be careful of bugs
   {
     "mg979/vim-visual-multi",
-    event = { "VeryLazy" },
+    event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
       -- nvim-hlslens integration
       vim.cmd([[augroup vmlens_settings]])
