@@ -114,15 +114,7 @@ plugin_choose.setup_language = function()
   -- Always enable nvim-lint
 
   -- Choose markdown-preview plugin
-  -- vim-markdown-composer, markdown-preview.nvim
-  -- TODO: Check if which plugin works
-  -- TODO: Remove vim-markdown-composer
-  choose.disable_plugins({ "vim-markdown-composer", "markdown-preview.nvim" })
-  if vim.fn["vimrc#plugin#check#has_cargo"]() then
-    choose.enable_plugin("vim-markdown-composer")
-  else
-    choose.enable_plugin("markdown-preview.nvim")
-  end
+  -- markdown-preview.nvim
 
   -- Enable language documentation generation
   -- neogen for generating documentation
