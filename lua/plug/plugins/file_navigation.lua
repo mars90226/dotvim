@@ -79,39 +79,53 @@ local file_navigation = {
   },
   {
     "nvim-telescope/telescope-file-browser.nvim",
-    event = { "VeryLazy" },
+    keys = {
+      { "<Space>t0", desc = "Telescope file_browser" },
+      { "<Space>t)", desc = "Telescope file_browser in current file folder" },
+    },
     config = function()
       require("telescope").load_extension("file_browser")
     end,
   },
   {
     "nvim-telescope/telescope-project.nvim",
-    event = { "VeryLazy" },
+    keys = {
+      { "<Space>t<C-P>", desc = "Telescope project" },
+    },
     config = function()
       require("telescope").load_extension("project")
     end,
   },
   {
     "jvgrootveld/telescope-zoxide",
-    event = { "VeryLazy" },
+    keys = {
+      { "<Space>tz", desc = "Telescope zoxide list" },
+    },
     config = function()
       require("telescope").load_extension("zoxide")
     end,
   },
   {
     "sudormrfbin/cheatsheet.nvim",
-    event = { "VeryLazy" },
+    cmd = { "Cheatsheet", "CheatsheetEdit" },
+    keys = {
+      { "<Leader><Tab>", desc = "Cheatsheet" },
+    },
   },
   {
     "TC72/telescope-tele-tabby.nvim",
-    event = { "VeryLazy" },
+    keys = {
+      { "<Space>tw", desc = "Telescope tele-tabby list" },
+    },
     config = function()
       require("telescope").load_extension("tele_tabby")
     end,
   },
   {
     "nvim-telescope/telescope-live-grep-args.nvim",
-    event = { "VeryLazy" },
+    keys = {
+      { "<Space>tI", desc = "Telescope live_grep_args" },
+    },
     config = function()
       require("telescope").load_extension("live_grep_args")
     end,
@@ -131,6 +145,7 @@ local file_navigation = {
   },
   -- FIXME: Seems not working now
   -- This plugin is archived, author suggest using which-key.nvim instead
+  -- NOTE: Cannot lazy load on keys as terminal mode keymap is broken
   {
     "LinArcX/telescope-command-palette.nvim",
     event = { "VeryLazy" },
@@ -148,11 +163,14 @@ local file_navigation = {
   },
   {
     "debugloop/telescope-undo.nvim",
-    event = { "VeryLazy" },
+    keys = {
+      { "<Space>tU", desc = "Telescope undo" },
+    },
     config = function()
       require("telescope").load_extension("undo")
     end,
   },
+  -- TODO: Lazy load on keys
   {
     "molecule-man/telescope-menufacture",
     event = { "VeryLazy" },
@@ -193,7 +211,9 @@ local file_navigation = {
   {
     "Marskey/telescope-sg",
     cond = plugin_utils.is_executable("sg"),
-    event = { "VeryLazy" },
+    keys = {
+      { "<Space>ag", desc = "Telescope ast_grep" },
+    },
     config = function()
       require("telescope").load_extension("ast_grep")
     end,
