@@ -64,6 +64,7 @@ local appearance = {
     priority = 999,
     -- TODO: Remove after to avoid other plugin capture wrong highlight
     init = function()
+      vim.g.colorscheme = "gruvbox"
       vim.g.lualine_theme = "auto"
     end,
     config = function()
