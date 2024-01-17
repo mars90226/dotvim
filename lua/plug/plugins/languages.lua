@@ -347,7 +347,7 @@ local languages = {
   -- TODO: Replace with emmet lsp
   {
     "mattn/emmet-vim",
-    keys = { "<M-m>" },
+    keys = { { "<M-m>", mode = { "i" } } },
     init = function()
       vim.g.user_emmet_leader_key = "<M-m>"
     end,
