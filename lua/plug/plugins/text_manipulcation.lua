@@ -166,7 +166,11 @@ local text_manipulation = {
   },
 
   -- Split-Join
-  "AndrewRadev/splitjoin.vim",
+  {
+    "AndrewRadev/splitjoin.vim",
+    cmd = { "SplitjoinSplit", "SplitjoinJoin" },
+    keys = { "gJ", "gS" },
+  },
   {
     "AckslD/nvim-trevJ.lua",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
