@@ -27,20 +27,6 @@ autocmd.setup = function()
         end,
       })
 
-      -- Prompt buffer settings
-      -- FIXME: not work
-      -- local prompt_buffer_augroup_id = vim.api.nvim_create_augroup("prompt_buffer_settings", {})
-      -- vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
-      --   group = prompt_buffer_augroup_id,
-      --   pattern = "*",
-      --   callback = function()
-      --     if vim.bo.buftype == 'prompt' then
-      --       inoremap("<C-W>", "<C-S-W>", "<buffer>")
-      --       inoremap("<A-w>", "<C-W>", "<buffer>")
-      --     end
-      --   end,
-      -- })
-
       -- Command-line window settings
       local cmdline_window_augroup_id = vim.api.nvim_create_augroup("cmdline_window_settings", {})
       vim.api.nvim_create_autocmd({ "CmdwinEnter" }, {
