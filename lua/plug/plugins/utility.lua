@@ -477,31 +477,6 @@ local utility = {
   },
 
   -- Translate
-  -- NOTE: Requires curl 7.76.0. Otherwise, curl do not understand `--fail-with-body` and return exit status 2
-  -- TODO: Check for curl version
-  {
-    "potamides/pantran.nvim",
-    cmd = { "Pantran" },
-    keys = { "<Leader>pt", "<Leader>ptt" },
-    config = function()
-      local pantran = require("pantran")
-
-      pantran.setup({
-        engines = {
-          argos = {
-            default_target = "zh",
-          },
-        },
-      })
-
-      local opts = { noremap = true, silent = true, expr = true }
-      vim.keymap.set("n", "<Leader>pt", pantran.motion_translate, opts)
-      vim.keymap.set("n", "<Leader>ptt", function()
-        return pantran.motion_translate() .. "_"
-      end, opts)
-      vim.keymap.set("x", "<Leader>pt", pantran.motion_translate, opts)
-    end,
-  },
   {
     "uga-rosa/translate.nvim",
     cmd = { "Translate" },
