@@ -47,7 +47,7 @@ local lsp = {
 
   {
     "ii14/lsp-command",
-    event = { "VeryLazy" },
+    event = { "LspAttach" },
   },
 
   {
