@@ -55,7 +55,6 @@ local file_navigation = {
   -- Need to change corresponding script that try to use fzf in ~/.fzf
   {
     "junegunn/fzf",
-    commit = "098ef4d7cfb5465e15b29fc087f9db0b81733eec",
     build = function()
       vim.fn["fzf#install"]()
     end,
