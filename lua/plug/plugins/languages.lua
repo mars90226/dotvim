@@ -45,11 +45,13 @@ local languages = {
     "nvim-treesitter/nvim-treesitter-refactor",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = "VeryLazy",
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = "VeryLazy",
   },
   {
     "nvim-treesitter/playground",
@@ -87,6 +89,7 @@ local languages = {
     "JoosepAlviste/nvim-ts-context-commentstring",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = "VeryLazy",
     init = function()
       vim.g.skip_ts_context_commentstring_module = true
     end,
@@ -98,16 +101,19 @@ local languages = {
     "mfussenegger/nvim-treehopper",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = "VeryLazy",
   },
   {
     "RRethy/nvim-treesitter-textsubjects",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = "VeryLazy",
   },
   {
     "m-demare/hlargs.nvim",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = "VeryLazy",
     config = function()
       -- TODO: Move to nvim_treesitter.lua
       local hlargs = require("hlargs")
@@ -132,6 +138,7 @@ local languages = {
     "ziontee113/syntax-tree-surfer",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = "VeryLazy",
     config = function()
       require("vimrc.plugins.syntax_tree_surfer").setup()
     end,
@@ -140,6 +147,7 @@ local languages = {
     "yioneko/nvim-yati",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = "VeryLazy",
   },
   {
     "ThePrimeagen/refactoring.nvim",
