@@ -475,17 +475,6 @@ local utility = {
       require("window-picker").setup()
     end,
   },
-  {
-    "lpinilla/vim-codepainter",
-    keys = { "<Leader>cp", "<Leader>cn" },
-    config = function()
-      vim.g.codepainter_default_mappings = 0
-
-      vnoremap("<Leader>cp", [[:<C-U>call codepainter#paintText(visualmode())<CR>]])
-      nnoremap("<Leader>cp", [[:<C-U>call codepainter#paintText('')<CR>]])
-      nnoremap("<Leader>cn", [[:<C-U>call codepainter#navigate()<CR>]])
-    end,
-  },
 
   -- Translate
   -- NOTE: Requires curl 7.76.0. Otherwise, curl do not understand `--fail-with-body` and return exit status 2
