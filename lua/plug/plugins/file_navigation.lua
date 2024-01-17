@@ -162,7 +162,16 @@ local file_navigation = {
   },
   {
     "aaronhallaert/advanced-git-search.nvim",
-    event = { "VeryLazy" },
+    cmd = { "AdvancedGitSearch" },
+    keys = {
+      { "<Space>ab", desc = "AdvancedGitSearch diff_branch_file" },
+      { "<Space>al", mode = { "n", "x" }, desc = "AdvancedGitSearch diff_commit_line" },
+      { "<Space>af", desc = "AdvancedGitSearch diff_commit_file" },
+      { "<Space>as", desc = "AdvancedGitSearch search_log_content" },
+      { "<Space>aS", desc = "AdvancedGitSearch search_log_content_file" },
+      { "<Space>ar", desc = "AdvancedGitSearch checkout_reflog" },
+      { "<Space>aa", desc = "AdvancedGitSearch show_custom_functions" },
+    },
     config = function()
       require("telescope").load_extension("advanced_git_search")
     end,
