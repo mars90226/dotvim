@@ -301,7 +301,7 @@ local file_navigation = {
   -- Window Switching
   {
     "https://gitlab.com/yorickpeterse/nvim-window.git",
-    event = { "VeryLazy" },
+    keys = { "=-" },
     config = function()
       nnoremap("=-", "<Cmd>lua require('nvim-window').pick()<CR>", "silent")
     end,
