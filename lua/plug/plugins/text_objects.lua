@@ -6,6 +6,7 @@ local text_objects = {
       -- Reach targets
       -- TODO: Other input method to avoid cursor moving?
       -- FIXME: Setup which-key.nvim & lazy load
+      -- TODO: Replace with mini.ai
       nmap("]r", [['vin'.v:lua.require("vimrc.utils").get_char_string()."o\<Esc>"]], "expr")
       nmap("[r", [['vil'.v:lua.require("vimrc.utils").get_char_string()."\<Esc>"]], "expr")
       nmap("]R", [['van'.v:lua.require("vimrc.utils").get_char_string()."o\<Esc>"]], "expr")
@@ -73,9 +74,15 @@ local text_objects = {
     end,
   },
 
+  -- TODO: Check if this plugin is still needed
   {
     "coderifous/textobj-word-column.vim",
-    event = { "VeryLazy" },
+    keys = {
+      { "au", mode = { "o", "x" } },
+      { "aU", mode = { "o", "x" } },
+      { "iu", mode = { "o", "x" } },
+      { "iU", mode = { "o", "x" } },
+    },
     config = function()
       vim.g.skip_default_textobj_word_column_mappings = 1
 
