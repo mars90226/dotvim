@@ -211,9 +211,11 @@ local file_navigation = {
   },
 
   -- Bookmarks
+  -- TODO: Switch to harpoon2
+  -- Ref: https://github.com/ThePrimeagen/harpoon/tree/harpoon2
   {
     "ThePrimeagen/harpoon",
-    event = { "VeryLazy" },
+    keys = { "<Leader>hm", "<Leader>hM", "<Leader>h`", "<Leader>hh", "<Leader>h]", "<Leader>h[" },
     config = function()
       require("harpoon").setup({})
 
