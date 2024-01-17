@@ -1,5 +1,3 @@
-pcall(require, "impatient")
-
 require("vimrc.profile").setup()
 
 -- Basic
