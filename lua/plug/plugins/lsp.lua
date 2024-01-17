@@ -175,7 +175,35 @@ local lsp = {
       })
     end,
   },
-  { "simrat39/rust-tools.nvim", ft = { "rust" } },
+  {
+    'mrcjkb/rustaceanvim',
+    cond = choose.is_enabled_plugin("rustaceanvim"),
+    version = '^3', -- Recommended
+    ft = { 'rust' },
+    init = function()
+      -- TODO: Lazy load rustaceanvim server opts
+      local server_opts = require('vimrc.lsp').calculate_server_opts('rustaceanvim', {
+        settings = {
+          ["rust-analyzer"] = {
+            checkOnSave = {
+              command = "clippy",
+            },
+            cargo = {
+              loadOutDirsFromCheck = true,
+            },
+            procMacro = {
+              enable = true,
+            },
+          },
+        },
+      })
+
+      vim.g.rustaceanvim = {
+        server = server_opts,
+        -- TODO: Add dap config
+      }
+    end,
+  },
   {
     "pmizio/typescript-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },

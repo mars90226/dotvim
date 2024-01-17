@@ -40,6 +40,13 @@ plugin_choose.setup_completion = function()
   -- nvim-lsp for builtin neovim lsp
   -- builtin neovim lsp should be fast enough to be used in light vim mode
 
+  -- Choose specific lsp plugin
+  -- rustaceanvim
+  choose.disable_plugin("rustaceanvim")
+  if plugin_utils.has_linux_build_env() then
+    choose.enable_plugin("rustaceanvim")
+  end
+
   -- Choose snippet plugin
   -- Always enable LuaSnip
   -- Enable placeholder transformations
