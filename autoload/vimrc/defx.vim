@@ -688,7 +688,7 @@ endfunction
 
 " Depends on viu
 function! vimrc#defx#show_image(context) abort
-  " FIXME: Better workaround
+  " TODO: Better workaround
   " It seems like viu close standard output pipe and neovim terminal stop
   " refresh right pipe closed and before finish rendering all viu output.
   " So the image is not fully renderred in terminal.
