@@ -308,30 +308,9 @@ telescope.setup_mapping = function()
   nnoremap([[<Space>ag]], [[<Cmd>Telescope ast_grep<CR>]])
 end
 
-telescope.setup_autocmd = function()
-  -- NOTE: Telescope opens file in insert mode after neovim commit: d52cc66
-  -- Ref: https://github.com/nvim-telescope/telescope.nvim/issues/2501#issuecomment-1541009573
-  -- Neovim commit pull request: https://github.com/neovim/neovim/pull/22984
-  -- Workaround: Leave insert mode when leaving Telescope prompt.
-  -- Ref: https://github.com/nvim-telescope/telescope.nvim/issues/2027#issuecomment-1510001730
-  -- TODO: Remove this if upstream fix the bug, this workaround severe the performance
-  -- FIXME: Telescope command_history that open fzf will not result in insert mode.
-  local telescope_augroup_id = vim.api.nvim_create_augroup("telescope_settings", {})
-  vim.api.nvim_create_autocmd({ "WinLeave" }, {
-    group = telescope_augroup_id,
-    pattern = "*",
-    callback = function()
-      if vim.bo.filetype == "TelescopePrompt" and vim.fn.mode() == "i" then
-        vim.api.nvim_feedkeys(utils.t("<Esc>"), "i", false)
-      end
-    end
-  })
-end
-
 telescope.setup = function()
   telescope.setup_config()
   telescope.setup_mapping()
-  telescope.setup_autocmd()
 end
 
 return telescope
