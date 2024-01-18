@@ -1,5 +1,3 @@
-local utils = require("vimrc.utils")
-
 local git = {
   -- vim-fugitive
   {
@@ -11,18 +9,22 @@ local git = {
   },
   {
     "shumphrey/fugitive-gitlab.vim",
+    dependencies = { "tpope/vim-fugitive" },
     event = { "VeryLazy" },
   },
   {
     "tommcdo/vim-fubitive",
+    dependencies = { "tpope/vim-fugitive" },
     event = { "VeryLazy" },
   },
   {
     "tpope/vim-rhubarb",
+    dependencies = { "tpope/vim-fugitive" },
     event = { "VeryLazy" },
   },
   {
     "idanarye/vim-merginal",
+    dependencies = { "tpope/vim-fugitive" },
     branch = "develop",
     cmd = { "Merginal" },
     config = function()
@@ -39,6 +41,7 @@ local git = {
 
   {
     "junegunn/gv.vim",
+    dependencies = { "tpope/vim-fugitive" },
     cmd = { "GV", "GVA", "GVD", "GVDA", "GVDE", "GVEA" },
     keys = {
       "<Space>gv",
@@ -70,6 +73,7 @@ local git = {
   -- NOTE: Do not use vim-flog on large code base, it's very slow in git view
   {
     "rbong/vim-flog",
+    dependencies = { "tpope/vim-fugitive" },
     cmd = { "Flog", "Flogsplit" },
     keys = {
       "<Space>gf",
