@@ -136,6 +136,20 @@ nvim_treesitter.tsht_nodes = function(fallback)
   vim.api.nvim_feedkeys(fallback, "n", false)
 end
 
+local ts_context_force_disable_var = "ts_context_force_disable"
+local get_context_force_disable = function(bufnr)
+  return utils.get_buffer_variable(bufnr, ts_context_force_disable_var) or false
+end
+local buffer_toggle_context_force_disable = function(bufnr)
+  local force_disable = not (utils.get_buffer_variable(bufnr, ts_context_force_disable_var) or false)
+  vim.api.nvim_buf_set_var(bufnr, ts_context_force_disable_var, force_disable)
+end
+nvim_treesitter.toggle_context = function()
+  local ts_context = require("treesitter-context")
+  ts_context.toggle()
+  buffer_toggle_context_force_disable(vim.fn.bufnr())
+end
+
 nvim_treesitter.setup_parser_config = function()
   local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
@@ -351,8 +365,9 @@ end
 nvim_treesitter.setup_extensions = function()
   -- nvim-treesitter-context
   local context_default_enable = choose.is_enabled_plugin("nvim-treesitter-context")
+  local context_enable = utils.ternary(context_default_enable, current_buffer_base_highlight_disable_check(), false)
   require("treesitter-context").setup({
-    enable = utils.ternary(context_default_enable, current_buffer_base_highlight_disable_check(), false), -- Enable this plugin (Can be enabled/disabled later via commands)
+    enable = context_enable, -- Enable this plugin (Can be enabled/disabled later via commands)
   })
 
   local ts_highlight_check_augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_highlight_check", {})
@@ -373,7 +388,7 @@ nvim_treesitter.setup_extensions = function()
         end)
       else
         vim.schedule(function()
-          if context_default_enable then
+          if context_default_enable and not get_context_force_disable(vim.fn.bufnr()) then
             vim.cmd([[silent! TSContextEnable]])
           end
           vim.cmd([[silent! DoMatchParen]])
