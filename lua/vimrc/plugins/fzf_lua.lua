@@ -30,6 +30,7 @@ my_fzf_lua.setup_mapping = function()
   nnoremap([[<Space>zI]], [[<Cmd>FzfLua live_grep_resume<CR>]])
   nnoremap([[<Space>zj]], [[<Cmd>FzfLua jumps<CR>]])
   nnoremap([[<Space>zk]], [[<Cmd>FzfLua grep_cword<CR>]])
+  xnoremap([[<Space>zk]], [[<Cmd>FzfLua grep_visual<CR>]]) -- For muscle memory of grepping visual selection using fzf.vim
   nnoremap([[<Space>zK]], [[<Cmd>FzfLua grep_cWORD<CR>]])
   nnoremap([[<Space>zl]], [[<Cmd>FzfLua blines<CR>]])
   nnoremap([[<Space>zL]], [[<Cmd>FzfLua lines<CR>]])
