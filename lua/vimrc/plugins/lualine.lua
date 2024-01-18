@@ -123,11 +123,15 @@ lualine.default_option = {
   extensions = {
     "fugitive",
     "fzf",
+    "lazy",
     "man",
     "mundo",
     "neo-tree",
+    "oil",
+    "overseer",
     "quickfix",
     "symbols-outline",
+    "trouble",
   },
 }
 
