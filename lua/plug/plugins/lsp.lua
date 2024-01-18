@@ -149,6 +149,7 @@ local lsp = {
 
   -- Goto Definitions
   -- NOTE: Has symbol preview
+  -- FIXME: symbols-outline.nvim is archived, replace it with aerial.nvim
   {
     "simrat39/symbols-outline.nvim",
     cmd = { "SymbolsOutline", "SymbolsOutlineOpen" },
