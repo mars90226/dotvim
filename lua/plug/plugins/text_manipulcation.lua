@@ -167,22 +167,6 @@ local text_manipulation = {
 
   -- Split-Join
   {
-    "AndrewRadev/splitjoin.vim",
-    cmd = { "SplitjoinSplit", "SplitjoinJoin" },
-    keys = { "gJ", "gS" },
-  },
-  {
-    "AckslD/nvim-trevJ.lua",
-    cond = choose.is_enabled_plugin("nvim-treesitter"),
-    keys = { "<Leader>jr" },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = function()
-      require("trevj").setup()
-
-      nnoremap("<Leader>jr", [[<Cmd>lua require('trevj').format_at_cursor()<CR>]])
-    end,
-  },
-  {
     "Wansmer/treesj",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
