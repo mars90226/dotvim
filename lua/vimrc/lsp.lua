@@ -122,6 +122,16 @@ lsp.servers = {
   ltex = {
     on_attach = function(client, bufnr)
       require("ltex_extra").setup()
+
+      -- NOTE: ltex consume too much memory. Stop ltex when commit message is closed.
+      local ltex_augroup_id = vim.api.nvim_create_augroup("ltex_settings", {})
+      vim.api.nvim_create_autocmd({ "BufUnload" }, {
+        group = ltex_augroup_id,
+        pattern = "COMMIT_EDITMSG",
+        callback = function()
+          vim.cmd([[LspStopIdleServers]])
+        end,
+      })
     end,
   },
   -- TODO: Add recommended config from nvim-lspconfig.
