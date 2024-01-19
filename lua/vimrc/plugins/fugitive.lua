@@ -2,6 +2,7 @@ local utils = require("vimrc.utils")
 
 local fugitive = {}
 
+-- TODO: Make `:Git push` asynchronous
 fugitive.setup = function()
   -- Commands
   vim.cmd([[command! -nargs=1 GitGotoBlameLine call vimrc#fugitive#goto_blame_line(<f-args>)]])
