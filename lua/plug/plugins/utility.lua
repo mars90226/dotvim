@@ -481,6 +481,7 @@ local utility = {
     end,
   },
 
+  -- Color Column
   {
     "Bekaboo/deadcolumn.nvim",
     event = { "VeryLazy" },
@@ -491,6 +492,7 @@ local utility = {
     end,
   },
 
+  -- Diff
   {
     "AndrewRadev/linediff.vim",
     cmd = { "Linediff" },
@@ -500,6 +502,7 @@ local utility = {
       xnoremap("<M-d>l", [[:Linediff<CR>]])
     end,
   },
+  { "will133/vim-dirdiff", cmd = { "DirDiff" } },
 
   -- DB
   {
@@ -533,7 +536,6 @@ local utility = {
   { "LudoPinelli/comment-box.nvim" },
 
   { "tpope/vim-abolish",    cmd = { "Abolish", "Subvert", "S" }, keys = { "cr" } },
-  { "will133/vim-dirdiff",  cmd = { "DirDiff" } },
   "kopischke/vim-fetch",
   {
     "Valloric/ListToggle",
