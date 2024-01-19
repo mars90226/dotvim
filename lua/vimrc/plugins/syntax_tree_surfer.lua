@@ -20,59 +20,61 @@ syntax_tree_surfer.setup = function()
   vim.keymap.set("n", "vU", function()
     vim.opt.opfunc = "v:lua.STSSwapUpNormal_Dot"
     return "g@l"
-  end, { silent = true, expr = true })
+  end, { silent = true, expr = true, desc = "STS swap up" })
   vim.keymap.set("n", "vD", function()
     vim.opt.opfunc = "v:lua.STSSwapDownNormal_Dot"
     return "g@l"
-  end, { silent = true, expr = true })
+  end, { silent = true, expr = true, desc = "STS swap down" })
 
   -- Swap Current Node at the Cursor with it's siblings, Dot Repeatable
   vim.keymap.set("n", "vd", function()
     vim.opt.opfunc = "v:lua.STSSwapCurrentNodeNextNormal_Dot"
     return "g@l"
-  end, { silent = true, expr = true })
+  end, { silent = true, expr = true, desc = "STS swap current node to next" })
   vim.keymap.set("n", "vu", function()
     vim.opt.opfunc = "v:lua.STSSwapCurrentNodePrevNormal_Dot"
     return "g@l"
-  end, { silent = true, expr = true })
+  end, { silent = true, expr = true, desc = "STS swap current node to previous" })
 
   -- Visual Selection from Normal Mode
-  nnoremap("vx", [[<Cmd>STSSelectMasterNode<CR>]], "silent")
-  nnoremap("vn", [[<Cmd>STSSelectCurrentNode<CR>]], "silent")
+  nnoremap("vx", [[<Cmd>STSSelectMasterNode<CR>]], { silent = true, desc = "STS select master node" })
+  nnoremap("vn", [[<Cmd>STSSelectCurrentNode<CR>]], { silent = true, desc = "STS select current node" })
 
   -- Select Nodes in Visual Mode
-  xnoremap("<M-j>", [[<Cmd>STSSelectNextSiblingNode<CR>]], "silent")
-  xnoremap("<M-k>", [[<Cmd>STSSelectPrevSiblingNode<CR>]], "silent")
-  xnoremap("<M-h>", [[<Cmd>STSSelectParentNode<CR>]], "silent")
-  xnoremap("<M-l>", [[<Cmd>STSSelectChildNode<CR>]], "silent")
+  xnoremap("<M-j>", [[<Cmd>STSSelectNextSiblingNode<CR>]], { silent = true, desc = "STS select next sibling node" })
+  xnoremap("<M-k>", [[<Cmd>STSSelectPrevSiblingNode<CR>]], { silent = true, desc = "STS select previous sibling node" })
+  xnoremap("<M-h>", [[<Cmd>STSSelectParentNode<CR>]], { silent = true, desc = "STS select parent node" })
+  xnoremap("<M-l>", [[<Cmd>STSSelectChildNode<CR>]], { silent = true, desc = "STS select child node" })
 
   -- Swapping Nodes in Visual Mode
-  xnoremap("<M-S-j>", [[<Cmd>STSSwapNextVisual<CR>]], "silent")
-  xnoremap("<M-S-k>", [[<Cmd>STSSwapPrevVisual<CR>]], "silent")
+  xnoremap("<M-S-j>", [[<Cmd>STSSwapNextVisual<CR>]], { silent = true, desc = "STS swap to next" })
+  xnoremap("<M-S-k>", [[<Cmd>STSSwapPrevVisual<CR>]], { silent = true, desc = "STS swap to previous" })
 
   -- Targeted jump
   nnoremap(
     vim.g.text_navigation_leader .. "r",
     function()
       syntax_tree_surfer.default_targeted_jump()
-    end, { desc = "Default targeted jump" }
+    end, { desc = "STS default targeted jump" }
   )
   nnoremap(
     vim.g.text_navigation_leader .. vim.g.text_navigation_leader,
     function()
       syntax_tree_surfer.default_targeted_jump()
-    end, { desc = "Default targeted jump" }
+    end, { desc = "STS default targeted jump" }
   )
   nnoremap(
     vim.g.text_navigation_leader .. "i",
     function()
       syntax_tree_surfer.literal_targeted_jump()
-    end, { desc = "literal targeted jump" }
+    end, { desc = "STS literal targeted jump" }
   )
 
   -- filtered jump
-  nnoremap("<M-s>n", [[<Cmd>lua require("syntax-tree-surfer").filtered_jump("default", true)<CR>]], "silent")
-  nnoremap("<M-s>p", [[<Cmd>lua require("syntax-tree-surfer").filtered_jump("default", false)<CR>]], "silent")
+  nnoremap("<M-s>n", [[<Cmd>lua require("syntax-tree-surfer").filtered_jump("default", true)<CR>]], { silent = true, desc = "STS filtered jump forward" })
+  nnoremap("<M-s>p", [[<Cmd>lua require("syntax-tree-surfer").filtered_jump("default", false)<CR>]], { silent = true, desc = "STS filtered jump backward" })
+
+  -- TODO: Add more jump
 end
 
 return syntax_tree_surfer

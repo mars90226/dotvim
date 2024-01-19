@@ -106,7 +106,39 @@ local languages = {
     "ziontee113/syntax-tree-surfer",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = "VeryLazy",
+    keys = {
+      -- Normal Mode Swapping:
+      -- Swap The Master Node relative to the cursor with it's siblings, Dot Repeatable
+      { "vU", mode = { "n" }, desc = "STS swap up" },
+      { "vD", mode = { "n" }, desc = "STS swap down" },
+
+      -- Swap Current Node at the Cursor with it's siblings, Dot Repeatable
+      { "vd", mode = { "n" }, desc = "STS swap current node to next" },
+      { "vu", mode = { "n" }, desc = "STS swap current node to previous" },
+
+      -- Visual Selection from Normal Mode
+      { "vx", mode = { "n" }, desc = "STS select master node" },
+      { "vn", mode = { "n" }, desc = "STS select current node" },
+
+      -- Select Nodes in Visual Mode
+      { "<M-j>", mode = { "x" }, desc = "STS select next sibling node" },
+      { "<M-k>", mode = { "x" }, desc = "STS select previous sibling node" },
+      { "<M-h>", mode = { "x" }, desc = "STS select parent node" },
+      { "<M-l>", mode = { "x" }, desc = "STS select child node" },
+
+      -- Swapping Nodes in Visual Mode
+      { "<M-S-j>", mode = { "x" }, desc = "STS swap to next" },
+      { "<M-S-k>", mode = { "x" }, desc = "STS swap to previous" },
+
+      -- Targeted jump
+      { vim.g.text_navigation_leader .. "r", mode = { "n" }, desc = "STS default targeted jump" },
+      { vim.g.text_navigation_leader .. vim.g.text_navigation_leader, mode = { "n" }, desc = "STS default targeted jump" },
+      { vim.g.text_navigation_leader .. "i", mode = { "n" }, desc = "STS literal targeted jump" },
+
+      -- filtered jump
+      { "<M-s>n", mode = { "n" }, desc = "STS filtered jump forward" },
+      { "<M-s>p", mode = { "n" }, desc = "STS filtered jump backward" },
+    },
     config = function()
       require("vimrc.plugins.syntax_tree_surfer").setup()
     end,
