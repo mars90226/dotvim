@@ -10,6 +10,9 @@ conform.setup_config = function()
       lua = {
         "stylua"
       },
+      proto = {
+        "buf"
+      },
       ruby = {
         "standardrb"
       },

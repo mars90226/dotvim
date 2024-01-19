@@ -53,6 +53,7 @@ nvim_lint.setup = function()
     gitcommit = { "gitlint" },
     javascript = { "jshint" },
     markdown = { "markdownlint" },
+    proto = { "buf_lint" },
     python = { "mypy", "pylint" },
     sh = { "shellcheck" },
   }

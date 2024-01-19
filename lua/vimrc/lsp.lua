@@ -17,6 +17,7 @@ lsp.servers = {
     -- NOTE: Disable shellcheck integration and use nvim-lint to lint on save
     cmd_env = { SHELLCHECK_PATH = "" },
   },
+  bufls = {},
   -- ccls = {
   --   init_options = {
   --     cache = {
@@ -62,6 +63,9 @@ lsp.servers = {
       offsetEncoding = { "utf-16" },
       memoryUsageProvider = true,
     },
+    -- NOTE: Disable clangd on protobuf
+    -- Ref: https://github.com/neovim/nvim-lspconfig/pull/2125#issuecomment-1291968687
+    filetypes = { "c", "cpp" },
     on_attach = function(client, bufnr)
       local clangd_inlay_hints = require("clangd_extensions.inlay_hints")
       clangd_inlay_hints.setup_autocmd()
