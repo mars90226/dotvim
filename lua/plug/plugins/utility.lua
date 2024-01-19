@@ -8,7 +8,7 @@ local utility = {
       nnoremap("<F9>", ":UndotreeToggle<CR>")
     end,
   },
-  -- NOTE: vim-mundo is slow, but featureful
+  -- NOTE: vim-mundo is slow, but is more feature-rich
   {
     "simnalamburt/vim-mundo",
     cmd = { "MundoToggle" },
@@ -70,6 +70,7 @@ local utility = {
 
   -- Registers
   -- NOTE: Cannot lazy load on keys
+  -- FIXME: Cannot scroll down
   {
     "tversteeg/registers.nvim",
     event = { "VeryLazy" },
@@ -199,10 +200,9 @@ local utility = {
     end,
   },
 
+  -- Quickfix
   { "kevinhwang91/nvim-bqf", ft = { "qf" } },
-
   { "thinca/vim-qfreplace",  ft = { "qf" } },
-
   {
     "romainl/vim-qf",
     ft = { "qf" },
@@ -242,7 +242,6 @@ local utility = {
       nnoremap("<Leader>zc", [[<Cmd>ZenModeCopy<CR>]])
     end
   },
-
   {
     "folke/twilight.nvim",
     cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
@@ -251,6 +250,25 @@ local utility = {
       require("twilight").setup({})
 
       nnoremap("<Leader><C-L>", ":Twilight<CR>")
+    end,
+  },
+  {
+    "hoschi/yode-nvim",
+    keys = { "<Leader>yc", "<Leader>yr" },
+    config = function()
+      require("yode-nvim").setup({})
+
+      noremap("<Leader>yc", [[:YodeCreateSeditorFloating<CR>]])
+      noremap("<Leader>yr", [[:YodeCreateSeditorReplace<CR>]])
+      nnoremap("<Leader>bd", [[:YodeBufferDelete<CR>]])
+
+      nnoremap("<C-W>r", [[<Cmd>YodeLayoutShiftWinDown<CR>]])
+      nnoremap("<C-W>R", [[<Cmd>YodeLayoutShiftWinUp<CR>]])
+      nnoremap("<C-W>J", [[<Cmd>YodeLayoutShiftWinBottom<CR>]])
+      nnoremap("<C-W>K", [[<Cmd>YodeLayoutShiftWinTop<CR>]])
+
+      -- For no gap between floating windows
+      vim.go.showtabline = 2
     end,
   },
 
@@ -327,10 +345,36 @@ local utility = {
   -- TODO: Check if lazy load works
   { "tpope/vim-scriptease", cmd = { "PP", "Messages", "Verbose", "Time", "Scriptnames" } },
 
+  -- Browse
+  -- TODO: Replace with browse.nvim
   {
     "tyru/open-browser.vim",
     event = { "VeryLazy" },
   },
+  {
+    "axieax/urlview.nvim",
+    cmd = { "UrlView" },
+    keys = { "<Leader>uu", "<Leader>ul" },
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      local urlview = require("vimrc.plugins.urlview")
+      local has_secret_urlview, secret_urlview = pcall(require, "secret.urlview")
+
+      require("urlview").setup({
+        default_action = vim.fn["vimrc#plugin#check#has_ssh_host_client"]() and "client_open_browser" or "system",
+      })
+      urlview.setup()
+
+      if has_secret_urlview then
+        secret_urlview.setup()
+      end
+
+      nnoremap("<Leader>uu", [[<Cmd>UrlView buffer picker=telescope<CR>]], { desc = "view buffer URLs" })
+      -- FIXME: Not working
+      nnoremap("<Leader>ul", [[<Cmd>UrlView lazy picker=telescope<CR>]], { desc = "view plugin URLs" })
+    end,
+  },
+
 
   -- Colorizer
   -- NOTE: Cannot lazy load on key, first buffer doesn't have color highlight
@@ -379,6 +423,7 @@ local utility = {
     end,
   },
 
+  -- Todo
   -- NOTE: Cannot lazy load on key, first buffer doesn't have TODO highlight
   {
     "folke/todo-comments.nvim",
@@ -394,26 +439,6 @@ local utility = {
       nnoremap("]x", function()
         require("todo-comments").jump_next()
       end, { desc = "Next todo comment" })
-    end,
-  },
-
-  {
-    "hoschi/yode-nvim",
-    keys = { "<Leader>yc", "<Leader>yr" },
-    config = function()
-      require("yode-nvim").setup({})
-
-      noremap("<Leader>yc", [[:YodeCreateSeditorFloating<CR>]])
-      noremap("<Leader>yr", [[:YodeCreateSeditorReplace<CR>]])
-      nnoremap("<Leader>bd", [[:YodeBufferDelete<CR>]])
-
-      nnoremap("<C-W>r", [[<Cmd>YodeLayoutShiftWinDown<CR>]])
-      nnoremap("<C-W>R", [[<Cmd>YodeLayoutShiftWinUp<CR>]])
-      nnoremap("<C-W>J", [[<Cmd>YodeLayoutShiftWinBottom<CR>]])
-      nnoremap("<C-W>K", [[<Cmd>YodeLayoutShiftWinTop<CR>]])
-
-      -- For no gap between floating windows
-      vim.go.showtabline = 2
     end,
   },
 
@@ -435,30 +460,6 @@ local utility = {
   },
 
   {
-    "axieax/urlview.nvim",
-    cmd = { "UrlView" },
-    keys = { "<Leader>uu", "<Leader>ul" },
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    config = function()
-      local urlview = require("vimrc.plugins.urlview")
-      local has_secret_urlview, secret_urlview = pcall(require, "secret.urlview")
-
-      require("urlview").setup({
-        default_action = vim.fn["vimrc#plugin#check#has_ssh_host_client"]() and "client_open_browser" or "system",
-      })
-      urlview.setup()
-
-      if has_secret_urlview then
-        secret_urlview.setup()
-      end
-
-      nnoremap("<Leader>uu", [[<Cmd>UrlView buffer picker=telescope<CR>]], { desc = "view buffer URLs" })
-      -- FIXME: Not working
-      nnoremap("<Leader>ul", [[<Cmd>UrlView lazy picker=telescope<CR>]], { desc = "view plugin URLs" })
-    end,
-  },
-
-  {
     "gennaro-tedesco/nvim-jqx",
     cond = vim.fn.executable("jq") == 1,
     ft = { "json", "yaml" },
@@ -466,15 +467,6 @@ local utility = {
 
   -- Disabled by default, enable to profile
   -- "norcalli/profiler.nvim"
-
-  {
-    "s1n7ax/nvim-window-picker",
-    version = "1.*",
-    lazy = true,
-    config = function()
-      require("window-picker").setup()
-    end,
-  },
 
   -- Translate
   {
