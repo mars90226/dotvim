@@ -536,6 +536,10 @@ local utility = {
     end,
   },
 
+  -- Draw
+  -- TODO: Add key mappings
+  { "LudoPinelli/comment-box.nvim" },
+
   { "tpope/vim-abolish",    cmd = { "Abolish", "Subvert", "S" },                         keys = { "cr" } },
   { "will133/vim-dirdiff",  cmd = { "DirDiff" } },
   { "Shougo/vinarise.vim",  cmd = { "Vinarise" } },
@@ -550,7 +554,6 @@ local utility = {
   { "tpope/vim-eunuch",                 event = { "CmdlineEnter" } },
   { "tweekmonster/helpful.vim",         cmd = { "HelpfulVersion" } },
   { "tweekmonster/startuptime.vim",     cmd = { "StartupTime" } },
-  { "gyim/vim-boxdraw",                 keys = { "+o", "+O", "+c", "+-", "+_" } },
   { "lambdalisue/reword.vim",           event = { "CmdlineEnter" } },
   { "nicwest/vim-http",                 cmd = { "Http" } },
   { "kristijanhusak/vim-carbon-now-sh", cmd = { "CarbonNowSh" } },
