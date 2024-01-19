@@ -540,10 +540,8 @@ local utility = {
   -- TODO: Add key mappings
   { "LudoPinelli/comment-box.nvim" },
 
-  { "tpope/vim-abolish",    cmd = { "Abolish", "Subvert", "S" },                         keys = { "cr" } },
+  { "tpope/vim-abolish",    cmd = { "Abolish", "Subvert", "S" }, keys = { "cr" } },
   { "will133/vim-dirdiff",  cmd = { "DirDiff" } },
-  { "Shougo/vinarise.vim",  cmd = { "Vinarise" } },
-  { "alx741/vinfo",         cmd = { "Vinfo" } },
   "kopischke/vim-fetch",
   {
     "Valloric/ListToggle",
