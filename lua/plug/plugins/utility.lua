@@ -548,7 +548,6 @@ local utility = {
   },
   -- TODO: Lazy load on cmd
   { "tpope/vim-eunuch",                 event = { "CmdlineEnter" } },
-  { "DougBeney/pickachu",               cmd = { "Pick" } },
   { "tweekmonster/helpful.vim",         cmd = { "HelpfulVersion" } },
   { "tweekmonster/startuptime.vim",     cmd = { "StartupTime" } },
   { "gyim/vim-boxdraw",                 keys = { "+o", "+O", "+c", "+-", "+_" } },
