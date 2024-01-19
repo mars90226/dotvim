@@ -350,6 +350,7 @@ nvim_treesitter.setup_config = function()
       keymaps = {
         ["."] = "textsubjects-smart",
         ["g;"] = "textsubjects-container-outer",
+        ["i;"] = { "textsubjects-container-inner", desc = "Select inside containers (classes, functions, etc.)" },
       },
     },
     matchup = {
@@ -398,8 +399,8 @@ nvim_treesitter.setup_extensions = function()
   })
 
   -- nvim-treehopper
-  onoremap("m", [[<Cmd>lua require("vimrc.plugins.nvim_treesitter").tsht_nodes("m")<CR>]], "silent")
-  xnoremap("m", [[:lua require("vimrc.plugins.nvim_treesitter").tsht_nodes("m")<CR>]], "silent")
+  onoremap("m", [[<Cmd>lua require("vimrc.plugins.nvim_treesitter").tsht_nodes("m")<CR>]], { silent = true, desc = "treehopper nodes" })
+  xnoremap("m", [[:lua require("vimrc.plugins.nvim_treesitter").tsht_nodes("m")<CR>]], { silent = true, desc = "treehopper nodes" })
 end
 
 nvim_treesitter.setup_performance_trick = function()

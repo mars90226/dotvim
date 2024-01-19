@@ -65,12 +65,13 @@ local languages = {
       require("ts_context_commentstring").setup({})
     end,
   },
+  -- TODO: Cannot lazy load on keys
   {
     "mfussenegger/nvim-treehopper",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = "VeryLazy",
   },
+  -- TODO: Cannot lazy load on keys
   {
     "RRethy/nvim-treesitter-textsubjects",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
