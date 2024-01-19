@@ -311,6 +311,9 @@ mapping.setup = function()
       xnoremap("<M-/>", [[<Esc>/\%V]])
       xnoremap("<M-?>", [[<Esc>?\%V]])
 
+      -- Search in function
+      map("<Space>sF", "vaf<M-/>")
+
       -- Diff
       -- Use <M-d> as prefix
       nnoremap("<M-d>t", [[:windo diffthis<CR>]])

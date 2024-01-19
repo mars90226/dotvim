@@ -15,24 +15,7 @@ local text_objects = {
   },
 
   -- vim-textobj-user
-  {
-    "kana/vim-textobj-function",
-    keys = {
-      { "af", mode = { "o", "x" } },
-      { "if", mode = { "o", "x" } },
-      { "aF", mode = { "o", "x" } },
-      { "iF", mode = { "o", "x" } },
-      "<Space>sF",
-    },
-    dependencies = { "kana/vim-textobj-user" },
-    config = function()
-      -- Search in function
-      map("<Space>sF", "vaf<M-/>")
-    end,
-  },
-
-  -- Should already be bundled in vim-sandwich, but not work
-  -- So, explicitly install this plugin
+  -- TODO: Find nvim-treesitter replacement
   {
     "machakann/vim-textobj-functioncall",
     keys = {
@@ -50,6 +33,7 @@ local text_objects = {
     end,
   },
 
+  -- TODO: Find nvim-treesitter replacement
   {
     "glts/vim-textobj-comment",
     keys = {
@@ -71,29 +55,6 @@ local text_objects = {
           ["select-a"] = "aO",
         },
       })
-    end,
-  },
-
-  -- TODO: Check if this plugin is still needed
-  {
-    "coderifous/textobj-word-column.vim",
-    keys = {
-      { "au", mode = { "o", "x" } },
-      { "aU", mode = { "o", "x" } },
-      { "iu", mode = { "o", "x" } },
-      { "iU", mode = { "o", "x" } },
-    },
-    config = function()
-      vim.g.skip_default_textobj_word_column_mappings = 1
-
-      xnoremap("au", ':<C-u>call TextObjWordBasedColumn("aw")<CR>', "silent")
-      xnoremap("aU", ':<C-u>call TextObjWordBasedColumn("aW")<CR>', "silent")
-      xnoremap("iu", ':<C-u>call TextObjWordBasedColumn("iw")<CR>', "silent")
-      xnoremap("iU", ':<C-u>call TextObjWordBasedColumn("iW")<CR>', "silent")
-      onoremap("au", ':call TextObjWordBasedColumn("aw")<CR>', "silent")
-      onoremap("aU", ':call TextObjWordBasedColumn("aW")<CR>', "silent")
-      onoremap("iu", ':call TextObjWordBasedColumn("iw")<CR>', "silent")
-      onoremap("iU", ':call TextObjWordBasedColumn("iW")<CR>', "silent")
     end,
   },
 
