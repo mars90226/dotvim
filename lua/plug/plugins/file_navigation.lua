@@ -263,18 +263,17 @@ local file_navigation = {
   -- Ref: https://github.com/ThePrimeagen/harpoon/tree/harpoon2
   {
     "ThePrimeagen/harpoon",
-    keys = { "<Leader>hm", "<Leader>hM", "<Leader>h`", "<Leader>hh", "<Leader>h]", "<Leader>h[" },
+    keys = { "<Space>hh", "<Leader>hh", "<Space>hl", "]h", "[h" },
     config = function()
       require("harpoon").setup({})
 
       require("telescope").load_extension("harpoon")
 
-      nnoremap("<Leader>hm", [[<Cmd>lua require("harpoon.mark").add_file()<CR>]])
-      nnoremap("<Leader>hM", [[<Cmd>lua require("harpoon.mark").rm_file()<CR>]])
-      nnoremap("<Leader>h`", [[<Cmd>lua require("harpoon.mark").toggle_file()<CR>]])
-      nnoremap("<Leader>hh", [[<Cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>]])
-      nnoremap("<Leader>h]", [[<Cmd>lua require("harpoon.ui").nav_next()<CR>]])
-      nnoremap("<Leader>h[", [[<Cmd>lua require("harpoon.ui").nav_prev()<CR>]])
+      nnoremap("<Space>hh", [[<Cmd>Telescope harpoon marks<CR>]])
+      nnoremap("<Leader>hh", [[<Cmd>lua require("harpoon.mark").toggle_file()<CR>]])
+      nnoremap("<Space>hl", [[<Cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>]])
+      nnoremap("]h", [[<Cmd>lua require("harpoon.ui").nav_next()<CR>]])
+      nnoremap("[h", [[<Cmd>lua require("harpoon.ui").nav_prev()<CR>]])
     end,
   },
 

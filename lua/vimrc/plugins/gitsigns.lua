@@ -10,14 +10,14 @@ gitsigns.on_attach = function(bufnr)
   end
 
   -- Navigation
-  map("n", "]h", function()
+  map("n", "]g", function()
     vim.schedule(function()
       gs.next_hunk()
     end)
     return "<Ignore>"
   end, { expr = true, desc = "Gitsigns next_hunk" })
 
-  map("n", "[h", function()
+  map("n", "[g", function()
     vim.schedule(function()
       gs.prev_hunk()
     end)
@@ -34,12 +34,12 @@ gitsigns.on_attach = function(bufnr)
   map("n", "<Leader>hb", function()
     gs.blame_line({ full = true })
   end, { desc = "Gitsigns blame_line" })
-  map("n", "<Leader>htb", gs.toggle_current_line_blame, { desc = "Gitsigns toggle_current_line_blame" })
+  map("n", "<Leader>hB", gs.toggle_current_line_blame, { desc = "Gitsigns toggle_current_line_blame" })
   map("n", "<Leader>hd", gs.diffthis, { desc = "Gitsigns diffthis" })
   map("n", "<Leader>hD", function()
     gs.diffthis("~")
   end, { desc = "Gitsigns diffthis with parent of HEAD" })
-  map("n", "<Leader>htd", gs.toggle_deleted, { desc = "Gitsigns toggle_deleted" })
+  map("n", "<Leader>hD", gs.toggle_deleted, { desc = "Gitsigns toggle_deleted" })
   map("n", "<Leader>hq", gs.setqflist, { desc = "Gitsigns setqflist" })
   map("n", "<Leader>ha", gs.setloclist, { desc = "Gitsigns setloclist" })
 

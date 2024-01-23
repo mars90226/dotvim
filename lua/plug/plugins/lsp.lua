@@ -61,7 +61,7 @@ local lsp = {
     "folke/trouble.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
     cmd = { "Trouble", "TroubleToggle" },
-    keys = { "<Space>xx", "<Space>xw", "<Space>xd", "<Space>xq", "<Space>xl", "<Space>xr" },
+    keys = { "<Space>xx", "<Space>xw", "<Space>xd", "<Space>xq", "<Space>xl", "<Space>xr", "]x", "[x" },
     config = function()
       require("trouble").setup({})
 
@@ -75,10 +75,10 @@ local lsp = {
       vim.keymap.set("n", "<Space>xr", "<Cmd>TroubleToggle lsp_references<CR>", opts)
 
       -- jump to the next item, skipping the groups
-      vim.keymap.set("n", "]g", [[<Cmd>lua require("trouble").next({ skip_groups = true, jump = true })<CR>]], opts)
+      vim.keymap.set("n", "]x", [[<Cmd>lua require("trouble").next({ skip_groups = true, jump = true })<CR>]], opts)
 
       -- jump to the previous item, skipping the groups
-      vim.keymap.set("n", "[g", [[<Cmd>lua require("trouble").previous({ skip_groups = true, jump = true })<CR>]], opts)
+      vim.keymap.set("n", "[x", [[<Cmd>lua require("trouble").previous({ skip_groups = true, jump = true })<CR>]], opts)
     end,
   },
 

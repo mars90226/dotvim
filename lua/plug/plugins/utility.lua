@@ -433,10 +433,10 @@ local utility = {
 
       nnoremap("<F8>", "<Cmd>TodoTrouble<CR>")
       nnoremap("<Space><F8>", "<Cmd>TodoTelescope<CR>")
-      nnoremap("[x", function()
+      nnoremap("[X", function()
         require("todo-comments").jump_prev()
       end, { desc = "Previous todo comment" })
-      nnoremap("]x", function()
+      nnoremap("]X", function()
         require("todo-comments").jump_next()
       end, { desc = "Next todo comment" })
     end,

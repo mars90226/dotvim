@@ -267,9 +267,6 @@ telescope.setup_mapping = function()
   -- Cheatsheet Mappings
   nnoremap([[<Leader><Tab>]], [[<Cmd>Cheatsheet<CR>]])
 
-  -- Harpoon
-  nnoremap([[<Space>tM]], [[<Cmd>Telescope harpoon marks<CR>]])
-
   -- Zoxide
   nnoremap([[<Space>tz]], [[<Cmd>Telescope zoxide list<CR>]])
 
