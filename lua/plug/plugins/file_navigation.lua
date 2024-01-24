@@ -112,6 +112,7 @@ local file_navigation = {
       { "<Leader><Tab>", desc = "Cheatsheet" },
     },
   },
+  -- FIXME: Lazy load on key breaks plugin
   {
     "TC72/telescope-tele-tabby.nvim",
     keys = {
