@@ -147,11 +147,17 @@ local completion = {
   {
     "jellydn/CopilotChat.nvim",
     opts = {
-      mode = "split", -- newbuffer or split  , default: newbuffer
+      mode = "split",
+      prompts = {
+        Explain = "Explain how it works.",
+        Review = "Review the following code and provide concise suggestions.",
+        Tests = "Briefly explain how the selected code works, then generate unit tests.",
+        Refactor = "Refactor the code to improve clarity and readability.",
+      },
     },
     build = function()
       vim.defer_fn(function()
-        local copilot_chat_plugin = require("vimrc.plugins.lazy").find_plugin("CopilotChat.nvim")
+        local copilot_chat_plugin = require("vimrc.plugins.lazy").find_plugin("jellydn/CopilotChat.nvim")
         if copilot_chat_plugin == nil then
           return
         end
