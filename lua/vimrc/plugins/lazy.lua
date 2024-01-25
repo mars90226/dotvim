@@ -1,6 +1,8 @@
-local lazy = {}
+local lazy = require("lazy")
 
-lazy.setup_autocmd = function()
+local my_lazy = {}
+
+my_lazy.setup_autocmd = function()
   local augroup_id = vim.api.nvim_create_augroup("lazy_settings", {})
   vim.api.nvim_create_autocmd({ "FocusGained", "VimResume" }, {
     group = augroup_id,
@@ -18,8 +20,17 @@ lazy.setup_autocmd = function()
   })
 end
 
-lazy.setup = function()
-  lazy.setup_autocmd()
+my_lazy.setup = function()
+  my_lazy.setup_autocmd()
 end
 
-return lazy
+my_lazy.find_plugin = function(plugin_name)
+  for _, plugin in ipairs(lazy.plugins()) do
+    if plugin[1] == plugin_name then
+      return plugin
+    end
+  end
+  return nil
+end
+
+return my_lazy

@@ -67,11 +67,12 @@ plugin_choose.setup_completion = function()
   -- conform.nvim
 
   -- Choose copilot
-  -- copilot.lua
+  -- copilot.lua, CopilotChat.nvim
   -- TODO: Add light vim mode check for copilot.lua
   if not plugin_utils.has_linux_build_env() then
     choose.disable_plugin("copilot.lua")
     choose.disable_plugin("copilot-cmp")
+    choose.disable_plugin("CopilotChat.nvim")
   end
 
   -- Choose auto pairs plugin

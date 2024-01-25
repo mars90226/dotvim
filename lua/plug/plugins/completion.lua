@@ -144,6 +144,35 @@ local completion = {
       })
     end,
   },
+  {
+    "jellydn/CopilotChat.nvim",
+    opts = {
+      mode = "split", -- newbuffer or split  , default: newbuffer
+    },
+    build = function()
+      vim.defer_fn(function()
+        local copilot_chat_plugin = require("vimrc.plugins.lazy").find_plugin("CopilotChat.nvim")
+        if copilot_chat_plugin == nil then
+          return
+        end
+
+        vim.system("pip3 install -r " .. copilot_chat_plugin.dir .. "/requirements.txt")
+        vim.cmd("UpdateRemotePlugins")
+        vim.notify("CopilotChat - Updated remote plugins. Please restart Neovim.")
+      end, 3000)
+    end,
+    event = "VeryLazy",
+    keys = {
+      { "<Space>ce", "<Cmd>CopilotChatExplain<CR>", desc = "CopilotChat - Explain code" },
+      { "<Space>ce", "y<Cmd>CopilotChatExplain<CR>", mode = { "x" }, desc = "CopilotChat - Explain code" },
+      { "<Space>ct", "<Cmd>CopilotChatTests<CR>", desc = "CopilotChat - Generate tests" },
+      { "<Space>ct", "y<Cmd>CopilotChatTests<CR>", mode = { "x" }, desc = "CopilotChat - Generate tests" },
+      { "<Space>cr", "<Cmd>CopilotChatReview<CR>", desc = "CopilotChat - Review code" },
+      { "<Space>cr", "y<Cmd>CopilotChatReview<CR>", mode = { "x" }, desc = "CopilotChat - Review code" },
+      { "<Space>cR", "<Cmd>CopilotChatRefactor<CR>", desc = "CopilotChat - Refactor code" },
+      { "<Space>cR", "y<Cmd>CopilotChatRefactor<CR>", mode = { "x" }, desc = "CopilotChat - Refactor code" },
+    },
+  },
 }
 
 return completion
