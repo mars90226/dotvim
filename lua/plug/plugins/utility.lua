@@ -92,7 +92,7 @@ local utility = {
   {
     "nvim-colortils/colortils.nvim",
     cmd = { "Colortils" },
-    keys = { "<Leader>ct" },
+    keys = { "<Leader>cT" },
     config = function()
       require("colortils").setup({
         mappings = {
@@ -101,8 +101,8 @@ local utility = {
         },
       })
 
-      nnoremap("<Leader>ct", [[<Cmd>Colortils picker black<CR>]])
-      xnoremap("<Leader>ct", [[:<C-U>execute 'Colortils picker '..vimrc#utility#get_visual_selection()<CR>]])
+      nnoremap("<Leader>cT", [[<Cmd>Colortils picker black<CR>]])
+      xnoremap("<Leader>cT", [[:<C-U>execute 'Colortils picker '..vimrc#utility#get_visual_selection()<CR>]])
     end,
   },
 
