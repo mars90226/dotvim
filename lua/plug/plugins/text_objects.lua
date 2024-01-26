@@ -19,8 +19,8 @@ local text_objects = {
   {
     "machakann/vim-textobj-functioncall",
     keys = {
-      { "ad", mode = { "o", "x" } },
-      { "id", mode = { "o", "x" } },
+      { "ad", mode = { "o", "x" }, desc = "around function call textobj" },
+      { "id", mode = { "o", "x" }, desc = "inner function call textobj" },
     },
     dependencies = { "kana/vim-textobj-user" },
     config = function()
@@ -37,9 +37,9 @@ local text_objects = {
   {
     "glts/vim-textobj-comment",
     keys = {
-      { "ao", mode = { "o", "x" } },
-      { "io", mode = { "o", "x" } },
-      { "aO", mode = { "o", "x" } },
+      { "ao", mode = { "o", "x" }, desc = "around comment textobj" },
+      { "io", mode = { "o", "x" }, desc = "inner comment textobj" },
+      { "aO", mode = { "o", "x" }, desc = "around big comment textobj" },
     },
     dependencies = { "kana/vim-textobj-user" },
     config = function()
