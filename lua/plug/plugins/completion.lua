@@ -162,7 +162,7 @@ local completion = {
           return
         end
 
-        vim.system("pip3 install -r " .. copilot_chat_plugin.dir .. "/requirements.txt")
+        vim.system({ "pip3", "install", "-r", copilot_chat_plugin.dir .. "/requirements.txt" })
         vim.cmd("UpdateRemotePlugins")
         vim.notify("CopilotChat - Updated remote plugins. Please restart Neovim.")
       end, 3000)
