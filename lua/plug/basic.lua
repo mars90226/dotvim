@@ -26,9 +26,21 @@ basic.setup_python_host = function()
       --   vim.g.python3_host_prog = vim.env.HOME .. "/.asdf/shims/python3"
       -- end
 
+      -- Detect pyenv
+      if plugin_utils.file_readable(vim.env.HOME .. "/.pyenv/shims/python") then
+        vim.g.python_host_prog = vim.env.HOME .. "/.pyenv/shims/python"
+      end
+      if plugin_utils.file_readable(vim.env.HOME .. "/.pyenv/shims/python3") then
+        vim.g.python3_host_prog = vim.env.HOME .. "/.pyenv/shims/python3"
+      end
+
       -- Use default Python & Python3
-      vim.g.python_host_prog = "/usr/bin/python"
-      vim.g.python3_host_prog = "/usr/bin/python3"
+      if vim.g.python_host_prog == nil then
+        vim.g.python_host_prog = "/usr/bin/python"
+      end
+      if vim.g.python3_host_prog == nil then
+        vim.g.python3_host_prog = "/usr/bin/python3"
+      end
     end
   end
 end
