@@ -353,6 +353,10 @@ mapping.setup = function()
       -- TODO: Do not leave visual mode, use nvim-notify
       xnoremap("g<C-G>", "g<C-G>:<C-U>lua vim.notify(vim.v.statusmsg)<CR>")
 
+      -- Repeat or execute macro on all visually selected lines
+      xnoremap("<Leader>.", [[:normal .<CR>]])
+      xnoremap("<Leader>@", [[:normal Q<CR>]])
+
       -- Custom function {{{
       vim.api.nvim_create_user_command("ToggleIndent", [[call vimrc#toggle#toggle#indent()]], {})
       vim.api.nvim_create_user_command("ToggleFold", [[call vimrc#toggle#fold_method()]], {})
