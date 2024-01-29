@@ -42,7 +42,7 @@ Packer specific config is removed, but you can use `packer` branch to access the
 
 ### Neovim
 * [neovim](https://neovim.io/) 0.9.2+ (stable), 0.10.0 (nightly, required by 'dropbar.nvim')
-* [python](https://www.python.org/) 3.6.1+ (required by defx.nvim)
+* [python](https://www.python.org/) 3.6.1+ (required by defx.nvim), 3.7.0 (required pynvim 0.5.0)
 * [universal-ctags](https://github.com/universal-ctags/ctags) (required by fzf)
 * C compiler and libstdc++ (required by nvim-treesitter)
 * [git](https://git-scm.com/) 2.13.0 (basic), 2.19.0 (for column in `git grep`)
