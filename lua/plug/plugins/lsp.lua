@@ -255,6 +255,8 @@ local lsp = {
   -- There's several place for fold settings:
   -- 1. Here for nvim-ufo
   -- 2. vimwiki.vim for vimwiki specific config
+  -- TODO: Use neovim built-in transparent fold text: vim.wo.foldtext = ''
+  -- Ref: https://github.com/neovim/neovim/pull/20750
   {
     "kevinhwang91/nvim-ufo",
     dependencies = "kevinhwang91/promise-async",
