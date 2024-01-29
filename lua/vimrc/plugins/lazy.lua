@@ -1,5 +1,3 @@
-local lazy = require("lazy")
-
 local my_lazy = {}
 
 my_lazy.setup_autocmd = function()
@@ -25,12 +23,12 @@ my_lazy.setup = function()
 end
 
 my_lazy.find_plugin = function(plugin_name)
-  for _, plugin in ipairs(lazy.plugins()) do
-    if plugin[1] == plugin_name then
-      return plugin
-    end
-  end
-  return nil
+  return require("lazy.core.config").plugins[plugin_name]
+end
+
+my_lazy.is_loaded = function(plugin_name)
+  local plugin_spec = my_lazy.find_plugin(plugin_name)
+  return plugin_spec ~= nil and plugin_spec._.loaded ~= nil
 end
 
 return my_lazy

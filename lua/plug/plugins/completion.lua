@@ -67,6 +67,71 @@ local completion = {
           require("copilot_cmp").setup()
         end,
       },
+      {
+        "roobert/tailwindcss-colorizer-cmp.nvim",
+        -- Ref: nvim-lspconfig tailwindcss.lua
+        ft = {
+          -- html
+          'aspnetcorerazor',
+          'astro',
+          'astro-markdown',
+          'blade',
+          'clojure',
+          'django-html',
+          'htmldjango',
+          'edge',
+          'eelixir', -- vim ft
+          'elixir',
+          'ejs',
+          'erb',
+          'eruby', -- vim ft
+          'gohtml',
+          'gohtmltmpl',
+          'haml',
+          'handlebars',
+          'hbs',
+          'html',
+          -- 'HTML (Eex)',
+          -- 'HTML (EEx)',
+          'html-eex',
+          'heex',
+          'jade',
+          'leaf',
+          'liquid',
+          'markdown',
+          'mdx',
+          'mustache',
+          'njk',
+          'nunjucks',
+          'php',
+          'razor',
+          'slim',
+          'twig',
+          -- css
+          'css',
+          'less',
+          'postcss',
+          'sass',
+          'scss',
+          'stylus',
+          'sugarss',
+          -- js
+          'javascript',
+          'javascriptreact',
+          'reason',
+          'rescript',
+          'typescript',
+          'typescriptreact',
+          -- mixed
+          'vue',
+          'svelte',
+        },
+        config = function()
+          require("tailwindcss-colorizer-cmp").setup({
+            color_square_width = 2,
+          })
+        end
+      },
     }),
     event = { "InsertEnter", "CmdlineEnter" },
     config = function()
@@ -157,7 +222,7 @@ local completion = {
     },
     build = function()
       vim.defer_fn(function()
-        local copilot_chat_plugin = require("vimrc.plugins.lazy").find_plugin("jellydn/CopilotChat.nvim")
+        local copilot_chat_plugin = require("vimrc.plugins.lazy").find_plugin("CopilotChat.nvim")
         if copilot_chat_plugin == nil then
           return
         end

@@ -98,8 +98,9 @@ nvim_cmp.setup = function()
     },
     formatting = {
       format = lspkind.cmp_format({
-        with_text = true,
+        mode = 'symbol_text',
         maxwidth = 50,
+        show_labelDetails = false,
         menu = vim.tbl_extend("keep", {
           nvim_lsp = "[LSP]",
           path = "[Path]",
@@ -116,6 +117,13 @@ nvim_cmp.setup = function()
         }, plugin_utils.check_enabled_plugin({
           copilot = "[Copilot]",
         }, "copilot-cmp") or {}),
+        before = function(entry, vim_item)
+          -- TODO: Monitor if this hinders cmp performance
+          if require("vimrc.plugins.lazy").is_loaded("tailwindcss-colorizer-cmp.nvim") then
+            vim_item = require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
+          end
+          return vim_item
+        end,
       }),
     },
     mapping = cmp.mapping.preset.insert(vim.tbl_extend("keep", {
