@@ -183,6 +183,7 @@ lsp.servers = {
   --     })
   --   end,
   -- },
+  tailwindcss = {},
   ["typescript-tools"] = {
     capabilities = {
       textDocument = {
