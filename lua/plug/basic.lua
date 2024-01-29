@@ -27,6 +27,7 @@ basic.setup_python_host = function()
       -- end
 
       -- Detect pyenv
+      -- TODO: Add function to change python host program
       if plugin_utils.file_readable(vim.env.HOME .. "/.pyenv/shims/python") then
         vim.g.python_host_prog = vim.env.HOME .. "/.pyenv/shims/python"
       end
