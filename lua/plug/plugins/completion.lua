@@ -211,6 +211,7 @@ local completion = {
   },
   {
     "jellydn/CopilotChat.nvim",
+    cond = choose.is_enabled_plugin("CopilotChat.nvim"),
     opts = {
       mode = "split",
       prompts = {
