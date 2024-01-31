@@ -26,7 +26,7 @@ settings.setup = function()
       vim.opt.mousemodel = "popup_setpos"
       vim.opt.modeline = true
       vim.opt.updatetime = 200
-      vim.opt.cursorline = true
+      vim.opt.cursorline = false
       vim.opt.ruler = true -- show the cursor position all the time
       vim.opt.spell = true
 

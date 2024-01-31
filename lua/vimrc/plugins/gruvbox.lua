@@ -55,6 +55,8 @@ gruvbox.custom_overrides = function()
     UfoFoldedFg = { fg = palette.gray },
     UfoFoldedBg = { bg = palette.dark1 },
     MiniPickNormal = { link = "Normal" },
+
+    -- Fix for transparent mode
     -- NOTE: Set highlight to Normal without transparent mode
     NotifyBackground = { fg = palette.light1, bg = palette.dark0 },
 

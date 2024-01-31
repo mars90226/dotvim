@@ -61,6 +61,7 @@ autocmd.setup = function()
       -- NOTE: 'cursorline' cause redraw when cursor is on fold text and is very slow on large fold
       -- text. Because large fold text frequently appears in diff mode, disable 'cursorline' in diff
       -- mode.
+      local default_cursorline = vim.opt.cursorline
       local disable_cursorline_on_diff_augroup_id = vim.api.nvim_create_augroup("disable_cursorline_on_diff_augroup_id", {})
       vim.api.nvim_create_autocmd({ "OptionSet" }, {
         group = disable_cursorline_on_diff_augroup_id,
@@ -69,7 +70,7 @@ autocmd.setup = function()
           if vim.api.nvim_get_option_value("diff", {}) then
             vim.opt.cursorline = false
           else
-            vim.opt.cursorline = true
+            vim.opt.cursorline = default_cursorline
           end
         end,
       })
