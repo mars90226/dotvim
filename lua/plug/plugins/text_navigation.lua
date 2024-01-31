@@ -192,7 +192,9 @@ local text_navigation = {
     },
     dependencies = { "haya14busa/vim-asterisk" },
     config = function()
-      require("hlslens").setup()
+      require("hlslens").setup({
+        float_shadow_blend = 100,
+      })
 
       noremap("n", [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], "silent")
       noremap("N", [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], "silent")
