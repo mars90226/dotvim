@@ -57,6 +57,9 @@ gruvbox.custom_overrides = function()
     MiniPickNormal = { link = "Normal" },
 
     -- Fix for transparent mode
+    -- NOTE: Set background to nil. The 'cursorline' still has visual indication in line number
+    -- column.
+    CursorLine = { bg = nil },
     -- NOTE: Set highlight to Normal without transparent mode
     NotifyBackground = { fg = palette.light1, bg = palette.dark0 },
 
