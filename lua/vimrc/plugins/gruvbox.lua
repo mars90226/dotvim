@@ -3,6 +3,7 @@ local gruvbox = {}
 gruvbox.config = {
   bold = true,
   error_inverse = true,
+  transparent_mode = true,
 }
 
 gruvbox.load_overrides = function(overrides)
@@ -13,6 +14,7 @@ gruvbox.load_overrides = function(overrides)
   end
 end
 
+-- NOTE: Only support background=dark
 gruvbox.custom_overrides = function()
   local hsl = require("lush").hsl
   local palette = require("gruvbox").palette
@@ -53,6 +55,8 @@ gruvbox.custom_overrides = function()
     UfoFoldedFg = { fg = palette.gray },
     UfoFoldedBg = { bg = palette.dark1 },
     MiniPickNormal = { link = "Normal" },
+    -- NOTE: Set highlight to Normal without transparent mode
+    NotifyBackground = { fg = palette.light1, bg = palette.dark0 },
 
     -- Fix Vim's default highlight group linking
     -- Ref: https://github.com/neovim/neovim/issues/26378
