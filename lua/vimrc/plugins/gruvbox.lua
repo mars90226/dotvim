@@ -63,7 +63,8 @@ gruvbox.custom_overrides = function()
     -- NOTE: Set background to nil. The 'cursorline' still has visual indication in line number
     -- column.
     CursorLine = { bg = nil },
-    NotifyBackground = { fg = palette.light1, bg = nil },
+    -- NOTE: Link to OpaqueNormal to avoid warning message
+    NotifyBackground = { link = "OpaqueNormal" },
     BqfPreviewFloat = { link = "OpaqueNormal" },
     BqfPreviewBorder = { link = "OpaqueNormalFloat" },
     BqfPreviewTitle = { link = "OpaqueTitle" },
