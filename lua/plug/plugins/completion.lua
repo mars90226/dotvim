@@ -212,6 +212,7 @@ local completion = {
   {
     "jellydn/CopilotChat.nvim",
     cond = choose.is_enabled_plugin("CopilotChat.nvim"),
+    branch = "canary",
     opts = {
       mode = "split",
       prompts = {
@@ -235,6 +236,7 @@ local completion = {
     end,
     event = "VeryLazy",
     keys = {
+      { "<Space>c<Space>", ":CopilotChat<Space>", desc = "CopilotChat" },
       { "<Space>ce", "<Cmd>CopilotChatExplain<CR>", desc = "CopilotChat - Explain code" },
       { "<Space>ce", "y<Cmd>CopilotChatExplain<CR>", mode = { "x" }, desc = "CopilotChat - Explain code" },
       { "<Space>ct", "<Cmd>CopilotChatTests<CR>", desc = "CopilotChat - Generate tests" },
