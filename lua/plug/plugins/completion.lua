@@ -220,6 +220,7 @@ local completion = {
         Review = "Review the following code and provide concise suggestions.",
         Tests = "Briefly explain how the selected code works, then generate unit tests.",
         Refactor = "Refactor the code to improve clarity and readability.",
+        Wording = "Rewrite this using idiomatic English",
       },
     },
     build = function()
@@ -245,6 +246,8 @@ local completion = {
       { "<Space>cr", "y<Cmd>CopilotChatReview<CR>", mode = { "x" }, desc = "CopilotChat - Review code" },
       { "<Space>cR", "<Cmd>CopilotChatRefactor<CR>", desc = "CopilotChat - Refactor code" },
       { "<Space>cR", "y<Cmd>CopilotChatRefactor<CR>", mode = { "x" }, desc = "CopilotChat - Refactor code" },
+      { "<Space>cW", "<Cmd>CopilotChatWording<CR>", desc = "CopilotChat - Improve wording" },
+      { "<Space>cW", "y<Cmd>CopilotChatWording<CR>", mode = { "x" }, desc = "CopilotChat - Improve wording" },
     },
   },
 }
