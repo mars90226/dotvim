@@ -57,11 +57,16 @@ gruvbox.custom_overrides = function()
     MiniPickNormal = { link = "Normal" },
 
     -- Fix for transparent mode
+    OpaqueNormal = { fg = palette.light1, bg = palette.dark0 },
+    OpaqueNormalFloat = { fg = palette.light1, bg = palette.dark1 },
+    OpaqueTitle = { fg = palette.bright_green, bg = palette.dark0, bold = gruvbox.config.bold },
     -- NOTE: Set background to nil. The 'cursorline' still has visual indication in line number
     -- column.
     CursorLine = { bg = nil },
-    -- NOTE: Set highlight to Normal without transparent mode
-    NotifyBackground = { fg = palette.light1, bg = palette.dark0 },
+    NotifyBackground = { fg = palette.light1, bg = nil },
+    BqfPreviewFloat = { link = "OpaqueNormal" },
+    BqfPreviewBorder = { link = "OpaqueNormalFloat" },
+    BqfPreviewTitle = { link = "OpaqueTitle" },
 
     -- Fix Vim's default highlight group linking
     -- Ref: https://github.com/neovim/neovim/issues/26378

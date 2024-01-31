@@ -490,6 +490,16 @@ local utility = {
       vim.opt.textwidth = 100
       vim.opt.colorcolumn = "+2"
     end,
+    config = function()
+      local palette = require("gruvbox").palette
+
+      require('deadcolumn').setup({
+        blending = {
+          colorcode = palette.dark0,
+          hlgroup = { "OpaqueNormal", "bg" },
+        }
+      })
+    end,
   },
 
   -- Diff
