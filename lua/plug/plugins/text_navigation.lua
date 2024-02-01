@@ -194,6 +194,7 @@ local text_navigation = {
     config = function()
       require("hlslens").setup({
         float_shadow_blend = 100,
+        nearest_float_when = 'never',
       })
 
       noremap("n", [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], "silent")
