@@ -27,7 +27,7 @@ gruvbox.custom_overrides = function()
     dark_yellow = hsl(palette.faded_yellow).darken(diff_percent).hex,
     dark_aqua = hsl(palette.faded_aqua).darken(diff_percent).hex,
   }
-  local overrides = {
+  local overrides = vim.tbl_extend("force", {
     TSOperator = { link = "Special" },
 
     -- NOTE: Only change background color
@@ -56,6 +56,13 @@ gruvbox.custom_overrides = function()
     UfoFoldedBg = { bg = palette.dark1 },
     MiniPickNormal = { link = "Normal" },
 
+    -- Fix Vim's default highlight group linking
+    -- Ref: https://github.com/neovim/neovim/issues/26378
+    -- Ref: https://github.com/ellisonleao/gruvbox.nvim/issues/307
+    ["@punctuation.bracket"] = { link = "Special" },
+    ["@punctuation.delimiter"] = { link = "Special" },
+    ["@punctuation.special"] = { link = "Special" },
+  }, gruvbox.config.transparent_mode and {
     -- Fix for transparent mode
     OpaqueNormal = { fg = palette.light1, bg = palette.dark0 },
     OpaqueNormalFloat = { fg = palette.light1, bg = palette.dark1 },
@@ -63,19 +70,17 @@ gruvbox.custom_overrides = function()
     -- NOTE: Set background to nil. The 'cursorline' still has visual indication in line number
     -- column.
     CursorLine = { bg = nil },
+    WinBar = { fg = palette.light3, bg = nil },
+    WinBarNC = { fg = palette.light4, bg = nil },
+    -- FIXME: :Messages show low-contrast highlight text
+
     -- NOTE: Link to OpaqueNormal to avoid warning message
     NotifyBackground = { link = "OpaqueNormal" },
+
     BqfPreviewFloat = { link = "OpaqueNormal" },
     BqfPreviewBorder = { link = "OpaqueNormalFloat" },
     BqfPreviewTitle = { link = "OpaqueTitle" },
-
-    -- Fix Vim's default highlight group linking
-    -- Ref: https://github.com/neovim/neovim/issues/26378
-    -- Ref: https://github.com/ellisonleao/gruvbox.nvim/issues/307
-    ["@punctuation.bracket"] = { link = "Special" },
-    ["@punctuation.delimiter"] = { link = "Special" },
-    ["@punctuation.special"] = { link = "Special" },
-  }
+  } or {})
 
   return overrides
 end
