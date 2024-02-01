@@ -1,14 +1,52 @@
 local fzf_lua = require("fzf-lua")
+local actions = require("fzf-lua.actions")
 
 local my_fzf_lua = {}
 
+my_fzf_lua.global_actions = {
+  -- TODO: Escape unwanted filename
+  ["alt-g"] = function(selected, opts)
+    actions.vimcmd_file("rightbelow split", selected, opts)
+  end,
+  ["alt-v"] = function(selected, opts)
+    actions.vimcmd_file("rightbelow vsplit", selected, opts)
+  end,
+}
+
 my_fzf_lua.setup_config = function()
-  fzf_lua.setup({
+  local opts = {
     winopts = {
       width = 0.9,
       height = 0.9,
+    },
+  }
+  local providers = {
+    "files",
+    "grep",
+    "args",
+    "oldfiles",
+    "buffers",
+    "tabs",
+    "lines",
+    "blines",
+    "tags",
+    "btags",
+    "diagnostics",
+  }
+  for _, provider in ipairs(providers) do
+    opts[provider] = {
+      actions = my_fzf_lua.global_actions,
     }
-  })
+  end
+  -- TODO: Refactor this
+  opts.git = {
+    files = {
+      actions = my_fzf_lua.global_actions,
+    },
+  }
+  -- TODO: Add lsp
+
+  fzf_lua.setup(opts)
 
   -- TODO: Setup code action preview
   -- Ref: https://github.com/ibhagwan/fzf-lua/issues/944#issuecomment-1849104750
