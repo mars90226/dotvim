@@ -17,7 +17,9 @@ lsp.servers = {
     -- NOTE: Disable shellcheck integration and use nvim-lint to lint on save
     cmd_env = { SHELLCHECK_PATH = "" },
   },
-  bufls = {},
+  bufls = {
+    condition = plugin_utils.has_linux_build_env(),
+  },
   -- ccls = {
   --   init_options = {
   --     cache = {
