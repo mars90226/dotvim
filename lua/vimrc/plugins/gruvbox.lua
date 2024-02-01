@@ -3,6 +3,7 @@ local gruvbox = {}
 gruvbox.config = {
   bold = true,
   error_inverse = true,
+  inverse = true,
   transparent_mode = true,
 }
 
@@ -70,8 +71,11 @@ gruvbox.custom_overrides = function()
     -- NOTE: Set background to nil. The 'cursorline' still has visual indication in line number
     -- column.
     CursorLine = { bg = nil },
+    StatusLine = { fg = palette.dark2, bg = nil, reverse = gruvbox.config.inverse },
+    StatusLineNC = { fg = palette.dark1, bg = nil, reverse = gruvbox.config.inverse },
     WinBar = { fg = palette.light3, bg = nil },
     WinBarNC = { fg = palette.light4, bg = nil },
+
     -- FIXME: :Messages show low-contrast highlight text
 
     -- NOTE: Link to OpaqueNormal to avoid warning message
