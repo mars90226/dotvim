@@ -1,11 +1,13 @@
 local plugin_utils = require("vimrc.plugin_utils")
 
+local gruvbox_dark_theme = require("vimrc.plugins.lualine_theme.gruvbox_dark")
+
 local lualine = {}
 
 lualine.default_option = {
   options = {
     icons_enabled = true,
-    theme = vim.g.lualine_theme,
+    theme = gruvbox_dark_theme,
     disabled_filetypes = {},
     refresh = {
       statusline = 1000,
