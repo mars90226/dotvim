@@ -84,6 +84,8 @@ gruvbox.custom_overrides = function()
     BqfPreviewFloat = { link = "OpaqueNormal" },
     BqfPreviewBorder = { link = "OpaqueNormalFloat" },
     BqfPreviewTitle = { link = "OpaqueTitle" },
+
+    UfoFoldedBg = { bg = nil },
   } or {})
 
   return overrides

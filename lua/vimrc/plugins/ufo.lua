@@ -50,16 +50,21 @@ ufo.setup = function()
   vim.wo.foldenable = true
   vim.o.foldlevelstart = 99
 
-  nnoremap("<F10>", function()
-    ufo.toggle_treesitter()
-  end)
-
   origin_ufo.setup({
     open_fold_hl_timeout = 150,
     close_fold_kinds = { "imports", "comment" },
     fold_virt_text_handler = ufo.fold_virt_text_handler,
     provider_selector = ufo.provider_selector,
+    preview = {
+      win_config = {
+        winhighlight = "Normal:OpaqueNormal,NormalFloat:OpaqueNormalFloat",
+      }
+    },
   })
+
+  nnoremap("<F10>", function()
+    ufo.toggle_treesitter()
+  end)
 
   vim.keymap.set("n", "zR", origin_ufo.openAllFolds)
   vim.keymap.set("n", "zM", origin_ufo.closeAllFolds)
