@@ -34,7 +34,7 @@ local appearance = {
       local builtin = require("statuscol.builtin")
 
       require("statuscol").setup({
-        -- Segments: (sign -> line number -> gitsigns -> fold )
+        -- Segments: (sign -> line number -> gitsigns -> fold -> separator )
         -- Similar to Visual Studio Code
         -- Ref: https://github.com/ofseed/nvim/blob/e0edff34c98e5ac57360273b0d0161b04fc32765/lua/plugins/ui/statuscol.lua
         bt_ignore = { 'help', 'nofile', 'terminal' },
@@ -47,7 +47,7 @@ local appearance = {
             click = "v:lua.ScSa",
           },
           {
-            text = { builtin.lnumfunc, " " },
+            text = { builtin.lnumfunc },
             condition = { true, builtin.not_empty },
             click = "v:lua.ScLa",
           },
@@ -69,7 +69,11 @@ local appearance = {
               end,
             },
             click = "v:lua.ScSa",
-          }
+          },
+          {
+            text = { " " },
+            hl = "Normal",
+          },
         },
       })
 
