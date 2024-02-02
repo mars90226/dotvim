@@ -36,4 +36,16 @@ buffer.delete_inactive_buffers = function(...)
   vim.notify(wipeout_count .. " buffers(s) " .. (args.wipeout and "wiped out" or "deleted"),vim.log.levels.INFO, {})
 end
 
+buffer.is_scratch_buffer = function(bufnr)
+  return vim.bo[bufnr].buftype == 'nofile'
+end
+
+buffer.delete_scratch_buffers = function()
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if buffer.is_scratch_buffer(bufnr) then
+      vim.api.nvim_buf_delete(bufnr, {})
+    end
+  end
+end
+
 return buffer

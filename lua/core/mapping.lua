@@ -439,6 +439,12 @@ mapping.setup = function()
       nnoremap("ZW", [[:Bdi! wipeout<CR>]])
       nnoremap("Z<C-W>", [[:Bdi! wipeout include_modified<CR>]])
 
+      -- Delete scratch buffers
+      vim.api.nvim_create_user_command("Bds", function()
+        require("vimrc.buffer").delete_scratch_buffers()
+      end, {})
+      nnoremap("Zs", [[<Cmd>Bds<CR>]])
+
       vim.api.nvim_create_user_command("TrimWhitespace", [[call vimrc#utility#trim_whitespace()]], {})
 
       vim.api.nvim_create_user_command("DisplayChar", [[lua require("vimrc.utils").display_char()]], {})
