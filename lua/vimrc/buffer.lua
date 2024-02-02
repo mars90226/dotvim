@@ -40,9 +40,14 @@ buffer.is_scratch_buffer = function(bufnr)
   return vim.bo[bufnr].buftype == 'nofile'
 end
 
-buffer.delete_scratch_buffers = function()
+buffer.delete_hidden_scratch_buffers = function()
+  local visible_buffers = {}
+  for _, winid in ipairs(vim.api.nvim_list_wins()) do
+    visible_buffers[vim.api.nvim_win_get_buf(winid)] = true
+  end
+
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-    if buffer.is_scratch_buffer(bufnr) then
+    if buffer.is_scratch_buffer(bufnr) and not visible_buffers[bufnr] then
       vim.api.nvim_buf_delete(bufnr, {})
     end
   end

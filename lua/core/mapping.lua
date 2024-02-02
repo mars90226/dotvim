@@ -441,7 +441,7 @@ mapping.setup = function()
 
       -- Delete scratch buffers
       vim.api.nvim_create_user_command("Bds", function()
-        require("vimrc.buffer").delete_scratch_buffers()
+        require("vimrc.buffer").delete_hidden_scratch_buffers()
       end, {})
       nnoremap("Zs", [[<Cmd>Bds<CR>]])
 
