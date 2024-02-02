@@ -238,7 +238,7 @@ function! vimrc#defx#mappings() abort " {{{ abort
         \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd')
   nnoremap <silent><buffer><expr> cv
         \ defx#do_action('cd', expand(input('cd: ', '', 'dir')))
-  nnoremap <silent><buffer><expr> <Leader>r
+  nnoremap <silent><buffer><expr> <Leader>pr
         \ defx#do_action('call', 'vimrc#defx#change_vim_buffer_cwd') . defx#do_action('call', 'vimrc#defx#git_root')
   nnoremap <silent><buffer><expr> gK
         \ defx#do_action('call', 'vimrc#defx#show_detail')

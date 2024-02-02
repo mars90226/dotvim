@@ -127,7 +127,7 @@ local utility = {
       })
       require("telescope").load_extension("projects")
 
-      nnoremap("<Leader>r", "<Cmd>ProjectRoot<CR>")
+      nnoremap("<Leader>pr", "<Cmd>ProjectRoot<CR>")
     end,
   },
 
@@ -513,6 +513,20 @@ local utility = {
     end,
   },
   { "will133/vim-dirdiff", cmd = { "DirDiff" } },
+
+  -- RESTful
+  {
+    "rest-nvim/rest.nvim",
+    dependencies = { { "nvim-lua/plenary.nvim" } },
+    ft = { "http" },
+    config = function()
+      require("rest-nvim").setup({})
+
+      nnoremap("<Leader>rr", [[<Plug>RestNvim]], "nowait")
+      nnoremap("<Leader>rp", [[<Plug>RestNvimPreview]], "nowait")
+      nnoremap("<Leader>rl", [[<Plug>RestNvimLast]], "nowait")
+    end
+  },
 
   -- DB
   {
