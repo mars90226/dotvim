@@ -36,16 +36,13 @@ local completion = {
         "uga-rosa/cmp-dictionary",
         config = function()
           require("cmp_dictionary").setup({
-            -- The following are default values.
-            exact = 2,
-            first_case_insensitive = false,
-            document = false,
-            document_command = "wn %s -over",
-            async = false,
-            sqlite = false,
-            max_items = 10,
-            capacity = 5,
-            debug = false,
+            paths = { "/usr/share/dict/words" },
+            exact_length = 2,
+            first_case_insensitive = true,
+            document = {
+              enable = true,
+              command = { "wn", "${label}", "-over" },
+            },
           })
         end,
       },
