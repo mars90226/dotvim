@@ -77,6 +77,7 @@ gruvbox.custom_overrides = function()
     WinBarNC = { fg = palette.light4, bg = nil },
 
     -- FIXME: :Messages show low-contrast highlight text
+    -- Seems to related to vim session
 
     -- NOTE: Link to OpaqueNormal to avoid warning message
     NotifyBackground = { link = "OpaqueNormal" },
