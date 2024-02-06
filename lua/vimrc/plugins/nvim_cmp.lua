@@ -2,6 +2,7 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 local select_choice = require("luasnip.extras.select_choice")
 local lspkind = require("lspkind")
+local autopairs = require("nvim-autopairs")
 local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
@@ -187,7 +188,11 @@ nvim_cmp.setup = function()
 
         if copilot_suggestion.is_visible() then
           cmp.mapping.close()(fallback)
+          -- NOTE: Fix bug that nvim-autopairs adding extra closing brackets
+          -- Ref: https://github.com/zbirenbaum/copilot.lua/issues/215#issuecomment-1918114065
+          autopairs.disable()
           copilot_suggestion.accept()
+          autopairs.enable()
         else
           fallback()
         end
