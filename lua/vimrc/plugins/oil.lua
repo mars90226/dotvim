@@ -1,6 +1,8 @@
 local origin_oil = require("oil")
 local origin_oil_actions = require("oil.actions")
 
+local utils = require("vimrc.utils")
+
 local oil = {}
 
 oil.setup_config = function()
@@ -67,7 +69,7 @@ oil.setup_config = function()
           vim.cmd("vertical split")
           origin_oil.open(folder)
         end,
-        desc = "Open oil.nvim current folder in vertical split"
+        desc = "Open oil.nvim current folder in vertical split",
       },
       ["<Space>-"] = {
         callback = function()
@@ -75,7 +77,7 @@ oil.setup_config = function()
           vim.cmd("split")
           origin_oil.open(folder)
         end,
-        desc = "Open oil.nvim current folder in horizontal split"
+        desc = "Open oil.nvim current folder in horizontal split",
       },
       ["`"] = "actions.cd",
       ["~"] = "actions.tcd",
@@ -96,7 +98,7 @@ oil.setup_config = function()
       ["\\r"] = {
         callback = function()
           local dir = origin_oil.get_current_dir()
-          vim.cmd.RgWithOption(dir .. '::' .. vim.fn.input('Rg: '))
+          vim.cmd.RgWithOption(dir .. "::" .. vim.fn.input("Rg: "))
         end,
         desc = "FZF Rg in current folder",
       },
@@ -116,7 +118,7 @@ oil.setup_config = function()
       ["\\D"] = {
         callback = function()
           local dir = origin_oil.get_current_dir()
-          vim.cmd.Defx(dir .. ' -split=vertical')
+          vim.cmd.Defx(dir .. " -split=vertical")
         end,
         desc = "Open current folder in Defx.nvim",
       },
@@ -132,7 +134,50 @@ oil.setup_config = function()
           -- NOTE: Use defx.vim function
           vim.fn["vimrc#defx#_paste_from_system_clipboard"](dir)
         end,
-        desc = "Paste from system clipboard"
+        desc = "Paste from system clipboard",
+      },
+
+      -- Bookmarks
+      ["gd"] = {
+        callback = function()
+          -- TODO: Change to dynamic bookmarks
+          local bookmarks = {
+            ["home"] = vim.env.HOME,
+            ["vim config"] = utils.get_vim_home(),
+            ["vim runtime"] = vim.env.VIMRUNTIME,
+            ["vim data"] = function()
+              return vim.fn.stdpath("data")
+            end,
+            ["vim cache"] = function()
+              return vim.fn.stdpath("cache")
+            end,
+            ["vim state"] = function()
+              return vim.fn.stdpath("state")
+            end,
+            ["git root"] = function()
+              return vim.fn["vimrc#git#root"]()
+            end,
+            ["working directory"] = function()
+              return vim.fn.getcwd()
+            end,
+            ["lazy.nvim plugins"] = function()
+              return vim.fn.stdpath("data") .. "/lazy"
+            end,
+          }
+
+          -- TODO: Use fzf-lua to do other actions
+          vim.ui.select(vim.tbl_keys(bookmarks), {
+            prompt = "Goto bookmark:",
+          }, function(choice)
+            local folder = bookmarks[choice]
+            if type(folder) == "function" then
+              folder = folder()
+            end
+
+            origin_oil.open(folder)
+          end)
+        end,
+        desc = "Goto bookmark",
       },
     },
     -- Set to false to disable all of the above keymaps
@@ -207,7 +252,7 @@ oil.setup_filetype_mapping = function()
   vim.keymap.set("c", "<C-X>f", function()
     local entry = origin_oil.get_cursor_entry()
     if not entry then
-      return ''
+      return ""
     end
 
     return origin_oil.get_current_dir() .. entry.name
