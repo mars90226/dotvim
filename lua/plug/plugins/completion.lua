@@ -207,11 +207,12 @@ local completion = {
     end,
   },
   {
-    "jellydn/CopilotChat.nvim",
+    "CopilotC-Nvim/CopilotChat.nvim",
     cond = choose.is_enabled_plugin("CopilotChat.nvim"),
-    branch = "canary",
     opts = {
-      mode = "split",
+      show_help = "yes",
+      debug = false,
+      disable_extra_info = "no",
       prompts = {
         Explain = "Explain how it works.",
         Review = "Review the following code and provide concise suggestions.",
@@ -235,6 +236,8 @@ local completion = {
     event = "VeryLazy",
     keys = {
       { "<Space>c<Space>", ":CopilotChat<Space>", desc = "CopilotChat" },
+      { "<Space>cv", ":CopilotChatVisual<CR>", mode = { "x" }, desc = "CopilotChat - Open in vertical split" },
+      { "<Space>cx", ":CopilotChatInPlace<CR>", mode = { "x" }, desc = "CopilotChat - Run in-place code" },
       { "<Space>ce", "<Cmd>CopilotChatExplain<CR>", desc = "CopilotChat - Explain code" },
       { "<Space>ce", "y<Cmd>CopilotChatExplain<CR>", mode = { "x" }, desc = "CopilotChat - Explain code" },
       { "<Space>ct", "<Cmd>CopilotChatTests<CR>", desc = "CopilotChat - Generate tests" },
