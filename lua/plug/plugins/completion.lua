@@ -209,6 +209,10 @@ local completion = {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     cond = choose.is_enabled_plugin("CopilotChat.nvim"),
+    dependencies = {
+      { "nvim-telescope/telescope.nvim" },
+      { "nvim-lua/plenary.nvim" },
+    },
     opts = {
       show_help = "yes",
       debug = false,
@@ -235,9 +239,30 @@ local completion = {
     end,
     event = "VeryLazy",
     keys = {
-      { "<Space>c<Space>", ":CopilotChat<Space>", desc = "CopilotChat" },
-      { "<Space>cv", ":CopilotChatVisual<CR>", mode = { "x" }, desc = "CopilotChat - Open in vertical split" },
-      { "<Space>cx", ":CopilotChatInPlace<CR>", mode = { "x" }, desc = "CopilotChat - Run in-place code" },
+      { "<Space>c<Space>", "<Cmd>CopilotChat<Space>", desc = "CopilotChat" },
+      { "<Space>cv", "<Cmd>CopilotChatVisual<CR>", mode = { "x" }, desc = "CopilotChat - Open in vertical split" },
+      { "<Space>cx", "<Cmd>CopilotChatInPlace<CR>", mode = { "x" }, desc = "CopilotChat - Run in-place code" },
+      { "<Space>cf", "<Cmd>CopilotChatFixDiagnostic<CR>", desc = "CopilotChat - Fix diagnostic" },
+      { "<Space>c<C-R>", "<Cmd>CopilotChatReset<CR>", desc = "CopilotChat - Reset chat history and clear buffer" },
+
+      -- Telescope integration
+      {
+        "<Space>ch",
+        function()
+          require("CopilotChat.code_actions").show_help_actions()
+        end,
+        desc = "CopilotChat - Help actions"
+      },
+      {
+        "<Space>cp",
+        function()
+          require("CopilotChat.code_actions").show_prompt_actions()
+        end,
+        mode = { "n", "x" },
+        desc = "CopilotChat - Prompt actions"
+      },
+
+      -- Prompts
       { "<Space>ce", "<Cmd>CopilotChatExplain<CR>", desc = "CopilotChat - Explain code" },
       { "<Space>ce", "y<Cmd>CopilotChatExplain<CR>", mode = { "x" }, desc = "CopilotChat - Explain code" },
       { "<Space>ct", "<Cmd>CopilotChatTests<CR>", desc = "CopilotChat - Generate tests" },
