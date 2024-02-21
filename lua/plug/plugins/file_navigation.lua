@@ -355,6 +355,8 @@ local file_navigation = {
     version = "2.*",
     keys = { "=-" },
     config = function()
+      -- TODO: Check config example in neo-tree.nvim README.md
+      -- Ref: https://github.com/nvim-neo-tree/neo-tree.nvim
       require("window-picker").setup({
         hint = "floating-big-letter",
       })
