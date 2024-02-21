@@ -88,7 +88,7 @@ command! -nargs=1 -complete=file DefxSearch call vimrc#defx#open(<q-args>, 'sear
 augroup defx_detect_folder
   autocmd!
   " Disable netrw autocmd
-  autocmd VimEnter * autocmd! FileExplorer
+  autocmd VimEnter * ++once silent! autocmd! FileExplorer *
   autocmd BufEnter * call vimrc#defx#detect_folder(expand('<afile>'))
 augroup END
 
