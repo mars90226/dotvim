@@ -103,6 +103,22 @@ oil.setup_config = function()
         desc = "FZF Rg in current folder",
       },
 
+      -- fzf-lua support
+      ["\\F"] = {
+        callback = function()
+          local dir = origin_oil.get_current_dir()
+          require('fzf-lua').files({ cwd = dir })
+        end,
+        desc = "FzfLua files in current folder",
+      },
+      ["\\R"] = {
+        callback = function()
+          local dir = origin_oil.get_current_dir()
+          require('fzf-lua').grep({ cwd = dir })
+        end,
+        desc = "FzfLua grep in current folder",
+      },
+
       -- Simulate Defx.nvim
       ["h"] = "actions.parent",
       ["l"] = "actions.select",
