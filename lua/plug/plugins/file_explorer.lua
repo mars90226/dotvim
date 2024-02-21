@@ -60,6 +60,10 @@ local file_explorer = {
             end,
           },
         },
+        source_selector = {
+          winbar = true,
+          statusline = false,
+        }
       })
 
       nnoremap("<Space>nn", [[<Cmd>Neotree left<CR>]])
