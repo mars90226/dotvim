@@ -24,6 +24,7 @@ local file_explorer = {
     end,
   },
 
+  -- FIXME: Upgrade to v3
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
@@ -38,6 +39,13 @@ local file_explorer = {
       vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
       require("neo-tree").setup({
+        -- sources = {
+        --   "filesystem",
+        --   "buffers",
+        --   "git_status",
+        --   "diagnostics",
+        --   -- ...and any additional source
+        -- },
         window = {
           mappings = {
             ["z"] = function(_) end, -- Do nothing
@@ -77,6 +85,11 @@ local file_explorer = {
       cnoremap("<C-X>f", [[v:lua.require('vimrc.plugins.neotree').get_current_path('filesystem')]], "expr")
     end,
   },
+  -- {
+  --   "mrbjarksen/neo-tree-diagnostics.nvim",
+  --   requires = "nvim-neo-tree/neo-tree.nvim",
+  --   module = "neo-tree.sources.diagnostics",
+  -- },
 
   {
     "vifm/vifm.vim",
@@ -100,8 +113,6 @@ local file_explorer = {
   -- Protocol
   {
     "miversen33/netman.nvim",
-    enabled = false,
-    branch = "v1.15",
     config = function()
       require("netman")
     end
