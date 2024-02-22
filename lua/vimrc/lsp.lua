@@ -121,21 +121,22 @@ lsp.servers = {
     end,
   },
   -- TODO: Grammar check is unhelpful when article is not in English.
-  ltex = {
-    on_attach = function(client, bufnr)
-      require("ltex_extra").setup()
-
-      -- NOTE: ltex consume too much memory. Stop ltex when commit message is closed.
-      local ltex_augroup_id = vim.api.nvim_create_augroup("ltex_settings", {})
-      vim.api.nvim_create_autocmd({ "BufUnload" }, {
-        group = ltex_augroup_id,
-        pattern = "COMMIT_EDITMSG",
-        callback = function()
-          vim.cmd([[LspStopIdleServers]])
-        end,
-      })
-    end,
-  },
+  -- NOTE: Cause error when hovering using LSP
+  -- ltex = {
+  --   on_attach = function(client, bufnr)
+  --     require("ltex_extra").setup()
+  --
+  --     -- NOTE: ltex consume too much memory. Stop ltex when commit message is closed.
+  --     local ltex_augroup_id = vim.api.nvim_create_augroup("ltex_settings", {})
+  --     vim.api.nvim_create_autocmd({ "BufUnload" }, {
+  --       group = ltex_augroup_id,
+  --       pattern = "COMMIT_EDITMSG",
+  --       callback = function()
+  --         vim.cmd([[LspStopIdleServers]])
+  --       end,
+  --     })
+  --   end,
+  -- },
   -- TODO: Add recommended config from nvim-lspconfig.
   -- Ref: https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/lua_ls.lua
   lua_ls = {
