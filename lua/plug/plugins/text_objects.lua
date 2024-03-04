@@ -76,6 +76,8 @@ local text_objects = {
           "r",
           "L",
           "gc",
+          "ie",
+          "ae",
         }
       })
 
@@ -88,6 +90,10 @@ local text_objects = {
 
       -- url
       vim.keymap.set({"o", "x"}, "U", function() various_textobjs.url() end, { desc = "url textobj" })
+
+      -- `aE` for outer markdown emphasis, `iE` for inner markdown emphasis
+      vim.keymap.set({"o", "x"}, "aE", function() various_textobjs.mdEmphasis(false) end, { desc = "outer markdown emphasis textobj" })
+      vim.keymap.set({"o", "x"}, "iE", function() various_textobjs.mdEmphasis(true) end, { desc = "inner markdown emphasis textobj" })
     end,
   },
 }
