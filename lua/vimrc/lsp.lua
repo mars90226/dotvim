@@ -348,12 +348,11 @@ lsp.calculate_server_opts = function(server, custom_opts)
     lineFoldingOnly = true,
   }
 
-  -- FIXME: Disable workspace/didChangeWatchedFiles as it has huge performance issue for now (using poll instead of watch)
-  -- TODO: Enable it after the following pull request is merged
-  -- Ref: https://github.com/neovim/neovim/pull/23500
-  -- NOTE:Some LSP ask for file watching even through the registration is disabled.
-  -- Ref: https://github.com/neovim/neovim/pull/23500#issuecomment-1585986913
-  capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+  -- NOTE: Use `fswatch` to watch file changes
+  -- Ref: https://github.com/neovim/neovim/pull/27347
+  if choose.is_disabled_plugin("nvim-lsp-workspace-didChangeWatchedFiles") then
+    capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+  end
 
   -- Allow customizing each lsp server's capabilities
   capabilities = vim.tbl_deep_extend("force", capabilities, lsp_opts.capabilities or {})

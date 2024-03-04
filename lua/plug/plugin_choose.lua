@@ -40,6 +40,12 @@ plugin_choose.setup_completion = function()
   -- nvim-lsp for builtin neovim lsp
   -- builtin neovim lsp should be fast enough to be used in light vim mode
 
+  -- Choose LSP capabilities
+  -- LSP `workspace/didChangeWatchedFiles` capability
+  if plugin_utils.os_is("Linux") and not plugin_utils.is_executable("fswatch") then
+    choose.disable_plugin("nvim-lsp-workspace-didChangeWatchedFiles")
+  end
+
   -- Choose specific lsp plugin
   -- rustaceanvim
   choose.disable_plugin("rustaceanvim")
