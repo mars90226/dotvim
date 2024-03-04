@@ -239,11 +239,12 @@ local completion = {
     end,
     event = "VeryLazy",
     keys = {
-      { "<Space>c<Space>", "<Cmd>CopilotChat<Space>", desc = "CopilotChat" },
-      { "<Space>cv", "<Cmd>CopilotChatVisual<CR>", mode = { "x" }, desc = "CopilotChat - Open in vertical split" },
-      { "<Space>cx", "<Cmd>CopilotChatInPlace<CR>", mode = { "x" }, desc = "CopilotChat - Run in-place code" },
+      { "<Space>c<Space>", "<Cmd>CopilotChat<Space>", desc = "CopilotChat - Open in vertical split" },
+      { "<Space>c<Space>", ":CopilotChatVisual<Space>", mode = { "x" }, desc = "CopilotChat - Open in vertical split" },
+      { "<Space>cx", ":CopilotChatInPlace<CR>", mode = { "x" }, desc = "CopilotChat - Run in-place code" },
       { "<Space>cf", "<Cmd>CopilotChatFixDiagnostic<CR>", desc = "CopilotChat - Fix diagnostic" },
       { "<Space>c<C-R>", "<Cmd>CopilotChatReset<CR>", desc = "CopilotChat - Reset chat history and clear buffer" },
+      { "<Space>cT", "<Cmd>CopilotChatVisplitToggle<CR>", desc = "CopilotChat - Toggle Vsplit" },
 
       -- Telescope integration
       {
