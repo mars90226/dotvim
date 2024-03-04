@@ -5,47 +5,14 @@ local my_null_ls = {}
 my_null_ls.setup = function()
   null_ls.setup({
     sources = {
+      -- NOTE: Unmaintained builtin sources are deprecated. Check reference for alternatives.
+      -- Ref: https://github.com/nvimtools/none-ls.nvim/issues/58
+
       -- Code Action sources
-      -- NOTE: use eslint_d instead
-      -- null_ls.builtins.code_actions.eslint.with({
-      --   condition = function()
-      --     return vim.fn.executable("eslint") > 0
-      --   end,
-      -- }),
-      -- null_ls.builtins.code_actions.eslint_d.with({
-      --   condition = function()
-      --     return vim.fn.executable("eslint_d") > 0
-      --   end,
-      -- }),
       -- NOTE: disabled for performance
       -- null_ls.builtins.code_actions.gitsigns,
-      -- NOTE: disabled for performance
-      -- TODO: Check if there's way to toggle it?
-      -- null_ls.builtins.code_actions.shellcheck.with({
-      --   condition = function()
-      --     return vim.fn.executable("shellcheck") > 0
-      --   end,
-      -- }),
 
       -- Diagnostic sources
-      -- NOTE: use eslint_d instead
-      -- null_ls.builtins.diagnostics.eslint.with({
-      --   condition = function()
-      --     return vim.fn.executable("eslint") > 0
-      --   end,
-      -- }),
-      -- null_ls.builtins.diagnostics.eslint_d.with({
-      --   condition = function()
-      --     return vim.fn.executable("eslint_d") > 0
-      --   end,
-      --   method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-      -- }),
-      -- NOTE: use pylsp pyls-flake8
-      -- null_ls.builtins.diagnostics.flake8.with({
-      --   condition = function()
-      --     return vim.fn.executable("flake8") > 0
-      --   end,
-      -- }),
       -- NOTE: Disabled as normal workflow will save & quit when writing git commit message
       -- null_ls.builtins.diagnostics.gitlint.with({
       --   condition = function()
@@ -60,18 +27,6 @@ my_null_ls.setup = function()
       --     return vim.fn.executable('pylint') > 0
       --   end
       -- }),
-      -- NOTE: use nvim-lint to lint
-      -- null_ls.builtins.diagnostics.shellcheck.with({
-      --   condition = function()
-      --     return vim.fn.executable("shellcheck") > 0
-      --   end,
-      -- }),
-      null_ls.builtins.diagnostics.standardrb.with({
-        condition = function()
-          return vim.fn.executable("standardrb") > 0
-        end,
-        method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-      }),
       null_ls.builtins.diagnostics.vint.with({
         condition = function()
           return vim.fn.executable("vint") > 0
@@ -91,22 +46,6 @@ my_null_ls.setup = function()
       --     return vim.fn.executable("clang-format") > 0
       --   end,
       -- }),
-      -- NOTE: use eslint_d instead
-      -- null_ls.builtins.formatting.eslint.with({
-      --   condition = function()
-      --     return vim.fn.executable("eslint") > 0
-      --   end,
-      -- }),
-      -- null_ls.builtins.formatting.eslint_d.with({
-      --   condition = function()
-      --     return vim.fn.executable("eslint_d") > 0
-      --   end,
-      -- }),
-      null_ls.builtins.formatting.json_tool.with({
-        condition = function()
-          return vim.fn.executable("json.tool") > 0
-        end,
-      }),
       -- NOTE: use prettierd instead
       -- null_ls.builtins.formatting.prettier.with({
       --   condition = function()
@@ -118,19 +57,9 @@ my_null_ls.setup = function()
           return vim.fn.executable("prettierd") > 0
         end,
       }),
-      null_ls.builtins.formatting.rustfmt.with({
-        condition = function()
-          return vim.fn.executable("rustfmt") > 0
-        end,
-      }),
       null_ls.builtins.formatting.shfmt.with({
         condition = function()
           return vim.fn.executable("shfmt") > 0
-        end,
-      }),
-      null_ls.builtins.formatting.standardrb.with({
-        condition = function()
-          return vim.fn.executable("standardrb") > 0
         end,
       }),
       null_ls.builtins.formatting.stylua.with({
