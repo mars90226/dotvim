@@ -276,6 +276,7 @@ oil.setup_filetype_mapping = function()
 end
 
 oil.setup_mapping = function()
+  -- Buffer directory
   vim.keymap.set("n", "<Space>o", origin_oil.open, { desc = "Open parent directory in oil" })
   vim.keymap.set("n", "<Space>O", function(...)
     vim.cmd("vertical split")
@@ -285,6 +286,19 @@ oil.setup_mapping = function()
     vim.cmd("split")
     origin_oil.open(...)
   end, { desc = "Open parent directory in horizontal split oil" })
+
+  -- Current working directory
+  vim.keymap.set("n", [[\oo]], function()
+    origin_oil.open('.')
+  end, { desc = "Open current working directory in oil" })
+  vim.keymap.set("n", [[\ov]], function()
+    vim.cmd("vertical split")
+    origin_oil.open('.')
+  end, { desc = "Open current working directory in vertical split in oil" })
+  vim.keymap.set("n", [[\os]], function()
+    vim.cmd("split")
+    origin_oil.open('.')
+  end, { desc = "Open current working directory in horizontal split in oil" })
 end
 
 oil.setup = function()
