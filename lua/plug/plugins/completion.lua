@@ -40,7 +40,7 @@ local completion = {
             exact_length = 2,
             first_case_insensitive = true,
             document = {
-              enable = true,
+              enable = plugin_utils.is_executable("wn"),
               command = { "wn", "${label}", "-over" },
             },
           })
