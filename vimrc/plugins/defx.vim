@@ -45,7 +45,7 @@ nnoremap \xv       :call vimrc#defx#openpwd('Defx '.g:defx_new_options.' '.vimrc
 nnoremap \xt       :call vimrc#defx#openpwd('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('tab'))<CR>
 nnoremap \xf       :call vimrc#defx#openpwd('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('float'))<CR>
 
-" Current working directory
+" Current git repository
 nnoremap \gr       :call vimrc#defx#open_worktree('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('win'))<CR>
 nnoremap \gs       :call vimrc#defx#open_worktree('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('horizontal_win'))<CR>
 nnoremap \gv       :call vimrc#defx#open_worktree('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('vertical_win'))<CR>
