@@ -239,7 +239,7 @@ local completion = {
     end,
     event = "VeryLazy",
     keys = {
-      { "<Space>c<Space>", "<Cmd>CopilotChat<Space>", desc = "CopilotChat - Open in vertical split" },
+      { "<Space>c<Space>", ":CopilotChat<Space>", desc = "CopilotChat - Open in vertical split" },
       { "<Space>c<Space>", ":CopilotChatVisual<Space>", mode = { "x" }, desc = "CopilotChat - Open in vertical split" },
       { "<Space>cx", ":CopilotChatInPlace<CR>", mode = { "x" }, desc = "CopilotChat - Run in-place code" },
       { "<Space>cf", "<Cmd>CopilotChatFixDiagnostic<CR>", desc = "CopilotChat - Fix diagnostic" },
