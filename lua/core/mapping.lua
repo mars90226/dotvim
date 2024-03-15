@@ -348,6 +348,7 @@ mapping.setup = function()
 
       -- Inspect
       nnoremap("<Space>hi", [[<Cmd>Inspect<CR>]])
+      nnoremap("<Space>ht", [[<Cmd>InspectTree<CR>]])
 
       -- Print visual selection info
       -- TODO: Do not leave visual mode, use nvim-notify
