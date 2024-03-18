@@ -195,6 +195,24 @@ oil.setup_config = function()
         end,
         desc = "Goto bookmark",
       },
+
+      -- Change current working directory to project root from current directory
+      ["<Leader>pr"] = {
+        callback = function()
+          local current_dir = origin_oil.get_current_dir()
+
+          vim.cmd.lcd(current_dir)
+          vim.b.git_dir = vim.fn["FugitiveExtractGitDir"](current_dir)
+
+          local git_root = vim.fn["vimrc#git#root"]()
+          if not git_root then
+            return
+          end
+
+          vim.cmd.lcd(git_root)
+        end,
+        desc = "Change current working directory to project root from current directory",
+      },
     },
     -- Set to false to disable all of the above keymaps
     use_default_keymaps = true,
