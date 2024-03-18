@@ -52,7 +52,9 @@ ufo.setup = function()
 
   origin_ufo.setup({
     open_fold_hl_timeout = 150,
-    close_fold_kinds = { "imports", "comment" },
+    -- FIXME: Disabled due to error: `Error executing vim.schedule lua callback: UnhandledPromiseRejection with the reason:`
+    -- close_fold_kinds_for_ft = { "imports", "comment" },
+    close_fold_kinds_for_ft = {},
     fold_virt_text_handler = ufo.fold_virt_text_handler,
     provider_selector = ufo.provider_selector,
     preview = {
