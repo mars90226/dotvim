@@ -235,7 +235,6 @@ fzf.setup_mapping = function()
 
   -- stylua: ignore start
   -- fzf key mappings {{{
-  nnoremap([[<Space>fa]],     [[:call      vimrc#execute_and_save('Quickfix!')<CR>]])
   nnoremap([[<Space>fA]],     [[:call      vimrc#execute_and_save('AllFiles')<CR>]])
   nnoremap([[<Space>f1]],     [[:call      vimrc#execute_and_save('CustomFiles :' . input('Option: ') . ':' . input('Fd: '))<CR>]])
   nnoremap([[<Space>f!]],     [[:call      vimrc#execute_and_save('CustomFiles ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Fd: '))<CR>]])
@@ -285,7 +284,6 @@ fzf.setup_mapping = function()
   nnoremap([[<Space>fo]],     [[:call      vimrc#execute_and_save('History')<CR>]])
   nnoremap([[<Space>fO]],     [[:call      vimrc#execute_and_save('Locate ' . input('Locate: '))<CR>]])
   nnoremap([[<Space>f<M-p>]], [[:call      vimrc#execute_and_save('Punctuations')<CR>]])
-  nnoremap([[<Space>fq]],     [[:call      vimrc#execute_and_save('Quickfix')<CR>]])
   -- TODO: Add :silent to silent E10 error from cmp-cmdline when input pattern is not proper lua string
   nnoremap([[<Space>fr]],     [[:call      vimrc#execute_and_save('Rg ' . input('Rg: '))<CR>]])
   nnoremap([[<Space>fR]],     [[:call      vimrc#execute_and_save('Rg! ' . input('Rg!: '))<CR>]])
