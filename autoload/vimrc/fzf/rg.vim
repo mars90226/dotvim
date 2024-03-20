@@ -41,7 +41,7 @@ function! vimrc#fzf#rg#grep(query, bang) abort
   call fzf#vim#grep(
         \ a:bang ? vimrc#fzf#rg#get_all_command().' -- '.shellescape(a:query)
         \        : vimrc#fzf#rg#get_command().' -- '.shellescape(a:query), 1,
-        \ vimrc#fzf#preview#with_preview(a:bang),
+        \ vimrc#fzf#preview#with_preview(vimrc#fzf#get_tabstop_options(), a:bang),
         \ a:bang)
 endfunction
 
@@ -54,7 +54,7 @@ function! vimrc#fzf#rg#grep_with_option(command, bang) abort
   call fzf#vim#grep(
         \ a:bang ? s:rg_all_command.' '.option.' -- '.shellescape(query).' '.folder
         \        : s:rg_command.' '.option.' -- '.shellescape(query).' '.folder, 1,
-        \ vimrc#fzf#preview#with_preview(a:bang),
+        \ vimrc#fzf#preview#with_preview(vimrc#fzf#get_tabstop_options(), a:bang),
         \ a:bang)
 endfunction
 
@@ -66,6 +66,7 @@ function! vimrc#fzf#rg#grep_on_change(query, bang) abort
   let options = vimrc#fzf#preview#with_preview(
         \ { 'options': [ '--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command ] },
         \ a:bang)
+  call vimrc#fzf#merge_opts(options, vimrc#fzf#get_tabstop_options().options)
   call fzf#vim#grep(initial_command, 1, options, a:bang)
 endfunction
 
@@ -79,7 +80,7 @@ function! vimrc#fzf#rg#rga(command, bang) abort
   call fzf#vim#grep(
         \ a:bang ? s:rga_all_command.' '.option.' -- '.shellescape(query).' '.folder
         \        : s:rga_command.' '.option.' -- '.shellescape(query).' '.folder, 1,
-        \ vimrc#fzf#preview#with_preview(a:bang),
+        \ vimrc#fzf#preview#with_preview(vimrc#fzf#get_tabstop_options(), a:bang),
         \ a:bang)
 endfunction
 

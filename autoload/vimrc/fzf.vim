@@ -5,6 +5,10 @@ function! vimrc#fzf#get_default_options() abort
   return s:fzf_default_options
 endfunction
 
+function! vimrc#fzf#get_tabstop_options()
+  return { 'options': ['--tabstop', &tabstop] }
+endfunction
+
 " Config
 function! vimrc#fzf#statusline() abort
   highlight fzf1 ctermfg=242 ctermbg=236 guifg=#7c6f64 guibg=#32302f
