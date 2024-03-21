@@ -91,6 +91,26 @@ other.setup = function()
         pattern = [[/src/(.*)/(.*)/(.*).c$]],
         target = [[/src/include/%1/%2/%3.h]],
       },
+      -- 3-level with core folder
+      {
+        pattern = [[/src/include/(.*)/(.*)/(.*).h$]],
+        target = {
+          {
+            target = [[/src/core/%1/%2/%3.cpp]],
+          },
+          {
+            target = [[/src/core/%1/%2/%3.c]],
+          },
+        },
+      },
+      {
+        pattern = [[/src/core/(.*)/(.*)/(.*).cpp$]],
+        target = [[/src/include/%1/%2/%3.h]],
+      },
+      {
+        pattern = [[/src/core/(.*)/(.*)/(.*).c$]],
+        target = [[/src/include/%1/%2/%3.h]],
+      },
       -- 2-level folder
       {
         pattern = [[/src/include/.*/(.*)/(.*).h$]],
