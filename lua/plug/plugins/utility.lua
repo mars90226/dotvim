@@ -515,9 +515,11 @@ local utility = {
   { "will133/vim-dirdiff", cmd = { "DirDiff" } },
 
   -- RESTful
+  -- TODO: Check if not working on Windows
+  -- TODO: Migrate to rocks.nvim
   {
     "rest-nvim/rest.nvim",
-    dependencies = { { "nvim-lua/plenary.nvim" } },
+    dependencies = { { "vhyrro/luarocks.nvim" } },
     ft = { "http" },
     config = function()
       require("rest-nvim").setup({})
