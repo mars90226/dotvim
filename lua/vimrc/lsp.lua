@@ -20,22 +20,6 @@ lsp.servers = {
   bufls = {
     condition = plugin_utils.has_linux_build_env(),
   },
-  -- ccls = {
-  --   init_options = {
-  --     cache = {
-  --       directory = vim.env.HOME .. "/.cache/ccls",
-  --     },
-  --     client = {
-  --       snippetSupport = true,
-  --     },
-  --     highlight = {
-  --       lsRanges = true,
-  --     },
-  --     index = {
-  --       threads = 2,
-  --     },
-  --   },
-  -- },
   cssls = {
     capabilities = {
       textDocument = {
@@ -74,8 +58,6 @@ lsp.servers = {
       clangd_inlay_hints.set_inlay_hints()
     end,
   },
-  -- NOTE: Replaced by neocmake
-  -- cmake = {},
   -- NOTE: Use tsserver again
   -- denols = {
   --   init_options = {
@@ -218,7 +200,6 @@ lsp.servers = {
   },
   vimls = {},
   volar = {},
-  -- vuels = {},
   -- TODO: add settings for schemas
   yamlls = {
     settings = {},
