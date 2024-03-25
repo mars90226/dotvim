@@ -231,12 +231,6 @@ local file_navigation = {
   {
     "Marskey/telescope-sg",
     cond = plugin_utils.is_executable("sg"),
-    keys = {
-      { "<Space>ag", desc = "Telescope ast_grep" },
-    },
-    config = function()
-      require("telescope").load_extension("ast_grep")
-    end,
   },
 
   -- fzf-lua
