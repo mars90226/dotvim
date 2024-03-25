@@ -179,21 +179,9 @@ local file_navigation = {
       require("telescope").load_extension("undo")
     end,
   },
-  -- TODO: Lazy load on keys
-  -- FIXME: Lazy load on keys conflict with wihch-key.nvim?
   {
     "molecule-man/telescope-menufacture",
     event = { "VeryLazy" },
-    -- keys = {
-    --   { "<Space>tf", desc = "Telescope menufacture find_files" },
-    --   { "<Space>ti", desc = "Telescope menufacture live_grep" },
-    --   { "<Space>te", desc = "Telescope menufacture grep_string with folder & pattern" },
-    --   { "<Space>tk", mode = { "n", "x" }, desc = "Telescope menufacture grep_string with cword or visual selection" },
-    --   { "<Space>tK", desc = "Telescope menufacture grep_string with cWORD" },
-    --   { "<Space>t8", mode = { "n", "x" }, desc = "Telescope menufacture grep_string with cword or visual selection with word boundary" },
-    --   { "<Space>t*", desc = "Telescope menufacture grep_string with cWORD with word boundary" },
-    --   { "<Space>tr", desc = "Telescope menufacture grep_string with pattern" },
-    -- },
     config = function()
       require("telescope").load_extension("menufacture")
     end,
@@ -201,15 +189,6 @@ local file_navigation = {
   {
     "aaronhallaert/advanced-git-search.nvim",
     cmd = { "AdvancedGitSearch" },
-    keys = {
-      { "<Space>ab", desc = "AdvancedGitSearch diff_branch_file" },
-      { "<Space>al", mode = { "n", "x" }, desc = "AdvancedGitSearch diff_commit_line" },
-      { "<Space>af", desc = "AdvancedGitSearch diff_commit_file" },
-      { "<Space>as", desc = "AdvancedGitSearch search_log_content" },
-      { "<Space>aS", desc = "AdvancedGitSearch search_log_content_file" },
-      { "<Space>ar", desc = "AdvancedGitSearch checkout_reflog" },
-      { "<Space>aa", desc = "AdvancedGitSearch show_custom_functions" },
-    },
     config = function()
       require("telescope").load_extension("advanced_git_search")
     end,
