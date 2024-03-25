@@ -45,6 +45,7 @@ local file_navigation = {
       })
 
       require("telescope").load_extension("yank_history")
+      nnoremap([[<Space>tn]], [[<Cmd>Telescope yank_history<CR>]], { desc = "Telescope yank_history" })
     end,
   },
 
@@ -79,18 +80,29 @@ local file_navigation = {
   },
   {
     "nvim-telescope/telescope-file-browser.nvim",
+    keys = {
+      { "<Space>t0", [[<Cmd>Telescope file_browser<CR>]], desc = "Telescope file_browser" },
+      { "<Space>t)", [[<Cmd>execute 'Telescope file_browser path='.expand('%:h')<CR>]], desc = "Telescope file_browser in current file folder" },
+    },
     config = function()
       require("telescope").load_extension("file_browser")
     end,
   },
   {
     "nvim-telescope/telescope-project.nvim",
+  -- TODO: May need to adjust key mapping as used for project bookmark
+    keys = {
+      { "<Space>t<C-P>", [[<Cmd>Telescope project<CR>]], desc = "Telescope project" },
+    },
     config = function()
       require("telescope").load_extension("project")
     end,
   },
   {
     "jvgrootveld/telescope-zoxide",
+    keys = {
+      { "<Space>tz", [[<Cmd>Telescope zoxide list<CR>]], desc = "Telescope zoxide list" },
+    },
     config = function()
       require("telescope").load_extension("zoxide")
     end,
@@ -98,15 +110,24 @@ local file_navigation = {
   {
     "sudormrfbin/cheatsheet.nvim",
     cmd = { "Cheatsheet", "CheatsheetEdit" },
+    keys = {
+      { "<Leader><Tab>", [[<Cmd>Cheatsheet<CR>]], desc = "Cheatsheet" },
+    },
   },
   {
     "TC72/telescope-tele-tabby.nvim",
+    keys = {
+      { "<Space>tw", [[<Cmd>Telescope tele_tabby list<CR>]], desc = "Telescope tele-tabby list" },
+    },
     config = function()
       require("telescope").load_extension("tele_tabby")
     end,
   },
   {
     "nvim-telescope/telescope-live-grep-args.nvim",
+    keys = {
+      { "<Space>tI", [[<Cmd>Telescope live_grep_args<CR>]], desc = "Telescope live_grep_args" },
+    },
     config = function()
       require("telescope").load_extension("live_grep_args")
     end,
@@ -149,10 +170,14 @@ local file_navigation = {
       end
 
       require("vimrc.plugins.command_palette").setup()
+      nnoremap([[<Space>mm]], [[<Cmd>Telescope command_palette<CR>]], { desc = "Telescope command_palette" })
     end,
   },
   {
     "debugloop/telescope-undo.nvim",
+    keys = {
+      { "<Space>tU", [[<Cmd>Telescope undo<CR>]], desc = "Telescope undo" },
+    },
     config = function()
       require("telescope").load_extension("undo")
     end,
@@ -160,6 +185,18 @@ local file_navigation = {
   {
     "molecule-man/telescope-menufacture",
     event = { "VeryLazy" },
+    keys = {
+      { [[<Space>tf]], [[<Cmd>Telescope menufacture find_files<CR>]], desc = "Telescope menufacture find_files" },
+      { [[<Space>ti]], [[<Cmd>Telescope menufacture live_grep<CR>]], desc = "Telescope menufacture live_grep" },
+      { [[<Space>te]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search_dirs='.input('Folder: ').' search='.input('Rg: ')<CR>]], desc = "Telescope menufacture grep_string with folder & pattern" },
+      { [[<Space>tk]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.expand('<cword>')<CR>]], desc = "Telescope menufacture grep_string with cword or visual selection" },
+      { [[<Space>tk]], mode = { "x" }, [[:<C-U>execute 'Telescope menufacture grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>]], desc = "Telescope menufacture grep_string with cword or visual selection" },
+      { [[<Space>tK]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.expand('<cWORD>')<CR>]], desc = "Telescope menufacture grep_string with cWORD" },
+      { [[<Space>t8]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search=\b'.expand('<cword>').'\b'<CR>]], desc = "Telescope menufacture grep_string with cword or visual selection with word boundary" },
+      { [[<Space>t8]], mode = { "x" }, [[:<C-U>execute 'Telescope menufacture grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>]], desc = "Telescope menufacture grep_string with cword or visual selection with word boundary" },
+      { [[<Space>t*]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search=\b'.expand('<cWORD>').'\b'<CR>]], desc = "Telescope menufacture grep_string with cWORD with word boundary" },
+      { [[<Space>tr]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.input('Rg: ')<CR>]], desc = "Telescope menufacture grep_string with pattern" },
+    },
     config = function()
       require("telescope").load_extension("menufacture")
     end,
@@ -167,6 +204,16 @@ local file_navigation = {
   {
     "aaronhallaert/advanced-git-search.nvim",
     cmd = { "AdvancedGitSearch" },
+    keys = {
+      { [[<Space>ab]], [[<Cmd>AdvancedGitSearch diff_branch_file<CR>]], desc = "AdvancedGitSearch diff_branch_file" },
+      { [[<Space>al]], [[<Cmd>AdvancedGitSearch diff_commit_line<CR>]], desc = "AdvancedGitSearch diff_commit_line" },
+      { [[<Space>al]], mode = { "x" }, [[:<C-U>AdvancedGitSearch diff_commit_line<CR>]], desc = "AdvancedGitSearch diff_commit_line" },
+      { [[<Space>af]], [[<Cmd>AdvancedGitSearch diff_commit_file<CR>]], desc = "AdvancedGitSearch diff_commit_file" },
+      { [[<Space>as]], [[<Cmd>AdvancedGitSearch search_log_content<CR>]], desc = "AdvancedGitSearch search_log_content" },
+      { [[<Space>aS]], [[<Cmd>AdvancedGitSearch search_log_content_file<CR>]], desc = "AdvancedGitSearch search_log_content_file" },
+      { [[<Space>ar]], [[<Cmd>AdvancedGitSearch checkout_reflog<CR>]], desc = "AdvancedGitSearch checkout_reflog" },
+      { [[<Space>aa]], [[<Cmd>AdvancedGitSearch show_custom_functions<CR>]], desc = "AdvancedGitSearch show_custom_functions" },
+    },
     config = function()
       require("telescope").load_extension("advanced_git_search")
     end,
@@ -187,8 +234,10 @@ local file_navigation = {
   },
   {
     "Marskey/telescope-sg",
-    event = { "VeryLazy" },
     cond = plugin_utils.is_executable("sg"),
+    keys = {
+      { "<Space>ag", [[<Cmd>Telescope ast_grep<CR>]], desc = "Telescope ast_grep" },
+    },
   },
 
   -- fzf-lua

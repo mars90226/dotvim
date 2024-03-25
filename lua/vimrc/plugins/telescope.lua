@@ -190,7 +190,6 @@ telescope.setup_config = function()
 end
 
 telescope.setup_mapping = function()
-  -- TODO: Move extension mapping?
   -- Mappings
   nnoremap([[<Space>ta]], [[<Cmd>Telescope loclist<CR>]])
   nnoremap([[<Space>tA]], [[<Cmd>Telescope autocommands<CR>]])
@@ -273,60 +272,6 @@ telescope.setup_mapping = function()
   -- Diagnostic
   nnoremap([[<Space>lc]], [[<Cmd>Telescope diagnostics bufnr=0<CR>]])
   nnoremap([[<Space>lC]], [[<Cmd>Telescope diagnostics<CR>]])
-
-  -- telescope-file-browser.nvim
-  nnoremap([[<Space>t0]], [[<Cmd>Telescope file_browser<CR>]], { desc = "Telescope file_browser" })
-  nnoremap([[<Space>t)]], [[<Cmd>execute 'Telescope file_browser path='.expand('%:h')<CR>]], { desc = "Telescope file_browser with current file path" })
-
-  -- telescope-project.nvim
-  -- TODO: May need to adjust key mapping as used for project bookmark
-  nnoremap([[<Space>t<C-P>]], [[<Cmd>Telescope project<CR>]], { desc = "Telescope project" })
-
-  -- Cheatsheet Mappings
-  nnoremap([[<Leader><Tab>]], [[<Cmd>Cheatsheet<CR>]], { desc = "Cheatsheet" })
-
-  -- telescope-tele-tabby.nvim
-  nnoremap([[<Space>tw]], [[<Cmd>Telescope tele_tabby list<CR>]], { desc = "Telescope tele-tabby list" })
-
-  -- Zoxide
-  nnoremap([[<Space>tz]], [[<Cmd>Telescope zoxide list<CR>]], { desc = "Telescope zoxide list" })
-
-  -- telescope-live-grep-args.nvim
-  nnoremap([[<Space>tI]], [[<Cmd>Telescope live_grep_args<CR>]], { desc = "Telescope live_grep_args" })
-
-  -- Yanky
-  nnoremap([[<Space>tn]], [[<Cmd>Telescope yank_history<CR>]])
-
-  -- Command palette
-  nnoremap([[<Space>mm]], [[<Cmd>Telescope command_palette<CR>]])
-
-  -- Undo
-  nnoremap([[<Space>tU]], [[<Cmd>Telescope undo<CR>]], { desc = "Telescope undo" })
-
-  -- Menufacture
-  nnoremap([[<Space>tf]], [[<Cmd>Telescope menufacture find_files<CR>]], { desc = "Telescope menufacture find_files" })
-  nnoremap([[<Space>ti]], [[<Cmd>Telescope menufacture live_grep<CR>]], { desc = "Telescope menufacture live_grep" })
-  nnoremap([[<Space>te]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search_dirs='.input('Folder: ').' search='.input('Rg: ')<CR>]], { desc = "Telescope menufacture grep_string with folder & pattern" })
-  nnoremap([[<Space>tk]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.expand('<cword>')<CR>]], { desc = "Telescope menufacture grep_string with cword or visual selection" })
-  xnoremap([[<Space>tk]], [[:<C-U>execute 'Telescope menufacture grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>]], { desc = "Telescope menufacture grep_string with cword or visual selection" })
-  nnoremap([[<Space>tK]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.expand('<cWORD>')<CR>]], { desc = "Telescope menufacture grep_string with cWORD" })
-  nnoremap([[<Space>t8]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search=\b'.expand('<cword>').'\b'<CR>]], { desc = "Telescope menufacture grep_string with cword or visual selection with word boundary" })
-  xnoremap([[<Space>t8]], [[:<C-U>execute 'Telescope menufacture grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>]], { desc = "Telescope menufacture grep_string with cword or visual selection with word boundary" })
-  nnoremap([[<Space>t*]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search=\b'.expand('<cWORD>').'\b'<CR>]], { desc = "Telescope menufacture grep_string with cWORD with word boundary" })
-  nnoremap([[<Space>tr]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.input('Rg: ')<CR>]], { desc = "Telescope menufacture grep_string with pattern" })
-
-  -- advanced-git-search.nvim
-  nnoremap([[<Space>ab]], [[<Cmd>AdvancedGitSearch diff_branch_file<CR>]], { desc = "AdvancedGitSearch diff_branch_file" })
-  nnoremap([[<Space>al]], [[<Cmd>AdvancedGitSearch diff_commit_line<CR>]], { desc = "AdvancedGitSearch diff_commit_line" })
-  xnoremap([[<Space>al]], [[:<C-U>AdvancedGitSearch diff_commit_line<CR>]], { desc = "AdvancedGitSearch diff_commit_line" })
-  nnoremap([[<Space>af]], [[<Cmd>AdvancedGitSearch diff_commit_file<CR>]], { desc = "AdvancedGitSearch diff_commit_file" })
-  nnoremap([[<Space>as]], [[<Cmd>AdvancedGitSearch search_log_content<CR>]], { desc = "AdvancedGitSearch search_log_content" })
-  nnoremap([[<Space>aS]], [[<Cmd>AdvancedGitSearch search_log_content_file<CR>]], { desc = "AdvancedGitSearch search_log_content_file" })
-  nnoremap([[<Space>ar]], [[<Cmd>AdvancedGitSearch checkout_reflog<CR>]], { desc = "AdvancedGitSearch checkout_reflog" })
-  nnoremap([[<Space>aa]], [[<Cmd>AdvancedGitSearch show_custom_functions<CR>]], { desc = "AdvancedGitSearch show_custom_functions" })
-
-  -- sg
-  nnoremap([[<Space>ag]], [[<Cmd>Telescope ast_grep<CR>]], { desc = "Telescope ast_grep" })
 end
 
 telescope.setup = function()
