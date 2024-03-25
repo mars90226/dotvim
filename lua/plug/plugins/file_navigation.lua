@@ -209,6 +209,7 @@ local file_navigation = {
   },
   {
     "Marskey/telescope-sg",
+    event = { "VeryLazy" },
     cond = plugin_utils.is_executable("sg"),
   },
 
