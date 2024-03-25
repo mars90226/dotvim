@@ -79,28 +79,18 @@ local file_navigation = {
   },
   {
     "nvim-telescope/telescope-file-browser.nvim",
-    keys = {
-      { "<Space>t0", desc = "Telescope file_browser" },
-      { "<Space>t)", desc = "Telescope file_browser in current file folder" },
-    },
     config = function()
       require("telescope").load_extension("file_browser")
     end,
   },
   {
     "nvim-telescope/telescope-project.nvim",
-    keys = {
-      { "<Space>t<C-P>", desc = "Telescope project" },
-    },
     config = function()
       require("telescope").load_extension("project")
     end,
   },
   {
     "jvgrootveld/telescope-zoxide",
-    keys = {
-      { "<Space>tz", desc = "Telescope zoxide list" },
-    },
     config = function()
       require("telescope").load_extension("zoxide")
     end,
@@ -108,25 +98,15 @@ local file_navigation = {
   {
     "sudormrfbin/cheatsheet.nvim",
     cmd = { "Cheatsheet", "CheatsheetEdit" },
-    keys = {
-      { "<Leader><Tab>", desc = "Cheatsheet" },
-    },
   },
-  -- FIXME: Lazy load on key breaks plugin
   {
     "TC72/telescope-tele-tabby.nvim",
-    keys = {
-      { "<Space>tw", desc = "Telescope tele-tabby list" },
-    },
     config = function()
       require("telescope").load_extension("tele_tabby")
     end,
   },
   {
     "nvim-telescope/telescope-live-grep-args.nvim",
-    keys = {
-      { "<Space>tI", desc = "Telescope live_grep_args" },
-    },
     config = function()
       require("telescope").load_extension("live_grep_args")
     end,
@@ -147,6 +127,7 @@ local file_navigation = {
   -- FIXME: Seems not working now
   -- This plugin is archived, author suggest using which-key.nvim instead
   -- FIXME: Cannot lazy load on keys as the key mapping disappear when first command_palette is called
+  -- NOTE: Cannot use keys to lazy load telescope.nvim extensions as it will disappear when first command_palette is called
   {
     "LinArcX/telescope-command-palette.nvim",
     event = { "VeryLazy" },
@@ -172,9 +153,6 @@ local file_navigation = {
   },
   {
     "debugloop/telescope-undo.nvim",
-    keys = {
-      { "<Space>tU", desc = "Telescope undo" },
-    },
     config = function()
       require("telescope").load_extension("undo")
     end,

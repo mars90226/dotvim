@@ -231,10 +231,6 @@ telescope.setup_mapping = function()
   nnoremap([[<Space>tO]], [[<Cmd>Telescope vim_options<CR>]])
   nnoremap([[<Space>tp]], [[<Cmd>call vimrc#telescope#project_tags()<CR>]])
   nnoremap([[<Space>tP]], [[<Cmd>Telescope projects<CR>]])
-  -- TODO: May need to adjust key mapping as used for project bookmark
-  nnoremap([[<Space>t<C-P>]], [[<Cmd>Telescope project<CR>]])
-  nnoremap([[<Space>t0]], [[<Cmd>Telescope file_browser<CR>]])
-  nnoremap([[<Space>t)]], [[<Cmd>execute 'Telescope file_browser path='.expand('%:h')<CR>]])
   nnoremap([[<Space>tq]], [[<Cmd>Telescope quickfix<CR>]])
   nnoremap([[<Space>tQ]], [[<Cmd>Telescope quickfixhistory<CR>]])
   -- NOTE: Use telescope-menufacture grep_string
@@ -246,7 +242,6 @@ telescope.setup_mapping = function()
   nnoremap([[<Space>t<C-T>]], [[<Cmd>Telescope tagstack<CR>]])
   nnoremap([[<Space>tu]], [[<Cmd>Telescope resume<CR>]])
   nnoremap([[<Space>tv]], [[<Cmd>Telescope colorscheme<CR>]])
-  nnoremap([[<Space>tw]], [[<Cmd>Telescope tele_tabby list<CR>]])
   nnoremap([[<Space>tx]], [[<Cmd>Telescope spell_suggest<CR>]])
   -- nnoremap([[<Space>tx]], [[<Cmd>Telescope neoclip<CR>]])
   nnoremap([[<Space>ty]], [[<Cmd>Telescope filetypes<CR>]])
@@ -280,11 +275,22 @@ telescope.setup_mapping = function()
   nnoremap([[<Space>lc]], [[<Cmd>Telescope diagnostics bufnr=0<CR>]])
   nnoremap([[<Space>lC]], [[<Cmd>Telescope diagnostics<CR>]])
 
+  -- telescope-file-browser.nvim
+  nnoremap([[<Space>t0]], [[<Cmd>Telescope file_browser<CR>]], { desc = "Telescope file_browser" })
+  nnoremap([[<Space>t)]], [[<Cmd>execute 'Telescope file_browser path='.expand('%:h')<CR>]], { desc = "Telescope file_browser with current file path" })
+
+  -- telescope-project.nvim
+  -- TODO: May need to adjust key mapping as used for project bookmark
+  nnoremap([[<Space>t<C-P>]], [[<Cmd>Telescope project<CR>]], { desc = "Telescope project" })
+
   -- Cheatsheet Mappings
   nnoremap([[<Leader><Tab>]], [[<Cmd>Cheatsheet<CR>]])
 
+  -- telescope-tele-tabby.nvim
+  nnoremap([[<Space>tw]], [[<Cmd>Telescope tele_tabby list<CR>]], { desc = "Telescope tele-tabby list" })
+
   -- Zoxide
-  nnoremap([[<Space>tz]], [[<Cmd>Telescope zoxide list<CR>]])
+  nnoremap([[<Space>tz]], [[<Cmd>Telescope zoxide list<CR>]], { desc = "Telescope zoxide list" })
 
   -- Yanky
   nnoremap([[<Space>tn]], [[<Cmd>Telescope yank_history<CR>]])
