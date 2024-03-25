@@ -209,7 +209,6 @@ telescope.setup_mapping = function()
   nnoremap([[<Space>tH]], [[<Cmd>Telescope git_stash<CR>]])
   -- NOTE: Use telescope-menufacture live_grep
   -- nnoremap([[<Space>ti]], [[<Cmd>Telescope live_grep<CR>]])
-  nnoremap([[<Space>tI]], [[<Cmd>Telescope live_grep_args<CR>]])
   nnoremap([[<Space>tj]], [[<Cmd>Telescope jumplist<CR>]])
   -- NOTE: Use telescope-menufacture grep_string
   -- nnoremap([[<Space>tk]], [[<Cmd>execute 'Telescope grep_string use_regex=true search='.expand('<cword>')<CR>]])
@@ -284,13 +283,16 @@ telescope.setup_mapping = function()
   nnoremap([[<Space>t<C-P>]], [[<Cmd>Telescope project<CR>]], { desc = "Telescope project" })
 
   -- Cheatsheet Mappings
-  nnoremap([[<Leader><Tab>]], [[<Cmd>Cheatsheet<CR>]])
+  nnoremap([[<Leader><Tab>]], [[<Cmd>Cheatsheet<CR>]], { desc = "Cheatsheet" })
 
   -- telescope-tele-tabby.nvim
   nnoremap([[<Space>tw]], [[<Cmd>Telescope tele_tabby list<CR>]], { desc = "Telescope tele-tabby list" })
 
   -- Zoxide
   nnoremap([[<Space>tz]], [[<Cmd>Telescope zoxide list<CR>]], { desc = "Telescope zoxide list" })
+
+  -- telescope-live-grep-args.nvim
+  nnoremap([[<Space>tI]], [[<Cmd>Telescope live_grep_args<CR>]], { desc = "Telescope live_grep_args" })
 
   -- Yanky
   nnoremap([[<Space>tn]], [[<Cmd>Telescope yank_history<CR>]])
@@ -299,7 +301,7 @@ telescope.setup_mapping = function()
   nnoremap([[<Space>mm]], [[<Cmd>Telescope command_palette<CR>]])
 
   -- Undo
-  nnoremap([[<Space>tU]], [[<Cmd>Telescope undo<CR>]])
+  nnoremap([[<Space>tU]], [[<Cmd>Telescope undo<CR>]], { desc = "Telescope undo" })
 
   -- Menufacture
   nnoremap([[<Space>tf]], [[<Cmd>Telescope menufacture find_files<CR>]], { desc = "Telescope menufacture find_files" })
