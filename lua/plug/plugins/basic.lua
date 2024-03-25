@@ -8,11 +8,6 @@ local basic = {
     lazy = false,
     priority = 1001,
   },
-  {
-    "vhyrro/luarocks.nvim",
-    priority = 1000,
-    config = true,
-  }
 }
 
 return basic

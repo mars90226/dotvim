@@ -517,9 +517,11 @@ local utility = {
   -- RESTful
   -- TODO: Check if not working on Windows
   -- TODO: Migrate to rocks.nvim
+  -- NOTE: rocks.nvim installation script is outside of lazy.nvim & manual installation steps are tedious.
   {
     "rest-nvim/rest.nvim",
-    dependencies = { { "vhyrro/luarocks.nvim" } },
+    branch = "v1.2.1",
+    dependencies = { { "nvim-lua/plenary.nvim" } },
     ft = { "http" },
     config = function()
       require("rest-nvim").setup({})
