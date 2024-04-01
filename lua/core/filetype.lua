@@ -66,6 +66,7 @@ filetype.setup = function()
           ["config.define.cfg"] = "json",
           ["config.debug"] = "json",
           ["config.debug.cfg"] = "json",
+          ["app.config"] = "json",
 
           -- python
           [".pylintrc"] = "dosini",
