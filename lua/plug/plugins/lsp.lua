@@ -59,15 +59,17 @@ local lsp = {
 
   {
     "folke/trouble.nvim",
+    branch = "dev",
     dependencies = "nvim-tree/nvim-web-devicons",
-    cmd = { "Trouble", "TroubleToggle" },
+    cmd = { "Trouble" },
     keys = {
-      { "<Space>xx", "<Cmd>TroubleToggle<CR>", desc = "Trouble toggle" },
-      { "<Space>xw", "<Cmd>TroubleToggle workspace_diagnostics<CR>", desc = "Trouble workspace_diagnostics" },
-      { "<Space>xd", "<Cmd>TroubleToggle document_diagnostics<CR>", desc = "Trouble document_diagnostics" },
-      { "<Space>xq", "<Cmd>TroubleToggle quickfix<CR>", desc = "Trouble quickfix" },
-      { "<Space>xl", "<Cmd>TroubleToggle loclist<CR>", desc = "Trouble loclist" },
-      { "<Space>xr", "<Cmd>TroubleToggle lsp_references<CR>", desc = "Trouble lsp_references" },
+      { "<Space>xx", "<Cmd>Trouble diagnostics toggle<CR>", desc = "Trouble diagnostics" },
+      { "<Space>xd", "<Cmd>Trouble diagnostics toggle filter.buf=0<CR>", desc = "Trouble buffer diagnostics" },
+      { "<Space>xs", "<Cmd>Trouble symbols toggle focus=false<CR>", desc = "Trouble symbols" },
+      { "<Space>xl", "<Cmd>Trouble lsp toggle focus=false win.position=right<CR>", desc = "Trouble LSP definitions / references / ..." },
+      { "<Space>xq", "<Cmd>Trouble quickfix<CR>", desc = "Trouble quickfix" },
+      { "<Space>xa", "<Cmd>Trouble loclist<CR>", desc = "Trouble loclist" },
+      { "<Space>xr", "<Cmd>Trouble lsp_references<CR>", desc = "Trouble lsp_references" },
 
       -- jump to the next item, skipping the groups
       { "]x", function()
