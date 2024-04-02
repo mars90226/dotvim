@@ -61,25 +61,25 @@ local lsp = {
     "folke/trouble.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
     cmd = { "Trouble", "TroubleToggle" },
-    keys = { "<Space>xx", "<Space>xw", "<Space>xd", "<Space>xq", "<Space>xl", "<Space>xr", "]x", "[x" },
-    config = function()
-      require("trouble").setup({})
-
-      local opts = { noremap = true, silent = true }
-
-      vim.keymap.set("n", "<Space>xx", "<Cmd>TroubleToggle<CR>", opts)
-      vim.keymap.set("n", "<Space>xw", "<Cmd>TroubleToggle workspace_diagnostics<CR>", opts)
-      vim.keymap.set("n", "<Space>xd", "<Cmd>TroubleToggle document_diagnostics<CR>", opts)
-      vim.keymap.set("n", "<Space>xq", "<Cmd>TroubleToggle quickfix<CR>", opts)
-      vim.keymap.set("n", "<Space>xl", "<Cmd>TroubleToggle loclist<CR>", opts)
-      vim.keymap.set("n", "<Space>xr", "<Cmd>TroubleToggle lsp_references<CR>", opts)
+    keys = {
+      { "<Space>xx", "<Cmd>TroubleToggle<CR>", desc = "Trouble toggle" },
+      { "<Space>xw", "<Cmd>TroubleToggle workspace_diagnostics<CR>", desc = "Trouble workspace_diagnostics" },
+      { "<Space>xd", "<Cmd>TroubleToggle document_diagnostics<CR>", desc = "Trouble document_diagnostics" },
+      { "<Space>xq", "<Cmd>TroubleToggle quickfix<CR>", desc = "Trouble quickfix" },
+      { "<Space>xl", "<Cmd>TroubleToggle loclist<CR>", desc = "Trouble loclist" },
+      { "<Space>xr", "<Cmd>TroubleToggle lsp_references<CR>", desc = "Trouble lsp_references" },
 
       -- jump to the next item, skipping the groups
-      vim.keymap.set("n", "]x", [[<Cmd>lua require("trouble").next({ skip_groups = true, jump = true })<CR>]], opts)
+      { "]x", function()
+        require("trouble").next({ skip_groups = true, jump = true })
+      end, desc = "Trouble next" },
 
       -- jump to the previous item, skipping the groups
-      vim.keymap.set("n", "[x", [[<Cmd>lua require("trouble").previous({ skip_groups = true, jump = true })<CR>]], opts)
-    end,
+      { "[x", function()
+        require("trouble").previous({ skip_groups = true, jump = true })
+      end, desc = "Trouble prevous" },
+    },
+    opts = {},
   },
 
   -- TODO: none-ls.nvim cause performance problem, need to find a way to fix this
