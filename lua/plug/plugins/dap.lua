@@ -33,6 +33,18 @@ local dap = {
           nnoremap("<Leader>dE", "<Cmd>lua require('dapui').eval()<CR>", { desc = "Debugger evaluate input" })
         end,
       },
+      {
+        "rcarriga/cmp-dap",
+        dependencies = { "hrsh7th/nvim-cmp" },
+        config = function()
+          -- TODO: Move to nvim-cmp config?
+          require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+            sources = {
+              { name = "dap" },
+            },
+          })
+        end,
+      },
     },
     config = function()
       nnoremap("<Leader>dc", "<Cmd>lua require('dap').continue()<CR>", { desc = "Debugger: start/continue" })
