@@ -49,7 +49,6 @@ end
 basic.disable_builtin_plugin = function()
   vim.g.loaded_vimball = 1
   vim.g.loaded_vimballPlugin = 1
-  vim.g.loaded_2html_plugin = 1
   vim.g.loaded_matchit = 1
   vim.g.loaded_matchparen = 1
 end
