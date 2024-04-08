@@ -7,12 +7,14 @@ refactoring.config = {
     c = {
       [[printf("%s(%%d): \n", __LINE__);]], -- NOTE: Default
       [[syslog(LOG_WARNING, "%s(%%d): \n", __LINE__);]],
+      [[Logger().Error("%s(%%d): \n", __LINE__);]],
     },
   },
   print_var_statements = {
     c = {
       [[printf("%s %%s \n", %s);]], -- NOTE: Default
       [[syslog(LOG_WARNING, "%s %%s \n", %s);]],
+      [[Logger().Error("%s %%s \n", %s);]],
     },
   },
 }
@@ -45,6 +47,7 @@ refactoring.add_print_var = function()
 end
 
 refactoring.setup = function(config)
+  -- FIXME: `vim.tbl_deep_extend` doesn't extend list.
   refactoring.config = vim.tbl_deep_extend("force", refactoring.config, config or {})
   refactoring_plugin.setup(refactoring.config)
 end
