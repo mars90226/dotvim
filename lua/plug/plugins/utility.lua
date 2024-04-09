@@ -301,22 +301,27 @@ local utility = {
       "OverseerTaskAction",
     },
     keys = {
-      "<Space>ro",
-      "<Space>rr",
-      "<Space>rR",
-      "<Space>rn",
-      "<Space>rq",
-      "<Space>rt",
+      { "<Space>ro", [[<Cmd>OverseerToggle<CR>]], desc = "Overseer toggle" },
+      { "<Space>rr", [[<Cmd>OverseerRun<CR>]], desc = "Overseer run" },
+      { "<Space>rR", [[<Cmd>OverseerRunCmd<CR>]], desc = "Overseer run cmd" },
+      { "<Space>rn", [[<Cmd>OverseerBuild<CR>]], desc = "Overseer build" },
+      { "<Space>rq", [[<Cmd>OverseerQuickAction<CR>]], desc = "Overseer quick action" },
+      { "<Space>rt", [[<Cmd>OverseerTaskAction<CR>]], desc = "Overseer task action" },
     },
     config = function()
-      require("overseer").setup()
-
-      nnoremap("<Space>ro", [[<Cmd>OverseerToggle<CR>]])
-      nnoremap("<Space>rr", [[<Cmd>OverseerRun<CR>]])
-      nnoremap("<Space>rR", [[<Cmd>OverseerRunCmd<CR>]])
-      nnoremap("<Space>rn", [[<Cmd>OverseerBuild<CR>]])
-      nnoremap("<Space>rq", [[<Cmd>OverseerQuickAction<CR>]])
-      nnoremap("<Space>rt", [[<Cmd>OverseerTaskAction<CR>]])
+      require("overseer").setup({
+        -- Aliases for bundles of components. Redefine the builtins, or create your own.
+        component_alias = {
+          -- Most tasks are initialized with the default components
+          default = {
+            { "display_duration", detail_level = 2 },
+            "on_output_summarize",
+            "on_exit_set_status",
+            "on_complete_notify",
+            -- "on_complete_dispose", -- NOTE: Do not dispose to preserve the tasks with parameters
+          }
+        }
+      })
     end,
   },
   {
