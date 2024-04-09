@@ -311,7 +311,7 @@ local utility = {
     config = function()
       require("overseer").setup({
         -- Aliases for bundles of components. Redefine the builtins, or create your own.
-        component_alias = {
+        component_aliases = {
           -- Most tasks are initialized with the default components
           default = {
             { "display_duration", detail_level = 2 },
