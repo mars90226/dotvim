@@ -172,6 +172,15 @@ nvim_cmp.setup = function()
       end, { "i" }),
       ["<C-Space>"] = cmp.mapping.complete(),
     }, plugin_utils.check_enabled_plugin({
+      ["<C-Y>"] = cmp.mapping(function(fallback)
+        local copilot_suggestion = require("copilot.suggestion")
+
+        if copilot_suggestion.is_visible() then
+          copilot_suggestion.dismiss()
+        end
+
+        cmp.mapping.confirm({ select = false })(fallback)
+      end),
       ["<CR>"] = cmp.mapping(function(fallback)
         local copilot_suggestion = require("copilot.suggestion")
 
