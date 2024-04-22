@@ -79,7 +79,7 @@ local lsp = {
 
       -- jump to the previous item, skipping the groups
       { "[x", function()
-        require("trouble").previous({ skip_groups = true, jump = true })
+        require("trouble").prev({ skip_groups = true, jump = true })
       end, desc = "Trouble prevous" },
     },
     opts = {},
