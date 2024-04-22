@@ -28,6 +28,7 @@ local languages = {
   { "wavded/vim-stylus", ft = "stylus" },
   { "alunny/pegjs-vim", ft = "pegjs" },
   { "moon-musick/vim-logrotate", ft = "logrotate" },
+  { "jidn/vim-dbml", ft = "dbml" },
 
   -- Highlighing
   -- nvim-treesitter
