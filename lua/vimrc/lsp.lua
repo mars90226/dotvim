@@ -153,8 +153,11 @@ lsp.servers = {
   solargraph = {
     condition = plugin_utils.has_linux_build_env(),
   },
-  -- FIXME: Cannot start LSP, maybe the path provided by mason is wrong?
-  sqlls = {},
+  sqls = {
+    -- TODO: sqls requires Go 1.21
+    condition = plugin_utils.has_linux_build_env(),
+    -- Check settings example: https://github.com/sqls-server/sqls
+  },
   -- NOTE: Use typescript-tools.nvim to setup custom lsp to use tsserver
   -- tsserver = {
   --   custom_setup = function(server, lsp_opts)
