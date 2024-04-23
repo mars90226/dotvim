@@ -46,6 +46,11 @@ nvim_lint.setup = function()
     "json",
     "-",
   }
+  require("lint.linters.sqlfluff").args = {
+    "lint",
+    "--format=json",
+    -- Do not specify the dialect. Load dialect from the project-local configuration file.
+  }
 
   -- Setup linter
   -- TODO: Check for executable
@@ -56,6 +61,7 @@ nvim_lint.setup = function()
     proto = { "buf_lint" },
     python = { "mypy", "pylint" },
     sh = { "shellcheck" },
+    sql = { "sqlfluff" },
   }
 
   nnoremap("<Space>ll", "<Cmd>lua require('lint').try_lint()<CR>", "silent")
