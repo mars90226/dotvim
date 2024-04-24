@@ -489,6 +489,13 @@ local utility = {
   -- Color Column
   {
     "Bekaboo/deadcolumn.nvim",
+    -- FIXME: Cause error on <Tab> in insert mode, disabled for now
+    -- Error detected while processing CursorMovedI Autocommands for "*":
+    -- Error executing lua callback: Vim:E976: Using a Blob as a String
+    -- stack traceback:
+    -- 	[C]: in function 'scope'
+    -- 	...local/share/nvim/lazy/deadcolumn.nvim/lua/deadcolumn.lua:154: in function <...local/share/nvim/lazy/deadcolumn.nvim/lua/deadcolumn.lua:140>
+    enabled = false,
     event = { "VeryLazy" },
     init = function()
       -- NOTE: Monitor this
