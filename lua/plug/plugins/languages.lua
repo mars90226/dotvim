@@ -115,16 +115,36 @@ local languages = {
       { "vD", mode = { "n" }, desc = "STS swap down" },
 
       -- Swap Current Node at the Cursor with it's siblings, Dot Repeatable
-      { "vd", mode = { "n" }, desc = "STS swap current node to next" },
-      { "vu", mode = { "n" }, desc = "STS swap current node to previous" },
+      {
+        "vd",
+        mode = { "n" },
+        desc = "STS swap current node to next",
+      },
+      {
+        "vu",
+        mode = { "n" },
+        desc = "STS swap current node to previous",
+      },
 
       -- Visual Selection from Normal Mode
       { "vx", mode = { "n" }, desc = "STS select master node" },
-      { "vn", mode = { "n" }, desc = "STS select current node" },
+      {
+        "vn",
+        mode = { "n" },
+        desc = "STS select current node",
+      },
 
       -- Select Nodes in Visual Mode
-      { "<M-j>", mode = { "x" }, desc = "STS select next sibling node" },
-      { "<M-k>", mode = { "x" }, desc = "STS select previous sibling node" },
+      {
+        "<M-j>",
+        mode = { "x" },
+        desc = "STS select next sibling node",
+      },
+      {
+        "<M-k>",
+        mode = { "x" },
+        desc = "STS select previous sibling node",
+      },
       { "<M-h>", mode = { "x" }, desc = "STS select parent node" },
       { "<M-l>", mode = { "x" }, desc = "STS select child node" },
 
@@ -133,13 +153,33 @@ local languages = {
       { "<M-S-k>", mode = { "x" }, desc = "STS swap to previous" },
 
       -- Targeted jump
-      { vim.g.text_navigation_leader .. "r", mode = { "n" }, desc = "STS default targeted jump" },
-      { vim.g.text_navigation_leader .. vim.g.text_navigation_leader, mode = { "n" }, desc = "STS default targeted jump" },
-      { vim.g.text_navigation_leader .. "i", mode = { "n" }, desc = "STS literal targeted jump" },
+      {
+        vim.g.text_navigation_leader .. "r",
+        mode = { "n" },
+        desc = "STS default targeted jump",
+      },
+      {
+        vim.g.text_navigation_leader .. vim.g.text_navigation_leader,
+        mode = { "n" },
+        desc = "STS default targeted jump",
+      },
+      {
+        vim.g.text_navigation_leader .. "i",
+        mode = { "n" },
+        desc = "STS literal targeted jump",
+      },
 
       -- filtered jump
-      { "<M-s>n", mode = { "n" }, desc = "STS filtered jump forward" },
-      { "<M-s>p", mode = { "n" }, desc = "STS filtered jump backward" },
+      {
+        "<M-s>n",
+        mode = { "n" },
+        desc = "STS filtered jump forward",
+      },
+      {
+        "<M-s>p",
+        mode = { "n" },
+        desc = "STS filtered jump backward",
+      },
     },
     config = function()
       require("vimrc.plugins.syntax_tree_surfer").setup()
@@ -156,32 +196,109 @@ local languages = {
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     cmd = { "Refactor", "RefactoringAddPrintf", "RefactoringAddPrintVar" },
     keys = {
-      -- Remaps for the refactoring operations currently offered by the plugin
-      { "<Space>re", mode = { "v" } },
-      { "<Space>rf", mode = { "v" } },
-      { "<Space>rv", mode = { "v" } },
-      { "<Space>ri", mode = { "v" } },
+      -- Refactor
+      {
+        "<Space>re",
+        mode = { "x" },
+        function()
+          require("refactoring").refactor("Extract Function")
+        end,
+        desc = "Extract Function",
+      },
+      {
+        "<Space>rf",
+        mode = { "x" },
+        function()
+          require("refactoring").refactor("Extract Function To File")
+        end,
+        desc = "Extract Function To File",
+      },
+      {
+        "<Space>rv",
+        mode = { "x" },
+        function()
+          require("refactoring").refactor("Extract Variable")
+        end,
+        desc = "Extract Variable",
+      },
+      {
+        "<Space>rI",
+        mode = { "n" },
+        function()
+          require("refactoring").refactor("Inline Function")
+        end,
+        desc = "Inline Function",
+      },
+      {
+        "<Space>ri",
+        mode = { "n", "x" },
+        function()
+          require("refactoring").refactor("Inline Variable")
+        end,
+        desc = "Inline Variable",
+      },
+      {
+        "<Space>rb",
+        mode = { "n" },
+        function()
+          require("refactoring").refactor("Extract Block")
+        end,
+        desc = "Extract Block",
+      },
+      {
+        "<Space>rbf",
+        mode = { "n" },
+        function()
+          require("refactoring").refactor("Extract Block To File")
+        end,
+        desc = "Extract Block To File",
+      },
 
-      -- Extract block doesn't need visual mode
-      -- FIXME: Not working
-      { "<Space>rb", mode = { "n" } },
-      { "<Space>rbf", mode = { "n" } },
-
-      -- Inline variable can also pick up the identifier currently under the cursor without visual mode
-      { "<Space>ri", mode = { "n" } },
-
-      -- remap to open the Telescope refactoring menu in visual mode
-      { "<Space>rr", mode = { "v" } },
+      -- Telescope refactoring menu
+      {
+        "<Space>rr",
+        mode = { "n", "x" },
+        function()
+          require("telescope").extensions.refactoring.refactors()
+        end,
+        desc = "Telescope refactoring",
+      },
 
       -- Debug print
-      { "<Space>rp", mode = { "n" } },
-      { "<Space>rP", mode = { "n" } },
+      {
+        "<Space>rp",
+        mode = { "n" },
+        function()
+          require("refactoring").debug.printf({ below = true })
+        end,
+        desc = "Debug print below",
+      },
+      {
+        "<Space>rP",
+        mode = { "n" },
+        function()
+          require("refactoring").debug.printf({ below = false })
+        end,
+        desc = "Debug print above",
+      },
 
       -- Print var
-      -- Remap in normal mode and passing { normal = true } will automatically find the variable under the cursor and print it
-      -- Remap in visual mode will print whatever is in the visual selection
-      { "<Space>rk", mode = { "n", "v" } },
-      { "<Space>rc", mode = { "v" } },
+      {
+        "<Space>rk",
+        mode = { "n", "x" },
+        function()
+          require("refactoring").debug.print_var()
+        end,
+        desc = "Print var",
+      },
+      {
+        "<Space>rc",
+        mode = { "n" },
+        function()
+          require("refactoring").debug.cleanup({})
+        end,
+        desc = "Cleanup debug print",
+      },
     },
     dependencies = {
       { "nvim-lua/plenary.nvim" },
@@ -198,96 +315,6 @@ local languages = {
       end
 
       refactoring.setup(config)
-
-      -- Remaps for the refactoring operations currently offered by the plugin
-      vim.api.nvim_set_keymap(
-        "v",
-        "<Space>re",
-        [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],
-        { noremap = true, silent = true, expr = false }
-      )
-      vim.api.nvim_set_keymap(
-        "v",
-        "<Space>rf",
-        [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]],
-        { noremap = true, silent = true, expr = false }
-      )
-      vim.api.nvim_set_keymap(
-        "v",
-        "<Space>rv",
-        [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]],
-        { noremap = true, silent = true, expr = false }
-      )
-      vim.api.nvim_set_keymap(
-        "v",
-        "<Space>ri",
-        [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],
-        { noremap = true, silent = true, expr = false }
-      )
-
-      -- Extract block doesn't need visual mode
-      vim.api.nvim_set_keymap(
-        "n",
-        "<Space>rb",
-        [[ <Cmd>lua require('refactoring').refactor('Extract Block')<CR>]],
-        { noremap = true, silent = true, expr = false }
-      )
-      vim.api.nvim_set_keymap(
-        "n",
-        "<Space>rbf",
-        [[ <Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>]],
-        { noremap = true, silent = true, expr = false }
-      )
-
-      -- Inline variable can also pick up the identifier currently under the cursor without visual mode
-      vim.api.nvim_set_keymap(
-        "n",
-        "<Space>ri",
-        [[ <Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],
-        { noremap = true, silent = true, expr = false }
-      )
-
-      -- remap to open the Telescope refactoring menu in visual mode
-      vim.api.nvim_set_keymap(
-        "v",
-        "<Space>rr",
-        "<Esc><Cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
-        { noremap = true }
-      )
-
-      -- Debug print
-      vim.api.nvim_set_keymap(
-        "n",
-        "<Space>rp",
-        ":lua require('refactoring').debug.printf({below = true})<CR>",
-        { noremap = true }
-      )
-      vim.api.nvim_set_keymap(
-        "n",
-        "<Space>rP",
-        ":lua require('refactoring').debug.printf({below = false})<CR>",
-        { noremap = true }
-      )
-
-      -- Print var
-
-      -- Remap in normal mode and passing { normal = true } will automatically find the variable under the cursor and print it
-      vim.api.nvim_set_keymap(
-        "n",
-        "<Space>rk",
-        ":lua require('refactoring').debug.print_var({ normal = true })<CR>",
-        { noremap = true }
-      )
-      -- Remap in visual mode will print whatever is in the visual selection
-      vim.api.nvim_set_keymap(
-        "v",
-        "<Space>rk",
-        ":lua require('refactoring').debug.print_var({})<CR>",
-        { noremap = true }
-      )
-
-      -- Cleanup function: this remap should be made in normal mode
-      vim.api.nvim_set_keymap("n", "<Space>rc", ":lua require('refactoring').debug.cleanup({})<CR>", { noremap = true })
 
       -- Customize Debug Command
       vim.api.nvim_create_user_command("RefactoringAddPrintf", refactoring.add_printf, {})
