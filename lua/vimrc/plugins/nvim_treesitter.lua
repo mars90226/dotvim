@@ -550,31 +550,36 @@ nvim_treesitter.setup_performance_trick = function()
       end, tab_trick_debounce)
     end,
   })
-  vim.api.nvim_create_autocmd({ "TabLeave" }, {
-    group = augroup_id,
-    pattern = "*",
-    callback = function()
-      tab_trick_enable[vim.api.nvim_get_current_tabpage()] = false
 
-      tab_loop_supported_wins(function(winid)
-        for _, module in ipairs(tab_idle_disabled_modules) do
-          configs_commands.TSBufDisable.run(module, vim.api.nvim_win_get_buf(winid))
-        end
-      end)
-    end,
-  })
-  -- NOTE: Open buffer in other tab doesn't have highlight, enable highlight on BufWinEnter
-  vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-    group = augroup_id,
-    pattern = "*",
-    callback = function()
-      if nvim_treesitter.win_is_supported() then
-        for _, module in ipairs(tab_idle_disabled_modules) do
-          configs_commands.TSBufEnable.run(module, vim.api.nvim_get_current_buf())
-        end
-      end
-    end,
-  })
+  -- NOTE: Disabled performance trick for WinBufEnter/TabLeave for now. Due to the following reasons:
+  -- 1. Treesitter highlight is faster now.
+  -- 2. Disabled it also benefits the performance on tab switch.
+
+  -- vim.api.nvim_create_autocmd({ "TabLeave" }, {
+  --   group = augroup_id,
+  --   pattern = "*",
+  --   callback = function()
+  --     tab_trick_enable[vim.api.nvim_get_current_tabpage()] = false
+  --
+  --     tab_loop_supported_wins(function(winid)
+  --       for _, module in ipairs(tab_idle_disabled_modules) do
+  --         configs_commands.TSBufDisable.run(module, vim.api.nvim_win_get_buf(winid))
+  --       end
+  --     end)
+  --   end,
+  -- })
+  -- -- NOTE: Open buffer in other tab doesn't have highlight, enable highlight on BufWinEnter
+  -- vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+  --   group = augroup_id,
+  --   pattern = "*",
+  --   callback = function()
+  --     if nvim_treesitter.win_is_supported() then
+  --       for _, module in ipairs(tab_idle_disabled_modules) do
+  --         configs_commands.TSBufEnable.run(module, vim.api.nvim_get_current_buf())
+  --       end
+  --     end
+  --   end,
+  -- })
 end
 
 nvim_treesitter.setup_mapping = function()
