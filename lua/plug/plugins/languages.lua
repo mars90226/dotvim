@@ -256,7 +256,7 @@ local languages = {
 
       -- Telescope refactoring menu
       {
-        "<Space>rr",
+        "<Space>rm",
         mode = { "n", "x" },
         function()
           require("telescope").extensions.refactoring.refactors()
