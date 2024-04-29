@@ -215,8 +215,8 @@ tui.setup = function()
           { "YaziSplit", ":YaziSplit", 1 },
         })
 
-        nnoremap("<Leader>za", [[:Yazi<CR>]])
-        nnoremap("<Leader>zA", [[:YaziSplit<CR>]])
+        nnoremap("<Leader>zA", [[:Yazi<CR>]])
+        nnoremap("<Leader>zs", [[:YaziSplit<CR>]])
       end,
     })
   end
