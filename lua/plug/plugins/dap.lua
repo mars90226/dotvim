@@ -6,6 +6,7 @@ local dap = {
     "mfussenegger/nvim-dap",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
+      -- TODO: Very slow to load
       {
         "jay-babu/mason-nvim-dap.nvim",
         dependencies = {
