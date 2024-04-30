@@ -236,9 +236,9 @@ fzf.setup_mapping = function()
   -- stylua: ignore start
   -- fzf key mappings {{{
   nnoremap([[<Space>fA]],     [[:call      vimrc#execute_and_save('AllFiles')<CR>]])
-  nnoremap([[<Space>f1]],     [[:call      vimrc#execute_and_save('CustomFiles :' . input('Option: ') . ':' . input('Fd: '))<CR>]])
+  nnoremap([[<Space>f1]],     [[:call      vimrc#execute_and_save('CustomFiles ::' . input('Fd: '))<CR>]])
   nnoremap([[<Space>f!]],     [[:call      vimrc#execute_and_save('CustomFiles ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Fd: '))<CR>]])
-  nnoremap([[<Space>f2]],     [[:call      vimrc#execute_and_save('MatchedFiles :' . input('Option: ') . ':' . input('Rg: '))<CR>]])
+  nnoremap([[<Space>f2]],     [[:call      vimrc#execute_and_save('MatchedFiles ::' . input('Rg: '))<CR>]])
   nnoremap([[<Space>f@]],     [[:call      vimrc#execute_and_save('MatchedFiles ' . input('Folder: ', '', 'dir') . ':' . input('Option: ') . ':' . input('Rg: '))<CR>]])
   nnoremap([[<Space>fb]],     [[:call      vimrc#execute_and_save('Buffers')<CR>]])
   nnoremap([[<Space>fB]],     [[:call      vimrc#execute_and_save('Files %:h')<CR>]])
