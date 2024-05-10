@@ -139,7 +139,14 @@ lsp.servers = {
   perlnavigator = {},
   -- pyls_ms = {},
   -- NOTE: use plugins: pyflakes, pycodestyle, pyls-flake8, pylsp-mypy, python-lsp-black
-  pylsp = {},
+  pylsp = {
+    on_attach = function(client, bufnr)
+      local python = require("vimrc.ftplugins.python")
+
+      python.check_pylsp_linter_feasibility(bufnr)
+      python.setup_mappings()
+    end,
+  },
   -- TODO: pylyzer not supporting documentSymbolProvider, disabled for now
   -- pylyzer = {},
   -- TODO: Use pyright again, seems to have better performance with higher CPU usages

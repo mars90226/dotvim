@@ -213,4 +213,18 @@ utils.clear_interval = function(timer)
   timer:close()
 end
 
+---Ref: bigfile.nvim
+---@param bufnr number
+---@return integer|nil size if buffer is valid, nil otherwise
+utils.get_buf_size = function(bufnr)
+  bufnr = bufnr or vim.api.nvim_get_current_buf()
+  local ok, stats = pcall(function()
+    return vim.loop.fs_stat(vim.api.nvim_buf_get_name(bufnr))
+  end)
+  if not (ok and stats) then
+    return
+  end
+  return stats.size
+end
+
 return utils
