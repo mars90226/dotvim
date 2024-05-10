@@ -202,7 +202,7 @@ local utility = {
 
   -- Quickfix
   { "kevinhwang91/nvim-bqf", ft = { "qf" } },
-  { "thinca/vim-qfreplace",  ft = { "qf" } },
+  { "thinca/vim-qfreplace", ft = { "qf" } },
   {
     "romainl/vim-qf",
     ft = { "qf" },
@@ -223,14 +223,14 @@ local utility = {
       require("zen-mode").setup({
         plugins = {
           twilight = { enabled = false }, -- twilight.nvim with treesitter in zen-mode.nvim is extremely slow
-        }
+        },
       })
 
       vim.api.nvim_create_user_command("ZenModeCopy", function()
         vim.cmd([[ZenMode]])
         vim.wo.number = false
-        vim.wo.statuscolumn = ''
-        vim.wo.winbar = ''
+        vim.wo.statuscolumn = ""
+        vim.wo.winbar = ""
         vim.wo.list = not vim.wo.list
         require("vimrc.lsp").toggle_show_diagnostics()
         vim.cmd([[IndentBlanklineToggle]])
@@ -240,7 +240,7 @@ local utility = {
 
       nnoremap("<Leader>zm", [[<Cmd>ZenMode<CR>]])
       nnoremap("<Leader>zc", [[<Cmd>ZenModeCopy<CR>]])
-    end
+    end,
   },
   {
     "folke/twilight.nvim",
@@ -289,7 +289,7 @@ local utility = {
     end,
   },
   {
-    'stevearc/overseer.nvim',
+    "stevearc/overseer.nvim",
     cmd = {
       "OverseerOpen",
       "OverseerToggle",
@@ -319,8 +319,8 @@ local utility = {
             "on_exit_set_status",
             "on_complete_notify",
             -- "on_complete_dispose", -- NOTE: Do not dispose to preserve the tasks with parameters
-          }
-        }
+          },
+        },
       })
     end,
   },
@@ -333,16 +333,19 @@ local utility = {
       require("compiler").setup({})
 
       -- Open compiler
-      vim.api.nvim_set_keymap('n', '<Leader>cc', "<Cmd>CompilerOpen<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap("n", "<Leader>cc", "<Cmd>CompilerOpen<CR>", { noremap = true, silent = true })
 
       -- Redo last selected option
-      vim.api.nvim_set_keymap('n', '<Leader>cl',
-           "<Cmd>CompilerStop<CR>" -- (Optional, to dispose all tasks before redo)
-        .. "<Cmd>CompilerRedo<CR>",
-       { noremap = true, silent = true })
+      vim.api.nvim_set_keymap(
+        "n",
+        "<Leader>cl",
+        "<Cmd>CompilerStop<CR>" -- (Optional, to dispose all tasks before redo)
+          .. "<Cmd>CompilerRedo<CR>",
+        { noremap = true, silent = true }
+      )
 
       -- Toggle compiler results
-      vim.api.nvim_set_keymap('n', '<Leader>cv', "<Cmd>CompilerToggleResults<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap("n", "<Leader>cv", "<Cmd>CompilerToggleResults<CR>", { noremap = true, silent = true })
     end,
   },
 
@@ -379,7 +382,6 @@ local utility = {
       nnoremap("<Leader>ul", [[<Cmd>UrlView lazy picker=telescope<CR>]], { desc = "view plugin URLs" })
     end,
   },
-
 
   -- Colorizer
   -- NOTE: Cannot lazy load on key, first buffer doesn't have color highlight
@@ -505,11 +507,11 @@ local utility = {
     config = function()
       local palette = require("gruvbox").palette
 
-      require('deadcolumn').setup({
+      require("deadcolumn").setup({
         blending = {
           colorcode = palette.dark0,
           hlgroup = { "OpaqueNormal", "bg" },
-        }
+        },
       })
     end,
   },
@@ -541,7 +543,7 @@ local utility = {
       nnoremap("<Leader>rr", [[<Plug>RestNvim]], "nowait")
       nnoremap("<Leader>rp", [[<Plug>RestNvimPreview]], "nowait")
       nnoremap("<Leader>rl", [[<Plug>RestNvimLast]], "nowait")
-    end
+    end,
   },
 
   -- DB
@@ -575,7 +577,28 @@ local utility = {
   -- TODO: Add key mappings
   { "LudoPinelli/comment-box.nvim" },
 
-  { "tpope/vim-abolish",    cmd = { "Abolish", "Subvert", "S" }, keys = { "cr" } },
+  {
+    "LunarVim/bigfile.nvim",
+    config = function()
+      -- default config
+      require("bigfile").setup({
+        filesize = 2, -- size of the file in MiB, the plugin round file sizes to the closest MiB
+        pattern = { "*" }, -- autocmd pattern or function see <### Overriding the detection of big files>
+        features = { -- features to disable
+          "indent_blankline",
+          "illuminate",
+          "lsp",
+          "treesitter",
+          "syntax",
+          "matchparen",
+          "vimopts",
+          "filetype",
+        },
+      })
+    end,
+  },
+
+  { "tpope/vim-abolish", cmd = { "Abolish", "Subvert", "S" }, keys = { "cr" } },
   "kopischke/vim-fetch",
   {
     "Valloric/ListToggle",
@@ -583,13 +606,13 @@ local utility = {
     keys = { "<Leader>q", "<Leader>l" },
   },
   -- TODO: Lazy load on cmd
-  { "tpope/vim-eunuch",                 event = { "CmdlineEnter" } },
-  { "tweekmonster/helpful.vim",         cmd = { "HelpfulVersion" } },
-  { "tweekmonster/startuptime.vim",     cmd = { "StartupTime" } },
-  { "lambdalisue/reword.vim",           event = { "CmdlineEnter" } },
-  { "nicwest/vim-http",                 cmd = { "Http" } },
+  { "tpope/vim-eunuch", event = { "CmdlineEnter" } },
+  { "tweekmonster/helpful.vim", cmd = { "HelpfulVersion" } },
+  { "tweekmonster/startuptime.vim", cmd = { "StartupTime" } },
+  { "lambdalisue/reword.vim", event = { "CmdlineEnter" } },
+  { "nicwest/vim-http", cmd = { "Http" } },
   { "kristijanhusak/vim-carbon-now-sh", cmd = { "CarbonNowSh" } },
-  { "taybart/b64.nvim",                 cmd = { "B64Encode", "B64Decode" } },
+  { "taybart/b64.nvim", cmd = { "B64Encode", "B64Decode" } },
 
   -- nvim-gdb
   -- Disabled for now as neovim's neovim_gdb.vim seems not exists
