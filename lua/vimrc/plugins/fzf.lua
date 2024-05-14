@@ -363,8 +363,8 @@ fzf.setup_mapping = function()
   -- ProjectTags
   nnoremap([[<Space>fp]],   [[:call      vimrc#execute_and_save('ProjectTags')<CR>]])
   nnoremap([[<Space>sp]],   [[:call      vimrc#execute_and_save('ProjectTagsCaseSentitive')<CR>]])
-  nnoremap([[<Space>fP]],   [[:call      vimrc#execute_and_save("ProjectTags '" . expand('<cword>'))<CR>]])
-  xnoremap([[<Space>fP]],   [[:<C-U>call vimrc#execute_and_save("ProjectTags '" . vimrc#utility#get_visual_selection())<CR>]])
+  nnoremap([[<Space>fP]],   [[:call      vimrc#execute_and_save("ProjectTags " . expand('<cword>'))<CR>]])
+  xnoremap([[<Space>fP]],   [[:<C-U>call vimrc#execute_and_save("ProjectTags " . vimrc#utility#get_visual_selection())<CR>]])
 
   -- Command Palette
   nnoremap([[<Space>M]], [[:call vimrc#execute_and_save('CommandPalette')<CR>]])
