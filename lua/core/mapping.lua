@@ -95,7 +95,7 @@ mapping.setup = function()
       nnoremap("<Leader>du", [[:lcd ..<CR>]], { desc = "Change current window working directory to parent folder" })
 
       -- Change current window working directory to folder containing current buffer
-      nnoremap("<Leader>dh", [[:lcd %:h<CR>]], { desc = "Change current window working directory to folder containing current buffer" })
+      nnoremap("<Leader>d5", [[:lcd %:h<CR>]], { desc = "Change current window working directory to folder containing current buffer" })
 
       -- Change current window working directory to git root folder
       nnoremap("<Leader>dg", function()
