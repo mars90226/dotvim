@@ -94,7 +94,8 @@ local text_navigation = {
       modes = {
         search = {
           -- TODO: When not matched, flash.nvim will make vim exit search mode. Disable it for now.
-          -- Ref: https://github.com/folke/flash.nvim/issues/85
+          -- This seems to be fixed, but a simple test shows that it's still happening.
+          -- Ref: https://github.com/folke/flash.nvim/pull/277
           enabled = false,
         },
       },
