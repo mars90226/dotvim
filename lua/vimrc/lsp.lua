@@ -349,6 +349,10 @@ lsp.calculate_server_opts = function(server, custom_opts)
   -- Ref: https://github.com/neovim/neovim/pull/27347
   if choose.is_disabled_plugin("nvim-lsp-workspace-didChangeWatchedFiles") then
     capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+  else
+    -- TODO: neovim 0.10.0 nightly currently disable "workspace/didChangeWatchedFiles" on Linux 
+    -- Ref: https://github.com/neovim/neovim/commit/c1a95d9653f39c5e118d030270e4b77ebd20139e
+    capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
   end
 
   -- Allow customizing each lsp server's capabilities
