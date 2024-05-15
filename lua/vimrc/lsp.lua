@@ -146,6 +146,7 @@ lsp.servers = {
       python.check_pylsp_linter_feasibility(bufnr)
       python.setup_mappings()
     end,
+    settings = require("vimrc.ftplugins.python").pylsp_default_settings,
   },
   -- TODO: pylyzer not supporting documentSymbolProvider, disabled for now
   -- pylyzer = {},
@@ -288,7 +289,12 @@ lsp.on_attach = function(client, bufnr)
   end, "silent", "buffer")
   nnoremap("yof", [[<Cmd>lua require("vimrc.lsp").toggle_format_on_sync()<CR>]], "silent", "buffer")
   nnoremap("yoo", [[<Cmd>lua require("vimrc.lsp").toggle_show_diagnostics()<CR>]], "silent", "buffer")
-  nnoremap("yoI", [[<Cmd>lua vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())<CR>]], "silent", "buffer")
+  nnoremap(
+    "yoI",
+    [[<Cmd>lua vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())<CR>]],
+    "silent",
+    "buffer"
+  )
 
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
   vim.bo.tagfunc = [[v:lua.vim.lsp.tagfunc]]
@@ -499,7 +505,7 @@ end
 -- TODO: project level notify
 lsp.notify_settings = function(server, settings)
   for _, lsp_client in ipairs(vim.lsp.get_active_clients({ name = server })) do
-    lsp_client.config.settings = settings
+    lsp_client.config.settings = vim.tbl_deep_extend("force", lsp_client.config.settings, settings)
     lsp_client.notify("workspace/didChangeConfiguration", {
       settings = lsp_client.config.settings,
     })

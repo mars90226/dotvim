@@ -59,7 +59,6 @@ nvim_lint.setup = function()
     javascript = { "jshint" },
     markdown = { "markdownlint" },
     proto = { "buf_lint" },
-    python = { "mypy", "pylint" },
     sh = { "shellcheck" },
     sql = { "sqlfluff" },
   }
