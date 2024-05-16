@@ -209,14 +209,14 @@ local completion = {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     cond = choose.is_enabled_plugin("CopilotChat.nvim"),
+    branch = "canary",
     dependencies = {
-      { "nvim-telescope/telescope.nvim" },
+      { "zbirenbaum/copilot.lua" },
       { "nvim-lua/plenary.nvim" },
     },
     opts = {
       show_help = "yes",
       debug = false,
-      disable_extra_info = "no",
       prompts = {
         Explain = "Explain how it works.",
         Review = "Review the following code and provide concise suggestions.",
@@ -225,23 +225,11 @@ local completion = {
         Wording = "Rewrite this using idiomatic English",
       },
     },
-    build = function()
-      vim.defer_fn(function()
-        local copilot_chat_plugin = require("vimrc.plugins.lazy").find_plugin("CopilotChat.nvim")
-        if copilot_chat_plugin == nil then
-          return
-        end
-
-        vim.system({ "pip3", "install", "-r", copilot_chat_plugin.dir .. "/requirements.txt" })
-        vim.cmd("UpdateRemotePlugins")
-        vim.notify("CopilotChat - Updated remote plugins. Please restart Neovim.")
-      end, 3000)
-    end,
     event = "VeryLazy",
+    -- TODO: Add new key mappings for the new CopilotChat features
     keys = {
       { "<Space>c<Space>", ":CopilotChat<Space>", desc = "CopilotChat - Open in vertical split" },
       { "<Space>c<Space>", ":CopilotChatVisual<Space>", mode = { "x" }, desc = "CopilotChat - Open in vertical split" },
-      { "<Space>cx", ":CopilotChatInPlace<CR>", mode = { "x" }, desc = "CopilotChat - Run in-place code" },
       { "<Space>cf", "<Cmd>CopilotChatFixDiagnostic<CR>", desc = "CopilotChat - Fix diagnostic" },
       { "<Space>c<C-R>", "<Cmd>CopilotChatReset<CR>", desc = "CopilotChat - Reset chat history and clear buffer" },
       { "<Space>cT", "<Cmd>CopilotChatVisplitToggle<CR>", desc = "CopilotChat - Toggle Vsplit" },
@@ -250,14 +238,19 @@ local completion = {
       {
         "<Space>ch",
         function()
-          require("CopilotChat.code_actions").show_help_actions()
+          local actions = require("CopilotChat.actions")
+          require("CopilotChat.integrations.telescope").pick(actions.help_actions())
         end,
         desc = "CopilotChat - Help actions"
       },
       {
         "<Space>cp",
         function()
-          require("CopilotChat.code_actions").show_prompt_actions()
+          local actions = require("CopilotChat.actions")
+          local select = require("CopilotChat.select")
+          require("CopilotChat.integrations.telescope").pick(actions.prompt_actions({
+            selection = select.visual,
+          }))
         end,
         mode = { "n", "x" },
         desc = "CopilotChat - Prompt actions"
