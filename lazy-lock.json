@@ -1,7 +1,7 @@
 {
   "CamelCaseMotion": { "branch": "master", "commit": "de439d7c06cffd0839a29045a103fe4b44b15cdc" },
   "Comment.nvim": { "branch": "master", "commit": "0236521ea582747b58869cb72f70ccfa967d2e89" },
-  "CopilotChat.nvim": { "branch": "main", "commit": "b99aabf5138f3949f139df334828d0eb7859cc27" },
+  "CopilotChat.nvim": { "branch": "canary", "commit": "af18fa2fbc765ddf9bacd22e15c974642f20d19b" },
   "ListToggle": { "branch": "master", "commit": "63fb8acb57d57380b2e30e7a831247140559c95f" },
   "LuaSnip": { "branch": "master", "commit": "03c8e67eb7293c404845b3982db895d59c0d1538" },
   "actions-preview.nvim": { "branch": "master", "commit": "e8d41b608e24319548637685c7cfa66fadaff2b2" },
