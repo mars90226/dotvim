@@ -508,7 +508,7 @@ end
 
 -- TODO: project level notify
 lsp.notify_settings = function(server, settings)
-  for _, lsp_client in ipairs(vim.lsp.get_active_clients({ name = server })) do
+  for _, lsp_client in ipairs(vim.lsp.get_clients({ name = server })) do
     lsp_client.config.settings = vim.tbl_deep_extend("force", lsp_client.config.settings, settings)
     lsp_client.notify("workspace/didChangeConfiguration", {
       settings = lsp_client.config.settings,

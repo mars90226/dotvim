@@ -26,6 +26,7 @@ diagnostic.setup = function()
         }
       })
 
+      -- TODO: Migrate from `sign_define` to `vim.diagnostic.config`
       for _, signs in pairs(diagnostic_signs) do
         local hl = "DiagnosticSign" .. signs.name
         vim.fn.sign_define(hl, { text = signs.text, texthl = hl })

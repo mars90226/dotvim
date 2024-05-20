@@ -145,6 +145,10 @@ local utility = {
   },
 
   -- NOTE: require nvim-treesitter
+  -- TODO: Check if not working on Windows
+  -- TODO: Migrate to rocks.nvim
+  -- NOTE: rocks.nvim installation script is outside of lazy.nvim & manual installation steps are tedious.
+  -- TODO: Check https://vhyrro.github.io/posts/neorg-and-luarocks/
   {
     "nvim-neorg/neorg",
     ft = { "norg" },
@@ -534,7 +538,7 @@ local utility = {
   -- NOTE: rocks.nvim installation script is outside of lazy.nvim & manual installation steps are tedious.
   {
     "rest-nvim/rest.nvim",
-    branch = "v1.2.1",
+    tag = "v1.2.1",
     dependencies = { { "nvim-lua/plenary.nvim" } },
     ft = { "http" },
     config = function()
