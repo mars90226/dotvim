@@ -228,8 +228,7 @@ local completion = {
     event = "VeryLazy",
     -- TODO: Add new key mappings for the new CopilotChat features
     keys = {
-      { "<Space>c<Space>", ":CopilotChat<Space>", desc = "CopilotChat - Open in vertical split" },
-      { "<Space>c<Space>", ":CopilotChatVisual<Space>", mode = { "x" }, desc = "CopilotChat - Open in vertical split" },
+      { "<Space>c<Space>", ":CopilotChat<Space>", mode = { "n", "x" }, desc = "CopilotChat - Open in vertical split" },
       { "<Space>cf", "<Cmd>CopilotChatFixDiagnostic<CR>", desc = "CopilotChat - Fix diagnostic" },
       { "<Space>c<C-R>", "<Cmd>CopilotChatReset<CR>", desc = "CopilotChat - Reset chat history and clear buffer" },
       { "<Space>cT", "<Cmd>CopilotChatVisplitToggle<CR>", desc = "CopilotChat - Toggle Vsplit" },
