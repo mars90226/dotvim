@@ -8,29 +8,23 @@ diagnostic.setup = function()
   use_config({
     "mars90226/diagnostic",
     config = function()
-      -- Borrowed from trouble.nvim
-      local diagnostic_signs = {
-        -- icons / text used for a diagnostic
-        error = { name = "Error", text = "" },
-        warning = { name = "Warn", text = "" },
-        hint = { name = "Hint", text = "" },
-        information = { name = "Info", text = "" },
-      }
-
       vim.diagnostic.config({
         virtual_text = {
           source = "if_many",
         },
         float = {
           source = "if_many",
-        }
+        },
+        signs = {
+          text = {
+            -- icons / text used for a diagnostic
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.HINT] = "",
+            [vim.diagnostic.severity.INFO] = "",
+          }
+        },
       })
-
-      -- TODO: Migrate from `sign_define` to `vim.diagnostic.config`
-      for _, signs in pairs(diagnostic_signs) do
-        local hl = "DiagnosticSign" .. signs.name
-        vim.fn.sign_define(hl, { text = signs.text, texthl = hl })
-      end
 
       nnoremap("]d", [[<Cmd>lua vim.diagnostic.goto_next()<CR>]], "silent")
       nnoremap("[d", [[<Cmd>lua vim.diagnostic.goto_prev()<CR>]], "silent")
