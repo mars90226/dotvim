@@ -57,6 +57,7 @@ local lsp = {
     -- NOTE: config setup in vimrc.lsp.setup_plugins()
   },
 
+  -- Diagnostic
   {
     "folke/trouble.nvim",
     branch = "dev",
@@ -83,6 +84,17 @@ local lsp = {
       end, desc = "Trouble prevous" },
     },
     opts = {},
+  },
+  {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    event = { "LspAttach" },
+    config = function()
+      local lsp_lines = require("lsp_lines")
+      lsp_lines.setup()
+      lsp_lines.toggle() -- disable by default
+
+      nnoremap("yoO", lsp_lines.toggle, { desc = "Toggle lsp_lines" })
+    end,
   },
 
   -- TODO: none-ls.nvim cause performance problem, need to find a way to fix this
