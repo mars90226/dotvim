@@ -139,6 +139,8 @@ lsp.servers = {
   perlnavigator = {},
   -- pyls_ms = {},
   -- NOTE: use plugins: pyflakes, pycodestyle, pyls-flake8, pylsp-mypy, python-lsp-black, python-lsp-ruff
+  -- TODO: Replaced with ruff server when completion is supported
+  -- Ref: https://astral.sh/blog/ruff-v0.4.5
   pylsp = {
     on_attach = function(client, bufnr)
       local python = require("vimrc.ftplugins.python")
