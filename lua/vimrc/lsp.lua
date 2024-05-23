@@ -138,7 +138,7 @@ lsp.servers = {
   },
   perlnavigator = {},
   -- pyls_ms = {},
-  -- NOTE: use plugins: pyflakes, pycodestyle, pyls-flake8, pylsp-mypy, python-lsp-black
+  -- NOTE: use plugins: pyflakes, pycodestyle, pyls-flake8, pylsp-mypy, python-lsp-black, python-lsp-ruff
   pylsp = {
     on_attach = function(client, bufnr)
       local python = require("vimrc.ftplugins.python")
