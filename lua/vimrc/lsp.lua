@@ -310,7 +310,7 @@ lsp.on_attach = function(client, bufnr)
     require("vimrc.lsp").toggle_show_diagnostics()
   end, "silent", "buffer")
   nnoremap("yoI", function()
-    vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
   end, "silent", "buffer")
 
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
