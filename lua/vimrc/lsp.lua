@@ -52,11 +52,6 @@ lsp.servers = {
     -- NOTE: Disable clangd on protobuf
     -- Ref: https://github.com/neovim/nvim-lspconfig/pull/2125#issuecomment-1291968687
     filetypes = { "c", "cpp" },
-    on_attach = function(client, bufnr)
-      local clangd_inlay_hints = require("clangd_extensions.inlay_hints")
-      clangd_inlay_hints.setup_autocmd()
-      clangd_inlay_hints.set_inlay_hints()
-    end,
   },
   -- NOTE: Use tsserver again
   -- denols = {
@@ -312,6 +307,9 @@ lsp.on_attach = function(client, bufnr)
   nnoremap("yoI", function()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
   end, "silent", "buffer")
+
+  -- NOTE: Enable inlay hints
+  vim.lsp.inlay_hint.enable(true)
 
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
   vim.bo.tagfunc = [[v:lua.vim.lsp.tagfunc]]
