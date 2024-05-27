@@ -271,14 +271,28 @@ lsp.on_attach = function(client, bufnr)
   my_lspsaga.on_attach(client)
   my_goto_preview.on_attach(client)
 
-  nnoremap("K", "<Cmd>lua require('vimrc.lsp').show_doc()<CR>", "silent", "buffer")
+  nnoremap("K", function()
+    require("vimrc.lsp").show_doc()
+  end, "silent", "buffer")
   -- NOTE: Use <C-]> to call 'tagfunc'
-  -- nnoremap("<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>", "silent", "buffer")
-  nnoremap("1gD", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", "silent", "buffer")
-  nnoremap("gR", "<Cmd>lua vim.lsp.buf.references()<CR>", "silent", "buffer")
-  nnoremap("g0", "<Cmd>lua vim.lsp.buf.document_symbol()<CR>", "silent", "buffer")
-  nnoremap("gy", "<Cmd>lua vim.lsp.buf.signature_help()<CR>", "silent", "buffer")
-  nnoremap("<Space>lf", "<Cmd>lua vim.lsp.buf.format({ async = true })<CR>", "silent", "buffer")
+  -- nnoremap("<C-]>", function()
+  --   vim.lsp.buf.definition()
+  -- end, "silent", "buffer")
+  nnoremap("1gD", function()
+    vim.lsp.buf.type_definition()
+  end, "silent", "buffer")
+  nnoremap("gR", function()
+    vim.lsp.buf.references()
+  end, "silent", "buffer")
+  nnoremap("g0", function()
+    vim.lsp.buf.document_symbol()
+  end, "silent", "buffer")
+  nnoremap("gy", function()
+    vim.lsp.buf.signature_help()
+  end, "silent", "buffer")
+  nnoremap("<Space>lf", function()
+    vim.lsp.buf.format({ async = true })
+  end, "silent", "buffer")
   vim.keymap.set("x", "<Space>lf", vim.lsp.buf.format, { silent = true, buffer = true })
   nnoremap("<Space>lI", function()
     if vim.fn.exists(":LspInfo") == 2 then
@@ -289,14 +303,15 @@ lsp.on_attach = function(client, bufnr)
       vim.notify("No LSP info!", vim.log.levels.ERROR)
     end
   end, "silent", "buffer")
-  nnoremap("yof", [[<Cmd>lua require("vimrc.lsp").toggle_format_on_sync()<CR>]], "silent", "buffer")
-  nnoremap("yoo", [[<Cmd>lua require("vimrc.lsp").toggle_show_diagnostics()<CR>]], "silent", "buffer")
-  nnoremap(
-    "yoI",
-    [[<Cmd>lua vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())<CR>]],
-    "silent",
-    "buffer"
-  )
+  nnoremap("yof", function()
+    require("vimrc.lsp").toggle_format_on_sync()
+  end, "silent", "buffer")
+  nnoremap("yoo", function()
+    require("vimrc.lsp").toggle_show_diagnostics()
+  end, "silent", "buffer")
+  nnoremap("yoI", function()
+    vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+  end, "silent", "buffer")
 
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
   vim.bo.tagfunc = [[v:lua.vim.lsp.tagfunc]]
@@ -352,7 +367,7 @@ lsp.calculate_server_opts = function(server, custom_opts)
   if choose.is_disabled_plugin("nvim-lsp-workspace-didChangeWatchedFiles") then
     capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
   else
-    -- TODO: neovim 0.10.0 nightly currently disable "workspace/didChangeWatchedFiles" on Linux 
+    -- TODO: neovim 0.10.0 nightly currently disable "workspace/didChangeWatchedFiles" on Linux
     -- Ref: https://github.com/neovim/neovim/commit/c1a95d9653f39c5e118d030270e4b77ebd20139e
     capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
   end
