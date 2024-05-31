@@ -64,23 +64,39 @@ local lsp = {
     cmd = { "Trouble" },
     keys = {
       { "<Space>xx", "<Cmd>Trouble diagnostics toggle<CR>", desc = "Trouble diagnostics" },
-      { "<Space>xd", "<Cmd>Trouble diagnostics toggle filter.buf=0<CR>", desc = "Trouble buffer diagnostics" },
+      {
+        "<Space>xd",
+        "<Cmd>Trouble diagnostics toggle filter.buf=0<CR>",
+        desc = "Trouble buffer diagnostics",
+      },
       { "<Space>xs", "<Cmd>Trouble symbols toggle focus=false<CR>", desc = "Trouble symbols" },
-      { "<Space>xl", "<Cmd>Trouble lsp toggle focus=false win.position=right<CR>", desc = "Trouble LSP definitions / references / ..." },
+      {
+        "<Space>xl",
+        "<Cmd>Trouble lsp toggle focus=false win.position=right<CR>",
+        desc = "Trouble LSP definitions / references / ...",
+      },
       { "<Space>xq", "<Cmd>Trouble quickfix<CR>", desc = "Trouble quickfix" },
       { "<Space>xa", "<Cmd>Trouble loclist<CR>", desc = "Trouble loclist" },
       { "<Space>xr", "<Cmd>Trouble lsp_references<CR>", desc = "Trouble lsp_references" },
 
       -- FIXME: trouble v3 seems have no next/previous functions now
       -- jump to the next item, skipping the groups
-      { "]x", function()
-        require("trouble").next({ skip_groups = true, jump = true })
-      end, desc = "Trouble next" },
+      {
+        "]x",
+        function()
+          require("trouble").next({ skip_groups = true, jump = true })
+        end,
+        desc = "Trouble next",
+      },
 
       -- jump to the previous item, skipping the groups
-      { "[x", function()
-        require("trouble").prev({ skip_groups = true, jump = true })
-      end, desc = "Trouble prevous" },
+      {
+        "[x",
+        function()
+          require("trouble").prev({ skip_groups = true, jump = true })
+        end,
+        desc = "Trouble prevous",
+      },
     },
     opts = {},
   },
@@ -160,7 +176,7 @@ local lsp = {
       require("fidget").setup({
         window = {
           blend = 0,
-        }
+        },
       })
     end,
   },
@@ -195,13 +211,13 @@ local lsp = {
     end,
   },
   {
-    'mrcjkb/rustaceanvim',
+    "mrcjkb/rustaceanvim",
     cond = choose.is_enabled_plugin("rustaceanvim"),
-    version = '^3', -- Recommended
-    ft = { 'rust' },
+    version = "^3", -- Recommended
+    ft = { "rust" },
     init = function()
       -- TODO: Lazy load rustaceanvim server opts
-      local server_opts = require('vimrc.lsp').calculate_server_opts('rustaceanvim', {
+      local server_opts = require("vimrc.lsp").calculate_server_opts("rustaceanvim", {
         settings = {
           ["rust-analyzer"] = {
             checkOnSave = {
@@ -225,6 +241,8 @@ local lsp = {
   },
   {
     "pmizio/typescript-tools.nvim",
+    -- NOTE: Disabled as it doesn't support volar for now and seems unmaintained
+    enabled = false,
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     ft = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
     config = function()
@@ -253,6 +271,14 @@ local lsp = {
           },
         },
       }))
+    end,
+  },
+  {
+    "yioneko/nvim-vtsls",
+    ft = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue" },
+    opts = {},
+    config = function(_, opts)
+      require("vtsls").config(opts)
     end,
   },
   -- NOTE: Disabled as it'll cause lua_ls use too much memory

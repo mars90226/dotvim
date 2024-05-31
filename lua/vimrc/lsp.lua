@@ -6,6 +6,11 @@ local plugin_utils = require("vimrc.plugin_utils")
 
 local lsp = {}
 
+-- TODO: Refactor
+local vue_typescript_plugin = require("mason-registry").get_package("vue-language-server"):get_install_path()
+  .. "/node_modules/@vue/language-server"
+  .. "/node_modules/@vue/typescript-plugin"
+
 lsp.config = {
   enable_format_on_sync = false,
   show_diagnostics = true,
@@ -163,7 +168,7 @@ lsp.servers = {
     condition = plugin_utils.has_linux_build_env(),
     -- Check settings example: https://github.com/sqls-server/sqls
   },
-  -- NOTE: Use typescript-tools.nvim to setup custom lsp to use tsserver
+  -- NOTE: Use vtsls
   -- tsserver = {
   --   custom_setup = function(server, lsp_opts)
   --     require("typescript").setup({
@@ -176,36 +181,104 @@ lsp.servers = {
   --     })
   --   end,
   -- },
-  tailwindcss = {},
-  ["typescript-tools"] = {
-    capabilities = {
-      textDocument = {
-        foldingRange = {
-          dynamicRegistration = true,
+  vtsls = {
+    -- Ref: [LazyVim TypeScript config](https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/typescript.lua)
+    -- Ref: [LazyVim Vue config](https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/vue.lua)
+    -- Ref: [AstroNvim TypeScript config](https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/typescript/init.lua)
+    -- Ref: [AstroNvim Vue config](https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/vue/init.lua)
+    settings = {
+      complete_function_calls = true,
+      vtsls = {
+        enableMoveToFileCodeAction = true,
+        experimental = {
+          completion = {
+            enableServerSideFuzzyMatch = true,
+          },
+        },
+        tsserver = {
+          globalPlugins = {
+            -- Use typescript language server along with vue typescript plugin
+            {
+              name = "@vue/typescript-plugin",
+              -- TODO: Move to custom setup to avoid error when vue plugin is not installed
+              location = vue_typescript_plugin,
+              languages = { "vue" },
+              configNamespace = "typescript",
+              enableForWorkspaceTypeScriptVersions = true,
+            },
+          },
         },
       },
-    },
-    settings = {
-      -- Ref: LazyVim
       typescript = {
-        format = {
-          indentSize = vim.o.shiftwidth,
-          convertTabsToSpaces = vim.o.expandtab,
-          tabSize = vim.o.tabstop,
+        updateImportsOnFileMove = { enabled = "always" },
+        suggest = {
+          completeFunctionCalls = true,
+        },
+        inlayHints = {
+          enumMemberValues = { enabled = true },
+          functionLikeReturnTypes = { enabled = true },
+          parameterNames = { enabled = "all" },
+          parameterTypes = { enabled = true },
+          propertyDeclarationTypes = { enabled = true },
+          variableTypes = { enabled = false },
         },
       },
       javascript = {
-        format = {
-          indentSize = vim.o.shiftwidth,
-          convertTabsToSpaces = vim.o.expandtab,
-          tabSize = vim.o.tabstop,
+        updateImportsOnFileMove = { enabled = "always" },
+        suggest = {
+          completeFunctionCalls = true,
+        },
+        inlayHints = {
+          enumMemberValues = { enabled = true },
+          functionLikeReturnTypes = { enabled = true },
+          parameterNames = { enabled = "literals" },
+          parameterTypes = { enabled = true },
+          propertyDeclarationTypes = { enabled = true },
+          variableTypes = { enabled = false },
         },
       },
-      completions = {
-        completeFunctionCalls = true,
-      },
+    },
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "javascript.jsx",
+      "typescript",
+      "typescriptreact",
+      "typescript.tsx",
+      "vue",
     },
   },
+  tailwindcss = {},
+  -- NOTE: Use vtsls
+  -- ["typescript-tools"] = {
+  --   capabilities = {
+  --     textDocument = {
+  --       foldingRange = {
+  --         dynamicRegistration = true,
+  --       },
+  --     },
+  --   },
+  --   settings = {
+  --     -- Ref: LazyVim
+  --     typescript = {
+  --       format = {
+  --         indentSize = vim.o.shiftwidth,
+  --         convertTabsToSpaces = vim.o.expandtab,
+  --         tabSize = vim.o.tabstop,
+  --       },
+  --     },
+  --     javascript = {
+  --       format = {
+  --         indentSize = vim.o.shiftwidth,
+  --         convertTabsToSpaces = vim.o.expandtab,
+  --         tabSize = vim.o.tabstop,
+  --       },
+  --     },
+  --     completions = {
+  --       completeFunctionCalls = true,
+  --     },
+  --   },
+  -- },
   vimls = {},
   volar = {},
   -- TODO: add settings for schemas
