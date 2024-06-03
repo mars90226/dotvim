@@ -220,13 +220,17 @@ local completion = {
       prompts = {
         Wording = "Rewrite this using idiomatic English",
       },
+      mappings = {
+        complete = {
+          insert = '',
+        }
+      }
     },
     event = "VeryLazy",
-    -- TODO: Add new key mappings for the new CopilotChat features
     keys = {
       { "<Space>c<Space>", ":CopilotChat<Space>", mode = { "n", "x" }, desc = "CopilotChat - Open in vertical split" },
       { "<Space>c<C-R>", "<Cmd>CopilotChatReset<CR>", desc = "CopilotChat - Reset chat history and clear buffer" },
-      { "<Space>cT", "<Cmd>CopilotChatToggle<CR>", desc = "CopilotChat - Toggle" },
+      { "<Space>c`", "<Cmd>CopilotChatToggle<CR>", desc = "CopilotChat - Toggle" },
       { "<Space>cs", "<Cmd>CopilotChatStop<CR>", desc = "CopilotChat - Stop current copilot output" },
 
       -- Telescope integration
@@ -264,7 +268,21 @@ local completion = {
 
       -- Custom Prompts
       { "<Space>cW", "<Cmd>CopilotChatWording<CR>", mode = { "n", "x" }, desc = "CopilotChat - Improve wording" },
+
+      -- Integration
+      { "<Space>ch", function()
+        local actions = require("CopilotChat.actions")
+        require("CopilotChat.integrations.fzflua").pick(actions.help_actions())
+      end, desc = "CopilotChat - Help actions" },
+      { "<Space>cp", function()
+        local actions = require("CopilotChat.actions")
+        require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
+      end, desc = "CopilotChat - Help actions" },
     },
+    config = function(_, opts)
+      require("CopilotChat.integrations.cmp").setup()
+      require("CopilotChat").setup(opts)
+    end,
   },
 }
 
