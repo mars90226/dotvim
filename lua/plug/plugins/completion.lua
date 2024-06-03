@@ -218,10 +218,6 @@ local completion = {
       show_help = "yes",
       debug = false,
       prompts = {
-        Explain = "Explain how it works.",
-        Review = "Review the following code and provide concise suggestions.",
-        Tests = "Briefly explain how the selected code works, then generate unit tests.",
-        Refactor = "Refactor the code to improve clarity and readability.",
         Wording = "Rewrite this using idiomatic English",
       },
     },
@@ -229,9 +225,9 @@ local completion = {
     -- TODO: Add new key mappings for the new CopilotChat features
     keys = {
       { "<Space>c<Space>", ":CopilotChat<Space>", mode = { "n", "x" }, desc = "CopilotChat - Open in vertical split" },
-      { "<Space>cf", "<Cmd>CopilotChatFixDiagnostic<CR>", desc = "CopilotChat - Fix diagnostic" },
       { "<Space>c<C-R>", "<Cmd>CopilotChatReset<CR>", desc = "CopilotChat - Reset chat history and clear buffer" },
-      { "<Space>cT", "<Cmd>CopilotChatVisplitToggle<CR>", desc = "CopilotChat - Toggle Vsplit" },
+      { "<Space>cT", "<Cmd>CopilotChatToggle<CR>", desc = "CopilotChat - Toggle" },
+      { "<Space>cs", "<Cmd>CopilotChatStop<CR>", desc = "CopilotChat - Stop current copilot output" },
 
       -- Telescope integration
       {
@@ -255,17 +251,19 @@ local completion = {
         desc = "CopilotChat - Prompt actions"
       },
 
-      -- Prompts
-      { "<Space>ce", "<Cmd>CopilotChatExplain<CR>", desc = "CopilotChat - Explain code" },
-      { "<Space>ce", "y<Cmd>CopilotChatExplain<CR>", mode = { "x" }, desc = "CopilotChat - Explain code" },
-      { "<Space>ct", "<Cmd>CopilotChatTests<CR>", desc = "CopilotChat - Generate tests" },
-      { "<Space>ct", "y<Cmd>CopilotChatTests<CR>", mode = { "x" }, desc = "CopilotChat - Generate tests" },
-      { "<Space>cr", "<Cmd>CopilotChatReview<CR>", desc = "CopilotChat - Review code" },
-      { "<Space>cr", "y<Cmd>CopilotChatReview<CR>", mode = { "x" }, desc = "CopilotChat - Review code" },
-      { "<Space>cR", "<Cmd>CopilotChatRefactor<CR>", desc = "CopilotChat - Refactor code" },
-      { "<Space>cR", "y<Cmd>CopilotChatRefactor<CR>", mode = { "x" }, desc = "CopilotChat - Refactor code" },
-      { "<Space>cW", "<Cmd>CopilotChatWording<CR>", desc = "CopilotChat - Improve wording" },
-      { "<Space>cW", "y<Cmd>CopilotChatWording<CR>", mode = { "x" }, desc = "CopilotChat - Improve wording" },
+      -- Default Prompts
+      { "<Space>ce", "<Cmd>CopilotChatExplain<CR>", mode = { "n", "x" }, desc = "CopilotChat - Explain code" },
+      { "<Space>cr", "<Cmd>CopilotChatReview<CR>", mode = { "n", "x" }, desc = "CopilotChat - Review code" },
+      { "<Space>cf", "<Cmd>CopilotChatExplain<CR>", mode = { "n", "x" }, desc = "CopilotChat - Fix code" },
+      { "<Space>co", "<Cmd>CopilotChatOptimize<CR>", mode = { "n", "x" }, desc = "CopilotChat - Optimize code" },
+      { "<Space>cd", "<Cmd>CopilotChatDocs<CR>", mode = { "n", "x" }, desc = "CopilotChat - Document code" },
+      { "<Space>ct", "<Cmd>CopilotChatTests<CR>", mode = { "n", "x" }, desc = "CopilotChat - Generate tests" },
+      { "<Space>cF", "<Cmd>CopilotChatFixDiagnostic<CR>", mode = { "n", "x" }, desc = "CopilotChat - Fix diagnostic" },
+      { "<Space>cc", "<Cmd>CopilotChatCommit<CR>", mode = { "n", "x" }, desc = "CopilotChat - Write commit message for the change" },
+      { "<Space>cC", "<Cmd>CopilotChatCommitStaged<CR>", mode = { "n", "x" }, desc = "CopilotChat - Write commit message for the change in staged" },
+
+      -- Custom Prompts
+      { "<Space>cW", "<Cmd>CopilotChatWording<CR>", mode = { "n", "x" }, desc = "CopilotChat - Improve wording" },
     },
   },
 }
