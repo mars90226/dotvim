@@ -324,9 +324,10 @@ local file_navigation = {
     "nvim-pack/nvim-spectre",
     cmd = { "Spectre" },
     keys = {
-      "<Space>S",
-      { "<Space>sw", mode = { "n", "v" } },
-      "<Space>s'",
+      { "<Space>S", [[<Cmd>lua require('spectre').toggle()<CR>]], desc = "Spectre - toggle" },
+      { "<Space>sw", [[<Cmd>lua require('spectre').open_visual({select_word=true})<CR>]], desc = "Spectre - search current word" },
+      { "<Space>sw", [[<Esc><Cmd>lua require('spectre').open_visual()<CR>]], mode = { "v" }, desc = "Spectre - search current word" },
+      { "<Space>s'", [[<Cmd>lua require('spectre').open_file_search({select_word=true})<CR>]], desc = "Spectre - search on current file"},
     },
     config = function()
       -- Ref: https://github.com/nvim-pack/nvim-spectre/issues/131
@@ -337,15 +338,6 @@ local file_navigation = {
           replace = "DiffAdd", -- NOTE: default it DiffDelete, which is almost always red
         },
       })
-
-      nnoremap("<Space>S", [[:lua require('spectre').open()<CR>]])
-
-      -- Search current word
-      nnoremap("<Space>sw", [[:lua require('spectre').open_visual({select_word=true})<CR>]])
-      vnoremap("<Space>sw", [[:lua require('spectre').open_visual()<CR>]])
-
-      -- Search in current file
-      nnoremap("<Space>s'", [[viw:lua require('spectre').open_file_search()<CR>]])
     end,
   },
 
