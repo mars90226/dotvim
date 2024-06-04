@@ -44,11 +44,11 @@ local git = {
     dependencies = { "tpope/vim-fugitive" },
     cmd = { "GV", "GVA", "GVD", "GVDA", "GVDE", "GVEA" },
     keys = {
-      "<Space>gv",
-      "<Space>gV",
-      "<Leader>gv",
-      "<Leader>gV",
-      "<Leader>g<C-V>",
+      { "<Space>gv", ":call vimrc#gv#open({})<CR>", desc = "GV open" },
+      { "<Space>gV", ":call vimrc#gv#open({'all': v:true})<CR>", desc = "GV open all branches" },
+      { "<Leader>gv", ":call vimrc#gv#show_file('%', {})<CR>", desc = "GV show current file" },
+      { "<Leader>gV", ":call vimrc#gv#show_file('%', {'author': g:company_domain})<CR>", desc = "GV show current file with company domain" },
+      { "<Leader>g<C-V>", ":call vimrc#gv#show_file('%', {'author': g:company_email})<CR>", desc = "GV show current file with company email" },
     },
     config = function()
       vim.cmd([[command! -bang -nargs=* GVA GV<bang> --all <args>]])
@@ -60,13 +60,6 @@ local git = {
       vim.cmd("command! -nargs=* GVDA GV --author=" .. (vim.g.company_domain or "") .. " --all <args>")
       vim.cmd("command! -nargs=* GVE  GV --author=" .. (vim.g.company_email or "") .. " <args>")
       vim.cmd("command! -nargs=* GVEA GV --author=" .. (vim.g.company_email or "") .. " --all <args>")
-
-      nnoremap("<Space>gv", ":call vimrc#gv#open({})<CR>")
-      nnoremap("<Space>gV", ":call vimrc#gv#open({'all': v:true})<CR>")
-
-      nnoremap("<Leader>gv", ":call vimrc#gv#show_file('%', {})<CR>")
-      nnoremap("<Leader>gV", ":call vimrc#gv#show_file('%', {'author': g:company_domain})<CR>")
-      nnoremap("<Leader>g<C-V>", ":call vimrc#gv#show_file('%', {'author': g:company_email})<CR>")
     end,
   },
 
@@ -76,11 +69,11 @@ local git = {
     dependencies = { "tpope/vim-fugitive" },
     cmd = { "Flog", "Flogsplit" },
     keys = {
-      "<Space>gf",
-      "<Space>gF",
-      "<Leader>gf",
-      "<Leader>gF",
-      "<Leader>g<C-F>",
+      { "<Space>gf", ":call vimrc#flog#open({})<CR>", desc = "Flog open" },
+      { "<Space>gF", ":call vimrc#flog#open({'all': v:true})<CR>", desc = "Flog open all branches" },
+      { "<Leader>gf", ":call vimrc#flog#show_file('%', {})<CR>", desc = "Flog show current file" },
+      { "<Leader>gF", ":call vimrc#flog#show_file('%', {'author': g:company_domain})<CR>", desc = "Flog show current file with company domain" },
+      { "<Leader>g<C-F>", ":call vimrc#flog#show_file('%', {'author': g:company_email})<CR>", desc = "Flog show current file with company email" },
     },
     config = function()
       vim.cmd([[command! -nargs=* Floga Flog -all <args>]])
@@ -88,31 +81,24 @@ local git = {
       -- GV with company filter
       vim.cmd(
         "command! -complete=customlist,flog#complete -nargs=* Flogd  Flog -author="
-          .. (vim.g.company_domain or "")
-          .. " <args>"
+        .. (vim.g.company_domain or "")
+        .. " <args>"
       )
       vim.cmd(
         "command! -complete=customlist,flog#complete -nargs=* Flogda Flog -author="
-          .. (vim.g.company_domain or "")
-          .. " -all <args>"
+        .. (vim.g.company_domain or "")
+        .. " -all <args>"
       )
       vim.cmd(
         "command! -complete=customlist,flog#complete -nargs=* Floge  Flog -author="
-          .. (vim.g.company_email or "")
-          .. " <args>"
+        .. (vim.g.company_email or "")
+        .. " <args>"
       )
       vim.cmd(
         "command! -complete=customlist,flog#complete -nargs=* Flogea Flog -author="
-          .. (vim.g.company_email or "")
-          .. " -all <args>"
+        .. (vim.g.company_email or "")
+        .. " -all <args>"
       )
-
-      nnoremap("<Space>gf", ":call vimrc#flog#open({})<CR>")
-      nnoremap("<Space>gF", ":call vimrc#flog#open({'all': v:true})<CR>")
-
-      nnoremap("<Leader>gf", ":call vimrc#flog#show_file('%', {})<CR>")
-      nnoremap("<Leader>gF", ":call vimrc#flog#show_file('%', {'author': g:company_domain})<CR>")
-      nnoremap("<Leader>g<C-F>", ":call vimrc#flog#show_file('%', {'author': g:company_email})<CR>")
     end,
   },
 
@@ -159,7 +145,23 @@ local git = {
   {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewFileHistory" },
-    keys = { "<Space>gd", "<Space>gh", "<Space>gH" },
+    keys = {
+      {
+        "<Space>gd",
+        function()
+          if next(require("diffview.lib").views) == nil then
+            vim.cmd([[DiffviewOpen]])
+          else
+            vim.cmd([[DiffviewClose]])
+          end
+        end,
+        desc = "Diffview toggle"
+      },
+
+      -- TODO: Add mapping for author filter & current file
+      { "<Space>gh", "<Cmd>DiffviewFileHistory<CR>", desc = "Diffview file history"},
+      { "<Space>gH", "<Cmd>DiffviewFileHistory --all<CR>", desc = "Diffview file history all branches"},
+    },
     config = function()
       require("diffview").setup({
         file_panel = {
@@ -168,18 +170,6 @@ local git = {
           }
         }
       })
-
-      nnoremap("<Space>gd", function()
-        if next(require("diffview.lib").views) == nil then
-          vim.cmd([[DiffviewOpen]])
-        else
-          vim.cmd([[DiffviewClose]])
-        end
-      end, { desc = "Diffview toggle" })
-
-      -- TODO: Add mapping for author filter & current file
-      nnoremap("<Space>gh", "<Cmd>DiffviewFileHistory<CR>")
-      nnoremap("<Space>gH", "<Cmd>DiffviewFileHistory --all<CR>")
 
       vim.cmd([[augroup diffview_settings]])
       vim.cmd([[  autocmd!]])
@@ -246,7 +236,7 @@ local git = {
       "stevearc/dressing.nvim", -- Recommended but not required. Better UI for pickers.
       enabled = true,
     },
-    build = function () require("gitlab.server").build(true) end, -- Builds the Go binary
+    build = function() require("gitlab.server").build(true) end,  -- Builds the Go binary
     -- TODO: Fill complete gitlab.nvim keys
     keys = { "glrr", "gls", "glrm" },
     config = function()

@@ -81,8 +81,16 @@ local file_navigation = {
   {
     "nvim-telescope/telescope-file-browser.nvim",
     keys = {
-      { "<Space>t0", [[<Cmd>Telescope file_browser<CR>]], desc = "Telescope file_browser" },
-      { "<Space>t)", [[<Cmd>execute 'Telescope file_browser path='.expand('%:h')<CR>]], desc = "Telescope file_browser in current file folder" },
+      {
+        "<Space>t0",
+        [[<Cmd>Telescope file_browser<CR>]],
+        desc = "Telescope file_browser",
+      },
+      {
+        "<Space>t)",
+        [[<Cmd>execute 'Telescope file_browser path='.expand('%:h')<CR>]],
+        desc = "Telescope file_browser in current file folder",
+      },
     },
     config = function()
       require("telescope").load_extension("file_browser")
@@ -90,7 +98,7 @@ local file_navigation = {
   },
   {
     "nvim-telescope/telescope-project.nvim",
-  -- TODO: May need to adjust key mapping as used for project bookmark
+    -- TODO: May need to adjust key mapping as used for project bookmark
     keys = {
       { "<Space>t<C-P>", [[<Cmd>Telescope project<CR>]], desc = "Telescope project" },
     },
@@ -186,16 +194,58 @@ local file_navigation = {
     "molecule-man/telescope-menufacture",
     event = { "VeryLazy" },
     keys = {
-      { [[<Space>tf]], [[<Cmd>Telescope menufacture find_files<CR>]], desc = "Telescope menufacture find_files" },
-      { [[<Space>ti]], [[<Cmd>Telescope menufacture live_grep<CR>]], desc = "Telescope menufacture live_grep" },
-      { [[<Space>te]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search_dirs='.input('Folder: ').' search='.input('Rg: ')<CR>]], desc = "Telescope menufacture grep_string with folder & pattern" },
-      { [[<Space>tk]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.expand('<cword>')<CR>]], desc = "Telescope menufacture grep_string with cword or visual selection" },
-      { [[<Space>tk]], mode = { "x" }, [[:<C-U>execute 'Telescope menufacture grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>]], desc = "Telescope menufacture grep_string with cword or visual selection" },
-      { [[<Space>tK]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.expand('<cWORD>')<CR>]], desc = "Telescope menufacture grep_string with cWORD" },
-      { [[<Space>t8]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search=\b'.expand('<cword>').'\b'<CR>]], desc = "Telescope menufacture grep_string with cword or visual selection with word boundary" },
-      { [[<Space>t8]], mode = { "x" }, [[:<C-U>execute 'Telescope menufacture grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>]], desc = "Telescope menufacture grep_string with cword or visual selection with word boundary" },
-      { [[<Space>t*]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search=\b'.expand('<cWORD>').'\b'<CR>]], desc = "Telescope menufacture grep_string with cWORD with word boundary" },
-      { [[<Space>tr]], [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.input('Rg: ')<CR>]], desc = "Telescope menufacture grep_string with pattern" },
+      {
+        [[<Space>tf]],
+        [[<Cmd>Telescope menufacture find_files<CR>]],
+        desc = "Telescope menufacture find_files",
+      },
+      {
+        [[<Space>ti]],
+        [[<Cmd>Telescope menufacture live_grep<CR>]],
+        desc = "Telescope menufacture live_grep",
+      },
+      {
+        [[<Space>te]],
+        [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search_dirs='.input('Folder: ').' search='.input('Rg: ')<CR>]],
+        desc = "Telescope menufacture grep_string with folder & pattern",
+      },
+      {
+        [[<Space>tk]],
+        [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.expand('<cword>')<CR>]],
+        desc = "Telescope menufacture grep_string with cword or visual selection",
+      },
+      {
+        [[<Space>tk]],
+        mode = { "x" },
+        [[:<C-U>execute 'Telescope menufacture grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>]],
+        desc = "Telescope menufacture grep_string with cword or visual selection",
+      },
+      {
+        [[<Space>tK]],
+        [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.expand('<cWORD>')<CR>]],
+        desc = "Telescope menufacture grep_string with cWORD",
+      },
+      {
+        [[<Space>t8]],
+        [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search=\b'.expand('<cword>').'\b'<CR>]],
+        desc = "Telescope menufacture grep_string with cword or visual selection with word boundary",
+      },
+      {
+        [[<Space>t8]],
+        mode = { "x" },
+        [[:<C-U>execute 'Telescope menufacture grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>]],
+        desc = "Telescope menufacture grep_string with cword or visual selection with word boundary",
+      },
+      {
+        [[<Space>t*]],
+        [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search=\b'.expand('<cWORD>').'\b'<CR>]],
+        desc = "Telescope menufacture grep_string with cWORD with word boundary",
+      },
+      {
+        [[<Space>tr]],
+        [[<Cmd>execute 'Telescope menufacture grep_string use_regex=true search='.input('Rg: ')<CR>]],
+        desc = "Telescope menufacture grep_string with pattern",
+      },
     },
     config = function()
       require("telescope").load_extension("menufacture")
@@ -205,14 +255,47 @@ local file_navigation = {
     "aaronhallaert/advanced-git-search.nvim",
     cmd = { "AdvancedGitSearch" },
     keys = {
-      { [[<Space>ab]], [[<Cmd>AdvancedGitSearch diff_branch_file<CR>]], desc = "AdvancedGitSearch diff_branch_file" },
-      { [[<Space>al]], [[<Cmd>AdvancedGitSearch diff_commit_line<CR>]], desc = "AdvancedGitSearch diff_commit_line" },
-      { [[<Space>al]], mode = { "x" }, [[:<C-U>AdvancedGitSearch diff_commit_line<CR>]], desc = "AdvancedGitSearch diff_commit_line" },
-      { [[<Space>af]], [[<Cmd>AdvancedGitSearch diff_commit_file<CR>]], desc = "AdvancedGitSearch diff_commit_file" },
-      { [[<Space>as]], [[<Cmd>AdvancedGitSearch search_log_content<CR>]], desc = "AdvancedGitSearch search_log_content" },
-      { [[<Space>aS]], [[<Cmd>AdvancedGitSearch search_log_content_file<CR>]], desc = "AdvancedGitSearch search_log_content_file" },
-      { [[<Space>ar]], [[<Cmd>AdvancedGitSearch checkout_reflog<CR>]], desc = "AdvancedGitSearch checkout_reflog" },
-      { [[<Space>aa]], [[<Cmd>AdvancedGitSearch show_custom_functions<CR>]], desc = "AdvancedGitSearch show_custom_functions" },
+      {
+        [[<Space>ab]],
+        [[<Cmd>AdvancedGitSearch diff_branch_file<CR>]],
+        desc = "AdvancedGitSearch diff_branch_file",
+      },
+      {
+        [[<Space>al]],
+        [[<Cmd>AdvancedGitSearch diff_commit_line<CR>]],
+        desc = "AdvancedGitSearch diff_commit_line",
+      },
+      {
+        [[<Space>al]],
+        mode = { "x" },
+        [[:<C-U>AdvancedGitSearch diff_commit_line<CR>]],
+        desc = "AdvancedGitSearch diff_commit_line",
+      },
+      {
+        [[<Space>af]],
+        [[<Cmd>AdvancedGitSearch diff_commit_file<CR>]],
+        desc = "AdvancedGitSearch diff_commit_file",
+      },
+      {
+        [[<Space>as]],
+        [[<Cmd>AdvancedGitSearch search_log_content<CR>]],
+        desc = "AdvancedGitSearch search_log_content",
+      },
+      {
+        [[<Space>aS]],
+        [[<Cmd>AdvancedGitSearch search_log_content_file<CR>]],
+        desc = "AdvancedGitSearch search_log_content_file",
+      },
+      {
+        [[<Space>ar]],
+        [[<Cmd>AdvancedGitSearch checkout_reflog<CR>]],
+        desc = "AdvancedGitSearch checkout_reflog",
+      },
+      {
+        [[<Space>aa]],
+        [[<Cmd>AdvancedGitSearch show_custom_functions<CR>]],
+        desc = "AdvancedGitSearch show_custom_functions",
+      },
     },
     config = function()
       require("telescope").load_extension("advanced_git_search")
@@ -324,10 +407,27 @@ local file_navigation = {
     "nvim-pack/nvim-spectre",
     cmd = { "Spectre" },
     keys = {
-      { "<Space>S", [[<Cmd>lua require('spectre').toggle()<CR>]], desc = "Spectre - toggle" },
-      { "<Space>sw", [[<Cmd>lua require('spectre').open_visual({select_word=true})<CR>]], desc = "Spectre - search current word" },
-      { "<Space>sw", [[<Esc><Cmd>lua require('spectre').open_visual()<CR>]], mode = { "v" }, desc = "Spectre - search current word" },
-      { "<Space>s'", [[<Cmd>lua require('spectre').open_file_search({select_word=true})<CR>]], desc = "Spectre - search on current file"},
+      {
+        "<Space>S",
+        [[<Cmd>lua require('spectre').toggle()<CR>]],
+        desc = "Spectre - toggle",
+      },
+      {
+        "<Space>sw",
+        [[<Cmd>lua require('spectre').open_visual({select_word=true})<CR>]],
+        desc = "Spectre - search current word",
+      },
+      {
+        "<Space>sw",
+        [[<Esc><Cmd>lua require('spectre').open_visual()<CR>]],
+        mode = { "v" },
+        desc = "Spectre - search current word",
+      },
+      {
+        "<Space>s'",
+        [[<Cmd>lua require('spectre').open_file_search({select_word=true})<CR>]],
+        desc = "Spectre - search on current file",
+      },
     },
     config = function()
       -- Ref: https://github.com/nvim-pack/nvim-spectre/issues/131
@@ -354,7 +454,7 @@ local file_navigation = {
         hint = "floating-big-letter",
       })
       nnoremap("=-", function()
-        local window_id = require('window-picker').pick_window()
+        local window_id = require("window-picker").pick_window()
         vim.api.nvim_set_current_win(window_id)
       end, { silent = true, desc = "Switch to window by window-picker" })
     end,
