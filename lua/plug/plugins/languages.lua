@@ -445,6 +445,10 @@ local languages = {
     "MeanderingProgrammer/markdown.nvim",
     -- name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    ft = { "markdown" },
+    keys = {
+      { "coh", "<Cmd>RenderMarkdownToggle<CR>", mode = { "n" }, desc = "Render markdown" },
+    },
     config = function()
       require("render-markdown").setup({})
     end,
