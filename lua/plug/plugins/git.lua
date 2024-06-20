@@ -44,11 +44,11 @@ local git = {
     dependencies = { "tpope/vim-fugitive" },
     cmd = { "GV", "GVA", "GVD", "GVDA", "GVDE", "GVEA" },
     keys = {
-      { "<Space>gv", ":call vimrc#gv#open({})<CR>", desc = "GV open" },
-      { "<Space>gV", ":call vimrc#gv#open({'all': v:true})<CR>", desc = "GV open all branches" },
-      { "<Leader>gv", ":call vimrc#gv#show_file('%', {})<CR>", desc = "GV show current file" },
-      { "<Leader>gV", ":call vimrc#gv#show_file('%', {'author': g:company_domain})<CR>", desc = "GV show current file with company domain" },
-      { "<Leader>g<C-V>", ":call vimrc#gv#show_file('%', {'author': g:company_email})<CR>", desc = "GV show current file with company email" },
+      { "<Space>gv",      ":call vimrc#gv#open({})<CR>",                                     desc = "GV open" },
+      { "<Space>gV",      ":call vimrc#gv#open({'all': v:true})<CR>",                        desc = "GV open all branches" },
+      { "<Leader>gv",     ":call vimrc#gv#show_file('%', {})<CR>",                           desc = "GV show current file" },
+      { "<Leader>gV",     ":call vimrc#gv#show_file('%', {'author': g:company_domain})<CR>", desc = "GV show current file with company domain" },
+      { "<Leader>g<C-V>", ":call vimrc#gv#show_file('%', {'author': g:company_email})<CR>",  desc = "GV show current file with company email" },
     },
     config = function()
       vim.cmd([[command! -bang -nargs=* GVA GV<bang> --all <args>]])
@@ -69,11 +69,11 @@ local git = {
     dependencies = { "tpope/vim-fugitive" },
     cmd = { "Flog", "Flogsplit" },
     keys = {
-      { "<Space>gf", ":call vimrc#flog#open({})<CR>", desc = "Flog open" },
-      { "<Space>gF", ":call vimrc#flog#open({'all': v:true})<CR>", desc = "Flog open all branches" },
-      { "<Leader>gf", ":call vimrc#flog#show_file('%', {})<CR>", desc = "Flog show current file" },
-      { "<Leader>gF", ":call vimrc#flog#show_file('%', {'author': g:company_domain})<CR>", desc = "Flog show current file with company domain" },
-      { "<Leader>g<C-F>", ":call vimrc#flog#show_file('%', {'author': g:company_email})<CR>", desc = "Flog show current file with company email" },
+      { "<Space>gf",      ":call vimrc#flog#open({})<CR>",                                     desc = "Flog open" },
+      { "<Space>gF",      ":call vimrc#flog#open({'all': v:true})<CR>",                        desc = "Flog open all branches" },
+      { "<Leader>gf",     ":call vimrc#flog#show_file('%', {})<CR>",                           desc = "Flog show current file" },
+      { "<Leader>gF",     ":call vimrc#flog#show_file('%', {'author': g:company_domain})<CR>", desc = "Flog show current file with company domain" },
+      { "<Leader>g<C-F>", ":call vimrc#flog#show_file('%', {'author': g:company_email})<CR>",  desc = "Flog show current file with company email" },
     },
     config = function()
       vim.cmd([[command! -nargs=* Floga Flog -all <args>]])
@@ -119,13 +119,16 @@ local git = {
     "codeindulgence/vim-tig",
     cmd = { "Tig" },
     keys = {
-      [[\tr]],
-      [[\tt]],
-      [[\ts]],
-      [[\tv]],
-      [[\tl]],
-      [[\tL]],
-      [[\t<C->L]],
+      -- Add '' to open tig main view
+      { [[\tr]], [[:Tig ''<CR>]], desc = "Tig - open main view" },
+      { [[\tt]], [[:tabnew <Bar> Tig ''<CR>]], desc = "Tig - open main view in tab" },
+      { [[\ts]], [[:new    <Bar> Tig ''<CR>]], desc = "Tig - open main view in split" },
+      { [[\tv]], [[:vnew   <Bar> Tig ''<CR>]], desc = "Tig - open main view in vertical split" },
+
+      -- Add non-follow version as --follow will include many merge commits
+      { [[\tl]], [[:TigLogFileSplit!<CR>]], desc = "Tig - open log view for current file without follow in split" },
+      { [[\tL]], [[:TigLogFileSplit! --follow<CR>]], desc = "Tig - open log view for current file in split" },
+      { [[\t<C-L>]], [[:execute 'TigLogSplit! $(git log --format=format:%H --follow -- ' . expand('%:p') . ')'<CR>]], desc = "Tig - open log view" },
     },
     dependencies = { "rbgrouleff/bclose.vim" },
     config = function()
@@ -159,8 +162,8 @@ local git = {
       },
 
       -- TODO: Add mapping for author filter & current file
-      { "<Space>gh", "<Cmd>DiffviewFileHistory<CR>", desc = "Diffview file history"},
-      { "<Space>gH", "<Cmd>DiffviewFileHistory --all<CR>", desc = "Diffview file history all branches"},
+      { "<Space>gh", "<Cmd>DiffviewFileHistory<CR>",       desc = "Diffview file history" },
+      { "<Space>gH", "<Cmd>DiffviewFileHistory --all<CR>", desc = "Diffview file history all branches" },
     },
     config = function()
       require("diffview").setup({
@@ -236,7 +239,7 @@ local git = {
       "stevearc/dressing.nvim", -- Recommended but not required. Better UI for pickers.
       enabled = true,
     },
-    build = function() require("gitlab.server").build(true) end,  -- Builds the Go binary
+    build = function() require("gitlab.server").build(true) end, -- Builds the Go binary
     -- TODO: Fill complete gitlab.nvim keys
     keys = { "glrr", "gls", "glrm" },
     config = function()
