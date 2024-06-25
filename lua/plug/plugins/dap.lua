@@ -4,15 +4,18 @@ local dap = {
   -- Debug Adapter Protocol
   {
     "mfussenegger/nvim-dap",
-    event = { "BufReadPre", "BufNewFile" },
+    ft = require("vimrc.dap").get_filetypes(),
     dependencies = {
-      -- TODO: Very slow to load
       {
         "jay-babu/mason-nvim-dap.nvim",
         dependencies = {
           "williamboman/mason.nvim",
           "mfussenegger/nvim-dap",
         },
+        -- TODO: Check if this is causing issues
+        -- NOTE: Not sure why nvim-lspconfig will load this module, so we need to set it to false.
+        module = false,
+        ft = require("vimrc.dap").get_filetypes(),
         config = function()
           require("mason-nvim-dap").setup({
             ensure_installed = require("vimrc.dap").get_dap_adapters(),
