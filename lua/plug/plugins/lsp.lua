@@ -119,7 +119,8 @@ local lsp = {
     "nvimtools/none-ls.nvim",
     enabled = true,
     cond = choose.is_enabled_plugin("none-ls.nvim"),
-    event = { "VeryLazy" },
+    -- TODO: Lazy load on filetypes
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "neovim/nvim-lspconfig",
