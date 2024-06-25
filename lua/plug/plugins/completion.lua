@@ -226,7 +226,6 @@ local completion = {
         }
       }
     },
-    event = "VeryLazy",
     keys = {
       { "<Space>c<Space>", ":CopilotChat<Space>", mode = { "n", "x" }, desc = "CopilotChat - Open in vertical split" },
       { "<Space>c<C-R>", "<Cmd>CopilotChatReset<CR>", desc = "CopilotChat - Reset chat history and clear buffer" },
