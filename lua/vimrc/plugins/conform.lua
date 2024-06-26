@@ -22,6 +22,9 @@ conform.setup_config = function()
       sh = {
         "shfmt"
       },
+      sql = {
+        "sqlfluff"
+      }
     },
   }
 
