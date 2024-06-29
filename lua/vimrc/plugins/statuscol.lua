@@ -5,6 +5,7 @@ local my_statuscol = {}
 
 my_statuscol.setup = function()
   statuscol.setup({
+    ft_ignore = { "dashboard" },
     -- Segments: (sign -> line number -> gitsigns -> fold -> separator )
     -- Similar to Visual Studio Code
     -- Ref: https://github.com/ofseed/nvim/blob/e0edff34c98e5ac57360273b0d0161b04fc32765/lua/plugins/ui/statuscol.lua
