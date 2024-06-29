@@ -214,10 +214,12 @@ local lsp = {
   {
     "mrcjkb/rustaceanvim",
     cond = choose.is_enabled_plugin("rustaceanvim"),
-    version = "^3", -- Recommended
+    version = "^4", -- Recommended
     ft = { "rust" },
-    init = function()
-      -- TODO: Lazy load rustaceanvim server opts
+    config = function()
+      -- NOTE: rustaceanvim use ftplugin to load config.
+      -- The lazy.nvim will add rustaceanvim's path to runtimepath, and load config function afterward.
+      -- So this config function is loaded before rustaceanvim's ftplugin.
       local server_opts = require("vimrc.lsp").calculate_server_opts("rustaceanvim", {
         settings = {
           ["rust-analyzer"] = {
