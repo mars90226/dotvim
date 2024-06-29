@@ -16,7 +16,6 @@ local appearance = {
   -- NOTE: Use lualine.nvim tabline
 
   -- Winbar
-  -- NOTE: Use lualine.nvim winbar
   {
     "Bekaboo/dropbar.nvim",
     cond = choose.is_enabled_plugin("dropbar.nvim") and choose.is_enabled_plugin("dropbar.nvim-winbar"),
@@ -29,7 +28,6 @@ local appearance = {
   {
     "luukvbaal/statuscol.nvim",
     cond = choose.is_enabled_plugin("statuscol.nvim"),
-    branch = "0.10",
     config = function()
       require("vimrc.plugins.statuscol").setup()
     end,
