@@ -1,4 +1,3 @@
-local luasnip = require("luasnip")
 
 local utils = require("vimrc.utils")
 
@@ -70,6 +69,9 @@ end
 
 command_palette.luasnip_expand_handler = function(filetype)
   return function(result)
+    -- NOTE: Lazy load LuaSnip
+    local luasnip = require("luasnip")
+
     -- 1. Create a new [filetype] buffer with result.
     -- 2. Expand with LuaSnip.
     -- 3. Copy/Paste the expand result to orignal buffer.
