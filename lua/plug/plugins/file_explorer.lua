@@ -125,7 +125,7 @@ local file_explorer = {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     keys = {
       {
         "<Leader>za",

@@ -38,7 +38,7 @@ local languages = {
     "nvim-treesitter/nvim-treesitter",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     build = ":TSUpdate",
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     config = function()
       require("vimrc.plugins.nvim_treesitter").setup()
     end,
@@ -47,19 +47,19 @@ local languages = {
     "nvim-treesitter/nvim-treesitter-refactor",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = "VeryLazy",
+    event = { "VeryLazy" },
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = "VeryLazy",
+    event = { "VeryLazy" },
   },
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     init = function()
       vim.g.skip_ts_context_commentstring_module = true
     end,
@@ -132,7 +132,7 @@ local languages = {
     "m-demare/hlargs.nvim",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     config = function()
       -- TODO: Move to nvim_treesitter.lua
       local hlargs = require("hlargs")
@@ -238,7 +238,7 @@ local languages = {
     "yioneko/nvim-yati",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = "VeryLazy",
+    event = { "VeryLazy" },
   },
   {
     "ThePrimeagen/refactoring.nvim",
@@ -450,7 +450,7 @@ local languages = {
     "nvim-treesitter/nvim-treesitter-context",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     config = function()
       -- NOTE: nvim-treesitter config is in nvim_treesitter.lua
       nnoremap("<F6>", function()

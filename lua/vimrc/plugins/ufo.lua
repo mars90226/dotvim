@@ -60,7 +60,7 @@ ufo.setup = function()
     preview = {
       win_config = {
         winhighlight = "Normal:OpaqueNormal,NormalFloat:OpaqueNormalFloat",
-      }
+      },
     },
   })
 

@@ -89,7 +89,7 @@ local text_navigation = {
   -- TODO: Add more keys & replace above jump plugins
   {
     "folke/flash.nvim",
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     opts = {
       modes = {
         search = {
