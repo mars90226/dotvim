@@ -4,7 +4,7 @@ local text_navigation = {
   -- Match
   {
     "andymass/vim-matchup",
-    -- NOTE: Cannot lazy load, will break `%` function
+    event = { "BufReadPre", "BufNewFile" },
     init = function()
       vim.g.matchup_matchparen_deferred = 1
       vim.g.matchup_matchparen_deferred_show_delay = 1000

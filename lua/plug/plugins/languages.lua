@@ -38,6 +38,7 @@ local languages = {
     "nvim-treesitter/nvim-treesitter",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     build = ":TSUpdate",
+    event = "VeryLazy",
     config = function()
       require("vimrc.plugins.nvim_treesitter").setup()
     end,
@@ -449,6 +450,7 @@ local languages = {
     "nvim-treesitter/nvim-treesitter-context",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = "VeryLazy",
     config = function()
       -- NOTE: nvim-treesitter config is in nvim_treesitter.lua
       nnoremap("<F6>", function()
