@@ -21,6 +21,7 @@ indent_blankline.setup_config = function()
       filetypes = {
         "any-jump",
         "checkhealth",
+        "dashboard",
         "defx",
         "help",
         "floggraph",
