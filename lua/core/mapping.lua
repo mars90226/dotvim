@@ -498,6 +498,11 @@ mapping.setup = function()
         local inspect = require("vimrc.inspect")
         inspect.inspect_eval_string(opts.args)
       end, { nargs = "*", complete = "lua" })
+      vim.api.nvim_create_user_command("InspectLsp", function(opts)
+        local lsp_server_name = opts.args
+        local inspect = require("vimrc.inspect")
+        inspect.inspect_eval_string("vim.lsp.get_clients({name='"..lsp_server_name.."'})")
+      end, { nargs = 1 })
 
       vim.api.nvim_create_user_command("ToggleOpenUrlForceLocal", function()
         require("vimrc.mapping").toggle_open_url_force_local()
