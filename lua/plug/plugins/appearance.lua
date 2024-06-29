@@ -35,7 +35,6 @@ local appearance = {
 
   -- Devicons
   { "nvim-tree/nvim-web-devicons", lazy = true },
-  { "ryanoasis/vim-devicons", lazy = true },
 
   -- Colors
   { "rktjmp/lush.nvim", lazy = true },
