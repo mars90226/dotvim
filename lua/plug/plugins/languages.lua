@@ -66,18 +66,66 @@ local languages = {
       require("ts_context_commentstring").setup({})
     end,
   },
-  -- TODO: Cannot lazy load on keys
   {
     "mfussenegger/nvim-treehopper",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    keys = {
+      {
+        "m",
+        [[<Cmd>lua require("vimrc.plugins.nvim_treesitter").tsht_nodes("m")<CR>]],
+        mode = { "o" },
+        silent = true,
+        desc = "treehopper nodes",
+      },
+      {
+        "m",
+        [[:lua require("vimrc.plugins.nvim_treesitter").tsht_nodes("m")<CR>]],
+        mode = { "x" },
+        silent = true,
+        desc = "treehopper nodes",
+      },
+    },
   },
-  -- TODO: Cannot lazy load on keys
   {
     "RRethy/nvim-treesitter-textsubjects",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = "VeryLazy",
+    keys = {
+      {
+        ".",
+        [[<Cmd>lua require("nvim-treesitter.textsubjects").select()<CR>]],
+        mode = { "x" },
+        silent = true,
+        desc = "Smartly increase selection",
+      },
+      {
+        "g;",
+        [[<Cmd>lua require("nvim-treesitter.textsubjects").select(true)<CR>]],
+        mode = { "x" },
+        silent = true,
+        desc = "Select outside containers (classes, functions, etc.)",
+      },
+      {
+        "i;",
+        [[<Cmd>lua require("nvim-treesitter.textsubjects").select(true, true)<CR>]],
+        mode = { "x" },
+        silent = true,
+        desc = "Select inside containers (classes, functions, etc.)",
+      },
+    },
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        textsubjects = {
+          enable = true,
+          keymaps = {
+            ["."] = "textsubjects-smart",
+            ["g;"] = "textsubjects-container-outer",
+            ["i;"] = { "textsubjects-container-inner", desc = "Select inside containers (classes, functions, etc.)" },
+          },
+        },
+      })
+    end,
   },
   {
     "m-demare/hlargs.nvim",

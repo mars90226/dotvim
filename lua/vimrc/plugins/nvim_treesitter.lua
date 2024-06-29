@@ -345,14 +345,6 @@ nvim_treesitter.setup_config = function()
     context_commentstring = {
       enable = true,
     },
-    textsubjects = {
-      enable = true,
-      keymaps = {
-        ["."] = "textsubjects-smart",
-        ["g;"] = "textsubjects-container-outer",
-        ["i;"] = { "textsubjects-container-inner", desc = "Select inside containers (classes, functions, etc.)" },
-      },
-    },
     matchup = {
       enable = current_buffer_base_highlight_disable_check(), -- mandatory, false will disable the whole extension
       -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
@@ -397,10 +389,6 @@ nvim_treesitter.setup_extensions = function()
       end
     end,
   })
-
-  -- nvim-treehopper
-  onoremap("m", [[<Cmd>lua require("vimrc.plugins.nvim_treesitter").tsht_nodes("m")<CR>]], { silent = true, desc = "treehopper nodes" })
-  xnoremap("m", [[:lua require("vimrc.plugins.nvim_treesitter").tsht_nodes("m")<CR>]], { silent = true, desc = "treehopper nodes" })
 end
 
 nvim_treesitter.setup_performance_trick = function()
