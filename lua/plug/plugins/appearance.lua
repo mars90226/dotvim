@@ -25,6 +25,7 @@ local appearance = {
   },
 
   -- Statuscolumn
+  -- NOTE: Lazy load will cause dashboard-nvim to show the statusline and not centered
   {
     "luukvbaal/statuscol.nvim",
     cond = choose.is_enabled_plugin("statuscol.nvim"),
