@@ -98,6 +98,12 @@ ufo.setup = function()
     end,
   })
 
+  -- Disable foldcolumn on dashboard
+  -- Assume dashboard is the first buffer
+  if vim.api.nvim_buf_get_option(0, "filetype") == "dashboard" then
+    vim.wo[0].foldcolumn = "0"
+  end
+
   -- TODO: UfoDetach on huge file
 end
 

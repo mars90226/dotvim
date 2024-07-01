@@ -322,6 +322,11 @@ local lsp = {
     "kevinhwang91/nvim-ufo",
     dependencies = "kevinhwang91/promise-async",
     event = { "VeryLazy" },
+    init = function()
+      -- NOTE: Set foldlevel to 99 to expand all folds by default as nvim-ufo is lazy loaded
+      vim.wo.foldlevel = 99 -- feel free to decrease the value
+      vim.o.foldlevelstart = 99
+    end,
     config = function()
       require("vimrc.plugins.ufo").setup()
     end,
