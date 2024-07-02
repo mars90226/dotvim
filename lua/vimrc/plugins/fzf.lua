@@ -325,7 +325,7 @@ fzf.setup_mapping = function()
 
   -- Output
   nnoremap([[<Space><F1>]], [[:call vimrc#execute_and_save('Outputs ' . input('Output: ', '', 'command'))<CR>]])
-  nnoremap([[<Space><F2>]], [[:call vimrc#execute_and_save("Outputs map <buffer>")<CR>]])
+  nnoremap([[<Space><F2>]], [[:call vimrc#execute_and_save("Outputs :map <buffer>")<CR>]])
 
   -- DirectoryMru
   nnoremap([[<Space><C-D><C-D>]], [[:call vimrc#execute_and_save('DirectoryMru')<CR>]])

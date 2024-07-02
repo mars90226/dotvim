@@ -299,7 +299,13 @@ function! vimrc#fzf#compilers_source() abort
 endfunction
 
 function! vimrc#fzf#outputs_source(cmd) abort
-  return split(execute(a:cmd), "\n")
+  " Vim command starts with ':'
+  if len(a:cmd) > 0 && a:cmd[0] ==# ':'
+    return split(execute(a:cmd), "\n")
+  else
+    " Shell command
+    return a:cmd
+  endif
 endfunction
 
 " Sinks
