@@ -315,7 +315,7 @@ lsp.show_doc = function()
   -- preview fold > vim help | lsp hover
   local winid = ufo.peekFoldedLinesUnderCursor()
   if not winid then
-    if vim.o.filetype == "help" then
+    if vim.o.filetype == "help" or vim.o.filetype == "vim" then
       vim.cmd([[help ]] .. vim.fn.expand("<cword>"))
     else
       vim.cmd([[Lspsaga hover_doc]])
