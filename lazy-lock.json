@@ -71,6 +71,7 @@
   "helpful.vim": { "branch": "master", "commit": "f0c8b6a919d9ec437cb3dc6b5502d5cec29f41f4" },
   "hlargs.nvim": { "branch": "main", "commit": "cc0d9ee75e5ffba730393049119361b9e3a5b1b6" },
   "hop.nvim": { "branch": "master", "commit": "036462a345792279c58f2f6445756efab706f04a" },
+  "image.nvim": { "branch": "master", "commit": "7d021c94e231d491355f5e724ba357ace296f06d" },
   "inc-rename.nvim": { "branch": "main", "commit": "535b508c0cb14d00c1836ad901b3c531cb1152bb" },
   "indent-blankline.nvim": { "branch": "master", "commit": "65e20ab94a26d0e14acac5049b8641336819dfc7" },
   "iron.nvim": { "branch": "master", "commit": "c993d018d11829528b0fe91eb9ba412e453071ea" },
