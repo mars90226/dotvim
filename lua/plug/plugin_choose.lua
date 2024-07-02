@@ -205,6 +205,20 @@ plugin_choose.setup_text_navigation = function()
   -- nvim-hlslens
 end
 
+plugin_choose.setup_luarocks_plugin = function()
+  local is_luarocks_available = plugin_utils.is_executable("luarocks")
+
+  -- Choose neorg
+  if not is_luarocks_available then
+    choose.disable_plugin("neorg")
+  end
+
+  -- Choose image
+  if not is_luarocks_available then
+    choose.disable_plugin("image.nvim")
+  end
+end
+
 plugin_choose.setup = function()
   -- plugin management
   vim.api.nvim_create_user_command("ListDisabledPlugins", function()
@@ -223,6 +237,7 @@ plugin_choose.setup = function()
   plugin_choose.setup_git()
   plugin_choose.setup_terminal()
   plugin_choose.setup_misc()
+  plugin_choose.setup_luarocks_plugin()
 end
 
 return plugin_choose

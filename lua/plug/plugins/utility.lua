@@ -1,3 +1,5 @@
+local choose = require("vimrc.choose")
+
 local utility = {
   -- Undo Tree
   {
@@ -151,6 +153,7 @@ local utility = {
   -- TODO: Check https://vhyrro.github.io/posts/neorg-and-luarocks/
   {
     "nvim-neorg/neorg",
+    cond = choose.is_enabled_plugin("neorg"),
     ft = { "norg" },
     cmd = { "Neorg" },
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -599,6 +602,18 @@ local utility = {
           "filetype",
         },
       })
+    end,
+  },
+
+  -- Image
+  -- TODO: Disabled as currently only don't show image but has the space.
+  -- Tried: In tmux & outside of tmux in wezterm.
+  -- Related issue: https://github.com/3rd/image.nvim/issues/99
+  {
+    "3rd/image.nvim",
+    enabled = false,
+    config = function()
+      require("image").setup({})
     end,
   },
 
