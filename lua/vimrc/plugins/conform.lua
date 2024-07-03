@@ -8,23 +8,27 @@ conform.setup_config = function()
   local conform_config = {
     formatters_by_ft = {
       lua = {
-        "stylua"
+        "stylua",
       },
       proto = {
-        "buf"
+        "buf",
+      },
+      python = {
+        "ruff_format",
+        "ruff_organize_imports",
       },
       ruby = {
-        "standardrb"
+        "standardrb",
       },
       rust = {
-        "rustfmt"
+        "rustfmt",
       },
       sh = {
-        "shfmt"
+        "shfmt",
       },
       sql = {
-        "sqlfluff"
-      }
+        "sqlfluff",
+      },
     },
   }
 
