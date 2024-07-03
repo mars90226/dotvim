@@ -137,6 +137,10 @@ local appearance = {
     "rcarriga/nvim-notify",
     config = function()
       vim.notify = require("notify")
+
+      vim.api.nvim_create_user_command("ClearNotify", function()
+        vim.notify.dismiss()
+      end, { nargs = 0 })
     end,
   },
 
