@@ -146,7 +146,7 @@ mapping.setup = function()
       -- Quick yank filename
       nnoremap("<Leader>y6", [[:let @" = expand('%:t')<CR>]], { desc = "Yank current filename" })
       nnoremap("<Leader>y5", [[:let @" = expand('%:t:r')<CR>]], { desc = "Yank current filename without extension" })
-      nnoremap("<Leader>y%", [[:let @" = @%<CR>]], { desc = "Yank current filename with full path" })
+      nnoremap("<Leader>y%", [[:let @" = @%<CR>]], { desc = "Yank current filename with relative path to current working directoy" })
       nnoremap("<Leader>y4", [[:let @" = expand('%:p')<CR>]], { desc = "Yank current filename with full path" })
 
       -- Quick yank current directory
