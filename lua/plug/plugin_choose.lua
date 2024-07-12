@@ -60,7 +60,6 @@ plugin_choose.setup_completion = function()
     choose.disable_plugin("LuaSnip-transform")
   end
 
-
   -- Choose linter integration plugin
   -- none-ls.nvim, nvim-lint
   -- Always enable nvim-lint
@@ -89,7 +88,7 @@ plugin_choose.setup_file_explorer = function()
   -- Choose file explorer
   -- defx.nvim
   choose.disable_plugins({ "defx.nvim" })
-  
+
   if vim.version.cmp(vim.fn["vimrc#plugin#check#python_version"](), "3.6.1") >= 0 then
     choose.enable_plugin("defx.nvim")
   end
@@ -126,6 +125,11 @@ plugin_choose.setup_language = function()
   -- Choose Lint plugin
   -- none-ls.nvim
   -- Always enable nvim-lint
+
+  -- Choose Markdown render plugin
+  -- markview.nvim, markdown.nvim
+  choose.disable_plugins({ "markview.nvim", "markdown.nvim" })
+  choose.enable_plugin("markview.nvim")
 
   -- Choose markdown-preview plugin
   -- markdown-preview.nvim

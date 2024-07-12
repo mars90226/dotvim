@@ -493,6 +493,7 @@ local languages = {
   -- Markdown render
   {
     "MeanderingProgrammer/markdown.nvim",
+    cond = choose.is_enabled_plugin("markdown.nvim"),
     -- name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     ft = { "markdown" },
@@ -501,6 +502,42 @@ local languages = {
     },
     config = function()
       require("render-markdown").setup({})
+    end,
+  },
+  {
+    "OXY2DEV/markview.nvim",
+    cond = choose.is_enabled_plugin("markview.nvim"),
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+    ft = { "markdown" },
+    cmd = { "Markview" },
+    keys = {
+      { "coh", "<Cmd>Markview<CR>", mode = { "n" }, desc = "Render markdown" },
+    },
+    config = function()
+      -- FIXME: The setup example in README.md is not up to date and causes error.
+
+      -- require("markview").setup({
+      --   buf_ignore = { "nofile" },
+      --   modes = { "n", "no" },
+      --
+      --   -- Returns the conceallevel to the global value when changing modes
+      --   restore_conceallevel = true,
+      --   -- Returns the concealcursor to the global value when changing modes
+      --   restore_concealcursor = false,
+      --
+      --   block_quotes = {},
+      --   checkboxes = {},
+      --   code_blocks = {},
+      --   headings = {},
+      --   horizontal_rules = {},
+      --   inline_codes = {},
+      --   links = {},
+      --   list_items = {},
+      --   tables = {},
+      -- })
     end,
   },
 
