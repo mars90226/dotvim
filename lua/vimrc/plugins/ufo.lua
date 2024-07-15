@@ -98,11 +98,24 @@ ufo.setup = function()
     end,
   })
 
-  -- Disable foldcolumn on dashboard
-  -- Assume dashboard is the first buffer
-  if vim.api.nvim_buf_get_option(0, "filetype") == "dashboard" then
+  -- Disable on FileType
+  local disabled_filetypes = { "dashboard", "man" }
+  -- Disable fold if current buffer is in disabled_filetypes
+  if vim.list_contains(disabled_filetypes, vim.api.nvim_buf_get_option(0, "filetype")) then
+    vim.wo[0].foldenable = false
     vim.wo[0].foldcolumn = "0"
   end
+  -- Disable fold for future buffers in disabled_filetypes
+  vim.api.nvim_create_autocmd({ "FileType" }, {
+    group = augroup_id,
+    pattern = disabled_filetypes,
+    callback = function()
+      -- TODO: Check if we need fold, but not foldcolumn by nvim-ufo.
+      origin_ufo.detach()
+      vim.wo.foldenable = false
+      vim.wo.foldcolumn = "0"
+    end,
+  })
 
   -- TODO: UfoDetach on huge file
 end
