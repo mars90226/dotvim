@@ -130,6 +130,7 @@ plugin_choose.setup_language = function()
   -- markview.nvim, markdown.nvim
   choose.disable_plugins({ "markview.nvim", "markdown.nvim" })
   choose.enable_plugin("markview.nvim")
+  -- choose.enable_plugin("markdown.nvim")
 
   -- Choose markdown-preview plugin
   -- markdown-preview.nvim
