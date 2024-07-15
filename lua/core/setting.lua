@@ -34,7 +34,7 @@ settings.setup = function()
 
       vim.opt.scrolloff = 0
 
-      vim.opt.diffopt = { "internal", "filler", "vertical", "closeoff", "algorithm:histogram", "hiddenoff" }
+      vim.opt.diffopt = { "internal", "filler", "vertical", "closeoff", "algorithm:histogram", "hiddenoff", "linematch:30", "indent-heuristic" }
 
       -- completion menu
       vim.opt.pumheight = 40
