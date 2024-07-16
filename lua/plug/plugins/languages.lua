@@ -497,6 +497,7 @@ local languages = {
     -- name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     ft = { "markdown" },
+    cmd = { "RenderMarkdownToggle" },
     keys = {
       { "coh", "<Cmd>RenderMarkdownToggle<CR>", mode = { "n" }, desc = "Render markdown" },
     },
@@ -511,33 +512,15 @@ local languages = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
     },
+    -- TODO: Disabled Markview on huge file
     ft = { "markdown" },
     cmd = { "Markview" },
     keys = {
       { "coh", "<Cmd>Markview<CR>", mode = { "n" }, desc = "Render markdown" },
     },
     config = function()
-      -- FIXME: The setup example in README.md is not up to date and causes error.
-
-      -- require("markview").setup({
-      --   buf_ignore = { "nofile" },
-      --   modes = { "n", "no" },
-      --
-      --   -- Returns the conceallevel to the global value when changing modes
-      --   restore_conceallevel = true,
-      --   -- Returns the concealcursor to the global value when changing modes
-      --   restore_concealcursor = false,
-      --
-      --   block_quotes = {},
-      --   checkboxes = {},
-      --   code_blocks = {},
-      --   headings = {},
-      --   horizontal_rules = {},
-      --   inline_codes = {},
-      --   links = {},
-      --   list_items = {},
-      --   tables = {},
-      -- })
+      -- TODO: Custom based on https://github.com/OXY2DEV/markview.nvim/wiki
+      require("markview").setup({});
     end,
   },
 

@@ -129,10 +129,8 @@ plugin_choose.setup_language = function()
   -- Choose Markdown render plugin
   -- markdown.nvim, markview.nvim
   choose.disable_plugins({ "markview.nvim", "markdown.nvim" })
-  -- TODO: Wait for markview.nvim to be mature enough
-  -- Currently it is too slow on large markdown files.
-  -- choose.enable_plugin("markview.nvim")
-  choose.enable_plugin("markdown.nvim")
+  choose.enable_plugin("markview.nvim")
+  -- choose.enable_plugin("markdown.nvim")
 
   -- Choose markdown-preview plugin
   -- markdown-preview.nvim
