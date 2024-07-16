@@ -1,10 +1,10 @@
 local substitute = {}
 
 substitute.setup = function()
-  -- TODO: Create issue for substitute not change cursor position back to original position for expand('<cword>')
   require("substitute").setup({
+    preserve_cursor_position = true,
     range = {
-      complete_word = true,
+      complete_word = false,
     },
   })
 
