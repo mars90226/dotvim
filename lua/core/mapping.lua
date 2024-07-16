@@ -24,6 +24,11 @@ mapping.setup = function()
       -- so that you can undo CTRL-U after inserting a line break.
       inoremap("<C-U>", [[<C-G>u<C-U>]])
 
+      -- CTRL-L with nvim default behavior & dismiss notifications
+      -- NOTE: This may break after reloading config
+      local default_ctrl_l = vim.fn.maparg("<C-L>", "n", false, true)
+      nnoremap("<C-L>", default_ctrl_l.rhs .. [[<Cmd>lua vim.notify.dismiss()<CR>]], "<silent>")
+
       -- Add key mapping for suspend
       nnoremap("<Space><C-Z>", [[:suspend<CR>]], { desc = "Suspend" })
 
