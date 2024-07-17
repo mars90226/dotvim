@@ -539,12 +539,13 @@ local utility = {
   { "will133/vim-dirdiff", cmd = { "DirDiff" } },
 
   -- RESTful
+  -- TODO: Find alternatives as rest.nvim is archived
   -- TODO: Check if not working on Windows
   -- TODO: Migrate to rocks.nvim
   -- NOTE: rocks.nvim installation script is outside of lazy.nvim & manual installation steps are tedious.
   {
     "rest-nvim/rest.nvim",
-    tag = "v1.2.1",
+    enabled = false,
     dependencies = { { "nvim-lua/plenary.nvim" } },
     ft = { "http" },
     config = function()
