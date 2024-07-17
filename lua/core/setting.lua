@@ -30,6 +30,9 @@ settings.setup = function()
       vim.opt.ruler = true -- show the cursor position all the time
       vim.opt.spell = true
 
+      vim.go.timeout = true
+      vim.go.timeoutlen = 300
+
       vim.opt.commentstring = "# %s" -- NOTE: Default is "# %s", set other 'commentstring' in ftplugin
 
       vim.opt.scrolloff = 0

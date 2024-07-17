@@ -56,11 +56,18 @@ local appearance = {
   {
     "folke/which-key.nvim",
     event = { "VeryLazy" },
-    config = function()
-      vim.go.timeout = true
-      vim.go.timeoutlen = 300
-      require("which-key").setup({})
-    end,
+    opts = {
+      preset = "modern",
+    },
+    keys = {
+      {
+        "<Leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
+      },
+    },
   },
 
   -- Dashboard
