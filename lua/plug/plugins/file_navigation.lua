@@ -366,7 +366,13 @@ local file_navigation = {
   {
     "pechorin/any-jump.nvim",
     cmd = { "AnyJump", "AnyJumpArg", "AnyJumpVisual" },
-    keys = { "<Leader>aj", "<Leader>aa" },
+    keys = {
+      { "<Leader>aj", "<Cmd>AnyJump<CR>", desc = "AnyJump" },
+      { "<Leader>aa", "<Cmd>AnyJumpArg<Space>", desc = "AnyJump with args" },
+      { "<Leader>aj", ":AnyJumpVisual<CR>", mode = { "x" }, desc = "AnyJump visual" }, -- NOTE: Need to use `:` to make it work in visual mode
+      { "<Leader>ab", "<Cmd>AnyJumpBack<CR>", desc = "AnyJump back" },
+      { "<Leader>al", "<Cmd>AnyJumpLastResults<CR>", desc = "AnyJump last results" },
+    },
     config = function()
       vim.g.any_jump_window_width_ratio, vim.g.any_jump_window_height_ratio =
         unpack(vim.fn["vimrc#float#get_default_ratio"]())
@@ -376,12 +382,6 @@ local file_navigation = {
       )[2]
 
       vim.g.any_jump_disable_default_keybindings = 1
-
-      nnoremap("<Leader>aj", "<Cmd>AnyJump<CR>")
-      nnoremap("<Leader>aa", "<Cmd>AnyJumpArg<Space>")
-      xnoremap("<Leader>aj", "<Cmd>AnyJumpVisual<CR>")
-      nnoremap("<Leader>ab", "<Cmd>AnyJumpBack<CR>")
-      nnoremap("<Leader>al", "<Cmd>AnyJumpLastResults<CR>")
     end,
   },
 
