@@ -53,6 +53,7 @@ local appearance = {
   },
 
   -- Which key
+  -- TODO: May need to check all keys that depends on timeoutlen (has overlapping prefix)
   {
     "folke/which-key.nvim",
     event = { "VeryLazy" },

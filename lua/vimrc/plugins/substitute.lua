@@ -23,7 +23,7 @@ substitute.setup = function()
   -- Substitute over range
   nnoremap("<Leader>s", "<Cmd>lua require('substitute.range').operator()<CR>")
   xnoremap("<Leader>s", "<Cmd>lua require('substitute.range').visual()<CR>")
-  nnoremap("<Leader>ss", "<Cmd>lua require('substitute.range').word()<CR>")
+  nnoremap("<Leader>ss", "<Cmd>lua require('substitute.range').word()<CR>") -- FIXME: This is conflict with which-key.nvim
 
   -- Substitute over range confirm
   nnoremap("scr", "<Cmd>lua require('substitute.range').operator({ confirm = true })<CR>")
