@@ -20,6 +20,10 @@ mapping.setup = function()
       -- Quickly leave insert mode
       inoremap("jk", [[<Esc>]], { desc = "Leave insert mode" })
 
+      -- Alternative way to scroll half page
+      nnoremap("<M-[>", [[<C-U>]], { desc = "Scroll half page up" })
+      nnoremap("<M-]>", [[<C-D>]], { desc = "Scroll half page down" })
+
       -- diagraph
       inoremap("<M-K>", [[<C-K>]], { desc = "Insert diagraph" })
 
