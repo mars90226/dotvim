@@ -17,6 +17,9 @@ mapping.setup = function()
 
       vim.api.nvim_create_user_command("HelptagsAll", [[lua require('vimrc.utils').helptags_all()]], {})
 
+      -- Quickly leave insert mode
+      inoremap("jk", [[<Esc>]], { desc = "Leave insert mode" })
+
       -- diagraph
       inoremap("<M-K>", [[<C-K>]], { desc = "Insert diagraph" })
 
