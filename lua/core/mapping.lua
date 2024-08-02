@@ -22,7 +22,9 @@ mapping.setup = function()
 
       -- Alternative way to scroll half page
       nnoremap("<M-[>", [[<C-U>]], { desc = "Scroll half page up" })
+      xnoremap("<M-[>", [[<C-U>]], { desc = "Scroll half page up" })
       nnoremap("<M-]>", [[<C-D>]], { desc = "Scroll half page down" })
+      xnoremap("<M-]>", [[<C-D>]], { desc = "Scroll half page down" })
 
       -- diagraph
       inoremap("<M-K>", [[<C-K>]], { desc = "Insert diagraph" })
