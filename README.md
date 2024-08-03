@@ -15,6 +15,7 @@ Packer specific config is removed, but you can use `packer` branch to access the
 * [fzf](https://github.com/junegunn/fzf) (fuzzy finder for almost everything)
 * [fzf.vim](https://github.com/junegunn/fzf.vim) (used with fzf)
 * [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) (fuzzy finder written in Lua and support LSP)
+* [fzf-lua](https://github.com/ibhagwan/fzf-lua) (fzf wrapper in Lua and support LSP and is performant)
 * [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) (lua file explorer)
 * [oil.nvim](https://github.com/stevearc/oil.nvim) (buffer-based file explorer with folder synchronization)
 * [defx.nvim](https://github.com/Shougo/defx.nvim) (buffer-based file explorer for better multiple project folder)
@@ -41,7 +42,7 @@ Packer specific config is removed, but you can use `packer` branch to access the
 ## Requirements
 
 ### Neovim
-* [neovim](https://neovim.io/) 0.9.2+ (stable), 0.10.0 (nightly, required by 'dropbar.nvim')
+* [neovim](https://neovim.io/) 0.10.1+ (stable)
 * [python](https://www.python.org/) 3.6.1+ (required by defx.nvim), 3.7.0 (required pynvim 0.5.0)
     * Currently, pynvim 0.5.0 need Python 3.9: https://github.com/neovim/pynvim/issues/560
 * [universal-ctags](https://github.com/universal-ctags/ctags) (required by fzf)
@@ -72,16 +73,16 @@ Open neovim and wait for `lazy.nvim` to finish the job.
 `<Leader>` key is `,`.
 
 * FZF key mappings
-    * `<Space>fg`: Search and open git files
-    * `<Space>ff`: Search and open files
-    * `<Space>fw`: Search and switch to windows
-    * `<Space>fl`: Search and goto to lines in current buffer
-    * `<Space>ft`: Search and goto to tags in current buffer
-    * `<Space>fp`: Search and goto to tags in current project
-    * `<Space>fi`: Live grep and goto files using ripgrep
-    * `<Space>fr`: Grep and goto files using ripgrep
-    * `<Space>fm`: Search and open most recently used files provided by neomru
-    * `<Space>fh`: Search and open vim help
+    * `<Space>zg`: Search and open git files
+    * `<Space>zf`: Search and open files
+    * `<Space>zw`: Search and switch to windows
+    * `<Space>zl`: Search and goto to lines in current buffer
+    * `<Space>zt`: Search and goto to tags in current buffer
+    * `<Space>zp`: Search and goto to tags in current project
+    * `<Space>zi`: Live grep and goto files using ripgrep
+    * `<Space>zr`: Grep and goto files using ripgrep
+    * `<Space>zm`: Search and open most recently used files provided by neomru
+    * `<Space>zh`: Search and open vim help
 * Telescope key mappings
     * `<Space>tg`: Search and open git files
     * `<Space>tf`: Search and open files
@@ -91,11 +92,25 @@ Open neovim and wait for `lazy.nvim` to finish the job.
     * `<Space>tr`: Grep and goto files using ripgrep
     * `<Space>tm`: Search and open most recently used files
     * `<Space>th`: Search and open vim help
+* fzf-lua key mappings
+    * `<Space>fg`: Search and open git files
+    * `<Space>ff`: Search and open files
+    * `<Space>fw`: Search and switch to windows
+    * `<Space>fl`: Search and goto to lines in current buffer
+    * `<Space>ft`: Search and goto to tags in current buffer
+    * `<Space>fp`: Search and goto to tags in current project
+    * `<Space>fi`: Live grep and goto files using ripgrep
+    * `<Space>fr`: Grep and goto files using ripgrep
+    * `<Space>fm`: Search and open most recently used files using oldfiles
+    * `<Space>fh`: Search and open vim help
     * `<Space>ld`: Search and goto LSP definitions
     * `<Space>lr`: Search and goto LSP references
     * `<Space>lo`: Search and goto LSP document symbols
     * `<Space>ls`: Search and goto LSP workspace symbols
-    * `<Space>lx`: Search and execute LSP code actions
+    * `<Space>lS`: Search and goto LSP workspace symbols by live query
+    * `<Space>la`: Search and execute LSP code actions
+    * `<Space>lx`: Search and goto document diagnostics
+    * `<Space>lX`: Search and goto workspace diagnostics
 * symbols-outline.nvim key mappings
     * `<F7>`: Toggle symbols-outline.nvim that showing LSP symbols outline in sidebar
 * LSP key mappings
