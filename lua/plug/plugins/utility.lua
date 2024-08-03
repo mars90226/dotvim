@@ -6,22 +6,21 @@ local utility = {
   {
     "mbbill/undotree",
     cmd = { "UndotreeToggle" },
-    keys = { "<F9>" },
-    config = function()
-      nnoremap("<F9>", ":UndotreeToggle<CR>")
-    end,
+    keys = {
+      { "<F9>", "<Cmd>UndotreeToggle<CR>", desc = "Toggle undo tree" },
+    },
   },
   -- NOTE: vim-mundo is slow, but is more feature-rich
   {
     "simnalamburt/vim-mundo",
     cmd = { "MundoToggle" },
-    keys = { "<Space><F9>" },
+    keys = {
+      { "<Space><F9>", "<Cmd>MundoToggle<CR>", desc = "Toggle mundo tree" },
+    },
     config = function()
       if vim.fn.has("python3") == 1 then
         vim.g.mundo_prefer_python3 = 1
       end
-
-      nnoremap("<Space><F9>", ":MundoToggle<CR>")
     end,
   },
 
@@ -68,15 +67,14 @@ local utility = {
 
   {
     "tpope/vim-characterize",
-    keys = { "gA" },
-    config = function()
-      nmap("gA", "<Plug>(characterize)")
-    end,
+    keys = {
+      { "gA", "<Plug>(characterize)", desc = "Show character info under cursor" },
+    },
   },
 
   -- Registers
   -- NOTE: Cannot lazy load on keys
-  -- FIXME: Cannot scroll down
+  -- FIXME: Seems slow to scroll
   {
     "tversteeg/registers.nvim",
     event = { "VeryLazy" },
@@ -98,7 +96,20 @@ local utility = {
   {
     "nvim-colortils/colortils.nvim",
     cmd = { "Colortils" },
-    keys = { "<Leader>cT" },
+    keys = {
+      {
+        "<Leader>cT",
+        mode = { "n" },
+        [[<Cmd>Colortils picker black<CR>]],
+        desc = "Open color picker",
+      },
+      {
+        "<Leader>cT",
+        mode = { "x" },
+        [[:<C-U>execute 'Colortils picker '..vimrc#utility#get_visual_selection()<CR>]],
+        desc = "Open color picker with visual selection",
+      },
+    },
     config = function()
       require("colortils").setup({
         mappings = {
@@ -106,9 +117,6 @@ local utility = {
           replace_choose_format = "g<M-CR>",
         },
       })
-
-      nnoremap("<Leader>cT", [[<Cmd>Colortils picker black<CR>]])
-      xnoremap("<Leader>cT", [[:<C-U>execute 'Colortils picker '..vimrc#utility#get_visual_selection()<CR>]])
     end,
   },
 
@@ -169,10 +177,9 @@ local utility = {
   {
     "powerman/vim-plugin-AnsiEsc",
     cmd = { "AnsiEsc" },
-    keys = { "coa" },
-    config = function()
-      nnoremap("coa", ":AnsiEsc<CR>")
-    end,
+    keys = {
+      { "coa", "<Cmd>AnsiEsc<CR>", desc = "Convert ANSI escape sequences to highlighted text" },
+    },
   },
 
   {
@@ -229,7 +236,10 @@ local utility = {
   {
     "folke/zen-mode.nvim",
     cmd = { "ZenMode", "ZenModeCopy" },
-    keys = { "<Leader>zm", "<Leader>zc" },
+    keys = {
+      { "<Leader>zm", [[<Cmd>ZenMode<CR>]], desc = "Zen mode" },
+      { "<Leader>zc", [[<Cmd>ZenModeCopy<CR>]], desc = "Zen mode copy" },
+    },
     config = function()
       require("zen-mode").setup({
         plugins = {
@@ -248,20 +258,14 @@ local utility = {
         vim.cmd([[TwilightDisable]])
         vim.cmd([[BlockOff]])
       end, {})
-
-      nnoremap("<Leader>zm", [[<Cmd>ZenMode<CR>]])
-      nnoremap("<Leader>zc", [[<Cmd>ZenModeCopy<CR>]])
     end,
   },
   {
     "folke/twilight.nvim",
     cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
-    keys = { "<Leader><C-L>" },
-    config = function()
-      require("twilight").setup({})
-
-      nnoremap("<Leader><C-L>", ":Twilight<CR>")
-    end,
+    keys = {
+      { "<Leader><C-L>", ":Twilight<CR>", desc = "Twilight toggle" },
+    },
   },
   {
     "hoschi/yode-nvim",
@@ -287,16 +291,15 @@ local utility = {
   {
     "tpope/vim-dispatch",
     cmd = { "Make", "Copen", "Dispatch", "Start", "Spawn" },
-    keys = { "<Leader>dq" },
+    keys = {
+      { "<Leader>dq", [[<Cmd>Copen<CR>]], desc = "Open vim-dispatch build result in quickfix" },
+    },
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
       -- TODO Check if disabling tmux is good
       -- As currently, it break tmux zoom.
       -- But using Job makes closing vim while git push failed
       vim.g.dispatch_no_tmux_make = 1
-
-      -- Mappings
-      nnoremap("<Leader>dq", [[<Cmd>Copen<CR>]])
     end,
   },
   {
@@ -422,7 +425,9 @@ local utility = {
   {
     "simeji/winresizer",
     cmd = { "WinResizerStartResize" },
-    keys = { "<C-W><C-R>" },
+    keys = {
+      { "<C-W><C-R>", desc = "Start winresizer" },
+    },
     init = function()
       vim.g.winresizer_start_key = "<C-W><C-R>"
     end,
@@ -430,14 +435,11 @@ local utility = {
   {
     "sindrets/winshift.nvim",
     cmd = { "WinShift" },
-    keys = { "<C-W><C-M>", "<C-W>m", "<C-W>X" },
-    config = function()
-      require("winshift").setup({})
-
-      nnoremap("<C-W><C-M>", [[<Cmd>WinShift<CR>]])
-      nnoremap("<C-W>m", [[<Cmd>WinShift<CR>]])
-      nnoremap("<C-W>X", [[<Cmd>WinShift swap<CR>]])
-    end,
+    keys = {
+      { "<C-W><C-M>", [[<Cmd>WinShift<CR>]], desc = "Start winshift" },
+      { "<C-W>m", [[<Cmd>WinShift<CR>]], desc = "Start winshift" },
+      { "<C-W>X", [[<Cmd>WinShift swap<CR>]], desc = "Start winshift swap" },
+    },
   },
 
   -- Todo
@@ -462,7 +464,9 @@ local utility = {
   {
     "bennypowers/nvim-regexplainer",
     cmd = { "RegexplainerToggle" },
-    keys = { "<Leader>er" },
+    keys = {
+      { "<Leader>er", desc = "Toggle regexplainer" },
+    },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
@@ -489,13 +493,10 @@ local utility = {
   {
     "uga-rosa/translate.nvim",
     cmd = { "Translate" },
-    keys = { "<Leader>tr" },
-    config = function()
-      require("translate").setup({})
-
-      nnoremap("<Leader>tr", [[viw:Translate ZH-TW<CR>]])
-      xnoremap("<Leader>tr", [[:Translate ZH-TW<CR>]])
-    end,
+    keys = {
+      { "<Leader>tr", mode = { "n" }, [[viw:Translate ZH-TW<CR>]], desc = "Translate word" },
+      { "<Leader>tr", mode = { "x" }, [[:Translate ZH-TW<CR>]], desc = "Translate visual selection" },
+    },
   },
 
   -- Color Column
@@ -530,11 +531,11 @@ local utility = {
   {
     "AndrewRadev/linediff.vim",
     cmd = { "Linediff" },
-    keys = { { "<M-d>l", mode = { "n", "x" } } },
-    config = function()
-      nnoremap("<M-d>l", [[V:Linediff<CR>]])
-      xnoremap("<M-d>l", [[:Linediff<CR>]])
-    end,
+    keys = {
+      { "<M-d>l", mode = { "n" }, [[V:Linediff<CR>]], desc = "Linediff current line" },
+      { "<M-d>l", mode = { "x" }, [[:Linediff<CR>]], desc = "Linediff visual selection" },
+    },
+    config = function() end,
   },
   { "will133/vim-dirdiff", cmd = { "DirDiff" } },
 
@@ -621,12 +622,21 @@ local utility = {
     end,
   },
 
-  { "tpope/vim-abolish", cmd = { "Abolish", "Subvert", "S" }, keys = { "cr" } },
+  {
+    "tpope/vim-abolish",
+    cmd = { "Abolish", "Subvert", "S" },
+    keys = {
+      { "cr", desc = "Coercion cursor word" },
+    },
+  },
   "kopischke/vim-fetch",
   {
     "Valloric/ListToggle",
     cmd = { "QToggle", "LToggle" },
-    keys = { "<Leader>q", "<Leader>l" },
+    keys = {
+      { "<Leader>q", desc = "Toggle quickfix" },
+      { "<Leader>l", desc = "Toggle location list" },
+    },
   },
   -- TODO: Lazy load on cmd
   { "tpope/vim-eunuch", event = { "CmdlineEnter" } },
