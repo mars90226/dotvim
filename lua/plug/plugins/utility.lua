@@ -1,4 +1,5 @@
 local choose = require("vimrc.choose")
+local plugin_utils = require("vimrc.plugin_utils")
 
 local utility = {
   -- Undo Tree
