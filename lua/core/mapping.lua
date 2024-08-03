@@ -27,7 +27,7 @@ mapping.setup = function()
       nnoremap("<Space><Tab>d", [[<Cmd>tabclose<CR>]], { desc = "Close tab" })
 
       -- Quickly leave insert mode
-      inoremap("jk", [[<Esc>]], { desc = "Leave insert mode" })
+      inoremap("kj", [[<Esc>]], { desc = "Leave insert mode" })
 
       -- Alternative way to scroll half page
       nnoremap("<M-[>", [[<C-U>]], { desc = "Scroll half page up" })
