@@ -17,6 +17,15 @@ mapping.setup = function()
 
       vim.api.nvim_create_user_command("HelptagsAll", [[lua require('vimrc.utils').helptags_all()]], {})
 
+      -- Quick tab actions
+      nnoremap("<Space><Tab>l", [[<Cmd>tablast<CR>]], { desc = "Goto last tab" })
+      nnoremap("<Space><Tab>o", [[<Cmd>tabonly<CR>]], { desc = "Close other tabs" })
+      nnoremap("<Space><Tab>f", [[<Cmd>tablast<CR>]], { desc = "Goto first tab" })
+      nnoremap("<Space><Tab><Tab>", [[<Cmd>tabnew<CR>]], { desc = "New tab" })
+      nnoremap("<Space><Tab>]", [[<Cmd>tabnext<CR>]], { desc = "Goto next tab" })
+      nnoremap("<Space><Tab>[", [[<Cmd>tabprevious<CR>]], { desc = "Goto previous tab" })
+      nnoremap("<Space><Tab>d", [[<Cmd>tabclose<CR>]], { desc = "Close tab" })
+
       -- Quickly leave insert mode
       inoremap("jk", [[<Esc>]], { desc = "Leave insert mode" })
 

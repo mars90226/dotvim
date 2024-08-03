@@ -219,10 +219,10 @@ end
 
 fzf.setup_mapping = function()
   -- Mapping selecting mappings
-  nmap([[<Space><Tab>]], [[<Plug>(fzf-maps-n)]])
-  imap([[<M-`>]],        [[<Plug>(fzf-maps-i)]])
-  xmap([[<Space><Tab>]], [[<Plug>(fzf-maps-x)]])
-  omap([[<Space><Tab>]], [[<Plug>(fzf-maps-o)]])
+  nmap([[<Space>f<Tab>]], [[<Plug>(fzf-maps-n)]])
+  imap([[<M-`><M-`>]],    [[<Plug>(fzf-maps-i)]])
+  xmap([[<Space>f<Tab>]], [[<Plug>(fzf-maps-x)]])
+  omap([[<Space>f<Tab>]], [[<Plug>(fzf-maps-o)]])
 
   -- Insert mode completion
   imap([[<C-X><C-K>]], [[<Plug>(fzf-complete-word)]])

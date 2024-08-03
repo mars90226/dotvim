@@ -119,7 +119,7 @@ local file_navigation = {
     "sudormrfbin/cheatsheet.nvim",
     cmd = { "Cheatsheet", "CheatsheetEdit" },
     keys = {
-      { "<Leader><Tab>", [[<Cmd>Cheatsheet<CR>]], desc = "Cheatsheet" },
+      { "<Leader><Tab><Tab>", [[<Cmd>Cheatsheet<CR>]], desc = "Cheatsheet" },
     },
   },
   {
