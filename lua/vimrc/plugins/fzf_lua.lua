@@ -3,6 +3,12 @@ local actions = require("fzf-lua.actions")
 
 local my_fzf_lua = {}
 
+my_fzf_lua.config = {
+  -- NOTE: This is the default option in fzf-lua
+  -- TODO: Customize this
+  rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+}
+
 my_fzf_lua.global_actions = {
   -- TODO: Escape unwanted filename
   ["alt-g"] = function(selected, opts)
@@ -12,6 +18,10 @@ my_fzf_lua.global_actions = {
     actions.vimcmd_file("rightbelow vsplit", selected, opts)
   end,
 }
+
+my_fzf_lua.wrap_opts = function(opts)
+  return vim.tbl_deep_extend("force", my_fzf_lua.config, opts)
+end
 
 my_fzf_lua.setup_config = function()
   local opts = {
@@ -54,6 +64,7 @@ end
 
 my_fzf_lua.setup_mapping = function()
   -- TODO: Add key mapping description
+  -- TODO: `vim.ui.input()` do not complete, study why
   local fzf_lua_prefix = [[<Space>f]]
   local fzf_lua_lsp_prefix = [[<Space>l]]
 
@@ -104,6 +115,35 @@ my_fzf_lua.setup_mapping = function()
   nnoremap(fzf_lua_prefix .. [[/]], [[<Cmd>FzfLua search_history<CR>]])
   nnoremap(fzf_lua_prefix .. [[<Tab>]], [[<Cmd>FzfLua keymaps<CR>]])
   nnoremap(fzf_lua_prefix .. [[<F1>]], [[<Cmd>FzfLua man_pages<CR>]])
+
+  -- Grep
+  nnoremap(fzf_lua_prefix .. "e", function()
+    fzf_lua.grep(my_fzf_lua.wrap_opts({ cwd = vim.fn.input("Grep in directory: ", ".", "dir"), rg_opts = vim.fn.input("Grep options: ")}))
+  end, { desc = "Grep in directory" })
+  nnoremap(fzf_lua_prefix .. "?", function()
+    fzf_lua.grep(my_fzf_lua.wrap_opts({ rg_opts = vim.fn["vimrc#rg#current_type_option"]() }))
+  end, { desc = "Grep with current filetype" })
+  xnoremap(fzf_lua_prefix .. "?", function()
+    fzf_lua.grep_visual(my_fzf_lua.wrap_opts({ rg_opts = vim.fn["vimrc#rg#current_type_option"]() }))
+  end, { desc = "Grep with current filetype with visual selection" })
+  nnoremap(fzf_lua_prefix .. "3", function()
+    fzf_lua.grep_curbuf(my_fzf_lua.wrap_opts({ rg_opts = vim.fn.input("Grep options: ") }))
+  end, { desc = "Grep current buffer" })
+  nnoremap(fzf_lua_prefix .. "4", function()
+    fzf_lua.grep(my_fzf_lua.wrap_opts({ rg_opts = vim.fn.input("Grep options: ") }))
+  end, { desc = "Grep with options" })
+  xnoremap(fzf_lua_prefix .. "4", function()
+    fzf_lua.grep_visual(my_fzf_lua.wrap_opts({ rg_opts = vim.fn.input("Grep options: ") }))
+  end, { desc = "Grep with options with visual selection" })
+  nnoremap(fzf_lua_prefix .. "5", function()
+    fzf_lua.grep(my_fzf_lua.wrap_opts({ cwd = vim.fn.expand("%:h") }))
+  end, { desc = "Grep in current buffer folder" })
+  nnoremap(fzf_lua_prefix .. "6", function()
+    fzf_lua.grep({ cwd = vim.fn.FugitiveWorkTree() })
+  end, { desc = "Grep in git worktree" })
+  nnoremap(fzf_lua_prefix .. "<C-R>", function()
+    fzf_lua.grep({ search = vim.fn.getreg(require("vimrc.utils").get_char_string()) })
+  end, { desc = "Grep register content" })
 
   -- Lsp
   nnoremap(fzf_lua_lsp_prefix .. "r", "<Cmd>FzfLua lsp_references<CR>")
