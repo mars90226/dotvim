@@ -53,6 +53,7 @@ my_fzf_lua.setup_config = function()
 end
 
 my_fzf_lua.setup_mapping = function()
+  -- TODO: Add key mapping description
   local fzf_lua_prefix = [[<Space>f]]
   local fzf_lua_lsp_prefix = [[<Space>l]]
 

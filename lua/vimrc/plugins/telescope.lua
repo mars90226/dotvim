@@ -190,6 +190,7 @@ telescope.setup_config = function()
 end
 
 telescope.setup_mapping = function()
+  -- TODO: Add key mapping description
   local telescope_prefix = [[<Space>t]]
   local telescope_lsp_prefix = [[<Space>tl]]
   local telescope_diagnostics_prefix = [[<Space>L]]

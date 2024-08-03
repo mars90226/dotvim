@@ -218,6 +218,7 @@ fzf.setup_command = function()
 end
 
 fzf.setup_mapping = function()
+  -- TODO: Add key mapping description
   local fzf_prefix = [[<Space>z]]
   local fzf_misc_prefix = [[<Space>s]]
   local fzf_git_prefix = [[<Space>g]]
