@@ -54,6 +54,9 @@ end
 
 my_fzf_lua.setup_mapping = function()
   local fzf_lua_prefix = [[<Space>z]]
+  local fzf_lua_lsp_prefix = [[<Space>l]]
+
+  -- General
   nnoremap(fzf_lua_prefix .. [[a]], [[<Cmd>FzfLua loclist<CR>]])
   nnoremap(fzf_lua_prefix .. [[A]], [[<Cmd>FzfLua args<CR>]])
   nnoremap(fzf_lua_prefix .. [[b]], [[<Cmd>FzfLua buffers<CR>]])
@@ -102,7 +105,6 @@ my_fzf_lua.setup_mapping = function()
   nnoremap(fzf_lua_prefix .. [[<F1>]], [[<Cmd>FzfLua man_pages<CR>]])
 
   -- Lsp
-  local fzf_lua_lsp_prefix = "<Space>l"
   nnoremap(fzf_lua_lsp_prefix .. "r", "<Cmd>FzfLua lsp_references<CR>")
   nnoremap(fzf_lua_lsp_prefix .. "d", "<Cmd>FzfLua lsp_definitions<CR>")
   nnoremap(fzf_lua_lsp_prefix .. "D", "<Cmd>FzfLua lsp_declarations<CR>")
