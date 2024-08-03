@@ -520,7 +520,10 @@ local languages = {
     },
     config = function()
       -- TODO: Custom based on https://github.com/OXY2DEV/markview.nvim/wiki
-      require("markview").setup({});
+      require("markview").setup({
+        buf_ignore = { "nofile" },
+        modes = { "n", "v" },
+      })
     end,
   },
 
