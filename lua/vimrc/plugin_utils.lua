@@ -53,6 +53,24 @@ plugin_utils.check_executable = function(plugin_spec, executable)
   return plugin_utils.check_condition(plugin_spec, plugin_utils.is_executable(executable))
 end
 
+plugin_utils.has_ssh_host_client = function()
+  return vim.fn["vimrc#plugin#check#has_ssh_host_client"]() == 1
+end
+
+plugin_utils.has_browser = function()
+  return vim.fn["vimrc#plugin#check#has_browser"]() == 1
+end
+
+plugin_utils.get_browser = function()
+  if plugin_utils.is_executable("open_url.sh") then
+    return "open_url.sh"
+  elseif plugin_utils.has_ssh_host_client() then
+    return "client_open_browser"
+  else
+    return "system"
+  end
+end
+
 plugin_utils.KERNEL_VERSIONS = {
   SYNOLOGY_DSM_7 = 40000
 }

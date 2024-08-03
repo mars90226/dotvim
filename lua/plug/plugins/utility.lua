@@ -379,7 +379,7 @@ local utility = {
       local has_secret_urlview, secret_urlview = pcall(require, "secret.urlview")
 
       require("urlview").setup({
-        default_action = vim.fn["vimrc#plugin#check#has_ssh_host_client"]() and "client_open_browser" or "system",
+        default_action = plugin_utils.get_browser(),
       })
       urlview.setup()
 
