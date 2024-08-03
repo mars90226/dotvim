@@ -20,7 +20,7 @@ mapping.setup = function()
       -- Quick tab actions
       nnoremap("<Space><Tab>l", [[<Cmd>tablast<CR>]], { desc = "Goto last tab" })
       nnoremap("<Space><Tab>o", [[<Cmd>tabonly<CR>]], { desc = "Close other tabs" })
-      nnoremap("<Space><Tab>f", [[<Cmd>tablast<CR>]], { desc = "Goto first tab" })
+      nnoremap("<Space><Tab>f", [[<Cmd>tabfirst<CR>]], { desc = "Goto first tab" })
       nnoremap("<Space><Tab><Tab>", [[<Cmd>tabnew<CR>]], { desc = "New tab" })
       nnoremap("<Space><Tab>]", [[<Cmd>tabnext<CR>]], { desc = "Goto next tab" })
       nnoremap("<Space><Tab>[", [[<Cmd>tabprevious<CR>]], { desc = "Goto previous tab" })
