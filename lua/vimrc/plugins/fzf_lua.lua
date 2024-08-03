@@ -9,6 +9,12 @@ my_fzf_lua.config = {
   rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
 }
 
+my_fzf_lua.commands = {
+  output = function(cmd)
+    fzf_lua.fzf_exec(cmd, { complete = true })
+  end,
+}
+
 my_fzf_lua.global_actions = {
   -- TODO: Escape unwanted filename
   ["alt-g"] = function(selected, opts)
@@ -60,6 +66,15 @@ my_fzf_lua.setup_config = function()
 
   -- TODO: Setup code action preview
   -- Ref: https://github.com/ibhagwan/fzf-lua/issues/944#issuecomment-1849104750
+end
+
+my_fzf_lua.setup_command = function()
+  local fzf_lua_command_prefix = "FzfLua"
+
+  vim.api.nvim_create_user_command(fzf_lua_command_prefix .. "Output", function(opts)
+    local cmd = table.concat(opts.fargs, " ")
+    my_fzf_lua.commands.output(cmd)
+  end, { nargs = "+" })
 end
 
 my_fzf_lua.setup_mapping = function()
@@ -120,7 +135,10 @@ my_fzf_lua.setup_mapping = function()
   -- Grep
   -- TODO: Add key mapping to grep all files including hidden files
   nnoremap(fzf_lua_prefix .. "e", function()
-    fzf_lua.grep(my_fzf_lua.wrap_opts({ cwd = vim.fn.input("Grep in directory: ", ".", "dir"), rg_opts = vim.fn.input("Grep options: ")}))
+    fzf_lua.grep(my_fzf_lua.wrap_opts({
+      cwd = vim.fn.input("Grep in directory: ", ".", "dir"),
+      rg_opts = vim.fn.input("Grep options: "),
+    }))
   end, { desc = "Grep in directory" })
   nnoremap(fzf_lua_prefix .. "?", function()
     fzf_lua.grep(my_fzf_lua.wrap_opts({ rg_opts = vim.fn["vimrc#rg#current_type_option"]() }))
@@ -171,10 +189,17 @@ my_fzf_lua.setup_mapping = function()
   inoremap([[<C-Z><C-F>]], [[<Cmd>lua require("fzf-lua").complete_file()<CR>]])
   inoremap([[<C-Z><C-L>]], [[<Cmd>lua require("fzf-lua").complete_bline()<CR>]])
   inoremap([[<C-Z><M-l>]], [[<Cmd>lua require("fzf-lua").complete_line()<CR>]])
+
+  -- Custom command
+  nnoremap(fzf_lua_prefix .. "<F2>", function()
+    local cmd = vim.fn.input("Command: ")
+    my_fzf_lua.commands.output(cmd)
+  end, { desc = "FzfLua output" })
 end
 
 my_fzf_lua.setup = function()
   my_fzf_lua.setup_config()
+  my_fzf_lua.setup_command()
   my_fzf_lua.setup_mapping()
 end
 
