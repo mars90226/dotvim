@@ -67,6 +67,7 @@ my_fzf_lua.setup_mapping = function()
   -- TODO: `vim.ui.input()` do not complete, study why
   local fzf_lua_prefix = [[<Space>f]]
   local fzf_lua_lsp_prefix = [[<Space>l]]
+  local fzf_lua_diagnostics_prefix = [[<Space>l]]
 
   -- General
   nnoremap(fzf_lua_prefix .. [[a]], [[<Cmd>FzfLua loclist<CR>]])
@@ -151,7 +152,7 @@ my_fzf_lua.setup_mapping = function()
   nnoremap(fzf_lua_lsp_prefix .. "D", "<Cmd>FzfLua lsp_declarations<CR>")
   nnoremap(fzf_lua_lsp_prefix .. "t", "<Cmd>FzfLua lsp_typedefs<CR>")
   nnoremap(fzf_lua_lsp_prefix .. "i", "<Cmd>FzfLua lsp_implementations<CR>")
-  nnoremap(fzf_lua_lsp_prefix .. "x", "<Cmd>FzfLua lsp_code_actions<CR>")
+  nnoremap(fzf_lua_lsp_prefix .. "a", "<Cmd>FzfLua lsp_code_actions<CR>")
   nnoremap(fzf_lua_lsp_prefix .. "o", "<Cmd>FzfLua lsp_document_symbols<CR>")
   nnoremap(fzf_lua_lsp_prefix .. "s", "<Cmd>FzfLua lsp_workspace_symbols<CR>")
   nnoremap(fzf_lua_lsp_prefix .. "S", "<Cmd>FzfLua lsp_live_workspace_symbols<CR>")
@@ -159,6 +160,10 @@ my_fzf_lua.setup_mapping = function()
   nnoremap(fzf_lua_lsp_prefix .. "C", "<Cmd>FzfLua lsp_workspace_diagnostics<CR>")
   nnoremap(fzf_lua_lsp_prefix .. ",", "<Cmd>FzfLua lsp_incoming_calls<CR>")
   nnoremap(fzf_lua_lsp_prefix .. ".", "<Cmd>FzfLua lsp_outgoing_calls<CR>")
+
+  -- Diagnostics
+  nnoremap(fzf_lua_diagnostics_prefix .. "x", "<Cmd>FzfLua diagnostics_document<CR>")
+  nnoremap(fzf_lua_diagnostics_prefix .. "X", "<Cmd>FzfLua diagnostics_workspace<CR>")
 
   -- Complete
   inoremap([[<C-Z><C-D>]], [[<Cmd>lua require("fzf-lua").complete_path()<CR>]])

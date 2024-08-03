@@ -193,7 +193,6 @@ telescope.setup_mapping = function()
   -- TODO: Add key mapping description
   local telescope_prefix = [[<Space>t]]
   local telescope_lsp_prefix = [[<Space>tl]]
-  local telescope_diagnostics_prefix = [[<Space>L]]
 
   -- Mappings
   nnoremap(telescope_prefix .. [[a]], [[<Cmd>Telescope loclist<CR>]])
@@ -272,10 +271,6 @@ telescope.setup_mapping = function()
   nnoremap(telescope_lsp_prefix .. "S", "<Cmd>Telescope lsp_dynamic_workspace_symbols<CR>")
   nnoremap(telescope_lsp_prefix .. ",", "<Cmd>Telescope lsp_incoming_calls<CR>")
   nnoremap(telescope_lsp_prefix .. ".", "<Cmd>Telescope lsp_outgoing_calls<CR>")
-
-  -- Diagnostic
-  nnoremap(telescope_diagnostics_prefix .. [[c]], [[<Cmd>Telescope diagnostics bufnr=0<CR>]])
-  nnoremap(telescope_diagnostics_prefix .. [[C]], [[<Cmd>Telescope diagnostics<CR>]])
 end
 
 telescope.setup = function()
