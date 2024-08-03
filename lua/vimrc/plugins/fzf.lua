@@ -218,7 +218,7 @@ fzf.setup_command = function()
 end
 
 fzf.setup_mapping = function()
-  local fzf_prefix = [[<Space>f]]
+  local fzf_prefix = [[<Space>z]]
   local fzf_misc_prefix = [[<Space>s]]
   local fzf_git_prefix = [[<Space>g]]
   local fzf_cscope_prefix = [[\c]]
