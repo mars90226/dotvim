@@ -373,7 +373,10 @@ local utility = {
   {
     "axieax/urlview.nvim",
     cmd = { "UrlView" },
-    keys = { "<Leader>uu", "<Leader>ul" },
+    keys = {
+      { "<Leader>uu", [[<Cmd>UrlView buffer picker=telescope<CR>]], desc = "view buffer URLs" },
+      { "<Leader>ul", [[<Cmd>UrlView lazy picker=telescope<CR>]], desc = "view plugin URLs" },
+    },
     dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
       local urlview = require("vimrc.plugins.urlview")
@@ -387,10 +390,6 @@ local utility = {
       if has_secret_urlview then
         secret_urlview.setup()
       end
-
-      nnoremap("<Leader>uu", [[<Cmd>UrlView buffer picker=telescope<CR>]], { desc = "view buffer URLs" })
-      -- FIXME: Not working
-      nnoremap("<Leader>ul", [[<Cmd>UrlView lazy picker=telescope<CR>]], { desc = "view plugin URLs" })
     end,
   },
 
