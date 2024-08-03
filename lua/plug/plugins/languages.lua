@@ -548,7 +548,11 @@ local languages = {
     ft = { "markdown" },
     cmd = { "Glow" },
     config = function()
-      require("glow").setup()
+      require("glow").setup({
+        border = "rounded",
+        width_ratio = vim.g.float_width_ratio,
+        height_ratio = vim.g.float_height_ratio,
+      })
     end,
   },
 
