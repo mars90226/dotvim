@@ -378,17 +378,14 @@ local languages = {
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     cmd = { "ISwap", "ISwapWith", "ISwapNode", "ISwapNodeWith", "ISwapNodeWithLeft", "ISwapNodeWithRight" },
-    keys = { "<Space>ii", "<Space>iw", "<Space>in", "<Space>im", "<Space>i,", "<Space>i." },
-    config = function()
-      require("iswap").setup()
-
-      nnoremap("<Space>ii", [[<Cmd>ISwap<CR>]])
-      nnoremap("<Space>iw", [[<Cmd>ISwapWith<CR>]])
-      nnoremap("<Space>in", [[<Cmd>ISwapNode<CR>]])
-      nnoremap("<Space>im", [[<Cmd>ISwapNodeWith<CR>]])
-      nnoremap("<Space>i,", [[<Cmd>ISwapNodeWithLeft<CR>]])
-      nnoremap("<Space>i.", [[<Cmd>ISwapNodeWithRight<CR>]])
-    end,
+    keys = {
+      { "<Space>ii", [[<Cmd>ISwap<CR>]], desc = "ISwap" },
+      { "<Space>iw", [[<Cmd>ISwapWith<CR>]], desc = "ISwap with" },
+      { "<Space>in", [[<Cmd>ISwapNode<CR>]], desc = "ISwap node" },
+      { "<Space>im", [[<Cmd>ISwapNodeWith<CR>]], desc = "ISwap node with" },
+      { "<Space>i,", [[<Cmd>ISwapNodeWithLeft<CR>]], desc = "ISwap node with left" },
+      { "<Space>i.", [[<Cmd>ISwapNodeWithRight<CR>]], desc = "ISwap node with right" },
+    },
   },
   {
     "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
@@ -424,12 +421,9 @@ local languages = {
   {
     "HampusHauffman/block.nvim",
     cmd = { "Block", "BlockOn", "BlockOff" },
-    keys = { "<Leader>bo" },
-    config = function()
-      require("block").setup({})
-
-      nnoremap("<Leader>bo", "<Cmd>Block<CR>")
-    end,
+    keys = {
+      { "<Leader>bo", "<Cmd>Block<CR>", desc = "Toggle block" },
+    },
   },
 
   -- treesitter parser
@@ -465,7 +459,9 @@ local languages = {
   -- TODO: Replace with emmet lsp
   {
     "mattn/emmet-vim",
-    keys = { { "<M-m>", mode = { "i" } } },
+    keys = {
+      { "<M-m>", mode = { "i" }, desc = "Emmet prefix" },
+    },
     init = function()
       vim.g.user_emmet_leader_key = "<M-m>"
     end,
@@ -483,11 +479,10 @@ local languages = {
   },
   {
     "mars90226/cscope_macros.vim",
-    keys = { "<F11>", "<Space><F11>" },
-    config = function()
-      nnoremap("<F11>", [[<Cmd>lua require("vimrc.cscope").generate_files()<CR>]])
-      nnoremap("<Space><F11>", [[<Cmd>lua require("vimrc.cscope").reload()<CR>]])
-    end,
+    keys = {
+      { "<F11>", [[<Cmd>lua require("vimrc.cscope").generate_files()<CR>]], desc = "Generate cscope files" },
+      { "<Space><F11>", [[<Cmd>lua require("vimrc.cscope").reload()<CR>]], desc = "Reload cscope files" },
+    },
   },
 
   -- Markdown render
@@ -501,9 +496,6 @@ local languages = {
     keys = {
       { "coh", "<Cmd>RenderMarkdownToggle<CR>", mode = { "n" }, desc = "Render markdown" },
     },
-    config = function()
-      require("render-markdown").setup({})
-    end,
   },
   {
     "OXY2DEV/markview.nvim",
@@ -593,22 +585,16 @@ local languages = {
     dependencies = "nvim-treesitter/nvim-treesitter",
     cmd = { "Neogen" },
     keys = {
-      "<Leader>ng",
-      "<Leader>nf",
-      "<Leader>ni",
-      "<Leader>nt",
-      "<Leader>nt",
+      { "<Leader>ng", [[<Cmd>Neogen<CR>]], desc = "Generate documentation" },
+      { "<Leader>nf", [[<Cmd>Neogen func<CR>]], desc = "Generate function documentation" },
+      { "<Leader>ni", [[<Cmd>Neogen file<CR>]], desc = "Generate file documentation" },
+      { "<Leader>nt", [[<Cmd>Neogen type<CR>]], desc = "Generate type documentation" },
+      { "<Leader>nc", [[<Cmd>Neogen class<CR>]], desc = "Generate class documentation" },
     },
     config = function()
       require("neogen").setup({
         snippet_engine = "luasnip",
       })
-
-      nnoremap("<Leader>ng", [[<Cmd>Neogen<CR>]], { desc = "Generate documentation" })
-      nnoremap("<Leader>nf", [[<Cmd>Neogen func<CR>]], { desc = "Generate function documentation" })
-      nnoremap("<Leader>ni", [[<Cmd>Neogen file<CR>]], { desc = "Generate file documentation" })
-      nnoremap("<Leader>nt", [[<Cmd>Neogen type<CR>]], { desc = "Generate type documentation" })
-      nnoremap("<Leader>nc", [[<Cmd>Neogen class<CR>]], { desc = "Generate class documentation" })
     end,
   },
 
@@ -636,10 +622,10 @@ local languages = {
       "DevdocsUpdateAll",
     },
     keys = {
-      "<Space>dc",
-      "<Space>dC",
-      "<Space>do",
-      "<Space>dO",
+      { "<Space>dc", [[<Cmd>DevdocsOpenCurrentFloat<CR>]], desc = "Open DevDocs of current file in floating window" },
+      { "<Space>dC", [[<Cmd>DevdocsOpenCurrent<CR>]], desc = "Open DevDocs of current file" },
+      { "<Space>do", [[<Cmd>DevdocsOpenFloat<CR>]], desc = "Open DevDocs in floating window" },
+      { "<Space>dO", [[<Cmd>DevdocsOpen<CR>]], desc = "Open DevDocs" },
     },
     config = function()
       require("nvim-devdocs").setup({
@@ -654,15 +640,6 @@ local languages = {
           nnoremap("gq", [[<Cmd>close<CR>]], { silent = true, buffer = true })
         end,
       })
-
-      nnoremap(
-        "<Space>dc",
-        [[<Cmd>DevdocsOpenCurrentFloat<CR>]],
-        { desc = "Open DevDocs of current file in floating window" }
-      )
-      nnoremap("<Space>dC", [[<Cmd>DevdocsOpenCurrent<CR>]], { desc = "Open DevDocs of current file" })
-      nnoremap("<Space>do", [[<Cmd>DevdocsOpenFloat<CR>]], { desc = "Open DevDocs in floating window" })
-      nnoremap("<Space>dO", [[<Cmd>DevdocsOpen<CR>]], { desc = "Open DevDocs" })
     end,
   },
   {
