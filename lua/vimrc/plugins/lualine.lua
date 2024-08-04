@@ -132,7 +132,6 @@ lualine.default_option = {
     "oil",
     "overseer",
     "quickfix",
-    "symbols-outline",
     "trouble",
   },
 }

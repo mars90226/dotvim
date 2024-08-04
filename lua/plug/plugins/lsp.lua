@@ -191,15 +191,13 @@ local lsp = {
   },
 
   -- Goto Definitions
-  -- NOTE: Has symbol preview
-  -- FIXME: symbols-outline.nvim is archived, replace it with aerial.nvim
   {
-    "simrat39/symbols-outline.nvim",
-    cmd = { "SymbolsOutline", "SymbolsOutlineOpen" },
-    keys = { "<F7>" },
-    config = function()
-      require("vimrc.plugins.symbols_outline").setup()
-    end,
+    "hedyhli/outline.nvim",
+    cmd = { "Outline", "OutlineOpen" },
+    keys = {
+      { "<F7>", "<Cmd>Outline<CR>", desc = "Toggle outline" },
+    },
+    opts = {},
   },
 
   -- Specific LSP Support

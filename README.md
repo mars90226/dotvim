@@ -11,7 +11,7 @@ Packer specific config is removed, but you can use `packer` branch to access the
 ### Neovim
 * [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) (fast custom status line)
 * [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) (auto completion)
-* [symbols-outline.nvim](https://github.com/simrat39/symbols-outline.nvim) (Display symbols in sidebar using LSP)
+* [outline.nvim](https://github.com/hedyhli/outline.nvim) (Display symbols in sidebar using LSP)
 * [fzf](https://github.com/junegunn/fzf) (fuzzy finder for almost everything)
 * [fzf.vim](https://github.com/junegunn/fzf.vim) (used with fzf)
 * [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) (fuzzy finder written in Lua and support LSP)
@@ -111,8 +111,8 @@ Open neovim and wait for `lazy.nvim` to finish the job.
     * `<Space>la`: Search and execute LSP code actions
     * `<Space>lx`: Search and goto document diagnostics
     * `<Space>lX`: Search and goto workspace diagnostics
-* symbols-outline.nvim key mappings
-    * `<F7>`: Toggle symbols-outline.nvim that showing LSP symbols outline in sidebar
+* outline.nvim key mappings
+    * `<F7>`: Toggle outline.nvim that showing LSP symbols outline in sidebar
 * LSP key mappings
     * `gd`: Open LSP definition/references UI
     * `gy`: Show signature help
