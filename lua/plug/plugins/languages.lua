@@ -424,6 +424,7 @@ local languages = {
     keys = {
       { "<Leader>bo", "<Cmd>Block<CR>", desc = "Toggle block" },
     },
+    opts = {},
   },
 
   -- treesitter parser
@@ -496,6 +497,7 @@ local languages = {
     keys = {
       { "coh", "<Cmd>RenderMarkdownToggle<CR>", mode = { "n" }, desc = "Render markdown" },
     },
+    opts = {},
   },
   {
     "OXY2DEV/markview.nvim",
