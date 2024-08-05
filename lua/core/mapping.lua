@@ -34,6 +34,9 @@ mapping.setup = function()
       xnoremap("<M-[>", [[<C-U>]], { desc = "Scroll half page up" })
       nnoremap("<M-]>", [[<C-D>]], { desc = "Scroll half page down" })
       xnoremap("<M-]>", [[<C-D>]], { desc = "Scroll half page down" })
+      
+      -- Quick editor actions
+      nnoremap("<Leader>ee", [[<Cmd>edit<CR>]], { desc = "Edit" })
 
       -- diagraph
       inoremap("<M-K>", [[<C-K>]], { desc = "Insert diagraph" })
