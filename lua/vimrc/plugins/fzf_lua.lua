@@ -60,6 +60,9 @@ my_fzf_lua.setup_config = function()
       actions = my_fzf_lua.global_actions,
     },
   }
+  opts.grep = {
+    no_esc = true,
+  }
   -- TODO: Add lsp
 
   fzf_lua.setup(opts)
