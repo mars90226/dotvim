@@ -4,14 +4,27 @@ local actions = require("fzf-lua.actions")
 local my_fzf_lua = {}
 
 my_fzf_lua.config = {
-  -- NOTE: This is the default option in fzf-lua
-  -- TODO: Customize this
-  rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+  fzf_lua_opts = {
+    -- NOTE: This is the default option in fzf-lua
+    -- TODO: Customize this
+    rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+  },
+  project_word = {
+    loaded = false,
+  },
+}
+
+my_fzf_lua.sources = {
+  project_word = {},
 }
 
 my_fzf_lua.commands = {
   output = function(cmd)
     fzf_lua.fzf_exec(cmd, { complete = true })
+  end,
+  project_word = function()
+    my_fzf_lua.load_project_words()
+    fzf_lua.fzf_exec(my_fzf_lua.sources.project_word, { complete = true })
   end,
 }
 
@@ -25,8 +38,22 @@ my_fzf_lua.global_actions = {
   end,
 }
 
+-- Refactor this
+my_fzf_lua.load_project_words = function()
+  if my_fzf_lua.config.project_word.loaded then
+    return
+  end
+
+  my_fzf_lua.add_project_words(vim.g.project_words)
+  my_fzf_lua.config.project_word.loaded = true
+end
+
+my_fzf_lua.add_project_words = function(words)
+  vim.list_extend(my_fzf_lua.sources.project_word, words)
+end
+
 my_fzf_lua.wrap_opts = function(opts)
-  return vim.tbl_deep_extend("force", my_fzf_lua.config, opts)
+  return vim.tbl_deep_extend("force", my_fzf_lua.config.fzf_lua_opts, opts)
 end
 
 my_fzf_lua.setup_config = function()
@@ -198,6 +225,11 @@ my_fzf_lua.setup_mapping = function()
     local cmd = vim.fn.input("Command: ")
     my_fzf_lua.commands.output(cmd)
   end, { desc = "FzfLua output" })
+
+  -- Custom complete
+  inoremap([[<C-Z><C-G>]], function()
+    my_fzf_lua.commands.project_word()
+  end, { desc = "FzfLua project word" })
 end
 
 my_fzf_lua.setup = function()
