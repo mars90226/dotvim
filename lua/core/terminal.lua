@@ -44,6 +44,9 @@ terminal.setup = function()
         tnoremap(key, [[<C-\><C-N>:Windows<CR>]])
       end
 
+      -- Quickly leave terminal mode
+      tnoremap("<M-C-Q>", [[<C-\><C-N>]])
+
       -- Quickly switch window in terminal
       tnoremap("<M-S-h>", [[<C-\><C-N><C-W>h]])
       tnoremap("<M-S-j>", [[<C-\><C-N><C-W>j]])
