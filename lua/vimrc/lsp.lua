@@ -72,6 +72,7 @@ lsp.servers = {
   gopls = {
     condition = plugin_utils.has_linux_build_env(),
   },
+  harper_ls = {},
   html = {
     capabilities = {
       textDocument = {
@@ -551,6 +552,8 @@ lsp.setup_lsp_install = function()
   -- TODO: Check if this can be precompiled to improve startup time
   local mason_package_servers = {}
 
+  -- TODO: Use mason-lspconfig api
+  -- FIXME: This may have a bug that causing 'harper_ls' not installed
   for _, lspconfig_server in ipairs(lspconfig_servers) do
     table.insert(mason_package_servers, mason_lspconfig_mappings_server.lspconfig_to_package[lspconfig_server])
   end
