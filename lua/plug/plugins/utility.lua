@@ -24,6 +24,8 @@ local utility = {
     end,
   },
 
+  -- FIXME: Seems to conflict with which-key.nvim v3?
+  -- It seems that if plugin is lazy loaded and not lua plugin, then whick-key.nvim may override the key mappings.
   {
     "tpope/vim-unimpaired",
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
