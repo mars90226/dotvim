@@ -619,11 +619,7 @@ end
 
 lsp.toggle_show_diagnostics = function()
   lsp.config.show_diagnostics = not lsp.config.show_diagnostics
-  if lsp.config.show_diagnostics then
-    vim.diagnostic.show()
-  else
-    vim.diagnostic.hide()
-  end
+  vim.diagnostic.enable(lsp.config.show_diagnostics)
 end
 
 return lsp
