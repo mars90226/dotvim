@@ -25,6 +25,8 @@ mapping.setup = function()
       nnoremap("<Space><Tab>]", [[<Cmd>tabnext<CR>]], { desc = "Goto next tab" })
       nnoremap("<Space><Tab>[", [[<Cmd>tabprevious<CR>]], { desc = "Goto previous tab" })
       nnoremap("<Space><Tab>d", [[<Cmd>tabclose<CR>]], { desc = "Close tab" })
+      nnoremap("<Space><Tab>)", [[<Cmd>tabmove +1<CR>]], { desc = "Move tab to next" })
+      nnoremap("<Space><Tab>(", [[<Cmd>tabmove -1<CR>]], { desc = "Move tab to previous" })
 
       -- Quickly leave insert mode
       inoremap("kj", [[<Esc>]], { desc = "Leave insert mode" })
