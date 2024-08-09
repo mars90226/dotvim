@@ -1,5 +1,6 @@
 local fzf_lua = require("fzf-lua")
 local actions = require("fzf-lua.actions")
+local utils = require("fzf-lua.utils")
 
 local my_fzf_lua = {}
 
@@ -178,6 +179,9 @@ my_fzf_lua.setup_mapping = function()
   end, { desc = "Grep with current filetype with visual selection" })
   nnoremap(fzf_lua_prefix .. "3", function()
     fzf_lua.grep_curbuf(my_fzf_lua.wrap_opts({ rg_opts = vim.fn.input("Grep options: ") }))
+  end, { desc = "Grep current buffer" })
+  xnoremap(fzf_lua_prefix .. "3", function()
+    fzf_lua.grep_curbuf(my_fzf_lua.wrap_opts({ rg_opts = vim.fn.input("Grep options: "), search = utils.get_visual_selection()}))
   end, { desc = "Grep current buffer" })
   nnoremap(fzf_lua_prefix .. "4", function()
     fzf_lua.grep(my_fzf_lua.wrap_opts({ rg_opts = vim.fn.input("Grep options: ") }))
