@@ -440,6 +440,7 @@ local file_navigation = {
       })
     end,
   },
+  -- TODO: Update key mapping to use new flags
   {
     'MagicDuck/grug-far.nvim',
     keys = {
