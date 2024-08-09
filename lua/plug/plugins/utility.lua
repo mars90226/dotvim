@@ -1,5 +1,6 @@
 local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
+local utils = require("vimrc.utils")
 
 local utility = {
   -- Undo Tree
@@ -49,8 +50,6 @@ local utility = {
       }
     end,
     config = function()
-      local utils = require("vimrc.utils")
-
       nnoremap("coc", ":set termguicolors!<CR>")
       nnoremap("coe", ":set expandtab!<CR>")
       nnoremap("com", ":set modifiable!<CR>")
@@ -199,9 +198,6 @@ local utility = {
   {
     "embear/vim-localvimrc",
     init = function()
-      -- NOTE: Avoid lazy load error with upvalues (captured values)
-      local utils = require("vimrc.utils")
-
       -- Be careful of malicious localvimrc
       vim.g.localvimrc_sandbox = 0
 

@@ -1,4 +1,5 @@
 local choose = require("vimrc.choose")
+local plugin_utils = require("vimrc.plugin_utils")
 
 local languages = {
   -- filetype
@@ -527,8 +528,6 @@ local languages = {
     ft = { "markdown" },
     build = "cd app & npm install",
     init = function()
-      local plugin_utils = require("vimrc.plugin_utils")
-
       vim.g.mkdp_filetypes = { "markdown" }
       vim.g.mkdp_open_to_the_world = 1
 

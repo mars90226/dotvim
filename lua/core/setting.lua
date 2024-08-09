@@ -1,3 +1,4 @@
+local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
 
 local settings = {}
@@ -10,8 +11,6 @@ settings.setup = function()
   use_config({
     "mars90226/setting",
     config = function()
-      local plugin_utils = require("vimrc.plugin_utils")
-
       -- Vim basic setting {{{
       -- source custom mswin.vim
       if not plugin_utils.os_is("synology") then

@@ -1,3 +1,4 @@
+local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
 
 local has_secret_mapping, secret_mapping = pcall(require, "secret.mapping")
@@ -12,9 +13,6 @@ mapping.setup = function()
   use_config({
     "mars90226/mapping",
     config = function()
-      local choose = require("vimrc.choose")
-      local plugin_utils = require("vimrc.plugin_utils")
-
       vim.api.nvim_create_user_command("HelptagsAll", [[lua require('vimrc.utils').helptags_all()]], {})
 
       -- Quick tab actions
