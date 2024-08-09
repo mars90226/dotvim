@@ -163,6 +163,14 @@ my_fzf_lua.setup_mapping = function()
   nnoremap(fzf_lua_prefix .. [[<Tab>]], [[<Cmd>FzfLua keymaps<CR>]])
   nnoremap(fzf_lua_prefix .. [[<F1>]], [[<Cmd>FzfLua man_pages<CR>]])
 
+  -- Files
+  nnoremap(fzf_lua_prefix .. "n", function()
+    fzf_lua.files({ query = vim.fn.expand("<cword>") })
+  end, { desc = "Files with cursor word" })
+  nnoremap(fzf_lua_prefix .. "N", function()
+    fzf_lua.files({ query = vim.fn.expand("<cWORD>") })
+  end, { desc = "Files with cursor WORD" })
+
   -- Grep
   -- TODO: Add key mapping to grep all files including hidden files
   nnoremap(fzf_lua_prefix .. "e", function()
@@ -181,7 +189,9 @@ my_fzf_lua.setup_mapping = function()
     fzf_lua.grep_curbuf(my_fzf_lua.wrap_opts({ rg_opts = vim.fn.input("Grep options: ") }))
   end, { desc = "Grep current buffer" })
   xnoremap(fzf_lua_prefix .. "3", function()
-    fzf_lua.grep_curbuf(my_fzf_lua.wrap_opts({ rg_opts = vim.fn.input("Grep options: "), search = utils.get_visual_selection()}))
+    fzf_lua.grep_curbuf(
+      my_fzf_lua.wrap_opts({ rg_opts = vim.fn.input("Grep options: "), search = utils.get_visual_selection() })
+    )
   end, { desc = "Grep current buffer" })
   nnoremap(fzf_lua_prefix .. "4", function()
     fzf_lua.grep(my_fzf_lua.wrap_opts({ rg_opts = vim.fn.input("Grep options: ") }))
