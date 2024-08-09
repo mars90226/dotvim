@@ -15,18 +15,9 @@ overseer.setup = function()
     },
   })
 
-  -- NOTE: Workaround entering insert mode due to terminal buffer autocmd in OverseerList
-  -- FIXME: Check if this works
-  local augroup_id = vim.api.nvim_create_augroup("overseer_settings", {})
-  vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
-    group = augroup_id,
-    pattern = "*",
-    callback = function()
-      if vim.bo.filetype == "OverseerList" and vim.api.nvim_get_mode().mode == "i" then
-        vim.cmd([[stopinsert]])
-      end
-    end,
-  })
+  require("vimrc.terminal").add_startinsert_ignore_condition(function()
+    return vim.b.overseer_task == 1
+  end)
 end
 
 return overseer

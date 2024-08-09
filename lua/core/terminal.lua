@@ -204,6 +204,10 @@ terminal.setup = function()
         pattern = "term://*",
         callback = function()
           if vim.bo.buftype == "terminal" then
+            if require("vimrc.terminal").is_startinsert_ignored() then
+              return
+            end
+
             vim.cmd([[startinsert]])
           end
         end,
