@@ -195,6 +195,7 @@ local utility = {
     end,
   },
 
+  -- TODO: Replace vim-localvimrc with 'exrc' option
   {
     "embear/vim-localvimrc",
     init = function()
