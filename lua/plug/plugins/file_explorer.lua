@@ -1,6 +1,7 @@
 local choose = require("vimrc.choose")
 
 local file_explorer = {
+  -- TODO: Eventually remove defx.nvim
   -- NOTE: Lazy load doesn't improve much and break the :UpdateRemotePlugins
   -- TODO: Try again after switch to lazy.nvim
   -- FIXME: Seems to conflict with which-key.nvim v3?
@@ -8,20 +9,55 @@ local file_explorer = {
   {
     "Shougo/defx.nvim",
     cond = choose.is_enabled_plugin("defx.nvim"),
+    dependencies = {
+      "kristijanhusak/defx-git",
+      "kristijanhusak/defx-icons",
+    },
+    cmd = {
+      "Defx",
+      "DefxBottomSplitOpenDirSink",
+      "DefxBottomSplitOpenSink",
+      "DefxFloatOpenDirSink",
+      "DefxFloatOpenSink",
+      "DefxOpenDirSink",
+      "DefxOpenSink",
+      "DefxRightVSplitOpenDirSink",
+      "DefxRightVSplitOpenSink",
+      "DefxSearch",
+      "DefxSplitOpenDirSink",
+      "DefxSplitOpenSink",
+      "DefxSwitch",
+      "DefxTabOpenDirSink",
+      "DefxTabOpenSink",
+      "DefxTabSwitch",
+      "DefxVSplitOpenDirSink",
+      "DefxVSplitOpenSink",
+    },
+    keys = {
+      -- TODO: Clean up these key mappings
+
+      -- Sidebar
+      { [[<F4>]], function()
+        vim.cmd([[Defx ]] .. vim.fn["vimrc#defx#get_options"]('sidebar'))
+      end, desc = "Defx - open sidebar" },
+      { [[<Space><F4>]], function()
+        vim.cmd([[Defx ]] .. vim.fn["vimrc#defx#get_options"]('sidebar') .. " " .. vim.fn.expand("%:p:h") .. " -search=" .. vim.fn.expand("%:p"))
+      end, desc = "Defx - open sidebar and search current file" },
+      -- Currently, it's impossible to type <S-F1> ~ <S-F12> using MobaXterm + tmux.
+      -- MobaXterm with 'Byobu terminal type' + tmux with 'screen-256color' will
+      -- generate keycode for <S-F1> ~ <S-F4> that recognized by neovim as <F13> ~ <F16>.
+      { [[<F16>]], function()
+        vim.cmd([[Defx ]] .. vim.fn["vimrc#defx#get_options"]('sidebar') .. " " .. vim.fn.expand("%:p:h") .. " -search=" .. vim.fn.expand("%:p") .. " -no-focus")
+      end, desc = "Defx - open sidebar and search current file without focus" },
+      -- wezterm can generate correct keycode for <S-F1> ~ <S-F12>
+      { [[<S-F4>]], function()
+        vim.cmd([[Defx ]] .. vim.fn["vimrc#defx#get_options"]('sidebar') .. " " .. vim.fn.expand("%:p:h") .. " -search=" .. vim.fn.expand("%:p") .. " -no-focus")
+      end, desc = "Defx - open sidebar and search current file without focus" },
+    },
     build = ":UpdateRemotePlugins",
     config = function()
+      require("vimrc.plugins.defx").load_defx()
       vim.fn["vimrc#source"]("vimrc/plugins/defx.vim")
-    end,
-  },
-  {
-    "kristijanhusak/defx-git",
-    cond = choose.is_enabled_plugin("defx.nvim"),
-  },
-  {
-    "kristijanhusak/defx-icons",
-    cond = choose.is_enabled_plugin("defx.nvim"),
-    event = { "VeryLazy" },
-    config = function()
       vim.fn["vimrc#defx#setup"](true)
     end,
   },

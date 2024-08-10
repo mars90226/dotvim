@@ -18,8 +18,106 @@ oil.config = {
   },
 }
 
+oil.fzf_action = nil
+
+oil.build_fzf_action = function()
+  local oil_fzf_action = vim.tbl_extend("force", {
+    enter = function(selected)
+      oil.open(selected, "edit")
+    end,
+    ["ctrl-t"] = function(selected)
+      oil.open(selected, "tab split")
+    end,
+    ["ctrl-s"] = function(selected)
+      oil.open(selected, "split")
+    end,
+    ["ctrl-x"] = function(selected)
+      oil.open(selected, "split")
+    end,
+    ["alt-g"] = function(selected)
+      oil.open(selected, "rightbelow split")
+    end,
+    ["ctrl-v"] = function(selected)
+      oil.open(selected, "vsplit")
+    end,
+    ["alt-v"] = function(selected)
+      oil.open(selected, "rightbelow vsplit")
+    end,
+    ["alt-x"] = function(selected)
+      oil.open_dir(selected, "edit")
+    end,
+    ["ctrl-alt-x"] = function(selected)
+      oil.open_dir(selected, "split")
+    end,
+    ["alt-z"] = function(selected)
+      oil.open_dir(selected, "VimrcFloatNew edit")
+    end,
+    ["alt-o"] = function(selected)
+      require("vimrc.open").switch(selected, function(path)
+        oil.open(path, "edit")
+      end)
+    end,
+    ["alt-l"] = function(selected)
+      require("vimrc.open").switch(selected, function(path)
+        oil.open(path, "tab")
+      end)
+    end,
+  }, vim.g.misc_fzf_action)
+
+  oil.fzf_action = require("vimrc.plugins.fzf").wrap_actions_for_trigger(oil_fzf_action)
+end
+
 oil.choose_columns = function()
   return oil.config.is_simple_columns and oil.config.simple_columns or oil.config.columns
+end
+
+oil.open = function(target, action)
+  local path = type(target) == "table" and target[1] or target
+  if vim.fn.isdirectory(path) == 1 then
+    if vim.bo.filetype == "oil" and action == "edit" then
+      origin_oil.open(vim.fn.fnamemodify(path, ":p"))
+    else
+      if action ~= "edit" then
+        vim.cmd(action)
+      end
+      origin_oil.open(path)
+    end
+  else
+    vim.cmd(action .. " " .. path)
+  end
+end
+
+oil.open_dir = function(target, action)
+  local path = type(target) == "table" and target[1] or target
+  path = vim.fn.fnamemodify(path, ":p:h")
+  if vim.bo.filetype == "oil" and action == "edit" then
+    origin_oil.open(path)
+  else
+    if action ~= "edit" then
+      vim.cmd(action)
+    end
+    origin_oil.open(path)
+  end
+end
+
+oil.use_oil_fzf_action = function(callback)
+  if not oil.fzf_action then
+    oil.build_fzf_action()
+  end
+  vim.g.fzf_action = oil.fzf_action
+
+  local augroup_id = vim.api.nvim_create_augroup("use_oil_fzf_action_callback", {})
+  vim.api.nvim_create_autocmd({ "TermClose" }, {
+    group = augroup_id,
+    pattern = "term://*fzf*",
+    once = true,
+    callback = function()
+      vim.g.fzf_action = vim.g.default_fzf_action
+      vim.api.nvim_del_augroup_by_id(augroup_id)
+    end,
+  })
+
+  callback()
 end
 
 oil.setup_config = function()
@@ -172,6 +270,7 @@ oil.setup_config = function()
       ["\\d"] = {
         callback = function()
           local dir = origin_oil.get_current_dir()
+          require("vimrc.plugins.defx").load_defx()
           vim.cmd.Defx(dir)
         end,
         desc = "Open current folder in Defx.nvim",
@@ -179,6 +278,7 @@ oil.setup_config = function()
       ["\\D"] = {
         callback = function()
           local dir = origin_oil.get_current_dir()
+          require("vimrc.plugins.defx").load_defx()
           vim.cmd.Defx(dir .. " -split=vertical")
         end,
         desc = "Open current folder in Defx.nvim",

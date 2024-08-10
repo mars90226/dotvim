@@ -2,6 +2,24 @@ local choose = require("vimrc.choose")
 
 local fzf = {}
 
+fzf.wrap_action_for_trigger = function(action)
+  if type(action) == "string" then
+    return 'doautocmd User VimrcFzfSink | ' .. action
+  else
+    return function(line)
+      action(line)
+    end
+  end
+end
+
+fzf.wrap_actions_for_trigger = function(actions)
+  local wrapped_actions = {}
+  for key, action in pairs(actions) do
+    wrapped_actions[key] = fzf.wrap_action_for_trigger(action)
+  end
+  return wrapped_actions
+end
+
 fzf.setup_config = function()
   if not vim.g.original_fzf_default_opts then
     vim.g.original_fzf_default_opts = vim.env.FZF_DEFAULT_OPTS
@@ -198,6 +216,53 @@ fzf.setup_command = function()
   vim.cmd([[command! -bang -nargs=? WorkTreeFiles call vimrc#fzf#work_tree_files(<bang>0)]])
 
   if choose.is_enabled_plugin('defx.nvim') then
+    vim.api.nvim_create_user_command("Files", function(opts)
+      require("vimrc.plugins.oil").use_oil_fzf_action(function()
+        vim.fn["vimrc#fzf#files"](opts.args, opts.bang)
+      end)
+    end, { bang = true, nargs = "?", complete = "dir" })
+    vim.api.nvim_create_user_command("GFiles", function(opts)
+      require("vimrc.plugins.oil").use_oil_fzf_action(function()
+        vim.fn["vimrc#fzf#gitfiles"](opts.args, opts.bang)
+      end)
+    end, { bang = true, nargs = "?" })
+    vim.api.nvim_create_user_command("Locate", function(opts)
+      require("vimrc.plugins.oil").use_oil_fzf_action(function()
+        vim.fn["vimrc#fzf#locate"](opts.args, opts.bang)
+      end)
+    end, { bang = true, nargs = "+", complete = "dir" })
+
+    -- Mru
+    vim.api.nvim_create_user_command("Mru", function(opts)
+      require("vimrc.plugins.oil").use_oil_fzf_action(function()
+        vim.fn["vimrc#fzf#mru#mru"]()
+      end)
+    end, {})
+    vim.api.nvim_create_user_command("ProjectMru", function(opts)
+      require("vimrc.plugins.oil").use_oil_fzf_action(function()
+        vim.fn["vimrc#fzf#mru#project_mru"]()
+      end)
+    end, {})
+
+    -- DirectoryMru
+    vim.api.nvim_create_user_command("DirectoryMru", function(opts)
+      require("vimrc.plugins.oil").use_oil_fzf_action(function()
+        vim.fn["vimrc#fzf#mru#directory_mru"](opts.bang)
+      end)
+    end, { bang = true })
+    vim.api.nvim_create_user_command("Directories", function(opts)
+      require("vimrc.plugins.oil").use_oil_fzf_action(function()
+        vim.fn["vimrc#fzf#dir#directories"](opts.args, opts.bang)
+      end)
+    end, { bang = true, nargs = "?" })
+
+    -- WorkTreeFiles
+    vim.api.nvim_create_user_command("WorkTreeFiles", function(opts)
+      require("vimrc.plugins.oil").use_oil_fzf_action(function()
+        vim.fn["vimrc#fzf#work_tree_files"](opts.bang)
+      end)
+    end, { bang = true, nargs = "?" })
+  elseif choose.is_enabled_plugin('defx.nvim') then
     vim.cmd([[command! -bang -nargs=? -complete=dir Files        call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#files(<q-args>, <bang>0) })]])
     vim.cmd([[command! -bang -nargs=?               GFiles       call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#gitfiles(<q-args>, <bang>0) })]])
     vim.cmd([[command! -bang -nargs=+ -complete=dir Locate       call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#locate(<q-args>, <bang>0) })]])
@@ -211,7 +276,7 @@ fzf.setup_command = function()
     vim.cmd([[command! -bang -nargs=?               Directories  call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#dir#directories(<q-args>, <bang>0) })]])
 
     -- WorkTreeFiles
-    vim.cmd([[command! -bang -nargs=?               WorkTreeFiles call vimrc#fzf#work_tree_files(<bang>0)]])
+    vim.cmd([[command! -bang -nargs=?               WorkTreeFiles call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#work_tree_files(<bang>0) })]])
   end
   -- }}}
   -- stylua: ignore end
