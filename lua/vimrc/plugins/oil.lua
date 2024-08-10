@@ -104,7 +104,14 @@ oil.setup_config = function()
       ["g."] = "actions.toggle_hidden",
       ["g\\"] = "actions.toggle_trash",
       ["<Leader>;"] = "actions.open_cmdline",
-      ["<Leader>:"] = "actions.open_cmdline_dir",
+      ["<Leader>:"] = {
+        "actions.open_cmdline",
+        opts = {
+          shorten_path = true,
+          modify = ":h",
+        },
+        desc = "Open the command line with the current directory as an argument",
+      },
       ["y<C-G>"] = "actions.copy_entry_path",
 
       -- fzf.nvim support
@@ -127,14 +134,14 @@ oil.setup_config = function()
       ["\\F"] = {
         callback = function()
           local dir = origin_oil.get_current_dir()
-          require('fzf-lua').files({ cwd = dir })
+          require("fzf-lua").files({ cwd = dir })
         end,
         desc = "FzfLua files in current folder",
       },
       ["\\R"] = {
         callback = function()
           local dir = origin_oil.get_current_dir()
-          require('fzf-lua').grep({ cwd = dir })
+          require("fzf-lua").grep({ cwd = dir })
         end,
         desc = "FzfLua grep in current folder",
       },
