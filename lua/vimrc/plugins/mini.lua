@@ -36,7 +36,12 @@ mini.setup_autocmd = function()
 end
 
 mini.setup_config = function()
-  require('mini.files').setup()
+  require('mini.files').setup({
+    options = {
+      -- Whether to use for editing directories
+      use_as_default_explorer = false, -- Use oil.nvim as default explorer
+    }
+  })
   require('mini.pick').setup({
     mappings = {
       move_down = "<C-j>",

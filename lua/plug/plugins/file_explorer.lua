@@ -149,6 +149,36 @@ local file_explorer = {
       [[\ov]],
       [[\os]],
     },
+    init = function()
+      -- TODO: Move this to oil.lua and think of a way to avoid loading oil.nvim
+      local augroup_id = vim.api.nvim_create_augroup("oil_settings", {})
+      -- Do not load netrw
+      vim.api.nvim_create_autocmd({ "VimEnter" }, {
+        group = augroup_id,
+        pattern = "*",
+        once = true,
+        callback = function()
+          vim.g.loaded_netrw = 1
+          vim.g.loaded_netrwPlugin = 1
+          -- If netrw was already loaded, clear this augroup
+          if vim.fn.exists("#FileExplorer") then
+            vim.api.nvim_create_augroup("FileExplorer", { clear = true })
+          end
+        end,
+      })
+      -- Detect directories and open them with oil
+      vim.api.nvim_create_autocmd({ "BufEnter" }, {
+        group = augroup_id,
+        pattern = "*",
+        -- NOTE: Use `vim.schedule_wrap` to allow oil.nvim to populate the buffer after the VimEnter autocmd
+        -- Ref: https://github.com/stevearc/oil.nvim/issues/268#issuecomment-1880161152
+        callback = vim.schedule_wrap(function(args)
+          if args.file ~= "" and vim.fn.isdirectory(args.file) == 1 then
+            require("oil").open(args.file)
+          end
+        end),
+      })
+    end,
     config = function()
       require("vimrc.plugins.oil").setup()
     end,
