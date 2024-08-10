@@ -473,8 +473,13 @@ local utility = {
     ft = { "json", "yaml" },
   },
 
-  -- Disabled by default, enable to profile
-  -- "norcalli/profiler.nvim"
+  -- Profile
+  {
+    "stevearc/profile.nvim",
+    config = function()
+      require("vimrc.plugins.profile").setup()
+    end,
+  },
 
   -- Translate
   {
