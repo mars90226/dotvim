@@ -15,7 +15,7 @@ Packer specific config is removed, but you can use `packer` branch to access the
 * [fzf](https://github.com/junegunn/fzf) (fuzzy finder for almost everything)
 * [fzf.vim](https://github.com/junegunn/fzf.vim) (used with fzf)
 * [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) (fuzzy finder written in Lua and support LSP)
-* [fzf-lua](https://github.com/ibhagwan/fzf-lua) (fzf wrapper in Lua and support LSP and is performant)
+* [fzf-lua](https://github.com/ibhagwan/fzf-lua) (fzf wrapper in Lua and support LSP and performs well)
 * [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) (lua file explorer)
 * [oil.nvim](https://github.com/stevearc/oil.nvim) (buffer-based file explorer with folder synchronization)
 * [defx.nvim](https://github.com/Shougo/defx.nvim) (buffer-based file explorer for better multiple project folder)
@@ -38,6 +38,7 @@ Packer specific config is removed, but you can use `packer` branch to access the
 * [statuscol.nvim](https://github.com/luukvbaal/statuscol.nvim) (customizable predefined 'statuscolumn')
 * [diffview.nvim](https://github.com/sindrets/diffview.nvim) (git diff viewer & git history viewer)
 * [dropbar.nvim](https://github.com/Bekaboo/dropbar.nvim#requirements) (vscode-like winbar)
+* [overseer.nvim](https://github.com/stevearc/overseer.nvim/tree/master) (asynchronous task runner that support `tasks.json` and many task frameworks)
 
 ## Requirements
 
@@ -49,7 +50,7 @@ Packer specific config is removed, but you can use `packer` branch to access the
 * C compiler and libstdc++ (required by nvim-treesitter)
 * [git](https://git-scm.com/) 2.13.0 (basic), 2.19.0 (for column in `git grep`)
 
-## Recommands
+## Recommends
 
 * [ripgrep](https://github.com/BurntSushi/ripgrep) (required for grepping files using FZF)
 * [fd](https://github.com/sharkdp/fd) (required for goto to directory using FZF)
@@ -196,7 +197,7 @@ Open neovim and wait for `lazy.nvim` to finish the job.
 * [ ] Add description to key mappings
 * [ ] Add description to LuaSnip snippets
 * [ ] Add noice.nvim
-* [ ] Add other terminal plugin
+* [ ] Add other terminal plugin, like [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim), and change overseer.nvim strategy to toggleterm.
 
 ## Screenshots
 
