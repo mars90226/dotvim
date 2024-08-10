@@ -6,7 +6,7 @@ local utils = require("vimrc.utils")
 local oil = {}
 
 oil.config = {
-  is_simple_columns = false,
+  is_simple_columns = true,
   columns = {
     "icon",
     "permissions",
@@ -18,6 +18,10 @@ oil.config = {
   },
 }
 
+oil.choose_columns = function()
+  return oil.config.is_simple_columns and oil.config.simple_columns or oil.config.columns
+end
+
 oil.setup_config = function()
   -- FIXME: Use oil.nvim as default file explorer over Defx.nvim
   origin_oil.setup({
@@ -26,7 +30,7 @@ oil.setup_config = function()
     default_file_explorer = true,
     -- Id is automatically added at the beginning, and name at the end
     -- See :help oil-columns
-    columns = oil.config.columns,
+    columns = oil.choose_columns(),
     -- Buffer-local options to use for oil buffers
     buf_options = {
       buflisted = false,
