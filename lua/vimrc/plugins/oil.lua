@@ -6,7 +6,11 @@ local utils = require("vimrc.utils")
 local oil = {}
 
 oil.setup_config = function()
+  -- FIXME: Use oil.nvim as default file explorer over Defx.nvim
   origin_oil.setup({
+    -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
+    -- Set to false if you want some other plugin (e.g. netrw) to open when you edit directories.
+    default_file_explorer = true,
     -- Id is automatically added at the beginning, and name at the end
     -- See :help oil-columns
     columns = {
@@ -29,20 +33,33 @@ oil.setup_config = function()
       spell = false,
       list = false,
       conceallevel = 3,
-      concealcursor = "n",
+      concealcursor = "nvic",
     },
-    -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`
-    default_file_explorer = true,
-    -- Restore window options to previous values when leaving an oil buffer
-    restore_win_options = true,
-    -- Skip the confirmation popup for simple operations
-    skip_confirm_for_simple_edits = false,
-    -- Deleted files will be removed with the `trash-put` command.
+    -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
     delete_to_trash = false,
+    -- Skip the confirmation popup for simple operations (:help oil.skip_confirm_for_simple_edits)
+    skip_confirm_for_simple_edits = false,
     -- Selecting a new/moved/renamed file or directory will prompt you to save changes first
+    -- (:help prompt_save_on_select_new_entry)
     prompt_save_on_select_new_entry = true,
+    -- Oil will automatically delete hidden buffers after this delay
+    -- You can set the delay to false to disable cleanup entirely
+    -- Note that the cleanup process only starts when none of the oil buffers are currently displayed
+    cleanup_delay_ms = 2000,
+    lsp_file_methods = {
+      -- Time to wait for LSP file operations to complete before skipping
+      timeout_ms = 1000,
+      -- Set to true to autosave buffers that are updated with LSP willRenameFiles
+      -- Set to "unmodified" to only save unmodified buffers
+      autosave_changes = false,
+    },
+    -- Constrain the cursor to the editable parts of the oil buffer
+    -- Set to `false` to disable, or "name" to keep it on the file names
+    constrain_cursor = "editable",
+    -- Set to true to watch the filesystem for changes and reload oil
+    watch_for_changes = false,
     -- Keymaps in oil buffer. Can be any value that `vim.keymap.set` accepts OR a table of keymap
-    -- options with a `callback` (e.g. { callback = function() ... end, desc = "", nowait = true })
+    -- options with a `callback` (e.g. { callback = function() ... end, desc = "", mode = "n" })
     -- Additionally, if it is a string that matches "actions.<name>",
     -- it will use the mapping at require("oil.actions").<name>
     -- Set to `false` to remove a keymap
@@ -50,9 +67,9 @@ oil.setup_config = function()
     keymaps = {
       ["g?"] = "actions.show_help",
       ["<CR>"] = "actions.select",
-      ["<C-S>"] = "actions.select_vsplit",
-      ["<C-H>"] = "actions.select_split",
-      ["<C-T>"] = "actions.select_tab",
+      ["<C-S>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
+      ["<C-H>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
+      ["<C-T>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
       ["<C-P>"] = "actions.preview",
       ["<C-C>"] = "actions.close",
       ["<C-L>"] = {
@@ -80,11 +97,14 @@ oil.setup_config = function()
         desc = "Open oil.nvim current folder in horizontal split",
       },
       ["`"] = "actions.cd",
-      ["~"] = "actions.tcd",
+      ["~"] = { "actions.cd", opts = { scope = "tab" }, desc = ":tcd to the current oil directory" },
       ["cb"] = "actions.open_cwd",
+      ["gs"] = "actions.change_sort",
+      ["gx"] = "actions.open_external",
       ["g."] = "actions.toggle_hidden",
-      ["gx"] = "actions.open_cmdline",
-      ["gX"] = "actions.open_cmdline_dir",
+      ["g\\"] = "actions.toggle_trash",
+      ["<Leader>;"] = "actions.open_cmdline",
+      ["<Leader>:"] = "actions.open_cmdline_dir",
       ["y<C-G>"] = "actions.copy_entry_path",
 
       -- fzf.nvim support
@@ -227,6 +247,32 @@ oil.setup_config = function()
       is_always_hidden = function(name, bufnr)
         return false
       end,
+      -- Sort file names in a more intuitive order for humans. Is less performant,
+      -- so you may want to set to false if you work with large directories.
+      natural_order = true,
+      -- Sort file and directory names case insensitive
+      case_insensitive = false,
+      sort = {
+        -- sort order can be "asc" or "desc"
+        -- see :help oil-columns to see which columns are sortable
+        { "type", "asc" },
+        { "name", "asc" },
+      },
+    },
+    -- Extra arguments to pass to SCP when moving/copying files over SSH
+    extra_scp_args = {},
+    -- EXPERIMENTAL support for performing file operations with git
+    git = {
+      -- Return true to automatically git add/mv/rm files
+      add = function(path)
+        return false
+      end,
+      mv = function(src_path, dest_path)
+        return false
+      end,
+      rm = function(path)
+        return false
+      end,
     },
     -- Configuration for the floating window in oil.open_float
     float = {
@@ -236,8 +282,15 @@ oil.setup_config = function()
       max_height = 0,
       border = "rounded",
       win_options = {
-        winblend = 10,
+        winblend = 0,
       },
+      -- preview_split: Split direction: "auto", "left", "right", "above", "below".
+      preview_split = "auto",
+      -- This is the config that will be passed to nvim_open_win.
+      -- Change values here to customize the layout
+      override = function(conf)
+        return conf
+      end,
     },
     -- Configuration for the actions floating preview window
     preview = {
@@ -261,6 +314,8 @@ oil.setup_config = function()
       win_options = {
         winblend = 0,
       },
+      -- Whether the preview window is automatically updated when the cursor is moved
+      update_on_cursor_moved = true,
     },
     -- Configuration for the floating progress window
     progress = {
@@ -275,6 +330,14 @@ oil.setup_config = function()
       win_options = {
         winblend = 0,
       },
+    },
+    -- Configuration for the floating SSH window
+    ssh = {
+      border = "rounded",
+    },
+    -- Configuration for the floating keymaps help window
+    keymaps_help = {
+      border = "rounded",
     },
   })
 end
@@ -307,15 +370,15 @@ oil.setup_mapping = function()
 
   -- Current working directory
   vim.keymap.set("n", [[\oo]], function()
-    origin_oil.open('.')
+    origin_oil.open(".")
   end, { desc = "Open current working directory in oil" })
   vim.keymap.set("n", [[\ov]], function()
     vim.cmd("vertical split")
-    origin_oil.open('.')
+    origin_oil.open(".")
   end, { desc = "Open current working directory in vertical split in oil" })
   vim.keymap.set("n", [[\os]], function()
     vim.cmd("split")
-    origin_oil.open('.')
+    origin_oil.open(".")
   end, { desc = "Open current working directory in horizontal split in oil" })
 end
 
