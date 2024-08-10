@@ -39,6 +39,11 @@ local file_explorer = {
     cmd = { "Neotree" },
     keys = {
       {
+        "<F5>",
+        [[<Cmd>Neotree left<CR>]],
+        desc = "Neotree - toggle on the left",
+      },
+      {
         "<Space>nn",
         [[<Cmd>Neotree left<CR>]],
         desc = "Neotree - toggle on the left",
