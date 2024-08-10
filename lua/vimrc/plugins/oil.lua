@@ -124,6 +124,8 @@ oil.setup_config = function()
         },
         desc = "Open the command line with the current directory as an argument",
       },
+      -- <C-_> and <C-/> are the same key
+      ["<C-_>"] = "actions.open_terminal",
       ["y<C-G>"] = "actions.copy_entry_path",
 
       -- fzf.nvim support
