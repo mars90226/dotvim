@@ -2,10 +2,8 @@ local open = {}
 
 open.switch = function(file, callback)
   local path = type(file) == "table" and file[1] or file
-  vim.print("open.switch", path, callback)
   local bufnr = vim.fn.bufnr(path)
   local winids = vim.fn.win_findbuf(bufnr)
-  vim.print("open.switch", bufnr, winids)
   if #winids == 0 then
     callback(path)
   else
