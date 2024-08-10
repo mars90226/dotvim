@@ -37,7 +37,40 @@ local file_explorer = {
       -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
     },
     cmd = { "Neotree" },
-    keys = { "<Space>nn", "<Space>nf", "<Space>n<Space>", "<Space>nd", "<Space>nb", "<Space>ns" },
+    keys = {
+      {
+        "<Space>nn",
+        [[<Cmd>Neotree left<CR>]],
+        desc = "Neotree - toggle on the left",
+      },
+      {
+        "<Space>nf",
+        [[<Cmd>Neotree float<CR>]],
+        desc = "Neotree - toggle in the floating window",
+      },
+      {
+        "<Space>n<Space>",
+        [[<Cmd>Neotree reveal_force_cwd<CR>]],
+        desc = "Neotree - reveal current working directory",
+      },
+      {
+        "<Space>nd",
+        function()
+          vim.cmd([[Neotree float reveal_file=]] .. vim.fn.expand("<cfile>") .. [[ reveal_force_cwd]])
+        end,
+        desc = "Neotree - reveal current file",
+      },
+      {
+        "<Space>nb",
+        [[<Cmd>Neotree toggle show buffers right<CR>]],
+        desc = "Neotree - toggle buffers on the right",
+      },
+      {
+        "<Space>ns",
+        [[<Cmd>Neotree float git_status<CR>]],
+        desc = "Neotree - show git status in the floating window",
+      },
+    },
     config = function()
       vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
@@ -75,16 +108,10 @@ local file_explorer = {
         source_selector = {
           winbar = true,
           statusline = false,
-        }
+        },
       })
 
-      nnoremap("<Space>nn", [[<Cmd>Neotree left<CR>]])
-      nnoremap("<Space>nf", [[<Cmd>Neotree float<CR>]])
-      nnoremap("<Space>n<Space>", [[<Cmd>Neotree reveal_force_cwd<CR>]])
-      nnoremap("<Space>nd", [["<Cmd>Neotree float reveal_file=".expand("<cfile>")." reveal_force_cwd<CR>"]], "expr")
-      nnoremap("<Space>nb", [[<Cmd>Neotree toggle show buffers right<CR>]])
-      nnoremap("<Space>ns", [[<Cmd>Neotree float git_status<CR>]])
-
+      -- FIXME: Shouldn't be conflicting with other file explorer plugins
       cnoremap("<C-X>d", [[v:lua.require('vimrc.plugins.neotree').get_current_dir('filesystem')]], "expr")
       cnoremap("<C-X>f", [[v:lua.require('vimrc.plugins.neotree').get_current_path('filesystem')]], "expr")
     end,
@@ -142,7 +169,7 @@ local file_explorer = {
         function()
           require("yazi").yazi(nil, vim.fn.getcwd())
         end,
-        desc = "Open the file manager in nvim's working directory" ,
+        desc = "Open the file manager in nvim's working directory",
       },
     },
     opts = {
@@ -156,8 +183,8 @@ local file_explorer = {
     enabled = false,
     config = function()
       require("netman")
-    end
-  }
+    end,
+  },
 }
 
 return file_explorer
