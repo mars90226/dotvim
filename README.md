@@ -123,9 +123,12 @@ Open neovim and wait for `lazy.nvim` to finish the job.
     * `]c`: Goto next LSP diagnostic error
     * `<Leader>lf`: Format selected code
     * `<Leader>lf` on visual selection: Range format selected code
+* Oil key mappings
+    * `-`: Open current buffer folder in oil
+    * `<Space>-`: Open current buffer folder in split in oil
 * Defx key mappings
-    * `-`: Open current buffer folder in Defx
-    * `<Space>-`: Open current buffer folder in split in Defx
+    * `<Space>dd`: Open current buffer folder in Defx
+    * `<Space>ds`: Open current buffer folder in split in Defx
     * `<F4>`: Toggle Defx as sidebar file explorer
     * `<Space><F4>`: Toggle Defx as sidebar file explorer and find current buffer
 * Hop key mappings
