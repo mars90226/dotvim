@@ -506,6 +506,7 @@ oil.setup_mapping = function()
     vim.cmd("tab split")
     origin_oil.open(...)
   end, { desc = "Open parent directory in tab in oil" })
+  vim.keymap.set("n", "<Space>=", origin_oil.open_float, { desc = "Open parent directory in float in oil" })
 
   -- Current working directory
   vim.keymap.set("n", [[\oo]], function()
