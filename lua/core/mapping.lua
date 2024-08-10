@@ -272,9 +272,6 @@ mapping.setup = function()
       -- Insert shell output
       cnoremap("<C-X><C-X>", [[vimrc#fzf#shell_outputs_in_commandline()]], "<expr>", { desc = "Insert shell output" })
       inoremap("<C-X><C-X>", [[vimrc#fzf#shell_outputs_in_commandline()]], "<expr>", { desc = "Insert shell output" })
-      -- Command palette
-      cnoremap("<C-X><C-Z>", [[<C-C><Cmd>Telescope command_palette<CR>]], { desc = "Telescope command palette" })
-      cnoremap("<C-X><C-S>", [[<C-C><Cmd>CommandPalette<CR>]], { desc = "Telescope command palette" })
 
       -- Ex mode for special buffer that map("'q'", [[as ':quit']])
       nnoremap([[\q:]], [[q:]], { desc = "Ex mode for command line history" })

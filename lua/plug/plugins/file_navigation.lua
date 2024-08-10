@@ -153,21 +153,25 @@ local file_navigation = {
       end, { nargs = 1 })
     end,
   },
-  -- FIXME: Seems not working now
-  -- This plugin is archived, author suggest using which-key.nvim instead
-  -- FIXME: Cannot lazy load on keys as the key mapping disappear when first command_palette is called
-  -- NOTE: Cannot use keys to lazy load telescope.nvim extensions as it will disappear when first command_palette is called
+  -- TODO: This plugin is archived, author suggest using which-key.nvim instead
   {
     "LinArcX/telescope-command-palette.nvim",
-    event = { "VeryLazy" },
-    -- keys = {
-    --   { "<Space>mm", desc = "Telescope command_palette" },
-    --   { "<C-X><C-Z>", mode = { "c" }, desc = "Telescope command_palette" },
-    --   { "<M-m><M-m>", mode = { "t" }, desc = "Telescope command_palette" },
-    --   { "<M-q><M-m>", mode = { "t" }, desc = "Telescope command_palette in nested neovim" },
-    --   { "<M-m><M-M>", mode = { "t" }, desc = "CommandPalette" },
-    --   { "<M-q><M-M>", mode = { "t" }, desc = "CommandPalette in nested neovim" },
-    -- },
+    keys = {
+      -- Normal mode
+      { "<Space>mm", [[<Cmd>Telescope command_palette<CR>]], desc = "Telescope command_palette" },
+
+      -- Command-line mode
+      { "<C-X><C-Z>", mode = { "c" }, [[<C-C><Cmd>Telescope command_palette<CR>]], desc = "Telescope command_palette" },
+      { "<C-X><C-S>", mode = { "c" }, [[<C-C><Cmd>CommandPalette<CR>]], desc = "Telescope command palette" },
+
+      -- Terminal mode
+      { "<M-m><M-m>", mode = { "t" }, [[<C-\><C-N>:Telescope command_palette<CR>]], desc = "Telescope command_palette" },
+      { "<M-m><M-M>", mode = { "t" }, [[<C-\><C-N>:CommandPalette<CR>]], desc = "CommandPalette" },
+
+      -- Terminal mode in nested neovim
+      { "<M-q><M-m>", mode = { "t" }, [[<C-\><C-\><C-N>:Telescope command_palette<CR>]], desc = "Telescope command_palette in nested neovim" },
+      { "<M-q><M-M>", mode = { "t" }, [[<C-\><C-\><C-N>:CommandPalette<CR>]], desc = "CommandPalette in nested neovim" },
+    },
     config = function()
       local has_secret_command_palette, secret_command_palette = pcall(require, "secret.command_palette")
 
@@ -178,7 +182,6 @@ local file_navigation = {
       end
 
       require("vimrc.plugins.command_palette").setup()
-      nnoremap([[<Space>mm]], [[<Cmd>Telescope command_palette<CR>]], { desc = "Telescope command_palette" })
     end,
   },
   {

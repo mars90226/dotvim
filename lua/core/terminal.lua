@@ -87,10 +87,6 @@ terminal.setup = function()
       -- Jump to pattern by flash
       tnoremap("<M-m><M-,>", [=[<C-\><C-N>:lua require('flash').jump()<CR>]=])
 
-      -- Command palette
-      tnoremap("<M-m><M-m>", [[<C-\><C-N>:Telescope command_palette<CR>]])
-      tnoremap("<M-m><M-M>", [[<C-\><C-N>:CommandPalette<CR>]])
-
       -- For nested neovim {{{
       -- Use <M-q> as prefix
 
@@ -128,10 +124,6 @@ terminal.setup = function()
       -- Search pattern
       tmap("<M-q><M-s>", [[<C-\><C-\><C-N><Plug>(search-prefix)]])
       -- FIXME: Cannot send `<M-s>` to nested neovim
-
-      -- Command palette
-      tnoremap("<M-q><M-m>", [[<C-\><C-\><C-N>:Telescope command_palette<CR>]])
-      tnoremap("<M-q><M-M>", [[<C-\><C-\><C-N>:CommandPalette<CR>]])
 
       -- For nested nested neovim {{{
       tnoremap("<expr>", [[<M-q><M-q> vimrc#terminal#nested_neovim#start("\<M-q>", 2)]], "<silent>")
@@ -207,7 +199,6 @@ terminal.setup = function()
             if require("vimrc.terminal").is_startinsert_ignored() then
               return
             end
-
             vim.cmd([[startinsert]])
           end
         end,
