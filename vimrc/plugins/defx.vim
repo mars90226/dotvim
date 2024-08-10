@@ -17,47 +17,6 @@ let g:defx_sidebar_options               = '-split=vertical -winwidth='.g:defx_s
 let g:defx_new_options                   = '-new'
 let g:defx_resume_options                = '-listed -resume'
 
-" Defx key mappings {{{
-" TODO Clean up these key mappings
-" Sidebar
-nnoremap <F4>        :execute 'Defx '.vimrc#defx#get_options('sidebar')<CR>
-nnoremap <Space><F4> :execute 'Defx '.vimrc#defx#get_options('sidebar').' '.expand('%:p:h').' -search='.expand('%:p')<CR>
-" Currently, it's impossible to type <S-F1> ~ <S-F12> using MobaXterm + tmux.
-" MobaXterm with 'Byobu terminal type' + tmux with 'screen-256color' will
-" generate keycode for <S-F1> ~ <S-F4> that recognized by neovim as <F13> ~ <F16>.
-nnoremap <F16>       :execute 'Defx '.vimrc#defx#get_options('sidebar').' '.expand('%:p:h').' -search='.expand('%:p').' -no-focus'<CR>
-" wezterm can generate correct keycode for <S-F1> ~ <S-F12>
-nnoremap <S-F4>       :execute 'Defx '.vimrc#defx#get_options('sidebar').' '.expand('%:p:h').' -search='.expand('%:p').' -no-focus'<CR>
-
-" Buffer directory
-nnoremap <Space>dd :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('win'))<CR>
-nnoremap <Space>dh :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('horizontal_win'))<CR>
-nnoremap <Space>dv :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('vertical_win'))<CR>
-nnoremap <Space>dt :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('tab'))<CR>
-nnoremap <Space>df :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('float'))<CR>
-
-" Current working directory
-nnoremap \xr       :call vimrc#defx#openpwd('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('win'))<CR>
-nnoremap \xs       :call vimrc#defx#openpwd('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('horizontal_win'))<CR>
-nnoremap \xv       :call vimrc#defx#openpwd('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('vertical_win'))<CR>
-nnoremap \xt       :call vimrc#defx#openpwd('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('tab'))<CR>
-nnoremap \xf       :call vimrc#defx#openpwd('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('float'))<CR>
-
-" Current git repository
-nnoremap \gr       :call vimrc#defx#open_worktree('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('win'))<CR>
-nnoremap \gs       :call vimrc#defx#open_worktree('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('horizontal_win'))<CR>
-nnoremap \gv       :call vimrc#defx#open_worktree('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('vertical_win'))<CR>
-nnoremap \gt       :call vimrc#defx#open_worktree('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('tab'))<CR>
-nnoremap \gf       :call vimrc#defx#open_worktree('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('float'))<CR>
-
-" Resume
-nnoremap \Xr :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vimrc#defx#get_options('win'))<CR>
-nnoremap \Xs :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vimrc#defx#get_options('horizontal_win'))<CR>
-nnoremap \Xv :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vimrc#defx#get_options('vertical_win'))<CR>
-nnoremap \Xt :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vimrc#defx#get_options('tab'))<CR>
-nnoremap \Xf :call vimrc#defx#opencmd('Defx '.g:defx_resume_options.' '.vimrc#defx#get_options('float'))<CR>
-" }}}
-
 " Defx open
 command! -nargs=1 -complete=file DefxOpenSink            call vimrc#defx#open(<q-args>, 'edit')
 command! -nargs=1 -complete=file DefxSplitOpenSink       call vimrc#defx#open(<q-args>, 'split')
