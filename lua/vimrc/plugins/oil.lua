@@ -483,15 +483,29 @@ end
 
 oil.setup_mapping = function()
   -- Buffer directory
+  -- TODO: Refactor this
+  vim.keymap.set("n", "-", origin_oil.open, { desc = "Open parent directory in oil" })
   vim.keymap.set("n", "<Space>o", origin_oil.open, { desc = "Open parent directory in oil" })
+  vim.keymap.set("n", "_", function(...)
+    vim.cmd("vertical split")
+    origin_oil.open(...)
+  end, { desc = "Open parent directory in vertical split in oil" })
   vim.keymap.set("n", "<Space>O", function(...)
     vim.cmd("vertical split")
     origin_oil.open(...)
   end, { desc = "Open parent directory in vertical split in oil" })
+  vim.keymap.set("n", "<Space>-", function(...)
+    vim.cmd("split")
+    origin_oil.open(...)
+  end, { desc = "Open parent directory in horizontal split in oil" })
   vim.keymap.set("n", "<Space><C-O>", function(...)
     vim.cmd("split")
     origin_oil.open(...)
-  end, { desc = "Open parent directory in horizontal split oil" })
+  end, { desc = "Open parent directory in horizontal split in oil" })
+  vim.keymap.set("n", "<Space>_", function(...)
+    vim.cmd("tab split")
+    origin_oil.open(...)
+  end, { desc = "Open parent directory in tab in oil" })
 
   -- Current working directory
   vim.keymap.set("n", [[\oo]], function()
@@ -505,6 +519,10 @@ oil.setup_mapping = function()
     vim.cmd("split")
     origin_oil.open(".")
   end, { desc = "Open current working directory in horizontal split in oil" })
+  vim.keymap.set("n", [[\ot]], function()
+    vim.cmd("tab split")
+    origin_oil.open(".")
+  end, { desc = "Open current working directory in tab in oil" })
 end
 
 oil.setup = function()

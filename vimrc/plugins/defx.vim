@@ -30,13 +30,11 @@ nnoremap <F16>       :execute 'Defx '.vimrc#defx#get_options('sidebar').' '.expa
 nnoremap <S-F4>       :execute 'Defx '.vimrc#defx#get_options('sidebar').' '.expand('%:p:h').' -search='.expand('%:p').' -no-focus'<CR>
 
 " Buffer directory
-nnoremap -         :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('win'))<CR>
-nnoremap ++        :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('win'))<CR>
-nnoremap \-        :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('win'))<CR>
-nnoremap <Space>-  :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('horizontal_win'))<CR>
-nnoremap _         :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('vertical_win'))<CR>
-nnoremap <Space>_  :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('tab'))<CR>
-nnoremap <Space>=  :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('float'))<CR>
+nnoremap <Space>dd :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('win'))<CR>
+nnoremap <Space>dh :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('horizontal_win'))<CR>
+nnoremap <Space>dv :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('vertical_win'))<CR>
+nnoremap <Space>dt :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('tab'))<CR>
+nnoremap <Space>df :call vimrc#defx#opendir('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('float'))<CR>
 
 " Current working directory
 nnoremap \xr       :call vimrc#defx#openpwd('Defx '.g:defx_new_options.' '.vimrc#defx#get_options('win'))<CR>
