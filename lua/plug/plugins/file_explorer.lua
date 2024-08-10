@@ -219,10 +219,6 @@ local file_explorer = {
           statusline = false,
         },
       })
-
-      -- FIXME: Shouldn't be conflicting with other file explorer plugins
-      cnoremap("<C-X>d", [[v:lua.require('vimrc.plugins.neotree').get_current_dir('filesystem')]], "expr")
-      cnoremap("<C-X>f", [[v:lua.require('vimrc.plugins.neotree').get_current_path('filesystem')]], "expr")
     end,
   },
   {

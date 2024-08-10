@@ -61,4 +61,13 @@ neotree.get_current_dir = function(source)
   return parent_node.path
 end
 
+neotree.setup_filetype_mapping = function()
+  vim.keymap.set("c", "<C-X>d", function()
+    return neotree.get_current_dir('filesystem')
+  end, { desc = "Insert neo-tree current folder", expr = true, buffer = true })
+  vim.keymap.set("c", "<C-X>f", function()
+    return neotree.get_current_path('filesystem')
+  end, { desc = "Insert neo-tree current path", expr = true, buffer = true })
+end
+
 return neotree
