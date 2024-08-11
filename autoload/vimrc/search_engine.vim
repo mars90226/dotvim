@@ -27,6 +27,7 @@ endfunction
 
 " Configs
 let s:search_engines = {
+      \ 'google': 'https://www.google.com/search?q=%s',
       \ 'duckduckgo': 'https://duckduckgo.com/?q=%s',
       \ 'devdocs': 'https://devdocs.io/?q=%s',
       \ 'mdn': 'https://developer.mozilla.org/en-US/search?q=%s'
