@@ -26,6 +26,7 @@ endfunction
 " }}}
 
 " Configs
+" TODO: Add more search engines
 let s:search_engines = {
       \ 'google': 'https://www.google.com/search?q=%s',
       \ 'duckduckgo': 'https://duckduckgo.com/?q=%s',
