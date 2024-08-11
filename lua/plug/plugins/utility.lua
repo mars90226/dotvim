@@ -73,14 +73,6 @@ local utility = {
     },
   },
 
-  -- Registers
-  -- NOTE: Cannot lazy load on keys
-  -- FIXME: Seems slow to scroll
-  {
-    "tversteeg/registers.nvim",
-    event = { "VeryLazy" },
-  },
-
   -- Colors
   -- TODO: Change ColorV global leader to avoid key mapping conflict
   {
