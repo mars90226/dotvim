@@ -260,12 +260,13 @@ local utility = {
   },
   {
     "hoschi/yode-nvim",
-    keys = { "<Leader>yc", "<Leader>yr" },
+    keys = {
+      { "<Leader>yc", [[<Cmd>YodeCreateSeditorFloating<CR>]], desc = "Yode - create editor in float" },
+      { "<Leader>yr", [[<Cmd>YodeCreateSeditorReplace<CR>]], desc = "Yode - create editor in current window" },
+    },
     config = function()
       require("yode-nvim").setup({})
 
-      noremap("<Leader>yc", [[:YodeCreateSeditorFloating<CR>]])
-      noremap("<Leader>yr", [[:YodeCreateSeditorReplace<CR>]])
       nnoremap("<Leader>bd", [[:YodeBufferDelete<CR>]])
 
       nnoremap("<C-W>r", [[<Cmd>YodeLayoutShiftWinDown<CR>]])
