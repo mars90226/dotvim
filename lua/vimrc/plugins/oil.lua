@@ -71,6 +71,11 @@ oil.choose_columns = function()
   return oil.config.is_simple_columns and oil.config.simple_columns or oil.config.columns
 end
 
+oil.get_current_path = function()
+  local entry = origin_oil.get_cursor_entry()
+  return origin_oil.get_current_dir() .. (entry and entry.name or "")
+end
+
 oil.open = function(target, action)
   local path = type(target) == "table" and target[1] or target
   if vim.fn.isdirectory(path) == 1 then
@@ -118,6 +123,27 @@ oil.use_oil_fzf_action = function(callback)
   })
 
   callback()
+end
+
+oil._get_command = function(cmd, path)
+  local escaped_path = vim.fn.shellescape(path)
+
+  if cmd:match("{}") then
+    -- Replace {} with the escaped path
+    return cmd:gsub("{}", escaped_path)
+  else
+    return cmd .. " " .. escaped_path
+  end
+end
+
+oil.execute = function(path, action, cmd)
+  local command = cmd or vim.fn.input("Command: ", "", "shellcmd")
+
+  if command == "" then
+    return
+  end
+
+  vim.fn["vimrc#tui#run"](action, oil._get_command(cmd, path), 1)
 end
 
 oil.setup_config = function()
@@ -285,6 +311,7 @@ oil.setup_config = function()
       },
 
       -- Paste
+      -- TODO: Check if this is still needed
       ["\\p"] = {
         callback = function()
           local dir = origin_oil.get_current_dir()
@@ -296,6 +323,58 @@ oil.setup_config = function()
           vim.fn["vimrc#defx#_paste_from_system_clipboard"](dir)
         end,
         desc = "Paste from system clipboard",
+      },
+
+      -- Show info
+      -- Depends on eza
+      ["gK"] = {
+        callback = function()
+          oil.execute(oil.get_current_path(), "float", "eza -l {}")
+        end,
+        desc = "Show details of the current entry",
+      },
+      -- Depends on file
+      ["gy"] = {
+        callback = function()
+          oil.execute(oil.get_current_path(), "float", "file {}")
+        end,
+        desc = "Show filetype of the current entry",
+      },
+      -- Depends on viu
+      ["\\vv"] = {
+        callback = function()
+          -- TODO: Check for viu executable?
+          oil.execute(oil.get_current_path(), "float", "viu {}")
+        end,
+        desc = "Show image of the current entry",
+      },
+
+      -- Git
+      -- Depends on gv.vim
+      ["<Leader>gv"] = {
+        callback = function()
+          vim.fn["vimrc#gv#show_file"](oil.get_current_path(), vim.empty_dict())
+        end,
+        desc = "Show git file history of the current entry in gv.vim",
+      },
+      ["<Leader>gV"] = {
+        callback = function()
+          vim.fn["vimrc#gv#show_file"](oil.get_current_path(), { author = vim.g.company_email })
+        end,
+        desc = "Show git file history of the current entry authored by me in gv.vim",
+      },
+      -- Depends on Flog
+      ["<Leader>gf"] = {
+        callback = function()
+          vim.fn["vimrc#flog#show_file"](oil.get_current_path(), vim.empty_dict())
+        end,
+        desc = "Show git file history of the current entry in gv.vim",
+      },
+      ["<Leader>gF"] = {
+        callback = function()
+          vim.fn["vimrc#flog#show_file"](oil.get_current_path(), { author = vim.g.company_email })
+        end,
+        desc = "Show git file history of the current entry authored by me in gv.vim",
       },
 
       -- Bookmarks
@@ -472,12 +551,7 @@ oil.setup_filetype_mapping = function()
     return origin_oil.get_current_dir()
   end, { desc = "Insert oil current folder", expr = true, buffer = true })
   vim.keymap.set("c", "<C-X>f", function()
-    local entry = origin_oil.get_cursor_entry()
-    if not entry then
-      return ""
-    end
-
-    return origin_oil.get_current_dir() .. entry.name
+    return oil.get_current_path()
   end, { desc = "Insert oil cursor entry full path", expr = true, buffer = true })
 end
 
