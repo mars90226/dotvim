@@ -16,10 +16,10 @@ local terminal = {
       "FloatermSend",
     },
     keys = {
-      { "<M-2>", mode = { "n", "t" } },
-      { "<M-3>", mode = { "n", "t" } },
-      { "<M-4>", mode = { "n", "t" } },
-      { "<M-5>", mode = { "n", "t" } },
+      { "<M-2>",      mode = { "n", "t" } },
+      { "<M-3>",      mode = { "n", "t" } },
+      { "<M-4>",      mode = { "n", "t" } },
+      { "<M-5>",      mode = { "n", "t" } },
       { "<Leader>xh", mode = "n" },
       { "<Leader>xs", mode = "n" },
       { "<Leader>xc", mode = { "n", "x" } },
@@ -40,7 +40,38 @@ local terminal = {
     keys = { "<Space><M-2>" },
   },
 
-  -- TODO: Add other terminal plugin
+  -- TODO: No next/previous terminal & new terminal. Do not show buffer name on border.
+  {
+    "akinsho/toggleterm.nvim",
+    enabled = false,
+    version = "*",
+    cmd = { "ToggleTerm" },
+    keys = {
+      -- Main toggle
+      { "<M-`>",      mode = { "n", "t" }, [[<Cmd>execute v:count . "ToggleTerm direction=float"<CR>]],                                     desc = "ToggleTerm - toggle float" },
+
+      -- Directional toggles
+      { "<Leader>tt", mode = { "n" },      [[<Cmd>execute v:count . "ToggleTerm direction=tab"<CR>]],                                       desc = "ToggleTerm - toggle tab" },
+      { "<Leader>ts", mode = { "n" },      [[<Cmd>execute v:count . "ToggleTerm direction=horizontal"<CR>]],                                desc = "ToggleTerm - toggle horizontal" },
+      { "<Leader>tv", mode = { "n" },      [[<Cmd>execute v:count . "ToggleTerm direction=vertical"<CR>]],                                  desc = "ToggleTerm - toggle vertical" },
+      { "<Leader>tf", mode = { "n" },      [[<Cmd>execute v:count . "ToggleTerm direction=float"<CR>]],                                     desc = "ToggleTerm - toggle float" },
+      { "<Leader>td", mode = { "n" },      [[<Cmd>execute v:count . "ToggleTerm direction=float dir=" . input('Folder: ', '', 'dir')<CR>]], desc = "ToggleTerm - toggle float in directory" },
+
+      { "<Leader>tc", mode = { "n" },      [[<Cmd>TermSelect<CR>]],                                                                         desc = "ToggleTerm - select term" },
+      { "<M-q>c",     mode = { "t" },      [[<Cmd>TermSelect<CR>]],                                                                         desc = "ToggleTerm - select term" },
+    },
+    opts = {
+      float_opts = {
+        border = "rounded",
+      },
+      winbar = {
+        enabled = true,
+        name_formatter = function(term) --  term: Terminal
+          return term.name
+        end
+      },
+    },
+  },
 
   {
     "hkupty/iron.nvim",
