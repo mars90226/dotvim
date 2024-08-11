@@ -488,13 +488,6 @@ local utility = {
   -- Color Column
   {
     "Bekaboo/deadcolumn.nvim",
-    -- FIXME: Cause error on <Tab> in insert mode, disabled for now
-    -- Error detected while processing CursorMovedI Autocommands for "*":
-    -- Error executing lua callback: Vim:E976: Using a Blob as a String
-    -- stack traceback:
-    -- 	[C]: in function 'scope'
-    -- 	...local/share/nvim/lazy/deadcolumn.nvim/lua/deadcolumn.lua:154: in function <...local/share/nvim/lazy/deadcolumn.nvim/lua/deadcolumn.lua:140>
-    enabled = false,
     event = { "VeryLazy" },
     init = function()
       -- NOTE: Monitor this
@@ -526,7 +519,7 @@ local utility = {
   { "will133/vim-dirdiff", cmd = { "DirDiff" } },
 
   -- RESTful
-  -- TODO: Find alternatives as rest.nvim is archived
+  -- TODO: Migrate to kulala.nvim
   -- TODO: Check if not working on Windows
   -- TODO: Migrate to rocks.nvim
   -- NOTE: rocks.nvim installation script is outside of lazy.nvim & manual installation steps are tedious.
@@ -575,6 +568,7 @@ local utility = {
   -- TODO: Add key mappings
   { "LudoPinelli/comment-box.nvim" },
 
+  -- Big file
   {
     "LunarVim/bigfile.nvim",
     config = function()
