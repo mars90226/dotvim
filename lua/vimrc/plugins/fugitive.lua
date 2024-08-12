@@ -12,6 +12,7 @@ fugitive.setup = function()
   -- For execute git command
   nnoremap([[<Space>gg]], [[:Git<Space>]])
   nnoremap([[<Space>gG]], [[:Git --paginate<Space>]])
+  nnoremap([[<Space>g<Space>]], [[:Git!<Space>]])
 
   nnoremap([[<Leader>gs]], [[<Cmd>Git<CR>]], { silent = true })
   nnoremap([[<Leader>gS]], [[<Cmd>call vimrc#fugitive#diff_staged_file('%')<CR>]], { silent = true })
