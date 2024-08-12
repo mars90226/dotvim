@@ -87,6 +87,9 @@ terminal.setup = function()
       -- Jump to pattern by flash
       tnoremap("<M-m><M-,>", [=[<C-\><C-N>:lua require('flash').jump()<CR>]=])
 
+      -- Jump to pattern by pounce
+      tnoremap("<M-m><M-/>", [=[<C-\><C-N>:Pounce<CR>]=])
+
       -- For nested neovim {{{
       -- Use <M-q> as prefix
 
@@ -172,6 +175,9 @@ terminal.setup = function()
 
       -- Jump to pattern by flash
       vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m><M-,>", [=[:lua require('flash').jump()<CR>]=])
+
+      -- Jump to pattern by pounce
+      vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m><M-/>", [=[:Pounce<CR>]=])
 
       -- Command palette
       vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m><M-m>", ":Telescope command_palette<CR>")
