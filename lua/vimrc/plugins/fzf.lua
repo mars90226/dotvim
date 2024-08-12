@@ -305,6 +305,16 @@ fzf.setup_mapping = function()
   inoremap([[<C-X><C-D>]], [[fzf#vim#complete#path('fd -t d --strip-cwd-prefix')]], { expr = true })
   inoremap([[<M-x><M-p>]], [[vimrc#fzf#chinese#punctuations_in_insert_mode()]],     { expr = true })
 
+  -- Alternative key mapping for those key mappings that are hard to type in ergonomic keyboard.
+  -- Insert mode completion
+  imap([[<M-x><M-w>]], [[<Plug>(fzf-complete-word)]])
+  imap([[<M-x><M-e>]], [[<Plug>(fzf-complete-line)]])
+  inoremap([[<M-x><M-c>]], [[vimrc#fzf#chinese#punctuations_in_insert_mode()]],     { expr = true })
+
+  -- TODO: Add meta complete mode for those key mappings that are hard to type in ergonomic keyboard.
+  -- Currently, don't know how to do it as `vim.ui.select` is asychronous and fzf complete function
+  -- expect a `<expr>` key mapping to work properly.
+
   -- fzf key mappings {{{
   nnoremap(fzf_prefix .. [[A]],     [[:call      vimrc#execute_and_save('AllFiles')<CR>]])
   nnoremap(fzf_prefix .. [[1]],     [[:call      vimrc#execute_and_save('CustomFiles ::' . input('Fd: '))<CR>]])
