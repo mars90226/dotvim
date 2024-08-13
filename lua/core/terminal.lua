@@ -98,6 +98,9 @@ terminal.setup = function()
       tnoremap("<M-q>2", [[<C-\><C-\><C-N>:call vimrc#terminal#open_current_shell('tabnew')<CR>]])
       tnoremap("<M-q>3", [[<C-\><C-\><C-N>:Windows<CR>]])
 
+      -- Quickly leave terminal mode
+      tnoremap("<M-q><M-C-Q>", [[<C-\><C-\><C-N>]])
+
       -- Quickly switch window in terminal
       tnoremap("<M-q><M-h>", [[<C-\><C-\><C-N><C-W>h]])
       tnoremap("<M-q><M-j>", [[<C-\><C-\><C-N><C-W>j]])
@@ -135,6 +138,9 @@ terminal.setup = function()
       vim.fn["vimrc#terminal#nested_neovim#register"]("1", "")
       vim.fn["vimrc#terminal#nested_neovim#register"]("2", ":call vimrc#terminal#open_current_shell('tabnew')<CR>")
       vim.fn["vimrc#terminal#nested_neovim#register"]("3", ":Windows<CR>")
+
+      -- Quickly leave terminal mode
+      vim.fn["vimrc#terminal#nested_neovim#register"]("<M-C-Q>", "")
 
       -- Quickly switch window in terminal
       vim.fn["vimrc#terminal#nested_neovim#register"]("<M-h>", "<C-W>h")
