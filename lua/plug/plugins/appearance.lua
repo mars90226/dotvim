@@ -62,6 +62,15 @@ local appearance = {
       preset = "modern",
     },
     keys = {
+      -- NOTE: Some key mappings cannot be triggered when using which-key menu triggered by key
+      -- mapping prefix. But those are actually working when using which-key show command.
+      {
+        "<Space>?",
+        function()
+          require("which-key").show()
+        end,
+        desc = "All Keymaps (which-key)",
+      },
       {
         "<Leader>?",
         function()
