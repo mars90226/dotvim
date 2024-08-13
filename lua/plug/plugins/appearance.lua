@@ -54,6 +54,7 @@ local appearance = {
 
   -- Which key
   -- TODO: May need to check all keys that depends on timeoutlen (has overlapping prefix)
+  -- TODO: which-key.nvim check key every 50 ms, may need to check if it affects performance.
   {
     "folke/which-key.nvim",
     event = { "VeryLazy" },
