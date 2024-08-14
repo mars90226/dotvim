@@ -95,15 +95,27 @@ utils.get_vim_home = function()
 end
 
 utils.get_vim_mode = function()
-  return vim.fn["vimrc#get_vim_mode"]()
+  return vim.env.VIM_MODE
 end
 
 utils.is_reader_mode = function()
-  return utils.get_vim_mode() == "reader"
+  if vim.g.loaded_reader_mode then
+    return vim.g.is_reader_mode
+  else
+    vim.g.is_light_vim_mode = utils.get_vim_mode() == "reader"
+    vim.g.loaded_reader_mode = true
+    return vim.g.is_reader_mode
+  end
 end
 
 utils.is_gitcommit_mode = function()
-  return utils.get_vim_mode() == "gitcommit"
+  if vim.g.loaded_gitcommit_mode then
+    return vim.g.is_gitcommit_mode
+  else
+    vim.g.is_gitcommit_mode = utils.get_vim_mode() == "gitcommit"
+    vim.g.loaded_gitcommit_mode = true
+    return vim.g.is_gitcommit_mode
+  end
 end
 
 utils.is_light_vim_mode = function()
