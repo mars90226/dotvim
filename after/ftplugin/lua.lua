@@ -1,6 +1,4 @@
-local has_surround, surround = pcall(require, "nvim-surround")
-
-local my_nvim_surround = require("vimrc.plugins.nvim_surround")
+local choose = require("vimrc.choose")
 
 if vim.b.loaded_lua_settings ~= nil then
   return
@@ -15,7 +13,10 @@ nmap("<Leader>dr", [[<Plug>(Luadev-Run)]], "buffer")
 nmap("<Leader>dw", [[<Plug>(Luadev-RunWord)]], "buffer")
 imap("<C-G><C-D>", [[<Plug>(Luadev-Complete)]], "buffer")
 
-if has_surround then
+if choose.is_enabled_plugin("nvim-surround") then
+  local surround = require("nvim-surround")
+  local my_nvim_surround = require("vimrc.plugins.nvim_surround")
+
   -- NOTE: 2-characters cannot use default find & delete & change implementation
   surround.buffer_setup({
     surrounds = {

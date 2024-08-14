@@ -82,6 +82,9 @@ plugin_choose.setup_completion = function()
 
   -- Choose auto pairs plugin
   -- nvim-autopairs
+  if utils.is_light_vim_mode() then
+    choose.disable_plugin("nvim-autopairs")
+  end
 end
 
 plugin_choose.setup_file_explorer = function()
@@ -202,6 +205,14 @@ plugin_choose.setup_terminal = function()
   -- vim-floaterm
 end
 
+plugin_choose.setup_text_manipulation = function()
+  -- Choose surround plugin
+  -- nvim-surround
+  if utils.is_light_vim_mode() then
+    choose.disable_plugin("nvim-surround")
+  end
+end
+
 plugin_choose.setup_text_navigation = function()
   -- Choose quick navigation plugin
   -- hop.nvim, lightspeed.nvim, flash.nvim
@@ -238,6 +249,7 @@ plugin_choose.setup = function()
   plugin_choose.setup_completion()
   plugin_choose.setup_file_explorer()
   plugin_choose.setup_finder()
+  plugin_choose.setup_text_manipulation()
   plugin_choose.setup_text_navigation()
   plugin_choose.setup_language()
   plugin_choose.setup_git()

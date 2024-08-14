@@ -1,6 +1,4 @@
-local has_surroud, surround = pcall(require, "nvim-surround")
-
-local my_nvim_surround = require("vimrc.plugins.nvim_surround")
+local choose = require("vimrc.choose")
 
 vim.bo.expandtab = true
 vim.wo.spell = false -- NOTE: Chinese is not supported
@@ -9,7 +7,10 @@ if vim.fn.executable("markdownlint") == 1 then
   vim.bo.makeprg = "markdownlint"
 end
 
-if has_surroud then
+if choose.is_enabled_plugin("nvim-surround") then
+  local surround = require("nvim-surround")
+  local my_nvim_surround = require("vimrc.plugins.nvim_surround")
+
   -- NOTE: 2-characters cannot use default find & delete & change implementation
   surround.buffer_setup({
     surrounds = {

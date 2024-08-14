@@ -1,8 +1,4 @@
-local has_surround, surround = pcall(require, "nvim-surround")
-if not has_surround then
-  return
-end
-
+local surround = require("nvim-surround")
 local surround_config = require("nvim-surround.config")
 
 local nvim_surround = {}

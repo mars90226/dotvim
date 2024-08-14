@@ -152,7 +152,7 @@ local completion = {
   -- Auto Pairs
   {
     "windwp/nvim-autopairs",
-    cond = not utils.is_light_vim_mode(),
+    cond = choose.is_enabled_plugin("nvim-autopairs"),
     event = { "InsertEnter", "CmdlineEnter" },
     config = function()
       local Rule = require("nvim-autopairs.rule")

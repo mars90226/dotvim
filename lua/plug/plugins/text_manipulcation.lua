@@ -126,7 +126,7 @@ local text_manipulation = {
   -- Surround
   {
     "kylechui/nvim-surround",
-    cond = not utils.is_light_vim_mode(),
+    cond = choose.is_enabled_plugin("nvim-surround"),
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
       require("nvim-surround").setup({})

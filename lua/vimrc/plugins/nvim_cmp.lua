@@ -197,17 +197,16 @@ nvim_cmp.setup = function()
         if copilot_suggestion.is_visible() then
           cmp.mapping.close()(fallback)
 
-          local has_autopairs, autopairs = pcall(require, "nvim-autopairs")
-          if has_autopairs then
+          if choose.is_enabled_plugin("nvim-autopairs") then
             -- NOTE: Fix bug that nvim-autopairs adding extra closing brackets
             -- Ref: https://github.com/zbirenbaum/copilot.lua/issues/215#issuecomment-1918114065
-            autopairs.disable()
+            require("nvim-autopairs").disable()
           end
 
           copilot_suggestion.accept()
 
-          if has_autopairs then
-            autopairs.enable()
+          if choose.is_enabled_plugin("nvim-autopairs") then
+            require("nvim-autopairs").enable()
           end
         else
           fallback()
