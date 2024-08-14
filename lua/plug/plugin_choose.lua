@@ -54,9 +54,13 @@ plugin_choose.setup_completion = function()
   end
 
   -- Choose snippet plugin
-  -- Always enable LuaSnip
+  -- LuaSnip
+  if utils.is_light_vim_mode() then
+    choose.disable_plugin("LuaSnip")
+  end
+
   -- Enable placeholder transformations
-  if utils.is_light_vim_mode() or not plugin_utils.has_linux_build_env() then
+  if choose.is_disabled_plugin("LuaSnip") or not plugin_utils.has_linux_build_env() then
     choose.disable_plugin("LuaSnip-transform")
   end
 

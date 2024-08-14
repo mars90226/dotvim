@@ -12,7 +12,7 @@ local completion = {
       -- Snippets
       {
         "L3MON4D3/LuaSnip",
-        -- cond = not utils.is_light_vim_mode(),
+        cond = choose.is_enabled_plugin("LuaSnip"),
         version = "v2.*",
         -- TODO: Check if it works on non-build env
         build = choose.is_enabled_plugin("LuaSnip-transform") and "make install_jsregexp" or "", -- optional
@@ -29,7 +29,7 @@ local completion = {
       -- Completion Sources
       {
         "saadparwaiz1/cmp_luasnip",
-        -- cond = not utils.is_light_vim_mode(),
+        cond = choose.is_enabled_plugin("LuaSnip"),
       },
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-nvim-lsp-signature-help" },

@@ -1,6 +1,4 @@
 local cmp = require("cmp")
-local luasnip = require("luasnip")
-local select_choice = require("luasnip.extras.select_choice")
 local lspkind = require("lspkind")
 local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
@@ -89,7 +87,9 @@ nvim_cmp.setup = function()
     },
     snippet = {
       expand = function(args)
-        luasnip.lsp_expand(args.body)
+        if choose.is_enabled_plugin("LuaSnip") then
+          require("luasnip").lsp_expand(args.body)
+        end
       end,
     },
     window = {
@@ -104,7 +104,6 @@ nvim_cmp.setup = function()
         menu = vim.tbl_extend("keep", {
           nvim_lsp = "[LSP]",
           path = "[Path]",
-          luasnip = "[LuaSnip]",
           nvim_lua = "[Lua]",
           buffer = "[Buffer]",
           calc = "[Calc]",
@@ -115,6 +114,8 @@ nvim_cmp.setup = function()
           rg = "[Rg]",
           dictionary = "[Dictionary]",
         }, plugin_utils.check_enabled_plugin({
+          luasnip = "[LuaSnip]",
+        }, "LuaSnip") or {}, plugin_utils.check_enabled_plugin({
           copilot = "[Copilot]",
         }, "copilot-cmp") or {}),
         before = function(entry, vim_item)
@@ -138,17 +139,24 @@ nvim_cmp.setup = function()
       }),
       ["<Tab>"] = cmp.mapping(nvim_cmp.handle_tab_completion(cmp.select_next_item), { "i", "s" }),
       ["<S-Tab>"] = cmp.mapping(nvim_cmp.handle_tab_completion(cmp.select_prev_item), { "i", "s" }),
+    }, plugin_utils.check_enabled_plugin({
       ["<C-J>"] = cmp.mapping(function(fallback)
+        local luasnip = require("luasnip")
+
         if luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
         end
       end, { "i", "s" }),
       ["<C-K>"] = cmp.mapping(function(fallback)
+        local luasnip = require("luasnip")
+
         if luasnip.jumpable(-1) then
           luasnip.jump(-1)
         end
       end, { "i", "s" }),
       ["<M-j>"] = cmp.mapping(function(fallback)
+        local luasnip = require("luasnip")
+
         if luasnip.choice_active() then
           luasnip.change_choice(1)
         else
@@ -156,6 +164,8 @@ nvim_cmp.setup = function()
         end
       end, { "i" }),
       ["<M-k>"] = cmp.mapping(function(fallback)
+        local luasnip = require("luasnip")
+
         if luasnip.choice_active() then
           luasnip.change_choice(-1)
         else
@@ -163,6 +173,9 @@ nvim_cmp.setup = function()
         end
       end, { "i" }),
       ["<M-s>"] = cmp.mapping(function(fallback)
+        local luasnip = require("luasnip")
+        local select_choice = require("luasnip.extras.select_choice")
+
         if luasnip.choice_active() then
           select_choice()
         else
@@ -170,7 +183,7 @@ nvim_cmp.setup = function()
         end
       end, { "i" }),
       ["<C-Space>"] = cmp.mapping.complete(),
-    }, plugin_utils.check_enabled_plugin({
+    }, "LuaSnip") or {}, plugin_utils.check_enabled_plugin({
       ["<C-Y>"] = cmp.mapping(function(fallback)
         local copilot_suggestion = require("copilot.suggestion")
 
@@ -233,15 +246,15 @@ nvim_cmp.setup = function()
         return component ~= nil
       end, {
         plugin_utils.check_enabled_plugin({ name = "copilot", priority_weight = 120 }, "copilot-cmp"),
-        { name = "path", priority_weight = 110 },
-        { name = "nvim_lsp", max_view_entries = 20, priority_weight = 100 },
+        { name = "path",                    priority_weight = 110 },
+        { name = "nvim_lsp",                max_view_entries = 20, priority_weight = 100 },
         { name = "nvim_lsp_signature_help", priority_weight = 100 },
-        { name = "nvim_lua", priority_weight = 90 },
-        { name = "luasnip", priority_weight = 80 },
-        { name = "calc", priority_weight = 70 },
-        { name = "emoji", priority_weight = 70 },
+        { name = "nvim_lua",                priority_weight = 90 },
+        plugin_utils.check_enabled_plugin({ name = "luasnip", priority_weight = 80 }, "LuaSnip"),
+        { name = "calc",       priority_weight = 70 },
+        { name = "emoji",      priority_weight = 70 },
         { name = "treesitter", priority_weight = 70 },
-        { name = "cmp_git", priority_weight = 70 },
+        { name = "cmp_git",    priority_weight = 70 },
         {
           name = "tmux",
           max_view_entries = 5,

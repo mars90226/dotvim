@@ -102,7 +102,7 @@ utils.is_reader_mode = function()
   if vim.g.loaded_reader_mode then
     return vim.g.is_reader_mode
   else
-    vim.g.is_light_vim_mode = utils.get_vim_mode() == "reader"
+    vim.g.is_reader_mode = utils.get_vim_mode() == "reader"
     vim.g.loaded_reader_mode = true
     return vim.g.is_reader_mode
   end
