@@ -1,4 +1,4 @@
-local choose = require("vimrc.choose")
+local utils = require("vimrc.utils")
 
 local text_navigation = {
   -- Match
@@ -89,7 +89,6 @@ local text_navigation = {
   -- TODO: Add more keys & replace above jump plugins
   {
     "folke/flash.nvim",
-    event = { "VeryLazy" },
     opts = {
       modes = {
         search = {
@@ -216,6 +215,7 @@ local text_navigation = {
   -- Marks
   {
     "chentoast/marks.nvim",
+    cond = not utils.is_light_vim_mode(),
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
       local marks = require("marks")

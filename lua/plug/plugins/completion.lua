@@ -1,5 +1,6 @@
 local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
+local utils = require("vimrc.utils")
 
 local completion = {
   -- Completion
@@ -11,6 +12,7 @@ local completion = {
       -- Snippets
       {
         "L3MON4D3/LuaSnip",
+        -- cond = not utils.is_light_vim_mode(),
         version = "v2.*",
         -- TODO: Check if it works on non-build env
         build = choose.is_enabled_plugin("LuaSnip-transform") and "make install_jsregexp" or "", -- optional
@@ -25,7 +27,10 @@ local completion = {
       -- Formatting
       "onsails/lspkind-nvim",
       -- Completion Sources
-      { "saadparwaiz1/cmp_luasnip" },
+      {
+        "saadparwaiz1/cmp_luasnip",
+        -- cond = not utils.is_light_vim_mode(),
+      },
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-nvim-lsp-signature-help" },
       { "hrsh7th/cmp-nvim-lua" },
@@ -147,6 +152,7 @@ local completion = {
   -- Auto Pairs
   {
     "windwp/nvim-autopairs",
+    cond = not utils.is_light_vim_mode(),
     event = { "InsertEnter", "CmdlineEnter" },
     config = function()
       local Rule = require("nvim-autopairs.rule")
@@ -173,7 +179,7 @@ local completion = {
   -- ref: https://github.com/windwp/nvim-autopairs/issues/167
   {
     "abecodes/tabout.nvim",
-    cond = choose.is_enabled_plugin("nvim-treesitter"),
+    cond = not utils.is_light_vim_mode() and choose.is_enabled_plugin("nvim-treesitter"),
     event = { "InsertEnter", "CmdlineEnter" },
     config = function()
       require("tabout").setup({

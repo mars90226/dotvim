@@ -29,6 +29,7 @@ local utility = {
   -- It seems that if plugin is lazy loaded and not lua plugin, then whick-key.nvim may override the key mappings.
   {
     "tpope/vim-unimpaired",
+    cond = not utils.is_light_vim_mode(),
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     keys = {
       "yo",
@@ -116,6 +117,7 @@ local utility = {
   -- Project
   {
     "ahmedkhalf/project.nvim",
+    cond = not utils.is_light_vim_mode(),
     event = { "VeryLazy" },
     config = function()
       require("project_nvim").setup({
@@ -351,6 +353,7 @@ local utility = {
   -- TODO: Replace with browse.nvim
   {
     "tyru/open-browser.vim",
+    cond = choose.is_enabled_plugin("open-browser.vim"),
     event = { "VeryLazy" },
   },
   {
@@ -427,6 +430,7 @@ local utility = {
   -- NOTE: Cannot lazy load on key, first buffer doesn't have TODO highlight
   {
     "folke/todo-comments.nvim",
+    cond = not utils.is_light_vim_mode(),
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("todo-comments").setup({})
@@ -488,6 +492,7 @@ local utility = {
   -- Color Column
   {
     "Bekaboo/deadcolumn.nvim",
+    cond = not utils.is_light_vim_mode(),
     event = { "VeryLazy" },
     init = function()
       -- NOTE: Monitor this
@@ -566,7 +571,10 @@ local utility = {
 
   -- Draw
   -- TODO: Add key mappings
-  { "LudoPinelli/comment-box.nvim" },
+  {
+    "LudoPinelli/comment-box.nvim",
+    cond = not utils.is_light_vim_mode(),
+  },
 
   -- Big file
   {

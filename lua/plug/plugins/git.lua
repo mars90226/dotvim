@@ -1,3 +1,5 @@
+local utils = require("vimrc.utils")
+
 local git = {
   -- vim-fugitive
   {
@@ -104,6 +106,7 @@ local git = {
 
   {
     "lewis6991/gitsigns.nvim",
+    cond = not utils.is_light_vim_mode(),
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()

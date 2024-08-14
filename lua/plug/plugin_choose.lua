@@ -42,7 +42,7 @@ plugin_choose.setup_completion = function()
 
   -- Choose LSP capabilities
   -- LSP `workspace/didChangeWatchedFiles` capability
-  if plugin_utils.os_is("Linux") and not plugin_utils.is_executable("fswatch") then
+  if utils.is_light_vim_mode() or (plugin_utils.os_is("Linux") and not plugin_utils.is_executable("fswatch")) then
     choose.disable_plugin("nvim-lsp-workspace-didChangeWatchedFiles")
   end
 
@@ -56,7 +56,7 @@ plugin_choose.setup_completion = function()
   -- Choose snippet plugin
   -- Always enable LuaSnip
   -- Enable placeholder transformations
-  if not plugin_utils.has_linux_build_env() then
+  if utils.is_light_vim_mode() or not plugin_utils.has_linux_build_env() then
     choose.disable_plugin("LuaSnip-transform")
   end
 
@@ -74,7 +74,7 @@ plugin_choose.setup_completion = function()
   -- Choose copilot
   -- copilot.lua, CopilotChat.nvim
   -- TODO: Add light vim mode check for copilot.lua
-  if not plugin_utils.has_linux_build_env() then
+  if utils.is_light_vim_mode() or not plugin_utils.has_linux_build_env() then
     choose.disable_plugin("copilot.lua")
     choose.disable_plugin("copilot-cmp")
     choose.disable_plugin("CopilotChat.nvim")
@@ -89,7 +89,7 @@ plugin_choose.setup_file_explorer = function()
   -- defx.nvim
   choose.disable_plugins({ "defx.nvim" })
 
-  if vim.version.cmp(vim.fn["vimrc#plugin#check#python_version"](), "3.6.1") >= 0 then
+  if not utils.is_light_vim_mode() and vim.version.cmp(vim.fn["vimrc#plugin#check#python_version"](), "3.6.1") >= 0 then
     choose.enable_plugin("defx.nvim")
   end
   -- Always use neo-tree.nvim
@@ -171,7 +171,7 @@ plugin_choose.setup_language = function()
 end
 
 plugin_choose.setup_misc = function()
-  if vim.fn.has("python") == 0 and vim.fn.has("python3") == 0 then
+  if utils.is_light_vim_mode() or (vim.fn.has("python") == 0 and vim.fn.has("python3") == 0) then
     choose.disable_plugin("vim-mundo")
   end
 
@@ -179,7 +179,7 @@ plugin_choose.setup_misc = function()
   -- builtin vim.highlight
 
   -- Disable vim-gutentags when in nested neovim
-  if vim.fn["vimrc#plugin#check#in_nvim_terminal"]() == 1 then
+  if utils.is_light_vim_mode() or vim.fn["vimrc#plugin#check#in_nvim_terminal"]() == 1 then
     choose.disable_plugin("vim-gutentags")
   end
 
@@ -233,6 +233,7 @@ plugin_choose.setup = function()
   -- Start choosing
   choose.clear_disabled_plugins()
 
+  -- TODO: Think of a better way to massively disable plugins in light mode that fit current architecture
   plugin_choose.setup_appearance()
   plugin_choose.setup_completion()
   plugin_choose.setup_file_explorer()

@@ -126,6 +126,7 @@ local text_manipulation = {
   -- Surround
   {
     "kylechui/nvim-surround",
+    cond = not utils.is_light_vim_mode(),
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
       require("nvim-surround").setup({})
@@ -148,6 +149,7 @@ local text_manipulation = {
   -- imap <BS> & <CR> is overwritten, need to be careful of bugs
   {
     "mg979/vim-visual-multi",
+    cond = not utils.is_light_vim_mode(),
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
       -- nvim-hlslens integration
@@ -233,6 +235,7 @@ local text_manipulation = {
   -- TODO: Lazy load on keys
   {
     "arthurxavierx/vim-caser",
+    cond = not utils.is_light_vim_mode(),
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
   },
   {

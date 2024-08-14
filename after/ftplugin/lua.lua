@@ -1,4 +1,4 @@
-local surround = require("nvim-surround")
+local has_surround, surround = pcall(require, "nvim-surround")
 
 local my_nvim_surround = require("vimrc.plugins.nvim_surround")
 
@@ -15,9 +15,11 @@ nmap("<Leader>dr", [[<Plug>(Luadev-Run)]], "buffer")
 nmap("<Leader>dw", [[<Plug>(Luadev-RunWord)]], "buffer")
 imap("<C-G><C-D>", [[<Plug>(Luadev-Complete)]], "buffer")
 
--- NOTE: 2-characters cannot use default find & delete & change implementation
-surround.buffer_setup({
-  surrounds = {
-    ["s"] = my_nvim_surround.create_all("[[", "]]"),
-  },
-})
+if has_surround then
+  -- NOTE: 2-characters cannot use default find & delete & change implementation
+  surround.buffer_setup({
+    surrounds = {
+      ["s"] = my_nvim_surround.create_all("[[", "]]"),
+    },
+  })
+end

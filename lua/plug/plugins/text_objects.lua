@@ -1,3 +1,5 @@
+local utils = require("vimrc.utils")
+
 local text_objects = {
   {
     "wellle/targets.vim",
@@ -60,6 +62,7 @@ local text_objects = {
 
   {
     "chrisgrieser/nvim-various-textobjs",
+    cond = not utils.is_light_vim_mode(),
     -- HACK: Load this first to allow other plugins to override the key mappings
     priority = 100,
     config = function()

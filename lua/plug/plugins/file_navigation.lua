@@ -15,6 +15,7 @@ local file_navigation = {
   -- Yank
   {
     "gbprod/yanky.nvim",
+    cond = not utils.is_light_vim_mode(),
     -- TODO: Only lazy load in WSL
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
@@ -391,6 +392,7 @@ local file_navigation = {
   -- Automatically update tags
   {
     "ludovicchabant/vim-gutentags",
+    cond = choose.is_enabled_plugin("vim-gutentags"),
     event = { "VeryLazy" },
     init = function()
       -- Don't update cscope, workload is too heavy
