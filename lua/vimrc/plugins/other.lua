@@ -101,6 +101,30 @@ other.generate_mappings = function()
         },
       },
     },
+    ["raw"] = {
+      level = { 2, 3, 4 },
+      mappings = {
+        {
+          pattern = [[/include/%s/%s.h$]],
+          target = {
+            {
+              target = [[/%s/%s.cpp]],
+            },
+            {
+              target = [[/%s/%s.c]],
+            },
+          },
+        },
+        {
+          pattern = [[/%s/%s.cpp$]],
+          target = [[/include/%s/%s.h]],
+        },
+        {
+          pattern = [[/%s/%s.c$]],
+          target = [[/include/%s/%s.h]],
+        },
+      },
+    },
     ["src-core"] = {
       level = { 2, 3, 4 },
       mappings = {
