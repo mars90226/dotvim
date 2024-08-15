@@ -60,7 +60,7 @@ gitsigns.setup_config = function()
     current_line_blame = true,
     current_line_blame_opts = {
       virt_text = true,
-      virt_text_pos = "eol",
+      virt_text_pos = "right_align",
       delay = 500,
     },
     sign_priority = 6,
@@ -68,6 +68,9 @@ gitsigns.setup_config = function()
     status_formatter = nil, -- Use default
     diff_opts = {
       internal = true,
+    },
+    preview_config = {
+      border = "rounded",
     },
   })
 end
