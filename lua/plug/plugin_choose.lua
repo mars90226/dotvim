@@ -52,6 +52,12 @@ plugin_choose.setup_completion = function()
   if plugin_utils.has_linux_build_env() then
     choose.enable_plugin("rustaceanvim")
   end
+  
+  -- Choose dictionary completion plugin
+  -- cmp-dictionary
+  if not plugin_utils.get_dictionary() then
+    choose.disable_plugin("cmp-dictionary")
+  end
 
   -- Choose snippet plugin
   -- LuaSnip

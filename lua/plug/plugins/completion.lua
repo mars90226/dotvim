@@ -39,9 +39,10 @@ local completion = {
       { "andersevenrud/cmp-tmux" },
       {
         "uga-rosa/cmp-dictionary",
+        cond = choose.is_enabled_plugin("cmp-dictionary"),
         config = function()
           require("cmp_dictionary").setup({
-            paths = { "/usr/share/dict/words" },
+            paths = { plugin_utils.get_dictionary() },
             exact_length = 2,
             first_case_insensitive = true,
             document = {

@@ -71,6 +71,16 @@ plugin_utils.get_browser = function()
   end
 end
 
+plugin_utils.get_dictionary = function()
+  if vim.g.loaded_dictionary then
+    return vim.g.dictionary_path
+  end
+
+  local dictionary_path = "/usr/share/dict/words"
+  vim.g.dictionary_path = plugin_utils.file_readable(dictionary_path) and dictionary_path or nil
+  return vim.g.dictionary_path
+end
+
 plugin_utils.KERNEL_VERSIONS = {
   SYNOLOGY_DSM_7 = 40000
 }

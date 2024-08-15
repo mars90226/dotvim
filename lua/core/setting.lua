@@ -104,8 +104,8 @@ settings.setup = function()
       end
 
       -- Complete
-      if plugin_utils.file_readable("/usr/share/dict/words") then
-        vim.opt.dictionary = "/usr/share/dict/words"
+      if plugin_utils.get_dictionary() then
+        vim.opt.dictionary = plugin_utils.get_dictionary()
       end
 
       -- Remove '=' from isfilename to complete filename in 'options'='filename' format
