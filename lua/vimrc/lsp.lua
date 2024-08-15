@@ -72,7 +72,9 @@ lsp.servers = {
   gopls = {
     condition = plugin_utils.has_linux_build_env(),
   },
-  harper_ls = {},
+  harper_ls = {
+    condition = plugin_utils.has_linux_build_env(),
+  },
   html = {
     capabilities = {
       textDocument = {
@@ -183,6 +185,7 @@ lsp.servers = {
   --   end,
   -- },
   vtsls = {
+    condition = plugin_utils.has_linux_build_env(),
     -- Ref: [LazyVim TypeScript config](https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/typescript.lua)
     -- Ref: [LazyVim Vue config](https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/vue.lua)
     -- Ref: [AstroNvim TypeScript config](https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/typescript/init.lua)
