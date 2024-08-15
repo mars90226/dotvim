@@ -204,6 +204,7 @@ tui.setup = function()
       end,
     })
   end
+
   if vim.fn.executable("yazi") == 1 then
     use_config({
       "mars90226/tui-yazi",
@@ -249,8 +250,12 @@ tui.setup = function()
     use_config({
       "mars90226/tui-gitui",
       config = function()
-        local base_gitui_cmd = 'env GIT_EDITOR=$EDITOR gitui'
-        vim.api.nvim_create_user_command("Gitui", [[call vimrc#tui#run('float', ']] .. base_gitui_cmd .. [[ '.<q-args>)]], { nargs = "*" })
+        local base_gitui_cmd = "env GIT_EDITOR=$EDITOR gitui"
+        vim.api.nvim_create_user_command(
+          "Gitui",
+          [[call vimrc#tui#run('float', ']] .. base_gitui_cmd .. [[ '.<q-args>)]],
+          { nargs = "*" }
+        )
         vim.api.nvim_create_user_command(
           "GituiSplit",
           [[call vimrc#tui#run('new', ']] .. base_gitui_cmd .. [[ '.<q-args>)]],
@@ -289,26 +294,43 @@ tui.setup = function()
   end
 
   if vim.fn.executable("jless") == 1 then
-      use_config({
-        "mars90226/tui-jless",
-        config = function()
-          vim.api.nvim_create_user_command(
-            "Jless",
-            [[call vimrc#tui#run('float', 'jless '.<q-args>)]],
-            { nargs = "*", complete = "file" }
-          )
-          vim.api.nvim_create_user_command(
-            "JlessSplit",
-            [[call vimrc#tui#run('new', 'jless '.<q-args>)]],
-            { nargs = "*", complete = "file" }
-          )
-          require("vimrc.plugins.command_palette").insert_commands("TUI", {
-            { "Jless", ":Jless", 1 },
-            { "JlessSplit", ":JlessSplit", 1 },
-          })
-        end,
-      })
-    end
+    use_config({
+      "mars90226/tui-jless",
+      config = function()
+        vim.api.nvim_create_user_command(
+          "Jless",
+          [[call vimrc#tui#run('float', 'jless '.<q-args>)]],
+          { nargs = "*", complete = "file" }
+        )
+        vim.api.nvim_create_user_command(
+          "JlessSplit",
+          [[call vimrc#tui#run('new', 'jless '.<q-args>)]],
+          { nargs = "*", complete = "file" }
+        )
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Jless", ":Jless", 1 },
+          { "JlessSplit", ":JlessSplit", 1 },
+        })
+      end,
+    })
+  end
+
+  if vim.fn.executable("mprocs") == 1 then
+    use_config({
+      "mars90226/tui-mprocs",
+      config = function()
+        vim.api.nvim_create_user_command("Mprocs", [[call vimrc#tui#run('float', 'mprocs '.<q-args>)]], { nargs = "*" })
+        vim.api.nvim_create_user_command("MprocsSplit", [[call vimrc#tui#run('new', 'mprocs '.<q-args>)]], { nargs = "*" })
+        require("vimrc.plugins.command_palette").insert_commands("TUI", {
+          { "Mprocs", ":Mprocs", 1 },
+          { "MprocsSplit", ":MprocsSplit", 1 },
+        })
+
+        nnoremap("<Leader>mp", [[:Mprocs<CR>]])
+        nnoremap("<Leader>mP", [[:MprocsSplit<CR>]])
+      end,
+    })
+  end
 
   -- TODO: Add tig
 
