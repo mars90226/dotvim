@@ -73,9 +73,8 @@ plugin_choose.setup_completion = function()
   -- Choose linter integration plugin
   -- none-ls.nvim, nvim-lint
   -- Always enable nvim-lint
-  choose.disable_plugin("none-ls.nvim")
-  if not utils.is_light_vim_mode() then
-    choose.enable_plugin("none-ls.nvim")
+  if utils.is_light_vim_mode() or not plugin_utils.has_linux_build_env() then
+    choose.disable_plugin("none-ls.nvim")
   end
 
   -- Choose formatter integration plugin
