@@ -249,9 +249,9 @@ mapping.setup = function()
       -- Get visual selection
       cnoremap("<C-G><C-V>", [[vimrc#utility#get_visual_selection()]], "<expr>", { desc = "Get visual selection" })
       -- Trim command line content (Use <Space> to separate `<C-\>e` and function)
-      cnoremap("<C-G>t", [[<C-\>e<Space>vimrc#insert#trim_cmdline()<CR>]], "<expr>", { desc = "Trim command line content" })
+      cnoremap("<C-G>t", [[<C-\>e<Space>vimrc#insert#trim_cmdline()<CR>]], { desc = "Trim command line content" })
       -- Delete whole word (Use <Space> to separate `<C-\>e` and function)
-      cnoremap("<C-G>w", [[<C-\>e<Space>vimrc#insert#delete_whole_word()<CR>]], "<expr>", { desc = "Delete whole word" })
+      cnoremap("<C-G>w", [[<C-\>e<Space>vimrc#insert#delete_whole_word()<CR>]], { desc = "Delete whole word" })
       -- Delete subword (Use <Space> to separate `<C-\>e` and function)
       cnoremap("<C-X><C-B>", [[<C-\>e<Space>v:lua.require("vimrc.cmdline").delete_subword()<CR>]], { desc = "Delete subword" })
       -- Company related data
