@@ -29,6 +29,7 @@ local utility = {
   -- It seems that if plugin is lazy loaded and not lua plugin, then whick-key.nvim may override the key mappings.
   {
     "tpope/vim-unimpaired",
+    enabled = false,
     cond = not utils.is_light_vim_mode(),
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     keys = {

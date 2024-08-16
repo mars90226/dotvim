@@ -7,6 +7,7 @@ autocmd.setup = function()
     plugin_spec.config()
   end
 
+  -- TODO: Check mini.basics autocommands
   use_config({
     "mars90226/autocmd",
     config = function()

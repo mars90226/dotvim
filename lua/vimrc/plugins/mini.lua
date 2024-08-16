@@ -36,6 +36,22 @@ mini.setup_autocmd = function()
 end
 
 mini.setup_config = function()
+  require('mini.basics').setup({
+    options = {
+      basic = false,
+    },
+    mappings = {
+      basic = false,
+      option_toggle_prefix = [[yo]],
+    },
+    autocommands = {
+      basic = false,
+    },
+  })
+  require('mini.bracketed').setup({
+    -- Map [N, [n, ]n, ]N for conflict marker like in 'tpope/vim-unimpaired'
+    conflict = { suffix = 'n' },
+  })
   require('mini.files').setup({
     options = {
       -- Whether to use for editing directories

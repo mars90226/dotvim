@@ -10,6 +10,7 @@ mapping.setup = function()
     plugin_spec.config()
   end
 
+  -- TODO: Check mini.basics mappings
   use_config({
     "mars90226/mapping",
     config = function()

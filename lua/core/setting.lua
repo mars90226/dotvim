@@ -8,6 +8,7 @@ settings.setup = function()
     plugin_spec.config()
   end
 
+  -- TODO: Check mini.basics options
   use_config({
     "mars90226/setting",
     config = function()

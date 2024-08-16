@@ -16,8 +16,9 @@ lspsaga.on_attach = function(client)
   nnoremap("<Space><F7>", "<Cmd>Lspsaga outline<CR>", "silent", "buffer")
   nnoremap("<Plug>(diff-prev)", "[c", "silent", "buffer")
   nnoremap("<Plug>(diff-next)", "]c", "silent", "buffer")
-  nmap("[c", [[&diff ? "\<Plug>(diff-prev)" : "\<Cmd>Lspsaga diagnostic_jump_prev\<CR>"]], "silent", "buffer", "expr")
-  nmap("]c", [[&diff ? "\<Plug>(diff-next)" : "\<Cmd>Lspsaga diagnostic_jump_next\<CR>"]], "silent", "buffer", "expr")
+  -- Avoid conflict with mini.bracketed
+  nmap("[z", [[&diff ? "\<Plug>(diff-prev)" : "\<Cmd>Lspsaga diagnostic_jump_prev\<CR>"]], "silent", "buffer", "expr")
+  nmap("]z", [[&diff ? "\<Plug>(diff-next)" : "\<Cmd>Lspsaga diagnostic_jump_next\<CR>"]], "silent", "buffer", "expr")
 
   -- Remap for K
   local maparg

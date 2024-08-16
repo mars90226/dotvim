@@ -36,6 +36,7 @@ local appearance = {
   },
 
   -- Devicons
+  -- TODO: Replace with mini.icon
   { "nvim-tree/nvim-web-devicons", lazy = true },
 
   -- Colors
