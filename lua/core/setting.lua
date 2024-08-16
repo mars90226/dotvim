@@ -31,7 +31,7 @@ settings.setup = function()
       vim.opt.spell = true
 
       vim.go.timeout = true
-      vim.go.timeoutlen = 1000
+      vim.go.timeoutlen = 300
 
       vim.opt.commentstring = "# %s" -- NOTE: Default is "# %s", set other 'commentstring' in ftplugin
 

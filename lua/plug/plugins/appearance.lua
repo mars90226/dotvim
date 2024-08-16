@@ -59,7 +59,6 @@ local appearance = {
   -- TODO: which-key.nvim check key every 50 ms, may need to check if it affects performance.
   {
     "folke/which-key.nvim",
-    cond = not utils.is_light_vim_mode(),
     event = { "VeryLazy" },
     opts = {
       preset = "modern",
