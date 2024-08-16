@@ -1,3 +1,15 @@
+" Variables
+" TODO: Improve variable name
+let s:fugitive_plugin_script_name = 'autoload/fugitive.vim'
+
+function! vimrc#fugitive#get_fugitive_plugin_snr() abort
+  if !exists('s:fugitive_plugin_snr')
+    let s:fugitive_plugin_snr = vimrc#utility#get_script_id(s:fugitive_plugin_script_name)
+  endif
+
+  return s:fugitive_plugin_snr
+endfunction
+
 " Utilities
 " Borrowed from vim-fugitive {{{
 let s:common_efm = ''
@@ -38,6 +50,10 @@ endfunction
 " For fugitive://* buffers
 function! vimrc#fugitive#fugitive_buffer_settings() abort
   setlocal bufhidden=delete
+
+  " Use fugitive's '=' mapping
+  let maparg = maparg('=', 'n', v:false, v:true)
+  execute 'nnoremap <buffer> <silent> <Tab> '.vimrc#utility#replace_sid_with_snr(vimrc#fugitive#get_fugitive_plugin_snr(), maparg.rhs)
 
   " Use fugitive's '-' mapping
   nmap <buffer> <silent> _               :vsplit<CR>-

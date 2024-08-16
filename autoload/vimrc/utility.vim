@@ -273,6 +273,10 @@ function! vimrc#utility#get_script_function(snr, function_name) abort
   return function(vimrc#utility#get_script_function_name(a:snr, a:function_name))
 endfunction
 
+function! vimrc#utility#replace_sid_with_snr(snr, mapping) abort
+  return substitute(a:mapping, '<SID>', '<SNR>'.a:snr.'_', '')
+endfunction
+
 function! vimrc#utility#get_tab_win_nr() abort
   return [tabpagenr(), winnr()]
 endfunction
