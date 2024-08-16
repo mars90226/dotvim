@@ -1,21 +1,6 @@
 local utils = require("vimrc.utils")
 
 local text_objects = {
-  {
-    "wellle/targets.vim",
-    event = { "VimEnter" },
-    config = function()
-      -- Reach targets
-      -- TODO: Other input method to avoid cursor moving?
-      -- FIXME: Setup which-key.nvim & lazy load
-      -- TODO: Replace with mini.ai
-      nmap("]r", [['vin'.v:lua.require("vimrc.utils").get_char_string()."o\<Esc>"]], "expr")
-      nmap("[r", [['vil'.v:lua.require("vimrc.utils").get_char_string()."\<Esc>"]], "expr")
-      nmap("]R", [['van'.v:lua.require("vimrc.utils").get_char_string()."o\<Esc>"]], "expr")
-      nmap("[R", [['val'.v:lua.require("vimrc.utils").get_char_string()."\<Esc>"]], "expr")
-    end,
-  },
-
   -- vim-textobj-user
   -- TODO: Find nvim-treesitter replacement
   {

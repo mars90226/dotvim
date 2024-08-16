@@ -36,6 +36,7 @@ mini.setup_autocmd = function()
 end
 
 mini.setup_config = function()
+  require('mini.ai').setup()
   -- TODO: Check if individual modules can be lazy loaded?
   require('mini.basics').setup({
     options = {
