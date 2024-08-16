@@ -153,6 +153,19 @@ mapping.setup = function()
       nnoremap("y=", [["+yiw]], { desc = "Yank current word to system clipboard" })
       nnoremap("y+", [["+yiW]], { desc = "Yank current WORD to system clipboard" })
 
+      -- TODO: Check mini-bracketed issue thread: https://github.com/echasnovski/mini.nvim/issues/235
+
+      -- Add empty lines before and after cursor line
+      -- Ref: https://github.com/echasnovski/mini.nvim/blob/c65901227e5a3671dbcb054745566a1c78f9f0c8/lua/mini/basics.lua#L558-L559
+      nnoremap('[<Space>', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>", { desc = 'Put empty line above' })
+      nnoremap(']<Space>', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>", { desc = 'Put empty line below' })
+
+      -- Quick paste above/below
+      -- TODO: Make this respect indent
+      -- Ref: https://github.com/echasnovski/mini.nvim/issues/235#issuecomment-1458079353
+      vim.keymap.set({ 'n', 'x' }, '[p', '<Cmd>exe "put! " . v:register<CR>', { desc = 'Paste Above' })
+      vim.keymap.set({ 'n', 'x' }, ']p', '<Cmd>exe "put "  . v:register<CR>', { desc = 'Paste Below' })
+
       -- Quick yank/paste to/from system clipboard
       -- TODO This overrides jump to mark
       nnoremap("=y", [["+y]], { desc = "Yank to system clipboard" })
