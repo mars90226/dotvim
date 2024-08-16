@@ -43,9 +43,9 @@ local file_explorer = {
       { [[<Space><F4>]], function()
         vim.cmd([[Defx ]] .. vim.fn["vimrc#defx#get_options"]('sidebar') .. " " .. vim.fn.expand("%:p:h") .. " -search=" .. vim.fn.expand("%:p"))
       end, desc = "Defx - open sidebar and search current file" },
-      -- Currently, it's impossible to type <S-F1> ~ <S-F12> using MobaXterm + tmux.
-      -- MobaXterm with 'Byobu terminal type' + tmux with 'screen-256color' will
-      -- generate keycode for <S-F1> ~ <S-F4> that recognized by neovim as <F13> ~ <F16>.
+      -- Currently, it's impossible to type <S-F1> ~ <S-F12> using wezterm + tmux.
+      -- wezterm with 'xterm-256color' + tmux with 'screen-256color' will
+      -- generate keycode for <S-F1> ~ <S-F12> that recognized by neovim as <F13> ~ <F16>.
       { [[<F16>]], function()
         vim.cmd([[Defx ]] .. vim.fn["vimrc#defx#get_options"]('sidebar') .. " " .. vim.fn.expand("%:p:h") .. " -search=" .. vim.fn.expand("%:p") .. " -no-focus")
       end, desc = "Defx - open sidebar and search current file without focus" },
