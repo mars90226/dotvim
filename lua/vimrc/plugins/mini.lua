@@ -36,6 +36,7 @@ mini.setup_autocmd = function()
 end
 
 mini.setup_config = function()
+  -- TODO: Check if individual modules can be lazy loaded?
   require('mini.basics').setup({
     options = {
       basic = false,
@@ -49,6 +50,8 @@ mini.setup_config = function()
     },
   })
   require('mini.bracketed').setup({
+    -- Map [K, [k, ]k, ]K for comment to avoid [c, ]c default vim mappings in diff-mode.
+    comment = { suffix = 'k' },
     -- Map [N, [n, ]n, ]N for conflict marker like in 'tpope/vim-unimpaired'
     conflict = { suffix = 'n' },
   })
