@@ -20,11 +20,6 @@ local git = {
     event = { "VeryLazy" },
   },
   {
-    "tpope/vim-rhubarb",
-    dependencies = { "tpope/vim-fugitive" },
-    event = { "VeryLazy" },
-  },
-  {
     "idanarye/vim-merginal",
     dependencies = { "tpope/vim-fugitive" },
     branch = "develop",
