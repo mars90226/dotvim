@@ -54,6 +54,16 @@ utils.table_map = function(table, fn)
   return new_table
 end
 
+utils.table_filter_keys = function(table, keys)
+  local filtered_table = {}
+  for _, opt in ipairs(keys) do
+    if table[opt] ~= nil then
+      filtered_table[opt] = table[opt]
+    end
+  end
+  return filtered_table
+end
+
 -- str:gmatch() with variable captures support
 utils.gmatch_as_table = function(str, ...)
   local matches = {}

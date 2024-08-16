@@ -1,4 +1,5 @@
 local utils = require("vimrc.utils")
+local my_lazy = require("vimrc.plugins.lazy")
 
 local git = {
   -- vim-fugitive
@@ -7,22 +8,43 @@ local git = {
     event = { "VeryLazy" },
     config = function()
       require("vimrc.plugins.fugitive").setup()
+
+      -- HACK: Add GBrowse command to load fugitive :GBrowse plugins and open
+      local original_gbrowse_opts = vim.api.nvim_get_commands({})["GBrowse"]
+      original_gbrowse_opts.complete = original_gbrowse_opts.complete .. "," .. original_gbrowse_opts.complete_arg
+      original_gbrowse_opts.range = true
+      local gbrowse_opts = utils.table_filter_keys(original_gbrowse_opts,
+        { "bang", "bar", "complete", "keepscript", "nargs", "range", "register" })
+      vim.api.nvim_create_user_command("GBrowse", function(opts)
+        vim.api.nvim_create_autocmd("User", {
+          pattern = "LazyLoad",
+          once = true,
+          callback = function()
+            vim.api.nvim_create_user_command("GBrowse", original_gbrowse_opts.definition, gbrowse_opts)
+            -- TODO: Perfectly simulate :GBrowse command
+            -- Currently, it will open file with current commit sha even though it's on HEAD.
+            vim.cmd((opts.line1 ~= 0 and opts.line1 .. "," .. opts.line2 or "") .. "GBrowse " .. opts.args)
+          end
+        })
+
+        require("lazy").load({ plugins = { "fugitive-gitlab.vim", "vim-fubitive", "vim-rhubarb" } })
+      end, gbrowse_opts)
     end,
   },
   {
     "shumphrey/fugitive-gitlab.vim",
     dependencies = { "tpope/vim-fugitive" },
-    event = { "VeryLazy" },
+    lazy = true,
   },
   {
     "tommcdo/vim-fubitive",
     dependencies = { "tpope/vim-fugitive" },
-    event = { "VeryLazy" },
+    lazy = true,
   },
   {
     "tpope/vim-rhubarb",
     dependencies = { "tpope/vim-fugitive" },
-    event = { "VeryLazy" },
+    lazy = true,
   },
   {
     "idanarye/vim-merginal",
