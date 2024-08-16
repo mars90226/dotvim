@@ -125,7 +125,8 @@ local lsp = {
   -- NOTE: Above TODO is based on null-ls.nvim, need to check if it's still true for none-ls.nvim
   {
     "nvimtools/none-ls.nvim",
-    enabled = true,
+    -- TODO: Remove none-ls.nvim
+    enabled = false,
     cond = choose.is_enabled_plugin("none-ls.nvim"),
     -- TODO: Lazy load on filetypes
     event = { "BufReadPre", "BufNewFile" },

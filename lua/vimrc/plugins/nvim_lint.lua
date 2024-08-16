@@ -61,6 +61,7 @@ nvim_lint.setup = function()
     proto = { "buf_lint" },
     sh = { "shellcheck" },
     sql = { "sqlfluff" },
+    vim = { "vint" },
   }
 
   nnoremap("<Space>ll", "<Cmd>lua require('lint').try_lint()<CR>", "silent")
