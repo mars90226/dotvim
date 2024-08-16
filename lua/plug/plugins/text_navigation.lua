@@ -12,9 +12,8 @@ local text_navigation = {
       vim.g.matchup_matchparen_timeout = 100
       vim.g.matchup_matchparen_insert_timeout = 20
       vim.g.matchup_matchparen_nomode = "i"
-      vim.g.matchup_matchparen_offscreen = {
-        method = "status_manual", -- we already have nvim-treesitter-context
-      }
+      -- we already have nvim-treesitter-context
+      vim.g.matchup_matchparen_offscreen = {}
       vim.g.matchup_surround_enabled = 1
     end,
     -- NOTE: nvim-treesitter config is in nvim_treesitter.lua
