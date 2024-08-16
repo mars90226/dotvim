@@ -50,21 +50,6 @@ local utility = {
         ["]xx"] = [[\]xx]],
       }
     end,
-    config = function()
-      nnoremap("coc", ":set termguicolors!<CR>")
-      nnoremap("coe", ":set expandtab!<CR>")
-      nnoremap("com", ":set modifiable!<CR>")
-      nnoremap("coo", ":set readonly!<CR>")
-      nnoremap("cop", ":set paste!<CR>")
-      nnoremap("yoa", ":setlocal autoread!<CR>")
-
-      vim.keymap.set("n", "codp", function()
-        utils.toggle_list_option_flag(vim.opt.diffopt, "algorithm:patience")
-      end, { noremap = true })
-      vim.keymap.set("n", "codh", function()
-        utils.toggle_list_option_flag(vim.opt.diffopt, "algorithm:histogram")
-      end, { noremap = true })
-    end,
   },
 
   {

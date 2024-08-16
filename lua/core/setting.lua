@@ -36,7 +36,8 @@ settings.setup = function()
 
       vim.opt.scrolloff = 0
 
-      vim.opt.diffopt = { "internal", "filler", "vertical", "closeoff", "algorithm:histogram", "hiddenoff", "linematch:30", "indent-heuristic" }
+      vim.opt.diffopt = { "internal", "filler", "vertical", "closeoff", "algorithm:histogram", "hiddenoff",
+        "linematch:30", "indent-heuristic" }
 
       -- completion menu
       vim.opt.pumheight = 40
@@ -139,6 +140,25 @@ settings.setup = function()
 
       -- Set terminal buffer size to 10000 (default: 10000)
       vim.opt.scrollback = 10000
+    end,
+  })
+
+  use_config({
+    "mars90226/option-toggle",
+    config = function()
+      nnoremap("coc", ":set termguicolors!<CR>")
+      nnoremap("coe", ":set expandtab!<CR>")
+      nnoremap("com", ":set modifiable!<CR>")
+      nnoremap("coo", ":set readonly!<CR>")
+      nnoremap("cop", ":set paste!<CR>")
+      nnoremap("yoa", ":setlocal autoread!<CR>")
+
+      vim.keymap.set("n", "codp", function()
+        utils.toggle_list_option_flag(vim.opt.diffopt, "algorithm:patience")
+      end, { noremap = true, desc = "Toggle diff algorithm:patience" })
+      vim.keymap.set("n", "codh", function()
+        utils.toggle_list_option_flag(vim.opt.diffopt, "algorithm:histogram")
+      end, { noremap = true, desc = "Toggle diff algorithm:histogram" })
     end,
   })
 
