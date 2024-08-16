@@ -4,7 +4,9 @@ local dap = {
   -- Debug Adapter Protocol
   {
     "mfussenegger/nvim-dap",
-    ft = require("vimrc.dap").get_filetypes(),
+    -- ft = require("vimrc.dap").get_filetypes(),
+    -- NOTE: Only load when explicitly execute :Lazy load nvim-dap
+    lazy = true,
     dependencies = {
       {
         "jay-babu/mason-nvim-dap.nvim",
@@ -15,7 +17,7 @@ local dap = {
         -- TODO: Check if this is causing issues
         -- NOTE: Not sure why nvim-lspconfig will load this module, so we need to set it to false.
         module = false,
-        ft = require("vimrc.dap").get_filetypes(),
+        -- ft = require("vimrc.dap").get_filetypes(),
         config = function()
           require("mason-nvim-dap").setup({
             ensure_installed = require("vimrc.dap").get_dap_adapters(),
