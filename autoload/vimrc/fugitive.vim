@@ -53,7 +53,9 @@ function! vimrc#fugitive#fugitive_buffer_settings() abort
 
   " Use fugitive's '=' mapping
   let maparg = maparg('=', 'n', v:false, v:true)
-  execute 'nnoremap <buffer> <silent> <Tab> '.vimrc#utility#replace_sid_with_snr(vimrc#fugitive#get_fugitive_plugin_snr(), maparg.rhs)
+  if has_key(maparg, 'rhs')
+    execute 'nnoremap <buffer> <silent> = '.vimrc#utility#replace_sid_with_snr(vimrc#fugitive#get_fugitive_plugin_snr(), maparg.rhs)
+  endif
 
   " Use fugitive's '-' mapping
   nmap <buffer> <silent> _               :vsplit<CR>-
