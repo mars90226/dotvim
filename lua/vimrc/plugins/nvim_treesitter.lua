@@ -75,6 +75,8 @@ local current_buffer_base_highlight_disable_check = function()
   return base_disable_check(ft, bufnr)
 end
 
+-- TODO: Remove unused functions
+
 -- Disable check for highlight usage/context
 local extension_disable_check = function(lang, bufnr)
   return disable_check("extension", lang, bufnr)
@@ -260,33 +262,6 @@ nvim_treesitter.setup_config = function()
     indent = {
       enable = false, -- Currently, nvim-treesitter indent is WIP and not ready for production use
     },
-    refactor = {
-      highlight_definitions = {
-        enable = nvim_treesitter.enable_config.highlight_definitions,
-        disable = base_disable_check,
-        clear_on_cursor_move = false,
-      },
-      highlight_current_scope = {
-        enable = nvim_treesitter.enable_config.highlight_current_scope,
-        disable = extension_disable_check,
-      },
-      smart_rename = {
-        enable = true,
-        keymaps = {
-          smart_rename = "<Space>hr",
-        },
-      },
-      navigation = {
-        enable = true,
-        keymaps = {
-          goto_definition = "gnd",
-          list_definitions = "gnD",
-          list_definitions_toc = "gO",
-          goto_next_usage = "<M-*>",
-          goto_previous_usage = "<M-#>",
-        },
-      },
-    },
     textobjects = {
       select = {
         enable = true,
@@ -398,13 +373,6 @@ nvim_treesitter.setup_performance_trick = function()
     "highlight",
     "context_commentstring",
     "matchup",
-    plugin_utils.check_condition("refactor.highlight_current_scope",
-      nvim_treesitter.enable_config.highlight_current_scope),
-    plugin_utils.check_condition("refactor.highlight_definitions", nvim_treesitter.enable_config.highlight_definitions),
-    "refactor.navigation",
-    "refactor.smart_rename",
-    "textsubjects",
-    "rainbow",
   })
   local tab_idle_disabled_modules = global_idle_disabled_modules
 

@@ -45,12 +45,6 @@ local languages = {
     end,
   },
   {
-    "nvim-treesitter/nvim-treesitter-refactor",
-    cond = choose.is_enabled_plugin("nvim-treesitter"),
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = { "VeryLazy" },
-  },
-  {
     "nvim-treesitter/nvim-treesitter-textobjects",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
@@ -88,46 +82,6 @@ local languages = {
         desc = "treehopper nodes",
       },
     },
-  },
-  {
-    "RRethy/nvim-treesitter-textsubjects",
-    cond = choose.is_enabled_plugin("nvim-treesitter"),
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    keys = {
-      {
-        ".",
-        [[<Cmd>lua require("nvim-treesitter.textsubjects").select()<CR>]],
-        mode = { "x" },
-        silent = true,
-        desc = "Smartly increase selection",
-      },
-      {
-        "g;",
-        [[<Cmd>lua require("nvim-treesitter.textsubjects").select(true)<CR>]],
-        mode = { "x" },
-        silent = true,
-        desc = "Select outside containers (classes, functions, etc.)",
-      },
-      {
-        "i;",
-        [[<Cmd>lua require("nvim-treesitter.textsubjects").select(true, true)<CR>]],
-        mode = { "x" },
-        silent = true,
-        desc = "Select inside containers (classes, functions, etc.)",
-      },
-    },
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        textsubjects = {
-          enable = true,
-          keymaps = {
-            ["."] = "textsubjects-smart",
-            ["g;"] = "textsubjects-container-outer",
-            ["i;"] = { "textsubjects-container-inner", desc = "Select inside containers (classes, functions, etc.)" },
-          },
-        },
-      })
-    end,
   },
   {
     "m-demare/hlargs.nvim",
