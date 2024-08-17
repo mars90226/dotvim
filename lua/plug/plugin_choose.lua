@@ -75,7 +75,7 @@ plugin_choose.setup_completion = function()
     choose.disable_plugin("cmp-git")
   end
   -- cmp-rg
-  if not utils.is_main_vim_mode() then
+  if not utils.is_main_vim_mode() or not plugin_utils.is_executable("rg") then
     choose.disable_plugin("cmp-rg")
   end
   -- tailwindcss-colorizer-cmp.nvim

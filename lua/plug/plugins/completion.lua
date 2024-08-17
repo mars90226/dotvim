@@ -59,10 +59,10 @@ local completion = {
         "hrsh7th/cmp-calc",
         cond = choose.is_enabled_plugin("cmp-calc"),
       },
-      plugin_utils.check_enabled_plugin({
+      {
         "ray-x/cmp-treesitter",
-        cond = choose.is_enabled_plugin("cmp-treesitter"),
-      }, "nvim-treesitter"),
+        cond = choose.is_enabled_plugin("nvim-treesitter") and choose.is_enabled_plugin("cmp-treesitter"),
+      },
       {
         "petertriho/cmp-git",
         cond = choose.is_enabled_plugin("cmp-git"),
@@ -71,10 +71,10 @@ local completion = {
         end,
       },
       { "hrsh7th/cmp-emoji" },
-      plugin_utils.check_executable({
+      {
         "lukas-reineke/cmp-rg",
         cond = choose.is_enabled_plugin("cmp-rg"),
-      }, "rg"),
+      },
       { "hrsh7th/cmp-cmdline" },
       {
         "zbirenbaum/copilot-cmp",

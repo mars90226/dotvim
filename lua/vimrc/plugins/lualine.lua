@@ -121,7 +121,7 @@ lualine.default_option = {
     lualine_x = {},
     lualine_y = {},
     lualine_z = {},
-  }, "lualine.nvim-winbar") or {},
+  }, "lualine.nvim-winbar", {}),
   inactive_winbar = plugin_utils.check_enabled_plugin({
     lualine_a = {},
     lualine_b = {},
@@ -129,7 +129,7 @@ lualine.default_option = {
     lualine_x = {},
     lualine_y = {},
     lualine_z = {},
-  }, "lualine.nvim-winbar") or {},
+  }, "lualine.nvim-winbar", {}),
 
   extensions = {
     -- builtin
@@ -158,7 +158,7 @@ lualine.setup_refresh_interval = function(interval)
         tabline = new_interval,
       }, plugin_utils.check_enabled_plugin({
         winbar = new_interval,
-      }, "lualine.nvim-winbar") or {}),
+      }, "lualine.nvim-winbar", {})),
     },
   })
 

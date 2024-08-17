@@ -111,14 +111,14 @@ nvim_cmp.setup = function()
             rg = "[Rg]",
             dictionary = "[Dictionary]",
           },
-          plugin_utils.check_enabled_plugin({ tmux = "[Tmux]" }, "LuaSnip") or {},
-          plugin_utils.check_enabled_plugin({ dictionary = "[Dictionary]" }, "LuaSnip") or {},
-          plugin_utils.check_enabled_plugin({ calc = "[Calc]", }, "LuaSnip") or {},
-          plugin_utils.check_enabled_plugin({ treesitter = "[Treesitter]" }, "LuaSnip") or {},
-          plugin_utils.check_enabled_plugin({ cmp_git = "[Git]" }, "LuaSnip") or {},
-          plugin_utils.check_enabled_plugin({ rg = "[Rg]" }, "LuaSnip") or {},
-          plugin_utils.check_enabled_plugin({ luasnip = "[LuaSnip]" }, "LuaSnip") or {},
-          plugin_utils.check_enabled_plugin({ copilot = "[Copilot]" }, "copilot-cmp") or {}),
+          plugin_utils.check_enabled_plugin({ tmux = "[Tmux]" }, "LuaSnip", {}),
+          plugin_utils.check_enabled_plugin({ dictionary = "[Dictionary]" }, "LuaSnip", {}),
+          plugin_utils.check_enabled_plugin({ calc = "[Calc]", }, "LuaSnip", {}),
+          plugin_utils.check_enabled_plugin({ treesitter = "[Treesitter]" }, "LuaSnip", {}),
+          plugin_utils.check_enabled_plugin({ cmp_git = "[Git]" }, "LuaSnip", {}),
+          plugin_utils.check_enabled_plugin({ rg = "[Rg]" }, "LuaSnip", {}),
+          plugin_utils.check_enabled_plugin({ luasnip = "[LuaSnip]" }, "LuaSnip", {}),
+          plugin_utils.check_enabled_plugin({ copilot = "[Copilot]" }, "copilot-cmp", {})),
         before = function(entry, vim_item)
           -- TODO: Monitor if this hinders cmp performance
           if require("vimrc.plugins.lazy").is_loaded("tailwindcss-colorizer-cmp.nvim") then
@@ -184,7 +184,7 @@ nvim_cmp.setup = function()
         end
       end, { "i" }),
       ["<C-Space>"] = cmp.mapping.complete(),
-    }, "LuaSnip") or {}, plugin_utils.check_enabled_plugin({
+    }, "LuaSnip", {}), plugin_utils.check_enabled_plugin({
       ["<C-Y>"] = cmp.mapping(function(fallback)
         local copilot_suggestion = require("copilot.suggestion")
 
@@ -240,7 +240,7 @@ nvim_cmp.setup = function()
         cmp.mapping.close()(fallback)
         copilot_suggestion.prev()
       end),
-    }, "copilot-cmp") or {})),
+    }, "copilot-cmp", {}))),
     -- Ref: https://github.com/lukas-reineke/dotfiles/blob/master/vim/lua/plugins/nvim-cmp.lua#L54-L77
     sources = cmp.config.sources(
       vim.tbl_filter(function(component)

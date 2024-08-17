@@ -3,11 +3,11 @@ local choose = require("vimrc.choose")
 local plugin_utils = {}
 
 -- Utils
-plugin_utils.check_condition = function(plugin_spec, condition)
+plugin_utils.check_condition = function(plugin_spec, condition, default)
   if condition then
     return plugin_spec
   else
-    return nil
+    return default
   end
 end
 
@@ -45,12 +45,12 @@ plugin_utils.has_linux_build_env = function()
   return vim.fn["vimrc#plugin#check#has_linux_build_env"]() == 1
 end
 
-plugin_utils.check_enabled_plugin = function(plugin_spec, plugin)
-  return plugin_utils.check_condition(plugin_spec, choose.is_enabled_plugin(plugin))
+plugin_utils.check_enabled_plugin = function(plugin_spec, plugin, default)
+  return plugin_utils.check_condition(plugin_spec, choose.is_enabled_plugin(plugin), default)
 end
 
-plugin_utils.check_executable = function(plugin_spec, executable)
-  return plugin_utils.check_condition(plugin_spec, plugin_utils.is_executable(executable))
+plugin_utils.check_executable = function(plugin_spec, executable, default)
+  return plugin_utils.check_condition(plugin_spec, plugin_utils.is_executable(executable), default)
 end
 
 plugin_utils.has_ssh_host_client = function()
