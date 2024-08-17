@@ -337,11 +337,6 @@ nvim_treesitter.setup_config = function()
         },
       },
     },
-    query_linter = {
-      enable = true,
-      use_virtual_text = true,
-      lint_events = { "BufWrite", "CursorHold" },
-    },
     context_commentstring = {
       enable = true,
     },
