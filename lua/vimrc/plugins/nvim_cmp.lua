@@ -264,6 +264,9 @@ nvim_cmp.setup = function()
           keyword_length = 2,
           max_view_entries = 10,
           priority_weight = 40,
+          entry_filter = function(entry)
+            return not entry.exact
+          end,
         }, "cmp-dictionary"),
         {
           name = "crates",
@@ -278,6 +281,9 @@ nvim_cmp.setup = function()
             keyword_length = 5,
           },
           priority_weight = 70,
+          entry_filter = function(entry)
+            return not entry.exact
+          end,
         }),
         -- TODO: Timeout slow source?
         plugin_utils.check_enabled_plugin({
@@ -289,6 +295,9 @@ nvim_cmp.setup = function()
             debounce = 500,
           },
           priority_weight = 60,
+          entry_filter = function(entry)
+            return not entry.exact
+          end,
         }, "cmp-rg"),
       }
     ),
