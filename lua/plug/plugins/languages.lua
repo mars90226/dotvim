@@ -62,6 +62,8 @@ local languages = {
       require("ts_context_commentstring").setup({})
     end,
   },
+
+  -- Navigate
   {
     "mfussenegger/nvim-treehopper",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
@@ -82,31 +84,6 @@ local languages = {
         desc = "treehopper nodes",
       },
     },
-  },
-  {
-    "m-demare/hlargs.nvim",
-    cond = choose.is_enabled_plugin("nvim-treesitter"),
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = { "VeryLazy" },
-    config = function()
-      -- TODO: Move to nvim_treesitter.lua
-      local hlargs = require("hlargs")
-
-      hlargs.setup()
-
-      local hlargs_augroup_id = vim.api.nvim_create_augroup("hlargs_settings", {})
-      vim.api.nvim_create_autocmd({ "OptionSet" }, {
-        group = hlargs_augroup_id,
-        pattern = "diff",
-        callback = function()
-          if vim.api.nvim_get_option_value("diff", {}) then
-            hlargs.disable()
-          else
-            hlargs.enable()
-          end
-        end,
-      })
-    end,
   },
   {
     "ziontee113/syntax-tree-surfer",
@@ -189,12 +166,84 @@ local languages = {
       require("vimrc.plugins.syntax_tree_surfer").setup()
     end,
   },
+
+  -- Highlight arguments
+  {
+    "m-demare/hlargs.nvim",
+    cond = choose.is_enabled_plugin("nvim-treesitter"),
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = { "VeryLazy" },
+    config = function()
+      -- TODO: Move to nvim_treesitter.lua
+      local hlargs = require("hlargs")
+
+      hlargs.setup()
+
+      local hlargs_augroup_id = vim.api.nvim_create_augroup("hlargs_settings", {})
+      vim.api.nvim_create_autocmd({ "OptionSet" }, {
+        group = hlargs_augroup_id,
+        pattern = "diff",
+        callback = function()
+          if vim.api.nvim_get_option_value("diff", {}) then
+            hlargs.disable()
+          else
+            hlargs.enable()
+          end
+        end,
+      })
+    end,
+  },
+
+  -- Highlight bracket
+  {
+    "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
+    cond = choose.is_enabled_plugin("nvim-treesitter"),
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    ft = { "fennel", "query" },
+    config = function()
+      -- This module contains a number of default definitions
+      local rainbow_delimiters = require("rainbow-delimiters")
+
+      vim.g.rainbow_delimiters = {
+        strategy = {
+          [""] = rainbow_delimiters.strategy["global"],
+          commonlisp = rainbow_delimiters.strategy["local"],
+        },
+        query = {
+          [""] = "rainbow-delimiters",
+          lua = "rainbow-blocks",
+        },
+        highlight = {
+          "RainbowDelimiterRed",
+          "RainbowDelimiterYellow",
+          "RainbowDelimiterBlue",
+          "RainbowDelimiterOrange",
+          "RainbowDelimiterGreen",
+          "RainbowDelimiterViolet",
+          "RainbowDelimiterCyan",
+        },
+        whitelist = { "fennel", "query" },
+      }
+    end,
+  },
+  {
+    "HampusHauffman/block.nvim",
+    cmd = { "Block", "BlockOn", "BlockOff" },
+    keys = {
+      { "<Leader>bo", "<Cmd>Block<CR>", desc = "Toggle block" },
+    },
+    opts = {},
+  },
+
+  -- Indent
   {
     "yioneko/nvim-yati",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = { "VeryLazy" },
   },
+
+  -- Refactoring
   {
     "ThePrimeagen/refactoring.nvim",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
@@ -328,6 +377,8 @@ local languages = {
       require("telescope").load_extension("refactoring")
     end,
   },
+
+  -- Swap
   {
     "mizlan/iswap.nvim",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
@@ -341,45 +392,6 @@ local languages = {
       { "<Space>i,", [[<Cmd>ISwapNodeWithLeft<CR>]], desc = "ISwap node with left" },
       { "<Space>i.", [[<Cmd>ISwapNodeWithRight<CR>]], desc = "ISwap node with right" },
     },
-  },
-  {
-    "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
-    cond = choose.is_enabled_plugin("nvim-treesitter"),
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    ft = { "fennel", "query" },
-    config = function()
-      -- This module contains a number of default definitions
-      local rainbow_delimiters = require("rainbow-delimiters")
-
-      vim.g.rainbow_delimiters = {
-        strategy = {
-          [""] = rainbow_delimiters.strategy["global"],
-          commonlisp = rainbow_delimiters.strategy["local"],
-        },
-        query = {
-          [""] = "rainbow-delimiters",
-          lua = "rainbow-blocks",
-        },
-        highlight = {
-          "RainbowDelimiterRed",
-          "RainbowDelimiterYellow",
-          "RainbowDelimiterBlue",
-          "RainbowDelimiterOrange",
-          "RainbowDelimiterGreen",
-          "RainbowDelimiterViolet",
-          "RainbowDelimiterCyan",
-        },
-        whitelist = { "fennel", "query" },
-      }
-    end,
-  },
-  {
-    "HampusHauffman/block.nvim",
-    cmd = { "Block", "BlockOn", "BlockOff" },
-    keys = {
-      { "<Leader>bo", "<Cmd>Block<CR>", desc = "Toggle block" },
-    },
-    opts = {},
   },
 
   -- treesitter parser
