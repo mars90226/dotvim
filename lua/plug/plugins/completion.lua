@@ -168,7 +168,7 @@ local completion = {
   {
     "windwp/nvim-autopairs",
     cond = choose.is_enabled_plugin("nvim-autopairs"),
-    event = { "InsertEnter", "CmdlineEnter" },
+    event = { "InsertEnter" },
     config = function()
       local Rule = require("nvim-autopairs.rule")
       local npairs = require("nvim-autopairs")
@@ -195,7 +195,7 @@ local completion = {
   {
     "abecodes/tabout.nvim",
     cond = not utils.is_light_vim_mode() and choose.is_enabled_plugin("nvim-treesitter"),
-    event = { "InsertEnter", "CmdlineEnter" },
+    event = { "InsertEnter" },
     config = function()
       require("tabout").setup({
         tabkey = "<M-n>", -- key to trigger tabout, set to an empty string to disable
