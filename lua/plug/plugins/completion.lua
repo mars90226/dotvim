@@ -36,7 +36,10 @@ local completion = {
       { "hrsh7th/cmp-nvim-lua" },
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-path" },
-      { "andersevenrud/cmp-tmux" },
+      {
+        "andersevenrud/cmp-tmux",
+        cond = choose.is_enabled_plugin("cmp-tmux"),
+      },
       {
         "uga-rosa/cmp-dictionary",
         cond = choose.is_enabled_plugin("cmp-dictionary"),
@@ -52,16 +55,26 @@ local completion = {
           })
         end,
       },
-      { "hrsh7th/cmp-calc" },
-      plugin_utils.check_enabled_plugin({ "ray-x/cmp-treesitter" }, "nvim-treesitter"),
+      {
+        "hrsh7th/cmp-calc",
+        cond = choose.is_enabled_plugin("cmp-calc"),
+      },
+      plugin_utils.check_enabled_plugin({
+        "ray-x/cmp-treesitter",
+        cond = choose.is_enabled_plugin("cmp-treesitter"),
+      }, "nvim-treesitter"),
       {
         "petertriho/cmp-git",
+        cond = choose.is_enabled_plugin("cmp-git"),
         config = function()
           require("cmp_git").setup()
         end,
       },
       { "hrsh7th/cmp-emoji" },
-      plugin_utils.check_executable({ "lukas-reineke/cmp-rg" }, "rg"),
+      plugin_utils.check_executable({
+        "lukas-reineke/cmp-rg",
+        cond = choose.is_enabled_plugin("cmp-rg"),
+      }, "rg"),
       { "hrsh7th/cmp-cmdline" },
       {
         "zbirenbaum/copilot-cmp",
@@ -72,6 +85,7 @@ local completion = {
       },
       {
         "roobert/tailwindcss-colorizer-cmp.nvim",
+        cond = choose.is_enabled_plugin("tailwindcss-colorizer-cmp.nvim"),
         -- Ref: nvim-lspconfig tailwindcss.lua
         ft = {
           -- html

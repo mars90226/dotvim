@@ -109,27 +109,34 @@ utils.get_vim_mode = function()
 end
 
 utils.is_reader_mode = function()
-  if vim.g.loaded_reader_mode then
-    return vim.g.is_reader_mode
-  else
+  if not vim.g.loaded_reader_mode then
     vim.g.is_reader_mode = utils.get_vim_mode() == "reader"
     vim.g.loaded_reader_mode = true
-    return vim.g.is_reader_mode
   end
+
+  return vim.g.is_reader_mode
 end
 
 utils.is_gitcommit_mode = function()
-  if vim.g.loaded_gitcommit_mode then
-    return vim.g.is_gitcommit_mode
-  else
+  if not vim.g.loaded_gitcommit_mode then
     vim.g.is_gitcommit_mode = utils.get_vim_mode() == "gitcommit"
     vim.g.loaded_gitcommit_mode = true
-    return vim.g.is_gitcommit_mode
   end
+
+  return vim.g.is_gitcommit_mode
 end
 
 utils.is_light_vim_mode = function()
   return utils.is_reader_mode() or utils.is_gitcommit_mode()
+end
+
+utils.is_main_vim_mode = function()
+  if not vim.g.loaded_main_mode then
+    vim.g.is_main_mode = utils.get_vim_mode() == "main"
+    vim.g.loaded_main_mode = true
+  end
+
+  return vim.g.is_main_mode
 end
 
 utils.ternary = function(condition, true_value, false_value)

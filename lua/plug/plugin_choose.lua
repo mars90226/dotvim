@@ -53,10 +53,34 @@ plugin_choose.setup_completion = function()
     choose.enable_plugin("rustaceanvim")
   end
   
-  -- Choose dictionary completion plugin
+  -- Choose nvim-cmp source plugin
   -- cmp-dictionary
-  if not plugin_utils.get_dictionary() then
+  if not utils.is_main_vim_mode() or not plugin_utils.get_dictionary() then
     choose.disable_plugin("cmp-dictionary")
+  end
+  -- cmp-tmux
+  if not utils.is_main_vim_mode() then
+    choose.disable_plugin("cmp-tmux")
+  end
+  -- cmp-calc
+  if not utils.is_main_vim_mode() then
+    choose.disable_plugin("cmp-calc")
+  end
+  -- cmp-treesitter
+  if not utils.is_main_vim_mode() then
+    choose.disable_plugin("cmp-treesitter")
+  end
+  -- cmp-git
+  if not utils.is_main_vim_mode() then
+    choose.disable_plugin("cmp-git")
+  end
+  -- cmp-rg
+  if not utils.is_main_vim_mode() then
+    choose.disable_plugin("cmp-rg")
+  end
+  -- tailwindcss-colorizer-cmp.nvim
+  if not utils.is_main_vim_mode() then
+    choose.disable_plugin("tailwindcss-colorizer-cmp.nvim")
   end
 
   -- Choose snippet plugin

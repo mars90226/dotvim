@@ -101,23 +101,24 @@ nvim_cmp.setup = function()
         mode = "symbol_text",
         maxwidth = 50,
         show_labelDetails = false,
+        -- TODO: Refactor this
         menu = vim.tbl_extend("keep", {
-          nvim_lsp = "[LSP]",
-          path = "[Path]",
-          nvim_lua = "[Lua]",
-          buffer = "[Buffer]",
-          calc = "[Calc]",
-          emoji = "[Emoji]",
-          treesitter = "[Treesitter]",
-          cmp_git = "[Git]",
-          tmux = "[Tmux]",
-          rg = "[Rg]",
-          dictionary = "[Dictionary]",
-        }, plugin_utils.check_enabled_plugin({
-          luasnip = "[LuaSnip]",
-        }, "LuaSnip") or {}, plugin_utils.check_enabled_plugin({
-          copilot = "[Copilot]",
-        }, "copilot-cmp") or {}),
+            nvim_lsp = "[LSP]",
+            path = "[Path]",
+            nvim_lua = "[Lua]",
+            buffer = "[Buffer]",
+            emoji = "[Emoji]",
+            rg = "[Rg]",
+            dictionary = "[Dictionary]",
+          },
+          plugin_utils.check_enabled_plugin({ tmux = "[Tmux]" }, "LuaSnip") or {},
+          plugin_utils.check_enabled_plugin({ dictionary = "[Dictionary]" }, "LuaSnip") or {},
+          plugin_utils.check_enabled_plugin({ calc = "[Calc]", }, "LuaSnip") or {},
+          plugin_utils.check_enabled_plugin({ treesitter = "[Treesitter]" }, "LuaSnip") or {},
+          plugin_utils.check_enabled_plugin({ cmp_git = "[Git]" }, "LuaSnip") or {},
+          plugin_utils.check_enabled_plugin({ rg = "[Rg]" }, "LuaSnip") or {},
+          plugin_utils.check_enabled_plugin({ luasnip = "[LuaSnip]" }, "LuaSnip") or {},
+          plugin_utils.check_enabled_plugin({ copilot = "[Copilot]" }, "copilot-cmp") or {}),
         before = function(entry, vim_item)
           -- TODO: Monitor if this hinders cmp performance
           if require("vimrc.plugins.lazy").is_loaded("tailwindcss-colorizer-cmp.nvim") then
@@ -251,24 +252,24 @@ nvim_cmp.setup = function()
         { name = "nvim_lsp_signature_help", priority_weight = 100 },
         { name = "nvim_lua",                priority_weight = 90 },
         plugin_utils.check_enabled_plugin({ name = "luasnip", priority_weight = 80 }, "LuaSnip"),
-        { name = "calc",       priority_weight = 70 },
-        { name = "emoji",      priority_weight = 70 },
-        { name = "treesitter", priority_weight = 70 },
-        { name = "cmp_git",    priority_weight = 70 },
-        {
+        plugin_utils.check_enabled_plugin({ name = "calc", priority_weight = 70 }, "cmp-calc"),
+        { name = "emoji", priority_weight = 70 },
+        plugin_utils.check_enabled_plugin({ name = "treesitter", priority_weight = 70 }, "cmp-treesitter"),
+        plugin_utils.check_enabled_plugin({ name = "cmp_git", priority_weight = 70 }, "cmp-git"),
+        plugin_utils.check_enabled_plugin({
           name = "tmux",
           max_view_entries = 5,
           option = {
             all_panes = false,
           },
           priority_weight = 50,
-        },
-        {
+        }, "cmp-tmux"),
+        plugin_utils.check_enabled_plugin({
           name = "dictionary",
           keyword_length = 2,
           max_view_entries = 10,
           priority_weight = 40,
-        },
+        }, "cmp-dictionary"),
         {
           name = "crates",
           priority_weight = 30,
@@ -284,7 +285,7 @@ nvim_cmp.setup = function()
           priority_weight = 70,
         }),
         -- TODO: Timeout slow source?
-        {
+        plugin_utils.check_enabled_plugin({
           name = "rg",
           keyword_length = 5,
           max_view_entries = 5,
@@ -293,7 +294,7 @@ nvim_cmp.setup = function()
             debounce = 500,
           },
           priority_weight = 60,
-        },
+        }, "cmp-rg"),
       }
     ),
     experimental = {
