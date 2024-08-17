@@ -82,9 +82,6 @@ nvim_cmp.setup = function()
     enabled = function()
       return require("vimrc.plugins.nvim_cmp").is_enabled()
     end,
-    performance = {
-      debounce = 150, -- Same as LSP debounce
-    },
     snippet = {
       expand = function(args)
         if choose.is_enabled_plugin("LuaSnip") then
@@ -342,6 +339,8 @@ nvim_cmp.setup = function()
       buffer_source,
     }),
   })
+
+  -- TODO: Use `cmp.setup.filetype` to setup for specific filetypes
 
   if choose.enable_plugin("copilot-cmp") then
     -- Setup event for copilot.lua
