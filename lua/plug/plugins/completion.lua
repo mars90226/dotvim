@@ -46,7 +46,7 @@ local completion = {
         config = function()
           require("cmp_dictionary").setup({
             paths = { plugin_utils.get_dictionary() },
-            exact_length = 2,
+            exact_length = 5,
             first_case_insensitive = true,
             document = {
               enable = plugin_utils.is_executable("wn"),
@@ -198,7 +198,7 @@ local completion = {
     event = { "InsertEnter" },
     config = function()
       require("tabout").setup({
-        tabkey = "<M-n>", -- key to trigger tabout, set to an empty string to disable
+        tabkey = "<M-n>",           -- key to trigger tabout, set to an empty string to disable
         backwards_tabkey = "<M-N>", -- key to trigger backwards tabout, set to an empty string to disable
       })
     end,
@@ -248,10 +248,10 @@ local completion = {
       }
     },
     keys = {
-      { "<Space>c<Space>", ":CopilotChat<Space>", mode = { "n", "x" }, desc = "CopilotChat - Open in vertical split" },
-      { "<Space>c<C-R>", "<Cmd>CopilotChatReset<CR>", desc = "CopilotChat - Reset chat history and clear buffer" },
-      { "<Space>c`", "<Cmd>CopilotChatToggle<CR>", desc = "CopilotChat - Toggle" },
-      { "<Space>cs", "<Cmd>CopilotChatStop<CR>", desc = "CopilotChat - Stop current copilot output" },
+      { "<Space>c<Space>", ":CopilotChat<Space>",        mode = { "n", "x" },                                       desc = "CopilotChat - Open in vertical split" },
+      { "<Space>c<C-R>",   "<Cmd>CopilotChatReset<CR>",  desc = "CopilotChat - Reset chat history and clear buffer" },
+      { "<Space>c`",       "<Cmd>CopilotChatToggle<CR>", desc = "CopilotChat - Toggle" },
+      { "<Space>cs",       "<Cmd>CopilotChatStop<CR>",   desc = "CopilotChat - Stop current copilot output" },
 
       -- Telescope integration
       {
@@ -276,28 +276,36 @@ local completion = {
       },
 
       -- Default Prompts
-      { "<Space>ce", "<Cmd>CopilotChatExplain<CR>", mode = { "n", "x" }, desc = "CopilotChat - Explain code" },
-      { "<Space>cr", "<Cmd>CopilotChatReview<CR>", mode = { "n", "x" }, desc = "CopilotChat - Review code" },
-      { "<Space>cf", "<Cmd>CopilotChatExplain<CR>", mode = { "n", "x" }, desc = "CopilotChat - Fix code" },
-      { "<Space>co", "<Cmd>CopilotChatOptimize<CR>", mode = { "n", "x" }, desc = "CopilotChat - Optimize code" },
-      { "<Space>cd", "<Cmd>CopilotChatDocs<CR>", mode = { "n", "x" }, desc = "CopilotChat - Document code" },
-      { "<Space>ct", "<Cmd>CopilotChatTests<CR>", mode = { "n", "x" }, desc = "CopilotChat - Generate tests" },
+      { "<Space>ce", "<Cmd>CopilotChatExplain<CR>",       mode = { "n", "x" }, desc = "CopilotChat - Explain code" },
+      { "<Space>cr", "<Cmd>CopilotChatReview<CR>",        mode = { "n", "x" }, desc = "CopilotChat - Review code" },
+      { "<Space>cf", "<Cmd>CopilotChatExplain<CR>",       mode = { "n", "x" }, desc = "CopilotChat - Fix code" },
+      { "<Space>co", "<Cmd>CopilotChatOptimize<CR>",      mode = { "n", "x" }, desc = "CopilotChat - Optimize code" },
+      { "<Space>cd", "<Cmd>CopilotChatDocs<CR>",          mode = { "n", "x" }, desc = "CopilotChat - Document code" },
+      { "<Space>ct", "<Cmd>CopilotChatTests<CR>",         mode = { "n", "x" }, desc = "CopilotChat - Generate tests" },
       { "<Space>cF", "<Cmd>CopilotChatFixDiagnostic<CR>", mode = { "n", "x" }, desc = "CopilotChat - Fix diagnostic" },
-      { "<Space>cc", "<Cmd>CopilotChatCommit<CR>", mode = { "n", "x" }, desc = "CopilotChat - Write commit message for the change" },
-      { "<Space>cC", "<Cmd>CopilotChatCommitStaged<CR>", mode = { "n", "x" }, desc = "CopilotChat - Write commit message for the change in staged" },
+      { "<Space>cc", "<Cmd>CopilotChatCommit<CR>",        mode = { "n", "x" }, desc = "CopilotChat - Write commit message for the change" },
+      { "<Space>cC", "<Cmd>CopilotChatCommitStaged<CR>",  mode = { "n", "x" }, desc = "CopilotChat - Write commit message for the change in staged" },
 
       -- Custom Prompts
-      { "<Space>cW", "<Cmd>CopilotChatWording<CR>", mode = { "n", "x" }, desc = "CopilotChat - Improve wording" },
+      { "<Space>cW", "<Cmd>CopilotChatWording<CR>",       mode = { "n", "x" }, desc = "CopilotChat - Improve wording" },
 
       -- Integration
-      { "<Space>ch", function()
-        local actions = require("CopilotChat.actions")
-        require("CopilotChat.integrations.fzflua").pick(actions.help_actions())
-      end, desc = "CopilotChat - Help actions" },
-      { "<Space>cp", function()
-        local actions = require("CopilotChat.actions")
-        require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
-      end, desc = "CopilotChat - Help actions" },
+      {
+        "<Space>ch",
+        function()
+          local actions = require("CopilotChat.actions")
+          require("CopilotChat.integrations.fzflua").pick(actions.help_actions())
+        end,
+        desc = "CopilotChat - Help actions"
+      },
+      {
+        "<Space>cp",
+        function()
+          local actions = require("CopilotChat.actions")
+          require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
+        end,
+        desc = "CopilotChat - Help actions"
+      },
     },
     config = function(_, opts)
       require("CopilotChat.integrations.cmp").setup()

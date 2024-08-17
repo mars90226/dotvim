@@ -55,7 +55,8 @@ plugin_choose.setup_completion = function()
   
   -- Choose nvim-cmp source plugin
   -- cmp-dictionary
-  if not utils.is_main_vim_mode() or not plugin_utils.get_dictionary() then
+  -- TODO: Monitor the performance
+  if not plugin_utils.get_dictionary() then
     choose.disable_plugin("cmp-dictionary")
   end
   -- cmp-tmux

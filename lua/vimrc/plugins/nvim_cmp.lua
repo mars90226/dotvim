@@ -243,7 +243,7 @@ nvim_cmp.setup = function()
       end, {
         plugin_utils.check_enabled_plugin({ name = "copilot", priority_weight = 120 }, "copilot-cmp"),
         { name = "path",                    priority_weight = 110 },
-        { name = "nvim_lsp",                max_item_count = 20, priority_weight = 100 },
+        { name = "nvim_lsp",                max_item_count = 20,  priority_weight = 100 },
         { name = "nvim_lsp_signature_help", priority_weight = 100 },
         { name = "nvim_lua",                priority_weight = 90 },
         plugin_utils.check_enabled_plugin({ name = "luasnip", priority_weight = 80 }, "LuaSnip"),
@@ -264,7 +264,9 @@ nvim_cmp.setup = function()
           priority_weight = 40,
         },
       }),
-      {
+      vim.tbl_filter(function(component)
+        return component ~= nil
+      end, {
         -- TODO: Timeout slow source?
         plugin_utils.check_enabled_plugin({
           name = "rg",
@@ -294,12 +296,12 @@ nvim_cmp.setup = function()
           name = "dictionary",
           keyword_length = 5,
           max_item_count = 5,
-          priority_weight = 40,
+          priority_weight = 50,
           entry_filter = function(entry)
             return not entry.exact
           end,
         }, "cmp-dictionary"),
-      }
+      })
     ),
     experimental = {
       native_menu = false,
