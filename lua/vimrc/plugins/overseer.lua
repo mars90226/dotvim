@@ -16,7 +16,7 @@ overseer.setup = function()
   })
 
   require("vimrc.terminal").add_startinsert_ignore_condition(function()
-    return vim.b.overseer_task == 1
+    return vim.b.overseer_task ~= nil
   end)
 end
 
