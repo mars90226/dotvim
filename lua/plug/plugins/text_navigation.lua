@@ -279,9 +279,9 @@ local text_navigation = {
       { "<Leader>mb", mode = { "n", "o", "x" } },
       { "<Leader>me", mode = { "n", "o", "x" } },
       { "<Leader>mge", mode = { "n", "o", "x" } },
-      { "cmw", mode = { "o", "x" } },
-      { "cmb", mode = { "o", "x" } },
-      { "cme", mode = { "o", "x" } },
+      { "zw", mode = { "o", "x" } },
+      { "zb", mode = { "o", "x" } },
+      { "ze", mode = { "o", "x" } },
     },
     config = function()
       map("<Leader>mw", "<Plug>CamelCaseMotion_w")
@@ -289,12 +289,12 @@ local text_navigation = {
       map("<Leader>me", "<Plug>CamelCaseMotion_e")
       map("<Leader>mge", "<Plug>CamelCaseMotion_ge")
 
-      omap("cmw", "<Plug>CamelCaseMotion_iw", "silent")
-      xmap("cmw", "<Plug>CamelCaseMotion_iw", "silent")
-      omap("cmb", "<Plug>CamelCaseMotion_ib", "silent")
-      xmap("cmb", "<Plug>CamelCaseMotion_ib", "silent")
-      omap("cme", "<Plug>CamelCaseMotion_ie", "silent")
-      xmap("cme", "<Plug>CamelCaseMotion_ie", "silent")
+      omap("zw", "<Plug>CamelCaseMotion_iw", "silent")
+      xmap("zw", "<Plug>CamelCaseMotion_iw", "silent")
+      omap("zb", "<Plug>CamelCaseMotion_ib", "silent")
+      xmap("zb", "<Plug>CamelCaseMotion_ib", "silent")
+      omap("ze", "<Plug>CamelCaseMotion_ie", "silent")
+      xmap("ze", "<Plug>CamelCaseMotion_ie", "silent")
     end,
   },
 
