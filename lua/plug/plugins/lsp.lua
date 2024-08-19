@@ -71,7 +71,7 @@ local lsp = {
     dependencies = "nvim-tree/nvim-web-devicons",
     cmd = { "Trouble" },
     keys = {
-      { "<Space>xx", "<Cmd>Trouble diagnostics toggle<CR>", desc = "Trouble diagnostics" },
+      { "<Space>xx", "<Cmd>Trouble diagnostics toggle<CR>",         desc = "Trouble diagnostics" },
       {
         "<Space>xd",
         "<Cmd>Trouble diagnostics toggle filter.buf=0<CR>",
@@ -83,8 +83,8 @@ local lsp = {
         "<Cmd>Trouble lsp toggle focus=false win.position=right<CR>",
         desc = "Trouble LSP definitions / references / ...",
       },
-      { "<Space>xq", "<Cmd>Trouble quickfix<CR>", desc = "Trouble quickfix" },
-      { "<Space>xa", "<Cmd>Trouble loclist<CR>", desc = "Trouble loclist" },
+      { "<Space>xq", "<Cmd>Trouble quickfix<CR>",       desc = "Trouble quickfix" },
+      { "<Space>xa", "<Cmd>Trouble loclist<CR>",        desc = "Trouble loclist" },
       { "<Space>xr", "<Cmd>Trouble lsp_references<CR>", desc = "Trouble lsp_references" },
 
       -- FIXME: trouble v3 seems have no next/previous functions now
@@ -375,6 +375,13 @@ local lsp = {
     config = function()
       vim.keymap.set({ "v", "n" }, "ga", require("actions-preview").code_actions)
     end,
+  },
+
+  -- Timeout
+  {
+    "zeioth/garbage-day.nvim",
+    event = { "LspAttach" },
+    opts = {}
   },
 }
 
