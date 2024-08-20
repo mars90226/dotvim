@@ -56,6 +56,9 @@ local lsp = {
   {
     "ii14/lsp-command",
     event = { "LspAttach" },
+    init = function()
+      vim.g.lsp_legacy_commands = true
+    end
   },
 
   {
