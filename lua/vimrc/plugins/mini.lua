@@ -8,7 +8,7 @@ mini.files.open_in_split = function(buf_id, lhs, direction)
     -- Make new window and set it as target
     local new_target_window
     vim.api.nvim_win_call(MiniFiles.get_target_window(), function()
-      vim.cmd(direction .. ' split')
+      vim.cmd(direction .. " split")
       new_target_window = vim.api.nvim_get_current_win()
     end)
 
@@ -17,28 +17,34 @@ mini.files.open_in_split = function(buf_id, lhs, direction)
   end
 
   -- Adding `desc` will result into `show_help` entries
-  local desc = 'Split ' .. direction
-  vim.keymap.set('n', lhs, rhs, { buffer = buf_id, desc = desc })
+  local desc = "Split " .. direction
+  vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
 end
 
 mini.setup_autocmd = function()
   -- Ref: mini-files.txt help
-  vim.api.nvim_create_autocmd('User', {
-    pattern = 'MiniFilesBufferCreate',
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "MiniFilesBufferCreate",
     callback = function(args)
       local buf_id = args.data.buf_id
       -- Tweak keys to your liking
-      mini.files.open_in_split(buf_id, 'gs', 'belowright horizontal')
-      mini.files.open_in_split(buf_id, 'gv', 'belowright vertical')
-      mini.files.open_in_split(buf_id, 'gt', 'belowright tab')
+      mini.files.open_in_split(buf_id, "gs", "belowright horizontal")
+      mini.files.open_in_split(buf_id, "gv", "belowright vertical")
+      mini.files.open_in_split(buf_id, "gt", "belowright tab")
     end,
   })
 end
 
 mini.setup_config = function()
-  require('mini.ai').setup()
+  local gen_spec = require("mini.ai").gen_spec
+  require("mini.ai").setup({
+    custom_textobjects = {
+      d = gen_spec.function_call(),
+      f = nil, -- NOTE: Conflict with nvim-treesitter-textobjects @function.outer/@function.inner
+    },
+  })
   -- TODO: Check if individual modules can be lazy loaded?
-  require('mini.basics').setup({
+  require("mini.basics").setup({
     options = {
       basic = false,
     },
@@ -50,25 +56,25 @@ mini.setup_config = function()
       basic = false,
     },
   })
-  require('mini.bracketed').setup({
+  require("mini.bracketed").setup({
     -- Map [K, [k, ]k, ]K for comment to avoid [c, ]c default vim mappings in diff-mode.
-    comment = { suffix = 'k' },
+    comment = { suffix = "k" },
     -- Map [N, [n, ]n, ]N for conflict marker like in 'tpope/vim-unimpaired'
-    conflict = { suffix = 'n' },
+    conflict = { suffix = "n" },
   })
-  require('mini.files').setup({
+  require("mini.files").setup({
     options = {
       -- Whether to use for editing directories
       use_as_default_explorer = false, -- Use oil.nvim as default explorer
-    }
+    },
   })
-  require('mini.pick').setup({
+  require("mini.pick").setup({
     mappings = {
       move_down = "<C-j>",
       move_up = "<C-k>",
-    }
+    },
   })
-  require('mini.extra').setup()
+  require("mini.extra").setup()
 end
 
 mini.setup_mapping = function()
@@ -117,7 +123,7 @@ mini.setup_mapping = function()
   nnoremap("<Space>mS", [[<Cmd>Pick registers<CR>]])
   nnoremap("<Space>mt", [[<Cmd>Pick treesitter<CR>]])
 
-  -- TODO: Add key mapping for `:Pick cli` 
+  -- TODO: Add key mapping for `:Pick cli`
 end
 
 mini.setup = function()
