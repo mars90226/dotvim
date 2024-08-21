@@ -257,14 +257,14 @@ oil.setup_config = function()
       ["y<C-G>"] = "actions.copy_entry_path",
 
       -- fzf.nvim support
-      ["\\f"] = {
+      ["\\F"] = {
         callback = function()
           local dir = origin_oil.get_current_dir()
           vim.cmd.Files(dir)
         end,
         desc = "FZF Files in current folder",
       },
-      ["\\r"] = {
+      ["\\R"] = {
         callback = function()
           local dir = origin_oil.get_current_dir()
           vim.cmd.RgWithOption(dir .. "::" .. vim.fn.input("Rg: "))
@@ -273,14 +273,14 @@ oil.setup_config = function()
       },
 
       -- fzf-lua support
-      ["\\F"] = {
+      ["\\f"] = {
         callback = function()
           local dir = origin_oil.get_current_dir()
           require("fzf-lua").files({ cwd = dir })
         end,
         desc = "FzfLua files in current folder",
       },
-      ["\\R"] = {
+      ["\\r"] = {
         callback = function()
           local dir = origin_oil.get_current_dir()
           require("fzf-lua").grep({ cwd = dir })
