@@ -348,22 +348,22 @@ local file_navigation = {
   },
 
   -- Bookmarks
-  -- TODO: Switch to harpoon2
-  -- Ref: https://github.com/ThePrimeagen/harpoon/tree/harpoon2
   {
-    "ThePrimeagen/harpoon",
-    keys = { "<Space>hh", "<Leader>hh", "<Space>hl", "]h", "[h" },
-    config = function()
-      require("harpoon").setup({})
-
-      require("telescope").load_extension("harpoon")
-
-      nnoremap("<Space>hh", [[<Cmd>Telescope harpoon marks<CR>]])
-      nnoremap("<Leader>hh", [[<Cmd>lua require("harpoon.mark").toggle_file()<CR>]])
-      nnoremap("<Space>hl", [[<Cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>]])
-      nnoremap("]h", [[<Cmd>lua require("harpoon.ui").nav_next()<CR>]])
-      nnoremap("[h", [[<Cmd>lua require("harpoon.ui").nav_prev()<CR>]])
-    end,
+    "cbochs/grapple.nvim",
+    dependencies = {
+      { "nvim-tree/nvim-web-devicons", lazy = true }
+    },
+    opts = {
+      scope = "git_branch",
+    },
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = "Grapple",
+    keys = {
+      { "<Leader>mm", "<cmd>Grapple toggle<cr>",          desc = "Grapple toggle tag" },
+      { "<Leader>mt", "<cmd>Grapple toggle_tags<cr>",     desc = "Grapple open tags window" },
+      { "]h",         "<cmd>Grapple cycle_tags next<cr>", desc = "Grapple cycle next tag" },
+      { "[h",         "<cmd>Grapple cycle_tags prev<cr>", desc = "Grapple cycle previous tag" },
+    },
   },
 
   -- Goto Definitions
