@@ -27,13 +27,13 @@ local text_navigation = {
       -- horizontally scrolled.
       -- NOTE: Use flash.nvim instead
       -- { "<Space>w", mode = { "n", "o", "x" } },
-      { "<Space>e", mode = { "n", "o", "x" } },
-      { "<Space>;", mode = { "n", "o", "x" } },
+      { "<Space>e",       mode = { "n", "o", "x" } },
+      { "<Space>;",       mode = { "n", "o", "x" } },
       { "<LocalLeader>f", mode = { "n", "o", "x" } },
       { "<LocalLeader>l", mode = { "n", "o", "x" } },
       -- { "<Space>j", mode = { "n", "o", "x" } },
       -- { "<Space>k", mode = { "n", "o", "x" } },
-      { "<Space>cw", mode = { "n", "o", "x" } },
+      { "<Space>cw",      mode = { "n", "o", "x" } },
     },
     config = function()
       -- map("<Space>w", "<Cmd>HopWord<CR>")
@@ -178,15 +178,15 @@ local text_navigation = {
   {
     "kevinhwang91/nvim-hlslens",
     keys = {
-      { "n", mode = { "n", "o", "x" } },
-      { "N", mode = { "n", "o", "x" } },
-      { "*", mode = { "n", "o", "x" } },
-      { "#", mode = { "n", "o", "x" } },
-      { "g*", mode = { "n", "o", "x" } },
-      { "g#", mode = { "n", "o", "x" } },
-      { "z*", mode = { "n", "o", "x" } },
+      { "n",   mode = { "n", "o", "x" } },
+      { "N",   mode = { "n", "o", "x" } },
+      { "*",   mode = { "n", "o", "x" } },
+      { "#",   mode = { "n", "o", "x" } },
+      { "g*",  mode = { "n", "o", "x" } },
+      { "g#",  mode = { "n", "o", "x" } },
+      { "z*",  mode = { "n", "o", "x" } },
       { "gz*", mode = { "n", "o", "x" } },
-      { "z#", mode = { "n", "o", "x" } },
+      { "z#",  mode = { "n", "o", "x" } },
       { "gz#", mode = { "n", "o", "x" } },
     },
     dependencies = { "haya14busa/vim-asterisk" },
@@ -275,27 +275,14 @@ local text_navigation = {
   {
     "bkad/CamelCaseMotion",
     keys = {
-      { "<Leader>mw", mode = { "n", "o", "x" } },
-      { "<Leader>mb", mode = { "n", "o", "x" } },
-      { "<Leader>me", mode = { "n", "o", "x" } },
-      { "<Leader>mge", mode = { "n", "o", "x" } },
-      { "zw", mode = { "o", "x" } },
-      { "zb", mode = { "o", "x" } },
-      { "ze", mode = { "o", "x" } },
+      { "<Leader>mw",  mode = { "n", "o", "x" }, "<Plug>CamelCaseMotion_w",  desc = "CamelCaseMotion w" },
+      { "<Leader>mb",  mode = { "n", "o", "x" }, "<Plug>CamelCaseMotion_b",  desc = "CamelCaseMotion b" },
+      { "<Leader>me",  mode = { "n", "o", "x" }, "<Plug>CamelCaseMotion_e",  desc = "CamelCaseMotion e" },
+      { "<Leader>mge", mode = { "n", "o", "x" }, "<Plug>CamelCaseMotion_ge", desc = "CamelCaseMotion ge" },
+      { "zw",          mode = { "o", "x" },      "<Plug>CamelCaseMotion_iw", desc = "CamelCaseMotion iw", silent = true },
+      { "ze",          mode = { "o", "x" },      "<Plug>CamelCaseMotion_ie", desc = "CamelCaseMotion ie", silent = true },
+      { "zb",          mode = { "o", "x" },      "<Plug>CamelCaseMotion_ib", desc = "CamelCaseMotion ib", silent = true },
     },
-    config = function()
-      map("<Leader>mw", "<Plug>CamelCaseMotion_w")
-      map("<Leader>mb", "<Plug>CamelCaseMotion_b")
-      map("<Leader>me", "<Plug>CamelCaseMotion_e")
-      map("<Leader>mge", "<Plug>CamelCaseMotion_ge")
-
-      omap("zw", "<Plug>CamelCaseMotion_iw", "silent")
-      xmap("zw", "<Plug>CamelCaseMotion_iw", "silent")
-      omap("zb", "<Plug>CamelCaseMotion_ib", "silent")
-      xmap("zb", "<Plug>CamelCaseMotion_ib", "silent")
-      omap("ze", "<Plug>CamelCaseMotion_ie", "silent")
-      xmap("ze", "<Plug>CamelCaseMotion_ie", "silent")
-    end,
   },
 
   {
