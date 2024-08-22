@@ -455,12 +455,18 @@ local file_navigation = {
   {
     'MagicDuck/grug-far.nvim',
     keys = {
-      { "<Space>go", [[<Cmd>GrugFar<CR>]],                                                                                       desc = "grug-far - open" },
+      { "<Space>go", mode = { "n", "v" }, [[<Cmd>GrugFar<CR>]],                                                                                       desc = "grug-far - open" },
       {
         "<Space>gw",
         function()
           require('grug-far').grug_far({ prefills = { search = vim.fn.expand("<cword>") } })
         end,
+        desc = "grug-far - search current word"
+      },
+      {
+        "<Space>gw",
+        mode = { "v" },
+        [[<Cmd>lua require('grug-far').with_visual_selection({})<CR>]],
         desc = "grug-far - search current word"
       },
       {
