@@ -23,12 +23,12 @@ local text_manipulation = {
 
       local ft = require("Comment.ft")
       ft({
-        'dosini',
-        'pfmain',
-        'rspamd',
-        'squid',
-        'sshdconfig',
-      }, '#%s')
+        "dosini",
+        "pfmain",
+        "rspamd",
+        "squid",
+        "sshdconfig",
+      }, "#%s")
     end,
   },
 
@@ -172,17 +172,19 @@ local text_manipulation = {
     "Wansmer/treesj",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     cmd = { "TSJToggle" },
-    keys = { "<Space>J" },
+    keys = {
+      { "<Space>J", [[<Cmd>TSJToggle<CR>]], desc = "Treesj toggle" },
+    },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
       -- Setup comment for all languages
       -- Ref: https://github.com/Wansmer/treesj/issues/116#issuecomment-1666911090
-      local langs = require('treesj.langs').presets
+      local langs = require("treesj.langs").presets
       for _, nodes in pairs(langs) do
         nodes.comment = {
           both = {
             fallback = function(tsn)
-              vim.cmd('normal! gww')
+              vim.cmd("normal! gww")
             end,
           },
         }
@@ -210,10 +212,6 @@ local text_manipulation = {
         notify = true,
         langs = langs,
       })
-
-      nnoremap("<Space>hm", [[<Cmd>TSJToggle<CR>]])
-      nnoremap("<Space>hs", [[<Cmd>TSJSplit<CR>]])
-      nnoremap("<Space>hj", [[<Cmd>TSJJoin<CR>]])
     end,
   },
 
