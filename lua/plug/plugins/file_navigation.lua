@@ -159,19 +159,19 @@ local file_navigation = {
     "LinArcX/telescope-command-palette.nvim",
     keys = {
       -- Normal mode
-      { "<Space>mm", [[<Cmd>Telescope command_palette<CR>]], desc = "Telescope command_palette" },
+      { "<Space>mm",  [[<Cmd>Telescope command_palette<CR>]], desc = "Telescope command_palette" },
 
       -- Command-line mode
-      { "<C-X><C-Z>", mode = { "c" }, [[<C-C><Cmd>Telescope command_palette<CR>]], desc = "Telescope command_palette" },
-      { "<C-X><C-S>", mode = { "c" }, [[<C-C><Cmd>CommandPalette<CR>]], desc = "Telescope command palette" },
+      { "<C-X><C-Z>", mode = { "c" },                         [[<C-C><Cmd>Telescope command_palette<CR>]],       desc = "Telescope command_palette" },
+      { "<C-X><C-S>", mode = { "c" },                         [[<C-C><Cmd>CommandPalette<CR>]],                  desc = "Telescope command palette" },
 
       -- Terminal mode
-      { "<M-m><M-m>", mode = { "t" }, [[<C-\><C-N>:Telescope command_palette<CR>]], desc = "Telescope command_palette" },
-      { "<M-m><M-M>", mode = { "t" }, [[<C-\><C-N>:CommandPalette<CR>]], desc = "CommandPalette" },
+      { "<M-m><M-m>", mode = { "t" },                         [[<C-\><C-N>:Telescope command_palette<CR>]],      desc = "Telescope command_palette" },
+      { "<M-m><M-M>", mode = { "t" },                         [[<C-\><C-N>:CommandPalette<CR>]],                 desc = "CommandPalette" },
 
       -- Terminal mode in nested neovim
-      { "<M-q><M-m>", mode = { "t" }, [[<C-\><C-\><C-N>:Telescope command_palette<CR>]], desc = "Telescope command_palette in nested neovim" },
-      { "<M-q><M-M>", mode = { "t" }, [[<C-\><C-\><C-N>:CommandPalette<CR>]], desc = "CommandPalette in nested neovim" },
+      { "<M-q><M-m>", mode = { "t" },                         [[<C-\><C-\><C-N>:Telescope command_palette<CR>]], desc = "Telescope command_palette in nested neovim" },
+      { "<M-q><M-M>", mode = { "t" },                         [[<C-\><C-\><C-N>:CommandPalette<CR>]],            desc = "CommandPalette in nested neovim" },
     },
     config = function()
       local has_secret_command_palette, secret_command_palette = pcall(require, "secret.command_palette")
@@ -361,9 +361,15 @@ local file_navigation = {
     keys = {
       { "<Leader>mm", "<cmd>Grapple toggle<cr>",          desc = "Grapple toggle tag" },
       { "<Leader>mt", "<cmd>Grapple toggle_tags<cr>",     desc = "Grapple open tags window" },
+      { "<Leader>ms", "<cmd>Telescope grapple tags<cr>",  desc = "Grapple select tags by Telescope" },
       { "]h",         "<cmd>Grapple cycle_tags next<cr>", desc = "Grapple cycle next tag" },
       { "[h",         "<cmd>Grapple cycle_tags prev<cr>", desc = "Grapple cycle previous tag" },
     },
+    config = function(_, opts)
+      require("grapple").setup(opts)
+
+      require("telescope").load_extension("grapple")
+    end
   },
 
   -- Goto Definitions
@@ -371,15 +377,15 @@ local file_navigation = {
     "pechorin/any-jump.nvim",
     cmd = { "AnyJump", "AnyJumpArg", "AnyJumpVisual" },
     keys = {
-      { "<Leader>aj", "<Cmd>AnyJump<CR>", desc = "AnyJump" },
-      { "<Leader>aa", "<Cmd>AnyJumpArg<Space>", desc = "AnyJump with args" },
-      { "<Leader>aj", ":AnyJumpVisual<CR>", mode = { "x" }, desc = "AnyJump visual" }, -- NOTE: Need to use `:` to make it work in visual mode
-      { "<Leader>ab", "<Cmd>AnyJumpBack<CR>", desc = "AnyJump back" },
+      { "<Leader>aj", "<Cmd>AnyJump<CR>",            desc = "AnyJump" },
+      { "<Leader>aa", "<Cmd>AnyJumpArg<Space>",      desc = "AnyJump with args" },
+      { "<Leader>aj", ":AnyJumpVisual<CR>",          mode = { "x" },               desc = "AnyJump visual" }, -- NOTE: Need to use `:` to make it work in visual mode
+      { "<Leader>ab", "<Cmd>AnyJumpBack<CR>",        desc = "AnyJump back" },
       { "<Leader>al", "<Cmd>AnyJumpLastResults<CR>", desc = "AnyJump last results" },
     },
     config = function()
       vim.g.any_jump_window_width_ratio, vim.g.any_jump_window_height_ratio =
-        unpack(vim.fn["vimrc#float#get_default_ratio"]())
+          unpack(vim.fn["vimrc#float#get_default_ratio"]())
       vim.g.any_jump_window_top_offset = vim.fn["vimrc#float#calculate_pos_from_ratio"](
         vim.g.any_jump_window_width_ratio,
         vim.g.any_jump_window_height_ratio
@@ -398,11 +404,11 @@ local file_navigation = {
       -- Don't update cscope, workload is too heavy
       vim.g.gutentags_modules = { "ctags" }
       vim.g.gutentags_ctags_exclude =
-        { ".git", "node_modules", ".ccls-cache", "*.mypy_cache*", ".venv", "*.min.js", "*.min.css" }
+      { ".git", "node_modules", ".ccls-cache", "*.mypy_cache*", ".venv", "*.min.js", "*.min.css" }
 
       if vim.g.gutentags_secret_ctags_exclude ~= nil then
         vim.g.gutentags_ctags_exclude =
-          utils.table_concat(vim.g.gutentags_ctags_exclude, vim.g.gutentags_secret_ctags_exclude)
+            utils.table_concat(vim.g.gutentags_ctags_exclude, vim.g.gutentags_secret_ctags_exclude)
       end
     end,
   },
@@ -449,18 +455,30 @@ local file_navigation = {
   {
     'MagicDuck/grug-far.nvim',
     keys = {
-      { "<Space>go", [[<Cmd>GrugFar<CR>]], desc = "grug-far - open" },
-      { "<Space>gw", function()
-        require('grug-far').grug_far({ prefills = { search = vim.fn.expand("<cword>") } })
-      end, desc = "grug-far - search current word" },
-      { "<Space>g5", function()
-        require('grug-far').grug_far({ prefills = { flags = vim.fn.expand("%") } })
-      end, desc = "grug-far - search in current file" },
-      { "<Space>g'", function()
-        require('grug-far').grug_far({ prefills = { search = vim.fn.expand("<cword>"), flags = vim.fn.expand("%") } })
-      end, desc = "grug-far - search on current file" },
+      { "<Space>go", [[<Cmd>GrugFar<CR>]],                                                                                       desc = "grug-far - open" },
+      {
+        "<Space>gw",
+        function()
+          require('grug-far').grug_far({ prefills = { search = vim.fn.expand("<cword>") } })
+        end,
+        desc = "grug-far - search current word"
+      },
+      {
+        "<Space>g5",
+        function()
+          require('grug-far').grug_far({ prefills = { flags = vim.fn.expand("%") } })
+        end,
+        desc = "grug-far - search in current file"
+      },
+      {
+        "<Space>g'",
+        function()
+          require('grug-far').grug_far({ prefills = { search = vim.fn.expand("<cword>"), flags = vim.fn.expand("%") } })
+        end,
+        desc = "grug-far - search on current file"
+      },
       -- NOTE: It seems to use '< and '> to get visual selection, so cannot use lua function as it will use the last visual selection.
-      { "<Space>g'", [[:<C-U>lua require('grug-far').with_visual_selection({ prefills = { flags = vim.fn.expand("%") } })<CR>]], mode = { "v" }, desc = "grug-far - search on current file" },
+      { "<Space>g'", [[:<C-U>lua require('grug-far').with_visual_selection({ prefills = { flags = vim.fn.expand("%") } })<CR>]], mode = { "v" },          desc = "grug-far - search on current file" },
     },
     config = function()
       require('grug-far').setup({})
