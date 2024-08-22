@@ -250,6 +250,13 @@ luasnip.setup_snippet = function()
   local insert_exp = exp_generator(function()
     return vim.api.nvim_get_current_buf()
   end)
+  local project_word = function()
+    return f(function()
+      -- TODO: Read `.project_word` and use fzf-lua to select
+      local project_word_cmd = [[cat .project_word]]
+      return vim.fn["vimrc#fzf#shell_outputs_in_commandline"](project_word_cmd)
+    end)
+  end
 
   ls.add_snippets("all", {
     s(
@@ -261,6 +268,10 @@ luasnip.setup_snippet = function()
         insert_exp(":h"),
       })
     ),
+  })
+
+  ls.add_snippets("all", {
+    s("pw", project_word()),
   })
 
   ls.add_snippets("all", {
@@ -363,12 +374,15 @@ luasnip.setup_snippet = function()
       end)
     ),
     -- Copilot
-    s({
-      trig = "q:",
-      desc = "Fill question prefix for Copilot",
-    }, f(function()
-      return string.format(vim.o.commentstring, "q: ")
-    end)),
+    s(
+      {
+        trig = "q:",
+        desc = "Fill question prefix for Copilot",
+      },
+      f(function()
+        return string.format(vim.o.commentstring, "q: ")
+      end)
+    ),
   })
 end
 
