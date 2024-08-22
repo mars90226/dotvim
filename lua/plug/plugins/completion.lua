@@ -89,65 +89,65 @@ local completion = {
         -- Ref: nvim-lspconfig tailwindcss.lua
         ft = {
           -- html
-          'aspnetcorerazor',
-          'astro',
-          'astro-markdown',
-          'blade',
-          'clojure',
-          'django-html',
-          'htmldjango',
-          'edge',
-          'eelixir', -- vim ft
-          'elixir',
-          'ejs',
-          'erb',
-          'eruby', -- vim ft
-          'gohtml',
-          'gohtmltmpl',
-          'haml',
-          'handlebars',
-          'hbs',
-          'html',
+          "aspnetcorerazor",
+          "astro",
+          "astro-markdown",
+          "blade",
+          "clojure",
+          "django-html",
+          "htmldjango",
+          "edge",
+          "eelixir", -- vim ft
+          "elixir",
+          "ejs",
+          "erb",
+          "eruby", -- vim ft
+          "gohtml",
+          "gohtmltmpl",
+          "haml",
+          "handlebars",
+          "hbs",
+          "html",
           -- 'HTML (Eex)',
           -- 'HTML (EEx)',
-          'html-eex',
-          'heex',
-          'jade',
-          'leaf',
-          'liquid',
-          'markdown',
-          'mdx',
-          'mustache',
-          'njk',
-          'nunjucks',
-          'php',
-          'razor',
-          'slim',
-          'twig',
+          "html-eex",
+          "heex",
+          "jade",
+          "leaf",
+          "liquid",
+          "markdown",
+          "mdx",
+          "mustache",
+          "njk",
+          "nunjucks",
+          "php",
+          "razor",
+          "slim",
+          "twig",
           -- css
-          'css',
-          'less',
-          'postcss',
-          'sass',
-          'scss',
-          'stylus',
-          'sugarss',
+          "css",
+          "less",
+          "postcss",
+          "sass",
+          "scss",
+          "stylus",
+          "sugarss",
           -- js
-          'javascript',
-          'javascriptreact',
-          'reason',
-          'rescript',
-          'typescript',
-          'typescriptreact',
+          "javascript",
+          "javascriptreact",
+          "reason",
+          "rescript",
+          "typescript",
+          "typescriptreact",
           -- mixed
-          'vue',
-          'svelte',
+          "vue",
+          "svelte",
         },
         config = function()
           require("tailwindcss-colorizer-cmp").setup({
             color_square_width = 2,
           })
-        end
+        end,
       },
     }),
     event = { "InsertEnter", "CmdlineEnter" },
@@ -198,7 +198,7 @@ local completion = {
     event = { "InsertEnter" },
     config = function()
       require("tabout").setup({
-        tabkey = "<M-n>",           -- key to trigger tabout, set to an empty string to disable
+        tabkey = "<M-n>", -- key to trigger tabout, set to an empty string to disable
         backwards_tabkey = "<M-N>", -- key to trigger backwards tabout, set to an empty string to disable
       })
     end,
@@ -208,8 +208,12 @@ local completion = {
   {
     "zbirenbaum/copilot.lua",
     cond = choose.is_enabled_plugin("copilot.lua"),
-    cmd = "Copilot",
-    event = "InsertEnter",
+    cmd = { "Copilot" },
+    event = { "InsertEnter" },
+    keys = {
+      { "<Space>c;", [[:Copilot<Space>]], desc = "Copilot" },
+      { "<Space>cl", [[<Cmd>Copilot toggle<CR>]], desc = "Copilot toggle" },
+    },
     config = function()
       require("copilot").setup({
         panel = {
@@ -222,7 +226,7 @@ local completion = {
           auto_trigger = true,
           keymap = {
             accept = "<M-l>",
-          }
+          },
         },
       })
     end,
@@ -243,15 +247,20 @@ local completion = {
       },
       mappings = {
         complete = {
-          insert = '',
-        }
-      }
+          insert = "",
+        },
+      },
     },
     keys = {
-      { "<Space>c<Space>", ":CopilotChat<Space>",        mode = { "n", "x" },                                       desc = "CopilotChat - Open in vertical split" },
-      { "<Space>c<C-R>",   "<Cmd>CopilotChatReset<CR>",  desc = "CopilotChat - Reset chat history and clear buffer" },
-      { "<Space>c`",       "<Cmd>CopilotChatToggle<CR>", desc = "CopilotChat - Toggle" },
-      { "<Space>cs",       "<Cmd>CopilotChatStop<CR>",   desc = "CopilotChat - Stop current copilot output" },
+      {
+        "<Space>c<Space>",
+        ":CopilotChat<Space>",
+        mode = { "n", "x" },
+        desc = "CopilotChat - Open in vertical split",
+      },
+      { "<Space>c<C-R>", "<Cmd>CopilotChatReset<CR>", desc = "CopilotChat - Reset chat history and clear buffer" },
+      { "<Space>c`", "<Cmd>CopilotChatToggle<CR>", desc = "CopilotChat - Toggle" },
+      { "<Space>cs", "<Cmd>CopilotChatStop<CR>", desc = "CopilotChat - Stop current copilot output" },
 
       -- Telescope integration
       {
@@ -260,7 +269,7 @@ local completion = {
           local actions = require("CopilotChat.actions")
           require("CopilotChat.integrations.telescope").pick(actions.help_actions())
         end,
-        desc = "CopilotChat - Help actions"
+        desc = "CopilotChat - Help actions",
       },
       {
         "<Space>cp",
@@ -272,22 +281,32 @@ local completion = {
           }))
         end,
         mode = { "n", "x" },
-        desc = "CopilotChat - Prompt actions"
+        desc = "CopilotChat - Prompt actions",
       },
 
       -- Default Prompts
-      { "<Space>ce", "<Cmd>CopilotChatExplain<CR>",       mode = { "n", "x" }, desc = "CopilotChat - Explain code" },
-      { "<Space>cr", "<Cmd>CopilotChatReview<CR>",        mode = { "n", "x" }, desc = "CopilotChat - Review code" },
-      { "<Space>cf", "<Cmd>CopilotChatExplain<CR>",       mode = { "n", "x" }, desc = "CopilotChat - Fix code" },
-      { "<Space>co", "<Cmd>CopilotChatOptimize<CR>",      mode = { "n", "x" }, desc = "CopilotChat - Optimize code" },
-      { "<Space>cd", "<Cmd>CopilotChatDocs<CR>",          mode = { "n", "x" }, desc = "CopilotChat - Document code" },
-      { "<Space>ct", "<Cmd>CopilotChatTests<CR>",         mode = { "n", "x" }, desc = "CopilotChat - Generate tests" },
+      { "<Space>ce", "<Cmd>CopilotChatExplain<CR>", mode = { "n", "x" }, desc = "CopilotChat - Explain code" },
+      { "<Space>cr", "<Cmd>CopilotChatReview<CR>", mode = { "n", "x" }, desc = "CopilotChat - Review code" },
+      { "<Space>cf", "<Cmd>CopilotChatExplain<CR>", mode = { "n", "x" }, desc = "CopilotChat - Fix code" },
+      { "<Space>co", "<Cmd>CopilotChatOptimize<CR>", mode = { "n", "x" }, desc = "CopilotChat - Optimize code" },
+      { "<Space>cd", "<Cmd>CopilotChatDocs<CR>", mode = { "n", "x" }, desc = "CopilotChat - Document code" },
+      { "<Space>ct", "<Cmd>CopilotChatTests<CR>", mode = { "n", "x" }, desc = "CopilotChat - Generate tests" },
       { "<Space>cF", "<Cmd>CopilotChatFixDiagnostic<CR>", mode = { "n", "x" }, desc = "CopilotChat - Fix diagnostic" },
-      { "<Space>cc", "<Cmd>CopilotChatCommit<CR>",        mode = { "n", "x" }, desc = "CopilotChat - Write commit message for the change" },
-      { "<Space>cC", "<Cmd>CopilotChatCommitStaged<CR>",  mode = { "n", "x" }, desc = "CopilotChat - Write commit message for the change in staged" },
+      {
+        "<Space>cc",
+        "<Cmd>CopilotChatCommit<CR>",
+        mode = { "n", "x" },
+        desc = "CopilotChat - Write commit message for the change",
+      },
+      {
+        "<Space>cC",
+        "<Cmd>CopilotChatCommitStaged<CR>",
+        mode = { "n", "x" },
+        desc = "CopilotChat - Write commit message for the change in staged",
+      },
 
       -- Custom Prompts
-      { "<Space>cW", "<Cmd>CopilotChatWording<CR>",       mode = { "n", "x" }, desc = "CopilotChat - Improve wording" },
+      { "<Space>cW", "<Cmd>CopilotChatWording<CR>", mode = { "n", "x" }, desc = "CopilotChat - Improve wording" },
 
       -- Integration
       {
@@ -296,7 +315,7 @@ local completion = {
           local actions = require("CopilotChat.actions")
           require("CopilotChat.integrations.fzflua").pick(actions.help_actions())
         end,
-        desc = "CopilotChat - Help actions"
+        desc = "CopilotChat - Help actions",
       },
       {
         "<Space>cp",
@@ -304,7 +323,7 @@ local completion = {
           local actions = require("CopilotChat.actions")
           require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
         end,
-        desc = "CopilotChat - Help actions"
+        desc = "CopilotChat - Help actions",
       },
     },
     config = function(_, opts)
