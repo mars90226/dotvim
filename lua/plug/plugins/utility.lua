@@ -486,6 +486,7 @@ local utility = {
   -- TODO: Check if not working on Windows
   -- TODO: Migrate to rocks.nvim
   -- NOTE: rocks.nvim installation script is outside of lazy.nvim & manual installation steps are tedious.
+  -- TODO: rest.nvim is back again with v3, may try out
   {
     "rest-nvim/rest.nvim",
     enabled = false,
