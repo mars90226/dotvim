@@ -324,10 +324,14 @@ tui.setup = function()
         require("vimrc.plugins.command_palette").insert_commands("TUI", {
           { "Mprocs", ":Mprocs", 1 },
           { "MprocsSplit", ":MprocsSplit", 1 },
+          { "Mprocs --npm", ":Mprocs --npm", 1 },
+          { "MprocsSplit --npm", ":MprocsSplit --npm", 1 },
         })
 
         nnoremap("<Leader>mp", [[:Mprocs<CR>]])
         nnoremap("<Leader>mP", [[:MprocsSplit<CR>]])
+        nnoremap("<Leader>mn", [[:Mprocs --npm<CR>]])
+        nnoremap("<Leader>mN", [[:MprocsSplit --npm<CR>]])
       end,
     })
   end
