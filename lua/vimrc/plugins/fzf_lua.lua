@@ -32,10 +32,10 @@ my_fzf_lua.commands = {
 my_fzf_lua.global_actions = {
   -- TODO: Escape unwanted filename
   ["alt-g"] = function(selected, opts)
-    actions.vimcmd_file("rightbelow split", selected, opts)
+    actions.vimcmd_entry("rightbelow split", selected, opts)
   end,
   ["alt-v"] = function(selected, opts)
-    actions.vimcmd_file("rightbelow vsplit", selected, opts)
+    actions.vimcmd_entry("rightbelow vsplit", selected, opts)
   end,
 }
 
