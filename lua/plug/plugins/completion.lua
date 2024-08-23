@@ -212,7 +212,7 @@ local completion = {
     event = { "InsertEnter" },
     keys = {
       { "<Space>c;", [[:Copilot<Space>]], desc = "Copilot" },
-      { "<Space>cl", [[<Cmd>Copilot toggle<CR>]], desc = "Copilot toggle" },
+      { "<Space>cl", [[<Cmd>Copilot enable<CR>]], desc = "Copilot enable" },
     },
     config = function()
       require("copilot").setup({
