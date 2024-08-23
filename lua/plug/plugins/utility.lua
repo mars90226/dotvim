@@ -259,7 +259,7 @@ local utility = {
     cmd = {
       "OverseerOpen",
       "OverseerToggle",
-      "OverseerRUnCmd",
+      "OverseerRunCmd",
       "OverseerRun",
       "OverseerInfo",
       "OverseerBuild",
