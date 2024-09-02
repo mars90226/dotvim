@@ -41,7 +41,13 @@ local dap = {
       },
       {
         "rcarriga/cmp-dap",
-        dependencies = { "hrsh7th/nvim-cmp" },
+        dependencies = {
+          -- TODO: Use 'yioneko/nvim-cmp' "perf" branch instead of 'hrsh7th/nvim-cmp' for performance
+          -- Ref: https://github.com/hrsh7th/nvim-cmp/pull/1980
+          -- "hrsh7th/nvim-cmp",
+          "yioneko/nvim-cmp",
+          branch = "perf",
+        },
         config = function()
           -- TODO: Move to nvim-cmp config?
           require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {

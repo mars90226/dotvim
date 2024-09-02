@@ -5,7 +5,11 @@ local utils = require("vimrc.utils")
 local completion = {
   -- Completion
   {
-    "hrsh7th/nvim-cmp",
+    -- TODO: Use 'yioneko/nvim-cmp' "perf" branch instead of 'hrsh7th/nvim-cmp' for performance
+    -- Ref: https://github.com/hrsh7th/nvim-cmp/pull/1980
+    -- "hrsh7th/nvim-cmp",
+    "yioneko/nvim-cmp",
+    branch = "perf",
     dependencies = vim.tbl_filter(function(plugin_spec)
       return plugin_spec ~= nil
     end, {
