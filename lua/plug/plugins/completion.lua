@@ -243,6 +243,7 @@ local completion = {
       { "zbirenbaum/copilot.lua" },
       { "nvim-lua/plenary.nvim" },
     },
+    build = "make tiktoken",
     opts = {
       show_help = "yes",
       debug = false,
@@ -254,6 +255,15 @@ local completion = {
           insert = "",
         },
       },
+    },
+    cmd = {
+      "CopilotChat",
+      "CopilotChatOpen",
+      "CopilotChatToggle",
+      "CopilotChatModels",
+      "CopilotChatModel",
+
+      -- TODO: Add CopilotChat default prompts commands
     },
     keys = {
       {
