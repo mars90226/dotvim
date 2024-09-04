@@ -347,6 +347,7 @@ local completion = {
   },
 
   -- AI
+  -- TODO: Lazy load on keys or commands
   {
     "yetone/avante.nvim",
     cond = choose.is_enabled_plugin("avante.nvim"),
