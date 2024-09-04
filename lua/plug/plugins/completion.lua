@@ -202,7 +202,7 @@ local completion = {
     event = { "InsertEnter" },
     config = function()
       require("tabout").setup({
-        tabkey = "<M-n>", -- key to trigger tabout, set to an empty string to disable
+        tabkey = "<M-n>",           -- key to trigger tabout, set to an empty string to disable
         backwards_tabkey = "<M-N>", -- key to trigger backwards tabout, set to an empty string to disable
       })
     end,
@@ -215,7 +215,7 @@ local completion = {
     cmd = { "Copilot" },
     event = { "InsertEnter" },
     keys = {
-      { "<Space>c;", [[:Copilot<Space>]], desc = "Copilot" },
+      { "<Space>c;", [[:Copilot<Space>]],         desc = "Copilot" },
       { "<Space>cl", [[<Cmd>Copilot enable<CR>]], desc = "Copilot enable" },
     },
     config = function()
@@ -272,9 +272,9 @@ local completion = {
         mode = { "n", "x" },
         desc = "CopilotChat - Open in vertical split",
       },
-      { "<Space>c<C-R>", "<Cmd>CopilotChatReset<CR>", desc = "CopilotChat - Reset chat history and clear buffer" },
-      { "<Space>c`", "<Cmd>CopilotChatToggle<CR>", desc = "CopilotChat - Toggle" },
-      { "<Space>cs", "<Cmd>CopilotChatStop<CR>", desc = "CopilotChat - Stop current copilot output" },
+      { "<Space>c<C-R>", "<Cmd>CopilotChatReset<CR>",  desc = "CopilotChat - Reset chat history and clear buffer" },
+      { "<Space>c`",     "<Cmd>CopilotChatToggle<CR>", desc = "CopilotChat - Toggle" },
+      { "<Space>cs",     "<Cmd>CopilotChatStop<CR>",   desc = "CopilotChat - Stop current copilot output" },
 
       -- Telescope integration
       {
@@ -299,12 +299,12 @@ local completion = {
       },
 
       -- Default Prompts
-      { "<Space>ce", "<Cmd>CopilotChatExplain<CR>", mode = { "n", "x" }, desc = "CopilotChat - Explain code" },
-      { "<Space>cr", "<Cmd>CopilotChatReview<CR>", mode = { "n", "x" }, desc = "CopilotChat - Review code" },
-      { "<Space>cf", "<Cmd>CopilotChatExplain<CR>", mode = { "n", "x" }, desc = "CopilotChat - Fix code" },
-      { "<Space>co", "<Cmd>CopilotChatOptimize<CR>", mode = { "n", "x" }, desc = "CopilotChat - Optimize code" },
-      { "<Space>cd", "<Cmd>CopilotChatDocs<CR>", mode = { "n", "x" }, desc = "CopilotChat - Document code" },
-      { "<Space>ct", "<Cmd>CopilotChatTests<CR>", mode = { "n", "x" }, desc = "CopilotChat - Generate tests" },
+      { "<Space>ce", "<Cmd>CopilotChatExplain<CR>",       mode = { "n", "x" }, desc = "CopilotChat - Explain code" },
+      { "<Space>cr", "<Cmd>CopilotChatReview<CR>",        mode = { "n", "x" }, desc = "CopilotChat - Review code" },
+      { "<Space>cf", "<Cmd>CopilotChatExplain<CR>",       mode = { "n", "x" }, desc = "CopilotChat - Fix code" },
+      { "<Space>co", "<Cmd>CopilotChatOptimize<CR>",      mode = { "n", "x" }, desc = "CopilotChat - Optimize code" },
+      { "<Space>cd", "<Cmd>CopilotChatDocs<CR>",          mode = { "n", "x" }, desc = "CopilotChat - Document code" },
+      { "<Space>ct", "<Cmd>CopilotChatTests<CR>",         mode = { "n", "x" }, desc = "CopilotChat - Generate tests" },
       { "<Space>cF", "<Cmd>CopilotChatFixDiagnostic<CR>", mode = { "n", "x" }, desc = "CopilotChat - Fix diagnostic" },
       {
         "<Space>cc",
@@ -344,6 +344,48 @@ local completion = {
       require("CopilotChat.integrations.cmp").setup()
       require("CopilotChat").setup(opts)
     end,
+  },
+
+  -- AI
+  {
+    "yetone/avante.nvim",
+    cond = choose.is_enabled_plugin("avante.nvim"),
+    event = "VeryLazy",
+    lazy = false,
+    version = false, -- set this if you want to always pull the latest change
+    opts = {
+      provider = "copilot",
+    },
+    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    build = "make",
+    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1" -- for windows
+    dependencies = {
+      "stevearc/dressing.nvim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      --- The below dependencies are optional,
+      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "zbirenbaum/copilot.lua",    -- for providers='copilot'
+      {
+        -- support for image pasting
+        "HakonHarnes/img-clip.nvim",
+        event = "VeryLazy",
+        opts = {
+          -- recommended settings
+          default = {
+            embed_image_as_base64 = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+            },
+            -- required for Windows users
+            use_absolute_path = true,
+          },
+        },
+      },
+      -- Defined in languages.lua
+      -- "OXY2DEV/markview.nvim",
+    },
   },
 }
 

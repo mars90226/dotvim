@@ -106,6 +106,12 @@ plugin_choose.setup_completion = function()
   -- Choose formatter integration plugin
   -- conform.nvim
 
+  -- Choose auto pairs plugin
+  -- nvim-autopairs
+  if utils.is_light_vim_mode() then
+    choose.disable_plugin("nvim-autopairs")
+  end
+
   -- Choose copilot
   -- copilot.lua, CopilotChat.nvim
   -- TODO: Add light vim mode check for copilot.lua
@@ -115,10 +121,10 @@ plugin_choose.setup_completion = function()
     choose.disable_plugin("CopilotChat.nvim")
   end
 
-  -- Choose auto pairs plugin
-  -- nvim-autopairs
-  if utils.is_light_vim_mode() then
-    choose.disable_plugin("nvim-autopairs")
+  -- Choose AI
+  -- avante.nvim
+  if utils.is_light_vim_mode() or choose.is_disabled_plugin("copilot.lua") then
+    choose.disable_plugin("avante.nvim")
   end
 end
 

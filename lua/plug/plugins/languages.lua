@@ -454,17 +454,30 @@ local languages = {
   },
 
   -- Markdown render
+  -- TODO: Extract markdown filetypes calculation
   {
-    "MeanderingProgrammer/markdown.nvim",
+    "MeanderingProgrammer/render-markdown.nvim",
     cond = choose.is_enabled_plugin("markdown.nvim"),
     -- name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    ft = { "markdown" },
+    ft = vim.tbl_filter(function(component)
+      return component ~= nil
+    end, {
+      "markdown",
+      plugin_utils.check_enabled_plugin("Avante", "avante.nvim"),
+    }),
     cmd = { "RenderMarkdownToggle" },
     keys = {
       { "coh", "<Cmd>RenderMarkdownToggle<CR>", mode = { "n" }, desc = "Render markdown" },
     },
-    opts = {},
+    opts = {
+      filetypes = vim.tbl_filter(function(component)
+        return component ~= nil
+      end, {
+        "markdown",
+        plugin_utils.check_enabled_plugin("Avante", "avante.nvim"),
+      }),
+    },
   },
   {
     "OXY2DEV/markview.nvim",
@@ -474,7 +487,12 @@ local languages = {
       "nvim-tree/nvim-web-devicons",
     },
     -- TODO: Disabled Markview on huge file
-    ft = { "markdown" },
+    ft = vim.tbl_filter(function(component)
+      return component ~= nil
+    end, {
+      "markdown",
+      plugin_utils.check_enabled_plugin("Avante", "avante.nvim"),
+    }),
     cmd = { "Markview" },
     keys = {
       { "coh", "<Cmd>Markview<CR>", mode = { "n" }, desc = "Render markdown" },
@@ -484,6 +502,12 @@ local languages = {
       require("markview").setup({
         buf_ignore = { "nofile" },
         modes = { "n", "v" },
+        filetypes = vim.tbl_filter(function(component)
+          return component ~= nil
+        end, {
+          "markdown",
+          plugin_utils.check_enabled_plugin("Avante", "avante.nvim"),
+        }),
       })
     end,
   },

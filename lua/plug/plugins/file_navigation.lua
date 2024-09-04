@@ -378,7 +378,7 @@ local file_navigation = {
     cmd = { "AnyJump", "AnyJumpArg", "AnyJumpVisual" },
     keys = {
       { "<Leader>aj", "<Cmd>AnyJump<CR>",            desc = "AnyJump" },
-      { "<Leader>aa", "<Cmd>AnyJumpArg<Space>",      desc = "AnyJump with args" },
+      { "<Leader>ak", "<Cmd>AnyJumpArg<Space>",      desc = "AnyJump with args" },
       { "<Leader>aj", ":AnyJumpVisual<CR>",          mode = { "x" },               desc = "AnyJump visual" }, -- NOTE: Need to use `:` to make it work in visual mode
       { "<Leader>ab", "<Cmd>AnyJumpBack<CR>",        desc = "AnyJump back" },
       { "<Leader>al", "<Cmd>AnyJumpLastResults<CR>", desc = "AnyJump last results" },
