@@ -395,6 +395,11 @@ local utility = {
 
       nnoremap("<F8>", "<Cmd>TodoTrouble<CR>")
       nnoremap("<Space><F8>", "<Cmd>TodoTelescope<CR>")
+      -- Currently, it's impossible to type <C-F1> ~ <C-F12> using wezterm + tmux.
+      -- wezterm with 'xterm-256color' + tmux with 'screen-256color' will
+      -- generate keycode for <C-F1> ~ <C-F12> that recognized by neovim as <F25> ~ <F36>.
+      nnoremap("<C-F8>", "<Cmd>TodoFzfLua<CR>")
+      nnoremap("<F32>", "<Cmd>TodoFzfLua<CR>")
       nnoremap("[X", function()
         require("todo-comments").jump_prev()
       end, { desc = "Previous todo comment" })
