@@ -166,7 +166,7 @@ local git = {
     cmd = { "GitMessenger" },
     keys = { "<Leader>gm" },
     config = function()
-      nmap("<Leader>gm", "<Plug>(git-messenger)")
+      vim.keymap.set("n", "<Leader>gm", "<Plug>(git-messenger)", { remap = true })
     end,
   },
 
@@ -243,14 +243,14 @@ local git = {
       })
 
       vim.keymap.set("n", "<Leader>cr", [[<Cmd>GitConflictRefresh<CR>]])
-      nmap("<Leader>co", "<Plug>(git-conflict-ours)")
-      nmap("<Leader>ct", "<Plug>(git-conflict-theirs)")
-      nmap("<Leader>cb", "<Plug>(git-conflict-both)")
-      nmap("<Leader>c0", "<Plug>(git-conflict-none)")
+      vim.keymap.set("n", "<Leader>co", "<Plug>(git-conflict-ours)", { remap = true })
+      vim.keymap.set("n", "<Leader>ct", "<Plug>(git-conflict-theirs)", { remap = true })
+      vim.keymap.set("n", "<Leader>cb", "<Plug>(git-conflict-both)", { remap = true })
+      vim.keymap.set("n", "<Leader>c0", "<Plug>(git-conflict-none)", { remap = true })
 
       -- TODO: Use [x, ]x and handle conflict with unimpaired
-      nmap("[v", "<Plug>(git-conflict-prev-conflict)")
-      nmap("]v", "<Plug>(git-conflict-next-conflict)")
+      vim.keymap.set("n", "[v", "<Plug>(git-conflict-prev-conflict)", { remap = true })
+      vim.keymap.set("n", "]v", "<Plug>(git-conflict-next-conflict)", { remap = true })
     end,
   },
 

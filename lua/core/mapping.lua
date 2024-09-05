@@ -96,7 +96,7 @@ mapping.setup = function()
       vim.keymap.set("i", "<M-S-o>", [[<C-O>O]], { desc = "Create new line above" })
 
       -- Go to matched bracket in insert mode
-      imap("<M-5>", [[<C-O>%]], { desc = "Go to matched bracket" })
+      vim.keymap.set("i", "<M-5>", [[<C-O>%]], { desc = "Go to matched bracket" }, { remap = true })
 
       -- Go to WORD end in insert mode
       vim.keymap.set("i", "<M-E>", [[<Esc>Ea]], { desc = "Go to WORD end" })
@@ -180,8 +180,8 @@ mapping.setup = function()
       vim.keymap.set("n", "+gP", [["+gP]], { desc = "Paste before from system clipboard and leave cursor after new text" })
       vim.keymap.set("x", "+gP", [["+gP]], { desc = "Paste before from system clipboard and leave cursor after new text" })
       -- TODO Previous key mappings not work in vimwiki as it use '=' & '+'
-      nmap("<p", [["+[p]], { desc = "Paste before from system clipboard and adjust indent" })
-      nmap(">p", [["+]p]], { desc = "Paste after from system clipboard and adjust indent" })
+      vim.keymap.set("n", "<p", [["+[p]], { desc = "Paste before from system clipboard and adjust indent" }, { remap = true })
+      vim.keymap.set("n", ">p", [["+]p]], { desc = "Paste after from system clipboard and adjust indent" }, { remap = true })
 
       -- Quick yank filename
       vim.keymap.set("n", "<Leader>y6", [[:let @" = expand('%:t')<CR>]], { desc = "Yank current filename" })
@@ -336,7 +336,7 @@ mapping.setup = function()
 
       -- Search
       -- TODO: Extract to search.vim?
-      nmap("<M-s>", "<Plug>(search-prefix)")
+      vim.keymap.set("n", "<M-s>", "<Plug>(search-prefix)", { remap = true })
       vim.keymap.set("n", "<M-s><M-s>", [[<M-s>]])
       vim.keymap.set("", "<Plug>(search-prefix)", [[<NOP>]])
       vim.keymap.set("n", "<Plug>(search-prefix)f", [[<Cmd>call vimrc#search#search_file(0)<CR>]])

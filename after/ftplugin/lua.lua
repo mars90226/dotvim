@@ -8,10 +8,10 @@ vim.b.loaded_lua_settings = true
 
 vim.bo.keywordprg = ":help"
 
-nmap("<Leader>dl", [[<Plug>(Luadev-RunLine)]], "buffer")
-nmap("<Leader>dr", [[<Plug>(Luadev-Run)]], "buffer")
-nmap("<Leader>dw", [[<Plug>(Luadev-RunWord)]], "buffer")
-imap("<C-G><C-D>", [[<Plug>(Luadev-Complete)]], "buffer")
+vim.keymap.set("n", "<Leader>dl", [[<Plug>(Luadev-RunLine)]], { buffer = true, remap = true })
+vim.keymap.set("n", "<Leader>dr", [[<Plug>(Luadev-Run)]], { buffer = true, remap = true })
+vim.keymap.set("n", "<Leader>dw", [[<Plug>(Luadev-RunWord)]], { buffer = true, remap = true })
+vim.keymap.set("i", "<C-G><C-D>", [[<Plug>(Luadev-Complete)]], { buffer = true, remap = true })
 
 if choose.is_enabled_plugin("nvim-surround") then
   local surround = require("nvim-surround")

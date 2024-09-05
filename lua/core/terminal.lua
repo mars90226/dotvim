@@ -73,7 +73,7 @@ terminal.setup = function()
       vim.keymap.set("t", "<M-PageDown>", [[<C-\><C-N><PageDown>]])
 
       -- Search pattern
-      tmap("<M-s>", [[<C-\><C-N><Plug>(search-prefix)]])
+      vim.keymap.set("t", "<M-s>", [[<C-\><C-N><Plug>(search-prefix)]], { remap = true })
       vim.keymap.set("t", "<M-s><M-s>", [[<M-s>]])
 
       -- Jump to pattern
@@ -128,7 +128,7 @@ terminal.setup = function()
       vim.keymap.set("t", "<M-q><PageDown>", [[<C-\><C-\><C-N><PageDown>]])
 
       -- Search pattern
-      tmap("<M-q><M-s>", [[<C-\><C-\><C-N><Plug>(search-prefix)]])
+      vim.keymap.set("t", "<M-q><M-s>", [[<C-\><C-\><C-N><Plug>(search-prefix)]], { remap = true })
       -- FIXME: Cannot send `<M-s>` to nested neovim
 
       -- For nested nested neovim {{{

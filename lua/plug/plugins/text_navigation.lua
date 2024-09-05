@@ -74,7 +74,7 @@ local text_navigation = {
       -- To avoid 'S' being mapped
       -- TODO: Use better way to avoid 'gs' being mapped
      vim.keymap.set(" ", "gs", "gs")
-      nmap("<M-;>", "<Plug>Lightspeed_omni_gs")
+      vim.keymap.set("n", "<M-;>", "<Plug>Lightspeed_omni_gs", { remap = true })
     end,
   },
   {

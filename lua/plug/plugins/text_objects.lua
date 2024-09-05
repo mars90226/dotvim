@@ -13,10 +13,10 @@ local text_objects = {
     config = function()
       vim.g.textobj_functioncall_no_default_key_mappings = 1
 
-      xmap("id", "<Plug>(textobj-functioncall-i)")
-      omap("id", "<Plug>(textobj-functioncall-i)")
-      xmap("ad", "<Plug>(textobj-functioncall-a)")
-      omap("ad", "<Plug>(textobj-functioncall-a)")
+      vim.keymap.set("x", "id", "<Plug>(textobj-functioncall-i)", { remap = true })
+      vim.keymap.set("o", "id", "<Plug>(textobj-functioncall-i)", { remap = true })
+      vim.keymap.set("x", "ad", "<Plug>(textobj-functioncall-a)", { remap = true })
+      vim.keymap.set("o", "ad", "<Plug>(textobj-functioncall-a)", { remap = true })
     end,
   },
 

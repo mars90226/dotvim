@@ -291,24 +291,24 @@ fzf.setup_mapping = function()
 
   -- stylua: ignore start
   -- Mapping selecting mappings
-  nmap(fzf_prefix .. [[<Tab>]], [[<Plug>(fzf-maps-n)]])
-  imap([[<M-`><M-`>]],    [[<Plug>(fzf-maps-i)]])
-  xmap(fzf_prefix .. [[<Tab>]], [[<Plug>(fzf-maps-x)]])
-  omap(fzf_prefix .. [[<Tab>]], [[<Plug>(fzf-maps-o)]])
+  vim.keymap.set("n", fzf_prefix .. [[<Tab>]], [[<Plug>(fzf-maps-n)]], { remap = true })
+  vim.keymap.set("i", [[<M-`><M-`>]],    [[<Plug>(fzf-maps-i)]], { remap = true })
+  vim.keymap.set("x", fzf_prefix .. [[<Tab>]], [[<Plug>(fzf-maps-x)]], { remap = true })
+  vim.keymap.set("o", fzf_prefix .. [[<Tab>]], [[<Plug>(fzf-maps-o)]], { remap = true })
 
   -- Insert mode completion
-  imap([[<C-X><C-K>]], [[<Plug>(fzf-complete-word)]])
+  vim.keymap.set("i", [[<C-X><C-K>]], [[<Plug>(fzf-complete-word)]], { remap = true })
   vim.keymap.set("i", [[<C-X><C-F>]], [[fzf#vim#complete#path('fd -t f --strip-cwd-prefix')]], { expr = true })
 
   -- <C-J> is <NL>
-  imap([[<C-X><C-L>]], [[<Plug>(fzf-complete-line)]])
+  vim.keymap.set("i", [[<C-X><C-L>]], [[<Plug>(fzf-complete-line)]], { remap = true })
   vim.keymap.set("i", [[<C-X><C-D>]], [[fzf#vim#complete#path('fd -t d --strip-cwd-prefix')]], { expr = true })
   vim.keymap.set("i", [[<M-x><M-p>]], [[vimrc#fzf#chinese#punctuations_in_insert_mode()]],     { expr = true })
 
   -- Alternative key mapping for those key mappings that are hard to type in ergonomic keyboard.
   -- Insert mode completion
-  imap([[<M-x><M-w>]], [[<Plug>(fzf-complete-word)]])
-  imap([[<M-x><M-e>]], [[<Plug>(fzf-complete-line)]])
+  vim.keymap.set("i", [[<M-x><M-w>]], [[<Plug>(fzf-complete-word)]], { remap = true })
+  vim.keymap.set("i", [[<M-x><M-e>]], [[<Plug>(fzf-complete-line)]], { remap = true })
   vim.keymap.set("i", [[<M-x><M-c>]], [[vimrc#fzf#chinese#punctuations_in_insert_mode()]],     { expr = true })
 
   -- TODO: Add meta complete mode for those key mappings that are hard to type in ergonomic keyboard.
