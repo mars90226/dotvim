@@ -12,16 +12,16 @@ float.setup = function()
     config = function()
       -- TODO: Move these config to other place
       -- Zoom {{{
-      nnoremap("<Leader>zz", [[:call vimrc#zoom#zoom()<CR>]], "silent")
-      xnoremap("<Leader>zz", [[:<C-U>call vimrc#zoom#selected(vimrc#utility#get_visual_selection())<CR>]], "silent")
+      vim.keymap.set("n", "<Leader>zz", [[:call vimrc#zoom#zoom()<CR>]], { silent = true })
+      vim.keymap.set("x", "<Leader>zz", [[:<C-U>call vimrc#zoom#selected(vimrc#utility#get_visual_selection())<CR>]], { silent = true })
 
-      nnoremap("<Leader>zf", [[:call vimrc#zoom#float()<CR>]], "silent")
-      xnoremap(
+      vim.keymap.set("n", "<Leader>zf", [[:call vimrc#zoom#float()<CR>]], { silent = true })
+      vim.keymap.set("x", 
         "<Leader>zf",
         [[:<C-U>call vimrc#zoom#float_selected(vimrc#utility#get_visual_selection())<CR>]],
-        "silent"
+        { silent = true }
       )
-      nnoremap("<Leader>zF", [[:call vimrc#zoom#into_float()<CR>]], "silent")
+      vim.keymap.set("n", "<Leader>zF", [[:call vimrc#zoom#into_float()<CR>]], { silent = true })
       -- }}}
 
       -- Float {{{
@@ -46,46 +46,46 @@ float.setup = function()
         { bang = true, nargs = "?", complete = "command" }
       )
 
-      nnoremap("<M-,><M-l>", [[:VimrcFloatToggle<CR>]], "silent")
-      inoremap("<M-,><M-l>", [[<Esc>:VimrcFloatToggle<CR>]], "silent")
-      nnoremap("<M-,><M-n>", [[:execute 'VimrcFloatNew '.input('command: ', '', 'command')<CR>]], "silent")
-      nnoremap("<M-,><M-m>", [[:execute 'VimrcFloatNew! '.input('command: ', '', 'command')<CR>]], "silent")
-      nnoremap("<M-,><M-j>", [[:VimrcFloatPrev<CR>]], "silent")
-      nnoremap("<M-,><M-k>", [[:VimrcFloatNext<CR>]], "silent")
-      nnoremap("<M-,><M-r>", [[:VimrcFloatRemove<CR>]], "silent")
-      nnoremap("<M-,><M-x>", [[:execute 'VimrcFloatermNew '.input('command: ', '', 'shellcmd')<CR>]], "silent")
-      nnoremap("<M-,><M-c>", [[:execute 'VimrcFloatermNew! '.input('command: ', '', 'shellcmd')<CR>]], "silent")
+      vim.keymap.set("n", "<M-,><M-l>", [[:VimrcFloatToggle<CR>]], { silent = true })
+      vim.keymap.set("i", "<M-,><M-l>", [[<Esc>:VimrcFloatToggle<CR>]], { silent = true })
+      vim.keymap.set("n", "<M-,><M-n>", [[:execute 'VimrcFloatNew '.input('command: ', '', 'command')<CR>]], { silent = true })
+      vim.keymap.set("n", "<M-,><M-m>", [[:execute 'VimrcFloatNew! '.input('command: ', '', 'command')<CR>]], { silent = true })
+      vim.keymap.set("n", "<M-,><M-j>", [[:VimrcFloatPrev<CR>]], { silent = true })
+      vim.keymap.set("n", "<M-,><M-k>", [[:VimrcFloatNext<CR>]], { silent = true })
+      vim.keymap.set("n", "<M-,><M-r>", [[:VimrcFloatRemove<CR>]], { silent = true })
+      vim.keymap.set("n", "<M-,><M-x>", [[:execute 'VimrcFloatermNew '.input('command: ', '', 'shellcmd')<CR>]], { silent = true })
+      vim.keymap.set("n", "<M-,><M-c>", [[:execute 'VimrcFloatermNew! '.input('command: ', '', 'shellcmd')<CR>]], { silent = true })
 
       -- terminal key mappings
-      tnoremap("<M-q><M-,><M-l>", [[<C-\><C-N>:VimrcFloatToggle<CR>]], "silent")
-      tnoremap(
+      vim.keymap.set("t", "<M-q><M-,><M-l>", [[<C-\><C-N>:VimrcFloatToggle<CR>]], { silent = true })
+      vim.keymap.set("t", 
         "<M-q><M-,><M-n>",
         [[<C-\><C-N>:execute 'VimrcFloatNew '.input('command: ', '', 'command')<CR>]],
-        "silent"
+        { silent = true }
       )
-      tnoremap(
+      vim.keymap.set("t", 
         "<M-q><M-,><M-m>",
         [[<C-\><C-N>:execute 'VimrcFloatNew! '.input('command: ', '', 'command')<CR>]],
-        "silent"
+        { silent = true }
       )
-      tnoremap("<M-q><M-,><M-j>", [[<C-\><C-N>:VimrcFloatPrev<CR>]], "silent")
-      tnoremap("<M-q><M-,><M-k>", [[<C-\><C-N>:VimrcFloatNext<CR>]], "silent")
-      tnoremap("<M-q><M-,><M-r>", [[<C-\><C-N>:VimrcFloatRemove<CR>]], "silent")
+      vim.keymap.set("t", "<M-q><M-,><M-j>", [[<C-\><C-N>:VimrcFloatPrev<CR>]], { silent = true })
+      vim.keymap.set("t", "<M-q><M-,><M-k>", [[<C-\><C-N>:VimrcFloatNext<CR>]], { silent = true })
+      vim.keymap.set("t", "<M-q><M-,><M-r>", [[<C-\><C-N>:VimrcFloatRemove<CR>]], { silent = true })
 
-      tnoremap("<M-q><M-,><M-l>", [[<C-\><C-N>:VimrcFloatToggle<CR>]], "silent")
-      tnoremap(
+      vim.keymap.set("t", "<M-q><M-,><M-l>", [[<C-\><C-N>:VimrcFloatToggle<CR>]], { silent = true })
+      vim.keymap.set("t", 
         "<M-q><M-,><M-n>",
         [[<C-\><C-N>:execute 'VimrcFloatNew '.input('command: ', '', 'command')<CR>]],
-        "silent"
+        { silent = true }
       )
-      tnoremap(
+      vim.keymap.set("t", 
         "<M-q><M-,><M-m>",
         [[<C-\><C-N>:execute 'VimrcFloatNew! '.input('command: ', '', 'command')<CR>]],
-        "silent"
+        { silent = true }
       )
-      tnoremap("<M-q><M-,><M-j>", [[<C-\><C-N>:VimrcFloatPrev<CR>]], "silent")
-      tnoremap("<M-q><M-,><M-k>", [[<C-\><C-N>:VimrcFloatNext<CR>]], "silent")
-      tnoremap("<M-q><M-,><M-r>", [[<C-\><C-N>:VimrcFloatRemove<CR>]], "silent")
+      vim.keymap.set("t", "<M-q><M-,><M-j>", [[<C-\><C-N>:VimrcFloatPrev<CR>]], { silent = true })
+      vim.keymap.set("t", "<M-q><M-,><M-k>", [[<C-\><C-N>:VimrcFloatNext<CR>]], { silent = true })
+      vim.keymap.set("t", "<M-q><M-,><M-r>", [[<C-\><C-N>:VimrcFloatRemove<CR>]], { silent = true })
 
       -- TODO For nested neovim
       -- Need to implement different prefix_count for diferrent key mappings in

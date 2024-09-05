@@ -71,7 +71,7 @@ M.check_pylsp_linter_feasibility = function(bufnr)
 end
 
 M.setup_mappings = function()
-  nnoremap("yoL", function()
+  vim.keymap.set("n", "yoL", function()
     M.toggle_pylsp_linter()
   end, { silent = true, buffer = true })
 end

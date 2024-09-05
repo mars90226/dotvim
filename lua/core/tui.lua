@@ -14,7 +14,7 @@ tui.setup = function()
       "mars90226/tui-sr",
       config = function()
         vim.api.nvim_create_user_command("GoogleKeyword", [[call vimrc#tui#google_keyword(<q-args>)]], { nargs = 1 })
-        nnoremap("<Leader>gk", [[:execute 'GoogleKeyword ' . expand('<cword>')<CR>]])
+        vim.keymap.set("n", "<Leader>gk", [[:execute 'GoogleKeyword ' . expand('<cword>')<CR>]])
       end,
     })
   end
@@ -30,7 +30,7 @@ tui.setup = function()
           { "HtopSplit", ":HtopSplit", 1 },
         })
 
-        nnoremap("<Leader>ht", [[:Htop<CR>]])
+        vim.keymap.set("n", "<Leader>ht", [[:Htop<CR>]])
       end,
     })
   end
@@ -60,7 +60,7 @@ tui.setup = function()
           { "BtmSplit", ":BtmSplit", 1 },
         })
 
-        nnoremap("<Leader>bt", [[:Btm<CR>]])
+        vim.keymap.set("n", "<Leader>bt", [[:Btm<CR>]])
       end,
     })
   end
@@ -88,7 +88,7 @@ tui.setup = function()
           { "BrootSplit", ":BrootSplit", 1 },
         })
 
-        nnoremap("<Leader>br", [[:Broot<CR>]])
+        vim.keymap.set("n", "<Leader>br", [[:Broot<CR>]])
       end,
     })
   end
@@ -154,9 +154,9 @@ tui.setup = function()
           { "VifmDirBMarks", ":VifmDirBMarks", 1 },
         })
 
-        nnoremap("<Leader>vi", [[:VifmFloat<CR>]])
-        nnoremap("<Leader>vd", [[:VifmDirFloat<CR>]])
-        nnoremap("<Leader>vm", [[:VifmDirBMarks<CR>]])
+        vim.keymap.set("n", "<Leader>vi", [[:VifmFloat<CR>]])
+        vim.keymap.set("n", "<Leader>vd", [[:VifmDirFloat<CR>]])
+        vim.keymap.set("n", "<Leader>vm", [[:VifmDirBMarks<CR>]])
       end,
     })
   end
@@ -200,7 +200,7 @@ tui.setup = function()
           { "XplrSplit", ":XplrSplit", 1 },
         })
 
-        nnoremap("<Leader>xp", [[:Xplr<CR>]])
+        vim.keymap.set("n", "<Leader>xp", [[:Xplr<CR>]])
       end,
     })
   end
@@ -216,8 +216,8 @@ tui.setup = function()
           { "YaziSplit", ":YaziSplit", 1 },
         })
 
-        nnoremap("<Leader>zA", [[:Yazi<CR>]])
-        nnoremap("<Leader>zs", [[:YaziSplit<CR>]])
+        vim.keymap.set("n", "<Leader>zA", [[:Yazi<CR>]])
+        vim.keymap.set("n", "<Leader>zs", [[:YaziSplit<CR>]])
       end,
     })
   end
@@ -241,7 +241,7 @@ tui.setup = function()
           { "LazyGitSplit", ":LazyGitSplit", 1 },
         })
 
-        nnoremap("<Leader>gz", [[:LazyGit<CR>]])
+        vim.keymap.set("n", "<Leader>gz", [[:LazyGit<CR>]])
       end,
     })
   end
@@ -266,7 +266,7 @@ tui.setup = function()
           { "GituiSplit", ":GituiSplit", 1 },
         })
 
-        nnoremap("<Leader>gi", [[:Gitui<CR>]])
+        vim.keymap.set("n", "<Leader>gi", [[:Gitui<CR>]])
       end,
     })
   end
@@ -328,10 +328,10 @@ tui.setup = function()
           { "MprocsSplit --npm", ":MprocsSplit --npm", 1 },
         })
 
-        nnoremap("<Leader>mp", [[:Mprocs<CR>]])
-        nnoremap("<Leader>mP", [[:MprocsSplit<CR>]])
-        nnoremap("<Leader>mn", [[:Mprocs --npm<CR>]])
-        nnoremap("<Leader>mN", [[:MprocsSplit --npm<CR>]])
+        vim.keymap.set("n", "<Leader>mp", [[:Mprocs<CR>]])
+        vim.keymap.set("n", "<Leader>mP", [[:MprocsSplit<CR>]])
+        vim.keymap.set("n", "<Leader>mn", [[:Mprocs --npm<CR>]])
+        vim.keymap.set("n", "<Leader>mN", [[:MprocsSplit --npm<CR>]])
       end,
     })
   end

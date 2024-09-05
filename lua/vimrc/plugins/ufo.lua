@@ -64,7 +64,7 @@ ufo.setup = function()
     },
   })
 
-  nnoremap("<F10>", function()
+  vim.keymap.set("n", "<F10>", function()
     ufo.toggle_treesitter()
   end)
 

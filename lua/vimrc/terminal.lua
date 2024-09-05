@@ -18,8 +18,8 @@ end
 terminal.setup_mapping = function()
   -- Navigate prompts
   local pattern = table.concat({ "❯", "CHROOT@" }, [[\|]])
-  nnoremap("[[", [[?]] .. pattern .. [[<CR>]], "<silent>", "<buffer>")
-  nnoremap("]]", [[/]] .. pattern .. [[<CR>]], "<silent>", "<buffer>")
+  vim.keymap.set("n", "[[", [[?]] .. pattern .. [[<CR>]], { silent = true, buffer = true })
+  vim.keymap.set("n", "]]", [[/]] .. pattern .. [[<CR>]], { silent = true, buffer = true })
 end
 
 return terminal

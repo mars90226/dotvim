@@ -5,35 +5,35 @@ local lspsaga = {}
 
 lspsaga.on_attach = function(client)
   -- TODO: ignore some key mapping if it's none-ls.nvim lsp
-  nnoremap("gd", "<Cmd>Lspsaga finder<CR>", "silent", "buffer")
-  nnoremap("gi", "<Cmd>Lspsaga implement<CR>", "silent", "buffer")
-  nnoremap("gpp", "<Cmd>Lspsaga peek_definition<CR>", "silent", "buffer")
-  nnoremap("gr", "<Cmd>Lspsaga rename<CR>", "silent", "buffer")
-  nnoremap("gx", "<Cmd>Lspsaga code_action<CR>", "silent", "buffer")
-  xnoremap("gx", ":<C-U>Lspsaga range_code_action<CR>", "silent", "buffer")
-  nnoremap("go", "<Cmd>Lspsaga show_line_diagnostics<CR>", "silent", "buffer")
-  nnoremap("gC", "<Cmd>Lspsaga show_cursor_dianostics<CR>", "silent", "buffer")
-  nnoremap("<Space><F7>", "<Cmd>Lspsaga outline<CR>", "silent", "buffer")
-  nnoremap("<Plug>(diff-prev)", "[c", "silent", "buffer")
-  nnoremap("<Plug>(diff-next)", "]c", "silent", "buffer")
-  nmap("[c", [[&diff ? "\<Plug>(diff-prev)" : "\<Cmd>Lspsaga diagnostic_jump_prev\<CR>"]], "silent", "buffer", "expr")
-  nmap("]c", [[&diff ? "\<Plug>(diff-next)" : "\<Cmd>Lspsaga diagnostic_jump_next\<CR>"]], "silent", "buffer", "expr")
+  vim.keymap.set("n", "gd", "<Cmd>Lspsaga finder<CR>", { silent = true, buffer = true })
+  vim.keymap.set("n", "gi", "<Cmd>Lspsaga implement<CR>", { silent = true, buffer = true })
+  vim.keymap.set("n", "gpp", "<Cmd>Lspsaga peek_definition<CR>", { silent = true, buffer = true })
+  vim.keymap.set("n", "gr", "<Cmd>Lspsaga rename<CR>", { silent = true, buffer = true })
+  vim.keymap.set("n", "gx", "<Cmd>Lspsaga code_action<CR>", { silent = true, buffer = true })
+  vim.keymap.set("x", "gx", ":<C-U>Lspsaga range_code_action<CR>", { silent = true, buffer = true })
+  vim.keymap.set("n", "go", "<Cmd>Lspsaga show_line_diagnostics<CR>", { silent = true, buffer = true })
+  vim.keymap.set("n", "gC", "<Cmd>Lspsaga show_cursor_dianostics<CR>", { silent = true, buffer = true })
+  vim.keymap.set("n", "<Space><F7>", "<Cmd>Lspsaga outline<CR>", { silent = true, buffer = true })
+  vim.keymap.set("n", "<Plug>(diff-prev)", "[c", { silent = true, buffer = true })
+  vim.keymap.set("n", "<Plug>(diff-next)", "]c", { silent = true, buffer = true })
+  vim.keymap.set("n", "[c", [[&diff ? "\<Plug>(diff-prev)" : "\<Cmd>Lspsaga diagnostic_jump_prev\<CR>"]], { silent = true, buffer = true, expr = true, remap = true })
+  vim.keymap.set("n", "]c", [[&diff ? "\<Plug>(diff-next)" : "\<Cmd>Lspsaga diagnostic_jump_next\<CR>"]], { silent = true, buffer = true, expr = true, remap = true })
 
   -- Remap for K
   local maparg
   maparg = vim.fn.maparg("gK", "n", false, true)
   if maparg == {} or maparg["buffer"] ~= 1 then
-    nnoremap("gK", "K", "buffer")
+    vim.keymap.set("n", "gK", "K", { buffer = true })
   end
   -- Remap for gi
   maparg = vim.fn.maparg("gI", "n", false, true)
   if maparg == {} or maparg["buffer"] ~= 1 then
-    nnoremap("gI", "gi", "buffer")
+    vim.keymap.set("n", "gI", "gi", { buffer = true })
   end
   -- Remap for gI
   maparg = vim.fn.maparg("g<C-I>", "n", false, true)
   if maparg == {} or maparg["buffer"] ~= 1 then
-    nnoremap("g<C-I>", "gI", "buffer")
+    vim.keymap.set("n", "g<C-I>", "gI", { buffer = true })
   end
 end
 

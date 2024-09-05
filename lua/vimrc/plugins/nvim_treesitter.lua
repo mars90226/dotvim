@@ -553,17 +553,17 @@ nvim_treesitter.setup_performance_trick = function()
 end
 
 nvim_treesitter.setup_mapping = function()
-  nnoremap("<Space><F6>", function()
+  vim.keymap.set("n", "<Space><F6>", function()
     buffer_toggle_force_disable(vim.api.nvim_get_current_buf())
     vim.cmd([[TSBufToggle highlight]])
   end, { desc = "Toggle treesitter highlight" })
   -- Currently, it's impossible to type <C-F1> ~ <C-F12> using wezterm + tmux.
   -- wezterm with 'xterm-256color' + tmux with 'screen-256color' will
   -- generate keycode for <C-F1> ~ <C-F12> that recognized by neovim as <F25> ~ <F36>.
-  nnoremap("<C-F6>", function()
+  vim.keymap.set("n", "<C-F6>", function()
     require("treesitter-context").go_to_context(vim.v.count1)
   end, { silent = true, desc = "Go to treesitter context" })
-  nnoremap("<F30>", function()
+  vim.keymap.set("n", "<F30>", function()
     require("treesitter-context").go_to_context(vim.v.count1)
   end, { silent = true, desc = "Go to treesitter context" })
 end

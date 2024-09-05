@@ -119,7 +119,7 @@ local lsp = {
       lsp_lines.setup()
       lsp_lines.toggle() -- disable by default
 
-      nnoremap("yoO", lsp_lines.toggle, { desc = "Toggle lsp_lines" })
+      vim.keymap.set("n", "yoO", lsp_lines.toggle, { desc = "Toggle lsp_lines" })
     end,
   },
 
@@ -347,7 +347,7 @@ local lsp = {
     config = function()
       require("nvim-navbuddy").setup()
 
-      nnoremap("<Space><Leader>", "<Cmd>Navbuddy<CR>")
+      vim.keymap.set("n", "<Space><Leader>", "<Cmd>Navbuddy<CR>")
     end,
   },
 
@@ -364,8 +364,8 @@ local lsp = {
     config = function()
       require("inc_rename").setup()
 
-      nnoremap("<Leader>ir", ":IncRename ")
-      nnoremap("<Leader>ik", function()
+      vim.keymap.set("n", "<Leader>ir", ":IncRename ")
+      vim.keymap.set("n", "<Leader>ik", function()
         return ":IncRename " .. vim.fn.expand("<cword>")
       end, { expr = true })
     end,

@@ -240,10 +240,10 @@ other.setup = function()
     },
   })
 
-  nnoremap("<Leader>oo", "<Cmd>:Other<CR>", "silent")
-  nnoremap("<Leader>os", "<Cmd>:OtherSplit<CR>", "silent")
-  nnoremap("<Leader>ov", "<Cmd>:OtherVSplit<CR>", "silent")
-  nnoremap("<Leader>oc", "<Cmd>:OtherClear<CR>", "silent")
+  vim.keymap.set("n", "<Leader>oo", "<Cmd>:Other<CR>", { silent = true })
+  vim.keymap.set("n", "<Leader>os", "<Cmd>:OtherSplit<CR>", { silent = true })
+  vim.keymap.set("n", "<Leader>ov", "<Cmd>:OtherVSplit<CR>", { silent = true })
+  vim.keymap.set("n", "<Leader>oc", "<Cmd>:OtherClear<CR>", { silent = true })
 end
 
 return other

@@ -114,12 +114,12 @@ local text_manipulation = {
         muren.open_unique_ui(utils.get_visual_selection())
       end, { range = true })
 
-      nnoremap("<Leader>mr", [[<Cmd>MurenToggle<CR>]])
-      nnoremap("<Leader>mu", [[<Cmd>MurenUnique<CR>]])
-      nnoremap("<Leader>mk", function()
+      vim.keymap.set("n", "<Leader>mr", [[<Cmd>MurenToggle<CR>]])
+      vim.keymap.set("n", "<Leader>mu", [[<Cmd>MurenUnique<CR>]])
+      vim.keymap.set("n", "<Leader>mk", function()
         muren.open_unique_ui(vim.fn.expand("<cword>"))
       end)
-      xnoremap("<Leader>mk", [[:MurenUniqueVisual<CR>]])
+      vim.keymap.set("x", "<Leader>mk", [[:MurenUniqueVisual<CR>]])
     end,
   },
 

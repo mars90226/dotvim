@@ -75,8 +75,8 @@ conform.setup_command = function()
 end
 
 conform.setup_mapping = function()
-  nnoremap("<Space>lF", "<Cmd>Format<CR>", "silent", { desc = "Format by conform" })
-  xnoremap("<Space>lF", "<Cmd>Format<CR>", "silent", { desc = "Format by conform" })
+  vim.keymap.set("n", "<Space>lF", "<Cmd>Format<CR>", { silent = true,  desc = "Format by conform" })
+  vim.keymap.set("x", "<Space>lF", "<Cmd>Format<CR>", { silent = true,  desc = "Format by conform" })
 end
 
 conform.setup = function()

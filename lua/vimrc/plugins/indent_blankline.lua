@@ -61,8 +61,8 @@ indent_blankline.setup_config = function()
 end
 
 indent_blankline.setup_mapping = function()
-  nnoremap("<Space>il", ":IBLToggle<CR>")
-  nnoremap("<Space>ir", ":IndentBlanklineRefresh<CR>")
+  vim.keymap.set("n", "<Space>il", ":IBLToggle<CR>")
+  vim.keymap.set("n", "<Space>ir", ":IndentBlanklineRefresh<CR>")
 end
 
 indent_blankline.setup = function()

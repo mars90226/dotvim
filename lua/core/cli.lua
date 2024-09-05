@@ -12,12 +12,12 @@ cli.setup = function()
     use_config({
       "mars90226/cli-sdcv",
       config = function()
-        nnoremap("<Leader>sd", [[:execute vimrc#utility#get_sdcv_command() . ' ' . expand('<cword>')<CR>]])
-        xnoremap(
+        vim.keymap.set("n", "<Leader>sd", [[:execute vimrc#utility#get_sdcv_command() . ' ' . expand('<cword>')<CR>]])
+        vim.keymap.set("x", 
           "<Leader>sd",
           [[:<C-U>execute vimrc#utility#get_sdcv_command() . " '" . vimrc#utility#get_visual_selection() . "'"<CR>]]
         )
-        nnoremap("<Space>sd", [[:call vimrc#utility#execute_command(vimrc#utility#get_sdcv_command(), 'sdcv: ')<CR>]])
+        vim.keymap.set("n", "<Space>sd", [[:call vimrc#utility#execute_command(vimrc#utility#get_sdcv_command(), 'sdcv: ')<CR>]])
       end,
     })
   end
@@ -27,15 +27,15 @@ cli.setup = function()
     use_config({
       "mars90226/cli-trans",
       config = function()
-        nnoremap(
+        vim.keymap.set("n", 
           "<Leader><C-K><C-K>",
           [[:execute vimrc#utility#get_translate_shell_command() . ' ' . expand('<cword>')<CR>]],
           { desc = "Translate current word" })
-        xnoremap(
+        vim.keymap.set("x", 
           "<Leader><C-K><C-K>",
           [[:<C-U>execute vimrc#utility#get_translate_shell_command() . " '" . vimrc#utility#get_visual_selection() . "'"<CR>]],
           { desc = "Translate selected word" })
-        nnoremap(
+        vim.keymap.set("n", 
           "<Space><C-K><C-K>",
           [[:call vimrc#utility#execute_command(vimrc#utility#get_translate_shell_command(), 'trans: ')<CR>]],
           { desc = "Translate input word" })
@@ -68,9 +68,9 @@ cli.setup = function()
     use_config({
       "mars90226/cli-execute-windows",
       config = function()
-        nnoremap("<Leader>xo", [[<Cmd>lua require("vimrc.windows").execute_current_file()<CR>]])
-        nnoremap("<Leader>X", [[<Cmd>lua require("vimrc.windows").open_terminal_in_current_file_folder()<CR>]])
-        nnoremap("<Leader>E", [[<Cmd>lua require("vimrc.windows").reveal_current_file_folder_in_explorer()<CR>]])
+        vim.keymap.set("n", "<Leader>xo", [[<Cmd>lua require("vimrc.windows").execute_current_file()<CR>]])
+        vim.keymap.set("n", "<Leader>X", [[<Cmd>lua require("vimrc.windows").open_terminal_in_current_file_folder()<CR>]])
+        vim.keymap.set("n", "<Leader>E", [[<Cmd>lua require("vimrc.windows").reveal_current_file_folder_in_explorer()<CR>]])
       end,
     })
   else
@@ -79,7 +79,7 @@ cli.setup = function()
       use_config({
         "mars90226/cli-execute-xdg-open",
         config = function()
-          nnoremap("<Leader>xo", [[execute vimrc#utility#get_xdg_open() . ' ' . expand('%:p')<CR>]])
+          vim.keymap.set("n", "<Leader>xo", [[execute vimrc#utility#get_xdg_open() . ' ' . expand('%:p')<CR>]])
         end,
       })
     end

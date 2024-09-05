@@ -229,7 +229,7 @@ local git = {
         }
       })
 
-      nnoremap("<Leader>gn", "<Cmd>Neogit<CR>")
+      vim.keymap.set("n", "<Leader>gn", "<Cmd>Neogit<CR>")
     end,
   },
 
@@ -242,7 +242,7 @@ local git = {
         default_mappings = false,
       })
 
-      nnoremap("<Leader>cr", [[<Cmd>GitConflictRefresh<CR>]])
+      vim.keymap.set("n", "<Leader>cr", [[<Cmd>GitConflictRefresh<CR>]])
       nmap("<Leader>co", "<Plug>(git-conflict-ours)")
       nmap("<Leader>ct", "<Plug>(git-conflict-theirs)")
       nmap("<Leader>cb", "<Plug>(git-conflict-both)")

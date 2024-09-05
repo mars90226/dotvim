@@ -116,7 +116,7 @@ gruvbox.setup = function()
   vim.api.nvim_create_user_command("ToggleErrorInverse", function()
     gruvbox.toggle_error_inverse()
   end, {})
-  nnoremap("coi", "<Cmd>ToggleErrorInverse<CR>")
+  vim.keymap.set("n", "coi", "<Cmd>ToggleErrorInverse<CR>")
 
   local augroup_id = vim.api.nvim_create_augroup("gruvbox_settings", {})
   vim.api.nvim_create_autocmd({ "VimEnter" }, {

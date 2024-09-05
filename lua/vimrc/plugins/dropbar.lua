@@ -32,7 +32,7 @@ dropbar.setup = function()
     },
   })
 
-  nnoremap("<Space>dp", function()
+  vim.keymap.set("n", "<Space>dp", function()
     require("dropbar.api").pick()
   end, { desc = "Pick dropbar component" })
 end

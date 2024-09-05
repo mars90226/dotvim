@@ -1,7 +1,7 @@
 -- Clangd
-nnoremap("<M-`>", [[<Cmd>ClangdSwitchSourceHeader<CR>]], "<silent>", "<buffer>")
+vim.keymap.set("n", "<M-`>", [[<Cmd>ClangdSwitchSourceHeader<CR>]], { silent = true, buffer = true})
 -- TODO: Make it work in c/cpp
--- nnoremap("<M-]>", function()
+-- vim.keymap.set("n", "<M-]>", function()
 --   local go_to_tag = function()
 --     vim.cmd([[silent! tag ]]..vim.fn.expand("<cword>"))
 --   end

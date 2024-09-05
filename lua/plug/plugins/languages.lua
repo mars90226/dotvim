@@ -14,7 +14,7 @@ local languages = {
       -- TODO: Find a way to retain folding without confusing diff mode
       vim.g.vim_markdown_folding_disabled = 1
 
-      nnoremap("<Leader>wg", "<Cmd>lua require('toggle-checkbox').toggle()<CR>")
+      vim.keymap.set("n", "<Leader>wg", "<Cmd>lua require('toggle-checkbox').toggle()<CR>")
     end,
   },
   { "mtdl9/vim-log-highlighting", ft = { "log" } },
@@ -415,10 +415,10 @@ local languages = {
     event = { "VeryLazy" },
     config = function()
       -- NOTE: nvim-treesitter config is in nvim_treesitter.lua
-      nnoremap("<F6>", function()
+      vim.keymap.set("n", "<F6>", function()
         require("vimrc.plugins.nvim_treesitter").toggle_context()
       end, { desc = "Toggle treesitter context" })
-      nnoremap("gup", function()
+      vim.keymap.set("n", "gup", function()
         require("treesitter-context").go_to_context()
       end, { desc = "Go to parent context" })
     end,
@@ -628,7 +628,7 @@ local languages = {
         },
         after_open = function(bufnr)
           vim.wo.wrap = true
-          nnoremap("gq", [[<Cmd>close<CR>]], { silent = true, buffer = true })
+          vim.keymap.set("n", "gq", [[<Cmd>close<CR>]], { silent = true, buffer = true })
         end,
       })
     end,

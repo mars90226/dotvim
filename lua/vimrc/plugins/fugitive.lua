@@ -10,38 +10,43 @@ fugitive.setup = function()
 
   -- Mappings
   -- For execute git command
-  nnoremap([[<Space>gg]], [[:Git<Space>]])
-  nnoremap([[<Space>gG]], [[:Git --paginate<Space>]])
-  nnoremap([[<Space>g<Space>]], [[:Git!<Space>]])
+  vim.keymap.set("n", [[<Space>gg]], [[:Git<Space>]])
+  vim.keymap.set("n", [[<Space>gG]], [[:Git --paginate<Space>]])
+  vim.keymap.set("n", [[<Space>g<Space>]], [[:Git!<Space>]])
 
-  nnoremap([[<Leader>gs]], [[<Cmd>Git<CR>]], { silent = true })
-  nnoremap([[<Leader>gS]], [[<Cmd>call vimrc#fugitive#diff_staged_file('%')<CR>]], { silent = true })
-  nnoremap([[<Leader>gd]], [[<Cmd>Gdiffsplit<CR>]], { silent = true })
-  nnoremap([[<Leader>gD]], [[<Cmd>Gdiffsplit!<CR>]], { silent = true })
-  nnoremap([[<Leader>gc]], [[<Cmd>GitGotoBlameLine split<CR>]], { silent = true })
-  nnoremap([[<Leader>gC]], [[<Cmd>GitGotoBlameLine edit<CR>]], { silent = true })
-  nnoremap([[<Leader>gb]], [[<Cmd>Git blame<CR>]], { silent = true })
-  xnoremap([[<Leader>gb]], [[<Cmd>Git blame<CR>]], { silent = true })
-  nnoremap([[<Leader>gB]], [[<Cmd>GBrowse<CR>]], { silent = true })
-  xnoremap([[<Leader>gB]], [[<Cmd>GBrowse<CR>]], { silent = true })
-  nnoremap([[<Leader>ge]], [[<Cmd>Gedit<CR>]], { silent = true })
-  nnoremap([[<Leader>gE]], [[:Gedit<Space>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gs]], [[<Cmd>Git<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gS]], [[<Cmd>call vimrc#fugitive#diff_staged_file('%')<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gd]], [[<Cmd>Gdiffsplit<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gD]], [[<Cmd>Gdiffsplit!<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gc]], [[<Cmd>GitGotoBlameLine split<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gC]], [[<Cmd>GitGotoBlameLine edit<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gb]], [[<Cmd>Git blame<CR>]], { silent = true })
+  vim.keymap.set("x", [[<Leader>gb]], [[<Cmd>Git blame<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gB]], [[<Cmd>GBrowse<CR>]], { silent = true })
+  vim.keymap.set("x", [[<Leader>gB]], [[<Cmd>GBrowse<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>ge]], [[<Cmd>Gedit<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gE]], [[:Gedit<Space>]], { silent = true })
   -- TODO Use :Gllog instead, currently :0Gllog do not work
-  nnoremap([[<Leader>gl]], [[<Cmd>Gclog<CR>]], { silent = true })
-  nnoremap([[<Leader>gL]], [[<Cmd>0Gclog<CR>]], { silent = true })
-  xnoremap([[<Leader>gl]], [[:<C-U>execute 'Git log -L '.getpos("'<")[1].','.getpos("'>")[1].':%'<CR>]], { silent = true })
-  nnoremap([[<Leader>gP]], [[<Cmd>Git log -p -- %<CR>]], { silent = true })
-  nnoremap([[<Leader>gr]], [[<Cmd>Gread<CR>]], { silent = true })
-  nnoremap([[<Leader>gR]], [[:Gread<Space>]], { silent = true })
-  nnoremap([[<Leader>gu]], [[<Cmd>Gsplit HEAD<CR>]], { silent = true })
-  nnoremap([[<Leader>gw]], [[<Cmd>Gwrite<CR>]], { silent = true })
-  nnoremap([[<Leader>gW]], [[<Cmd>Gwrite!<CR>]], { silent = true })
-  nnoremap([[<Leader>gq]], [[<Cmd>Gwq<CR>]], { silent = true })
-  nnoremap([[<Leader>gQ]], [[<Cmd>Gwq!<CR>]], { silent = true })
-  nnoremap([[<Leader>gM]], [[<Cmd>Merginal<CR>]], { silent = true })
-  nnoremap([[<Leader>g<Tab>]], [[<Cmd>execute 'Gsplit '.vimrc#fugitive#commit_sha()<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gl]], [[<Cmd>Gclog<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gL]], [[<Cmd>0Gclog<CR>]], { silent = true })
+  vim.keymap.set(
+    "x",
+    [[<Leader>gl]],
+    [[:<C-U>execute 'Git log -L '.getpos("'<")[1].','.getpos("'>")[1].':%'<CR>]],
+    { silent = true }
+  )
+  vim.keymap.set("n", [[<Leader>gP]], [[<Cmd>Git log -p -- %<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gr]], [[<Cmd>Gread<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gR]], [[:Gread<Space>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gu]], [[<Cmd>Gsplit HEAD<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gw]], [[<Cmd>Gwrite<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gW]], [[<Cmd>Gwrite!<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gq]], [[<Cmd>Gwq<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gQ]], [[<Cmd>Gwq!<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>gM]], [[<Cmd>Merginal<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>g<Tab>]], [[<Cmd>execute 'Gsplit '.vimrc#fugitive#commit_sha()<CR>]], { silent = true })
 
-  nnoremap([[<Leader>g`]], [[<Cmd>call vimrc#fugitive#review_last_commit()<CR>]], { silent = true })
+  vim.keymap.set("n", [[<Leader>g`]], [[<Cmd>call vimrc#fugitive#review_last_commit()<CR>]], { silent = true })
 
   vim.cmd([[augroup fugitive_settings]])
   vim.cmd([[  autocmd!]])
@@ -50,7 +55,8 @@ fugitive.setup = function()
 
   vim.g.fugitive_gitlab_domains = {}
   if vim.g.fugitive_gitlab_secret_domains ~= nil then
-    vim.g.fugitive_gitlab_domains = utils.table_concat(vim.g.fugitive_gitlab_domains, vim.g.fugitive_gitlab_secret_domains)
+    vim.g.fugitive_gitlab_domains =
+      utils.table_concat(vim.g.fugitive_gitlab_domains, vim.g.fugitive_gitlab_secret_domains)
   end
 
   -- Borrowed and modified from vim-fugitive s:Dispatch

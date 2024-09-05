@@ -64,8 +64,8 @@ nvim_lint.setup = function()
     vim = { "vint" },
   }
 
-  nnoremap("<Space>ll", "<Cmd>lua require('lint').try_lint()<CR>", "silent")
-  nnoremap("col", "<Cmd>lua require('vimrc.plugins.nvim_lint').toggle_enable()<CR>", "silent")
+  vim.keymap.set("n", "<Space>ll", "<Cmd>lua require('lint').try_lint()<CR>", { silent = true })
+  vim.keymap.set("n", "col", "<Cmd>lua require('vimrc.plugins.nvim_lint').toggle_enable()<CR>", { silent = true })
 
   -- Add errorformat for 'markdownlint'
   -- FIXME: Cannot use vim.opt, it will break 'errorformat'.

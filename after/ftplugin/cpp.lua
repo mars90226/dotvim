@@ -1,4 +1,4 @@
 vim.b.AutoPairsJumps = { [[\w\zs>]] }
 
 -- Clangd
-nnoremap("<M-`>", [[<Cmd>ClangdSwitchSourceHeader<CR>]], "<silent>", "<buffer>")
+vim.keymap.set("n", "<M-`>", [[<Cmd>ClangdSwitchSourceHeader<CR>]], { silent = true, buffer = true})

@@ -9,37 +9,37 @@ substitute.setup = function()
   })
 
   -- Substitute
-  nnoremap("ss", "<Cmd>lua require('substitute').operator()<CR>")
-  nnoremap("sS", "<Cmd>lua require('substitute').line()<CR>")
-  nnoremap("sl", "<Cmd>lua require('substitute').eol()<CR>")
-  xnoremap("ss", "<Cmd>lua require('substitute').visual()<CR>")
+  vim.keymap.set("n", "ss", "<Cmd>lua require('substitute').operator()<CR>")
+  vim.keymap.set("n", "sS", "<Cmd>lua require('substitute').line()<CR>")
+  vim.keymap.set("n", "sl", "<Cmd>lua require('substitute').eol()<CR>")
+  vim.keymap.set("x", "ss", "<Cmd>lua require('substitute').visual()<CR>")
 
   -- Substitute using system clipboard
-  nnoremap("=ss", "<Cmd>lua require('substitute').operator({ register = '+' })<CR>")
-  nnoremap("=sS", "<Cmd>lua require('substitute').line({ register = '+' })<CR>")
-  nnoremap("=sl", "<Cmd>lua require('substitute').eol({ register = '+' })<CR>")
-  xnoremap("=ss", "<Cmd>lua require('substitute').visual({ register = '+' })<CR>")
+  vim.keymap.set("n", "=ss", "<Cmd>lua require('substitute').operator({ register = '+' })<CR>")
+  vim.keymap.set("n", "=sS", "<Cmd>lua require('substitute').line({ register = '+' })<CR>")
+  vim.keymap.set("n", "=sl", "<Cmd>lua require('substitute').eol({ register = '+' })<CR>")
+  vim.keymap.set("x", "=ss", "<Cmd>lua require('substitute').visual({ register = '+' })<CR>")
 
   -- Substitute over range
-  nnoremap("<Leader>s", "<Cmd>lua require('substitute.range').operator()<CR>")
-  xnoremap("<Leader>s", "<Cmd>lua require('substitute.range').visual()<CR>")
-  nnoremap("<Leader>ss", "<Cmd>lua require('substitute.range').word()<CR>") -- FIXME: This is conflict with which-key.nvim
+  vim.keymap.set("n", "<Leader>s", "<Cmd>lua require('substitute.range').operator()<CR>")
+  vim.keymap.set("x", "<Leader>s", "<Cmd>lua require('substitute.range').visual()<CR>")
+  vim.keymap.set("n", "<Leader>ss", "<Cmd>lua require('substitute.range').word()<CR>") -- FIXME: This is conflict with which-key.nvim
 
   -- Substitute over range confirm
-  nnoremap("scr", "<Cmd>lua require('substitute.range').operator({ confirm = true })<CR>")
-  xnoremap("scr", "<Cmd>lua require('substitute.range').visual({ confirm = true })<CR>")
-  nnoremap("scrr", "<Cmd>lua require('substitute.range').word({ confirm = true })<CR>")
+  vim.keymap.set("n", "scr", "<Cmd>lua require('substitute.range').operator({ confirm = true })<CR>")
+  vim.keymap.set("x", "scr", "<Cmd>lua require('substitute.range').visual({ confirm = true })<CR>")
+  vim.keymap.set("n", "scrr", "<Cmd>lua require('substitute.range').word({ confirm = true })<CR>")
 
   -- Substitute over range Subvert (depends on vim-abolish)
-  nnoremap("<Leader><Leader>s", "<Cmd>lua require('substitute.range').operator({ prefix = 'S' })<CR>")
-  xnoremap("<Leader><Leader>s", "<Cmd>lua require('substitute.range').visual({ prefix = 'S' })<CR>")
-  nnoremap("<Leader><Leader>ss", "<Cmd>lua require('substitute.range').word({ prefix = 'S' })<CR>")
+  vim.keymap.set("n", "<Leader><Leader>s", "<Cmd>lua require('substitute.range').operator({ prefix = 'S' })<CR>")
+  vim.keymap.set("x", "<Leader><Leader>s", "<Cmd>lua require('substitute.range').visual({ prefix = 'S' })<CR>")
+  vim.keymap.set("n", "<Leader><Leader>ss", "<Cmd>lua require('substitute.range').word({ prefix = 'S' })<CR>")
 
   -- Exchange
-  nnoremap("cx", "<Cmd>lua require('substitute.exchange').operator()<CR>")
-  nnoremap("cxx", "<Cmd>lua require('substitute.exchange').line()<CR>")
-  xnoremap("X", "<Cmd>lua require('substitute.exchange').visual()<CR>")
-  nnoremap("cxc", "<Cmd>lua require('substitute.exchange').cancel()<CR>")
+  vim.keymap.set("n", "cx", "<Cmd>lua require('substitute.exchange').operator()<CR>")
+  vim.keymap.set("n", "cxx", "<Cmd>lua require('substitute.exchange').line()<CR>")
+  vim.keymap.set("x", "X", "<Cmd>lua require('substitute.exchange').visual()<CR>")
+  vim.keymap.set("n", "cxc", "<Cmd>lua require('substitute.exchange').cancel()<CR>")
 end
 
 return substitute

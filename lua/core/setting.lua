@@ -147,12 +147,12 @@ settings.setup = function()
   use_config({
     "mars90226/option-toggle",
     config = function()
-      nnoremap("coc", ":set termguicolors!<CR>")
-      nnoremap("coe", ":set expandtab!<CR>")
-      nnoremap("com", ":set modifiable!<CR>")
-      nnoremap("coo", ":set readonly!<CR>")
-      nnoremap("cop", ":set paste!<CR>")
-      nnoremap("yoa", ":setlocal autoread!<CR>")
+      vim.keymap.set("n", "coc", ":set termguicolors!<CR>")
+      vim.keymap.set("n", "coe", ":set expandtab!<CR>")
+      vim.keymap.set("n", "com", ":set modifiable!<CR>")
+      vim.keymap.set("n", "coo", ":set readonly!<CR>")
+      vim.keymap.set("n", "cop", ":set paste!<CR>")
+      vim.keymap.set("n", "yoa", ":setlocal autoread!<CR>")
 
       vim.keymap.set("n", "codp", function()
         utils.toggle_list_option_flag(vim.opt.diffopt, "algorithm:patience")

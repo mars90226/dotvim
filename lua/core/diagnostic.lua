@@ -26,9 +26,9 @@ diagnostic.setup = function()
         },
       })
 
-      nnoremap("]d", [[<Cmd>lua vim.diagnostic.goto_next()<CR>]], "silent")
-      nnoremap("[d", [[<Cmd>lua vim.diagnostic.goto_prev()<CR>]], "silent")
-      nnoremap("go", [[<Cmd>lua vim.diagnostic.open_float()<CR>]], "silent")
+      vim.keymap.set("n", "]d", [[<Cmd>lua vim.diagnostic.goto_next()<CR>]], { silent = true })
+      vim.keymap.set("n", "[d", [[<Cmd>lua vim.diagnostic.goto_prev()<CR>]], { silent = true })
+      vim.keymap.set("n", "go", [[<Cmd>lua vim.diagnostic.open_float()<CR>]], { silent = true })
     end,
   })
 end

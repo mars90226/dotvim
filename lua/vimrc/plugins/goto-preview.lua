@@ -1,9 +1,9 @@
 local goto_preview = {
   on_attach = function(client)
-    nnoremap("gpd", [[<Cmd>lua require('goto-preview').goto_preview_definition()<CR>]], "silent", "buffer")
-    nnoremap("gpi", [[<Cmd>lua require('goto-preview').goto_preview_implementation()<CR>]], "silent", "buffer")
-    nnoremap("gP", [[<Cmd>lua require('goto-preview').close_all_win()<CR>]], "silent", "buffer")
-    nnoremap("gpr", [[<Cmd>lua require('goto-preview').goto_preview_references()<CR>]], "silent", "buffer")
+    vim.keymap.set("n", "gpd", [[<Cmd>lua require('goto-preview').goto_preview_definition()<CR>]], { silent = true, buffer = true })
+    vim.keymap.set("n", "gpi", [[<Cmd>lua require('goto-preview').goto_preview_implementation()<CR>]], { silent = true, buffer = true })
+    vim.keymap.set("n", "gP", [[<Cmd>lua require('goto-preview').close_all_win()<CR>]], { silent = true, buffer = true })
+    vim.keymap.set("n", "gpr", [[<Cmd>lua require('goto-preview').goto_preview_references()<CR>]], { silent = true, buffer = true })
   end,
 }
 

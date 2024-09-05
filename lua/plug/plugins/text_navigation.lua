@@ -68,12 +68,12 @@ local text_navigation = {
       map(";", "<Plug>Lightspeed_omni_s")
       -- To avoid 'S' being mapped
       -- TODO: Use better way to avoid 'S' being mapped
-      noremap("S", "S")
+     vim.keymap.set(" ", "S", "S")
 
       -- NOTE: lightspeed.nvim will map 'gs', which may cause a little problem with vim-caser mapping
       -- To avoid 'S' being mapped
       -- TODO: Use better way to avoid 'gs' being mapped
-      noremap("gs", "gs")
+     vim.keymap.set(" ", "gs", "gs")
       nmap("<M-;>", "<Plug>Lightspeed_omni_gs")
     end,
   },
@@ -196,8 +196,8 @@ local text_navigation = {
         nearest_float_when = 'never',
       })
 
-      noremap("n", [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], "silent")
-      noremap("N", [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], "silent")
+     vim.keymap.set(" ", "n", [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], { silent = true })
+     vim.keymap.set(" ", "N", [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], { silent = true })
 
       -- vim-asterisk
       map("*", [[<Plug>(asterisk-*)<Cmd>lua require('hlslens').start()<CR>]])

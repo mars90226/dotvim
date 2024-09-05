@@ -46,7 +46,7 @@ local file_navigation = {
       })
 
       require("telescope").load_extension("yank_history")
-      nnoremap([[<Space>tn]], [[<Cmd>Telescope yank_history<CR>]], { desc = "Telescope yank_history" })
+      vim.keymap.set("n", [[<Space>tn]], [[<Cmd>Telescope yank_history<CR>]], { desc = "Telescope yank_history" })
     end,
   },
 
@@ -503,7 +503,7 @@ local file_navigation = {
       require("window-picker").setup({
         hint = "floating-big-letter",
       })
-      nnoremap("=-", function()
+      vim.keymap.set("n", "=-", function()
         local window_id = require("window-picker").pick_window()
         vim.api.nvim_set_current_win(window_id)
       end, { silent = true, desc = "Switch to window by window-picker" })

@@ -37,13 +37,13 @@ local utility = {
   {
     "gu-fan/colorv.vim",
     cmd = { "ColorV", "ColorVName", "ColorVView" },
-    keys = { "<Leader>vv", "<Leader>vn", "<Leader>vw" },
+    keys = {
+      { "<Leader>vv", "<Cmd>ColorV<CR>", silent = true },
+      { "<Leader>vn", "<Cmd>ColorVName<CR>", silent = true },
+      { "<Leader>vw", "<Cmd>ColorVView<CR>", silent = true },
+    },
     dependencies = { "mattn/webapi-vim" },
-    config = function()
-      nnoremap("<Leader>vv", ":ColorV<CR>", "silent")
-      nnoremap("<Leader>vn", ":ColorVName<CR>", "silent")
-      nnoremap("<Leader>vw", ":ColorVView<CR>", "silent")
-    end,
+    opts = {},
   },
   {
     "nvim-colortils/colortils.nvim",
@@ -94,7 +94,7 @@ local utility = {
       })
       require("telescope").load_extension("projects")
 
-      nnoremap("<Leader>pr", "<Cmd>ProjectRoot<CR>")
+      vim.keymap.set("n", "<Leader>pr", "<Cmd>ProjectRoot<CR>")
     end,
   },
 
@@ -227,12 +227,12 @@ local utility = {
     config = function()
       require("yode-nvim").setup({})
 
-      nnoremap("<Leader>bd", [[:YodeBufferDelete<CR>]])
+      vim.keymap.set("n", "<Leader>bd", [[:YodeBufferDelete<CR>]])
 
-      nnoremap("<C-W>r", [[<Cmd>YodeLayoutShiftWinDown<CR>]])
-      nnoremap("<C-W>R", [[<Cmd>YodeLayoutShiftWinUp<CR>]])
-      nnoremap("<C-W>J", [[<Cmd>YodeLayoutShiftWinBottom<CR>]])
-      nnoremap("<C-W>K", [[<Cmd>YodeLayoutShiftWinTop<CR>]])
+      vim.keymap.set("n", "<C-W>r", [[<Cmd>YodeLayoutShiftWinDown<CR>]])
+      vim.keymap.set("n", "<C-W>R", [[<Cmd>YodeLayoutShiftWinUp<CR>]])
+      vim.keymap.set("n", "<C-W>J", [[<Cmd>YodeLayoutShiftWinBottom<CR>]])
+      vim.keymap.set("n", "<C-W>K", [[<Cmd>YodeLayoutShiftWinTop<CR>]])
 
       -- For no gap between floating windows
       vim.go.showtabline = 2
@@ -393,17 +393,17 @@ local utility = {
     config = function()
       require("todo-comments").setup({})
 
-      nnoremap("<F8>", "<Cmd>TodoTrouble<CR>")
-      nnoremap("<Space><F8>", "<Cmd>TodoTelescope<CR>")
+      vim.keymap.set("n", "<F8>", "<Cmd>TodoTrouble<CR>")
+      vim.keymap.set("n", "<Space><F8>", "<Cmd>TodoTelescope<CR>")
       -- Currently, it's impossible to type <C-F1> ~ <C-F12> using wezterm + tmux.
       -- wezterm with 'xterm-256color' + tmux with 'screen-256color' will
       -- generate keycode for <C-F1> ~ <C-F12> that recognized by neovim as <F25> ~ <F36>.
-      nnoremap("<C-F8>", "<Cmd>TodoFzfLua<CR>")
-      nnoremap("<F32>", "<Cmd>TodoFzfLua<CR>")
-      nnoremap("[X", function()
+      vim.keymap.set("n", "<C-F8>", "<Cmd>TodoFzfLua<CR>")
+      vim.keymap.set("n", "<F32>", "<Cmd>TodoFzfLua<CR>")
+      vim.keymap.set("n", "[X", function()
         require("todo-comments").jump_prev()
       end, { desc = "Previous todo comment" })
-      nnoremap("]X", function()
+      vim.keymap.set("n", "]X", function()
         require("todo-comments").jump_next()
       end, { desc = "Next todo comment" })
     end,
@@ -497,13 +497,12 @@ local utility = {
     enabled = false,
     dependencies = { { "nvim-lua/plenary.nvim" } },
     ft = { "http" },
-    config = function()
-      require("rest-nvim").setup({})
-
-      nnoremap("<Leader>rr", [[<Plug>RestNvim]], "nowait")
-      nnoremap("<Leader>rp", [[<Plug>RestNvimPreview]], "nowait")
-      nnoremap("<Leader>rl", [[<Plug>RestNvimLast]], "nowait")
-    end,
+    keys = {
+      { "<Leader>rr", [[<Plug>RestNvim]], nowait = true },
+      { "<Leader>rp", [[<Plug>RestNvimPreview]], nowait = true },
+      { "<Leader>rl", [[<Plug>RestNvimLast]], nowait = true },
+    },
+    opts = {},
   },
 
   -- DB

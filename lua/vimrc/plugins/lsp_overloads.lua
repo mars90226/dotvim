@@ -10,7 +10,7 @@ lsp_overloads.on_attach = function(client)
     },
   })
 
-  inoremap("<M-S-l>", "<Cmd>LspOverloadsSignature<CR>")
+  vim.keymap.set("i", "<M-S-l>", "<Cmd>LspOverloadsSignature<CR>")
 end
 
 return lsp_overloads

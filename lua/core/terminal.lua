@@ -17,13 +17,13 @@ terminal.setup = function()
       )
 
       -- For quick terminal access
-      nnoremap("<Leader>te", [[:call vimrc#terminal#open_current_shell('edit')<CR>]], { silent = true, desc = "Open shell in current buffer" })
-      nnoremap("<Leader>tt", [[:call vimrc#terminal#open_current_shell('tabnew')<CR>]], { silent = true, desc = "Open shell in new tab" })
-      nnoremap("<Leader>ts", [[:call vimrc#terminal#open_current_shell('new')<CR>]], { silent = true, desc = "Open shell in horizontal split" })
-      nnoremap("<Leader>tv", [[:call vimrc#terminal#open_current_shell('vnew')<CR>]], { silent = true, desc = "Open shell in vertical split" })
-      nnoremap("<Leader>tb", [[:call vimrc#terminal#open_current_shell('rightbelow vnew')<CR>]], { silent = true, desc = "Open shell in right below vertical split" })
-      nnoremap("<Leader>td", [[:call vimrc#terminal#open_shell('new', input('Folder: ', '', 'dir'))<CR>]], { silent = true, desc = "Open shell with input folder" })
-      nnoremap(
+      vim.keymap.set("n", "<Leader>te", [[:call vimrc#terminal#open_current_shell('edit')<CR>]], { silent = true, desc = "Open shell in current buffer" })
+      vim.keymap.set("n", "<Leader>tt", [[:call vimrc#terminal#open_current_shell('tabnew')<CR>]], { silent = true, desc = "Open shell in new tab" })
+      vim.keymap.set("n", "<Leader>ts", [[:call vimrc#terminal#open_current_shell('new')<CR>]], { silent = true, desc = "Open shell in horizontal split" })
+      vim.keymap.set("n", "<Leader>tv", [[:call vimrc#terminal#open_current_shell('vnew')<CR>]], { silent = true, desc = "Open shell in vertical split" })
+      vim.keymap.set("n", "<Leader>tb", [[:call vimrc#terminal#open_current_shell('rightbelow vnew')<CR>]], { silent = true, desc = "Open shell in right below vertical split" })
+      vim.keymap.set("n", "<Leader>td", [[:call vimrc#terminal#open_shell('new', input('Folder: ', '', 'dir'))<CR>]], { silent = true, desc = "Open shell with input folder" })
+      vim.keymap.set("n", 
         "<Leader>tD",
         [[:call vimrc#terminal#open_shell('tabnew', input('Folder: ', '', 'dir'))<CR>]],
         { silent = true, desc = "Open shell with input folder in new tab" }
@@ -35,104 +35,104 @@ terminal.setup = function()
       -- Ref: https://github.com/neovim/neovim/issues/8317
       -- TODO: Better syntax
       for _, key in ipairs(utils.meta_fn_key(1)) do
-        tnoremap(key, [[<C-\><C-N>]])
+        vim.keymap.set("t", key, [[<C-\><C-N>]])
       end
       for _, key in ipairs(utils.meta_fn_key(2)) do
-        tnoremap(key, [[<C-\><C-N>:call vimrc#terminal#open_current_shell('tabnew')<CR>]])
+        vim.keymap.set("t", key, [[<C-\><C-N>:call vimrc#terminal#open_current_shell('tabnew')<CR>]])
       end
       for _, key in ipairs(utils.meta_fn_key(3)) do
-        tnoremap(key, [[<C-\><C-N>:Windows<CR>]])
+        vim.keymap.set("t", key, [[<C-\><C-N>:Windows<CR>]])
       end
 
       -- Quickly leave terminal mode
-      tnoremap("<M-C-Q>", [[<C-\><C-N>]])
+      vim.keymap.set("t", "<M-C-Q>", [[<C-\><C-N>]])
 
       -- Quickly switch window in terminal
-      tnoremap("<M-S-h>", [[<C-\><C-N><C-W>h]])
-      tnoremap("<M-S-j>", [[<C-\><C-N><C-W>j]])
-      tnoremap("<M-S-k>", [[<C-\><C-N><C-W>k]])
-      tnoremap("<M-S-l>", [[<C-\><C-N><C-W>l]])
+      vim.keymap.set("t", "<M-S-h>", [[<C-\><C-N><C-W>h]])
+      vim.keymap.set("t", "<M-S-j>", [[<C-\><C-N><C-W>j]])
+      vim.keymap.set("t", "<M-S-k>", [[<C-\><C-N><C-W>k]])
+      vim.keymap.set("t", "<M-S-l>", [[<C-\><C-N><C-W>l]])
 
       -- Quickly switch tab in terminal
-      tnoremap("<M-C-J>", [[<C-\><C-N>gT]])
-      tnoremap("<M-C-K>", [[<C-\><C-N>gt]])
+      vim.keymap.set("t", "<M-C-J>", [[<C-\><C-N>gT]])
+      vim.keymap.set("t", "<M-C-K>", [[<C-\><C-N>gt]])
 
       -- Quickly switch to last tab in terminal
       -- NOTE: Similar to <C-Tab>, but support fzf
-      tnoremap("<M-1>", [[<C-\><C-N>:LastTab<CR>]])
+      vim.keymap.set("t", "<M-1>", [[<C-\><C-N>:LastTab<CR>]])
 
       -- Quickly paste from register
-      tnoremap("<M-r>", [[<C-\><C-N>:execute 'normal! "'.v:lua.require("vimrc.utils").get_char_string().'pi'<CR>]])
-      tnoremap("<M-r><M-r>", [[<M-r>]])
+      vim.keymap.set("t", "<M-r>", [[<C-\><C-N>:execute 'normal! "'.v:lua.require("vimrc.utils").get_char_string().'pi'<CR>]])
+      vim.keymap.set("t", "<M-r><M-r>", [[<M-r>]])
 
       -- Quickly suspend neovim
-      tnoremap("<M-C-Z>", [[<C-\><C-N>:suspend<CR>]])
+      vim.keymap.set("t", "<M-C-Z>", [[<C-\><C-N>:suspend<CR>]])
 
       -- Quickly page-up/page-down
-      tnoremap("<M-PageUp>", [[<C-\><C-N><PageUp>]])
-      tnoremap("<M-PageDown>", [[<C-\><C-N><PageDown>]])
+      vim.keymap.set("t", "<M-PageUp>", [[<C-\><C-N><PageUp>]])
+      vim.keymap.set("t", "<M-PageDown>", [[<C-\><C-N><PageDown>]])
 
       -- Search pattern
       tmap("<M-s>", [[<C-\><C-N><Plug>(search-prefix)]])
-      tnoremap("<M-s><M-s>", [[<M-s>]])
+      vim.keymap.set("t", "<M-s><M-s>", [[<M-s>]])
 
       -- Jump to pattern
-      tnoremap("<M-m>w", [=[<C-\><C-N>:lua require('hop').hint_patterns({}, [[\v\k+]])<CR>]=])
-      tnoremap("<M-m>W", [=[<C-\><C-N>:lua require('hop').hint_patterns({}, [[\v\S+]])<CR>]=])
-      tnoremap("<M-m>f", [=[<C-\><C-N>:lua require('vimrc.plugins.hop').search_patterns({}, 'file')<CR>]=])
-      tnoremap("<M-m>y", [=[<C-\><C-N>:lua require('vimrc.plugins.hop').search_patterns({}, 'hash')<CR>]=])
-      tnoremap("<M-m>u", [=[<C-\><C-N>:lua require('vimrc.plugins.hop').search_patterns({}, 'url')<CR>]=])
-      tnoremap("<M-m>i", [=[<C-\><C-N>:lua require('vimrc.plugins.hop').search_patterns({}, 'ip')<CR>]=])
+      vim.keymap.set("t", "<M-m>w", [=[<C-\><C-N>:lua require('hop').hint_patterns({}, [[\v\k+]])<CR>]=])
+      vim.keymap.set("t", "<M-m>W", [=[<C-\><C-N>:lua require('hop').hint_patterns({}, [[\v\S+]])<CR>]=])
+      vim.keymap.set("t", "<M-m>f", [=[<C-\><C-N>:lua require('vimrc.plugins.hop').search_patterns({}, 'file')<CR>]=])
+      vim.keymap.set("t", "<M-m>y", [=[<C-\><C-N>:lua require('vimrc.plugins.hop').search_patterns({}, 'hash')<CR>]=])
+      vim.keymap.set("t", "<M-m>u", [=[<C-\><C-N>:lua require('vimrc.plugins.hop').search_patterns({}, 'url')<CR>]=])
+      vim.keymap.set("t", "<M-m>i", [=[<C-\><C-N>:lua require('vimrc.plugins.hop').search_patterns({}, 'ip')<CR>]=])
 
       -- Jump to pattern by flash
-      tnoremap("<M-m><M-,>", [=[<C-\><C-N>:lua require('flash').jump()<CR>]=])
+      vim.keymap.set("t", "<M-m><M-,>", [=[<C-\><C-N>:lua require('flash').jump()<CR>]=])
 
       -- Jump to pattern by pounce
-      tnoremap("<M-m><M-/>", [=[<C-\><C-N>:Pounce<CR>]=])
+      vim.keymap.set("t", "<M-m><M-/>", [=[<C-\><C-N>:Pounce<CR>]=])
 
       -- For nested neovim {{{
       -- Use <M-q> as prefix
 
       -- Quick terminal function
-      tnoremap("<M-q>1", [[<C-\><C-\><C-N>]])
-      tnoremap("<M-q>2", [[<C-\><C-\><C-N>:call vimrc#terminal#open_current_shell('tabnew')<CR>]])
-      tnoremap("<M-q>3", [[<C-\><C-\><C-N>:Windows<CR>]])
+      vim.keymap.set("t", "<M-q>1", [[<C-\><C-\><C-N>]])
+      vim.keymap.set("t", "<M-q>2", [[<C-\><C-\><C-N>:call vimrc#terminal#open_current_shell('tabnew')<CR>]])
+      vim.keymap.set("t", "<M-q>3", [[<C-\><C-\><C-N>:Windows<CR>]])
 
       -- Quickly leave terminal mode
-      tnoremap("<M-q><M-C-Q>", [[<C-\><C-\><C-N>]])
+      vim.keymap.set("t", "<M-q><M-C-Q>", [[<C-\><C-\><C-N>]])
 
       -- Quickly switch window in terminal
-      tnoremap("<M-q><M-h>", [[<C-\><C-\><C-N><C-W>h]])
-      tnoremap("<M-q><M-j>", [[<C-\><C-\><C-N><C-W>j]])
-      tnoremap("<M-q><M-k>", [[<C-\><C-\><C-N><C-W>k]])
-      tnoremap("<M-q><M-l>", [[<C-\><C-\><C-N><C-W>l]])
+      vim.keymap.set("t", "<M-q><M-h>", [[<C-\><C-\><C-N><C-W>h]])
+      vim.keymap.set("t", "<M-q><M-j>", [[<C-\><C-\><C-N><C-W>j]])
+      vim.keymap.set("t", "<M-q><M-k>", [[<C-\><C-\><C-N><C-W>k]])
+      vim.keymap.set("t", "<M-q><M-l>", [[<C-\><C-\><C-N><C-W>l]])
 
       -- Quickly switch tab in terminal
-      tnoremap("<M-q><C-J>", [[<C-\><C-\><C-N>gT]])
-      tnoremap("<M-q><C-K>", [[<C-\><C-\><C-N>gt]])
+      vim.keymap.set("t", "<M-q><C-J>", [[<C-\><C-\><C-N>gT]])
+      vim.keymap.set("t", "<M-q><C-K>", [[<C-\><C-\><C-N>gt]])
 
       -- Quickly switch to last tab in terminal
-      tnoremap("<M-q><M-1>", [[<C-\><C-\><C-N>:LastTab<CR>]])
+      vim.keymap.set("t", "<M-q><M-1>", [[<C-\><C-\><C-N>:LastTab<CR>]])
 
       -- Quickly paste from register
-      tnoremap(
+      vim.keymap.set("t", 
         "<M-q><M-r>",
         [[<C-\><C-\><C-N>:execute 'normal! "'.v:lua.require("vimrc.utils").get_char_string().'pi'<CR>]]
       )
 
       -- Quickly suspend neovim
-      tnoremap("<M-q><C-Z>", [[<C-\><C-\><C-N>:suspend<CR>]])
+      vim.keymap.set("t", "<M-q><C-Z>", [[<C-\><C-\><C-N>:suspend<CR>]])
 
       -- Quickly page-up/page-down
-      tnoremap("<M-q><PageUp>", [[<C-\><C-\><C-N><PageUp>]])
-      tnoremap("<M-q><PageDown>", [[<C-\><C-\><C-N><PageDown>]])
+      vim.keymap.set("t", "<M-q><PageUp>", [[<C-\><C-\><C-N><PageUp>]])
+      vim.keymap.set("t", "<M-q><PageDown>", [[<C-\><C-\><C-N><PageDown>]])
 
       -- Search pattern
       tmap("<M-q><M-s>", [[<C-\><C-\><C-N><Plug>(search-prefix)]])
       -- FIXME: Cannot send `<M-s>` to nested neovim
 
       -- For nested nested neovim {{{
-      tnoremap("<expr>", [[<M-q><M-q> vimrc#terminal#nested_neovim#start("\<M-q>", 2)]], "<silent>")
+      vim.keymap.set("t", [[<M-q><M-q>]], [[vimrc#terminal#nested_neovim#start("\<M-q>", 2)]], { expr = true, silent = true })
 
       -- Quick terminal function
       vim.fn["vimrc#terminal#nested_neovim#register"]("1", "")
