@@ -36,14 +36,14 @@ local text_navigation = {
       { "<Space>cw",      mode = { "n", "o", "x" } },
     },
     config = function()
-      -- map("<Space>w", "<Cmd>HopWord<CR>")
-      map("<Space>e", [=[<Cmd>lua require('hop').hint_patterns({}, [[\k\>]])<CR>]=])
-      map("<Space>;", "<Cmd>HopPattern<CR>")
-      map("<LocalLeader>f", "<Cmd>HopChar1<CR>")
-      map("<LocalLeader>l", "<Cmd>HopLine<CR>")
-      -- map("<Space>j", "<Cmd>HopLineAC<CR>")
-      -- map("<Space>k", "<Cmd>HopLineBC<CR>")
-      map("<Space>cw", "<Cmd>HopCamelCase<CR>")
+      -- vim.keymap.set("", "<Space>w", "<Cmd>HopWord<CR>", { remap = true })
+      vim.keymap.set("", "<Space>e", [=[<Cmd>lua require('hop').hint_patterns({}, [[\k\>]])<CR>]=], { remap = true })
+      vim.keymap.set("", "<Space>;", "<Cmd>HopPattern<CR>", { remap = true })
+      vim.keymap.set("", "<LocalLeader>f", "<Cmd>HopChar1<CR>", { remap = true })
+      vim.keymap.set("", "<LocalLeader>l", "<Cmd>HopLine<CR>", { remap = true })
+      -- vim.keymap.set("", "<Space>j", "<Cmd>HopLineAC<CR>", { remap = true })
+      -- vim.keymap.set("", "<Space>k", "<Cmd>HopLineBC<CR>", { remap = true })
+      vim.keymap.set("", "<Space>cw", "<Cmd>HopCamelCase<CR>", { remap = true })
 
       require("hop").setup({})
     end,
@@ -65,7 +65,7 @@ local text_navigation = {
         ignore_case = true,
       })
 
-      map(";", "<Plug>Lightspeed_omni_s")
+      vim.keymap.set("", ";", "<Plug>Lightspeed_omni_s", { remap = true })
       -- To avoid 'S' being mapped
       -- TODO: Use better way to avoid 'S' being mapped
      vim.keymap.set(" ", "S", "S")
@@ -82,7 +82,7 @@ local text_navigation = {
     cmd = { "Pounce" },
     keys = { "<Leader>/" },
     config = function()
-      map("<Leader>/", [[<Cmd>Pounce<CR>]])
+      vim.keymap.set("", "<Leader>/", [[<Cmd>Pounce<CR>]], { remap = true })
     end,
   },
   -- TODO: Add more keys & replace above jump plugins
@@ -196,18 +196,18 @@ local text_navigation = {
         nearest_float_when = 'never',
       })
 
-     vim.keymap.set(" ", "n", [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], { silent = true })
-     vim.keymap.set(" ", "N", [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], { silent = true })
+       vim.keymap.set("", "n", [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], { silent = true })
+       vim.keymap.set("", "N", [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], { silent = true })
 
       -- vim-asterisk
-      map("*", [[<Plug>(asterisk-*)<Cmd>lua require('hlslens').start()<CR>]])
-      map("#", [[<Plug>(asterisk-#)<Cmd>lua require('hlslens').start()<CR>]])
-      map("g*", [[<Plug>(asterisk-g*)<Cmd>lua require('hlslens').start()<CR>]])
-      map("g#", [[<Plug>(asterisk-g#)<Cmd>lua require('hlslens').start()<CR>]])
-      map("z*", [[<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>]])
-      map("gz*", [[<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>]])
-      map("z#", [[<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>]])
-      map("gz#", [[<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>]])
+      vim.keymap.set("", "*", [[<Plug>(asterisk-*)<Cmd>lua require('hlslens').start()<CR>]], { remap = true })
+      vim.keymap.set("", "#", [[<Plug>(asterisk-#)<Cmd>lua require('hlslens').start()<CR>]], { remap = true })
+      vim.keymap.set("", "g*", [[<Plug>(asterisk-g*)<Cmd>lua require('hlslens').start()<CR>]], { remap = true })
+      vim.keymap.set("", "g#", [[<Plug>(asterisk-g#)<Cmd>lua require('hlslens').start()<CR>]], { remap = true })
+      vim.keymap.set("", "z*", [[<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>]], { remap = true })
+      vim.keymap.set("", "gz*", [[<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>]], { remap = true })
+      vim.keymap.set("", "z#", [[<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>]], { remap = true })
+      vim.keymap.set("", "gz#", [[<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>]], { remap = true })
     end,
   },
 
@@ -280,8 +280,8 @@ local text_navigation = {
       { "<Space><Space>k", mode = { "n", "o", "x" } },
     },
     config = function()
-      map("<Space><Space>j", "<Plug>(edgemotion-j)")
-      map("<Space><Space>k", "<Plug>(edgemotion-k)")
+      vim.keymap.set("", "<Space><Space>j", "<Plug>(edgemotion-j)", { remap = true })
+      vim.keymap.set("", "<Space><Space>k", "<Plug>(edgemotion-k)", { remap = true })
     end,
   },
 
