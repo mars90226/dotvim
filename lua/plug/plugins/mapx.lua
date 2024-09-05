@@ -1,5 +1,6 @@
 local mapx = {
   -- TODO: Replace this with builtin neovim vim.keymap
+  -- FIXME: mapx.nvim is archived
   {
     "b0o/mapx.nvim",
     lazy = false,
