@@ -381,8 +381,11 @@ local lsp = {
   },
 
   -- Timeout
+  -- TODO: Seems to cause more LSP problems than solve problems?
+  -- Also, copilot keeps being disabled.
   {
     "zeioth/garbage-day.nvim",
+    enabled = false,
     event = { "LspAttach" },
     opts = {}
   },
