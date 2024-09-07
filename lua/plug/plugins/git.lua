@@ -91,7 +91,7 @@ local git = {
   {
     "rbong/vim-flog",
     dependencies = { "tpope/vim-fugitive" },
-    cmd = { "Flog", "Flogsplit" },
+    cmd = { "Flog", "Flogsplit", "Floggit" },
     keys = {
       { "<Space>gf",      ":call vimrc#flog#open({})<CR>",                                     desc = "Flog open" },
       { "<Space>gF",      ":call vimrc#flog#open({'all': v:true})<CR>",                        desc = "Flog open all branches" },
@@ -100,6 +100,11 @@ local git = {
       { "<Leader>g<C-F>", ":call vimrc#flog#show_file('%', {'author': g:company_email})<CR>",  desc = "Flog show current file with company email" },
     },
     config = function()
+      -- TODO: Require terminal emulator to be either kitty or using "Flog Symbols" font.
+      -- Need to add a way to let terminal emulator to notify that it's supported.
+      -- Ref: https://github.com/rbong/vim-flog/issues/135
+      -- vim.g.flog_enable_extended_chars = 1
+
       vim.cmd([[command! -nargs=* Floga Flog -all <args>]])
 
       -- GV with company filter
