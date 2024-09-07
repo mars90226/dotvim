@@ -68,12 +68,12 @@ local text_navigation = {
       vim.keymap.set("", ";", "<Plug>Lightspeed_omni_s", { remap = true })
       -- To avoid 'S' being mapped
       -- TODO: Use better way to avoid 'S' being mapped
-     vim.keymap.set(" ", "S", "S")
+      vim.keymap.set("", "S", "S")
 
       -- NOTE: lightspeed.nvim will map 'gs', which may cause a little problem with vim-caser mapping
       -- To avoid 'S' being mapped
       -- TODO: Use better way to avoid 'gs' being mapped
-     vim.keymap.set(" ", "gs", "gs")
+      vim.keymap.set("", "gs", "gs")
       vim.keymap.set("n", "<M-;>", "<Plug>Lightspeed_omni_gs", { remap = true })
     end,
   },
