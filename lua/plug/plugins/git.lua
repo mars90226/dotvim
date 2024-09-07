@@ -105,6 +105,8 @@ local git = {
       -- Ref: https://github.com/rbong/vim-flog/issues/135
       -- vim.g.flog_enable_extended_chars = 1
 
+      -- TODO: Raise "max_count" to 10000 as vim-flog v3 has performance improvement?
+
       vim.cmd([[command! -nargs=* Floga Flog -all <args>]])
 
       -- GV with company filter
