@@ -347,13 +347,29 @@ local completion = {
   },
 
   -- AI
-  -- TODO: Lazy load on keys or commands
   {
     "yetone/avante.nvim",
     cond = choose.is_enabled_plugin("avante.nvim"),
-    event = "VeryLazy",
-    lazy = false,
+    -- event = "VeryLazy",
+    lazy = true,
     version = false, -- set this if you want to always pull the latest change
+    cmd = {
+      "AvanteAsk",
+      "AvanteEdit",
+      "AvanteBuild",
+      "AvanteClear",
+      "AvanteToggle",
+      "AvanteRefresh",
+      "AvanteSwitchProvider",
+    },
+    keys = {
+      { "<Leader>aa", mode = { "n", "v" }, function() require("avante.api").ask() end, desc = "avante: ask" },
+      { "<Leader>ae", mode = { "v" }, function() require("avante.api").edit() end, desc = "avante: edit" },
+      { "<Leader>ar", function() require("avante.api").refresh() end, desc = "avante: refresh" },
+      { "<Leader>ad", function() require("avante").toggle.debug() end, desc = "avante: toggle debug" },
+      { "<Leader>ah", function() require("avante").toggle.hint() end, desc = "avante: toggle hint" },
+      { "<Leader>at", function() require("avante").toggle() end, desc = "avante: toggle" },
+    },
     opts = {
       provider = "copilot",
     },
