@@ -193,6 +193,7 @@ telescope.setup_mapping = function()
   -- TODO: Add key mapping description
   local telescope_prefix = [[<Space>t]]
   local telescope_lsp_prefix = [[<Space>tl]]
+  local telescope_diagnostics_prefix = [[<Space>tl]]
 
   -- Mappings
   vim.keymap.set("n", telescope_prefix .. [[a]], [[<Cmd>Telescope loclist<CR>]])
@@ -225,7 +226,7 @@ telescope.setup_mapping = function()
   -- NOTE: Use telescope-menufacture grep_string
   -- vim.keymap.set("x", telescope_prefix .. [[k]], [[:<C-U>execute]] 'Telescope grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>)
   -- vim.keymap.set("x", telescope_prefix .. [[8]], [[:<C-U>execute]] 'Telescope grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>)
-  vim.keymap.set("n", telescope_prefix .. [[l]], [[<Cmd>Telescope current_buffer_fuzzy_find<CR>]])
+  vim.keymap.set("n", telescope_prefix .. [[L]], [[<Cmd>Telescope current_buffer_fuzzy_find<CR>]])
   -- TODO: Disabled as telescope-frecency.nvim loading to slow
   -- vim.keymap.set("n", telescope_prefix .. [[m]], [[<Cmd>Telescope frecency<CR>]])
   vim.keymap.set("n", telescope_prefix .. [[<CR>]], [[<Cmd>Telescope frecency workspace=CWD<CR>]])
@@ -264,13 +265,16 @@ telescope.setup_mapping = function()
   vim.keymap.set("n", telescope_lsp_prefix .. "d", "<Cmd>Telescope lsp_definitions<CR>")
   vim.keymap.set("n", telescope_lsp_prefix .. "t", "<Cmd>Telescope lsp_type_definitions<CR>")
   vim.keymap.set("n", telescope_lsp_prefix .. "i", "<Cmd>Telescope lsp_implementations<CR>")
-  vim.keymap.set("n", telescope_lsp_prefix .. "x", "<Cmd>Telescope lsp_code_actions<CR>")
-  vim.keymap.set("x", telescope_lsp_prefix .. "x", "<Cmd>Telescope lsp_range_code_actions<CR>")
+  vim.keymap.set("n", telescope_lsp_prefix .. "a", "<Cmd>Telescope lsp_code_actions<CR>")
+  vim.keymap.set("x", telescope_lsp_prefix .. "a", "<Cmd>Telescope lsp_range_code_actions<CR>")
   vim.keymap.set("n", telescope_lsp_prefix .. "o", "<Cmd>Telescope lsp_document_symbols<CR>")
   vim.keymap.set("n", telescope_lsp_prefix .. "s", "<Cmd>Telescope lsp_workspace_symbols<CR>")
   vim.keymap.set("n", telescope_lsp_prefix .. "S", "<Cmd>Telescope lsp_dynamic_workspace_symbols<CR>")
   vim.keymap.set("n", telescope_lsp_prefix .. ",", "<Cmd>Telescope lsp_incoming_calls<CR>")
   vim.keymap.set("n", telescope_lsp_prefix .. ".", "<Cmd>Telescope lsp_outgoing_calls<CR>")
+
+  -- Diagnostics
+  vim.keymap.set("n", telescope_diagnostics_prefix .. "x", "<Cmd>Telescope diagnostics<CR>")
 end
 
 telescope.setup = function()
