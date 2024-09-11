@@ -64,7 +64,7 @@ gitsigns.setup_config = function()
       delay = 500,
     },
     sign_priority = 6,
-    update_debounce = 100,
+    update_debounce = 200,
     status_formatter = nil, -- Use default
     diff_opts = {
       internal = true,

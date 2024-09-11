@@ -19,7 +19,7 @@ local actions = {
 dropbar.setup = function()
   require("dropbar").setup({
     general = {
-      update_interval = 100,
+      update_interval = 200,
     },
     menu = {
       keymaps = {
