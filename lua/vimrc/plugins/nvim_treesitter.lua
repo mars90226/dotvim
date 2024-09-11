@@ -363,14 +363,15 @@ nvim_treesitter.setup_extensions = function()
       if current_buffer_base_highlight_disable_check() then
         vim.schedule(function()
           if context_default_enable then
-            vim.cmd([[silent! TSContextDisable]])
+            require("treesitter-context").disable()
           end
           vim.cmd([[silent! NoMatchParen]])
         end)
       else
         vim.schedule(function()
-          if context_default_enable and not get_context_force_disable(vim.fn.bufnr()) then
-            vim.cmd([[silent! TSContextEnable]])
+          local ts_context = require("treesitter-context")
+          if context_default_enable and not get_context_force_disable(vim.fn.bufnr()) and not ts_context.enabled() then
+            ts_context.enable()
           end
           vim.cmd([[silent! DoMatchParen]])
         end)
