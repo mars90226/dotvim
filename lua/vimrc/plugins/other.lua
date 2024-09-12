@@ -239,11 +239,6 @@ other.setup = function()
       end,
     },
   })
-
-  vim.keymap.set("n", "<Leader>oo", "<Cmd>:Other<CR>", { silent = true })
-  vim.keymap.set("n", "<Leader>os", "<Cmd>:OtherSplit<CR>", { silent = true })
-  vim.keymap.set("n", "<Leader>ov", "<Cmd>:OtherVSplit<CR>", { silent = true })
-  vim.keymap.set("n", "<Leader>oc", "<Cmd>:OtherClear<CR>", { silent = true })
 end
 
 return other

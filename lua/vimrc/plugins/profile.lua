@@ -26,7 +26,7 @@ local function toggle_profile()
 end
 
 profile.setup = function()
-  vim.keymap.set("n", "<Leader>pp", toggle_profile)
+  vim.keymap.set("n", "<Leader>pp", toggle_profile, { desc = "Toggle profile" })
 end
 
 return profile

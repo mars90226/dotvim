@@ -13,8 +13,10 @@ local git = {
       local original_gbrowse_opts = vim.api.nvim_get_commands({})["GBrowse"]
       original_gbrowse_opts.complete = original_gbrowse_opts.complete .. "," .. original_gbrowse_opts.complete_arg
       original_gbrowse_opts.range = true
-      local gbrowse_opts = utils.table_filter_keys(original_gbrowse_opts,
-        { "bang", "bar", "complete", "keepscript", "nargs", "range", "register" })
+      local gbrowse_opts = utils.table_filter_keys(
+        original_gbrowse_opts,
+        { "bang", "bar", "complete", "keepscript", "nargs", "range", "register" }
+      )
       vim.api.nvim_create_user_command("GBrowse", function(opts)
         vim.api.nvim_create_autocmd("User", {
           pattern = "LazyLoad",
@@ -24,7 +26,7 @@ local git = {
             -- TODO: Perfectly simulate :GBrowse command
             -- Currently, it will open file with current commit sha even though it's on HEAD.
             vim.cmd((opts.line1 ~= 0 and opts.line1 .. "," .. opts.line2 or "") .. "GBrowse " .. opts.args)
-          end
+          end,
         })
 
         require("lazy").load({ plugins = { "fugitive-gitlab.vim", "vim-fubitive", "vim-rhubarb" } })
@@ -68,11 +70,27 @@ local git = {
     dependencies = { "tpope/vim-fugitive" },
     cmd = { "GV", "GVA", "GVD", "GVDA", "GVDE", "GVEA" },
     keys = {
-      { "<Space>gv",      ":call vimrc#gv#open({})<CR>",                                     desc = "GV open" },
-      { "<Space>gV",      ":call vimrc#gv#open({'all': v:true})<CR>",                        desc = "GV open all branches" },
-      { "<Leader>gv",     ":call vimrc#gv#show_file('%', {})<CR>",                           desc = "GV show current file" },
-      { "<Leader>gV",     ":call vimrc#gv#show_file('%', {'author': g:company_domain})<CR>", desc = "GV show current file with company domain" },
-      { "<Leader>g<C-V>", ":call vimrc#gv#show_file('%', {'author': g:company_email})<CR>",  desc = "GV show current file with company email" },
+      { "<Space>gv", ":call vimrc#gv#open({})<CR>", desc = "GV open" },
+      {
+        "<Space>gV",
+        ":call vimrc#gv#open({'all': v:true})<CR>",
+        desc = "GV open all branches",
+      },
+      {
+        "<Leader>gv",
+        ":call vimrc#gv#show_file('%', {})<CR>",
+        desc = "GV show current file",
+      },
+      {
+        "<Leader>gV",
+        ":call vimrc#gv#show_file('%', {'author': g:company_domain})<CR>",
+        desc = "GV show current file with company domain",
+      },
+      {
+        "<Leader>g<C-V>",
+        ":call vimrc#gv#show_file('%', {'author': g:company_email})<CR>",
+        desc = "GV show current file with company email",
+      },
     },
     config = function()
       vim.cmd([[command! -bang -nargs=* GVA GV<bang> --all <args>]])
@@ -93,11 +111,27 @@ local git = {
     dependencies = { "tpope/vim-fugitive" },
     cmd = { "Flog", "Flogsplit", "Floggit" },
     keys = {
-      { "<Space>gf",      ":call vimrc#flog#open({})<CR>",                                     desc = "Flog open" },
-      { "<Space>gF",      ":call vimrc#flog#open({'all': v:true})<CR>",                        desc = "Flog open all branches" },
-      { "<Leader>gf",     ":call vimrc#flog#show_file('%', {})<CR>",                           desc = "Flog show current file" },
-      { "<Leader>gF",     ":call vimrc#flog#show_file('%', {'author': g:company_domain})<CR>", desc = "Flog show current file with company domain" },
-      { "<Leader>g<C-F>", ":call vimrc#flog#show_file('%', {'author': g:company_email})<CR>",  desc = "Flog show current file with company email" },
+      { "<Space>gf", ":call vimrc#flog#open({})<CR>", desc = "Flog open" },
+      {
+        "<Space>gF",
+        ":call vimrc#flog#open({'all': v:true})<CR>",
+        desc = "Flog open all branches",
+      },
+      {
+        "<Leader>gf",
+        ":call vimrc#flog#show_file('%', {})<CR>",
+        desc = "Flog show current file",
+      },
+      {
+        "<Leader>gF",
+        ":call vimrc#flog#show_file('%', {'author': g:company_domain})<CR>",
+        desc = "Flog show current file with company domain",
+      },
+      {
+        "<Leader>g<C-F>",
+        ":call vimrc#flog#show_file('%', {'author': g:company_email})<CR>",
+        desc = "Flog show current file with company email",
+      },
     },
     config = function()
       -- TODO: Require terminal emulator to be either kitty or using "Flog Symbols" font.
@@ -112,23 +146,23 @@ local git = {
       -- GV with company filter
       vim.cmd(
         "command! -complete=customlist,flog#complete -nargs=* Flogd  Flog -author="
-        .. (vim.g.company_domain or "")
-        .. " <args>"
+          .. (vim.g.company_domain or "")
+          .. " <args>"
       )
       vim.cmd(
         "command! -complete=customlist,flog#complete -nargs=* Flogda Flog -author="
-        .. (vim.g.company_domain or "")
-        .. " -all <args>"
+          .. (vim.g.company_domain or "")
+          .. " -all <args>"
       )
       vim.cmd(
         "command! -complete=customlist,flog#complete -nargs=* Floge  Flog -author="
-        .. (vim.g.company_email or "")
-        .. " <args>"
+          .. (vim.g.company_email or "")
+          .. " <args>"
       )
       vim.cmd(
         "command! -complete=customlist,flog#complete -nargs=* Flogea Flog -author="
-        .. (vim.g.company_email or "")
-        .. " -all <args>"
+          .. (vim.g.company_email or "")
+          .. " -all <args>"
       )
     end,
   },
@@ -160,7 +194,11 @@ local git = {
       -- Add non-follow version as --follow will include many merge commits
       { [[\tl]], [[:TigLogFileSplit!<CR>]], desc = "Tig - open log view for current file without follow in split" },
       { [[\tL]], [[:TigLogFileSplit! --follow<CR>]], desc = "Tig - open log view for current file in split" },
-      { [[\t<C-L>]], [[:execute 'TigLogSplit! $(git log --format=format:%H --follow -- ' . expand('%:p') . ')'<CR>]], desc = "Tig - open log view" },
+      {
+        [[\t<C-L>]],
+        [[:execute 'TigLogSplit! $(git log --format=format:%H --follow -- ' . expand('%:p') . ')'<CR>]],
+        desc = "Tig - open log view",
+      },
     },
     dependencies = { "rbgrouleff/bclose.vim" },
     config = function()
@@ -190,11 +228,11 @@ local git = {
             vim.cmd([[DiffviewClose]])
           end
         end,
-        desc = "Diffview toggle"
+        desc = "Diffview toggle",
       },
 
       -- TODO: Add mapping for author filter & current file
-      { "<Space>gh", "<Cmd>DiffviewFileHistory<CR>",       desc = "Diffview file history" },
+      { "<Space>gh", "<Cmd>DiffviewFileHistory<CR>", desc = "Diffview file history" },
       { "<Space>gH", "<Cmd>DiffviewFileHistory --all<CR>", desc = "Diffview file history all branches" },
     },
     config = function()
@@ -202,8 +240,8 @@ local git = {
         file_panel = {
           win_config = {
             width = vim.g.left_sidebar_width,
-          }
-        }
+          },
+        },
       })
 
       vim.cmd([[augroup diffview_settings]])
@@ -235,7 +273,7 @@ local git = {
         integrations = {
           telescope = true,
           diffview = true,
-        }
+        },
       })
     end,
   },
@@ -243,21 +281,21 @@ local git = {
   {
     "akinsho/git-conflict.nvim",
     cmd = { "GitConflictRefresh", "GitConflictNextConflict", "GitConflictPrevConflict" },
-    keys = { "<Leader>cr", "]v", "[v" },
+    keys = {
+      { "<Leader>cr", [[<Cmd>GitConflictRefresh<CR>]], desc = "Git conflict - refresh" },
+      { "<Leader>co", "<Plug>(git-conflict-ours)", desc = "Git conflict - choose ours" },
+      { "<Leader>ct", "<Plug>(git-conflict-theirs)", desc = "Git conflict - choose theirs" },
+      { "<Leader>cb", "<Plug>(git-conflict-both)", desc = "Git conflict - choose both" },
+      { "<Leader>c0", "<Plug>(git-conflict-none)", desc = "Git conflict - choose none" },
+
+      -- TODO: Use [x, ]x and handle conflict with unimpaired
+      { "[v", "<Plug>(git-conflict-prev-conflict)", desc = "Git conflict - prev conflict" },
+      { "]v", "<Plug>(git-conflict-next-conflict)", desc = "Git conflict - next conflict" },
+    },
     config = function()
       require("git-conflict").setup({
         default_mappings = false,
       })
-
-      vim.keymap.set("n", "<Leader>cr", [[<Cmd>GitConflictRefresh<CR>]])
-      vim.keymap.set("n", "<Leader>co", "<Plug>(git-conflict-ours)", { remap = true })
-      vim.keymap.set("n", "<Leader>ct", "<Plug>(git-conflict-theirs)", { remap = true })
-      vim.keymap.set("n", "<Leader>cb", "<Plug>(git-conflict-both)", { remap = true })
-      vim.keymap.set("n", "<Leader>c0", "<Plug>(git-conflict-none)", { remap = true })
-
-      -- TODO: Use [x, ]x and handle conflict with unimpaired
-      vim.keymap.set("n", "[v", "<Plug>(git-conflict-prev-conflict)", { remap = true })
-      vim.keymap.set("n", "]v", "<Plug>(git-conflict-next-conflict)", { remap = true })
     end,
   },
 
@@ -272,7 +310,9 @@ local git = {
       "nvim-tree/nvim-web-devicons", -- Recommended but not required. Icons in discussion tree.
     },
     enabled = true,
-    build = function() require("gitlab.server").build(true) end, -- Builds the Go binary
+    build = function()
+      require("gitlab.server").build(true)
+    end, -- Builds the Go binary
     -- TODO: Fill complete gitlab.nvim keys
     -- TODO: Update to current gitlab.nvim keymap
     keys = { "glrr", "gls", "glS" },

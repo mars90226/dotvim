@@ -44,7 +44,7 @@ local text_manipulation = {
   {
     "vim-scripts/eraseSubword",
     keys = {
-      { "<C-B>", mode = "i" },
+      { "<C-B>", mode = "i", desc = "Erase subword" },
     },
     init = function()
       vim.g.EraseSubword_insertMap = "<C-B>"
@@ -56,52 +56,84 @@ local text_manipulation = {
     "gbprod/substitute.nvim",
     keys = {
       -- Substitute
-      { "ss", mode = { "n", "x" } },
-      "sS",
-      "sl",
+      { "ss",                 mode = { "n" }, "<Cmd>lua require('substitute').operator()<CR>" },
+      { "ss",                 mode = { "x" }, "<Cmd>lua require('substitute').visual()<CR>" },
+      { "sS",                 mode = { "n" }, "<Cmd>lua require('substitute').line()<CR>" },
+      { "sl",                 mode = { "n" }, "<Cmd>lua require('substitute').eol()<CR>" },
 
       -- Substitute using system clipboard
-      { "=ss", mode = { "n", "x" } },
-      "=sS",
-      "=sl",
+      { "=ss",                mode = { "n" }, "<Cmd>lua require('substitute').operator({ register = '+' })<CR>" },
+      { "=ss",                mode = { "x" }, "<Cmd>lua require('substitute').visual({ register = '+' })<CR>" },
+      { "=sS",                mode = { "n" }, "<Cmd>lua require('substitute').line({ register = '+' })<CR>" },
+      { "=sl",                mode = { "n" }, "<Cmd>lua require('substitute').eol({ register = '+' })<CR>" },
 
       -- Substitute over range
-      { "<Leader>s", mode = { "n", "x" } },
-      "<Leader>ss",
+      { "<Leader>s",          mode = { "n" }, "<Cmd>lua require('substitute.range').operator()<CR>" },
+      { "<Leader>s",          mode = { "x" }, "<Cmd>lua require('substitute.range').visual()<CR>" },
+      { "<Leader>ss",         mode = { "n" }, "<Cmd>lua require('substitute.range').word()<CR>" },
 
       -- Substitute over range confirm
-      { "scr", mode = { "n", "x" } },
-      "scrr",
+      { "scr",                mode = { "n" }, "<Cmd>lua require('substitute.range').operator({ confirm = true })<CR>" },
+      { "scr",                mode = { "x" }, "<Cmd>lua require('substitute.range').visual({ confirm = true })<CR>" },
+      { "scrr",               mode = { "n" }, "<Cmd>lua require('substitute.range').word({ confirm = true })<CR>" },
 
       -- Substitute over range Subvert (depends on vim-abolish)
-      { "<Leader><Leader>s", mode = { "n", "x" } },
-      "<Leader><Leader>ss",
+      { "<Leader><Leader>s",  mode = { "n" }, "<Cmd>lua require('substitute.range').operator({ prefix = 'S' })<CR>" },
+      { "<Leader><Leader>s",  mode = { "x" }, "<Cmd>lua require('substitute.range').visual({ prefix = 'S' })<CR>" },
+      { "<Leader><Leader>ss", mode = { "n" }, "<Cmd>lua require('substitute.range').word({ prefix = 'S' })<CR>" },
 
       -- Exchange
-      "cx",
-      "cxx",
-      { "X", mode = "x" },
-      "cxc",
+      { "cx",                 mode = { "n" }, "<Cmd>lua require('substitute.exchange').operator()<CR>" },
+      { "cxx",                mode = { "n" }, "<Cmd>lua require('substitute.exchange').line()<CR>" },
+      { "X",                  mode = { "x" }, "<Cmd>lua require('substitute.exchange').visual()<CR>" },
+      { "cxc",                mode = { "n" }, "<Cmd>lua require('substitute.exchange').cancel()<CR>" },
     },
     config = function()
-      require("vimrc.plugins.substitute").setup()
+      require("substitute").setup({
+        preserve_cursor_position = true,
+        range = {
+          complete_word = false,
+        },
+      })
     end,
   },
   {
     "cshuaimin/ssr.nvim",
-    keys = { "<Leader>sr" },
+    keys = {
+      {
+        "<Leader>sr",
+        mode = { "n", "x" },
+        "<Leader>sr",
+        function()
+          require("ssr").open()
+        end,
+        desc = "ssr.nvim - open",
+      },
+    },
     config = function()
       require("ssr").setup()
-
-      vim.keymap.set({ "n", "x" }, "<Leader>sr", function()
-        require("ssr").open()
-      end)
     end,
   },
   {
     "AckslD/muren.nvim",
     cmd = { "MurenToggle", "MurenOpen", "MurenUnique", "MurenUniqueVisual" },
-    keys = { "<Leader>mr", "<Leader>mu", "<Leader>mk", { "<Leader>mk", mode = "x" } },
+    keys = {
+      { "<Leader>mr", [[<Cmd>MurenToggle<CR>]], desc = "muren.nvim - toggle" },
+      { "<Leader>mu", [[<Cmd>MurenUnique<CR>]], desc = "muren.nvim - prefill with unique matches" },
+      {
+        "<Leader>mk",
+        function()
+          require("vimrc.plugins.muren").open_unique_ui(vim.fn.expand("<cword>"))
+        end,
+        desc = "muren.nvim - search cursor word and prefill with unique matches",
+      },
+      {
+        "<Leader>mk",
+        mode = "x",
+        [[:MurenUniqueVisual<CR>]],
+        desc = "muren.nvim - search visual selection and prefill with unique matches",
+      },
+    },
     config = function()
       local muren = require("vimrc.plugins.muren")
 
@@ -110,13 +142,6 @@ local text_manipulation = {
       vim.api.nvim_create_user_command("MurenUniqueVisual", function()
         muren.open_unique_ui(utils.get_visual_selection())
       end, { range = true })
-
-      vim.keymap.set("n", "<Leader>mr", [[<Cmd>MurenToggle<CR>]])
-      vim.keymap.set("n", "<Leader>mu", [[<Cmd>MurenUnique<CR>]])
-      vim.keymap.set("n", "<Leader>mk", function()
-        muren.open_unique_ui(vim.fn.expand("<cword>"))
-      end)
-      vim.keymap.set("x", "<Leader>mk", [[:MurenUniqueVisual<CR>]])
     end,
   },
 

@@ -16,19 +16,82 @@ local terminal = {
       "FloatermSend",
     },
     keys = {
-      { "<M-2>",      mode = { "n", "t" } },
-      { "<M-3>",      mode = { "n", "t" } },
-      { "<M-4>",      mode = { "n", "t" } },
-      { "<M-5>",      mode = { "n", "t" } },
-      { "<Leader>xh", mode = "n" },
-      { "<Leader>xs", mode = "n" },
-      { "<Leader>xc", mode = { "n", "x" } },
-      { "<Leader>xC", mode = { "n", "x" } },
-      { "<Leader>xw", mode = "n" },
-      { "<M-q><M-2>", mode = "t" },
-      { "<M-q><M-3>", mode = "t" },
-      { "<M-q><M-4>", mode = "t" },
-      { "<M-q><M-5>", mode = "t" },
+      { "<M-2>", mode = { "n" }, [[:FloatermToggle<CR>]], silent = true, desc = "Floaterm - toggle" },
+      { "<M-3>", mode = { "n" }, [[:FloatermPrev<CR>]], silent = true, desc = "Floaterm - previous terminal" },
+      { "<M-4>", mode = { "n" }, [[:FloatermNext<CR>]], silent = true, desc = "Floaterm - next terminal" },
+      { "<M-5>", mode = { "n" }, [[:FloatermNew!<CR>]], silent = true, desc = "Floaterm - new terminal" },
+
+      { "<Leader>xh", mode = { "n" }, [[:FloatermHide<CR>]], silent = true, desc = "Floaterm - hide terminal" },
+      {
+        "<Leader>xs",
+        mode = { "n" },
+        [[:execute 'FloatermSend '.input('Command: ', '', 'shellcmd')<CR>]],
+        desc = "Floaterm - send command",
+      },
+      {
+        "<Leader>xc",
+        mode = { "n" },
+        [[:execute 'FloatermNew '.input('Command: ', '', 'shellcmd')<CR>]],
+        desc = "Floaterm - execute command in new terminal",
+      },
+      {
+        "<Leader>xc",
+        mode = { "x" },
+        [[:<C-U>execute 'FloatermNew '.input('Command: ', '', 'shellcmd')<CR>]],
+        desc = "Floaterm - execute command in new terminal",
+      },
+      -- For inserting selection in input() using cmap
+      {
+        "<Leader>xC",
+        mode = { "n" },
+        [[:execute 'FloatermNew! '.input('Command: ', '', 'shellcmd')<CR>]],
+        desc = "Floaterm - execute command in new shell",
+      },
+      -- For inserting selection in input() using cmap
+      {
+        "<Leader>xC",
+        mode = { "x" },
+        [[:<C-U>execute 'FloatermNew! '.input('Command: ', '', 'shellcmd')<CR>]],
+        desc = "Floaterm - execute command in new shell",
+      },
+      {
+        "<Leader>xw",
+        mode = { "n" },
+        [[:execute 'FloatermNew! cd '.shellescape(getcwd())<CR>]],
+        desc = "Floaterm - new terminal in current working directory",
+      },
+
+      -- For terminal
+      { "<M-2>", mode = { "t" }, [[<C-\><C-N>:FloatermToggle<CR>]], desc = "Floaterm - toggle" },
+      { "<M-3>", mode = { "t" }, [[<C-\><C-N>:FloatermPrev<CR>]], desc = "Floaterm - previous terminal" },
+      { "<M-4>", mode = { "t" }, [[<C-\><C-N>:FloatermNext<CR>]], desc = "Floaterm - next terminal" },
+      { "<M-5>", mode = { "t" }, [[<C-\><C-N>:FloatermNew<CR>]], desc = "Floaterm - new terminal" },
+
+      -- For nested neovim
+      {
+        "<M-q><M-2>",
+        mode = { "t" },
+        [[<C-\><C-\><C-N>:FloatermToggle<CR>]],
+        desc = "Floaterm - toggle in nested neovim",
+      },
+      {
+        "<M-q><M-3>",
+        mode = { "t" },
+        [[<C-\><C-\><C-N>:FloatermPrev<CR>]],
+        desc = "Floaterm - previous terminal in nested neovim",
+      },
+      {
+        "<M-q><M-4>",
+        mode = { "t" },
+        [[<C-\><C-\><C-N>:FloatermNext<CR>]],
+        desc = "Floaterm - next terminal in nested neovim",
+      },
+      {
+        "<M-q><M-5>",
+        mode = { "t" },
+        [[<C-\><C-\><C-N>:FloatermNew!<CR>]],
+        desc = "Floaterm - new terminal in nested neovim",
+      },
     },
     config = function()
       require("vimrc.plugins.floaterm").setup()
@@ -48,17 +111,57 @@ local terminal = {
     cmd = { "ToggleTerm" },
     keys = {
       -- Main toggle
-      { "<M-`>",      mode = { "n", "t" }, [[<Cmd>execute v:count . "ToggleTerm direction=float"<CR>]],                                     desc = "ToggleTerm - toggle float" },
+      {
+        "<M-`>",
+        mode = { "n", "t" },
+        [[<Cmd>execute v:count . "ToggleTerm direction=float"<CR>]],
+        desc = "ToggleTerm - toggle float",
+      },
 
       -- Directional toggles
-      { "<Leader>tt", mode = { "n" },      [[<Cmd>execute v:count . "ToggleTerm direction=tab"<CR>]],                                       desc = "ToggleTerm - toggle tab" },
-      { "<Leader>ts", mode = { "n" },      [[<Cmd>execute v:count . "ToggleTerm direction=horizontal"<CR>]],                                desc = "ToggleTerm - toggle horizontal" },
-      { "<Leader>tv", mode = { "n" },      [[<Cmd>execute v:count . "ToggleTerm direction=vertical"<CR>]],                                  desc = "ToggleTerm - toggle vertical" },
-      { "<Leader>tf", mode = { "n" },      [[<Cmd>execute v:count . "ToggleTerm direction=float"<CR>]],                                     desc = "ToggleTerm - toggle float" },
-      { "<Leader>td", mode = { "n" },      [[<Cmd>execute v:count . "ToggleTerm direction=float dir=" . input('Folder: ', '', 'dir')<CR>]], desc = "ToggleTerm - toggle float in directory" },
+      {
+        "<Leader>tt",
+        mode = { "n" },
+        [[<Cmd>execute v:count . "ToggleTerm direction=tab"<CR>]],
+        desc = "ToggleTerm - toggle tab",
+      },
+      {
+        "<Leader>ts",
+        mode = { "n" },
+        [[<Cmd>execute v:count . "ToggleTerm direction=horizontal"<CR>]],
+        desc = "ToggleTerm - toggle horizontal",
+      },
+      {
+        "<Leader>tv",
+        mode = { "n" },
+        [[<Cmd>execute v:count . "ToggleTerm direction=vertical"<CR>]],
+        desc = "ToggleTerm - toggle vertical",
+      },
+      {
+        "<Leader>tf",
+        mode = { "n" },
+        [[<Cmd>execute v:count . "ToggleTerm direction=float"<CR>]],
+        desc = "ToggleTerm - toggle float",
+      },
+      {
+        "<Leader>td",
+        mode = { "n" },
+        [[<Cmd>execute v:count . "ToggleTerm direction=float dir=" . input('Folder: ', '', 'dir')<CR>]],
+        desc = "ToggleTerm - toggle float in directory",
+      },
 
-      { "<Leader>tc", mode = { "n" },      [[<Cmd>TermSelect<CR>]],                                                                         desc = "ToggleTerm - select term" },
-      { "<M-q>c",     mode = { "t" },      [[<Cmd>TermSelect<CR>]],                                                                         desc = "ToggleTerm - select term" },
+      {
+        "<Leader>tc",
+        mode = { "n" },
+        [[<Cmd>TermSelect<CR>]],
+        desc = "ToggleTerm - select term",
+      },
+      {
+        "<M-q>c",
+        mode = { "t" },
+        [[<Cmd>TermSelect<CR>]],
+        desc = "ToggleTerm - select term",
+      },
     },
     opts = {
       float_opts = {
@@ -68,7 +171,7 @@ local terminal = {
         enabled = true,
         name_formatter = function(term) --  term: Terminal
           return term.name
-        end
+        end,
       },
     },
   },
@@ -76,7 +179,20 @@ local terminal = {
   {
     "hkupty/iron.nvim",
     cmd = { "IronRepl", "IronReplHere", "IronSend" },
-    keys = { "<Leader>ic", "<Leader>if", "<Leader>il", "<Leader>mc" },
+    keys = {
+      { "<Leader>ic", mode = { "n" }, desc = "iron.nvim - send motion" },
+      { "<Leader>ic", mode = { "v" }, desc = "iron.nvim - visual send" },
+      { "<Leader>if", mode = { "n" }, desc = "iron.nvim - send file" },
+      { "<Leader>il", mode = { "n" }, desc = "iron.nvim - send line" },
+      { "<Leader>im", mode = { "n" }, desc = "iron.nvim - send mark" },
+      { "<Leader>mc", mode = { "n" }, desc = "iron.nvim - mark motion" },
+      { "<Leader>mc", mode = { "v" }, desc = "iron.nvim - visual mark" },
+      { "<Leader>md", mode = { "n" }, desc = "iron.nvim - remove mark" },
+      { "<Leader>i<CR>", mode = { "n" }, desc = "iron.nvim - send current line" },
+      { "<Leader>i,", mode = { "n" }, desc = "iron.nvim - interrupt" },
+      { "<Leader>iq", mode = { "n" }, desc = "iron.nvim - exit" },
+      { "<Leader>i<C-L>", mode = { "n" }, desc = "iron.nvim - clear" },
+    },
     config = function()
       require("iron.core").setup({
         config = {

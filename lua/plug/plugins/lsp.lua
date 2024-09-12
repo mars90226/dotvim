@@ -347,7 +347,7 @@ local lsp = {
     config = function()
       require("nvim-navbuddy").setup()
 
-      vim.keymap.set("n", "<Space><Leader>", "<Cmd>Navbuddy<CR>")
+      vim.keymap.set("n", "<Space><Leader>", "<Cmd>Navbuddy<CR>", { desc = "Toggle Navbuddy" })
     end,
   },
 
@@ -364,10 +364,10 @@ local lsp = {
     config = function()
       require("inc_rename").setup()
 
-      vim.keymap.set("n", "<Leader>ir", ":IncRename ")
+      vim.keymap.set("n", "<Leader>ir", ":IncRename ", { desc = "IncRename" })
       vim.keymap.set("n", "<Leader>ik", function()
         return ":IncRename " .. vim.fn.expand("<cword>")
-      end, { expr = true })
+      end, { expr = true, desc = "IncRename cursor word" })
     end,
   },
 
@@ -376,7 +376,7 @@ local lsp = {
     "aznhe21/actions-preview.nvim",
     event = { "LspAttach" },
     config = function()
-      vim.keymap.set({ "v", "n" }, "ga", require("actions-preview").code_actions)
+      vim.keymap.set({ "v", "n" }, "ga", require("actions-preview").code_actions, { desc = "actions-preview.nvim - code actions" })
     end,
   },
 

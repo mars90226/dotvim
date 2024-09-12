@@ -26,25 +26,16 @@ local text_navigation = {
       -- NOTE: When in diffview.nvim buffer, `HopWord` ignore a few characters as if it's
       -- horizontally scrolled.
       -- NOTE: Use flash.nvim instead
-      -- { "<Space>w", mode = { "n", "o", "x" } },
-      { "<Space>e",       mode = { "n", "o", "x" } },
-      { "<Space>;",       mode = { "n", "o", "x" } },
-      { "<LocalLeader>f", mode = { "n", "o", "x" } },
-      { "<LocalLeader>l", mode = { "n", "o", "x" } },
-      -- { "<Space>j", mode = { "n", "o", "x" } },
-      -- { "<Space>k", mode = { "n", "o", "x" } },
-      { "<Space>cw",      mode = { "n", "o", "x" } },
+      -- { "<Space>w", mode = { "n", "o", "x" }, "<Cmd>HopWord<CR>", desc = "Hop - word" },
+      { "<Space>e",       mode = { "n", "o", "x" }, [=[<Cmd>lua require('hop').hint_patterns({}, [[\k\>]])<CR>]=], desc = "Hop - word end" },
+      { "<Space>;",       mode = { "n", "o", "x" }, "<Cmd>HopPattern<CR>", desc = "Hop - pattern" },
+      { "<LocalLeader>f", mode = { "n", "o", "x" }, "<Cmd>HopChar1<CR>", desc = "Hop - 1 character" },
+      { "<LocalLeader>l", mode = { "n", "o", "x" }, "<Cmd>HopLine<CR>", desc = "Hop - line" },
+      -- { "<Space>j", mode = { "n", "o", "x" }, "<Cmd>HopLineAC<CR>", desc = "Hop - line after" },
+      -- { "<Space>k", mode = { "n", "o", "x" }, "<Cmd>HopLineBC<CR>", desc = "Hop - line before" },
+      { "<Space>cw",      mode = { "n", "o", "x" }, "<Cmd>HopCamelCase<CR>", desc = "Hop - camel case word" },
     },
     config = function()
-      -- vim.keymap.set("", "<Space>w", "<Cmd>HopWord<CR>", { remap = true })
-      vim.keymap.set("", "<Space>e", [=[<Cmd>lua require('hop').hint_patterns({}, [[\k\>]])<CR>]=], { remap = true })
-      vim.keymap.set("", "<Space>;", "<Cmd>HopPattern<CR>", { remap = true })
-      vim.keymap.set("", "<LocalLeader>f", "<Cmd>HopChar1<CR>", { remap = true })
-      vim.keymap.set("", "<LocalLeader>l", "<Cmd>HopLine<CR>", { remap = true })
-      -- vim.keymap.set("", "<Space>j", "<Cmd>HopLineAC<CR>", { remap = true })
-      -- vim.keymap.set("", "<Space>k", "<Cmd>HopLineBC<CR>", { remap = true })
-      vim.keymap.set("", "<Space>cw", "<Cmd>HopCamelCase<CR>", { remap = true })
-
       require("hop").setup({})
     end,
   },
@@ -80,10 +71,10 @@ local text_navigation = {
   {
     "rlane/pounce.nvim",
     cmd = { "Pounce" },
-    keys = { "<Leader>/" },
-    config = function()
-      vim.keymap.set("", "<Leader>/", [[<Cmd>Pounce<CR>]], { remap = true })
-    end,
+    keys = {
+      { "<Leader>/", [[<Cmd>Pounce<CR>]], desc = "Pounce" },
+    },
+    opts = {},
   },
   -- TODO: Add more keys & replace above jump plugins
   {

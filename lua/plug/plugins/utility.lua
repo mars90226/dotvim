@@ -38,9 +38,9 @@ local utility = {
     "gu-fan/colorv.vim",
     cmd = { "ColorV", "ColorVName", "ColorVView" },
     keys = {
-      { "<Leader>vv", "<Cmd>ColorV<CR>", silent = true },
-      { "<Leader>vn", "<Cmd>ColorVName<CR>", silent = true },
-      { "<Leader>vw", "<Cmd>ColorVView<CR>", silent = true },
+      { "<Leader>vv", "<Cmd>ColorV<CR>", silent = true, desc = "ColorV - open" },
+      { "<Leader>vn", "<Cmd>ColorVName<CR>", silent = true, desc = "ColorV - name" },
+      { "<Leader>vw", "<Cmd>ColorVView<CR>", silent = true, desc = "ColorV - view" },
     },
     dependencies = { "mattn/webapi-vim" },
     opts = {},
@@ -281,26 +281,24 @@ local utility = {
   {
     "Zeioth/compiler.nvim",
     cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
-    keys = { "<Leader>cc", "<Leader>cC", "<Leader>cl" },
-    dependencies = { "stevearc/overseer.nvim" },
-    config = function()
-      require("compiler").setup({})
-
+    keys = {
       -- Open compiler
-      vim.api.nvim_set_keymap("n", "<Leader>cc", "<Cmd>CompilerOpen<CR>", { noremap = true, silent = true })
-
-      -- Redo last selected option
-      vim.api.nvim_set_keymap(
-        "n",
+      { "<Leader>cc", "<Cmd>CompilerOpen<CR>", silent = true, desc = "Comiler.nvim - open compiler" },
+      {
         "<Leader>cl",
-        "<Cmd>CompilerStop<CR>" -- (Optional, to dispose all tasks before redo)
-          .. "<Cmd>CompilerRedo<CR>",
-        { noremap = true, silent = true }
-      )
-
-      -- Toggle compiler results
-      vim.api.nvim_set_keymap("n", "<Leader>cv", "<Cmd>CompilerToggleResults<CR>", { noremap = true, silent = true })
-    end,
+        "<Cmd>CompilerStop<CR>" .. "<Cmd>CompilerRedo<CR>",
+        silent = true,
+        desc = "Compiler.nvim - redo last selected option",
+      }, -- Stop to dispose all tasks before redo
+      {
+        "<Leader>cv",
+        "<Cmd>CompilerToggleResults<CR>",
+        silent = true,
+        desc = "Compiler.nvim - toggle compiler results",
+      },
+    },
+    dependencies = { "stevearc/overseer.nvim" },
+    opts = {},
   },
 
   -- Do not lazy load vim-scriptease, as it breaks :Breakadd/:Breakdel
