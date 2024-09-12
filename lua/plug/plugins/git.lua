@@ -171,10 +171,10 @@ local git = {
   {
     "rhysd/git-messenger.vim",
     cmd = { "GitMessenger" },
-    keys = { "<Leader>gm" },
-    config = function()
-      vim.keymap.set("n", "<Leader>gm", "<Plug>(git-messenger)", { remap = true })
-    end,
+    keys = {
+      { "<Leader>gm", "<Plug>(git-messenger)", desc = "Git messenger" },
+    },
+    opts = {},
   },
 
   {
@@ -227,7 +227,9 @@ local git = {
       "sindrets/diffview.nvim",
     },
     cmd = { "Neogit" },
-    keys = { "<Leader>gn" },
+    keys = {
+      { "<Leader>gn", "<Cmd>Neogit<CR>", desc = "Neogit" },
+    },
     config = function()
       require("neogit").setup({
         integrations = {
@@ -235,8 +237,6 @@ local git = {
           diffview = true,
         }
       })
-
-      vim.keymap.set("n", "<Leader>gn", "<Cmd>Neogit<CR>")
     end,
   },
 
