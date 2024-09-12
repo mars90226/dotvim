@@ -226,7 +226,7 @@ telescope.setup_mapping = function()
   -- NOTE: Use telescope-menufacture grep_string
   -- vim.keymap.set("x", telescope_prefix .. [[k]], [[:<C-U>execute]] 'Telescope grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>)
   -- vim.keymap.set("x", telescope_prefix .. [[8]], [[:<C-U>execute]] 'Telescope grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>)
-  vim.keymap.set("n", telescope_prefix .. [[L]], [[<Cmd>Telescope current_buffer_fuzzy_find<CR>]])
+  vim.keymap.set("n", telescope_prefix .. [[ll]], [[<Cmd>Telescope current_buffer_fuzzy_find<CR>]])
   -- TODO: Disabled as telescope-frecency.nvim loading to slow
   -- vim.keymap.set("n", telescope_prefix .. [[m]], [[<Cmd>Telescope frecency<CR>]])
   vim.keymap.set("n", telescope_prefix .. [[<CR>]], [[<Cmd>Telescope frecency workspace=CWD<CR>]])
