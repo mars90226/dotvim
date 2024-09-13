@@ -109,6 +109,8 @@ function! vimrc#fugitive#git_mappings() abort
   call vimrc#git#include_git_mappings('git')
   call vimrc#search#define_search_mappings()
 
+  " Alternative key mapping for those key mappings that are hard to type in ergonomic keyboard.
+  nnoremap <buffer> <silent> ygr :<C-U>call setreg(v:register, fugitive#Object(@%))<CR>
   nnoremap <buffer> <silent> gq :close<CR>
 endfunction
 
