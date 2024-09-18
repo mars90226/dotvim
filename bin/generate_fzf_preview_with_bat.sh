@@ -1,5 +1,4 @@
-#/bin/bash
-
+#!/bin/bash
 # generate fzf preview command with bat
 # require fzf 0.18.0 & bat 0.10.0
 # Usage: generate_fzf_preview_with_bat.sh preview_top [file]
