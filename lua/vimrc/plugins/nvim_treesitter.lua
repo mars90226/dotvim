@@ -258,6 +258,15 @@ nvim_treesitter.setup_config = function()
         node_incremental = "<Tab>",
         node_decremental = "<S-Tab>",
       },
+      -- Ignore incremental selection in cmdline mode & cmdline window
+      -- Ref: https://github.com/nvim-treesitter/nvim-treesitter/issues/2634#issuecomment-1362479800
+      is_supported = function()
+        local mode = vim.api.nvim_get_mode().mode
+        if mode == "c" then
+          return false
+        end
+        return true
+      end
     },
     indent = {
       enable = false, -- Currently, nvim-treesitter indent is WIP and not ready for production use
