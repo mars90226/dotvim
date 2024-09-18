@@ -283,15 +283,15 @@ local utility = {
     cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
     keys = {
       -- Open compiler
-      { "<Leader>cc", "<Cmd>CompilerOpen<CR>", silent = true, desc = "Comiler.nvim - open compiler" },
+      { "<Leader>pc", "<Cmd>CompilerOpen<CR>", silent = true, desc = "Comiler.nvim - open compiler" },
       {
-        "<Leader>cl",
+        "<Leader>pl",
         "<Cmd>CompilerStop<CR>" .. "<Cmd>CompilerRedo<CR>",
         silent = true,
         desc = "Compiler.nvim - redo last selected option",
       }, -- Stop to dispose all tasks before redo
       {
-        "<Leader>cv",
+        "<Leader>pv",
         "<Cmd>CompilerToggleResults<CR>",
         silent = true,
         desc = "Compiler.nvim - toggle compiler results",

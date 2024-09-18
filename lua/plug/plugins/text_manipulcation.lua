@@ -262,7 +262,7 @@ local text_manipulation = {
     "johmsalas/text-case.nvim",
     dependencies = { "nvim-telescope/telescope.nvim" },
     keys = {
-      { "<Leader>ca", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "v" }, desc = "Telescope" },
+      { "<Leader>tc", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "v" }, desc = "TextCase using telescope.nvim" },
     },
     config = function()
       require("textcase").setup({})

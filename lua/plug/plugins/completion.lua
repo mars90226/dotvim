@@ -404,6 +404,49 @@ local completion = {
       -- "OXY2DEV/markview.nvim",
     },
   },
+  {
+    "olimorris/codecompanion.nvim",
+    cond = choose.is_enabled_plugin("codecompanion.nvim"),
+    cmd = {
+      "CodeCompanion",
+      "CodeCompanionChat",
+      "CodeCompanionToggle",
+      "CodeCompanionActions",
+      "CodeCompanionAdd",
+    },
+    keys = {
+      { "<Leader>cc", mode = { "n", "v" }, "<Cmd>CodeCompanion<CR>", silent = true, desc = "CodeCompanion - Open" },
+      { "<Leader>c;", mode = { "n", "v" }, ":CodeCompanion<Space>", silent = true, desc = "CodeCompanion" },
+      { "<Leader>ca", mode = { "n", "v" }, "<Cmd>CodeCompanionActions<CR>", silent = true, desc = "CodeCompanion - Actions" },
+      { "<Leader>cd", "<Cmd>CodeCompanionChat<CR>", silent = true, desc = "CodeCompanion - Chat" },
+      { "<Leader>c`", mode = { "n", "v" }, "<Cmd>CodeCompanionToggle<CR>", silent = true, desc = "CodeCompanion - Toggle" },
+      { "<Leader>cd", mode = { "v" }, "<Cmd>CodeCompanionAdd<CR>", silent = true, desc = "CodeCompanion - Add" },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "hrsh7th/nvim-cmp",     -- Optional: For using slash commands and variables in the chat buffer
+      {
+        "stevearc/dressing.nvim", -- Optional: Improves the default Neovim UI
+        opts = {},
+      },
+      "nvim-telescope/telescope.nvim", -- Optional: For using slash commands
+    },
+    opts = {
+      strategies = {
+        chat = {
+          adapter = "copilot",
+        },
+        inline = {
+          adapter = "copilot",
+        },
+        agent = {
+          adapter = "copilot",
+        },
+      },
+    },
+    config = true
+  }
 }
 
 return completion

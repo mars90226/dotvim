@@ -122,9 +122,10 @@ plugin_choose.setup_completion = function()
   end
 
   -- Choose AI
-  -- avante.nvim
+  -- avante.nvim, codecompanion.nvim
   if utils.is_light_vim_mode() or choose.is_disabled_plugin("copilot.lua") then
     choose.disable_plugin("avante.nvim")
+    choose.disable_plugin("codecompanion.nvim")
   end
 end
 
