@@ -271,6 +271,20 @@ oil.setup_config = function()
         end,
         desc = "FZF Rg in current folder",
       },
+      ["\\a"] = {
+        callback = function()
+          local dir = origin_oil.get_current_dir()
+          vim.cmd.Rga(dir .. "::" .. vim.fn.input("Rga: "))
+        end,
+        desc = "FZF Rga in current folder",
+      },
+      ["\\A"] = {
+        callback = function()
+          local dir = origin_oil.get_current_dir()
+          vim.cmd.Rga({ dir .. "::" .. vim.fn.input("Rga!: "), bang = true })
+        end,
+        desc = "FZF Rga! in current folder",
+      },
 
       -- fzf-lua support
       ["\\f"] = {
