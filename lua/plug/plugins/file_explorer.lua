@@ -144,17 +144,17 @@ local file_explorer = {
     keys = {
       {
         "<F5>",
-        [[<Cmd>Neotree left<CR>]],
+        [[<Cmd>Neotree toggle left<CR>]],
         desc = "Neotree - toggle on the left",
       },
       {
         "<Space>nn",
-        [[<Cmd>Neotree left<CR>]],
+        [[<Cmd>Neotree toggle left<CR>]],
         desc = "Neotree - toggle on the left",
       },
       {
         "<Space>nf",
-        [[<Cmd>Neotree float<CR>]],
+        [[<Cmd>Neotree toggle float<CR>]],
         desc = "Neotree - toggle in the floating window",
       },
       {
