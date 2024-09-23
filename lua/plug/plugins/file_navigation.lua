@@ -507,21 +507,21 @@ local file_navigation = {
       {
         "<Space>g5",
         function()
-          require("grug-far").grug_far({ prefills = { flags = vim.fn.expand("%") } })
+          require("grug-far").grug_far({ prefills = { paths = vim.fn.expand("%") } })
         end,
         desc = "grug-far - search in current file",
       },
       {
         "<Space>g'",
         function()
-          require("grug-far").grug_far({ prefills = { search = vim.fn.expand("<cword>"), flags = vim.fn.expand("%") } })
+          require("grug-far").grug_far({ prefills = { search = vim.fn.expand("<cword>"), paths = vim.fn.expand("%") } })
         end,
         desc = "grug-far - search on current file",
       },
       -- NOTE: It seems to use '< and '> to get visual selection, so cannot use lua function as it will use the last visual selection.
       {
         "<Space>g'",
-        [[:<C-U>lua require('grug-far').with_visual_selection({ prefills = { flags = vim.fn.expand("%") } })<CR>]],
+        [[:<C-U>lua require('grug-far').with_visual_selection({ prefills = { paths = vim.fn.expand("%") } })<CR>]],
         mode = { "v" },
         desc = "grug-far - search on current file",
       },
