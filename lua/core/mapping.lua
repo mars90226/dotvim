@@ -171,6 +171,10 @@ mapping.setup = function()
       vim.keymap.set("n", "=y", [["+y]], { desc = "Yank to system clipboard" })
       vim.keymap.set("x", "=y", [["+y]], { desc = "Yank to system clipboard" })
       vim.keymap.set("n", "=Y", [["+y$]], { desc = "Yank to the line end to system clipboard" }) -- NOTE: Follow Nvim builtin map of `Y` to `y$`
+      -- Alternative key mapping for those key mappings that are hard to type in ergonomic keyboard.
+      vim.keymap.set("n", [[\y]], [["+y]], { desc = "Yank to system clipboard" })
+      vim.keymap.set("x", [[\y]], [["+y]], { desc = "Yank to system clipboard" })
+      vim.keymap.set("n", [[\Y]], [["+y$]], { desc = "Yank to the line end to system clipboard" }) -- NOTE: Follow Nvim builtin map of `Y` to `y$`
       vim.keymap.set("n", "+p", [["+p]], { desc = "Paste after from system clipboard" })
       vim.keymap.set("x", "+p", [["+p]], { desc = "Paste after from system clipboard" })
       vim.keymap.set("n", "+P", [["+P]], { desc = "Paste before from system clipboard" })
