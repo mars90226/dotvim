@@ -301,6 +301,94 @@ local utility = {
     opts = {},
   },
 
+  -- Test
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter", -- TODO: Check nvim-treesitter enabled?
+
+      -- Adapters
+      "nvim-neotest/neotest-plenary",
+      "alfaix/neotest-gtest",
+    },
+    cmd = { "Neotest" },
+    keys = {
+      {
+        "<Leader>tt",
+        function()
+          require("neotest").run.run(vim.fn.expand("%"))
+        end,
+        desc = "neotest - Run File",
+      },
+      {
+        "<Leader>tT",
+        function()
+          require("neotest").run.run(vim.uv.cwd())
+        end,
+        desc = "neotest - Run All Test Files",
+      },
+      {
+        "<Leader>tr",
+        function()
+          require("neotest").run.run()
+        end,
+        desc = "neotest - Run Nearest",
+      },
+      {
+        "<Leader>tl",
+        function()
+          require("neotest").run.run_last()
+        end,
+        desc = "neotest - Run Last",
+      },
+      {
+        "<Leader>ts",
+        function()
+          require("neotest").summary.toggle()
+        end,
+        desc = "neotest - Toggle Summary",
+      },
+      {
+        "<Leader>to",
+        function()
+          require("neotest").output.open({ enter = true, auto_close = true })
+        end,
+        desc = "neotest - Show Output",
+      },
+      {
+        "<Leader>tO",
+        function()
+          require("neotest").output_panel.toggle()
+        end,
+        desc = "neotest - Toggle Output Panel",
+      },
+      {
+        "<Leader>tS",
+        function()
+          require("neotest").run.stop()
+        end,
+        desc = "neotest - Stop",
+      },
+      {
+        "<Leader>tw",
+        function()
+          require("neotest").watch.toggle(vim.fn.expand("%"))
+        end,
+        desc = "neotest - Toggle Watch",
+      },
+    },
+    config = function()
+      require("neotest").setup({
+        adapters = {
+          require("neotest-plenary"),
+          require("neotest-gtest").setup({}),
+        },
+      })
+    end,
+  },
+
   -- Do not lazy load vim-scriptease, as it breaks :Breakadd/:Breakdel
   -- TODO: Check if lazy load works
   { "tpope/vim-scriptease", cmd = { "PP", "Messages", "Verbose", "Time", "Scriptnames" } },
@@ -445,8 +533,8 @@ local utility = {
     "uga-rosa/translate.nvim",
     cmd = { "Translate" },
     keys = {
-      { "<Leader>tr", mode = { "n" }, [[viw:Translate ZH-TW<CR>]], desc = "Translate word" },
-      { "<Leader>tr", mode = { "x" }, [[:Translate ZH-TW<CR>]], desc = "Translate visual selection" },
+      { "<Leader>ta", mode = { "n" }, [[viw:Translate ZH-TW<CR>]], desc = "Translate word" },
+      { "<Leader>ta", mode = { "x" }, [[:Translate ZH-TW<CR>]], desc = "Translate visual selection" },
     },
   },
 

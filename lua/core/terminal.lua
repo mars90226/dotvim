@@ -17,17 +17,14 @@ terminal.setup = function()
       )
 
       -- For quick terminal access
-      vim.keymap.set("n", "<Leader>te", [[:call vimrc#terminal#open_current_shell('edit')<CR>]], { silent = true, desc = "Open shell in current buffer" })
-      vim.keymap.set("n", "<Leader>tt", [[:call vimrc#terminal#open_current_shell('tabnew')<CR>]], { silent = true, desc = "Open shell in new tab" })
-      vim.keymap.set("n", "<Leader>ts", [[:call vimrc#terminal#open_current_shell('new')<CR>]], { silent = true, desc = "Open shell in horizontal split" })
-      vim.keymap.set("n", "<Leader>tv", [[:call vimrc#terminal#open_current_shell('vnew')<CR>]], { silent = true, desc = "Open shell in vertical split" })
-      vim.keymap.set("n", "<Leader>tb", [[:call vimrc#terminal#open_current_shell('rightbelow vnew')<CR>]], { silent = true, desc = "Open shell in right below vertical split" })
-      vim.keymap.set("n", "<Leader>td", [[:call vimrc#terminal#open_shell('new', input('Folder: ', '', 'dir'))<CR>]], { silent = true, desc = "Open shell with input folder" })
-      vim.keymap.set("n", 
-        "<Leader>tD",
-        [[:call vimrc#terminal#open_shell('tabnew', input('Folder: ', '', 'dir'))<CR>]],
-        { silent = true, desc = "Open shell with input folder in new tab" }
-      )
+      local terminal_prefix = "<Leader><Tab>"
+      vim.keymap.set("n", terminal_prefix .. "e", [[:call vimrc#terminal#open_current_shell('edit')<CR>]], { silent = true, desc = "Open shell in current buffer" })
+      vim.keymap.set("n", terminal_prefix .. "t", [[:call vimrc#terminal#open_current_shell('tabnew')<CR>]], { silent = true, desc = "Open shell in new tab" })
+      vim.keymap.set("n", terminal_prefix .. "s", [[:call vimrc#terminal#open_current_shell('new')<CR>]], { silent = true, desc = "Open shell in horizontal split" })
+      vim.keymap.set("n", terminal_prefix .. "v", [[:call vimrc#terminal#open_current_shell('vnew')<CR>]], { silent = true, desc = "Open shell in vertical split" })
+      vim.keymap.set("n", terminal_prefix .. "b", [[:call vimrc#terminal#open_current_shell('rightbelow vnew')<CR>]], { silent = true, desc = "Open shell in right below vertical split" })
+      vim.keymap.set("n", terminal_prefix .. "d", [[:call vimrc#terminal#open_shell('new', input('Folder: ', '', 'dir'))<CR>]], { silent = true, desc = "Open shell with input folder" })
+      vim.keymap.set("n", terminal_prefix .. "D", [[:call vimrc#terminal#open_shell('tabnew', input('Folder: ', '', 'dir'))<CR>]], { silent = true, desc = "Open shell with input folder in new tab" })
 
       -- Quick terminal function
       -- For Alt + Function keys, the keycode may be wrong when using "<M-Fn>" in different `$TERM`s.
