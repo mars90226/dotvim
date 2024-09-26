@@ -302,6 +302,15 @@ oil.setup_config = function()
         desc = "FzfLua grep in current folder",
       },
 
+      -- Telescope support
+      ["\\s"] = {
+        callback = function()
+          local dir = origin_oil.get_current_dir()
+          vim.cmd.Telescope({ args = { "ast_grep", "cwd=" .. dir } })
+        end,
+        desc = "Telescope ast-grep in current folder",
+      },
+
       -- Simulate Defx.nvim
       ["h"] = "actions.parent",
       ["l"] = "actions.select",
