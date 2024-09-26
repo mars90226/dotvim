@@ -16,8 +16,8 @@ lspsaga.on_attach = function(client)
   vim.keymap.set("n", "<Space><F7>", "<Cmd>Lspsaga outline<CR>", { silent = true, buffer = true })
   vim.keymap.set("n", "<Plug>(diff-prev)", "[c", { silent = true, buffer = true })
   vim.keymap.set("n", "<Plug>(diff-next)", "]c", { silent = true, buffer = true })
-  vim.keymap.set("n", "[c", [[&diff ? "\<Plug>(diff-prev)" : "\<Cmd>Lspsaga diagnostic_jump_prev\<CR>"]], { silent = true, buffer = true, expr = true, remap = true })
-  vim.keymap.set("n", "]c", [[&diff ? "\<Plug>(diff-next)" : "\<Cmd>Lspsaga diagnostic_jump_next\<CR>"]], { silent = true, buffer = true, expr = true, remap = true })
+  vim.keymap.set("n", "[c", [[&diff ? "<Plug>(diff-prev)" : ":Lspsaga diagnostic_jump_prev<CR>"]], { silent = true, buffer = true, expr = true, remap = true })
+  vim.keymap.set("n", "]c", [[&diff ? "<Plug>(diff-next)" : ":Lspsaga diagnostic_jump_next<CR>"]], { silent = true, buffer = true, expr = true, remap = true })
 
   -- Remap for K
   local maparg
