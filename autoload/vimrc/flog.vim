@@ -5,6 +5,9 @@ let s:flog_cmd = 'Flog'
 function! vimrc#flog#mappings() abort
   nnoremap <buffer><expr> q winnr('$') != 1 ? ':<C-U>wincmd w<CR>:<C-U>close<CR>' : 'q'
 
+  " Alternative key mapping for those key mappings that are hard to type in ergonomic keyboard.
+  nmap <buffer> ygr <Plug>(FlogYank)
+
   call vimrc#git#include_git_mappings('flog', v:true, v:true)
   call vimrc#search#define_search_mappings()
 endfunction
