@@ -35,8 +35,8 @@ local text_manipulation = {
   {
     "junegunn/vim-easy-align",
     keys = {
-      { "<Leader>ga", mode = { "n", "x" }, "<Plug>(EasyAlign)", desc = "Easy align" },
-      { "<Leader>gA", mode = { "n", "x" }, "<Plug>(LiveEasyAlign)", desc = "Live easy align" },
+      { "<LocalLeader>ga", mode = { "n", "x" }, "<Plug>(EasyAlign)", desc = "Easy align" },
+      { "<LocalLeader>gA", mode = { "n", "x" }, "<Plug>(LiveEasyAlign)", desc = "Live easy align" },
     },
     opts = {},
   },

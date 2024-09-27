@@ -43,6 +43,12 @@ mini.setup_config = function()
       f = nil, -- NOTE: Conflict with nvim-treesitter-textobjects @function.outer/@function.inner
     },
   })
+  require("mini.align").setup({
+    mappings = {
+      start = "<Leader>ga",
+      start_with_preview = "<Leader>gA",
+    },
+  })
   -- TODO: Check if individual modules can be lazy loaded?
   require("mini.basics").setup({
     options = {
