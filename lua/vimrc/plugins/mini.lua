@@ -74,6 +74,7 @@ mini.setup_config = function()
       use_as_default_explorer = false, -- Use oil.nvim as default explorer
     },
   })
+  require('mini.icons').setup({})
   require("mini.pick").setup({
     mappings = {
       move_down = "<C-j>",
