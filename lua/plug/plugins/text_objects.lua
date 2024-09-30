@@ -66,6 +66,10 @@ local text_objects = {
           "gc",
           "ie",
           "ae",
+
+          -- mini.ai have anyBracket textobj at `ib`, `ab`
+          "io",
+          "ao",
         }
       })
 
