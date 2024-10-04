@@ -414,7 +414,7 @@ local completion = {
     },
     keys = {
       { "<Leader>cc", mode = { "n", "v" }, "<Cmd>CodeCompanion<CR>", silent = true, desc = "CodeCompanion - Open" },
-      { "<Leader>c;", mode = { "n", "v" }, ":CodeCompanion<Space>", silent = true, desc = "CodeCompanion" },
+      { "<Leader>c;", mode = { "n", "v" }, ":CodeCompanion<Space>", desc = "CodeCompanion" },
       { "<Leader>ca", mode = { "n", "v" }, "<Cmd>CodeCompanionActions<CR>", silent = true, desc = "CodeCompanion - Actions" },
       { "<Leader>cd", "<Cmd>CodeCompanionChat<CR>", silent = true, desc = "CodeCompanion - Chat" },
       { "<Leader>c`", mode = { "n", "v" }, "<Cmd>CodeCompanionChat Toggle<CR>", silent = true, desc = "CodeCompanion - Toggle" },
