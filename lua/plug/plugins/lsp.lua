@@ -304,7 +304,7 @@ local lsp = {
       require("neodev").setup({})
     end,
   },
-  -- FIXME: Error when hovering, setup ltex_extra.nvim twice
+  -- TODO: Error when hovering, setup ltex_extra.nvim twice
   -- Ref: https://github.com/barreiroleo/ltex_extra.nvim/issues/54
   {
     "barreiroleo/ltex_extra.nvim",

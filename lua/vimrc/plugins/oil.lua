@@ -147,7 +147,6 @@ oil.execute = function(path, action, cmd)
 end
 
 oil.setup_config = function()
-  -- FIXME: Use oil.nvim as default file explorer over Defx.nvim
   origin_oil.setup({
     -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
     -- Set to false if you want some other plugin (e.g. netrw) to open when you edit directories.

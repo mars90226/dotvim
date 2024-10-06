@@ -1,11 +1,7 @@
 local choose = require("vimrc.choose")
 
 local file_explorer = {
-  -- TODO: Eventually remove defx.nvim
-  -- NOTE: Lazy load doesn't improve much and break the :UpdateRemotePlugins
-  -- TODO: Try again after switch to lazy.nvim
-  -- FIXME: Seems to conflict with which-key.nvim v3?
-  -- It seems that if plugin is lazy loaded and not lua plugin, then whick-key.nvim may override the key mappings.
+  -- TODO: Check if :UpdateRemotePlugins is not called after updating defx.nvim
   {
     "Shougo/defx.nvim",
     cond = choose.is_enabled_plugin("defx.nvim"),

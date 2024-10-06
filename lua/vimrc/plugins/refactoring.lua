@@ -47,7 +47,9 @@ refactoring.add_print_var = function()
 end
 
 refactoring.setup = function(config)
-  -- FIXME: `vim.tbl_deep_extend` doesn't extend list.
+  -- NOTE: `vim.tbl_deep_extend` doesn't extend list.
+  -- It's added and reverted in the PR below.
+  -- Ref: https://github.com/neovim/neovim/pull/30251
   refactoring.config = vim.tbl_deep_extend("force", refactoring.config, config or {})
   refactoring_plugin.setup(refactoring.config)
 end

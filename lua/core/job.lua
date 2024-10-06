@@ -24,7 +24,7 @@ job.setup = function()
         ClientSearchKeyword = { "client", "search_keyword", search_keyword_prefix, "c" },
       }
       -- TODO: Refactor
-      -- FIXME: Should be automatically choosing client or current browser
+      -- TODO: Should be automatically choosing client or current browser
       local search_engine_maps = {
         SearchKeywordGoogle = { "current", "google", search_keyword_prefix, "g" },
         SearchKeywordDdg = { "current", "duckduckgo", search_keyword_prefix, "d" },
