@@ -90,12 +90,11 @@ local lsp = {
       { "<Space>xa", "<Cmd>Trouble loclist<CR>",        desc = "Trouble loclist" },
       { "<Space>xr", "<Cmd>Trouble lsp_references<CR>", desc = "Trouble lsp_references" },
 
-      -- FIXME: trouble v3 seems have no next/previous functions now
       -- jump to the next item, skipping the groups
       {
         "]x",
         function()
-          require("trouble").next({ skip_groups = true, jump = true })
+          require("trouble").next({ mode = "diagnostics", skip_groups = true, jump = true })
         end,
         desc = "Trouble next",
       },
@@ -104,10 +103,12 @@ local lsp = {
       {
         "[x",
         function()
-          require("trouble").prev({ skip_groups = true, jump = true })
+          require("trouble").prev({ mode = "diagnostics", skip_groups = true, jump = true })
         end,
         desc = "Trouble prevous",
       },
+
+      -- TODO: Use Trouble v3 next/previous function with other modes
     },
     opts = {},
   },
