@@ -42,11 +42,11 @@ local dap = {
       {
         "rcarriga/cmp-dap",
         dependencies = {
-          -- TODO: Use 'yioneko/nvim-cmp' "perf" branch instead of 'hrsh7th/nvim-cmp' for performance
+          -- TODO: Use 'iguanacucumber/magazine.nvim' instead of 'hrsh7th/nvim-cmp' for performance & bug
+          -- fixes. Which also includes 'yioneko/nvim-cmp's performance improvements noteed in the following MR:
           -- Ref: https://github.com/hrsh7th/nvim-cmp/pull/1980
-          -- "hrsh7th/nvim-cmp",
-          "yioneko/nvim-cmp",
-          branch = "perf",
+          "iguanacucumber/magazine.nvim",
+          name = "nvim-cmp", -- Otherwise highlighting gets messed up
         },
         config = function()
           -- TODO: Move to nvim-cmp config?
@@ -66,15 +66,18 @@ local dap = {
       vim.keymap.set("n", "<Leader>ds", "<Cmd>lua require('dap').step_over()<CR>", { desc = "Debugger: step over" })
       vim.keymap.set("n", "<Leader>di", "<Cmd>lua require('dap').step_into()<CR>", { desc = "Debugger: step into" })
       vim.keymap.set("n", "<Leader>do", "<Cmd>lua require('dap').step_out()<CR>", { desc = "Debugger: step out" })
-      vim.keymap.set("n", "<Leader>db", "<Cmd>lua require('dap').toggle_breakpoint()<CR>", { desc = "Debugger: toggle breakpoint" })
-      vim.keymap.set("n", "<Leader>dB", "<Cmd>lua require('dap').clear_breakpoint()<CR>", { desc = "Debugger: clear breakpoint" })
+      vim.keymap.set("n", "<Leader>db", "<Cmd>lua require('dap').toggle_breakpoint()<CR>",
+        { desc = "Debugger: toggle breakpoint" })
+      vim.keymap.set("n", "<Leader>dB", "<Cmd>lua require('dap').clear_breakpoint()<CR>",
+        { desc = "Debugger: clear breakpoint" })
       vim.keymap.set("n", "<Leader>dC", function()
         vim.ui.input({ prompt = "Condition: " }, function(condition)
           if condition then require("dap").set_breakpoint(condition) end
         end)
       end, { desc = "Debugger: conditional breakpoint" })
       vim.keymap.set("n", "<Leader>dR", "<Cmd>lua require('dap').repl.toggle()<CR>", { desc = "Debugger: toggle REPL" })
-      vim.keymap.set("n", "<Leader>dS", "<Cmd>lua require('dap').run_to_cursor()<CR>", { desc = "Debugger: run to cursor" })
+      vim.keymap.set("n", "<Leader>dS", "<Cmd>lua require('dap').run_to_cursor()<CR>",
+        { desc = "Debugger: run to cursor" })
     end,
   },
 }

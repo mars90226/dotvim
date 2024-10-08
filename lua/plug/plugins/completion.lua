@@ -5,11 +5,11 @@ local utils = require("vimrc.utils")
 local completion = {
   -- Completion
   {
-    -- TODO: Use 'yioneko/nvim-cmp' "perf" branch instead of 'hrsh7th/nvim-cmp' for performance
+    -- TODO: Use 'iguanacucumber/magazine.nvim' instead of 'hrsh7th/nvim-cmp' for performance & bug
+    -- fixes. Which also includes 'yioneko/nvim-cmp's performance improvements noteed in the following MR:
     -- Ref: https://github.com/hrsh7th/nvim-cmp/pull/1980
-    -- "hrsh7th/nvim-cmp",
-    "yioneko/nvim-cmp",
-    branch = "perf",
+    "iguanacucumber/magazine.nvim",
+    name = "nvim-cmp", -- Otherwise highlighting gets messed up
     dependencies = vim.tbl_filter(function(plugin_spec)
       return plugin_spec ~= nil
     end, {
