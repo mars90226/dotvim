@@ -230,6 +230,10 @@ local completion = {
           auto_trigger = true,
           keymap = {
             accept = "<M-l>",
+            accept_word = "<C-Right>",
+            accept_line = "<C-Down>",
+            next = "<M-j>",
+            prev = "<M-k>",
           },
         },
       })

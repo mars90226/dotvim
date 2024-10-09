@@ -150,7 +150,8 @@ nvim_cmp.setup = function()
           luasnip.jump(-1)
         end
       end, { "i", "s" }),
-      ["<M-j>"] = cmp.mapping(function(fallback)
+      -- TODO: Combine LuaSnip with copilot.lua
+      ["<M-S-j>"] = cmp.mapping(function(fallback)
         local luasnip = require("luasnip")
 
         if luasnip.choice_active() then
@@ -159,7 +160,8 @@ nvim_cmp.setup = function()
           fallback()
         end
       end, { "i" }),
-      ["<M-k>"] = cmp.mapping(function(fallback)
+      -- TODO: Combine LuaSnip with copilot.lua
+      ["<M-S-k>"] = cmp.mapping(function(fallback)
         local luasnip = require("luasnip")
 
         if luasnip.choice_active() then
@@ -241,7 +243,7 @@ nvim_cmp.setup = function()
       vim.tbl_filter(function(component)
         return component ~= nil
       end, {
-        plugin_utils.check_enabled_plugin({ name = "copilot", priority_weight = 120 }, "copilot-cmp"),
+        -- plugin_utils.check_enabled_plugin({ name = "copilot", priority_weight = 120 }, "copilot-cmp"),
         { name = "path",                    priority_weight = 110 },
         { name = "nvim_lsp",                max_item_count = 20,  priority_weight = 100 },
         { name = "nvim_lsp_signature_help", priority_weight = 100 },
