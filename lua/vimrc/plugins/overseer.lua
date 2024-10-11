@@ -2,6 +2,18 @@ local overseer = {}
 
 overseer.setup = function()
   require("overseer").setup({
+    task_list = {
+      bindings = {
+        ["<C-L>"] = false,
+        ["<C-H>"] = false,
+        ["<C-K>"] = false,
+        ["<C-J>"] = false,
+        K = "IncreaseDetail",
+        J = "DecreaseDetail",
+        ["<C-P>"] = "ScrollOutputUp",
+        ["<C-N>"] = "ScrollOutputDown",
+      }
+    },
     -- Aliases for bundles of components. Redefine the builtins, or create your own.
     component_aliases = {
       -- Most tasks are initialized with the default components
