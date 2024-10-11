@@ -66,6 +66,11 @@ local text_manipulation = {
       { "=ss",                mode = { "x" }, "<Cmd>lua require('substitute').visual({ register = '+' })<CR>" },
       { "=sS",                mode = { "n" }, "<Cmd>lua require('substitute').line({ register = '+' })<CR>" },
       { "=sl",                mode = { "n" }, "<Cmd>lua require('substitute').eol({ register = '+' })<CR>" },
+      -- Alternative key mapping for those key mappings that are hard to type in ergonomic keyboard.
+      { [[\ss]],              mode = { "n" }, "<Cmd>lua require('substitute').operator({ register = '+' })<CR>" },
+      { [[\ss]],              mode = { "x" }, "<Cmd>lua require('substitute').visual({ register = '+' })<CR>" },
+      { [[\sS]],              mode = { "n" }, "<Cmd>lua require('substitute').line({ register = '+' })<CR>" },
+      { [[\sl]],              mode = { "n" }, "<Cmd>lua require('substitute').eol({ register = '+' })<CR>" },
 
       -- Substitute over range
       { "<Leader>s",          mode = { "n" }, "<Cmd>lua require('substitute.range').operator()<CR>" },

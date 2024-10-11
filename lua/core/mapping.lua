@@ -152,6 +152,9 @@ mapping.setup = function()
       vim.keymap.set("n", [[y"]], [[""yiW]], { desc = "Yank current WORD" })
       vim.keymap.set("n", "y=", [["+yiw]], { desc = "Yank current word to system clipboard" })
       vim.keymap.set("n", "y+", [["+yiW]], { desc = "Yank current WORD to system clipboard" })
+      -- Alternative key mapping for those key mappings that are hard to type in ergonomic keyboard.
+      vim.keymap.set("n", [[y\]], [["+yiw]], { desc = "Yank current word to system clipboard" })
+      vim.keymap.set("n", [[y|]], [["+yiW]], { desc = "Yank current WORD to system clipboard" })
 
       -- TODO: Check mini-bracketed issue thread: https://github.com/echasnovski/mini.nvim/issues/235
 
