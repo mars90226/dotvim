@@ -177,6 +177,17 @@ settings.setup = function()
           vim.wo.signcolumn = "auto"
         end,
       })
+      vim.api.nvim_create_autocmd({ "WinEnter" }, {
+        group = signcolumn_settings_augroup_id,
+        pattern = "*",
+        callback = function()
+          -- NOTE: Reset signcolumn to "auto" on nofile buffer, like hover window
+          -- FIXME: This is a temporary solution, need to find the root cause that cause signcolumn to be "yes" after a while
+          if vim.wo.signcolumn == "yes" and vim.bo.buftype == "nofile" then
+            vim.wo.signcolumn = "auto"
+          end
+        end,
+      })
     end,
   })
 end
