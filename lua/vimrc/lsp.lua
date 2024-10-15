@@ -390,8 +390,12 @@ lsp.on_attach = function(client, bufnr)
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
   vim.bo.tagfunc = [[v:lua.vim.lsp.tagfunc]]
   vim.bo.formatexpr = [[v:lua.vim.lsp.formatexpr({})]]
-  -- NOTE: Always enable 'signcolumn' on LSP attached buffer to avoid diagnostics keeping toggling 'signcolumn'
-  vim.wo.signcolumn = "yes"
+  -- NOTE: Enable 'signcolumn' on LSP attached buffer if it's not a "nofile" buffer to avoid diagnostics keeping toggling 'signcolumn'
+  -- TODO: This check seems only work when calling hover request after a while after the LSP is
+  -- initialized and ready to show hover.
+  if vim.bo[bufnr].buftype ~= "nofile" then
+    vim.wo.signcolumn = "yes"
+  end
 
   -- format on save
   if client.server_capabilities.documentFormattingProvider then

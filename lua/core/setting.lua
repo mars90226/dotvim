@@ -183,6 +183,8 @@ settings.setup = function()
         callback = function()
           -- NOTE: Reset signcolumn to "auto" on nofile buffer, like hover window
           -- FIXME: This is a temporary solution, need to find the root cause that cause signcolumn to be "yes" after a while
+          -- NOTE: The issue is mitigated by not setting 'signcolumn' to "yes" on LSP attach when
+          -- it's a "nofile" buffer
           if vim.wo.signcolumn == "yes" and vim.bo.buftype == "nofile" then
             vim.wo.signcolumn = "auto"
           end
