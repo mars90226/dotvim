@@ -19,10 +19,6 @@ end
 my_gitlab.setup_config = function()
   gitlab.setup({
     debug = { go_request = false, go_response = false },
-    popup = {
-      exit = "gq",
-      backup_register = "+", -- NOTE: Default backup to system register, may hinder performance in WSL
-    }
   })
 end
 
