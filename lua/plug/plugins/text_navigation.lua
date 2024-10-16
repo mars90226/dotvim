@@ -34,6 +34,7 @@ local text_navigation = {
       -- { "<Space>j", mode = { "n", "o", "x" }, "<Cmd>HopLineAC<CR>", desc = "Hop - line after" },
       -- { "<Space>k", mode = { "n", "o", "x" }, "<Cmd>HopLineBC<CR>", desc = "Hop - line before" },
       { "<Space>cw",      mode = { "n", "o", "x" }, "<Cmd>HopCamelCase<CR>", desc = "Hop - camel case word" },
+      { "<Space>'",       mode = { "n", "o", "x" }, "<Cmd>HopNodes<CR>", desc = "Hop - treesitter" },
     },
     config = function()
       require("hop").setup({})
