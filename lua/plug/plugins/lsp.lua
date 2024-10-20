@@ -110,7 +110,15 @@ local lsp = {
 
       -- TODO: Use Trouble v3 next/previous function with other modes
     },
-    opts = {},
+    opts = {
+      modes = {
+        symbols = {
+          win = {
+            size = { width = vim.g.right_sidebar_width, height = vim.g.right_sidebar_height },
+          }
+        }
+      }
+    },
   },
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
