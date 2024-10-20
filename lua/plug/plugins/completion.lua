@@ -427,7 +427,14 @@ local completion = {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter", -- TODO: Check nvim-treesitter enabled?
-      "hrsh7th/nvim-cmp",     -- Optional: For using slash commands and variables in the chat buffer
+      -- Optional: For using slash commands and variables in the chat buffer
+      {
+        -- TODO: Use 'iguanacucumber/magazine.nvim' instead of 'hrsh7th/nvim-cmp' for performance & bug
+        -- fixes. Which also includes 'yioneko/nvim-cmp's performance improvements noteed in the following MR:
+        -- Ref: https://github.com/hrsh7th/nvim-cmp/pull/1980
+        "iguanacucumber/magazine.nvim",
+        name = "nvim-cmp",     -- Otherwise highlighting gets messed up
+      },
       {
         "stevearc/dressing.nvim", -- Optional: Improves the default Neovim UI
         opts = {},
