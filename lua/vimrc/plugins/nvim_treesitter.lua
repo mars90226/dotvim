@@ -317,7 +317,7 @@ nvim_treesitter.setup_config = function()
         -- mapping query_strings to modes.
         selection_modes = {
           ["@parameter.outer"] = "v", -- charwise
-          ["@function.outer"] = "V", -- linewise
+          ["@function.outer"] = "V",  -- linewise
           ["@class.outer"] = "<C-v>", -- blockwise
         },
       },
@@ -399,6 +399,20 @@ nvim_treesitter.setup_extensions = function()
       else
         vim.schedule(function()
           local ts_context = require("treesitter-context")
+          -- FIXME: Should check if current buffer is supported by treesitter
+          -- || Error detected while processing DiagnosticChanged Autocommands for "*":
+          -- || Error executing lua callback: ...vim-treesitter-context/lua/treesitter-context/render.lua:43: E565: Not allowed to change text or change window
+          -- || stack traceback:
+          -- || 	[C]: in function 'nvim_open_win'
+          -- || 	...vim-treesitter-context/lua/treesitter-context/render.lua:43: in function 'display_window'
+          -- || 	...vim-treesitter-context/lua/treesitter-context/render.lua:401: in function 'open'
+          -- || 	.../lazy/nvim-treesitter-context/lua/treesitter-context.lua:98: in function 'f'
+          -- || 	.../lazy/nvim-treesitter-context/lua/treesitter-context.lua:29: in function 'update_single_context'
+          -- || 	.../lazy/nvim-treesitter-context/lua/treesitter-context.lua:116: in function <.../lazy/nvim-treesitter-context/lua/treesitter-context.lua:102>
+          -- || 	[C]: in function 'nvim_exec_autocmds'
+          -- || 	/usr/local/share/nvim/runtime/lua/vim/diagnostic.lua:2055: in function 'reset'
+          -- || 	/usr/local/share/nvim/runtime/lua/vim/lsp.lua:532: in function 'buf_detach_client'
+          -- || 	/usr/local/share/nvim/runtime/lua/vim/lsp.lua:611: in function </usr/local/share/nvim/runtime/lua/vim/lsp.lua:608>
           if context_default_enable and not get_context_force_disable(vim.fn.bufnr()) and not ts_context.enabled() then
             ts_context.enable()
           end
