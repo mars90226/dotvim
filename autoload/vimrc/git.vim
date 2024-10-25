@@ -19,6 +19,7 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
     execute 'nnoremap <silent><buffer> <Leader>gT :execute "Gtabedit ".'.git_sha_fn.'<CR>'
     execute 'nnoremap <silent><buffer> <Leader>gu :execute "Gsplit ".'.git_sha_fn.'<CR>'
     execute 'nnoremap <silent><buffer> <Leader>ga :execute "Git tag ".input("Git tag: ")." ".'.git_sha_fn.'<CR>'
+    execute 'nnoremap <silent><buffer> ygr :call setreg(v:register, '.git_sha_fn.')<CR>'
   endif
 
   if has_visual_shas
