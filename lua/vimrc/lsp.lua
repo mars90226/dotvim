@@ -7,9 +7,12 @@ local plugin_utils = require("vimrc.plugin_utils")
 local lsp = {}
 
 -- TODO: Refactor
-local vue_typescript_plugin = require("mason-registry").get_package("vue-language-server"):get_install_path()
-  .. "/node_modules/@vue/language-server"
-  .. "/node_modules/@vue/typescript-plugin"
+local vue_typescript_plugin = nil
+if plugin_utils.has_linux_build_env() then
+  vue_typescript_plugin = require("mason-registry").get_package("vue-language-server"):get_install_path()
+    .. "/node_modules/@vue/language-server"
+    .. "/node_modules/@vue/typescript-plugin"
+end
 
 lsp.config = {
   enable_format_on_sync = false,
