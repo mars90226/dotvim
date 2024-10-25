@@ -171,6 +171,9 @@ my_fzf_lua.setup_mapping = function()
   vim.keymap.set("n", fzf_lua_prefix .. "N", function()
     fzf_lua.files({ query = vim.fn.expand("<cWORD>") })
   end, { desc = "Files with cursor WORD" })
+  vim.keymap.set("x", fzf_lua_prefix .. "n", function()
+    fzf_lua.files({ query = utils.get_visual_selection() })
+  end, { desc = "Files with visual selection" })
 
   -- Grep
   -- TODO: Add key mapping to grep all files including hidden files
@@ -199,7 +202,7 @@ my_fzf_lua.setup_mapping = function()
     fzf_lua.grep_curbuf(
       my_fzf_lua.wrap_opts({ rg_opts = vim.fn.input("Grep options: "), search = utils.get_visual_selection() })
     )
-  end, { desc = "Grep current buffer" })
+  end, { desc = "Grep current buffer with visual selection" })
   vim.keymap.set("n", fzf_lua_prefix .. "4", function()
     fzf_lua.grep(my_fzf_lua.wrap_opts({ rg_opts = vim.fn.input("Grep options: ") }))
   end, { desc = "Grep with options" })
