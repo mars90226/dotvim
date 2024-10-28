@@ -356,6 +356,26 @@ local file_navigation = {
       { "<Space>ag", [[<Cmd>Telescope ast_grep<CR>]], desc = "Telescope ast_grep" },
     },
   },
+  {
+    "danielfalk/smart-open.nvim",
+    branch = "0.2.x",
+    event = { "VeryLazy" },
+    keys = {
+      { "<Space><CR>", [[<Cmd>Telescope smart_open<CR>]], desc = "Telescope smart_open" },
+    },
+    config = function()
+      require("telescope").load_extension("smart_open")
+    end,
+    dependencies = {
+      -- TODO: Check if sqlite3 is installed
+      "kkharji/sqlite.lua",
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        cond = choose.is_enabled_plugin("telescope-fzf-native.nvim"),
+        build = "make",
+      },
+    },
+  },
 
   -- fzf-lua
   {
@@ -389,11 +409,11 @@ local file_navigation = {
     event = { "BufReadPost", "BufNewFile" },
     cmd = "Grapple",
     keys = {
-      { "<Leader>mm", "<cmd>Grapple toggle<cr>", desc = "Grapple toggle tag" },
-      { "<Leader>mt", "<cmd>Grapple toggle_tags<cr>", desc = "Grapple open tags window" },
-      { "<Leader>ms", "<cmd>Telescope grapple tags<cr>", desc = "Grapple select tags by Telescope" },
-      { "]h", "<cmd>Grapple cycle_tags next<cr>", desc = "Grapple cycle next tag" },
-      { "[h", "<cmd>Grapple cycle_tags prev<cr>", desc = "Grapple cycle previous tag" },
+      { "<Leader>mm", "<cmd>Grapple toggle<cr>",          desc = "Grapple toggle tag" },
+      { "<Leader>mt", "<cmd>Grapple toggle_tags<cr>",     desc = "Grapple open tags window" },
+      { "<Leader>ms", "<cmd>Telescope grapple tags<cr>",  desc = "Grapple select tags by Telescope" },
+      { "]h",         "<cmd>Grapple cycle_tags next<cr>", desc = "Grapple cycle next tag" },
+      { "[h",         "<cmd>Grapple cycle_tags prev<cr>", desc = "Grapple cycle previous tag" },
     },
     config = function(_, opts)
       require("grapple").setup(opts)
@@ -407,15 +427,15 @@ local file_navigation = {
     "pechorin/any-jump.nvim",
     cmd = { "AnyJump", "AnyJumpArg", "AnyJumpVisual" },
     keys = {
-      { "<Leader>aj", "<Cmd>AnyJump<CR>", desc = "AnyJump" },
-      { "<Leader>ak", "<Cmd>AnyJumpArg<Space>", desc = "AnyJump with args" },
-      { "<Leader>aj", ":AnyJumpVisual<CR>", mode = { "x" }, desc = "AnyJump visual" }, -- NOTE: Need to use `:` to make it work in visual mode
-      { "<Leader>ab", "<Cmd>AnyJumpBack<CR>", desc = "AnyJump back" },
+      { "<Leader>aj", "<Cmd>AnyJump<CR>",            desc = "AnyJump" },
+      { "<Leader>ak", "<Cmd>AnyJumpArg<Space>",      desc = "AnyJump with args" },
+      { "<Leader>aj", ":AnyJumpVisual<CR>",          mode = { "x" },               desc = "AnyJump visual" }, -- NOTE: Need to use `:` to make it work in visual mode
+      { "<Leader>ab", "<Cmd>AnyJumpBack<CR>",        desc = "AnyJump back" },
       { "<Leader>al", "<Cmd>AnyJumpLastResults<CR>", desc = "AnyJump last results" },
     },
     config = function()
       vim.g.any_jump_window_width_ratio, vim.g.any_jump_window_height_ratio =
-        unpack(vim.fn["vimrc#float#get_default_ratio"]())
+          unpack(vim.fn["vimrc#float#get_default_ratio"]())
       vim.g.any_jump_window_top_offset = vim.fn["vimrc#float#calculate_pos_from_ratio"](
         vim.g.any_jump_window_width_ratio,
         vim.g.any_jump_window_height_ratio
@@ -434,11 +454,11 @@ local file_navigation = {
       -- Don't update cscope, workload is too heavy
       vim.g.gutentags_modules = { "ctags" }
       vim.g.gutentags_ctags_exclude =
-        { ".git", "node_modules", ".ccls-cache", "*.mypy_cache*", ".venv", "*.min.js", "*.min.css" }
+      { ".git", "node_modules", ".ccls-cache", "*.mypy_cache*", ".venv", "*.min.js", "*.min.css" }
 
       if vim.g.gutentags_secret_ctags_exclude ~= nil then
         vim.g.gutentags_ctags_exclude =
-          utils.table_concat(vim.g.gutentags_ctags_exclude, vim.g.gutentags_secret_ctags_exclude)
+            utils.table_concat(vim.g.gutentags_ctags_exclude, vim.g.gutentags_secret_ctags_exclude)
       end
     end,
   },
@@ -555,10 +575,10 @@ local file_navigation = {
     "rgroli/other.nvim",
     cmd = { "Other", "OtherTabNew", "OtherSplit", "OtherVSplit", "OtherClose" },
     keys = {
-      { "<Leader>oo", "<Cmd>:Other<CR>", silent = true, desc = "other.nvim - open" },
-      { "<Leader>os", "<Cmd>:OtherSplit<CR>", silent = true, desc = "other.nvim - open in split" },
+      { "<Leader>oo", "<Cmd>:Other<CR>",       silent = true, desc = "other.nvim - open" },
+      { "<Leader>os", "<Cmd>:OtherSplit<CR>",  silent = true, desc = "other.nvim - open in split" },
       { "<Leader>ov", "<Cmd>:OtherVSplit<CR>", silent = true, desc = "other.nvim - open in vsplit" },
-      { "<Leader>oc", "<Cmd>:OtherClear<CR>", silent = true, desc = "other.nvim - clear the internal reference" },
+      { "<Leader>oc", "<Cmd>:OtherClear<CR>",  silent = true, desc = "other.nvim - clear the internal reference" },
     },
     config = function()
       require("vimrc.plugins.other").setup()

@@ -166,6 +166,7 @@ telescope.setup_config = function()
         },
       },
     },
+    -- TODO: Can we move this to plugins' config?
     extensions = {
       command_palette = command_palette_config,
       -- TODO: Disabled as telescope-frecency.nvim loading to slow
@@ -184,7 +185,11 @@ telescope.setup_config = function()
           }, -- must have --json=stream
           grep_open_files = false, -- search in opened files
           lang = nil, -- string value, specify language for ast-grep `nil` for default
-      }
+      },
+      smart_open = {
+        -- TODO: Add more `ignore_patterns` in addition of default
+        match_algorithm = "fzf",
+      },
     }
   })
 end
