@@ -4,6 +4,10 @@
 " - Remove gui <C-F> & <C-H>
 " - Remove <C-Z> & <C-Y>
 " - Remove <C-A>, <C-X>
+" - Remove <C-Tab>, <C-F4>
+" - Remove <M-Space>
+" - Remove <C-S>
+" - Remove <BS>
 " Set options and add mapping such that Vim behaves a lot like MS-Windows
 "
 " neovim nightly #23054 remove `:behave`
@@ -25,9 +29,6 @@ set cpo&vim
 
 " backspace and cursor keys wrap to previous/next line
 set backspace=indent,eol,start whichwrap+=<,>,[,]
-
-" backspace in Visual mode deletes selection
-vnoremap <BS> d
 
 if has("clipboard")
     " SHIFT-Del are Cut
@@ -62,36 +63,11 @@ vmap <S-Insert>		<C-V>
 " Use CTRL-Q to do what CTRL-V used to do
 noremap <C-Q>		<C-V>
 
-" Use CTRL-S for saving, also in Insert mode (<C-O> doesn't work well when
-" using completions).
-noremap <C-S>		:update<CR>
-vnoremap <C-S>		<C-C>:update<CR>
-" inoremap <C-S>		<Esc>:update<CR>gi
-
 " For CTRL-V to work autoselect must be off.
 " On Unix we have two selections, autoselect can be used.
 if !has("unix")
   set guioptions-=a
 endif
-
-" Alt-Space is System menu
-if has("gui")
-  noremap <M-Space> :simalt ~<CR>
-  inoremap <M-Space> <C-O>:simalt ~<CR>
-  cnoremap <M-Space> <C-C>:simalt ~<CR>
-endif
-
-" CTRL-Tab is Next window
-noremap <C-Tab> <C-W>w
-inoremap <C-Tab> <C-O><C-W>w
-cnoremap <C-Tab> <C-C><C-W>w
-onoremap <C-Tab> <C-C><C-W>w
-
-" CTRL-F4 is Close window
-noremap <C-F4> <C-W>c
-inoremap <C-F4> <C-O><C-W>c
-cnoremap <C-F4> <C-C><C-W>c
-onoremap <C-F4> <C-C><C-W>c
 
 " restore 'cpoptions'
 set cpo&
