@@ -8,6 +8,7 @@
 " - Remove <M-Space>
 " - Remove <C-S>
 " - Remove <BS>
+" - Do not check `has("clipboard")` to avoid clipboard loading efforts
 " Set options and add mapping such that Vim behaves a lot like MS-Windows
 "
 " neovim nightly #23054 remove `:behave`
@@ -30,21 +31,19 @@ set cpo&vim
 " backspace and cursor keys wrap to previous/next line
 set backspace=indent,eol,start whichwrap+=<,>,[,]
 
-if has("clipboard")
-    " SHIFT-Del are Cut
-    vnoremap <S-Del> "+x
+" SHIFT-Del are Cut
+vnoremap <S-Del> "+x
 
-    " CTRL-C and CTRL-Insert are Copy
-    vnoremap <C-C> "+y
-    vnoremap <C-Insert> "+y
+" CTRL-C and CTRL-Insert are Copy
+vnoremap <C-C> "+y
+vnoremap <C-Insert> "+y
 
-    " CTRL-V and SHIFT-Insert are Paste
-    map <C-V>		"+gP
-    map <S-Insert>		"+gP
+" CTRL-V and SHIFT-Insert are Paste
+map <C-V>		"+gP
+map <S-Insert>		"+gP
 
-    cmap <C-V>		<C-R>+
-    cmap <S-Insert>		<C-R>+
-endif
+cmap <C-V>		<C-R>+
+cmap <S-Insert>		<C-R>+
 
 " Pasting blockwise and linewise selections is not possible in Insert and
 " Visual mode without the +virtualedit feature.  They are pasted as if they

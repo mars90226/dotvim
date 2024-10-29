@@ -10,28 +10,28 @@ clipboard.setup = function()
   -- TODO: Use neovim builtin OSC52 clipboard provider
   -- Ref: https://github.com/neovim/neovim/pull/25872
   if vim.fn.has("wsl") == 1 then
-    use_config({
-      "mars90226/clipboard",
-      event = { "FocusLost", "CursorHold", "CursorHoldI" },
-      config = function()
-        vim.g.clipboard = {
-          name = "wsl_clipboard",
-          copy = {
-            ["+"] = "xsel -i",
-            ["*"] = "xsel -i",
-          },
-          paste = {
-            ["+"] = "xsel -o",
-            ["*"] = "xsel -o",
-          },
-          cache_enabled = 1,
-        }
+    local has_lemonade = vim.fn.executable("lemonade") == 1
+    local copy_cmd = has_lemonade and "lemonade copy" or "xsel -i"
+    local paste_cmd = has_lemonade and "lemonade paste" or "xsel -o"
 
-        --  Force loading clipboard
-        --  TODO: Create issue in neovim, this should be fixed in neovim
-        vim.fn["provider#clipboard#Executable"]()
-      end,
-    })
+    vim.g.clipboard = {
+      name = "wsl_clipboard",
+      copy = {
+        ["+"] = copy_cmd,
+        ["*"] = copy_cmd,
+      },
+      paste = {
+        ["+"] = paste_cmd,
+        ["*"] = paste_cmd,
+      },
+      cache_enabled = 1,
+    }
+
+    if not has_lemonade then
+      --  Force loading clipboard
+      --  TODO: Create issue in neovim, this should be fixed in neovim
+      vim.fn["provider#clipboard#Executable"]()
+    end
   end
 
   -- TODO: Fix clipboard: error: Error: target STRING not available
