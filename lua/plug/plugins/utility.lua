@@ -698,7 +698,7 @@ local utility = {
     },
   },
   { "tweekmonster/helpful.vim", cmd = { "HelpfulVersion" } },
-  { "tweekmonster/startuptime.vim", cmd = { "StartupTime" } },
+  { "dstein64/vim-startuptime", cmd = { "StartupTime" } },
   { "lambdalisue/reword.vim", event = { "CmdlineEnter" } },
   { "nicwest/vim-http", cmd = { "Http" } },
   { "kristijanhusak/vim-carbon-now-sh", cmd = { "CarbonNowSh" } },
