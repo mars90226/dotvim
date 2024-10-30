@@ -251,6 +251,9 @@ local completion = {
     opts = {
       show_help = "yes",
       debug = false,
+      model = "gpt-4o-2024-08-06",
+      -- TODO: Enable this when policy settings allows it
+      -- model = "claude-3.5-sonnet",
       prompts = {
         Wording = "Rewrite this using idiomatic English",
       },
