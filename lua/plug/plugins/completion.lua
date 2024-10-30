@@ -253,6 +253,7 @@ local completion = {
       debug = false,
       model = "gpt-4o-2024-08-06",
       -- TODO: Enable this when policy settings allows it
+      -- `Failed to get response: {"error":{"message":"model access is not permitted per policy settings","param":"","code":"","type":""}}`
       -- model = "claude-3.5-sonnet",
       prompts = {
         Wording = "Rewrite this using idiomatic English",
