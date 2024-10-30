@@ -190,6 +190,10 @@ local appearance = {
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
+    -- NOTE: Latest commit requires neovim 0.11 nightly that has faster variant:
+    --   `vim.validate(name, value, validator, optional, message)`
+    -- Ref: [Lua - Neovim docs](https://neovim.io/doc/user/lua.html#_lua-module:-vim.inspector)
+    commit = "e7a4442",
     event = { "VeryLazy" },
     config = function()
       require("vimrc.plugins.indent_blankline").setup()
