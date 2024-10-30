@@ -18,8 +18,8 @@ local actions = {
 
 dropbar.setup = function()
   require("dropbar").setup({
-    general = {
-      update_interval = 200,
+    bar = {
+      update_debounce = 200,
     },
     menu = {
       keymaps = {
