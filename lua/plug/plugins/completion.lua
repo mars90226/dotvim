@@ -251,7 +251,9 @@ local completion = {
     opts = {
       show_help = "yes",
       debug = false,
-      model = "gpt-4o-2024-08-06",
+      -- model = "gpt-4o-2024-08-06",
+      -- TODO: Evaluate the o1-mini model
+      model = "o1-mini-2024-09-12",
       -- TODO: Enable this when policy settings allows it
       -- `Failed to get response: {"error":{"message":"model access is not permitted per policy settings","param":"","code":"","type":""}}`
       -- model = "claude-3.5-sonnet",
