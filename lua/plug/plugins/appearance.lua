@@ -192,6 +192,7 @@ local appearance = {
     main = "ibl",
     -- NOTE: Latest commit requires neovim 0.11 nightly that has faster variant:
     --   `vim.validate(name, value, validator, optional, message)`
+    -- Ref: [After upgrade to 3.8.3 config, an error occurs with old nightly Neovim versions · Issue 936 · lukas-reineke/indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim/issues/936)
     -- Ref: [Lua - Neovim docs](https://neovim.io/doc/user/lua.html#_lua-module:-vim.inspector)
     commit = "e7a4442",
     event = { "VeryLazy" },
