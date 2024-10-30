@@ -272,10 +272,10 @@ nvim_cmp.setup = function()
         -- TODO: Timeout slow source?
         plugin_utils.check_enabled_plugin({
           name = "rg",
-          keyword_length = 5,
-          max_item_count = 5,
+          keyword_length = 3,
+          max_item_count = 10,
           option = {
-            additional_arguments = "--threads 2 --max-count 5",
+            additional_arguments = "--threads 2 --max-count 10",
             debounce = 500,
           },
           priority_weight = 70,
@@ -283,26 +283,29 @@ nvim_cmp.setup = function()
             return not entry.exact
           end,
         }, "cmp-rg"),
-        vim.tbl_deep_extend("force", buffer_source, {
-          keyword_length = 5,
-          max_item_count = 5,
-          option = {
-            keyword_length = 5,
-          },
-          priority_weight = 60,
-          entry_filter = function(entry)
-            return not entry.exact
-          end,
-        }),
         plugin_utils.check_enabled_plugin({
           name = "dictionary",
-          keyword_length = 5,
+          keyword_length = 3,
           max_item_count = 5,
           priority_weight = 50,
           entry_filter = function(entry)
             return not entry.exact
           end,
         }, "cmp-dictionary"),
+      }),
+      vim.tbl_filter(function(component)
+        return component ~= nil
+      end, {
+        vim.tbl_deep_extend("force", buffer_source, {
+          max_item_count = 5,
+          option = {
+            keyword_length = 3,
+          },
+          priority_weight = 60,
+          entry_filter = function(entry)
+            return not entry.exact
+          end,
+        }),
       })
     ),
     experimental = {
