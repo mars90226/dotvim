@@ -5,6 +5,9 @@ gruvbox.config = {
   error_inverse = true,
   inverse = true,
   transparent_mode = true,
+  italic = {
+    comments = true,
+  }
 }
 
 gruvbox.load_overrides = function(overrides)
@@ -68,6 +71,7 @@ gruvbox.custom_overrides = function()
     OpaqueNormal = { fg = palette.light1, bg = palette.dark0 },
     OpaqueNormalFloat = { fg = palette.light1, bg = palette.dark1 },
     OpaqueTitle = { fg = palette.bright_green, bg = palette.dark0, bold = gruvbox.config.bold },
+    OpaqueComment = { fg = palette.gray, bg = palette.dark0, italic = gruvbox.config.italic.comments },
     -- NOTE: Set background to nil. The 'cursorline' still has visual indication in line number
     -- column.
     CursorLine = { bg = nil },

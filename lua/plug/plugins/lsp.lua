@@ -192,15 +192,14 @@ local lsp = {
 
   {
     "j-hui/fidget.nvim",
-    tag = "legacy",
     event = { "LspAttach" },
-    config = function()
-      require("fidget").setup({
+    opts = {
+      notification = {
         window = {
-          blend = 0,
+          winblend = 0,
         },
-      })
-    end,
+      },
+    },
   },
 
   -- Goto Definitions
