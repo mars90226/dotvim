@@ -656,7 +656,7 @@ local languages = {
   -- Rust
   {
     "saecki/crates.nvim",
-    tag = "v0.4.0",
+    tag = "stable",
     dependencies = { "nvim-lua/plenary.nvim" },
     event = { "BufRead Cargo.toml" },
     config = function()
@@ -668,6 +668,7 @@ local languages = {
         --     enabled = true,
         --   },
         -- },
+        open_programs = { plugin_utils.get_browser(), "xdg-open", "open" },
         null_ls = {
           enabled = choose.is_enabled_plugin("none-ls.nvim"),
           name = "crates.nvim",
@@ -679,24 +680,25 @@ local languages = {
       vim.keymap.set("n", crates_prefix .. "t", crates.toggle, { silent = true, desc = "Crates - Toggle crates" })
       vim.keymap.set("n", crates_prefix .. "r", crates.reload, { silent = true, desc = "Crates - Reload crates" })
 
-      vim.keymap.set( "n", crates_prefix .. "v", crates.show_versions_popup, { silent = true, desc = "Crates - Show versions popup" })
-      vim.keymap.set( "n", crates_prefix .. "f", crates.show_features_popup, { silent = true, desc = "Crates - Show features popup" })
-      vim.keymap.set( "n", crates_prefix .. "d", crates.show_dependencies_popup, { silent = true, desc = "Crates - Show dependencies popup" })
-
-      vim.keymap.set( "n", crates_prefix .. "e", crates.expand_plain_crate_to_inline_table, { silent = true, desc = "Crates - Expand crate to inline table" })
-      vim.keymap.set( "n", crates_prefix .. "E", crates.extract_crate_into_table, { silent = true, desc = "Crates - Extract crate into table" })
+      vim.keymap.set("n", crates_prefix .. "v", crates.show_versions_popup, { silent = true, desc = "Crates - Show versions popup" })
+      vim.keymap.set("n", crates_prefix .. "f", crates.show_features_popup, { silent = true, desc = "Crates - Show features popup" })
+      vim.keymap.set("n", crates_prefix .. "d", crates.show_dependencies_popup, { silent = true, desc = "Crates - Show dependencies popup" })
 
       vim.keymap.set("n", crates_prefix .. "u", crates.update_crate, { silent = true, desc = "Crates - Update crate" })
-      vim.keymap.set( "v", crates_prefix .. "u", crates.update_crates, { silent = true, desc = "Crates - Update selected crates" })
-      vim.keymap.set( "n", crates_prefix .. "a", crates.update_all_crates, { silent = true, desc = "Crates - Update all crates" })
-      vim.keymap.set( "n", crates_prefix .. "U", crates.upgrade_crate, { silent = true, desc = "Crates - Upgrade crate" })
-      vim.keymap.set( "v", crates_prefix .. "U", crates.upgrade_crates, { silent = true, desc = "Crates - Upgrade selected crates" })
-      vim.keymap.set( "n", crates_prefix .. "A", crates.upgrade_all_crates, { silent = true, desc = "Crates - Upgrade all crates" })
+      vim.keymap.set("v", crates_prefix .. "u", crates.update_crates, { silent = true, desc = "Crates - Update selected crates" })
+      vim.keymap.set("n", crates_prefix .. "a", crates.update_all_crates, { silent = true, desc = "Crates - Update all crates" })
+      vim.keymap.set("n", crates_prefix .. "U", crates.upgrade_crate, { silent = true, desc = "Crates - Upgrade crate" })
+      vim.keymap.set("v", crates_prefix .. "U", crates.upgrade_crates, { silent = true, desc = "Crates - Upgrade selected crates" })
+      vim.keymap.set("n", crates_prefix .. "A", crates.upgrade_all_crates, { silent = true, desc = "Crates - Upgrade all crates" })
 
-      vim.keymap.set( "n", crates_prefix .. "H", crates.open_homepage, { silent = true, desc = "Crates - Open crate homepage" })
-      vim.keymap.set( "n", crates_prefix .. "R", crates.open_repository, { silent = true, desc = "Crates - Open crate repository" })
-      vim.keymap.set( "n", crates_prefix .. "D", crates.open_documentation, { silent = true, desc = "Crates - Open crate documentation" })
-      vim.keymap.set( "n", crates_prefix .. "C", crates.open_crates_io, { silent = true, desc = "Crates - Open crates.io page" })
+      vim.keymap.set("n", crates_prefix .. "x", crates.expand_plain_crate_to_inline_table, { silent = true, desc = "Crates - Expand crate to inline table" })
+      vim.keymap.set("n", crates_prefix .. "X", crates.extract_crate_into_table, { silent = true, desc = "Crates - Extract crate into table" })
+
+      vim.keymap.set("n", crates_prefix .. "H", crates.open_homepage, { silent = true, desc = "Crates - Open crate homepage" })
+      vim.keymap.set("n", crates_prefix .. "R", crates.open_repository, { silent = true, desc = "Crates - Open crate repository" })
+      vim.keymap.set("n", crates_prefix .. "D", crates.open_documentation, { silent = true, desc = "Crates - Open crate documentation" })
+      vim.keymap.set("n", crates_prefix .. "C", crates.open_crates_io, { silent = true, desc = "Crates - Open crates.io page" })
+      vim.keymap.set("n", crates_prefix .. "L", crates.open_lib_rs, { silent = true, desc = "Crates - Open lib.rs page" })
     end,
   },
 }
