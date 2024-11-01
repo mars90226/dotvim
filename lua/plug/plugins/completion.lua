@@ -455,6 +455,19 @@ local completion = {
       "nvim-telescope/telescope.nvim", -- Optional: For using slash commands
     },
     opts = {
+      -- TODO: Seems not supporting o1 models yet
+      -- `Error: Bad Request`
+      -- adapters = {
+      --   copilot = function()
+      --     return require("codecompanion.adapters").extend("copilot", {
+      --       schema = {
+      --         model = {
+      --           default = "o1-mini-2024-09-12",
+      --         },
+      --       },
+      --     })
+      --   end,
+      -- },
       strategies = {
         chat = {
           adapter = "copilot",
