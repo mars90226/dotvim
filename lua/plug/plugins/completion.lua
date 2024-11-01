@@ -269,7 +269,7 @@ local completion = {
         },
         reset = {
           normal = "<Space><C-L>",
-          insert = "<Space><C-L>",
+          insert = "",
         },
       },
     },
