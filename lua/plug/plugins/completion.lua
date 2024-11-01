@@ -460,6 +460,9 @@ local completion = {
       -- adapters = {
       --   copilot = function()
       --     return require("codecompanion.adapters").extend("copilot", {
+      --       opts = {
+      --         stream = false,
+      --       },
       --       schema = {
       --         model = {
       --           default = "o1-mini-2024-09-12",
