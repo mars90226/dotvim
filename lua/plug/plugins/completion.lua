@@ -236,6 +236,9 @@ local completion = {
             prev = "<M-k>",
           },
         },
+        filetypes = {
+          gitcommit = true,
+        },
       })
     end,
   },
