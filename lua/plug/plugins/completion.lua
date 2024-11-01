@@ -256,10 +256,9 @@ local completion = {
       debug = false,
       -- model = "gpt-4o-2024-08-06",
       -- TODO: Evaluate the o1-mini model
-      model = "o1-mini-2024-09-12",
-      -- TODO: Enable this when policy settings allows it
-      -- `Failed to get response: {"error":{"message":"model access is not permitted per policy settings","param":"","code":"","type":""}}`
-      -- model = "claude-3.5-sonnet",
+      -- model = "o1-mini-2024-09-12",
+      -- TODO: Evaluate the Claude 3.5 Sonnet model
+      model = "claude-3.5-sonnet",
       prompts = {
         Wording = "Rewrite this using idiomatic English",
       },
@@ -455,6 +454,7 @@ local completion = {
       "nvim-telescope/telescope.nvim", -- Optional: For using slash commands
     },
     opts = {
+      -- TODO: Try to use Claude 3.5 Sonnet model
       -- TODO: Seems not supporting o1 models yet
       -- `Error: Bad Request`
       -- adapters = {
