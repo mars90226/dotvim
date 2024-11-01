@@ -264,6 +264,10 @@ local completion = {
         complete = {
           insert = "",
         },
+        reset = {
+          normal = "<Space><C-L>",
+          insert = "<Space><C-L>",
+        },
       },
     },
     cmd = {
