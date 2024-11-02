@@ -673,6 +673,7 @@ local languages = {
           enabled = choose.is_enabled_plugin("none-ls.nvim"),
           name = "crates.nvim",
         },
+        -- TODO: Enable LSP for hover or change hover function?
       })
 
       local crates_prefix = "<Leader><Leader>c"
