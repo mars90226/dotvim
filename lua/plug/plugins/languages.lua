@@ -465,6 +465,7 @@ local languages = {
     end, {
       "markdown",
       plugin_utils.check_enabled_plugin("Avante", "avante.nvim"),
+      plugin_utils.check_enabled_plugin("codecompanion", "codecompanion.nvim"),
     }),
     cmd = { "RenderMarkdownToggle" },
     keys = {
@@ -476,6 +477,7 @@ local languages = {
       end, {
         "markdown",
         plugin_utils.check_enabled_plugin("Avante", "avante.nvim"),
+        plugin_utils.check_enabled_plugin("codecompanion", "codecompanion.nvim"),
       }),
     },
   },
@@ -492,6 +494,7 @@ local languages = {
     end, {
       "markdown",
       plugin_utils.check_enabled_plugin("Avante", "avante.nvim"),
+      plugin_utils.check_enabled_plugin("codecompanion", "codecompanion.nvim"),
     }),
     cmd = { "Markview" },
     keys = {
@@ -507,6 +510,7 @@ local languages = {
         end, {
           "markdown",
           plugin_utils.check_enabled_plugin("Avante", "avante.nvim"),
+          plugin_utils.check_enabled_plugin("codecompanion", "codecompanion.nvim"),
         }),
       })
     end,
