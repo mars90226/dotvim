@@ -465,6 +465,12 @@ local completion = {
           adapter = "copilot",
         },
       },
+      -- TODO: Use render-markdown.nvim to render markdown in the chat buffer
+      -- display = {
+      --   chat = {
+      --     render_headers = false,
+      --   },
+      -- },
     },
     config = true
   }
