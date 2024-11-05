@@ -454,23 +454,6 @@ local completion = {
       "nvim-telescope/telescope.nvim", -- Optional: For using slash commands
     },
     opts = {
-      -- TODO: Try to use Claude 3.5 Sonnet model
-      -- TODO: Seems not supporting o1 models yet
-      -- `Error: Bad Request`
-      -- adapters = {
-      --   copilot = function()
-      --     return require("codecompanion.adapters").extend("copilot", {
-      --       opts = {
-      --         stream = false,
-      --       },
-      --       schema = {
-      --         model = {
-      --           default = "o1-mini-2024-09-12",
-      --         },
-      --       },
-      --     })
-      --   end,
-      -- },
       strategies = {
         chat = {
           adapter = "copilot",
