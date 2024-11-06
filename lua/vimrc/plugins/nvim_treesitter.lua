@@ -473,6 +473,9 @@ nvim_treesitter.setup_performance_trick = function()
         -- Restore terminal insert mode
         -- mode "nt" means Normal in terminal-emulator, `:help mode()`
         if vim.bo.buftype == "terminal" and vim.api.nvim_get_mode().mode == "nt" then
+          if require("vimrc.terminal").is_startinsert_ignored() then
+            return
+          end
           vim.cmd([[startinsert]])
         end
       end
