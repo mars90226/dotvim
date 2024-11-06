@@ -454,6 +454,21 @@ local completion = {
       "nvim-telescope/telescope.nvim", -- Optional: For using slash commands
     },
     opts = {
+      adapters = {
+        copilot = function()
+          return require("codecompanion.adapters").extend("copilot", {
+            schema = {
+              model = {
+                default = "claude-3.5-sonnet",
+              },
+              -- NOTE: Use the model info from Copilot using CopilotChat.nvim
+              max_tokens = {
+                default = 195000,
+              }
+            },
+          })
+        end,
+      },
       strategies = {
         chat = {
           adapter = "copilot",
@@ -465,12 +480,13 @@ local completion = {
           adapter = "copilot",
         },
       },
-      -- TODO: Use render-markdown.nvim to render markdown in the chat buffer
-      -- display = {
-      --   chat = {
-      --     render_headers = false,
-      --   },
-      -- },
+      display = {
+        chat = {
+          -- TODO: Use render-markdown.nvim to render markdown in the chat buffer
+          render_headers = false,
+          show_settings = true,
+        },
+      },
     },
     config = true
   }
