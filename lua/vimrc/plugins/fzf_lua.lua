@@ -219,6 +219,12 @@ my_fzf_lua.setup_mapping = function()
     fzf_lua.grep({ search = vim.fn.getreg(require("vimrc.utils").get_char_string()) })
   end, { desc = "Grep register content" })
 
+  -- Quickfix build error
+  vim.keymap.set("n", fzf_lua_prefix .. "E", function()
+    -- NOTE: `!:0` to exclude non-error lines
+    fzf_lua.quickfix({ query = "!:0" })
+  end, { desc = "Quickfix with build error" })
+
   -- Lsp
   vim.keymap.set("n", fzf_lua_lsp_prefix .. "r", "<Cmd>FzfLua lsp_references<CR>")
   vim.keymap.set("n", fzf_lua_lsp_prefix .. "d", "<Cmd>FzfLua lsp_definitions<CR>")
