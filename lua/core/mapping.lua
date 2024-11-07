@@ -51,6 +51,9 @@ mapping.setup = function()
       local default_ctrl_l = vim.fn.maparg("<C-L>", "n", false, true)
       vim.keymap.set("n", "<C-L>", default_ctrl_l.rhs .. [[<Cmd>lua vim.notify.dismiss()<CR>]], { silent = true })
 
+      -- Alternative key mapping for those key mappings that are hard to type in ergonomic keyboard.
+      vim.keymap.set("n", "<C-W><C-G>", "<C-W>]", { desc = "Open tag in split window" })
+
       -- Add key mapping for suspend
       vim.keymap.set("n", "<Space><C-Z>", [[:suspend<CR>]], { desc = "Suspend" })
 
