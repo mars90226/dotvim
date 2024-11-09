@@ -75,8 +75,11 @@ gruvbox.custom_overrides = function()
     -- NOTE: Set background to nil. The 'cursorline' still has visual indication in line number
     -- column.
     CursorLine = { bg = nil },
-    StatusLine = { fg = palette.dark2, bg = nil, reverse = gruvbox.config.inverse },
-    StatusLineNC = { fg = palette.dark1, bg = nil, reverse = gruvbox.config.inverse },
+    -- NOTE: Do not reverse to fix the broken highlight in neovim 0.11 nightly
+    -- Ref: https://github.com/neovim/neovim/pull/29976
+    -- Ref: https://github.com/nvim-lualine/lualine.nvim/issues/1312#issuecomment-2439965065
+    StatusLine = { fg = palette.dark2, bg = nil, reverse = false },
+    StatusLineNC = { fg = palette.dark1, bg = nil, reverse = false },
     WinBar = { fg = palette.light3, bg = nil },
     WinBarNC = { fg = palette.light4, bg = nil },
 
