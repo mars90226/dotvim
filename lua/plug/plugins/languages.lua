@@ -340,7 +340,15 @@ local languages = {
         "<Space>rk",
         mode = { "n", "x" },
         function()
-          require("refactoring").debug.print_var()
+          require("refactoring").debug.print_var({ below = true })
+        end,
+        desc = "Print var",
+      },
+      {
+        "<Space>rK",
+        mode = { "n", "x" },
+        function()
+          require("refactoring").debug.print_var({ below = false })
         end,
         desc = "Print var",
       },
