@@ -237,7 +237,7 @@ plugin_choose.setup_misc = function()
   -- indent-blankline.nvim
 
   -- Choose window switching plugin
-  -- nvim-window
+  -- nvim-window-picker
 
   -- Choose colorizer plugin
   -- nvim-colorizer.lua

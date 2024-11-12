@@ -556,7 +556,7 @@ local file_navigation = {
     "s1n7ax/nvim-window-picker",
     name = "window-picker",
     version = "2.*",
-    keys = { "=-" },
+    keys = { "=-", "<Space>p" },
     config = function()
       -- TODO: Check config example in neo-tree.nvim README.md
       -- Ref: https://github.com/nvim-neo-tree/neo-tree.nvim
@@ -564,6 +564,11 @@ local file_navigation = {
         hint = "floating-big-letter",
       })
       vim.keymap.set("n", "=-", function()
+        local window_id = require("window-picker").pick_window()
+        vim.api.nvim_set_current_win(window_id)
+      end, { silent = true, desc = "Switch to window by window-picker" })
+      -- Alternative key mapping for those key mappings that are hard to type in ergonomic keyboard.
+      vim.keymap.set("n", "<Space>p", function()
         local window_id = require("window-picker").pick_window()
         vim.api.nvim_set_current_win(window_id)
       end, { silent = true, desc = "Switch to window by window-picker" })
