@@ -52,9 +52,13 @@ function! vimrc#fugitive#fugitive_buffer_settings() abort
   setlocal bufhidden=delete
 
   " Use fugitive's '=' mapping
-  let maparg = maparg('=', 'n', v:false, v:true)
-  if has_key(maparg, 'rhs')
-    execute 'nnoremap <buffer> <silent> <Tab> '.vimrc#utility#replace_sid_with_snr(vimrc#fugitive#get_fugitive_plugin_snr(), maparg.rhs)
+  let n_maparg = maparg('=', 'n', v:false, v:true)
+  if has_key(n_maparg, 'rhs')
+    execute 'nnoremap <buffer> <silent> <Tab> '.vimrc#utility#replace_sid_with_snr(vimrc#fugitive#get_fugitive_plugin_snr(), n_maparg.rhs)
+  endif
+  let x_maparg = maparg('=', 'x', v:false, v:true)
+  if has_key(x_maparg, 'rhs')
+    execute 'xnoremap <buffer> <silent> <Tab> '.vimrc#utility#replace_sid_with_snr(vimrc#fugitive#get_fugitive_plugin_snr(), x_maparg.rhs)
   endif
 
   " Use fugitive's '-' mapping
