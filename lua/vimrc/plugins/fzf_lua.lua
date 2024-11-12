@@ -178,6 +178,7 @@ my_fzf_lua.setup_mapping = function()
   -- Grep
   -- TODO: Add key mapping to grep all files including hidden files
   vim.keymap.set("n", fzf_lua_prefix .. "e", function()
+    -- FIXME: fzf_lua.grep() does not correctly parse line & column number
     fzf_lua.grep(my_fzf_lua.wrap_opts({
       cwd = vim.fn.input("Grep in directory: ", ".", "dir"),
       rg_opts = vim.fn.input("Grep options: "),
