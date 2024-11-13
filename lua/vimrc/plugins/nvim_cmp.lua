@@ -11,7 +11,19 @@ local nvim_cmp = {}
 nvim_cmp.enabled = true
 
 nvim_cmp.is_enabled = function()
-  return (cmp_config_default.enabled() or require("cmp_dap").is_dap_buffer()) and nvim_cmp.enabled
+  if not nvim_cmp.enabled then
+    return false
+  end
+
+  if cmp_config_default.enabled() then
+    return true
+  end
+
+  if require("vimrc.plugins.lazy").is_loaded("cmp-dap") and require("cmp_dap").is_dap_buffer() then
+    return true
+  end
+
+  return false
 end
 
 nvim_cmp.enable = function()
