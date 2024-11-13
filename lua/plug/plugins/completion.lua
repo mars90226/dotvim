@@ -388,6 +388,10 @@ local completion = {
     },
     opts = {
       provider = "copilot",
+      copilot = {
+        model = "claude-3.5-sonnet",
+        max_tokens = 195000,
+      },
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",
