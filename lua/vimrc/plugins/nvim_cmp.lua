@@ -70,6 +70,17 @@ nvim_cmp.handle_tab_completion = function(direction)
   end
 end
 
+-- TODO: Refactor this
+nvim_cmp.insert_luasnip_source_to_filetype = function(filetype)
+  local luasnip_source = plugin_utils.check_enabled_plugin({ name = "luasnip" }, "LuaSnip")
+  local filetype_sources = require("cmp.config").filetypes[filetype].sources or {}
+  table.insert(filetype_sources, luasnip_source)
+
+  cmp.setup.filetype(filetype, {
+    sources = filetype_sources,
+  })
+end
+
 nvim_cmp.setup = function()
   vim.cmd([[set completeopt=menu,menuone,noselect]])
 
@@ -111,21 +122,24 @@ nvim_cmp.setup = function()
         maxwidth = 50,
         show_labelDetails = false,
         -- TODO: Refactor this
-        menu = vim.tbl_extend("keep", {
+        menu = vim.tbl_extend(
+          "keep",
+          {
             nvim_lsp = "[LSP]",
             path = "[Path]",
             nvim_lua = "[Lua]",
             buffer = "[Buffer]",
             emoji = "[Emoji]",
           },
-          plugin_utils.check_enabled_plugin({ tmux = "[Tmux]" }, "LuaSnip", {}),
+          plugin_utils.check_enabled_plugin({ tmux = "[Tmux]" }, "cmp-tmux", {}),
           plugin_utils.check_enabled_plugin({ dictionary = "[Dictionary]" }, "cmp-dictionary", {}),
-          plugin_utils.check_enabled_plugin({ calc = "[Calc]", }, "cmp-calc", {}),
+          plugin_utils.check_enabled_plugin({ calc = "[Calc]" }, "cmp-calc", {}),
           plugin_utils.check_enabled_plugin({ treesitter = "[Treesitter]" }, "cmp-treesitter", {}),
           plugin_utils.check_enabled_plugin({ cmp_git = "[Git]" }, "cmp-git", {}),
           plugin_utils.check_enabled_plugin({ rg = "[Rg]" }, "cmp-rg", {}),
           plugin_utils.check_enabled_plugin({ luasnip = "[LuaSnip]" }, "LuaSnip", {}),
-          plugin_utils.check_enabled_plugin({ copilot = "[Copilot]" }, "copilot-cmp", {})),
+          plugin_utils.check_enabled_plugin({ copilot = "[Copilot]" }, "copilot-cmp", {})
+        ),
         before = function(entry, vim_item)
           -- TODO: Monitor if this hinders cmp performance
           if require("vimrc.plugins.lazy").is_loaded("tailwindcss-colorizer-cmp.nvim") then
@@ -135,121 +149,126 @@ nvim_cmp.setup = function()
         end,
       }),
     },
-    mapping = cmp.mapping.preset.insert(vim.tbl_extend("keep", {
-      ["<C-D>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-F>"] = cmp.mapping({
-        c = function(fallback)
-          cmp.abort()
-          fallback()
-        end,
-        i = cmp.mapping.scroll_docs(4),
-        s = cmp.mapping.scroll_docs(4),
-      }),
-      ["<Tab>"] = cmp.mapping(nvim_cmp.handle_tab_completion(cmp.select_next_item), { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(nvim_cmp.handle_tab_completion(cmp.select_prev_item), { "i", "s" }),
-    }, plugin_utils.check_enabled_plugin({
-      ["<C-J>"] = cmp.mapping(function(fallback)
-        local luasnip = require("luasnip")
+    mapping = cmp.mapping.preset.insert(vim.tbl_extend(
+      "keep",
+      {
+        ["<C-D>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-F>"] = cmp.mapping({
+          c = function(fallback)
+            cmp.abort()
+            fallback()
+          end,
+          i = cmp.mapping.scroll_docs(4),
+          s = cmp.mapping.scroll_docs(4),
+        }),
+        ["<Tab>"] = cmp.mapping(nvim_cmp.handle_tab_completion(cmp.select_next_item), { "i", "s" }),
+        ["<S-Tab>"] = cmp.mapping(nvim_cmp.handle_tab_completion(cmp.select_prev_item), { "i", "s" }),
+      },
+      plugin_utils.check_enabled_plugin({
+        ["<C-J>"] = cmp.mapping(function(fallback)
+          local luasnip = require("luasnip")
 
-        if luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        end
-      end, { "i", "s" }),
-      ["<C-K>"] = cmp.mapping(function(fallback)
-        local luasnip = require("luasnip")
+          if luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+          end
+        end, { "i", "s" }),
+        ["<C-K>"] = cmp.mapping(function(fallback)
+          local luasnip = require("luasnip")
 
-        if luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        end
-      end, { "i", "s" }),
-      -- TODO: Combine LuaSnip with copilot.lua
-      ["<M-S-j>"] = cmp.mapping(function(fallback)
-        local luasnip = require("luasnip")
+          if luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+          end
+        end, { "i", "s" }),
+        -- TODO: Combine LuaSnip with copilot.lua
+        ["<M-S-j>"] = cmp.mapping(function(fallback)
+          local luasnip = require("luasnip")
 
-        if luasnip.choice_active() then
-          luasnip.change_choice(1)
-        else
-          fallback()
-        end
-      end, { "i" }),
-      -- TODO: Combine LuaSnip with copilot.lua
-      ["<M-S-k>"] = cmp.mapping(function(fallback)
-        local luasnip = require("luasnip")
+          if luasnip.choice_active() then
+            luasnip.change_choice(1)
+          else
+            fallback()
+          end
+        end, { "i" }),
+        -- TODO: Combine LuaSnip with copilot.lua
+        ["<M-S-k>"] = cmp.mapping(function(fallback)
+          local luasnip = require("luasnip")
 
-        if luasnip.choice_active() then
-          luasnip.change_choice(-1)
-        else
-          fallback()
-        end
-      end, { "i" }),
-      ["<M-s>"] = cmp.mapping(function(fallback)
-        local luasnip = require("luasnip")
-        local select_choice = require("luasnip.extras.select_choice")
+          if luasnip.choice_active() then
+            luasnip.change_choice(-1)
+          else
+            fallback()
+          end
+        end, { "i" }),
+        ["<M-s>"] = cmp.mapping(function(fallback)
+          local luasnip = require("luasnip")
+          local select_choice = require("luasnip.extras.select_choice")
 
-        if luasnip.choice_active() then
-          select_choice()
-        else
-          fallback()
-        end
-      end, { "i" }),
-      ["<C-Space>"] = cmp.mapping.complete(),
-    }, "LuaSnip", {}), plugin_utils.check_enabled_plugin({
-      ["<C-Y>"] = cmp.mapping(function(fallback)
-        local copilot_suggestion = require("copilot.suggestion")
+          if luasnip.choice_active() then
+            select_choice()
+          else
+            fallback()
+          end
+        end, { "i" }),
+        ["<C-Space>"] = cmp.mapping.complete(),
+      }, "LuaSnip", {}),
+      plugin_utils.check_enabled_plugin({
+        ["<C-Y>"] = cmp.mapping(function(fallback)
+          local copilot_suggestion = require("copilot.suggestion")
 
-        if copilot_suggestion.is_visible() then
-          copilot_suggestion.dismiss()
-        end
+          if copilot_suggestion.is_visible() then
+            copilot_suggestion.dismiss()
+          end
 
-        cmp.mapping.confirm({ select = false })(fallback)
-      end),
-      ["<CR>"] = cmp.mapping(function(fallback)
-        local copilot_suggestion = require("copilot.suggestion")
+          cmp.mapping.confirm({ select = false })(fallback)
+        end),
+        ["<CR>"] = cmp.mapping(function(fallback)
+          local copilot_suggestion = require("copilot.suggestion")
 
-        if copilot_suggestion.is_visible() then
-          copilot_suggestion.accept()
-        else
-          cmp.mapping.confirm({ select = true })(fallback)
-        end
-      end),
-      -- Copilot
-      -- Close nvim-cmp and accept copilot suggestion if visible
-      ["<M-l>"] = cmp.mapping(function(fallback)
-        local copilot_suggestion = require("copilot.suggestion")
+          if copilot_suggestion.is_visible() then
+            copilot_suggestion.accept()
+          else
+            cmp.mapping.confirm({ select = true })(fallback)
+          end
+        end),
+        -- Copilot
+        -- Close nvim-cmp and accept copilot suggestion if visible
+        ["<M-l>"] = cmp.mapping(function(fallback)
+          local copilot_suggestion = require("copilot.suggestion")
 
-        if copilot_suggestion.is_visible() then
+          if copilot_suggestion.is_visible() then
+            cmp.mapping.close()(fallback)
+
+            if choose.is_enabled_plugin("nvim-autopairs") then
+              -- NOTE: Fix bug that nvim-autopairs adding extra closing brackets
+              -- Ref: https://github.com/zbirenbaum/copilot.lua/issues/215#issuecomment-1918114065
+              require("nvim-autopairs").disable()
+            end
+
+            copilot_suggestion.accept()
+
+            if choose.is_enabled_plugin("nvim-autopairs") then
+              require("nvim-autopairs").enable()
+            end
+          else
+            fallback()
+          end
+        end),
+        -- Close nvim-cmp and show copilot next suggestion
+        ["<M-]>"] = cmp.mapping(function(fallback)
+          local copilot_suggestion = require("copilot.suggestion")
+
           cmp.mapping.close()(fallback)
+          copilot_suggestion.next()
+        end),
+        -- Close nvim-cmp and show copilot prev suggestion
+        ["<M-[>"] = cmp.mapping(function(fallback)
+          local copilot_suggestion = require("copilot.suggestion")
 
-          if choose.is_enabled_plugin("nvim-autopairs") then
-            -- NOTE: Fix bug that nvim-autopairs adding extra closing brackets
-            -- Ref: https://github.com/zbirenbaum/copilot.lua/issues/215#issuecomment-1918114065
-            require("nvim-autopairs").disable()
-          end
-
-          copilot_suggestion.accept()
-
-          if choose.is_enabled_plugin("nvim-autopairs") then
-            require("nvim-autopairs").enable()
-          end
-        else
-          fallback()
-        end
-      end),
-      -- Close nvim-cmp and show copilot next suggestion
-      ["<M-]>"] = cmp.mapping(function(fallback)
-        local copilot_suggestion = require("copilot.suggestion")
-
-        cmp.mapping.close()(fallback)
-        copilot_suggestion.next()
-      end),
-      -- Close nvim-cmp and show copilot prev suggestion
-      ["<M-[>"] = cmp.mapping(function(fallback)
-        local copilot_suggestion = require("copilot.suggestion")
-
-        cmp.mapping.close()(fallback)
-        copilot_suggestion.prev()
-      end),
-    }, "copilot-cmp", {}))),
+          cmp.mapping.close()(fallback)
+          copilot_suggestion.prev()
+        end),
+      }, "copilot-cmp", {})
+    )),
     -- Ref: https://github.com/lukas-reineke/dotfiles/blob/master/vim/lua/plugins/nvim-cmp.lua#L54-L77
     sources = cmp.config.sources(
       vim.tbl_filter(function(component)

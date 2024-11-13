@@ -359,6 +359,7 @@ local completion = {
     config = function(_, opts)
       require("CopilotChat.integrations.cmp").setup()
       require("CopilotChat").setup(opts)
+      require("vimrc.plugins.nvim_cmp").insert_luasnip_source_to_filetype("copilot-chat")
     end,
   },
 
@@ -492,7 +493,10 @@ local completion = {
         },
       },
     },
-    config = true
+    config = function(_, opts)
+      require("codecompanion").setup(opts)
+      require("vimrc.plugins.nvim_cmp").insert_luasnip_source_to_filetype("codecompanion")
+    end,
   }
 }
 
