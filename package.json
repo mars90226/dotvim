@@ -1,13 +1,25 @@
 {
-  "name": "vim-secret",
+  "name": "dotvim",
   "engines": {
     "vscode": "^1.11.0"
   },
   "contributes": {
     "snippets": [
       {
-        "language": "vimwiki",
-        "path": "./snippets/vimwiki.json"
+        "language": "avante",
+        "path": "./snippets/ai_chat.json"
+      },
+      {
+        "language": "codecompanion",
+        "path": "./snippets/ai_chat.json"
+      },
+      {
+        "language": "copilot-chat",
+        "path": "./snippets/ai_chat.json"
+      },
+      {
+        "language": "mediawiki",
+        "path": "./snippets/mediawiki.json"
       }
     ]
   }
