@@ -6,7 +6,7 @@
   "contributes": {
     "snippets": [
       {
-        "language": "avante",
+        "language": "AvanteInput",
         "path": "./snippets/ai_chat.json"
       },
       {
