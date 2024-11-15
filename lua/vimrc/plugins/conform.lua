@@ -7,6 +7,9 @@ local conform = {}
 conform.setup_config = function()
   local conform_config = {
     formatters_by_ft = {
+      just = {
+        "just",
+      },
       lua = {
         "stylua",
       },
