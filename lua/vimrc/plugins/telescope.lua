@@ -98,6 +98,13 @@ local yank_selection = function(prompt_bufnr)
   vim.fn.setreg('"', content)
 end
 
+-- Add a wrapper function to avoid loading smart-open.nvim plugin when setup telescope.nvim
+local smart_open_delete_buffer = function(prompt_bufnr)
+  local smart_open_actions = require("smart-open.actions")
+  -- NOTE: Although `smart_open_actions.delete_buffer` has second argument `winid`, but it is not used.
+  return smart_open_actions.delete_buffer(prompt_bufnr)
+end
+
 -- Global remapping
 ------------------------------
 telescope.setup_config = function()
@@ -189,6 +196,12 @@ telescope.setup_config = function()
       smart_open = {
         -- TODO: Add more `ignore_patterns` in addition of default
         match_algorithm = "fzf",
+        mappings = {
+          i = {
+            ["<C-W>"] = { "<C-S-W>", type = "command" },
+            ["<M-w>"] = smart_open_delete_buffer,
+          }
+        }
       },
     }
   })
