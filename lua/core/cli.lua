@@ -8,7 +8,7 @@ cli.setup = function()
   end
 
   -- sdcv
-  if vim.fn.executable("sdcv") == 1 then
+  if plugin_utils.is_executable("sdcv") then
     use_config({
       "mars90226/cli-sdcv",
       config = function()
@@ -23,7 +23,7 @@ cli.setup = function()
   end
 
   -- translate-shell
-  if vim.fn.executable("trans") == 1 then
+  if plugin_utils.is_executable("trans") then
     use_config({
       "mars90226/cli-trans",
       config = function()
@@ -43,7 +43,7 @@ cli.setup = function()
     })
   end
 
-  if vim.fn.executable("tmux") == 1 then
+  if plugin_utils.is_executable("tmux") then
     use_config({
       "mars90226/cli-tmux",
       config = function()
@@ -52,7 +52,7 @@ cli.setup = function()
       end,
     })
 
-    if vim.fn.executable("ssh-agent") == 1 then
+    if plugin_utils.is_executable("ssh-agent") then
       use_config({
         "mars90226/cli-tmux-ssh-agent",
         config = function()
@@ -75,7 +75,7 @@ cli.setup = function()
     })
   else
     -- Linux
-    if vim.fn.executable("xdg-open") == 1 then
+    if plugin_utils.is_executable("xdg-open") then
       use_config({
         "mars90226/cli-execute-xdg-open",
         config = function()
@@ -86,7 +86,7 @@ cli.setup = function()
   end
 
   -- grepprg
-  if vim.fn.executable("rg") == 1 then
+  if plugin_utils.is_executable("rg") then
     use_config({
       "mars90226/cli-grepprg-rg",
       config = function()
@@ -94,7 +94,7 @@ cli.setup = function()
         vim.go.grepformat = "%f:%l:%c:%m,%f:%l:%m"
       end,
     })
-  elseif vim.fn.executable("ag") == 1 then
+  elseif plugin_utils.is_executable("ag") then
     use_config({
       "mars90226/cli-grepprg-ag",
       config = function()

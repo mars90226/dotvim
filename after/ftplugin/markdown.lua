@@ -1,9 +1,10 @@
 local choose = require("vimrc.choose")
+local plugin_utils = require("vimrc.plugin_utils")
 
 vim.bo.expandtab = true
 vim.wo.spell = false -- NOTE: Chinese is not supported
 
-if vim.fn.executable("markdownlint") == 1 then
+if plugin_utils.is_executable("markdownlint") then
   vim.bo.makeprg = "markdownlint"
 end
 

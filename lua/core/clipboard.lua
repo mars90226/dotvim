@@ -10,7 +10,7 @@ clipboard.setup = function()
   -- TODO: Use neovim builtin OSC52 clipboard provider
   -- Ref: https://github.com/neovim/neovim/pull/25872
   if vim.fn.has("wsl") == 1 then
-    local has_lemonade = vim.fn.executable("lemonade") == 1
+    local has_lemonade = plugin_utils.is_executable("lemonade")
     local copy_cmd = has_lemonade and "lemonade copy" or "xsel -i"
     local paste_cmd = has_lemonade and "lemonade paste" or "xsel -o"
 

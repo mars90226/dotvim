@@ -1,3 +1,5 @@
+local plugin_utils = require("vimrc.plugin_utils")
+
 vim.bo.shiftwidth = 4
 vim.bo.tabstop = 4
 vim.bo.softtabstop = 4
@@ -15,12 +17,12 @@ vim.keymap.set("n",
   { silent = true, buffer = true }
 )
 
-if vim.fn.executable("black-macchiato") == 1 then
+if plugin_utils.is_executable("black-macchiato") then
   vim.bo.formatprg = "black-macchiato"
-elseif vim.fn.executable("autopep8") == 1 then
+elseif plugin_utils.is_executable("autopep8") then
   vim.bo.formatprg = "autopep8"
 end
 
-if vim.fn.executable("isort") == 1 then
+if plugin_utils.is_executable("isort") then
   vim.cmd([[command! -range SortImport :<line1>,<line2>!isort -]])
 end

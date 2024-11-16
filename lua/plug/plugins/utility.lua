@@ -516,7 +516,7 @@ local utility = {
 
   {
     "gennaro-tedesco/nvim-jqx",
-    cond = vim.fn.executable("jq") == 1,
+    cond = plugin_utils.is_executable("jq"),
     ft = { "json", "yaml" },
   },
 

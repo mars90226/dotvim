@@ -2,6 +2,8 @@ local choose = require("vimrc.choose")
 
 local plugin_utils = {}
 
+plugin_utils.is_executable_cache = {}
+
 -- Utils
 plugin_utils.check_condition = function(plugin_spec, condition, default)
   if condition then
@@ -17,7 +19,12 @@ end
 
 -- Plugin check
 plugin_utils.is_executable = function(executable)
-  return vim.fn.executable(executable) > 0
+  -- NOTE: Cannot update vim global variables here (vim.g) due to neovim's limitation?
+  -- Use lua local variable instead
+  if plugin_utils.is_executable_cache[executable] == nil then
+    plugin_utils.is_executable_cache[executable] = vim.fn.executable(executable) == 1
+  end
+  return plugin_utils.is_executable_cache[executable]
 end
 
 plugin_utils.file_readable = function(file)

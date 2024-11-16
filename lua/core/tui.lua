@@ -9,7 +9,7 @@ tui.setup = function()
   end
 
   -- Search keyword with Google using surfraw
-  if vim.fn.executable("sr") == 1 then
+  if plugin_utils.is_executable("sr") then
     use_config({
       "mars90226/tui-sr",
       config = function()
@@ -19,7 +19,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("htop") == 1 then
+  if plugin_utils.is_executable("htop") then
     use_config({
       "mars90226/tui-htop",
       config = function()
@@ -35,7 +35,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("atop") == 1 then
+  if plugin_utils.is_executable("atop") then
     use_config({
       "mars90226/tui-atop",
       config = function()
@@ -49,7 +49,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("btm") == 1 then
+  if plugin_utils.is_executable("btm") then
     use_config({
       "mars90226/tui-btm",
       config = function()
@@ -65,7 +65,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("broot") == 1 then
+  if plugin_utils.is_executable("broot") then
     use_config({
       "mars90226/tui-broot",
       config = function()
@@ -93,7 +93,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("ranger") == 1 then
+  if plugin_utils.is_executable("ranger") then
     use_config({
       "mars90226/tui-ranger",
       config = function()
@@ -111,7 +111,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("nnn") == 1 then
+  if plugin_utils.is_executable("nnn") then
     use_config({
       "mars90226/tui-nnn",
       config = function()
@@ -125,7 +125,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("vifm") == 1 then
+  if plugin_utils.is_executable("vifm") then
     use_config({
       "mars90226/tui-vifm",
       config = function()
@@ -161,7 +161,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("fff") == 1 then
+  if plugin_utils.is_executable("fff") then
     use_config({
       "mars90226/tui-fff",
       config = function()
@@ -175,7 +175,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("lf") == 1 then
+  if plugin_utils.is_executable("lf") then
     use_config({
       "mars90226/tui-lf",
       config = function()
@@ -189,7 +189,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("xplr") == 1 then
+  if plugin_utils.is_executable("xplr") then
     use_config({
       "mars90226/tui-xplr",
       config = function()
@@ -205,7 +205,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("yazi") == 1 then
+  if plugin_utils.is_executable("yazi") then
     use_config({
       "mars90226/tui-yazi",
       config = function()
@@ -222,7 +222,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("lazygit") == 1 then
+  if plugin_utils.is_executable("lazygit") then
     use_config({
       "mars90226/tui-lazygit",
       config = function()
@@ -246,7 +246,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("gitui") == 1 then
+  if plugin_utils.is_executable("gitui") then
     use_config({
       "mars90226/tui-gitui",
       config = function()
@@ -271,7 +271,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("bandwhich") == 1 then
+  if plugin_utils.is_executable("bandwhich") then
     use_config({
       "mars90226/tui-bandwhich",
       config = function()
@@ -293,7 +293,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("jless") == 1 then
+  if plugin_utils.is_executable("jless") then
     use_config({
       "mars90226/tui-jless",
       config = function()
@@ -315,7 +315,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("mprocs") == 1 then
+  if plugin_utils.is_executable("mprocs") then
     use_config({
       "mars90226/tui-mprocs",
       config = function()
@@ -339,7 +339,7 @@ tui.setup = function()
   -- TODO: Add tig
 
   -- Shells
-  if vim.fn.executable("fish") == 1 then
+  if plugin_utils.is_executable("fish") then
     use_config({
       "mars90226/tui-fish",
       config = function()
@@ -353,7 +353,7 @@ tui.setup = function()
     })
   end
 
-  if vim.fn.executable("zsh") == 1 then
+  if plugin_utils.is_executable("zsh") then
     use_config({
       "mars90226/tui-zsh",
       config = function()
