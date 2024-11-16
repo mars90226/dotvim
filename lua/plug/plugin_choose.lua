@@ -14,12 +14,7 @@ plugin_choose.setup_appearance = function()
   -- Winbar
   -- dropbar.nvim-winbar, lualine.nvim, lspsaga.nvim
   choose.disable_plugins({ "dropbar.nvim-winbar", "lualine.nvim-winbar", "lspsaga.nvim-winbar" })
-  if vim.fn.has("nvim-0.10") == 1 then
-    choose.enable_plugin("dropbar.nvim-winbar")
-  elseif vim.fn.has("nvim-0.8") == 1 then
-    choose.enable_plugin("lualine.nvim-winbar")
-    -- choose.enable_plugin("lspsaga-nvim-winbar")
-  end
+  choose.enable_plugin("dropbar.nvim-winbar")
 
   -- Choose tabline bundled in statusline
   -- TODO: Disable barbar.nvim due to slowness
@@ -188,13 +183,7 @@ plugin_choose.setup_language = function()
   -- dropbar.nvim, nvim-navic, glepnir/lspsaga.nvim
   local context_component_plugins = { "dropbar.nvim", "nvim-navic", "lspsaga.nvim-context" }
   choose.disable_plugins(context_component_plugins)
-  if vim.fn.has("nvim-0.10") == 1 then
-    choose.enable_plugin("dropbar.nvim")
-  elseif vim.fn.has("nvim-0.8") == 1 and choose.is_enabled_plugin("nvim-lsp") then
-    choose.enable_plugin("nvim-navic")
-    -- NOTE: Disable lspsaga.nvim as it request lsp symbols on every CursorMoved which is too slow
-    -- choose.enable_plugin("lspsaga.nvim-context")
-  end
+  choose.enable_plugin("dropbar.nvim")
   -- nvim-navic is required by nvim-navbuddy
   choose.enable_plugin("nvim-navic")
 
