@@ -60,7 +60,7 @@ function! vimrc#plugin#check#has_linux_build_env() abort
 endfunction
 
 function! vimrc#plugin#check#has_cargo() abort
-  return executable('cargo') && vimrc#plugin#check#has_linux_build_env()
+  return v:lua.require('vimrc.plugin_utils').is_executable('cargo') && vimrc#plugin#check#has_linux_build_env()
 endfunction
 
 let s:git_version = 'not initialized'

@@ -85,10 +85,10 @@ function! vimrc#fugitive#mappings() abort
   nnoremap <buffer> <silent> gl :Git pull<CR>
   nnoremap <buffer> <silent> gL :Git pull --rebase<CR>
 
-  if executable('rust-commitizen')
+  if v:lua.require('vimrc.plugin_utils').is_executable('rust-commitizen')
     nnoremap <buffer> <silent> czc :call vimrc#tui#run('float', 'rust-commitizen', 1)<CR>
   endif
-  if executable('git-cz')
+  if v:lua.require('vimrc.plugin_utils').is_executable('git-cz')
     nnoremap <buffer> <silent> czC :call vimrc#tui#run('float', 'git cz', 1)<CR>
   endif
 

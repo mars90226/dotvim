@@ -524,7 +524,7 @@ function! vimrc#fzf#functions() abort
 endfunction
 
 function! vimrc#fzf#helptags(...) abort
-  if !executable('grep') || !executable('perl')
+  if !v:lua.require('vimrc.plugin_utils').is_executable('grep') || !v:lua.require('vimrc.plugin_utils').is_executable('perl')
     return vimrc#utility#warn('Helptags command requires grep and perl')
   endif
   let sorted = sort(split(globpath(&runtimepath, 'doc/tags', 1), '\n'))

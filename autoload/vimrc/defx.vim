@@ -343,7 +343,7 @@ function! vimrc#defx#mappings() abort " {{{ abort
   nnoremap <silent><buffer><expr> <Leader>gl
         \ ':Git log -p -- '.vimrc#defx#get_target()."\<CR>"
 
-  if executable('viu')
+  if v:lua.require('vimrc.plugin_utils').is_executable('viu')
     nnoremap <silent><buffer><expr> \vv
           \ defx#do_action('call', 'vimrc#defx#show_image')
   endif

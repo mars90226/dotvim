@@ -1,8 +1,8 @@
 " Utility functions
 function! vimrc#browser#get_command(command) abort
-  if executable('firefox')
+  if v:lua.require('vimrc.plugin_utils').is_executable('firefox')
     return 'firefox '.a:command
-  elseif executable('chrome')
+  elseif v:lua.require('vimrc.plugin_utils').is_executable('chrome')
     return 'chrome '.a:command
   else
     return ''
@@ -10,9 +10,9 @@ function! vimrc#browser#get_command(command) abort
 endfunction
 
 function! vimrc#browser#get_search_command(keyword) abort
-  if executable('firefox')
+  if v:lua.require('vimrc.plugin_utils').is_executable('firefox')
     return "firefox --search '" . a:keyword . "'"
-  elseif executable('chrome')
+  elseif v:lua.require('vimrc.plugin_utils').is_executable('chrome')
     return "chrome '? " . a:keyword . "'"
   else
     return ''
@@ -95,7 +95,7 @@ function! vimrc#browser#async_open(uri) abort
     endif
   else
     " Use xdg-open to open URI
-    if !has('unix') || !executable('xdg-open')
+    if !has('unix') || !v:lua.require('vimrc.plugin_utils').is_executable('xdg-open')
       echoerr 'No xdg-open found!'
       return
     endif

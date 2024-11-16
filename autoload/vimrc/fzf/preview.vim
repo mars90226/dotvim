@@ -1,10 +1,10 @@
 " Variables
 let s:fzf_preview_command = 'cat'
-if executable('bat')
+if v:lua.require('vimrc.plugin_utils').is_executable('bat')
   let s:fzf_preview_command = 'bat --style=numbers --color=always'
 endif
 let s:fzf_dir_preview_command = 'ls -la --color=always'
-if executable('eza')
+if v:lua.require('vimrc.plugin_utils').is_executable('eza')
   let s:fzf_dir_preview_command = 'eza -lag --color=always'
 endif
 
