@@ -572,24 +572,24 @@ local utility = {
   },
   { "will133/vim-dirdiff", cmd = { "DirDiff" } },
 
-  -- RESTful
-  -- TODO: Migrate to kulala.nvim
-  -- TODO: Check if not working on Windows
-  -- TODO: Migrate to rocks.nvim
-  -- NOTE: rocks.nvim installation script is outside of lazy.nvim & manual installation steps are tedious.
-  -- TODO: rest.nvim is back again with v3, may try out
-  {
-    "rest-nvim/rest.nvim",
-    enabled = false,
-    dependencies = { { "nvim-lua/plenary.nvim" } },
-    ft = { "http" },
-    keys = {
-      { "<Leader>rr", [[<Plug>RestNvim]], nowait = true },
-      { "<Leader>rp", [[<Plug>RestNvimPreview]], nowait = true },
-      { "<Leader>rl", [[<Plug>RestNvimLast]], nowait = true },
-    },
-    opts = {},
-  },
+  -- -- RESTful
+  -- -- TODO: Migrate to kulala.nvim
+  -- -- TODO: Check if not working on Windows
+  -- -- TODO: Migrate to rocks.nvim
+  -- -- NOTE: rocks.nvim installation script is outside of lazy.nvim & manual installation steps are tedious.
+  -- -- TODO: rest.nvim is back again with v3, may try out
+  -- {
+  --   "rest-nvim/rest.nvim",
+  --   enabled = false,
+  --   dependencies = { { "nvim-lua/plenary.nvim" } },
+  --   ft = { "http" },
+  --   keys = {
+  --     { "<Leader>rr", [[<Plug>RestNvim]], nowait = true },
+  --     { "<Leader>rp", [[<Plug>RestNvimPreview]], nowait = true },
+  --     { "<Leader>rl", [[<Plug>RestNvimLast]], nowait = true },
+  --   },
+  --   opts = {},
+  -- },
 
   -- DB
   {
@@ -600,23 +600,23 @@ local utility = {
     cmd = { "DB", "DBUI" },
   },
 
-  -- NOTE: Try again after it can add connections interactively
-  {
-    "kndndrj/nvim-dbee",
-    enabled = false,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-    },
-    build = function()
-      -- Install tries to automatically detect the install method.
-      -- if it fails, try calling it with one of these parameters:
-      --    "curl", "wget", "bitsadmin", "go"
-      require("dbee").install()
-    end,
-    config = function()
-      require("dbee").setup( --[[optional config]])
-    end,
-  },
+  -- -- NOTE: Try again after it can add connections interactively
+  -- {
+  --   "kndndrj/nvim-dbee",
+  --   enabled = false,
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --   },
+  --   build = function()
+  --     -- Install tries to automatically detect the install method.
+  --     -- if it fails, try calling it with one of these parameters:
+  --     --    "curl", "wget", "bitsadmin", "go"
+  --     require("dbee").install()
+  --   end,
+  --   config = function()
+  --     require("dbee").setup( --[[optional config]])
+  --   end,
+  -- },
 
   -- Draw
   -- TODO: Add key mappings
@@ -647,17 +647,17 @@ local utility = {
     end,
   },
 
-  -- Image
-  -- TODO: Disabled as currently only don't show image but has the space.
-  -- Tried: In tmux & outside of tmux in wezterm.
-  -- Related issue: https://github.com/3rd/image.nvim/issues/99
-  {
-    "3rd/image.nvim",
-    enabled = false,
-    config = function()
-      require("image").setup({})
-    end,
-  },
+  -- -- Image
+  -- -- TODO: Disabled as currently only don't show image but has the space.
+  -- -- Tried: In tmux & outside of tmux in wezterm.
+  -- -- Related issue: https://github.com/3rd/image.nvim/issues/99
+  -- {
+  --   "3rd/image.nvim",
+  --   enabled = false,
+  --   config = function()
+  --     require("image").setup({})
+  --   end,
+  -- },
 
   {
     "tpope/vim-abolish",
@@ -699,18 +699,8 @@ local utility = {
   },
   { "tweekmonster/helpful.vim", cmd = { "HelpfulVersion" } },
   { "dstein64/vim-startuptime", cmd = { "StartupTime" } },
-  { "lambdalisue/reword.vim", event = { "CmdlineEnter" } },
-  { "nicwest/vim-http", cmd = { "Http" } },
   { "kristijanhusak/vim-carbon-now-sh", cmd = { "CarbonNowSh" } },
   { "taybart/b64.nvim", cmd = { "B64Encode", "B64Decode" } },
-
-  -- nvim-gdb
-  -- Disabled for now as neovim's neovim_gdb.vim seems not exists
-  -- {
-  --   'sakhnik/nvim-gdb',
-  --   build = './install.sh',
-  --   cond = vim.fn.has("nvim") == 1,
-  -- }
 }
 
 return utility

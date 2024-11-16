@@ -119,36 +119,6 @@ local text_manipulation = {
       require("ssr").setup()
     end,
   },
-  {
-    "AckslD/muren.nvim",
-    cmd = { "MurenToggle", "MurenOpen", "MurenUnique", "MurenUniqueVisual" },
-    keys = {
-      { "<Leader>mr", [[<Cmd>MurenToggle<CR>]], desc = "muren.nvim - toggle" },
-      { "<Leader>mu", [[<Cmd>MurenUnique<CR>]], desc = "muren.nvim - prefill with unique matches" },
-      {
-        "<Leader>mk",
-        function()
-          require("vimrc.plugins.muren").open_unique_ui(vim.fn.expand("<cword>"))
-        end,
-        desc = "muren.nvim - search cursor word and prefill with unique matches",
-      },
-      {
-        "<Leader>mk",
-        mode = "x",
-        [[:MurenUniqueVisual<CR>]],
-        desc = "muren.nvim - search visual selection and prefill with unique matches",
-      },
-    },
-    config = function()
-      local muren = require("vimrc.plugins.muren")
-
-      require("muren").setup()
-
-      vim.api.nvim_create_user_command("MurenUniqueVisual", function()
-        muren.open_unique_ui(utils.get_visual_selection())
-      end, { range = true })
-    end,
-  },
 
   -- Surround
   {

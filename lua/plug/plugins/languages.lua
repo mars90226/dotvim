@@ -690,6 +690,7 @@ local languages = {
 
       local crates_prefix = "<Leader><Leader>c"
 
+      -- TODO: Use keys
       vim.keymap.set("n", crates_prefix .. "t", crates.toggle, { silent = true, desc = "Crates - Toggle crates" })
       vim.keymap.set("n", crates_prefix .. "r", crates.reload, { silent = true, desc = "Crates - Reload crates" })
 
