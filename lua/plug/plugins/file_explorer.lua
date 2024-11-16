@@ -1,4 +1,5 @@
 local choose = require("vimrc.choose")
+local plugin_utils = require("vimrc.plugin_utils")
 
 local file_explorer = {
   -- TODO: Check if :UpdateRemotePlugins is not called after updating defx.nvim
@@ -121,7 +122,7 @@ local file_explorer = {
     build = ":UpdateRemotePlugins",
     config = function()
       require("vimrc.plugins.defx").load_defx()
-      vim.fn["vimrc#source"]("vimrc/plugins/defx.vim")
+      plugin_utils.source_in_vim_home("vimrc/plugins/defx.vim")
       vim.fn["vimrc#defx#setup"](true)
     end,
   },

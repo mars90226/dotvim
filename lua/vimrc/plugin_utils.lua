@@ -1,4 +1,5 @@
 local choose = require("vimrc.choose")
+local utils = require("vimrc.utils")
 
 local plugin_utils = {}
 
@@ -15,6 +16,10 @@ end
 
 plugin_utils.source = function(path)
   vim.cmd('source ' .. path)
+end
+
+plugin_utils.source_in_vim_home = function(path)
+  plugin_utils.source(utils.get_vim_home() .. "/" .. path)
 end
 
 -- Plugin check

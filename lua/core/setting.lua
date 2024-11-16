@@ -15,7 +15,7 @@ settings.setup = function()
       -- Vim basic setting {{{
       -- source custom mswin.vim
       if not plugin_utils.os_is("synology") then
-        vim.fn["vimrc#source"]("vimrc/mswin.vim")
+        plugin_utils.source_in_vim_home("vimrc/mswin.vim")
       end
       -- }}}
 
