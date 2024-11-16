@@ -108,7 +108,6 @@ local text_manipulation = {
       {
         "<Leader>sr",
         mode = { "n", "x" },
-        "<Leader>sr",
         function()
           require("ssr").open()
         end,
