@@ -545,33 +545,33 @@ nvim_treesitter.setup_performance_trick = function()
     end,
   })
 
-  local tab_trick_enable = {}
-  local tab_trick_debounce = 200
-  -- FIXME: Seems to conflict with true-zen.nvim
-  vim.api.nvim_create_autocmd({ "TabEnter" }, {
-    group = augroup_id,
-    pattern = "*",
-    callback = function()
-      tab_trick_enable[vim.api.nvim_get_current_tabpage()] = true
-
-      vim.defer_fn(function()
-        if tab_trick_enable then
-          tab_loop_supported_wins(function(winid)
-            for _, module in ipairs(tab_idle_disabled_modules) do
-              configs_commands.TSBufEnable.run(module, vim.api.nvim_win_get_buf(winid))
-            end
-          end)
-
-          tab_trick_enable[vim.api.nvim_get_current_tabpage()] = false
-        end
-      end, tab_trick_debounce)
-    end,
-  })
-
-  -- NOTE: Disabled performance trick for WinBufEnter/TabLeave for now. Due to the following reasons:
+  -- NOTE: Disabled performance trick for TabEnter/WinBufEnter/TabLeave for now. Due to the following reasons:
   -- 1. Treesitter highlight is faster now.
   -- 2. Disabled it also benefits the performance on tab switch.
 
+  -- local tab_trick_enable = {}
+  -- local tab_trick_debounce = 200
+  -- -- FIXME: Seems to conflict with true-zen.nvim
+  -- vim.api.nvim_create_autocmd({ "TabEnter" }, {
+  --   group = augroup_id,
+  --   pattern = "*",
+  --   callback = function()
+  --     tab_trick_enable[vim.api.nvim_get_current_tabpage()] = true
+  --
+  --     vim.defer_fn(function()
+  --       if tab_trick_enable then
+  --         tab_loop_supported_wins(function(winid)
+  --           for _, module in ipairs(tab_idle_disabled_modules) do
+  --             configs_commands.TSBufEnable.run(module, vim.api.nvim_win_get_buf(winid))
+  --           end
+  --         end)
+  --
+  --         tab_trick_enable[vim.api.nvim_get_current_tabpage()] = false
+  --       end
+  --     end, tab_trick_debounce)
+  --   end,
+  -- })
+  --
   -- vim.api.nvim_create_autocmd({ "TabLeave" }, {
   --   group = augroup_id,
   --   pattern = "*",
