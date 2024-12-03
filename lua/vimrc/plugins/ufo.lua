@@ -99,7 +99,7 @@ ufo.setup = function()
   })
 
   -- Disable on FileType
-  local disabled_filetypes = { "dashboard", "man" }
+  local disabled_filetypes = { "dashboard", "man", "snacks_dashboard" }
   -- Disable fold if current buffer is in disabled_filetypes
   if vim.list_contains(disabled_filetypes, vim.api.nvim_buf_get_option(0, "filetype")) then
     vim.wo[0].foldenable = false
