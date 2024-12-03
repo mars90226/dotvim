@@ -398,7 +398,7 @@ mapping.setup = function()
       vim.keymap.set("n", "<Space>ht", [[<Cmd>InspectTree<CR>]])
 
       -- Print visual selection info
-      -- TODO: Do not leave visual mode, use nvim-notify
+      -- TODO: Do not leave visual mode, use vim.notify
       vim.keymap.set("x", "g<C-G>", "g<C-G>:<C-U>lua vim.notify(vim.v.statusmsg)<CR>")
 
       -- Repeat or execute macro on all visually selected lines
