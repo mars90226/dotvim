@@ -24,7 +24,8 @@ plugin_choose.setup_appearance = function()
   -- Statuscolumn
   -- snacks.nvim-statuscolumn, statuscol.nvim
   choose.disable_plugins({ "snacks.nvim-statuscolumn", "statuscol.nvim" })
-  choose.enable_plugin("snacks.nvim-statuscolumn")
+  -- choose.enable_plugin("snacks.nvim-statuscolumn")
+  choose.enable_plugin("statuscol.nvim")
 
   -- Devicons
   -- nvim-web-devicons, vim-devicons
