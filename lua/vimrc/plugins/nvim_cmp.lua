@@ -163,6 +163,7 @@ nvim_cmp.setup = function()
         }),
         ["<Tab>"] = cmp.mapping(nvim_cmp.handle_tab_completion(cmp.select_next_item), { "i", "s" }),
         ["<S-Tab>"] = cmp.mapping(nvim_cmp.handle_tab_completion(cmp.select_prev_item), { "i", "s" }),
+        ["<C-Space>"] = cmp.mapping.complete(),
       },
       plugin_utils.check_enabled_plugin({
         ["<C-J>"] = cmp.mapping(function(fallback)
@@ -188,7 +189,7 @@ nvim_cmp.setup = function()
           else
             fallback()
           end
-        end, { "i" }),
+        end, { "i", "s" }),
         -- TODO: Combine LuaSnip with copilot.lua
         ["<M-S-k>"] = cmp.mapping(function(fallback)
           local luasnip = require("luasnip")
@@ -198,7 +199,7 @@ nvim_cmp.setup = function()
           else
             fallback()
           end
-        end, { "i" }),
+        end, { "i", "s" }),
         ["<M-s>"] = cmp.mapping(function(fallback)
           local luasnip = require("luasnip")
           local select_choice = require("luasnip.extras.select_choice")
@@ -209,7 +210,6 @@ nvim_cmp.setup = function()
             fallback()
           end
         end, { "i" }),
-        ["<C-Space>"] = cmp.mapping.complete(),
       }, "LuaSnip", {}),
       plugin_utils.check_enabled_plugin({
         ["<C-Y>"] = cmp.mapping(function(fallback)
