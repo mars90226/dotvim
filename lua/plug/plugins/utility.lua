@@ -723,6 +723,14 @@ local utility = {
         end,
       })
     end,
+    config = function(_, opts)
+      require("snacks").setup(opts)
+
+      -- CTRL-L with nvim default behavior & dismiss notifications
+      -- NOTE: This may break after reloading config
+      local default_ctrl_l = vim.fn.maparg("<C-L>", "n", false, true)
+      vim.keymap.set("n", "<C-L>", default_ctrl_l.rhs .. [[<Cmd>lua Snacks.notifier.hide()<CR>]], { silent = true })
+    end,
   },
 
   {

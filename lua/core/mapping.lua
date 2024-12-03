@@ -46,11 +46,6 @@ mapping.setup = function()
       -- so that you can undo CTRL-U after inserting a line break.
       vim.keymap.set("i", "<C-U>", [[<C-G>u<C-U>]])
 
-      -- CTRL-L with nvim default behavior & dismiss notifications
-      -- NOTE: This may break after reloading config
-      local default_ctrl_l = vim.fn.maparg("<C-L>", "n", false, true)
-      vim.keymap.set("n", "<C-L>", default_ctrl_l.rhs .. [[<Cmd>lua vim.notify.dismiss()<CR>]], { silent = true })
-
       -- Alternative key mapping for those key mappings that are hard to type in ergonomic keyboard.
       vim.keymap.set("n", "<C-W><C-G>", "<C-W>]", { desc = "Open tag in split window" })
 
