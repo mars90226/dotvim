@@ -671,24 +671,24 @@ local utility = {
       }
     },
     keys = {
-      { "<Leader>.",  function() Snacks.scratch() end,                 desc = "Toggle Scratch Buffer" },
-      { "<Leader>S",  function() Snacks.scratch.select() end,          desc = "Select Scratch Buffer" },
-      { "<Leader>nn", function() Snacks.notifier.show_history() end,   desc = "Notification History" },
-      { "<Leader>bd", function() Snacks.bufdelete() end,               desc = "Delete Buffer" },
-      { "<Leader>cR", function() Snacks.rename.rename_file() end,      desc = "Rename File" },
+      { "<Leader>.",          function() Snacks.scratch() end,                 desc = "Toggle Scratch Buffer" },
+      { "<Leader>S",          function() Snacks.scratch.select() end,          desc = "Select Scratch Buffer" },
+      { "<Leader>nn",         function() Snacks.notifier.show_history() end,   desc = "Notification History" },
+      { "<Leader>bd",         function() Snacks.bufdelete() end,               desc = "Delete Buffer" },
+      { "<Leader>cR",         function() Snacks.rename.rename_file() end,      desc = "Rename File" },
 
-      -- FIXME: Fix key mappings conflict
-      { "<Leader>gB", function() Snacks.gitbrowse() end,               desc = "Git Browse" },
-      { "<Leader>gb", function() Snacks.git.blame_line() end,          desc = "Git Blame Line" },
-      { "<Leader>gf", function() Snacks.lazygit.log_file() end,        desc = "Lazygit Current File History" },
-      { "<Leader>gg", function() Snacks.lazygit() end,                 desc = "Lazygit" },
-      { "<Leader>gl", function() Snacks.lazygit.log() end,             desc = "Lazygit Log (cwd)" },
+      -- TODO: Use better key mappings
+      { "<Leader><Leader>gB", function() Snacks.gitbrowse() end,               desc = "Git Browse" },
+      { "<Leader><Leader>gb", function() Snacks.git.blame_line() end,          desc = "Git Blame Line" },
+      { "<Leader><Leader>gf", function() Snacks.lazygit.log_file() end,        desc = "Lazygit Current File History" },
+      { "<Leader><Leader>gg", function() Snacks.lazygit() end,                 desc = "Lazygit" },
+      { "<Leader><Leader>gl", function() Snacks.lazygit.log() end,             desc = "Lazygit Log (cwd)" },
 
-      { "<Leader>un", function() Snacks.notifier.hide() end,           desc = "Dismiss All Notifications" },
-      { "<C-/>",      function() Snacks.terminal() end,                desc = "Toggle Terminal" },
-      { "<C-_>",      function() Snacks.terminal() end,                desc = "which_key_ignore" },
-      { "]]",         function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",              mode = { "n", "t" } },
-      { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",              mode = { "n", "t" } },
+      { "<Leader>un",         function() Snacks.notifier.hide() end,           desc = "Dismiss All Notifications" },
+      { "<C-/>",              function() Snacks.terminal() end,                desc = "Toggle Terminal" },
+      { "<C-_>",              function() Snacks.terminal() end,                desc = "which_key_ignore" },
+      { "]]",                 function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",              mode = { "n", "t" } },
+      { "[[",                 function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",              mode = { "n", "t" } },
       {
         "<leader>N",
         desc = "Neovim News",
