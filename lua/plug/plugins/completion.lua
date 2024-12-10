@@ -495,6 +495,7 @@ local completion = {
     },
     config = function(_, opts)
       require("codecompanion").setup(opts)
+      require("vimrc.plugins.codecompanion").setup()
       require("vimrc.plugins.nvim_cmp").insert_luasnip_source_to_filetype("codecompanion")
     end,
   }
