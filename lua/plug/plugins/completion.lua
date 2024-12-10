@@ -431,6 +431,7 @@ local completion = {
     cmd = {
       "CodeCompanion",
       "CodeCompanionChat",
+      "CodeCompanionCmd",
       "CodeCompanionActions",
     },
     keys = {
@@ -440,6 +441,7 @@ local completion = {
       { "<Leader>cd", "<Cmd>CodeCompanionChat<CR>", silent = true, desc = "CodeCompanion - Chat" },
       { "<Leader>c`", mode = { "n", "v" }, "<Cmd>CodeCompanionChat Toggle<CR>", silent = true, desc = "CodeCompanion - Toggle" },
       { "<Leader>cd", mode = { "v" }, "<Cmd>CodeCompanionChat Add<CR>", silent = true, desc = "CodeCompanion - Add" },
+      { "<Leader>c:", mode = { "n" }, ":CodeCompanionCmd<Space>", desc = "CodeCompanion - Cmd" },
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
