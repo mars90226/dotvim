@@ -145,6 +145,7 @@ settings.setup = function()
   use_config({
     "mars90226/option-toggle",
     config = function()
+      vim.keymap.set("n", "cob", ":set buflisted!<CR>")
       vim.keymap.set("n", "coc", ":set termguicolors!<CR>")
       vim.keymap.set("n", "coe", ":set expandtab!<CR>")
       vim.keymap.set("n", "com", ":set modifiable!<CR>")

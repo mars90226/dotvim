@@ -236,6 +236,8 @@ local completion = {
             prev = "<M-k>",
           },
         },
+        -- NOTE: copilot.lua only enable for 'buflisted' buffer, so use `:set 'buflisted'` to enable
+        -- on non-'buflisted' buffers.
         filetypes = {
           gitcommit = true,
         },
