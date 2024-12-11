@@ -57,8 +57,8 @@ local text_objects = {
       -- 1. nearEoL use `n` which is conflict with nvim-hlslens.
       -- 2. cssSelector use `ic`, `ac` which is conflict with nvim-treesitter-textobjects.
       various_textobjs.setup({
-        useDefaultKeymaps = true,
-        disabledKeymaps = {
+        useDefaults = true,
+        disabledDefaults = {
           "an",
           "in",
           "r",
