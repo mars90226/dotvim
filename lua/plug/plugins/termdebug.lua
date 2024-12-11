@@ -1,7 +1,7 @@
 local termdebug = {
   -- builtin Termdebug plugin
   {
-    dir = "",
+    dir = vim.env.VIMRUNTIME .. "/pack/dist/opt/termdebug",
     name = "termdebug",
     cmd = { "Termdebug", "TermdebugCommand" },
     config = function()
