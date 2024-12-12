@@ -242,6 +242,14 @@ local completion = {
           gitcommit = true,
         },
       })
+
+      -- Force enable Copilot on non-'buflisted' special buffers like AvanteInput, copilot-chat, codecompanion etc.
+      vim.api.nvim_create_user_command("CopilotForceEnable", function()
+        vim.opt.buflisted = true
+        vim.opt.buftype = ""
+        vim.cmd("Copilot enable")
+      end, {})
+      vim.keymap.set("n", "<Space>cL", "<Cmd>CopilotForceEnable<CR>")
     end,
   },
   {
