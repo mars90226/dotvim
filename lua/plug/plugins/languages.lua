@@ -85,6 +85,8 @@ local languages = {
       },
     },
   },
+  -- TODO: It's archived, need to find replacement
+  -- Replace with [aaroniktreewalker.nvim A neovim plugin for fast navigation around the abstract syntax tree](https://github.com/aaronik/treewalker.nvim)
   {
     "ziontee113/syntax-tree-surfer",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
