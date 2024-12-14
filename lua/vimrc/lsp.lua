@@ -19,8 +19,6 @@ lsp.config = {
   show_diagnostics = true,
 }
 
--- TODO: Refactor this to use `vim.lsp.config` & `vim.lsp.enable` after neovim 0.11.0 is released
--- Ref: [feat(lsp) add `vim.lsp.config` and `vim.lsp.enable` by lewis6991 · Pull Request 31031 · neovim/neovim](https://github.com/neovim/neovim/pull/31031)
 -- NOTE: Change it also need to change lsp.servers_by_filetype
 lsp.servers = {
   bashls = {
@@ -29,8 +27,9 @@ lsp.servers = {
   },
   -- TODO: Change to buf_ls, new buf lsp
   -- Wait for mason-lspconfig to support buf_ls
-  -- Ref: [feat(buf) new lsp for protobuf by gogamid · Pull Request 3414 · neovim/nvim-lspconfig](https://github.com/neovim/nvim-lspconfig/pull/3414)
-  -- Ref: [Add an LSP server command by mcy · Pull Request 3316 · buf/buildbuf](https://github.com/bufbuild/buf/pull/3316)
+  -- Ref: [feat(buf) new lsp for protobuf by gogamid · Pull Request 3414 · neovimnvim-lspconfig](https://github.com/neovim/nvim-lspconfig/pull/3414)
+  -- Ref: [Add an LSP server command by mcy · Pull Request 3316 · bufbuildbuf](https://github.com/bufbuild/buf/pull/3316)
+  bufls = {
     condition = plugin_utils.has_linux_build_env(),
   },
   cssls = {
