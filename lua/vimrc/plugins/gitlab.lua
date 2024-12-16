@@ -3,17 +3,14 @@ local gitlab_server = require("gitlab.server")
 
 local my_gitlab = {}
 
-my_gitlab.minimize_discussion = function()
-  vim.cmd([[wincmd t]]) -- Navigate to discussion panel
-  vim.cmd([[vertical resize 1]])
+my_gitlab.panel_height = 12
 
-  vim.cmd([[wincmd b]]) -- Navigate to the current version file of the git diff
-  vim.cmd([[vertical resize ]]..math.floor((vim.o.columns - 3 - 1 - vim.g.left_sidebar_width) / 2))
+my_gitlab.minimize_discussion = function()
+  vim.cmd([[resize 1]])
 end
 
 my_gitlab.reset_discussion = function()
-  vim.cmd([[wincmd t]]) -- Navigate to discussion panel
-  vim.cmd([[vertical resize ]]..vim.g.left_sidebar_width)
+  vim.cmd([[resize ]]..my_gitlab.panel_height)
 end
 
 my_gitlab.setup_config = function()
