@@ -73,11 +73,12 @@ end
 -- TODO: Refactor this
 nvim_cmp.insert_luasnip_source_to_filetype = function(filetype)
   local luasnip_source = plugin_utils.check_enabled_plugin({ name = "luasnip" }, "LuaSnip")
-  local filetype_sources = require("cmp.config").filetypes[filetype].sources or {}
-  table.insert(filetype_sources, luasnip_source)
+  local cmp_filetype_config = require("cmp.config").filetypes[filetype] or {}
+  local cmp_filetype_config_sources = cmp_filetype_config.sources or {}
+  table.insert(cmp_filetype_config_sources, luasnip_source)
 
   cmp.setup.filetype(filetype, {
-    sources = filetype_sources,
+    sources = cmp_filetype_config_sources,
   })
 end
 
