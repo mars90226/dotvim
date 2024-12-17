@@ -657,6 +657,7 @@ local utility = {
 ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝  ╚═══╝  ╚═╝╚═╝     ╚═╝]],
         },
       },
+      -- NOTE: Currently, it cannot differentiate space & tab and do not respect 'listchars' tab second character '─'
       indent = { enabled = true },
       notifier = {
         enabled = true,
