@@ -184,40 +184,40 @@ local utility = {
   },
 
   -- Focus
-  {
-    "folke/zen-mode.nvim",
-    cmd = { "ZenMode", "ZenModeCopy" },
-    keys = {
-      { "<Leader>zm", [[<Cmd>ZenMode<CR>]],     desc = "Zen mode" },
-      { "<Leader>zc", [[<Cmd>ZenModeCopy<CR>]], desc = "Zen mode copy" },
-    },
-    config = function()
-      require("zen-mode").setup({
-        plugins = {
-          twilight = { enabled = false }, -- twilight.nvim with treesitter in zen-mode.nvim is extremely slow
-        },
-      })
-
-      vim.api.nvim_create_user_command("ZenModeCopy", function()
-        vim.cmd([[ZenMode]])
-        vim.wo.number = false
-        vim.wo.statuscolumn = ""
-        vim.wo.winbar = ""
-        vim.wo.list = not vim.wo.list
-        require("vimrc.lsp").toggle_show_diagnostics()
-        vim.cmd([[IndentBlanklineToggle]])
-        vim.cmd([[TwilightDisable]])
-        vim.cmd([[BlockOff]])
-      end, {})
-    end,
-  },
-  {
-    "folke/twilight.nvim",
-    cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
-    keys = {
-      { "<Leader><C-L>", ":Twilight<CR>", desc = "Twilight toggle" },
-    },
-  },
+  -- {
+  --   "folke/zen-mode.nvim",
+  --   cmd = { "ZenMode", "ZenModeCopy" },
+  --   keys = {
+  --     { "<Leader>zm", [[<Cmd>ZenMode<CR>]],     desc = "Zen mode" },
+  --     { "<Leader>zc", [[<Cmd>ZenModeCopy<CR>]], desc = "Zen mode copy" },
+  --   },
+  --   config = function()
+  --     require("zen-mode").setup({
+  --       plugins = {
+  --         twilight = { enabled = false }, -- twilight.nvim with treesitter in zen-mode.nvim is extremely slow
+  --       },
+  --     })
+  --
+  --     vim.api.nvim_create_user_command("ZenModeCopy", function()
+  --       vim.cmd([[ZenMode]])
+  --       vim.wo.number = false
+  --       vim.wo.statuscolumn = ""
+  --       vim.wo.winbar = ""
+  --       vim.wo.list = not vim.wo.list
+  --       require("vimrc.lsp").toggle_show_diagnostics()
+  --       vim.cmd([[IndentBlanklineToggle]])
+  --       vim.cmd([[TwilightDisable]])
+  --       vim.cmd([[BlockOff]])
+  --     end, {})
+  --   end,
+  -- },
+  -- {
+  --   "folke/twilight.nvim",
+  --   cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
+  --   keys = {
+  --     { "<Leader><C-L>", ":Twilight<CR>", desc = "Twilight toggle" },
+  --   },
+  -- },
   {
     "hoschi/yode-nvim",
     keys = {
@@ -669,7 +669,8 @@ local utility = {
         notification = {
           wo = { wrap = true } -- Wrap notifications
         }
-      }
+      },
+      zen = { enabled = true },
     },
     keys = {
       { "<Leader>.",          function() Snacks.scratch() end,                 desc = "Toggle Scratch Buffer" },
@@ -707,7 +708,9 @@ local utility = {
             },
           })
         end,
-      }
+      },
+      { "<Leader>zm", function() Snacks.zen() end,             desc = "Zen Mode" },
+      { "<Leader>zc", function() vim.cmd([[ZenModeCopy]]) end, desc = "Zen Mode Copy" },
     },
     init = function()
       vim.api.nvim_create_autocmd("User", {
@@ -731,6 +734,25 @@ local utility = {
       -- NOTE: This may break after reloading config
       local default_ctrl_l = vim.fn.maparg("<C-L>", "n", false, true)
       vim.keymap.set("n", "<C-L>", default_ctrl_l.rhs .. [[<Cmd>lua Snacks.notifier.hide()<CR>]], { silent = true })
+
+      vim.api.nvim_create_user_command("ZenModeCopy", function()
+        Snacks.zen.zen({
+          toggles = {
+            dim = false,
+            git_signs = false,
+            mini_diff_signs = false,
+            diagnostics = false,
+            inlay_hints = false,
+            indent = false,
+            line_number = false,
+          }
+        })
+        vim.wo.statuscolumn = ""
+        vim.wo.winbar = ""
+        vim.wo.list = not vim.wo.list
+        vim.wo.signcolumn = "no"
+        vim.cmd([[silent! BlockOff]])
+      end, {})
     end,
   },
 
