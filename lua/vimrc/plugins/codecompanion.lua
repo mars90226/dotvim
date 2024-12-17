@@ -67,8 +67,36 @@ codecompanion.setup_save_load = function()
   end, { nargs = "*" })
 end
 
+codecompanion.setup_autocmd = function()
+  -- TODO: Make this work with CopilotChat.nvim & Avante.nvim without duplicating code
+  -- Trick to make copilot.lua work with CodeCompanion
+  local augroup_id = vim.api.nvim_create_augroup("codecompanion_settings", {})
+  vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+    group = augroup_id,
+    pattern = "*",
+    callback = function()
+      if vim.bo.filetype == "codecompanion" then
+        vim.opt.buflisted = true
+        vim.opt.buftype = ""
+        vim.cmd("Copilot enable")
+      end
+    end,
+  })
+  vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+    group = augroup_id,
+    pattern = "*",
+    callback = function()
+      if vim.bo.filetype == "codecompanion" then
+        vim.opt.buflisted = false
+        vim.opt.buftype = "nofile"
+      end
+    end,
+  })
+end
+
 codecompanion.setup = function()
   codecompanion.setup_save_load()
+  codecompanion.setup_autocmd()
 end
 
 return codecompanion
