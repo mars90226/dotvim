@@ -657,6 +657,7 @@ local utility = {
 ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝  ╚═══╝  ╚═╝╚═╝     ╚═╝]],
         },
       },
+      indent = { enabled = true },
       notifier = {
         enabled = true,
         timeout = 3000,
