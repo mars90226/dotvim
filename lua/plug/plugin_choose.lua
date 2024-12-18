@@ -85,9 +85,6 @@ plugin_choose.setup_completion = function()
 
   -- Choose snippet plugin
   -- LuaSnip
-  if utils.is_light_vim_mode() then
-    choose.disable_plugin("LuaSnip")
-  end
 
   -- Enable placeholder transformations
   if choose.is_disabled_plugin("LuaSnip") or not plugin_utils.has_linux_build_env() then
@@ -106,14 +103,10 @@ plugin_choose.setup_completion = function()
 
   -- Choose auto pairs plugin
   -- nvim-autopairs
-  if utils.is_light_vim_mode() then
-    choose.disable_plugin("nvim-autopairs")
-  end
 
   -- Choose copilot
   -- copilot.lua, CopilotChat.nvim
-  -- TODO: Add light vim mode check for copilot.lua
-  if utils.is_light_vim_mode() or not plugin_utils.has_linux_build_env() then
+  if not plugin_utils.has_linux_build_env() then
     choose.disable_plugin("copilot.lua")
     choose.disable_plugin("copilot-cmp")
     choose.disable_plugin("CopilotChat.nvim")
@@ -121,7 +114,7 @@ plugin_choose.setup_completion = function()
 
   -- Choose AI
   -- avante.nvim, codecompanion.nvim
-  if utils.is_light_vim_mode() or choose.is_disabled_plugin("copilot.lua") then
+  if choose.is_disabled_plugin("copilot.lua") then
     choose.disable_plugin("avante.nvim")
     choose.disable_plugin("codecompanion.nvim")
   end
@@ -243,9 +236,6 @@ end
 plugin_choose.setup_text_manipulation = function()
   -- Choose surround plugin
   -- nvim-surround
-  if utils.is_light_vim_mode() then
-    choose.disable_plugin("nvim-surround")
-  end
 end
 
 plugin_choose.setup_text_navigation = function()
