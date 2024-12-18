@@ -48,6 +48,7 @@ terminal.setup = function()
       vim.keymap.set("t", "<M-S-h>", [[<C-\><C-N><C-W>h]])
       vim.keymap.set("t", "<M-S-j>", [[<C-\><C-N><C-W>j]])
       vim.keymap.set("t", "<M-S-k>", [[<C-\><C-N><C-W>k]])
+      -- FIXME: Conflict with M-L in tmux
       vim.keymap.set("t", "<M-S-l>", [[<C-\><C-N><C-W>l]])
 
       -- Quickly switch tab in terminal
