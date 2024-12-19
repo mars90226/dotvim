@@ -63,6 +63,17 @@ my_fzf_lua.setup_config = function()
       width = 0.9,
       height = 0.9,
     },
+    git = {
+      files = {
+        actions = my_fzf_lua.global_actions,
+      },
+    },
+    grep = {
+      no_esc = true,
+    },
+    oldfiles = {
+      include_current_session = true, -- include bufs from current session
+    },
   }
   local providers = {
     "files",
@@ -78,19 +89,14 @@ my_fzf_lua.setup_config = function()
     "diagnostics",
   }
   for _, provider in ipairs(providers) do
-    opts[provider] = {
-      actions = my_fzf_lua.global_actions,
+    local provider_opts = {
+      [provider] = {
+        actions = my_fzf_lua.global_actions,
+      }
     }
+    opts = vim.tbl_deep_extend("force", opts, provider_opts)
   end
-  -- TODO: Refactor this
-  opts.git = {
-    files = {
-      actions = my_fzf_lua.global_actions,
-    },
-  }
-  opts.grep = {
-    no_esc = true,
-  }
+
   -- TODO: Add lsp
 
   fzf_lua.setup(opts)
