@@ -27,11 +27,7 @@ lsp.servers = {
     -- NOTE: Disable shellcheck integration and use nvim-lint to lint on save
     cmd_env = { SHELLCHECK_PATH = "" },
   },
-  -- TODO: Change to buf_ls, new buf lsp
-  -- Wait for mason-lspconfig to support buf_ls
-  -- Ref: [feat(buf) new lsp for protobuf by gogamid · Pull Request 3414 · neovimnvim-lspconfig](https://github.com/neovim/nvim-lspconfig/pull/3414)
-  -- Ref: [Add an LSP server command by mcy · Pull Request 3316 · bufbuildbuf](https://github.com/bufbuild/buf/pull/3316)
-  bufls = {
+  buf_ls = {
     condition = plugin_utils.has_linux_build_env(),
   },
   cssls = {
