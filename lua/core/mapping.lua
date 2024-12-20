@@ -229,6 +229,9 @@ mapping.setup = function()
       -- TODO: Use one key to invoke fzf and expand to different filenames
       vim.keymap.set("c", "<C-G><C-^>", [[expand('%:t')]], { expr = true,  desc = "Expand filename" })
       vim.keymap.set("i", "<C-G><C-^>", [[expand('%:t')]], { expr = true,  desc = "Expand filename" })
+      -- Alternative key mapping for those key mappings that are hard to type in ergonomic keyboard.
+      vim.keymap.set("c", "<C-G><C-[>", [[expand('%:t')]], { expr = true,  desc = "Expand filename" })
+      vim.keymap.set("i", "<C-G><C-[>", [[expand('%:t')]], { expr = true,  desc = "Expand filename" })
       -- <C-]> and <C-%> are the same key
       vim.keymap.set("c", "<C-G><C-]>", [[expand('%:t:r')]], { expr = true,  desc = "Expand filename without extension" })
       vim.keymap.set("i", "<C-G><C-]>", [[expand('%:t:r')]], { expr = true,  desc = "Expand filename without extension" })
