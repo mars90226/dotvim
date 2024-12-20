@@ -63,10 +63,8 @@ my_fzf_lua.setup_config = function()
       width = 0.9,
       height = 0.9,
     },
-    git = {
-      files = {
-        actions = my_fzf_lua.global_actions,
-      },
+    defaults = {
+      actions = my_fzf_lua.global_actions,
     },
     grep = {
       no_esc = true,
@@ -75,29 +73,6 @@ my_fzf_lua.setup_config = function()
       include_current_session = true, -- include bufs from current session
     },
   }
-  local providers = {
-    "files",
-    "grep",
-    "args",
-    "oldfiles",
-    "buffers",
-    "tabs",
-    "lines",
-    "blines",
-    "tags",
-    "btags",
-    "diagnostics",
-  }
-  for _, provider in ipairs(providers) do
-    local provider_opts = {
-      [provider] = {
-        actions = my_fzf_lua.global_actions,
-      }
-    }
-    opts = vim.tbl_deep_extend("force", opts, provider_opts)
-  end
-
-  -- TODO: Add lsp
 
   fzf_lua.setup(opts)
 
