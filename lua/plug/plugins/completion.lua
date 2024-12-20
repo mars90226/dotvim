@@ -258,7 +258,7 @@ local completion = {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     cond = choose.is_enabled_plugin("CopilotChat.nvim"),
-    branch = "canary",
+    branch = "main",
     dependencies = {
       { "zbirenbaum/copilot.lua" },
       { "nvim-lua/plenary.nvim" },
@@ -272,6 +272,7 @@ local completion = {
       -- model = "o1-mini-2024-09-12",
       -- TODO: Evaluate the Claude 3.5 Sonnet model
       model = "claude-3.5-sonnet",
+      chat_autocomplete = true, -- Enable chat autocompletion (when disabled, requires manual `mappings.complete` trigger)
       prompts = {
         Wording = "Rewrite this using idiomatic English",
       },
@@ -370,7 +371,6 @@ local completion = {
       },
     },
     config = function(_, opts)
-      require("CopilotChat.integrations.cmp").setup()
       require("CopilotChat").setup(opts)
       require("vimrc.plugins.nvim_cmp").insert_luasnip_source_to_filetype("copilot-chat")
     end,
@@ -393,12 +393,12 @@ local completion = {
       "AvanteSwitchProvider",
     },
     keys = {
-      { "<Leader>aa", mode = { "n", "v" }, function() require("avante.api").ask() end, desc = "avante: ask" },
-      { "<Leader>ae", mode = { "v" }, function() require("avante.api").edit() end, desc = "avante: edit" },
-      { "<Leader>ar", function() require("avante.api").refresh() end, desc = "avante: refresh" },
+      { "<Leader>aa", mode = { "n", "v" },                             function() require("avante.api").ask() end,  desc = "avante: ask" },
+      { "<Leader>ae", mode = { "v" },                                  function() require("avante.api").edit() end, desc = "avante: edit" },
+      { "<Leader>ar", function() require("avante.api").refresh() end,  desc = "avante: refresh" },
       { "<Leader>ad", function() require("avante").toggle.debug() end, desc = "avante: toggle debug" },
-      { "<Leader>ah", function() require("avante").toggle.hint() end, desc = "avante: toggle hint" },
-      { "<Leader>at", function() require("avante").toggle() end, desc = "avante: toggle" },
+      { "<Leader>ah", function() require("avante").toggle.hint() end,  desc = "avante: toggle hint" },
+      { "<Leader>at", function() require("avante").toggle() end,       desc = "avante: toggle" },
     },
     opts = {
       provider = "copilot",
@@ -416,7 +416,7 @@ local completion = {
       "MunifTanjim/nui.nvim",
       --- The below dependencies are optional,
       "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-      "zbirenbaum/copilot.lua",    -- for providers='copilot'
+      "zbirenbaum/copilot.lua",      -- for providers='copilot'
       {
         -- support for image pasting
         "HakonHarnes/img-clip.nvim",
@@ -448,13 +448,13 @@ local completion = {
       "CodeCompanionActions",
     },
     keys = {
-      { "<Leader>cc", mode = { "n", "v" }, "<Cmd>CodeCompanion<CR>", silent = true, desc = "CodeCompanion - Open" },
-      { "<Leader>c;", mode = { "n", "v" }, ":CodeCompanion<Space>", desc = "CodeCompanion" },
-      { "<Leader>ca", mode = { "n", "v" }, "<Cmd>CodeCompanionActions<CR>", silent = true, desc = "CodeCompanion - Actions" },
-      { "<Leader>cd", "<Cmd>CodeCompanionChat<CR>", silent = true, desc = "CodeCompanion - Chat" },
-      { "<Leader>c`", mode = { "n", "v" }, "<Cmd>CodeCompanionChat Toggle<CR>", silent = true, desc = "CodeCompanion - Toggle" },
-      { "<Leader>cd", mode = { "v" }, "<Cmd>CodeCompanionChat Add<CR>", silent = true, desc = "CodeCompanion - Add" },
-      { "<Leader>c:", mode = { "n" }, ":CodeCompanionCmd<Space>", desc = "CodeCompanion - Cmd" },
+      { "<Leader>cc", mode = { "n", "v" },          "<Cmd>CodeCompanion<CR>",            silent = true,                desc = "CodeCompanion - Open" },
+      { "<Leader>c;", mode = { "n", "v" },          ":CodeCompanion<Space>",             desc = "CodeCompanion" },
+      { "<Leader>ca", mode = { "n", "v" },          "<Cmd>CodeCompanionActions<CR>",     silent = true,                desc = "CodeCompanion - Actions" },
+      { "<Leader>cd", "<Cmd>CodeCompanionChat<CR>", silent = true,                       desc = "CodeCompanion - Chat" },
+      { "<Leader>c`", mode = { "n", "v" },          "<Cmd>CodeCompanionChat Toggle<CR>", silent = true,                desc = "CodeCompanion - Toggle" },
+      { "<Leader>cd", mode = { "v" },               "<Cmd>CodeCompanionChat Add<CR>",    silent = true,                desc = "CodeCompanion - Add" },
+      { "<Leader>c:", mode = { "n" },               ":CodeCompanionCmd<Space>",          desc = "CodeCompanion - Cmd" },
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -465,7 +465,7 @@ local completion = {
         -- fixes. Which also includes 'yioneko/nvim-cmp's performance improvements noteed in the following MR:
         -- Ref: https://github.com/hrsh7th/nvim-cmp/pull/1980
         "iguanacucumber/magazine.nvim",
-        name = "nvim-cmp",     -- Otherwise highlighting gets messed up
+        name = "nvim-cmp", -- Otherwise highlighting gets messed up
       },
       {
         "stevearc/dressing.nvim", -- Optional: Improves the default Neovim UI
