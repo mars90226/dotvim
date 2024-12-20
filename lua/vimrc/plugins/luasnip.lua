@@ -383,6 +383,18 @@ luasnip.setup_snippet = function()
         return string.format(vim.o.commentstring, "q: ")
       end)
     ),
+    s(
+      {
+        trig = "repomap",
+        desc = "Fill repomap for Copilot",
+      },
+      f(function()
+        local folder = vim.fn.input("repomap: ", ".", "dir")
+        local repomap_cmd = [[eza -T --git-ignore ]] .. folder
+        -- FIXME: LuaSnip will failed if result is too long
+        return vim.fn.system(repomap_cmd)
+      end)
+    ),
   })
 end
 
