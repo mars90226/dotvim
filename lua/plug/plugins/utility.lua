@@ -426,7 +426,7 @@ local utility = {
   -- Colorizer
   -- NOTE: Cannot lazy load on key, first buffer doesn't have color highlight
   {
-    "NvChad/nvim-colorizer.lua",
+    "catgoose/nvim-colorizer.lua",
     event = { "BufRead", "BufNewFile" },
     config = function()
       vim.go.termguicolors = true
