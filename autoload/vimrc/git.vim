@@ -97,3 +97,7 @@ endfunction
 function! vimrc#git#get_current_branch() abort
   return systemlist('git rev-parse --abbrev-ref HEAD')[0]
 endfunction
+
+function! vimrc#git#get_full_commit_sha(commit_sha) abort
+  return systemlist('git rev-parse '.a:commit_sha)[0]
+endfunction
