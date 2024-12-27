@@ -1,0 +1,10 @@
+{
+  "same": {
+    "prefix": "same",
+    "body": ["同上。"]
+  },
+  "same,": {
+    "prefix": "same,",
+    "body": ["同上，"]
+  }
+}

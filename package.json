@@ -20,6 +20,10 @@
       {
         "language": "mediawiki",
         "path": "./snippets/mediawiki.json"
+      },
+      {
+        "language": "markdown",
+        "path": "./snippets/markdown.json"
       }
     ]
   }
