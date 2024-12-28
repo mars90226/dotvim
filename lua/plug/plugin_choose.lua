@@ -92,11 +92,7 @@ plugin_choose.setup_completion = function()
   end
 
   -- Choose linter integration plugin
-  -- none-ls.nvim, nvim-lint
-  -- Always enable nvim-lint
-  if utils.is_light_vim_mode() or not plugin_utils.has_linux_build_env() then
-    choose.disable_plugin("none-ls.nvim")
-  end
+  -- nvim-lint
 
   -- Choose formatter integration plugin
   -- conform.nvim
@@ -160,8 +156,7 @@ plugin_choose.setup_language = function()
 
   -- Lint {{{
   -- Choose Lint plugin
-  -- none-ls.nvim
-  -- Always enable nvim-lint
+  -- nvim-lint
 
   -- Choose Markdown render plugin
   -- markdown.nvim, markview.nvim

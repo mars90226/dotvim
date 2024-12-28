@@ -132,27 +132,6 @@ local lsp = {
     end,
   },
 
-  -- TODO: none-ls.nvim cause performance problem, need to find a way to fix this
-  -- TODO: Due to performance issue, none-ls.nvim is only enabled for code action integration from other plugins.
-  -- NOTE: Above TODO is based on null-ls.nvim, need to check if it's still true for none-ls.nvim
-  {
-    "nvimtools/none-ls.nvim",
-    -- TODO: Remove none-ls.nvim
-    enabled = false,
-    cond = choose.is_enabled_plugin("none-ls.nvim"),
-    -- TODO: Lazy load on filetypes
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "neovim/nvim-lspconfig",
-      "williamboman/mason.nvim",
-    },
-    config = function()
-      -- NOTE: none-ls.nvim is still using null-ls as module name, so we don't rename the module.
-      require("vimrc.plugins.null_ls").setup()
-    end,
-  },
-
   -- Lint
   {
     "mfussenegger/nvim-lint",

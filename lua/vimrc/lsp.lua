@@ -53,10 +53,7 @@ lsp.servers = {
       "--fallback-style=llvm",
       "--suggest-missing-includes",
     },
-    -- NOTE: Workaround for "warning: multiple different client offset_encodings detected for buffer, this is not supported yet".
-    -- Ref: https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428#issuecomment-997226723
     capabilities = {
-      offsetEncoding = { "utf-16" },
       memoryUsageProvider = true,
     },
     -- NOTE: Disable clangd on protobuf

@@ -35,7 +35,7 @@ conform.setup_config = function()
     },
   }
 
-  -- Ref: https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/lua/null-ls/builtins/formatting/prettierd.lua
+  -- Ref: https://github.com/nvimtools/none-ls.nvim/blob/main/lua/null-ls/builtins/formatting/prettierd.lua
   local prettierd_filetypes = {
     "javascript",
     "javascriptreact",
@@ -53,6 +53,9 @@ conform.setup_config = function()
     "markdown.mdx",
     "graphql",
     "handlebars",
+    "svelte",
+    "astro",
+    "htmlangular"
   }
   for _, filetype in ipairs(prettierd_filetypes) do
     conform_config.formatters_by_ft[filetype] = conform_config.formatters_by_ft[filetype] or {}

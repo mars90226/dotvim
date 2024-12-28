@@ -684,7 +684,7 @@ local languages = {
         -- },
         open_programs = { plugin_utils.get_browser(), "xdg-open", "open" },
         null_ls = {
-          enabled = choose.is_enabled_plugin("none-ls.nvim"),
+          enabled = false,
           name = "crates.nvim",
         },
         -- TODO: Enable LSP for hover or change hover function?
