@@ -200,11 +200,12 @@ Open neovim and wait for `lazy.nvim` to finish the job.
 
 - [ ] Add full plugin dependencies
 - [ ] Add provider plugin for dependencies
-- [ ] Add [nvim-dap](https://github.com/mfussenegger/nvim-dap) and related plugins.
+- [x] Add [nvim-dap](https://github.com/mfussenegger/nvim-dap) and related plugins.
 - [ ] Add description to key mappings
 - [ ] Add description to LuaSnip snippets
 - [ ] Add noice.nvim
 - [ ] Add other terminal plugin, like [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim), and change overseer.nvim strategy to toggleterm.
+- [ ] Replace `nvim-cmp` with `blink.cmp`
 
 ## Screenshots
 
