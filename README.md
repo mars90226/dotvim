@@ -17,6 +17,8 @@ Packer specific config is removed, but you can use `packer` branch to access the
 - [fzf.vim](https://github.com/junegunn/fzf.vim) (used with fzf)
 - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) (fuzzy finder written in Lua and support LSP)
 - [fzf-lua](https://github.com/ibhagwan/fzf-lua) (fzf wrapper in Lua and support LSP and performs well)
+- [mini.nvim](https://github.com/echasnovski/mini.nvim) (various modules for neovim)
+- [snacks.nvim](https://github.com/folke/snacks.nvim) (collection of small QoL plugins)
 - [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) (lua file explorer)
 - [oil.nvim](https://github.com/stevearc/oil.nvim) (buffer-based file explorer with folder synchronization)
 - [defx.nvim](https://github.com/Shougo/defx.nvim) (buffer-based file explorer for better multiple project folder)
