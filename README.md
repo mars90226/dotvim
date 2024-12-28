@@ -24,7 +24,7 @@ Packer specific config is removed, but you can use `packer` branch to access the
 - [lightspeed.nvim](https://github.com/ggandor/lightspeed.nvim) (quickly move cursor by search)
 - [nvim-autopairs](https://github.com/windwp/nvim-autopairs) (automatically insert paired brackets)
 - [nvim-surround](https://github.com/kylechui/nvim-surround) (quickly add/delete/replace brackets)
-- [nvim-spectre](https://github.com/windwp/nvim-spectre) (find-and-replace globally)
+- [grug-far.nvim](https://github.com/MagicDuck/grug-far.nvim) (find-and-replace globally)
 - [lspsaga.nvim](https://github.com/glepnir/lspsaga.nvim) (lsp UI and lsp context for winbar)
 - [trouble.nvim](https://github.com/folke/trouble.nvim) (diagnostics UI)
 - [conform.nvim](https://github.com/stevearc/conform.nvim) (on-demand formatter)
@@ -145,10 +145,14 @@ Open neovim and wait for `lazy.nvim` to finish the job.
   - `F`: Backward search and goto 1 characters
   - `;`: Forward search and goto 2 characters
   - `<M-;>`: Backward search and goto 2 characters
+- grug-far key mappings
+  - `<Space>gw`: Find and replace cursor word/visual selection globally
+  - `<Space>g'`: Find and replace cursor word/visual selection in current file
 - Trouble key mappings
-  - `<Space>xx`: Toggle Trouble UI
+  - `<Space>xx`: Show LSP workspace diagnostics in Trouble UI or toggle Trouble UI
   - `<Space>xd`: Show LSP document diagnostics in Trouble UI
-  - `<Space>xw`: Show LSP workspace diagnostics in Trouble UI
+  - `<Space>xs`: Show LSP document symbols in Trouble UI
+  - `<Space>xl`: Show LSP definitions / references in Trouble UI
 - nvim-lint key mappings
   - `<Leader>ll`: Execute linter
 - Treesitter key mappings
