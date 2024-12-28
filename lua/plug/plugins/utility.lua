@@ -477,7 +477,13 @@ local utility = {
     cond = not utils.is_light_vim_mode(),
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      require("todo-comments").setup({})
+      require("todo-comments").setup({
+        -- Search & highlight keywords with author
+        -- Ref: https://github.com/folke/todo-comments.nvim/issues/10#issuecomment-2446101986
+        -- TODO: Use builtin support after this PR merged: https://github.com/folke/todo-comments.nvim/issues/332
+        search = { pattern = [[\b(KEYWORDS)(\([^\)]*\))?:]] },
+        highlight = { pattern = [[.*<((KEYWORDS)%(\(.{-1,}\))?):]] },
+      })
 
       vim.keymap.set("n", "<F8>", "<Cmd>TodoTrouble<CR>")
       vim.keymap.set("n", "<Space><F8>", "<Cmd>TodoTelescope<CR>")
