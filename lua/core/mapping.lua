@@ -557,6 +557,11 @@ mapping.setup = function()
       vim.api.nvim_create_user_command("ResetWorkingDirectory", function()
         vim.cmd.cd(initial_working_directory)
       end, {})
+
+      vim.api.nvim_create_user_command("Weather", function(opts)
+        local url = "https://wttr.in/" .. opts.args .. "?T"
+        vim.cmd("! curl " .. url)
+      end, { nargs = 1 })
       -- }}}
 
       if has_secret_mapping then
