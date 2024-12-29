@@ -25,6 +25,13 @@ Well, these plugins are hard to categorize, but they are gems. You will need the
 - [dropbar.nvim](https://github.com/Bekaboo/dropbar.nvim#requirements) (vscode-like winbar)
 - [statuscol.nvim](https://github.com/luukvbaal/statuscol.nvim) (customizable predefined 'statuscolumn')
 
+### Picker
+
+- [fzf](https://github.com/junegunn/fzf) (fuzzy finder for almost everything)
+- [fzf.vim](https://github.com/junegunn/fzf.vim) (used with fzf)
+- [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) (fuzzy finder written in Lua and support LSP)
+- [fzf-lua](https://github.com/ibhagwan/fzf-lua) (fzf wrapper in Lua and support LSP and performs well)
+
 ### Editor
 
 - [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) (auto completion)
@@ -34,13 +41,6 @@ Well, these plugins are hard to categorize, but they are gems. You will need the
 - [flash.nvim](https://github.com/folke/flash.nvim) (quickly move cursor to certain place on screen)
 - [hop.nvim](https://github.com/phaazon/hop.nvim) (quickly move cursor to certain place on screen, written in Lua)
 - [lightspeed.nvim](https://github.com/ggandor/lightspeed.nvim) (quickly move cursor by search)
-
-### Picker
-
-- [fzf](https://github.com/junegunn/fzf) (fuzzy finder for almost everything)
-- [fzf.vim](https://github.com/junegunn/fzf.vim) (used with fzf)
-- [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) (fuzzy finder written in Lua and support LSP)
-- [fzf-lua](https://github.com/ibhagwan/fzf-lua) (fzf wrapper in Lua and support LSP and performs well)
 
 ### LSP
 
@@ -107,9 +107,9 @@ Open neovim and wait for `lazy.nvim` to finish the job.
 
 ## Key mappings
 
-### Neovim
-
 `<Leader>` key is `,`.
+
+### Picker
 
 - `fzf` key mappings
   - `<Space>zg`: Search and open git files
@@ -150,6 +150,9 @@ Open neovim and wait for `lazy.nvim` to finish the job.
   - `<Space>la`: Search and execute LSP code actions
   - `<Space>lx`: Search and goto document diagnostics
   - `<Space>lX`: Search and goto workspace diagnostics
+
+### LSP
+
 - LSP key mappings
   - `gd`: Open LSP definition/references UI
   - `gy`: Show signature help
@@ -161,6 +164,16 @@ Open neovim and wait for `lazy.nvim` to finish the job.
   - `<Leader>lf` on visual selection: Range format selected code
 - `outline.nvim` key mappings
   - `<F7>`: Toggle outline.nvim that showing LSP symbols outline in sidebar
+- `trouble.nvim` key mappings
+  - `<Space>xx`: Show LSP workspace diagnostics in Trouble UI or toggle Trouble UI
+  - `<Space>xd`: Show LSP document diagnostics in Trouble UI
+  - `<Space>xs`: Show LSP document symbols in Trouble UI
+  - `<Space>xl`: Show LSP definitions / references in Trouble UI
+- `nvim-lint` key mappings
+  - `<Leader>ll`: Execute linter
+
+### File Explorer
+
 - `oil.nvim` key mappings
   - `-`: Open current buffer folder in oil
   - `<Space>-`: Open current buffer folder in split in oil
@@ -169,6 +182,12 @@ Open neovim and wait for `lazy.nvim` to finish the job.
   - `<Space>ds`: Open current buffer folder in split in Defx
   - `<F4>`: Toggle Defx as sidebar file explorer
   - `<Space><F4>`: Toggle Defx as sidebar file explorer and find current buffer
+
+### Editor
+
+- `grug-far.nvim` key mappings
+  - `<Space>gw`: Find and replace cursor word/visual selection globally
+  - `<Space>g'`: Find and replace cursor word/visual selection in current file
 - `hop.nvim` key mappings
   - `<Space>w`: Goto word start
   - `<Space>;`: Search and goto pattern
@@ -179,16 +198,9 @@ Open neovim and wait for `lazy.nvim` to finish the job.
   - `F`: Backward search and goto 1 characters
   - `;`: Forward search and goto 2 characters
   - `<M-;>`: Backward search and goto 2 characters
-- `grug-far.nvim` key mappings
-  - `<Space>gw`: Find and replace cursor word/visual selection globally
-  - `<Space>g'`: Find and replace cursor word/visual selection in current file
-- `trouble.nvim` key mappings
-  - `<Space>xx`: Show LSP workspace diagnostics in Trouble UI or toggle Trouble UI
-  - `<Space>xd`: Show LSP document diagnostics in Trouble UI
-  - `<Space>xs`: Show LSP document symbols in Trouble UI
-  - `<Space>xl`: Show LSP definitions / references in Trouble UI
-- `nvim-lint` key mappings
-  - `<Leader>ll`: Execute linter
+
+### Treesitter
+
 - Treesitter key mappings
   - `af` for textobject: outer function textobject
   - `if` for textobject: inner function textobject
@@ -203,6 +215,9 @@ Open neovim and wait for `lazy.nvim` to finish the job.
   - `<CR>` in visual mode: scope incremental
   - `<M-h>`, `<M-j>`, `<M-k>`, `<M-l>` in visual mode: navigate node
   - `<M-S-j>`, `<M-S-k>` in visual mode: swap node
+
+### Git
+
 - `vim-fugitive` key mappings
   - `<Leader>gs`: Show git status
   - `<Leader>gc`: Show git blame commit of current line
@@ -217,13 +232,15 @@ Open neovim and wait for `lazy.nvim` to finish the job.
   - `<Leader>gd` on visual selection in Flog UI: Search and open diff files in between last git commit and first git commit using FZF
   - `<Leader>gf` in Flog UI: Search and open git files in current git commit using FZF
   - `<Leader>gg` in Flog UI: Grep and goto git files in current git commit using FZF and ripgrep
-- `markview.nvim` key mappings
-  - `coh` in `markdown` buffer: Toggle `markview.nvim` preview
+
+### Utility
 - `vim-floaterm` key mappings
   - `<M-2>`: Toggle Floaterm terminal
   - `<M-3>`: Goto previous Floaterm terminal
   - `<M-4>`: Goto next Floaterm terminal
   - `<M-5>`: Open new Floaterm terminal
+- `markview.nvim` key mappings
+  - `coh` in `markdown` buffer: Toggle `markview.nvim` preview
 - Custom key mappings
   - `<M-h>`, `<M-j>`, `<M-k>`, `<M-l>`: Move between windows, like `<C-W>h`, `<C-W>j`, `<C-W>k`, and `<C-W>l`
   - `<C-J>`, `<C-K>`: Move between tabs, like `gT` and `gt`
