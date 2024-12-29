@@ -6,6 +6,12 @@ Carefully crafted neovim config. Use
 Vim specific config is removed, but you can use `vim` branch to access them.
 Packer specific config is removed, but you can use `packer` branch to access them.
 
+## Screenshots
+
+![normal](https://github.com/user-attachments/assets/108d2f71-aafb-41b9-bdb2-8a84ec40f960)
+![lsp](https://github.com/user-attachments/assets/84dee5b4-4541-466b-a1e3-a845129ea1eb)
+![fzf-lua](https://github.com/user-attachments/assets/196ee8dc-76c8-4b9f-a216-0abb09e85928)
+
 ## Major plugins
 
 ### Plugin Manager
@@ -234,6 +240,7 @@ Open neovim and wait for `lazy.nvim` to finish the job.
   - `<Leader>gg` in Flog UI: Grep and goto git files in current git commit using FZF and ripgrep
 
 ### Utility
+
 - `vim-floaterm` key mappings
   - `<M-2>`: Toggle Floaterm terminal
   - `<M-3>`: Goto previous Floaterm terminal
@@ -263,13 +270,6 @@ Open neovim and wait for `lazy.nvim` to finish the job.
 - [ ] Add noice.nvim
 - [ ] Add other terminal plugin, like [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim), and change overseer.nvim strategy to toggleterm.
 - [ ] Replace `nvim-cmp` with `blink.cmp`
-
-## Screenshots
-
-![normal](https://github.com/user-attachments/assets/108d2f71-aafb-41b9-bdb2-8a84ec40f960)
-![lsp](https://github.com/user-attachments/assets/84dee5b4-4541-466b-a1e3-a845129ea1eb)
-![fzf-lua](https://github.com/user-attachments/assets/196ee8dc-76c8-4b9f-a216-0abb09e85928)
-
 
 ## Resources
 
