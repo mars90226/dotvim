@@ -2,7 +2,7 @@ local utils = require("vimrc.utils")
 
 local terminal = {}
 
-terminal.setup = function()
+terminal.setup_terminal = function()
   vim.api.nvim_create_user_command(
     "TermOpen",
     [[call vimrc#terminal#open_current_folder('edit', <q-args>)]],
@@ -119,9 +119,10 @@ terminal.setup = function()
 
   -- Jump to pattern by pounce
   vim.keymap.set("t", "<M-m><M-/>", [=[<C-\><C-N>:Pounce<CR>]=])
+end
 
-  -- For nested neovim {{{
-  -- Use <M-q> as prefix
+terminal.setup_nested_neovim = function()
+  -- NOTE: Use <M-q> as prefix
 
   -- Quick terminal function
   vim.keymap.set("t", "<M-q>1", [[<C-\><C-\><C-N>]])
@@ -161,7 +162,10 @@ terminal.setup = function()
   -- Search pattern
   vim.keymap.set("t", "<M-q><M-s>", [[<C-\><C-\><C-N><Plug>(search-prefix)]], { remap = true })
   -- FIXME: Cannot send `<M-s>` to nested neovim
+end
 
+-- TODO: Improve naming
+terminal.setup_nested_nested_neovim = function()
   -- For nested nested neovim {{{
   vim.keymap.set(
     "t",
@@ -237,8 +241,9 @@ terminal.setup = function()
   vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m><M-m>", ":Telescope command_palette<CR>")
   vim.fn["vimrc#terminal#nested_neovim#register"]("<M-m><M-M>", ":CommandPalette<CR>")
   -- }}}
-  -- }}}
+end
 
+terminal.setup_autocmd = function()
   local terminal_augroup_id = vim.api.nvim_create_augroup("terminal_settings", {})
   vim.api.nvim_create_autocmd({ "TermOpen" }, {
     group = terminal_augroup_id,
@@ -282,6 +287,13 @@ terminal.setup = function()
       vim.fn["vimrc#terminal#close_result_buffer"](vim.fn.expand("<afile>"))
     end,
   })
+end
+
+terminal.setup = function()
+  terminal.setup_terminal()
+  terminal.setup_nested_neovim()
+  terminal.setup_nested_nested_neovim()
+  terminal.setup_autocmd()
 end
 
 return terminal
