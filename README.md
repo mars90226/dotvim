@@ -8,40 +8,70 @@ Packer specific config is removed, but you can use `packer` branch to access the
 
 ## Major plugins
 
-### Neovim
+### Plugin Manager
+
+- [lazy.nvim](https://github.com/folke/lazy.nvim) (lazy loading plugin manager)
+
+### Gems
+
+Well, these plugins are hard to categorize, but they are gems. You will need them.
+
+- [mini.nvim](https://github.com/echasnovski/mini.nvim) (various modules for neovim)
+- [snacks.nvim](https://github.com/folke/snacks.nvim) (collection of small QoL plugins)
+
+### UI
 
 - [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) (fast custom status line)
+- [dropbar.nvim](https://github.com/Bekaboo/dropbar.nvim#requirements) (vscode-like winbar)
+- [statuscol.nvim](https://github.com/luukvbaal/statuscol.nvim) (customizable predefined 'statuscolumn')
+
+### Editor
+
 - [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) (auto completion)
+- [nvim-autopairs](https://github.com/windwp/nvim-autopairs) (automatically insert paired brackets)
+- [nvim-surround](https://github.com/kylechui/nvim-surround) (quickly add/delete/replace brackets)
+- [grug-far.nvim](https://github.com/MagicDuck/grug-far.nvim) (find-and-replace globally)
+- [flash.nvim](https://github.com/folke/flash.nvim) (quickly move cursor to certain place on screen)
+- [hop.nvim](https://github.com/phaazon/hop.nvim) (quickly move cursor to certain place on screen, written in Lua)
+- [lightspeed.nvim](https://github.com/ggandor/lightspeed.nvim) (quickly move cursor by search)
+
+### Picker
+
 - [fzf](https://github.com/junegunn/fzf) (fuzzy finder for almost everything)
 - [fzf.vim](https://github.com/junegunn/fzf.vim) (used with fzf)
 - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) (fuzzy finder written in Lua and support LSP)
 - [fzf-lua](https://github.com/ibhagwan/fzf-lua) (fzf wrapper in Lua and support LSP and performs well)
-- [mini.nvim](https://github.com/echasnovski/mini.nvim) (various modules for neovim)
-- [snacks.nvim](https://github.com/folke/snacks.nvim) (collection of small QoL plugins)
+
+### LSP
+
 - [outline.nvim](https://github.com/hedyhli/outline.nvim) (Display symbols in sidebar using LSP)
-- [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) (lua file explorer)
-- [oil.nvim](https://github.com/stevearc/oil.nvim) (buffer-based file explorer with folder synchronization)
-- [defx.nvim](https://github.com/Shougo/defx.nvim) (buffer-based file explorer for better multiple project folder)
-- [flash.nvim](https://github.com/folke/flash.nvim) (quickly move cursor to certain place on screen)
-- [hop.nvim](https://github.com/phaazon/hop.nvim) (quickly move cursor to certain place on screen, written in Lua)
-- [lightspeed.nvim](https://github.com/ggandor/lightspeed.nvim) (quickly move cursor by search)
-- [nvim-autopairs](https://github.com/windwp/nvim-autopairs) (automatically insert paired brackets)
-- [nvim-surround](https://github.com/kylechui/nvim-surround) (quickly add/delete/replace brackets)
-- [grug-far.nvim](https://github.com/MagicDuck/grug-far.nvim) (find-and-replace globally)
 - [lspsaga.nvim](https://github.com/glepnir/lspsaga.nvim) (lsp UI and lsp context for winbar)
 - [trouble.nvim](https://github.com/folke/trouble.nvim) (diagnostics UI)
 - [conform.nvim](https://github.com/stevearc/conform.nvim) (on-demand formatter)
 - [nvim-lint](https://github.com/mfussenegger/nvim-lint) (on-demand linter)
+
+### File Explorer
+
+- [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) (lua file explorer)
+- [oil.nvim](https://github.com/stevearc/oil.nvim) (buffer-based file explorer with folder synchronization)
+- [defx.nvim](https://github.com/Shougo/defx.nvim) (buffer-based file explorer for better multiple project folder)
+
+### Treesitter
+
 - [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) (fast semantic syntax highlighting)
 - [syntax-tree-surfer](https://github.com/ziontee113/syntax-tree-surfer) (text navigation and manipulation based on treesitter)
+
+### Git
+
 - [vim-fugitive](https://github.com/tpope/vim-fugitive) (almost perfect git wrapper)
 - [vim-flog](https://github.com/rbong/vim-flog) (git commit browser)
+- [diffview.nvim](https://github.com/sindrets/diffview.nvim) (git diff viewer & git history viewer)
+
+### Utility
+
 - [vim-floaterm](https://github.com/voldikss/vim-floaterm) (open terminal buffer in floating window)
 - [vimwiki](https://github.com/vimwiki/vimwiki) (wiki plugin like orgmode)
 - [vim-localvimrc](https://github.com/embear/vim-localvimrc) (for setup project-local vim config, useful for LSP)
-- [statuscol.nvim](https://github.com/luukvbaal/statuscol.nvim) (customizable predefined 'statuscolumn')
-- [diffview.nvim](https://github.com/sindrets/diffview.nvim) (git diff viewer & git history viewer)
-- [dropbar.nvim](https://github.com/Bekaboo/dropbar.nvim#requirements) (vscode-like winbar)
 - [overseer.nvim](https://github.com/stevearc/overseer.nvim/tree/master) (asynchronous task runner that support `tasks.json` and many task frameworks)
 - [markview.nvim](https://github.com/OXY2DEV/markview.nvim) (markdown previewer)
 
