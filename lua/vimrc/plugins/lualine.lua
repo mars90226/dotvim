@@ -4,6 +4,8 @@ local gruvbox_dark_theme = require("vimrc.plugins.lualine_theme.gruvbox_dark")
 
 local lualine = {}
 
+lualine.default_refresh_interval = 100
+
 lualine.custom_extensions = {
   outline = {
     sections = {
@@ -19,9 +21,9 @@ lualine.default_option = {
     theme = gruvbox_dark_theme,
     disabled_filetypes = {},
     refresh = {
-      statusline = 1000,
-      tabline = 1000,
-      winbar = 1000,
+      statusline = lualine.default_refresh_interval,
+      tabline = lualine.default_refresh_interval,
+      winbar = lualine.default_refresh_interval,
     },
   },
   sections = {
@@ -150,7 +152,7 @@ lualine.default_option = {
 }
 
 lualine.setup_refresh_interval = function(interval)
-  local new_interval = vim.F.if_nil(interval, 1000)
+  local new_interval = vim.F.if_nil(interval, lualine.default_refresh_interval)
   local new_config = vim.tbl_deep_extend("force", lualine.default_option, {
     options = {
       refresh = vim.tbl_extend("force", {
