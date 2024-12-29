@@ -1,10 +1,7 @@
-# Neovim config
+# Mars' Neovim config
 
-Carefully crafted neovim config. Use
+Carefully crafted neovim config by me as an vim/neovim user and evangelist for more than 10 years. Use
 [lazy.nvim](https://github.com/folke/lazy.nvim) as plugin manager.
-
-Vim specific config is removed, but you can use `vim` branch to access them.
-Packer specific config is removed, but you can use `packer` branch to access them.
 
 ## Screenshots
 
@@ -271,7 +268,15 @@ Open neovim and wait for `lazy.nvim` to finish the job.
 - [ ] Add other terminal plugin, like [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim), and change overseer.nvim strategy to toggleterm.
 - [ ] Replace `nvim-cmp` with `blink.cmp`
 
+## Deprecated
+
+Vim specific config is removed, but you can use `vim` branch to access them.
+Packer specific config is removed, but you can use `packer` branch to access them.
+
 ## Resources
 
 - [rockerBOO/awesome-neovim Collections of awesome neovim plugins.](https://github.com/rockerBOO/awesome-neovim)
 - [Dotfyle | Neovim Plugins & Neovim News](https://dotfyle.com/)
+- [LazyVim/LazyVim Neovim config for the lazy](https://github.com/LazyVim/LazyVim)
+- [AstroNvim/AstroNvim AstroNvim is an aesthetic and feature-rich neovim config that is extensible and easy to use with a great set of plugins](https://github.com/AstroNvim/AstroNvim)
+- [NvChad/NvChad Blazing fast Neovim config providing solid defaults and a beautiful UI, enhancing your neovim experience.](https://github.com/NvChad/NvChad)
