@@ -3,10 +3,6 @@ local plugin_utils = require("vimrc.plugin_utils")
 local clipboard = {}
 
 clipboard.setup = function()
-  local use_config = function(plugin_spec)
-    plugin_spec.config()
-  end
-
   -- TODO: Use neovim builtin OSC52 clipboard provider
   -- Ref: https://github.com/neovim/neovim/pull/25872
   if vim.fn.has("wsl") == 1 then
