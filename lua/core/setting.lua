@@ -185,10 +185,26 @@ settings.setup_signcolumn = function()
   })
 end
 
+settings.setup_digraph = function()
+  -- NOTE: Since nvim-cmp & LuaSnip use <C-K> for jumping to next expandable LuaSnip, we need to use
+  -- <M-S-K> for digraph using it's fallback.
+  -- FIXME: This is currently only works when copilot-cmp is enabled. Fix this
+
+  -- These are already defined
+  -- digraphs ,_ 12289 " '、'
+  -- digraphs ._ 12290 " '。'
+  vim.cmd([[digraphs ,- 65292 " '，']])
+  vim.cmd([[digraphs ,: 65306 " '：']])
+  vim.cmd([[digraphs ,; 65307 " '；']])
+  vim.cmd([[digraphs .! 65281 " '！']])
+  vim.cmd([[digraphs .? 65311 " '？']])
+end
+
 settings.setup = function()
   settings.setup_options()
   settings.setup_option_toggle()
   settings.setup_signcolumn()
+  settings.setup_digraph()
 end
 
 return settings
