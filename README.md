@@ -219,9 +219,10 @@ Open neovim and wait for `lazy.nvim` to finish the job.
 
 ## Screenshots
 
-![normal](https://user-images.githubusercontent.com/1523214/141642117-9660db2d-b116-48af-83f1-af93184b2bd8.png)
-![lsp](https://user-images.githubusercontent.com/1523214/141642118-fbf887c8-6939-4818-977a-132a41071e21.png)
-![telescope](https://user-images.githubusercontent.com/1523214/141642124-4342b201-6589-40d9-9959-fd937fe3de49.png)
+![normal](https://github.com/user-attachments/assets/108d2f71-aafb-41b9-bdb2-8a84ec40f960)
+![lsp](https://github.com/user-attachments/assets/84dee5b4-4541-466b-a1e3-a845129ea1eb)
+![fzf-lua](https://github.com/user-attachments/assets/196ee8dc-76c8-4b9f-a216-0abb09e85928)
+
 
 ## Resources
 
