@@ -1,14 +1,10 @@
 local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
 
-local has_secret_mapping, secret_mapping = pcall(require, "secret.mapping")
-
 local mapping = {}
 
-mapping.setup = function()
+mapping.setup_mapping = function()
   -- TODO: Check mini.basics mappings
-
-  vim.api.nvim_create_user_command("HelptagsAll", [[lua require('vimrc.utils').helptags_all()]], {})
 
   -- Quick tab actions
   vim.keymap.set("n", "<Space><Tab>l", [[<Cmd>tablast<CR>]], { desc = "Goto last tab" })
@@ -633,8 +629,12 @@ mapping.setup = function()
   -- Repeat or execute macro on all visually selected lines
   vim.keymap.set("x", "<Leader>.", [[:normal .<CR>]])
   vim.keymap.set("x", "<Leader>@", [[:normal Q<CR>]])
+end
 
-  -- Custom function {{{
+-- TODO: Think of a better way to organize functions, commands, and mappings
+mapping.setup_command = function()
+  vim.api.nvim_create_user_command("HelptagsAll", [[lua require('vimrc.utils').helptags_all()]], {})
+
   vim.api.nvim_create_user_command("ToggleIndent", [[call vimrc#toggle#toggle#indent()]], {})
   vim.api.nvim_create_user_command("ToggleFold", [[call vimrc#toggle#fold_method()]], {})
   vim.keymap.set("n", "cof", [[:ToggleFold<CR>]])
@@ -686,9 +686,7 @@ mapping.setup = function()
   vim.api.nvim_create_user_command("MakeTodo", function(opts)
     require("vimrc.todo").make_todo(opts.line1, opts.line2)
   end, { range = true })
-  -- }}}
 
-  -- Custom command {{{
   -- Convenient command to see the difference between the current buffer and the
   -- file it was loaded from, thus the changes you made.
   -- Only define it when not defined already.
@@ -793,11 +791,20 @@ mapping.setup = function()
     local url = "https://wttr.in/" .. opts.args .. "?T"
     vim.cmd("! curl " .. url)
   end, { nargs = 1 })
-  -- }}}
+end
+
+mapping.setup_secret_mapping = function()
+  local has_secret_mapping, secret_mapping = pcall(require, "secret.mapping")
 
   if has_secret_mapping then
     secret_mapping.setup()
   end
+end
+
+mapping.setup = function()
+  mapping.setup_command()
+  mapping.setup_mapping()
+  mapping.setup_secret_mapping()
 end
 
 return mapping
