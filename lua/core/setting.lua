@@ -3,8 +3,8 @@ local utils = require("vimrc.utils")
 
 local settings = {}
 
-settings.setup = function()
-  -- TODO: Check mini.basics options
+-- TODO: Check mini.basics options
+settings.setup_options = function()
   -- Vim basic setting {{{
   -- source custom mswin.vim
   if not plugin_utils.os_is("synology") then
@@ -140,7 +140,9 @@ settings.setup = function()
 
   -- Set terminal buffer size to 10000 (default: 10000)
   vim.opt.scrollback = 10000
+end
 
+settings.setup_option_toggle = function()
   vim.keymap.set("n", "cob", ":set buflisted!<CR>")
   vim.keymap.set("n", "coc", ":set termguicolors!<CR>")
   vim.keymap.set("n", "coe", ":set expandtab!<CR>")
@@ -155,9 +157,10 @@ settings.setup = function()
   vim.keymap.set("n", "codh", function()
     utils.toggle_list_option_flag(vim.opt.diffopt, "algorithm:histogram")
   end, { noremap = true, desc = "Toggle diff algorithm:histogram" })
+end
 
-  -- TODO: Move to better place
-  -- Signcolumn
+-- TODO: Move to better place
+settings.setup_signcolumn = function()
   local signcolumn_settings_augroup_id = vim.api.nvim_create_augroup("signcolumn_settings", {})
   vim.api.nvim_create_autocmd({ "WinNew" }, {
     group = signcolumn_settings_augroup_id,
@@ -180,6 +183,12 @@ settings.setup = function()
       end
     end,
   })
+end
+
+settings.setup = function()
+  settings.setup_options()
+  settings.setup_option_toggle()
+  settings.setup_signcolumn()
 end
 
 return settings
