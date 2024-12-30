@@ -5,12 +5,17 @@ local my_gitlab = {}
 
 my_gitlab.panel_height = 12
 
+my_gitlab.is_comment_popup = function(buf)
+  local comment_popup = require("gitlab.actions.comment").comment_popup
+  return comment_popup and comment_popup.bufnr == buf
+end
+
 my_gitlab.minimize_discussion = function()
   vim.cmd([[resize 1]])
 end
 
 my_gitlab.reset_discussion = function()
-  vim.cmd([[resize ]]..my_gitlab.panel_height)
+  vim.cmd([[resize ]] .. my_gitlab.panel_height)
 end
 
 my_gitlab.setup_config = function()
@@ -20,25 +25,52 @@ my_gitlab.setup_config = function()
 end
 
 my_gitlab.setup_mapping = function()
-  vim.keymap.set("n", "glb", function ()
-    gitlab_server.restart(function ()
+  vim.keymap.set("n", "glb", function()
+    gitlab_server.restart(function()
       vim.cmd.tabclose()
       gitlab.review() -- Reopen the reviewer after the server restarts
     end)
   end, { desc = "Restart gitlab.nvim server & review" })
-  vim.keymap.set("n", "glk", function ()
-    gitlab_server.restart(function ()
+  vim.keymap.set("n", "glk", function()
+    gitlab_server.restart(function()
       vim.notifiy("GitLab server restarted")
     end)
   end, { desc = "Restart gitlab.nvim server" })
-  vim.keymap.set("n", "glrc", function ()
+  vim.keymap.set("n", "glrc", function()
     gitlab.choose_merge_request({ state = "all" })
   end, { desc = "GitLab choose merge request" })
+end
+
+my_gitlab.setup_autocmd = function()
+  -- Trick to make copilot.lua & nvim-cmp work with gitlab.nvim's comment popup & note popup
+  local augroup_id = vim.api.nvim_create_augroup("gitlab_settings", {})
+  vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+    group = augroup_id,
+    pattern = "*",
+    callback = function()
+      if my_gitlab.is_comment_popup(vim.api.nvim_get_current_buf()) then
+        vim.opt.buflisted = true
+        vim.opt.buftype = ""
+        vim.cmd("Copilot enable")
+      end
+    end,
+  })
+  vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+    group = augroup_id,
+    pattern = "*",
+    callback = function()
+      if my_gitlab.is_comment_popup(vim.api.nvim_get_current_buf()) then
+        vim.opt.buflisted = false
+        vim.opt.buftype = "nofile"
+      end
+    end,
+  })
 end
 
 my_gitlab.setup = function()
   my_gitlab.setup_config()
   my_gitlab.setup_mapping()
+  my_gitlab.setup_autocmd()
 end
 
 return my_gitlab
