@@ -217,6 +217,7 @@ local completion = {
     keys = {
       { "<Space>c;", [[:Copilot<Space>]],         desc = "Copilot" },
       { "<Space>cl", [[<Cmd>Copilot enable<CR>]], desc = "Copilot enable" },
+      { "<Space>cL", [[<Cmd>CopilotForceEnable<CR>]], desc = "Copilot force enable" },
     },
     config = function()
       require("copilot").setup({
@@ -246,13 +247,7 @@ local completion = {
         },
       })
 
-      -- Force enable Copilot on non-'buflisted' special buffers like AvanteInput, copilot-chat, codecompanion etc.
-      vim.api.nvim_create_user_command("CopilotForceEnable", function()
-        vim.opt.buflisted = true
-        vim.opt.buftype = ""
-        vim.cmd("Copilot enable")
-      end, {})
-      vim.keymap.set("n", "<Space>cL", "<Cmd>CopilotForceEnable<CR>")
+      require("vimrc.plugins.copilot").setup()
     end,
   },
   {

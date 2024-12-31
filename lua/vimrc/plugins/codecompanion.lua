@@ -1,3 +1,5 @@
+local my_copilot = require("vimrc.plugins.copilot")
+
 local codecompanion = {}
 
 -- Ref: [Snippet to add the ability to saveload CodeCompanion chats in neovim](https://gist.github.com/itsfrank/942780f88472a14c9cbb3169012a3328)
@@ -51,10 +53,7 @@ codecompanion.setup_save_load = function()
       return codecompanion.buf_get_chat(0)
     end)
     if not success or chat == nil then
-      vim.notify(
-        "CodeCompanionSave should only be called from CodeCompanion chat buffers",
-        vim.log.levels.ERROR
-      )
+      vim.notify("CodeCompanionSave should only be called from CodeCompanion chat buffers", vim.log.levels.ERROR)
       return
     end
     if #opts.fargs == 0 then
@@ -68,30 +67,10 @@ codecompanion.setup_save_load = function()
 end
 
 codecompanion.setup_autocmd = function()
-  -- TODO: Make this work with CopilotChat.nvim & Avante.nvim without duplicating code
   -- Trick to make copilot.lua work with CodeCompanion
-  local augroup_id = vim.api.nvim_create_augroup("codecompanion_settings", {})
-  vim.api.nvim_create_autocmd({ "InsertEnter" }, {
-    group = augroup_id,
-    pattern = "*",
-    callback = function()
-      if vim.bo.filetype == "codecompanion" then
-        vim.opt.buflisted = true
-        vim.opt.buftype = ""
-        vim.cmd("Copilot enable")
-      end
-    end,
-  })
-  vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-    group = augroup_id,
-    pattern = "*",
-    callback = function()
-      if vim.bo.filetype == "codecompanion" then
-        vim.opt.buflisted = false
-        vim.opt.buftype = "nofile"
-      end
-    end,
-  })
+  my_copilot.add_attach_filter(function()
+    return vim.bo.filetype == "codecompanion"
+  end)
 end
 
 codecompanion.setup = function()

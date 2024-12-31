@@ -1,6 +1,8 @@
 local gitlab = require("gitlab")
 local gitlab_server = require("gitlab.server")
 
+local my_copilot = require("vimrc.plugins.copilot")
+
 local my_gitlab = {}
 
 my_gitlab.panel_height = 12
@@ -43,28 +45,9 @@ end
 
 my_gitlab.setup_autocmd = function()
   -- Trick to make copilot.lua & nvim-cmp work with gitlab.nvim's comment popup & note popup
-  local augroup_id = vim.api.nvim_create_augroup("gitlab_settings", {})
-  vim.api.nvim_create_autocmd({ "InsertEnter" }, {
-    group = augroup_id,
-    pattern = "*",
-    callback = function()
-      if my_gitlab.is_comment_popup(vim.api.nvim_get_current_buf()) then
-        vim.opt.buflisted = true
-        vim.opt.buftype = ""
-        vim.cmd("Copilot enable")
-      end
-    end,
-  })
-  vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-    group = augroup_id,
-    pattern = "*",
-    callback = function()
-      if my_gitlab.is_comment_popup(vim.api.nvim_get_current_buf()) then
-        vim.opt.buflisted = false
-        vim.opt.buftype = "nofile"
-      end
-    end,
-  })
+  my_copilot.add_attach_filter(function()
+    return my_gitlab.is_comment_popup(vim.api.nvim_get_current_buf())
+  end)
 end
 
 my_gitlab.setup = function()
