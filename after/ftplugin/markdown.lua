@@ -18,6 +18,7 @@ if choose.is_enabled_plugin("nvim-surround") then
       ["*"] = my_nvim_surround.same_all("**"),
       ["_"] = my_nvim_surround.same_all("__"),
       ["~"] = my_nvim_surround.same_all("~~"),
+      ["c"] = my_nvim_surround.same_all("```"),
       ["l"] = {
         add = function()
           return {
