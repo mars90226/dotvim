@@ -4,6 +4,7 @@ syntax.setup = function()
   -- syntax
   -- Check if syntax is on and only switch on syntax when it's off
   -- due to git-p preview loses highlight after `:syntax on`
+  -- TODO: Check if this is needed, because we're using treesitter
   if not vim.g.syntax_on then
     vim.cmd([[syntax on]])
   end
