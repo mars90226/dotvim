@@ -717,6 +717,18 @@ local languages = {
       vim.keymap.set("n", crates_prefix .. "L", crates.open_lib_rs, { silent = true, desc = "Crates - Open lib.rs page" })
     end,
   },
+  -- TypeScript
+  {
+    "OlegGulevskyy/better-ts-errors.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    keys = { '<Leader>dd', '<Leader>dx' },
+    opts = {
+      keymaps = {
+        toggle = '<Leader>dd',
+        go_to_definition = '<Leader>dx',
+      },
+    },
+  },
 }
 
 return languages
