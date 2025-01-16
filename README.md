@@ -42,7 +42,7 @@ Well, these plugins are hard to categorize, but they are gems. You will need the
 - [nvim-surround](https://github.com/kylechui/nvim-surround) (quickly add/delete/replace brackets)
 - [grug-far.nvim](https://github.com/MagicDuck/grug-far.nvim) (find-and-replace globally)
 - [flash.nvim](https://github.com/folke/flash.nvim) (quickly move cursor to certain place on screen)
-- [hop.nvim](https://github.com/phaazon/hop.nvim) (quickly move cursor to certain place on screen, written in Lua)
+- [hop.nvim](https://github.com/smoka7/hop.nvim) (quickly move cursor to certain place on screen, written in Lua)
 - [lightspeed.nvim](https://github.com/ggandor/lightspeed.nvim) (quickly move cursor by search)
 
 ### LSP
