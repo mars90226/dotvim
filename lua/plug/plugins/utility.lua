@@ -669,6 +669,7 @@ local utility = {
         enabled = true,
         timeout = 3000,
       },
+      picker = { enabled = true },
       quickfile = { enabled = true },
       statuscolumn = { enabled = choose.is_enabled_plugin("snacks.nvim-statuscolumn") },
       words = { enabled = true },
@@ -718,6 +719,7 @@ local utility = {
       },
       { "<Leader>zm", function() Snacks.zen() end,             desc = "Zen Mode" },
       { "<Leader>zc", function() vim.cmd([[ZenModeCopy]]) end, desc = "Zen Mode Copy" },
+      { "<Space>s;",  function() Snacks.picker() end,          desc = "Snacks picker" },
     },
     init = function()
       vim.api.nvim_create_autocmd("User", {
