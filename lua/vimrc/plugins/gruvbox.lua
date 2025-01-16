@@ -91,6 +91,10 @@ gruvbox.custom_overrides = function()
     BqfPreviewTitle = { link = "OpaqueTitle" },
 
     UfoFoldedBg = { bg = nil },
+
+    -- nvim-treesitter-context
+    TreesitterContextBottom = { underline = true, sp = palette.dark4 },
+    TreesitterContextLineNumberBottom = { underline = true, sp = palette.dark4 },
   } or {})
 
   return overrides
