@@ -58,7 +58,7 @@ local lsp = {
     event = { "LspAttach" },
     init = function()
       vim.g.lsp_legacy_commands = true
-    end
+    end,
   },
 
   {
@@ -74,7 +74,7 @@ local lsp = {
     dependencies = "nvim-tree/nvim-web-devicons",
     cmd = { "Trouble" },
     keys = {
-      { "<Space>xx", "<Cmd>Trouble diagnostics toggle<CR>",         desc = "Trouble diagnostics" },
+      { "<Space>xx", "<Cmd>Trouble diagnostics toggle<CR>", desc = "Trouble diagnostics" },
       {
         "<Space>xd",
         "<Cmd>Trouble diagnostics toggle filter.buf=0<CR>",
@@ -86,8 +86,8 @@ local lsp = {
         "<Cmd>Trouble lsp toggle focus=false win.position=right<CR>",
         desc = "Trouble LSP definitions / references / ...",
       },
-      { "<Space>xq", "<Cmd>Trouble quickfix<CR>",       desc = "Trouble quickfix" },
-      { "<Space>xa", "<Cmd>Trouble loclist<CR>",        desc = "Trouble loclist" },
+      { "<Space>xq", "<Cmd>Trouble quickfix<CR>", desc = "Trouble quickfix" },
+      { "<Space>xa", "<Cmd>Trouble loclist<CR>", desc = "Trouble loclist" },
       { "<Space>xr", "<Cmd>Trouble lsp_references<CR>", desc = "Trouble lsp_references" },
 
       -- jump to the next item, skipping the groups
@@ -115,20 +115,16 @@ local lsp = {
         symbols = {
           win = {
             size = { width = vim.g.right_sidebar_width, height = vim.g.right_sidebar_height },
-          }
-        }
-      }
+          },
+        },
+      },
     },
   },
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     event = { "LspAttach" },
     config = function()
-      local lsp_lines = require("lsp_lines")
-      lsp_lines.setup()
-      lsp_lines.toggle() -- disable by default
-
-      vim.keymap.set("n", "yoO", lsp_lines.toggle, { desc = "Toggle lsp_lines" })
+      require("vimrc.plugins.lsp_lines").setup()
     end,
   },
 
@@ -363,7 +359,12 @@ local lsp = {
     "aznhe21/actions-preview.nvim",
     event = { "LspAttach" },
     config = function()
-      vim.keymap.set({ "v", "n" }, "ga", require("actions-preview").code_actions, { desc = "actions-preview.nvim - code actions" })
+      vim.keymap.set(
+        { "v", "n" },
+        "ga",
+        require("actions-preview").code_actions,
+        { desc = "actions-preview.nvim - code actions" }
+      )
     end,
   },
 
@@ -374,7 +375,7 @@ local lsp = {
     "zeioth/garbage-day.nvim",
     enabled = false,
     event = { "LspAttach" },
-    opts = {}
+    opts = {},
   },
 }
 
