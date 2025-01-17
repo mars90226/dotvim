@@ -36,8 +36,8 @@ my_lsp_lines.setup = function()
   lsp_lines.setup()
   -- my_lsp_lines.setup_config()
   my_lsp_lines.setup_mapping()
-  --
-  -- my_lsp_lines.toggle() -- disable by default
+
+  my_lsp_lines.toggle() -- disable by default
 end
 
 return my_lsp_lines
