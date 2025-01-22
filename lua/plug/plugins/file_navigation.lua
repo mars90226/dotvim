@@ -290,43 +290,43 @@ local file_navigation = {
     cmd = { "AdvancedGitSearch" },
     keys = {
       {
-        [[<Space>ab]],
+        [[<Space>vb]],
         [[<Cmd>AdvancedGitSearch diff_branch_file<CR>]],
         desc = "AdvancedGitSearch diff_branch_file",
       },
       {
-        [[<Space>al]],
+        [[<Space>vl]],
         [[<Cmd>AdvancedGitSearch diff_commit_line<CR>]],
         desc = "AdvancedGitSearch diff_commit_line",
       },
       {
-        [[<Space>al]],
+        [[<Space>vl]],
         mode = { "x" },
         [[:<C-U>AdvancedGitSearch diff_commit_line<CR>]],
         desc = "AdvancedGitSearch diff_commit_line",
       },
       {
-        [[<Space>af]],
+        [[<Space>vf]],
         [[<Cmd>AdvancedGitSearch diff_commit_file<CR>]],
         desc = "AdvancedGitSearch diff_commit_file",
       },
       {
-        [[<Space>as]],
+        [[<Space>vs]],
         [[<Cmd>AdvancedGitSearch search_log_content<CR>]],
         desc = "AdvancedGitSearch search_log_content",
       },
       {
-        [[<Space>aS]],
+        [[<Space>vS]],
         [[<Cmd>AdvancedGitSearch search_log_content_file<CR>]],
         desc = "AdvancedGitSearch search_log_content_file",
       },
       {
-        [[<Space>ar]],
+        [[<Space>vr]],
         [[<Cmd>AdvancedGitSearch checkout_reflog<CR>]],
         desc = "AdvancedGitSearch checkout_reflog",
       },
       {
-        [[<Space>aa]],
+        [[<Space>va]],
         [[<Cmd>AdvancedGitSearch show_custom_functions<CR>]],
         desc = "AdvancedGitSearch show_custom_functions",
       },
@@ -353,7 +353,7 @@ local file_navigation = {
     "Marskey/telescope-sg",
     cond = plugin_utils.is_executable("sg"),
     keys = {
-      { "<Space>ag", [[<Cmd>Telescope ast_grep<CR>]], desc = "Telescope ast_grep" },
+      { "<Space>st", [[<Cmd>Telescope ast_grep<CR>]], desc = "Telescope ast_grep" },
     },
   },
   {
