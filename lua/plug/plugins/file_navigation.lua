@@ -397,6 +397,34 @@ local file_navigation = {
     end,
   },
 
+  -- Snacks
+  -- NOTE: snacks.nvim has many modules, currently the most used is snacks.picker, so place it here.
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = require("vimrc.plugins.snacks").opts,
+    keys = require("vimrc.plugins.snacks").keys,
+    init = function()
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "VeryLazy",
+        callback = function()
+          -- Setup some globals for debugging (lazy-loaded)
+          _G.dd = function(...)
+            Snacks.debug.inspect(...)
+          end
+          _G.bt = function()
+            Snacks.debug.backtrace()
+          end
+          vim.print = _G.dd -- Override print to use snacks for `:=` command
+        end,
+      })
+    end,
+    config = function(_, opts)
+      require("vimrc.plugins.snacks").setup(opts)
+    end,
+  },
+
   -- Bookmarks
   {
     "cbochs/grapple.nvim",
