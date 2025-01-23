@@ -86,22 +86,26 @@ my_snacks.keys = (function()
     { snacks_picker_prefix .. "r", function() Snacks.picker.grep() end, desc = "Snacks Picker - Grep" },
     { snacks_picker_prefix .. ":", function() Snacks.picker.command_history() end, desc = "Snacks Picker - Command History" },
     { snacks_picker_prefix .. "f", function() Snacks.picker.files() end, desc = "Snacks Picker - Find Files" },
+    { snacks_picker_prefix .. "<CR>", function() Snacks.picker.smart() end, desc = "Snacks Picker - Smart" },
     -- find
     { snacks_picker_prefix .. "C", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Snacks Picker - Find Config File" },
     { snacks_picker_prefix .. "g", function() Snacks.picker.git_files() end, desc = "Snacks Picker - Find Git Files" },
-    { snacks_picker_prefix .. "<CR>", function() Snacks.picker.recent() end, desc = "Snacks Picker - Recent" },
+    { snacks_picker_prefix .. "o", function() Snacks.picker.recent() end, desc = "Snacks Picker - Recent" },
     -- git
+    { snacks_picker_prefix .. "B", function() Snacks.picker.git_branches() end, desc = "Snacks Picker - Git Branches" },
     { snacks_picker_prefix .. "c", function() Snacks.picker.git_log() end, desc = "Snacks Picker - Git Log" },
     { snacks_picker_prefix .. "s", function() Snacks.picker.git_status() end, desc = "Snacks Picker - Git Status" },
+    { snacks_picker_prefix .. "d", function() Snacks.picker.git_diff() end, desc = "Snacks Picker - Git Diff" },
     -- Grep
     { snacks_picker_prefix .. "ll", function() Snacks.picker.lines() end, desc = "Snacks Picker - Buffer Lines" },
-    { snacks_picker_prefix .. "B", function() Snacks.picker.grep_buffers() end, desc = "Snacks Picker - Grep Open Buffers" },
+    { snacks_picker_prefix .. "L", function() Snacks.picker.grep_buffers() end, desc = "Snacks Picker - Grep Open Buffers" },
     { snacks_picker_prefix .. "k", function() Snacks.picker.grep_word() end, desc = "Snacks Picker - Visual selection or word", mode = { "n", "x" } },
     -- search
     { snacks_picker_prefix .. '"', function() Snacks.picker.registers() end, desc = "Snacks Picker - Registers" },
     { snacks_picker_prefix .. "A", function() Snacks.picker.autocmds() end, desc = "Snacks Picker - Autocmds" },
     { snacks_picker_prefix .. ";", function() Snacks.picker.commands() end, desc = "Snacks Picker - Commands" },
     { snacks_picker_prefix .. "x", function() Snacks.picker.diagnostics() end, desc = "Snacks Picker - Diagnostics" },
+    { snacks_picker_prefix .. "X", function() Snacks.picker.diagnostics_buffer() end, desc = "Snacks Picker - Diagnostics Buffer" },
     { snacks_picker_prefix .. "h", function() Snacks.picker.help() end, desc = "Snacks Picker - Help Pages" },
     { snacks_picker_prefix .. "Y", function() Snacks.picker.highlights() end, desc = "Snacks Picker - Highlights" },
     { snacks_picker_prefix .. "j", function() Snacks.picker.jumps() end, desc = "Snacks Picker - Jumps" },
@@ -113,12 +117,19 @@ my_snacks.keys = (function()
     { snacks_picker_prefix .. "q", function() Snacks.picker.qflist() end, desc = "Snacks Picker - Quickfix List" },
     { snacks_picker_prefix .. "v", function() Snacks.picker.colorschemes() end, desc = "Snacks Picker - Colorschemes" },
     { snacks_picker_prefix .. "p", function() Snacks.picker.projects() end, desc = "Snacks Picker - Projects" },
+    { snacks_picker_prefix .. "=", function() Snacks.picker.cliphist() end, desc = "Snacks Picker - System Clipboard History" },
+    { snacks_picker_prefix .. "/", function() Snacks.picker.search_history() end, desc = "Snacks Picker - Search History" },
+    { snacks_picker_prefix .. "S", function() Snacks.picker.spelling() end, desc = "Snacks Picker - Spelling" },
+    { snacks_picker_prefix .. "U", function() Snacks.picker.undo() end, desc = "Snacks Picker - Undo" },
+    { snacks_picker_prefix .. "z", function() Snacks.picker.zoxide() end, desc = "Snacks Picker - Zoxide" },
     -- LSP
     { snacks_picker_lsp_prefix .. "d", function() Snacks.picker.lsp_definitions() end, desc = "Snacks Picker - Goto Definition" },
+    { snacks_picker_lsp_prefix .. "D", function() Snacks.picker.lsp_declarations() end, desc = "Snacks Picker - Goto Declaration" },
     { snacks_picker_lsp_prefix .. "r", function() Snacks.picker.lsp_references() end, nowait = true, desc = "Snacks Picker - References" },
     { snacks_picker_lsp_prefix .. "I", function() Snacks.picker.lsp_implementations() end, desc = "Snacks Picker - Goto Implementation" },
     { snacks_picker_lsp_prefix .. "y", function() Snacks.picker.lsp_type_definitions() end, desc = "Snacks Picker - Goto Type Definition" },
     { snacks_picker_lsp_prefix .. "o", function() Snacks.picker.lsp_symbols() end, desc = "Snacks Picker - LSP Symbols" },
+    { snacks_picker_lsp_prefix .. "s", function() Snacks.picker.lsp_workspace_symbols() end, desc = "Snacks Picker - LSP Workspace Symbols" },
   }
 end)()
 
