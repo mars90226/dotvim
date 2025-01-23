@@ -179,6 +179,7 @@ lualine.setup_performance_trick = function()
       lualine.setup_refresh_interval()
     end,
   })
+  -- TODO: Check if this cause weird tabline background color
   vim.api.nvim_create_autocmd({ "FocusLost", "VimSuspend" }, {
     group = augroup_id,
     pattern = "*",
