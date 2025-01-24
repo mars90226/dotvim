@@ -23,7 +23,21 @@ my_snacks.opts = {
     enabled = true,
     timeout = 3000,
   },
-  picker = { enabled = true },
+  picker = {
+    enabled = true,
+    win = {
+      input = {
+        keys = {
+          ["<C-T>"] = { "edit_tab", mode = { "i", "n" } }
+        },
+      },
+      list = {
+        keys = {
+          ["<C-T>"] = "edit_tab",
+        },
+      }
+    }
+  },
   quickfile = { enabled = true },
   statuscolumn = { enabled = choose.is_enabled_plugin("snacks.nvim-statuscolumn") },
   words = { enabled = true },
