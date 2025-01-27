@@ -97,7 +97,7 @@ my_snacks.keys = (function()
     -- Snacks picker
     { snacks_picker_prefix .. ",", function() Snacks.picker() end, desc = "Snacks picker" },
     { snacks_picker_prefix .. "b", function() Snacks.picker.buffers() end, desc = "Snacks Picker - Buffers" },
-    { snacks_picker_prefix .. "r", function() Snacks.picker.grep() end, desc = "Snacks Picker - Grep" },
+    { snacks_picker_prefix .. "i", function() Snacks.picker.grep() end, desc = "Snacks Picker - Live Grep" },
     { snacks_picker_prefix .. ":", function() Snacks.picker.command_history() end, desc = "Snacks Picker - Command History" },
     { snacks_picker_prefix .. "f", function() Snacks.picker.files() end, desc = "Snacks Picker - Find Files" },
     { snacks_picker_prefix .. "<CR>", function() Snacks.picker.smart() end, desc = "Snacks Picker - Smart" },
