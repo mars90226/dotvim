@@ -547,22 +547,59 @@ local utility = {
   },
   { "will133/vim-dirdiff", cmd = { "DirDiff" } },
 
-  -- -- RESTful
-  -- -- TODO: Migrate to kulala.nvim
-  -- -- TODO: Check if not working on Windows
-  -- -- TODO: rest.nvim is back again with v3, may try out
-  -- {
-  --   "rest-nvim/rest.nvim",
-  --   enabled = false,
-  --   dependencies = { { "nvim-lua/plenary.nvim" } },
-  --   ft = { "http" },
-  --   keys = {
-  --     { "<Leader>rr", [[<Plug>RestNvim]], nowait = true },
-  --     { "<Leader>rp", [[<Plug>RestNvimPreview]], nowait = true },
-  --     { "<Leader>rl", [[<Plug>RestNvimLast]], nowait = true },
-  --   },
-  --   opts = {},
-  -- },
+  -- RESTful
+  -- NOTE: Require 'hurl' to be installed
+  {
+    "jellydn/hurl.nvim",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    ft = "hurl",
+    opts = {
+      -- Show debugging info
+      debug = false,
+      -- Show notification on run
+      show_notification = false,
+      -- Show response in popup or split
+      mode = "split",
+      -- Default formatter
+      formatters = {
+        json = { "jq" }, -- Make sure you have install jq in your system, e.g: brew install jq
+        html = {
+          "prettier", -- Make sure you have install prettier in your system, e.g: npm install -g prettier
+          "--parser",
+          "html",
+        },
+        -- TODO: Install tidy through mason.nvim
+        xml = {
+          "tidy", -- Make sure you have installed tidy in your system, e.g: brew install tidy-html5
+          "-xml",
+          "-i",
+          "-q",
+        },
+      },
+      -- Default mappings for the response popup or split views
+      mappings = {
+        close = "q", -- Close the response popup or split view
+        next_panel = "<C-N>", -- Move to the next response popup window
+        prev_panel = "<C-P>", -- Move to the previous response popup window
+      },
+    },
+    keys = {
+      -- Run API request
+      { "<Leader>uA", "<cmd>HurlRunner<CR>", desc = "Hurl - Run All requests" },
+      { "<Leader>ua", "<cmd>HurlRunnerAt<CR>", desc = "Hurl - Run Api request" },
+      { "<Leader>ue", "<cmd>HurlRunnerToEntry<CR>", desc = "Hurl - Run Api request to entry" },
+      { "<Leader>uE", "<cmd>HurlRunnerToEnd<CR>", desc = "Hurl - Run Api request from current entry to end" },
+      { "<Leader>um", "<cmd>HurlToggleMode<CR>", desc = "Hurl - Toggle Mode" },
+      { "<Leader>uv", "<cmd>HurlVerbose<CR>", desc = "Hurl - Run Api in verbose mode" },
+      { "<Leader>uV", "<cmd>HurlVeryVerbose<CR>", desc = "Hurl - Run Api in very verbose mode" },
+      -- Run Hurl request in visual mode
+      { "<Leader>ua", ":HurlRunner<CR>", desc = "Hurl - Runner", mode = "v" },
+    },
+  },
 
   -- DB
   {
