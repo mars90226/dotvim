@@ -314,7 +314,12 @@ local lsp = {
       "MunifTanjim/nui.nvim",
     },
     config = function()
-      require("nvim-navbuddy").setup()
+      require("nvim-navbuddy").setup({
+        window = {
+          border = "rounded",
+          size = "90%"
+        }
+      })
 
       vim.keymap.set("n", "<Space><Leader>", "<Cmd>Navbuddy<CR>", { desc = "Toggle Navbuddy" })
     end,
