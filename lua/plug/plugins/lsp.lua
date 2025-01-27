@@ -317,8 +317,8 @@ local lsp = {
       require("nvim-navbuddy").setup({
         window = {
           border = "rounded",
-          size = "90%"
-        }
+          size = "90%",
+        },
       })
 
       vim.keymap.set("n", "<Space><Leader>", "<Cmd>Navbuddy<CR>", { desc = "Toggle Navbuddy" })
@@ -357,16 +357,6 @@ local lsp = {
         { desc = "actions-preview.nvim - code actions" }
       )
     end,
-  },
-
-  -- Timeout
-  -- TODO: Seems to cause more LSP problems than solve problems?
-  -- Also, copilot keeps being disabled.
-  {
-    "zeioth/garbage-day.nvim",
-    enabled = false,
-    event = { "LspAttach" },
-    opts = {},
   },
 }
 
