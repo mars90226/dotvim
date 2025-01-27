@@ -33,42 +33,14 @@ local utility = {
   },
 
   -- Colors
-  -- TODO: Change ColorV global leader to avoid key mapping conflict
   {
-    "gu-fan/colorv.vim",
-    cmd = { "ColorV", "ColorVName", "ColorVView" },
+    "uga-rosa/ccc.nvim",
     keys = {
-      { "<Leader>vv", "<Cmd>ColorV<CR>",     silent = true, desc = "ColorV - open" },
-      { "<Leader>vn", "<Cmd>ColorVName<CR>", silent = true, desc = "ColorV - name" },
-      { "<Leader>vw", "<Cmd>ColorVView<CR>", silent = true, desc = "ColorV - view" },
-    },
-    dependencies = { "mattn/webapi-vim" },
-    opts = {},
-  },
-  {
-    "nvim-colortils/colortils.nvim",
-    cmd = { "Colortils" },
-    keys = {
-      {
-        "<Leader>cT",
-        mode = { "n" },
-        [[<Cmd>Colortils picker black<CR>]],
-        desc = "Open color picker",
-      },
-      {
-        "<Leader>cT",
-        mode = { "x" },
-        [[:<C-U>execute 'Colortils picker '..vimrc#utility#get_visual_selection()<CR>]],
-        desc = "Open color picker with visual selection",
-      },
+      { "<Leader>vv", [[<Cmd>CccPick<CR>]], desc = "Ccc - Pick" },
     },
     config = function()
-      require("colortils").setup({
-        mappings = {
-          replace_default_format = "<M-CR>",
-          replace_choose_format = "g<M-CR>",
-        },
-      })
+      vim.go.termguicolors = true
+      require("ccc").setup({})
     end,
   },
 
@@ -168,7 +140,7 @@ local utility = {
 
   -- Quickfix
   { "kevinhwang91/nvim-bqf", ft = { "qf" } },
-  { "thinca/vim-qfreplace",  ft = { "qf" } },
+  { "thinca/vim-qfreplace", ft = { "qf" } },
   {
     "romainl/vim-qf",
     ft = { "qf" },
@@ -219,7 +191,7 @@ local utility = {
     "hoschi/yode-nvim",
     keys = {
       { "<Leader>yc", [[<Cmd>YodeCreateSeditorFloating<CR>]], desc = "Yode - create editor in float" },
-      { "<Leader>yr", [[<Cmd>YodeCreateSeditorReplace<CR>]],  desc = "Yode - create editor in current window" },
+      { "<Leader>yr", [[<Cmd>YodeCreateSeditorReplace<CR>]], desc = "Yode - create editor in current window" },
     },
     config = function()
       require("yode-nvim").setup({})
@@ -264,12 +236,12 @@ local utility = {
       "OverseerTaskAction",
     },
     keys = {
-      { "<Space>ro", [[<Cmd>OverseerToggle<CR>]],      desc = "Overseer toggle" },
-      { "<Space>rr", [[<Cmd>OverseerRun<CR>]],         desc = "Overseer run" },
-      { "<Space>r;", [[<Cmd>OverseerRunCmd<CR>]],      desc = "Overseer run cmd" },
-      { "<Space>rn", [[<Cmd>OverseerBuild<CR>]],       desc = "Overseer build" },
+      { "<Space>ro", [[<Cmd>OverseerToggle<CR>]], desc = "Overseer toggle" },
+      { "<Space>rr", [[<Cmd>OverseerRun<CR>]], desc = "Overseer run" },
+      { "<Space>r;", [[<Cmd>OverseerRunCmd<CR>]], desc = "Overseer run cmd" },
+      { "<Space>rn", [[<Cmd>OverseerBuild<CR>]], desc = "Overseer build" },
       { "<Space>rq", [[<Cmd>OverseerQuickAction<CR>]], desc = "Overseer quick action" },
-      { "<Space>rt", [[<Cmd>OverseerTaskAction<CR>]],  desc = "Overseer task action" },
+      { "<Space>rt", [[<Cmd>OverseerTaskAction<CR>]], desc = "Overseer task action" },
     },
     config = function()
       require("vimrc.plugins.overseer").setup()
@@ -402,7 +374,7 @@ local utility = {
     cmd = { "UrlView" },
     keys = {
       { "<Leader>uu", [[<Cmd>UrlView buffer picker=telescope<CR>]], desc = "view buffer URLs" },
-      { "<Leader>ul", [[<Cmd>UrlView lazy picker=telescope<CR>]],   desc = "view plugin URLs" },
+      { "<Leader>ul", [[<Cmd>UrlView lazy picker=telescope<CR>]], desc = "view plugin URLs" },
     },
     dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
@@ -461,9 +433,9 @@ local utility = {
     "sindrets/winshift.nvim",
     cmd = { "WinShift" },
     keys = {
-      { "<C-W><C-M>", [[<Cmd>WinShift<CR>]],      desc = "Start winshift" },
-      { "<C-W>m",     [[<Cmd>WinShift<CR>]],      desc = "Start winshift" },
-      { "<C-W>X",     [[<Cmd>WinShift swap<CR>]], desc = "Start winshift swap" },
+      { "<C-W><C-M>", [[<Cmd>WinShift<CR>]], desc = "Start winshift" },
+      { "<C-W>m", [[<Cmd>WinShift<CR>]], desc = "Start winshift" },
+      { "<C-W>X", [[<Cmd>WinShift swap<CR>]], desc = "Start winshift swap" },
     },
   },
 
@@ -537,7 +509,7 @@ local utility = {
     cmd = { "Translate" },
     keys = {
       { "<Leader>ta", mode = { "n" }, [[viw:Translate ZH-TW<CR>]], desc = "Translate word" },
-      { "<Leader>ta", mode = { "x" }, [[:Translate ZH-TW<CR>]],    desc = "Translate visual selection" },
+      { "<Leader>ta", mode = { "x" }, [[:Translate ZH-TW<CR>]], desc = "Translate visual selection" },
     },
   },
 
@@ -569,11 +541,11 @@ local utility = {
     cmd = { "Linediff" },
     keys = {
       { "<M-d>l", mode = { "n" }, [[V:Linediff<CR>]], desc = "Linediff current line" },
-      { "<M-d>l", mode = { "x" }, [[:Linediff<CR>]],  desc = "Linediff visual selection" },
+      { "<M-d>l", mode = { "x" }, [[:Linediff<CR>]], desc = "Linediff visual selection" },
     },
     config = function() end,
   },
-  { "will133/vim-dirdiff",  cmd = { "DirDiff" } },
+  { "will133/vim-dirdiff", cmd = { "DirDiff" } },
 
   -- -- RESTful
   -- -- TODO: Migrate to kulala.nvim
@@ -676,10 +648,10 @@ local utility = {
       "W",
     },
   },
-  { "tweekmonster/helpful.vim",         cmd = { "HelpfulVersion" } },
-  { "dstein64/vim-startuptime",         cmd = { "StartupTime" } },
+  { "tweekmonster/helpful.vim", cmd = { "HelpfulVersion" } },
+  { "dstein64/vim-startuptime", cmd = { "StartupTime" } },
   { "kristijanhusak/vim-carbon-now-sh", cmd = { "CarbonNowSh" } },
-  { "taybart/b64.nvim",                 cmd = { "B64Encode", "B64Decode" } },
+  { "taybart/b64.nvim", cmd = { "B64Encode", "B64Decode" } },
 }
 
 return utility
