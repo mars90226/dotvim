@@ -61,13 +61,6 @@ local lsp = {
     end,
   },
 
-  {
-    "glepnir/lspsaga.nvim",
-    branch = "main",
-    event = { "LspAttach" },
-    -- NOTE: config setup in vimrc.lsp.setup_plugins()
-  },
-
   -- Diagnostic
   {
     "folke/trouble.nvim",

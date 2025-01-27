@@ -36,6 +36,7 @@ diagnostic.setup = function()
     virtual_lines = diagnostic.config.virtual_lines,
     float = {
       source = "if_many",
+      border = "rounded",
     },
     signs = {
       text = {

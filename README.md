@@ -48,7 +48,6 @@ Well, these plugins are hard to categorize, but they are gems. You will need the
 ### LSP
 
 - [outline.nvim](https://github.com/hedyhli/outline.nvim) (Display symbols in sidebar using LSP)
-- [lspsaga.nvim](https://github.com/glepnir/lspsaga.nvim) (lsp UI and lsp context for winbar)
 - [trouble.nvim](https://github.com/folke/trouble.nvim) (diagnostics UI)
 - [conform.nvim](https://github.com/stevearc/conform.nvim) (on-demand formatter)
 - [nvim-lint](https://github.com/mfussenegger/nvim-lint) (on-demand linter)

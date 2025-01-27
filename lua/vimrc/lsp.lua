@@ -1,4 +1,3 @@
-local my_lspsaga = require("vimrc.plugins.lspsaga")
 local my_goto_preview = require("vimrc.plugins.goto-preview")
 
 local choose = require("vimrc.choose")
@@ -323,7 +322,9 @@ lsp.show_doc = function()
     if vim.o.filetype == "help" or vim.o.filetype == "vim" then
       vim.cmd([[help ]] .. vim.fn.expand("<cword>"))
     else
-      vim.cmd([[Lspsaga hover_doc]])
+      vim.lsp.buf.hover({
+        border = "rounded",
+      })
     end
   end
 end
@@ -341,13 +342,12 @@ lsp.on_attach = function(client, bufnr)
   end
 
   -- My plugin configs
-  my_lspsaga.on_attach(client)
   my_goto_preview.on_attach(client)
 
   vim.keymap.set("n", "K", function()
     require("vimrc.lsp").show_doc()
   end, { silent = true, buffer = true, desc = "LSP show hover documentation" })
-  vim.keymap.set("n", "gD", function()
+  vim.keymap.set("n", "gd", function()
     vim.lsp.buf.definition()
   end, { silent = true, buffer = true, desc = "LSP show definition" })
   vim.keymap.set("n", "1gD", function()
@@ -356,6 +356,9 @@ lsp.on_attach = function(client, bufnr)
   vim.keymap.set("n", "2gD", function()
     vim.lsp.buf.declaration()
   end, { silent = true, buffer = true, desc = "LSP show declaration" })
+  vim.keymap.set("n", "gi", function()
+    vim.lsp.buf.implementation()
+  end, { silent = true, buffer = true, desc = "LSP show definition" })
   vim.keymap.set("n", "gR", function()
     vim.lsp.buf.references()
   end, { silent = true, buffer = true, desc = "LSP show references" })
@@ -384,6 +387,23 @@ lsp.on_attach = function(client, bufnr)
   vim.keymap.set("n", "yoI", function()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
   end, { silent = true, buffer = true, desc = "LSP toggle inlay hints" })
+
+  -- Remap for K
+  local maparg
+  maparg = vim.fn.maparg("gK", "n", false, true)
+  if maparg == {} or maparg["buffer"] ~= 1 then
+    vim.keymap.set("n", "gK", "K", { buffer = true })
+  end
+  -- Remap for gi
+  maparg = vim.fn.maparg("gI", "n", false, true)
+  if maparg == {} or maparg["buffer"] ~= 1 then
+    vim.keymap.set("n", "gI", "gi", { buffer = true })
+  end
+  -- Remap for gI
+  maparg = vim.fn.maparg("g<C-I>", "n", false, true)
+  if maparg == {} or maparg["buffer"] ~= 1 then
+    vim.keymap.set("n", "g<C-I>", "gI", { buffer = true })
+  end
 
   -- NOTE: Enable inlay hints
   vim.lsp.inlay_hint.enable(true)
@@ -572,7 +592,7 @@ lsp.setup_lsp_install = function()
 end
 
 lsp.setup_plugins = function()
-  my_lspsaga.setup()
+  -- Do nothing for now
 end
 
 lsp.setup_commands = function()

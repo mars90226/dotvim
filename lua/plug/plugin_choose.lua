@@ -12,8 +12,8 @@ plugin_choose.setup_appearance = function()
   -- tabby.nvim, barbar.nvim, or tabline bundled in statusline
 
   -- Winbar
-  -- dropbar.nvim-winbar, lualine.nvim, lspsaga.nvim
-  choose.disable_plugins({ "dropbar.nvim-winbar", "lualine.nvim-winbar", "lspsaga.nvim-winbar" })
+  -- dropbar.nvim-winbar, lualine.nvim
+  choose.disable_plugins({ "dropbar.nvim-winbar", "lualine.nvim-winbar" })
   choose.enable_plugin("dropbar.nvim-winbar")
 
   -- Choose tabline bundled in statusline
@@ -171,8 +171,8 @@ plugin_choose.setup_language = function()
   -- neogen for generating documentation
 
   -- Choose context component (statusline, winbar) plugin
-  -- dropbar.nvim, nvim-navic, glepnir/lspsaga.nvim
-  local context_component_plugins = { "dropbar.nvim", "nvim-navic", "lspsaga.nvim-context" }
+  -- dropbar.nvim, nvim-navic
+  local context_component_plugins = { "dropbar.nvim", "nvim-navic" }
   choose.disable_plugins(context_component_plugins)
   choose.enable_plugin("dropbar.nvim")
   -- nvim-navic is required by nvim-navbuddy

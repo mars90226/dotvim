@@ -45,7 +45,6 @@ gruvbox.custom_overrides = function()
     TabLineFill = { fg = palette.dark4, bg = palette.dark1 },
 
     -- NOTE: Use similar highlight of StatusLine highlight for WinBar
-    -- Color is affected by lspsaga.nvim
     WinBar = { fg = palette.light3, bg = palette.dark0 },
     WinBarNC = { fg = palette.light4, bg = palette.dark0 },
 
