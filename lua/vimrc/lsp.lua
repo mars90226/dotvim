@@ -16,7 +16,6 @@ end
 
 lsp.config = {
   enable_format_on_sync = false,
-  show_diagnostics = true,
 }
 
 -- TODO: Refactor this to use `vim.lsp.config` & `vim.lsp.enable` after neovim 0.11.0 is released
@@ -382,9 +381,6 @@ lsp.on_attach = function(client, bufnr)
   vim.keymap.set("n", "yof", function()
     require("vimrc.lsp").toggle_format_on_sync()
   end, { silent = true, buffer = true, desc = "LSP toggle format on sync" })
-  vim.keymap.set("n", "yoo", function()
-    require("vimrc.lsp").toggle_show_diagnostics()
-  end, { silent = true, buffer = true, desc = "LSP toggle show diagnostics" })
   vim.keymap.set("n", "yoI", function()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
   end, { silent = true, buffer = true, desc = "LSP toggle inlay hints" })
@@ -627,11 +623,6 @@ end
 
 lsp.toggle_format_on_sync = function()
   lsp.config.enable_format_on_sync = not lsp.config.enable_format_on_sync
-end
-
-lsp.toggle_show_diagnostics = function()
-  lsp.config.show_diagnostics = not lsp.config.show_diagnostics
-  vim.diagnostic.enable(lsp.config.show_diagnostics)
 end
 
 return lsp

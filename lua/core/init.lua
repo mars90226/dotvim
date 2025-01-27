@@ -2,6 +2,7 @@ local core = {}
 
 core.setup = function()
   require("core.setting").setup()
+  require("core.diagnostic").setup()
   require("core.mapping").setup()
   require("core.filetype").setup()
   require("core.syntax").setup()

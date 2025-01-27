@@ -120,13 +120,6 @@ local lsp = {
       },
     },
   },
-  {
-    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    event = { "LspAttach" },
-    config = function()
-      require("vimrc.plugins.lsp_lines").setup()
-    end,
-  },
 
   -- Lint
   {
