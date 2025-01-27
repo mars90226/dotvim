@@ -113,9 +113,6 @@ local utility = {
 
   -- NOTE: require nvim-treesitter
   -- TODO: Check if not working on Windows
-  -- TODO: Migrate to rocks.nvim
-  -- NOTE: rocks.nvim installation script is outside of lazy.nvim & manual installation steps are tedious.
-  -- TODO: Check https://vhyrro.github.io/posts/neorg-and-luarocks/
   {
     "nvim-neorg/neorg",
     cond = choose.is_enabled_plugin("neorg"),
@@ -581,8 +578,6 @@ local utility = {
   -- -- RESTful
   -- -- TODO: Migrate to kulala.nvim
   -- -- TODO: Check if not working on Windows
-  -- -- TODO: Migrate to rocks.nvim
-  -- -- NOTE: rocks.nvim installation script is outside of lazy.nvim & manual installation steps are tedious.
   -- -- TODO: rest.nvim is back again with v3, may try out
   -- {
   --   "rest-nvim/rest.nvim",
