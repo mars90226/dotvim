@@ -263,14 +263,17 @@ local lsp = {
       require("vtsls").config(opts)
     end,
   },
-  -- NOTE: Disabled as it'll cause lua_ls use too much memory
-  -- TODO: Add a method to load neodev.nvim on-demand
   {
-    "folke/neodev.nvim",
-    enabled = false,
-    config = function()
-      require("neodev").setup({})
-    end,
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        "lazy.nvim",
+        -- It can also be a table with trigger words / mods
+        -- Only load luvit types when the `vim.uv` word is found
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
   },
   -- TODO: Error when hovering, setup ltex_extra.nvim twice
   -- Ref: https://github.com/barreiroleo/ltex_extra.nvim/issues/54
