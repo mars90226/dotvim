@@ -159,32 +159,6 @@ settings.setup_option_toggle = function()
   end, { noremap = true, desc = "Toggle diff algorithm:histogram" })
 end
 
--- TODO: Move to better place
-settings.setup_signcolumn = function()
-  local signcolumn_settings_augroup_id = vim.api.nvim_create_augroup("signcolumn_settings", {})
-  vim.api.nvim_create_autocmd({ "WinNew" }, {
-    group = signcolumn_settings_augroup_id,
-    pattern = "*",
-    callback = function()
-      -- NOTE: Reset signcolumn to "auto" to avoid inheriting winbar setting from other window
-      vim.wo.signcolumn = "auto"
-    end,
-  })
-  vim.api.nvim_create_autocmd({ "WinEnter" }, {
-    group = signcolumn_settings_augroup_id,
-    pattern = "*",
-    callback = function()
-      -- NOTE: Reset signcolumn to "auto" on nofile buffer, like hover window
-      -- FIXME: This is a temporary solution, need to find the root cause that cause signcolumn to be "yes" after a while
-      -- NOTE: The issue is mitigated by not setting 'signcolumn' to "yes" on LSP attach when
-      -- it's a "nofile" buffer
-      if vim.wo.signcolumn == "yes" and vim.bo.buftype == "nofile" then
-        vim.wo.signcolumn = "auto"
-      end
-    end,
-  })
-end
-
 settings.setup_digraph = function()
   -- NOTE: Since nvim-cmp & LuaSnip use <C-K> for jumping to next expandable LuaSnip, we need to use
   -- <M-S-K> for digraph using it's fallback.
@@ -203,7 +177,6 @@ end
 settings.setup = function()
   settings.setup_options()
   settings.setup_option_toggle()
-  settings.setup_signcolumn()
   settings.setup_digraph()
 end
 
