@@ -1,25 +1,28 @@
+local utils = require("vimrc.utils")
+local zoom = require("core.zoom")
+
 local float = {}
 
 float.setup = function()
   -- TODO: Move these config to other place
 
   -- Zoom {{{
-  vim.keymap.set("n", "<Leader>zz", [[:call vimrc#zoom#zoom()<CR>]], { silent = true })
-  vim.keymap.set(
-    "x",
-    "<Leader>zz",
-    [[:<C-U>call vimrc#zoom#selected(vimrc#utility#get_visual_selection())<CR>]],
-    { silent = true }
-  )
+  vim.keymap.set("n", "<Leader>zz", function()
+    zoom.zoom()
+  end, { silent = true })
+  vim.keymap.set("x", "<Leader>zz", function()
+    zoom.selected(utils.get_visual_selection())
+  end, { silent = true })
 
-  vim.keymap.set("n", "<Leader>zf", [[:call vimrc#zoom#float()<CR>]], { silent = true })
-  vim.keymap.set(
-    "x",
-    "<Leader>zf",
-    [[:<C-U>call vimrc#zoom#float_selected(vimrc#utility#get_visual_selection())<CR>]],
-    { silent = true }
-  )
-  vim.keymap.set("n", "<Leader>zF", [[:call vimrc#zoom#into_float()<CR>]], { silent = true })
+  vim.keymap.set("n", "<Leader>zf", function()
+    zoom.float()
+  end, { silent = true })
+  vim.keymap.set("x", "<Leader>zf", function()
+    zoom.float_selected(utils.get_visual_selection())
+  end, { silent = true })
+  vim.keymap.set("n", "<Leader>zF", function()
+    zoom.into_float()
+  end, { silent = true })
   -- }}}
 
   -- Float {{{

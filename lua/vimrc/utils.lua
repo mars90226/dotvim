@@ -190,30 +190,43 @@ utils.get_buffer_variable = function(buf, var)
   return nil
 end
 
--- Return 0-based range (start with 0) and the ending range is exclusive.
-utils.get_visual_selection_range = function()
-  local _, start_row, start_col, _ = unpack(vim.fn.getpos("'<"))
-  local _, end_row, end_col, _ = unpack(vim.fn.getpos("'>"))
-
-  if start_row < end_row or (start_row == end_row and start_col <= end_col) then
-    return start_row - 1, start_col - 1, end_row - 1, end_col
-  else
-    return end_row - 1, end_col - 1, start_row - 1, start_col
-  end
-end
-
+-- Ref: fzf-lua utils
 utils.get_visual_selection = function()
-  local start_row, start_col, end_row, end_col = utils.get_visual_selection_range()
-  local lines = vim.api.nvim_buf_get_lines(0, start_row, end_row + 1, false)
-
-  if vim.tbl_isempty(lines) then
-    return ""
+  -- this will exit visual mode
+  -- use 'gv' to reselect the text
+  local _, csrow, cscol, cerow, cecol
+  local mode = vim.fn.mode()
+  if mode == "v" or mode == "V" or mode == "" then
+    -- if we are in visual mode use the live position
+    _, csrow, cscol, _ = unpack(vim.fn.getpos("."))
+    _, cerow, cecol, _ = unpack(vim.fn.getpos("v"))
+    if mode == "V" then
+      -- visual line doesn't provide columns
+      cscol, cecol = 0, 999
+    end
+    -- NOTE: not required since commit: e8b2093
+    -- exit visual mode
+    -- vim.api.nvim_feedkeys(
+    --   vim.api.nvim_replace_termcodes("<Esc>",
+    --     true, false, true), "n", true)
+  else
+    -- otherwise, use the last known visual position
+    _, csrow, cscol, _ = unpack(vim.fn.getpos("'<"))
+    _, cerow, cecol, _ = unpack(vim.fn.getpos("'>"))
   end
-
-  lines[#lines] = string.sub(lines[#lines], 1, end_col - (vim.go.selection == "inclusive" and 0 or 1))
-  lines[1] = string.sub(lines[1], start_col + 1)
-
-  return vim.fn.join(lines, "\n")
+  -- swap vars if needed
+  if cerow < csrow then csrow, cerow = cerow, csrow end
+  if cecol < cscol then cscol, cecol = cecol, cscol end
+  local lines = vim.fn.getline(csrow, cerow)
+  -- local n = cerow-csrow+1
+  local n = #lines
+  if n <= 0 then return "" end
+  lines[n] = string.sub(lines[n], 1, cecol)
+  lines[1] = string.sub(lines[1], cscol)
+  return table.concat(lines, "\n"), {
+    start   = { line = csrow, char = cscol },
+    ["end"] = { line = cerow, char = cecol },
+  }
 end
 
 -- NOTE: JavaScript setTimeout like function
@@ -254,6 +267,12 @@ utils.get_buf_size = function(bufnr)
     return
   end
   return stats.size
+end
+
+utils.set_scratch = function()
+  vim.bo.buftype = "nofile"
+  vim.bo.bufhidden = "hide"
+  vim.bo.swapfile = false
 end
 
 return utils
