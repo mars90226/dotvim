@@ -26,7 +26,6 @@ Well, these plugins are hard to categorize, but they are gems. You will need the
 
 - [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) (fast custom status line)
 - [dropbar.nvim](https://github.com/Bekaboo/dropbar.nvim#requirements) (vscode-like winbar)
-- [statuscol.nvim](https://github.com/luukvbaal/statuscol.nvim) (customizable predefined 'statuscolumn')
 
 ### Picker
 

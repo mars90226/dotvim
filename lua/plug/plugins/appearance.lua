@@ -26,14 +26,7 @@ local appearance = {
   },
 
   -- Statuscolumn
-  -- NOTE: Lazy load will cause dashboard-nvim to show the statusline and not centered
-  {
-    "luukvbaal/statuscol.nvim",
-    cond = choose.is_enabled_plugin("statuscol.nvim"),
-    config = function()
-      require("vimrc.plugins.statuscol").setup()
-    end,
-  },
+  -- Use snacks.nvim statuscolumn
 
   -- Devicons
   -- TODO: Replace with mini.icon

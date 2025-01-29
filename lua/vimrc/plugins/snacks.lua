@@ -38,7 +38,7 @@ my_snacks.opts = {
     }
   },
   quickfile = { enabled = true },
-  statuscolumn = { enabled = choose.is_enabled_plugin("snacks.nvim-statuscolumn") },
+  statuscolumn = { enabled = true },
   words = { enabled = true },
   styles = {
     notification = {
