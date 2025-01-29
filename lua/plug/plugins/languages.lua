@@ -467,9 +467,8 @@ local languages = {
   -- TODO: Extract markdown filetypes calculation
   {
     "MeanderingProgrammer/render-markdown.nvim",
-    cond = choose.is_enabled_plugin("markdown.nvim"),
-    -- name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    cond = choose.is_enabled_plugin("render-markdown.nvim"),
+    -- name = 'render-markdown', -- Only needed if you have another plugin named render-markdown.nvim
     ft = vim.tbl_filter(function(component)
       return component ~= nil
     end, {

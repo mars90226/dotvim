@@ -9,17 +9,12 @@ plugin_choose.setup_appearance = function()
   -- lualine.nvim
 
   -- Tabline
-  -- tabby.nvim, barbar.nvim, or tabline bundled in statusline
+  -- lualine.nvim
 
   -- Winbar
   -- dropbar.nvim-winbar, lualine.nvim
   choose.disable_plugins({ "dropbar.nvim-winbar", "lualine.nvim-winbar" })
   choose.enable_plugin("dropbar.nvim-winbar")
-
-  -- Choose tabline bundled in statusline
-  -- TODO: Disable barbar.nvim due to slowness
-  -- TODO: Is fast in LunarVim, need to study why
-  -- TODO: Disable tabby.nvim due to relative large CPU usage in background
 
   -- Statuscolumn
   -- snacks.nvim-statuscolumn
@@ -29,7 +24,7 @@ plugin_choose.setup_appearance = function()
 end
 
 plugin_choose.setup_completion = function()
-  -- Choose autocompletion plugin
+  -- Choose auto-completion plugin
   -- nvim-cmp
 
   -- nvim-lsp for builtin neovim lsp
@@ -123,7 +118,7 @@ plugin_choose.setup_file_explorer = function()
     choose.enable_plugin("defx.nvim")
   end
   -- Always use neo-tree.nvim
-  -- TODO: Remove others
+  -- TODO: Remove neo-tree.nvim?
 end
 
 plugin_choose.setup_finder = function()
@@ -156,10 +151,10 @@ plugin_choose.setup_language = function()
   -- nvim-lint
 
   -- Choose Markdown render plugin
-  -- markdown.nvim, markview.nvim
-  choose.disable_plugins({ "markview.nvim", "markdown.nvim" })
+  -- markview.nvim, render-markdown.nvim
+  choose.disable_plugins({ "markview.nvim", "render-markdown.nvim" })
   choose.enable_plugin("markview.nvim")
-  -- choose.enable_plugin("markdown.nvim")
+  -- choose.enable_plugin("render-markdown.nvim")
 
   -- Choose markdown-preview plugin
   -- markdown-preview.nvim
