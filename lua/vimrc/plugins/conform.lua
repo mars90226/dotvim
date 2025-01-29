@@ -1,7 +1,5 @@
 local origin_conform = require("conform")
 
-local plugin_utils = require("vimrc.plugin_utils")
-
 local conform = {}
 
 conform.setup_config = function()
@@ -76,19 +74,13 @@ conform.setup_command = function()
         ["end"] = { args.line2, end_line:len() },
       }
     end
-    require("conform").format({ async = true, lsp_fallback = true, range = range })
+    origin_conform.format({ async = true, lsp_fallback = true, range = range })
   end, { range = true })
-end
-
-conform.setup_mapping = function()
-  vim.keymap.set("n", "<Space>lF", "<Cmd>Format<CR>", { silent = true,  desc = "Format by conform" })
-  vim.keymap.set("x", "<Space>lF", "<Cmd>Format<CR>", { silent = true,  desc = "Format by conform" })
 end
 
 conform.setup = function()
   conform.setup_config()
   conform.setup_command()
-  conform.setup_mapping()
 end
 
 return conform

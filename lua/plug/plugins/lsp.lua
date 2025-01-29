@@ -126,6 +126,10 @@ local lsp = {
   -- Format
   {
     "stevearc/conform.nvim",
+    cmd = { "ConformInfo", "Format" },
+    keys = {
+      { "<Space>lF", mode = { "n", "x" }, "<Cmd>Format<CR>", { silent = true, desc = "Format by conform" } },
+    },
     config = function()
       require("vimrc.plugins.conform").setup()
     end,
