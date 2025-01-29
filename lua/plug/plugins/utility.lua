@@ -202,7 +202,6 @@ local utility = {
     keys = {
       { "<Leader>dq", [[<Cmd>Copen<CR>]], desc = "Open vim-dispatch build result in quickfix" },
     },
-    event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
       -- TODO Check if disabling tmux is good
       -- As currently, it break tmux zoom.

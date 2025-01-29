@@ -167,6 +167,7 @@ local text_manipulation = {
   },
 
   -- imap <BS> & <CR> is overwritten, need to be careful of bugs
+  -- TODO: Lazy load on keys
   {
     "mg979/vim-visual-multi",
     cond = not utils.is_light_vim_mode(),
