@@ -1,5 +1,4 @@
 local utils = require("vimrc.utils")
-local my_lazy = require("vimrc.plugins.lazy")
 
 local git = {
   -- vim-fugitive
@@ -47,22 +46,6 @@ local git = {
     "tpope/vim-rhubarb",
     dependencies = { "tpope/vim-fugitive" },
     lazy = true,
-  },
-  {
-    "idanarye/vim-merginal",
-    dependencies = { "tpope/vim-fugitive" },
-    branch = "develop",
-    cmd = { "Merginal" },
-    config = function()
-      local merginal_augroup_id = vim.api.nvim_create_augroup("merginal_settings", {})
-      vim.api.nvim_create_autocmd({ "BufEnter" }, {
-        group = merginal_augroup_id,
-        pattern = "Merginal:branchList:*",
-        callback = function()
-          vim.fn["vimrc#merginal#settings"]()
-        end,
-      })
-    end,
   },
 
   {
@@ -204,15 +187,6 @@ local git = {
     config = function()
       require("vimrc.plugins.tig").setup()
     end,
-  },
-
-  {
-    "rhysd/git-messenger.vim",
-    cmd = { "GitMessenger" },
-    keys = {
-      { "<Leader>gm", "<Plug>(git-messenger)", desc = "Git messenger" },
-    },
-    opts = {},
   },
 
   {
