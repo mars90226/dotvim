@@ -141,19 +141,6 @@ local file_navigation = {
       require("telescope").load_extension("live_grep_args")
     end,
   },
-  {
-    "nvim-telescope/telescope-frecency.nvim",
-    -- TODO: Disabled as telescope-frecency.nvim loading to slow
-    enabled = false,
-    event = { "VeryLazy" },
-    config = function()
-      require("telescope").load_extension("frecency")
-
-      vim.api.nvim_create_user_command("FrecencyRemovePattern", function(opts)
-        require("vimrc.plugins.frecency").remove_pattern(opts.fargs[1])
-      end, { nargs = 1 })
-    end,
-  },
   -- TODO: This plugin is archived, author suggest using which-key.nvim instead
   {
     "LinArcX/telescope-command-palette.nvim",

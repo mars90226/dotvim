@@ -222,40 +222,6 @@ local lsp = {
     end,
   },
   {
-    "pmizio/typescript-tools.nvim",
-    -- NOTE: Disabled as it doesn't support volar for now and seems unmaintained
-    enabled = false,
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    ft = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-    config = function()
-      -- TODO: typescript-tools.nvim do not support mason-installed tsserver for now.
-      require("typescript-tools").setup(require("vimrc.lsp").calculate_server_opts("typescript-tools", {
-        settings = {
-          -- spawn additional tsserver instance to calculate diagnostics on it
-          separate_diagnostic_server = true,
-          -- "change"|"insert_leave" determine when the client asks the server about diagnostic
-          publish_diagnostic_on = "insert_leave",
-          -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
-          -- (see 💅 `styled-components` support section)
-          tsserver_plugins = {},
-          -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
-          -- memory limit in megabytes or "auto"(basically no limit)
-          tsserver_max_memory = "auto",
-          -- described below
-          tsserver_file_preferences = {
-            includeInlayParameterNameHints = "all",
-            includeCompletionsForModuleExports = true,
-            quotePreference = "auto",
-          },
-          tsserver_format_options = {
-            allowIncompleteCompletions = false,
-            allowRenameOfImportPath = false,
-          },
-        },
-      }))
-    end,
-  },
-  {
     "yioneko/nvim-vtsls",
     ft = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue" },
     opts = {},
@@ -274,13 +240,6 @@ local lsp = {
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
       },
     },
-  },
-  -- TODO: Error when hovering, setup ltex_extra.nvim twice
-  -- Ref: https://github.com/barreiroleo/ltex_extra.nvim/issues/54
-  {
-    "barreiroleo/ltex_extra.nvim",
-    enabled = false,
-    ft = { "bib", "gitcommit", "markdown", "org", "plaintex", "rst", "rnoweb", "tex", "pandoc", "quarto", "rmd" },
   },
   { "b0o/schemastore.nvim", ft = { "json", "yaml" } },
 

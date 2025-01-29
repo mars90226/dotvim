@@ -267,15 +267,6 @@ local file_explorer = {
       open_for_directories = false,
     },
   },
-
-  -- Protocol
-  {
-    "miversen33/netman.nvim",
-    enabled = false,
-    config = function()
-      require("netman")
-    end,
-  },
 }
 
 return file_explorer
