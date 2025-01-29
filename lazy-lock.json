@@ -156,7 +156,7 @@
   "rust.vim": { "branch": "master", "commit": "889b9a7515db477f4cb6808bef1769e53493c578" },
   "rustaceanvim": { "branch": "master", "commit": "e15c262f81e8adb139ef3e3de775493d377919a2" },
   "schemastore.nvim": { "branch": "main", "commit": "bb52c530698654355bbddb9f0035dc35cea401a5" },
-  "smart-open.nvim": { "branch": "0.3.x", "commit": "824f6482aea635fcefb90a02aabae14fa368c34f" },
+  "smart-open.nvim": { "branch": "0.2.x", "commit": "7770b01ce4d551c143d7ec8589879320796621b9" },
   "snacks.nvim": { "branch": "main", "commit": "b96bd540f785c725289f9f15f0147b1b2dac5a35" },
   "sqlite.lua": { "branch": "master", "commit": "b487fcc8937b683942a1f7d9662fcf50ca5acd58" },
   "ssr.nvim": { "branch": "main", "commit": "7c95cfa5836508f08ae833a4b31d2ed265560f64" },

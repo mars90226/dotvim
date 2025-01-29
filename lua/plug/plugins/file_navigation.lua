@@ -345,7 +345,7 @@ local file_navigation = {
   },
   {
     "danielfalk/smart-open.nvim",
-    branch = "0.3.x",
+    branch = "0.2.x",
     event = { "VeryLazy" },
     keys = {
       { "<Space><CR>", [[<Cmd>Telescope smart_open<CR>]], desc = "Telescope smart_open" },
