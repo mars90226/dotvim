@@ -17,7 +17,7 @@ local completion = {
       {
         "L3MON4D3/LuaSnip",
         cond = choose.is_enabled_plugin("LuaSnip"),
-        version = "v2.*",
+        version = false, -- NOTE: Use the latest version
         -- TODO: Check if it works on non-build env
         build = choose.is_enabled_plugin("LuaSnip-transform") and "make install_jsregexp" or "", -- optional
         config = function()
