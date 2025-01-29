@@ -212,7 +212,9 @@ nvim_cmp.setup = function()
           end
         end, { "i" }),
       }, "LuaSnip", {}),
+      -- Copilot
       plugin_utils.check_enabled_plugin({
+        -- Dismiss copilot suggestion if visible and accept nvim-cmp completion
         ["<C-Y>"] = cmp.mapping(function(fallback)
           local copilot_suggestion = require("copilot.suggestion")
 
@@ -222,16 +224,16 @@ nvim_cmp.setup = function()
 
           cmp.mapping.confirm({ select = false })(fallback)
         end),
+        -- Dismiss copilot suggestion if visible and accept nvim-cmp completion
         ["<CR>"] = cmp.mapping(function(fallback)
           local copilot_suggestion = require("copilot.suggestion")
 
           if copilot_suggestion.is_visible() then
-            copilot_suggestion.accept()
-          else
-            cmp.mapping.confirm({ select = true })(fallback)
+            copilot_suggestion.dismiss()
           end
+
+          cmp.mapping.confirm({ select = false })(fallback)
         end),
-        -- Copilot
         -- Close nvim-cmp and accept copilot suggestion if visible
         ["<M-l>"] = cmp.mapping(function(fallback)
           local copilot_suggestion = require("copilot.suggestion")
