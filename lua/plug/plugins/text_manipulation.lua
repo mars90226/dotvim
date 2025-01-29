@@ -35,7 +35,7 @@ local text_manipulation = {
   {
     "junegunn/vim-easy-align",
     keys = {
-      { "<LocalLeader>ga", mode = { "n", "x" }, "<Plug>(EasyAlign)",     desc = "Easy align" },
+      { "<LocalLeader>ga", mode = { "n", "x" }, "<Plug>(EasyAlign)", desc = "Easy align" },
       { "<LocalLeader>gA", mode = { "n", "x" }, "<Plug>(LiveEasyAlign)", desc = "Live easy align" },
     },
     opts = {},
@@ -56,42 +56,42 @@ local text_manipulation = {
     "gbprod/substitute.nvim",
     keys = {
       -- Substitute
-      { "ss",                 mode = { "n" }, "<Cmd>lua require('substitute').operator()<CR>" },
-      { "ss",                 mode = { "x" }, "<Cmd>lua require('substitute').visual()<CR>" },
-      { "sS",                 mode = { "n" }, "<Cmd>lua require('substitute').line()<CR>" },
-      { "sl",                 mode = { "n" }, "<Cmd>lua require('substitute').eol()<CR>" },
+      { "ss", mode = { "n" }, "<Cmd>lua require('substitute').operator()<CR>" },
+      { "ss", mode = { "x" }, "<Cmd>lua require('substitute').visual()<CR>" },
+      { "sS", mode = { "n" }, "<Cmd>lua require('substitute').line()<CR>" },
+      { "sl", mode = { "n" }, "<Cmd>lua require('substitute').eol()<CR>" },
 
       -- Substitute using system clipboard
-      { "=ss",                mode = { "n" }, "<Cmd>lua require('substitute').operator({ register = '+' })<CR>" },
-      { "=ss",                mode = { "x" }, "<Cmd>lua require('substitute').visual({ register = '+' })<CR>" },
-      { "=sS",                mode = { "n" }, "<Cmd>lua require('substitute').line({ register = '+' })<CR>" },
-      { "=sl",                mode = { "n" }, "<Cmd>lua require('substitute').eol({ register = '+' })<CR>" },
+      { "=ss", mode = { "n" }, "<Cmd>lua require('substitute').operator({ register = '+' })<CR>" },
+      { "=ss", mode = { "x" }, "<Cmd>lua require('substitute').visual({ register = '+' })<CR>" },
+      { "=sS", mode = { "n" }, "<Cmd>lua require('substitute').line({ register = '+' })<CR>" },
+      { "=sl", mode = { "n" }, "<Cmd>lua require('substitute').eol({ register = '+' })<CR>" },
       -- Alternative key mapping for those key mappings that are hard to type in ergonomic keyboard.
-      { [[\ss]],              mode = { "n" }, "<Cmd>lua require('substitute').operator({ register = '+' })<CR>" },
-      { [[\ss]],              mode = { "x" }, "<Cmd>lua require('substitute').visual({ register = '+' })<CR>" },
-      { [[\sS]],              mode = { "n" }, "<Cmd>lua require('substitute').line({ register = '+' })<CR>" },
-      { [[\sl]],              mode = { "n" }, "<Cmd>lua require('substitute').eol({ register = '+' })<CR>" },
+      { [[\ss]], mode = { "n" }, "<Cmd>lua require('substitute').operator({ register = '+' })<CR>" },
+      { [[\ss]], mode = { "x" }, "<Cmd>lua require('substitute').visual({ register = '+' })<CR>" },
+      { [[\sS]], mode = { "n" }, "<Cmd>lua require('substitute').line({ register = '+' })<CR>" },
+      { [[\sl]], mode = { "n" }, "<Cmd>lua require('substitute').eol({ register = '+' })<CR>" },
 
       -- Substitute over range
-      { "<Leader>s",          mode = { "n" }, "<Cmd>lua require('substitute.range').operator()<CR>" },
-      { "<Leader>s",          mode = { "x" }, "<Cmd>lua require('substitute.range').visual()<CR>" },
-      { "<Leader>ss",         mode = { "n" }, "<Cmd>lua require('substitute.range').word()<CR>" },
+      { "<Leader>s", mode = { "n" }, "<Cmd>lua require('substitute.range').operator()<CR>" },
+      { "<Leader>s", mode = { "x" }, "<Cmd>lua require('substitute.range').visual()<CR>" },
+      { "<Leader>ss", mode = { "n" }, "<Cmd>lua require('substitute.range').word()<CR>" },
 
       -- Substitute over range confirm
-      { "scr",                mode = { "n" }, "<Cmd>lua require('substitute.range').operator({ confirm = true })<CR>" },
-      { "scr",                mode = { "x" }, "<Cmd>lua require('substitute.range').visual({ confirm = true })<CR>" },
-      { "scrr",               mode = { "n" }, "<Cmd>lua require('substitute.range').word({ confirm = true })<CR>" },
+      { "scr", mode = { "n" }, "<Cmd>lua require('substitute.range').operator({ confirm = true })<CR>" },
+      { "scr", mode = { "x" }, "<Cmd>lua require('substitute.range').visual({ confirm = true })<CR>" },
+      { "scrr", mode = { "n" }, "<Cmd>lua require('substitute.range').word({ confirm = true })<CR>" },
 
       -- Substitute over range Subvert (depends on vim-abolish)
-      { "<Leader><Leader>s",  mode = { "n" }, "<Cmd>lua require('substitute.range').operator({ prefix = 'S' })<CR>" },
-      { "<Leader><Leader>s",  mode = { "x" }, "<Cmd>lua require('substitute.range').visual({ prefix = 'S' })<CR>" },
+      { "<Leader><Leader>s", mode = { "n" }, "<Cmd>lua require('substitute.range').operator({ prefix = 'S' })<CR>" },
+      { "<Leader><Leader>s", mode = { "x" }, "<Cmd>lua require('substitute.range').visual({ prefix = 'S' })<CR>" },
       { "<Leader><Leader>ss", mode = { "n" }, "<Cmd>lua require('substitute.range').word({ prefix = 'S' })<CR>" },
 
       -- Exchange
-      { "cx",                 mode = { "n" }, "<Cmd>lua require('substitute.exchange').operator()<CR>" },
-      { "cxx",                mode = { "n" }, "<Cmd>lua require('substitute.exchange').line()<CR>" },
-      { "X",                  mode = { "x" }, "<Cmd>lua require('substitute.exchange').visual()<CR>" },
-      { "cxc",                mode = { "n" }, "<Cmd>lua require('substitute.exchange').cancel()<CR>" },
+      { "cx", mode = { "n" }, "<Cmd>lua require('substitute.exchange').operator()<CR>" },
+      { "cxx", mode = { "n" }, "<Cmd>lua require('substitute.exchange').line()<CR>" },
+      { "X", mode = { "x" }, "<Cmd>lua require('substitute.exchange').visual()<CR>" },
+      { "cxc", mode = { "n" }, "<Cmd>lua require('substitute.exchange').cancel()<CR>" },
     },
     config = function()
       require("substitute").setup({
@@ -123,7 +123,31 @@ local text_manipulation = {
   {
     "kylechui/nvim-surround",
     cond = choose.is_enabled_plugin("nvim-surround"),
-    event = { "FocusLost", "CursorHold", "CursorHoldI" },
+    keys = {
+      -- vim-surround
+      { "<C-G>s", mode = { "i" }, desc = "nvim-surround - create surround in insert mode" },
+      { "<C-G>S", mode = { "i" }, desc = "nvim-surround - create surround with new line wrap in insert mode" },
+      { "ys", desc = "nvim-surround - create surround" },
+      { "yss", desc = "nvim-surround - create surround for current line" },
+      { "yS", desc = "nvim-surround - create surround with new line wrap" },
+      { "ySS", desc = "nvim-surround - create surround with new line wrap for current line" },
+      { "S", mode = { "x" }, desc = "nvim-surround - create surround for visual selection" },
+      { "gS", mode = { "x" }, desc = "nvim-surround - create surround for visual selection with new line wrap" },
+      { "ds", desc = "nvim-surround - delete surround" },
+      { "cs", desc = "nvim-surround - change surround" },
+
+      -- vim-sandwich
+      { "<C-G>s", mode = { "i" }, desc = "nvim-surround - create surround in insert mode" },
+      { "<C-G>S", mode = { "i" }, desc = "nvim-surround - create surround with new line wrap in insert mode" },
+      { "sa", desc = "nvim-surround - create surround" },
+      { "sas", desc = "nvim-surround - create surround for current line" },
+      { "sA", desc = "nvim-surround - create surround with new line wrap" },
+      { "sAs", desc = "nvim-surround - create surround with new line wrap for current line" },
+      { "sa", mode = { "x" }, desc = "nvim-surround - create surround for visual selection" },
+      { "sA", mode = { "x" }, desc = "nvim-surround - create surround for visual selection with new line wrap" },
+      { "sd", desc = "nvim-surround - delete surround" },
+      { "sr", desc = "nvim-surround - change surround" },
+    },
     config = function()
       require("nvim-surround").setup({})
 
@@ -215,8 +239,8 @@ local text_manipulation = {
   {
     "monaqa/dial.nvim",
     keys = {
-      { "<C-A>",  mode = { "n", "x" } },
-      { "<C-X>",  mode = { "n", "x" } },
+      { "<C-A>", mode = { "n", "x" } },
+      { "<C-X>", mode = { "n", "x" } },
       { "g<C-A>", mode = "x" },
       { "g<C-X>", mode = "x" },
     },
@@ -230,19 +254,19 @@ local text_manipulation = {
     "arthurxavierx/vim-caser",
     cond = not utils.is_light_vim_mode(),
     keys = {
-      { "gsp",       mode = { "n", "x" }, desc = "Caser - PascalCase/MixedCase" },
-      { "gsm",       mode = { "n", "x" }, desc = "Caser - PascalCase/MixedCase" },
-      { "gsc",       mode = { "n", "x" }, desc = "Caser - camelCase" },
-      { "gs_",       mode = { "n", "x" }, desc = "Caser - snake_case" },
-      { "gsu",       mode = { "n", "x" }, desc = "Caser - UPPER_CASE" },
-      { "gsU",       mode = { "n", "x" }, desc = "Caser - UPPER_CASE" },
-      { "gst",       mode = { "n", "x" }, desc = "Caser - Title Case" },
-      { "gss",       mode = { "n", "x" }, desc = "Caser - Sentence case" },
+      { "gsp", mode = { "n", "x" }, desc = "Caser - PascalCase/MixedCase" },
+      { "gsm", mode = { "n", "x" }, desc = "Caser - PascalCase/MixedCase" },
+      { "gsc", mode = { "n", "x" }, desc = "Caser - camelCase" },
+      { "gs_", mode = { "n", "x" }, desc = "Caser - snake_case" },
+      { "gsu", mode = { "n", "x" }, desc = "Caser - UPPER_CASE" },
+      { "gsU", mode = { "n", "x" }, desc = "Caser - UPPER_CASE" },
+      { "gst", mode = { "n", "x" }, desc = "Caser - Title Case" },
+      { "gss", mode = { "n", "x" }, desc = "Caser - Sentence case" },
       { "gs<Space>", mode = { "n", "x" }, desc = "Caser - space case" },
-      { "gs-",       mode = { "n", "x" }, desc = "Caser - dash-case/kebab-case" },
-      { "gsk",       mode = { "n", "x" }, desc = "Caser - dash-case/kebab-case" },
-      { "gsK",       mode = { "n", "x" }, desc = "Caser - dash-case/kebab-case" },
-      { "gs.",       mode = { "n", "x" }, desc = "Caser - dot.case" },
+      { "gs-", mode = { "n", "x" }, desc = "Caser - dash-case/kebab-case" },
+      { "gsk", mode = { "n", "x" }, desc = "Caser - dash-case/kebab-case" },
+      { "gsK", mode = { "n", "x" }, desc = "Caser - dash-case/kebab-case" },
+      { "gs.", mode = { "n", "x" }, desc = "Caser - dot.case" },
     },
   },
   {

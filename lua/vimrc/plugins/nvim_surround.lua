@@ -6,6 +6,8 @@ local nvim_surround = {}
 nvim_surround.presets = {
   vim_surround = {
     keymaps = {
+      insert = "<C-G>s",
+      insert_line = "<C-G>S",
       normal = "ys",
       normal_cur = "yss",
       normal_line = "yS",
@@ -18,6 +20,8 @@ nvim_surround.presets = {
   },
   vim_sandwich = {
     keymaps = {
+      insert = "<C-G>s",
+      insert_line = "<C-G>S",
       normal = "sa",
       normal_cur = "sas",
       normal_line = "sA",
