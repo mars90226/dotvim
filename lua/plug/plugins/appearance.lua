@@ -115,14 +115,7 @@ local appearance = {
   -- TODO: Add noice.nvim
 
   -- Indent Guide
-  -- {
-  --   "lukas-reineke/indent-blankline.nvim",
-  --   main = "ibl",
-  --   event = { "VeryLazy" },
-  --   config = function()
-  --     require("vimrc.plugins.indent_blankline").setup()
-  --   end,
-  -- },
+  -- Use snacks.nvim indent
 }
 
 return appearance

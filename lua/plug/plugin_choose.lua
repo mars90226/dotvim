@@ -214,7 +214,7 @@ plugin_choose.setup_misc = function()
   end
 
   -- Choose indent line plugin
-  -- indent-blankline.nvim
+  -- snacks.nvim-indent
 
   -- Choose window switching plugin
   -- nvim-window-picker

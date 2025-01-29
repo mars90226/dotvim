@@ -56,9 +56,9 @@ settings.setup_options = function()
 
   -- show hidden characters
   vim.opt.list = true
-  -- NOTE: indent-blankline.nvim will override first charater of tab.
+  -- NOTE: snacks.nvim indent will override first character of tab.
   -- So use second character to differentiate tab & space
-  -- Use default for space to avoid Search highlight been override by Whitespace highlight
+  -- Use default for space to avoid Search highlight been override by `Whitespace` highlight
   vim.opt.listchars = { tab = "▸─", extends = "»", precedes = "«", nbsp = "␣", eol = "↴" }
   if utils.is_reader_mode() then
     -- Don't show trailing space in reader vim mode
