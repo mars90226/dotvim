@@ -44,6 +44,27 @@ local utility = {
     end,
   },
 
+  -- Colorizer
+  -- NOTE: Cannot lazy load on key, first buffer doesn't have color highlight
+  {
+    "catgoose/nvim-colorizer.lua",
+    event = { "BufRead", "BufNewFile" },
+    config = function()
+      vim.go.termguicolors = true
+
+      require("colorizer").setup({
+        filetypes = {
+          "*",
+          css = { css = true },
+          scss = { css = true },
+        },
+        user_default_options = {
+          names = false,
+        },
+      })
+    end,
+  },
+
   -- Project
   {
     "ahmedkhalf/project.nvim",
@@ -153,40 +174,6 @@ local utility = {
   },
 
   -- Focus
-  -- {
-  --   "folke/zen-mode.nvim",
-  --   cmd = { "ZenMode", "ZenModeCopy" },
-  --   keys = {
-  --     { "<Leader>zm", [[<Cmd>ZenMode<CR>]],     desc = "Zen mode" },
-  --     { "<Leader>zc", [[<Cmd>ZenModeCopy<CR>]], desc = "Zen mode copy" },
-  --   },
-  --   config = function()
-  --     require("zen-mode").setup({
-  --       plugins = {
-  --         twilight = { enabled = false }, -- twilight.nvim with treesitter in zen-mode.nvim is extremely slow
-  --       },
-  --     })
-  --
-  --     vim.api.nvim_create_user_command("ZenModeCopy", function()
-  --       vim.cmd([[ZenMode]])
-  --       vim.wo.number = false
-  --       vim.wo.statuscolumn = ""
-  --       vim.wo.winbar = ""
-  --       vim.wo.list = not vim.wo.list
-  --       require("vimrc.lsp").toggle_show_diagnostics()
-  --       vim.cmd([[IndentBlanklineToggle]])
-  --       vim.cmd([[TwilightDisable]])
-  --       vim.cmd([[BlockOff]])
-  --     end, {})
-  --   end,
-  -- },
-  -- {
-  --   "folke/twilight.nvim",
-  --   cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
-  --   keys = {
-  --     { "<Leader><C-L>", ":Twilight<CR>", desc = "Twilight toggle" },
-  --   },
-  -- },
   {
     "hoschi/yode-nvim",
     keys = {
@@ -358,10 +345,6 @@ local utility = {
     end,
   },
 
-  -- Do not lazy load vim-scriptease, as it breaks :Breakadd/:Breakdel
-  -- TODO: Check if lazy load works
-  { "tpope/vim-scriptease", cmd = { "PP", "Messages", "Verbose", "Time", "Scriptnames" } },
-
   -- Browse
   -- TODO: Replace with browse.nvim
   {
@@ -389,27 +372,6 @@ local utility = {
       if has_secret_urlview then
         secret_urlview.setup()
       end
-    end,
-  },
-
-  -- Colorizer
-  -- NOTE: Cannot lazy load on key, first buffer doesn't have color highlight
-  {
-    "catgoose/nvim-colorizer.lua",
-    event = { "BufRead", "BufNewFile" },
-    config = function()
-      vim.go.termguicolors = true
-
-      require("colorizer").setup({
-        filetypes = {
-          "*",
-          css = { css = true },
-          scss = { css = true },
-        },
-        user_default_options = {
-          names = false,
-        },
-      })
     end,
   },
 
@@ -609,7 +571,6 @@ local utility = {
     },
     cmd = { "DB", "DBUI" },
   },
-
   -- -- NOTE: Try again after it can add connections interactively
   -- {
   --   "kndndrj/nvim-dbee",
@@ -647,6 +608,12 @@ local utility = {
   --   end,
   -- },
 
+  -- Do not lazy load vim-scriptease, as it breaks :Breakadd/:Breakdel
+  -- TODO: Check if lazy load works
+  {
+    "tpope/vim-scriptease",
+    cmd = { "PP", "Messages", "Verbose", "Time", "Scriptnames" },
+  },
   {
     "tpope/vim-abolish",
     cmd = { "Abolish", "Subvert", "S" },
