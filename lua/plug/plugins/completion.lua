@@ -265,6 +265,8 @@ local completion = {
       -- model = "gpt-4o-2024-08-06",
       -- TODO: Evaluate the o1-mini model
       -- model = "o1-mini-2024-09-12",
+      -- TODO: Evaluate the o1 model
+      -- model = "o1",
       -- TODO: Evaluate the Claude 3.5 Sonnet model
       model = "claude-3.5-sonnet",
       chat_autocomplete = true, -- Enable chat autocompletion (when disabled, requires manual `mappings.complete` trigger)
@@ -471,17 +473,27 @@ local completion = {
     opts = {
       adapters = {
         copilot = function()
-          return require("codecompanion.adapters").extend("copilot", {
-            schema = {
+          -- NOTE: Use the model info from Copilot using CopilotChat.nvim
+          local copilot_models = {
+            ["claude-3.5-sonnet"] = {
               model = {
                 default = "claude-3.5-sonnet",
               },
-              -- NOTE: Use the model info from Copilot using CopilotChat.nvim
               max_tokens = {
                 default = 195000,
               }
             },
-          })
+            ["o1"] = {
+              model = {
+                default = "o1-2024-12-17",
+              },
+              max_tokens = {
+                default = 20000,
+              }
+            }
+          }
+
+          return require("codecompanion.adapters").extend("copilot", copilot_models["claude-3.5-sonnet"])
         end,
       },
       strategies = {
