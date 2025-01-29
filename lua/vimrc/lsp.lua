@@ -105,23 +105,6 @@ lsp.servers = {
       require("lspconfig")[server].setup(lsp_opts)
     end,
   },
-  -- TODO: Grammar check is unhelpful when article is not in English.
-  -- NOTE: Cause error when hovering using LSP
-  -- ltex = {
-  --   on_attach = function(client, bufnr)
-  --     require("ltex_extra").setup()
-  --
-  --     -- NOTE: ltex consume too much memory. Stop ltex when commit message is closed.
-  --     local ltex_augroup_id = vim.api.nvim_create_augroup("ltex_settings", {})
-  --     vim.api.nvim_create_autocmd({ "BufUnload" }, {
-  --       group = ltex_augroup_id,
-  --       pattern = "COMMIT_EDITMSG",
-  --       callback = function()
-  --         vim.cmd([[LspStopIdleServers]])
-  --       end,
-  --     })
-  --   end,
-  -- },
   -- TODO: Add recommended config from nvim-lspconfig.
   -- Ref: https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/lua_ls.lua
   lua_ls = {
@@ -253,36 +236,6 @@ lsp.servers = {
     },
   },
   tailwindcss = {},
-  -- NOTE: Use vtsls
-  -- ["typescript-tools"] = {
-  --   capabilities = {
-  --     textDocument = {
-  --       foldingRange = {
-  --         dynamicRegistration = true,
-  --       },
-  --     },
-  --   },
-  --   settings = {
-  --     -- Ref: LazyVim
-  --     typescript = {
-  --       format = {
-  --         indentSize = vim.o.shiftwidth,
-  --         convertTabsToSpaces = vim.o.expandtab,
-  --         tabSize = vim.o.tabstop,
-  --       },
-  --     },
-  --     javascript = {
-  --       format = {
-  --         indentSize = vim.o.shiftwidth,
-  --         convertTabsToSpaces = vim.o.expandtab,
-  --         tabSize = vim.o.tabstop,
-  --       },
-  --     },
-  --     completions = {
-  --       completeFunctionCalls = true,
-  --     },
-  --   },
-  -- },
   vimls = {},
   volar = {},
   -- TODO: add settings for schemas

@@ -9,8 +9,6 @@ local utils = require("vimrc.utils")
 
 -- Extensions
 local command_palette_config = require("vimrc.plugins.command_palette").config
--- TODO: Disabled as telescope-frecency.nvim loading to slow
--- local frecency_config = require("vimrc.plugins.frecency").config
 
 local telescope = {}
 
@@ -176,8 +174,6 @@ telescope.setup_config = function()
     -- TODO: Can we move this to plugins' config?
     extensions = {
       command_palette = command_palette_config,
-      -- TODO: Disabled as telescope-frecency.nvim loading to slow
-      -- frecency = frecency_config,
       fzf = {
         fuzzy = true,                    -- false will only do exact matching
         override_generic_sorter = true,  -- override the generic sorter
@@ -245,9 +241,6 @@ telescope.setup_mapping = function()
   -- vim.keymap.set("x", telescope_prefix .. [[k]], [[:<C-U>execute]] 'Telescope grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>)
   -- vim.keymap.set("x", telescope_prefix .. [[8]], [[:<C-U>execute]] 'Telescope grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>)
   vim.keymap.set("n", telescope_prefix .. [[ll]], [[<Cmd>Telescope current_buffer_fuzzy_find<CR>]])
-  -- TODO: Disabled as telescope-frecency.nvim loading to slow
-  -- vim.keymap.set("n", telescope_prefix .. [[m]], [[<Cmd>Telescope frecency<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[<CR>]], [[<Cmd>Telescope frecency workspace=CWD<CR>]])
   vim.keymap.set("n", telescope_prefix .. [[o]], [[<Cmd>Telescope oldfiles<CR>]])
   vim.keymap.set("n", telescope_prefix .. [[O]], [[<Cmd>Telescope vim_options<CR>]])
   vim.keymap.set("n", telescope_prefix .. [[p]], [[<Cmd>call vimrc#telescope#project_tags()<CR>]])

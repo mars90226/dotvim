@@ -457,6 +457,7 @@ nvim_treesitter.setup_performance_trick = function()
         -- TODO: Check if neovim fix this bug on 0.9.0 release
         -- HACK: Use `:noautocmd` to ignore telescope-frecency.nvim autocmd to update database. As
         -- it often run into "failed to get lock" error.
+        -- TODO: Check this bug is fixed after switching to smart-open.nvim
         vim.cmd(string.format([[noautocmd lua vim.api.nvim_set_current_win(%d)]], supported_winids[1]))
       end
 
@@ -466,6 +467,7 @@ nvim_treesitter.setup_performance_trick = function()
         -- NOTE: Avoid invalid window id
         -- HACK: Use `:noautocmd` to ignore telescope-frecency.nvim autocmd to update database. As
         -- it often run into "failed to get lock" error.
+        -- TODO: Check this bug is fixed after switching to smart-open.nvim
         pcall(function()
           vim.cmd(string.format([[noautocmd lua vim.api.nvim_set_current_win(%d)]], current_win))
         end)

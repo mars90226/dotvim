@@ -186,7 +186,6 @@ local file_explorer = {
           "buffers",
           "git_status",
           "diagnostics",
-          -- "netman.ui.neo-tree",
           -- ...and any additional source
         },
         window = {
