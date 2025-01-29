@@ -35,7 +35,7 @@ local text_manipulation = {
   {
     "junegunn/vim-easy-align",
     keys = {
-      { "<LocalLeader>ga", mode = { "n", "x" }, "<Plug>(EasyAlign)", desc = "Easy align" },
+      { "<LocalLeader>ga", mode = { "n", "x" }, "<Plug>(EasyAlign)",     desc = "Easy align" },
       { "<LocalLeader>gA", mode = { "n", "x" }, "<Plug>(LiveEasyAlign)", desc = "Live easy align" },
     },
     opts = {},
@@ -215,8 +215,8 @@ local text_manipulation = {
   {
     "monaqa/dial.nvim",
     keys = {
-      { "<C-A>", mode = { "n", "x" } },
-      { "<C-X>", mode = { "n", "x" } },
+      { "<C-A>",  mode = { "n", "x" } },
+      { "<C-X>",  mode = { "n", "x" } },
       { "g<C-A>", mode = "x" },
       { "g<C-X>", mode = "x" },
     },
@@ -226,11 +226,24 @@ local text_manipulation = {
   },
 
   -- Case
-  -- TODO: Lazy load on keys
   {
     "arthurxavierx/vim-caser",
     cond = not utils.is_light_vim_mode(),
-    event = { "FocusLost", "CursorHold", "CursorHoldI" },
+    keys = {
+      { "gsp",       mode = { "n", "x" }, desc = "Caser - PascalCase/MixedCase" },
+      { "gsm",       mode = { "n", "x" }, desc = "Caser - PascalCase/MixedCase" },
+      { "gsc",       mode = { "n", "x" }, desc = "Caser - camelCase" },
+      { "gs_",       mode = { "n", "x" }, desc = "Caser - snake_case" },
+      { "gsu",       mode = { "n", "x" }, desc = "Caser - UPPER_CASE" },
+      { "gsU",       mode = { "n", "x" }, desc = "Caser - UPPER_CASE" },
+      { "gst",       mode = { "n", "x" }, desc = "Caser - Title Case" },
+      { "gss",       mode = { "n", "x" }, desc = "Caser - Sentence case" },
+      { "gs<Space>", mode = { "n", "x" }, desc = "Caser - space case" },
+      { "gs-",       mode = { "n", "x" }, desc = "Caser - dash-case/kebab-case" },
+      { "gsk",       mode = { "n", "x" }, desc = "Caser - dash-case/kebab-case" },
+      { "gsK",       mode = { "n", "x" }, desc = "Caser - dash-case/kebab-case" },
+      { "gs.",       mode = { "n", "x" }, desc = "Caser - dot.case" },
+    },
   },
   {
     "johmsalas/text-case.nvim",
