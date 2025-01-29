@@ -140,7 +140,6 @@ lualine.default_option = {
     "lazy",
     "man",
     "mundo",
-    "neo-tree",
     "oil",
     "overseer",
     "quickfix",

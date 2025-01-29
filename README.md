@@ -53,7 +53,6 @@ Well, these plugins are hard to categorize, but they are gems. You will need the
 
 ### File Explorer
 
-- [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) (lua file explorer)
 - [oil.nvim](https://github.com/stevearc/oil.nvim) (buffer-based file explorer with folder synchronization)
 - [defx.nvim](https://github.com/Shougo/defx.nvim) (buffer-based file explorer for better multiple project folder)
 

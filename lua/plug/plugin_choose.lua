@@ -110,15 +110,14 @@ end
 
 plugin_choose.setup_file_explorer = function()
   -- Choose file explorer
-  -- defx.nvim
+  -- oil.nvim, defx.nvim
   choose.disable_plugins({ "defx.nvim" })
 
   local python_version = vim.fn["vimrc#plugin#check#python_version"]()
   if not utils.is_light_vim_mode() and python_version ~= "" and vim.version.cmp(python_version, "3.6.1") >= 0 then
     choose.enable_plugin("defx.nvim")
   end
-  -- Always use neo-tree.nvim
-  -- TODO: Remove neo-tree.nvim?
+  -- Always use oil.nvim
 end
 
 plugin_choose.setup_finder = function()
