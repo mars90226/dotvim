@@ -482,43 +482,6 @@ local file_navigation = {
   },
 
   -- Search/Replace
-  {
-    "nvim-pack/nvim-spectre",
-    cmd = { "Spectre" },
-    keys = {
-      {
-        "<Space>S",
-        [[<Cmd>lua require('spectre').toggle()<CR>]],
-        desc = "Spectre - toggle",
-      },
-      {
-        "<Space>sw",
-        [[<Cmd>lua require('spectre').open_visual({select_word=true})<CR>]],
-        desc = "Spectre - search current word",
-      },
-      {
-        "<Space>sw",
-        [[<Esc><Cmd>lua require('spectre').open_visual()<CR>]],
-        mode = { "v" },
-        desc = "Spectre - search current word",
-      },
-      {
-        "<Space>s'",
-        [[<Cmd>lua require('spectre').open_file_search({select_word=true})<CR>]],
-        desc = "Spectre - search on current file",
-      },
-    },
-    config = function()
-      -- Ref: https://github.com/nvim-pack/nvim-spectre/issues/131
-      require("spectre").setup({
-        highlight = {
-          ui = "String",
-          search = "SpectreSearch",
-          replace = "DiffAdd", -- NOTE: default it DiffDelete, which is almost always red
-        },
-      })
-    end,
-  },
   -- TODO: Update key mapping to use new flags
   {
     "MagicDuck/grug-far.nvim",
