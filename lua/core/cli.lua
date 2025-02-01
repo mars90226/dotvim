@@ -1,3 +1,4 @@
+local check = require("vimrc.check")
 local plugin_utils = require("vimrc.plugin_utils")
 
 local cli = {}
@@ -50,7 +51,7 @@ cli.setup = function()
   end
 
   -- Execute
-  if vim.fn["vimrc#plugin#check#get_os"]() == "windows" then
+  if check.get_os() == "windows" then
     -- Win32
     vim.keymap.set("n", "<Leader>xo", [[<Cmd>lua require("vimrc.windows").execute_current_file()<CR>]])
     vim.keymap.set("n", "<Leader>X", [[<Cmd>lua require("vimrc.windows").open_terminal_in_current_file_folder()<CR>]])

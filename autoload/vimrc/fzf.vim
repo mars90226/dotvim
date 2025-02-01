@@ -225,7 +225,7 @@ endfunction
 
 function! s:escape(path) abort
   let path = fnameescape(a:path)
-  return vimrc#plugin#check#get_os() =~# 'windows' ? escape(path, '$') : path
+  return v:lua.require("vimrc.check").get_os() =~# 'windows' ? escape(path, '$') : path
 endfunction
 
 function! s:extract_and_merge_options(opts, extra) abort
@@ -535,7 +535,7 @@ function! vimrc#fzf#helptags(...) abort
     silent! call delete(s:helptags_script)
   endif
   let s:helptags_script = tempname()
-  call writefile(['/('.(vimrc#plugin#check#get_os() =~# 'windows' ? '^[A-Z]:\/.*?[^:]' : '.*?').'):(.*?)\t(.*?)\t/; printf(qq('.vimrc#fzf#green('%-40s', 'Label').'\t%s\t%s\n), $2, $3, $1)'], s:helptags_script)
+  call writefile(['/('.(v:lua.require("vimrc.check").get_os() =~# 'windows' ? '^[A-Z]:\/.*?[^:]' : '.*?').'):(.*?)\t(.*?)\t/; printf(qq('.vimrc#fzf#green('%-40s', 'Label').'\t%s\t%s\n), $2, $3, $1)'], s:helptags_script)
   return vimrc#fzf#fzf('helptags', {
   \ 'source':  'grep -H ".*" '.join(map(tags, 'fzf#shellescape(v:val)')).
     \ ' | perl -n '.fzf#shellescape(s:helptags_script).' | sort',

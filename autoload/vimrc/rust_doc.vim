@@ -20,7 +20,7 @@ function! vimrc#rust_doc#open(url) abort
       if original_path =~# '^/mnt/\w\+'
         let final_path = substitute(original_path, '\v^/mnt/(\w+)', '\1:', '')
       else
-        let final_path = '//wsl$/'.vimrc#plugin#check#get_distro().original_path
+        let final_path = '//wsl$/'.v:lua.require("vimrc.check").get_distro().original_path
       endif
 
       let url = 'file:///'.final_path

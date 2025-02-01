@@ -88,7 +88,7 @@ function! vimrc#browser#async_open(uri) abort
   if a:uri =~# '\v^https?://'
     if has('wsl')
       call vimrc#browser#async_open_url(a:uri, 1)
-    elseif vimrc#plugin#check#has_ssh_host_client()
+    elseif v:lua.require("vimrc.check").has_ssh_host_client()
       call vimrc#browser#client_async_open_url(a:uri, 1)
     else
       call vimrc#browser#async_open_url(a:uri, 1)
@@ -110,7 +110,7 @@ function! vimrc#browser#async_open_keyword(...) abort
 
   if has('wsl')
     call call('vimrc#browser#async_search_keyword', args)
-  elseif vimrc#plugin#check#has_ssh_host_client()
+  elseif v:lua.require("vimrc.check").has_ssh_host_client()
     call call('vimrc#browser#client_async_search_keyword', args)
   else
     call call('vimrc#browser#async_search_keyword', args)

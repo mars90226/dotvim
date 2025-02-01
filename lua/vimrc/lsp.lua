@@ -1,5 +1,6 @@
 local my_goto_preview = require("vimrc.plugins.goto-preview")
 
+local check = require("vimrc.check")
 local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
 
@@ -7,7 +8,7 @@ local lsp = {}
 
 -- TODO: Refactor
 local vue_typescript_plugin = nil
-if plugin_utils.has_linux_build_env() then
+if check.has_linux_build_env() then
   vue_typescript_plugin = require("mason-registry").get_package("vue-language-server"):get_install_path()
     .. "/node_modules/@vue/language-server"
     .. "/node_modules/@vue/typescript-plugin"
@@ -26,7 +27,7 @@ lsp.servers = {
     cmd_env = { SHELLCHECK_PATH = "" },
   },
   buf_ls = {
-    condition = plugin_utils.has_linux_build_env(),
+    condition = check.has_linux_build_env(),
   },
   cssls = {
     capabilities = {
@@ -40,7 +41,7 @@ lsp.servers = {
     },
   },
   clangd = {
-    condition = plugin_utils.has_linux_build_env(),
+    condition = check.has_linux_build_env(),
     cmd = {
       "clangd",
       "--background-index",
@@ -70,10 +71,10 @@ lsp.servers = {
   -- TODO: Suppress the error log of not finding eslint in local repo
   eslint = {},
   gopls = {
-    condition = plugin_utils.has_linux_build_env(),
+    condition = check.has_linux_build_env(),
   },
   harper_ls = {
-    condition = plugin_utils.has_linux_build_env(),
+    condition = check.has_linux_build_env(),
   },
   html = {
     capabilities = {
@@ -109,7 +110,7 @@ lsp.servers = {
   -- Ref: https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/lua_ls.lua
   lua_ls = {
     -- TODO: Refine condition
-    condition = plugin_utils.has_linux_build_env(),
+    condition = check.has_linux_build_env(),
     settings = {
       Lua = {
         runtime = {
@@ -120,7 +121,7 @@ lsp.servers = {
   },
   marksman = {},
   neocmake = {
-    condition = plugin_utils.has_linux_build_env(),
+    condition = check.has_linux_build_env(),
   },
   perlnavigator = {},
   -- pyls_ms = {},
@@ -144,14 +145,14 @@ lsp.servers = {
   -- pyright = {},
   -- NOTE: Use rustaceanvim to setup custom lsp to use rust_analyzer
   -- rust_analyzer = {
-  --   condition = plugin_utils.has_linux_build_env(),
+  --   condition = check.has_linux_build_env(),
   -- },
   solargraph = {
-    condition = plugin_utils.has_linux_build_env(),
+    condition = check.has_linux_build_env(),
   },
   sqls = {
     -- TODO: sqls requires Go 1.21
-    condition = plugin_utils.has_linux_build_env(),
+    condition = check.has_linux_build_env(),
     -- Check settings example: https://github.com/sqls-server/sqls
   },
   -- NOTE: Use vtsls
@@ -168,7 +169,7 @@ lsp.servers = {
   --   end,
   -- },
   vtsls = {
-    condition = plugin_utils.has_linux_build_env(),
+    condition = check.has_linux_build_env(),
     -- Ref: [LazyVim TypeScript config](https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/typescript.lua)
     -- Ref: [LazyVim Vue config](https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/vue.lua)
     -- Ref: [AstroNvim TypeScript config](https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/typescript/init.lua)

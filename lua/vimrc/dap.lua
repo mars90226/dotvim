@@ -1,4 +1,4 @@
-local plugin_utils = require("vimrc.plugin_utils")
+local check = require("vimrc.check")
 
 local dap = {}
 
@@ -7,7 +7,7 @@ local dap = {}
 -- Ref: https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
 dap.adapters = {
   codelldb = {
-    condition = plugin_utils.has_linux_build_env(),
+    condition = check.has_linux_build_env(),
   },
   python = {},
 }

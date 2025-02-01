@@ -1,3 +1,4 @@
+local check = require("vimrc.check")
 local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
@@ -39,7 +40,7 @@ plugin_choose.setup_completion = function()
   -- Choose specific lsp plugin
   -- rustaceanvim
   choose.disable_plugin("rustaceanvim")
-  if plugin_utils.has_linux_build_env() then
+  if check.has_linux_build_env() then
     choose.enable_plugin("rustaceanvim")
   end
   
@@ -79,7 +80,7 @@ plugin_choose.setup_completion = function()
   -- LuaSnip
 
   -- Enable placeholder transformations
-  if choose.is_disabled_plugin("LuaSnip") or not plugin_utils.has_linux_build_env() then
+  if choose.is_disabled_plugin("LuaSnip") or not check.has_linux_build_env() then
     choose.disable_plugin("LuaSnip-transform")
   end
 
@@ -94,7 +95,7 @@ plugin_choose.setup_completion = function()
 
   -- Choose copilot
   -- copilot.lua, CopilotChat.nvim
-  if not plugin_utils.has_linux_build_env() then
+  if not check.has_linux_build_env() then
     choose.disable_plugin("copilot.lua")
     choose.disable_plugin("copilot-cmp")
     choose.disable_plugin("CopilotChat.nvim")
@@ -113,7 +114,7 @@ plugin_choose.setup_file_explorer = function()
   -- oil.nvim, defx.nvim
   choose.disable_plugins({ "defx.nvim" })
 
-  local python_version = vim.fn["vimrc#plugin#check#python_version"]()
+  local python_version = check.python_version()
   if not utils.is_light_vim_mode() and python_version ~= "" and vim.version.cmp(python_version, "3.6.1") >= 0 then
     choose.enable_plugin("defx.nvim")
   end
@@ -124,7 +125,7 @@ plugin_choose.setup_finder = function()
   -- Choose finder plugin
   -- telescope.nvim
 
-  if not plugin_utils.has_linux_build_env() then
+  if not check.has_linux_build_env() then
     choose.disable_plugin("telescope-fzf-native.nvim")
   end
 end
@@ -141,7 +142,7 @@ plugin_choose.setup_language = function()
   -- Highlight {{{
   -- nvim-treesitter for builtin neovim treesitter
   choose.disable_plugin("nvim-treesitter")
-  if plugin_utils.has_linux_build_env() then
+  if check.has_linux_build_env() then
     choose.enable_plugin("nvim-treesitter")
   end
 
@@ -196,11 +197,11 @@ plugin_choose.setup_misc = function()
   -- builtin vim.highlight
 
   -- Disable vim-gutentags when in nested neovim
-  if utils.is_light_vim_mode() or vim.fn["vimrc#plugin#check#in_nvim_terminal"]() == 1 then
+  if utils.is_light_vim_mode() or check.in_nvim_terminal() then
     choose.disable_plugin("vim-gutentags")
   end
 
-  if vim.fn["vimrc#plugin#check#has_browser"]() == 0 then
+  if not check.has_browser() then
     choose.disable_plugin("open-browser.vim")
   end
 

@@ -1,3 +1,4 @@
+local check = require("vimrc.check")
 local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
 
@@ -24,9 +25,9 @@ end
 
 config_cache.update = function()
   -- Update plugin config
-  config_cache.append("let g:os = '" .. vim.fn["vimrc#plugin#check#get_os"](true) .. "'")
-  config_cache.append("let g:distro = '" .. vim.fn["vimrc#plugin#check#get_distro"](true) .. "'")
-  config_cache.append("let g:python_version = '" .. vim.fn["vimrc#plugin#check#python_version"](true) .. "'")
+  config_cache.append("let g:os = '" .. check.get_os(true) .. "'")
+  config_cache.append("let g:distro = '" .. check.get_distro(true) .. "'")
+  config_cache.append("let g:python_version = '" .. check.python_version(true) .. "'")
 
   -- TODO: Refactor
   config_cache.append("let g:is_executable_cache_json = '" .. vim.json.encode(plugin_utils.is_executable_cache or {}) .. "'")
