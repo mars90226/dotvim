@@ -500,8 +500,6 @@ local languages = {
     -- TODO: Custom based on https://github.com/OXY2DEV/markview.nvim/wiki
     opts = {
       preview = {
-        buf_ignore = { "nofile" },
-        modes = { "n", "v" },
         filetypes = markdown_filetypes,
       },
     },
