@@ -635,7 +635,7 @@ end
 mapping.setup_command = function()
   vim.api.nvim_create_user_command("HelptagsAll", [[lua require('vimrc.utils').helptags_all()]], {})
 
-  vim.api.nvim_create_user_command("ToggleIndent", [[call vimrc#toggle#toggle#indent()]], {})
+  vim.api.nvim_create_user_command("ToggleIndent", [[call vimrc#toggle#indent()]], {})
   vim.api.nvim_create_user_command("ToggleFold", [[call vimrc#toggle#fold_method()]], {})
   vim.keymap.set("n", "cof", [[:ToggleFold<CR>]])
 
