@@ -215,7 +215,7 @@ fzf.setup_command = function()
   -- WorkTreeFiles
   vim.cmd([[command! -bang -nargs=? WorkTreeFiles call vimrc#fzf#work_tree_files(<bang>0)]])
 
-  if choose.is_enabled_plugin('defx.nvim') then
+  if choose.is_enabled_plugin('oil.nvim') then
     vim.api.nvim_create_user_command("Files", function(opts)
       require("vimrc.plugins.oil").use_oil_fzf_action(function()
         vim.fn["vimrc#fzf#files"](opts.args, opts.bang)

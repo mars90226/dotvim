@@ -425,7 +425,12 @@ mapping.setup_mapping = function()
     { desc = "Trim command line content" }
   )
   -- Delete whole word (Use <Space> to separate `<C-\>e` and function)
-  vim.keymap.set("c", "<C-G>w", [[<C-\>e<Space>v:lua.require("vimrc.insert").delete_whole_word()<CR>]], { desc = "Delete whole word" })
+  vim.keymap.set(
+    "c",
+    "<C-G>w",
+    [[<C-\>e<Space>v:lua.require("vimrc.insert").delete_whole_word()<CR>]],
+    { desc = "Delete whole word" }
+  )
   -- Delete subword (Use <Space> to separate `<C-\>e` and function)
   vim.keymap.set(
     "c",
@@ -661,7 +666,11 @@ mapping.setup_command = function()
   })
 
   -- Toggle parent folder tag
-  vim.api.nvim_create_user_command("ToggleParentFolderTag", [[lua require('vimrc.toggle').toggle_parent_folder_tag()]], {})
+  vim.api.nvim_create_user_command(
+    "ToggleParentFolderTag",
+    [[lua require('vimrc.toggle').toggle_parent_folder_tag()]],
+    {}
+  )
   vim.keymap.set("n", "yoP", [[:ToggleParentFolderTag<CR>]], { silent = true })
 
   -- Display file size
@@ -746,17 +755,15 @@ mapping.setup_command = function()
     vim.api.nvim_create_user_command("Args", [[echo system("ps -o command= -p " . getpid())]], {})
   end
 
-  vim.api.nvim_create_user_command(
-    "Switch",
-    [[call vimrc#open#switch(<q-args>, 'edit')]],
-    { nargs = 1, complete = "file" }
-  )
-  vim.api.nvim_create_user_command(
-    "TabSwitch",
-    [[call vimrc#open#switch(<q-args>, 'tabedit')]],
-    { nargs = 1, complete = "file" }
-  )
-  vim.api.nvim_create_user_command("TabOpen", [[call vimrc#open#tab(<q-args>)]], { nargs = 1, complete = "file" })
+  vim.api.nvim_create_user_command("Switch", function(opts)
+    require("vimrc.open").switch(opts.args, "edit")
+  end, { nargs = 1, complete = "file" })
+  vim.api.nvim_create_user_command("TabSwitch", function(opts)
+    require("vimrc.open").switch(opts.args, "tabedit")
+  end, { nargs = 1, complete = "file" })
+  vim.api.nvim_create_user_command("TabOpen", function(opts)
+    require("vimrc.open").tab(opts.args)
+  end, { nargs = 1, complete = "file" })
   vim.api.nvim_create_user_command("InspectObject", function(opts)
     require("vimrc.inspect").inspect(vim.fn.luaeval(opts.args))
   end, { nargs = "*", complete = "lua" })

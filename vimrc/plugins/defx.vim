@@ -36,8 +36,8 @@ command! -nargs=1 -complete=dir DefxRightVSplitOpenDirSink call vimrc#defx#open_
 command! -nargs=1 -complete=dir DefxFloatOpenDirSink       call vimrc#defx#open_dir(<q-args>, 'float')
 
 " Defx switch
-command! -nargs=1 -complete=file DefxSwitch call vimrc#open#switch(<q-args>, 'DefxOpenSink')
-command! -nargs=1 -complete=file DefxTabSwitch call vimrc#open#switch(<q-args>, 'DefxTabOpenSink')
+command! -nargs=1 -complete=file DefxSwitch lua require("vimrc.open").switch(<q-args>, 'DefxOpenSink')
+command! -nargs=1 -complete=file DefxTabSwitch lua require("vimrc.open").switch(<q-args>, 'DefxTabOpenSink')
 
 " Defx search
 command! -nargs=1 -complete=file DefxSearch call vimrc#defx#open(<q-args>, 'search')

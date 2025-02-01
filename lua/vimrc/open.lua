@@ -5,7 +5,12 @@ open.switch = function(file, callback)
   local bufnr = vim.fn.bufnr(path)
   local winids = vim.fn.win_findbuf(bufnr)
   if #winids == 0 then
-    callback(path)
+    if type(callback) == "function" then
+      callback(path)
+    else
+      local fallback_command = callback or "edit"
+      vim.cmd("silent " .. fallback_command .. " " .. path)
+    end
   else
     vim.fn.win_gotoid(winids[1])
   end
