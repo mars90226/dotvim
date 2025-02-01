@@ -729,7 +729,7 @@ mapping.setup_command = function()
 
   vim.api.nvim_create_user_command("DisplayChar", [[lua require("vimrc.utils").display_char()]], {})
 
-  vim.api.nvim_create_user_command("ReloadVimrc", [[call vimrc#reload#reload()]], {})
+  -- TODO: Use lazy.nvim to reload neovim config
 
   vim.api.nvim_create_user_command(
     "QuickfixOutput",
