@@ -43,7 +43,6 @@ fugitive.setup = function()
   vim.keymap.set("n", [[<Leader>gW]], [[<Cmd>Gwrite!<CR>]], { silent = true })
   vim.keymap.set("n", [[<Leader>gq]], [[<Cmd>Gwq<CR>]], { silent = true })
   vim.keymap.set("n", [[<Leader>gQ]], [[<Cmd>Gwq!<CR>]], { silent = true })
-  vim.keymap.set("n", [[<Leader>gM]], [[<Cmd>Merginal<CR>]], { silent = true })
   vim.keymap.set("n", [[<Leader>g<Tab>]], [[<Cmd>execute 'Gsplit '.vimrc#fugitive#commit_sha()<CR>]], { silent = true })
 
   vim.keymap.set("n", [[<Leader>g`]], [[<Cmd>call vimrc#fugitive#review_last_commit()<CR>]], { silent = true })
