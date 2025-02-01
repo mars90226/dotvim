@@ -262,12 +262,12 @@ local completion = {
     opts = {
       show_help = "yes",
       debug = false,
-      -- model = "gpt-4o-2024-08-06",
-      -- TODO: Evaluate the o1-mini model
+      -- NOTE: When debug is needed, uncomment the following line and set the log_level to "trace"
+      -- in CopilotChat.nvim because it's using default log level in plenary.nvim which is "debug".
+      -- log_level = "trace",
+      -- TODO: Use o3-mini model
       -- model = "o1-mini-2024-09-12",
-      -- TODO: Evaluate the o1 model
       -- model = "o1",
-      -- TODO: Evaluate the Claude 3.5 Sonnet model
       model = "claude-3.5-sonnet",
       chat_autocomplete = true, -- Enable chat autocompletion (when disabled, requires manual `mappings.complete` trigger)
       prompts = {
@@ -476,23 +476,38 @@ local completion = {
           -- NOTE: Use the model info from Copilot using CopilotChat.nvim
           local copilot_models = {
             ["claude-3.5-sonnet"] = {
-              model = {
-                default = "claude-3.5-sonnet",
-              },
-              max_tokens = {
-                default = 195000,
+              schema = {
+                model = {
+                  default = "claude-3.5-sonnet",
+                },
+                max_tokens = {
+                  default = 128000,
+                }
               }
             },
             ["o1"] = {
-              model = {
-                default = "o1-2024-12-17",
-              },
-              max_tokens = {
-                default = 20000,
+              schema = {
+                model = {
+                  default = "o1-2024-12-17",
+                },
+                max_tokens = {
+                  default = 20000,
+                }
+              }
+            },
+            ["o3-mini"] = {
+              schema = {
+                model = {
+                  default = "o3-mini-2025-01-31",
+                },
+                max_tokens = {
+                  default = 20000,
+                }
               }
             }
           }
 
+          -- TODO: Use o3-mini model
           return require("codecompanion.adapters").extend("copilot", copilot_models["claude-3.5-sonnet"])
         end,
       },
@@ -514,6 +529,7 @@ local completion = {
           show_settings = true,
         },
       },
+      log_level = "TRACE",
     },
     config = function(_, opts)
       require("codecompanion").setup(opts)
