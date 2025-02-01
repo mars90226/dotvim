@@ -635,8 +635,8 @@ end
 mapping.setup_command = function()
   vim.api.nvim_create_user_command("HelptagsAll", [[lua require('vimrc.utils').helptags_all()]], {})
 
-  vim.api.nvim_create_user_command("ToggleIndent", [[call vimrc#toggle#indent()]], {})
-  vim.api.nvim_create_user_command("ToggleFold", [[call vimrc#toggle#fold_method()]], {})
+  vim.api.nvim_create_user_command("ToggleIndent", [[lua require('vimrc.toggle').toggle_indent()]], {})
+  vim.api.nvim_create_user_command("ToggleFold", [[lua require('vimrc.toggle').toggle_fold_method()]], {})
   vim.keymap.set("n", "cof", [[:ToggleFold<CR>]])
 
   -- LastTab
@@ -661,7 +661,7 @@ mapping.setup_command = function()
   })
 
   -- Toggle parent folder tag
-  vim.api.nvim_create_user_command("ToggleParentFolderTag", [[call vimrc#toggle#parent_folder_tag()]], {})
+  vim.api.nvim_create_user_command("ToggleParentFolderTag", [[lua require('vimrc.toggle').toggle_parent_folder_tag()]], {})
   vim.keymap.set("n", "yoP", [[:ToggleParentFolderTag<CR>]], { silent = true })
 
   -- Display file size
