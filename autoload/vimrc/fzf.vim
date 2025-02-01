@@ -176,6 +176,7 @@ function! vimrc#fzf#generate_preview_command_with_bat(start, ...) abort
   let file       = a:0 > 0 && type(a:1) == type('') ? a:1 : ''
   let pattern    = a:0 > 1 && type(a:2) == type('') ? a:2 : ''
   let tmp_folder = a:0 > 2 && type(a:3) == type('') ? a:3 : ''
+  " TODO: Remove tmp_folder
   return systemlist(vimrc#fzf#get_generate_preview_command_with_bat_script(). ' ' . a:start . ' ' . file . ' ' . pattern . ' ' . tmp_folder)[0]
 endfunction
 
