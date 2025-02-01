@@ -421,11 +421,11 @@ mapping.setup_mapping = function()
   vim.keymap.set(
     "c",
     "<C-G>t",
-    [[<C-\>e<Space>vimrc#insert#trim_cmdline()<CR>]],
+    [[<C-\>e<Space>v:lua.require("vimrc.insert").trim_cmdline()<CR>]],
     { desc = "Trim command line content" }
   )
   -- Delete whole word (Use <Space> to separate `<C-\>e` and function)
-  vim.keymap.set("c", "<C-G>w", [[<C-\>e<Space>vimrc#insert#delete_whole_word()<CR>]], { desc = "Delete whole word" })
+  vim.keymap.set("c", "<C-G>w", [[<C-\>e<Space>v:lua.require("vimrc.insert").delete_whole_word()<CR>]], { desc = "Delete whole word" })
   -- Delete subword (Use <Space> to separate `<C-\>e` and function)
   vim.keymap.set(
     "c",

@@ -1,6 +1,7 @@
 local cmp = require("cmp")
 local lspkind = require("lspkind")
 local choose = require("vimrc.choose")
+local insert = require("vimrc.insert")
 local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
 
@@ -60,7 +61,7 @@ nvim_cmp.handle_tab_completion = function(direction)
     else
       if cmp.visible() then
         direction()
-      elseif utils.check_backspace() then
+      elseif insert.check_backspace() then
         -- NOTE: both <Tab> & <S-Tab> are inserting <Tab>
         vim.fn.feedkeys(utils.t("<Tab>"), "n")
       else
