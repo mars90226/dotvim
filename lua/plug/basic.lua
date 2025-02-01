@@ -1,3 +1,4 @@
+local check = require("vimrc.check")
 local plugin_utils = require("vimrc.plugin_utils")
 
 local basic = {}
@@ -5,8 +6,8 @@ local basic = {}
 basic.setup_python_host = function()
   -- Python & Python3 setting for Windows & Synology should be in local vim
   -- config
-  if plugin_utils.os_is("Linux") then
-    if plugin_utils.os_is("synology") then
+  if check.os_is("Linux") then
+    if check.os_is("synology") then
       local kernel_version = plugin_utils.get_kernel_version()
 
       if kernel_version > plugin_utils.KERNEL_VERSIONS.SYNOLOGY_DSM_7 then

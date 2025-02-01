@@ -1,4 +1,5 @@
 -- TODO: Refactor to other files
+local check = require("vimrc.check")
 local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
@@ -238,7 +239,7 @@ nvim_treesitter.setup_config = function()
       "make",
       "markdown",
       "markdown_inline",
-      plugin_utils.check_condition("norg", not plugin_utils.os_is("mac")),
+      plugin_utils.check_condition("norg", not check.os_is("mac")),
       "nu",
       "perl",
       "php",

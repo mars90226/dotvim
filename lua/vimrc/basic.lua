@@ -1,4 +1,4 @@
-local plugin_utils = require("vimrc.plugin_utils")
+local check = require("vimrc.check")
 
 local basic = {}
 
@@ -7,7 +7,7 @@ basic.setup = function ()
   vim.g.maplocalleader = [[\]]
 
   -- TODO: No need in neovim?
-  if not plugin_utils.os_is("windows") then
+  if not check.os_is("windows") then
     vim.o.encoding = 'utf8'
   end
 

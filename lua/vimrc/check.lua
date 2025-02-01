@@ -22,6 +22,14 @@ function M.get_os(force)
   return vim.g.os
 end
 
+--- Check if the current operating system matches the given pattern.
+--- @param target_os string The target operating system pattern to match.
+--- @return boolean True if the current OS contains the pattern, false otherwise.
+function M.os_is(target_os)
+  local os = M.get_os()
+  return string.match(os, target_os) ~= nil
+end
+
 --- Get the Linux distribution.
 --- @param force boolean? Optional: force re-detection.
 --- @return string The detected distro.

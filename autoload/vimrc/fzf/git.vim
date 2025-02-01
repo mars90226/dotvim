@@ -27,7 +27,7 @@ endfunction
 " Borrowed from fzf.vim {{{
 function! s:escape(path) abort
   let path = fnameescape(a:path)
-  return v:lua.require("vimrc.check").get_os() ==# 'windows' ? escape(path, '$') : path
+  return v:lua.require("vimrc.check").os_is('windows') ? escape(path, '$') : path
 endfunction
 
 function! s:open(cmd, target) abort
@@ -426,7 +426,7 @@ function! vimrc#fzf#git#commits_in_commandline(buffer_local, args) abort
   let current = expand('%')
   let managed = 0
   if !empty(current)
-    call system('git show '.fzf#shellescape(current).' 2> '.(v:lua.require("vimrc.check").get_os() =~# 'windows' ? 'nul' : '/dev/null'))
+    call system('git show '.fzf#shellescape(current).' 2> '.(v:lua.require("vimrc.check").os_is('windows') ? 'nul' : '/dev/null'))
     let managed = !v:shell_error
   endif
 
@@ -455,7 +455,7 @@ function! vimrc#fzf#git#commits_in_commandline(buffer_local, args) abort
     let options.options[-1] .= ',ctrl-d'
   endif
 
-  if v:lua.require("vimrc.check").get_os() !~# 'windows' && &columns > vimrc#fzf#get_wide()
+  if !v:lua.require("vimrc.check").os_is('windows') && &columns > vimrc#fzf#get_wide()
     call extend(options.options,
     \ ['--preview', 'echo {} | grep -o "[a-f0-9]\{7,\}" | head -1 | xargs git show --format=format: --color=always | head -200'])
   endif

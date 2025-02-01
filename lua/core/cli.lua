@@ -51,7 +51,7 @@ cli.setup = function()
   end
 
   -- Execute
-  if check.get_os() == "windows" then
+  if check.os_is('windows') then
     -- Win32
     vim.keymap.set("n", "<Leader>xo", [[<Cmd>lua require("vimrc.windows").execute_current_file()<CR>]])
     vim.keymap.set("n", "<Leader>X", [[<Cmd>lua require("vimrc.windows").open_terminal_in_current_file_folder()<CR>]])

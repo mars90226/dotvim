@@ -1,3 +1,4 @@
+local check = require("vimrc.check")
 local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
 
@@ -7,7 +8,7 @@ local settings = {}
 settings.setup_options = function()
   -- Vim basic setting {{{
   -- source custom mswin.vim
-  if not plugin_utils.os_is("synology") then
+  if not check.os_is("synology") then
     plugin_utils.source_in_vim_home("vimrc/mswin.vim")
   end
   -- }}}

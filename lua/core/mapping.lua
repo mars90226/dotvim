@@ -1,5 +1,5 @@
+local check = require("vimrc.check")
 local choose = require("vimrc.choose")
-local plugin_utils = require("vimrc.plugin_utils")
 
 local mapping = {}
 
@@ -742,7 +742,7 @@ mapping.setup_command = function()
     { nargs = 1 }
   )
 
-  if not plugin_utils.os_is("windows") then
+  if not check.os_is("windows") then
     vim.api.nvim_create_user_command("Args", [[echo system("ps -o command= -p " . getpid())]], {})
   end
 

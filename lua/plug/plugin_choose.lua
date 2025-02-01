@@ -33,7 +33,7 @@ plugin_choose.setup_completion = function()
 
   -- Choose LSP capabilities
   -- LSP `workspace/didChangeWatchedFiles` capability
-  if utils.is_light_vim_mode() or (plugin_utils.os_is("Linux") and not plugin_utils.is_executable("fswatch")) then
+  if utils.is_light_vim_mode() or (check.os_is("Linux") and not plugin_utils.is_executable("fswatch")) then
     choose.disable_plugin("nvim-lsp-workspace-didChangeWatchedFiles")
   end
 
