@@ -1,6 +1,14 @@
 local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
 
+local markdown_filetypes = vim.tbl_filter(function(component)
+  return component ~= nil
+end, {
+  "markdown",
+  plugin_utils.check_enabled_plugin("Avante", "avante.nvim"),
+  plugin_utils.check_enabled_plugin("codecompanion", "codecompanion.nvim"),
+})
+
 local languages = {
   -- filetype
   { "rust-lang/rust.vim", ft = { "rust" } },
@@ -464,29 +472,16 @@ local languages = {
   },
 
   -- Markdown render
-  -- TODO: Extract markdown filetypes calculation
   {
     "MeanderingProgrammer/render-markdown.nvim",
     cond = choose.is_enabled_plugin("render-markdown.nvim"),
-    ft = vim.tbl_filter(function(component)
-      return component ~= nil
-    end, {
-      "markdown",
-      plugin_utils.check_enabled_plugin("Avante", "avante.nvim"),
-      plugin_utils.check_enabled_plugin("codecompanion", "codecompanion.nvim"),
-    }),
+    ft = markdown_filetypes,
     cmd = { "RenderMarkdownToggle" },
     keys = {
       { "coh", "<Cmd>RenderMarkdownToggle<CR>", mode = { "n" }, desc = "Render markdown" },
     },
     opts = {
-      filetypes = vim.tbl_filter(function(component)
-        return component ~= nil
-      end, {
-        "markdown",
-        plugin_utils.check_enabled_plugin("Avante", "avante.nvim"),
-        plugin_utils.check_enabled_plugin("codecompanion", "codecompanion.nvim"),
-      }),
+      filetypes = markdown_filetypes,
     },
   },
   {
@@ -497,31 +492,17 @@ local languages = {
       "nvim-tree/nvim-web-devicons",
     },
     -- TODO: Disabled Markview on huge file
-    ft = vim.tbl_filter(function(component)
-      return component ~= nil
-    end, {
-      "markdown",
-      plugin_utils.check_enabled_plugin("Avante", "avante.nvim"),
-      plugin_utils.check_enabled_plugin("codecompanion", "codecompanion.nvim"),
-    }),
+    ft = markdown_filetypes,
     cmd = { "Markview" },
     keys = {
       { "coh", "<Cmd>Markview<CR>", mode = { "n" }, desc = "Render markdown" },
     },
-    config = function()
-      -- TODO: Custom based on https://github.com/OXY2DEV/markview.nvim/wiki
-      require("markview").setup({
-        buf_ignore = { "nofile" },
-        modes = { "n", "v" },
-        filetypes = vim.tbl_filter(function(component)
-          return component ~= nil
-        end, {
-          "markdown",
-          plugin_utils.check_enabled_plugin("Avante", "avante.nvim"),
-          plugin_utils.check_enabled_plugin("codecompanion", "codecompanion.nvim"),
-        }),
-      })
-    end,
+    -- TODO: Custom based on https://github.com/OXY2DEV/markview.nvim/wiki
+    opts = {
+      buf_ignore = { "nofile" },
+      modes = { "n", "v" },
+      filetypes = markdown_filetypes,
+    },
   },
 
   -- Markdown preview
