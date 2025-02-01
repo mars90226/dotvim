@@ -18,7 +18,19 @@ my_lazy.setup_autocmd = function()
   })
 end
 
+my_lazy.setup_config = function()
+  require("lazy").setup("plug.plugins", {
+    change_detection = {
+      notify = false, -- avoid loads of notification when changing config
+    },
+    ui = {
+      border = "single",
+    },
+  })
+end
+
 my_lazy.setup = function()
+  my_lazy.setup_config()
   my_lazy.setup_autocmd()
 end
 
