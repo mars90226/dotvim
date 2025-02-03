@@ -27,6 +27,10 @@ my_snacks.opts = {
     win = {
       input = {
         keys = {
+          -- to close the picker on ESC instead of going to normal mode,
+          -- add the following keymap to your config
+          ["<Esc>"] = { "close", mode = { "n", "i" } },
+          ["<C-O>"] = { function() vim.cmd([[stopinsert]]) end, mode = { "i" } },
           ["<C-T>"] = { "edit_tab", mode = { "i", "n" } }
         },
       },
@@ -138,7 +142,22 @@ my_snacks.keys = (function()
     { snacks_picker_prefix .. "S", function() Snacks.picker.spelling() end, desc = "Snacks Picker - Spelling" },
     { snacks_picker_prefix .. "U", function() Snacks.picker.undo() end, desc = "Snacks Picker - Undo" },
     { snacks_picker_prefix .. "z", function() Snacks.picker.zoxide() end, desc = "Snacks Picker - Zoxide" },
-    { snacks_picker_prefix .. "0", function() Snacks.picker.explorer() end, desc = "Snacks Picker - Explorer" },
+    {
+      snacks_picker_prefix .. "0",
+      function()
+        Snacks.picker.explorer({
+          win = {
+            input = {
+              keys = {
+                -- Exit to normal mode on ESC
+                ["<Esc>"] = "close",
+              },
+            },
+          },
+        })
+      end,
+      desc = "Snacks Picker - Explorer"
+    },
     -- LSP
     { snacks_picker_lsp_prefix .. "d", function() Snacks.picker.lsp_definitions() end, desc = "Snacks Picker - Goto Definition" },
     { snacks_picker_lsp_prefix .. "D", function() Snacks.picker.lsp_declarations() end, desc = "Snacks Picker - Goto Declaration" },
