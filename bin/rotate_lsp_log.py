@@ -1,38 +1,60 @@
 #!/usr/bin/env python3
 
-import glob
+import logging
 import os
 import shutil
+from pathlib import Path
+
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 
-def get_state_dir():
-    """Return the XDG state directory, or ~/.local/state if not set."""
-    return os.getenv("XDG_STATE_HOME", os.path.expanduser("~/.local/state"))
+def get_state_dir() -> Path:
+    """Return the XDG state directory as a Path, defaulting to ~/.local/state."""
+    state_home = os.getenv("XDG_STATE_HOME")
+    return Path(state_home) if state_home else Path.home() / ".local" / "state"
 
 
-def get_nvim_state_dir():
+def get_nvim_state_dir() -> Path:
     """Return the path to the nvim state directory."""
-    return os.path.join(get_state_dir(), "nvim")
+    return get_state_dir() / "nvim"
 
 
-def rotate_nvim_lsp_log(nvim_state_dir):
-    """Rotate the nvim lsp log files."""
-    lsp_log_glob = os.path.join(nvim_state_dir, "lsp.log.*")
-    current_lsp_log = os.path.join(nvim_state_dir, "lsp.log")
-    rotate_lsp_log_prefix = f"{current_lsp_log}."
-    new_current_lsp_log = f"{rotate_lsp_log_prefix}1"
+def rotate_nvim_lsp_log(nvim_state_dir: Path):
+    """Rotate the nvim LSP log files."""
+    current_log = nvim_state_dir / "lsp.log"
 
-    if not os.path.exists(current_lsp_log):
+    if not current_log.exists():
+        logging.info("No current log file found at %s", current_log)
         return
 
-    for lsp_log in sorted(glob.glob(lsp_log_glob), reverse=True):
-        lsp_log_ext = lsp_log.split(".")[-1]
-        new_lsp_log = f"{rotate_lsp_log_prefix}{int(lsp_log_ext) + 1}"
-        print(f"rotate {lsp_log} to {new_lsp_log}")
-        shutil.move(lsp_log, new_lsp_log)
+    # List rotated logs that match lsp.log.<number>
+    rotated_logs = []
+    for log_file in nvim_state_dir.glob("lsp.log.*"):
+        parts = log_file.name.rsplit(".", 1)
+        if len(parts) == 2 and parts[1].isdigit():
+            rotated_logs.append(log_file)
 
-    print(f"rotate {current_lsp_log} to {new_current_lsp_log}")
-    shutil.move(current_lsp_log, new_current_lsp_log)
+    # Sort logs in reverse order based on their numeric suffix
+    rotated_logs.sort(key=lambda f: int(f.name.rsplit(".", 1)[-1]), reverse=True)
+
+    for log_file in rotated_logs:
+        try:
+            num = int(log_file.name.rsplit(".", 1)[-1])
+            new_log = nvim_state_dir / f"lsp.log.{num + 1}"
+            logging.info("Rotating %s to %s", log_file, new_log)
+            shutil.move(str(log_file), str(new_log))
+        except Exception as e:
+            logging.error("Error rotating file %s: %s", log_file, e)
+
+    # Rotate the current log
+    new_current_log = nvim_state_dir / "lsp.log.1"
+    try:
+        logging.info("Rotating %s to %s", current_log, new_current_log)
+        shutil.move(str(current_log), str(new_current_log))
+    except Exception as e:
+        logging.error("Error rotating current log %s: %s", current_log, e)
 
 
 if __name__ == "__main__":
