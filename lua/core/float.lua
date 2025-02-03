@@ -1,5 +1,4 @@
 local utils = require("vimrc.utils")
-local zoom = require("core.zoom")
 
 local float = {}
 
@@ -8,20 +7,20 @@ float.setup = function()
 
   -- Zoom {{{
   vim.keymap.set("n", "<Leader>zz", function()
-    zoom.zoom()
+    require("core.zoom").zoom()
   end, { silent = true })
   vim.keymap.set("x", "<Leader>zz", function()
-    zoom.selected(utils.get_visual_selection())
+    require("core.zoom").selected(utils.get_visual_selection())
   end, { silent = true })
 
   vim.keymap.set("n", "<Leader>zf", function()
-    zoom.float()
+    require("core.zoom").float()
   end, { silent = true })
   vim.keymap.set("x", "<Leader>zf", function()
-    zoom.float_selected(utils.get_visual_selection())
+    require("core.zoom").float_selected(utils.get_visual_selection())
   end, { silent = true })
   vim.keymap.set("n", "<Leader>zF", function()
-    zoom.into_float()
+    require("core.zoom").into_float()
   end, { silent = true })
   -- }}}
 
