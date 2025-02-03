@@ -265,10 +265,7 @@ local completion = {
       -- NOTE: When debug is needed, uncomment the following line and set the log_level to "trace"
       -- in CopilotChat.nvim because it's using default log level in plenary.nvim which is "debug".
       -- log_level = "trace",
-      -- TODO: Use o3-mini model
-      -- model = "o1-mini-2024-09-12",
-      -- model = "o1",
-      model = "claude-3.5-sonnet",
+      model = "o3-mini",
       chat_autocomplete = true, -- Enable chat autocompletion (when disabled, requires manual `mappings.complete` trigger)
       prompts = {
         Wording = "Rewrite this using idiomatic English",
@@ -399,10 +396,22 @@ local completion = {
     },
     opts = {
       provider = "copilot",
-      copilot = {
-        model = "claude-3.5-sonnet",
-        max_tokens = 195000,
-      },
+      -- TODO: Check if there's better way to choose one model and retaining all other models' info
+      -- TODO: Merge with codecompanion.nvim's copilot config?
+      copilot = ({
+        ["claude-3.5-sonnet"] = {
+          model = "claude-3.5-sonnet",
+          max_tokens = 128000,
+        },
+        ["o1"] = {
+          model = "o1",
+          max_tokens = 20000,
+        },
+        ["o3-mini"] = {
+          model = "o3-mini",
+          max_tokens = 20000,
+        }
+      })["o3-mini"],
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",
@@ -507,8 +516,7 @@ local completion = {
             }
           }
 
-          -- TODO: Use o3-mini model
-          return require("codecompanion.adapters").extend("copilot", copilot_models["claude-3.5-sonnet"])
+          return require("codecompanion.adapters").extend("copilot", copilot_models["o3-mini"])
         end,
       },
       strategies = {
