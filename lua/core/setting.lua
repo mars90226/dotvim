@@ -38,7 +38,7 @@ settings.setup_options = function()
     "closeoff",
     "algorithm:histogram",
     "hiddenoff",
-    "linematch:30",
+    "linematch:60",
     "indent-heuristic",
   }
 
