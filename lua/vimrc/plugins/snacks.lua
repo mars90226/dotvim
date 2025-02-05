@@ -1,4 +1,4 @@
-local choose = require("vimrc.choose")
+local utils = require("vimrc.utils")
 
 local my_snacks = {}
 
@@ -166,6 +166,20 @@ my_snacks.keys = (function()
     { snacks_picker_lsp_prefix .. "y", function() Snacks.picker.lsp_type_definitions() end, desc = "Snacks Picker - Goto Type Definition" },
     { snacks_picker_lsp_prefix .. "o", function() Snacks.picker.lsp_symbols() end, desc = "Snacks Picker - LSP Symbols" },
     { snacks_picker_lsp_prefix .. "s", function() Snacks.picker.lsp_workspace_symbols() end, desc = "Snacks Picker - LSP Workspace Symbols" },
+
+    -- Custom Grep
+    {
+      snacks_picker_prefix .. "r",
+      function()
+        Snacks.picker.grep({
+          search = utils.input("Grep: "),
+          regex = true,
+          live = false,
+          supports_live = false,
+        })
+      end,
+      desc = "Snacks Picker - Grep",
+    },
   }
 end)()
 
