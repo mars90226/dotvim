@@ -537,7 +537,94 @@ local completion = {
           show_settings = true,
         },
       },
-      log_level = "TRACE",
+      prompt_library = {
+        ["Review"] = {
+          strategy = "chat",
+          description = "Review the code in a buffer",
+          opts = {
+            index = 5,
+            is_slash_cmd = false,
+            modes = { "v" },
+            short_name = "explain",
+            auto_submit = true,
+            user_prompt = false,
+            stop_context_insertion = true,
+          },
+          prompts = {
+            {
+              role = "system",
+              content = [[When asked to review code for readability and maintainability, follow these steps:
+
+1. Identify the Programming Language
+   - Recognize the language used in the provided code snippet and ensure that feedback aligns with its conventions.
+2. Analyze Readability and Maintainability Issues
+
+   - Examine the code for potential improvements related to:
+     - Naming conventions that are unclear, misleading, or inconsistent with the language’s standards.
+     - The presence of unnecessary comments or missing essential explanations.
+     - Overly complex expressions that could be simplified.
+     - High nesting levels that reduce code clarity.
+     - Excessively long or cryptic variable and function names.
+     - Inconsistent formatting, naming, or coding style.
+     - Repetitive code patterns that could benefit from abstraction or optimization.
+
+3. Provide Structured and Actionable Feedback
+
+   - Each identified issue must be concise and directly address the problem.
+   - Clearly indicate the specific line number(s) where the issue is found.
+   - Provide a brief yet informative description of the problem.
+   - Suggest a concrete improvement or correction.
+
+4. Format Your Feedback As Follows:
+
+   - For single-line issues:
+     `line=<line_number>: <issue_description>`
+   - For multi-line issues:
+     `line=<start_line>-<end_line>: <issue_description>`
+   - If multiple issues exist on the same line, separate them with a semicolon.
+
+5. Example Feedback:
+
+```
+line=3: Variable 'x' is too generic; use a more descriptive name.
+line=8: Expression is overly complex; consider breaking it into smaller steps.
+line=10: Uses camel case, but snake case is standard in Lua.
+line=11-15: Deep nesting reduces readability; consider refactoring.
+```
+
+6. If the Code is Well-Written:
+
+- Confirm that the code is clear and follows best practices, without suggesting unnecessary changes.]],
+              opts = {
+                visible = false,
+              },
+            },
+            {
+              role = "user",
+              content = function(context)
+                local code = require("codecompanion.helpers.actions").get_code(context.start_line, context.end_line)
+
+                return string.format(
+                  [[Please review this code from buffer %d:
+
+  ```%s
+  %s
+  ```
+  ]],
+                  context.bufnr,
+                  context.filetype,
+                  code
+                )
+              end,
+              opts = {
+                contains_code = true,
+              },
+            },
+          },
+        },
+      },
+      -- Uncomment when debugging
+      -- log_level = "TRACE",
     },
     config = function(_, opts)
       require("codecompanion").setup(opts)
