@@ -755,9 +755,11 @@ mapping.setup_command = function()
     vim.api.nvim_create_user_command("Args", [[echo system("ps -o command= -p " . getpid())]], {})
   end
 
+  -- TODO: Check if this can be replaced with `:drop`
   vim.api.nvim_create_user_command("Switch", function(opts)
     require("vimrc.open").switch(opts.args, "edit")
   end, { nargs = 1, complete = "file" })
+  -- TODO: Check if this can be replaced with `:tab drop`
   vim.api.nvim_create_user_command("TabSwitch", function(opts)
     require("vimrc.open").switch(opts.args, "tabedit")
   end, { nargs = 1, complete = "file" })

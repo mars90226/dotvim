@@ -31,7 +31,13 @@ my_snacks.opts = {
           -- add the following keymap to your config
           ["<Esc>"] = { "close", mode = { "n", "i" } },
           ["<C-O>"] = { function() vim.cmd([[stopinsert]]) end, mode = { "i" } },
-          ["<C-T>"] = { "edit_tab", mode = { "i", "n" } }
+
+          -- Use <C-T> to open the selected item in a new tab
+          ["<C-T>"] = { "edit_tab", mode = { "i", "n" } },
+
+          -- Use <M-o>/<M-l> to switch or open the selected item in current window/a new tab
+          ["<M-o>"] = { "drop", mode = { "i", "n" } },
+          ["<M-l>"] = { "tabdrop", mode = { "i", "n" } },
         },
       },
       list = {
