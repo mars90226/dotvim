@@ -236,7 +236,11 @@ lsp.servers = {
       "vue",
     },
   },
-  tailwindcss = {},
+  -- NOTE: Disabled due to high CPU usage
+  -- Ref: https://github.com/tailwindlabs/tailwindcss-intellisense/issues/1109
+  -- TODO: Enable tailwincss
+  -- Ref: https://github.com/tailwindlabs/tailwindcss-intellisense/issues/1109#issuecomment-2612844262
+  -- tailwindcss = {},
   vimls = {},
   volar = {},
   -- TODO: add settings for schemas
