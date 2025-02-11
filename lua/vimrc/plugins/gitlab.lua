@@ -41,6 +41,8 @@ my_gitlab.setup_mapping = function()
   vim.keymap.set("n", "glrc", function()
     gitlab.choose_merge_request({ state = "all" })
   end, { desc = "GitLab choose merge request" })
+
+  -- TODO: Make key mapping (`s`) for creating suggestion do not wait for nvim-surround
 end
 
 my_gitlab.setup_autocmd = function()
