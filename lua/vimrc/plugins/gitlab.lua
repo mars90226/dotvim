@@ -44,9 +44,37 @@ my_gitlab.setup_mapping = function()
 end
 
 my_gitlab.setup_autocmd = function()
-  -- Trick to make copilot.lua & nvim-cmp work with gitlab.nvim's comment popup & note popup
+  -- Trick to make copilot.lua & nvim-cmp work with gitlab.nvim's popup
   my_copilot.add_attach_filter(function()
-    return my_gitlab.is_comment_popup(vim.api.nvim_get_current_buf())
+    -- Check if popup is gitlab.nvim's comment popup or note popup
+    if my_gitlab.is_comment_popup(vim.api.nvim_get_current_buf()) then
+      return true
+    end
+
+    -- Ignore buffer with filetype other than markdown
+    if vim.bo.filetype ~= "markdown" then
+      return false
+    end
+
+    -- HACK: Check if popup is gitlab.nvim's popup by checking if the buffer has buffer local key
+    -- mapping for the perform action keymap "ZZ" And check if the source of the perform action
+    -- keymap is from gitlab.nvim
+    local perform_action_handler = vim.fn.maparg("ZZ", "n", false, true)
+    if perform_action_handler.buffer ~= 1 then
+      -- Ignore buffer that doesn't have buffer local key mapping for the perform action keymap "ZZ"
+      return false
+    end
+    local perform_action_handler_info = debug.getinfo(perform_action_handler.callback, "S")
+    if perform_action_handler_info == nil then
+      return false
+    end
+
+    -- Check if the source of the perform action keymap is from gitlab.nvim
+    if perform_action_handler_info.source:find("/gitlab.nvim/", 1, true) then
+      return true
+    end
+
+    return false
   end)
 end
 
