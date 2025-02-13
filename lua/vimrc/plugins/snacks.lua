@@ -154,6 +154,8 @@ my_snacks.keys = (function()
       snacks_picker_prefix .. "0",
       function()
         Snacks.picker.explorer({
+          -- TODO: Show hidden files using `filter`
+          -- Ref: [feature(picker.explorer) filter specific files  folders · Issue 1068 · folkesnacks.nvim](https://github.com/folke/snacks.nvim/issues/1068)
           win = {
             input = {
               keys = {
