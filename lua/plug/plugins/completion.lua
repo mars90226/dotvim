@@ -455,6 +455,7 @@ local completion = {
       "CodeCompanionChat",
       "CodeCompanionCmd",
       "CodeCompanionActions",
+      "CodeCompanionChooseCopilotModels",
     },
     keys = {
       { "<Leader>cc", mode = { "n", "v" },          "<Cmd>CodeCompanion<CR>",            silent = true,                desc = "CodeCompanion - Open" },
