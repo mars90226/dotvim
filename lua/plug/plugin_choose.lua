@@ -22,6 +22,9 @@ plugin_choose.setup_appearance = function()
 
   -- Devicons
   -- nvim-web-devicons, vim-devicons
+
+  -- UI (vim.ui.input, vim.ui.select)
+  -- snacks.nvim
 end
 
 plugin_choose.setup_completion = function()

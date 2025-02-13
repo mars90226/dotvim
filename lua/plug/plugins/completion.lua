@@ -417,7 +417,8 @@ local completion = {
     build = "make",
     -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1" -- for windows
     dependencies = {
-      "stevearc/dressing.nvim",
+      -- Defined in file_explorer.lua
+      -- "folke/snacks.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       --- The below dependencies are optional,
@@ -473,10 +474,9 @@ local completion = {
         "iguanacucumber/magazine.nvim",
         name = "nvim-cmp", -- Otherwise highlighting gets messed up
       },
-      {
-        "stevearc/dressing.nvim", -- Optional: Improves the default Neovim UI
-        opts = {},
-      },
+      -- Defined in file_explorer.lua
+      -- "folke/snacks.nvim", -- Optional: Improves the default Neovim UI
+      -- TODO: Use snacks.nvim
       "nvim-telescope/telescope.nvim", -- Optional: For using slash commands
     },
     opts = {

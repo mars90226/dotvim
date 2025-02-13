@@ -18,12 +18,14 @@ my_snacks.opts = {
     },
   },
   indent = { enabled = true },
+  input = { enabled = true }, -- replace `vim.ui.input` with the snacks input
   notifier = {
     enabled = true,
     timeout = 3000,
   },
   picker = {
     enabled = true,
+    ui_select = true, -- replace `vim.ui.select` with the snacks picker
     win = {
       input = {
         keys = {

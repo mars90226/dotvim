@@ -280,7 +280,7 @@ end
 -- Borrowed from fzf-lua
 utils.input = function(prompt)
   local ok, res
-  -- NOTE: do not use `vim.ui` yet, a conflict with `dressing.nvim`
+  -- NOTE: do not use `vim.ui` yet, a conflict with snacks.nvim picker select
   -- causes the return value to appear as cancellation
   -- if vim.ui then
   if false then

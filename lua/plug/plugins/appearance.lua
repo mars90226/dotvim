@@ -86,21 +86,7 @@ local appearance = {
   -- Use snacks.nvim notifier
 
   -- UI
-  {
-    "stevearc/dressing.nvim",
-    lazy = true,
-    init = function()
-      -- Ref: https://github.com/LazyVim/LazyVim/blob/cbf1d335ed6a478a2e6144aa2d462a8330b2b0fc/lua/lazyvim/plugins/ui.lua
-      vim.ui.select = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.select(...)
-      end
-      vim.ui.input = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.input(...)
-      end
-    end,
-  },
+  -- Use snacks.nvim input & picker.select
   {
     "MunifTanjim/nui.nvim",
     lazy = true,
