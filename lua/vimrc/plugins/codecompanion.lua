@@ -5,6 +5,26 @@ local codecompanion = {}
 codecompanion.default_copilot_model = "o3-mini-high"
 -- NOTE: Use the model info from Copilot using CopilotChat.nvim
 codecompanion.copilot_models = {
+  ["gpt-4o-2024-08-06"] = {
+    schema = {
+      model = {
+        default = "gpt-4o-2024-08-06",
+      },
+      max_tokens = {
+        default = 64000,
+      },
+    },
+  },
+  ["gemini-2.0-flash-001"] = {
+    schema = {
+      model = {
+        default = "gemini-2.0-flash-001",
+      },
+      max_tokens = {
+        default = 128000,
+      },
+    },
+  },
   ["claude-3.5-sonnet"] = {
     schema = {
       model = {
