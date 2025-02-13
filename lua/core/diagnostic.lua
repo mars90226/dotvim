@@ -43,17 +43,15 @@ diagnostic.setup = function()
         -- icons / text used for a diagnostic
         [vim.diagnostic.severity.ERROR] = "",
         [vim.diagnostic.severity.WARN] = "",
-        [vim.diagnostic.severity.HINT] = "",
         [vim.diagnostic.severity.INFO] = "",
+        [vim.diagnostic.severity.HINT] = "",
       },
-      -- NOTE: Disabled due to "WarningMsg" in gruvbox.nvim is red as "ErrorMsg"
-      -- TODO: Try use other colorscheme or use other highlight group with orange color
-      -- numhl = {
-      --   [vim.diagnostic.severity.ERROR] = "ErrorMsg",
-      --   [vim.diagnostic.severity.WARN] = "WarningMsg",
-      --   [vim.diagnostic.severity.HINT] = "DiagnosticHint",
-      --   [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
-      -- },
+      numhl = {
+        [vim.diagnostic.severity.ERROR] = "DiagnosticError",
+        [vim.diagnostic.severity.WARN] = "DiagnosticWarn",
+        [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
+        [vim.diagnostic.severity.HINT] = "DiagnosticHint",
+      },
     },
   })
 
