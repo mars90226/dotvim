@@ -411,6 +411,8 @@ local completion = {
           model = "o3-mini",
           max_tokens = 20000,
         }
+        -- TODO: Support o3-mini-high
+        -- Ref: [feature support openai's reasoning_effort parameter · Issue 1252 · yetoneavante.nvim](https://github.com/yetone/avante.nvim/issues/1252)
       })["o3-mini"],
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
@@ -511,12 +513,28 @@ local completion = {
                 },
                 max_tokens = {
                   default = 20000,
-                }
+                },
+                reasoning_effort = {
+                  default = "medium",
+                },
+              }
+            },
+            ["o3-mini-high"] = {
+              schema = {
+                model = {
+                  default = "o3-mini-2025-01-31",
+                },
+                max_tokens = {
+                  default = 20000,
+                },
+                reasoning_effort = {
+                  default = "high",
+                },
               }
             }
           }
 
-          return require("codecompanion.adapters").extend("copilot", copilot_models["o3-mini"])
+          return require("codecompanion.adapters").extend("copilot", copilot_models["o3-mini-high"])
         end,
       },
       strategies = {
