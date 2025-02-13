@@ -2,6 +2,57 @@ local my_copilot = require("vimrc.plugins.copilot")
 
 local codecompanion = {}
 
+codecompanion.default_copilot_model = "o3-mini-high"
+-- NOTE: Use the model info from Copilot using CopilotChat.nvim
+codecompanion.copilot_models = {
+  ["claude-3.5-sonnet"] = {
+    schema = {
+      model = {
+        default = "claude-3.5-sonnet",
+      },
+      max_tokens = {
+        default = 128000,
+      },
+    },
+  },
+  ["o1"] = {
+    schema = {
+      model = {
+        default = "o1-2024-12-17",
+      },
+      max_tokens = {
+        default = 20000,
+      },
+    },
+  },
+  ["o3-mini"] = {
+    schema = {
+      model = {
+        default = "o3-mini-2025-01-31",
+      },
+      max_tokens = {
+        default = 20000,
+      },
+      reasoning_effort = {
+        default = "medium",
+      },
+    },
+  },
+  ["o3-mini-high"] = {
+    schema = {
+      model = {
+        default = "o3-mini-2025-01-31",
+      },
+      max_tokens = {
+        default = 20000,
+      },
+      reasoning_effort = {
+        default = "high",
+      },
+    },
+  },
+}
+
 -- Ref: [Snippet to add the ability to saveload CodeCompanion chats in neovim](https://gist.github.com/itsfrank/942780f88472a14c9cbb3169012a3328)
 codecompanion.setup_save_load = function()
   require("vimrc.profile").setup()
@@ -66,6 +117,38 @@ codecompanion.setup_save_load = function()
   end, { nargs = "*" })
 end
 
+codecompanion.get_copilot_model = function(name)
+  local copilot_model = codecompanion.copilot_models[name or codecompanion.default_copilot_model]
+  if copilot_model == nil then
+    vim.notify("Invalid Copilot model: " .. name, vim.log.levels.ERROR)
+    copilot_model = codecompanion.copilot_models[codecompanion.default_copilot_model]
+  end
+
+  return copilot_model
+end
+
+codecompanion.set_default_copilot_model = function(name)
+  local copilot_model = codecompanion.copilot_models[name]
+  if copilot_model == nil then
+    vim.notify("Invalid Copilot model: " .. name, vim.log.levels.ERROR)
+    return
+  end
+
+  codecompanion.default_copilot_model = name
+end
+
+codecompanion.choose_copilot_models = function()
+  vim.ui.select(vim.tbl_keys(codecompanion.copilot_models), {
+    prompt = "Choose a Copilot model",
+  }, function(name)
+    codecompanion.set_default_copilot_model(name)
+  end)
+end
+
+codecompanion.setup_command = function()
+  vim.api.nvim_create_user_command("CodeCompanionChooseCopilotModels", codecompanion.choose_copilot_models, {})
+end
+
 codecompanion.setup_autocmd = function()
   -- Trick to make copilot.lua work with CodeCompanion
   my_copilot.add_attach_filter(function()
@@ -75,6 +158,7 @@ end
 
 codecompanion.setup = function()
   codecompanion.setup_save_load()
+  codecompanion.setup_command()
   codecompanion.setup_autocmd()
 end
 

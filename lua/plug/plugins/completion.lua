@@ -484,57 +484,7 @@ local completion = {
     opts = {
       adapters = {
         copilot = function()
-          -- NOTE: Use the model info from Copilot using CopilotChat.nvim
-          local copilot_models = {
-            ["claude-3.5-sonnet"] = {
-              schema = {
-                model = {
-                  default = "claude-3.5-sonnet",
-                },
-                max_tokens = {
-                  default = 128000,
-                }
-              }
-            },
-            ["o1"] = {
-              schema = {
-                model = {
-                  default = "o1-2024-12-17",
-                },
-                max_tokens = {
-                  default = 20000,
-                }
-              }
-            },
-            ["o3-mini"] = {
-              schema = {
-                model = {
-                  default = "o3-mini-2025-01-31",
-                },
-                max_tokens = {
-                  default = 20000,
-                },
-                reasoning_effort = {
-                  default = "medium",
-                },
-              }
-            },
-            ["o3-mini-high"] = {
-              schema = {
-                model = {
-                  default = "o3-mini-2025-01-31",
-                },
-                max_tokens = {
-                  default = 20000,
-                },
-                reasoning_effort = {
-                  default = "high",
-                },
-              }
-            }
-          }
-
-          return require("codecompanion.adapters").extend("copilot", copilot_models["o3-mini-high"])
+          return require("vimrc.plugins.codecompanion").get_copilot_model()
         end,
       },
       strategies = {
