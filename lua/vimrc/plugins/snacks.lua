@@ -17,6 +17,10 @@ my_snacks.opts = {
 ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝  ╚═══╝  ╚═╝╚═╝     ╚═╝]],
     },
   },
+  -- NOTE: Can show png files outside of tmux
+  -- TODO: Make it work with tmux and other images
+  -- Ref: Check `:checkhealth snacks`
+  image = { enabled = true },
   indent = { enabled = true },
   input = { enabled = true }, -- replace `vim.ui.input` with the snacks input
   notifier = {
