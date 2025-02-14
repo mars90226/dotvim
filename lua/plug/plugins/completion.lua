@@ -494,6 +494,14 @@ local completion = {
       strategies = {
         chat = {
           adapter = "copilot",
+          -- TODO: Refactor this to apply to all slash commands
+          slash_commands = {
+            ["file"] = {
+              opts = {
+                provider = "fzf_lua",
+              },
+            },
+          }
         },
         inline = {
           adapter = "copilot",
