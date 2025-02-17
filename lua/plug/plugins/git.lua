@@ -208,6 +208,7 @@ local git = {
       -- TODO: Add mapping for author filter & current file
       { "<Space>gh", "<Cmd>DiffviewFileHistory<CR>", desc = "Diffview file history" },
       { "<Space>gH", "<Cmd>DiffviewFileHistory --all<CR>", desc = "Diffview file history all branches" },
+      { "<Leader>gh", "<Cmd>DiffviewFileHistory %<CR>", desc = "Diffview file history" },
     },
     config = function()
       require("diffview").setup({
