@@ -49,7 +49,7 @@ end
 --- Check if Neovim is running inside an nvim terminal.
 --- @return boolean
 function M.in_nvim_terminal()
-  return vim.env.NVIM ~= ""
+  return vim.env.NVIM ~= nil
 end
 
 --- Get the Python version.
