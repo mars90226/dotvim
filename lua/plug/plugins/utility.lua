@@ -431,23 +431,14 @@ local utility = {
     end,
   },
 
+  -- Regex
   {
-    "bennypowers/nvim-regexplainer",
-    cmd = { "RegexplainerToggle" },
+    "OXY2DEV/patterns.nvim",
+    cmd = { "Patterns" },
     keys = {
-      { "<Leader>er", desc = "Toggle regexplainer" },
+      { "<Leader>er", [[<Cmd>Patterns explain<CR>]], desc = "Patterns - explain" },
+      { "<Leader>ek", [[<Cmd>Patterns hover<CR>]], desc = "Patterns - hover" },
     },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-    },
-    config = function()
-      require("regexplainer").setup({
-        mappings = {
-          toggle = "<Leader>er",
-        },
-      })
-    end,
   },
 
   {

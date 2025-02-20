@@ -199,6 +199,15 @@ nvim_treesitter.setup_parser_config = function()
     },
     maintainers = { "@goncharov" },
   }
+
+  -- For patterns.nvim
+  parser_configs.lua_patterns = {
+    install_info = {
+      url = "https://github.com/OXY2DEV/tree-sitter-lua_patterns",
+      files = { "src/parser.c" },
+      branch = "main",
+    },
+  }
 end
 
 nvim_treesitter.setup_config = function()
