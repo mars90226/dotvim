@@ -106,7 +106,18 @@ my_snacks.keys = (function()
         })
       end,
     },
-    { "<Leader>zm", function() Snacks.zen() end,             desc = "Zen Mode" },
+    {
+      "<Leader>zm",
+      function()
+        Snacks.zen.zen({
+          toggles = {
+            diagnostics = false,
+            inlay_hints = false,
+          }
+        })
+      end,
+      desc = "Zen Mode"
+    },
     { "<Leader>zc", function() vim.cmd([[ZenModeCopy]]) end, desc = "Zen Mode Copy" },
 
     -- Snacks picker
