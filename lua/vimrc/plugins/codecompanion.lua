@@ -75,9 +75,6 @@ codecompanion.copilot_models = {
 
 -- Ref: [Snippet to add the ability to saveload CodeCompanion chats in neovim](https://gist.github.com/itsfrank/942780f88472a14c9cbb3169012a3328)
 codecompanion.setup_save_load = function()
-  require("vimrc.profile").setup()
-  require("plug.config_cache").setup()
-
   -- add 2 commands:
   --    CodeCompanionSave [space delimited args]
   --    CodeCompanionLoad
@@ -94,6 +91,7 @@ codecompanion.setup_save_load = function()
 
   -- telescope picker for our saved chats
   vim.api.nvim_create_user_command("CodeCompanionLoad", function()
+    -- TODO: Use fzf-lua
     local t_builtin = require("telescope.builtin")
     local t_actions = require("telescope.actions")
     local t_action_state = require("telescope.actions.state")
