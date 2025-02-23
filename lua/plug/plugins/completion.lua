@@ -244,6 +244,7 @@ local completion = {
         filetypes = {
           gitcommit = true,
           markdown = true,
+          yaml = true,
         },
       })
 
