@@ -156,6 +156,12 @@ my_fzf_lua.setup_mapping = function()
   vim.keymap.set("x", fzf_lua_prefix .. "n", function()
     fzf_lua.files({ query = utils.get_visual_selection() })
   end, { desc = "Files with visual selection" })
+  vim.keymap.set("n", fzf_lua_prefix .. "%", function()
+    fzf_lua.files({ query = vim.fn.expand("%:t:r") })
+  end, { desc = "Files with current filename" })
+  vim.keymap.set("n", fzf_lua_prefix .. "^", function()
+    fzf_lua.files({ query = vim.fn.expand("%:t") })
+  end, { desc = "Files with current filename with extension" })
 
   -- Grep
   -- TODO: Add key mapping to grep all files including hidden files
