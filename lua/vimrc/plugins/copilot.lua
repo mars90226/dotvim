@@ -4,6 +4,43 @@ my_copilot.attach_filters = {}
 
 -- TODO: Better naming
 
+-- NOTE: Best model is "claude-3.7-sonnet-thought", but it's slow.
+my_copilot.default_model = "claude-3.7-sonnet"
+
+-- NOTE: Use the model info from Copilot using CopilotChat.nvim
+my_copilot.models = {
+  ["gpt-4o-2024-08-06"] = {
+    model = "gpt-4o-2024-08-06",
+    max_tokens = 64000,
+  },
+  ["gemini-2.0-flash-001"] = {
+    model = "gemini-2.0-flash-001",
+    max_tokens = 128000,
+  },
+  ["claude-3.7-sonnet"] = {
+    model = "claude-3.7-sonnet",
+    max_tokens = 90000,
+  },
+  ["claude-3.7-sonnet-thought"] = {
+    model = "claude-3.7-sonnet-thought",
+    max_tokens = 90000,
+  },
+  ["o1"] = {
+    model = "o1-2024-12-17",
+    max_tokens = 20000,
+  },
+  ["o3-mini"] = {
+    model = "o3-mini-2025-01-31",
+    max_tokens = 64000,
+    reasoning_effort = "medium",
+  },
+  ["o3-mini-high"] = {
+    model = "o3-mini-2025-01-31",
+    max_tokens = 64000,
+    reasoning_effort = "high",
+  },
+}
+
 my_copilot.attach = function()
   -- Make buffer valid for copilot
   vim.opt.buflisted = true
@@ -55,6 +92,15 @@ my_copilot.setup_autocmd = function()
       end
     end,
   })
+end
+
+my_copilot.get_model = function(model_name)
+  local model = my_copilot.models[model_name or my_copilot.default_model]
+  if model == nil then
+    vim.notify("Invalid Copilot model: " .. model_name, vim.log.levels.ERROR)
+    model = my_copilot.models[my_copilot.default_model]
+  end
+  return model
 end
 
 my_copilot.setup = function()

@@ -266,7 +266,7 @@ local completion = {
       -- NOTE: When debug is needed, uncomment the following line and set the log_level to "trace"
       -- in CopilotChat.nvim because it's using default log level in plenary.nvim which is "debug".
       -- log_level = "trace",
-      model = "claude-3.7-sonnet",
+      model = require("vimrc.plugins.copilot").default_model,
       chat_autocomplete = true, -- Enable chat autocompletion (when disabled, requires manual `mappings.complete` trigger)
       prompts = {
         Wording = "Rewrite this using idiomatic English",
@@ -399,26 +399,9 @@ local completion = {
       provider = "copilot",
       -- TODO: Check if there's better way to choose one model and retaining all other models' info
       -- TODO: Merge with codecompanion.nvim's copilot config?
-      copilot = ({
-        ["claude-3.7-sonnet"] = {
-          model = "claude-3.7-sonnet",
-          max_tokens = 90000,
-        },
-        ["claude-3.7-sonnet-thought"] = {
-          model = "claude-3.7-sonnet-thought",
-          max_tokens = 90000,
-        },
-        ["o1"] = {
-          model = "o1",
-          max_tokens = 20000,
-        },
-        ["o3-mini"] = {
-          model = "o3-mini",
-          max_tokens = 64000,
-        }
-        -- TODO: Support o3-mini-high
-        -- Ref: [feature support openai's reasoning_effort parameter · Issue 1252 · yetoneavante.nvim](https://github.com/yetone/avante.nvim/issues/1252)
-      })["claude-3.7-sonnet"],
+      -- TODO: Support o3-mini-high
+      -- Ref: [feature support openai's reasoning_effort parameter · Issue 1252 · yetoneavante.nvim](https://github.com/yetone/avante.nvim/issues/1252)
+      copilot = require("vimrc.plugins.copilot").get_model(),
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",

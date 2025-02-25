@@ -2,87 +2,21 @@ local my_copilot = require("vimrc.plugins.copilot")
 
 local codecompanion = {}
 
--- NOTE: Best model is "claude-3.7-sonnet-thought", but it's slow.
-codecompanion.default_copilot_model = "claude-3.7-sonnet"
--- NOTE: Use the model info from Copilot using CopilotChat.nvim
-codecompanion.copilot_models = {
-  ["gpt-4o-2024-08-06"] = {
+codecompanion.default_copilot_model = my_copilot.default_model
+codecompanion.copilot_models = {}
+
+for model_name, model in pairs(my_copilot.models) do
+  codecompanion.copilot_models[model_name] = {
     schema = {
-      model = {
-        default = "gpt-4o-2024-08-06",
-      },
-      max_tokens = {
-        default = 64000,
-      },
     },
-  },
-  ["gemini-2.0-flash-001"] = {
-    schema = {
-      model = {
-        default = "gemini-2.0-flash-001",
-      },
-      max_tokens = {
-        default = 128000,
-      },
-    },
-  },
-  ["claude-3.7-sonnet"] = {
-    schema = {
-      model = {
-        default = "claude-3.7-sonnet",
-      },
-      max_tokens = {
-        default = 90000,
-      },
-    },
-  },
-  ["claude-3.7-sonnet-thought"] = {
-    schema = {
-      model = {
-        default = "claude-3.7-sonnet-thought",
-      },
-      max_tokens = {
-        default = 90000,
-      },
-    },
-  },
-  ["o1"] = {
-    schema = {
-      model = {
-        default = "o1-2024-12-17",
-      },
-      max_tokens = {
-        default = 20000,
-      },
-    },
-  },
-  ["o3-mini"] = {
-    schema = {
-      model = {
-        default = "o3-mini-2025-01-31",
-      },
-      max_tokens = {
-        default = 64000,
-      },
-      reasoning_effort = {
-        default = "medium",
-      },
-    },
-  },
-  ["o3-mini-high"] = {
-    schema = {
-      model = {
-        default = "o3-mini-2025-01-31",
-      },
-      max_tokens = {
-        default = 64000,
-      },
-      reasoning_effort = {
-        default = "high",
-      },
-    },
-  },
-}
+  }
+
+  for key, value in pairs(model) do
+    codecompanion.copilot_models[model_name].schema[key] = {
+      default = value,
+    }
+  end
+end
 
 -- Ref: [Snippet to add the ability to saveload CodeCompanion chats in neovim](https://gist.github.com/itsfrank/942780f88472a14c9cbb3169012a3328)
 codecompanion.setup_save_load = function()
