@@ -2,7 +2,8 @@ local my_copilot = require("vimrc.plugins.copilot")
 
 local codecompanion = {}
 
-codecompanion.default_copilot_model = "o3-mini-high"
+-- NOTE: Best model is "claude-3.7-sonnet-thought", but it's slow.
+codecompanion.default_copilot_model = "claude-3.7-sonnet"
 -- NOTE: Use the model info from Copilot using CopilotChat.nvim
 codecompanion.copilot_models = {
   ["gpt-4o-2024-08-06"] = {
@@ -25,13 +26,23 @@ codecompanion.copilot_models = {
       },
     },
   },
-  ["claude-3.5-sonnet"] = {
+  ["claude-3.7-sonnet"] = {
     schema = {
       model = {
-        default = "claude-3.5-sonnet",
+        default = "claude-3.7-sonnet",
       },
       max_tokens = {
-        default = 128000,
+        default = 90000,
+      },
+    },
+  },
+  ["claude-3.7-sonnet-thought"] = {
+    schema = {
+      model = {
+        default = "claude-3.7-sonnet-thought",
+      },
+      max_tokens = {
+        default = 90000,
       },
     },
   },
@@ -51,7 +62,7 @@ codecompanion.copilot_models = {
         default = "o3-mini-2025-01-31",
       },
       max_tokens = {
-        default = 20000,
+        default = 64000,
       },
       reasoning_effort = {
         default = "medium",
@@ -64,7 +75,7 @@ codecompanion.copilot_models = {
         default = "o3-mini-2025-01-31",
       },
       max_tokens = {
-        default = 20000,
+        default = 64000,
       },
       reasoning_effort = {
         default = "high",
