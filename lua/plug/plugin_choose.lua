@@ -189,6 +189,13 @@ plugin_choose.setup_language = function()
 
   -- Choose spell check plugin
   -- neovim 0.8
+
+  -- Choose documentation plugin
+  -- devdocs.nvim
+  choose.disable_plugin("devdocs.nvim")
+  if plugin_utils.is_executable("jq") and plugin_utils.is_executable("curl") and plugin_utils.is_executable("pandoc") then
+    choose.enable_plugin("devdocs.nvim")
+  end
 end
 
 plugin_choose.setup_misc = function()

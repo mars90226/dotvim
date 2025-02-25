@@ -583,48 +583,64 @@ local languages = {
   },
 
   -- Documentation
-  -- FIXME: Strange bug that cancel breaks telescope.nvim picker when search has no match on the
-  -- first time. If cancelling the picker when search has match, and then cancelling again when search
-  -- has no match, then it doesn't break telescope.nvim picker.
   {
-    "warpaint9299/nvim-devdocs",
-    cond = choose.is_enabled_plugin("nvim-treesitter"),
+    "maskudo/devdocs.nvim",
+    -- lazy = false, -- NOTE: To allow ensure_installed
+    event = "VeryLazy",
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    cmd = {
-      "DevdocsFetch",
-      "DevdocsInstall",
-      "DevdocsUninstall",
-      "DevdocsOpen",
-      "DevdocsOpenFloat",
-      "DevdocsOpenCurrent",
-      "DevdocsOpenCurrentFloat",
-      "DevdocsUpdate",
-      "DevdocsUpdateAll",
+      "folke/snacks.nvim",
     },
     keys = {
-      { "<Space>dc", [[<Cmd>DevdocsOpenCurrentFloat<CR>]], desc = "Open DevDocs of current file in floating window" },
-      { "<Space>dC", [[<Cmd>DevdocsOpenCurrent<CR>]], desc = "Open DevDocs of current file" },
-      { "<Space>do", [[<Cmd>DevdocsOpenFloat<CR>]], desc = "Open DevDocs in floating window" },
-      { "<Space>dO", [[<Cmd>DevdocsOpen<CR>]], desc = "Open DevDocs" },
-    },
-    config = function()
-      require("nvim-devdocs").setup({
-        float_win = {
-          relative = "editor",
-          height = math.floor(vim.o.lines * 0.9),
-          width = math.floor(vim.o.columns * 0.8),
-          border = "rounded",
-        },
-        after_open = function(bufnr)
-          vim.wo.wrap = true
-          vim.keymap.set("n", "gq", [[<Cmd>close<CR>]], { silent = true, buffer = true })
+      {
+        "<Space>dc",
+        mode = "n",
+        "<Cmd>DevDocs get<CR>",
+        desc = "Get Devdocs",
+      },
+      {
+        "<Space>di",
+        mode = "n",
+        "<Cmd>DevDocs install<CR>",
+        desc = "Install Devdocs",
+      },
+      {
+        "<Space>do",
+        mode = "n",
+        function()
+          local devdocs = require("devdocs")
+          local installedDocs = devdocs.GetInstalledDocs()
+          vim.ui.select(installedDocs, {}, function(selected)
+            if not selected then
+              return
+            end
+            local docDir = devdocs.GetDocDir(selected)
+            -- prettify the filename as you wish
+            Snacks.picker.files({ cwd = docDir })
+          end)
         end,
-      })
-    end,
+        desc = "View Devdocs",
+      },
+    },
+    opts = {
+      ensure_installed = {
+        "cpp",
+        -- "go",
+        "html",
+        -- "dom",
+        "http",
+        -- "css",
+        -- "javascript",
+        "python~3.10",
+        "rust",
+        -- some docs such as lua require version number along with the language name
+        -- check `DevDocs install` to view the actual names of the docs
+        "lua~5.1",
+        "postgresql~11",
+        -- "openjdk~21"
+        "typescript",
+        "vue~3",
+      },
+    },
   },
   {
     "rhysd/rust-doc.vim",
