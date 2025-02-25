@@ -418,7 +418,7 @@ local completion = {
         }
         -- TODO: Support o3-mini-high
         -- Ref: [feature support openai's reasoning_effort parameter · Issue 1252 · yetoneavante.nvim](https://github.com/yetone/avante.nvim/issues/1252)
-      })["o3-mini"],
+      })["claude-3.7-sonnet"],
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",
