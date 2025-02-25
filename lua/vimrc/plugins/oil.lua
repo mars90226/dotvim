@@ -253,6 +253,13 @@ oil.setup_config = function()
       },
       -- <C-_> and <C-/> are the same key
       ["<C-_>"] = "actions.open_terminal",
+      ["<Space><C-_>"] = {
+        callback = function()
+          vim.cmd("split")
+          origin_oil_actions.open_terminal.callback()
+        end,
+        desc = "Open terminal in split",
+      },
       ["y<C-G>"] = "actions.copy_entry_path",
 
       -- fzf.nvim support
