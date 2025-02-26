@@ -30,6 +30,7 @@ settings.setup_options = function()
   vim.opt.commentstring = "# %s" -- NOTE: Default is "# %s", set other 'commentstring' in ftplugin
 
   vim.opt.scrolloff = 0
+  vim.opt.smoothscroll = true
 
   vim.opt.diffopt = {
     "internal",
