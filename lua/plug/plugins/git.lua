@@ -285,6 +285,7 @@ local git = {
       -- "folke/snacks.nvim", -- Recommended but not required. Better UI for pickers.
       "nvim-tree/nvim-web-devicons", -- Recommended but not required. Icons in discussion tree.
     },
+    version = "v3.3.11", -- TODO: Workaround for 500 internal server error for adding comments
     enabled = true,
     build = function()
       require("gitlab.server").build(true)
