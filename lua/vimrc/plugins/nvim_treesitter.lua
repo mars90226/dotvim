@@ -19,6 +19,7 @@ nvim_treesitter.filetype_disable = {
   diff = true, -- NOTE: tree-sitter-diff doesn't support `git format-patch` diffs
 }
 
+-- TODO: Remove this when nvim 0.11.0 is released
 nvim_treesitter.line_threshold = {
   base = {
     cpp = 30000,
