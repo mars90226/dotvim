@@ -25,12 +25,9 @@ nvim_treesitter.line_threshold = {
     javascript = 30000,
     perl = 10000,
   },
-  extension = {
-    cpp = 10000,
-    javascript = 3000,
-    perl = 3000,
-  },
 }
+
+local support_async_parsing = vim.fn.has('nvim-0.11') == 1
 
 -- Force disable
 local force_disable_var = "nvim_treesitter_force_disable"
@@ -43,7 +40,7 @@ local buffer_toggle_force_disable = function(bufnr)
 end
 
 -- Disable check for highlight, highlight usage, highlight context module
-local disable_check = function(type, lang, bufnr)
+local disable_check = function(lang, bufnr)
   if get_force_disable(bufnr) then
     return true
   end
@@ -51,8 +48,9 @@ local disable_check = function(type, lang, bufnr)
     return true
   end
 
-  if type == nil then
-    type = "base"
+  -- NOTE: nvim 0.11 support async parsing. No need to disable highlight for large files.
+  if support_async_parsing then
+    return false
   end
 
   local line_count = vim.api.nvim_buf_line_count(bufnr or 0)
@@ -68,26 +66,12 @@ end
 
 -- Disable check for highlight module
 local base_disable_check = function(lang, bufnr)
-  return disable_check("base", lang, bufnr)
+  return disable_check(lang, bufnr)
 end
 local current_buffer_base_highlight_disable_check = function()
   local ft = vim.bo.ft
   local bufnr = vim.fn.bufnr()
   return base_disable_check(ft, bufnr)
-end
-
--- TODO: Remove unused functions
-
--- Disable check for highlight usage/context
-local extension_disable_check = function(lang, bufnr)
-  return disable_check("extension", lang, bufnr)
-end
-
--- Disable check for checking not in enable_filetype list
-local enable_check = function(enable_filetype)
-  return function(lang, bufnr)
-    return not vim.tbl_contains(enable_filetype, lang)
-  end
 end
 
 nvim_treesitter.is_enabled = function(module, buf)
