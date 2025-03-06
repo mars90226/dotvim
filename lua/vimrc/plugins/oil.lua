@@ -434,6 +434,11 @@ oil.setup_config = function()
             end,
           }
 
+          local has_secret_oil, secret_oil = pcall(require, "secret.oil")
+          if has_secret_oil then
+            bookmarks = vim.tbl_extend("force", bookmarks, secret_oil.get_bookmarks())
+          end
+
           -- TODO: Use fzf-lua to do other actions
           vim.ui.select(vim.tbl_keys(bookmarks), {
             prompt = "Goto bookmark:",
