@@ -439,8 +439,11 @@ oil.setup_config = function()
             bookmarks = vim.tbl_extend("force", bookmarks, secret_oil.get_bookmarks())
           end
 
+          local bookmark_keys = vim.tbl_keys(bookmarks)
+          table.sort(bookmark_keys)
+
           -- TODO: Use fzf-lua to do other actions
-          vim.ui.select(vim.tbl_keys(bookmarks), {
+          vim.ui.select(bookmark_keys, {
             prompt = "Goto bookmark:",
           }, function(choice)
             local folder = bookmarks[choice]
