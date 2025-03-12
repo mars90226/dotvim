@@ -44,6 +44,10 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
     if has_sha
       execute 'nnoremap <silent><buffer> <Leader>df :execute "FloatermNew git diff ".'.git_sha_fn.'."^!"<CR>'
     endif
+
+    if has_visual_shas
+      execute 'xnoremap <silent><buffer> <Leader>df :<C-U>execute "FloatermNew git diff ".vimrc#git#expand_commits('.git_visual_shas_fn.')<CR>'
+    endif
   endif
 
   if v:lua.require('vimrc.choose').is_enabled_plugin('diffview.nvim')
