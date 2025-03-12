@@ -22,6 +22,16 @@ lsp.config = {
 -- Ref: [feat(lsp) add `vim.lsp.config` and `vim.lsp.enable` by lewis6991 · Pull Request 31031 · neovim/neovim](https://github.com/neovim/neovim/pull/31031)
 -- NOTE: Change it also need to change lsp.servers_by_filetype
 lsp.servers = {
+  basedpyright = {
+    -- NOTE: basedpyright watch too many files, disable workspace/didChangeWatchedFiles dynamic registration
+    capabilities = {
+      workspace = {
+        didChangeWatchedFiles = {
+          dynamicRegistration = false,
+        },
+      },
+    },
+  },
   bashls = {
     -- NOTE: Disable shellcheck integration and use nvim-lint to lint on save
     cmd_env = { SHELLCHECK_PATH = "" },
@@ -129,15 +139,15 @@ lsp.servers = {
   -- NOTE: use plugins: pyflakes, pycodestyle, pyls-flake8, pylsp-mypy, python-lsp-black, python-lsp-ruff
   -- TODO: Replaced with ruff server when completion is supported
   -- Ref: https://astral.sh/blog/ruff-v0.4.5
-  pylsp = {
-    on_attach = function(client, bufnr)
-      local python = require("vimrc.ftplugins.python")
-
-      python.check_pylsp_linter_feasibility(bufnr)
-      python.setup_mappings()
-    end,
-    settings = require("vimrc.ftplugins.python").pylsp_default_settings,
-  },
+  -- pylsp = {
+  --   on_attach = function(client, bufnr)
+  --     local python = require("vimrc.ftplugins.python")
+  --
+  --     python.check_pylsp_linter_feasibility(bufnr)
+  --     python.setup_mappings()
+  --   end,
+  --   settings = require("vimrc.ftplugins.python").pylsp_default_settings,
+  -- },
   -- TODO: pylyzer not supporting documentSymbolProvider, disabled for now
   -- pylyzer = {},
   -- TODO: Use pyright again, seems to have better performance with higher CPU usages
@@ -148,6 +158,12 @@ lsp.servers = {
   -- rust_analyzer = {
   --   condition = check.has_linux_build_env(),
   -- },
+  ruff = {
+    on_attach = function(client)
+      -- Disable hover in favor of basedpyright
+      client.server_capabilities.hoverProvider = false
+    end,
+  },
   solargraph = {
     condition = check.has_linux_build_env(),
   },
