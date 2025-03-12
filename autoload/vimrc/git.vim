@@ -25,6 +25,7 @@ function! vimrc#git#include_git_mappings(git_type, ...) abort
   if has_visual_shas
     execute 'xnoremap <silent><buffer> <Leader>gt :<C-U>execute "Git diff --pretty=medium --stat --summary ".vimrc#git#expand_commits('.git_visual_shas_fn.')<CR>'
     execute 'xnoremap <buffer> <Leader>gD :<C-U>Git diff <C-R>=vimrc#git#expand_commits('.git_visual_shas_fn.')<CR> '
+    execute 'xnoremap <silent><buffer> ygv :<C-U>call setreg(v:register, vimrc#git#expand_commits('.git_visual_shas_fn.'))<CR>'
   endif
 
   " Fzf
