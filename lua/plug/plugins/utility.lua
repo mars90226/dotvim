@@ -136,6 +136,7 @@ local utility = {
     end,
   },
 
+  -- Project-local config
   -- TODO: Replace vim-localvimrc with 'exrc' option
   {
     "embear/vim-localvimrc",
@@ -157,6 +158,12 @@ local utility = {
         vim.g.localvimrc_whitelist = utils.table_concat(vim.g.localvimrc_whitelist, vim.g.localvimrc_local_whitelist)
       end
     end,
+  },
+  -- NOTE: Also as dependency of nvim-lspconfig
+  {
+    "folke/neoconf.nvim",
+    cmd = "Neoconf",
+    opts = {},
   },
 
   -- Quickfix

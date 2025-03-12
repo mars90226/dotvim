@@ -31,25 +31,17 @@ local lsp = {
         end,
       },
       "WhoIsSethDaniel/mason-tool-installer.nvim",
+      {
+        "folke/neoconf.nvim",
+        cmd = "Neoconf",
+        opts = {},
+      }
     },
     config = function()
       local lsp_configs = require("vimrc.lsp")
 
       -- Setup lsp servers
       lsp_configs.setup({})
-    end,
-  },
-  {
-    "tamago324/nlsp-settings.nvim",
-    event = { "LspAttach" },
-    config = function()
-      require("nlspsettings").setup({
-        config_home = vim.fn.stdpath("config") .. "/nlsp-settings",
-        local_settings_dir = ".nlsp-settings",
-        local_settings_root_markers_fallback = { ".git" },
-        append_default_schemas = true,
-        loader = "json",
-      })
     end,
   },
 
