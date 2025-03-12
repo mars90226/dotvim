@@ -52,7 +52,7 @@ my_copilot.detach = function()
   -- Make buffer not valid for copilot
   vim.opt.buflisted = false
   vim.opt.buftype = "nofile"
-  -- Do not call Copilot! detach to avoid restarting LSP server
+  -- Do not call ":Copilot! detach" to avoid restarting LSP server
 end
 
 my_copilot.add_attach_filter = function(filter)
