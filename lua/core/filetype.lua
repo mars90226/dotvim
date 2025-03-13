@@ -38,6 +38,7 @@ filetype.setup = function()
 
       -- config
       [".ignore"] = "conf",
+      [".aiderignore"] = "conf",
 
       -- doxygen
       ["Doxyfile"] = "dosini",
