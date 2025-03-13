@@ -292,6 +292,7 @@ nvim_treesitter.setup_config = function()
         enable = true,
         -- Automatically jump forward to textobj, similar to targets.vim
         lookahead = true,
+        -- FIXME: The keymaps are not working, due to mini.nvim ai module?
         keymaps = {
           -- Override textobj-function
           -- nvim-treesitter is preciser than textobj-function
