@@ -392,7 +392,41 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
       require("vimrc.plugins.codecompanion").setup()
       require("vimrc.plugins.nvim_cmp").insert_luasnip_source_to_filetype("codecompanion")
     end,
-  }
+  },
+
+  -- MCP
+  {
+    "ravitemer/mcphub.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",  -- Required for Job and HTTP requests
+    },
+    cmd = "MCPHub", -- lazily start the hub when `MCPHub` is called
+    -- TODO: Make this work with `sudo`
+    build = "npm install -g mcp-hub@latest", -- Installs required mcp-hub npm module
+    config = function()
+      -- NOTE: Cannot install MCP servers in WSL for now
+      require("mcphub").setup({
+        -- Required options
+        port = 9527,  -- Port for MCP Hub server
+        config = vim.env.HOME .. "/mcpservers.json",  -- Absolute path to config file
+
+        -- Optional options
+        on_ready = function(hub)
+          -- Called when hub is ready
+        end,
+        on_error = function(err)
+          -- Called on errors
+        end,
+        shutdown_delay = 0, -- Wait 0ms before shutting down server after last client exits
+        log = {
+          level = vim.log.levels.WARN,
+          to_file = false,
+          file_path = nil,
+          prefix = "MCPHub"
+        },
+      })
+    end
+  },
 }
 
 return ai
