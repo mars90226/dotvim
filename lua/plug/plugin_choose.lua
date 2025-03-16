@@ -95,7 +95,9 @@ plugin_choose.setup_completion = function()
 
   -- Choose auto pairs plugin
   -- nvim-autopairs
+end
 
+plugin_choose.setup_ai = function()
   -- Choose copilot
   -- copilot.lua, CopilotChat.nvim
   if not check.has_linux_build_env() then
@@ -269,6 +271,7 @@ plugin_choose.setup = function()
   -- TODO: Think of a better way to massively disable plugins in light mode that fit current architecture
   plugin_choose.setup_appearance()
   plugin_choose.setup_completion()
+  plugin_choose.setup_ai()
   plugin_choose.setup_file_explorer()
   plugin_choose.setup_finder()
   plugin_choose.setup_text_manipulation()
