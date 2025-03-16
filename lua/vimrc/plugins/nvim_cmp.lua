@@ -110,8 +110,11 @@ nvim_cmp.setup = function()
     snippet = {
       expand = function(args)
         if choose.is_enabled_plugin("LuaSnip") then
+          -- TODO: Do not expand snippets if the snippet is an interactive snippet (e.g. `choice`,
+          -- or calling to tools like fzf, etc.)
           require("luasnip").lsp_expand(args.body)
         end
+        -- TODO: Support neovim built-in snippets: `vim.snippet`
       end,
     },
     window = {
@@ -167,6 +170,7 @@ nvim_cmp.setup = function()
         ["<S-Tab>"] = cmp.mapping(nvim_cmp.handle_tab_completion(cmp.select_prev_item), { "i", "s" }),
         ["<C-Space>"] = cmp.mapping.complete(),
       },
+      -- TODO: Support neovim built-in snippets: `vim.snippet`
       plugin_utils.check_enabled_plugin({
         ["<C-J>"] = cmp.mapping(function(fallback)
           local luasnip = require("luasnip")
