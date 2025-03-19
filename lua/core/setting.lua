@@ -44,9 +44,11 @@ settings.setup_options = function()
   }
 
   -- window
-  if vim.fn.exists('+winborder') == 1 then
-    vim.opt.winborder = "rounded"
-  end
+  -- TODO: Disabled as too many plugins not supporting disabling winborder when it need "none".
+  -- For example: nvim-treesitter-context, telescope.nvim, floaterm.nvim, etc.
+  -- if vim.fn.exists('+winborder') == 1 then
+  --   vim.opt.winborder = "rounded"
+  -- end
 
   -- completion menu
   vim.opt.pumheight = 40
