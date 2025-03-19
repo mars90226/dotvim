@@ -43,6 +43,11 @@ settings.setup_options = function()
     "indent-heuristic",
   }
 
+  -- window
+  if vim.fn.exists('+winborder') == 1 then
+    vim.opt.winborder = "rounded"
+  end
+
   -- completion menu
   vim.opt.pumheight = 40
   vim.opt.pumblend = 0
