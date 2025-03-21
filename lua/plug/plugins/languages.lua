@@ -631,6 +631,7 @@ local languages = {
         "http",
         -- "css",
         -- "javascript",
+        "python~3.11",
         "python~3.10",
         "rust",
         -- some docs such as lua require version number along with the language name
