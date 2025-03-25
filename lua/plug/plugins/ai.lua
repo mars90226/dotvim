@@ -262,6 +262,7 @@ local ai = {
       -- "folke/snacks.nvim", -- Optional: Improves the default Neovim UI
       -- TODO: Use snacks.nvim
       "nvim-telescope/telescope.nvim", -- Optional: For using slash commands
+      "ravitemer/mcphub.nvim", -- Optional: For using tools from the MCP Servers
     },
     opts = {
       adapters = {
@@ -282,6 +283,16 @@ local ai = {
                 provider = "fzf_lua",
               },
             },
+          },
+          tools = {
+            ["mcp"] = {
+              -- calling it in a function would prevent mcphub from being loaded before it's needed
+              callback = function() return require("mcphub.extensions.codecompanion") end,
+              description = "Call tools and resources from the MCP Servers",
+              opts = {
+                requires_approval = true,
+              }
+            }
           }
         },
         inline = {
