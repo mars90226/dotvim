@@ -55,6 +55,8 @@ my_copilot.detach = function()
   -- Do not call ":Copilot! detach" to avoid restarting LSP server
 end
 
+-- TODO: Replace this with copilot.lua's new `should_attach` function
+-- Ref: [feat add should_attach function · zbirenbaumcopilot.lua@4a557e7](https://github.com/zbirenbaum/copilot.lua/commit/4a557e74514fd5918e8aabb55b8cfd10535a9a33)
 my_copilot.add_attach_filter = function(filter)
   table.insert(my_copilot.attach_filters, filter)
 end
