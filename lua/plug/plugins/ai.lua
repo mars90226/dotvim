@@ -14,6 +14,7 @@ local ai = {
     },
     config = function()
       require("copilot").setup({
+        copilot_model = "gpt-4o-copilot",
         panel = {
           auto_refresh = true,
           keymap = {
