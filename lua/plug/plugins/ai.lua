@@ -413,8 +413,8 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
       "nvim-lua/plenary.nvim",  -- Required for Job and HTTP requests
     },
     cmd = "MCPHub", -- lazily start the hub when `MCPHub` is called
-    -- TODO: Make this work with `sudo`
-    build = "npm install -g mcp-hub@latest", -- Installs required mcp-hub npm module
+    -- NOTE: Use `pnpm` to install in user's home directory to avoid permission issues
+    build = "pnpm add -g mcp-hub@latest", -- Installs required mcp-hub npm module
     config = function()
       -- NOTE: Cannot install MCP servers in WSL for now
       require("mcphub").setup({
