@@ -92,7 +92,16 @@ local git = {
   {
     "rbong/vim-flog",
     dependencies = { "tpope/vim-fugitive" },
-    cmd = { "Flog", "Flogsplit", "Floggit" },
+    cmd = {
+      "Flog",
+      "Floga",
+      "Flogd",
+      "Flogda",
+      "Floge",
+      "Flogea",
+      "Flogsplit",
+      "Floggit",
+    },
     keys = {
       { "<Space>gf", ":call vimrc#flog#open({})<CR>", desc = "Flog open" },
       {
