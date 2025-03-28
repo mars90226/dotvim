@@ -88,7 +88,6 @@ local git = {
     end,
   },
 
-  -- NOTE: Do not use vim-flog on large code base, it's very slow in git view
   {
     "rbong/vim-flog",
     dependencies = { "tpope/vim-fugitive" },
