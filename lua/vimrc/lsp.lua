@@ -359,8 +359,9 @@ lsp.on_attach = function(client, bufnr)
   vim.keymap.set("n", "yof", function()
     require("vimrc.lsp").toggle_format_on_sync()
   end, { silent = true, buffer = true, desc = "LSP toggle format on sync" })
+  -- TODO: Add key mapping to toggle inlay hints globally
   vim.keymap.set("n", "yoI", function()
-    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
   end, { silent = true, buffer = true, desc = "LSP toggle inlay hints" })
 
   -- Remap for K
@@ -380,8 +381,10 @@ lsp.on_attach = function(client, bufnr)
     vim.keymap.set("n", "g<C-I>", "gI", { buffer = true })
   end
 
-  -- NOTE: Enable inlay hints
-  vim.lsp.inlay_hint.enable(true)
+  if vim.b.disable_inlay_hints ~= true then
+    -- NOTE: Enable inlay hints
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+  end
 
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
   vim.bo.tagfunc = [[v:lua.vim.lsp.tagfunc]]
