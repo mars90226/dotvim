@@ -136,6 +136,7 @@ my_snacks.keys = (function()
     { snacks_picker_prefix .. "c", function() Snacks.picker.git_log() end, desc = "Snacks Picker - Git Log" },
     { snacks_picker_prefix .. "s", function() Snacks.picker.git_status() end, desc = "Snacks Picker - Git Status" },
     { snacks_picker_prefix .. "d", function() Snacks.picker.git_diff() end, desc = "Snacks Picker - Git Diff" },
+    { snacks_picker_prefix .. "G", function() Snacks.picker.git_grep() end, desc = "Snacks Picker - Git Grep" },
     { snacks_picker_prefix .. "H", function() Snacks.picker.git_stash() end, desc = "Snacks Picker - Git Stash" },
     -- Grep
     { snacks_picker_prefix .. "ll", function() Snacks.picker.lines() end, desc = "Snacks Picker - Buffer Lines" },
