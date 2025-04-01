@@ -18,6 +18,10 @@ lsp.config = {
   enable_format_on_sync = false,
 }
 
+-- NOTE: For project level settings
+-- TODO: Need to review if this works with multiple working directories
+local project_root = vim.fs.root(0, ".git")
+
 -- TODO: Refactor this to use `vim.lsp.config` & `vim.lsp.enable` after neovim 0.11.0 is released
 -- Ref: [feat(lsp) add `vim.lsp.config` and `vim.lsp.enable` by lewis6991 · Pull Request 31031 · neovim/neovim](https://github.com/neovim/neovim/pull/31031)
 -- NOTE: Change it also need to change lsp.servers_by_filetype
@@ -86,6 +90,12 @@ lsp.servers = {
   -- NOTE: Use v0.23.0, v0.24.0 requires GLIBC 2.39, which requires Ubuntu 24.04 or later
   harper_ls = {
     condition = check.has_linux_build_env(),
+    settings = {
+      ["harper-ls"] = {
+        userDictPath = project_root and project_root .. "/.harper/project.txt" or "",
+        fileDictPath = project_root and project_root .. "/.harper" or "",
+      },
+    },
   },
   html = {
     capabilities = {
@@ -108,7 +118,6 @@ lsp.servers = {
         },
       },
     },
-    settings = {},
     custom_setup = function(server, lsp_opts)
       lsp_opts.settings.json = {
         schemas = require("schemastore").json.schemas(),
@@ -603,6 +612,8 @@ lsp.setup = function(settings)
 end
 
 -- TODO: project level notify
+-- FIXME: Seems broken after neovim 0.11.0 release?
+-- See [neoconf.nvimluaneoconfpluginslspconfig.lua at 4a36457c389fab927c885d53fba6e07f4eedf1f4 · folkeneoconf.nvim](https://github.com/folke/neoconf.nvim/blob/4a36457c389fab927c885d53fba6e07f4eedf1f4/lua/neoconf/plugins/lspconfig.lua#L67) as reference
 lsp.notify_settings = function(server, settings)
   for _, lsp_client in ipairs(vim.lsp.get_clients({ name = server })) do
     lsp_client.config.settings = vim.tbl_deep_extend("force", lsp_client.config.settings, settings)
