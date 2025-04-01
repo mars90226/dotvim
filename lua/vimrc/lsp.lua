@@ -118,6 +118,7 @@ lsp.servers = {
         },
       },
     },
+    settings = {},
     custom_setup = function(server, lsp_opts)
       lsp_opts.settings.json = {
         schemas = require("schemastore").json.schemas(),
