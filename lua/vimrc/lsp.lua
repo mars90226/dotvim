@@ -92,6 +92,8 @@ lsp.servers = {
     condition = check.has_linux_build_env(),
     settings = {
       ["harper-ls"] = {
+        -- TODO: Only use project dictionary when it's available
+        -- Need to check if project dictionary is exist without affecting performance for other lsp servers
         userDictPath = project_root and project_root .. "/.harper/project.txt" or "",
         fileDictPath = project_root and project_root .. "/.harper" or "",
       },
