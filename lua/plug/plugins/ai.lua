@@ -263,7 +263,11 @@ local ai = {
       -- "folke/snacks.nvim", -- Optional: Improves the default Neovim UI
       -- TODO: Use snacks.nvim
       "nvim-telescope/telescope.nvim", -- Optional: For using slash commands
-      "ravitemer/mcphub.nvim", -- Optional: For using tools from the MCP Servers
+      -- Optional: For using tools from the MCP Servers
+      {
+        "ravitemer/mcphub.nvim",
+        cond = choose.is_enabled_plugin("mcphub.nvim"),
+      },
     },
     opts = {
       adapters = {
@@ -409,6 +413,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
   -- MCP
   {
     "ravitemer/mcphub.nvim",
+    cond = choose.is_enabled_plugin("mcphub.nvim"),
     dependencies = {
       "nvim-lua/plenary.nvim",  -- Required for Job and HTTP requests
     },
