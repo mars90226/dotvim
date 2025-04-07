@@ -87,7 +87,6 @@ lsp.servers = {
   gopls = {
     condition = check.has_linux_build_env(),
   },
-  -- NOTE: Use v0.23.0, v0.24.0 requires GLIBC 2.39, which requires Ubuntu 24.04 or later
   harper_ls = {
     condition = check.has_linux_build_env(),
     settings = {
