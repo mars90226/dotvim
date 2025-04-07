@@ -147,6 +147,13 @@ plugin_choose.setup_git = function()
 
   -- Choose git-blame plugin
   -- gitsigns.nvim
+
+  -- Choose gitlab plugin
+  -- gitlab.nvim
+  choose.disable_plugin("gitlab.nvim")
+  if not check.has_linux_build_env() then
+    choose.disable_plugin("gitlab.nvim")
+  end
 end
 
 plugin_choose.setup_language = function()

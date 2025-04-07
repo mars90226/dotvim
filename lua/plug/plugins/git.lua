@@ -1,3 +1,4 @@
+local choose = require("vimrc.choose")
 local utils = require("vimrc.utils")
 
 local git = {
@@ -285,6 +286,7 @@ local git = {
   -- GitLab
   {
     "harrisoncramer/gitlab.nvim",
+    cond = choose.is_enabled_plugin("gitlab.nvim"),
     dependencies = {
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
