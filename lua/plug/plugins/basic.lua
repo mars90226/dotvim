@@ -5,6 +5,7 @@ local basic = {
   },
   {
     dir = vim.env.HOME .. "/.vim_secret",
+    optional = true,
     lazy = false,
     priority = 1001,
   },
