@@ -570,20 +570,37 @@ local file_navigation = {
     "s1n7ax/nvim-window-picker",
     name = "window-picker",
     version = "2.*",
-    keys = { "=-", "<Space>p" },
+    keys = {
+      {
+        "=-",
+        function()
+          local window_id = require("window-picker").pick_window()
+          if window_id == nil then
+            return
+          end
+          vim.api.nvim_set_current_win(window_id)
+        end,
+        silent = true,
+        desc = "Switch to window by window-picker",
+      },
+      -- Alternative key mapping for those key mappings that are hard to type in ergonomic keyboard.
+      {
+        "<Space>pw",
+        function()
+          local window_id = require("window-picker").pick_window()
+          if window_id == nil then
+            return
+          end
+          vim.api.nvim_set_current_win(window_id)
+        end,
+        silent = true,
+        desc = "Switch to window by window-picker",
+      },
+    },
     config = function()
       require("window-picker").setup({
         hint = "floating-big-letter",
       })
-      vim.keymap.set("n", "=-", function()
-        local window_id = require("window-picker").pick_window()
-        vim.api.nvim_set_current_win(window_id)
-      end, { silent = true, desc = "Switch to window by window-picker" })
-      -- Alternative key mapping for those key mappings that are hard to type in ergonomic keyboard.
-      vim.keymap.set("n", "<Space>p", function()
-        local window_id = require("window-picker").pick_window()
-        vim.api.nvim_set_current_win(window_id)
-      end, { silent = true, desc = "Switch to window by window-picker" })
     end,
   },
 
