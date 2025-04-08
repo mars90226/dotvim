@@ -278,7 +278,10 @@ local text_manipulation = {
     },
     config = function()
       require("textcase").setup({})
-      require("telescope").load_extension("textcase")
+
+      if require("vimrc.plugins.lazy").is_loaded("telescope.nvim") then
+        require("telescope").load_extension("textcase")
+      end
     end,
   },
 

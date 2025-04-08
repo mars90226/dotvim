@@ -45,8 +45,11 @@ local file_navigation = {
         },
       })
 
-      require("telescope").load_extension("yank_history")
-      vim.keymap.set("n", [[<Space>tn]], [[<Cmd>Telescope yank_history<CR>]], { desc = "Telescope yank_history" })
+      if require("vimrc.plugins.lazy").is_loaded("telescope.nvim") then
+        require("telescope").load_extension("yank_history")
+
+        vim.keymap.set("n", [[<Space>tn]], [[<Cmd>Telescope yank_history<CR>]], { desc = "Telescope yank_history" })
+      end
     end,
   },
 
@@ -441,14 +444,22 @@ local file_navigation = {
     keys = {
       { "<Leader>mm", "<cmd>Grapple toggle<cr>",          desc = "Grapple toggle tag" },
       { "<Leader>mt", "<cmd>Grapple toggle_tags<cr>",     desc = "Grapple open tags window" },
-      { "<Leader>ms", "<cmd>Telescope grapple tags<cr>",  desc = "Grapple select tags by Telescope" },
+      { "<Leader>ms", function()
+        if require("vimrc.plugins.lazy").is_loaded("telescope.nvim") then
+          vim.cmd("Telescope grapple")
+        else
+          vim.notify("telescope.nvim is not loaded", vim.log.levels.WARN, { title = "grapple.nvim" })
+        end
+      end,  desc = "Grapple select tags by Telescope" },
       { "]h",         "<cmd>Grapple cycle_tags next<cr>", desc = "Grapple cycle next tag" },
       { "[h",         "<cmd>Grapple cycle_tags prev<cr>", desc = "Grapple cycle previous tag" },
     },
     config = function(_, opts)
       require("grapple").setup(opts)
 
-      require("telescope").load_extension("grapple")
+      if require("vimrc.plugins.lazy").is_loaded("telescope.nvim") then
+        require("telescope").load_extension("grapple")
+      end
     end,
   },
 

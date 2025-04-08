@@ -85,7 +85,9 @@ local utility = {
         -- * win
         scope_chdir = "win",
       })
-      require("telescope").load_extension("projects")
+      if require("vimrc.plugins.lazy").is_loaded("telescope.nvim") then
+        require("telescope").load_extension("projects")
+      end
 
       vim.keymap.set("n", "<Leader>pr", "<Cmd>ProjectRoot<CR>")
     end,
