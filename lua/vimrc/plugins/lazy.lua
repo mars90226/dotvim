@@ -2,6 +2,11 @@ local check = require "vimrc.check"
 local my_lazy = {}
 
 my_lazy.setup_autocmd = function()
+  -- Avoid reloading if system is resource limited
+  if check.is_resource_limited() then
+    return
+  end
+
   local augroup_id = vim.api.nvim_create_augroup("lazy_settings", {})
   vim.api.nvim_create_autocmd({ "FocusGained", "VimResume" }, {
     group = augroup_id,
