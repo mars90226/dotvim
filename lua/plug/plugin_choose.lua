@@ -59,6 +59,11 @@ plugin_choose.setup_completion = function()
   end
 
   -- Choose nvim-cmp source plugin
+  -- cmp-nvim-lsp-signature-help
+  -- NOTE: Disabled to reduce resource usage
+  if not check.has_linux_build_env() then
+    choose.disable_plugin("cmp-nvim-lsp-signature-help")
+  end
   -- cmp-dictionary
   -- TODO: Monitor the performance
   if not plugin_utils.get_dictionary() then
