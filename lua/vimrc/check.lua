@@ -80,6 +80,12 @@ function M.has_linux_build_env()
   return not os:find("windows", 1, true) and not os:find("synology", 1, true)
 end
 
+--- Check if the system is resource-limited.
+--- @return boolean
+function M.is_resource_limited()
+  return not M.has_linux_build_env()
+end
+
 --- Check if Cargo is available.
 --- Relies on an existing `vimrc.plugin_utils.is_executable` function.
 --- @return boolean

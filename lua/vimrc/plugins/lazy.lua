@@ -1,3 +1,4 @@
+local check = require "vimrc.check"
 local my_lazy = {}
 
 my_lazy.setup_autocmd = function()
