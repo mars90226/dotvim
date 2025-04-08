@@ -137,10 +137,16 @@ end
 
 plugin_choose.setup_finder = function()
   -- Choose finder plugin
-  -- telescope.nvim
-
+  -- snacks.nvim, fzf-lua, mini.nvim, telescope.nvim
+  -- TODO: Monitor this
   if not check.has_linux_build_env() then
+    choose.disable_plugin("telescope.nvim")
+  end
+  if choose.is_disabled_plugin("telescope.nvim") or not check.has_linux_build_env() then
     choose.disable_plugin("telescope-fzf-native.nvim")
+  end
+  if choose.is_disabled_plugin("telescope.nvim") or not plugin_utils.is_executable("sg") then
+    choose.disable_plugin("telescope-sg")
   end
 end
 
