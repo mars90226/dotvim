@@ -36,7 +36,10 @@ plugin_choose.setup_completion = function()
 
   -- Choose LSP capabilities
   -- LSP `workspace/didChangeWatchedFiles` capability
-  if utils.is_light_vim_mode() or (check.os_is("Linux") and not plugin_utils.is_executable("fswatch")) then
+  -- NOTE: Use `inotifywait` to watch file changes
+  -- Ref: https://github.com/neovim/neovim/pull/27347
+  -- Ref: https://github.com/neovim/neovim/pull/29374
+  if utils.is_light_vim_mode() or (check.os_is("Linux") and not plugin_utils.is_executable("inotifywait")) then
     choose.disable_plugin("nvim-lsp-workspace-didChangeWatchedFiles")
   end
 
