@@ -83,7 +83,9 @@ lsp.servers = {
   -- },
   esbonio = {},
   -- TODO: Suppress the error log of not finding eslint in local repo
-  eslint = {},
+  eslint = {
+    condition = check.has_linux_build_env(),
+  },
   gopls = {
     condition = check.has_linux_build_env(),
   },
@@ -270,7 +272,9 @@ lsp.servers = {
   -- Ref: https://github.com/tailwindlabs/tailwindcss-intellisense/issues/1109#issuecomment-2612844262
   -- tailwindcss = {},
   vimls = {},
-  volar = {},
+  volar = {
+    condition = check.has_linux_build_env(),
+  },
   -- TODO: add settings for schemas
   yamlls = {
     settings = {},
