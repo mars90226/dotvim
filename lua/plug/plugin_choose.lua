@@ -49,7 +49,7 @@ plugin_choose.setup_completion = function()
   if check.has_linux_build_env() then
     choose.enable_plugin("rustaceanvim")
   end
-  
+
   -- Choose nvim-cmp source plugin
   -- cmp-dictionary
   -- TODO: Monitor the performance
@@ -211,7 +211,11 @@ plugin_choose.setup_language = function()
   -- Choose documentation plugin
   -- devdocs.nvim
   choose.disable_plugin("devdocs.nvim")
-  if plugin_utils.is_executable("jq") and plugin_utils.is_executable("curl") and plugin_utils.is_executable("pandoc") then
+  if
+    plugin_utils.is_executable("jq")
+    and plugin_utils.is_executable("curl")
+    and plugin_utils.is_executable("pandoc")
+  then
     choose.enable_plugin("devdocs.nvim")
   end
 end
