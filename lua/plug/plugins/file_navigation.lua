@@ -18,6 +18,16 @@ local file_navigation = {
     cond = not utils.is_light_vim_mode(),
     -- TODO: Only lazy load in WSL
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
+    keys = {
+      {
+        "<Space>pp",
+        mode = { "n", "x" },
+        function()
+          Snacks.picker.yanky()
+        end,
+        desc = "Open Yank History",
+      },
+    },
     config = function()
       local mapping = require("yanky.telescope.mapping")
       local slow_system_clipboard = vim.fn.has("wsl") == 1
