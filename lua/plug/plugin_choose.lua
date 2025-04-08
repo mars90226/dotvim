@@ -84,6 +84,9 @@ plugin_choose.setup_completion = function()
 
   -- Choose snippet plugin
   -- LuaSnip
+  if not check.has_linux_build_env() then
+    choose.disable_plugin("LuaSnip")
+  end
 
   -- Enable placeholder transformations
   if choose.is_disabled_plugin("LuaSnip") or not check.has_linux_build_env() then
