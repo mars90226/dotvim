@@ -322,7 +322,7 @@ local languages = {
         "<Space>rm",
         mode = { "n", "x" },
         function()
-          if require("vimrc.plugins.lazy").is_loaded("telescope.nvim") then
+          if choose.is_enabled_plugin("telescope.nvim") then
             require("telescope").extensions.refactoring.refactors()
           else
             vim.notify("telescope.nvim is not loaded", vim.log.levels.WARN, { title = "refactoring.nvim" })
@@ -396,7 +396,7 @@ local languages = {
       vim.api.nvim_create_user_command("RefactoringAddPrintVar", refactoring.add_print_var, {})
 
       -- load refactoring Telescope extension
-      if require("vimrc.plugins.lazy").is_loaded("telescope.nvim") then
+      if choose.is_enabled_plugin("telescope.nvim") then
         require("telescope").load_extension("refactoring")
       end
     end,

@@ -1,5 +1,4 @@
 local choose = require("vimrc.choose")
-local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
 
 local file_navigation = {
@@ -41,7 +40,7 @@ local file_navigation = {
         },
       })
 
-      if require("vimrc.plugins.lazy").is_loaded("telescope.nvim") then
+      if choose.is_enabled_plugin("telescope.nvim") then
         require("telescope").load_extension("yank_history")
 
         vim.keymap.set("n", [[<Space>tn]], [[<Cmd>Telescope yank_history<CR>]], { desc = "Telescope yank_history" })
@@ -443,8 +442,8 @@ local file_navigation = {
       {
         "<Leader>ms",
         function()
-          if require("vimrc.plugins.lazy").is_loaded("telescope.nvim") then
-            vim.cmd("Telescope grapple")
+          if choose.is_enabled_plugin("telescope.nvim") then
+            vim.cmd("Telescope grapple tags")
           else
             vim.notify("telescope.nvim is not loaded", vim.log.levels.WARN, { title = "grapple.nvim" })
           end
@@ -457,7 +456,7 @@ local file_navigation = {
     config = function(_, opts)
       require("grapple").setup(opts)
 
-      if require("vimrc.plugins.lazy").is_loaded("telescope.nvim") then
+      if choose.is_enabled_plugin("telescope.nvim") then
         require("telescope").load_extension("grapple")
       end
     end,

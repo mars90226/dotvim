@@ -279,7 +279,7 @@ local text_manipulation = {
     config = function()
       require("textcase").setup({})
 
-      if require("vimrc.plugins.lazy").is_loaded("telescope.nvim") then
+      if choose.is_enabled_plugin("telescope.nvim") then
         require("telescope").load_extension("textcase")
       end
     end,
