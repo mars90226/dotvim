@@ -15,7 +15,15 @@ plugin_choose.setup_appearance = function()
   -- Winbar
   -- dropbar.nvim-winbar, lualine.nvim
   choose.disable_plugins({ "dropbar.nvim-winbar", "lualine.nvim-winbar" })
-  choose.enable_plugin("dropbar.nvim-winbar")
+  -- NOTE: Disabled to reduce resource usage
+  if check.has_linux_build_env() then
+    choose.enable_plugin("dropbar.nvim-winbar")
+  else
+    choose.enable_plugin("lualine.nvim-winbar")
+  end
+  if choose.is_disabled_plugin("dropbar.nvim-winbar") then
+    choose.disable_plugin("dropbar.nvim")
+  end
 
   -- Statuscolumn
   -- snacks.nvim-statuscolumn
@@ -84,6 +92,7 @@ plugin_choose.setup_completion = function()
 
   -- Choose snippet plugin
   -- LuaSnip
+  -- NOTE: Disabled to reduce resource usage
   if not check.has_linux_build_env() then
     choose.disable_plugin("LuaSnip")
   end
@@ -141,7 +150,7 @@ end
 plugin_choose.setup_finder = function()
   -- Choose finder plugin
   -- snacks.nvim, fzf-lua, mini.nvim, telescope.nvim
-  -- TODO: Monitor this
+  -- NOTE: Disabled to reduce resource usage
   if not check.has_linux_build_env() then
     choose.disable_plugin("telescope.nvim")
   end
