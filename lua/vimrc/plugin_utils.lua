@@ -37,6 +37,10 @@ plugin_utils.file_readable = function(file)
   return vim.fn.filereadable(file) > 0
 end
 
+plugin_utils.is_directory = function(path)
+  return vim.fn.isdirectory(path) == 1
+end
+
 plugin_utils.get_kernel_version = function()
   local os = check.get_os()
   local kernel_version = string.sub(string.match(os, "#%d+"), 2)
