@@ -55,30 +55,11 @@ basic.disable_builtin_plugin = function()
 end
 
 basic.setup_secret = function()
-  local secret_config_vim = vim.env.HOME .. "/.vim_secret.vim"
-  local secret_config_lua = vim.env.HOME .. "/.vim_secret.lua"
-  local secret_config_dir = vim.env.HOME .. "/.vim_secret"
-
-  vim.opt.runtimepath:append(secret_config_dir)
-
-  if plugin_utils.file_readable(secret_config_vim) then
-    plugin_utils.source(secret_config_vim)
-  end
-  if plugin_utils.file_readable(secret_config_lua) then
-    plugin_utils.source(secret_config_lua)
-  end
+  require("vimrc.secret").setup()
 end
 
 basic.setup_local = function()
-  local local_config_vim = vim.env.HOME .. "/.vim_local.vim"
-  local local_config_lua = vim.env.HOME .. "/.vim_local.lua"
-
-  if plugin_utils.file_readable(local_config_vim) then
-    plugin_utils.source(local_config_vim)
-  end
-  if plugin_utils.file_readable(local_config_lua) then
-    plugin_utils.source(local_config_lua)
-  end
+  require("vimrc.localconfig").setup()
 end
 
 basic.setup = function()
