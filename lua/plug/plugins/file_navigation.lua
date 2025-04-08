@@ -70,7 +70,7 @@ local file_navigation = {
   -- telescope.nvim
   {
     "nvim-telescope/telescope.nvim",
-    cond = choose.is_disabled_plugin("telescope.nvim"),
+    cond = choose.is_enabled_plugin("telescope.nvim"),
     event = { "VeryLazy" },
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -82,7 +82,7 @@ local file_navigation = {
   },
   {
     "nvim-telescope/telescope-file-browser.nvim",
-    cond = choose.is_disabled_plugin("telescope.nvim"),
+    cond = choose.is_enabled_plugin("telescope.nvim"),
     keys = {
       {
         "<Space>t0",
@@ -101,7 +101,7 @@ local file_navigation = {
   },
   {
     "nvim-telescope/telescope-project.nvim",
-    cond = choose.is_disabled_plugin("telescope.nvim"),
+    cond = choose.is_enabled_plugin("telescope.nvim"),
     -- TODO: May need to adjust key mapping as used for project bookmark
     keys = {
       { "<Space>t<C-P>", [[<Cmd>Telescope project<CR>]], desc = "Telescope project" },
@@ -112,7 +112,7 @@ local file_navigation = {
   },
   {
     "jvgrootveld/telescope-zoxide",
-    cond = choose.is_disabled_plugin("telescope.nvim"),
+    cond = choose.is_enabled_plugin("telescope.nvim"),
     keys = {
       { "<Space>tz", [[<Cmd>Telescope zoxide list<CR>]], desc = "Telescope zoxide list" },
     },
@@ -122,7 +122,7 @@ local file_navigation = {
   },
   {
     "sudormrfbin/cheatsheet.nvim",
-    cond = choose.is_disabled_plugin("telescope.nvim"),
+    cond = choose.is_enabled_plugin("telescope.nvim"),
     cmd = { "Cheatsheet", "CheatsheetEdit" },
     keys = {
       { "<Leader><Tab><Tab>", [[<Cmd>Cheatsheet<CR>]], desc = "Cheatsheet" },
@@ -130,7 +130,7 @@ local file_navigation = {
   },
   {
     "TC72/telescope-tele-tabby.nvim",
-    cond = choose.is_disabled_plugin("telescope.nvim"),
+    cond = choose.is_enabled_plugin("telescope.nvim"),
     keys = {
       { "<Space>tw", [[<Cmd>Telescope tele_tabby list<CR>]], desc = "Telescope tele-tabby list" },
     },
@@ -140,7 +140,7 @@ local file_navigation = {
   },
   {
     "nvim-telescope/telescope-live-grep-args.nvim",
-    cond = choose.is_disabled_plugin("telescope.nvim"),
+    cond = choose.is_enabled_plugin("telescope.nvim"),
     keys = {
       { "<Space>tI", [[<Cmd>Telescope live_grep_args<CR>]], desc = "Telescope live_grep_args" },
     },
@@ -151,7 +151,7 @@ local file_navigation = {
   -- TODO: This plugin is archived, author suggest using which-key.nvim instead
   {
     "LinArcX/telescope-command-palette.nvim",
-    cond = choose.is_disabled_plugin("telescope.nvim"),
+    cond = choose.is_enabled_plugin("telescope.nvim"),
     keys = {
       -- Normal mode
       { "<Space>mm", [[<Cmd>Telescope command_palette<CR>]], desc = "Telescope command_palette" },
@@ -212,7 +212,7 @@ local file_navigation = {
   },
   {
     "debugloop/telescope-undo.nvim",
-    cond = choose.is_disabled_plugin("telescope.nvim"),
+    cond = choose.is_enabled_plugin("telescope.nvim"),
     keys = {
       { "<Space>tU", [[<Cmd>Telescope undo<CR>]], desc = "Telescope undo" },
     },
@@ -222,7 +222,7 @@ local file_navigation = {
   },
   {
     "molecule-man/telescope-menufacture",
-    cond = choose.is_disabled_plugin("telescope.nvim"),
+    cond = choose.is_enabled_plugin("telescope.nvim"),
     event = { "VeryLazy" },
     keys = {
       {
@@ -284,7 +284,7 @@ local file_navigation = {
   },
   {
     "aaronhallaert/advanced-git-search.nvim",
-    cond = choose.is_disabled_plugin("telescope.nvim"),
+    cond = choose.is_enabled_plugin("telescope.nvim"),
     cmd = { "AdvancedGitSearch" },
     keys = {
       {
@@ -349,7 +349,7 @@ local file_navigation = {
   },
   {
     "Marskey/telescope-sg",
-    cond = choose.is_disabled_plugin("telescope-sg"),
+    cond = choose.is_enabled_plugin("telescope-sg"),
     keys = {
       { "<Space>st", [[<Cmd>Telescope ast_grep<CR>]], desc = "Telescope ast_grep" },
     },
@@ -359,7 +359,7 @@ local file_navigation = {
   -- This cause the "locking protocol" error when opening multiple neovim instances.
   {
     "danielfalk/smart-open.nvim",
-    cond = choose.is_disabled_plugin("telescope.nvim"),
+    cond = choose.is_enabled_plugin("telescope.nvim"),
     branch = "0.2.x",
     event = { "VeryLazy" },
     keys = {
