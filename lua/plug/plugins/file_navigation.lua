@@ -29,23 +29,9 @@ local file_navigation = {
       },
     },
     config = function()
-      local mapping = require("yanky.telescope.mapping")
       local slow_system_clipboard = vim.fn.has("wsl") == 1
 
       require("yanky").setup({
-        picker = {
-          telescope = {
-            mappings = {
-              default = mapping.put("p"),
-              i = {
-                ["<C-X>"] = mapping.delete(),
-              },
-              n = {
-                d = mapping.delete(),
-              },
-            },
-          },
-        },
         system_clipboard = {
           sync_with_ring = not slow_system_clipboard,
         },
