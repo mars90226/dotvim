@@ -27,6 +27,7 @@ end
 my_lazy.setup_config = function()
   require("lazy").setup("plug.plugins", {
     change_detection = {
+      enabled = not check.is_resource_limited(),
       notify = false, -- avoid loads of notification when changing config
     },
     ui = {
