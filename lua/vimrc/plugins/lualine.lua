@@ -37,12 +37,14 @@ lualine.default_option = {
   -- Statusline
   sections = {
     lualine_a = { "mode" },
-    lualine_b = { "branch", "diff", { "diagnostics", sources = { "nvim_diagnostic" } } },
-    lualine_c = vim.tbl_filter(function(component)
+    lualine_b = vim.tbl_filter(function(component)
       return component ~= nil
     end, {
-      { "filename", path = 1 },
+      plugin_utils.check_condition("branch", not check.is_resource_limited()),
+      plugin_utils.check_condition("diff", not check.is_resource_limited()),
+      { "diagnostics", sources = { "nvim_diagnostic" } },
     }),
+    lualine_c = { { "filename", path = 1 } },
     lualine_x = { "encoding", "fileformat", "filetype" },
     lualine_y = { "progress" },
     lualine_z = { "location" },
