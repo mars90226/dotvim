@@ -8,6 +8,15 @@ local lualine = {}
 lualine.default_refresh_interval = check.is_resource_limited() and 1000 or 100
 lualine.inactive_refresh_interval = 60 * 1000
 
+lualine.get_refresh_interval = function(interval)
+  local new_interval = vim.F.if_nil(interval, lualine.default_refresh_interval)
+  return {
+    statusline = new_interval,
+    tabline = check.is_resource_limited() and new_interval * 10 or new_interval,
+    winbar = new_interval,
+  }
+end
+
 lualine.custom_extensions = {
   outline = {
     sections = {
@@ -22,11 +31,7 @@ lualine.default_option = {
     icons_enabled = true,
     theme = gruvbox_dark_theme,
     disabled_filetypes = {},
-    refresh = {
-      statusline = lualine.default_refresh_interval,
-      tabline = lualine.default_refresh_interval,
-      winbar = lualine.default_refresh_interval,
-    },
+    refresh = lualine.get_refresh_interval(),
   },
 
   -- Statusline
@@ -156,17 +161,17 @@ lualine.default_option = {
 }
 
 lualine.setup_refresh_interval = function(interval)
-  local new_interval = vim.F.if_nil(interval, lualine.default_refresh_interval)
+  local new_interval = lualine.get_refresh_interval(interval)
   local new_config = vim.tbl_deep_extend("force", lualine.default_option, {
     options = {
       refresh = vim.tbl_extend(
         "force",
         {
-          statusline = new_interval,
-          tabline = new_interval,
+          statusline = new_interval.statusline,
+          tabline = new_interval.tabline,
         },
         plugin_utils.check_enabled_plugin({
-          winbar = new_interval,
+          winbar = new_interval.winbar,
         }, "lualine.nvim-winbar", {})
       ),
     },
@@ -196,7 +201,25 @@ lualine.setup_performance_trick = function()
     end,
   })
 
-  -- TODO: Manually refresh tabline on TabEnter/TabLeave and increase the refresh interval for tabline
+  if check.is_resource_limited() then
+    -- NOTE: Manually refresh tabline on TabEnter
+    local tabline_refresh_enable = false
+    local tabline_refresh_debounce = lualine.default_refresh_interval / 5
+    vim.api.nvim_create_autocmd({ "TabEnter" }, {
+      group = augroup_id,
+      pattern = "*",
+      callback = function()
+        tabline_refresh_enable = true
+
+        vim.defer_fn(function()
+          if tabline_refresh_enable then
+            require("lualine").refresh()
+            tabline_refresh_enable = false
+          end
+        end, tabline_refresh_debounce)
+      end,
+    })
+  end
 end
 
 lualine.setup = function()
