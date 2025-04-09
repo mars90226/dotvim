@@ -1,10 +1,12 @@
+local check = require("vimrc.check")
 local plugin_utils = require("vimrc.plugin_utils")
 
 local gruvbox_dark_theme = require("vimrc.plugins.lualine_theme.gruvbox_dark")
 
 local lualine = {}
 
-lualine.default_refresh_interval = 100
+lualine.default_refresh_interval = check.is_resource_limited() and 1000 or 100
+lualine.inactive_refresh_interval = 60 * 1000
 
 lualine.custom_extensions = {
   outline = {
@@ -156,12 +158,16 @@ lualine.setup_refresh_interval = function(interval)
   local new_interval = vim.F.if_nil(interval, lualine.default_refresh_interval)
   local new_config = vim.tbl_deep_extend("force", lualine.default_option, {
     options = {
-      refresh = vim.tbl_extend("force", {
-        statusline = new_interval,
-        tabline = new_interval,
-      }, plugin_utils.check_enabled_plugin({
-        winbar = new_interval,
-      }, "lualine.nvim-winbar", {})),
+      refresh = vim.tbl_extend(
+        "force",
+        {
+          statusline = new_interval,
+          tabline = new_interval,
+        },
+        plugin_utils.check_enabled_plugin({
+          winbar = new_interval,
+        }, "lualine.nvim-winbar", {})
+      ),
     },
   })
 
@@ -185,7 +191,7 @@ lualine.setup_performance_trick = function()
     group = augroup_id,
     pattern = "*",
     callback = function()
-      lualine.setup_refresh_interval(60 * 1000)
+      lualine.setup_refresh_interval(lualine.inactive_refresh_interval)
     end,
   })
 end

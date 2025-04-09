@@ -1,5 +1,4 @@
 local choose = require("vimrc.choose")
-local utils = require("vimrc.utils")
 
 local appearance = {
   -- Status Line
