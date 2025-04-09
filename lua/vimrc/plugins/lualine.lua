@@ -28,6 +28,8 @@ lualine.default_option = {
       winbar = lualine.default_refresh_interval,
     },
   },
+
+  -- Statusline
   sections = {
     lualine_a = { "mode" },
     lualine_b = { "branch", "diff", { "diagnostics", sources = { "nvim_diagnostic" } } },
@@ -48,7 +50,8 @@ lualine.default_option = {
     lualine_y = {},
     lualine_z = {},
   },
-  -- builtin tabline
+
+  -- Tabline
   tabline = {
     lualine_a = {
       {
@@ -103,9 +106,7 @@ lualine.default_option = {
     },
   },
 
-  -- barbar.nvim, tabby.nvim
-  -- tabline = {},
-
+  -- Winbar
   winbar = plugin_utils.check_enabled_plugin({
     lualine_a = {},
     lualine_b = {},
@@ -194,6 +195,8 @@ lualine.setup_performance_trick = function()
       lualine.setup_refresh_interval(lualine.inactive_refresh_interval)
     end,
   })
+
+  -- TODO: Manually refresh tabline on TabEnter/TabLeave and increase the refresh interval for tabline
 end
 
 lualine.setup = function()

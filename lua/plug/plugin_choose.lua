@@ -15,9 +15,8 @@ plugin_choose.setup_appearance = function()
   -- Winbar
   -- dropbar.nvim-winbar, lualine.nvim
   choose.disable_plugins({ "dropbar.nvim-winbar", "lualine.nvim-winbar" })
-  if check.is_resource_limited() then
-    choose.enable_plugin("lualine.nvim-winbar")
-  else
+  -- NOTE: Disable winbar in resource limited environments
+  if not check.is_resource_limited() then
     choose.enable_plugin("dropbar.nvim-winbar")
   end
   if choose.is_disabled_plugin("dropbar.nvim-winbar") then
