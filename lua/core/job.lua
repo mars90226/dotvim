@@ -22,7 +22,7 @@ job.setup = function()
     ClientSearchKeywordGoogle = { "client", "google", search_keyword_prefix, "h" },
     ClientSearchKeywordDdg = { "client", "duckduckgo", search_keyword_prefix, "v" },
     ClientSearchKeywordDevDocs = { "client", "devdocs", search_keyword_prefix, "b" },
-    ClientSearchKeywordMdn = { "client", "mdn", search_keyword_prefix, "m" },
+    ClientSearchKeywordMdn = { "client", "mdn", search_keyword_prefix, "n" },
   }
   local execute_maps = {
     -- Required by fugitive :GBrowse
