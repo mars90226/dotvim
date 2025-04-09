@@ -74,9 +74,9 @@ gruvbox.custom_overrides = function()
     -- NOTE: Set background to nil. The 'cursorline' still has visual indication in line number
     -- column.
     CursorLine = { bg = nil },
-    -- FIXME: `reverse` works, but it will show the background color during opening session.
-    StatusLine = { fg = palette.dark2, bg = nil, reverse = gruvbox.config.inverse },
-    StatusLineNC = { fg = palette.dark1, bg = nil, reverse = gruvbox.config.inverse },
+    -- NOTE: Although `reverse` works, but it show the background color when switching to a new tab. So disabled it.
+    StatusLine = { fg = palette.dark2, bg = nil, reverse = false },
+    StatusLineNC = { fg = palette.dark1, bg = nil, reverse = false },
     WinBar = { fg = palette.light3, bg = nil },
     WinBarNC = { fg = palette.light4, bg = nil },
 
