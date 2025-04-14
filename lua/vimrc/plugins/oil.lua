@@ -251,6 +251,9 @@ oil.setup_config = function()
         },
         desc = "Open the command line with the current directory as an argument",
       },
+      ["y<C-G>"] = "actions.copy_entry_path",
+
+      -- Terminal
       -- <C-_> and <C-/> are the same key
       ["<C-_>"] = "actions.open_terminal",
       ["<Space><C-_>"] = {
@@ -260,7 +263,28 @@ oil.setup_config = function()
         end,
         desc = "Open terminal in split",
       },
-      ["y<C-G>"] = "actions.copy_entry_path",
+      ["\\te"] = "actions.open_terminal",
+      ["\\ts"] = {
+        callback = function()
+          vim.cmd("split")
+          origin_oil_actions.open_terminal.callback()
+        end,
+        desc = "Open terminal in split",
+      },
+      ["\\tv"] = {
+        callback = function()
+          vim.cmd("vsplit")
+          origin_oil_actions.open_terminal.callback()
+        end,
+        desc = "Open terminal in vertical split",
+      },
+      ["\\tt"] = {
+        callback = function()
+          vim.cmd("tab split")
+          origin_oil_actions.open_terminal.callback()
+        end,
+        desc = "Open terminal in tab",
+      },
 
       -- fzf.nvim support
       ["\\F"] = {
