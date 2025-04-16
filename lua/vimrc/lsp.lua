@@ -309,8 +309,11 @@ lsp.show_doc = function()
   -- preview fold > vim help | lsp hover
   local winid = ufo.peekFoldedLinesUnderCursor()
   if not winid then
-    if vim.o.filetype == "help" or vim.o.filetype == "vim" then
+    -- TODO: Refactor this to be extendable
+    if vim.tbl_contains({ "help", "vim" }, vim.bo.filetype) then
       vim.cmd([[help ]] .. vim.fn.expand("<cword>"))
+    elseif vim.tbl_contains({ "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue" }, vim.bo.filetype) then
+      require("better-type-hover").better_type_hover()
     else
       vim.lsp.buf.hover({
         border = "rounded",

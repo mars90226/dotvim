@@ -35,21 +35,13 @@ local lsp = {
         "folke/neoconf.nvim",
         cmd = "Neoconf",
         opts = {},
-      }
+      },
     },
     config = function()
       local lsp_configs = require("vimrc.lsp")
 
       -- Setup lsp servers
       lsp_configs.setup({})
-    end,
-  },
-
-  {
-    "ii14/lsp-command",
-    event = { "LspAttach" },
-    init = function()
-      vim.g.lsp_legacy_commands = true
     end,
   },
 
@@ -238,6 +230,18 @@ local lsp = {
     },
   },
   { "b0o/schemastore.nvim", ft = { "json", "yaml" } },
+  {
+    "Sebastian-Nielsen/better-type-hover",
+    ft = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue" },
+    config = function()
+      -- NOTE: Call require("better-type-hover").better_type_hover() in lsp.show_doc() in
+      -- lua/vimrc/lsp.lua
+      require("better-type-hover").setup({
+        -- TODO: Currently cannot be disabled, so set to a less used keymap
+        openTypeDocKeymap = "<LocalLeader>K",
+      })
+    end,
+  },
 
   -- Fold
   -- TODO: Check if folding not work in vimwiki
