@@ -4,17 +4,26 @@ my_copilot.attach_filters = {}
 
 -- TODO: Better naming
 
--- NOTE: Best model is "claude-3.7-sonnet-thought", but it's slow.
-my_copilot.default_model = "claude-3.7-sonnet"
+-- TODO: Test gemini-2.5-pro
+-- my_copilot.default_model = "gemini-2.5-pro"
+my_copilot.default_model = "o4-mini-high"
 
 -- NOTE: Use the model info from Copilot using CopilotChat.nvim
 my_copilot.models = {
-  ["gpt-4o-2024-08-06"] = {
-    model = "gpt-4o-2024-08-06",
+  ["gpt-4o"] = {
+    model = "gpt-4o",
     max_tokens = 64000,
+  },
+  ["gpt-4.1"] = {
+    model = "gpt-4.1",
+    max_tokens = 128000,
   },
   ["gemini-2.0-flash-001"] = {
     model = "gemini-2.0-flash-001",
+    max_tokens = 128000,
+  },
+  ["gemini-2.5-pro"] = {
+    model = "gemini-2.5-pro",
     max_tokens = 128000,
   },
   ["claude-3.7-sonnet"] = {
@@ -37,6 +46,16 @@ my_copilot.models = {
   ["o3-mini-high"] = {
     model = "o3-mini-2025-01-31",
     max_tokens = 64000,
+    reasoning_effort = "high",
+  },
+  ["o4-mini"] = {
+    model = "o4-mini",
+    max_tokens = 128000,
+    reasoning_effort = "medium",
+  },
+  ["o4-mini-high"] = {
+    model = "o4-mini",
+    max_tokens = 128000,
     reasoning_effort = "high",
   },
 }
