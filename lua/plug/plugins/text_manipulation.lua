@@ -17,6 +17,9 @@ local text_manipulation = {
       "gb",
       { "gc", mode = "x" },
       { "gb", mode = "x" },
+      -- Duplicate and comment the first
+      -- Ref: https://www.reddit.com/r/neovim/comments/1k4efz8/comment/mob2hwx
+      { "ycc", [["yy" . v:count1 . "gcc']p"]], remap = true, expr = true },
     },
     config = function()
       require("Comment").setup()
