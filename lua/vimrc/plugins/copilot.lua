@@ -4,9 +4,10 @@ my_copilot.attach_filters = {}
 
 -- TODO: Better naming
 
+-- NOTE: Best model is "o4-mini-high", but it's slow.
+my_copilot.default_model = "o4-mini"
 -- TODO: Test gemini-2.5-pro
 -- my_copilot.default_model = "gemini-2.5-pro"
-my_copilot.default_model = "o4-mini-high"
 
 -- NOTE: Use the model info from Copilot using CopilotChat.nvim
 my_copilot.models = {
