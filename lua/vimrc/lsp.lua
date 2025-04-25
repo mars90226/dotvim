@@ -403,6 +403,8 @@ lsp.on_attach = function(client, bufnr)
     -- NOTE: Enable inlay hints
     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
   end
+  -- TODO: Enable document color
+  -- Ref: [feat(lsp) support `textDocumentdocumentColor` by MariaSolOs · Pull Request 33440 · neovimneovim](https://github.com/neovim/neovim/pull/33440)
 
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
   vim.bo.tagfunc = [[v:lua.vim.lsp.tagfunc]]
