@@ -517,7 +517,7 @@ local file_navigation = {
       {
         "<Space>gw",
         function()
-          require("grug-far").grug_far({ prefills = { search = vim.fn.expand("<cword>") } })
+          require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } })
         end,
         desc = "grug-far - search current word",
       },
@@ -530,14 +530,14 @@ local file_navigation = {
       {
         "<Space>g5",
         function()
-          require("grug-far").grug_far({ prefills = { paths = vim.fn.expand("%") } })
+          require("grug-far").open({ prefills = { paths = vim.fn.expand("%") } })
         end,
         desc = "grug-far - search in current file",
       },
       {
         "<Space>g'",
         function()
-          require("grug-far").grug_far({ prefills = { search = vim.fn.expand("<cword>"), paths = vim.fn.expand("%") } })
+          require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>"), paths = vim.fn.expand("%") } })
         end,
         desc = "grug-far - search on current file",
       },
