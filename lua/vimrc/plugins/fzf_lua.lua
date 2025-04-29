@@ -21,7 +21,14 @@ my_fzf_lua.sources = {
 
 my_fzf_lua.commands = {
   output = function(cmd)
-    fzf_lua.fzf_exec(cmd, { complete = true })
+    local candidate = cmd
+
+    -- NOTE: Execute command as vim command if starting with `:`
+    if string.match(cmd, "^:") then
+      candidate = vim.split(vim.api.nvim_exec2(cmd, { output = true }).output, "\n")
+    end
+
+    fzf_lua.fzf_exec(candidate, { complete = true })
   end,
   project_word = function()
     my_fzf_lua.load_project_words()
