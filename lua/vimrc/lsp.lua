@@ -147,6 +147,7 @@ lsp.servers = {
   neocmake = {
     condition = check.has_linux_build_env(),
   },
+  nushell = {},
   perlnavigator = {},
   -- pyls_ms = {},
   -- NOTE: use plugins: pyflakes, pycodestyle, pyls-flake8, pylsp-mypy, python-lsp-black, python-lsp-ruff
@@ -295,7 +296,10 @@ lsp.servers = {
   -- NOTE: Failed to install zk 0.11.1, try marksman
   -- zk = {},
 }
-lsp.servers_by_filetype = {}
+lsp.servers_by_filetype = {
+  -- TODO: Wait for mason-lspconfig to support this
+  nu = { "nushell" },
+}
 lsp.server_setuped = {}
 
 lsp.on_init = function(client)
@@ -312,7 +316,12 @@ lsp.show_doc = function()
     -- TODO: Refactor this to be extendable
     if vim.tbl_contains({ "help", "vim" }, vim.bo.filetype) then
       vim.cmd([[help ]] .. vim.fn.expand("<cword>"))
-    elseif vim.tbl_contains({ "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue" }, vim.bo.filetype) then
+    elseif
+      vim.tbl_contains(
+        { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue" },
+        vim.bo.filetype
+      )
+    then
       require("better-type-hover").better_type_hover()
     else
       vim.lsp.buf.hover({
