@@ -289,16 +289,7 @@ local ai = {
               },
             },
           },
-          tools = {
-            ["mcp"] = {
-              -- calling it in a function would prevent mcphub from being loaded before it's needed
-              callback = function() return require("mcphub.extensions.codecompanion") end,
-              description = "Call tools and resources from the MCP Servers",
-              opts = {
-                requires_approval = true,
-              }
-            }
-          }
+          tools = {},
         },
         inline = {
           adapter = "copilot",
@@ -397,6 +388,16 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
                 contains_code = true,
               },
             },
+          },
+        },
+      },
+      extensions = {
+        mcphub = {
+          callback = "mcphub.extensions.codecompanion",
+          opts = {
+            make_vars = true,
+            make_slash_commands = true,
+            show_result_in_chat = true,
           },
         },
       },
