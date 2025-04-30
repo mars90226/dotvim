@@ -147,7 +147,9 @@ lsp.servers = {
   neocmake = {
     condition = check.has_linux_build_env(),
   },
-  nushell = {},
+  nushell = {
+    condition = plugin_utils.is_executable("nu"),
+  },
   perlnavigator = {},
   -- pyls_ms = {},
   -- NOTE: use plugins: pyflakes, pycodestyle, pyls-flake8, pylsp-mypy, python-lsp-black, python-lsp-ruff
