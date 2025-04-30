@@ -73,7 +73,7 @@ lsp.servers = {
     -- Ref: https://github.com/neovim/nvim-lspconfig/pull/2125#issuecomment-1291968687
     filetypes = { "c", "cpp" },
   },
-  -- NOTE: Use tsserver again
+  -- TODO: Detect deno.json for denols
   -- denols = {
   --   init_options = {
   --     enable = true,
@@ -151,25 +151,6 @@ lsp.servers = {
     condition = plugin_utils.is_executable("nu"),
   },
   perlnavigator = {},
-  -- pyls_ms = {},
-  -- NOTE: use plugins: pyflakes, pycodestyle, pyls-flake8, pylsp-mypy, python-lsp-black, python-lsp-ruff
-  -- TODO: Replaced with ruff server when completion is supported
-  -- Ref: https://astral.sh/blog/ruff-v0.4.5
-  -- pylsp = {
-  --   on_attach = function(client, bufnr)
-  --     local python = require("vimrc.ftplugins.python")
-  --
-  --     python.check_pylsp_linter_feasibility(bufnr)
-  --     python.setup_mappings()
-  --   end,
-  --   settings = require("vimrc.ftplugins.python").pylsp_default_settings,
-  -- },
-  -- TODO: pylyzer not supporting documentSymbolProvider, disabled for now
-  -- pylyzer = {},
-  -- TODO: Use pyright again, seems to have better performance with higher CPU usages
-  -- TODO: Check pyright settings disableLanguageServices
-  -- ref: https://github.com/microsoft/pyright/blob/893d08be8c70297fcf082ba812c14cf4aecefc97/docs/settings.md
-  -- pyright = {},
   -- NOTE: Use rustaceanvim to setup custom lsp to use rust_analyzer
   -- rust_analyzer = {
   --   condition = check.has_linux_build_env(),
@@ -188,19 +169,6 @@ lsp.servers = {
     condition = check.has_linux_build_env(),
     -- Check settings example: https://github.com/sqls-server/sqls
   },
-  -- NOTE: Use vtsls
-  -- tsserver = {
-  --   custom_setup = function(server, lsp_opts)
-  --     require("typescript").setup({
-  --         disable_commands = false, -- prevent the plugin from creating Vim commands
-  --         debug = false, -- enable debug logging for commands
-  --         go_to_source_definition = {
-  --             fallback = true, -- fall back to standard LSP definition on failure
-  --         },
-  --         server = lsp_opts,
-  --     })
-  --   end,
-  -- },
   vtsls = {
     condition = check.has_linux_build_env(),
     -- Ref: [LazyVim TypeScript config](https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/typescript.lua)
@@ -295,8 +263,6 @@ lsp.servers = {
       require("lspconfig")[server].setup(lsp_opts)
     end,
   },
-  -- NOTE: Failed to install zk 0.11.1, try marksman
-  -- zk = {},
 }
 lsp.servers_by_filetype = {
   -- TODO: Wait for mason-lspconfig to support this
