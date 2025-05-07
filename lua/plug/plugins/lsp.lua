@@ -8,6 +8,9 @@ local lsp = {
     dependencies = {
       {
         "williamboman/mason.nvim",
+        -- TODO: Upgrade to 2.0.0
+        -- Requires mason-lspconfig.nvim 2.0.0
+        version = "1.*",
         cmd = {
           "Mason",
           "MasonUpdate",
@@ -26,6 +29,9 @@ local lsp = {
       },
       {
         "williamboman/mason-lspconfig.nvim",
+        -- TODO: Upgrade to 2.0.0
+        -- mappings/filetype.lua is removed in 2.0.0
+        version = "1.*",
         config = function()
           require("mason-lspconfig").setup()
         end,
@@ -181,7 +187,7 @@ local lsp = {
   {
     "mrcjkb/rustaceanvim",
     cond = choose.is_enabled_plugin("rustaceanvim"),
-    version = "^5", -- Recommended
+    version = "^6", -- Recommended
     ft = { "rust" },
     config = function()
       -- NOTE: rustaceanvim use ftplugin to load config.
