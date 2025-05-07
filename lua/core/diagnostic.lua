@@ -3,8 +3,10 @@ local diagnostic = {}
 diagnostic.config = {
   enable = true,
   enable_virtual_lines = true,
-  -- NOTE: neovim built-in virtual_lines implementation in neovim nightly 0.11.0
-  -- Ref: https://github.com/neovim/neovim/pull/31959
+  virtual_text = {
+    source = "if_many",
+    current_line = false,
+  },
   virtual_lines = {
     -- TODO: Still have 2 issues:
     -- 1. Doesn't update when the file is first loaded.
@@ -23,16 +25,24 @@ end
 
 diagnostic.toggle_virtual_lines = function()
   diagnostic.config.enable_virtual_lines = not diagnostic.config.enable_virtual_lines
+
+  -- If virtual_lines is enabled, disable current_line for virtual_text.
+  -- Otherwise, set it to nil to show diagnostic on all lines.
+  if diagnostic.config.enable_virtual_lines then
+    diagnostic.config.virtual_text.current_line = false
+  else
+    diagnostic.config.virtual_text.current_line = nil
+  end
+
   vim.diagnostic.config({
+    virtual_text = diagnostic.config.virtual_text,
     virtual_lines = diagnostic.config.enable_virtual_lines and diagnostic.config.virtual_lines or false,
   })
 end
 
 diagnostic.setup = function()
   vim.diagnostic.config({
-    virtual_text = {
-      source = "if_many",
-    },
+    virtual_text = diagnostic.config.virtual_text,
     virtual_lines = diagnostic.config.virtual_lines,
     float = {
       source = "if_many",
