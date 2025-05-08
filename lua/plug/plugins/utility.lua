@@ -135,8 +135,6 @@ local utility = {
     dependencies = {
       -- Required.
       "nvim-lua/plenary.nvim",
-
-      -- see above for full list of optional dependencies ☝️
     },
     ---@module 'obsidian'
     ---@type obsidian.config.ClientOpts
@@ -148,8 +146,11 @@ local utility = {
           path = "~/vaults/notes",
         },
       },
-
-      -- see below for full list of options 👇
+      notes_subdir = "pages",
+      daily_notes = {
+        folder = "journals",
+        template = "pages/templates/daily.md",
+      },
     },
     cmd = { "Obsidian" },
   },
