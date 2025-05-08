@@ -46,5 +46,5 @@ endfunction
 
 function! vimrc#flog#show_file(file, options) abort
   let a:options['path'] = a:file ==# '%' ? expand('%') : a:file
-  call vimrc#flog#_open(s:flog_cmd, a:options, '')
+  call vimrc#flog#_open(s:flog_cmd, a:options, ' --follow')
 endfunction
