@@ -466,11 +466,21 @@ local utility = {
 
   -- Translate
   {
-    "uga-rosa/translate.nvim",
+    "askfiy/smart-translate.nvim",
     cmd = { "Translate" },
+    dependencies = {
+      "askfiy/http.nvim"   -- a wrapper implementation of the Python aiohttp library that uses CURL to send requests.
+    },
+    opts = {
+      default = {
+        cmds = {
+          target = "zh-TW",
+        },
+      }
+    },
     keys = {
-      { "<Leader>ta", mode = { "n" }, [[viw:Translate ZH-TW<CR>]], desc = "Translate word" },
-      { "<Leader>ta", mode = { "x" }, [[:Translate ZH-TW<CR>]], desc = "Translate visual selection" },
+      { "<Leader>ta", mode = { "n" }, [[viw:Translate<CR>]], desc = "Translate word" },
+      { "<Leader>ta", mode = { "x" }, [[:Translate<CR>]], desc = "Translate visual selection" },
     },
   },
 
