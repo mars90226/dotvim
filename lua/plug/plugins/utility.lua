@@ -153,6 +153,9 @@ local utility = {
       },
     },
     cmd = { "Obsidian" },
+    keys = {
+      { "<Space>b<Space>", [[:Obsidian<Space>]], desc = "Obsidian" },
+    },
   },
 
   {
