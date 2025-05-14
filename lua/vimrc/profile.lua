@@ -1,3 +1,4 @@
+local check = require("vimrc.check")
 local utils = require("vimrc.utils")
 
 local profile = {}
@@ -54,6 +55,10 @@ profile.open_plenary_profile_log = function()
 end
 
 profile.setup = function(opts)
+  if check.is_resource_limited() then
+    return
+  end
+
   opts = opts or {}
   profile.config = vim.tbl_extend("force", profile.config, opts)
 
