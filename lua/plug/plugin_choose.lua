@@ -33,10 +33,7 @@ plugin_choose.setup_appearance = function()
   -- snacks.nvim
 end
 
-plugin_choose.setup_completion = function()
-  -- Choose auto-completion plugin
-  -- nvim-cmp
-
+plugin_choose.setup_lsp = function()
   -- nvim-lsp for builtin neovim lsp
   -- builtin neovim lsp should be fast enough to be used in light vim mode
 
@@ -55,6 +52,17 @@ plugin_choose.setup_completion = function()
   if check.has_linux_build_env() then
     choose.enable_plugin("rustaceanvim")
   end
+
+  -- Choose linter integration plugin
+  -- nvim-lint
+
+  -- Choose formatter integration plugin
+  -- conform.nvim
+end
+
+plugin_choose.setup_completion = function()
+  -- Choose auto-completion plugin
+  -- nvim-cmp
 
   -- Choose nvim-cmp source plugin
   -- cmp-nvim-lsp-signature-help
@@ -106,12 +114,6 @@ plugin_choose.setup_completion = function()
   if choose.is_disabled_plugin("LuaSnip") or not check.has_linux_build_env() then
     choose.disable_plugin("LuaSnip-transform")
   end
-
-  -- Choose linter integration plugin
-  -- nvim-lint
-
-  -- Choose formatter integration plugin
-  -- conform.nvim
 
   -- Choose auto pairs plugin
   -- nvim-autopairs
@@ -335,6 +337,7 @@ plugin_choose.setup = function()
 
   -- TODO: Think of a better way to massively disable plugins in light mode that fit current architecture
   plugin_choose.setup_appearance()
+  plugin_choose.setup_lsp()
   plugin_choose.setup_completion()
   plugin_choose.setup_ai()
   plugin_choose.setup_file_explorer()
