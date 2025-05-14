@@ -262,6 +262,24 @@ plugin_choose.setup_misc = function()
 
   -- Choose colorizer plugin
   -- nvim-colorizer.lua
+
+  -- Choose todo plugin
+  -- todo-comments.nvim
+  if utils.is_light_vim_mode() or check.is_resource_limited() then
+    choose.disable_plugin("todo-comments.nvim")
+  end
+
+  -- Choose project plugin
+  -- project.nvim
+  if utils.is_light_vim_mode() or check.is_resource_limited() then
+    choose.disable_plugin("project.nvim")
+  end
+
+  -- Choose color column plugin
+  -- deadcolumn.nvim
+  if utils.is_light_vim_mode() or check.is_resource_limited() then
+    choose.disable_plugin("deadcolumn.nvim")
+  end
 end
 
 plugin_choose.setup_terminal = function()
@@ -280,6 +298,12 @@ plugin_choose.setup_text_navigation = function()
 
   -- Choose search utility plugin
   -- nvim-hlslens
+
+  -- Choose marks plugin
+  -- marks.nvim
+  if utils.is_light_vim_mode() or check.is_resource_limited() then
+    choose.disable_plugin("marks.nvim")
+  end
 end
 
 plugin_choose.setup_luarocks_plugin = function()

@@ -68,7 +68,7 @@ local utility = {
   -- Project
   {
     "ahmedkhalf/project.nvim",
-    cond = not utils.is_light_vim_mode(),
+    cond = choose.is_enabled_plugin("project.nvim"),
     event = { "VeryLazy" },
     config = function()
       require("project_nvim").setup({
@@ -452,7 +452,7 @@ local utility = {
   -- NOTE: Cannot lazy load on key, first buffer doesn't have TODO highlight
   {
     "folke/todo-comments.nvim",
-    cond = not utils.is_light_vim_mode(),
+    cond = choose.is_enabled_plugin("todo-comments.nvim"),
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("todo-comments").setup({
@@ -526,7 +526,7 @@ local utility = {
   -- Color Column
   {
     "Bekaboo/deadcolumn.nvim",
-    cond = not utils.is_light_vim_mode(),
+    cond = choose.is_enabled_plugin("deadcolumn.nvim"),
     event = { "VeryLazy" },
     init = function()
       -- NOTE: Monitor this

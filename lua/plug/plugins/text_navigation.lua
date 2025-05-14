@@ -1,4 +1,5 @@
 local utils = require("vimrc.utils")
+local choose= require("vimrc.choose")
 
 local text_navigation = {
   -- Match
@@ -206,7 +207,7 @@ local text_navigation = {
   -- Marks
   {
     "chentoast/marks.nvim",
-    cond = not utils.is_light_vim_mode(),
+    cond = choose.is_enabled_plugin("marks.nvim"),
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     config = function()
       local marks = require("marks")
