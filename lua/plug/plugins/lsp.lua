@@ -259,6 +259,7 @@ local lsp = {
   -- Ref: https://github.com/neovim/neovim/pull/20750
   {
     "kevinhwang91/nvim-ufo",
+    cond = choose.is_enabled_plugin("nvim-ufo"),
     dependencies = "kevinhwang91/promise-async",
     event = { "VeryLazy" },
     init = function()

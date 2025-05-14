@@ -276,10 +276,12 @@ lsp.on_init = function(client)
 end
 
 lsp.show_doc = function()
-  -- preview fold > normal hover
-  local ufo_winid = require("ufo").peekFoldedLinesUnderCursor()
-  if ufo_winid then
-    return
+  if choose.is_enabled_plugin("nvim-ufo") then
+    -- preview fold > normal hover
+    local ufo_winid = require("ufo").peekFoldedLinesUnderCursor()
+    if ufo_winid then
+      return
+    end
   end
 
   local current_filetype = vim.bo.filetype

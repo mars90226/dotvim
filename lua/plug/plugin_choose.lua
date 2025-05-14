@@ -58,6 +58,12 @@ plugin_choose.setup_lsp = function()
 
   -- Choose formatter integration plugin
   -- conform.nvim
+
+  -- Choose fold plugin
+  -- nvim-ufo
+  if check.is_resource_limited() then
+    choose.disable_plugin("nvim-ufo")
+  end
 end
 
 plugin_choose.setup_completion = function()
