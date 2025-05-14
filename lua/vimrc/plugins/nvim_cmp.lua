@@ -134,13 +134,13 @@ nvim_cmp.setup = function()
             path = "[Path]",
             nvim_lua = "[Lua]",
             buffer = "[Buffer]",
-            emoji = "[Emoji]",
           },
           plugin_utils.check_enabled_plugin({ tmux = "[Tmux]" }, "cmp-tmux", {}),
           plugin_utils.check_enabled_plugin({ dictionary = "[Dictionary]" }, "cmp-dictionary", {}),
           plugin_utils.check_enabled_plugin({ calc = "[Calc]" }, "cmp-calc", {}),
           plugin_utils.check_enabled_plugin({ treesitter = "[Treesitter]" }, "cmp-treesitter", {}),
           plugin_utils.check_enabled_plugin({ cmp_git = "[Git]" }, "cmp-git", {}),
+          plugin_utils.check_enabled_plugin({ emoji = "[Emoji]" }, "cmp-emoji", {}),
           plugin_utils.check_enabled_plugin({ rg = "[Rg]" }, "cmp-rg", {}),
           plugin_utils.check_enabled_plugin({ luasnip = "[LuaSnip]" }, "LuaSnip", {}),
           plugin_utils.check_enabled_plugin({ copilot = "[Copilot]" }, "copilot-cmp", {})
@@ -289,7 +289,7 @@ nvim_cmp.setup = function()
         { name = "nvim_lua",                priority_weight = 90 },
         plugin_utils.check_enabled_plugin({ name = "luasnip", priority_weight = 80 }, "LuaSnip"),
         plugin_utils.check_enabled_plugin({ name = "calc", priority_weight = 70 }, "cmp-calc"),
-        { name = "emoji", priority_weight = 70 },
+        plugin_utils.check_enabled_plugin({ name = "emoji", priority_weight = 70 }, "cmp-emoji"),
         plugin_utils.check_enabled_plugin({ name = "treesitter", priority_weight = 70 }, "cmp-treesitter"),
         plugin_utils.check_enabled_plugin({ name = "cmp_git", priority_weight = 70 }, "cmp-git"),
         plugin_utils.check_enabled_plugin({

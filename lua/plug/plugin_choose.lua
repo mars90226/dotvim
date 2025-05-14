@@ -82,6 +82,10 @@ plugin_choose.setup_completion = function()
   if not utils.is_main_vim_mode() then
     choose.disable_plugin("cmp-git")
   end
+  -- cmp-emoji
+  if check.is_resource_limited() then
+    choose.disable_plugin("cmp-emoji")
+  end
   -- cmp-rg
   -- TODO: Monitor the performance
   if not plugin_utils.is_executable("rg") then

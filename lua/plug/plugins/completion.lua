@@ -77,7 +77,10 @@ local completion = {
           require("cmp_git").setup()
         end,
       },
-      { "hrsh7th/cmp-emoji" },
+      {
+        "hrsh7th/cmp-emoji",
+        cond = choose.is_enabled_plugin("cmp-emoji"),
+      },
       {
         "lukas-reineke/cmp-rg",
         cond = choose.is_enabled_plugin("cmp-rg"),
