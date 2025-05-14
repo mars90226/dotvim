@@ -276,27 +276,50 @@ lsp.on_init = function(client)
 end
 
 lsp.show_doc = function()
-  local ufo = require("ufo")
+  -- preview fold > normal hover
+  local ufo_winid = require("ufo").peekFoldedLinesUnderCursor()
+  if ufo_winid then
+    return
+  end
 
-  -- preview fold > vim help | lsp hover
-  local winid = ufo.peekFoldedLinesUnderCursor()
-  if not winid then
-    -- TODO: Refactor this to be extendable
-    if vim.tbl_contains({ "help", "vim" }, vim.bo.filetype) then
-      vim.cmd([[help ]] .. vim.fn.expand("<cword>"))
-    elseif
-      vim.tbl_contains(
-        { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue" },
-        vim.bo.filetype
-      )
-    then
-      require("better-type-hover").better_type_hover()
-    else
-      vim.lsp.buf.hover({
-        border = "rounded",
-      })
+  local current_filetype = vim.bo.filetype
+
+  -- Setup filetype-specific actions
+  local filetype_actions = {
+    {
+      filetypes = { "help", "vim" },
+      action = function()
+        vim.cmd("help " .. vim.fn.expand("<cword>"))
+      end,
+    },
+    {
+      filetypes = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+        "vue",
+      },
+      action = function()
+        require("better-type-hover").better_type_hover()
+      end,
+    },
+  }
+
+  -- Find and execute a filetype-specific action
+  for _, handler_spec in ipairs(filetype_actions) do
+    if vim.tbl_contains(handler_spec.filetypes, current_filetype) then
+      handler_spec.action()
+      return
     end
   end
+
+  -- Default action if no specific handler was found
+  vim.lsp.buf.hover({
+    border = "rounded",
+  })
 end
 
 lsp.on_attach = function(client, bufnr)
