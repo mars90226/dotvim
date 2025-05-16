@@ -4,6 +4,16 @@ local utils = require("vimrc.utils")
 
 local settings = {}
 
+settings.diff = {
+  algorithm = "histogram",
+}
+
+settings.use_diff_algorithm = function(algorithm)
+  utils.toggle_list_option_flag(vim.opt.diffopt, "algorithm:" .. settings.diff.algorithm)
+  settings.diff.algorithm = algorithm
+  utils.toggle_list_option_flag(vim.opt.diffopt, "algorithm:" .. settings.diff.algorithm)
+end
+
 -- TODO: Check mini.basics options
 settings.setup_options = function()
   -- Vim basic setting {{{
@@ -37,7 +47,7 @@ settings.setup_options = function()
     "filler",
     "vertical",
     "closeoff",
-    "algorithm:histogram",
+    "algorithm:" .. settings.diff.algorithm,
     "hiddenoff",
     "linematch:60",
     "indent-heuristic",
@@ -161,10 +171,10 @@ settings.setup_option_toggle = function()
   vim.keymap.set("n", "yoa", ":setlocal autoread!<CR>")
 
   vim.keymap.set("n", "codp", function()
-    utils.toggle_list_option_flag(vim.opt.diffopt, "algorithm:patience")
+    settings.use_diff_algorithm("patience")
   end, { noremap = true, desc = "Toggle diff algorithm:patience" })
   vim.keymap.set("n", "codh", function()
-    utils.toggle_list_option_flag(vim.opt.diffopt, "algorithm:histogram")
+    settings.use_diff_algorithm("histogram")
   end, { noremap = true, desc = "Toggle diff algorithm:histogram" })
 end
 
