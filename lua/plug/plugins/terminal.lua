@@ -119,6 +119,8 @@ local terminal = {
       { "<Leader>i,", mode = { "n" }, desc = "iron.nvim - interrupt" },
       { "<Leader>iq", mode = { "n" }, desc = "iron.nvim - exit" },
       { "<Leader>i<C-L>", mode = { "n" }, desc = "iron.nvim - clear" },
+      { "<Leader>io", mode = { "n" }, "<Cmd>IronFocus<CR>", desc = "iron.nvim - focus" },
+      { "<Leader>iO", mode = { "n" }, "<Cmd>IronHide<CR>", desc = "iron.nvim - hide" },
     },
     config = function()
       require("iron.core").setup({
@@ -128,7 +130,12 @@ local terminal = {
           -- Whether a repl should be discarded or not
           scratch_repl = true,
           -- Your repl definitions come here
-          repl_definition = {},
+          repl_definition = {
+            python = vim.tbl_extend("force", require("iron.fts.python").python, {
+              block_dividers = { "# %%", "#%%" },
+            }),
+          },
+          repl_open_cmd = require("iron.view").bottom("40%"),
         },
         -- Iron doesn't set keymaps by default anymore. Set them here
         -- or use `should_map_plug = true` and map from you vim files
