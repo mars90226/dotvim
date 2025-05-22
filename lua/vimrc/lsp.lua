@@ -433,6 +433,12 @@ lsp.on_attach = function(client, bufnr)
   end
 
   -- TODO: Fix the 'signcolumn' of not-current window to avoid window layout kept being changed
+  -- TODO: Fix LSP attached to artificial buffers like fugitive buffers due to using `vim.lsp.enable`.
+  -- The `vim.lsp.enable` is used in `LspStart`, `LspStop`, `LspRestart` commands defined in
+  -- nvim-lspconfig.
+  -- Ref: https://github.com/neovim/neovim/issues/33225
+  -- Ref: https://github.com/neovim/neovim/issues/33061#issuecomment-2754364821
+  -- Ref: https://github.com/neovim/nvim-lspconfig/pull/3734
 
   vim.cmd([[ do User LspAttachBuffers ]])
 end
