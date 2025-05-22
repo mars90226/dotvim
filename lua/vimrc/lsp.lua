@@ -339,6 +339,7 @@ lsp.on_attach = function(client, bufnr)
   -- My plugin configs
   my_goto_preview.on_attach(client)
 
+  -- Setup keymaps
   vim.keymap.set("n", "K", function()
     require("vimrc.lsp").show_doc()
   end, { silent = true, buffer = true, desc = "LSP show hover documentation" })
@@ -417,6 +418,11 @@ lsp.on_attach = function(client, bufnr)
   if vim.bo[bufnr].buftype ~= "nofile" then
     vim.wo.signcolumn = "yes"
   end
+
+  -- Setup commands
+  vim.api.nvim_buf_create_user_command(bufnr, "LspLog", function()
+    vim.cmd.split(vim.lsp.log.get_filename())
+  end, { desc = "Open LSP log in split" })
 
   -- format on save
   if client.server_capabilities.documentFormattingProvider then
