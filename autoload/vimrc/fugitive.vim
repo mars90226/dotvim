@@ -32,6 +32,7 @@ endfunction
 
 " Settings
 function! vimrc#fugitive#settings() abort
+  setlocal buftype=nowrite
 endfunction
 
 function! vimrc#fugitive#git_settings() abort
