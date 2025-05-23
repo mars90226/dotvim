@@ -4,10 +4,7 @@ my_copilot.attach_filters = {}
 
 -- TODO: Better naming
 
--- NOTE: Best model is "o4-mini-high", but it's slow.
--- my_copilot.default_model = "o4-mini"
--- NOTE: "gemini-2.5-pro" has thinking tokens in it's output.
-my_copilot.default_model = "gemini-2.5-pro"
+my_copilot.default_model = "claude-sonnet-4"
 
 -- NOTE: Use the model info from Copilot using CopilotChat.nvim
 my_copilot.models = {
@@ -34,6 +31,10 @@ my_copilot.models = {
   ["claude-3.7-sonnet-thought"] = {
     model = "claude-3.7-sonnet-thought",
     max_tokens = 90000,
+  },
+  ["claude-sonnet-4"] = {
+    model = "claude-sonnet-4",
+    max_tokens = 80000,
   },
   ["o1"] = {
     model = "o1-2024-12-17",
