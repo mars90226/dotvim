@@ -28,7 +28,7 @@ nvim_treesitter.line_threshold = {
   },
 }
 
-local support_async_parsing = vim.fn.has('nvim-0.11') == 1
+local support_async_parsing = vim.fn.has("nvim-0.11") == 1
 
 -- Force disable
 local force_disable_var = "nvim_treesitter_force_disable"
@@ -193,6 +193,14 @@ nvim_treesitter.setup_parser_config = function()
       branch = "main",
     },
   }
+
+  parser_configs.qf = {
+    install_info = {
+      url = "https://github.com/OXY2DEV/tree-sitter-qf",
+      files = { "src/parser.c" },
+      branch = "main",
+    },
+  }
 end
 
 nvim_treesitter.setup_config = function()
@@ -282,7 +290,7 @@ nvim_treesitter.setup_config = function()
           return false
         end
         return true
-      end
+      end,
     },
     indent = {
       enable = false, -- Currently, nvim-treesitter indent is WIP and not ready for production use
@@ -314,7 +322,7 @@ nvim_treesitter.setup_config = function()
         -- mapping query_strings to modes.
         selection_modes = {
           ["@parameter.outer"] = "v", -- charwise
-          ["@function.outer"] = "V",  -- linewise
+          ["@function.outer"] = "V", -- linewise
           ["@class.outer"] = "<C-v>", -- blockwise
         },
       },
