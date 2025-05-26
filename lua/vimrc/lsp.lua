@@ -243,6 +243,8 @@ lsp.servers = {
   -- Ref: https://github.com/tailwindlabs/tailwindcss-intellisense/issues/1109#issuecomment-2612844262
   -- tailwindcss = {},
   vimls = {},
+  -- TODO: Rename to vue_ls
+  -- Ref: https://github.com/neovim/nvim-lspconfig/pull/3843
   volar = {
     condition = check.has_linux_build_env(),
   },
