@@ -140,6 +140,7 @@ local utility = {
     ---@type obsidian.config.ClientOpts
     opts = {
       -- TODO: Add secret vaults
+      -- TODO: Do not show error if vault not found
       workspaces = {
         {
           name = "notes",
