@@ -426,22 +426,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
       require("mcphub").setup({
         -- Required options
         port = 9527,  -- Port for MCP Hub server
-        config = vim.env.HOME .. "/mcpservers.json",  -- Absolute path to config file
-
-        -- Optional options
-        on_ready = function(hub)
-          -- Called when hub is ready
-        end,
-        on_error = function(err)
-          -- Called on errors
-        end,
-        shutdown_delay = 0, -- Wait 0ms before shutting down server after last client exits
-        log = {
-          level = vim.log.levels.WARN,
-          to_file = false,
-          file_path = nil,
-          prefix = "MCPHub"
-        },
+        config = vim.fn.expand("~/config/mcphub/servers.json"),  -- Absolute path to config file
       })
     end
   },
