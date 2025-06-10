@@ -9,7 +9,7 @@ local git_version = "not initialized"
 function M.get_os(force)
   force = force or false
   -- Use vim.g.os as the cache.
-  if force or not vim.g.os then
+  if force or not vim.g.os or vim.g.os == "" then
     if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
       vim.g.os = "windows"
     elseif vim.fn.has("mac") == 1 then
@@ -35,7 +35,7 @@ end
 --- @return string The detected distro.
 function M.get_distro(force)
   force = force or false
-  if force or not vim.g.distro then
+  if force or not vim.g.distro or vim.g.distro == "" then
     if M.get_os():find("windows", 1, true) then
       vim.g.distro = "Windows"
     else
@@ -57,7 +57,7 @@ end
 --- @return string The detected Python version (or empty if not found).
 function M.python_version(force)
   force = force or false
-  if force or not vim.g.python_version then
+  if force or not vim.g.python_version or vim.g.python_version == "" then
     local version = ""
     if vim.fn.has("python3") == 1 then
       version = vim.fn.execute("py3 import sys; print(sys.version)")
@@ -66,7 +66,9 @@ function M.python_version(force)
     end
     if version ~= "" then
       local parts = vim.split(version, "%s+")
-      version = (parts[1] or ""):gsub("^\n", "")
+      -- Filter empty parts and take the first part as the version.
+      parts = vim.tbl_filter(function(part) return part ~= "" end, parts)
+      version = (parts[1] or "")
     end
     vim.g.python_version = version
   end
