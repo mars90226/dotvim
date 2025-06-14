@@ -17,7 +17,7 @@ def get_buffer_content(tab, win, lines):
 
 
 def usage():
-    print("%s: [tab] [win] [lines]") % sys.argv[0]
+    print("%s: [tab] [win] [lines]" % sys.argv[0])
 
 
 if __name__ == "__main__":
