@@ -6,9 +6,6 @@ utils.get_lazy_dir = function()
 end
 
 utils.helptags_all = function()
-  -- Lazy
-  -- TODO: Implement
-
   vim.cmd([[helptags ALL]])
 end
 
