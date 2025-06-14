@@ -191,10 +191,6 @@ local ai = {
     },
     opts = {
       provider = "copilot",
-      -- TODO: Check if there's better way to choose one model and retaining all other models' info
-      -- TODO: Merge with codecompanion.nvim's copilot config?
-      -- TODO: Support o3-mini-high
-      -- Ref: [feature support openai's reasoning_effort parameter · Issue 1252 · yetoneavante.nvim](https://github.com/yetone/avante.nvim/issues/1252)
       copilot = require("vimrc.plugins.copilot").get_model(),
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
