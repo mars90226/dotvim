@@ -204,30 +204,34 @@ telescope.setup_config = function()
 end
 
 telescope.setup_mapping = function()
-  -- TODO: Add key mapping description
   local telescope_prefix = [[<Space>t]]
   local telescope_lsp_prefix = [[<Space>tl]]
   local telescope_diagnostics_prefix = [[<Space>tl]]
 
   -- Mappings
-  vim.keymap.set("n", telescope_prefix .. [[a]], [[<Cmd>Telescope loclist<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[A]], [[<Cmd>Telescope autocommands<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[b]], [[<Cmd>Telescope buffers<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[B]], [[<Cmd>Telescope git_branches<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[c]], [[<Cmd>Telescope git_bcommits<CR>]])
-  vim.keymap.set("x", telescope_prefix .. [[c]], [[<Cmd>Telescope git_bcommits_range<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[C]], [[<Cmd>Telescope git_commits<CR>]])
+  vim.keymap.set("n", telescope_prefix .. [[a]], [[<Cmd>Telescope loclist<CR>]], { desc = "Telescope loclist" })
+  vim.keymap.set("n", telescope_prefix .. [[A]], [[<Cmd>Telescope autocommands<CR>]], { desc = "Telescope autocommands" })
+  vim.keymap.set("n", telescope_prefix .. [[b]], [[<Cmd>Telescope buffers<CR>]], { desc = "Telescope buffers" })
+  vim.keymap.set("n", telescope_prefix .. [[B]], [[<Cmd>Telescope git_branches<CR>]], { desc = "Telescope git_branches" })
+  vim.keymap.set("n", telescope_prefix .. [[c]], [[<Cmd>Telescope git_bcommits<CR>]], { desc = "Telescope git_bcommits" })
+  vim.keymap.set("x", telescope_prefix .. [[c]], [[<Cmd>Telescope git_bcommits_range<CR>]], { desc = "Telescope git_bcommits_range" })
+  vim.keymap.set("n", telescope_prefix .. [[C]], [[<Cmd>Telescope git_commits<CR>]], { desc = "Telescope git_commits" })
   -- NOTE: Use telescope-menufacture grep_string
   -- vim.keymap.set("n", telescope_prefix .. [[e]], [[<Cmd>execute 'Telescope grep_string use_regex=true search_dirs='.input('Folder: ').' search='.input('Rg: ')<CR>]])
   -- NOTE: Use telescope-menufacture find_files
   -- vim.keymap.set("n", telescope_prefix .. [[f]], [[<Cmd>Telescope find_files<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[F]], [[<Cmd>Telescope find_files hidden=true no_ignore=true<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[g]], [[<Cmd>Telescope git_files<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[h]], [[<Cmd>Telescope help_tags<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[H]], [[<Cmd>Telescope git_stash<CR>]])
+  vim.keymap.set(
+    "n",
+    telescope_prefix .. [[F]],
+    [[<Cmd>Telescope find_files hidden=true no_ignore=true<CR>]],
+    { desc = "Telescope find_files (all)" }
+  )
+  vim.keymap.set("n", telescope_prefix .. [[g]], [[<Cmd>Telescope git_files<CR>]], { desc = "Telescope git_files" })
+  vim.keymap.set("n", telescope_prefix .. [[h]], [[<Cmd>Telescope help_tags<CR>]], { desc = "Telescope help_tags" })
+  vim.keymap.set("n", telescope_prefix .. [[H]], [[<Cmd>Telescope git_stash<CR>]], { desc = "Telescope git_stash" })
   -- NOTE: Use telescope-menufacture live_grep
   -- vim.keymap.set("n", telescope_prefix .. [[i]], [[<Cmd>Telescope live_grep<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[j]], [[<Cmd>Telescope jumplist<CR>]])
+  vim.keymap.set("n", telescope_prefix .. [[j]], [[<Cmd>Telescope jumplist<CR>]], { desc = "Telescope jumplist" })
   -- NOTE: Use telescope-menufacture grep_string
   -- vim.keymap.set("n", telescope_prefix .. [[k]], [[<Cmd>execute 'Telescope grep_string use_regex=true search='.expand('<cword>')<CR>]])
   -- vim.keymap.set("n", telescope_prefix .. [[K]], [[<Cmd>execute 'Telescope grep_string use_regex=true search='.expand('<cWORD>')<CR>]])
@@ -240,52 +244,72 @@ telescope.setup_mapping = function()
   -- NOTE: Use telescope-menufacture grep_string
   -- vim.keymap.set("x", telescope_prefix .. [[k]], [[:<C-U>execute]] 'Telescope grep_string use_regex=true search='.vimrc#utility#get_visual_selection()<CR>)
   -- vim.keymap.set("x", telescope_prefix .. [[8]], [[:<C-U>execute]] 'Telescope grep_string use_regex=true search=\b'.vimrc#utility#get_visual_selection().'\b'<CR>)
-  vim.keymap.set("n", telescope_prefix .. [[ll]], [[<Cmd>Telescope current_buffer_fuzzy_find<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[o]], [[<Cmd>Telescope oldfiles<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[O]], [[<Cmd>Telescope vim_options<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[p]], [[<Cmd>call vimrc#telescope#project_tags()<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[P]], [[<Cmd>Telescope projects<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[q]], [[<Cmd>Telescope quickfix<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[Q]], [[<Cmd>Telescope quickfixhistory<CR>]])
+  vim.keymap.set(
+    "n",
+    telescope_prefix .. [[ll]],
+    [[<Cmd>Telescope current_buffer_fuzzy_find<CR>]],
+    { desc = "Telescope current_buffer_fuzzy_find" }
+  )
+  vim.keymap.set("n", telescope_prefix .. [[o]], [[<Cmd>Telescope oldfiles<CR>]], { desc = "Telescope oldfiles" })
+  vim.keymap.set("n", telescope_prefix .. [[O]], [[<Cmd>Telescope vim_options<CR>]], { desc = "Telescope vim_options" })
+  vim.keymap.set(
+    "n",
+    telescope_prefix .. [[p]],
+    [[<Cmd>call vimrc#telescope#project_tags()<CR>]],
+    { desc = "Telescope project_tags" }
+  )
+  vim.keymap.set("n", telescope_prefix .. [[P]], [[<Cmd>Telescope projects<CR>]], { desc = "Telescope projects" })
+  vim.keymap.set("n", telescope_prefix .. [[q]], [[<Cmd>Telescope quickfix<CR>]], { desc = "Telescope quickfix" })
+  vim.keymap.set("n", telescope_prefix .. [[Q]], [[<Cmd>Telescope quickfixhistory<CR>]], { desc = "Telescope quickfixhistory" })
   -- NOTE: Use telescope-menufacture grep_string
   -- vim.keymap.set("n", telescope_prefix .. [[r]], [[<Cmd>execute 'Telescope grep_string use_regex=true search='.input('Rg: ')<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[s]], [[<Cmd>Telescope git_status<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[S]], [[<Cmd>Telescope treesitter<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[t]], [[<Cmd>Telescope current_buffer_tags<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[T]], [[<Cmd>Telescope tags<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[<C-T>]], [[<Cmd>Telescope tagstack<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[u]], [[<Cmd>Telescope resume<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[v]], [[<Cmd>Telescope colorscheme<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[x]], [[<Cmd>Telescope spell_suggest<CR>]])
+  vim.keymap.set("n", telescope_prefix .. [[s]], [[<Cmd>Telescope git_status<CR>]], { desc = "Telescope git_status" })
+  vim.keymap.set("n", telescope_prefix .. [[S]], [[<Cmd>Telescope treesitter<CR>]], { desc = "Telescope treesitter" })
+  vim.keymap.set("n", telescope_prefix .. [[t]], [[<Cmd>Telescope current_buffer_tags<CR>]], { desc = "Telescope current_buffer_tags" })
+  vim.keymap.set("n", telescope_prefix .. [[T]], [[<Cmd>Telescope tags<CR>]], { desc = "Telescope tags" })
+  vim.keymap.set("n", telescope_prefix .. [[<C-T>]], [[<Cmd>Telescope tagstack<CR>]], { desc = "Telescope tagstack" })
+  vim.keymap.set("n", telescope_prefix .. [[u]], [[<Cmd>Telescope resume<CR>]], { desc = "Telescope resume" })
+  vim.keymap.set("n", telescope_prefix .. [[v]], [[<Cmd>Telescope colorscheme<CR>]], { desc = "Telescope colorscheme" })
+  vim.keymap.set("n", telescope_prefix .. [[x]], [[<Cmd>Telescope spell_suggest<CR>]], { desc = "Telescope spell_suggest" })
   -- vim.keymap.set("n", telescope_prefix .. [[x]], [[<Cmd>Telescope neoclip<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[y]], [[<Cmd>Telescope filetypes<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[Y]], [[<Cmd>Telescope highlights<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[,]], [[<Cmd>Telescope builtin<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[`]], [[<Cmd>Telescope marks<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[']], [[<Cmd>Telescope registers<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[;]], [[<Cmd>Telescope commands<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[:]], [[<Cmd>Telescope command_history<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[/]], [[<Cmd>Telescope search_history<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[<Tab>]], [[<Cmd>Telescope keymaps<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[<F1>]], [[<Cmd>Telescope man_pages sections=["ALL"]<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[<F2>]], [[<Cmd>Telescope symbols<CR>]])
-  vim.keymap.set("n", telescope_prefix .. [[<F5>]], [[<Cmd>Telescope reloader<CR>]])
+  vim.keymap.set("n", telescope_prefix .. [[y]], [[<Cmd>Telescope filetypes<CR>]], { desc = "Telescope filetypes" })
+  vim.keymap.set("n", telescope_prefix .. [[Y]], [[<Cmd>Telescope highlights<CR>]], { desc = "Telescope highlights" })
+  vim.keymap.set("n", telescope_prefix .. [[,]], [[<Cmd>Telescope builtin<CR>]], { desc = "Telescope builtin" })
+  vim.keymap.set("n", telescope_prefix .. [[`]], [[<Cmd>Telescope marks<CR>]], { desc = "Telescope marks" })
+  vim.keymap.set("n", telescope_prefix .. [[']], [[<Cmd>Telescope registers<CR>]], { desc = "Telescope registers" })
+  vim.keymap.set("n", telescope_prefix .. [[;]], [[<Cmd>Telescope commands<CR>]], { desc = "Telescope commands" })
+  vim.keymap.set("n", telescope_prefix .. [[:]], [[<Cmd>Telescope command_history<CR>]], { desc = "Telescope command_history" })
+  vim.keymap.set("n", telescope_prefix .. [[/]], [[<Cmd>Telescope search_history<CR>]], { desc = "Telescope search_history" })
+  vim.keymap.set("n", telescope_prefix .. [[<Tab>]], [[<Cmd>Telescope keymaps<CR>]], { desc = "Telescope keymaps" })
+  vim.keymap.set(
+    "n",
+    telescope_prefix .. [[<F1>]],
+    [[<Cmd>Telescope man_pages sections=["ALL"]<CR>]],
+    { desc = "Telescope man_pages" }
+  )
+  vim.keymap.set("n", telescope_prefix .. [[<F2>]], [[<Cmd>Telescope symbols<CR>]], { desc = "Telescope symbols" })
+  vim.keymap.set("n", telescope_prefix .. [[<F5>]], [[<Cmd>Telescope reloader<CR>]], { desc = "Telescope reloader" })
 
   -- Lsp
-  vim.keymap.set("n", telescope_lsp_prefix .. "r", "<Cmd>Telescope lsp_references<CR>")
-  vim.keymap.set("n", telescope_lsp_prefix .. "d", "<Cmd>Telescope lsp_definitions<CR>")
-  vim.keymap.set("n", telescope_lsp_prefix .. "t", "<Cmd>Telescope lsp_type_definitions<CR>")
-  vim.keymap.set("n", telescope_lsp_prefix .. "i", "<Cmd>Telescope lsp_implementations<CR>")
-  vim.keymap.set("n", telescope_lsp_prefix .. "a", "<Cmd>Telescope lsp_code_actions<CR>")
-  vim.keymap.set("x", telescope_lsp_prefix .. "a", "<Cmd>Telescope lsp_range_code_actions<CR>")
-  vim.keymap.set("n", telescope_lsp_prefix .. "o", "<Cmd>Telescope lsp_document_symbols<CR>")
-  vim.keymap.set("n", telescope_lsp_prefix .. "S", "<Cmd>Telescope lsp_workspace_symbols<CR>")
-  vim.keymap.set("n", telescope_lsp_prefix .. "s", "<Cmd>Telescope lsp_dynamic_workspace_symbols<CR>")
-  vim.keymap.set("n", telescope_lsp_prefix .. ",", "<Cmd>Telescope lsp_incoming_calls<CR>")
-  vim.keymap.set("n", telescope_lsp_prefix .. ".", "<Cmd>Telescope lsp_outgoing_calls<CR>")
+  vim.keymap.set("n", telescope_lsp_prefix .. "r", "<Cmd>Telescope lsp_references<CR>", { desc = "Telescope lsp_references" })
+  vim.keymap.set("n", telescope_lsp_prefix .. "d", "<Cmd>Telescope lsp_definitions<CR>", { desc = "Telescope lsp_definitions" })
+  vim.keymap.set("n", telescope_lsp_prefix .. "t", "<Cmd>Telescope lsp_type_definitions<CR>", { desc = "Telescope lsp_type_definitions" })
+  vim.keymap.set("n", telescope_lsp_prefix .. "i", "<Cmd>Telescope lsp_implementations<CR>", { desc = "Telescope lsp_implementations" })
+  vim.keymap.set("n", telescope_lsp_prefix .. "a", "<Cmd>Telescope lsp_code_actions<CR>", { desc = "Telescope lsp_code_actions" })
+  vim.keymap.set("x", telescope_lsp_prefix .. "a", "<Cmd>Telescope lsp_range_code_actions<CR>", { desc = "Telescope lsp_range_code_actions" })
+  vim.keymap.set("n", telescope_lsp_prefix .. "o", "<Cmd>Telescope lsp_document_symbols<CR>", { desc = "Telescope lsp_document_symbols" })
+  vim.keymap.set("n", telescope_lsp_prefix .. "S", "<Cmd>Telescope lsp_workspace_symbols<CR>", { desc = "Telescope lsp_workspace_symbols" })
+  vim.keymap.set("n", telescope_lsp_prefix .. "s", "<Cmd>Telescope lsp_dynamic_workspace_symbols<CR>", { desc = "Telescope lsp_dynamic_workspace_symbols" })
+  vim.keymap.set("n", telescope_lsp_prefix .. ",", "<Cmd>Telescope lsp_incoming_calls<CR>", { desc = "Telescope lsp_incoming_calls" })
+  vim.keymap.set("n", telescope_lsp_prefix .. ".", "<Cmd>Telescope lsp_outgoing_calls<CR>", { desc = "Telescope lsp_outgoing_calls" })
 
   -- Diagnostics
-  vim.keymap.set("n", telescope_diagnostics_prefix .. "x", "<Cmd>Telescope diagnostics<CR>")
+  vim.keymap.set(
+    "n",
+    telescope_diagnostics_prefix .. "x",
+    "<Cmd>Telescope diagnostics<CR>",
+    { desc = "Telescope diagnostics" }
+  )
 end
 
 telescope.setup = function()
