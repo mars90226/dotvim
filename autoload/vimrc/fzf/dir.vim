@@ -139,7 +139,7 @@ function! vimrc#fzf#dir#all_files(folder, bang) abort
         \ a:bang)
 endfunction
 
-" Custom files, using ':' to seperate folder and option and pattern
+" Custom files, using ':' to separate folder and option and pattern
 " TODO Review arguments
 function! vimrc#fzf#dir#custom_files(command, bang) abort
   let command_parts = split(a:command, ':', 1)

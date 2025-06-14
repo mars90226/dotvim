@@ -84,7 +84,7 @@ function! vimrc#fzf#rg#rga(command, bang) abort
         \ a:bang)
 endfunction
 
-" Matched files, using ':' to seperate folder and option and pattern
+" Matched files, using ':' to separate folder and option and pattern
 " TODO Review arguments
 function! vimrc#fzf#rg#matched_files(command, bang) abort
   let command_parts = split(a:command, ':', 1)
