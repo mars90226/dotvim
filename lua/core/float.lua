@@ -112,7 +112,7 @@ float.setup = function()
   vim.keymap.set("t", "<M-q><M-,><M-r>", [[<C-\><C-N>:VimrcFloatRemove<CR>]], { silent = true })
 
   -- TODO For nested neovim
-  -- Need to implement different prefix_count for diferrent key mappings in
+  -- Need to implement different prefix_count for different key mappings in
   -- nested_neovim.vim
   -- }}}
 end
