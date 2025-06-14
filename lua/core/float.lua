@@ -94,22 +94,6 @@ float.setup = function()
   vim.keymap.set("t", "<M-q><M-,><M-k>", [[<C-\><C-N>:VimrcFloatNext<CR>]], { silent = true })
   vim.keymap.set("t", "<M-q><M-,><M-r>", [[<C-\><C-N>:VimrcFloatRemove<CR>]], { silent = true })
 
-  vim.keymap.set("t", "<M-q><M-,><M-l>", [[<C-\><C-N>:VimrcFloatToggle<CR>]], { silent = true })
-  vim.keymap.set(
-    "t",
-    "<M-q><M-,><M-n>",
-    [[<C-\><C-N>:execute 'VimrcFloatNew '.input('command: ', '', 'command')<CR>]],
-    { silent = true }
-  )
-  vim.keymap.set(
-    "t",
-    "<M-q><M-,><M-m>",
-    [[<C-\><C-N>:execute 'VimrcFloatNew! '.input('command: ', '', 'command')<CR>]],
-    { silent = true }
-  )
-  vim.keymap.set("t", "<M-q><M-,><M-j>", [[<C-\><C-N>:VimrcFloatPrev<CR>]], { silent = true })
-  vim.keymap.set("t", "<M-q><M-,><M-k>", [[<C-\><C-N>:VimrcFloatNext<CR>]], { silent = true })
-  vim.keymap.set("t", "<M-q><M-,><M-r>", [[<C-\><C-N>:VimrcFloatRemove<CR>]], { silent = true })
 
   -- TODO For nested neovim
   -- Need to implement different prefix_count for different key mappings in
