@@ -29,7 +29,6 @@ function! vimrc#float#calculate_pos_from_ratio(width_ratio, height_ratio) abort
 endfunction
 
 " Borrowed from vim-floaterm
-" TODO Add border float window
 function! vimrc#float#open(bufnr, width, height, ...) abort
   let default_options = { 'listed': v:false, 'scratch': v:true }
   let options = a:0 >= 1 && type(a:0) == type({}) ? extend(default_options, a:1) : default_options
