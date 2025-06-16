@@ -160,11 +160,21 @@ local lsp = {
   -- Goto Definitions
   {
     "hedyhli/outline.nvim",
+    dependencies = {
+      'epheien/outline-treesitter-provider.nvim'
+    },
     cmd = { "Outline", "OutlineOpen" },
     keys = {
       { "<F7>", "<Cmd>Outline<CR>", desc = "Toggle outline" },
     },
     opts = {},
+    config = function()
+      require('outline').setup({
+        providers = {
+          priority = { 'lsp', 'coc', 'markdown', 'norg', 'man', 'treesitter' },
+        },
+      })
+    end,
   },
 
   -- Specific LSP Support
