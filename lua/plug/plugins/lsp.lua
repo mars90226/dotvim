@@ -161,7 +161,8 @@ local lsp = {
   {
     "hedyhli/outline.nvim",
     dependencies = {
-      'epheien/outline-treesitter-provider.nvim'
+      "epheien/outline-treesitter-provider.nvim",
+      "bngarren/outline-test-blocks-provider.nvim",
     },
     cmd = { "Outline", "OutlineOpen" },
     keys = {
@@ -169,9 +170,13 @@ local lsp = {
     },
     opts = {},
     config = function()
-      require('outline').setup({
+      require("outline").setup({
         providers = {
-          priority = { 'lsp', 'coc', 'markdown', 'norg', 'man', 'treesitter' },
+          priority = { "test_blocks", "lsp", "coc", "markdown", "norg", "man", "treesitter" },
+          test_blocks = {
+            enable = { describe = true, it = true, pending = false },
+            max_depth = 5,
+          },
         },
       })
     end,
