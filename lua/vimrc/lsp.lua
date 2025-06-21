@@ -6,16 +6,6 @@ local plugin_utils = require("vimrc.plugin_utils")
 
 local lsp = {}
 
--- TODO: Refactor
-local vue_typescript_plugin = nil
-if check.has_linux_build_env() then
-  -- NOTE: mason.nvim 2.0 does not support getting installation path of LSP server
-  -- Instead, we get the executable path of vue-language-server and use it to get the typescript
-  -- plugin path.
-  vue_typescript_plugin = vim.fs.dirname(vim.fn.resolve(vim.fn.exepath("vue-language-server")))
-    .. "/node_modules/@vue/typescript-plugin"
-end
-
 lsp.config = {
   enable_format_on_sync = false,
 }
@@ -186,19 +176,7 @@ lsp.servers = {
             enableServerSideFuzzyMatch = true,
           },
         },
-        tsserver = {
-          globalPlugins = {
-            -- Use typescript language server along with vue typescript plugin
-            {
-              name = "@vue/typescript-plugin",
-              -- TODO: Move to custom setup to avoid error when vue plugin is not installed
-              location = vue_typescript_plugin,
-              languages = { "vue" },
-              configNamespace = "typescript",
-              enableForWorkspaceTypeScriptVersions = true,
-            },
-          },
-        },
+        tsserver = {},
       },
       typescript = {
         updateImportsOnFileMove = { enabled = "always" },
@@ -238,6 +216,32 @@ lsp.servers = {
       "typescript.tsx",
       "vue",
     },
+    custom_setup = function(server, lsp_opts)
+      -- Setup global plugins 
+      if check.has_linux_build_env() then
+        -- NOTE: mason.nvim 2.0 does not support getting installation path of LSP server
+        -- Instead, we get the executable path of vue-language-server and use it to get the typescript
+        -- plugin path.
+        local vue_typescript_plugin = vim.fs.dirname(vim.fs.dirname(vim.fn.resolve(vim.fn.exepath("vue-language-server"))))
+          .. "/node_modules/@vue/typescript-plugin"
+        vim.notify(vue_typescript_plugin, vim.log.levels.DEBUG, {
+          title = "Vue TypeScript Plugin Path",
+        })
+
+        lsp_opts.settings.vtsls.tsserver.globalPlugins = {
+          -- Use typescript language server along with vue typescript plugin
+          {
+            name = "@vue/typescript-plugin",
+            location = vue_typescript_plugin,
+            languages = { "vue" },
+            configNamespace = "typescript",
+            enableForWorkspaceTypeScriptVersions = true,
+          },
+        }
+      end
+
+      require("lspconfig")[server].setup(lsp_opts)
+    end,
   },
   -- NOTE: Disabled due to high CPU usage
   -- Ref: https://github.com/tailwindlabs/tailwindcss-intellisense/issues/1109
