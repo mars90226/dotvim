@@ -10,10 +10,6 @@ lsp.config = {
   enable_format_on_sync = false,
 }
 
--- NOTE: For project level settings
--- TODO: Need to review if this works with multiple working directories
-local project_root = vim.fs.root(0, ".git")
-
 -- TODO: Refactor this to use `vim.lsp.config` & `vim.lsp.enable` after neovim 0.11.0 is released
 -- Ref: [feat(lsp) add `vim.lsp.config` and `vim.lsp.enable` by lewis6991 · Pull Request 31031 · neovim/neovim](https://github.com/neovim/neovim/pull/31031)
 -- NOTE: Change it also need to change lsp.servers_by_filetype
@@ -83,14 +79,22 @@ lsp.servers = {
   },
   harper_ls = {
     condition = check.has_linux_build_env(),
-    settings = {
-      ["harper-ls"] = {
-        -- TODO: Only use project dictionary when it's available
-        -- Need to check if project dictionary is exist without affecting performance for other lsp servers
-        userDictPath = project_root and project_root .. "/.harper/project.txt" or "",
-        fileDictPath = project_root and project_root .. "/.harper" or "",
-      },
-    },
+    settings = {},
+    custom_setup = function(server, lsp_opts)
+      -- NOTE: For project level settings
+      -- TODO: Need to review if this works with multiple working directories
+      local project_root = vim.fs.root(0, ".git")
+
+      if project_root then
+        -- Use project dictionary if available
+        lsp_opts.settings["harper-ls"] = {
+          userDictPath = project_root .. "/.harper/project.txt",
+          fileDictPath = project_root .. "/.harper",
+        }
+      end
+
+      require("lspconfig")[server].setup(lsp_opts)
+    end
   },
   html = {
     capabilities = {
