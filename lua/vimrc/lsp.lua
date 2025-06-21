@@ -9,8 +9,10 @@ local lsp = {}
 -- TODO: Refactor
 local vue_typescript_plugin = nil
 if check.has_linux_build_env() then
-  vue_typescript_plugin = require("mason-registry").get_package("vue-language-server"):get_install_path()
-    .. "/node_modules/@vue/language-server"
+  -- NOTE: mason.nvim 2.0 does not support getting installation path of LSP server
+  -- Instead, we get the executable path of vue-language-server and use it to get the typescript
+  -- plugin path.
+  vue_typescript_plugin = vim.fs.dirname(vim.fn.resolve(vim.fn.exepath("vue-language-server")))
     .. "/node_modules/@vue/typescript-plugin"
 end
 
@@ -546,10 +548,14 @@ lsp.is_supported_server = function(server)
   return lsp.supported_servers[server] ~= nil
 end
 
-lsp.init_servers_by_filetype = function()
-  local mason_lspconfig_mappings_filetype = require("mason-lspconfig.mappings.filetype")
+lsp.init_mason_map = function()
+  -- mason-lspconfig.nvim 2.1.0 filetype mappings
+  -- Ref: https://github.com/mason-org/mason-lspconfig.nvim/pull/555
+  lsp.mason_map = require("mason-lspconfig.mappings").get_all()
+end
 
-  for filetype, servers in pairs(mason_lspconfig_mappings_filetype) do
+lsp.init_servers_by_filetype = function()
+  for filetype, servers in pairs(lsp.mason_map.filetypes) do
     for _, server in ipairs(servers) do
       if lsp.is_supported_server(server) then
         if not lsp.servers_by_filetype[filetype] then
@@ -583,7 +589,6 @@ lsp.setup_servers_on_filetype = function(filetype)
 end
 
 lsp.setup_lsp_install = function()
-  local mason_lspconfig_mappings_server = require("mason-lspconfig.mappings.server")
   local mason_tool_installer = require("mason-tool-installer")
 
   local lspconfig_servers = vim.tbl_keys(lsp.get_servers())
@@ -593,7 +598,7 @@ lsp.setup_lsp_install = function()
   -- TODO: Use mason-lspconfig api
   -- FIXME: This may have a bug that causing 'harper_ls' not installed
   for _, lspconfig_server in ipairs(lspconfig_servers) do
-    table.insert(mason_package_servers, mason_lspconfig_mappings_server.lspconfig_to_package[lspconfig_server])
+    table.insert(mason_package_servers, lsp.mason_map.lspconfig_to_package[lspconfig_server])
   end
 
   mason_tool_installer.setup({
@@ -618,6 +623,7 @@ end
 lsp.setup = function(settings)
   lsp.config = vim.tbl_extend("force", lsp.config, settings)
 
+  lsp.init_mason_map()
   lsp.init_servers_by_filetype()
   lsp.setup_lsp_install()
   lsp.setup_plugins()

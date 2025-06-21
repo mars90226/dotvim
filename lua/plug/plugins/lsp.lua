@@ -7,10 +7,8 @@ local lsp = {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       {
-        "williamboman/mason.nvim",
-        -- TODO: Upgrade to 2.0.0
-        -- Requires mason-lspconfig.nvim 2.0.0
-        version = "1.*",
+        "mason-org/mason.nvim",
+        version = false, -- Use latest (2.0+) version
         cmd = {
           "Mason",
           "MasonUpdate",
@@ -28,10 +26,8 @@ local lsp = {
         end,
       },
       {
-        "williamboman/mason-lspconfig.nvim",
-        -- TODO: Upgrade to 2.0.0
-        -- mappings/filetype.lua is removed in 2.0.0
-        version = "1.*",
+        "mason-org/mason-lspconfig.nvim",
+        version = false, -- Use latest (2.0+) version
         config = function()
           require("mason-lspconfig").setup()
         end,

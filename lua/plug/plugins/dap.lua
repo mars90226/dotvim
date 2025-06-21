@@ -11,7 +11,7 @@ local dap = {
       {
         "jay-babu/mason-nvim-dap.nvim",
         dependencies = {
-          "williamboman/mason.nvim",
+          "mason-org/mason.nvim",
           "mfussenegger/nvim-dap",
         },
         -- TODO: Check if this is causing issues
