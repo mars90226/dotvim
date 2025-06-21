@@ -246,6 +246,7 @@ lsp.servers = {
   -- tailwindcss = {},
   vimls = {},
   -- TODO: Rename to vue_ls
+  -- Not sure why nvim-lspconfig complains that vue_ls not found
   -- Ref: https://github.com/neovim/nvim-lspconfig/pull/3843
   volar = {
     condition = check.has_linux_build_env(),
@@ -256,6 +257,7 @@ lsp.servers = {
     custom_setup = function(server, lsp_opts)
       lsp_opts.settings.yaml = {
         schemaStore = {
+          -- NOTE: Use SchemaStore.nvim to provide schemas
           -- You must disable built-in schemaStore support if you want to use
           -- this plugin and its advanced options like `ignore`.
           enable = false,
