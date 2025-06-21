@@ -643,11 +643,11 @@ lsp.setup = function(settings)
 end
 
 -- TODO: project level notify
--- FIXME: Seems broken after neovim 0.11.0 release?
+-- TODO: Improve notify settings
 -- See [neoconf.nvimluaneoconfpluginslspconfig.lua at 4a36457c389fab927c885d53fba6e07f4eedf1f4 · folkeneoconf.nvim](https://github.com/folke/neoconf.nvim/blob/4a36457c389fab927c885d53fba6e07f4eedf1f4/lua/neoconf/plugins/lspconfig.lua#L67) as reference
 lsp.notify_settings = function(server, settings)
   for _, lsp_client in ipairs(vim.lsp.get_clients({ name = server })) do
-    lsp_client.config.settings = vim.tbl_deep_extend("force", lsp_client.config.settings, settings)
+    lsp_client.config.settings = vim.tbl_deep_extend("force", lsp_client.config.settings or {}, settings)
     lsp_client.notify("workspace/didChangeConfiguration", {
       settings = lsp_client.config.settings,
     })
