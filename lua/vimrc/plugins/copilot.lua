@@ -8,10 +8,6 @@ my_copilot.default_model = "claude-sonnet-4"
 
 -- NOTE: Use the model info from Copilot using CopilotChat.nvim
 my_copilot.models = {
-  ["gpt-4o"] = {
-    model = "gpt-4o",
-    max_tokens = 64000,
-  },
   ["gpt-4.1"] = {
     model = "gpt-4.1",
     max_tokens = 128000,
@@ -35,20 +31,6 @@ my_copilot.models = {
   ["claude-sonnet-4"] = {
     model = "claude-sonnet-4",
     max_tokens = 80000,
-  },
-  ["o1"] = {
-    model = "o1-2024-12-17",
-    max_tokens = 20000,
-  },
-  ["o3-mini"] = {
-    model = "o3-mini-2025-01-31",
-    max_tokens = 64000,
-    reasoning_effort = "medium",
-  },
-  ["o3-mini-high"] = {
-    model = "o3-mini-2025-01-31",
-    max_tokens = 64000,
-    reasoning_effort = "high",
   },
   ["o4-mini"] = {
     model = "o4-mini",
