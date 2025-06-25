@@ -40,12 +40,13 @@ nvim_lint.setup = function()
   }
 
   -- Customize built-in linter parameters
-  require("lint.linters.shellcheck").args = {
-    "-x",
-    "--format",
-    "json",
-    "-",
-  }
+  -- NOTE: Use bashls to call shellcheck
+  -- require("lint.linters.shellcheck").args = {
+  --   "-x",
+  --   "--format",
+  --   "json",
+  --   "-",
+  -- }
   require("lint.linters.sqlfluff").args = {
     "lint",
     "--format=json",
@@ -59,7 +60,8 @@ nvim_lint.setup = function()
     javascript = { "jshint" },
     markdown = { "markdownlint" },
     proto = { "buf_lint" },
-    sh = { "shellcheck" },
+    -- NOTE: Use bashls to call shellcheck
+    -- sh = { "shellcheck" },
     sql = { "sqlfluff" },
     vim = { "vint" },
   }

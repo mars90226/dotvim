@@ -25,8 +25,11 @@ lsp.servers = {
     },
   },
   bashls = {
-    -- NOTE: Disable shellcheck integration and use nvim-lint to lint on save
-    cmd_env = { SHELLCHECK_PATH = "" },
+    settings = {
+      -- NOTE: If want to disable shellcheck integration and use nvim-lint to lint on save, set this
+      -- to empty string
+      -- shellcheckPath = "",
+    },
   },
   buf_ls = {
     condition = check.has_linux_build_env(),
