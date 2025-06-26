@@ -29,7 +29,10 @@ local lsp = {
         "mason-org/mason-lspconfig.nvim",
         version = false, -- Use latest (2.0+) version
         config = function()
-          require("mason-lspconfig").setup()
+          require("mason-lspconfig").setup({
+            -- NOTE: We use `vimrc.lsp.setup()` to setup lsp servers
+            automatic_enable = false,
+          })
         end,
       },
       "WhoIsSethDaniel/mason-tool-installer.nvim",
