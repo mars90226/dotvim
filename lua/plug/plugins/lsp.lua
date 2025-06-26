@@ -35,6 +35,8 @@ local lsp = {
           })
         end,
       },
+      -- TODO: mason-lspconfig.nvim has `ensure_installed` now, and we only use
+      -- mason-tool-installer.nvim to install LSPs. So we can remove this plugin.
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       -- NOTE: Currently not support neovim 0.11 + vim.lsp.config
       -- Ref: https://github.com/folke/neoconf.nvim/issues/116
