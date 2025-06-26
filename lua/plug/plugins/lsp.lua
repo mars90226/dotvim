@@ -33,6 +33,8 @@ local lsp = {
         end,
       },
       "WhoIsSethDaniel/mason-tool-installer.nvim",
+      -- NOTE: Currently not support neovim 0.11 + vim.lsp.config
+      -- Ref: https://github.com/folke/neoconf.nvim/issues/116
       {
         "folke/neoconf.nvim",
         cmd = "Neoconf",
