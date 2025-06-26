@@ -83,7 +83,7 @@ lsp.servers = {
   harper_ls = {
     condition = check.has_linux_build_env(),
     settings = {},
-    custom_setup = function(server, lsp_opts)
+    custom_config = function(lsp_opts)
       -- NOTE: For project level settings
       -- TODO: Need to review if this works with multiple working directories
       local project_root = vim.fs.root(0, ".git")
@@ -96,7 +96,7 @@ lsp.servers = {
         }
       end
 
-      require("lspconfig")[server].setup(lsp_opts)
+      return lsp_opts
     end
   },
   html = {
@@ -121,12 +121,12 @@ lsp.servers = {
       },
     },
     settings = {},
-    custom_setup = function(server, lsp_opts)
+    custom_config = function(lsp_opts)
       lsp_opts.settings.json = {
         schemas = require("schemastore").json.schemas(),
         validate = { enable = true },
       }
-      require("lspconfig")[server].setup(lsp_opts)
+      return lsp_opts
     end,
   },
   -- TODO: Add recommended config from nvim-lspconfig.
@@ -223,7 +223,7 @@ lsp.servers = {
       "typescript.tsx",
       "vue",
     },
-    custom_setup = function(server, lsp_opts)
+    custom_config = function(lsp_opts)
       -- Setup global plugins 
       if check.has_linux_build_env() then
         -- NOTE: mason.nvim 2.0 does not support getting installation path of LSP server
@@ -247,7 +247,7 @@ lsp.servers = {
         }
       end
 
-      require("lspconfig")[server].setup(lsp_opts)
+      return lsp_opts
     end,
   },
   -- NOTE: Disabled due to high CPU usage
@@ -265,7 +265,7 @@ lsp.servers = {
   -- TODO: add settings for schemas
   yamlls = {
     settings = {},
-    custom_setup = function(server, lsp_opts)
+    custom_config = function(lsp_opts)
       lsp_opts.settings.yaml = {
         schemaStore = {
           -- NOTE: Use SchemaStore.nvim to provide schemas
@@ -277,7 +277,7 @@ lsp.servers = {
         },
         schemas = require("schemastore").yaml.schemas(),
       }
-      require("lspconfig")[server].setup(lsp_opts)
+      return lsp_opts
     end,
   },
 }
@@ -534,11 +534,20 @@ lsp.setup_server = function(server, custom_opts)
     lsp_opts.init_options = lsp_opts.init_options()
   end
 
-  if lsp_opts.custom_setup then
-    lsp_opts.custom_setup(server, lsp_opts)
-  else
-    require("lspconfig")[server].setup(lsp_opts)
+  if lsp_opts.custom_config then
+    lsp_opts = lsp_opts.custom_config(lsp_opts)
   end
+
+  vim.lsp.config(server, lsp_opts)
+  vim.notify("LSP server '" .. server .. "' configured with config: "
+    .. vim.inspect(lsp_opts, { process = function(value)
+      if type(value) == "function" then
+        return "<function>"
+      end
+      return value
+    end }), vim.log.levels.DEBUG, {
+    title = "LSP Server Config",
+  })
 
   lsp.server_setuped[server] = true
 end
@@ -595,8 +604,7 @@ lsp.setup_servers_on_filetype = function(filetype)
       -- installation finished.
       lsp.setup_server(server, {})
 
-      -- TODO: Change to vim.lsp.start()
-      require("lspconfig")[server].launch()
+      vim.lsp.enable(server)
     end
   end
 end
