@@ -95,13 +95,13 @@ gruvbox.custom_overrides = function()
 
     -- markview.nvim
     -- NOTE: gruvbox.nvim only provide 1 color in @markup.heading
-    MarkviewPalette1 = { fg = palette.bright_red, bold = true },
-    MarkviewPalette2 = { fg = palette.bright_orange, bold = true },
-    MarkviewPalette3 = { fg = palette.bright_yellow, bold = true },
-    MarkviewPalette4 = { fg = palette.bright_green, bold = true },
-    MarkviewPalette5 = { fg = palette.bright_blue, bold = true },
-    MarkviewPalette6 = { fg = palette.bright_aqua, bold = true },
-    MarkviewPalette7 = { fg = palette.bright_purple, bold = true },
+    MarkviewPalette1 = { fg = palette.bright_red, bg = palette.dark1, bold = true },
+    MarkviewPalette2 = { fg = palette.bright_orange, bg = palette.dark1, bold = true },
+    MarkviewPalette3 = { fg = palette.bright_yellow, bg = palette.dark1, bold = true },
+    MarkviewPalette4 = { fg = palette.bright_green, bg = palette.dark1, bold = true },
+    MarkviewPalette5 = { fg = palette.bright_blue, bg = palette.dark1, bold = true },
+    MarkviewPalette6 = { fg = palette.bright_aqua, bg = palette.dark1, bold = true },
+    MarkviewPalette7 = { fg = palette.bright_purple, bg = palette.dark1, bold = true },
     MarkviewPalette1Sign = { fg = palette.bright_red },
     MarkviewPalette2Sign = { fg = palette.bright_orange },
     MarkviewPalette3Sign = { fg = palette.bright_yellow },
