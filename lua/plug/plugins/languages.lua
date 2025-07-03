@@ -509,6 +509,16 @@ local languages = {
         filetypes = markdown_filetypes,
       },
     },
+    config = function(_, opts)
+      local preset = require("markview.presets")
+      opts = vim.tbl_deep_extend("force", {
+        markdown = {
+          headings = preset.headings.arrowed,
+        }
+      }, opts or {})
+
+      require("markview").setup(opts)
+    end,
   },
 
   -- Markdown preview
