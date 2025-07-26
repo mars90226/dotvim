@@ -206,6 +206,39 @@ my_snacks.keys = (function()
       end,
       desc = "Snacks Picker - Grep",
     },
+
+    -- Lazy Plugins
+    {
+      snacks_picker_prefix .. "P",
+      function()
+        Snacks.picker.files({
+          dirs = { vim.fn.stdpath("data") .. "/lazy" },
+          cmd = "fd",
+          args = { "-td", "--exact-depth", "1" },
+          confirm = function(picker, item, action)
+            picker:close()
+            if item and item.file then
+              vim.schedule(function()
+                local where = action and action.name or "confirm"
+                if where == "edit_vsplit" then
+                  vim.cmd("lcd " .. item.file)
+                elseif where == "edit_vsplit" then
+                  vim.cmd("vsplit | lcd " .. item.file)
+                elseif where == "edit_split" then
+                  vim.cmd("split | lcd " .. item.file)
+                elseif where == "edit_tab" then
+                  vim.cmd("tabnew | tcd " .. item.file)
+                end
+
+                -- Open the file in Oil
+                vim.cmd("Oil " .. item.file)
+              end)
+            end
+          end,
+        })
+      end,
+      desc = "Snacks Picker - Grep",
+    },
   }
 end)()
 
