@@ -3,6 +3,21 @@ local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
 
 local utility = {
+  -- Store
+  {
+    "alex-popov-tech/store.nvim",
+    dependencies = {
+      "OXY2DEV/markview.nvim", -- optional, for pretty readme preview / help window
+    },
+    cmd = "Store",
+    keys = {
+      { "<Leader>ps", "<cmd>Store<cr>", desc = "Open Plugin Store" },
+    },
+    opts = {
+      -- optional configuration here
+    },
+  },
+
   -- Undo Tree
   {
     "mbbill/undotree",
@@ -405,7 +420,7 @@ local utility = {
     cmd = { "UrlView" },
     keys = {
       { "<Leader>uu", [[<Cmd>UrlView buffer picker=telescope<CR>]], desc = "view buffer URLs" },
-      { "<Leader>ul", [[<Cmd>UrlView lazy picker=telescope<CR>]], desc = "view plugin URLs" },
+      { "<Leader>po", [[<Cmd>UrlView lazy picker=telescope<CR>]], desc = "view plugin URLs" },
     },
     dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
