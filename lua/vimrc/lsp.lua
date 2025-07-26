@@ -97,7 +97,7 @@ lsp.servers = {
       end
 
       require("lspconfig")[server].setup(lsp_opts)
-    end
+    end,
   },
   html = {
     capabilities = {
@@ -109,6 +109,9 @@ lsp.servers = {
         },
       },
     },
+    on_attach = function(client)
+      vim.lsp.linked_editing_range.enable(true, { client_id = client.id })
+    end,
   },
   jsonls = {
     capabilities = {
@@ -224,13 +227,14 @@ lsp.servers = {
       "vue",
     },
     custom_setup = function(server, lsp_opts)
-      -- Setup global plugins 
+      -- Setup global plugins
       if check.has_linux_build_env() then
         -- NOTE: mason.nvim 2.0 does not support getting installation path of LSP server
         -- Instead, we get the executable path of vue-language-server and use it to get the typescript
         -- plugin path.
-        local vue_typescript_plugin = vim.fs.dirname(vim.fs.dirname(vim.fn.resolve(vim.fn.exepath("vue-language-server"))))
-          .. "/node_modules/@vue/typescript-plugin"
+        local vue_typescript_plugin = vim.fs.dirname(
+          vim.fs.dirname(vim.fn.resolve(vim.fn.exepath("vue-language-server")))
+        ) .. "/node_modules/@vue/typescript-plugin"
         vim.notify(vue_typescript_plugin, vim.log.levels.DEBUG, {
           title = "Vue TypeScript Plugin Path",
         })
