@@ -31,6 +31,10 @@ filetype.setup = function()
 
       -- upstart
       upstart = "upstart",
+
+      -- mustache
+      -- NOTE: Catch pattern to detect mustache templates as `html.mustache`
+      mustache = "html.mustache"
     },
     filename = {
       -- git
