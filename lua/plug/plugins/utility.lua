@@ -167,11 +167,16 @@ local utility = {
         folder = "journals",
         template = "pages/templates/daily.md",
       },
+      legacy_commands = false, -- Suppress warning about legacy commands
     },
     cmd = { "Obsidian" },
     keys = {
       { "<Space>b<Space>", [[:Obsidian<Space>]], desc = "Obsidian" },
     },
+    config = function(_, opts)
+      vim.opt.conceallevel = 2 -- conceal all text by default
+      require("obsidian").setup(opts)
+    end,
   },
 
   {
