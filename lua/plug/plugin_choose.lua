@@ -172,6 +172,12 @@ plugin_choose.setup_finder = function()
   if choose.is_disabled_plugin("telescope.nvim") or not plugin_utils.is_executable("sg") then
     choose.disable_plugin("telescope-sg")
   end
+
+  -- Choose file finder plugin
+  -- fff.nvim, smart-open.nvim
+  if not check.has_linux_build_env() then
+    choose.disable_plugin("fff.nvim")
+  end
 end
 
 plugin_choose.setup_git = function()

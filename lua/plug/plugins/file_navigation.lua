@@ -425,6 +425,25 @@ local file_navigation = {
     end,
   },
 
+  -- fff.nvim
+  -- TODO: Disabled for now as UI not refreshing if keep pressing <C-J> or <C-K>
+  {
+    "dmtrKovalenko/fff.nvim",
+    enabled = false,
+    cond = choose.is_enabled_plugin("fff.nvim"),
+    build = "cargo build --release",
+    opts = {
+      keymaps = {
+        -- Multiple bindings supported
+        move_up = { '<Up>', '<C-P>', '<C-K>' },
+        move_down = { '<Down>', '<C-N>', '<C-J>' },
+      },
+    },
+    keys = {
+      { "<Space>f<CR>", function() require("fff").find_files() end, desc = "FFFind FFFiles", },
+    },
+  },
+
   -- Bookmarks
   {
     "cbochs/grapple.nvim",
