@@ -600,9 +600,7 @@ local languages = {
   -- Documentation
   {
     "maskudo/devdocs.nvim",
-    -- lazy = false, -- NOTE: To allow ensure_installed
     enabled = choose.is_enabled_plugin("devdocs.nvim"),
-    event = "VeryLazy",
     dependencies = {
       "folke/snacks.nvim",
     },
