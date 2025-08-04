@@ -1,8 +1,10 @@
+local choose = require("vimrc.choose")
+
 local ufo = {}
 
-ufo.enable_treesitter = false
+ufo.enable_treesitter = choose.is_enabled_plugin("nvim-treesitter")
 ufo.default_providers = { "lsp", "indent" }
-ufo.with_treesitter_providers = { "lsp", "treesitter", "indent" }
+ufo.with_treesitter_providers = { "treesitter", "indent" }
 
 ufo.toggle_treesitter = function()
   ufo.enable_treesitter = not ufo.enable_treesitter
