@@ -191,7 +191,9 @@ local ai = {
     },
     opts = {
       provider = "copilot",
-      copilot = require("vimrc.plugins.copilot").get_model(),
+      providers = {
+        copilot = require("vimrc.plugins.avante").get_copilot_model(),
+      },
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",
