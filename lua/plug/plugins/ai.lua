@@ -74,6 +74,11 @@ local ai = {
           insert = "",
         },
       },
+      providers = {
+        github_models = {
+          disabled = false
+        }
+      }
     },
     cmd = {
       "CopilotChat",
