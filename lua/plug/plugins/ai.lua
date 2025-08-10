@@ -280,6 +280,12 @@ local ai = {
           local copilot_model = require("vimrc.plugins.codecompanion").get_copilot_model()
           return require("codecompanion.adapters").extend("copilot", copilot_model)
         end,
+        githubmodels = function()
+          -- NOTE: Need to use `require("codecompanion.adapters").extend()` to get `CodeCompanion.Adapter`.
+          -- But it also means we have to merge the model configs, not just override it.
+          local github_model = require("vimrc.plugins.codecompanion").get_github_model()
+          return require("codecompanion.adapters").extend("githubmodels", github_model)
+        end,
       },
       strategies = {
         chat = {
@@ -305,7 +311,7 @@ local ai = {
         chat = {
           -- TODO: Use render-markdown.nvim to render markdown in the chat buffer
           render_headers = false,
-          show_settings = true,
+          -- NOTE: Set show_settings = false to allow changing adapter
         },
       },
       prompt_library = {

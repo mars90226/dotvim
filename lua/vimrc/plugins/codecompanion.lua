@@ -3,20 +3,30 @@ local my_copilot = require("vimrc.plugins.copilot")
 local codecompanion = {}
 
 codecompanion.default_copilot_model = my_copilot.default_model
+codecompanion.default_github_model = my_copilot.default_github_model
 codecompanion.copilot_models = {}
+codecompanion.github_models = {}
 
-for model_name, model in pairs(my_copilot.models) do
-  codecompanion.copilot_models[model_name] = {
-    schema = {
-    },
-  }
+codecompanion.init_models = function()
+  local init_models_to = function(models, target)
+    for model_name, model in pairs(models) do
+      target[model_name] = {
+        schema = {},
+      }
 
-  for key, value in pairs(model) do
-    codecompanion.copilot_models[model_name].schema[key] = {
-      default = value,
-    }
+      for key, value in pairs(model) do
+        target[model_name].schema[key] = {
+          default = value,
+        }
+      end
+    end
   end
+
+  init_models_to(my_copilot.models, codecompanion.copilot_models)
+  init_models_to(my_copilot.github_models, codecompanion.github_models)
 end
+
+codecompanion.init_models()
 
 -- Ref: [Snippet to add the ability to saveload CodeCompanion chats in neovim](https://gist.github.com/itsfrank/942780f88472a14c9cbb3169012a3328)
 codecompanion.setup_save_load = function()
@@ -88,6 +98,16 @@ codecompanion.get_copilot_model = function(name)
   end
 
   return copilot_model
+end
+
+codecompanion.get_github_model = function(name)
+  local github_model = codecompanion.github_models[name or codecompanion.default_github_model]
+  if github_model == nil then
+    vim.notify("Invalid GitHub model: " .. name, vim.log.levels.ERROR)
+    github_model = codecompanion.github_models[codecompanion.default_github_model]
+  end
+
+  return github_model
 end
 
 codecompanion.set_default_copilot_model = function(name)
