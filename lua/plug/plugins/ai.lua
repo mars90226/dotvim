@@ -192,7 +192,7 @@ local ai = {
       { "<Leader>ar", function() require("avante.api").refresh() end,  desc = "avante: refresh" },
       { "<Leader>ad", function() require("avante").toggle.debug() end, desc = "avante: toggle debug" },
       { "<Leader>ah", function() require("avante").toggle.hint() end,  desc = "avante: toggle hint" },
-      { "<Leader>at", function() require("avante").toggle() end,       desc = "avante: toggle" },
+      { "<Leader>a`", function() require("avante").toggle() end,       desc = "avante: toggle" },
     },
     opts = {
       provider = "copilot",
