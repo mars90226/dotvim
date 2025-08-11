@@ -85,7 +85,9 @@ my_snacks.keys = (function()
 
     { "<Leader>un",         function() Snacks.notifier.hide() end,           desc = "Dismiss All Notifications" },
     { "<C-/>",              function() Snacks.terminal() end,                desc = "Toggle Terminal" },
+    { "<M-C-/>",            [[<C-\><C-N>:lua Snacks.terminal()<CR>]],        desc = "Toggle Terminal",             mode = { "t" } },
     { "<C-_>",              function() Snacks.terminal() end,                desc = "which_key_ignore" },
+    { "<M-C-_>",            [[<C-\><C-N>:lua Snacks.terminal()<CR>]],        desc = "which_key_ignore",            mode = { "t" } },
     { "]]",                 function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",              mode = { "n", "t" } },
     { "[[",                 function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",              mode = { "n", "t" } },
     {
