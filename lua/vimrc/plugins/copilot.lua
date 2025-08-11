@@ -13,10 +13,6 @@ my_copilot.models = {
     model = "gpt-4.1",
     max_tokens = 128000,
   },
-  ["gemini-2.0-flash-001"] = {
-    model = "gemini-2.0-flash-001",
-    max_tokens = 128000,
-  },
   ["gemini-2.5-pro"] = {
     model = "gemini-2.5-pro",
     max_tokens = 128000,
