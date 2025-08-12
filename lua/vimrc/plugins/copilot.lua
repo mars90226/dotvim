@@ -4,11 +4,17 @@ my_copilot.attach_filters = {}
 
 -- TODO: Better naming
 
-my_copilot.default_model = "claude-sonnet-4"
+
+-- NOTE: "claude-sonnet-4" is good too.
+my_copilot.default_model = "gpt-5"
 my_copilot.default_github_model = "gpt-5"
 
 -- NOTE: Use the model info from Copilot using CopilotChat.nvim
 my_copilot.models = {
+  ["gpt-5"] = {
+    model = "gpt-5",
+    max_tokens = 128000,
+  },
   ["gpt-4.1"] = {
     model = "gpt-4.1",
     max_tokens = 128000,
@@ -40,13 +46,7 @@ my_copilot.models = {
     reasoning_effort = "high",
   },
 }
-my_copilot.github_models = vim.tbl_extend("force", my_copilot.models, {
-  ["gpt-5"] = {
-    model = "gpt-5",
-    max_completion_tokens = 200000,
-    temperature = 1,
-  },
-})
+my_copilot.github_models = vim.tbl_extend("force", my_copilot.models, {})
 
 my_copilot.attach = function()
   -- Make buffer valid for copilot
