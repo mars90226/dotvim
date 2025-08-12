@@ -6,8 +6,8 @@ my_copilot.attach_filters = {}
 
 
 -- NOTE: "claude-sonnet-4" is good too.
-my_copilot.default_model = "gpt-5-high"
-my_copilot.default_github_model = "gpt-5-high"
+my_copilot.default_model = "gpt-5"
+my_copilot.default_github_model = "gpt-5"
 
 -- NOTE: Use the model info from Copilot using CopilotChat.nvim
 my_copilot.models = {
