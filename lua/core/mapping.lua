@@ -364,8 +364,6 @@ mapping.setup_mapping = function()
     [[vimrc#fzf#git#commits_in_commandline(0, [])]],
     { expr = true, desc = "Fill commits" }
   )
-  -- FIXME: Currently, use bcommits command with fzf-tmux will cause error
-  -- Vim(let):E684: list index out of range: 1
   vim.keymap.set(
     "c",
     "<C-G><C-O>",

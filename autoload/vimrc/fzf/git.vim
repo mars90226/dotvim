@@ -179,9 +179,7 @@ function! vimrc#fzf#git#commits_in_commandline_sink(results, lines) abort
     return
   endif
 
-  " TODO: Make vimrc#fzf#git#commits_in_commandline() do not use expect key
-  " Currently vimrc#fzf#git#commits_in_commandline() use vimrc#fzf#fzf() which
-  " always add expect key.
+  " TODO: Correctly handle expect keys
   let line = type(a:lines) == type([]) ? a:lines[1] : a:lines
 
   let pat = '[0-9a-f]\{7,9}'
@@ -442,12 +440,14 @@ function! vimrc#fzf#git#commits_in_commandline(buffer_local, args) abort
 
   let command = a:buffer_local ? 'BCommits' : 'Commits'
   let results = []
+  " FIXME: ctrl-s toggle-sort not working due to g:fzf_action also expect ctrl-s
   let options = {
         \ 'source':  source,
         \ 'sink*':   function('vimrc#fzf#git#commits_in_commandline_sink', [results]),
         \ 'options': ['--ansi', '--tiebreak=index',
         \   '--prompt', command.'> ', '--bind=ctrl-s:toggle-sort',
-        \   '--header', ':: Press '.vimrc#fzf#magenta('CTRL-S', 'Special').' to toggle sort, '.vimrc#fzf#magenta('CTRL-Y', 'Special').' to yank commit hashes']
+        \   '--header', ':: Press '.vimrc#fzf#magenta('CTRL-S', 'Special').' to toggle sort, '.vimrc#fzf#magenta('CTRL-Y', 'Special').' to yank commit hashes',
+        \   '--expect=ctrl-y,'.vimrc#fzf#expect_keys()]
         \ }
 
   if a:buffer_local
