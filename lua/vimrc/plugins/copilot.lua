@@ -21,6 +21,10 @@ my_copilot.models = {
     max_tokens = 128000,
     reasoning_effort = "high",
   },
+  ["gpt-5-mini"] = {
+    model = "gpt-5-mini",
+    max_tokens = 128000,
+  },
   ["gpt-4.1"] = {
     model = "gpt-4.1",
     max_tokens = 128000,
