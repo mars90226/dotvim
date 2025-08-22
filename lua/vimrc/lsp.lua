@@ -280,6 +280,7 @@ lsp.servers = {
           url = "",
         },
         schemas = require("schemastore").yaml.schemas(),
+        validate = { enable = true },
       }
       require("lspconfig")[server].setup(lsp_opts)
     end,
