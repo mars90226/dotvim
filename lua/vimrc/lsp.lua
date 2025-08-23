@@ -82,22 +82,8 @@ lsp.servers = {
   },
   harper_ls = {
     condition = check.has_linux_build_env(),
-    settings = {},
-    custom_setup = function(server, lsp_opts)
-      -- NOTE: For project level settings
-      -- TODO: Need to review if this works with multiple working directories
-      local project_root = vim.fs.root(0, ".git")
-
-      if project_root then
-        -- Use project dictionary if available
-        lsp_opts.settings["harper-ls"] = {
-          userDictPath = project_root .. "/.harper/project.txt",
-          fileDictPath = project_root .. "/.harper",
-        }
-      end
-
-      require("lspconfig")[server].setup(lsp_opts)
-    end,
+    -- NOTE: Use workspace dictionary introduced in harper 0.55.0
+    -- Ref: https://github.com/Automattic/harper/pull/1669
   },
   html = {
     capabilities = {
