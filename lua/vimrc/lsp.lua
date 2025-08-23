@@ -631,7 +631,7 @@ lsp.setup_commands = function()
   vim.api.nvim_create_user_command("LspStopIdleServers", function()
     for _, client in ipairs(vim.lsp.get_clients()) do
       if #client.attached_buffers == 0 then
-        client.stop()
+        client:stop()
       end
     end
   end, {})
@@ -663,7 +663,7 @@ end
 lsp.notify_settings = function(server, settings)
   for _, lsp_client in ipairs(vim.lsp.get_clients({ name = server })) do
     lsp_client.config.settings = vim.tbl_deep_extend("force", lsp_client.config.settings or {}, settings)
-    lsp_client.notify("workspace/didChangeConfiguration", {
+    lsp_client:notify("workspace/didChangeConfiguration", {
       settings = lsp_client.config.settings,
     })
   end
