@@ -82,8 +82,16 @@ lsp.servers = {
   },
   harper_ls = {
     condition = check.has_linux_build_env(),
-    -- NOTE: Use workspace dictionary introduced in harper 0.55.0
-    -- Ref: https://github.com/Automattic/harper/pull/1669
+    settings = {
+      ["harper-ls"] = {
+        -- NOTE: Use workspace dictionary introduced in harper 0.55.0
+        -- Ref: https://github.com/Automattic/harper/pull/1669
+        -- Ref: https://writewithharper.com/docs/integrations/language-server#Workspace-Dictionary
+        linters = {
+          ToDoHyphen = false,
+        }
+      }
+    }
   },
   html = {
     capabilities = {
