@@ -63,7 +63,7 @@ cli.setup = function()
     end
   end
 
-  -- grepprg
+  -- 'grepprg'
   if plugin_utils.is_executable("rg") then
     vim.go.grepprg = "rg --vimgrep --no-heading"
     vim.go.grepformat = "%f:%l:%c:%m,%f:%l:%m"

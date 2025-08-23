@@ -128,7 +128,7 @@ settings.setup_options = function()
     vim.opt.dictionary = plugin_utils.get_dictionary()
   end
 
-  -- Remove '=' from isfilename to complete filename in 'options'='filename' format
+  -- Remove '=' from 'isfname' to complete filename in 'options'='filename' format
   -- TODO Move to ftplugin setting
   vim.opt.isfname:remove("=")
 

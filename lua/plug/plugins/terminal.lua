@@ -40,7 +40,7 @@ local terminal = {
         [[:<C-U>execute 'FloatermNew '.input('Command: ', '', 'shellcmd')<CR>]],
         desc = "Floaterm - execute command in new terminal",
       },
-      -- For inserting selection in input() using cmap
+      -- For inserting selection in input() using map
       {
         "<Leader>xC",
         mode = { "n" },

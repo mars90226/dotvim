@@ -189,7 +189,7 @@ oil.setup_config = function()
       autosave_changes = false,
     },
     -- Constrain the cursor to the editable parts of the oil buffer
-    -- Set to `false` to disable, or "name" to keep it on the file names
+    -- Set to `false` to disable, or "name" to keep it on the filenames
     constrain_cursor = "editable",
     -- Set to true to watch the filesystem for changes and reload oil
     watch_for_changes = false,

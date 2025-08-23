@@ -254,7 +254,7 @@ terminal.setup_autocmd = function()
     end,
   })
 
-  -- TODO Start insert mode when cancelling :Windows in terminal mode or
+  -- TODO Start insert mode when canceling :Windows in terminal mode or
   -- selecting another terminal buffer
   vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
     group = terminal_augroup_id,

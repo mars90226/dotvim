@@ -353,7 +353,7 @@ local file_navigation = {
     },
   },
   -- TODO: Upgrade to 0.3.x
-  -- When upgrading to 0.3.x, the SQLite3 sychronous pragma is set to NORMAL, and WAL mode is enabled.
+  -- When upgrading to 0.3.x, the SQLite3 synchronous pragma is set to NORMAL, and WAL mode is enabled.
   -- This cause the "locking protocol" error when opening multiple neovim instances.
   {
     "danielfalk/smart-open.nvim",

@@ -190,7 +190,7 @@ end
 -- Ref: fzf-lua utils
 utils.get_visual_selection = function()
   -- this will exit visual mode
-  -- use 'gv' to reselect the text
+  -- use 'gv' to re-select the text
   local _, csrow, cscol, cerow, cecol
   local mode = vim.fn.mode()
   if mode == "v" or mode == "V" or mode == "" then

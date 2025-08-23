@@ -256,7 +256,7 @@ lsp.servers = {
   },
   -- NOTE: Disabled due to high CPU usage
   -- Ref: https://github.com/tailwindlabs/tailwindcss-intellisense/issues/1109
-  -- TODO: Enable tailwincss
+  -- TODO: Enable tailwindcss
   -- Ref: https://github.com/tailwindlabs/tailwindcss-intellisense/issues/1109#issuecomment-2612844262
   -- tailwindcss = {},
   vimls = {},

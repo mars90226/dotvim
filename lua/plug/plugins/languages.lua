@@ -38,7 +38,7 @@ local languages = {
   { "moon-musick/vim-logrotate", ft = "logrotate" },
   { "jidn/vim-dbml", ft = "dbml" },
 
-  -- Highlighing
+  -- Highlighting
   -- nvim-treesitter
   -- TODO: Move to dedicate place?
   -- TODO: Simplify condition

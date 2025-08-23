@@ -74,7 +74,7 @@ command_palette.luasnip_expand_handler = function(filetype)
 
     -- 1. Create a new [filetype] buffer with result.
     -- 2. Expand with LuaSnip.
-    -- 3. Copy/Paste the expand result to orignal buffer.
+    -- 3. Copy/Paste the expand result to original buffer.
     local buf = vim.api.nvim_create_buf(false, true)
     vim.api.nvim_set_option_value("filetype", filetype, { buf = buf })
     vim.api.nvim_buf_set_text(buf, 0, 0, 0, 0, { result })
@@ -169,7 +169,7 @@ command_palette.custom_command_handlers = {
     end)
   end,
   cmdline = function(result)
-    -- FIXME: If cmdline is currently empty, then this will insert to previous commmand
+    -- FIXME: If cmdline is currently empty, then this will insert to previous command
     vim.api.nvim_feedkeys(utils.t(":<Up>") .. result, "m", true)
   end,
   browse = function(result)

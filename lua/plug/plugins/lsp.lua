@@ -209,7 +209,7 @@ local lsp = {
     ft = { "rust" },
     config = function()
       -- NOTE: rustaceanvim use ftplugin to load config.
-      -- The lazy.nvim will add rustaceanvim's path to runtimepath, and load config function afterward.
+      -- The lazy.nvim will add rustaceanvim's path to 'runtimepath', and load config function afterward.
       -- So this config function is loaded before rustaceanvim's ftplugin.
       local server_opts = require("vimrc.lsp").calculate_server_opts("rustaceanvim", {
         settings = {
@@ -281,7 +281,7 @@ local lsp = {
     dependencies = "kevinhwang91/promise-async",
     event = { "VeryLazy" },
     init = function()
-      -- NOTE: Set foldlevel to 99 to expand all folds by default as nvim-ufo is lazy loaded
+      -- NOTE: Set 'foldlevel' to 99 to expand all folds by default as nvim-ufo is lazy loaded
       vim.wo.foldlevel = 99 -- feel free to decrease the value
       vim.o.foldlevelstart = 99
     end,

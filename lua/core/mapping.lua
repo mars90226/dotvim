@@ -32,7 +32,7 @@ mapping.setup_mapping = function()
   -- diagraph
   vim.keymap.set("i", "<M-K>", [[<C-K>]], { desc = "Insert diagraph" })
 
-  -- CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+  -- CTRL-U in insert mode deletes a lot. Use CTRL-G u to first break undo,
   -- so that you can undo CTRL-U after inserting a line break.
   vim.keymap.set("i", "<C-U>", [[<C-G>u<C-U>]])
 
@@ -99,7 +99,7 @@ mapping.setup_mapping = function()
     { desc = "Reset sidebar size" }
   )
 
-  -- Create new line in insert mode
+  -- Create newline in insert mode
   vim.keymap.set("i", "<M-o>", [[<C-O>o]], { desc = "Create new line below" })
   vim.keymap.set("i", "<M-S-o>", [[<C-O>O]], { desc = "Create new line above" })
 
@@ -109,7 +109,7 @@ mapping.setup_mapping = function()
   -- Go to WORD end in insert mode
   vim.keymap.set("i", "<M-E>", [[<Esc>Ea]], { desc = "Go to WORD end" })
 
-  -- Create new line without indent & prefix
+  -- Create newline without indent & prefix
   vim.keymap.set("n", "<M-o>", [[o <C-U>]], { desc = "Create new line below and remove indent & prefix" })
   vim.keymap.set("n", "<M-S-o>", [[O <C-U>]], { desc = "Create new line above and remove indent & prefix" })
 
@@ -429,7 +429,7 @@ mapping.setup_mapping = function()
     [[<C-\>e<Space>v:lua.require("vimrc.insert").delete_whole_word()<CR>]],
     { desc = "Delete whole word" }
   )
-  -- Delete subword (Use <Space> to separate `<C-\>e` and function)
+  -- Delete sub-word (Use <Space> to separate `<C-\>e` and function)
   vim.keymap.set(
     "c",
     "<C-X><C-B>",

@@ -6,7 +6,7 @@ local completion = {
   -- Completion
   {
     -- TODO: Use 'iguanacucumber/magazine.nvim' instead of 'hrsh7th/nvim-cmp' for performance & bug
-    -- fixes. Which also includes 'yioneko/nvim-cmp's performance improvements noteed in the following MR:
+    -- fixes. Which also includes 'yioneko/nvim-cmp's performance improvements noted in the following MR:
     -- Ref: https://github.com/hrsh7th/nvim-cmp/pull/1980
     -- FIXME: magazine.nvim is archived...
     "iguanacucumber/magazine.nvim",

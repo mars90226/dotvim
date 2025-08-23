@@ -14,7 +14,7 @@ overseer.setup = function()
         ["<C-N>"] = "ScrollOutputDown",
       }
     },
-    -- Aliases for bundles of components. Redefine the builtins, or create your own.
+    -- Aliases for bundles of components. Redefine the built-ins, or create your own.
     component_aliases = {
       -- Most tasks are initialized with the default components
       default = {
