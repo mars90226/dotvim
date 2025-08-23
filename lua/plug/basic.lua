@@ -27,13 +27,28 @@ basic.setup_python_host = function()
       --   vim.g.python3_host_prog = vim.env.HOME .. "/.asdf/shims/python3"
       -- end
 
-      -- Detect pyenv
-      -- TODO: Add function to change python host program
-      if plugin_utils.file_readable(vim.env.HOME .. "/.pyenv/shims/python") then
-        vim.g.python_host_prog = vim.env.HOME .. "/.pyenv/shims/python"
+      -- -- Detect pyenv
+      -- -- TODO: Add function to change python host program
+      -- if plugin_utils.file_readable(vim.env.HOME .. "/.pyenv/shims/python") then
+      --   vim.g.python_host_prog = vim.env.HOME .. "/.pyenv/shims/python"
+      -- end
+      -- if plugin_utils.file_readable(vim.env.HOME .. "/.pyenv/shims/python3") then
+      --   vim.g.python3_host_prog = vim.env.HOME .. "/.pyenv/shims/python3"
+      -- end
+
+      -- Detect uv
+      -- NOTE: Need to monitor if this breaks
+      if plugin_utils.is_executable("uv") then
+        local result = vim.system({"uv", "python", "find", "python"}):wait()
+        if result and result.code == 0 then
+          vim.g.python_host_prog = vim.trim(result.stdout)
+        end
       end
-      if plugin_utils.file_readable(vim.env.HOME .. "/.pyenv/shims/python3") then
-        vim.g.python3_host_prog = vim.env.HOME .. "/.pyenv/shims/python3"
+      if plugin_utils.is_executable("uv") then
+        local result = vim.system({"uv", "python", "find", "python3"}):wait()
+        if result and result.code == 0 then
+          vim.g.python3_host_prog = vim.trim(result.stdout)
+        end
       end
 
       -- Use default Python & Python3
