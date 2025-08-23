@@ -53,9 +53,9 @@ cli.setup = function()
   -- Execute
   if check.os_is('windows') then
     -- Win32
-    vim.keymap.set("n", "<Leader>xo", [[<Cmd>lua require("vimrc.windows").execute_current_file()<CR>]])
-    vim.keymap.set("n", "<Leader>X", [[<Cmd>lua require("vimrc.windows").open_terminal_in_current_file_folder()<CR>]])
-    vim.keymap.set("n", "<Leader>E", [[<Cmd>lua require("vimrc.windows").reveal_current_file_folder_in_explorer()<CR>]])
+    vim.keymap.set("n", "<Leader>xo", function() require("vimrc.windows").execute_current_file() end)
+    vim.keymap.set("n", "<Leader>X", function() require("vimrc.windows").open_terminal_in_current_file_folder() end)
+    vim.keymap.set("n", "<Leader>E", function() require("vimrc.windows").reveal_current_file_folder_in_explorer() end)
   else
     -- Linux
     if plugin_utils.is_executable("xdg-open") then

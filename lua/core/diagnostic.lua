@@ -65,9 +65,9 @@ diagnostic.setup = function()
     },
   })
 
-  vim.keymap.set("n", "]d", [[<Cmd>lua vim.diagnostic.goto_next()<CR>]], { silent = true })
-  vim.keymap.set("n", "[d", [[<Cmd>lua vim.diagnostic.goto_prev()<CR>]], { silent = true })
-  vim.keymap.set("n", "go", [[<Cmd>lua vim.diagnostic.open_float()<CR>]], { silent = true })
+  vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, { silent = true })
+  vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, { silent = true })
+  vim.keymap.set("n", "go", function() vim.diagnostic.open_float() end, { silent = true })
   vim.keymap.set("n", "yoo", diagnostic.toggle, { desc = "Diagnostic - Toggle" })
   vim.keymap.set("n", "yoO", diagnostic.toggle_virtual_lines, { desc = "Diagnostic - Toggle virtual_lines" })
 end

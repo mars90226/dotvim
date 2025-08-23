@@ -266,25 +266,33 @@ my_fzf_lua.setup_mapping = function()
   vim.keymap.set(
     "i",
     [[<C-Z><C-D>]],
-    [[<Cmd>lua require("fzf-lua").complete_path()<CR>]],
+    function()
+      require("fzf-lua").complete_path()
+    end,
     { desc = "FzfLua complete_path" }
   )
   vim.keymap.set(
     "i",
     [[<C-Z><C-F>]],
-    [[<Cmd>lua require("fzf-lua").complete_file()<CR>]],
+    function()
+      require("fzf-lua").complete_file()
+    end,
     { desc = "FzfLua complete_file" }
   )
   vim.keymap.set(
     "i",
     [[<C-Z><C-L>]],
-    [[<Cmd>lua require("fzf-lua").complete_bline()<CR>]],
+    function()
+      require("fzf-lua").complete_bline()
+    end,
     { desc = "FzfLua complete_bline" }
   )
   vim.keymap.set(
     "i",
     [[<C-Z><M-l>]],
-    [[<Cmd>lua require("fzf-lua").complete_line()<CR>]],
+    function()
+      require("fzf-lua").complete_line()
+    end,
     { desc = "FzfLua complete_line" }
   )
 

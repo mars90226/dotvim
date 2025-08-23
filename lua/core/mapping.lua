@@ -596,7 +596,7 @@ mapping.setup_mapping = function()
   vim.keymap.set("n", "<M-d>h", [[:diffthis<CR>:wincmd l<CR>:diffthis<CR>:2wincmd h<CR>:diffthis<CR>]])
   vim.keymap.set("n", "<M-d>v", [[:diffthis<CR>:wincmd j<CR>:diffthis<CR>:2wincmd k<CR>:diffthis<CR>]])
   if choose.is_enabled_plugin("vim-floaterm") then
-    vim.keymap.set("n", "<M-d>f", [[<Cmd>lua require('vimrc.diff').diff_in_delta()<CR>]])
+    vim.keymap.set("n", "<M-d>f", function() require('vimrc.diff').diff_in_delta() end)
   end
 
   -- Sort

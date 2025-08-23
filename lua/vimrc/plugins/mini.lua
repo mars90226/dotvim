@@ -90,7 +90,7 @@ mini.setup_mapping = function()
   local mini_pick_lsp_prefix = "<Space>ml"
 
   -- mini.files
-  vim.keymap.set("n", mini_prefix .. "f", [[<Cmd>lua MiniFiles.open()<CR>]])
+  vim.keymap.set("n", mini_prefix .. "f", function() MiniFiles.open() end)
 
   -- mini.pick
   vim.keymap.set("n", mini_pick_prefix .. "b", [[<Cmd>Pick buffers<CR>]])

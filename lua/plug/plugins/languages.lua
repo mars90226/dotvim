@@ -471,8 +471,8 @@ local languages = {
   {
     "mars90226/cscope_macros.vim",
     keys = {
-      { "<F11>", [[<Cmd>lua require("vimrc.cscope").generate_files()<CR>]], desc = "Generate cscope files" },
-      { "<Space><F11>", [[<Cmd>lua require("vimrc.cscope").reload()<CR>]], desc = "Reload cscope files" },
+      { "<F11>", function() require("vimrc.cscope").generate_files() end, desc = "Generate cscope files" },
+      { "<Space><F11>", function() require("vimrc.cscope").reload() end, desc = "Reload cscope files" },
     },
   },
 

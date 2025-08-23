@@ -543,7 +543,9 @@ local file_navigation = {
       {
         "<Space>gw",
         mode = { "v" },
-        [[<Cmd>lua require('grug-far').with_visual_selection({})<CR>]],
+        function()
+          require('grug-far').with_visual_selection({})
+        end,
         desc = "grug-far - search current word",
       },
       {

@@ -71,8 +71,8 @@ syntax_tree_surfer.setup = function()
   )
 
   -- filtered jump
-  vim.keymap.set("n", "<M-s>n", [[<Cmd>lua require("syntax-tree-surfer").filtered_jump("default", true)<CR>]], { silent = true, desc = "STS filtered jump forward" })
-  vim.keymap.set("n", "<M-s>p", [[<Cmd>lua require("syntax-tree-surfer").filtered_jump("default", false)<CR>]], { silent = true, desc = "STS filtered jump backward" })
+  vim.keymap.set("n", "<M-s>n", function() require("syntax-tree-surfer").filtered_jump("default", true) end, { silent = true, desc = "STS filtered jump forward" })
+  vim.keymap.set("n", "<M-s>p", function() require("syntax-tree-surfer").filtered_jump("default", false) end, { silent = true, desc = "STS filtered jump backward" })
 
   -- TODO: Add more jump
 end
