@@ -38,6 +38,9 @@ basic.setup_python_host = function()
 
       -- Detect uv
       -- NOTE: Need to monitor if this breaks
+      -- This Neovim PR add detection for pynvim-python added in pynvim 0.6.0 and recommend using uv
+      -- for python virtual environment.
+      -- Ref: https://github.com/neovim/neovim/pull/35273
       if plugin_utils.is_executable("uv") then
         local result = vim.system({"uv", "python", "find", "python"}):wait()
         if result and result.code == 0 then
