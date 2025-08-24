@@ -481,6 +481,15 @@ oil.setup_config = function()
         desc = "Goto bookmark",
       },
 
+      -- Change Directory
+      ["cv"] = {
+        callback = function()
+          local dir = vim.fn.input("Change directory to: ", "", "dir")
+          origin_oil.open(dir)
+        end,
+        desc = "Change directory to",
+      },
+
       -- Change current working directory to project root from current directory
       ["<Leader>pr"] = {
         callback = function()
