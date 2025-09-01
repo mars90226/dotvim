@@ -73,7 +73,8 @@ gruvbox.custom_overrides = function()
     OpaqueComment = { fg = palette.gray, bg = palette.dark0, italic = gruvbox.config.italic.comments },
     -- NOTE: Set background to nil. The 'cursorline' still has visual indication in line number
     -- column.
-    CursorLine = { bg = nil },
+    -- NOTE: Don't set CursorLine background to nil, it will cause issue with Snacks picker
+    -- CursorLine = { bg = nil },
     -- NOTE: Although `reverse` works, but it show the background color when switching to a new tab. So disabled it.
     StatusLine = { fg = palette.dark2, bg = nil, reverse = false },
     StatusLineNC = { fg = palette.dark1, bg = nil, reverse = false },
