@@ -45,6 +45,8 @@ local languages = {
   {
     "nvim-treesitter/nvim-treesitter",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
+    -- NOTE: markview.nvim need to be loaded before nvim-treesitter
+    dependencies = { "OXY2DEV/markview.nvim" },
     build = ":TSUpdate",
     event = { "VeryLazy" },
     config = function()
@@ -492,13 +494,9 @@ local languages = {
   {
     "OXY2DEV/markview.nvim",
     cond = choose.is_enabled_plugin("markview.nvim"),
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
-    },
+    -- NOTE: Do not lazy load as per README
+    lazy = false,
     -- TODO: Disabled Markview on huge file
-    ft = markdown_filetypes,
-    cmd = { "Markview" },
     keys = {
       { "coh", "<Cmd>Markview<CR>", mode = { "n" }, desc = "Render markdown" },
     },
