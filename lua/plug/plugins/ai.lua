@@ -287,6 +287,31 @@ local ai = {
           local github_model = require("vimrc.plugins.codecompanion").get_github_model()
           return require("codecompanion.adapters").extend("githubmodels", github_model)
         end,
+        acp = {
+          gemini_cli = function()
+            return require("codecompanion.adapters").extend("gemini_cli", {
+              commands = {
+                flash = {
+                  "gemini",
+                  "--experimental-acp",
+                  "-m",
+                  "gemini-2.5-flash",
+                },
+                pro = {
+                  "gemini",
+                  "--experimental-acp",
+                  "-m",
+                  "gemini-2.5-pro",
+                },
+              },
+              defaults = {
+                -- auth_method = "gemini-api-key", -- "oauth-personal" | "gemini-api-key" | "vertex-ai"
+                auth_method = "oauth-personal",
+                -- auth_method = "vertex-ai",
+              },
+            })
+          end,
+        }
       },
       strategies = {
         chat = {
