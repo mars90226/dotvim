@@ -10,6 +10,18 @@ dap.adapters = {
     condition = check.has_linux_build_env(),
   },
   python = {},
+  js = {
+    condition = not check.is_resource_limited(),
+  },
+  ["pwa-node"] = {
+    condition = not check.is_resource_limited(),
+  },
+  ["pwa-chrome"] = {
+    condition = not check.is_resource_limited(),
+  },
+  ["pwa-msedge"] = {
+    condition = not check.is_resource_limited(),
+  },
 }
 dap.filetypes = nil
 
@@ -31,6 +43,7 @@ local mason_nvim_dap_mappings_filetype = {
   ["php"] = { "php" },
   ["python"] = { "python" },
   ["haskell"] = { "haskell" },
+  ["js"] = { "javascriptreact", "typescriptreact", "typescript", "javascript" },
 }
 
 dap.is_supported_adapter = function(adapter)
