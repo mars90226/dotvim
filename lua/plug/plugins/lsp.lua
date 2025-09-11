@@ -158,8 +158,15 @@ local lsp = {
     opts = {},
     keys = {
       { "<Space>pd", function() require("overlook.api").peek_definition() end, desc = "Overlook: Peek definition" },
-      { "<Space>pc", function() require("overlook.api").close_all() end,       desc = "Overlook: Close all popup" },
-      { "<Space>pu", function() require("overlook.api").restore_popup() end,   desc = "Overlook: Restore popup" },
+      { "<Space>pp", function() require("overlook.api").peek_cursor() end, desc = "Overlook: Peek cursor" },
+      { "<Space>pu", function() require("overlook.api").restore_popup() end, desc = "Overlook: Restore last popup" },
+      { "<Space>pU", function() require("overlook.api").restore_all_popups() end, desc = "Overlook: Restore all popups" },
+      { "<Space>pc", function() require("overlook.api").close_all() end, desc = "Overlook: Close all popups" },
+      { "<Space>pf", function() require("overlook.api").switch_focus() end, desc = "Overlook: Switch focus" },
+      { "<Space>ps", function() require("overlook.api").open_in_split() end, desc = "Overlook: Open popup in split" },
+      { "<Space>pv", function() require("overlook.api").open_in_vsplit() end, desc = "Overlook: Open popup in vsplit" },
+      { "<Space>pt", function() require("overlook.api").open_in_tab() end, desc = "Overlook: Open popup in tab" },
+      { "<Space>po", function() require("overlook.api").open_in_original_window() end, desc = "Overlook: Open popup in current window" },
     },
   },
 
