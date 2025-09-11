@@ -570,6 +570,50 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
     end,
   },
 
+  -- Agents
+  {
+    'NickvanDyke/opencode.nvim',
+    dependencies = {
+      -- Recommended for better prompt input, and required to use `opencode.nvim`'s embedded terminal — otherwise optional
+      { 'folke/snacks.nvim', opts = { input = { enabled = true } } },
+    },
+    keys = {
+      { '<Leader>o`', function() require('opencode').toggle() end,                                  desc = 'Toggle opencode' },
+      { '<Leader>oA', function() require('opencode').ask() end,                                     desc = 'Ask opencode' },
+      { '<Leader>oa', function() require('opencode').ask('@cursor: ') end,                          desc = 'Ask opencode about this' },
+      { '<Leader>oa', function() require('opencode').ask('@selection: ') end,                       desc = 'Ask opencode about selection', mode = 'v' },
+      { '<Leader>on', function() require('opencode').command('session_new') end,                    desc = 'New opencode session' },
+      { '<Leader>oy', function() require('opencode').command('messages_copy') end,                  desc = 'Copy last opencode response' },
+      { '<M-C-U>',    function() require('opencode').command('messages_half_page_up') end,          desc = 'Messages half page up' },
+      { '<M-C-D>',    function() require('opencode').command('messages_half_page_down') end,        desc = 'Messages half page down' },
+      { '<Leader>op', function() require('opencode').select() end,                                  desc = 'Select opencode prompt',       mode = { 'n', 'v' } },
+
+      {
+        '<Leader>o;',
+        function()
+          require("opencode.input").input('app_help', function(value)
+            if value and value ~= "" then
+              require('opencode').command(value)
+            end
+          end)
+        end,
+        desc = 'Run opencode command'
+      },
+
+      -- Custom prompts
+      { '<leader>oe', function() require('opencode').prompt('Explain @cursor and its context') end, desc = 'Explain this code' }
+
+    },
+    config = function()
+      vim.g.opencode_opts = {
+        -- Your configuration, if any — see `lua/opencode/config.lua`
+      }
+
+      -- Required for `opts.auto_reload`
+      vim.opt.autoread = true
+    end,
+  },
+
   -- MCP
   {
     "ravitemer/mcphub.nvim",
