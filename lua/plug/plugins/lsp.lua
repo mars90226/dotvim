@@ -144,6 +144,7 @@ local lsp = {
     end,
   },
 
+  -- Goto Definitions
   {
     "rmagatti/goto-preview",
     event = { "LspAttach" },
@@ -151,7 +152,18 @@ local lsp = {
       require("goto-preview").setup({})
     end,
   },
+  {
+    "WilliamHsieh/overlook.nvim",
+    event = { "LspAttach" },
+    opts = {},
+    keys = {
+      { "<Space>pd", function() require("overlook.api").peek_definition() end, desc = "Overlook: Peek definition" },
+      { "<Space>pc", function() require("overlook.api").close_all() end,       desc = "Overlook: Close all popup" },
+      { "<Space>pu", function() require("overlook.api").restore_popup() end,   desc = "Overlook: Restore popup" },
+    },
+  },
 
+  -- Progress
   {
     "j-hui/fidget.nvim",
     event = { "LspAttach" },
@@ -164,7 +176,7 @@ local lsp = {
     },
   },
 
-  -- Goto Definitions
+  -- Outline
   {
     "hedyhli/outline.nvim",
     dependencies = {
