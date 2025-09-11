@@ -19,7 +19,7 @@ local file_navigation = {
     event = { "FocusLost", "CursorHold", "CursorHoldI" },
     keys = {
       {
-        "<Space>pp",
+        "<Space>py",
         mode = { "n", "x" },
         function()
           Snacks.picker.yanky()
