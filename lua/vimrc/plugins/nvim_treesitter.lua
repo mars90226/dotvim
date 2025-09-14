@@ -10,11 +10,6 @@ local parsers = require("nvim-treesitter.parsers")
 
 local nvim_treesitter = {}
 
-nvim_treesitter.enable_config = {
-  highlight_definitions = false,
-  highlight_current_scope = false,
-}
-
 nvim_treesitter.filetype_disable = {
   diff = true, -- NOTE: tree-sitter-diff doesn't support `git format-patch` diffs
 }
@@ -116,6 +111,8 @@ end
 
 nvim_treesitter.setup_parser_config = function()
   local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+  ---@cast parser_configs table<string, any>
+  --- NOTE: Suppress lua-language-server warning
 
   parser_configs.norg = {
     install_info = {
@@ -417,7 +414,6 @@ nvim_treesitter.setup_performance_trick = function()
     "context_commentstring",
     "matchup",
   })
-  local tab_idle_disabled_modules = global_idle_disabled_modules
 
   ---Run callback on treesitter supported window to avoid highlight missing
   ---@param supported_winids table<number> window ids that will run treesitter command
