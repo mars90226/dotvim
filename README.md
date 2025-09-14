@@ -105,6 +105,14 @@ git clone https://github.com/mars90226/dotvim ~/.config/nvim
 
 Open neovim and wait for `lazy.nvim` to finish the job.
 
+## Development
+
+Helper commands are defined in the [`justfile`](justfile).
+Make sure [`just`](https://github.com/casey/just) is installed.
+
+- `just test` runs the Lua test suite with [`busted`](https://olivinelabs.com/busted/).
+- `just update_plugins` commits updated plugin lock files.
+
 ## Key mappings
 
 `<Leader>` key is `,`.
