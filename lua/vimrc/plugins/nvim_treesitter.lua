@@ -19,17 +19,6 @@ nvim_treesitter.filetype_disable = {
   diff = true, -- NOTE: tree-sitter-diff doesn't support `git format-patch` diffs
 }
 
--- TODO: Remove this when nvim 0.11.0 is released
-nvim_treesitter.line_threshold = {
-  base = {
-    cpp = 30000,
-    javascript = 30000,
-    perl = 10000,
-  },
-}
-
-local support_async_parsing = vim.fn.has("nvim-0.11") == 1
-
 -- Force disable
 local force_disable_var = "nvim_treesitter_force_disable"
 local get_force_disable = function(bufnr)
@@ -49,20 +38,7 @@ local disable_check = function(lang, bufnr)
     return true
   end
 
-  -- NOTE: nvim 0.11 support async parsing. No need to disable highlight for large files.
-  if support_async_parsing then
-    return false
-  end
-
-  local line_count = vim.api.nvim_buf_line_count(bufnr or 0)
-  local line_threshold_map = vim.F.if_nil(nvim_treesitter.line_threshold[type], {})
-  local line_threshold = line_threshold_map[lang]
-
-  if line_threshold ~= nil and line_count > line_threshold then
-    return true
-  else
-    return false
-  end
+  return false
 end
 
 -- Disable check for highlight module

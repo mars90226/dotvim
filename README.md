@@ -79,7 +79,7 @@ Well, these plugins are hard to categorize, but they are gems. You will need the
 
 ### Neovim
 
-- [neovim](https://neovim.io/) 0.10.1+ (stable)
+- [neovim](https://neovim.io/) 0.11.4+ (stable), 0.12.0+ (nightly)
 - [python](https://www.python.org/) 3.6.1+ (required by defx.nvim), 3.7.0 (required pynvim 0.5.0)
   - Currently, pynvim 0.5.0 need Python 3.9: https://github.com/neovim/pynvim/issues/560
 - [universal-ctags](https://github.com/universal-ctags/ctags) (required by fzf)
