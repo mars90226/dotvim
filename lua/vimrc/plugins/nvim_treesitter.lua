@@ -344,7 +344,7 @@ nvim_treesitter.setup_config = function()
       enable = true,
     },
     matchup = {
-      enable = current_buffer_base_highlight_disable_check(), -- mandatory, false will disable the whole extension
+      enable = not current_buffer_base_highlight_disable_check(), -- enable unless our disable check says otherwise
       -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
     },
     yati = {
@@ -356,7 +356,7 @@ end
 nvim_treesitter.setup_extensions = function()
   -- nvim-treesitter-context
   local context_default_enable = choose.is_enabled_plugin("nvim-treesitter-context")
-  local context_enable = utils.ternary(context_default_enable, current_buffer_base_highlight_disable_check(), false)
+  local context_enable = utils.ternary(context_default_enable, not current_buffer_base_highlight_disable_check(), false)
   require("treesitter-context").setup({
     enable = context_enable, -- Enable this plugin (Can be enabled/disabled later via commands)
   })
