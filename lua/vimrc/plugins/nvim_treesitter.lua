@@ -470,16 +470,6 @@ nvim_treesitter.setup_performance_trick = function()
     local supported_winids = nvim_treesitter.list_supported_winids()
     run_callback_on_supported_win(supported_winids, callback)
   end
-  ---Run callback on each supported window in current tab to avoid highlight missing
-  ---@param callback fun(winid: number): nil callback to run
-  local tab_loop_supported_wins = function(callback)
-    local supported_winids = nvim_treesitter.tab_get_supported_winids(0)
-    run_callback_on_supported_win(supported_winids, function()
-      for _, supported_winid in ipairs(supported_winids) do
-        callback(supported_winid)
-      end
-    end)
-  end
 
   local global_trick_delay_enable = false
   local global_trick_delay = 60 * 1000 -- 60 seconds
@@ -527,59 +517,6 @@ nvim_treesitter.setup_performance_trick = function()
       end, global_trick_delay)
     end,
   })
-
-  -- NOTE: Disabled performance trick for TabEnter/WinBufEnter/TabLeave for now. Due to the following reasons:
-  -- 1. Treesitter highlight is faster now.
-  -- 2. Disabled it also benefits the performance on tab switch.
-
-  -- local tab_trick_enable = {}
-  -- local tab_trick_debounce = 200
-  -- -- FIXME: Seems to conflict with true-zen.nvim
-  -- vim.api.nvim_create_autocmd({ "TabEnter" }, {
-  --   group = augroup_id,
-  --   pattern = "*",
-  --   callback = function()
-  --     tab_trick_enable[vim.api.nvim_get_current_tabpage()] = true
-  --
-  --     vim.defer_fn(function()
-  --       if tab_trick_enable then
-  --         tab_loop_supported_wins(function(winid)
-  --           for _, module in ipairs(tab_idle_disabled_modules) do
-  --             configs_commands.TSBufEnable.run(module, vim.api.nvim_win_get_buf(winid))
-  --           end
-  --         end)
-  --
-  --         tab_trick_enable[vim.api.nvim_get_current_tabpage()] = false
-  --       end
-  --     end, tab_trick_debounce)
-  --   end,
-  -- })
-  --
-  -- vim.api.nvim_create_autocmd({ "TabLeave" }, {
-  --   group = augroup_id,
-  --   pattern = "*",
-  --   callback = function()
-  --     tab_trick_enable[vim.api.nvim_get_current_tabpage()] = false
-  --
-  --     tab_loop_supported_wins(function(winid)
-  --       for _, module in ipairs(tab_idle_disabled_modules) do
-  --         configs_commands.TSBufDisable.run(module, vim.api.nvim_win_get_buf(winid))
-  --       end
-  --     end)
-  --   end,
-  -- })
-  -- -- NOTE: Open buffer in other tab doesn't have highlight, enable highlight on BufWinEnter
-  -- vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-  --   group = augroup_id,
-  --   pattern = "*",
-  --   callback = function()
-  --     if nvim_treesitter.win_is_supported() then
-  --       for _, module in ipairs(tab_idle_disabled_modules) do
-  --         configs_commands.TSBufEnable.run(module, vim.api.nvim_get_current_buf())
-  --       end
-  --     end
-  --   end,
-  -- })
 end
 
 nvim_treesitter.setup_mapping = function()
