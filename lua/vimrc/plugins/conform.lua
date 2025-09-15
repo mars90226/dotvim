@@ -30,6 +30,9 @@ conform.setup_config = function()
       sql = {
         "sqlfluff",
       },
+      toml = {
+        "taplo",
+      },
     },
   }
 
