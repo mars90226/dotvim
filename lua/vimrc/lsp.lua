@@ -419,10 +419,10 @@ lsp.on_attach = function(client, bufnr)
   end
 
   if vim.b.disable_inlay_hints ~= true then
-    -- NOTE: Enable inlay hints
     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
   end
   vim.lsp.document_color.enable(true, bufnr)
+  vim.lsp.on_type_formatting.enable(true)
 
   vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
   vim.bo.tagfunc = [[v:lua.vim.lsp.tagfunc]]
@@ -482,10 +482,15 @@ lsp.calculate_server_opts = function(server, custom_opts)
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = vim.tbl_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-  -- nvim-ufo support foldingRange
+  -- nvim-ufo support textDocument.foldingRange
   capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
     lineFoldingOnly = true,
+  }
+
+  -- neovim 0.12 support textDocument.onTypeFormatting
+  capabilities.textDocument.onTypeFormatting = {
+    dynamicRegistration = false,
   }
 
   if choose.is_disabled_plugin("nvim-lsp-workspace-didChangeWatchedFiles") then
