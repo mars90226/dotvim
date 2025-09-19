@@ -270,6 +270,12 @@ my_snacks.setup = function(opts)
     vim.wo.signcolumn = "no"
     vim.cmd([[silent! BlockOff]])
   end, {})
+  -- HACK: Fix snacks picker preview cursor highlight that broken CursorLine 
+  vim.api.nvim_create_user_command("FixSnacksPickerPreviewCursorLineHighlight", function()
+    -- NOTE: Snacks Picker use 'winhighlight' to set 'CursorLine' to 'SnacksPickerPreviewCursorLine'
+    -- and many other highlights. This will clear those highlight links.
+    vim.opt.winhighlight = "ColorColumn:"
+  end, {})
 end
 
 return my_snacks
