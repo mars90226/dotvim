@@ -5,6 +5,14 @@ local ai = {
   {
     "zbirenbaum/copilot.lua",
     cond = choose.is_enabled_plugin("copilot.lua"),
+    dependencies = {
+      {
+        "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
+        init = function()
+          vim.g.copilot_nes_debounce = 500
+        end,
+      },
+    },
     cmd = { "Copilot" },
     event = { "InsertEnter" },
     keys = {
@@ -29,6 +37,15 @@ local ai = {
             accept_line = "<C-Down>",
             next = "<M-j>",
             prev = "<M-k>",
+          },
+        },
+        nes = {
+          enabled = true, -- requires copilot-lsp as a dependency
+          auto_trigger = true,
+          keymap = {
+            accept_and_goto = "<Space>n",
+            accept = false,
+            dismiss = "<Esc>",
           },
         },
         -- NOTE: copilot.lua only enable for 'buflisted' buffer, so use `:set buflisted` to enable
