@@ -43,14 +43,6 @@ my_copilot.models = {
     model = "gemini-2.5-pro",
     max_tokens = 128000,
   },
-  ["claude-3.7-sonnet"] = {
-    model = "claude-3.7-sonnet",
-    max_tokens = 90000,
-  },
-  ["claude-3.7-sonnet-thought"] = {
-    model = "claude-3.7-sonnet-thought",
-    max_tokens = 90000,
-  },
   ["claude-sonnet-4"] = {
     model = "claude-sonnet-4",
     max_tokens = 128000,
@@ -58,16 +50,6 @@ my_copilot.models = {
   ["claude-sonnet-4.5"] = {
     model = "claude-sonnet-4.5",
     max_tokens = 128000,
-  },
-  ["o4-mini"] = {
-    model = "o4-mini",
-    max_tokens = 128000,
-    reasoning_effort = "medium",
-  },
-  ["o4-mini-high"] = {
-    model = "o4-mini",
-    max_tokens = 128000,
-    reasoning_effort = "high",
   },
 }
 my_copilot.github_models = vim.tbl_extend("force", my_copilot.models, {})
