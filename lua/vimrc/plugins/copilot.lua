@@ -6,8 +6,10 @@ my_copilot.attach_filters = {}
 
 
 -- TODO: Try "claude-sonnet-4.5"
-my_copilot.default_model = "gpt-5-codex"
-my_copilot.default_github_model = "gpt-5-codex"
+-- TODO: codecompanion.nvim & CopilotChat.nvim uses chat/completions endpoint that's not supported by "gpt-5-codex"
+-- Ref: https://github.com/CopilotC-Nvim/CopilotChat.nvim/issues/1442
+my_copilot.default_model = "gpt-5"
+my_copilot.default_github_model = "gpt-5"
 
 -- NOTE: Use the model info from Copilot using CopilotChat.nvim
 my_copilot.models = {
