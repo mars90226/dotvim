@@ -141,6 +141,12 @@ plugin_choose.setup_ai = function()
     choose.disable_plugin("codecompanion.nvim")
   end
 
+  -- Choose Agents
+  -- opencode.nvim
+  if not plugin_utils.is_executable("opencode") then
+    choose.disable_plugin("opencode.nvim")
+  end
+
   -- Choose MCP
   -- mcphub.nvim
   if choose.is_disabled_plugin("copilot.lua") then
