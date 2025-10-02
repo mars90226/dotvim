@@ -6,10 +6,6 @@
   "contributes": {
     "snippets": [
       {
-        "language": "AvanteInput",
-        "path": "./snippets/ai_chat.json"
-      },
-      {
         "language": "codecompanion",
         "path": "./snippets/ai_chat.json"
       },

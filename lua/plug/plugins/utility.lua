@@ -697,7 +697,7 @@ local utility = {
       },
     },
     keys = {
-      { "<Leader>pi", "<Cmd>PasteImage<CR>", desc = "Paste image from system clipboard" },
+      { "<Space>pi", "<Cmd>PasteImage<CR>", desc = "Paste image from system clipboard" },
     },
   },
 

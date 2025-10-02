@@ -5,7 +5,6 @@ local markdown_filetypes = vim.tbl_filter(function(component)
   return component ~= nil
 end, {
   "markdown",
-  plugin_utils.check_enabled_plugin("Avante", "avante.nvim"),
   plugin_utils.check_enabled_plugin("codecompanion", "codecompanion.nvim"),
 })
 

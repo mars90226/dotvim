@@ -77,7 +77,7 @@ my_copilot.add_attach_filter = function(filter)
 end
 
 my_copilot.setup_command = function()
-  -- Force enable Copilot on non-'buflisted' special buffers like AvanteInput, copilot-chat, codecompanion etc.
+  -- Force enable Copilot on non-'buflisted' special buffers like copilot-chat, codecompanion etc.
   vim.api.nvim_create_user_command("CopilotForceEnable", function()
     my_copilot.attach()
   end, {})
