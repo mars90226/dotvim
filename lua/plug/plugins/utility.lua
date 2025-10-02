@@ -669,7 +669,7 @@ local utility = {
     cond = not utils.is_light_vim_mode(),
   },
 
-  -- -- Image
+  -- Image
   -- -- TODO: Disabled as currently only don't show image but has the space.
   -- -- Tried: In tmux & outside of tmux in wezterm.
   -- -- Related issue: https://github.com/3rd/image.nvim/issues/99
@@ -680,6 +680,26 @@ local utility = {
   --     require("image").setup({})
   --   end,
   -- },
+  {
+    -- support for image pasting
+    "HakonHarnes/img-clip.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- recommended settings
+      default = {
+        embed_image_as_base64 = false,
+        prompt_for_file_name = false,
+        drag_and_drop = {
+          insert_mode = true,
+        },
+        -- required for Windows users
+        use_absolute_path = true,
+      },
+    },
+    keys = {
+      { "<Leader>pi", "<Cmd>PasteImage<CR>", desc = "Paste image from system clipboard" },
+    },
+  },
 
   -- Do not lazy load vim-scriptease, as it breaks :Breakadd/:Breakdel
   -- TODO: Check if lazy load works
