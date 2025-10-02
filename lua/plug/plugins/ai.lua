@@ -570,6 +570,60 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
       vim.opt.autoread = true
     end,
   },
+  -- TODO: Enable NES
+  {
+    "folke/sidekick.nvim",
+    cond = choose.is_enabled_plugin("sidekick.nvim"),
+    opts = {
+      -- add any options here
+      cli = {
+        mux = {
+          backend = "tmux",
+          enabled = true,
+        },
+      },
+    },
+    -- stylua: ignore
+    keys = {
+      {
+        "<Leader>aa",
+        function() require("sidekick.cli").toggle() end,
+        mode = { "n", "v" },
+        desc = "Sidekick Toggle CLI",
+      },
+      {
+        "<Leader>as",
+        function() require("sidekick.cli").select() end,
+        -- Or to select only installed tools:
+        -- require("sidekick.cli").select({ filter = { installed = true } })
+        desc = "Sidekick Select CLI",
+      },
+      {
+        "<Leader>as",
+        function() require("sidekick.cli").send({ selection = true }) end,
+        mode = { "v" },
+        desc = "Sidekick Send Visual Selection",
+      },
+      {
+        "<Leader>ap",
+        function() require("sidekick.cli").prompt() end,
+        mode = { "n", "v" },
+        desc = "Sidekick Select Prompt",
+      },
+      {
+        "<M->>", -- <M-S-.>
+        function() require("sidekick.cli").focus() end,
+        mode = { "n", "x", "i", "t" },
+        desc = "Sidekick Switch Focus",
+      },
+      {
+        "<Leader>ac",
+        function() require("sidekick.cli").toggle({ name = "codex", focus = true }) end,
+        desc = "Sidekick Codex Toggle",
+        mode = { "n", "v" },
+      },
+    },
+  },
 
   -- MCP
   {

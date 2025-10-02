@@ -44,7 +44,26 @@ lualine.default_option = {
       plugin_utils.check_condition("diff", not check.is_resource_limited()),
       { "diagnostics", sources = { "nvim_diagnostic" } },
     }),
-    lualine_c = { { "filename", path = 1 } },
+    lualine_c = vim.tbl_filter(function(component)
+      return component ~= nil
+    end, {
+      { "filename", path = 1 },
+      plugin_utils.check_enabled_plugin({
+        function()
+          return " "
+        end,
+        color = function()
+          local status = require("sidekick.status").get()
+          if status then
+            return status.kind == "Error" and "DiagnosticError" or status.busy and "DiagnosticWarn" or "Special"
+          end
+        end,
+        cond = function()
+          local status = require("sidekick.status")
+          return status.get() ~= nil
+        end,
+      }, "sidekick.nvim"),
+    }),
     lualine_x = { "encoding", "fileformat", "filetype" },
     lualine_y = { "progress" },
     lualine_z = { "location" },

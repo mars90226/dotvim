@@ -141,9 +141,12 @@ plugin_choose.setup_ai = function()
   end
 
   -- Choose Agents
-  -- opencode.nvim
+  -- opencode.nvim, sidekick.nvim
   if not plugin_utils.is_executable("opencode") then
     choose.disable_plugin("opencode.nvim")
+  end
+  if check.is_resource_limited() then
+    choose.disable_plugin("sidekick.nvim")
   end
 
   -- Choose MCP
