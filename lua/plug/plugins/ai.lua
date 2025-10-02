@@ -575,8 +575,10 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
     "folke/sidekick.nvim",
     cond = choose.is_enabled_plugin("sidekick.nvim"),
     opts = {
-      -- add any options here
       cli = {
+        tools = {
+          codex_resume = { cmd = { "codex", "resume", "--search" }, url = "https://github.com/openai/codex" },
+        },
         mux = {
           backend = "tmux",
           enabled = true,
@@ -620,6 +622,12 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         "<Leader>ac",
         function() require("sidekick.cli").toggle({ name = "codex", focus = true }) end,
         desc = "Sidekick Codex Toggle",
+        mode = { "n", "v" },
+      },
+      {
+        "<Leader>ar",
+        function() require("sidekick.cli").toggle({ name = "codex_resume", focus = true }) end,
+        desc = "Sidekick Codex Resume Toggle",
         mode = { "n", "v" },
       },
     },
