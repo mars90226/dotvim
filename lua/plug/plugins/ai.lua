@@ -601,9 +601,15 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         desc = "Sidekick Select CLI",
       },
       {
-        "<Leader>as",
-        function() require("sidekick.cli").send({ selection = true }) end,
-        mode = { "v" },
+        "<Leader>at",
+        function() require("sidekick.cli").send({ msg = "{this}" }) end,
+        mode = { "x", "n" },
+        desc = "Sidekick Send This",
+      },
+      {
+        "<Leader>av",
+        function() require("sidekick.cli").send({ msg = "{selection}" }) end,
+        mode = { "x" },
         desc = "Sidekick Send Visual Selection",
       },
       {
