@@ -578,6 +578,8 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
       cli = {
         tools = {
           codex_resume = { cmd = { "codex", "resume", "--search" }, url = "https://github.com/openai/codex" },
+          just_every_code = { cmd = { "coder" }, url = "https://github.com/just-every/code" },
+          just_every_code_resume = { cmd = { "coder", "resume" }, url = "https://github.com/just-every/code" },
         },
         mux = {
           backend = "tmux",
