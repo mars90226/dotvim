@@ -221,10 +221,7 @@ plugin_choose.setup_language = function()
   -- nvim-lint
 
   -- Choose Markdown render plugin
-  -- markview.nvim, render-markdown.nvim
-  choose.disable_plugins({ "markview.nvim", "render-markdown.nvim" })
-  choose.enable_plugin("markview.nvim")
-  -- choose.enable_plugin("render-markdown.nvim")
+  -- markview.nvim
 
   -- Choose markdown-preview plugin
   -- markdown-preview.nvim

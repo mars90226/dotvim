@@ -479,18 +479,6 @@ local languages = {
 
   -- Markdown render
   {
-    "MeanderingProgrammer/render-markdown.nvim",
-    cond = choose.is_enabled_plugin("render-markdown.nvim"),
-    ft = markdown_filetypes,
-    cmd = { "RenderMarkdownToggle" },
-    keys = {
-      { "coh", "<Cmd>RenderMarkdownToggle<CR>", mode = { "n" }, desc = "Render markdown" },
-    },
-    opts = {
-      filetypes = markdown_filetypes,
-    },
-  },
-  {
     "OXY2DEV/markview.nvim",
     cond = choose.is_enabled_plugin("markview.nvim"),
     -- NOTE: Do not lazy load as per README

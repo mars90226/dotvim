@@ -291,8 +291,8 @@ local ai = {
       },
       display = {
         chat = {
-          -- TODO: Use render-markdown.nvim to render markdown in the chat buffer
-          render_headers = false,
+          -- NOTE: We use markview.nvim to render markdown in the chat buffer
+          show_header_separator = false,
           -- NOTE: Set show_settings = false to allow changing adapter
         },
       },
@@ -576,14 +576,19 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
     cond = choose.is_enabled_plugin("sidekick.nvim"),
     opts = {
       cli = {
-        tools = {
-          codex_resume = { cmd = { "codex", "resume", "--search" }, url = "https://github.com/openai/codex" },
-          just_every_code = { cmd = { "coder" }, url = "https://github.com/just-every/code" },
-          just_every_code_resume = { cmd = { "coder", "resume" }, url = "https://github.com/just-every/code" },
+        win = {
+          split = {
+            width = 100,
+          }
         },
         mux = {
           backend = "tmux",
           enabled = true,
+        },
+        tools = {
+          codex_resume = { cmd = { "codex", "resume", "--search" }, url = "https://github.com/openai/codex" },
+          just_every_code = { cmd = { "coder" }, url = "https://github.com/just-every/code" },
+          just_every_code_resume = { cmd = { "coder", "resume" }, url = "https://github.com/just-every/code" },
         },
       },
     },
