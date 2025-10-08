@@ -231,18 +231,20 @@ local ai = {
     },
     opts = {
       adapters = {
-        copilot = function()
-          -- NOTE: Need to use `require("codecompanion.adapters").extend()` to get `CodeCompanion.Adapter`.
-          -- But it also means we have to merge the model configs, not just override it.
-          local copilot_model = require("vimrc.plugins.codecompanion").get_copilot_model()
-          return require("codecompanion.adapters").extend("copilot", copilot_model)
-        end,
-        githubmodels = function()
-          -- NOTE: Need to use `require("codecompanion.adapters").extend()` to get `CodeCompanion.Adapter`.
-          -- But it also means we have to merge the model configs, not just override it.
-          local github_model = require("vimrc.plugins.codecompanion").get_github_model()
-          return require("codecompanion.adapters").extend("githubmodels", github_model)
-        end,
+        http = {
+          copilot = function()
+            -- NOTE: Need to use `require("codecompanion.adapters").extend()` to get `CodeCompanion.Adapter`.
+            -- But it also means we have to merge the model configs, not just override it.
+            local copilot_model = require("vimrc.plugins.codecompanion").get_copilot_model()
+            return require("codecompanion.adapters").extend("copilot", copilot_model)
+          end,
+          githubmodels = function()
+            -- NOTE: Need to use `require("codecompanion.adapters").extend()` to get `CodeCompanion.Adapter`.
+            -- But it also means we have to merge the model configs, not just override it.
+            local github_model = require("vimrc.plugins.codecompanion").get_github_model()
+            return require("codecompanion.adapters").extend("githubmodels", github_model)
+          end,
+        },
         acp = {
           gemini_cli = function()
             return require("codecompanion.adapters").extend("gemini_cli", {
