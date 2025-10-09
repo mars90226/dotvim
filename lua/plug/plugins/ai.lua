@@ -246,6 +246,13 @@ local ai = {
           end,
         },
         acp = {
+          claude_code = function()
+            return require("codecompanion.adapters").extend("claude_code", {
+              env = {
+                CLAUDE_CODE_OAUTH_TOKEN = "CLAUDE_CODE_OAUTH_TOKEN",
+              },
+            })
+          end,
           gemini_cli = function()
             return require("codecompanion.adapters").extend("gemini_cli", {
               commands = {
@@ -597,9 +604,14 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
     -- stylua: ignore
     keys = {
       {
+        "<M->>", -- <M-S-.>
+        function() require("sidekick.cli").focus() end,
+        mode = { "n", "t", "i", "x" },
+        desc = "Sidekick Toggle",
+      },
+      {
         "<Leader>aa",
         function() require("sidekick.cli").toggle() end,
-        mode = { "n", "v" },
         desc = "Sidekick Toggle CLI",
       },
       {
@@ -616,6 +628,11 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         desc = "Sidekick Send This",
       },
       {
+        "<Leader>af",
+        function() require("sidekick.cli").send({ msg = "{file}" }) end,
+        desc = "Sidekick Send File",
+      },
+      {
         "<Leader>av",
         function() require("sidekick.cli").send({ msg = "{selection}" }) end,
         mode = { "x" },
@@ -624,15 +641,10 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
       {
         "<Leader>ap",
         function() require("sidekick.cli").prompt() end,
-        mode = { "n", "v" },
+        mode = { "n", "x" },
         desc = "Sidekick Select Prompt",
       },
-      {
-        "<M->>", -- <M-S-.>
-        function() require("sidekick.cli").focus() end,
-        mode = { "n", "x", "i", "t" },
-        desc = "Sidekick Switch Focus",
-      },
+      -- Keymaps for specific tools
       {
         "<Leader>ac",
         function() require("sidekick.cli").toggle({ name = "codex", focus = true }) end,
