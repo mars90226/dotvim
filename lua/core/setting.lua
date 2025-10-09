@@ -51,6 +51,7 @@ settings.setup_options = function()
     "hiddenoff",
     "linematch:60",
     "indent-heuristic",
+    "inline:word",
   }
 
   -- window
