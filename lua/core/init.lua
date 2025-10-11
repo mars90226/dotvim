@@ -12,6 +12,7 @@ core.setup = function()
   require("core.job").setup()
   require("core.cli").setup()
   require("core.tui").setup()
+  require("core.undotree").setup()
   require("core.clipboard").setup()
 end
 
