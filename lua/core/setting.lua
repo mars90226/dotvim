@@ -61,6 +61,13 @@ settings.setup_options = function()
   --   vim.opt.winborder = "rounded"
   -- end
 
+  -- popup menu
+  -- NOTE: nvim-cmp render popup menu border by itself
+  -- So only used in ins-completion menu
+  if vim.fn.exists('+pumborder') == 1 then
+    vim.opt.pumborder = "rounded"
+  end
+
   -- completion menu
   vim.opt.pumheight = 40
   vim.opt.pumblend = 0
