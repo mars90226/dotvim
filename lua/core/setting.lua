@@ -132,8 +132,9 @@ settings.setup_options = function()
   vim.opt.splitkeep = "cursor"
 
   -- Complete
-  if plugin_utils.get_dictionary() then
-    vim.opt.dictionary = plugin_utils.get_dictionary()
+  local dictionary = plugin_utils.get_dictionary()
+  if dictionary then
+    vim.opt.dictionary = dictionary
   end
 
   -- Remove '=' from 'isfname' to complete filename in 'options'='filename' format
