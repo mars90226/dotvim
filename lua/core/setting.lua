@@ -54,8 +54,9 @@ settings.setup_options = function()
   }
 
   -- window
-  -- TODO: Disabled as too many plugins not supporting disabling winborder when it need "none".
-  -- For example: nvim-treesitter-context, telescope.nvim, floaterm.nvim, etc.
+  -- TODO: Disabled as vim-floaterm not showing terminal order
+  -- It's supported in https://github.com/voldikss/vim-floaterm/pull/449. But it only to disable the
+  -- vim-floterm window border, not using `nvim_open_win()` to create float window with title.
   -- if vim.fn.exists('+winborder') == 1 then
   --   vim.opt.winborder = "rounded"
   -- end
