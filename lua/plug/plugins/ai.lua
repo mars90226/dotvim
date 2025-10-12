@@ -16,7 +16,7 @@ local ai = {
     cmd = { "Copilot" },
     event = { "InsertEnter" },
     keys = {
-      { "<Space>c;", [[:Copilot<Space>]],         desc = "Copilot" },
+      { "<Space>c;", [[:Copilot<Space>]], desc = "Copilot" },
       { "<Space>cl", [[<Cmd>Copilot enable<CR>]], desc = "Copilot enable" },
       { "<Space>cL", [[<Cmd>CopilotForceEnable<CR>]], desc = "Copilot force enable" },
     },
@@ -93,9 +93,9 @@ local ai = {
       },
       providers = {
         github_models = {
-          disabled = false
-        }
-      }
+          disabled = false,
+        },
+      },
     },
     cmd = {
       "CopilotChat",
@@ -113,9 +113,9 @@ local ai = {
         mode = { "n", "x" },
         desc = "CopilotChat - Open in vertical split",
       },
-      { "<Space>c<C-R>", "<Cmd>CopilotChatReset<CR>",  desc = "CopilotChat - Reset chat history and clear buffer" },
-      { "<Space>c`",     "<Cmd>CopilotChatToggle<CR>", desc = "CopilotChat - Toggle" },
-      { "<Space>cs",     "<Cmd>CopilotChatStop<CR>",   desc = "CopilotChat - Stop current copilot output" },
+      { "<Space>c<C-R>", "<Cmd>CopilotChatReset<CR>", desc = "CopilotChat - Reset chat history and clear buffer" },
+      { "<Space>c`", "<Cmd>CopilotChatToggle<CR>", desc = "CopilotChat - Toggle" },
+      { "<Space>cs", "<Cmd>CopilotChatStop<CR>", desc = "CopilotChat - Stop current copilot output" },
 
       -- Telescope integration
       {
@@ -140,12 +140,12 @@ local ai = {
       },
 
       -- Default Prompts
-      { "<Space>ce", "<Cmd>CopilotChatExplain<CR>",       mode = { "n", "x" }, desc = "CopilotChat - Explain code" },
-      { "<Space>cr", "<Cmd>CopilotChatReview<CR>",        mode = { "n", "x" }, desc = "CopilotChat - Review code" },
-      { "<Space>cf", "<Cmd>CopilotChatExplain<CR>",       mode = { "n", "x" }, desc = "CopilotChat - Fix code" },
-      { "<Space>co", "<Cmd>CopilotChatOptimize<CR>",      mode = { "n", "x" }, desc = "CopilotChat - Optimize code" },
-      { "<Space>cd", "<Cmd>CopilotChatDocs<CR>",          mode = { "n", "x" }, desc = "CopilotChat - Document code" },
-      { "<Space>ct", "<Cmd>CopilotChatTests<CR>",         mode = { "n", "x" }, desc = "CopilotChat - Generate tests" },
+      { "<Space>ce", "<Cmd>CopilotChatExplain<CR>", mode = { "n", "x" }, desc = "CopilotChat - Explain code" },
+      { "<Space>cr", "<Cmd>CopilotChatReview<CR>", mode = { "n", "x" }, desc = "CopilotChat - Review code" },
+      { "<Space>cf", "<Cmd>CopilotChatExplain<CR>", mode = { "n", "x" }, desc = "CopilotChat - Fix code" },
+      { "<Space>co", "<Cmd>CopilotChatOptimize<CR>", mode = { "n", "x" }, desc = "CopilotChat - Optimize code" },
+      { "<Space>cd", "<Cmd>CopilotChatDocs<CR>", mode = { "n", "x" }, desc = "CopilotChat - Document code" },
+      { "<Space>ct", "<Cmd>CopilotChatTests<CR>", mode = { "n", "x" }, desc = "CopilotChat - Generate tests" },
       { "<Space>cF", "<Cmd>CopilotChatFixDiagnostic<CR>", mode = { "n", "x" }, desc = "CopilotChat - Fix diagnostic" },
       {
         "<Space>cc",
@@ -199,13 +199,47 @@ local ai = {
       "CodeCompanionChooseCopilotModels",
     },
     keys = {
-      { "<Leader>cc",       mode = { "n", "v" },          "<Cmd>CodeCompanion<CR>",            silent = true,                desc = "CodeCompanion - Open" },
-      { "<Leader>c<Space>", mode = { "n", "v" },          ":CodeCompanion<Space>",             desc = "CodeCompanion" },
-      { "<Leader>ca",       mode = { "n", "v" },          "<Cmd>CodeCompanionActions<CR>",     silent = true,                desc = "CodeCompanion - Actions" },
-      { "<Leader>cd",       "<Cmd>CodeCompanionChat<CR>", silent = true,                       desc = "CodeCompanion - Chat" },
-      { "<Leader>c`",       mode = { "n", "v" },          "<Cmd>CodeCompanionChat Toggle<CR>", silent = true,                desc = "CodeCompanion - Toggle" },
-      { "<Leader>cd",       mode = { "v" },               "<Cmd>CodeCompanionChat Add<CR>",    silent = true,                desc = "CodeCompanion - Add" },
-      { "<Leader>c:",       mode = { "n" },               ":CodeCompanionCmd<Space>",          desc = "CodeCompanion - Cmd" },
+      {
+        "<Leader>cc",
+        mode = { "n", "v" },
+        "<Cmd>CodeCompanion<CR>",
+        silent = true,
+        desc = "CodeCompanion - Open",
+      },
+      { "<Leader>c<Space>", mode = { "n", "v" }, ":CodeCompanion<Space>", desc = "CodeCompanion" },
+      {
+        "<Leader>ca",
+        mode = { "n", "v" },
+        "<Cmd>CodeCompanionActions<CR>",
+        silent = true,
+        desc = "CodeCompanion - Actions",
+      },
+      {
+        "<Leader>cd",
+        "<Cmd>CodeCompanionChat<CR>",
+        silent = true,
+        desc = "CodeCompanion - Chat",
+      },
+      {
+        "<Leader>c`",
+        mode = { "n", "v" },
+        "<Cmd>CodeCompanionChat Toggle<CR>",
+        silent = true,
+        desc = "CodeCompanion - Toggle",
+      },
+      {
+        "<Leader>cd",
+        mode = { "v" },
+        "<Cmd>CodeCompanionChat Add<CR>",
+        silent = true,
+        desc = "CodeCompanion - Add",
+      },
+      {
+        "<Leader>c:",
+        mode = { "n" },
+        ":CodeCompanionCmd<Space>",
+        desc = "CodeCompanion - Cmd",
+      },
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -246,11 +280,30 @@ local ai = {
           end,
         },
         acp = {
+          -- TODO: Not working yet
           claude_code = function()
             return require("codecompanion.adapters").extend("claude_code", {
               env = {
                 CLAUDE_CODE_OAUTH_TOKEN = "CLAUDE_CODE_OAUTH_TOKEN",
               },
+            })
+          end,
+          -- TODO: Not working yet
+          just_every_code = function()
+            return require("codecompanion.adapters").extend("claude_code", {
+              commands = {
+                default = {
+                  "npx",
+                  "--silent",
+                  "--yes",
+                  "@just-every/code",
+                  "acp",
+                },
+              },
+              -- @just-every/code use codex auth
+              auth = function(self)
+                return true
+              end,
             })
           end,
           gemini_cli = function()
@@ -276,7 +329,7 @@ local ai = {
               },
             })
           end,
-        }
+        },
       },
       strategies = {
         chat = {
@@ -433,11 +486,11 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
                   enabled = false,
                   adapter = nil,
                   query_augmented = true,
-                }
+                },
               },
               files_ls = {},
-              files_rm = {}
-            }
+              files_rm = {},
+            },
           },
         },
         history = {
@@ -452,9 +505,9 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
             -- Number of days after which chats are automatically deleted (0 to disable)
             expiration_days = 0,
             -- Picker interface (auto resolved to a valid picker)
-            picker = "telescope",     --- ("telescope", "snacks", "fzf-lua", or "default")
+            picker = "telescope", --- ("telescope", "snacks", "fzf-lua", or "default")
             ---Optional filter function to control which chats are shown when browsing
-            chat_filter = nil,        -- function(chat_data) return boolean end
+            chat_filter = nil, -- function(chat_data) return boolean end
             -- Customize picker keymaps (optional)
             picker_keymaps = {
               rename = { n = "r", i = "<M-r>" },
@@ -465,18 +518,18 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
             auto_generate_title = true,
             title_generation_opts = {
               ---Adapter for generating titles (defaults to current chat adapter)
-              adapter = nil,                     -- "copilot"
+              adapter = nil, -- "copilot"
               ---Model for generating titles (defaults to current chat model)
-              model = nil,                       -- "gpt-4o"
+              model = nil, -- "gpt-4o"
               ---Number of user prompts after which to refresh the title (0 to disable)
-              refresh_every_n_prompts = 0,       -- e.g., 3 to refresh after every 3rd user prompt
+              refresh_every_n_prompts = 0, -- e.g., 3 to refresh after every 3rd user prompt
               ---Maximum number of times to refresh the title (default: 3)
               max_refreshes = 3,
               format_title = function(original_title)
                 -- this can be a custom function that applies some custom
                 -- formatting to the title.
                 return original_title
-              end
+              end,
             },
             ---On exiting and entering neovim, loads the last chat on opening chat
             continue_last_chat = false,
@@ -495,13 +548,13 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
               browse_summaries_keymap = "gbs",
 
               generation_opts = {
-                adapter = nil,                       -- defaults to current chat adapter
-                model = nil,                         -- defaults to current chat model
-                context_size = 90000,                -- max tokens that the model supports
-                include_references = true,           -- include slash command content
-                include_tool_outputs = true,         -- include tool execution results
-                system_prompt = nil,                 -- custom system prompt (string or function)
-                format_summary = nil,                -- custom function to format generated summary e.g to remove <think/> tags from summary
+                adapter = nil, -- defaults to current chat adapter
+                model = nil, -- defaults to current chat model
+                context_size = 90000, -- max tokens that the model supports
+                include_references = true, -- include slash command content
+                include_tool_outputs = true, -- include tool execution results
+                system_prompt = nil, -- custom system prompt (string or function)
+                format_summary = nil, -- custom function to format generated summary e.g to remove <think/> tags from summary
               },
             },
 
@@ -514,7 +567,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
               -- Tool configuration
               tool_opts = {
                 -- Default number of memories to retrieve
-                default_num = 10
+                default_num = 10,
               },
               -- Enable notifications for indexing progress
               notify = true,
@@ -522,8 +575,8 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
               -- (requires VectorCode 0.6.12+ for efficient incremental indexing)
               index_on_startup = false,
             },
-          }
-        }
+          },
+        },
       },
       -- Uncomment when debugging
       -- log_level = "TRACE",
@@ -537,38 +590,99 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
 
   -- Agents
   {
-    'NickvanDyke/opencode.nvim',
+    "NickvanDyke/opencode.nvim",
     cond = choose.is_enabled_plugin("opencode.nvim"),
     dependencies = {
       -- Recommended for better prompt input, and required to use `opencode.nvim`'s embedded terminal — otherwise optional
-      { 'folke/snacks.nvim', opts = { input = { enabled = true } } },
+      { "folke/snacks.nvim", opts = { input = { enabled = true } } },
     },
     keys = {
-      { '<Leader>o`', function() require('opencode').toggle() end,                                  desc = 'Toggle opencode' },
-      { '<Leader>oA', function() require('opencode').ask() end,                                     desc = 'Ask opencode' },
-      { '<Leader>oa', function() require('opencode').ask('@cursor: ') end,                          desc = 'Ask opencode about this' },
-      { '<Leader>oa', function() require('opencode').ask('@selection: ') end,                       desc = 'Ask opencode about selection', mode = 'v' },
-      { '<Leader>on', function() require('opencode').command('session_new') end,                    desc = 'New opencode session' },
-      { '<Leader>oy', function() require('opencode').command('messages_copy') end,                  desc = 'Copy last opencode response' },
-      { '<M-C-U>',    function() require('opencode').command('messages_half_page_up') end,          desc = 'Messages half page up' },
-      { '<M-C-D>',    function() require('opencode').command('messages_half_page_down') end,        desc = 'Messages half page down' },
-      { '<Leader>op', function() require('opencode').select() end,                                  desc = 'Select opencode prompt',       mode = { 'n', 'v' } },
+      {
+        "<Leader>o`",
+        function()
+          require("opencode").toggle()
+        end,
+        desc = "Toggle opencode",
+      },
+      {
+        "<Leader>oA",
+        function()
+          require("opencode").ask()
+        end,
+        desc = "Ask opencode",
+      },
+      {
+        "<Leader>oa",
+        function()
+          require("opencode").ask("@cursor: ")
+        end,
+        desc = "Ask opencode about this",
+      },
+      {
+        "<Leader>oa",
+        function()
+          require("opencode").ask("@selection: ")
+        end,
+        desc = "Ask opencode about selection",
+        mode = "v",
+      },
+      {
+        "<Leader>on",
+        function()
+          require("opencode").command("session_new")
+        end,
+        desc = "New opencode session",
+      },
+      {
+        "<Leader>oy",
+        function()
+          require("opencode").command("messages_copy")
+        end,
+        desc = "Copy last opencode response",
+      },
+      {
+        "<M-C-U>",
+        function()
+          require("opencode").command("messages_half_page_up")
+        end,
+        desc = "Messages half page up",
+      },
+      {
+        "<M-C-D>",
+        function()
+          require("opencode").command("messages_half_page_down")
+        end,
+        desc = "Messages half page down",
+      },
+      {
+        "<Leader>op",
+        function()
+          require("opencode").select()
+        end,
+        desc = "Select opencode prompt",
+        mode = { "n", "v" },
+      },
 
       {
-        '<Leader>o;',
+        "<Leader>o;",
         function()
-          require("opencode.input").input('app_help', function(value)
+          require("opencode.input").input("app_help", function(value)
             if value and value ~= "" then
-              require('opencode').command(value)
+              require("opencode").command(value)
             end
           end)
         end,
-        desc = 'Run opencode command'
+        desc = "Run opencode command",
       },
 
       -- Custom prompts
-      { '<leader>oe', function() require('opencode').prompt('Explain @cursor and its context') end, desc = 'Explain this code' }
-
+      {
+        "<leader>oe",
+        function()
+          require("opencode").prompt("Explain @cursor and its context")
+        end,
+        desc = "Explain this code",
+      },
     },
     config = function()
       vim.g.opencode_opts = {
@@ -588,7 +702,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         win = {
           split = {
             width = 100,
-          }
+          },
         },
         mux = {
           backend = "tmux",
@@ -665,7 +779,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
     "ravitemer/mcphub.nvim",
     cond = choose.is_enabled_plugin("mcphub.nvim"),
     dependencies = {
-      "nvim-lua/plenary.nvim",  -- Required for Job and HTTP requests
+      "nvim-lua/plenary.nvim", -- Required for Job and HTTP requests
     },
     cmd = "MCPHub", -- lazily start the hub when `MCPHub` is called
     -- NOTE: Use `pnpm` to install in user's home directory to avoid permission issues
@@ -674,10 +788,10 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
       -- NOTE: Cannot install MCP servers in WSL for now
       require("mcphub").setup({
         -- Required options
-        port = 9527,  -- Port for MCP Hub server
-        config = vim.fn.expand("~/.config/mcphub/servers.json"),  -- Absolute path to config file
+        port = 9527, -- Port for MCP Hub server
+        config = vim.fn.expand("~/.config/mcphub/servers.json"), -- Absolute path to config file
       })
-    end
+    end,
   },
 
   -- Index
@@ -688,7 +802,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
     build = "uv tool upgrade vectorcode", -- This helps keeping the CLI up-to-date
     -- build = "pipx upgrade vectorcode", -- If you used pipx to install the CLI
     dependencies = { "nvim-lua/plenary.nvim" },
-  }
+  },
 }
 
 return ai
