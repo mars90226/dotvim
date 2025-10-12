@@ -291,6 +291,8 @@ local ai = {
           -- TODO: Not working yet
           just_every_code = function()
             return require("codecompanion.adapters").extend("claude_code", {
+              -- FIXME: Seems broken after @just-every/code 0.2.181
+              -- Ref: https://github.com/just-every/code/issues/216#issuecomment-3317818784
               commands = {
                 default = {
                   "npx",
