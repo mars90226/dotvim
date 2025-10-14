@@ -738,6 +738,11 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         desc = "Sidekick Select CLI",
       },
       {
+        "<Leader>ad",
+        function() require("sidekick.cli").close() end,
+        desc = "Sidekick Detach a CLI Session",
+      },
+      {
         "<Leader>at",
         function() require("sidekick.cli").send({ msg = "{this}" }) end,
         mode = { "x", "n" },
