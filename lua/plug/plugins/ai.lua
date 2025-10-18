@@ -22,7 +22,7 @@ local ai = {
     },
     config = function()
       require("copilot").setup({
-        copilot_model = "gpt-4o-copilot",
+        copilot_model = "gpt-41-copilot",
         panel = {
           auto_refresh = true,
           keymap = {
