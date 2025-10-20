@@ -44,11 +44,17 @@ my_snacks.opts = {
           -- Use <M-o>/<M-l> to switch or open the selected item in current window/a new tab
           ["<M-o>"] = { "drop", mode = { "i", "n" } },
           ["<M-l>"] = { "tabdrop", mode = { "i", "n" } },
+
+          -- Use F1 to toggle help
+          ["<F1>"] = { "toggle_help_input", mode = { "i", "n" } },
         },
       },
       list = {
         keys = {
           ["<C-T>"] = "edit_tab",
+
+          -- Use F1 to toggle help
+          ["<F1>"] = { "toggle_help_list" },
         },
       }
     }
