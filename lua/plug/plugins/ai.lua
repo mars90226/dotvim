@@ -695,11 +695,14 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
       vim.opt.autoread = true
     end,
   },
-  -- TODO: Enable NES
   {
     "folke/sidekick.nvim",
     cond = choose.is_enabled_plugin("sidekick.nvim"),
     opts = {
+      -- TODO: Enable NES
+      nes = {
+        enabled = false,
+      },
       cli = {
         win = {
           split = {
