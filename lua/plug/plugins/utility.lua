@@ -280,6 +280,7 @@ local utility = {
   },
   {
     "stevearc/overseer.nvim",
+    version = "v1.6.0",
     cmd = {
       "OverseerOpen",
       "OverseerToggle",
