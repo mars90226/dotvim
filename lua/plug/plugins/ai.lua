@@ -316,12 +316,14 @@ local ai = {
                   "--experimental-acp",
                   "-m",
                   "gemini-2.5-flash",
+                  "-i",
                 },
                 pro = {
                   "gemini",
                   "--experimental-acp",
                   "-m",
                   "gemini-2.5-pro",
+                  "-i",
                 },
               },
               defaults = {
@@ -715,8 +717,8 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         },
         tools = {
           -- TODO: Need to add new tools to explicitly create new codex session
-          codex_new = { cmd = { "codex", "--search" }, url = "https://github.com/openai/codex" },
-          codex_resume = { cmd = { "codex", "resume", "--search" }, url = "https://github.com/openai/codex" },
+          codex_new = { cmd = { "codex", "--enable", "web_search_request" }, url = "https://github.com/openai/codex" },
+          codex_resume = { cmd = { "codex", "resume", "--enable", "web_search_request" }, url = "https://github.com/openai/codex" },
           just_every_code = { cmd = { "coder" }, url = "https://github.com/just-every/code" },
           just_every_code_resume = { cmd = { "coder", "resume" }, url = "https://github.com/just-every/code" },
         },
