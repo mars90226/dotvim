@@ -61,6 +61,7 @@ my_snacks.opts = {
   },
   quickfile = { enabled = true },
   statuscolumn = { enabled = true },
+  terminal = {},
   words = { enabled = true },
   styles = {
     notification = {

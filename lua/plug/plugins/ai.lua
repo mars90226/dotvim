@@ -598,7 +598,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
     cond = choose.is_enabled_plugin("opencode.nvim"),
     dependencies = {
       -- Recommended for better prompt input, and required to use `opencode.nvim`'s embedded terminal — otherwise optional
-      { "folke/snacks.nvim", opts = { input = { enabled = true } } },
+      { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
     },
     keys = {
       {
