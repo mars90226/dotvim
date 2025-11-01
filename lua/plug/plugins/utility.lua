@@ -20,24 +20,19 @@ local utility = {
 
   -- Undo Tree
   {
+    "XXiaoA/atone.nvim",
+    cmd = "Atone",
+    keys = {
+      { "<F9>", "<Cmd>Atone toggle<CR>", desc = "Toggle Atone undo tree" },
+    },
+    opts = {},
+  },
+  {
     "mbbill/undotree",
     cmd = { "UndotreeToggle" },
     keys = {
-      { "<F9>", "<Cmd>UndotreeToggle<CR>", desc = "Toggle undo tree" },
+      { "<Space><F9>", "<Cmd>UndotreeToggle<CR>", desc = "Toggle undo tree" },
     },
-  },
-  -- NOTE: vim-mundo is slow, but is more feature-rich
-  {
-    "simnalamburt/vim-mundo",
-    cmd = { "MundoToggle" },
-    keys = {
-      { "<Space><F9>", "<Cmd>MundoToggle<CR>", desc = "Toggle mundo tree" },
-    },
-    config = function()
-      if vim.fn.has("python3") == 1 then
-        vim.g.mundo_prefer_python3 = 1
-      end
-    end,
   },
 
   {

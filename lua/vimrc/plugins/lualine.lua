@@ -169,7 +169,6 @@ lualine.default_option = {
     "lazy",
     "man",
     "mason",
-    "mundo",
     "nvim-dap-ui",
     "oil",
     "overseer",

@@ -267,10 +267,6 @@ plugin_choose.setup_language = function()
 end
 
 plugin_choose.setup_misc = function()
-  if utils.is_light_vim_mode() or (vim.fn.has("python") == 0 and vim.fn.has("python3") == 0) then
-    choose.disable_plugin("vim-mundo")
-  end
-
   -- Choose highlight plugin
   -- builtin vim.highlight
 
