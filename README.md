@@ -80,8 +80,7 @@ Well, these plugins are hard to categorize, but they are gems. You will need the
 ### Neovim
 
 - [neovim](https://neovim.io/) 0.11.4+ (stable), 0.12.0+ (nightly)
-- [python](https://www.python.org/) 3.6.1+ (required by defx.nvim), 3.7.0 (required pynvim 0.5.0)
-  - Currently, pynvim 0.5.0 need Python 3.9: https://github.com/neovim/pynvim/issues/560
+- [python](https://www.python.org/) 3.7.0 (required pynvim 0.6.0)
 - [universal-ctags](https://github.com/universal-ctags/ctags) (required by fzf)
 - C compiler and libstdc++ (required by nvim-treesitter)
 - [git](https://git-scm.com/) 2.13.0 (basic), 2.19.0 (for column in `git grep`)
