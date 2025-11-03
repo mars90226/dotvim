@@ -785,6 +785,12 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         desc = "Sidekick Codex Resume Toggle",
         mode = { "n", "v" },
       },
+      {
+        "<Leader>au",
+        function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end,
+        desc = "Sidekick Claude Toggle",
+        mode = { "n", "v" },
+      },
     },
   },
 
