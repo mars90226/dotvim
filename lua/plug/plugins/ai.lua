@@ -719,6 +719,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
           -- TODO: Need to add new tools to explicitly create new codex session
           codex_new = { cmd = { "codex", "--enable", "web_search_request" }, url = "https://github.com/openai/codex" },
           codex_resume = { cmd = { "codex", "resume", "--enable", "web_search_request" }, url = "https://github.com/openai/codex" },
+          codex_yolo = { cmd = { "codex", "--yolo", "--enable", "web_search_request" }, url = "https://github.com/openai/codex" },
           just_every_code = { cmd = { "coder" }, url = "https://github.com/just-every/code" },
           just_every_code_resume = { cmd = { "coder", "resume" }, url = "https://github.com/just-every/code" },
         },
@@ -783,6 +784,12 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         "<Leader>ar",
         function() require("sidekick.cli").toggle({ name = "codex_resume", focus = true }) end,
         desc = "Sidekick Codex Resume Toggle",
+        mode = { "n", "v" },
+      },
+      {
+        "<Leader>ay",
+        function() require("sidekick.cli").toggle({ name = "codex_yolo", focus = true }) end,
+        desc = "Sidekick Codex Yolo Toggle",
         mode = { "n", "v" },
       },
       {
