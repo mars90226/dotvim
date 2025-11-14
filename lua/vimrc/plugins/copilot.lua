@@ -6,11 +6,31 @@ my_copilot.attach_filters = {}
 
 
 -- TODO: Try "claude-sonnet-4.5"
-my_copilot.default_model = "gpt-5-codex"
-my_copilot.default_github_model = "gpt-5-codex"
+my_copilot.default_model = "gpt-5.1-codex"
+my_copilot.default_github_model = "gpt-5.1-codex"
 
 -- NOTE: Use the model info from Copilot using CopilotChat.nvim
 my_copilot.models = {
+  ["gpt-5.1-codex"] = {
+    model = "gpt-5.1-codex",
+    max_tokens = 128000,
+    reasoning_effort = "medium",
+  },
+  ["gpt-5.1-codex-high"] = {
+    model = "gpt-5.1-codex",
+    max_tokens = 128000,
+    reasoning_effort = "high",
+  },
+  ["gpt-5.1"] = {
+    model = "gpt-5.1",
+    max_tokens = 128000,
+    reasoning_effort = "medium",
+  },
+  ["gpt-5.1-high"] = {
+    model = "gpt-5.1",
+    max_tokens = 128000,
+    reasoning_effort = "high",
+  },
   ["gpt-5-codex"] = {
     model = "gpt-5-codex",
     max_tokens = 128000,
@@ -53,6 +73,10 @@ my_copilot.models = {
   },
   ["claude-sonnet-4.5"] = {
     model = "claude-sonnet-4.5",
+    max_tokens = 128000,
+  },
+  ["claude-haiku-4.5"] = {
+    model = "claude-haiku-4.5",
     max_tokens = 128000,
   },
   ["grok-code-fast-1"] = {
