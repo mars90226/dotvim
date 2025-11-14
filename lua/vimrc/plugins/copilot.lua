@@ -75,10 +75,6 @@ my_copilot.models = {
     model = "claude-sonnet-4.5",
     max_tokens = 128000,
   },
-  ["claude-haiku-4.5"] = {
-    model = "claude-haiku-4.5",
-    max_tokens = 128000,
-  },
   ["grok-code-fast-1"] = {
     model = "grok-code-fast-1",
     max_tokens = 128000,
