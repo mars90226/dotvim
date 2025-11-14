@@ -8,7 +8,7 @@ my_copilot.attach_filters = {}
 -- TODO: Try "claude-sonnet-4.5"
 my_copilot.default_model = "gpt-5.1-codex"
 my_copilot.default_github_model = "gpt-5.1-codex"
-my_copilot.default_free_model = "claude-haiku-4.5"
+my_copilot.default_free_model = "gpt-5-mini"
 my_copilot.default_fast_model = "grok-code-fast-1"
 
 -- NOTE: Use the model info from Copilot using CopilotChat.nvim
