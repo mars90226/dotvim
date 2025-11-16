@@ -123,7 +123,7 @@ lsp.servers = {
         schemas = require("schemastore").json.schemas(),
         validate = { enable = true },
       }
-      require("lspconfig")[server].setup(lsp_opts)
+      vim.lsp.config(server, lsp_opts)
     end,
   },
   -- TODO: Add recommended config from nvim-lspconfig.
@@ -245,7 +245,7 @@ lsp.servers = {
         }
       end
 
-      require("lspconfig")[server].setup(lsp_opts)
+      vim.lsp.config(server, lsp_opts)
     end,
   },
   -- NOTE: Disabled due to high CPU usage
@@ -276,7 +276,7 @@ lsp.servers = {
         schemas = require("schemastore").yaml.schemas(),
         validate = { enable = true },
       }
-      require("lspconfig")[server].setup(lsp_opts)
+      vim.lsp.config(server, lsp_opts)
     end,
   },
 }
@@ -540,7 +540,7 @@ lsp.setup_server = function(server, custom_opts)
   if lsp_opts.custom_setup then
     lsp_opts.custom_setup(server, lsp_opts)
   else
-    require("lspconfig")[server].setup(lsp_opts)
+    vim.lsp.config(server, lsp_opts)
   end
 
   lsp.server_setuped[server] = true
@@ -599,7 +599,7 @@ lsp.setup_servers_on_filetype = function(filetype)
       lsp.setup_server(server, {})
 
       -- TODO: Change to vim.lsp.start()
-      require("lspconfig")[server].launch()
+      vim.lsp.enable(server)
     end
   end
 end
