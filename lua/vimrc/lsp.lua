@@ -300,6 +300,7 @@ lsp.servers = {
   -- },
   rustaceanvim = {
     condition = check.has_linux_build_env(),
+    mason = false,
     settings = {
       ["rust-analyzer"] = {
         checkOnSave = {
@@ -494,7 +495,7 @@ lsp.show_doc = function()
   })
 end
 
-lsp.get_servers = function()
+lsp.get_servers = function(for_mason)
   local checked_servers = {}
 
   for server_name, server_opts in pairs(lsp.servers) do
@@ -502,6 +503,8 @@ lsp.get_servers = function()
     -- without condition
     -- NOTE: Ignore wildcard server name '*'
     if server_opts.condition == false or server_name == "*" then
+      -- do not include server
+    elseif for_mason and server_opts.mason == false then
       -- do not include server
     else
       checked_servers[server_name] = server_opts
@@ -551,7 +554,7 @@ end
 lsp.setup_lsp_install = function()
   local mason_tool_installer = require("mason-tool-installer")
 
-  local lspconfig_servers = vim.tbl_keys(lsp.get_servers())
+  local lspconfig_servers = vim.tbl_keys(lsp.get_servers(true))
   -- TODO: Check if this can be precompiled to improve startup time
   local mason_package_servers = {}
 
