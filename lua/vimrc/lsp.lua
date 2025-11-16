@@ -89,9 +89,9 @@ lsp.servers = {
         -- Ref: https://writewithharper.com/docs/integrations/language-server#Workspace-Dictionary
         linters = {
           ToDoHyphen = false,
-        }
-      }
-    }
+        },
+      },
+    },
   },
   html = {
     capabilities = {
@@ -118,12 +118,13 @@ lsp.servers = {
       },
     },
     settings = {},
-    custom_setup = function(server, lsp_opts)
+    custom_config = function(lsp_opts)
       lsp_opts.settings.json = {
         schemas = require("schemastore").json.schemas(),
         validate = { enable = true },
       }
-      vim.lsp.config(server, lsp_opts)
+
+      return lsp_opts
     end,
   },
   -- TODO: Add recommended config from nvim-lspconfig.
@@ -220,7 +221,7 @@ lsp.servers = {
       "typescript.tsx",
       "vue",
     },
-    custom_setup = function(server, lsp_opts)
+    custom_config = function(lsp_opts)
       -- Setup global plugins
       if check.has_linux_build_env() then
         -- NOTE: mason.nvim 2.0 does not support getting installation path of LSP server
@@ -245,7 +246,7 @@ lsp.servers = {
         }
       end
 
-      vim.lsp.config(server, lsp_opts)
+      return lsp_opts
     end,
   },
   -- NOTE: Disabled due to high CPU usage
@@ -263,7 +264,7 @@ lsp.servers = {
   -- TODO: add settings for schemas
   yamlls = {
     settings = {},
-    custom_setup = function(server, lsp_opts)
+    custom_config = function(lsp_opts)
       lsp_opts.settings.yaml = {
         schemaStore = {
           -- NOTE: Use SchemaStore.nvim to provide schemas
@@ -276,7 +277,8 @@ lsp.servers = {
         schemas = require("schemastore").yaml.schemas(),
         validate = { enable = true },
       }
-      vim.lsp.config(server, lsp_opts)
+
+      return lsp_opts
     end,
   },
 }
@@ -537,11 +539,11 @@ lsp.setup_server = function(server, custom_opts)
     lsp_opts.init_options = lsp_opts.init_options()
   end
 
-  if lsp_opts.custom_setup then
-    lsp_opts.custom_setup(server, lsp_opts)
-  else
-    vim.lsp.config(server, lsp_opts)
+  if lsp_opts.custom_config then
+    lsp_opts = lsp_opts.custom_config(lsp_opts)
   end
+
+  vim.lsp.config(server, lsp_opts)
 
   lsp.server_setuped[server] = true
 end
