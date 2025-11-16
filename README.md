@@ -272,7 +272,7 @@ Make sure [`just`](https://github.com/casey/just) is installed.
 - [ ] Add other terminal plugin, like [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim), and change overseer.nvim strategy to toggleterm.
 - [ ] Replace `nvim-cmp` with `blink.cmp`
 - [ ] Migrate nvim-treesitter from `master` to `main` branch
-- [ ] Migrate nvim-lspconfig from `setup` to `config` & `enable`
+- [x] Migrate nvim-lspconfig from `setup` to `config` & `enable`
 
 ## Deprecated
 
