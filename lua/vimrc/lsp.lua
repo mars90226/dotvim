@@ -282,10 +282,6 @@ lsp.servers = {
     end,
   },
 }
-lsp.servers_by_filetype = {
-  -- TODO: Wait for mason-lspconfig to support this
-  nu = { "nushell" },
-}
 
 lsp.on_init = function(client)
   client.config.flags = client.config.flags or {}
@@ -545,42 +541,10 @@ lsp.setup_server = function(server, custom_opts)
   vim.lsp.config(server, lsp_opts)
 end
 
-lsp.supported_servers = nil
-lsp.is_supported_server = function(server)
-  if not lsp.supported_servers then
-    lsp.supported_servers = {}
-    for server_name, server_opts in pairs(lsp.servers) do
-      -- NOTE: We only exclude server with condition == false, but include server
-      -- without condition
-      if server_opts.condition == false then
-        -- do not include server
-      else
-        lsp.supported_servers[server_name] = server_opts
-      end
-    end
-  end
-
-  return lsp.supported_servers[server] ~= nil
-end
-
 lsp.init_mason_map = function()
   -- mason-lspconfig.nvim 2.1.0 filetype mappings
   -- Ref: https://github.com/mason-org/mason-lspconfig.nvim/pull/555
   lsp.mason_map = require("mason-lspconfig.mappings").get_all()
-end
-
-lsp.init_servers_by_filetype = function()
-  for filetype, servers in pairs(lsp.mason_map.filetypes) do
-    for _, server in ipairs(servers) do
-      if lsp.is_supported_server(server) then
-        if not lsp.servers_by_filetype[filetype] then
-          lsp.servers_by_filetype[filetype] = {}
-        end
-
-        table.insert(lsp.servers_by_filetype[filetype], server)
-      end
-    end
-  end
 end
 
 lsp.setup_servers = function()
@@ -629,7 +593,6 @@ lsp.setup = function(settings)
   lsp.config = vim.tbl_extend("force", lsp.config, settings)
 
   lsp.init_mason_map()
-  lsp.init_servers_by_filetype()
   lsp.setup_lsp_install()
   lsp.setup_servers()
   lsp.setup_plugins()
