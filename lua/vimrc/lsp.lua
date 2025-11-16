@@ -286,7 +286,6 @@ lsp.servers_by_filetype = {
   -- TODO: Wait for mason-lspconfig to support this
   nu = { "nushell" },
 }
-lsp.server_setuped = {}
 
 lsp.on_init = function(client)
   client.config.flags = client.config.flags or {}
@@ -544,8 +543,6 @@ lsp.setup_server = function(server, custom_opts)
   end
 
   vim.lsp.config(server, lsp_opts)
-
-  lsp.server_setuped[server] = true
 end
 
 lsp.supported_servers = nil
