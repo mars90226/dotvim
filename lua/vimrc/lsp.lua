@@ -10,9 +10,6 @@ lsp.config = {
   enable_format_on_sync = false,
 }
 
--- TODO: Refactor this to use `vim.lsp.config` & `vim.lsp.enable` after neovim 0.11.0 is released
--- Ref: [feat(lsp) add `vim.lsp.config` and `vim.lsp.enable` by lewis6991 · Pull Request 31031 · neovim/neovim](https://github.com/neovim/neovim/pull/31031)
--- NOTE: Change it also need to change lsp.servers_by_filetype
 lsp.servers = {
   ["*"] = {
     capabilities = (function(override)
