@@ -599,8 +599,6 @@ lsp.setup_servers_on_filetype = function(filetype)
       -- to install LSP on filetype. Because it seems a little hard to wait for
       -- installation finished.
       lsp.setup_server(server, {})
-
-      -- TODO: Change to vim.lsp.start()
       vim.lsp.enable(server)
     end
   end
