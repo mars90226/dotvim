@@ -14,6 +14,155 @@ lsp.config = {
 -- Ref: [feat(lsp) add `vim.lsp.config` and `vim.lsp.enable` by lewis6991 · Pull Request 31031 · neovim/neovim](https://github.com/neovim/neovim/pull/31031)
 -- NOTE: Change it also need to change lsp.servers_by_filetype
 lsp.servers = {
+  ["*"] = {
+    capabilities = (function(override)
+      -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
+      return vim.tbl_deep_extend(
+        "force",
+        vim.lsp.protocol.make_client_capabilities(),
+        require("cmp_nvim_lsp").default_capabilities(),
+        override or {}
+      )
+    end)({
+      textDocument = {
+        -- nvim-ufo support textDocument.foldingRange
+        foldingRange = {
+          dynamicRegistration = false,
+          lineFoldingOnly = false,
+        },
+        -- neovim 0.12 support textDocument.onTypeFormatting
+        onTypeFormatting = {
+          dynamicRegistration = false,
+        },
+      },
+      workspace = {
+        didChangeWatchedFiles = {
+          dynamicRegistration = not choose.is_disabled_plugin("nvim-lsp-workspace-didChangeWatchedFiles"),
+        },
+      },
+    }),
+    flags = {
+      allow_incremental_sync = true,
+      debounce_text_changes = 150,
+    },
+    on_attach = function(client, bufnr)
+      -- Plugins
+      if choose.is_enabled_plugin("nvim-navic") and client.server_capabilities.documentSymbolProvider then
+        require("nvim-navic").attach(client, bufnr)
+      end
+      if choose.is_enabled_plugin("nvim-navbuddy") and client.server_capabilities.documentSymbolProvider then
+        require("nvim-navbuddy").attach(client, bufnr)
+      end
+      if client.server_capabilities.signatureHelpProvider then
+        require("vimrc.plugins.lsp_overloads").on_attach(client)
+      end
+
+      -- My plugin configs
+      my_goto_preview.on_attach(client)
+
+      -- Setup keymaps
+      vim.keymap.set("n", "K", function()
+        require("vimrc.lsp").show_doc()
+      end, { silent = true, buffer = true, desc = "LSP show hover documentation" })
+      vim.keymap.set("n", "gd", function()
+        vim.lsp.buf.definition()
+      end, { silent = true, buffer = true, desc = "LSP show definition" })
+      vim.keymap.set("n", "1gD", function()
+        vim.lsp.buf.type_definition()
+      end, { silent = true, buffer = true, desc = "LSP show type definition" })
+      vim.keymap.set("n", "2gD", function()
+        vim.lsp.buf.declaration()
+      end, { silent = true, buffer = true, desc = "LSP show declaration" })
+      vim.keymap.set("n", "gi", function()
+        vim.lsp.buf.implementation()
+      end, { silent = true, buffer = true, desc = "LSP show definition" })
+      vim.keymap.set("n", "gR", function()
+        vim.lsp.buf.references()
+      end, { silent = true, buffer = true, desc = "LSP show references" })
+      vim.keymap.set("n", "g0", function()
+        vim.lsp.buf.document_symbol()
+      end, { silent = true, buffer = true, desc = "LSP show document symbol" })
+      vim.keymap.set("n", "gy", function()
+        vim.lsp.buf.signature_help()
+      end, { silent = true, buffer = true, desc = "LSP show signature help" })
+      vim.keymap.set("n", "<Space>lf", function()
+        vim.lsp.buf.format({ async = true })
+      end, { silent = true, buffer = true, desc = "LSP format" })
+      vim.keymap.set("x", "<Space>lf", vim.lsp.buf.format, { silent = true, buffer = true, desc = "LSP format" })
+      vim.keymap.set("n", "<Space>lI", function()
+        if vim.fn.exists(":LspInfo") == 2 then
+          vim.cmd([[LspInfo]])
+        elseif vim.fn.exists(":Lsp") == 2 then
+          vim.cmd([[Lsp info]])
+        else
+          vim.notify("No LSP info!", vim.log.levels.ERROR)
+        end
+      end, { silent = true, buffer = true, desc = "LSP show info" })
+      vim.keymap.set("n", "yof", function()
+        require("vimrc.lsp").toggle_format_on_sync()
+      end, { silent = true, buffer = true, desc = "LSP toggle format on sync" })
+      -- TODO: Add key mapping to toggle inlay hints globally
+      vim.keymap.set("n", "yoI", function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+      end, { silent = true, buffer = true, desc = "LSP toggle inlay hints" })
+
+      -- Remap for K
+      local maparg
+      maparg = vim.fn.maparg("gK", "n", false, true)
+      if maparg == {} or maparg["buffer"] ~= 1 then
+        vim.keymap.set("n", "gK", "K", { buffer = true })
+      end
+      -- Remap for gi
+      maparg = vim.fn.maparg("gI", "n", false, true)
+      if maparg == {} or maparg["buffer"] ~= 1 then
+        vim.keymap.set("n", "gI", "gi", { buffer = true })
+      end
+      -- Remap for gI
+      maparg = vim.fn.maparg("g<C-I>", "n", false, true)
+      if maparg == {} or maparg["buffer"] ~= 1 then
+        vim.keymap.set("n", "g<C-I>", "gI", { buffer = true })
+      end
+
+      if vim.b.disable_inlay_hints ~= true then
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+      end
+      vim.lsp.document_color.enable(true, bufnr)
+      vim.lsp.on_type_formatting.enable(true)
+
+      vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
+      vim.bo.tagfunc = [[v:lua.vim.lsp.tagfunc]]
+      vim.bo.formatexpr = [[v:lua.vim.lsp.formatexpr({})]]
+      -- NOTE: Enable 'signcolumn' on LSP attached buffer if it's not a "nofile" buffer to avoid diagnostics keeping toggling 'signcolumn'
+      -- TODO: This check seems only work when calling hover request after a while after the LSP is
+      -- initialized and ready to show hover.
+      if vim.bo[bufnr].buftype ~= "nofile" then
+        vim.wo.signcolumn = "yes"
+      end
+
+      -- Setup commands
+      vim.api.nvim_buf_create_user_command(bufnr, "LspLog", function()
+        vim.cmd.split(vim.lsp.log.get_filename())
+      end, { desc = "Open LSP log in split" })
+
+      -- format on save
+      if client.server_capabilities.documentFormattingProvider then
+        vim.cmd([[augroup lsp_format_on_save]])
+        vim.cmd([[  autocmd! * <buffer>]])
+        vim.cmd([[  autocmd BufWritePre <buffer> lua require("vimrc.lsp").formatting_sync()]])
+        vim.cmd([[augroup END]])
+      end
+
+      -- TODO: Fix the 'signcolumn' of not-current window to avoid window layout kept being changed
+      -- TODO: Fix LSP attached to artificial buffers like fugitive buffers due to using `vim.lsp.enable`.
+      -- The `vim.lsp.enable` is used in `LspStart`, `LspStop`, `LspRestart` commands defined in
+      -- nvim-lspconfig.
+      -- Ref: https://github.com/neovim/neovim/issues/33225
+      -- Ref: https://github.com/neovim/neovim/issues/33061#issuecomment-2754364821
+      -- Ref: https://github.com/neovim/nvim-lspconfig/pull/3734
+
+      vim.cmd([[ do User LspAttachBuffers ]])
+    end,
+  },
   basedpyright = {
     -- NOTE: basedpyright watch too many files, disable workspace/didChangeWatchedFiles dynamic registration
     capabilities = {
@@ -152,6 +301,22 @@ lsp.servers = {
   -- rust_analyzer = {
   --   condition = check.has_linux_build_env(),
   -- },
+  rustaceanvim = {
+    condition = check.has_linux_build_env(),
+    settings = {
+      ["rust-analyzer"] = {
+        checkOnSave = {
+          command = "clippy",
+        },
+        cargo = {
+          loadOutDirsFromCheck = true,
+        },
+        procMacro = {
+          enable = true,
+        },
+      },
+    },
+  },
   ruff = {
     on_attach = function(client)
       -- Disable hover in favor of basedpyright
@@ -283,11 +448,6 @@ lsp.servers = {
   },
 }
 
-lsp.on_init = function(client)
-  client.config.flags = client.config.flags or {}
-  client.config.flags.allow_incremental_sync = true
-end
-
 lsp.show_doc = function()
   if choose.is_enabled_plugin("nvim-ufo") then
     -- preview fold > normal hover
@@ -337,131 +497,14 @@ lsp.show_doc = function()
   })
 end
 
-lsp.on_attach = function(client, bufnr)
-  -- Plugins
-  if choose.is_enabled_plugin("nvim-navic") and client.server_capabilities.documentSymbolProvider then
-    require("nvim-navic").attach(client, bufnr)
-  end
-  if choose.is_enabled_plugin("nvim-navbuddy") and client.server_capabilities.documentSymbolProvider then
-    require("nvim-navbuddy").attach(client, bufnr)
-  end
-  if client.server_capabilities.signatureHelpProvider then
-    require("vimrc.plugins.lsp_overloads").on_attach(client)
-  end
-
-  -- My plugin configs
-  my_goto_preview.on_attach(client)
-
-  -- Setup keymaps
-  vim.keymap.set("n", "K", function()
-    require("vimrc.lsp").show_doc()
-  end, { silent = true, buffer = true, desc = "LSP show hover documentation" })
-  vim.keymap.set("n", "gd", function()
-    vim.lsp.buf.definition()
-  end, { silent = true, buffer = true, desc = "LSP show definition" })
-  vim.keymap.set("n", "1gD", function()
-    vim.lsp.buf.type_definition()
-  end, { silent = true, buffer = true, desc = "LSP show type definition" })
-  vim.keymap.set("n", "2gD", function()
-    vim.lsp.buf.declaration()
-  end, { silent = true, buffer = true, desc = "LSP show declaration" })
-  vim.keymap.set("n", "gi", function()
-    vim.lsp.buf.implementation()
-  end, { silent = true, buffer = true, desc = "LSP show definition" })
-  vim.keymap.set("n", "gR", function()
-    vim.lsp.buf.references()
-  end, { silent = true, buffer = true, desc = "LSP show references" })
-  vim.keymap.set("n", "g0", function()
-    vim.lsp.buf.document_symbol()
-  end, { silent = true, buffer = true, desc = "LSP show document symbol" })
-  vim.keymap.set("n", "gy", function()
-    vim.lsp.buf.signature_help()
-  end, { silent = true, buffer = true, desc = "LSP show signature help" })
-  vim.keymap.set("n", "<Space>lf", function()
-    vim.lsp.buf.format({ async = true })
-  end, { silent = true, buffer = true, desc = "LSP format" })
-  vim.keymap.set("x", "<Space>lf", vim.lsp.buf.format, { silent = true, buffer = true, desc = "LSP format" })
-  vim.keymap.set("n", "<Space>lI", function()
-    if vim.fn.exists(":LspInfo") == 2 then
-      vim.cmd([[LspInfo]])
-    elseif vim.fn.exists(":Lsp") == 2 then
-      vim.cmd([[Lsp info]])
-    else
-      vim.notify("No LSP info!", vim.log.levels.ERROR)
-    end
-  end, { silent = true, buffer = true, desc = "LSP show info" })
-  vim.keymap.set("n", "yof", function()
-    require("vimrc.lsp").toggle_format_on_sync()
-  end, { silent = true, buffer = true, desc = "LSP toggle format on sync" })
-  -- TODO: Add key mapping to toggle inlay hints globally
-  vim.keymap.set("n", "yoI", function()
-    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
-  end, { silent = true, buffer = true, desc = "LSP toggle inlay hints" })
-
-  -- Remap for K
-  local maparg
-  maparg = vim.fn.maparg("gK", "n", false, true)
-  if maparg == {} or maparg["buffer"] ~= 1 then
-    vim.keymap.set("n", "gK", "K", { buffer = true })
-  end
-  -- Remap for gi
-  maparg = vim.fn.maparg("gI", "n", false, true)
-  if maparg == {} or maparg["buffer"] ~= 1 then
-    vim.keymap.set("n", "gI", "gi", { buffer = true })
-  end
-  -- Remap for gI
-  maparg = vim.fn.maparg("g<C-I>", "n", false, true)
-  if maparg == {} or maparg["buffer"] ~= 1 then
-    vim.keymap.set("n", "g<C-I>", "gI", { buffer = true })
-  end
-
-  if vim.b.disable_inlay_hints ~= true then
-    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-  end
-  vim.lsp.document_color.enable(true, bufnr)
-  vim.lsp.on_type_formatting.enable(true)
-
-  vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
-  vim.bo.tagfunc = [[v:lua.vim.lsp.tagfunc]]
-  vim.bo.formatexpr = [[v:lua.vim.lsp.formatexpr({})]]
-  -- NOTE: Enable 'signcolumn' on LSP attached buffer if it's not a "nofile" buffer to avoid diagnostics keeping toggling 'signcolumn'
-  -- TODO: This check seems only work when calling hover request after a while after the LSP is
-  -- initialized and ready to show hover.
-  if vim.bo[bufnr].buftype ~= "nofile" then
-    vim.wo.signcolumn = "yes"
-  end
-
-  -- Setup commands
-  vim.api.nvim_buf_create_user_command(bufnr, "LspLog", function()
-    vim.cmd.split(vim.lsp.log.get_filename())
-  end, { desc = "Open LSP log in split" })
-
-  -- format on save
-  if client.server_capabilities.documentFormattingProvider then
-    vim.cmd([[augroup lsp_format_on_save]])
-    vim.cmd([[  autocmd! * <buffer>]])
-    vim.cmd([[  autocmd BufWritePre <buffer> lua require("vimrc.lsp").formatting_sync()]])
-    vim.cmd([[augroup END]])
-  end
-
-  -- TODO: Fix the 'signcolumn' of not-current window to avoid window layout kept being changed
-  -- TODO: Fix LSP attached to artificial buffers like fugitive buffers due to using `vim.lsp.enable`.
-  -- The `vim.lsp.enable` is used in `LspStart`, `LspStop`, `LspRestart` commands defined in
-  -- nvim-lspconfig.
-  -- Ref: https://github.com/neovim/neovim/issues/33225
-  -- Ref: https://github.com/neovim/neovim/issues/33061#issuecomment-2754364821
-  -- Ref: https://github.com/neovim/nvim-lspconfig/pull/3734
-
-  vim.cmd([[ do User LspAttachBuffers ]])
-end
-
 lsp.get_servers = function()
   local checked_servers = {}
 
   for server_name, server_opts in pairs(lsp.servers) do
     -- NOTE: We only exclude server with condition == false, but include server
     -- without condition
-    if server_opts.condition == false then
+    -- NOTE: Ignore wildcard server name '*'
+    if server_opts.condition == false or server_name == "*" then
       -- do not include server
     else
       checked_servers[server_name] = server_opts
@@ -472,58 +515,7 @@ lsp.get_servers = function()
 end
 
 lsp.calculate_server_opts = function(server, custom_opts)
-  local lsp_opts = lsp.servers[server] or {}
-  lsp_opts = vim.tbl_deep_extend("keep", lsp_opts, custom_opts or {})
-
-  -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities = vim.tbl_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
-  -- nvim-ufo support textDocument.foldingRange
-  capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true,
-  }
-
-  -- neovim 0.12 support textDocument.onTypeFormatting
-  capabilities.textDocument.onTypeFormatting = {
-    dynamicRegistration = false,
-  }
-
-  if choose.is_disabled_plugin("nvim-lsp-workspace-didChangeWatchedFiles") then
-    capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
-  else
-    capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
-  end
-
-  -- Allow customizing each lsp server's capabilities
-  capabilities = vim.tbl_deep_extend("force", capabilities, lsp_opts.capabilities or {})
-
-  lsp_opts = vim.tbl_extend("keep", lsp_opts, {
-    flags = {
-      debounce_text_changes = 150,
-    },
-  })
-  -- NOTE: Call general on_init/on_attach then LSP-specific on_init/on_attach.
-  local lsp_opts_on_init = lsp_opts.on_init
-  local lsp_opts_on_attach = lsp_opts.on_attach
-  lsp_opts = vim.tbl_extend("force", lsp_opts, {
-    on_init = function(...)
-      lsp.on_init(...)
-      if lsp_opts_on_init then
-        lsp_opts_on_init(...)
-      end
-    end,
-    on_attach = function(...)
-      lsp.on_attach(...)
-      if lsp_opts_on_attach then
-        lsp_opts_on_attach(...)
-      end
-    end,
-    capabilities = capabilities,
-  })
-
-  return lsp_opts
+  return vim.tbl_deep_extend("force", lsp.servers[server] or {}, custom_opts or {})
 end
 
 lsp.setup_server = function(server, custom_opts)
@@ -548,6 +540,8 @@ lsp.init_mason_map = function()
 end
 
 lsp.setup_servers = function()
+  vim.lsp.config("*", lsp.servers["*"] or {})
+
   for server, _ in pairs(lsp.get_servers()) do
     -- NOTE: We delegate install to mason-tool-installer.nvim and do not try
     -- to install LSP on filetype. Because it seems a little hard to wait for
