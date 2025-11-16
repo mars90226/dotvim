@@ -586,21 +586,13 @@ lsp.init_servers_by_filetype = function()
   end
 end
 
--- TODO: Monitor if there's multiple lsp servers attached to buffer which has
--- different lsp server configuration
-lsp.setup_servers_on_filetype = function(filetype)
-  if not lsp.servers_by_filetype[filetype] then
-    return
-  end
-
-  for _, server in ipairs(lsp.servers_by_filetype[filetype]) do
-    if not lsp.server_setuped[server] then
-      -- NOTE: We delegate install to mason-tool-installer.nvim and do not try
-      -- to install LSP on filetype. Because it seems a little hard to wait for
-      -- installation finished.
-      lsp.setup_server(server, {})
-      vim.lsp.enable(server)
-    end
+lsp.setup_servers = function()
+  for server, _ in pairs(lsp.get_servers()) do
+    -- NOTE: We delegate install to mason-tool-installer.nvim and do not try
+    -- to install LSP on filetype. Because it seems a little hard to wait for
+    -- installation finished.
+    lsp.setup_server(server, {})
+    vim.lsp.enable(server)
   end
 end
 
@@ -642,18 +634,9 @@ lsp.setup = function(settings)
   lsp.init_mason_map()
   lsp.init_servers_by_filetype()
   lsp.setup_lsp_install()
+  lsp.setup_servers()
   lsp.setup_plugins()
   lsp.setup_commands()
-
-  -- TODO: Maybe setup basic lsp server?
-  local lsp_setup_server_on_ft_augroup_id = vim.api.nvim_create_augroup("lsp_setup_server_on_ft", {})
-  vim.api.nvim_create_autocmd({ "FileType" }, {
-    group = lsp_setup_server_on_ft_augroup_id,
-    pattern = "*",
-    callback = function()
-      lsp.setup_servers_on_filetype(vim.bo.filetype)
-    end,
-  })
 end
 
 -- TODO: project level notify
