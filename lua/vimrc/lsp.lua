@@ -393,9 +393,6 @@ lsp.servers = {
         local vue_typescript_plugin = vim.fs.dirname(
           vim.fs.dirname(vim.fn.resolve(vim.fn.exepath("vue-language-server")))
         ) .. "/node_modules/@vue/typescript-plugin"
-        vim.notify(vue_typescript_plugin, vim.log.levels.DEBUG, {
-          title = "Vue TypeScript Plugin Path",
-        })
 
         lsp_opts.settings.vtsls.tsserver.globalPlugins = {
           -- Use typescript language server along with vue typescript plugin
