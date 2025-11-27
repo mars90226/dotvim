@@ -45,6 +45,7 @@ local utility = {
   -- Colors
   {
     "uga-rosa/ccc.nvim",
+    cmd = { "CccPick", "CccConvert", "CccHighlighterToggle", "CccHighlighterEnable", "CccHighlighterDisable" },
     keys = {
       { "<Leader>vv", [[<Cmd>CccPick<CR>]], desc = "Ccc - Pick" },
     },
