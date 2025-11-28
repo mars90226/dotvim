@@ -175,7 +175,11 @@ lsp.servers = {
       bashIde = {
         -- NOTE: If want to disable shellcheck integration and use nvim-lint to lint on save, set this
         -- to empty string
-        -- shellcheckPath = "",
+        -- It seems that bashls always use `--external-sources`, which makes it use too much CPU and
+        -- memory when there are many files in the workspace.
+        -- Ref: https://github.com/bash-lsp/bash-language-server/blob/main/server/src/shellcheck/index.ts#L124
+        -- TODO: Enable it again when the performance issue is fixed
+        shellcheckPath = "",
         -- NOTE: Disable shellcheck's extend analysis to reduce CPU usage and OOM issue
         -- Ref: https://github.com/bash-lsp/bash-language-server/issues/1267
         -- Ref: https://github.com/koalaman/shellcheck/issues/3177#issuecomment-2767641325
