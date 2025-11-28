@@ -609,26 +609,28 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         desc = "Toggle opencode",
       },
       {
-        "<Leader>oA",
-        function()
-          require("opencode").ask()
-        end,
-        desc = "Ask opencode",
-      },
-      {
         "<Leader>oa",
         function()
-          require("opencode").ask("@cursor: ")
+          require("opencode").ask("@this: ", { submit = true })
         end,
+        mode = { "n", "x" },
         desc = "Ask opencode about this",
       },
       {
-        "<Leader>oa",
+        "<Leader>op",
         function()
-          require("opencode").ask("@selection: ")
+          require("opencode").select()
         end,
-        desc = "Ask opencode about selection",
-        mode = "v",
+        desc = "Select opencode prompt",
+        mode = { "n", "x" },
+      },
+      {
+        "<Leader>oA",
+        function()
+          require("opencode").prompt("@this")
+        end,
+        desc = "Add to opencode",
+        mode = { "n", "x" },
       },
       {
         "<Leader>on",
@@ -657,14 +659,6 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
           require("opencode").command("messages_half_page_down")
         end,
         desc = "Messages half page down",
-      },
-      {
-        "<Leader>op",
-        function()
-          require("opencode").select()
-        end,
-        desc = "Select opencode prompt",
-        mode = { "n", "v" },
       },
 
       {
@@ -718,8 +712,14 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         tools = {
           -- TODO: Need to add new tools to explicitly create new codex session
           codex_new = { cmd = { "codex", "--enable", "web_search_request" }, url = "https://github.com/openai/codex" },
-          codex_resume = { cmd = { "codex", "resume", "--enable", "web_search_request" }, url = "https://github.com/openai/codex" },
-          codex_yolo = { cmd = { "codex", "--yolo", "--enable", "web_search_request" }, url = "https://github.com/openai/codex" },
+          codex_resume = {
+            cmd = { "codex", "resume", "--enable", "web_search_request" },
+            url = "https://github.com/openai/codex",
+          },
+          codex_yolo = {
+            cmd = { "codex", "--yolo", "--enable", "web_search_request" },
+            url = "https://github.com/openai/codex",
+          },
           just_every_code = { cmd = { "coder" }, url = "https://github.com/just-every/code" },
           just_every_code_resume = { cmd = { "coder", "resume" }, url = "https://github.com/just-every/code" },
         },
