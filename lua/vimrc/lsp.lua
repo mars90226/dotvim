@@ -172,9 +172,15 @@ lsp.servers = {
   },
   bashls = {
     settings = {
-      -- NOTE: If want to disable shellcheck integration and use nvim-lint to lint on save, set this
-      -- to empty string
-      -- shellcheckPath = "",
+      bashIde = {
+        -- NOTE: If want to disable shellcheck integration and use nvim-lint to lint on save, set this
+        -- to empty string
+        -- shellcheckPath = "",
+        -- NOTE: Disable shellcheck's extend analysis to reduce CPU usage and OOM issue
+        -- Ref: https://github.com/bash-lsp/bash-language-server/issues/1267
+        -- Ref: https://github.com/koalaman/shellcheck/issues/3177#issuecomment-2767641325
+        shellcheckArguments = { "--extended-analysis=false" },
+      }
     },
   },
   buf_ls = {
