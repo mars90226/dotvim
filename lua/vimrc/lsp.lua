@@ -425,10 +425,7 @@ lsp.servers = {
   -- Ref: https://github.com/tailwindlabs/tailwindcss-intellisense/issues/1109#issuecomment-2612844262
   -- tailwindcss = {},
   vimls = {},
-  -- TODO: Rename to vue_ls
-  -- Not sure why nvim-lspconfig complains that vue_ls not found
-  -- Ref: https://github.com/neovim/nvim-lspconfig/pull/3843
-  volar = {
+  vue_ls = {
     condition = check.has_linux_build_env(),
   },
   -- TODO: add settings for schemas
