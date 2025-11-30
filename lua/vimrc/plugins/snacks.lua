@@ -30,6 +30,11 @@ my_snacks.opts = {
   picker = {
     enabled = true,
     ui_select = true, -- replace `vim.ui.select` with the snacks picker
+    actions = {
+      sidekick_send = function(...)
+        return require("sidekick.cli.picker.snacks").send(...)
+      end,
+    },
     win = {
       input = {
         keys = {
@@ -47,6 +52,9 @@ my_snacks.opts = {
 
           -- Use F1 to toggle help
           ["<F1>"] = { "toggle_help_input", mode = { "i", "n" } },
+
+          -- Use <M-a> to send the current selection to sidekick
+          ["<M-a>"] = { "sidekick_send", mode = { "n", "i" } },
         },
       },
       list = {
