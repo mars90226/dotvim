@@ -1,4 +1,5 @@
 local choose = require("vimrc.choose")
+local utils = require("vimrc.utils")
 
 local ai = {
   -- Copilot
@@ -766,6 +767,11 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         function() require("sidekick.cli").send({ msg = "{selection}" }) end,
         mode = { "x" },
         desc = "Sidekick Send Visual Selection",
+      },
+      {
+        "<Leader>a;",
+        function() require("sidekick.cli").send({ msg = utils.input("Send: ") }) end,
+        desc = "Sidekick Send Input",
       },
       {
         "<Leader>ap",
