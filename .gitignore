@@ -9,17 +9,8 @@ tags-ja
 # netrw history file
 *.netrwhist
 
-# vim-plug folder
-plugged
-
-# old vim-plug file
-autoload/plug.vim.old
-
 # config cache
 .config_cache
 
 # node_modules for commitizen
 node_modules
-
-# packer.nvim
-plugin/packer_compiled.lua
