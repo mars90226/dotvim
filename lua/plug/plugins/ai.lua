@@ -721,6 +721,14 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
             cmd = { "codex", "--yolo", "--enable", "web_search_request" },
             url = "https://github.com/openai/codex",
           },
+          claude_new = {
+            cmd = { "claude" },
+            url = "https://github.com/anthropics/claude-code",
+          },
+          claude_yolo = {
+            cmd = { "claude", "--dangerously-skip-permissions" },
+            url = "https://github.com/anthropics/claude-code",
+          },
           just_every_code = { cmd = { "coder" }, url = "https://github.com/just-every/code" },
           just_every_code_resume = { cmd = { "coder", "resume" }, url = "https://github.com/just-every/code" },
         },
