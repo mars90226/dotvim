@@ -157,7 +157,7 @@ plugin_choose.setup_ai = function()
 
   -- Choose Index
   -- VectorCode
-  if choose.is_disabled_plugin("copilot.lua") then
+  if choose.is_disabled_plugin("copilot.lua") or not plugin_utils.is_executable('vectorcode') then
     choose.disable_plugin("VectorCode")
   end
 end
