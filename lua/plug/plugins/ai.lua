@@ -725,6 +725,10 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
             cmd = { "claude" },
             url = "https://github.com/anthropics/claude-code",
           },
+          claude_resume = {
+            cmd = { "claude", "--resume" },
+            url = "https://github.com/anthropics/claude-code",
+          },
           claude_yolo = {
             cmd = { "claude", "--dangerously-skip-permissions" },
             url = "https://github.com/anthropics/claude-code",
