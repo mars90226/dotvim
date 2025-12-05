@@ -18,7 +18,7 @@ local ai = {
     event = { "InsertEnter" },
     keys = {
       { "<Space>c;", [[:Copilot<Space>]], desc = "Copilot" },
-      { "<Space>cl", [[<Cmd>Copilot enable<CR>]], desc = "Copilot enable" },
+      { "<Space>cl", [[<Cmd>Copilot disable<CR><Cmd>Copilot enable<CR>]], desc = "Copilot re-enable" },
       { "<Space>cL", [[<Cmd>CopilotForceEnable<CR>]], desc = "Copilot force enable" },
     },
     config = function()
