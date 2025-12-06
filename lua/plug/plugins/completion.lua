@@ -75,10 +75,6 @@ local completion = {
         cond = choose.is_enabled_plugin("cmp-rg"),
       },
       {
-        "hrsh7th/cmp-cmdline",
-        cond = choose.is_enabled_plugin("cmp-cmdline"),
-      },
-      {
         "giuxtaposition/blink-cmp-copilot",
         cond = choose.is_enabled_plugin("blink-cmp-copilot"),
       },

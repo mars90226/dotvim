@@ -366,7 +366,6 @@ fzf.setup_mapping = function()
   vim.keymap.set("n", fzf_prefix .. [[o]],     [[:call      vimrc#execute_and_save('History')<CR>]])
   vim.keymap.set("n", fzf_prefix .. [[O]],     [[:call      vimrc#execute_and_save('Locate ' . input('Locate: '))<CR>]])
   vim.keymap.set("n", fzf_prefix .. [[<M-p>]], [[:call      vimrc#execute_and_save('Punctuations')<CR>]])
-  -- TODO: Add :silent to silent E10 error from cmp-cmdline when input pattern is not proper lua string
   vim.keymap.set("n", fzf_prefix .. [[r]],     [[:call      vimrc#execute_and_save('Rg ' . input('Rg: '))<CR>]])
   vim.keymap.set("n", fzf_prefix .. [[R]],     [[:call      vimrc#execute_and_save('Rg! ' . input('Rg!: '))<CR>]])
   vim.keymap.set("n", fzf_prefix .. [[<C-R>]], [[:call      vimrc#execute_and_save('Rg ' . getreg(v:lua.require("vimrc.utils").get_char_string()))<CR>]])
