@@ -99,7 +99,7 @@ lsp.servers = {
         require("vimrc.lsp").toggle_format_on_sync()
       end, { silent = true, buffer = true, desc = "LSP toggle format on sync" })
       -- TODO: Add key mapping to toggle inlay hints globally
-      vim.keymap.set("n", "yoI", function()
+      vim.keymap.set("n", "coi", function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
       end, { silent = true, buffer = true, desc = "LSP toggle inlay hints" })
 
