@@ -77,10 +77,9 @@ plugin_choose.setup_completion = function()
   if check.is_resource_limited() then
     choose.disable_plugin("cmp-nvim-lsp-signature-help")
   end
-  -- cmp-dictionary
-  -- TODO: Monitor the performance
-  if not plugin_utils.get_dictionary() then
-    choose.disable_plugin("cmp-dictionary")
+  -- blink-cmp-dictionary
+  if plugin_utils.is_executable("wn") then
+    choose.disable_plugin("blink-cmp-dictionary")
   end
   -- cmp-tmux
   if not utils.is_main_vim_mode() then

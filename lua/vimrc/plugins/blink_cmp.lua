@@ -140,7 +140,7 @@ blink_cmp.setup = function()
         "buffer",
         "snippets",
         choose.is_enabled_plugin("cmp-tmux") and "tmux" or nil,
-        choose.is_enabled_plugin("cmp-dictionary") and "dictionary" or nil,
+        choose.is_enabled_plugin("blink-cmp-dictionary") and "dictionary" or nil,
         choose.is_enabled_plugin("cmp-git") and "git" or nil,
         choose.is_enabled_plugin("blink-emoji.nvim") and "emoji" or nil,
         choose.is_enabled_plugin("blink-ripgrep.nvim") and "ripgrep" or nil,
@@ -178,17 +178,18 @@ blink_cmp.setup = function()
         },
 
         dictionary = {
-          module = "blink.compat.source",
-          -- TODO: adjust score for blink.cmp
-          -- score_offset = 50,
+          module = 'blink-cmp-dictionary',
+          name = 'Dict',
+          score_offset = -5,
           enabled = function()
-            return choose.is_enabled_plugin("cmp-dictionary")
+            return choose.is_enabled_plugin("blink-cmp-dictionary")
           end,
+          -- Make sure this is at least 2.
+          -- 3 is recommended
+          min_keyword_length = 3,
           opts = {
-            exact_length = 5,
-            first_case_insensitive = true,
-            paths = { plugin_utils.get_dictionary() },
-          },
+            dictionary_files = { plugin_utils.get_dictionary() },
+          }
         },
         git = {
           module = "blink.compat.source",

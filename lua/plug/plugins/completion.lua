@@ -37,19 +37,8 @@ local completion = {
         cond = choose.is_enabled_plugin("cmp-tmux"),
       },
       {
-        "uga-rosa/cmp-dictionary",
-        cond = choose.is_enabled_plugin("cmp-dictionary"),
-        config = function()
-          require("cmp_dictionary").setup({
-            paths = { plugin_utils.get_dictionary() },
-            exact_length = 5,
-            first_case_insensitive = true,
-            document = {
-              enable = plugin_utils.is_executable("wn"),
-              command = { "wn", "${label}", "-over" },
-            },
-          })
-        end,
+        "Kaiser-Yang/blink-cmp-dictionary",
+        cond = choose.is_enabled_plugin("blink-cmp-dictionary"),
       },
       {
         "hrsh7th/cmp-calc",
