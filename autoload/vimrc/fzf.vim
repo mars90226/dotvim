@@ -465,10 +465,10 @@ function! vimrc#fzf#shell_outputs_in_commandline(...) abort
   let results = []
   let default_command = 'ls' " TODO: Think of better default command
 
-  " NOTE: nvim-cmp error when switching commandline to input
-  lua require("vimrc.plugins.nvim_cmp").disable()
+  " NOTE: temporarily disable completion while fzf injects cmdline
+  lua require("vimrc.plugins.blink_cmp").disable()
   let command = (a:0 && type(a:1) == type('')) ? a:1 : default_command
-  lua require("vimrc.plugins.nvim_cmp").enable()
+  lua require("vimrc.plugins.blink_cmp").enable()
 
   call vimrc#fzf#fzf(
         \ 'Outputs',

@@ -5,15 +5,14 @@ local utils = require("vimrc.utils")
 local completion = {
   -- Completion
   {
-    -- TODO: Use 'iguanacucumber/magazine.nvim' instead of 'hrsh7th/nvim-cmp' for performance & bug
-    -- fixes. Which also includes 'yioneko/nvim-cmp's performance improvements noted in the following MR:
-    -- Ref: https://github.com/hrsh7th/nvim-cmp/pull/1980
-    -- FIXME: magazine.nvim is archived...
-    "iguanacucumber/magazine.nvim",
-    name = "nvim-cmp", -- Otherwise highlighting gets messed up
+    "saghen/blink.cmp",
+    version = "1.*",
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = vim.tbl_filter(function(plugin_spec)
       return plugin_spec ~= nil
     end, {
+      -- Compatibility layer for nvim-cmp sources
+      "saghen/blink.compat",
       -- Snippets
       {
         "L3MON4D3/LuaSnip",
@@ -23,27 +22,13 @@ local completion = {
         build = choose.is_enabled_plugin("LuaSnip-transform") and "make install_jsregexp" or "", -- optional
         config = function()
           require("vimrc.plugins.luasnip").setup()
-
-          -- NOTE: nvim-cmp doesn't show new snippets, but it actually reloaded
-          -- FIXME: Fix ReloadLuaSnip
-          -- vim.cmd([[command! ReloadLuaSnip call vimrc#source("after/plugin/luasnip.lua")]])
         end,
       },
-      -- Formatting
+      -- Snippet collection
+      "rafamadriz/friendly-snippets",
+      -- Optional UI helpers
       "onsails/lspkind-nvim",
-      -- Completion Sources
-      {
-        "saadparwaiz1/cmp_luasnip",
-        cond = choose.is_enabled_plugin("LuaSnip"),
-      },
-      { "hrsh7th/cmp-nvim-lsp" },
-      {
-        "hrsh7th/cmp-nvim-lsp-signature-help",
-        cond = choose.is_enabled_plugin("cmp-nvim-lsp-signature-help"),
-      },
-      { "hrsh7th/cmp-nvim-lua" },
-      { "hrsh7th/cmp-buffer" },
-      { "hrsh7th/cmp-path" },
+      -- Completion Sources (kept for compat layer)
       {
         "andersevenrud/cmp-tmux",
         cond = choose.is_enabled_plugin("cmp-tmux"),
@@ -86,13 +71,13 @@ local completion = {
         "lukas-reineke/cmp-rg",
         cond = choose.is_enabled_plugin("cmp-rg"),
       },
-      { "hrsh7th/cmp-cmdline" },
       {
-        "zbirenbaum/copilot-cmp",
-        cond = choose.is_enabled_plugin("copilot-cmp"),
-        config = function()
-          require("copilot_cmp").setup()
-        end,
+        "hrsh7th/cmp-cmdline",
+        cond = choose.is_enabled_plugin("cmp-cmdline"),
+      },
+      {
+        "giuxtaposition/blink-cmp-copilot",
+        cond = choose.is_enabled_plugin("blink-cmp-copilot"),
       },
       {
         "roobert/tailwindcss-colorizer-cmp.nvim",
@@ -119,8 +104,6 @@ local completion = {
           "handlebars",
           "hbs",
           "html",
-          -- 'HTML (Eex)',
-          -- 'HTML (EEx)',
           "html-eex",
           "heex",
           "jade",
@@ -161,11 +144,8 @@ local completion = {
         end,
       },
     }),
-    event = { "InsertEnter", "CmdlineEnter" },
     config = function()
-      require("vimrc.plugins.nvim_cmp").setup()
-
-      -- Setup lspconfig in mason.nvim config function
+      require("vimrc.plugins.blink_cmp").setup()
     end,
   },
 
@@ -188,11 +168,6 @@ local completion = {
         check_ts = choose.is_enabled_plugin("nvim-treesitter"),
         fast_wrap = {},
       })
-
-      -- nvim-cmp integration
-      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-      local cmp = require("cmp")
-      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
 
       -- Rules
       -- npairs.add_rule(Rule("%w<", ">", "cpp"):use_regex(true))

@@ -63,8 +63,6 @@ settings.setup_options = function()
   -- end
 
   -- popup menu
-  -- NOTE: nvim-cmp render popup menu border by itself
-  -- So only used in ins-completion menu
   if vim.fn.exists('+pumborder') == 1 then
     vim.opt.pumborder = "rounded"
   end
@@ -189,9 +187,9 @@ settings.setup_option_toggle = function()
 end
 
 settings.setup_digraph = function()
-  -- NOTE: Since nvim-cmp & LuaSnip use <C-K> for jumping to next expandable LuaSnip, we need to use
+-- NOTE: Since blink.cmp & LuaSnip use <C-K> for jumping to next expandable LuaSnip, we need to use
   -- <M-S-K> for digraph using it's fallback.
-  -- FIXME: This is currently only works when copilot-cmp is enabled. Fix this
+  -- FIXME: This is currently only works when blink-cmp-copilot is enabled. Fix this
 
   -- These are already defined
   -- digraphs ,_ 12289 " '、'

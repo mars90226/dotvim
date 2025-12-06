@@ -25,12 +25,16 @@ local ai = {
       require("copilot").setup({
         copilot_model = "gpt-41-copilot",
         panel = {
+          -- NOTE: Use blink-cmp-copilot
+          enabled = false,
           auto_refresh = true,
           keymap = {
             accept = "<M-CR>",
           },
         },
         suggestion = {
+          -- NOTE: Use blink-cmp-copilot
+          enabled = false,
           auto_trigger = true,
           keymap = {
             accept = "<M-l>",
@@ -184,7 +188,7 @@ local ai = {
     },
     config = function(_, opts)
       require("CopilotChat").setup(opts)
-      require("vimrc.plugins.nvim_cmp").insert_luasnip_source_to_filetype("copilot-chat")
+      require("vimrc.plugins.blink_cmp").insert_luasnip_source_to_filetype("copilot-chat")
     end,
   },
 
@@ -247,11 +251,7 @@ local ai = {
       "nvim-treesitter/nvim-treesitter", -- TODO: Check nvim-treesitter enabled?
       -- Optional: For using slash commands and variables in the chat buffer
       {
-        -- TODO: Use 'iguanacucumber/magazine.nvim' instead of 'hrsh7th/nvim-cmp' for performance & bug
-        -- fixes. Which also includes 'yioneko/nvim-cmp's performance improvements noted in the following MR:
-        -- Ref: https://github.com/hrsh7th/nvim-cmp/pull/1980
-        "iguanacucumber/magazine.nvim",
-        name = "nvim-cmp", -- Otherwise highlighting gets messed up
+        "saghen/blink.compat",
       },
       -- Defined in file_explorer.lua
       -- "folke/snacks.nvim", -- Optional: Improves the default Neovim UI
@@ -589,7 +589,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
     config = function(_, opts)
       require("codecompanion").setup(opts)
       require("vimrc.plugins.codecompanion").setup()
-      require("vimrc.plugins.nvim_cmp").insert_luasnip_source_to_filetype("codecompanion")
+      require("vimrc.plugins.blink_cmp").insert_luasnip_source_to_filetype("codecompanion")
     end,
   },
 

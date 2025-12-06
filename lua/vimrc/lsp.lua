@@ -13,11 +13,17 @@ lsp.config = {
 lsp.servers = {
   ["*"] = {
     capabilities = (function(override)
-      -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
+      -- Enable some language servers with the additional completion capabilities offered by blink.cmp
+      local completion_capabilities = vim.lsp.protocol.make_client_capabilities()
+      local ok, blink_cmp = pcall(require, "blink.cmp")
+      if ok and blink_cmp.get_lsp_capabilities then
+        completion_capabilities = blink_cmp.get_lsp_capabilities()
+      end
+
       return vim.tbl_deep_extend(
         "force",
         vim.lsp.protocol.make_client_capabilities(),
-        require("cmp_nvim_lsp").default_capabilities(),
+        completion_capabilities,
         override or {}
       )
     end)({

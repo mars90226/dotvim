@@ -68,9 +68,11 @@ end
 
 plugin_choose.setup_completion = function()
   -- Choose auto-completion plugin
-  -- nvim-cmp
+  -- blink.cmp, nvim-cmp
 
   -- Choose nvim-cmp source plugin
+  -- blink.cmp compatible sources
+
   -- cmp-nvim-lsp-signature-help
   if check.is_resource_limited() then
     choose.disable_plugin("cmp-nvim-lsp-signature-help")
@@ -130,7 +132,7 @@ plugin_choose.setup_ai = function()
   -- copilot.lua, CopilotChat.nvim
   if not check.has_linux_build_env() then
     choose.disable_plugin("copilot.lua")
-    choose.disable_plugin("copilot-cmp")
+    choose.disable_plugin("blink-cmp-copilot")
     choose.disable_plugin("CopilotChat.nvim")
   end
 

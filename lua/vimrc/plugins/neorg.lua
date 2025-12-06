@@ -7,7 +7,8 @@ neorg.setup = function()
       ["core.defaults"] = {}, -- Load all the default modules
       ["core.norg.completion"] = {
         config = {
-          engine = "nvim-cmp",
+          -- blink.cmp compatibility is not provided yet; fallback to none to avoid missing module errors
+          engine = "none",
         },
       },
       ["core.norg.concealer"] = {}, -- Allows for use of icons

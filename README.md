@@ -36,7 +36,7 @@ Well, these plugins are hard to categorize, but they are gems. You will need the
 
 ### Editor
 
-- [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) (auto completion)
+- [blink.cmp](https://github.com/saghen/blink.cmp) (auto completion)
 - [nvim-autopairs](https://github.com/windwp/nvim-autopairs) (automatically insert paired brackets)
 - [nvim-surround](https://github.com/kylechui/nvim-surround) (quickly add/delete/replace brackets)
 - [grug-far.nvim](https://github.com/MagicDuck/grug-far.nvim) (find-and-replace globally)
@@ -270,7 +270,7 @@ Make sure [`just`](https://github.com/casey/just) is installed.
 - [ ] Add description to LuaSnip snippets
 - [ ] Add noice.nvim
 - [ ] Add other terminal plugin, like [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim), and change overseer.nvim strategy to toggleterm.
-- [ ] Replace `nvim-cmp` with `blink.cmp`
+- [x] Replace `nvim-cmp` with `blink.cmp`
 - [ ] Migrate nvim-treesitter from `master` to `main` branch
 - [x] Migrate nvim-lspconfig from `setup` to `config` & `enable`
 

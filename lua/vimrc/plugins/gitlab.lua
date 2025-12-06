@@ -46,7 +46,7 @@ my_gitlab.setup_mapping = function()
 end
 
 my_gitlab.setup_autocmd = function()
-  -- Trick to make copilot.lua & nvim-cmp work with gitlab.nvim's popup
+-- Trick to make copilot.lua & blink.cmp work with gitlab.nvim's popup
   my_copilot.add_attach_filter(function()
     -- Check if popup is gitlab.nvim's comment popup or note popup
     if my_gitlab.is_comment_popup(vim.api.nvim_get_current_buf()) then
