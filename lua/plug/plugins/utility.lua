@@ -698,6 +698,14 @@ local utility = {
     },
   },
 
+  -- Meta
+  {
+    "noamsto/resolved.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    event = "VeryLazy",
+    opts = {},
+  },
+
   -- Do not lazy load vim-scriptease, as it breaks :Breakadd/:Breakdel
   -- TODO: Check if lazy load works
   {

@@ -305,6 +305,12 @@ plugin_choose.setup_misc = function()
   if utils.is_light_vim_mode() or check.is_resource_limited() then
     choose.disable_plugin("deadcolumn.nvim")
   end
+
+  -- Choose resolved plugin
+  -- resolved.nvim
+  if not plugin_utils.is_executable('gh') then
+    choose.disable_plugin("resolved.nvim")
+  end
 end
 
 plugin_choose.setup_terminal = function()
