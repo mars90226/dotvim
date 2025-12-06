@@ -39,12 +39,16 @@ blink_cmp.setup = function()
       end,
     },
 
+    -- TODO: Use 'winborder' instead
     completion = {
+      menu = { border = "rounded" },
       documentation = {
         auto_show = true,
         auto_show_delay_ms = 200,
+        window = { border = "rounded" },
       },
     },
+    signature = { window = { border = "rounded" } },
 
     keymap = {
       preset = "default",
@@ -58,7 +62,6 @@ blink_cmp.setup = function()
 
       -- Enter to accept completion
       ["<CR>"] = { "accept", "fallback" },
-
 
       ["<M-[>"] = { "select_prev", "fallback" },
       ["<M-]>"] = { "select_next", "fallback" },
@@ -180,8 +183,8 @@ blink_cmp.setup = function()
           enabled = function()
             return true
           end,
-        }
-      }
+        },
+      },
     },
 
     cmdline = {

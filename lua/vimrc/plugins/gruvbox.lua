@@ -32,6 +32,9 @@ gruvbox.custom_overrides = function()
     dark_aqua = hsl(palette.faded_aqua).darken(diff_percent).hex,
   }
   local overrides = vim.tbl_extend("force", {
+    -- NOTE: Link to Normal to get transparent background
+    Pmenu = { link = "Normal" },
+
     TSOperator = { link = "Special" },
 
     -- NOTE: Only change background color
