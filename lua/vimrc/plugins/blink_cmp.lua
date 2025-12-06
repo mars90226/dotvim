@@ -133,7 +133,7 @@ blink_cmp.setup = function()
         choose.is_enabled_plugin("cmp-dictionary") and "dictionary" or nil,
         choose.is_enabled_plugin("cmp-git") and "git" or nil,
         choose.is_enabled_plugin("cmp-emoji") and "emoji" or nil,
-        choose.is_enabled_plugin("cmp-rg") and "rg" or nil,
+        choose.is_enabled_plugin("blink-ripgrep.nvim") and "ripgrep" or nil,
         choose.is_enabled_plugin("cmp-calc") and "calc" or nil,
         choose.is_enabled_plugin("cmp-treesitter") and "treesitter" or nil,
         choose.is_enabled_plugin("blink-cmp-copilot") and "copilot" or nil,
@@ -198,19 +198,37 @@ blink_cmp.setup = function()
           end,
         },
 
-        rg = {
-          module = "blink.compat.source",
+        -- TODO: Check if configured correctly
+        ripgrep = {
+          module = "blink-ripgrep",
+          name = "Ripgrep",
           -- TODO: adjust score for blink.cmp
           -- score_offset = 70,
           enabled = function()
-            return choose.is_enabled_plugin("cmp-rg")
+            return choose.is_enabled_plugin("blink-ripgrep.nvim")
           end,
+          -- see the full configuration below for all available options
+          ---@module "blink-ripgrep"
+          ---@type blink-ripgrep.Options
           opts = {
-            keyword_length = 3,
-            max_item_count = 10,
-            additional_arguments = "--threads 2 --max-count 10",
-            debounce = 500,
+            -- the minimum length of the current word to start searching
+            -- (if the word is shorter than this, the search will not start)
+            prefix_min_len = 3,
+            backend = {
+              -- - "gitgrep-or-ripgrep", use git grep if possible, otherwise
+              --   use ripgrep. Uses the same options as the gitgrep backend
+              use = "gitgrep-or-ripgrep",
+              ripgrep = {
+                additional_rg_options = { "--threads", "2", "--max-count", "10" },
+              },
+              gitgrep = {
+                additional_gitgrep_options = { "--threads", "2", "--max-count", "10" },
+              },
+            }
           },
+          async = true,
+          max_items = 10,
+          min_keyword_length = 3,
         },
 
         calc = {

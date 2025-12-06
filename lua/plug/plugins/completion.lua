@@ -71,8 +71,9 @@ local completion = {
         cond = choose.is_enabled_plugin("cmp-emoji"),
       },
       {
-        "lukas-reineke/cmp-rg",
-        cond = choose.is_enabled_plugin("cmp-rg"),
+        "mikavilpas/blink-ripgrep.nvim",
+        cond = choose.is_enabled_plugin("blink-ripgrep.nvim"),
+        version = "*", -- use the latest stable version
       },
       {
         "giuxtaposition/blink-cmp-copilot",

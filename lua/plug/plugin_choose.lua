@@ -105,7 +105,7 @@ plugin_choose.setup_completion = function()
   -- cmp-rg
   -- TODO: Monitor the performance
   if not plugin_utils.is_executable("rg") then
-    choose.disable_plugin("cmp-rg")
+    choose.disable_plugin("blink-ripgrep.nvim")
   end
   -- tailwindcss-colorizer-cmp.nvim
   if not utils.is_main_vim_mode() then
