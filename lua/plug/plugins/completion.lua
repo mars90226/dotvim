@@ -28,6 +28,9 @@ local completion = {
       "rafamadriz/friendly-snippets",
       -- Optional UI helpers
       "onsails/lspkind-nvim",
+      "nvim-web-devicons",
+      "xzbdmw/colorful-menu.nvim",
+
       -- Completion Sources (kept for compat layer)
       {
         "andersevenrud/cmp-tmux",

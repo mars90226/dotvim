@@ -1,3 +1,6 @@
+local devicons = require("nvim-web-devicons")
+local lspkind = require("lspkind")
+
 local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
 
@@ -41,11 +44,67 @@ blink_cmp.setup = function()
 
     -- TODO: Use 'winborder' instead
     completion = {
-      menu = { border = "rounded" },
+      menu = {
+        draw = {
+          -- We don't need label_description now because label and label_description are already
+          -- combined together in label by colorful-menu.nvim.
+          columns = { { "kind_icon" }, { "label", gap = 1 } },
+          components = {
+            -- nvim-web-devicons + lspkind-nvim
+            -- Ref: https://cmp.saghen.dev/recipes.html#nvim-web-devicons-lspkind
+            kind_icon = {
+              text = function(ctx)
+                local icon = ctx.kind_icon
+                if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                  local dev_icon, _ = devicons.get_icon(ctx.label)
+                  if dev_icon then
+                    icon = dev_icon
+                  end
+                else
+                  icon = lspkind.symbolic(ctx.kind, {
+                    mode = "symbol",
+                  })
+                end
+
+                return icon .. ctx.icon_gap
+              end,
+
+              -- Optionally, use the highlight groups from nvim-web-devicons
+              -- You can also add the same function for `kind.highlight` if you want to
+              -- keep the highlight groups in sync with the icons.
+              highlight = function(ctx)
+                local hl = ctx.kind_hl
+                if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                  local dev_icon, dev_hl = devicons.get_icon(ctx.label)
+                  if dev_icon then
+                    hl = dev_hl
+                  end
+                end
+                return hl
+              end,
+            },
+
+            -- colorful-menu.nvim
+            -- Ref: https://github.com/xzbdmw/colorful-menu.nvim?tab=readme-ov-file#use-it-in-blinkcmp
+            label = {
+              text = function(ctx)
+                return require("colorful-menu").blink_components_text(ctx)
+              end,
+              highlight = function(ctx)
+                return require("colorful-menu").blink_components_highlight(ctx)
+              end,
+            },
+          }
+        },
+        border = "rounded",
+      },
       documentation = {
         auto_show = true,
         auto_show_delay_ms = 200,
         window = { border = "rounded" },
+      },
+      ghost_text = {
+        enabled = true,
       },
     },
     signature = { window = { border = "rounded" } },
