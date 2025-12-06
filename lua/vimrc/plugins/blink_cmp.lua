@@ -32,15 +32,7 @@ blink_cmp.setup = function()
       use_nvim_cmp_as_default = false,
     },
 
-    snippets = {
-      expand = function(snippet)
-        if choose.is_enabled_plugin("LuaSnip") then
-          require("luasnip").lsp_expand(snippet)
-        else
-          vim.snippet.expand(snippet)
-        end
-      end,
-    },
+    snippets = { preset = 'luasnip' },
 
     -- TODO: Use 'winborder' instead
     completion = {
