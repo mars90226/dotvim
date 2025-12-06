@@ -98,12 +98,11 @@ plugin_choose.setup_completion = function()
   if not utils.is_main_vim_mode() then
     choose.disable_plugin("cmp-git")
   end
-  -- cmp-emoji
+  -- blink-emoji.nvim
   if check.is_resource_limited() then
-    choose.disable_plugin("cmp-emoji")
+    choose.disable_plugin("blink-emoji.nvim")
   end
-  -- cmp-rg
-  -- TODO: Monitor the performance
+  -- blink-ripgrep.nvim
   if not plugin_utils.is_executable("rg") then
     choose.disable_plugin("blink-ripgrep.nvim")
   end

@@ -67,8 +67,8 @@ local completion = {
         end,
       },
       {
-        "hrsh7th/cmp-emoji",
-        cond = choose.is_enabled_plugin("cmp-emoji"),
+        "moyiz/blink-emoji.nvim",
+        cond = choose.is_enabled_plugin("blink-emoji.nvim"),
       },
       {
         "mikavilpas/blink-ripgrep.nvim",

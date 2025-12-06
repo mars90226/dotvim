@@ -142,7 +142,7 @@ blink_cmp.setup = function()
         choose.is_enabled_plugin("cmp-tmux") and "tmux" or nil,
         choose.is_enabled_plugin("cmp-dictionary") and "dictionary" or nil,
         choose.is_enabled_plugin("cmp-git") and "git" or nil,
-        choose.is_enabled_plugin("cmp-emoji") and "emoji" or nil,
+        choose.is_enabled_plugin("blink-emoji.nvim") and "emoji" or nil,
         choose.is_enabled_plugin("blink-ripgrep.nvim") and "ripgrep" or nil,
         choose.is_enabled_plugin("cmp-calc") and "calc" or nil,
         choose.is_enabled_plugin("cmp-treesitter") and "treesitter" or nil,
@@ -200,11 +200,26 @@ blink_cmp.setup = function()
         },
 
         emoji = {
-          module = "blink.compat.source",
-          -- TODO: adjust score for blink.cmp
-          -- score_offset = 70,
+          module = "blink-emoji",
+          name = "Emoji",
           enabled = function()
-            return choose.is_enabled_plugin("cmp-emoji")
+            return choose.is_enabled_plugin("blink-emoji.nvim")
+          end,
+          score_offset = 15, -- Tune by preference
+          opts = {
+            insert = true,   -- Insert emoji (default) or complete its name
+            ---@type string|table|fun():table
+            trigger = function()
+              return { ":" }
+            end,
+          },
+          should_show_items = function()
+            return vim.tbl_contains(
+            -- Enable emoji completion only for git commits and markdown.
+            -- By default, enabled for all file-types.
+              { "gitcommit", "markdown" },
+              vim.o.filetype
+            )
           end,
         },
 
