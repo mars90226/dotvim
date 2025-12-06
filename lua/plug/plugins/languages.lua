@@ -712,6 +712,17 @@ local languages = {
       vim.keymap.set("n", crates_prefix .. "L", crates.open_lib_rs, { silent = true, desc = "Crates - Open lib.rs page" })
     end,
   },
+  {
+    "alexpasmantier/krust.nvim",
+    ft = "rust",
+    opts = {
+      keymap = "<Leader>K", -- Set a keymap for Rust buffers (default: false)
+      float_win = {
+        border = "rounded", -- Border style: "none", "single", "double", "rounded", "solid", "shadow"
+        auto_focus = false, -- Auto-focus float (default: false)
+      },
+    },
+  },
   -- TypeScript
   {
     "OlegGulevskyy/better-ts-errors.nvim",
