@@ -56,11 +56,7 @@ local lsp = {
 
   -- Diagnostic
   {
-    -- FIXME: Use original trouble.nvim after merged PR
-    -- "folke/trouble.nvim",
-    -- https://github.com/folke/trouble.nvim/pull/656
-    "h-michael/trouble.nvim",
-    branch = "fix/decoration-provider-api",
+    "folke/trouble.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
     cmd = { "Trouble" },
     keys = {
