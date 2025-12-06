@@ -119,6 +119,13 @@ blink_cmp.setup = function()
       ["<M-[>"] = { "select_prev", "fallback" },
       ["<M-]>"] = { "select_next", "fallback" },
       ["<M-l>"] = { "accept", "fallback" },
+
+      -- Show ripgrep result
+      ["<M-g>"] = {
+        function()
+          blink.show({ providers = { "ripgrep" } })
+        end,
+      },
     },
 
     sources = {
@@ -198,12 +205,10 @@ blink_cmp.setup = function()
           end,
         },
 
-        -- TODO: Check if configured correctly
         ripgrep = {
           module = "blink-ripgrep",
           name = "Ripgrep",
-          -- TODO: adjust score for blink.cmp
-          -- score_offset = 70,
+          score_offset = -3,
           enabled = function()
             return choose.is_enabled_plugin("blink-ripgrep.nvim")
           end,
@@ -218,11 +223,13 @@ blink_cmp.setup = function()
               -- - "gitgrep-or-ripgrep", use git grep if possible, otherwise
               --   use ripgrep. Uses the same options as the gitgrep backend
               use = "gitgrep-or-ripgrep",
+              -- use = "ripgrep",
               ripgrep = {
                 additional_rg_options = { "--threads", "2", "--max-count", "10" },
               },
               gitgrep = {
-                additional_gitgrep_options = { "--threads", "2", "--max-count", "10" },
+                -- TODO: Add these configs break the git grep. Don't know why.
+                -- additional_gitgrep_options = { "--threads", "2", "--max-count", "10" },
               },
             }
           },
