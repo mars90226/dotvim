@@ -32,7 +32,9 @@ blink_cmp.setup = function()
       use_nvim_cmp_as_default = false,
     },
 
-    snippets = { preset = 'luasnip' },
+    snippets = {
+      preset = 'luasnip',
+    },
 
     -- TODO: Use 'winborder' instead
     completion = {
@@ -145,6 +147,16 @@ blink_cmp.setup = function()
       },
 
       providers = {
+        snippets = {
+          opts = {
+            -- see the list of frameworks in: https://github.com/rafamadriz/friendly-snippets/tree/main/snippets/frameworks
+            -- and search for possible languages in: https://github.com/rafamadriz/friendly-snippets/blob/main/package.json
+            -- the following is just an example, you should only enable the frameworks that you use
+            extended_filetypes = {
+              vue = { 'vue' },
+            }
+          }
+        },
         tmux = {
           module = "blink.compat.source",
           -- TODO: adjust score for blink.cmp
