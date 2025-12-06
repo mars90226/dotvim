@@ -17,11 +17,6 @@ blink_cmp.disable = function()
   blink_cmp.enabled = false
 end
 
--- Stub kept for compatibility with previous nvim-cmp helper calls.
-blink_cmp.insert_luasnip_source_to_filetype = function(_filetype)
-  -- blink.cmp always exposes the snippets source; per-filetype tweaks are unnecessary here.
-end
-
 blink_cmp.setup = function()
   local blink = require("blink.cmp")
 
@@ -31,8 +26,7 @@ blink_cmp.setup = function()
     end,
 
     appearance = {
-      -- keep classic completion menu look
-      use_nvim_cmp_as_default = true,
+      use_nvim_cmp_as_default = false,
     },
 
     snippets = {

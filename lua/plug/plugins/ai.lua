@@ -188,7 +188,9 @@ local ai = {
     },
     config = function(_, opts)
       require("CopilotChat").setup(opts)
-      require("vimrc.plugins.blink_cmp").insert_luasnip_source_to_filetype("copilot-chat")
+      -- TODO: CopilotChat.nvim cannot use copilot in copilot-lua buffer for now. As it doesn't
+      -- trigger blink.cmp. And we disable copilot.lua's suggestion to avoid conflicting with
+      -- blink-cmp-copilot.
     end,
   },
 
@@ -589,7 +591,6 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
     config = function(_, opts)
       require("codecompanion").setup(opts)
       require("vimrc.plugins.codecompanion").setup()
-      require("vimrc.plugins.blink_cmp").insert_luasnip_source_to_filetype("codecompanion")
     end,
   },
 
