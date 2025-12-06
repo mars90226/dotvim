@@ -73,10 +73,6 @@ plugin_choose.setup_completion = function()
   -- Choose nvim-cmp source plugin
   -- blink.cmp compatible sources
 
-  -- cmp-nvim-lsp-signature-help
-  if check.is_resource_limited() then
-    choose.disable_plugin("cmp-nvim-lsp-signature-help")
-  end
   -- blink-cmp-dictionary
   if plugin_utils.is_executable("wn") then
     choose.disable_plugin("blink-cmp-dictionary")
@@ -94,6 +90,7 @@ plugin_choose.setup_completion = function()
     choose.disable_plugin("cmp-treesitter")
   end
   -- cmp-git
+  -- TODO: Replace this with blink-cmp-git
   if not utils.is_main_vim_mode() then
     choose.disable_plugin("cmp-git")
   end
