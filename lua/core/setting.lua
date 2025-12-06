@@ -189,7 +189,7 @@ end
 settings.setup_digraph = function()
 -- NOTE: Since blink.cmp & LuaSnip use <C-K> for jumping to next expandable LuaSnip, we need to use
   -- <M-S-K> for digraph using it's fallback.
-  -- FIXME: This is currently only works when blink-cmp-copilot is enabled. Fix this
+  -- FIXME: This is currently only works when blink-copilot is enabled. Fix this
 
   -- These are already defined
   -- digraphs ,_ 12289 " '、'

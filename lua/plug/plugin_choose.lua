@@ -132,7 +132,7 @@ plugin_choose.setup_ai = function()
   -- copilot.lua, CopilotChat.nvim
   if not check.has_linux_build_env() then
     choose.disable_plugin("copilot.lua")
-    choose.disable_plugin("blink-cmp-copilot")
+    choose.disable_plugin("blink-copilot")
     choose.disable_plugin("CopilotChat.nvim")
   end
 

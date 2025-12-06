@@ -25,7 +25,7 @@ local ai = {
       require("copilot").setup({
         copilot_model = "gpt-41-copilot",
         panel = {
-          -- NOTE: Use blink-cmp-copilot
+          -- NOTE: Use blink-copilot
           enabled = false,
           auto_refresh = true,
           keymap = {
@@ -33,7 +33,7 @@ local ai = {
           },
         },
         suggestion = {
-          -- NOTE: Use blink-cmp-copilot
+          -- NOTE: Use blink-copilot
           enabled = false,
           auto_trigger = true,
           keymap = {
@@ -190,7 +190,7 @@ local ai = {
       require("CopilotChat").setup(opts)
       -- TODO: CopilotChat.nvim cannot use copilot in copilot-lua buffer for now. As it doesn't
       -- trigger blink.cmp. And we disable copilot.lua's suggestion to avoid conflicting with
-      -- blink-cmp-copilot.
+      -- blink-copilot.
     end,
   },
 

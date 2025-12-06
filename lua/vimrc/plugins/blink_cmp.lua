@@ -143,7 +143,7 @@ blink_cmp.setup = function()
         choose.is_enabled_plugin("blink-ripgrep.nvim") and "ripgrep" or nil,
         choose.is_enabled_plugin("cmp-calc") and "calc" or nil,
         choose.is_enabled_plugin("cmp-treesitter") and "treesitter" or nil,
-        choose.is_enabled_plugin("blink-cmp-copilot") and "copilot" or nil,
+        choose.is_enabled_plugin("blink-copilot") and "copilot" or nil,
       }),
 
       per_filetype = {
@@ -257,10 +257,10 @@ blink_cmp.setup = function()
         },
 
         copilot = {
-          module = "blink-cmp-copilot",
+          module = "blink-copilot",
           score_offset = 100,
           enabled = function()
-            return choose.is_enabled_plugin("blink-cmp-copilot")
+            return choose.is_enabled_plugin("blink-copilot")
           end,
           async = true,
         },

@@ -76,8 +76,8 @@ local completion = {
         version = "*", -- use the latest stable version
       },
       {
-        "giuxtaposition/blink-cmp-copilot",
-        cond = choose.is_enabled_plugin("blink-cmp-copilot"),
+        "fang2hou/blink-copilot",
+        cond = choose.is_enabled_plugin("blink-copilot"),
       },
       {
         "roobert/tailwindcss-colorizer-cmp.nvim",
