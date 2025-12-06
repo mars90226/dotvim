@@ -146,6 +146,7 @@ blink_cmp.setup = function()
       }),
 
       per_filetype = {
+        lua = { inherit_defaults = true, "lazydev" },
         ["dap-repl"] = { "dap" },
         ["dapui_watches"] = { "dap" },
         ["dapui_hover"] = { "dap" },
@@ -242,6 +243,12 @@ blink_cmp.setup = function()
           enabled = function()
             return true
           end,
+        },
+
+        lazydev = {
+          name = "LazyDev",
+          module = "lazydev.integrations.blink",
+          score_offset = 100, -- show at a higher priority than lsp
         },
       },
     },
