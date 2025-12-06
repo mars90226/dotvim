@@ -55,9 +55,12 @@ blink_cmp.setup = function()
                     icon = dev_icon
                   end
                 else
-                  icon = lspkind.symbolic(ctx.kind, {
+                  local lspkind_icon = lspkind.symbolic(ctx.kind, {
                     mode = "symbol",
                   })
+                  if lspkind_icon ~= "" then
+                    icon = lspkind_icon
+                  end
                 end
 
                 return icon .. ctx.icon_gap
