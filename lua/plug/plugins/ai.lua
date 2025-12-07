@@ -30,6 +30,7 @@ local ai = {
           auto_refresh = true,
           keymap = {
             accept = "<M-CR>",
+            open = "<M-S-CR>",
           },
         },
         suggestion = {
