@@ -172,6 +172,7 @@ my_fzf_lua.setup_mapping = function()
   vim.keymap.set("n", fzf_lua_prefix .. [[/]], [[<Cmd>FzfLua search_history<CR>]], { desc = "FzfLua search_history" })
   vim.keymap.set("n", fzf_lua_prefix .. [[<Tab>]], [[<Cmd>FzfLua keymaps<CR>]], { desc = "FzfLua keymaps" })
   vim.keymap.set("n", fzf_lua_prefix .. [[<F1>]], [[<Cmd>FzfLua man_pages<CR>]], { desc = "FzfLua man_pages" })
+  vim.keymap.set("n", fzf_lua_prefix .. [[<F9>]], [[<Cmd>FzfLua undotree<CR>]], { desc = "FzfLua undotree" })
 
   -- Files
   vim.keymap.set("n", fzf_lua_prefix .. "n", function()
