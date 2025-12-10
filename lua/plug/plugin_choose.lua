@@ -74,7 +74,7 @@ plugin_choose.setup_completion = function()
   -- blink.cmp compatible sources
 
   -- blink-cmp-dictionary
-  if plugin_utils.is_executable("wn") then
+  if not plugin_utils.is_executable("wn") then
     choose.disable_plugin("blink-cmp-dictionary")
   end
   -- cmp-tmux
