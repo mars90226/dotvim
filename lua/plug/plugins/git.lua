@@ -213,6 +213,7 @@ local git = {
         end,
         desc = "Diffview toggle",
       },
+      { "<Space>gD", [[<Cmd>DiffviewOpen<CR>]], desc = "Diffview open", },
 
       -- TODO: Add mapping for author filter & current file
       { "<Space>gh", "<Cmd>DiffviewFileHistory<CR>", desc = "Diffview file history" },
