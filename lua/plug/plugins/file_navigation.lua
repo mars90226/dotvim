@@ -430,6 +430,8 @@ local file_navigation = {
   -- But it's slow on large folder as it need to wait for indexing
   {
     "dmtrKovalenko/fff.nvim",
+    -- TODO: Disabled due to crashing neovim when upgrading
+    enabled = false,
     cond = choose.is_enabled_plugin("fff.nvim"),
     build = function()
       -- this will download prebuild binary or try to use existing rustup toolchain to build from source
