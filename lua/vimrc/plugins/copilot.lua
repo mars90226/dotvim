@@ -4,22 +4,37 @@ my_copilot.attach_filters = {}
 
 -- TODO: Better naming
 
-my_copilot.default_model = "gemini-3-pro-preview"
-my_copilot.default_github_model = "gemini-3-pro-preview"
+my_copilot.default_model = "gpt-5.2"
+my_copilot.default_github_model = "gpt-5.2"
 my_copilot.default_free_model = "gpt-5-mini"
 my_copilot.default_fast_model = "grok-code-fast-1"
 
 -- NOTE: Use the model info from Copilot using CopilotChat.nvim
 my_copilot.models = {
-  ["gpt-5.1-codex"] = {
-    model = "gpt-5.1-codex",
+  ["gpt-5.2"] = {
+    model = "gpt-5.2",
     max_tokens = 128000,
     reasoning_effort = "medium",
   },
-  ["gpt-5.1-codex-high"] = {
-    model = "gpt-5.1-codex",
+  ["gpt-5.2-xhigh"] = {
+    model = "gpt-5.2",
     max_tokens = 128000,
-    reasoning_effort = "high",
+    reasoning_effort = "xhigh",
+  },
+  ["gpt-5.1-codex-max"] = {
+    model = "gpt-5.1-codex-max",
+    max_tokens = 128000,
+    reasoning_effort = "medium",
+  },
+  ["gpt-5.1-codex-max-xhigh"] = {
+    model = "gpt-5.1-codex-max",
+    max_tokens = 128000,
+    reasoning_effort = "xhigh",
+  },
+  ["gpt-5.1-codex-mini"] = {
+    model = "gpt-5.1-codex-mini",
+    max_tokens = 128000,
+    reasoning_effort = "medium",
   },
   ["gpt-5.1"] = {
     model = "gpt-5.1",
@@ -31,26 +46,6 @@ my_copilot.models = {
     max_tokens = 128000,
     reasoning_effort = "high",
   },
-  ["gpt-5-codex"] = {
-    model = "gpt-5-codex",
-    max_tokens = 128000,
-    reasoning_effort = "medium",
-  },
-  ["gpt-5-codex-high"] = {
-    model = "gpt-5-codex",
-    max_tokens = 128000,
-    reasoning_effort = "high",
-  },
-  ["gpt-5"] = {
-    model = "gpt-5",
-    max_tokens = 128000,
-    reasoning_effort = "medium",
-  },
-  ["gpt-5-high"] = {
-    model = "gpt-5",
-    max_tokens = 128000,
-    reasoning_effort = "high",
-  },
   ["gpt-5-mini"] = {
     model = "gpt-5-mini",
     max_tokens = 128000,
@@ -59,20 +54,12 @@ my_copilot.models = {
     model = "gpt-4.1",
     max_tokens = 128000,
   },
-  ["gemini-2.5-pro"] = {
-    model = "gemini-2.5-pro",
-    max_tokens = 128000,
-  },
   ["gemini-3-pro-preview"] = {
     model = "gemini-3-pro-preview",
     max_tokens = 128000,
   },
   ["claude-haiku-4.5"] = {
     model = "claude-haiku-4.5",
-    max_tokens = 128000,
-  },
-  ["claude-sonnet-4"] = {
-    model = "claude-sonnet-4",
     max_tokens = 128000,
   },
   ["claude-sonnet-4.5"] = {
