@@ -47,9 +47,12 @@ Well, these plugins are hard to categorize, but they are gems. You will need the
 ### LSP
 
 - [outline.nvim](https://github.com/hedyhli/outline.nvim) (Display symbols in sidebar using LSP)
-- [trouble.nvim](https://github.com/folke/trouble.nvim) (diagnostics UI)
 - [conform.nvim](https://github.com/stevearc/conform.nvim) (on-demand formatter)
 - [nvim-lint](https://github.com/mfussenegger/nvim-lint) (on-demand linter)
+
+### Diagnostics
+
+- [trouble.nvim](https://github.com/folke/trouble.nvim) (diagnostics UI)
 
 ### File Explorer
 
@@ -80,10 +83,10 @@ Well, these plugins are hard to categorize, but they are gems. You will need the
 ### Neovim
 
 - [neovim](https://neovim.io/) 0.11.4+ (stable), 0.12.0+ (nightly)
-- [python](https://www.python.org/) 3.7.0 (required pynvim 0.6.0)
+- [python](https://www.python.org/) 3.6.1+ (optional, for Python provider / pynvim / Defx.nvim)
 - [universal-ctags](https://github.com/universal-ctags/ctags) (required by fzf)
 - C compiler and libstdc++ (required by nvim-treesitter)
-- [git](https://git-scm.com/) 2.13.0 (basic), 2.19.0 (for column in `git grep`)
+- [git](https://git-scm.com/) (required)
 
 ## Recommends
 
@@ -121,7 +124,8 @@ Make sure [`just`](https://github.com/casey/just) is installed.
 - `fzf` key mappings
   - `<Space>zg`: Search and open git files
   - `<Space>zf`: Search and open files
-  - `<Space>zw`: Search and switch to windows
+  - `<Space>zw`: Search and open git worktree files
+  - `<Space>zW`: Search and switch to windows
   - `<Space>zl`: Search and goto to lines in current buffer
   - `<Space>zt`: Search and goto to tags in current buffer
   - `<Space>zp`: Search and goto to tags in current project
@@ -131,12 +135,11 @@ Make sure [`just`](https://github.com/casey/just) is installed.
   - `<Space>zh`: Search and open vim help
 - `telescope.nvim` key mappings
   - `<Space>tg`: Search and open git files
-  - `<Space>tf`: Search and open files
-  - `<Space>tw`: Search and switch to windows
-  - `<Space>tl`: Search and goto to lines in current buffer
+  - `<Space>tF`: Search and open all files (include hidden / no ignore)
+  - `<Space>tll`: Search in current buffer (fuzzy find)
   - `<Space>ti`: Live grep and goto files using ripgrep
   - `<Space>tr`: Grep and goto files using ripgrep
-  - `<Space>tm`: Search and open most recently used files
+  - `<Space>to`: Search and open most recently used files
   - `<Space>th`: Search and open vim help
 - `fzf-lua` key mappings
   - `<Space>fg`: Search and open git files
@@ -161,23 +164,34 @@ Make sure [`just`](https://github.com/casey/just) is installed.
 ### LSP
 
 - LSP key mappings
-  - `gd`: Open LSP definition/references UI
-  - `gy`: Show signature help
+  - `K`: Show hover documentation
+  - `ga`: Code action
+  - `gd`: Goto definition
   - `gi`: Goto implementation
-  - `gr`: LSP Rename
-  - `[c`: Goto previous LSP diagnostic error
-  - `]c`: Goto next LSP diagnostic error
-  - `<Leader>lf`: Format selected code
-  - `<Leader>lf` on visual selection: Range format selected code
+  - `grn`: LSP Rename
+  - `gR`: Show references
+  - `gy`: Show signature help
+  - `<Space>lf`: Format current buffer
+  - `<Space>lf` on visual selection: Range format selected code
 - `outline.nvim` key mappings
   - `<F7>`: Toggle outline.nvim that showing LSP symbols outline in sidebar
-- `trouble.nvim` key mappings
-  - `<Space>xx`: Show LSP workspace diagnostics in Trouble UI or toggle Trouble UI
-  - `<Space>xd`: Show LSP document diagnostics in Trouble UI
-  - `<Space>xs`: Show LSP document symbols in Trouble UI
-  - `<Space>xl`: Show LSP definitions / references in Trouble UI
 - `nvim-lint` key mappings
   - `<Leader>ll`: Execute linter
+
+### Diagnostics
+
+- Diagnostic key mappings
+  - `[d`: Goto previous diagnostic error
+  - `]d`: Goto next diagnostic error
+  - `go`: Open floating window with diagnostic information
+  - `yoo`: Toggle diagnostic
+- `trouble.nvim` key mappings
+  - `<Space>xx`: Show workspace diagnostics in Trouble UI or toggle Trouble UI
+  - `<Space>xd`: Show document diagnostics in Trouble UI
+  - `<Space>xs`: Show document symbols in Trouble UI
+  - `<Space>xl`: Show definitions / references in Trouble UI
+  - `[x`: Goto previous diagnostic error in Trouble UI
+  - `]x`: Goto next diagnostic error in Trouble UI
 
 ### File Explorer
 
@@ -196,30 +210,37 @@ Make sure [`just`](https://github.com/casey/just) is installed.
   - `<Space>gw`: Find and replace cursor word/visual selection globally
   - `<Space>g'`: Find and replace cursor word/visual selection in current file
 - `hop.nvim` key mappings
-  - `<Space>w`: Goto word start
+  - `<Space>e`: Goto word end
   - `<Space>;`: Search and goto pattern
-  - `<Space>j`: Goto below lines
-  - `<Space>k`: Goto above lines
+  - `<LocalLeader>f`: Goto 1 character
+  - `<LocalLeader>l`: Goto line
+  - `<Space>cw`: Goto camel-case word
+  - `<Space>'`: Goto treesitter node
 - `lightspeed.nvim` key mappings
   - `f`: Forward search and goto 1 characters
   - `F`: Backward search and goto 1 characters
   - `;`: Forward search and goto 2 characters
   - `<M-;>`: Backward search and goto 2 characters
+- `flash.nvim` key mappings
+  - `<Space>w`: Goto word start
+  - `<Space>j`: Goto below lines
+  - `<Space>k`: Goto above lines
+  - `<Leader>f`: Goto searched text
 
 ### Treesitter
 
 - Treesitter key mappings
   - `af` for textobject: outer function textobject
   - `if` for textobject: inner function textobject
-  - `af` for textobject: outer class textobject
+  - `ac` for textobject: outer class textobject
   - `ic` for textobject: inner class textobject
   - `]m`: Goto next function start
   - `[m`: Goto previous function start
   - `]]`: Goto next class start
   - `[]`: Goto previous class start
   - `<F6>`: Toggle context
-  - `<CR>`: Select node
-  - `<CR>` in visual mode: scope incremental
+  - `<CR>`: Incremental selection (init / scope)
+  - `<Tab>` / `<S-Tab>`: Incremental selection (node inc / dec)
   - `<M-h>`, `<M-j>`, `<M-k>`, `<M-l>` in visual mode: navigate node
   - `<M-S-j>`, `<M-S-k>` in visual mode: swap node
 
@@ -253,10 +274,10 @@ Make sure [`just`](https://github.com/casey/just) is installed.
   - `<M-h>`, `<M-j>`, `<M-k>`, `<M-l>`: Move between windows, like `<C-W>h`, `<C-W>j`, `<C-W>k`, and `<C-W>l`
   - `<C-J>`, `<C-K>`: Move between tabs, like `gT` and `gt`
   - `<Space>q`: Close window, like `:q<CR>`
-  - `<Leader>db`: Change current window working directory to folder containing current current buffer. Equivalent of `:lcd %:h<CR>`.
+  - `<Leader>d5`: Change current window working directory to folder containing current buffer. Equivalent of `:lcd %:h<CR>`.
   - `<M-1>`: Switch to last tab
-  - `<Leader>ts`: Open terminal in split
-  - `<Leader>tt`: Open terminal in new tab
+  - `<Leader><Tab>s`: Open shell in horizontal split
+  - `<Leader><Tab>t`: Open shell in new tab
 - Terminal key mappings
   - `<M-F1>`: Escape terminal mode to normal mode
   - `<M-r>`: Paste from register
