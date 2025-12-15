@@ -9,6 +9,7 @@ clipboard.setup = function()
 
   -- Use tmux for clipboard if available
   -- TODO: Monitor if this cause problem
+  -- FIXME: Linux server -> X11 server works, but X11 server -> Linux server broken.
   if vim.env.TMUX ~= nil then
     vim.g.clipboard = 'tmux'
   end
