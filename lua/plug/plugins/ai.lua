@@ -821,6 +821,13 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         mode = { "n", "v" },
       },
     },
+    config = function(_, opts)
+      require('sidekick').setup(opts)
+
+      vim.api.nvim_create_user_command("SidekickNewTool", function(args)
+        require("vimrc.plugins.sidekick").create_new_tools(unpack(args.fargs))
+      end, { nargs = '+' })
+    end,
   },
 
   -- MCP
