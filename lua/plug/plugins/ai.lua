@@ -199,6 +199,8 @@ local ai = {
   {
     "olimorris/codecompanion.nvim",
     cond = choose.is_enabled_plugin("codecompanion.nvim"),
+    -- TODO: Upgrade to v18
+    version = "v17.33.0",
     cmd = {
       "CodeCompanion",
       "CodeCompanionChat",
