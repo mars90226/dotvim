@@ -9,10 +9,19 @@ clipboard.setup = function()
 
   -- Use tmux for clipboard if available
   -- TODO: Monitor if this cause problem
-  -- FIXME: Linux server -> X11 server works, but X11 server -> Linux server broken.
+  -- NOTE: Use tmux to
+  -- 1. Copy from within Linux server and set clipboard in SSH client no matter SSH client is X11
+  -- server or not.
+  -- 2. Cannot see the updated clipboard content within Linux server if copying from SSH client. Need
+  -- to use terminal emulator's paste.
   if vim.env.TMUX ~= nil then
     vim.g.clipboard = 'tmux'
   end
+
+  -- NOTE: Use xsel to
+  -- 1. Copy from within Linux server and set clipboard in X11 server.
+  -- 2. Cannot set clipboard in SSH client.
+  -- 3. Can see the updated clipboard content within Linux server if copying from SSH client.
 
   -- TODO: Fix clipboard: error: Error: target STRING not available
   -- Use `xsel` instead of `xclip`. It seems that `xclip` over ssh with yank plugin cause this error.
