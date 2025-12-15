@@ -44,6 +44,8 @@ local languages = {
   {
     "nvim-treesitter/nvim-treesitter",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
+    -- TODO: Switch to main branch
+    branch = "master",
     -- NOTE: markview.nvim need to be loaded before nvim-treesitter
     dependencies = { "OXY2DEV/markview.nvim" },
     build = ":TSUpdate",
@@ -55,6 +57,8 @@ local languages = {
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
+    -- TODO: Switch to main branch
+    branch = "master",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = { "VeryLazy" },
   },
