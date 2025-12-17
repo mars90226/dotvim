@@ -154,6 +154,29 @@ utils.remap = function(old_key, new_key, mode)
   end
 end
 
+---@param mode string|string[]
+---@param lhs string
+---@param rhs string|function
+---@param opts? vim.keymap.set.Opts
+---@param override? "never"|"global"|"always"
+utils.set_keymap = function(mode, lhs, rhs, opts, override)
+  override = override or "always"
+
+  if override ~= "always" then
+    local maparg = vim.fn.maparg(lhs, mode, false, true)
+    local has_mapping = not vim.tbl_isempty(maparg)
+
+    if override == "never" and has_mapping then
+      return
+    end
+    if override == "global" and has_mapping and maparg.buffer == 1 then
+      return
+    end
+  end
+
+  vim.keymap.set(mode, lhs, rhs, opts)
+end
+
 utils.get_char = function(opts)
   local options = vim.tbl_extend("force", { prompt = "Press any key: " }, opts or {})
 

@@ -3,6 +3,7 @@ local my_goto_preview = require("vimrc.plugins.goto-preview")
 local check = require("vimrc.check")
 local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
+local utils = require("vimrc.utils")
 
 local lsp = {}
 
@@ -58,35 +59,36 @@ lsp.servers = {
       my_goto_preview.on_attach(client)
 
       -- Setup keymaps
-      vim.keymap.set("n", "K", function()
+      -- TODO: Consider special buffers that have buffer key mappings
+      utils.set_keymap("n", "K", function()
         require("vimrc.lsp").show_doc()
-      end, { silent = true, buffer = true, desc = "LSP show hover documentation" })
-      vim.keymap.set("n", "gd", function()
+      end, { silent = true, buffer = true, desc = "LSP show hover documentation" }, "global")
+      utils.set_keymap("n", "gd", function()
         vim.lsp.buf.definition()
-      end, { silent = true, buffer = true, desc = "LSP show definition" })
-      vim.keymap.set("n", "1gD", function()
+      end, { silent = true, buffer = true, desc = "LSP show definition" }, "global")
+      utils.set_keymap("n", "1gD", function()
         vim.lsp.buf.type_definition()
-      end, { silent = true, buffer = true, desc = "LSP show type definition" })
-      vim.keymap.set("n", "2gD", function()
+      end, { silent = true, buffer = true, desc = "LSP show type definition" }, "global")
+      utils.set_keymap("n", "2gD", function()
         vim.lsp.buf.declaration()
-      end, { silent = true, buffer = true, desc = "LSP show declaration" })
-      vim.keymap.set("n", "gi", function()
+      end, { silent = true, buffer = true, desc = "LSP show declaration" }, "global")
+      utils.set_keymap("n", "gi", function()
         vim.lsp.buf.implementation()
-      end, { silent = true, buffer = true, desc = "LSP show definition" })
-      vim.keymap.set("n", "gR", function()
+      end, { silent = true, buffer = true, desc = "LSP show definition" }, "global")
+      utils.set_keymap("n", "gR", function()
         vim.lsp.buf.references()
-      end, { silent = true, buffer = true, desc = "LSP show references" })
-      vim.keymap.set("n", "g0", function()
+      end, { silent = true, buffer = true, desc = "LSP show references" }, "global")
+      utils.set_keymap("n", "g0", function()
         vim.lsp.buf.document_symbol()
-      end, { silent = true, buffer = true, desc = "LSP show document symbol" })
-      vim.keymap.set("n", "gy", function()
+      end, { silent = true, buffer = true, desc = "LSP show document symbol" }, "global")
+      utils.set_keymap("n", "gy", function()
         vim.lsp.buf.signature_help()
-      end, { silent = true, buffer = true, desc = "LSP show signature help" })
-      vim.keymap.set("n", "<Space>lf", function()
+      end, { silent = true, buffer = true, desc = "LSP show signature help" }, "global")
+      utils.set_keymap("n", "<Space>lf", function()
         vim.lsp.buf.format({ async = true })
-      end, { silent = true, buffer = true, desc = "LSP format" })
-      vim.keymap.set("x", "<Space>lf", vim.lsp.buf.format, { silent = true, buffer = true, desc = "LSP format" })
-      vim.keymap.set("n", "<Space>lI", function()
+      end, { silent = true, buffer = true, desc = "LSP format" }, "global")
+      utils.set_keymap("x", "<Space>lf", vim.lsp.buf.format, { silent = true, buffer = true, desc = "LSP format" }, "global")
+      utils.set_keymap("n", "<Space>lI", function()
         if vim.fn.exists(":LspInfo") == 2 then
           vim.cmd([[LspInfo]])
         elseif vim.fn.exists(":Lsp") == 2 then
@@ -94,31 +96,21 @@ lsp.servers = {
         else
           vim.notify("No LSP info!", vim.log.levels.ERROR)
         end
-      end, { silent = true, buffer = true, desc = "LSP show info" })
-      vim.keymap.set("n", "yof", function()
+      end, { silent = true, buffer = true, desc = "LSP show info" }, "global")
+      utils.set_keymap("n", "yof", function()
         require("vimrc.lsp").toggle_format_on_sync()
-      end, { silent = true, buffer = true, desc = "LSP toggle format on sync" })
+      end, { silent = true, buffer = true, desc = "LSP toggle format on sync" }, "global")
       -- TODO: Add key mapping to toggle inlay hints globally
-      vim.keymap.set("n", "coi", function()
+      utils.set_keymap("n", "coi", function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
-      end, { silent = true, buffer = true, desc = "LSP toggle inlay hints" })
+      end, { silent = true, buffer = true, desc = "LSP toggle inlay hints" }, "global")
 
       -- Remap for K
-      local maparg
-      maparg = vim.fn.maparg("gK", "n", false, true)
-      if maparg == {} or maparg["buffer"] ~= 1 then
-        vim.keymap.set("n", "gK", "K", { buffer = true })
-      end
+      utils.set_keymap("n", "gK", "K", { buffer = true }, "global")
       -- Remap for gi
-      maparg = vim.fn.maparg("gI", "n", false, true)
-      if maparg == {} or maparg["buffer"] ~= 1 then
-        vim.keymap.set("n", "gI", "gi", { buffer = true })
-      end
+      utils.set_keymap("n", "gI", "gi", { buffer = true }, "global")
       -- Remap for gI
-      maparg = vim.fn.maparg("g<C-I>", "n", false, true)
-      if maparg == {} or maparg["buffer"] ~= 1 then
-        vim.keymap.set("n", "g<C-I>", "gI", { buffer = true })
-      end
+      utils.set_keymap("n", "g<C-I>", "gI", { buffer = true }, "global")
 
       if vim.b.disable_inlay_hints ~= true then
         vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
