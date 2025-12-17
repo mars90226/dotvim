@@ -199,8 +199,6 @@ local ai = {
   {
     "olimorris/codecompanion.nvim",
     cond = choose.is_enabled_plugin("codecompanion.nvim"),
-    -- TODO: Upgrade to v18
-    version = "v17.33.0",
     cmd = {
       "CodeCompanion",
       "CodeCompanionChat",
@@ -341,7 +339,7 @@ local ai = {
           end,
         },
       },
-      strategies = {
+      interactions = {
         chat = {
           adapter = "copilot",
           -- TODO: Refactor this to apply to all slash commands
@@ -376,7 +374,7 @@ local ai = {
             index = 5,
             is_slash_cmd = false,
             modes = { "v" },
-            short_name = "explain",
+            alias = "explain",
             auto_submit = true,
             user_prompt = false,
             stop_context_insertion = true,
