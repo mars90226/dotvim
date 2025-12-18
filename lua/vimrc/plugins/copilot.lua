@@ -7,7 +7,7 @@ my_copilot.attach_filters = {}
 my_copilot.default_model = "gpt-5.2"
 my_copilot.default_github_model = "gpt-5.2"
 my_copilot.default_free_model = "gpt-5-mini"
-my_copilot.default_fast_model = "grok-code-fast-1"
+my_copilot.default_fast_model = "gemini-3-flash-preview"
 
 -- NOTE: Use the model info from Copilot using CopilotChat.nvim
 my_copilot.models = {
@@ -56,6 +56,10 @@ my_copilot.models = {
   },
   ["gemini-3-pro-preview"] = {
     model = "gemini-3-pro-preview",
+    max_tokens = 128000,
+  },
+  ["gemini-3-flash-preview"] = {
+    model = "gemini-3-flash-preview",
     max_tokens = 128000,
   },
   ["claude-haiku-4.5"] = {
