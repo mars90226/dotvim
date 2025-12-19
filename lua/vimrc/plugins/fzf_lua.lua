@@ -134,6 +134,7 @@ my_fzf_lua.setup_mapping = function()
   vim.keymap.set("n", fzf_lua_prefix .. [[l]], [[<Cmd>FzfLua blines<CR>]], { desc = "FzfLua blines" })
   vim.keymap.set("n", fzf_lua_prefix .. [[L]], [[<Cmd>FzfLua lines<CR>]], { desc = "FzfLua lines" })
   vim.keymap.set("n", fzf_lua_prefix .. [[m]], [[<Cmd>FzfLua oldfiles<CR>]], { desc = "FzfLua oldfiles" })
+  vim.keymap.set("n", fzf_lua_prefix .. [[M]], [[<Cmd>FzfLua tmux_buffers<CR>]], { desc = "FzfLua tmux_buffers" })
   vim.keymap.set("n", fzf_lua_prefix .. [[p]], [[<Cmd>FzfLua tags_grep<CR>]], { desc = "FzfLua tags_grep" })
   vim.keymap.set(
     "x",
@@ -164,6 +165,7 @@ my_fzf_lua.setup_mapping = function()
   vim.keymap.set("n", fzf_lua_prefix .. [[X]], [[<Cmd>FzfLua spell_suggest<CR>]], { desc = "FzfLua spell_suggest" })
   vim.keymap.set("n", fzf_lua_prefix .. [[y]], [[<Cmd>FzfLua filetypes<CR>]], { desc = "FzfLua filetypes" })
   vim.keymap.set("n", fzf_lua_prefix .. [[Y]], [[<Cmd>FzfLua highlights<CR>]], { desc = "FzfLua highlights" })
+  vim.keymap.set("n", fzf_lua_prefix .. [[z]], [[<Cmd>FzfLua zoxide<CR>]], { desc = "FzfLua zoxide" })
   vim.keymap.set("n", fzf_lua_prefix .. [[,]], [[<Cmd>FzfLua builtin<CR>]], { desc = "FzfLua builtin" })
   vim.keymap.set("n", fzf_lua_prefix .. [[`]], [[<Cmd>FzfLua marks<CR>]], { desc = "FzfLua marks" })
   vim.keymap.set("n", fzf_lua_prefix .. [[']], [[<Cmd>FzfLua registers<CR>]], { desc = "FzfLua registers" })
@@ -305,6 +307,12 @@ my_fzf_lua.setup_mapping = function()
     fzf_lua_lsp_prefix .. ".",
     "<Cmd>FzfLua lsp_outgoing_calls<CR>",
     { desc = "FzfLua lsp_outgoing_calls" }
+  )
+  vim.keymap.set(
+    "n",
+    fzf_lua_lsp_prefix .. "g",
+    "<Cmd>FzfLua lsp_finder<CR>",
+    { desc = "FzfLua lsp_finder" }
   )
 
   vim.keymap.set("n", fzf_lua_lsp_prefix .. "Q", function()
