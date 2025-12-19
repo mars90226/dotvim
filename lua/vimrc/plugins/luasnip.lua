@@ -140,7 +140,7 @@ luasnip.setup_snippet = function()
 
   local chinese_punctuation_snippets = {
     s(
-      "cp",
+      { trig = "cp", docstring = "insert Chinese punctuation" },
       c(1, {
         t("，"),
         t("。"),
@@ -153,17 +153,17 @@ luasnip.setup_snippet = function()
         t("」"),
       })
     ),
-    s("cp,", t("，")),
-    s("cp.", t("。")),
-    s("cp'", t("、")),
-    s("cp:", t("：")),
-    s("cp;", t("；")),
-    s("cp!", t("！")),
-    s("cp?", t("？")),
-    s("cp[", t("「")),
-    s("cp]", t("」")),
+    s({ trig = "cp,", docstring = "insert Chinese comma" }, t("，")),
+    s({ trig = "cp.", docstring = "insert Chinese period" }, t("。")),
+    s({ trig = "cp'", docstring = "insert Chinese enumeration comma" }, t("、")),
+    s({ trig = "cp:", docstring = "insert Chinese colon" }, t("：")),
+    s({ trig = "cp;", docstring = "insert Chinese semicolon" }, t("；")),
+    s({ trig = "cp!", docstring = "insert Chinese exclamation mark" }, t("！")),
+    s({ trig = "cp?", docstring = "insert Chinese question mark" }, t("？")),
+    s({ trig = "cp[", docstring = "insert Chinese left quotation mark" }, t("「")),
+    s({ trig = "cp]", docstring = "insert Chinese right quotation mark" }, t("」")),
     s(
-      "cpf",
+      { trig = "cpf", docstring = "insert Chinese punctuation with tmux" },
       fzf_tmux_choice({
         "，",
         "。",
@@ -180,7 +180,7 @@ luasnip.setup_snippet = function()
 
   ls.add_snippets("gitcommit", {
     s(
-      "cc",
+      { trig = "cc", docstring = "insert conventional commit" },
       fmt("{type}({module}): {message}", {
         type = c(1, {
           t("feat"),
@@ -199,7 +199,7 @@ luasnip.setup_snippet = function()
         message = i(3, "message"),
       })
     ),
-    s("rev", fmt("reviewer: {}", { i(1, "reviewer") })),
+    s({ trig = "rev", docstring = "insert reviewer" }, fmt("reviewer: {}", { i(1, "reviewer") })),
   })
 
   ls.add_snippets("markdown", chinese_punctuation_snippets)
@@ -207,18 +207,18 @@ luasnip.setup_snippet = function()
 
   ls.add_snippets("markdown", {
     -- emmet
-    s("el", fmt("<{}>{}</{}>", { i(1, "div"), i(0), same(1) })),
+    s({ trig = "el", docstring = "insert HTML element" }, fmt("<{}>{}</{}>", { i(1, "div"), i(0), same(1) })),
 
     -- description
-    s("desc", t("## Description")),
-    s("rc", t("## Root Cause")),
-    s("htf", t("## How to fix")),
-    s("htv", t("## How to verify")),
+    s({ trig = "desc", docstring = "insert description" }, t("## Description")),
+    s({ trig = "rc", docstring = "insert root cause" }, t("## Root Cause")),
+    s({ trig = "htf", docstring = "insert how to fix" }, t("## How to fix")),
+    s({ trig = "htv", docstring = "insert how to verify" }, t("## How to verify")),
   })
 
   ls.add_snippets("lua", {
     s(
-      "mod",
+      { trig = "mod", docstring = "insert module" },
       fmt(
         [[
         local {} = {{}}
@@ -261,7 +261,7 @@ luasnip.setup_snippet = function()
 
   ls.add_snippets("all", {
     s(
-      "exp",
+      { trig = "exp", docstring = "insert path expansion" },
       c(1, {
         insert_exp(":t"),
         insert_exp(":t:r"),
@@ -272,7 +272,7 @@ luasnip.setup_snippet = function()
   })
 
   ls.add_snippets("all", {
-    s("pw", project_word()),
+    s({ trig = "pw", docstring = "insert project word" }, project_word()),
   })
 
   ls.add_snippets("all", {
@@ -280,6 +280,7 @@ luasnip.setup_snippet = function()
       {
         trig = "gf",
         desc = "Fill files",
+        docstring = "Fill files using fzf",
       },
       f(function()
         return vim.fn["vimrc#fzf#files_in_commandline"]()
@@ -289,6 +290,7 @@ luasnip.setup_snippet = function()
       {
         trig = "gm",
         desc = "Fill MRU",
+        docstring = "Fill MRU using fzf",
       },
       f(function()
         return vim.fn["vimrc#fzf#mru#mru_in_commandline"]()
@@ -298,6 +300,7 @@ luasnip.setup_snippet = function()
       {
         trig = "gd",
         desc = "Fill directory MRU",
+        docstring = "Fill directory MRU using fzf",
       },
       f(function()
         return vim.fn["vimrc#fzf#mru#directory_mru_in_commandline"]()
@@ -307,6 +310,7 @@ luasnip.setup_snippet = function()
       {
         trig = "gy",
         desc = "Fill commit sha",
+        docstring = "Fill commit sha using fzf",
       },
       f(function()
         return vim.fn["vimrc#fugitive#commit_sha"]()
@@ -316,6 +320,7 @@ luasnip.setup_snippet = function()
       {
         trig = "gc",
         desc = "Fill current branch",
+        docstring = "Fill current branch using fzf",
       },
       f(function()
         return vim.fn["vimrc#git#get_current_branch"]()
@@ -325,6 +330,7 @@ luasnip.setup_snippet = function()
       {
         trig = "gi",
         desc = "Fill commits",
+        docstring = "Fill commits using fzf",
       },
       f(function()
         return vim.fn["vimrc#fzf#git#commits_in_commandline"](0, {})
@@ -334,6 +340,7 @@ luasnip.setup_snippet = function()
       {
         trig = "gb",
         desc = "Fill branches",
+        docstring = "Fill branches using fzf",
       },
       f(function()
         return vim.fn["vimrc#fzf#git#branches_in_commandline"]()
@@ -343,6 +350,7 @@ luasnip.setup_snippet = function()
       {
         trig = "gt",
         desc = "Fill tags",
+        docstring = "Fill tags using fzf",
       },
       f(function()
         return vim.fn["vimrc#fzf#git#tags_in_commandline"]()
@@ -352,6 +360,7 @@ luasnip.setup_snippet = function()
       {
         trig = "ge",
         desc = "Fill email",
+        docstring = "Fill email using fzf",
       },
       f(function()
         return vim.fn["vimrc#git#get_email"]()
@@ -359,16 +368,19 @@ luasnip.setup_snippet = function()
     ),
     s({
       trig = "cd",
-      desc = "Fill company domain",
+      desc = "Insert company domain",
+      docstring = "Insert company domain",
     }, t(vim.g.company_domain)),
     s({
       trig = "ce",
-      desc = "Fill company email",
+      desc = "Insert company email",
+      docstring = "Insert company email",
     }, t(vim.g.company_email)),
     s(
       {
         trig = "xx",
         desc = "Fill shell outputs",
+        docstring = "Fill shell outputs using fzf",
       },
       f(function()
         return vim.fn["vimrc#fzf#shell_outputs_in_commandline"]()
@@ -379,6 +391,7 @@ luasnip.setup_snippet = function()
       {
         trig = "q:",
         desc = "Fill question prefix for Copilot",
+        docstring = "Fill question prefix for Copilot",
       },
       f(function()
         return string.format(vim.o.commentstring, "q: ")
@@ -388,6 +401,7 @@ luasnip.setup_snippet = function()
       {
         trig = "repomap",
         desc = "Fill repomap for Copilot",
+        docstring = "Fill repomap for Copilot",
       },
       f(function()
         local folder = vim.fn.input("repomap: ", ".", "dir")
