@@ -737,6 +737,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
           },
           just_every_code = { cmd = { "coder" }, url = "https://github.com/just-every/code" },
           just_every_code_resume = { cmd = { "coder", "resume" }, url = "https://github.com/just-every/code" },
+          toad = { cmd = { "toad" }, url = "https://github.com/batrachianai/toad" },
         },
       },
     },
