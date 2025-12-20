@@ -130,6 +130,7 @@ local utility = {
     end,
   },
 
+  -- TODO: May cause stuck in some complex Markdown files
   {
     "obsidian-nvim/obsidian.nvim",
     version = "*", -- recommended, use latest release instead of latest commit
