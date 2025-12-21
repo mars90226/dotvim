@@ -723,6 +723,8 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
             cmd = { "codex", "--yolo" },
             url = "https://github.com/openai/codex",
           },
+          codex_oracle = { cmd = { "codex", "-p", "gpt" }, url = "https://github.com/openai/codex" },
+          codex_execute = { cmd = { "codex", "-p", "codex" }, url = "https://github.com/openai/codex" },
           claude_new = {
             cmd = { "claude" },
             url = "https://github.com/anthropics/claude-code",
@@ -811,6 +813,18 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         "<Leader>ay",
         function() require("sidekick.cli").toggle({ name = "codex_yolo", focus = true }) end,
         desc = "Sidekick Codex Yolo Toggle",
+        mode = { "n", "v" },
+      },
+      {
+        "<Leader>ao",
+        function() require("sidekick.cli").toggle({ name = "codex_oracle", focus = true }) end,
+        desc = "Sidekick Codex Oracle Toggle (GPT model)",
+        mode = { "n", "v" },
+      },
+      {
+        "<Leader>ax",
+        function() require("sidekick.cli").toggle({ name = "codex_execute", focus = true }) end,
+        desc = "Sidekick Codex Execute Toggle (Codex model)",
         mode = { "n", "v" },
       },
       {
