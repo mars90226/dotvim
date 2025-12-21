@@ -714,13 +714,13 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         },
         tools = {
           -- TODO: Need to add new tools to explicitly create new codex session
-          codex_new = { cmd = { "codex", "--enable", "web_search_request" }, url = "https://github.com/openai/codex" },
+          codex_new = { cmd = { "codex" }, url = "https://github.com/openai/codex" },
           codex_resume = {
-            cmd = { "codex", "resume", "--enable", "web_search_request" },
+            cmd = { "codex", "resume" },
             url = "https://github.com/openai/codex",
           },
           codex_yolo = {
-            cmd = { "codex", "--yolo", "--enable", "web_search_request" },
+            cmd = { "codex", "--yolo" },
             url = "https://github.com/openai/codex",
           },
           claude_new = {
