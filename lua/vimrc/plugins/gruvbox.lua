@@ -23,6 +23,7 @@ gruvbox.custom_overrides = function()
   local hsl = require("lush").hsl
   local palette = require("gruvbox").palette
 
+  -- TODO: Check if 30 is better
   local diff_percent = 20
   local custom_palette = {
     white_yellow = hsl(palette.bright_yellow).lighten(diff_percent * 2).hex,
