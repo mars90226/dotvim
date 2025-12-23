@@ -187,6 +187,7 @@ blink_cmp.setup = function()
           -- Make sure this is at least 2.
           -- 3 is recommended
           min_keyword_length = 3,
+          max_items = 5,
           opts = {
             dictionary_files = { plugin_utils.get_dictionary() },
           }
