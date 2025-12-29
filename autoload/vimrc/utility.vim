@@ -161,6 +161,13 @@ function! vimrc#utility#get_tmux_env(variable) abort
   return split(systemlist('tmux show-environment '.a:variable)[0], '=')[1]
 endfunction
 
+function! vimrc#utility#get_ssh_host(ip) abort
+  " Use `get_ssh_host` function to get SSH host from IP through .ssh/config
+  " requires .ssh/config
+  let host = systemlist('get_ssh_host '.a:ip)
+  return len(host) == 0 ? '' : host[0]
+endfunction
+
 function! vimrc#utility#refresh_env_from_tmux(variable) abort
   call setenv(a:variable, vimrc#utility#get_tmux_env(a:variable))
 endfunction
@@ -178,8 +185,12 @@ endfunction
 
 function! vimrc#utility#refresh_ssh_client() abort
   let ssh_client_ip = split(vimrc#utility#get_tmux_env('SSH_CONNECTION'))[0]
-  " TODO: Improve username setting
-  let ssh_client_host = 'mars@'.ssh_client_ip
+  let ssh_client_host = vimrc#utility#get_ssh_host(ssh_client_ip)
+  if empty(ssh_client_host)
+    " Fallback to username@ip
+    " TODO: Improve username setting
+    let ssh_client_host = 'mars@'.ssh_client_ip
+  endif
 
   call setenv('SSH_CLIENT_IP', ssh_client_ip)
   call setenv('SSH_CLIENT_HOST', ssh_client_host)
