@@ -20,6 +20,13 @@ my_snacks.opts = {
   -- NOTE: Can show png files outside of tmux
   -- TODO: Make it work with tmux and other images
   -- Ref: Check `:checkhealth snacks`
+  -- NOTE: Snacks image use Kitty's graphics protocol to show images in terminal
+  -- - wezterm <https://wezfurlong.org/wezterm/>
+  --     Wezterm has only limited support for the kitty graphics protocol.
+  --     Inline image rendering is not supported.
+  -- - tmux <https://github.com/tmux/tmux>
+  --     Snacks automatically tries to enable `allow-passthrough=on` for tmux,
+  --     but you may need to enable it manually in your tmux configuration.
   image = { enabled = true },
   indent = { enabled = true },
   input = { enabled = true }, -- replace `vim.ui.input` with the snacks input
