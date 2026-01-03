@@ -707,6 +707,13 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
           split = {
             width = 100,
           },
+          keys = {
+            -- NOTE: Disable these keys by mapping to <Plug> keys
+            nav_left      = { "<Plug>(sidekick_nav_left)", "nav_left"  , expr = true, desc = "navigate to the left window" },
+            nav_down      = { "<Plug>(sidekick_nav_down)", "nav_down"  , expr = true, desc = "navigate to the below window" },
+            nav_up        = { "<Plug>(sidekick_nav_up)", "nav_up"    , expr = true, desc = "navigate to the above window" },
+            nav_right     = { "<Plug>(sidekick_nav_right)", "nav_right" , expr = true, desc = "navigate to the right window" },
+          },
         },
         mux = {
           backend = "tmux",
