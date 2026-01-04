@@ -247,6 +247,6 @@
   "winresizer": { "branch": "master", "commit": "9bd559a03ccec98a458e60c705547119eb5350f3" },
   "winshift.nvim": { "branch": "main", "commit": "37468ed6f385dfb50402368669766504c0e15583" },
   "yanky.nvim": { "branch": "main", "commit": "04fc42b94305d94948c9c197f679336668af3292" },
-  "yazi.nvim": { "branch": "master", "commit": "a40953ac1f61b12dcad92461fe42988e08ed0c02" },
+  "yazi.nvim": { "branch": "master", "commit": "16b01a3de789e53a3b11baf6ad7f98a634291983" },
   "yode-nvim": { "branch": "develop", "commit": "eaf3141b919c143ebf174d7ad180abd9c032b38c" }
 }
