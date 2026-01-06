@@ -30,6 +30,8 @@ my_snacks.opts = {
   image = { enabled = true },
   indent = { enabled = true },
   input = { enabled = true }, -- replace `vim.ui.input` with the snacks input
+  -- TODO: Skip specific LSP errors in notifier
+  -- Ref: https://github.com/yioneko/vtsls/issues/159#issuecomment-2159349677
   notifier = {
     enabled = true,
     timeout = 3000,
