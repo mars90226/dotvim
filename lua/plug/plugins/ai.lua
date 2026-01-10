@@ -823,7 +823,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         mode = { "n", "v" },
       },
       {
-        "<Leader>ao",
+        "<Leader>ae",
         function() require("sidekick.cli").toggle({ name = "codex_oracle", focus = true }) end,
         desc = "Sidekick Codex Oracle Toggle (GPT model)",
         mode = { "n", "v" },
@@ -838,6 +838,12 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         "<Leader>au",
         function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end,
         desc = "Sidekick Claude Toggle",
+        mode = { "n", "v" },
+      },
+      {
+        "<Leader>ao",
+        function() require("sidekick.cli").toggle({ name = "opencode", focus = true }) end,
+        desc = "Sidekick OpenCode Toggle",
         mode = { "n", "v" },
       },
     },
