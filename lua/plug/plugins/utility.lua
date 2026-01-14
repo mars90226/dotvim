@@ -699,6 +699,14 @@ local utility = {
     },
   },
 
+  -- TUI
+  {
+    'jrop/tuis.nvim',
+    keys = {
+      { "<Leader>m,", function() require("tuis").choose() end, desc = "Choose Morph UI" },
+    },
+  },
+
   -- Meta
   {
     "noamsto/resolved.nvim",
