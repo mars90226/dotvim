@@ -629,6 +629,22 @@ local utility = {
       { "<Leader>ua", ":HurlRunner<CR>", desc = "Hurl - Runner", mode = "v" },
     },
   },
+  {
+    {
+      "mistweaverco/kulala.nvim",
+      keys = {
+        { "<Leader>Ks", desc = "Send request" },
+        { "<Leader>Ka", desc = "Send all requests" },
+        { "<Leader>Kb", desc = "Open scratchpad" },
+      },
+      ft = { "http", "rest" },
+      opts = {
+        global_keymaps = true,
+        global_keymaps_prefix = "<Leader>K",
+        kulala_keymaps_prefix = "",
+      },
+    },
+  },
 
   -- DB
   {
