@@ -16,6 +16,8 @@ mapping.setup_mapping = function()
   vim.keymap.set("n", "<Space><Tab>d", [[<Cmd>tabclose<CR>]], { desc = "Close tab" })
   vim.keymap.set("n", "<Space><Tab>)", [[<Cmd>tabmove +1<CR>]], { desc = "Move tab to next" })
   vim.keymap.set("n", "<Space><Tab>(", [[<Cmd>tabmove -1<CR>]], { desc = "Move tab to previous" })
+  vim.keymap.set("n", "<Space><Tab>0", [[<Cmd>tabmove 0<CR>]], { desc = "Move tab to first" })
+  vim.keymap.set("n", "<Space><Tab>$", [[<Cmd>tabmove $<CR>]], { desc = "Move tab to last" })
 
   -- Quickly leave insert mode
   vim.keymap.set("i", "kj", [[<Esc>]], { desc = "Leave insert mode" })
@@ -62,6 +64,10 @@ mapping.setup_mapping = function()
   -- Re-order to previous/next
   vim.keymap.set("n", "<Leader>t<", [[:tabmove -1<CR>]], { desc = "Move tab to previous" })
   vim.keymap.set("n", "<Leader>t>", [[:tabmove +1<CR>]], { desc = "Move tab to next" })
+
+  -- Re-order to first/last
+  vim.keymap.set("n", "<Leader>t0", [[:tabmove 0<CR>]], { desc = "Move tab to first" })
+  vim.keymap.set("n", "<Leader>t$", [[:tabmove $<CR>]], { desc = "Move tab to last" })
 
   -- Goto buffer in position
   vim.keymap.set("n", "g4", [[:tablast<CR>]], { desc = "Goto last tab" })
