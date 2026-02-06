@@ -411,11 +411,7 @@ lsp.servers = {
       return lsp_opts
     end,
   },
-  -- NOTE: Disabled due to high CPU usage
-  -- Ref: https://github.com/tailwindlabs/tailwindcss-intellisense/issues/1109
-  -- TODO: Enable tailwindcss
-  -- Ref: https://github.com/tailwindlabs/tailwindcss-intellisense/issues/1109#issuecomment-2612844262
-  -- tailwindcss = {},
+  tailwindcss = {},
   vimls = {},
   vue_ls = {
     condition = check.has_linux_build_env(),
