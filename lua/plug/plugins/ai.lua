@@ -720,6 +720,8 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
           enabled = true,
         },
         tools = {
+          -- NOTE: Override default codex tool to avoid deprecated `web_search_request` flag
+          codex = { cmd = { "codex" }, url = "https://github.com/openai/codex" },
           -- TODO: Need to add new tools to explicitly create new codex session
           codex_new = { cmd = { "codex" }, url = "https://github.com/openai/codex" },
           codex_resume = {
