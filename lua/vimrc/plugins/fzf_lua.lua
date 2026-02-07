@@ -2,6 +2,8 @@ local fzf_lua = require("fzf-lua")
 local actions = require("fzf-lua.actions")
 local utils = require("fzf-lua.utils")
 
+local plugin_utils = require("vimrc.plugin_utils")
+
 local my_fzf_lua = {}
 
 my_fzf_lua.config = {
@@ -86,6 +88,13 @@ my_fzf_lua.setup_config = function()
       include_current_session = true, -- include bufs from current session
     },
   }
+
+  if plugin_utils.is_executable("sk") then
+    opts = vim.tbl_extend("force", opts, {
+      fzf_bin = "sk",
+      fzf_opts = { ["--algo"] = "frizbee" },
+    })
+  end
 
   fzf_lua.setup(opts)
 
@@ -308,12 +317,7 @@ my_fzf_lua.setup_mapping = function()
     "<Cmd>FzfLua lsp_outgoing_calls<CR>",
     { desc = "FzfLua lsp_outgoing_calls" }
   )
-  vim.keymap.set(
-    "n",
-    fzf_lua_lsp_prefix .. "g",
-    "<Cmd>FzfLua lsp_finder<CR>",
-    { desc = "FzfLua lsp_finder" }
-  )
+  vim.keymap.set("n", fzf_lua_lsp_prefix .. "g", "<Cmd>FzfLua lsp_finder<CR>", { desc = "FzfLua lsp_finder" })
 
   vim.keymap.set("n", fzf_lua_lsp_prefix .. "Q", function()
     fzf_lua.lsp_workspace_symbols({ query = vim.fn.input("Query: ") })
