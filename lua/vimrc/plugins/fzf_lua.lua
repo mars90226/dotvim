@@ -89,12 +89,13 @@ my_fzf_lua.setup_config = function()
     },
   }
 
-  if plugin_utils.is_executable("sk") then
-    opts = vim.tbl_extend("force", opts, {
-      fzf_bin = "sk",
-      fzf_opts = { ["--algo"] = "frizbee" },
-    })
-  end
+  -- TODO: Disabled due to sk process not closed when fzf-lua closed
+  -- if plugin_utils.is_executable("sk") then
+  --   opts = vim.tbl_extend("force", opts, {
+  --     fzf_bin = "sk",
+  --     fzf_opts = { ["--algo"] = "frizbee" },
+  --   })
+  -- end
 
   fzf_lua.setup(opts)
 
