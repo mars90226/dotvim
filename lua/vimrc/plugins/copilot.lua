@@ -42,30 +42,10 @@ my_copilot.models = {
     max_tokens = 272000,
     reasoning_effort = "xhigh",
   },
-  ["gpt-5.1-codex-max"] = {
-    model = "gpt-5.1-codex-max",
-    max_tokens = 128000,
-    reasoning_effort = "medium",
-  },
-  ["gpt-5.1-codex-max-xhigh"] = {
-    model = "gpt-5.1-codex-max",
-    max_tokens = 128000,
-    reasoning_effort = "xhigh",
-  },
   ["gpt-5.1-codex-mini"] = {
     model = "gpt-5.1-codex-mini",
     max_tokens = 128000,
     reasoning_effort = "medium",
-  },
-  ["gpt-5.1"] = {
-    model = "gpt-5.1",
-    max_tokens = 128000,
-    reasoning_effort = "medium",
-  },
-  ["gpt-5.1-high"] = {
-    model = "gpt-5.1",
-    max_tokens = 128000,
-    reasoning_effort = "high",
   },
   ["gpt-5-mini"] = {
     model = "gpt-5-mini",
