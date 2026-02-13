@@ -4,11 +4,11 @@ my_copilot.attach_filters = {}
 
 -- TODO: Better naming
 
-my_copilot.default_model = "gpt-5.2"
-my_copilot.default_github_model = "gpt-5.2"
+my_copilot.default_model = "gpt-5.3-codex"
+my_copilot.default_github_model = "gpt-5.3-codex"
 my_copilot.default_free_model = "gpt-5-mini"
 my_copilot.default_fast_model = "gemini-3-flash-preview"
-my_copilot.default_largest_model = "gpt-5.2-codex"
+my_copilot.default_think_model = "claude-opus-4.6"
 
 -- NOTE: Use the model info from Copilot using CopilotChat.nvim
 my_copilot.models = {
@@ -20,6 +20,16 @@ my_copilot.models = {
   ["gpt-5.2-xhigh"] = {
     model = "gpt-5.2",
     max_tokens = 128000,
+    reasoning_effort = "xhigh",
+  },
+  ["gpt-5.3-codex"] = {
+    model = "gpt-5.3-codex",
+    max_tokens = 272000,
+    reasoning_effort = "medium",
+  },
+  ["gpt-5.3-codex-xhigh"] = {
+    model = "gpt-5.3-codex",
+    max_tokens = 272000,
     reasoning_effort = "xhigh",
   },
   ["gpt-5.2-codex"] = {
