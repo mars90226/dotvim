@@ -728,6 +728,10 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
             cmd = { "codex", "resume" },
             url = "https://github.com/openai/codex",
           },
+          codex_resume_all = {
+            cmd = { "codex", "resume", "--all" },
+            url = "https://github.com/openai/codex",
+          },
           codex_yolo = {
             cmd = { "codex", "--yolo" },
             url = "https://github.com/openai/codex",
@@ -816,6 +820,12 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         "<Leader>ar",
         function() require("sidekick.cli").toggle({ name = "codex_resume", focus = true }) end,
         desc = "Sidekick Codex Resume Toggle",
+        mode = { "n", "v" },
+      },
+      {
+        "<Leader>aR",
+        function() require("sidekick.cli").toggle({ name = "codex_resume_all", focus = true }) end,
+        desc = "Sidekick Codex Resume All Toggle",
         mode = { "n", "v" },
       },
       {
