@@ -858,6 +858,12 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         desc = "Sidekick OpenCode Toggle",
         mode = { "n", "v" },
       },
+      {
+        "<Leader>ag",
+        function() require("sidekick.cli").toggle({ name = "gemini", focus = true }) end,
+        desc = "Sidekick Gemini Toggle",
+        mode = { "n", "v" },
+      },
     },
     config = function(_, opts)
       require('sidekick').setup(opts)
