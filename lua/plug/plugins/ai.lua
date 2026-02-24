@@ -695,7 +695,9 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
     end,
   },
   {
-    "folke/sidekick.nvim",
+    -- TODO: Use our fork for performance patch
+    -- "folke/sidekick.nvim",
+    "mars90226/sidekick.nvim",
     cond = choose.is_enabled_plugin("sidekick.nvim"),
     opts = {
       -- TODO: Enable NES
