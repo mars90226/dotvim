@@ -59,6 +59,10 @@ my_copilot.models = {
     model = "gemini-3-pro-preview",
     max_tokens = 128000,
   },
+  ["gemini-3.1-pro-preview"] = {
+    model = "gemini-3.1-pro-preview",
+    max_tokens = 128000,
+  },
   ["gemini-3-flash-preview"] = {
     model = "gemini-3-flash-preview",
     max_tokens = 128000,
@@ -69,6 +73,10 @@ my_copilot.models = {
   },
   ["claude-sonnet-4.5"] = {
     model = "claude-sonnet-4.5",
+    max_tokens = 128000,
+  },
+  ["claude-sonnet-4.6"] = {
+    model = "claude-sonnet-4.6",
     max_tokens = 128000,
   },
   ["claude-opus-4.5"] = {
