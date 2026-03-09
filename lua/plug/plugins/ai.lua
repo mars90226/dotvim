@@ -262,7 +262,10 @@ local ai = {
       "nvim-telescope/telescope.nvim", -- Optional: For using slash commands
       -- Optional: For using tools from the MCP Servers
       {
-        "ravitemer/mcphub.nvim",
+        -- TODO: Use fork for codecompanion v19 compatibility
+        -- Ref: https://github.com/ravitemer/mcphub.nvim/pull/279
+        -- "ravitemer/mcphub.nvim",
+        "bahaaza/mcphub.nvim",
         cond = choose.is_enabled_plugin("mcphub.nvim"),
       },
       "ravitemer/codecompanion-history.nvim",
