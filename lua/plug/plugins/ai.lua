@@ -881,7 +881,10 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
 
   -- MCP
   {
-    "ravitemer/mcphub.nvim",
+    -- TODO: Use fork for codecompanion v19 compatibility
+    -- Ref: https://github.com/ravitemer/mcphub.nvim/pull/279
+    -- "ravitemer/mcphub.nvim",
+    "bahaaza/mcphub.nvim",
     cond = choose.is_enabled_plugin("mcphub.nvim"),
     dependencies = {
       "nvim-lua/plenary.nvim", -- Required for Job and HTTP requests
