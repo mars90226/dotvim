@@ -190,6 +190,17 @@ other.setup = function()
       -- "rails",
 
       -- custom mapping
+      -- Vue source <-> test
+      {
+        pattern = [[/ui/src/(.*)%.vue$]],
+        target = [[/ui/test/%1.test.ts]],
+        context = "test",
+      },
+      {
+        pattern = [[/ui/test/(.*)%.test%.ts$]],
+        target = [[/ui/src/%1.vue]],
+        context = "implementation",
+      },
       -- TODO: Simplify the pattern
       -- Same folder
       {
