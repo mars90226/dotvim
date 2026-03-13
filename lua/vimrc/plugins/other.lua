@@ -197,9 +197,22 @@ other.setup = function()
         context = "test",
       },
       {
+        pattern = [[/ui/src/(.*)%.ts$]],
+        target = [[/ui/test/%1.test.ts]],
+        context = "test",
+      },
+      {
         pattern = [[/ui/test/(.*)%.test%.ts$]],
-        target = [[/ui/src/%1.vue]],
-        context = "implementation",
+        target = {
+          {
+            target = [[/ui/src/%1.vue]],
+            context = "implementation",
+          },
+          {
+            target = [[/ui/src/%1.ts]],
+            context = "implementation",
+          },
+        },
       },
       -- TODO: Simplify the pattern
       -- Same folder
