@@ -1,4 +1,5 @@
 local fzf_lua = require("fzf-lua")
+local defaults = require("fzf-lua.defaults").defaults
 local actions = require("fzf-lua.actions")
 local utils = require("fzf-lua.utils")
 
@@ -157,7 +158,10 @@ my_fzf_lua.setup_mapping = function()
   vim.keymap.set("n", fzf_lua_prefix .. [[Q]], [[<Cmd>FzfLua grep_quickfix<CR>]], { desc = "FzfLua grep_quickfix" })
   vim.keymap.set("n", fzf_lua_prefix .. [[r]], [[<Cmd>FzfLua grep<CR>]], { desc = "FzfLua grep" })
   vim.keymap.set("x", fzf_lua_prefix .. [[r]], [[<Cmd>FzfLua grep_visual<CR>]], { desc = "FzfLua grep_visual" })
-  vim.keymap.set("n", fzf_lua_prefix .. [[R]], [[<Cmd>FzfLua grep_project<CR>]], { desc = "FzfLua grep_project" })
+  vim.keymap.set("n", fzf_lua_prefix .. [[R]], function()
+    fzf_lua.grep({ rg_opts = "--no-ignore --hidden " .. defaults.grep.rg_opts  })
+  end, { desc = "FzfLua grep all" })
+  vim.keymap.set("n", fzf_lua_prefix .. [[<C-R>]], [[<Cmd>FzfLua grep_project<CR>]], { desc = "FzfLua grep_project" })
   vim.keymap.set("n", fzf_lua_prefix .. [[s]], [[<Cmd>FzfLua git_status<CR>]], { desc = "FzfLua git_status" })
   vim.keymap.set("n", fzf_lua_prefix .. [[S]], [[<Cmd>FzfLua spell_suggest<CR>]], { desc = "FzfLua spell_suggest" })
   vim.keymap.set("n", fzf_lua_prefix .. [[t]], [[<Cmd>FzfLua btags<CR>]], { desc = "FzfLua btags" })
