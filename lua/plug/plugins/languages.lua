@@ -63,7 +63,9 @@ local languages = {
     event = { "VeryLazy" },
   },
   {
-    "JoosepAlviste/nvim-ts-context-commentstring",
+    -- TODO: Use our fork to fix vim.treesitter.get_parser() error
+    -- "JoosepAlviste/nvim-ts-context-commentstring",
+    "mars90226/nvim-ts-context-commentstring",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = { "VeryLazy" },

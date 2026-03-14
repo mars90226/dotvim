@@ -337,9 +337,6 @@ nvim_treesitter.setup_config = function()
         },
       },
     },
-    context_commentstring = {
-      enable = true,
-    },
     matchup = {
       enable = not current_buffer_base_highlight_disable_check(), -- enable unless our disable check says otherwise
       -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
