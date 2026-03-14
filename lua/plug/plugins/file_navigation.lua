@@ -511,7 +511,7 @@ local file_navigation = {
       { "<Leader>ak", "<Cmd>AnyJumpArg<Space>", desc = "AnyJump with args" },
       { "<Leader>aj", ":AnyJumpVisual<CR>", mode = { "x" }, desc = "AnyJump visual" }, -- NOTE: Need to use `:` to make it work in visual mode
       { "<Leader>ab", "<Cmd>AnyJumpBack<CR>", desc = "AnyJump back" },
-      { "<Leader>al", "<Cmd>AnyJumpLastResults<CR>", desc = "AnyJump last results" },
+      { "<Leader>a'", "<Cmd>AnyJumpLastResults<CR>", desc = "AnyJump last results" },
     },
     config = function()
       vim.g.any_jump_window_width_ratio, vim.g.any_jump_window_height_ratio =
