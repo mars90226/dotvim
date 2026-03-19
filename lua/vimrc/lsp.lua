@@ -115,7 +115,7 @@ lsp.servers = {
       if vim.b.disable_inlay_hints ~= true then
         vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
       end
-      vim.lsp.document_color.enable(true, bufnr)
+      vim.lsp.document_color.enable(true, { bufnr = bufnr })
       vim.lsp.on_type_formatting.enable(true)
 
       vim.bo.omnifunc = [[v:lua.vim.lsp.omnifunc]]
