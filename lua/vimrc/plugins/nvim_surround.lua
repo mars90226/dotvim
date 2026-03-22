@@ -1,36 +1,55 @@
-local surround = require("nvim-surround")
 local surround_config = require("nvim-surround.config")
 
 local nvim_surround = {}
 
-nvim_surround.presets = {
-  vim_surround = {
-    keymaps = {
-      insert = "<C-G>s",
-      insert_line = "<C-G>S",
-      normal = "ys",
-      normal_cur = "yss",
-      normal_line = "yS",
-      normal_cur_line = "ySS",
-      visual = "S",
-      visual_line = "gS",
-      delete = "ds",
-      change = "cs",
-    },
+nvim_surround.vim_sandwich_keymaps = {
+  {
+    mode = "n",
+    lhs = "sa",
+    rhs = "<Plug>(nvim-surround-normal)",
+    desc = "Add a surrounding pair around a motion (vim-sandwich)",
   },
-  vim_sandwich = {
-    keymaps = {
-      insert = "<C-G>s",
-      insert_line = "<C-G>S",
-      normal = "sa",
-      normal_cur = "sas",
-      normal_line = "sA",
-      normal_cur_line = "sAs",
-      visual = "sa",
-      visual_line = "sA",
-      delete = "sd",
-      change = "sr",
-    },
+  {
+    mode = "n",
+    lhs = "sas",
+    rhs = "<Plug>(nvim-surround-normal-cur)",
+    desc = "Add a surrounding pair around the current line (vim-sandwich)",
+  },
+  {
+    mode = "n",
+    lhs = "sA",
+    rhs = "<Plug>(nvim-surround-normal-line)",
+    desc = "Add a surrounding pair around a motion, on new lines (vim-sandwich)",
+  },
+  {
+    mode = "n",
+    lhs = "sAs",
+    rhs = "<Plug>(nvim-surround-normal-cur-line)",
+    desc = "Add a surrounding pair around the current line, on new lines (vim-sandwich)",
+  },
+  {
+    mode = "x",
+    lhs = "sa",
+    rhs = "<Plug>(nvim-surround-visual)",
+    desc = "Add a surrounding pair around a visual selection (vim-sandwich)",
+  },
+  {
+    mode = "x",
+    lhs = "sA",
+    rhs = "<Plug>(nvim-surround-visual-line)",
+    desc = "Add a surrounding pair around a visual selection, on new lines (vim-sandwich)",
+  },
+  {
+    mode = "n",
+    lhs = "sd",
+    rhs = "<Plug>(nvim-surround-delete)",
+    desc = "Delete a surrounding pair (vim-sandwich)",
+  },
+  {
+    mode = "n",
+    lhs = "sr",
+    rhs = "<Plug>(nvim-surround-change)",
+    desc = "Change a surrounding pair (vim-sandwich)",
   },
 }
 
@@ -101,10 +120,13 @@ nvim_surround.same_all = function(chars)
   }
 end
 
-nvim_surround.buffer_setup_preset = function(preset_name)
-  local preset = nvim_surround.presets[preset_name]
-  if preset then
-    surround.buffer_setup(preset)
+nvim_surround.setup_vim_sandwich_keymaps = function()
+  for _, keymap in ipairs(nvim_surround.vim_sandwich_keymaps) do
+    vim.keymap.set(keymap.mode, keymap.lhs, keymap.rhs, {
+      remap = true,
+      silent = true,
+      desc = keymap.desc,
+    })
   end
 end
 

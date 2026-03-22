@@ -127,7 +127,7 @@ local text_manipulation = {
     "kylechui/nvim-surround",
     cond = choose.is_enabled_plugin("nvim-surround"),
     keys = {
-      -- vim-surround
+      -- nvim-surround
       { "<C-G>s", mode = { "i" }, desc = "nvim-surround - create surround in insert mode" },
       { "<C-G>S", mode = { "i" }, desc = "nvim-surround - create surround with new line wrap in insert mode" },
       { "ys", desc = "nvim-surround - create surround" },
@@ -140,32 +140,18 @@ local text_manipulation = {
       { "cs", desc = "nvim-surround - change surround" },
 
       -- vim-sandwich
-      { "<C-G>s", mode = { "i" }, desc = "nvim-surround - create surround in insert mode" },
-      { "<C-G>S", mode = { "i" }, desc = "nvim-surround - create surround with new line wrap in insert mode" },
-      { "sa", desc = "nvim-surround - create surround" },
-      { "sas", desc = "nvim-surround - create surround for current line" },
-      { "sA", desc = "nvim-surround - create surround with new line wrap" },
-      { "sAs", desc = "nvim-surround - create surround with new line wrap for current line" },
-      { "sa", mode = { "x" }, desc = "nvim-surround - create surround for visual selection" },
-      { "sA", mode = { "x" }, desc = "nvim-surround - create surround for visual selection with new line wrap" },
-      { "sd", desc = "nvim-surround - delete surround" },
-      { "sr", desc = "nvim-surround - change surround" },
+      { "sa", desc = "vim-sandwich - create surround" },
+      { "sas", desc = "vim-sandwich - create surround for current line" },
+      { "sA", desc = "vim-sandwich - create surround with new line wrap" },
+      { "sAs", desc = "vim-sandwich - create surround with new line wrap for current line" },
+      { "sa", mode = { "x" }, desc = "vim-sandwich - create surround for visual selection" },
+      { "sA", mode = { "x" }, desc = "vim-sandwich - create surround for visual selection with new line wrap" },
+      { "sd", desc = "vim-sandwich - delete surround" },
+      { "sr", desc = "vim-sandwich - change surround" },
     },
     config = function()
       require("nvim-surround").setup({})
-
-      require("vimrc.plugins.nvim_surround").buffer_setup_preset("vim_surround")
-      require("vimrc.plugins.nvim_surround").buffer_setup_preset("vim_sandwich")
-
-      local nvim_surround_augroup_id = vim.api.nvim_create_augroup("nvim_surround_settings", {})
-      vim.api.nvim_create_autocmd({ "BufRead", "CmdWinEnter", "VimEnter" }, {
-        group = nvim_surround_augroup_id,
-        pattern = "*",
-        callback = function()
-          require("vimrc.plugins.nvim_surround").buffer_setup_preset("vim_surround")
-          require("vimrc.plugins.nvim_surround").buffer_setup_preset("vim_sandwich")
-        end,
-      })
+      require("vimrc.plugins.nvim_surround").setup_vim_sandwich_keymaps()
     end,
   },
 
