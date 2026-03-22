@@ -301,6 +301,13 @@ oil.setup_config = function()
         end,
         desc = "FZF Rg in current folder",
       },
+      ["\\4"] = {
+        callback = function()
+          local dir = origin_oil.get_current_dir()
+          vim.cmd.RgWithOption({ dir .. "::" .. vim.fn.input("Rg: "), bang = true })
+        end,
+        desc = "FZF Rg all in current folder",
+      },
       ["\\a"] = {
         callback = function()
           local dir = origin_oil.get_current_dir()
