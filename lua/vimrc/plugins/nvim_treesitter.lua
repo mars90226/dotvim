@@ -383,72 +383,72 @@ nvim_treesitter.setup_extensions = function()
   })
 end
 
-nvim_treesitter.setup_performance_trick = function()
-  -- TODO: Check if these actually help performance, initial test reveals that these may reduce highlighter time, but increase "[string]:0" time which is probably the time spent on autocmd & syntax enable/disable.
-  -- TODO: These config help reduce memory usage, see if there's other way to fix high memory usage.
-  -- TODO: Change to tab based toggling
-  local augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_settings", {})
-
-  -- NOTE: On nvim-treesitter main branch, TSEnable/TSDisable commands are gone.
-  -- Only toggle highlight via core vim.treesitter.start()/stop() API.
-  -- context_commentstring and matchup are separate plugins now, not treesitter modules.
-
-  ---Enable treesitter highlight on all supported buffers
-  local enable_highlight_all = function()
-    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-      if vim.api.nvim_buf_is_loaded(buf) and nvim_treesitter.buf_is_supported(buf) then
-        pcall(vim.treesitter.start, buf)
-      end
-    end
-  end
-
-  ---Disable treesitter highlight on all supported buffers
-  local disable_highlight_all = function()
-    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-      if vim.api.nvim_buf_is_loaded(buf) then
-        pcall(vim.treesitter.stop, buf)
-      end
-    end
-  end
-
-  local global_trick_delay_enable = false
-  local global_trick_delay = 60 * 1000 -- 60 seconds
-  vim.api.nvim_create_autocmd({ "FocusGained", "VimResume" }, {
-    group = augroup_id,
-    pattern = "*",
-    callback = function()
-      if global_trick_delay_enable then
-        global_trick_delay_enable = false
-      else
-        enable_highlight_all()
-      end
-    end,
-  })
-  -- NOTE: We want to disable highlight if FocusLost is caused by following reasons:
-  -- 1. neovim goes to background
-  -- 2. tmux switch window, client
-  -- 3. Terminal emulator switch tab
-  -- We don't want to disable highlight if FocusLost is caused by following reasons:
-  -- 1. tmux switch pane
-  -- 2. Terminal emulator switch pane
-  -- 3. OS switch application
-  -- In other words, we want treesitter highlight if the buffer is actually displayed on the screen.
-  -- TODO: Check if VimResume/VimSuspend helps
-  vim.api.nvim_create_autocmd({ "FocusLost", "VimSuspend" }, {
-    group = augroup_id,
-    pattern = "*",
-    callback = function()
-      global_trick_delay_enable = true
-
-      vim.defer_fn(function()
-        if global_trick_delay_enable then
-          disable_highlight_all()
-          global_trick_delay_enable = false
-        end
-      end, global_trick_delay)
-    end,
-  })
-end
+-- nvim_treesitter.setup_performance_trick = function()
+--   -- TODO: Check if these actually help performance, initial test reveals that these may reduce highlighter time, but increase "[string]:0" time which is probably the time spent on autocmd & syntax enable/disable.
+--   -- TODO: These config help reduce memory usage, see if there's other way to fix high memory usage.
+--   -- TODO: Change to tab based toggling
+--   local augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_settings", {})
+--
+--   -- NOTE: On nvim-treesitter main branch, TSEnable/TSDisable commands are gone.
+--   -- Only toggle highlight via core vim.treesitter.start()/stop() API.
+--   -- context_commentstring and matchup are separate plugins now, not treesitter modules.
+--
+--   ---Enable treesitter highlight on all supported buffers
+--   local enable_highlight_all = function()
+--     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+--       if vim.api.nvim_buf_is_loaded(buf) and nvim_treesitter.buf_is_supported(buf) then
+--         pcall(vim.treesitter.start, buf)
+--       end
+--     end
+--   end
+--
+--   ---Disable treesitter highlight on all supported buffers
+--   local disable_highlight_all = function()
+--     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+--       if vim.api.nvim_buf_is_loaded(buf) then
+--         pcall(vim.treesitter.stop, buf)
+--       end
+--     end
+--   end
+--
+--   local global_trick_delay_enable = false
+--   local global_trick_delay = 60 * 1000 -- 60 seconds
+--   vim.api.nvim_create_autocmd({ "FocusGained", "VimResume" }, {
+--     group = augroup_id,
+--     pattern = "*",
+--     callback = function()
+--       if global_trick_delay_enable then
+--         global_trick_delay_enable = false
+--       else
+--         enable_highlight_all()
+--       end
+--     end,
+--   })
+--   -- NOTE: We want to disable highlight if FocusLost is caused by following reasons:
+--   -- 1. neovim goes to background
+--   -- 2. tmux switch window, client
+--   -- 3. Terminal emulator switch tab
+--   -- We don't want to disable highlight if FocusLost is caused by following reasons:
+--   -- 1. tmux switch pane
+--   -- 2. Terminal emulator switch pane
+--   -- 3. OS switch application
+--   -- In other words, we want treesitter highlight if the buffer is actually displayed on the screen.
+--   -- TODO: Check if VimResume/VimSuspend helps
+--   vim.api.nvim_create_autocmd({ "FocusLost", "VimSuspend" }, {
+--     group = augroup_id,
+--     pattern = "*",
+--     callback = function()
+--       global_trick_delay_enable = true
+--
+--       vim.defer_fn(function()
+--         if global_trick_delay_enable then
+--           disable_highlight_all()
+--           global_trick_delay_enable = false
+--         end
+--       end, global_trick_delay)
+--     end,
+--   })
+-- end
 
 nvim_treesitter.setup_mapping = function()
   vim.keymap.set("n", "<Space><F6>", function()
@@ -476,7 +476,7 @@ nvim_treesitter.setup = function()
   nvim_treesitter.setup_config()
   nvim_treesitter.setup_textobjects()
   nvim_treesitter.setup_extensions()
-  nvim_treesitter.setup_performance_trick()
+  -- nvim_treesitter.setup_performance_trick()
   nvim_treesitter.setup_mapping()
 end
 
