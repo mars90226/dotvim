@@ -48,12 +48,12 @@ end
 
 nvim_treesitter.is_enabled = function(module, buf)
   buf = buf or 0
-  local lang = parsers.get_buf_lang(buf)
+  local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype)
   return TS.is_enabled(module, lang, buf)
 end
 
 nvim_treesitter.buf_is_supported = function(buf)
-  return parsers.has_parser(parsers.get_buf_lang(buf or 0))
+  return vim.treesitter.get_parser(buf or 0, nil, { error = false }) ~= nil
 end
 
 nvim_treesitter.win_is_supported = function(winid)
