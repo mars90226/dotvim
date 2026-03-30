@@ -133,15 +133,6 @@ nvim_treesitter.setup_parser_config = function()
     },
   }
 
-  parsers.just = {
-    install_info = {
-      url = "https://github.com/IndianBoy42/tree-sitter-just", -- local path or git repo
-      files = { "src/parser.c", "src/scanner.c" },
-      branch = "main",
-    },
-    maintainers = { "@IndianBoy42" },
-  }
-
   -- TODO: Use repo in https://github.com/serenadeai/tree-sitter-scss/pull/19
   parsers.scss = {
     install_info = {
@@ -240,6 +231,7 @@ nvim_treesitter.setup_config = function()
       "jq",
       "jsdoc",
       "json",
+      "just",
       "lua",
       "luadoc",
       "luap",

@@ -424,17 +424,7 @@ local languages = {
   },
 
   -- treesitter parser
-  {
-    "IndianBoy42/tree-sitter-just",
-    ft = { "just" },
-    cond = choose.is_enabled_plugin("nvim-treesitter"),
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = function()
-      require("tree-sitter-just").setup({})
-
-      require("nvim-treesitter.install").ensure_installed({ "just" })
-    end,
-  },
+  -- N/A for now
 
   -- Context
   {
