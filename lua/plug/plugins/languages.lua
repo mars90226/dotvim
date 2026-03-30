@@ -44,8 +44,7 @@ local languages = {
   {
     "nvim-treesitter/nvim-treesitter",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
-    -- TODO: Switch to main branch
-    branch = "master",
+    branch = "main",
     -- NOTE: markview.nvim need to be loaded before nvim-treesitter
     dependencies = { "OXY2DEV/markview.nvim" },
     build = ":TSUpdate",
@@ -57,8 +56,7 @@ local languages = {
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     cond = choose.is_enabled_plugin("nvim-treesitter"),
-    -- TODO: Switch to main branch
-    branch = "master",
+    branch = "main",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = { "VeryLazy" },
   },
@@ -252,12 +250,13 @@ local languages = {
   },
 
   -- Indent
-  {
-    "yioneko/nvim-yati",
-    cond = choose.is_enabled_plugin("nvim-treesitter"),
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = { "VeryLazy" },
-  },
+  -- TODO: Disabled as nvim-yati not migrating to main branch yet. (maybe never)
+  -- {
+  --   "yioneko/nvim-yati",
+  --   cond = choose.is_enabled_plugin("nvim-treesitter"),
+  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
+  --   event = { "VeryLazy" },
+  -- },
 
   -- Refactoring
   {
@@ -425,17 +424,7 @@ local languages = {
   },
 
   -- treesitter parser
-  {
-    "IndianBoy42/tree-sitter-just",
-    ft = { "just" },
-    cond = choose.is_enabled_plugin("nvim-treesitter"),
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = function()
-      require("tree-sitter-just").setup({})
-
-      require("nvim-treesitter.install").ensure_installed({ "just" })
-    end,
-  },
+  -- N/A for now
 
   -- Context
   {

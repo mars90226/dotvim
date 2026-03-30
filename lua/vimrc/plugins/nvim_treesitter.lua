@@ -4,8 +4,7 @@ local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
 
-local configs = require("nvim-treesitter.configs")
-local configs_commands = configs.commands
+local TS = require("nvim-treesitter")
 local parsers = require("nvim-treesitter.parsers")
 
 local nvim_treesitter = {}
@@ -48,12 +47,12 @@ end
 
 nvim_treesitter.is_enabled = function(module, buf)
   buf = buf or 0
-  local lang = parsers.get_buf_lang(buf)
-  return configs.is_enabled(module, lang, buf)
+  local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype)
+  return TS.is_enabled(module, lang, buf)
 end
 
 nvim_treesitter.buf_is_supported = function(buf)
-  return parsers.has_parser(parsers.get_buf_lang(buf or 0))
+  return vim.treesitter.get_parser(buf or 0, nil, { error = false }) ~= nil
 end
 
 nvim_treesitter.win_is_supported = function(winid)
@@ -110,11 +109,7 @@ nvim_treesitter.toggle_context = function()
 end
 
 nvim_treesitter.setup_parser_config = function()
-  local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-  ---@cast parser_configs table<string, any>
-  --- NOTE: Suppress lua-language-server warning
-
-  parser_configs.norg = {
+  parsers.norg = {
     install_info = {
       url = "https://github.com/nvim-neorg/tree-sitter-norg",
       files = { "src/parser.c", "src/scanner.cc" },
@@ -122,7 +117,7 @@ nvim_treesitter.setup_parser_config = function()
     },
   }
 
-  parser_configs.norg_meta = {
+  parsers.norg_meta = {
     install_info = {
       url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
       files = { "src/parser.c" },
@@ -130,7 +125,7 @@ nvim_treesitter.setup_parser_config = function()
     },
   }
 
-  parser_configs.norg_table = {
+  parsers.norg_table = {
     install_info = {
       url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
       files = { "src/parser.c" },
@@ -138,17 +133,8 @@ nvim_treesitter.setup_parser_config = function()
     },
   }
 
-  parser_configs.just = {
-    install_info = {
-      url = "https://github.com/IndianBoy42/tree-sitter-just", -- local path or git repo
-      files = { "src/parser.c", "src/scanner.c" },
-      branch = "main",
-    },
-    maintainers = { "@IndianBoy42" },
-  }
-
   -- TODO: Use repo in https://github.com/serenadeai/tree-sitter-scss/pull/19
-  parser_configs.scss = {
+  parsers.scss = {
     install_info = {
       url = "https://github.com/goncharov/tree-sitter-scss",
       files = { "src/parser.c", "src/scanner.c" },
@@ -159,7 +145,7 @@ nvim_treesitter.setup_parser_config = function()
   }
 
   -- For patterns.nvim
-  parser_configs.lua_patterns = {
+  parsers.lua_patterns = {
     install_info = {
       url = "https://github.com/OXY2DEV/tree-sitter-lua_patterns",
       files = { "src/parser.c" },
@@ -167,7 +153,7 @@ nvim_treesitter.setup_parser_config = function()
     },
   }
 
-  parser_configs.qf = {
+  parsers.qf = {
     install_info = {
       url = "https://github.com/OXY2DEV/tree-sitter-qf",
       files = { "src/parser.c" },
@@ -177,8 +163,45 @@ nvim_treesitter.setup_parser_config = function()
 end
 
 nvim_treesitter.setup_config = function()
-  configs.setup({
-    ensure_installed = vim.tbl_filter(function(language)
+  TS.setup({
+    -- update_strategy = "github", -- Enable when installing alternative parsers for built-in parsers
+    highlight = {
+      enable = true,
+      disable = base_disable_check,
+    },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = "<CR>",
+        scope_incremental = "<CR>",
+        node_incremental = "<Tab>",
+        node_decremental = "<S-Tab>",
+      },
+      -- Ignore incremental selection in cmdline mode & cmdline window
+      -- Ref: https://github.com/nvim-treesitter/nvim-treesitter/issues/2634#issuecomment-1362479800
+      is_supported = function()
+        local mode = vim.api.nvim_get_mode().mode
+        if mode == "c" then
+          return false
+        end
+        return true
+      end,
+    },
+    indent = {
+      enable = false, -- Currently, nvim-treesitter indent is WIP and not ready for production use
+    },
+    -- NOTE: textobjects config moved to nvim_treesitter.setup_textobjects() for main branch
+    matchup = {
+      enable = not current_buffer_base_highlight_disable_check(), -- enable unless our disable check says otherwise
+      -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
+    },
+    -- TODO: Disabled as nvim-yati not migrating to main branch yet. (maybe never)
+    -- yati = {
+    --   enable = true,
+    -- },
+  })
+  TS.install(
+    vim.tbl_filter(function(language)
       return language ~= nil
     end, {
       "bash",
@@ -208,13 +231,15 @@ nvim_treesitter.setup_config = function()
       "jq",
       "jsdoc",
       "json",
+      "just",
       "lua",
       "luadoc",
       "luap",
       "make",
       "markdown",
       "markdown_inline",
-      plugin_utils.check_condition("norg", not check.os_is("mac")),
+      -- TODO: Disabled as "skipped unsupported language: norg" nvim-treesitter warning
+      -- plugin_utils.check_condition("norg", not check.os_is("mac")),
       "nu",
       "perl",
       "php",
@@ -240,111 +265,71 @@ nvim_treesitter.setup_config = function()
       "vue",
       "xml",
       "yaml",
-    }),
-    ignore_install = {},
-    -- update_strategy = "github", -- Enable when installing alternative parsers for built-in parsers
-    highlight = {
-      enable = true,
-      disable = base_disable_check,
-    },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "<CR>",
-        scope_incremental = "<CR>",
-        node_incremental = "<Tab>",
-        node_decremental = "<S-Tab>",
-      },
-      -- Ignore incremental selection in cmdline mode & cmdline window
-      -- Ref: https://github.com/nvim-treesitter/nvim-treesitter/issues/2634#issuecomment-1362479800
-      is_supported = function()
-        local mode = vim.api.nvim_get_mode().mode
-        if mode == "c" then
-          return false
-        end
-        return true
-      end,
-    },
-    indent = {
-      enable = false, -- Currently, nvim-treesitter indent is WIP and not ready for production use
-    },
-    textobjects = {
-      select = {
-        enable = true,
-        -- Automatically jump forward to textobj, similar to targets.vim
-        lookahead = true,
-        -- FIXME: The keymaps are not working, due to mini.nvim ai module?
-        keymaps = {
-          -- Override textobj-function
-          -- nvim-treesitter is preciser than textobj-function
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["ac"] = "@class.outer",
-          -- You can optionally set descriptions to the mappings (used in the desc parameter of
-          -- nvim_buf_set_keymap) which plugins like which-key display
-          ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-          -- You can also use captures from other query groups like `locals.scm`
-          ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-        },
-        -- You can choose the select mode (default is charwise 'v')
-        --
-        -- Can also be a function which gets passed a table with the keys
-        -- * query_string: eg '@function.inner'
-        -- * method: eg 'v' or 'o'
-        -- and should return the mode ('v', 'V', or '<c-v>') or a table
-        -- mapping query_strings to modes.
-        selection_modes = {
-          ["@parameter.outer"] = "v", -- charwise
-          ["@function.outer"] = "V", -- linewise
-          ["@class.outer"] = "<C-v>", -- blockwise
-        },
-      },
-      swap = {
-        enable = true,
-        swap_next = {
-          ["czn"] = "@parameter.inner",
-        },
-        swap_previous = {
-          ["czp"] = "@parameter.inner",
-        },
-      },
-      move = {
-        enable = true,
-        set_jumps = true, -- whether to set jumps in the jumplist
-        goto_next_start = {
-          ["]m"] = "@function.outer",
-          ["]]"] = "@class.outer",
-        },
-        goto_next_end = {
-          ["]M"] = "@function.outer",
-          ["]["] = "@class.outer",
-        },
-        goto_previous_start = {
-          ["[m"] = "@function.outer",
-          ["[["] = "@class.outer",
-        },
-        goto_previous_end = {
-          ["[M"] = "@function.outer",
-          ["[]"] = "@class.outer",
-        },
-      },
-      lsp_interop = {
-        enable = true,
-        border = "none",
-        peek_definition_code = {
-          ["<Space>hf"] = "@function.outer",
-          ["<Space>hc"] = "@class.outer",
-        },
+    })
+  )
+end
+
+nvim_treesitter.setup_textobjects = function()
+  local ts_textobjects = require("nvim-treesitter-textobjects")
+  local ts_select = require("nvim-treesitter-textobjects.select")
+  local ts_swap = require("nvim-treesitter-textobjects.swap")
+  local ts_move = require("nvim-treesitter-textobjects.move")
+
+  ts_textobjects.setup({
+    select = {
+      lookahead = true,
+      selection_modes = {
+        ["@parameter.outer"] = "v", -- charwise
+        ["@function.outer"] = "V", -- linewise
+        ["@class.outer"] = "<C-v>", -- blockwise
       },
     },
-    matchup = {
-      enable = not current_buffer_base_highlight_disable_check(), -- enable unless our disable check says otherwise
-      -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
-    },
-    yati = {
-      enable = true,
+    move = {
+      set_jumps = true,
     },
   })
+
+  -- Select
+  -- FIXME: The keymaps are not working, due to mini.nvim ai module?
+  local select_maps = {
+    ["af"] = { "@function.outer", "textobjects", desc = "Select outer function" },
+    ["if"] = { "@function.inner", "textobjects", desc = "Select inner function" },
+    ["ac"] = { "@class.outer", "textobjects", desc = "Select outer class" },
+    ["ic"] = { "@class.inner", "textobjects", desc = "Select inner part of a class region" },
+    ["as"] = { "@scope", "locals", desc = "Select language scope" },
+  }
+  for lhs, map in pairs(select_maps) do
+    vim.keymap.set({ "x", "o" }, lhs, function()
+      ts_select.select_textobject(map[1], map[2])
+    end, { silent = true, desc = map.desc })
+  end
+
+  -- Swap
+  vim.keymap.set("n", "czn", function()
+    ts_swap.swap_next("@parameter.inner")
+  end, { silent = true, desc = "Swap next parameter" })
+  vim.keymap.set("n", "czp", function()
+    ts_swap.swap_previous("@parameter.inner")
+  end, { silent = true, desc = "Swap previous parameter" })
+
+  -- Move
+  local move_maps = {
+    { "]m", "goto_next_start", "@function.outer", "Go to next function start" },
+    { "]]", "goto_next_start", "@class.outer", "Go to next class start" },
+    { "]M", "goto_next_end", "@function.outer", "Go to next function end" },
+    { "][", "goto_next_end", "@class.outer", "Go to next class end" },
+    { "[m", "goto_previous_start", "@function.outer", "Go to previous function start" },
+    { "[[", "goto_previous_start", "@class.outer", "Go to previous class start" },
+    { "[M", "goto_previous_end", "@function.outer", "Go to previous function end" },
+    { "[]", "goto_previous_end", "@class.outer", "Go to previous class end" },
+  }
+  for _, map in ipairs(move_maps) do
+    vim.keymap.set({ "n", "x", "o" }, map[1], function()
+      ts_move[map[2]](map[3], "textobjects")
+    end, { silent = true, desc = map[4] })
+  end
+
+  -- NOTE: lsp_interop (peek_definition_code) removed in textobjects main branch
 end
 
 nvim_treesitter.setup_extensions = function()
@@ -404,64 +389,26 @@ nvim_treesitter.setup_performance_trick = function()
   -- TODO: Change to tab based toggling
   local augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_settings", {})
 
-  local global_idle_disabled_modules = vim.tbl_filter(function(module)
-    return module ~= nil
-  end, {
-    "highlight",
-    "context_commentstring",
-    "matchup",
-  })
+  -- NOTE: On nvim-treesitter main branch, TSEnable/TSDisable commands are gone.
+  -- Only toggle highlight via core vim.treesitter.start()/stop() API.
+  -- context_commentstring and matchup are separate plugins now, not treesitter modules.
 
-  ---Run callback on treesitter supported window to avoid highlight missing
-  ---@param supported_winids table<number> window ids that will run treesitter command
-  ---@param callback fun(): nil callback to run
-  -- FIXME: Some special float buffers will close itself once leave the buffer, like Mason buffer.
-  local run_callback_on_supported_win = function(supported_winids, callback)
-    if not vim.tbl_isempty(supported_winids) then
-      local current_win = vim.api.nvim_get_current_win()
-      local current_win_supported = nvim_treesitter.win_is_supported(current_win)
-      local view = nil
-
-      if not current_win_supported then
-        current_win = vim.api.nvim_get_current_win()
-        view = vim.fn.winsaveview()
-
-        -- NOTE: Switch to supported window to avoid highlight missing
-        -- TODO: Check if neovim fix this bug on 0.9.0 release
-        -- HACK: Use `:noautocmd` to ignore telescope-frecency.nvim autocmd to update database. As
-        -- it often run into "failed to get lock" error.
-        -- TODO: Check this bug is fixed after switching to smart-open.nvim
-        vim.cmd(string.format([[noautocmd lua vim.api.nvim_set_current_win(%d)]], supported_winids[1]))
-      end
-
-      callback()
-
-      if not current_win_supported then
-        -- NOTE: Avoid invalid window id
-        -- HACK: Use `:noautocmd` to ignore telescope-frecency.nvim autocmd to update database. As
-        -- it often run into "failed to get lock" error.
-        -- TODO: Check this bug is fixed after switching to smart-open.nvim
-        pcall(function()
-          vim.cmd(string.format([[noautocmd lua vim.api.nvim_set_current_win(%d)]], current_win))
-        end)
-        pcall(vim.fn.winrestview, view)
-
-        -- Restore terminal insert mode
-        -- mode "nt" means Normal in terminal-emulator, `:help mode()`
-        if vim.bo.buftype == "terminal" and vim.api.nvim_get_mode().mode == "nt" then
-          if require("vimrc.terminal").is_startinsert_ignored() then
-            return
-          end
-          vim.cmd([[startinsert]])
-        end
+  ---Enable treesitter highlight on all supported buffers
+  local enable_highlight_all = function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_loaded(buf) and nvim_treesitter.buf_is_supported(buf) then
+        pcall(vim.treesitter.start, buf)
       end
     end
   end
-  ---Global run callback on supported window to avoid highlight missing
-  ---@param callback fun(): nil callback to run
-  local global_run_callback = function(callback)
-    local supported_winids = nvim_treesitter.list_supported_winids()
-    run_callback_on_supported_win(supported_winids, callback)
+
+  ---Disable treesitter highlight on all supported buffers
+  local disable_highlight_all = function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_loaded(buf) then
+        pcall(vim.treesitter.stop, buf)
+      end
+    end
   end
 
   local global_trick_delay_enable = false
@@ -473,11 +420,7 @@ nvim_treesitter.setup_performance_trick = function()
       if global_trick_delay_enable then
         global_trick_delay_enable = false
       else
-        global_run_callback(function()
-          for _, module in ipairs(global_idle_disabled_modules) do
-            configs_commands.TSEnable.run(module)
-          end
-        end)
+        enable_highlight_all()
       end
     end,
   })
@@ -499,12 +442,7 @@ nvim_treesitter.setup_performance_trick = function()
 
       vim.defer_fn(function()
         if global_trick_delay_enable then
-          global_run_callback(function()
-            for _, module in ipairs(global_idle_disabled_modules) do
-              configs_commands.TSDisable.run(module)
-            end
-          end)
-
+          disable_highlight_all()
           global_trick_delay_enable = false
         end
       end, global_trick_delay)
@@ -514,8 +452,13 @@ end
 
 nvim_treesitter.setup_mapping = function()
   vim.keymap.set("n", "<Space><F6>", function()
-    buffer_toggle_force_disable(vim.api.nvim_get_current_buf())
-    vim.cmd([[TSBufToggle highlight]])
+    local buf = vim.api.nvim_get_current_buf()
+    buffer_toggle_force_disable(buf)
+    if get_force_disable(buf) then
+      vim.treesitter.stop(buf)
+    else
+      vim.treesitter.start(buf)
+    end
   end, { desc = "Toggle treesitter highlight" })
   -- Currently, it's impossible to type <C-F1> ~ <C-F12> using wezterm + tmux.
   -- wezterm with 'xterm-256color' + tmux with 'screen-256color' will
@@ -531,6 +474,7 @@ end
 nvim_treesitter.setup = function()
   nvim_treesitter.setup_parser_config()
   nvim_treesitter.setup_config()
+  nvim_treesitter.setup_textobjects()
   nvim_treesitter.setup_extensions()
   nvim_treesitter.setup_performance_trick()
   nvim_treesitter.setup_mapping()

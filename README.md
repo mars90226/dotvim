@@ -86,6 +86,7 @@ Well, these plugins are hard to categorize, but they are gems. You will need the
 - [python](https://www.python.org/) 3.6.1+ (optional, for Python provider / pynvim / Defx.nvim)
 - [universal-ctags](https://github.com/universal-ctags/ctags) (required by fzf)
 - C compiler and libstdc++ (required by nvim-treesitter)
+- [tree-sitter](https://github.com/tree-sitter/tree-sitter) CLI (required by nvim-treesitter for parser compilation)
 - [git](https://git-scm.com/) (required)
 
 ## Recommends
