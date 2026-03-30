@@ -250,12 +250,13 @@ local languages = {
   },
 
   -- Indent
-  {
-    "yioneko/nvim-yati",
-    cond = choose.is_enabled_plugin("nvim-treesitter"),
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = { "VeryLazy" },
-  },
+  -- TODO: Disabled as nvim-yati not migrating to main branch yet. (maybe never)
+  -- {
+  --   "yioneko/nvim-yati",
+  --   cond = choose.is_enabled_plugin("nvim-treesitter"),
+  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
+  --   event = { "VeryLazy" },
+  -- },
 
   -- Refactoring
   {

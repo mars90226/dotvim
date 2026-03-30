@@ -273,9 +273,10 @@ nvim_treesitter.setup_config = function()
       enable = not current_buffer_base_highlight_disable_check(), -- enable unless our disable check says otherwise
       -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
     },
-    yati = {
-      enable = true,
-    },
+    -- TODO: Disabled as nvim-yati not migrating to main branch yet. (maybe never)
+    -- yati = {
+    --   enable = true,
+    -- },
   })
   TS.install(
     vim.tbl_filter(function(language)
