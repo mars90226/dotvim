@@ -4,8 +4,8 @@ local choose = require("vimrc.choose")
 local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
 
-local configs = require("nvim-treesitter.configs")
-local configs_commands = configs.commands
+local TS = require("nvim-treesitter")
+local configs_commands = TS.commands
 local parsers = require("nvim-treesitter.parsers")
 
 local nvim_treesitter = {}
@@ -49,7 +49,7 @@ end
 nvim_treesitter.is_enabled = function(module, buf)
   buf = buf or 0
   local lang = parsers.get_buf_lang(buf)
-  return configs.is_enabled(module, lang, buf)
+  return TS.is_enabled(module, lang, buf)
 end
 
 nvim_treesitter.buf_is_supported = function(buf)
@@ -110,11 +110,7 @@ nvim_treesitter.toggle_context = function()
 end
 
 nvim_treesitter.setup_parser_config = function()
-  local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-  ---@cast parser_configs table<string, any>
-  --- NOTE: Suppress lua-language-server warning
-
-  parser_configs.norg = {
+  parsers.norg = {
     install_info = {
       url = "https://github.com/nvim-neorg/tree-sitter-norg",
       files = { "src/parser.c", "src/scanner.cc" },
@@ -122,7 +118,7 @@ nvim_treesitter.setup_parser_config = function()
     },
   }
 
-  parser_configs.norg_meta = {
+  parsers.norg_meta = {
     install_info = {
       url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
       files = { "src/parser.c" },
@@ -130,7 +126,7 @@ nvim_treesitter.setup_parser_config = function()
     },
   }
 
-  parser_configs.norg_table = {
+  parsers.norg_table = {
     install_info = {
       url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
       files = { "src/parser.c" },
@@ -138,7 +134,7 @@ nvim_treesitter.setup_parser_config = function()
     },
   }
 
-  parser_configs.just = {
+  parsers.just = {
     install_info = {
       url = "https://github.com/IndianBoy42/tree-sitter-just", -- local path or git repo
       files = { "src/parser.c", "src/scanner.c" },
@@ -148,7 +144,7 @@ nvim_treesitter.setup_parser_config = function()
   }
 
   -- TODO: Use repo in https://github.com/serenadeai/tree-sitter-scss/pull/19
-  parser_configs.scss = {
+  parsers.scss = {
     install_info = {
       url = "https://github.com/goncharov/tree-sitter-scss",
       files = { "src/parser.c", "src/scanner.c" },
@@ -159,7 +155,7 @@ nvim_treesitter.setup_parser_config = function()
   }
 
   -- For patterns.nvim
-  parser_configs.lua_patterns = {
+  parsers.lua_patterns = {
     install_info = {
       url = "https://github.com/OXY2DEV/tree-sitter-lua_patterns",
       files = { "src/parser.c" },
@@ -167,7 +163,7 @@ nvim_treesitter.setup_parser_config = function()
     },
   }
 
-  parser_configs.qf = {
+  parsers.qf = {
     install_info = {
       url = "https://github.com/OXY2DEV/tree-sitter-qf",
       files = { "src/parser.c" },
@@ -177,71 +173,7 @@ nvim_treesitter.setup_parser_config = function()
 end
 
 nvim_treesitter.setup_config = function()
-  configs.setup({
-    ensure_installed = vim.tbl_filter(function(language)
-      return language ~= nil
-    end, {
-      "bash",
-      "c",
-      "cmake",
-      "comment",
-      "cpp",
-      "css",
-      "csv",
-      "diff",
-      "doxygen",
-      "editorconfig",
-      "fennel",
-      "git_config",
-      "git_rebase",
-      "gitattributes",
-      "gitignore",
-      "go",
-      "gomod",
-      "gosum",
-      "gowork",
-      "html",
-      "http",
-      "hurl",
-      "ini",
-      "javascript",
-      "jq",
-      "jsdoc",
-      "json",
-      "lua",
-      "luadoc",
-      "luap",
-      "make",
-      "markdown",
-      "markdown_inline",
-      plugin_utils.check_condition("norg", not check.os_is("mac")),
-      "nu",
-      "perl",
-      "php",
-      "powershell",
-      "printf",
-      "proto",
-      "python",
-      "query",
-      "regex",
-      "requirements",
-      "rst",
-      "ruby",
-      "rust",
-      "scss",
-      "sql",
-      "ssh_config",
-      "teal",
-      "toml",
-      "tsx",
-      "typescript",
-      "vim",
-      "vimdoc",
-      "vue",
-      "xml",
-      "yaml",
-    }),
-    ignore_install = {},
+  TS.setup({
     -- update_strategy = "github", -- Enable when installing alternative parsers for built-in parsers
     highlight = {
       enable = true,
@@ -345,6 +277,71 @@ nvim_treesitter.setup_config = function()
       enable = true,
     },
   })
+  TS.install(
+    vim.tbl_filter(function(language)
+      return language ~= nil
+    end, {
+      "bash",
+      "c",
+      "cmake",
+      "comment",
+      "cpp",
+      "css",
+      "csv",
+      "diff",
+      "doxygen",
+      "editorconfig",
+      "fennel",
+      "git_config",
+      "git_rebase",
+      "gitattributes",
+      "gitignore",
+      "go",
+      "gomod",
+      "gosum",
+      "gowork",
+      "html",
+      "http",
+      "hurl",
+      "ini",
+      "javascript",
+      "jq",
+      "jsdoc",
+      "json",
+      "lua",
+      "luadoc",
+      "luap",
+      "make",
+      "markdown",
+      "markdown_inline",
+      plugin_utils.check_condition("norg", not check.os_is("mac")),
+      "nu",
+      "perl",
+      "php",
+      "powershell",
+      "printf",
+      "proto",
+      "python",
+      "query",
+      "regex",
+      "requirements",
+      "rst",
+      "ruby",
+      "rust",
+      "scss",
+      "sql",
+      "ssh_config",
+      "teal",
+      "toml",
+      "tsx",
+      "typescript",
+      "vim",
+      "vimdoc",
+      "vue",
+      "xml",
+      "yaml",
+    })
+  )
 end
 
 nvim_treesitter.setup_extensions = function()
