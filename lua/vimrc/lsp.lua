@@ -137,7 +137,7 @@ lsp.servers = {
       if client.server_capabilities.documentFormattingProvider then
         vim.cmd([[augroup lsp_format_on_save]])
         vim.cmd([[  autocmd! * <buffer>]])
-        vim.cmd([[  autocmd BufWritePre <buffer> lua require("vimrc.lsp").formatting_sync()]])
+        vim.cmd([[  autocmd BufWritePre <buffer> lua require("vimrc.lsp").format_sync()]])
         vim.cmd([[augroup END]])
       end
 
@@ -597,10 +597,9 @@ lsp.notify_settings = function(server, settings)
   end
 end
 
--- TODO: Rename to format to follow neovim's API
-lsp.formatting_sync = function()
+lsp.format_sync = function()
   if lsp.config.enable_format_on_sync then
-    vim.lsp.buf.formatting_sync()
+    vim.lsp.buf.format({ async = false })
   end
 end
 
