@@ -5,7 +5,6 @@ local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
 
 local TS = require("nvim-treesitter")
-local configs_commands = TS.commands
 local parsers = require("nvim-treesitter.parsers")
 
 local nvim_treesitter = {}
@@ -398,64 +397,26 @@ nvim_treesitter.setup_performance_trick = function()
   -- TODO: Change to tab based toggling
   local augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_settings", {})
 
-  local global_idle_disabled_modules = vim.tbl_filter(function(module)
-    return module ~= nil
-  end, {
-    "highlight",
-    "context_commentstring",
-    "matchup",
-  })
+  -- NOTE: On nvim-treesitter main branch, TSEnable/TSDisable commands are gone.
+  -- Only toggle highlight via core vim.treesitter.start()/stop() API.
+  -- context_commentstring and matchup are separate plugins now, not treesitter modules.
 
-  ---Run callback on treesitter supported window to avoid highlight missing
-  ---@param supported_winids table<number> window ids that will run treesitter command
-  ---@param callback fun(): nil callback to run
-  -- FIXME: Some special float buffers will close itself once leave the buffer, like Mason buffer.
-  local run_callback_on_supported_win = function(supported_winids, callback)
-    if not vim.tbl_isempty(supported_winids) then
-      local current_win = vim.api.nvim_get_current_win()
-      local current_win_supported = nvim_treesitter.win_is_supported(current_win)
-      local view = nil
-
-      if not current_win_supported then
-        current_win = vim.api.nvim_get_current_win()
-        view = vim.fn.winsaveview()
-
-        -- NOTE: Switch to supported window to avoid highlight missing
-        -- TODO: Check if neovim fix this bug on 0.9.0 release
-        -- HACK: Use `:noautocmd` to ignore telescope-frecency.nvim autocmd to update database. As
-        -- it often run into "failed to get lock" error.
-        -- TODO: Check this bug is fixed after switching to smart-open.nvim
-        vim.cmd(string.format([[noautocmd lua vim.api.nvim_set_current_win(%d)]], supported_winids[1]))
-      end
-
-      callback()
-
-      if not current_win_supported then
-        -- NOTE: Avoid invalid window id
-        -- HACK: Use `:noautocmd` to ignore telescope-frecency.nvim autocmd to update database. As
-        -- it often run into "failed to get lock" error.
-        -- TODO: Check this bug is fixed after switching to smart-open.nvim
-        pcall(function()
-          vim.cmd(string.format([[noautocmd lua vim.api.nvim_set_current_win(%d)]], current_win))
-        end)
-        pcall(vim.fn.winrestview, view)
-
-        -- Restore terminal insert mode
-        -- mode "nt" means Normal in terminal-emulator, `:help mode()`
-        if vim.bo.buftype == "terminal" and vim.api.nvim_get_mode().mode == "nt" then
-          if require("vimrc.terminal").is_startinsert_ignored() then
-            return
-          end
-          vim.cmd([[startinsert]])
-        end
+  ---Enable treesitter highlight on all supported buffers
+  local enable_highlight_all = function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_loaded(buf) and nvim_treesitter.buf_is_supported(buf) then
+        pcall(vim.treesitter.start, buf)
       end
     end
   end
-  ---Global run callback on supported window to avoid highlight missing
-  ---@param callback fun(): nil callback to run
-  local global_run_callback = function(callback)
-    local supported_winids = nvim_treesitter.list_supported_winids()
-    run_callback_on_supported_win(supported_winids, callback)
+
+  ---Disable treesitter highlight on all supported buffers
+  local disable_highlight_all = function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_loaded(buf) then
+        pcall(vim.treesitter.stop, buf)
+      end
+    end
   end
 
   local global_trick_delay_enable = false
@@ -467,11 +428,7 @@ nvim_treesitter.setup_performance_trick = function()
       if global_trick_delay_enable then
         global_trick_delay_enable = false
       else
-        global_run_callback(function()
-          for _, module in ipairs(global_idle_disabled_modules) do
-            configs_commands.TSEnable.run(module)
-          end
-        end)
+        enable_highlight_all()
       end
     end,
   })
@@ -493,12 +450,7 @@ nvim_treesitter.setup_performance_trick = function()
 
       vim.defer_fn(function()
         if global_trick_delay_enable then
-          global_run_callback(function()
-            for _, module in ipairs(global_idle_disabled_modules) do
-              configs_commands.TSDisable.run(module)
-            end
-          end)
-
+          disable_highlight_all()
           global_trick_delay_enable = false
         end
       end, global_trick_delay)
@@ -508,8 +460,13 @@ end
 
 nvim_treesitter.setup_mapping = function()
   vim.keymap.set("n", "<Space><F6>", function()
-    buffer_toggle_force_disable(vim.api.nvim_get_current_buf())
-    vim.cmd([[TSBufToggle highlight]])
+    local buf = vim.api.nvim_get_current_buf()
+    buffer_toggle_force_disable(buf)
+    if get_force_disable(buf) then
+      vim.treesitter.stop(buf)
+    else
+      vim.treesitter.start(buf)
+    end
   end, { desc = "Toggle treesitter highlight" })
   -- Currently, it's impossible to type <C-F1> ~ <C-F12> using wezterm + tmux.
   -- wezterm with 'xterm-256color' + tmux with 'screen-256color' will
