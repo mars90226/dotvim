@@ -200,75 +200,7 @@ nvim_treesitter.setup_config = function()
     indent = {
       enable = false, -- Currently, nvim-treesitter indent is WIP and not ready for production use
     },
-    textobjects = {
-      select = {
-        enable = true,
-        -- Automatically jump forward to textobj, similar to targets.vim
-        lookahead = true,
-        -- FIXME: The keymaps are not working, due to mini.nvim ai module?
-        keymaps = {
-          -- Override textobj-function
-          -- nvim-treesitter is preciser than textobj-function
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["ac"] = "@class.outer",
-          -- You can optionally set descriptions to the mappings (used in the desc parameter of
-          -- nvim_buf_set_keymap) which plugins like which-key display
-          ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-          -- You can also use captures from other query groups like `locals.scm`
-          ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-        },
-        -- You can choose the select mode (default is charwise 'v')
-        --
-        -- Can also be a function which gets passed a table with the keys
-        -- * query_string: eg '@function.inner'
-        -- * method: eg 'v' or 'o'
-        -- and should return the mode ('v', 'V', or '<c-v>') or a table
-        -- mapping query_strings to modes.
-        selection_modes = {
-          ["@parameter.outer"] = "v", -- charwise
-          ["@function.outer"] = "V", -- linewise
-          ["@class.outer"] = "<C-v>", -- blockwise
-        },
-      },
-      swap = {
-        enable = true,
-        swap_next = {
-          ["czn"] = "@parameter.inner",
-        },
-        swap_previous = {
-          ["czp"] = "@parameter.inner",
-        },
-      },
-      move = {
-        enable = true,
-        set_jumps = true, -- whether to set jumps in the jumplist
-        goto_next_start = {
-          ["]m"] = "@function.outer",
-          ["]]"] = "@class.outer",
-        },
-        goto_next_end = {
-          ["]M"] = "@function.outer",
-          ["]["] = "@class.outer",
-        },
-        goto_previous_start = {
-          ["[m"] = "@function.outer",
-          ["[["] = "@class.outer",
-        },
-        goto_previous_end = {
-          ["[M"] = "@function.outer",
-          ["[]"] = "@class.outer",
-        },
-      },
-      lsp_interop = {
-        enable = true,
-        border = "none",
-        peek_definition_code = {
-          ["<Space>hf"] = "@function.outer",
-          ["<Space>hc"] = "@class.outer",
-        },
-      },
-    },
+    -- NOTE: textobjects config moved to nvim_treesitter.setup_textobjects() for main branch
     matchup = {
       enable = not current_buffer_base_highlight_disable_check(), -- enable unless our disable check says otherwise
       -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
@@ -344,6 +276,69 @@ nvim_treesitter.setup_config = function()
       "yaml",
     })
   )
+end
+
+nvim_treesitter.setup_textobjects = function()
+  local ts_textobjects = require("nvim-treesitter-textobjects")
+  local ts_select = require("nvim-treesitter-textobjects.select")
+  local ts_swap = require("nvim-treesitter-textobjects.swap")
+  local ts_move = require("nvim-treesitter-textobjects.move")
+
+  ts_textobjects.setup({
+    select = {
+      lookahead = true,
+      selection_modes = {
+        ["@parameter.outer"] = "v", -- charwise
+        ["@function.outer"] = "V", -- linewise
+        ["@class.outer"] = "<C-v>", -- blockwise
+      },
+    },
+    move = {
+      set_jumps = true,
+    },
+  })
+
+  -- Select
+  -- FIXME: The keymaps are not working, due to mini.nvim ai module?
+  local select_maps = {
+    ["af"] = { "@function.outer", "textobjects", desc = "Select outer function" },
+    ["if"] = { "@function.inner", "textobjects", desc = "Select inner function" },
+    ["ac"] = { "@class.outer", "textobjects", desc = "Select outer class" },
+    ["ic"] = { "@class.inner", "textobjects", desc = "Select inner part of a class region" },
+    ["as"] = { "@scope", "locals", desc = "Select language scope" },
+  }
+  for lhs, map in pairs(select_maps) do
+    vim.keymap.set({ "x", "o" }, lhs, function()
+      ts_select.select_textobject(map[1], map[2])
+    end, { silent = true, desc = map.desc })
+  end
+
+  -- Swap
+  vim.keymap.set("n", "czn", function()
+    ts_swap.swap_next("@parameter.inner")
+  end, { silent = true, desc = "Swap next parameter" })
+  vim.keymap.set("n", "czp", function()
+    ts_swap.swap_previous("@parameter.inner")
+  end, { silent = true, desc = "Swap previous parameter" })
+
+  -- Move
+  local move_maps = {
+    { "]m", "goto_next_start", "@function.outer", "Go to next function start" },
+    { "]]", "goto_next_start", "@class.outer", "Go to next class start" },
+    { "]M", "goto_next_end", "@function.outer", "Go to next function end" },
+    { "][", "goto_next_end", "@class.outer", "Go to next class end" },
+    { "[m", "goto_previous_start", "@function.outer", "Go to previous function start" },
+    { "[[", "goto_previous_start", "@class.outer", "Go to previous class start" },
+    { "[M", "goto_previous_end", "@function.outer", "Go to previous function end" },
+    { "[]", "goto_previous_end", "@class.outer", "Go to previous class end" },
+  }
+  for _, map in ipairs(move_maps) do
+    vim.keymap.set({ "n", "x", "o" }, map[1], function()
+      ts_move[map[2]](map[3], "textobjects")
+    end, { silent = true, desc = map[4] })
+  end
+
+  -- NOTE: lsp_interop (peek_definition_code) removed in textobjects main branch
 end
 
 nvim_treesitter.setup_extensions = function()
@@ -530,6 +525,7 @@ end
 nvim_treesitter.setup = function()
   nvim_treesitter.setup_parser_config()
   nvim_treesitter.setup_config()
+  nvim_treesitter.setup_textobjects()
   nvim_treesitter.setup_extensions()
   nvim_treesitter.setup_performance_trick()
   nvim_treesitter.setup_mapping()
