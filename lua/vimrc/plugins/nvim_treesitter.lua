@@ -314,7 +314,8 @@ nvim_treesitter.setup_config = function()
       "make",
       "markdown",
       "markdown_inline",
-      plugin_utils.check_condition("norg", not check.os_is("mac")),
+      -- TODO: Disabled as "skipped unsupported language: norg" nvim-treesitter warning
+      -- plugin_utils.check_condition("norg", not check.os_is("mac")),
       "nu",
       "perl",
       "php",
