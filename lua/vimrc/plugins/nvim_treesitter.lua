@@ -251,7 +251,7 @@ nvim_treesitter.setup_textobjects = function()
       selection_modes = {
         ["@parameter.outer"] = "v", -- charwise
         ["@function.outer"] = "V", -- linewise
-        ["@class.outer"] = "<C-v>", -- blockwise
+        -- ["@class.outer"] = "<c-v>", -- blockwise
       },
     },
     move = {
