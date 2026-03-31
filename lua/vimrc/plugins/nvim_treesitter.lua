@@ -208,6 +208,12 @@ end
 nvim_treesitter.setup_filetype_autocmd = function()
   local augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_filetype", {})
 
+  -- Only enable treesitter for languages in our ensure_installed list
+  local enabled_langs = {}
+  for _, lang in ipairs(nvim_treesitter.get_ensure_installed()) do
+    enabled_langs[lang] = true
+  end
+
   vim.api.nvim_create_autocmd("FileType", {
     group = augroup_id,
     callback = function(args)
@@ -215,10 +221,13 @@ nvim_treesitter.setup_filetype_autocmd = function()
       local ft = vim.bo[buf].filetype
       local lang = vim.treesitter.language.get_lang(ft)
 
-      -- TODO: Introduce "language has nvim-treesitter parser, but regex feels better" concept
-
-      -- Skip if no treesitter parser for this filetype
+      -- Skip if no treesitter language mapping for this filetype
       if not lang then
+        return
+      end
+
+      -- Skip if language is not in our ensure_installed list
+      if not enabled_langs[lang] then
         return
       end
 
