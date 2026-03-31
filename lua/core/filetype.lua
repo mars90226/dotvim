@@ -40,6 +40,9 @@ filetype.setup = function()
       -- git
       [".gitignore"] = "conf",
 
+      -- gitcommit
+      [".gitmessage.txt"] = "gitcommit",
+
       -- config
       [".ignore"] = "conf",
       [".aiderignore"] = "conf",
