@@ -1,7 +1,5 @@
 -- TODO: Refactor to other files
-local check = require("vimrc.check")
 local choose = require("vimrc.choose")
-local plugin_utils = require("vimrc.plugin_utils")
 local utils = require("vimrc.utils")
 
 local TS = require("nvim-treesitter")
@@ -45,41 +43,9 @@ local current_buffer_base_highlight_disable_check = function()
   return base_disable_check(ft, bufnr)
 end
 
-nvim_treesitter.is_enabled = function(module, buf)
+nvim_treesitter.is_enabled = function(buf)
   buf = buf or 0
-  local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype)
-  return TS.is_enabled(module, lang, buf)
-end
-
-nvim_treesitter.buf_is_supported = function(buf)
-  return vim.treesitter.get_parser(buf or 0, nil, { error = false }) ~= nil
-end
-
-nvim_treesitter.win_is_supported = function(winid)
-  local buf = vim.api.nvim_win_get_buf(winid or 0)
-  return nvim_treesitter.buf_is_supported(buf)
-end
-
-nvim_treesitter.tab_get_supported_bufs = function(tab)
-  local winids = vim.api.nvim_tabpage_list_wins(tab or 0)
-  local bufs = vim.tbl_map(vim.api.nvim_win_get_buf, winids)
-  local supported_bufs = vim.tbl_filter(nvim_treesitter.buf_is_supported, bufs)
-
-  return supported_bufs
-end
-
-nvim_treesitter.tab_get_supported_winids = function(tab)
-  local winids = vim.api.nvim_tabpage_list_wins(tab or 0)
-  local supported_wins = vim.tbl_filter(nvim_treesitter.win_is_supported, winids)
-
-  return supported_wins
-end
-
-nvim_treesitter.list_supported_winids = function()
-  local winids = vim.api.nvim_list_wins()
-  local supported_wins = vim.tbl_filter(nvim_treesitter.win_is_supported, winids)
-
-  return supported_wins
+  return vim.treesitter.highlighter.active[buf] ~= nil
 end
 
 -- nvim-treehopper
@@ -162,111 +128,115 @@ nvim_treesitter.setup_parser_config = function()
   }
 end
 
+nvim_treesitter.get_ensure_installed = function()
+  return vim.tbl_filter(function(language)
+    return language ~= nil
+  end, {
+    "bash",
+    "c",
+    "cmake",
+    "comment",
+    "cpp",
+    "css",
+    "csv",
+    "diff",
+    "doxygen",
+    "editorconfig",
+    "fennel",
+    "git_config",
+    "git_rebase",
+    "gitattributes",
+    "gitignore",
+    "go",
+    "gomod",
+    "gosum",
+    "gowork",
+    "html",
+    "http",
+    "hurl",
+    "ini",
+    "javascript",
+    "jq",
+    "jsdoc",
+    "json",
+    "just",
+    "lua",
+    "luadoc",
+    "luap",
+    "make",
+    "markdown",
+    "markdown_inline",
+    -- TODO: Disabled as "skipped unsupported language: norg" nvim-treesitter warning
+    -- plugin_utils.check_condition("norg", not check.os_is("mac")),
+    "nu",
+    "perl",
+    "php",
+    "powershell",
+    "printf",
+    "proto",
+    "python",
+    "query",
+    "regex",
+    "requirements",
+    "rst",
+    "ruby",
+    "rust",
+    "scss",
+    "sql",
+    "ssh_config",
+    "teal",
+    "toml",
+    "tsx",
+    "typescript",
+    "vim",
+    "vimdoc",
+    "vue",
+    "xml",
+    "yaml",
+  })
+end
+
 nvim_treesitter.setup_config = function()
+  -- NOTE: On nvim-treesitter main branch, TS.setup() only accepts TSConfig (install_dir).
+  -- highlight/indent/incremental_selection/matchup/yati are no longer module options.
   TS.setup({
     -- update_strategy = "github", -- Enable when installing alternative parsers for built-in parsers
-    highlight = {
-      enable = true,
-      disable = base_disable_check,
-    },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "<CR>",
-        scope_incremental = "<CR>",
-        node_incremental = "<Tab>",
-        node_decremental = "<S-Tab>",
-      },
-      -- Ignore incremental selection in cmdline mode & cmdline window
-      -- Ref: https://github.com/nvim-treesitter/nvim-treesitter/issues/2634#issuecomment-1362479800
-      is_supported = function()
-        local mode = vim.api.nvim_get_mode().mode
-        if mode == "c" then
-          return false
-        end
-        return true
-      end,
-    },
-    indent = {
-      enable = false, -- Currently, nvim-treesitter indent is WIP and not ready for production use
-    },
-    -- NOTE: textobjects config moved to nvim_treesitter.setup_textobjects() for main branch
-    matchup = {
-      enable = not current_buffer_base_highlight_disable_check(), -- enable unless our disable check says otherwise
-      -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
-    },
-    -- TODO: Disabled as nvim-yati not migrating to main branch yet. (maybe never)
-    -- yati = {
-    --   enable = true,
-    -- },
   })
-  TS.install(
-    vim.tbl_filter(function(language)
-      return language ~= nil
-    end, {
-      "bash",
-      "c",
-      "cmake",
-      "comment",
-      "cpp",
-      "css",
-      "csv",
-      "diff",
-      "doxygen",
-      "editorconfig",
-      "fennel",
-      "git_config",
-      "git_rebase",
-      "gitattributes",
-      "gitignore",
-      "go",
-      "gomod",
-      "gosum",
-      "gowork",
-      "html",
-      "http",
-      "hurl",
-      "ini",
-      "javascript",
-      "jq",
-      "jsdoc",
-      "json",
-      "just",
-      "lua",
-      "luadoc",
-      "luap",
-      "make",
-      "markdown",
-      "markdown_inline",
-      -- TODO: Disabled as "skipped unsupported language: norg" nvim-treesitter warning
-      -- plugin_utils.check_condition("norg", not check.os_is("mac")),
-      "nu",
-      "perl",
-      "php",
-      "powershell",
-      "printf",
-      "proto",
-      "python",
-      "query",
-      "regex",
-      "requirements",
-      "rst",
-      "ruby",
-      "rust",
-      "scss",
-      "sql",
-      "ssh_config",
-      "teal",
-      "toml",
-      "tsx",
-      "typescript",
-      "vim",
-      "vimdoc",
-      "vue",
-      "xml",
-      "yaml",
-    })
-  )
+  TS.install(nvim_treesitter.get_ensure_installed())
+end
+
+nvim_treesitter.setup_filetype_autocmd = function()
+  local augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_filetype", {})
+
+  vim.api.nvim_create_autocmd("FileType", {
+    group = augroup_id,
+    callback = function(args)
+      local buf = args.buf
+      local ft = vim.bo[buf].filetype
+      local lang = vim.treesitter.language.get_lang(ft)
+
+      -- Skip if no treesitter parser for this filetype
+      if not lang then
+        return
+      end
+
+      -- Skip if parser is not installed
+      if not vim.treesitter.get_parser(buf, nil, { error = false }) then
+        return
+      end
+
+      -- Skip if force-disabled or filetype-disabled
+      if base_disable_check(ft, buf) then
+        return
+      end
+
+      -- Syntax highlighting
+      vim.treesitter.start(buf)
+
+      -- Indentation
+      vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end,
+  })
 end
 
 nvim_treesitter.setup_textobjects = function()
@@ -281,7 +251,7 @@ nvim_treesitter.setup_textobjects = function()
       selection_modes = {
         ["@parameter.outer"] = "v", -- charwise
         ["@function.outer"] = "V", -- linewise
-        ["@class.outer"] = "<C-v>", -- blockwise
+        -- ["@class.outer"] = "<c-v>", -- blockwise
       },
     },
     move = {
@@ -290,7 +260,6 @@ nvim_treesitter.setup_textobjects = function()
   })
 
   -- Select
-  -- FIXME: The keymaps are not working, due to mini.nvim ai module?
   local select_maps = {
     ["af"] = { "@function.outer", "textobjects", desc = "Select outer function" },
     ["if"] = { "@function.inner", "textobjects", desc = "Select inner function" },
@@ -383,74 +352,34 @@ nvim_treesitter.setup_extensions = function()
   })
 end
 
--- nvim_treesitter.setup_performance_trick = function()
---   -- TODO: Check if these actually help performance, initial test reveals that these may reduce highlighter time, but increase "[string]:0" time which is probably the time spent on autocmd & syntax enable/disable.
---   -- TODO: These config help reduce memory usage, see if there's other way to fix high memory usage.
---   -- TODO: Change to tab based toggling
---   local augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_settings", {})
---
---   -- NOTE: On nvim-treesitter main branch, TSEnable/TSDisable commands are gone.
---   -- Only toggle highlight via core vim.treesitter.start()/stop() API.
---   -- context_commentstring and matchup are separate plugins now, not treesitter modules.
---
---   ---Enable treesitter highlight on all supported buffers
---   local enable_highlight_all = function()
---     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
---       if vim.api.nvim_buf_is_loaded(buf) and nvim_treesitter.buf_is_supported(buf) then
---         pcall(vim.treesitter.start, buf)
---       end
---     end
---   end
---
---   ---Disable treesitter highlight on all supported buffers
---   local disable_highlight_all = function()
---     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
---       if vim.api.nvim_buf_is_loaded(buf) then
---         pcall(vim.treesitter.stop, buf)
---       end
---     end
---   end
---
---   local global_trick_delay_enable = false
---   local global_trick_delay = 60 * 1000 -- 60 seconds
---   vim.api.nvim_create_autocmd({ "FocusGained", "VimResume" }, {
---     group = augroup_id,
---     pattern = "*",
---     callback = function()
---       if global_trick_delay_enable then
---         global_trick_delay_enable = false
---       else
---         enable_highlight_all()
---       end
---     end,
---   })
---   -- NOTE: We want to disable highlight if FocusLost is caused by following reasons:
---   -- 1. neovim goes to background
---   -- 2. tmux switch window, client
---   -- 3. Terminal emulator switch tab
---   -- We don't want to disable highlight if FocusLost is caused by following reasons:
---   -- 1. tmux switch pane
---   -- 2. Terminal emulator switch pane
---   -- 3. OS switch application
---   -- In other words, we want treesitter highlight if the buffer is actually displayed on the screen.
---   -- TODO: Check if VimResume/VimSuspend helps
---   vim.api.nvim_create_autocmd({ "FocusLost", "VimSuspend" }, {
---     group = augroup_id,
---     pattern = "*",
---     callback = function()
---       global_trick_delay_enable = true
---
---       vim.defer_fn(function()
---         if global_trick_delay_enable then
---           disable_highlight_all()
---           global_trick_delay_enable = false
---         end
---       end, global_trick_delay)
---     end,
---   })
--- end
-
 nvim_treesitter.setup_mapping = function()
+  -- Incremental Selection
+  -- Ref: https://github.com/neovim/neovim/pull/36993/changes#diff-fcb32cf99107c4b71f964a0949cf50edcf3965c1191152e3d8db1256f5513ba7R450-R472
+  vim.keymap.set({ "x" }, "[`", function()
+    require("vim.treesitter._select").select_prev(vim.v.count1)
+  end, { desc = "Select previous treesitter node" })
+
+  vim.keymap.set({ "x" }, "]`", function()
+    require("vim.treesitter._select").select_next(vim.v.count1)
+  end, { desc = "Select next treesitter node" })
+
+  vim.keymap.set({ "x", "o" }, "<Tab>", function()
+    if vim.treesitter.get_parser(nil, nil, { error = false }) then
+      require("vim.treesitter._select").select_parent(vim.v.count1)
+    else
+      vim.lsp.buf.selection_range(vim.v.count1)
+    end
+  end, { desc = "Select parent treesitter node or outer incremental lsp selections" })
+
+  vim.keymap.set({ "x", "o" }, "<S-Tab>", function()
+    if vim.treesitter.get_parser(nil, nil, { error = false }) then
+      require("vim.treesitter._select").select_child(vim.v.count1)
+    else
+      vim.lsp.buf.selection_range(-vim.v.count1)
+    end
+  end, { desc = "Select child treesitter node or inner incremental lsp selections" })
+
+  -- Context
   vim.keymap.set("n", "<Space><F6>", function()
     local buf = vim.api.nvim_get_current_buf()
     buffer_toggle_force_disable(buf)
@@ -474,9 +403,9 @@ end
 nvim_treesitter.setup = function()
   nvim_treesitter.setup_parser_config()
   nvim_treesitter.setup_config()
+  nvim_treesitter.setup_filetype_autocmd()
   nvim_treesitter.setup_textobjects()
   nvim_treesitter.setup_extensions()
-  -- nvim_treesitter.setup_performance_trick()
   nvim_treesitter.setup_mapping()
 end
 
