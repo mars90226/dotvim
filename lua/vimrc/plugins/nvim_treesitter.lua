@@ -45,10 +45,9 @@ local current_buffer_base_highlight_disable_check = function()
   return base_disable_check(ft, bufnr)
 end
 
-nvim_treesitter.is_enabled = function(module, buf)
+nvim_treesitter.is_enabled = function(buf)
   buf = buf or 0
-  local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype)
-  return TS.is_enabled(module, lang, buf)
+  return vim.treesitter.highlighter.active[buf] ~= nil
 end
 
 nvim_treesitter.buf_is_supported = function(buf)
