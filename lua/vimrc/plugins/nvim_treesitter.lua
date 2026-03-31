@@ -260,7 +260,6 @@ nvim_treesitter.setup_textobjects = function()
   })
 
   -- Select
-  -- FIXME: The keymaps are not working, due to mini.nvim ai module?
   local select_maps = {
     ["af"] = { "@function.outer", "textobjects", desc = "Select outer function" },
     ["if"] = { "@function.inner", "textobjects", desc = "Select inner function" },
