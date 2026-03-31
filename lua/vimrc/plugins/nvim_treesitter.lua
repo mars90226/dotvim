@@ -215,6 +215,8 @@ nvim_treesitter.setup_filetype_autocmd = function()
       local ft = vim.bo[buf].filetype
       local lang = vim.treesitter.language.get_lang(ft)
 
+      -- TODO: Introduce "language has nvim-treesitter parser, but regex feels better" concept
+
       -- Skip if no treesitter parser for this filetype
       if not lang then
         return
