@@ -354,6 +354,33 @@ nvim_treesitter.setup_extensions = function()
 end
 
 nvim_treesitter.setup_mapping = function()
+  -- Incremental Selection
+  -- Ref: https://github.com/neovim/neovim/pull/36993/changes#diff-fcb32cf99107c4b71f964a0949cf50edcf3965c1191152e3d8db1256f5513ba7R450-R472
+  vim.keymap.set({ "x" }, "[`", function()
+    require("vim.treesitter._select").select_prev(vim.v.count1)
+  end, { desc = "Select previous treesitter node" })
+
+  vim.keymap.set({ "x" }, "]`", function()
+    require("vim.treesitter._select").select_next(vim.v.count1)
+  end, { desc = "Select next treesitter node" })
+
+  vim.keymap.set({ "x", "o" }, "<Tab>", function()
+    if vim.treesitter.get_parser(nil, nil, { error = false }) then
+      require("vim.treesitter._select").select_parent(vim.v.count1)
+    else
+      vim.lsp.buf.selection_range(vim.v.count1)
+    end
+  end, { desc = "Select parent treesitter node or outer incremental lsp selections" })
+
+  vim.keymap.set({ "x", "o" }, "<S-Tab>", function()
+    if vim.treesitter.get_parser(nil, nil, { error = false }) then
+      require("vim.treesitter._select").select_child(vim.v.count1)
+    else
+      vim.lsp.buf.selection_range(-vim.v.count1)
+    end
+  end, { desc = "Select child treesitter node or inner incremental lsp selections" })
+
+  -- Context
   vim.keymap.set("n", "<Space><F6>", function()
     local buf = vim.api.nvim_get_current_buf()
     buffer_toggle_force_disable(buf)
