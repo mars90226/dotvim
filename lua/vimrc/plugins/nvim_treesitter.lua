@@ -161,111 +161,115 @@ nvim_treesitter.setup_parser_config = function()
   }
 end
 
+nvim_treesitter.get_ensure_installed = function()
+  return vim.tbl_filter(function(language)
+    return language ~= nil
+  end, {
+    "bash",
+    "c",
+    "cmake",
+    "comment",
+    "cpp",
+    "css",
+    "csv",
+    "diff",
+    "doxygen",
+    "editorconfig",
+    "fennel",
+    "git_config",
+    "git_rebase",
+    "gitattributes",
+    "gitignore",
+    "go",
+    "gomod",
+    "gosum",
+    "gowork",
+    "html",
+    "http",
+    "hurl",
+    "ini",
+    "javascript",
+    "jq",
+    "jsdoc",
+    "json",
+    "just",
+    "lua",
+    "luadoc",
+    "luap",
+    "make",
+    "markdown",
+    "markdown_inline",
+    -- TODO: Disabled as "skipped unsupported language: norg" nvim-treesitter warning
+    -- plugin_utils.check_condition("norg", not check.os_is("mac")),
+    "nu",
+    "perl",
+    "php",
+    "powershell",
+    "printf",
+    "proto",
+    "python",
+    "query",
+    "regex",
+    "requirements",
+    "rst",
+    "ruby",
+    "rust",
+    "scss",
+    "sql",
+    "ssh_config",
+    "teal",
+    "toml",
+    "tsx",
+    "typescript",
+    "vim",
+    "vimdoc",
+    "vue",
+    "xml",
+    "yaml",
+  })
+end
+
 nvim_treesitter.setup_config = function()
+  -- NOTE: On nvim-treesitter main branch, TS.setup() only accepts TSConfig (install_dir).
+  -- highlight/indent/incremental_selection/matchup/yati are no longer module options.
   TS.setup({
     -- update_strategy = "github", -- Enable when installing alternative parsers for built-in parsers
-    highlight = {
-      enable = true,
-      disable = base_disable_check,
-    },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "<CR>",
-        scope_incremental = "<CR>",
-        node_incremental = "<Tab>",
-        node_decremental = "<S-Tab>",
-      },
-      -- Ignore incremental selection in cmdline mode & cmdline window
-      -- Ref: https://github.com/nvim-treesitter/nvim-treesitter/issues/2634#issuecomment-1362479800
-      is_supported = function()
-        local mode = vim.api.nvim_get_mode().mode
-        if mode == "c" then
-          return false
-        end
-        return true
-      end,
-    },
-    indent = {
-      enable = false, -- Currently, nvim-treesitter indent is WIP and not ready for production use
-    },
-    -- NOTE: textobjects config moved to nvim_treesitter.setup_textobjects() for main branch
-    matchup = {
-      enable = not current_buffer_base_highlight_disable_check(), -- enable unless our disable check says otherwise
-      -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
-    },
-    -- TODO: Disabled as nvim-yati not migrating to main branch yet. (maybe never)
-    -- yati = {
-    --   enable = true,
-    -- },
   })
-  TS.install(
-    vim.tbl_filter(function(language)
-      return language ~= nil
-    end, {
-      "bash",
-      "c",
-      "cmake",
-      "comment",
-      "cpp",
-      "css",
-      "csv",
-      "diff",
-      "doxygen",
-      "editorconfig",
-      "fennel",
-      "git_config",
-      "git_rebase",
-      "gitattributes",
-      "gitignore",
-      "go",
-      "gomod",
-      "gosum",
-      "gowork",
-      "html",
-      "http",
-      "hurl",
-      "ini",
-      "javascript",
-      "jq",
-      "jsdoc",
-      "json",
-      "just",
-      "lua",
-      "luadoc",
-      "luap",
-      "make",
-      "markdown",
-      "markdown_inline",
-      -- TODO: Disabled as "skipped unsupported language: norg" nvim-treesitter warning
-      -- plugin_utils.check_condition("norg", not check.os_is("mac")),
-      "nu",
-      "perl",
-      "php",
-      "powershell",
-      "printf",
-      "proto",
-      "python",
-      "query",
-      "regex",
-      "requirements",
-      "rst",
-      "ruby",
-      "rust",
-      "scss",
-      "sql",
-      "ssh_config",
-      "teal",
-      "toml",
-      "tsx",
-      "typescript",
-      "vim",
-      "vimdoc",
-      "vue",
-      "xml",
-      "yaml",
-    })
-  )
+  TS.install(nvim_treesitter.get_ensure_installed())
+end
+
+nvim_treesitter.setup_filetype_autocmd = function()
+  local augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_filetype", {})
+
+  vim.api.nvim_create_autocmd("FileType", {
+    group = augroup_id,
+    callback = function(args)
+      local buf = args.buf
+      local ft = vim.bo[buf].filetype
+      local lang = vim.treesitter.language.get_lang(ft)
+
+      -- Skip if no treesitter parser for this filetype
+      if not lang then
+        return
+      end
+
+      -- Skip if parser is not installed
+      if not vim.treesitter.get_parser(buf, nil, { error = false }) then
+        return
+      end
+
+      -- Skip if force-disabled or filetype-disabled
+      if base_disable_check(ft, buf) then
+        return
+      end
+
+      -- Syntax highlighting
+      vim.treesitter.start(buf)
+
+      -- Indentation
+      vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end,
+  })
 end
 
 nvim_treesitter.setup_textobjects = function()
@@ -473,6 +477,7 @@ end
 nvim_treesitter.setup = function()
   nvim_treesitter.setup_parser_config()
   nvim_treesitter.setup_config()
+  nvim_treesitter.setup_filetype_autocmd()
   nvim_treesitter.setup_textobjects()
   nvim_treesitter.setup_extensions()
   -- nvim_treesitter.setup_performance_trick()

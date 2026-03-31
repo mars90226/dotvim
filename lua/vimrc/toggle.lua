@@ -22,14 +22,14 @@ end
 --- Toggle the fold method between manual and automatic (syntax/treesitter).
 --- If the current fold method is manual, then:
 ---   - If the 'nvim-treesitter' plugin is enabled (via vimrc.choose.is_enabled_plugin),
----     set fold method to expression and use nvim_treesitter#foldexpr().
+---     set fold method to expression and use vim.treesitter.foldexpr().
 ---   - Otherwise, set the fold method to syntax and reset foldexpr to its default value.
 --- If the current fold method is not manual, switch it back to manual and reset foldexpr.
 function M.toggle_fold_method()
   if vim.wo.foldmethod == "manual" then
     if choose.is_enabled_plugin("nvim-treesitter") then
       vim.wo.foldmethod = "expr"
-      vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+      vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     else
       vim.wo.foldmethod = "syntax"
       vim.cmd("setlocal foldexpr&")
