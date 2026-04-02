@@ -213,7 +213,7 @@ local git = {
         end,
         desc = "Diffview toggle",
       },
-      { "<Space>gD", [[<Cmd>DiffviewOpen<CR>]], desc = "Diffview open", },
+      { "<Space>gD", [[<Cmd>DiffviewOpen<CR>]], desc = "Diffview open" },
 
       -- TODO: Add mapping for author filter & current file
       { "<Space>gh", "<Cmd>DiffviewFileHistory<CR>", desc = "Diffview file history" },
@@ -252,6 +252,13 @@ local git = {
     cmd = { "Neogit" },
     keys = {
       { "<Leader>gn", "<Cmd>Neogit<CR>", desc = "Neogit" },
+      {
+        "<Leader>gN",
+        function()
+          require("neogit").open({ kind = "vsplit_left" })
+        end,
+        desc = "Neogit",
+      },
     },
     config = function()
       require("neogit").setup({
