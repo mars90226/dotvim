@@ -727,6 +727,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         tools = {
           -- TODO: Need to add new tools to explicitly create new codex session
           codex_new = { cmd = { "codex" }, url = "https://github.com/openai/codex" },
+          codex_review = { cmd = { "codex" }, url = "https://github.com/openai/codex" },
           codex_resume = {
             cmd = { "codex", "resume" },
             url = "https://github.com/openai/codex",
