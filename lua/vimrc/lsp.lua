@@ -152,16 +152,8 @@ lsp.servers = {
       vim.cmd([[ do User LspAttachBuffers ]])
     end,
   },
-  basedpyright = {
-    -- NOTE: basedpyright watch too many files, disable workspace/didChangeWatchedFiles dynamic registration
-    capabilities = {
-      workspace = {
-        didChangeWatchedFiles = {
-          dynamicRegistration = false,
-        },
-      },
-    },
-  },
+  -- TODO: Monitor the performance of watcher for workspace/didChangeWatchedFiles
+  basedpyright = {},
   bashls = {
     settings = {
       bashIde = {
