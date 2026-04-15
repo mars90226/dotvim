@@ -230,6 +230,13 @@ lsp.servers = {
   },
   harper_ls = {
     condition = check.has_linux_build_env(),
+    capabilities = {
+      workspace = {
+        didChangeWatchedFiles = {
+          dynamicRegistration = false,
+        },
+      },
+    },
     settings = {
       ["harper-ls"] = {
         -- NOTE: Use workspace dictionary introduced in harper 0.55.0
@@ -257,6 +264,11 @@ lsp.servers = {
   },
   jsonls = {
     capabilities = {
+      workspace = {
+        didChangeWatchedFiles = {
+          dynamicRegistration = false,
+        },
+      },
       textDocument = {
         completion = {
           completionItem = {
@@ -411,7 +423,15 @@ lsp.servers = {
       return lsp_opts
     end,
   },
-  tailwindcss = {},
+  tailwindcss = {
+    capabilities = {
+      workspace = {
+        didChangeWatchedFiles = {
+          dynamicRegistration = false,
+        },
+      },
+    },
+  },
   vimls = {},
   vue_ls = {
     condition = check.has_linux_build_env(),
