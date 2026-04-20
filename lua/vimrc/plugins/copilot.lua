@@ -8,7 +8,7 @@ my_copilot.default_model = "gpt-5.4"
 my_copilot.default_github_model = "gpt-5.4"
 my_copilot.default_free_model = "gpt-5-mini"
 my_copilot.default_fast_model = "gpt-5.4-mini"
-my_copilot.default_think_model = "claude-opus-4.6"
+my_copilot.default_think_model = "gpt-5.4"
 
 -- NOTE: Use the model info from Copilot using CopilotChat.nvim
 my_copilot.models = {
@@ -105,6 +105,10 @@ my_copilot.models = {
   },
   ["claude-opus-4.6"] = {
     model = "claude-opus-4.6",
+    max_tokens = 168000,
+  },
+  ["claude-opus-4.7"] = {
+    model = "claude-opus-4.7",
     max_tokens = 128000,
   },
   ["grok-code-fast-1"] = {
