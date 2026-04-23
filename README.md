@@ -68,7 +68,7 @@ Well, these plugins are hard to categorize, but they are gems. You will need the
 
 - [vim-fugitive](https://github.com/tpope/vim-fugitive) (almost perfect git wrapper)
 - [vim-flog](https://github.com/rbong/vim-flog) (git commit browser)
-- [diffview.nvim](https://github.com/sindrets/diffview.nvim) (git diff viewer & git history viewer)
+- [diffview.nvim](https://github.com/dlyongemallo/diffview.nvim) (git diff viewer & git history viewer)
 
 ### Utility
 

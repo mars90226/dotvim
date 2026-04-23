@@ -198,8 +198,9 @@ local git = {
     end,
   },
 
+  -- NOTE: Use fork as original diffview.nvim is not maintained since 2024
   {
-    "sindrets/diffview.nvim",
+    "dlyongemallo/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     keys = {
       {
@@ -247,7 +248,7 @@ local git = {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
-      "sindrets/diffview.nvim",
+      "dlyongemallo/diffview.nvim",
     },
     cmd = { "Neogit" },
     keys = {
@@ -298,7 +299,7 @@ local git = {
     dependencies = {
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
+      "dlyongemallo/diffview.nvim",
       -- Defined in file_explorer.lua
       -- "folke/snacks.nvim", -- Recommended but not required. Better UI for pickers.
       "nvim-tree/nvim-web-devicons", -- Recommended but not required. Icons in discussion tree.
