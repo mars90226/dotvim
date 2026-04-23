@@ -50,6 +50,9 @@ filetype.setup = function()
       -- doxygen
       ["Doxyfile"] = "dosini",
 
+      -- just
+      ["justfile.local"] = "just",
+
       -- make
       ["Makefile.inc"] = "make",
 
