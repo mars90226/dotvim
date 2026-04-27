@@ -723,8 +723,6 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         mux = {
           backend = "tmux",
           enabled = true,
-          -- Sync with 'scrollback' option, current value: 10000
-          dump = vim.o.scrollback,
         },
         tools = {
           -- TODO: Need to add new tools to explicitly create new codex session
@@ -902,6 +900,10 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
       },
     },
     config = function(_, opts)
+      -- Sync with 'scrollback' option, current value: 10000
+      -- TODO: vim.o.scrollback is set in setting.lua, which is loaded after sidekick.nvim. So we
+      -- need to set scrollback in sidekick.nvim's config to make sure it's applied correctly.
+      opts.cli.mux.dump = vim.o.scrollback
       require('sidekick').setup(opts)
 
       vim.api.nvim_create_user_command("SidekickNewTool", function(args)
