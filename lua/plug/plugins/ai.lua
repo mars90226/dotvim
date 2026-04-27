@@ -723,6 +723,8 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         mux = {
           backend = "tmux",
           enabled = true,
+          -- Sync with 'scrollback' option, current value: 10000
+          dump = vim.o.scrollback,
         },
         tools = {
           -- TODO: Need to add new tools to explicitly create new codex session
