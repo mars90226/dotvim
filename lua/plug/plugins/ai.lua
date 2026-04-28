@@ -773,6 +773,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         },
         prompts = {
           review_from_base = "/review review base `tmp-review-base`, 請用繁體中文回答",
+          chinese = "請用繁體中文回答",
         }
       },
     },
