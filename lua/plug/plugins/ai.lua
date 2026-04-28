@@ -902,6 +902,12 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         desc = "Sidekick GitHub Copilot Toggle",
         mode = { "n", "v" },
       },
+      {
+        "<Leader>ai",
+        function() require("sidekick.cli").toggle({ name = "pi", focus = true }) end,
+        desc = "Sidekick Pi Toggle",
+        mode = { "n", "v" },
+      },
     },
     config = function(_, opts)
       -- Sync with 'scrollback' option, current value: 10000
