@@ -771,7 +771,17 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
           just_every_code_resume = { cmd = { "coder", "resume" }, url = "https://github.com/just-every/code" },
           toad = { cmd = { "toad" }, url = "https://github.com/batrachianai/toad" },
         },
+        context = {
+          git_branch = function(ctx)
+            return require("vimrc.plugins.sidekick").current_git_branch(ctx)
+          end,
+          git_branch_selected = function()
+            return require("vimrc.plugins.sidekick").get_selected_git_branch()
+          end,
+        },
         prompts = {
+          git_branch = "{git_branch}",
+          git_branch_selected = "{git_branch_selected}",
           review_from_base = "/review review base `tmp-review-base`, 請用繁體中文回答",
           chinese = "請用繁體中文回答",
         }
@@ -829,6 +839,11 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         function() require("sidekick.cli").prompt() end,
         mode = { "n", "x" },
         desc = "Sidekick Select Prompt",
+      },
+      {
+        "<Leader>aB",
+        function() require("vimrc.plugins.sidekick").select_git_branch() end,
+        desc = "Sidekick Select Git Branch",
       },
       -- Keymaps for specific tools
       {

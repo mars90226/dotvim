@@ -40,8 +40,13 @@ my_snacks.opts = {
     enabled = true,
     ui_select = true, -- replace `vim.ui.select` with the snacks picker
     actions = {
-      sidekick_send = function(...)
-        return require("sidekick.cli.picker.snacks").send(...)
+      sidekick_send = function(picker)
+        local sidekick = require("vimrc.plugins.sidekick")
+        local item = picker:selected({ fallback = true })[1]
+        if sidekick.git_branch_from_snacks_item(item) then
+          return sidekick.send_git_branch_from_picker(picker)
+        end
+        return require("sidekick.cli.picker.snacks").send(picker)
       end,
     },
     win = {
