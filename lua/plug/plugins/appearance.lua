@@ -17,8 +17,11 @@ local appearance = {
 
   -- Winbar
   {
-    "Bekaboo/dropbar.nvim",
+    -- TODO: Switch back to original repo after https://github.com/Bekaboo/dropbar.nvim/pull/280 fixed
+    -- "Bekaboo/dropbar.nvim",
+    "cubewhy/dropbar.nvim",
     cond = choose.is_enabled_plugin("dropbar.nvim") and choose.is_enabled_plugin("dropbar.nvim-winbar"),
+    branch = "fix-event",
     config = function()
       require("vimrc.plugins.dropbar").setup()
     end,
