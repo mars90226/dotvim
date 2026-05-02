@@ -201,7 +201,7 @@ local git = {
   -- NOTE: Use fork as original diffview.nvim is not maintained since 2024
   {
     "dlyongemallo/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+    cmd = { "DiffviewOpen", "DiffviewFileHistory", "DiffviewReview" },
     keys = {
       {
         "<Space>gd",
@@ -240,6 +240,10 @@ local git = {
         [[  autocmd BufFilePost diffview/\(\d\\\{1,\}_\)\\\{0,1\}\w\\\{7\}_* call vimrc#diffview#buffer_mappings()]]
       )
       vim.cmd([[augroup END]])
+
+      vim.api.nvim_create_user_command("DiffviewReview", function()
+        vim.cmd.DiffviewOpen("tmp-review-base..HEAD")
+      end, {})
     end,
   },
 
