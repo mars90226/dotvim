@@ -12,6 +12,16 @@ my_copilot.default_think_model = "gpt-5.4"
 
 -- NOTE: Use the model info from Copilot using CopilotChat.nvim
 my_copilot.models = {
+  ["gpt-5.5"] = {
+    model = "gpt-5.5",
+    max_tokens = 128000,
+    reasoning_effort = "medium",
+  },
+  ["gpt-5.5-xhigh"] = {
+    model = "gpt-5.5",
+    max_tokens = 128000,
+    reasoning_effort = "xhigh",
+  },
   ["gpt-5.4"] = {
     model = "gpt-5.4",
     max_tokens = 128000,
