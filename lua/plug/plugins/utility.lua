@@ -156,7 +156,7 @@ local utility = {
       workspaces = {
         {
           name = "notes",
-          path = "~/vaults/notes",
+          path = "~/notes",
         },
       },
       notes_subdir = "pages",
@@ -171,6 +171,10 @@ local utility = {
       { "<Space>b<Space>", [[:Obsidian<Space>]], desc = "Obsidian" },
     },
     config = function(_, opts)
+      local has_secret_obsidian, secret_obsidian = pcall(require, "secret.obsidian")
+      if has_secret_obsidian then
+        opts.workspaces = utils.table_concat(opts.workspaces, secret_obsidian.workspaces)
+      end
       vim.opt.conceallevel = 2 -- conceal all text by default
       require("obsidian").setup(opts)
     end,
