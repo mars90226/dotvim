@@ -883,6 +883,12 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         mode = { "n", "v" },
       },
       {
+        "<Leader>aq",
+        function() require("sidekick.cli").toggle({ name = "codex_fast", focus = true }) end,
+        desc = "Sidekick Codex Fast Toggle (Codex model)",
+        mode = { "n", "v" },
+      },
+      {
         "<Leader>am",
         function() require("sidekick.cli").toggle({ name = "codex_mini_xhigh", focus = true }) end,
         desc = "Sidekick Codex Mini XHigh Toggle (Codex model)",
