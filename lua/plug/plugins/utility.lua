@@ -90,6 +90,8 @@ local utility = {
       { "<Leader>pr", "<Cmd>ProjectRoot<CR>", desc = "Project - Go to project root" },
     },
     config = function()
+      -- Suppress warning of "(project.util.history.write_history): No data available to write!"
+      vim.g.project_history_no_data_notified = 1
       require("project").setup({
         manual_mode = true,
         lsp = {
