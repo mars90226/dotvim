@@ -352,7 +352,7 @@ local lsp = {
     "smjonas/inc-rename.nvim",
     event = { "LspAttach" },
     config = function()
-      require("inc_rename").setup()
+      require("inc_rename").setup({})
 
       vim.keymap.set("n", "<Leader>ir", ":IncRename ", { desc = "IncRename" })
       vim.keymap.set("n", "<Leader>ik", function()
