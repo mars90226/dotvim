@@ -14,14 +14,17 @@ local languages = {
   { "leafo/moonscript-vim", ft = { "moon" } },
   { "vim-crystal/vim-crystal", ft = { "crystal" } },
   {
-    "plasticboy/vim-markdown",
-    ft = { "markdown" },
-    dependencies = { "godlygeek/tabular", "opdavies/toggle-checkbox.nvim" },
+    "yousefhadder/markdown-plus.nvim",
+    ft = "markdown",
+    opts = {},
+  },
+  {
+    "opdavies/toggle-checkbox.nvim",
+    ft = "markdown",
+    keys = {
+      { "<Leader>wg", "<Cmd>lua require('toggle-checkbox').toggle()<CR>" },
+    },
     config = function()
-      -- TODO: Find a way to retain folding without confusing diff mode
-      vim.g.vim_markdown_folding_disabled = 1
-
-      vim.keymap.set("n", "<Leader>wg", "<Cmd>lua require('toggle-checkbox').toggle()<CR>")
     end,
   },
   { "mtdl9/vim-log-highlighting", ft = { "log" } },
@@ -103,16 +106,16 @@ local languages = {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     keys = {
       -- moving
-      {'<M-k>', mode = { "x" }, '<Cmd>Treewalker Up<CR>', silent = true },
-      {'<M-j>', mode = { "x" }, '<Cmd>Treewalker Down<CR>', silent = true },
-      {'<M-h>', mode = { "x" }, '<Cmd>Treewalker Left<CR>', silent = true },
-      {'<M-l>', mode = { "x" }, '<Cmd>Treewalker Right<CR>', silent = true },
+      { "<M-k>", mode = { "x" }, "<Cmd>Treewalker Up<CR>", silent = true },
+      { "<M-j>", mode = { "x" }, "<Cmd>Treewalker Down<CR>", silent = true },
+      { "<M-h>", mode = { "x" }, "<Cmd>Treewalker Left<CR>", silent = true },
+      { "<M-l>", mode = { "x" }, "<Cmd>Treewalker Right<CR>", silent = true },
 
       -- swapping
-      {'vU', mode = { "n" }, '<Cmd>Treewalker SwapUp<CR>', silent = true },
-      {'vD', mode = { "n" }, '<Cmd>Treewalker SwapDown<CR>', silent = true },
-      {'vH', mode = { "n" }, '<Cmd>Treewalker SwapLeft<CR>', silent = true },
-      {'vL', mode = { "n" }, '<Cmd>Treewalker SwapRight<CR>', silent = true },
+      { "vU", mode = { "n" }, "<Cmd>Treewalker SwapUp<CR>", silent = true },
+      { "vD", mode = { "n" }, "<Cmd>Treewalker SwapDown<CR>", silent = true },
+      { "vH", mode = { "n" }, "<Cmd>Treewalker SwapLeft<CR>", silent = true },
+      { "vL", mode = { "n" }, "<Cmd>Treewalker SwapRight<CR>", silent = true },
     },
   },
 
@@ -402,8 +405,20 @@ local languages = {
   {
     "mars90226/cscope_macros.vim",
     keys = {
-      { "<F11>", function() require("vimrc.cscope").generate_files() end, desc = "Generate cscope files" },
-      { "<Space><F11>", function() require("vimrc.cscope").reload() end, desc = "Reload cscope files" },
+      {
+        "<F11>",
+        function()
+          require("vimrc.cscope").generate_files()
+        end,
+        desc = "Generate cscope files",
+      },
+      {
+        "<Space><F11>",
+        function()
+          require("vimrc.cscope").reload()
+        end,
+        desc = "Reload cscope files",
+      },
     },
   },
 
@@ -428,7 +443,7 @@ local languages = {
       opts = vim.tbl_deep_extend("force", {
         markdown = {
           headings = preset.headings.arrowed,
-        }
+        },
       }, opts or {})
 
       require("markview").setup(opts)
@@ -621,25 +636,100 @@ local languages = {
       vim.keymap.set("n", crates_prefix .. "t", crates.toggle, { silent = true, desc = "Crates - Toggle crates" })
       vim.keymap.set("n", crates_prefix .. "r", crates.reload, { silent = true, desc = "Crates - Reload crates" })
 
-      vim.keymap.set("n", crates_prefix .. "v", crates.show_versions_popup, { silent = true, desc = "Crates - Show versions popup" })
-      vim.keymap.set("n", crates_prefix .. "f", crates.show_features_popup, { silent = true, desc = "Crates - Show features popup" })
-      vim.keymap.set("n", crates_prefix .. "d", crates.show_dependencies_popup, { silent = true, desc = "Crates - Show dependencies popup" })
+      vim.keymap.set(
+        "n",
+        crates_prefix .. "v",
+        crates.show_versions_popup,
+        { silent = true, desc = "Crates - Show versions popup" }
+      )
+      vim.keymap.set(
+        "n",
+        crates_prefix .. "f",
+        crates.show_features_popup,
+        { silent = true, desc = "Crates - Show features popup" }
+      )
+      vim.keymap.set(
+        "n",
+        crates_prefix .. "d",
+        crates.show_dependencies_popup,
+        { silent = true, desc = "Crates - Show dependencies popup" }
+      )
 
       vim.keymap.set("n", crates_prefix .. "u", crates.update_crate, { silent = true, desc = "Crates - Update crate" })
-      vim.keymap.set("v", crates_prefix .. "u", crates.update_crates, { silent = true, desc = "Crates - Update selected crates" })
-      vim.keymap.set("n", crates_prefix .. "a", crates.update_all_crates, { silent = true, desc = "Crates - Update all crates" })
-      vim.keymap.set("n", crates_prefix .. "U", crates.upgrade_crate, { silent = true, desc = "Crates - Upgrade crate" })
-      vim.keymap.set("v", crates_prefix .. "U", crates.upgrade_crates, { silent = true, desc = "Crates - Upgrade selected crates" })
-      vim.keymap.set("n", crates_prefix .. "A", crates.upgrade_all_crates, { silent = true, desc = "Crates - Upgrade all crates" })
+      vim.keymap.set(
+        "v",
+        crates_prefix .. "u",
+        crates.update_crates,
+        { silent = true, desc = "Crates - Update selected crates" }
+      )
+      vim.keymap.set(
+        "n",
+        crates_prefix .. "a",
+        crates.update_all_crates,
+        { silent = true, desc = "Crates - Update all crates" }
+      )
+      vim.keymap.set(
+        "n",
+        crates_prefix .. "U",
+        crates.upgrade_crate,
+        { silent = true, desc = "Crates - Upgrade crate" }
+      )
+      vim.keymap.set(
+        "v",
+        crates_prefix .. "U",
+        crates.upgrade_crates,
+        { silent = true, desc = "Crates - Upgrade selected crates" }
+      )
+      vim.keymap.set(
+        "n",
+        crates_prefix .. "A",
+        crates.upgrade_all_crates,
+        { silent = true, desc = "Crates - Upgrade all crates" }
+      )
 
-      vim.keymap.set("n", crates_prefix .. "x", crates.expand_plain_crate_to_inline_table, { silent = true, desc = "Crates - Expand crate to inline table" })
-      vim.keymap.set("n", crates_prefix .. "X", crates.extract_crate_into_table, { silent = true, desc = "Crates - Extract crate into table" })
+      vim.keymap.set(
+        "n",
+        crates_prefix .. "x",
+        crates.expand_plain_crate_to_inline_table,
+        { silent = true, desc = "Crates - Expand crate to inline table" }
+      )
+      vim.keymap.set(
+        "n",
+        crates_prefix .. "X",
+        crates.extract_crate_into_table,
+        { silent = true, desc = "Crates - Extract crate into table" }
+      )
 
-      vim.keymap.set("n", crates_prefix .. "H", crates.open_homepage, { silent = true, desc = "Crates - Open crate homepage" })
-      vim.keymap.set("n", crates_prefix .. "R", crates.open_repository, { silent = true, desc = "Crates - Open crate repository" })
-      vim.keymap.set("n", crates_prefix .. "D", crates.open_documentation, { silent = true, desc = "Crates - Open crate documentation" })
-      vim.keymap.set("n", crates_prefix .. "C", crates.open_crates_io, { silent = true, desc = "Crates - Open crates.io page" })
-      vim.keymap.set("n", crates_prefix .. "L", crates.open_lib_rs, { silent = true, desc = "Crates - Open lib.rs page" })
+      vim.keymap.set(
+        "n",
+        crates_prefix .. "H",
+        crates.open_homepage,
+        { silent = true, desc = "Crates - Open crate homepage" }
+      )
+      vim.keymap.set(
+        "n",
+        crates_prefix .. "R",
+        crates.open_repository,
+        { silent = true, desc = "Crates - Open crate repository" }
+      )
+      vim.keymap.set(
+        "n",
+        crates_prefix .. "D",
+        crates.open_documentation,
+        { silent = true, desc = "Crates - Open crate documentation" }
+      )
+      vim.keymap.set(
+        "n",
+        crates_prefix .. "C",
+        crates.open_crates_io,
+        { silent = true, desc = "Crates - Open crates.io page" }
+      )
+      vim.keymap.set(
+        "n",
+        crates_prefix .. "L",
+        crates.open_lib_rs,
+        { silent = true, desc = "Crates - Open lib.rs page" }
+      )
     end,
   },
   {
@@ -657,11 +747,11 @@ local languages = {
   {
     "OlegGulevskyy/better-ts-errors.nvim",
     dependencies = { "MunifTanjim/nui.nvim" },
-    keys = { '<Leader>dd', '<Leader>dx' },
+    keys = { "<Leader>dd", "<Leader>dx" },
     opts = {
       keymaps = {
-        toggle = '<Leader>dd',
-        go_to_definition = '<Leader>dx',
+        toggle = "<Leader>dd",
+        go_to_definition = "<Leader>dx",
       },
     },
   },
