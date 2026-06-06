@@ -78,29 +78,31 @@ local utility = {
 
   -- Project
   {
-    "ahmedkhalf/project.nvim",
+    "DrKJeff16/project.nvim",
     cond = choose.is_enabled_plugin("project.nvim"),
+    dependencies = {
+      'ibhagwan/fzf-lua',
+    },
     event = { "VeryLazy" },
+    cmd = { "Project" },
+    keys = {
+      { "<Leader>p<Leader>", "<Cmd>Project<CR>", desc = "Project - Open project" },
+      { "<Leader>pr", "<Cmd>ProjectRoot<CR>", desc = "Project - Go to project root" },
+    },
     config = function()
-      require("project_nvim").setup({
-        -- Manual mode doesn't automatically change your root directory, so you have
-        -- the option to manually do so using `:ProjectRoot` command.
+      require("project").setup({
         manual_mode = true,
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-        ignore_lsp = { "none-ls" },
-        -- What scope to change the directory, valid options are
-        -- * global (default)
-        -- * tab
-        -- * win
+        lsp = {
+          enabled = true,
+        },
+        fzf_lua = {
+          enabled = true,
+        },
         scope_chdir = "win",
       })
       if choose.is_enabled_plugin("telescope.nvim") then
         require("telescope").load_extension("projects")
       end
-
-      vim.keymap.set("n", "<Leader>pr", "<Cmd>ProjectRoot<CR>")
     end,
   },
 
