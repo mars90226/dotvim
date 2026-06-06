@@ -128,18 +128,6 @@ local lsp = {
     end,
   },
 
-  {
-    "SmiteshP/nvim-navic",
-    cond = choose.is_enabled_plugin("nvim-navic"),
-    event = { "LspAttach" },
-    dependencies = "neovim/nvim-lspconfig",
-    config = function()
-      require("nvim-navic").setup({
-        highlight = true,
-      })
-    end,
-  },
-
   -- Goto Definitions
   {
     "rmagatti/goto-preview",
@@ -350,28 +338,6 @@ local lsp = {
     end,
     config = function()
       require("vimrc.plugins.ufo").setup()
-    end,
-  },
-
-  -- Breadcrumbs
-  {
-    "SmiteshP/nvim-navbuddy",
-    cond = choose.is_enabled_plugin("nvim-navbuddy"),
-    event = { "LspAttach" },
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "SmiteshP/nvim-navic",
-      "MunifTanjim/nui.nvim",
-    },
-    config = function()
-      require("nvim-navbuddy").setup({
-        window = {
-          border = "rounded",
-          size = "90%",
-        },
-      })
-
-      vim.keymap.set("n", "<Space><Leader>", "<Cmd>Navbuddy<CR>", { desc = "Toggle Navbuddy" })
     end,
   },
 

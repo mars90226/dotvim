@@ -45,12 +45,6 @@ lsp.servers = {
     },
     on_attach = function(client, bufnr)
       -- Plugins
-      if choose.is_enabled_plugin("nvim-navic") and client.server_capabilities.documentSymbolProvider then
-        require("nvim-navic").attach(client, bufnr)
-      end
-      if choose.is_enabled_plugin("nvim-navbuddy") and client.server_capabilities.documentSymbolProvider then
-        require("nvim-navbuddy").attach(client, bufnr)
-      end
       if client.server_capabilities.signatureHelpProvider then
         require("vimrc.plugins.lsp_overloads").on_attach(client)
       end

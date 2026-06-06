@@ -140,14 +140,6 @@ lualine.default_option = {
       return component ~= nil
     end, {
       { "filename", path = 1, color = "WinBar" },
-      plugin_utils.check_enabled_plugin({
-        function()
-          return require("nvim-navic").get_location()
-        end,
-        cond = function()
-          return require("nvim-navic").is_available()
-        end,
-      }, "nvim-navic"),
     }),
     lualine_x = {},
     lualine_y = {},

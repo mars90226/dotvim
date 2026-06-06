@@ -227,19 +227,10 @@ plugin_choose.setup_language = function()
   -- neogen for generating documentation
 
   -- Choose context component (statusline, winbar) plugin
-  -- dropbar.nvim, nvim-navic
-  local context_component_plugins = { "dropbar.nvim", "nvim-navic" }
+  -- dropbar.nvim
+  local context_component_plugins = { "dropbar.nvim" }
   choose.disable_plugins(context_component_plugins)
   choose.enable_plugin("dropbar.nvim")
-  -- nvim-navic is required by nvim-navbuddy
-  choose.enable_plugin("nvim-navic")
-
-  -- Choose breadcrumbs plugin
-  -- nvim-navbuddy
-  choose.disable_plugin("nvim-navbuddy")
-  if choose.is_enabled_plugin("nvim-navic") then
-    choose.enable_plugin("nvim-navbuddy")
-  end
 
   -- Choose context plugin
   -- nvim-treesitter-context
