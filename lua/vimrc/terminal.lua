@@ -17,7 +17,11 @@ end
 
 terminal.setup_mapping = function()
   -- Navigate prompts
-  local pattern = table.concat({ "❯", "CHROOT@" }, [[\|]])
+  local pattern = table.concat({
+    "❯", -- terminal, Claude Code
+    "CHROOT@",
+    "›", -- Codex
+  }, [[\|]])
   vim.keymap.set("n", "[[", [[?]] .. pattern .. [[<CR>]], { silent = true, buffer = true })
   vim.keymap.set("n", "]]", [[/]] .. pattern .. [[<CR>]], { silent = true, buffer = true })
 end
