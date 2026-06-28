@@ -1,5 +1,14 @@
 local M = {}
 
+local function with_blink_cmp_suspended(callback)
+  local ok, blink_cmp = pcall(require, "vimrc.plugins.blink_cmp")
+  if not ok then
+    return callback()
+  end
+
+  return blink_cmp.with_suspended(callback)
+end
+
 --- Check if the character immediately before the cursor is whitespace.
 --- @return boolean True if the cursor is at the beginning of the line or the previous character is whitespace.
 function M.check_backspace()
@@ -18,7 +27,17 @@ end
 --- Prompts the user for the desired length and returns the trimmed command-line.
 --- @return string The trimmed command-line string.
 function M.trim_cmdline()
-  local length = tonumber(vim.fn.input("length: ", "", "expression"))
+  local length = with_blink_cmp_suspended(function()
+    vim.fn.inputsave()
+    local success, input = pcall(vim.fn.input, "length: ")
+    vim.fn.inputrestore()
+
+    if not success then
+      error(input)
+    end
+
+    return tonumber(input)
+  end)
   local cmd = vim.fn.getcmdline()
   -- In VimScript, slicing [0 : length - 1] corresponds to Lua's substring from 1 to length.
   return cmd:sub(1, length)

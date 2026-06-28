@@ -20,6 +20,33 @@ blink_cmp.disable = function()
   blink_cmp.enabled = false
 end
 
+--- Temporarily disable blink.cmp while running a callback.
+--- Useful around nested cmdline prompts where rendering completion windows is not allowed.
+blink_cmp.with_suspended = function(callback)
+  local was_enabled = blink_cmp.is_enabled()
+
+  if was_enabled then
+    blink_cmp.disable()
+    pcall(function()
+      require("blink.cmp.completion.trigger").hide()
+    end)
+  end
+
+  local success, result = pcall(callback)
+
+  if was_enabled then
+    vim.schedule(function()
+      blink_cmp.enable()
+    end)
+  end
+
+  if not success then
+    error(result)
+  end
+
+  return result
+end
+
 blink_cmp.setup = function()
   local blink = require("blink.cmp")
 
