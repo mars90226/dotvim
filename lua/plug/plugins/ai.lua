@@ -778,6 +778,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
           just_every_code = { cmd = { "coder" }, url = "https://github.com/just-every/code" },
           just_every_code_resume = { cmd = { "coder", "resume" }, url = "https://github.com/just-every/code" },
           toad = { cmd = { "toad" }, url = "https://github.com/batrachianai/toad" },
+          omp = { cmd = { "omp" }, url = "https://github.com/can1357/oh-my-pi" },
         },
         context = {
           git_branch = function(ctx)
@@ -936,6 +937,12 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         "<Leader>ai",
         function() require("sidekick.cli").toggle({ name = "pi", focus = true }) end,
         desc = "Sidekick Pi Toggle",
+        mode = { "n", "v" },
+      },
+      {
+        "<Leader>an",
+        function() require("sidekick.cli").toggle({ name = "omp", focus = true }) end,
+        desc = "Sidekick Oh-My-Pi Toggle",
         mode = { "n", "v" },
       },
     },
