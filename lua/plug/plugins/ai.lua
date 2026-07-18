@@ -295,26 +295,6 @@ local ai = {
               },
             })
           end,
-          -- TODO: Not working yet
-          just_every_code = function()
-            return require("codecompanion.adapters").extend("claude_code", {
-              -- FIXME: Seems broken after @just-every/code 0.2.181
-              -- Ref: https://github.com/just-every/code/issues/216#issuecomment-3317818784
-              commands = {
-                default = {
-                  "npx",
-                  "--silent",
-                  "--yes",
-                  "@just-every/code",
-                  "acp",
-                },
-              },
-              -- @just-every/code use codex auth
-              auth = function(self)
-                return true
-              end,
-            })
-          end,
           gemini_cli = function()
             return require("codecompanion.adapters").extend("gemini_cli", {
               commands = {
@@ -775,8 +755,6 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
             url = "https://github.com/anthropics/claude-code",
           },
           pi_new = { cmd = { "pi" }, url = "https://github.com/badlogic/pi-mono" },
-          just_every_code = { cmd = { "coder" }, url = "https://github.com/just-every/code" },
-          just_every_code_resume = { cmd = { "coder", "resume" }, url = "https://github.com/just-every/code" },
           toad = { cmd = { "toad" }, url = "https://github.com/batrachianai/toad" },
           omp = { cmd = { "omp" }, url = "https://github.com/can1357/oh-my-pi" },
         },
