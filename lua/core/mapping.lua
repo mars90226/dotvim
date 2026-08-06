@@ -731,6 +731,10 @@ mapping.setup_command = function()
 
   vim.api.nvim_create_user_command("TrimWhitespace", [[call vimrc#utility#trim_whitespace()]], {})
 
+  vim.api.nvim_create_user_command("ReplaceNulWithNewline", function()
+    vim.cmd([[%s/\^@/\r/g]])
+  end, {})
+
   vim.api.nvim_create_user_command("DisplayChar", [[lua require("vimrc.utils").display_char()]], {})
 
   -- TODO: Use lazy.nvim to reload neovim config
