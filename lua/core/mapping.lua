@@ -23,10 +23,8 @@ mapping.setup_mapping = function()
   vim.keymap.set("i", "kj", [[<Esc>]], { desc = "Leave insert mode" })
 
   -- Alternative way to scroll half page
-  vim.keymap.set("n", "<M-[>", [[<C-U>]], { desc = "Scroll half page up" })
-  vim.keymap.set("x", "<M-[>", [[<C-U>]], { desc = "Scroll half page up" })
-  vim.keymap.set("n", "<M-]>", [[<C-D>]], { desc = "Scroll half page down" })
-  vim.keymap.set("x", "<M-]>", [[<C-D>]], { desc = "Scroll half page down" })
+  vim.keymap.set({ "n", "x" }, "<M-[>", [[<C-U>]], { desc = "Scroll half page up" })
+  vim.keymap.set({ "n", "x" }, "<M-]>", [[<C-D>]], { desc = "Scroll half page down" })
 
   -- Follow tag
   vim.keymap.set({ "n", "x" }, "<C-5>", [[<C-]>]], { desc = "Follow tag" })
@@ -218,21 +216,15 @@ mapping.setup_mapping = function()
 
   -- Quick yank/paste to/from system clipboard
   -- TODO This overrides jump to mark
-  vim.keymap.set("n", "=y", [["+y]], { desc = "Yank to system clipboard" })
-  vim.keymap.set("x", "=y", [["+y]], { desc = "Yank to system clipboard" })
+  vim.keymap.set({ "n", "x" }, "=y", [["+y]], { desc = "Yank to system clipboard" })
   vim.keymap.set("n", "=Y", [["+y$]], { desc = "Yank to the line end to system clipboard" }) -- NOTE: Follow Nvim builtin map of `Y` to `y$`
   -- Alternative key mapping for those key mappings that are hard to type in ergonomic keyboard.
-  vim.keymap.set("n", [[\y]], [["+y]], { desc = "Yank to system clipboard" })
-  vim.keymap.set("x", [[\y]], [["+y]], { desc = "Yank to system clipboard" })
+  vim.keymap.set({ "n", "x" }, [[\y]], [["+y]], { desc = "Yank to system clipboard" })
   vim.keymap.set("n", [[\Y]], [["+y$]], { desc = "Yank to the line end to system clipboard" }) -- NOTE: Follow Nvim builtin map of `Y` to `y$`
-  vim.keymap.set("n", "+p", [["+p]], { desc = "Paste after from system clipboard" })
-  vim.keymap.set("x", "+p", [["+p]], { desc = "Paste after from system clipboard" })
-  vim.keymap.set("n", "+P", [["+P]], { desc = "Paste before from system clipboard" })
-  vim.keymap.set("x", "+P", [["+P]], { desc = "Paste before from system clipboard" })
-  vim.keymap.set("n", "+gp", [["+gp]], { desc = "Paste after from system clipboard and leave cursor after new text" })
-  vim.keymap.set("x", "+gp", [["+gp]], { desc = "Paste after from system clipboard and leave cursor after new text" })
-  vim.keymap.set("n", "+gP", [["+gP]], { desc = "Paste before from system clipboard and leave cursor after new text" })
-  vim.keymap.set("x", "+gP", [["+gP]], { desc = "Paste before from system clipboard and leave cursor after new text" })
+  vim.keymap.set({ "n", "x" }, "+p", [["+p]], { desc = "Paste after from system clipboard" })
+  vim.keymap.set({ "n", "x" }, "+P", [["+P]], { desc = "Paste before from system clipboard" })
+  vim.keymap.set({ "n", "x" }, "+gp", [["+gp]], { desc = "Paste after from system clipboard and leave cursor after new text" })
+  vim.keymap.set({ "n", "x" }, "+gP", [["+gP]], { desc = "Paste before from system clipboard and leave cursor after new text" })
   -- TODO Previous key mappings not work in vimwiki as it use '=' & '+'
   vim.keymap.set(
     "n",
