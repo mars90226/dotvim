@@ -254,9 +254,8 @@ oil.setup_config = function()
       ["y<C-G>"] = "actions.copy_entry_path",
 
       -- Terminal
-      -- <C-_> and <C-/> are the same key
-      ["<C-_>"] = "actions.open_terminal",
-      ["<Space><C-_>"] = {
+      ["<C-/>"] = "actions.open_terminal",
+      ["<Space><C-/>"] = {
         callback = function()
           vim.cmd("split")
           origin_oil_actions.open_terminal.callback()

@@ -28,6 +28,9 @@ mapping.setup_mapping = function()
   vim.keymap.set("n", "<M-]>", [[<C-D>]], { desc = "Scroll half page down" })
   vim.keymap.set("x", "<M-]>", [[<C-D>]], { desc = "Scroll half page down" })
 
+  -- Follow tag
+  vim.keymap.set({ "n", "x" }, "<C-5>", [[<C-]>]], { desc = "Follow tag" })
+
   -- Quick editor actions
   vim.keymap.set("n", "<Leader>ee", [[<Cmd>edit<CR>]], { desc = "Edit" })
 
@@ -330,12 +333,10 @@ mapping.setup_mapping = function()
   -- Alternative key mapping for those key mappings that are hard to type in ergonomic keyboard.
   vim.keymap.set("c", "<C-G><C-[>", [[expand('%:t')]], { expr = true, desc = "Expand filename" })
   vim.keymap.set("i", "<C-G><C-[>", [[expand('%:t')]], { expr = true, desc = "Expand filename" })
-  -- <C-]> and <C-%> are the same key
-  vim.keymap.set("c", "<C-G><C-]>", [[expand('%:t:r')]], { expr = true, desc = "Expand filename without extension" })
-  vim.keymap.set("i", "<C-G><C-]>", [[expand('%:t:r')]], { expr = true, desc = "Expand filename without extension" })
-  -- <C-\> and <C-$> are the same key
-  vim.keymap.set("c", [[<C-G><C-\>]], [[expand('%:p')]], { expr = true, desc = "Expand buffer folder with full path" })
-  vim.keymap.set("i", [[<C-G><C-\>]], [[expand('%:p')]], { expr = true, desc = "Expand buffer folder with full path" })
+  vim.keymap.set("c", "<C-G><C-5>", [[expand('%:t:r')]], { expr = true, desc = "Expand filename without extension" })
+  vim.keymap.set("i", "<C-G><C-5>", [[expand('%:t:r')]], { expr = true, desc = "Expand filename without extension" })
+  vim.keymap.set("c", [[<C-G><C-4>]], [[expand('%:p')]], { expr = true, desc = "Expand buffer folder with full path" })
+  vim.keymap.set("i", [[<C-G><C-4>]], [[expand('%:p')]], { expr = true, desc = "Expand buffer folder with full path" })
   -- Expand buffer folder
   vim.keymap.set("c", "<C-G><C-R>", [[expand('%:h')]], { expr = true, desc = "Expand buffer folder" })
   vim.keymap.set("i", "<C-G><C-R>", [[expand('%:h')]], { expr = true, desc = "Expand buffer folder" })
