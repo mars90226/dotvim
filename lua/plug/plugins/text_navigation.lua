@@ -80,7 +80,11 @@ local text_navigation = {
   },
   -- TODO: Add more keys & replace above jump plugins
   {
-    "folke/flash.nvim",
+    -- TODO: Switch back to original repo when PR is merged
+    -- Ref: https://github.com/folke/flash.nvim/pull/496
+    -- "folke/flash.nvim",
+    "pedro757/flash.nvim",
+    branch = "fix/neovim-0.13-search-state",
     opts = {
       modes = {
         search = {
