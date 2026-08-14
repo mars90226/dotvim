@@ -290,6 +290,7 @@ lsp.servers = {
   neocmake = {
     condition = check.has_linux_build_env(),
   },
+  nginx_language_server = {},
   nushell = {
     condition = plugin_utils.is_executable("nu"),
   },
