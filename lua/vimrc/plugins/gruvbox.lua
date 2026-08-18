@@ -23,14 +23,20 @@ gruvbox.custom_overrides = function()
   local hsl = require("lush").hsl
   local palette = require("gruvbox").palette
 
-  -- TODO: Check if 30 is better
-  local diff_percent = 20
+  -- Tint the normal background instead of darkening saturated colors. This
+  -- keeps syntax colors, especially comments, readable in diff buffers.
+  local diff_line_percent = 35
+  local diff_text_percent = 45
+  local function diff_background(color, percent)
+    return hsl(palette.dark0).mix(hsl(color), percent).hex
+  end
+
   local custom_palette = {
-    white_yellow = hsl(palette.bright_yellow).lighten(diff_percent * 2).hex,
-    dark_red = hsl(palette.faded_red).darken(diff_percent).hex,
-    dark_green = hsl(palette.faded_green).darken(diff_percent).hex,
-    dark_yellow = hsl(palette.faded_yellow).darken(diff_percent).hex,
-    dark_aqua = hsl(palette.faded_aqua).darken(diff_percent).hex,
+    white_yellow = hsl(palette.bright_yellow).lighten(40).hex,
+    dark_red = diff_background(palette.faded_red, diff_line_percent),
+    dark_green = diff_background(palette.faded_green, diff_line_percent),
+    dark_yellow = diff_background(palette.faded_yellow, diff_text_percent),
+    dark_aqua = diff_background(palette.faded_aqua, diff_line_percent),
   }
   local overrides = vim.tbl_extend("force", {
     -- NOTE: Link to Normal to get transparent background
