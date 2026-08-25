@@ -44,11 +44,13 @@ gruvbox.custom_overrides = function()
 
     TSOperator = { link = "Special" },
 
-    -- NOTE: Only change background color
+    -- Keep diff-mode filler glyphs subtle while preserving readable text in
+    -- unified diff buffers, where diffRemoved would otherwise link here.
     DiffAdd = { fg = nil, bg = custom_palette.dark_green },
     DiffChange = { bg = custom_palette.dark_aqua },
     DiffDelete = { fg = palette.dark0, bg = custom_palette.dark_red },
     DiffText = { bg = custom_palette.dark_yellow },
+    diffRemoved = { fg = palette.light1, bg = custom_palette.dark_red },
 
     -- NOTE: Avoid highlight link to avoid breaking tabby.nvim
     TabLine = { fg = palette.dark1, bg = palette.dark4 },
