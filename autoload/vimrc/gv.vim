@@ -6,6 +6,7 @@ let s:gv_bang_cmd = 'GV!'
 function! vimrc#gv#mappings() abort
   nnoremap <silent><buffer> + :call vimrc#gv#expand()<CR>
   nnoremap <silent><buffer> gq :call vimrc#gv#close_detail_or_window()<CR>
+  nmap <silent><buffer> <M-CR> <CR><C-W>w<C-W>K
 
   call vimrc#git#include_git_mappings('gv', v:true, v:true)
   call vimrc#search#define_search_mappings()
