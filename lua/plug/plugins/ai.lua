@@ -690,6 +690,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
           codex_sol = { cmd = { "codex", "-p", "sol" }, url = "https://github.com/openai/codex" },
           codex_terra = { cmd = { "codex", "-p", "terra" }, url = "https://github.com/openai/codex" },
           codex_luna = { cmd = { "codex", "-p", "luna" }, url = "https://github.com/openai/codex" },
+          codex_astra = { cmd = { "codex", "-p", "astra" }, url = "https://github.com/openai/codex" },
           claude_new = {
             cmd = { "claude" },
             url = "https://github.com/anthropics/claude-code",
