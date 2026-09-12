@@ -410,15 +410,16 @@ lsp.servers = {
       return lsp_opts
     end,
   },
-  tailwindcss = {
-    capabilities = {
-      workspace = {
-        didChangeWatchedFiles = {
-          dynamicRegistration = false,
-        },
-      },
-    },
-  },
+  -- TODO: Disabled due to high RAM usage & seldom use
+  -- tailwindcss = {
+  --   capabilities = {
+  --     workspace = {
+  --       didChangeWatchedFiles = {
+  --         dynamicRegistration = false,
+  --       },
+  --     },
+  --   },
+  -- },
   vimls = {},
   vue_ls = {
     condition = check.has_linux_build_env(),
