@@ -731,6 +731,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
           git_branch = "{git_branch}",
           git_branch_selected = "{git_branch_selected}",
           review_from_base = "/review review base `tmp-review-base`, 請用繁體中文回答",
+          rebase_from_base = "OK，沒有更多 review 意見了，我們可以 rebase 了，請將 `tmp-review-base..@` 的 commit 重新 rebase",
           chinese = "請用繁體中文回答",
         }
       },
