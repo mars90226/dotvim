@@ -28,11 +28,11 @@ local file_navigation = {
       },
     },
     config = function()
-      local slow_system_clipboard = vim.fn.has("wsl") == 1
-
       require("yanky").setup({
         system_clipboard = {
-          sync_with_ring = not slow_system_clipboard,
+          -- Avoid clipboard reads on focus changes when X11/SSH access is slow or unavailable.
+          -- Explicit clipboard copy/paste still works; external copies won't enter history automatically.
+          sync_with_ring = false,
         },
         highlight = {
           on_put = false,
