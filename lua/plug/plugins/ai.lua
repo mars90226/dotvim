@@ -686,7 +686,6 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
           codex_fast = { cmd = { "codex", "-p", "fast" }, url = "https://github.com/openai/codex" },
           codex_mini = { cmd = { "codex", "-p", "mini" }, url = "https://github.com/openai/codex" },
           codex_mini_max = { cmd = { "codex", "-p", "mini-max" }, url = "https://github.com/openai/codex" },
-          codex_lite = { cmd = { "codex", "-p", "lite" }, url = "https://github.com/openai/codex" },
           codex_sol = { cmd = { "codex", "-p", "sol" }, url = "https://github.com/openai/codex" },
           codex_terra = { cmd = { "codex", "-p", "terra" }, url = "https://github.com/openai/codex" },
           codex_luna = { cmd = { "codex", "-p", "luna" }, url = "https://github.com/openai/codex" },
@@ -847,6 +846,12 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         "<Leader>az",
         function() require("sidekick.cli").toggle({ name = "codex_mini", focus = true }) end,
         desc = "Sidekick Codex Mini Toggle",
+        mode = { "n", "v" },
+      },
+      {
+        "<Leader>aA",
+        function() require("sidekick.cli").toggle({ name = "codex_astra", focus = true }) end,
+        desc = "Sidekick Codex Astra Toggle",
         mode = { "n", "v" },
       },
       {
