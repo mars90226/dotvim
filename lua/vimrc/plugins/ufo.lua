@@ -45,13 +45,6 @@ end
 ufo.setup = function()
   local origin_ufo = require("ufo")
 
-  -- TODO: Display fold symbol in foldcolumn
-  -- Ref: https://github.com/kevinhwang91/nvim-ufo/issues/4#issuecomment-1157716294
-  vim.wo.foldcolumn = "1"
-  vim.wo.foldlevel = 99 -- feel free to decrease the value
-  vim.wo.foldenable = true
-  vim.o.foldlevelstart = 99
-
   origin_ufo.setup({
     open_fold_hl_timeout = 150,
     -- FIXME: Disabled due to error: `Error executing vim.schedule lua callback: UnhandledPromiseRejection with the reason:`
