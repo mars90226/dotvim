@@ -550,7 +550,12 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
       {
         "<Leader>o`",
         function()
-          require("opencode").toggle()
+          require("snacks.terminal").toggle(
+            "opencode",
+            {
+              win = { position = "right", enter = false },
+            }
+          )
         end,
         desc = "Toggle opencode",
       },
@@ -629,8 +634,18 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
       },
     },
     config = function()
+      ---@type opencode.Opts
       vim.g.opencode_opts = {
-        -- Your configuration, if any — see `lua/opencode/config.lua`
+        server = {
+          start = function()
+            require("snacks.terminal").open(
+              "opencode",
+              {
+                win = { position = "right", enter = false },
+              }
+            )
+          end,
+        },
       }
 
       -- Required for `opts.auto_reload`
