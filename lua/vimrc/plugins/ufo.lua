@@ -75,23 +75,9 @@ ufo.setup = function()
     end
   end)
 
-  -- Performance trick
-  -- Ref: nvim_treesitter.lua performance trick
+  -- Keep UFO enabled across focus changes: it is event-driven, and repeated
+  -- teardown can leave a deleted augroup behind if cleanup fails midway.
   local augroup_id = vim.api.nvim_create_augroup("nvim_ufo_settings", {})
-  vim.api.nvim_create_autocmd({ "FocusGained", "VimResume" }, {
-    group = augroup_id,
-    pattern = "*",
-    callback = function()
-      vim.cmd([[UfoEnable]])
-    end,
-  })
-  vim.api.nvim_create_autocmd({ "FocusLost", "VimSuspend" }, {
-    group = augroup_id,
-    pattern = "*",
-    callback = function()
-      vim.cmd([[UfoDisable]])
-    end,
-  })
 
   -- Disable on FileType
   local disabled_filetypes = { "dashboard", "man", "snacks_dashboard" }
