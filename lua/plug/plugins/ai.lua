@@ -668,6 +668,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
             width = 100,
           },
           keys = {
+            prompt        = { "<M-p>", "prompt"    , mode = "t" , desc = "insert prompt or context" },
             -- NOTE: Disable these keys by mapping to <Plug> keys
             nav_left      = { "<Plug>(sidekick_nav_left)", "nav_left"  , expr = true, desc = "navigate to the left window" },
             nav_down      = { "<Plug>(sidekick_nav_down)", "nav_down"  , expr = true, desc = "navigate to the below window" },
