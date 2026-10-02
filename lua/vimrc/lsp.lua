@@ -574,6 +574,10 @@ lsp.setup_plugins = function()
 end
 
 lsp.setup_commands = function()
+  vim.api.nvim_create_user_command("LspStopOptionalServers", function()
+    vim.lsp.enable({ "harper_ls", "marksman" }, false)
+  end, { desc = "Stop optional LSP servers and disable automatic startup for this session" })
+
   vim.api.nvim_create_user_command("LspStopIdleServers", function()
     for _, client in ipairs(vim.lsp.get_clients()) do
       if #client.attached_buffers == 0 then
