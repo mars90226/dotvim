@@ -262,7 +262,7 @@ local ai = {
       "nvim-telescope/telescope.nvim", -- Optional: For using slash commands
       -- Optional: For using tools from the MCP Servers
       {
-        -- TODO: Use fork for codecompanion v19 compatibility
+        -- NOTE: Use fork for codecompanion v19 compatibility
         -- Ref: https://github.com/ravitemer/mcphub.nvim/pull/279
         -- "ravitemer/mcphub.nvim",
         "bahaaza/mcphub.nvim",
@@ -653,7 +653,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
     end,
   },
   {
-    -- TODO: Use our fork for performance patch
+    -- NOTE: Use our fork for performance patch
     -- "folke/sidekick.nvim",
     "mars90226/sidekick.nvim",
     cond = choose.is_enabled_plugin("sidekick.nvim"),
@@ -922,7 +922,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
 
   -- MCP
   {
-    -- TODO: Use fork for codecompanion v19 compatibility
+    -- NOTE: Use fork for codecompanion v19 compatibility
     -- Ref: https://github.com/ravitemer/mcphub.nvim/pull/279
     -- "ravitemer/mcphub.nvim",
     "bahaaza/mcphub.nvim",

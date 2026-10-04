@@ -85,11 +85,6 @@ filetype.setup = function()
     },
     -- NOTE: pattern match full path & tail, so do not use relative path to git root
     pattern = {
-      -- bash
-      -- TODO: Remove this when neovim 0.10 is released
-      -- Fixed in https://github.com/neovim/neovim/commit/fdf5013e218c55ca8f9bdb7cf5f16f8596330ea2
-      ["bash%-fc.*"] = { "bash", { priority = -10 } },
-
       -- config
       [".*conf"] = { "conf", { priority = -10 } },
       [".*conf%.local"] = { "conf", { priority = -10 } },
