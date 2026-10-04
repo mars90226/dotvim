@@ -146,25 +146,37 @@ local file_navigation = {
       require("telescope").load_extension("live_grep_args")
     end,
   },
-  -- TODO: This plugin is archived, author suggest using which-key.nvim instead
+  -- Retain the predefined command menu; which-key serves keymap discovery.
   {
     "LinArcX/telescope-command-palette.nvim",
     cond = choose.is_enabled_plugin("telescope.nvim"),
     keys = {
       -- Normal mode
-      { "<Space>mm", [[<Cmd>Telescope command_palette<CR>]], desc = "Telescope command_palette" },
+      {
+        "<Space>mm",
+        function()
+          require("vimrc.plugins.command_palette").open("telescope")
+        end,
+        desc = "Telescope command_palette",
+      },
 
       -- Command-line mode
       {
         "<C-X><C-Z>",
         mode = { "c" },
-        [[<C-C><Cmd>Telescope command_palette<CR>]],
+        function()
+          return require("vimrc.plugins.command_palette").open_from_cmdline("telescope")
+        end,
+        expr = true,
         desc = "Telescope command_palette",
       },
       {
         "<C-X><C-S>",
         mode = { "c" },
-        [[<C-C><Cmd>CommandPalette<CR>]],
+        function()
+          return require("vimrc.plugins.command_palette").open_from_cmdline("fzf")
+        end,
+        expr = true,
         desc = "Telescope command palette",
       },
 
@@ -172,13 +184,13 @@ local file_navigation = {
       {
         "<M-m><M-m>",
         mode = { "t" },
-        [[<C-\><C-N>:Telescope command_palette<CR>]],
+        [[<C-\><C-N><Cmd>lua require("vimrc.plugins.command_palette").open("telescope")<CR>]],
         desc = "Telescope command_palette",
       },
       {
         "<M-m><M-M>",
         mode = { "t" },
-        [[<C-\><C-N>:CommandPalette<CR>]],
+        [[<C-\><C-N><Cmd>lua require("vimrc.plugins.command_palette").open("fzf")<CR>]],
         desc = "CommandPalette",
       },
 
@@ -186,13 +198,13 @@ local file_navigation = {
       {
         "<M-q><M-m>",
         mode = { "t" },
-        [[<C-\><C-\><C-N>:Telescope command_palette<CR>]],
+        [[<C-\><C-\><C-N>:lua require("vimrc.plugins.command_palette").open("telescope")<CR>]],
         desc = "Telescope command_palette in nested neovim",
       },
       {
         "<M-q><M-M>",
         mode = { "t" },
-        [[<C-\><C-\><C-N>:CommandPalette<CR>]],
+        [[<C-\><C-\><C-N>:lua require("vimrc.plugins.command_palette").open("fzf")<CR>]],
         desc = "CommandPalette in nested neovim",
       },
     },

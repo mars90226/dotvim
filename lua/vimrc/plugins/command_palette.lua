@@ -1,7 +1,72 @@
-
 local utils = require("vimrc.utils")
 
 local command_palette = {}
+local cmdline_context
+local opening_from_cmdline = false
+
+-- Direct commands and input() prompts must not reuse an abandoned context.
+vim.api.nvim_create_autocmd("CmdlineEnter", {
+  group = vim.api.nvim_create_augroup("CommandPaletteContext", { clear = true }),
+  callback = function()
+    cmdline_context = nil
+  end,
+})
+
+local function watch_telescope(context)
+  if vim.bo.filetype ~= "TelescopePrompt" then
+    cmdline_context = nil
+    return
+  end
+  vim.api.nvim_create_autocmd("BufWipeout", {
+    buffer = vim.api.nvim_get_current_buf(),
+    once = true,
+    callback = function()
+      vim.schedule(function()
+        if cmdline_context == context then
+          -- Selecting a category replaces the prompt; cancellation closes it.
+          watch_telescope(context)
+        end
+      end)
+    end,
+  })
+end
+
+local function restore_cmdline(context, result)
+  local text = context.text:sub(1, context.pos - 1) .. result .. context.text:sub(context.pos)
+  vim.api.nvim_create_autocmd("CmdlineEnter", {
+    once = true,
+    callback = function()
+      vim.fn.setcmdline(text, context.pos + #result)
+    end,
+  })
+  vim.api.nvim_feedkeys(utils.t("<C-\\><C-N>") .. context.type, "n", false)
+end
+
+command_palette.open = function(backend, context)
+  cmdline_context = context
+  opening_from_cmdline = context ~= nil
+  local ok, err = pcall(vim.cmd, backend == "fzf" and "CommandPalette" or "Telescope command_palette")
+  opening_from_cmdline = false
+  if not ok then
+    cmdline_context = nil
+    error(err)
+  end
+  if backend ~= "fzf" and context and cmdline_context == context then
+    watch_telescope(context)
+  end
+end
+
+command_palette.open_from_cmdline = function(backend)
+  local context = { text = vim.fn.getcmdline(), pos = vim.fn.getcmdpos(), type = vim.fn.getcmdtype() }
+  -- Expression registers and input() prompts cannot be re-entered with a key.
+  if context.type ~= ":" and context.type ~= "/" and context.type ~= "?" then
+    return ""
+  end
+  vim.schedule(function()
+    command_palette.open(backend, context)
+  end)
+  return utils.t("<C-C>")
+end
 
 -- NOTE: Command second part is executed by `vim.api.nvim_exec()`
 -- Command third part is 1 means it will execute `:startinsert!` after second part is executed
@@ -169,8 +234,9 @@ command_palette.custom_command_handlers = {
     end)
   end,
   cmdline = function(result)
-    -- FIXME: If cmdline is currently empty, then this will insert to previous command
-    vim.api.nvim_feedkeys(utils.t(":<Up>") .. result, "m", true)
+    local context = cmdline_context or { text = "", pos = 1, type = ":" }
+    cmdline_context = nil
+    restore_cmdline(context, result)
   end,
   browse = function(result)
     vim.cmd([[Browse ]] .. result)
@@ -185,12 +251,28 @@ command_palette.custom_command_handlers = {
   ["LuaSnip markdown"] = command_palette.luasnip_expand_handler("markdown"),
 }
 
+local function merge_commands(target, commands, first)
+  for _, command in ipairs(commands) do
+    local found
+    for index = first, #target do
+      if target[index][1] == command[1] then
+        target[index] = command
+        found = true
+        break
+      end
+    end
+    if not found then
+      table.insert(target, command)
+    end
+  end
+end
+
 local function add_to_cp_menu(category, commands)
   local cp = require("command_palette")
 
   for _, cp_category in ipairs(cp.CpMenu) do
     if cp_category[1] == category then
-      utils.table_concat(cp_category, commands)
+      merge_commands(cp_category, commands, 2)
       return
     end
   end
@@ -210,7 +292,7 @@ command_palette.insert_commands = function(category, commands)
   if not command_palette.menus[category] then
     command_palette.menus[category] = {}
   end
-  utils.table_concat(command_palette.menus[category], commands)
+  merge_commands(command_palette.menus[category], commands, 1)
 end
 
 command_palette.insert_custom_commands = function(category, custome_commands)
@@ -231,11 +313,14 @@ command_palette.execute_custom_command = function(category, command)
 end
 
 command_palette.create_custom_command = function(category, command)
-  -- TODO: Escape
+  -- Lua's %q escapes names; keep embedded newlines on one Ex command line.
+  local function quote(value)
+    return string.format("%q", value):gsub("\\\n", "\\n")
+  end
   return string.format(
-    [[lua require("vimrc.plugins.command_palette").execute_custom_command("%s", "%s")]],
-    category,
-    command
+    [[lua require("vimrc.plugins.command_palette").execute_custom_command(%s, %s)]],
+    quote(category),
+    quote(command)
   )
 end
 
@@ -252,6 +337,9 @@ end
 -- Open with fzf-tmux, able to invoke in anywhere including cmdline.
 -- fzf-tmux may be slow if using slow terminal emulator
 command_palette.open_with_fzf = function()
+  if not opening_from_cmdline then
+    cmdline_context = nil
+  end
   local cp = require("command_palette")
 
   -- TODO: Data structure of CpMenu is so bad...
@@ -264,6 +352,7 @@ command_palette.open_with_fzf = function()
 
   local category = vim.fn["vimrc#fzf#choices_in_commandline"](categories, "Command Palette Category")
   if category == "" then
+    cmdline_context = nil
     return
   end
 
@@ -276,6 +365,7 @@ command_palette.open_with_fzf = function()
 
   local command = vim.fn["vimrc#fzf#choices_in_commandline"](commands, "Command Palette")
   if command == "" then
+    cmdline_context = nil
     return
   end
 
@@ -288,7 +378,11 @@ command_palette.open_with_fzf = function()
     end)
   end
 
-  vim.api.nvim_exec(command_value, true)
+  local ok, err = pcall(vim.api.nvim_exec, command_value, true)
+  cmdline_context = nil
+  if not ok then
+    error(err)
+  end
 end
 
 command_palette.setup = function()
