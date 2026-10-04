@@ -62,10 +62,10 @@ endfunction
 
 function! vimrc#rg#types_in_commandline() abort
   let results = []
-  call fzf#run(fzf#wrap('Rg Types', extend({
+  call vimrc#fzf#call_sync('fzf#run', [fzf#wrap('Rg Types', extend({
         \ 'source': vimrc#rg#types_in_commandline_source(),
         \ 'sink': function('vimrc#rg#types_in_commandline_sink', [results]),
         \ 'options': ['--prompt', 'Rg Types> ']
-        \ }, g:fzf_tmux_layout)))
+        \ }, g:fzf_tmux_layout))], 0)
   return get(results, 0, '')
 endfunction

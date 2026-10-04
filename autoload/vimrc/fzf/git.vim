@@ -462,7 +462,7 @@ function! vimrc#fzf#git#commits_in_commandline(buffer_local, args) abort
 
 
   let options = extend(options, g:fzf_tmux_layout)
-  call vimrc#fzf#fzf(a:buffer_local ? 'bcommits' : 'commits', options, a:args)
+  call vimrc#fzf#call_sync('vimrc#fzf#fzf', [a:buffer_local ? 'bcommits' : 'commits', options, a:args], 1)
   return get(results, 0, '')
 endfunction
 
@@ -470,11 +470,11 @@ endfunction
 function! vimrc#fzf#git#branches_in_commandline() abort
   let source = 'git branch --format="%(refname)" --all | sed "s/refs\/[^/]\+\///"'
   let results = []
-  call fzf#run(fzf#wrap('Branches', extend({
+  call vimrc#fzf#call_sync('fzf#run', [fzf#wrap('Branches', extend({
         \ 'source': source,
         \ 'sink': function('vimrc#fzf#git#branches_in_commandline_sink', [results]),
         \ 'options': ['+s', '--prompt', 'Branches> ']
-        \ }, g:fzf_tmux_layout)))
+        \ }, g:fzf_tmux_layout))], 0)
   return get(results, 0, '')
 endfunction
 
@@ -482,11 +482,11 @@ endfunction
 function! vimrc#fzf#git#tags_in_commandline() abort
   let source = 'git tag'
   let results = []
-  call fzf#run(fzf#wrap('Git Tags', extend({
+  call vimrc#fzf#call_sync('fzf#run', [fzf#wrap('Git Tags', extend({
     \ 'source': source,
     \ 'sink': function('vimrc#fzf#git#tags_in_commandline_sink', [results]),
     \ 'options': ['+s', '--prompt', 'Git Tags> ']
-    \ }, g:fzf_tmux_layout)))
+    \ }, g:fzf_tmux_layout))], 0)
   return get(results, 0, '')
 endfunction
 
@@ -494,10 +494,10 @@ endfunction
 function! vimrc#fzf#git#diff_files_in_commandline() abort
   let source = "git status --porcelain --untracked-files=all | awk '{ print $2 }'"
   let results = []
-  call fzf#run(fzf#wrap('GitFiles?', extend({
+  call vimrc#fzf#call_sync('fzf#run', [fzf#wrap('GitFiles?', extend({
     \ 'source': source,
     \ 'sink': function('vimrc#fzf#git#diff_files_in_commandline_sink', [results]),
     \ 'options': ['+s', '--prompt', 'GitFiles?> ']
-    \ }, g:fzf_tmux_layout)))
+    \ }, g:fzf_tmux_layout))], 0)
   return get(results, 0, '')
 endfunction

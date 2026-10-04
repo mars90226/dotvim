@@ -127,6 +127,34 @@ function! vimrc#fzf#fzf(name, opts, extra) abort
   return fzf#run(vimrc#fzf#wrap(a:name, merged, bang))
 endfunction
 
+function! s:sync_exit(state, Exit, code) abort
+  try
+    if type(a:Exit) == v:t_func
+      call a:Exit(a:code)
+    endif
+  finally
+    let a:state.done = 1
+  endtry
+endfunction
+
+" Popup jobs are asynchronous in newer fzf plugins. Keep value-returning
+" helpers synchronous for expression mappings and LuaSnip function nodes.
+function! vimrc#fzf#call_sync(Func, args, options_index) abort
+  let state = {'done': 0}
+  let args = copy(a:args)
+  let opts = copy(args[a:options_index])
+  let opts.exit = function('s:sync_exit', [state, get(opts, 'exit', 0)])
+  let args[a:options_index] = opts
+  let result = call(a:Func, args)
+  " The exit hook runs before the sink, but wait() resumes only after the
+  " job callback (including the sink) returns. Cancellation also calls exit.
+  let status = wait(-1, { -> state.done }, 10)
+  if status != 0
+    throw 'fzf selection wait interrupted'
+  endif
+  return result
+endfunction
+
 function! vimrc#fzf#wrap(name, opts, bang) abort
   " fzf#wrap does not append --expect if sink or sink* is found
   let opts = copy(a:opts)
@@ -452,12 +480,12 @@ endfunction
 " Intend to be mapped in command mode
 function! vimrc#fzf#files_in_commandline() abort
   let results = []
-  call fzf#vim#files(
+  call vimrc#fzf#call_sync('fzf#vim#files', [
         \ '',
         \ fzf#vim#with_preview(extend({
         \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
         \ }, g:fzf_tmux_layout)),
-        \ 0)
+        \ 0], 1)
   return get(results, 0, '')
 endfunction
 
@@ -470,26 +498,26 @@ function! vimrc#fzf#shell_outputs_in_commandline(...) abort
   let command = (a:0 && type(a:1) == type('')) ? a:1 : default_command
   lua require("vimrc.plugins.blink_cmp").enable()
 
-  call vimrc#fzf#fzf(
+  call vimrc#fzf#call_sync('vimrc#fzf#fzf', [
         \ 'Outputs',
         \ fzf#vim#with_preview(extend({
         \   'source': command,
         \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
         \ }, g:fzf_tmux_layout)),
-        \ 0)
+        \ 0], 1)
   return get(results, 0, '')
 endfunction
 
 function! vimrc#fzf#choices_in_commandline(choices, ...) abort
   let name = (a:0 && type(a:1) == type('')) ? a:1 : 'Choices'
   let results = []
-  call vimrc#fzf#fzf(
+  call vimrc#fzf#call_sync('vimrc#fzf#fzf', [
         \ name,
         \ fzf#vim#with_preview(extend({
         \   'source': a:choices,
         \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
         \ }, g:fzf_tmux_layout)),
-        \ 0)
+        \ 0], 1)
   return get(results, 0, '')
 endfunction
 

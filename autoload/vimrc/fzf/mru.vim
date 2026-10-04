@@ -64,24 +64,24 @@ endfunction
 
 function! vimrc#fzf#mru#mru_in_commandline() abort
   let results = []
-  call fzf#vim#files(
+  call vimrc#fzf#call_sync('fzf#vim#files', [
         \ '',
         \ fzf#vim#with_preview(extend({
         \   'source':  vimrc#fzf#mru#mru_files(),
         \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
         \   'options': ['-s', '--prompt', 'Mru> ']}, g:fzf_tmux_layout)),
-        \ 0)
+        \ 0], 1)
   return get(results, 0, '')
 endfunction
 
 function! vimrc#fzf#mru#directory_mru_in_commandline() abort
   let results = []
-  call fzf#vim#files(
+  call vimrc#fzf#call_sync('fzf#vim#files', [
         \ '',
         \ extend({
         \   'source':  vimrc#fzf#mru#neomru_directories(),
         \   'sink': function('vimrc#fzf#files_in_commandline_sink', [results]),
         \   'options': ['-s', '--preview-window', 'right', '--preview', vimrc#fzf#preview#get_dir_command() . ' {}', '--prompt', 'DirectoryMru> ']}, g:fzf_tmux_layout),
-        \ 0)
+        \ 0], 1)
   return get(results, 0, '')
 endfunction

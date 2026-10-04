@@ -58,9 +58,9 @@ function! vimrc#fzf#chinese#punctuations_in_insert_mode() abort
   let results = []
   " FIXME Use tmux because of opening popup in insert mode conflict with
   " neovim floating window and cause serious error that need to restart neovim
-  call vimrc#fzf#fzf('Punctuations', extend({
+  call vimrc#fzf#call_sync('vimrc#fzf#fzf', ['Punctuations', extend({
         \ 'source': colored,
         \ 'sink': function('vimrc#fzf#chinese#punctuations_in_insert_mode_sink', [results]),
-        \ 'options': ['--ansi', '--tiebreak=index', '+m', '-n', '1', '-d', "\t", '--prompt', 'Punctuations> ']}, g:fzf_tmux_layout), a:000)
+        \ 'options': ['--ansi', '--tiebreak=index', '+m', '-n', '1', '-d', "\t", '--prompt', 'Punctuations> ']}, g:fzf_tmux_layout), a:000], 1)
   return get(results, 0, '')
 endfunction
