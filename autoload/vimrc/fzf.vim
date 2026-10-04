@@ -146,6 +146,11 @@ function! vimrc#fzf#call_sync(Func, args, options_index) abort
   let opts.exit = function('s:sync_exit', [state, get(opts, 'exit', 0)])
   let args[a:options_index] = opts
   let result = call(a:Func, args)
+  " A terminal fallback needs the input loop to run before fzf can exit.
+  " Preserve its asynchronous behavior instead of blocking terminal input.
+  if !state.done && &buftype ==# 'terminal' && &filetype ==# 'fzf'
+    return result
+  endif
   " The exit hook runs before the sink, but wait() resumes only after the
   " job callback (including the sink) returns. Cancellation also calls exit.
   let status = wait(-1, { -> state.done }, 10)

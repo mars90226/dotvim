@@ -49,6 +49,27 @@ try
 catch /launch failed/
 endtry
 
+function! s:terminal_runner(opts) abort
+  enew
+  call nvim_open_term(bufnr(), {})
+  setfiletype fzf
+  call timer_start(20, function('s:finish', [a:opts, 130]))
+  return []
+endfunction
+
+" A terminal fallback must return to the input loop before fzf can exit.
+let s:codes = []
+let s:results = []
+call vimrc#fzf#call_sync(function('s:terminal_runner'), [{
+      \ 'exit': function('s:exit', [s:codes]),
+      \ 'sink': function('s:sink', [s:results])}], 0)
+call assert_equal([], s:codes, 'terminal fallback must not wait for exit')
+call assert_equal('terminal', &buftype)
+call assert_equal(0, wait(1000, { -> !empty(s:codes) }, 10))
+call assert_equal([130], s:codes)
+call assert_equal([], s:results)
+bwipeout!
+
 " Exercise all value-returning helpers against an asynchronous fzf API.
 set runtimepath^=spec/fixtures/fzf
 let g:misc_fzf_action = {}
