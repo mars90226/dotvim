@@ -11,7 +11,6 @@ local function format(opts)
   }
 end
 
-
 flash.jump_word = function()
   -- Ref: https://github.com/folke/flash.nvim
   Flash.jump({
@@ -27,7 +26,7 @@ flash.jump_word = function()
         matcher = function(win)
           -- limit matches to the current label
           return vim.tbl_filter(function(m)
-            return m.label == match.label and m.win == win
+            return not m.fold and m.label == match.label and m.win == win
           end, state.results)
         end,
         labeler = function(matches)
@@ -39,10 +38,18 @@ flash.jump_word = function()
     end,
     labeler = function(matches, state)
       local labels = state:labels()
-      for m, match in ipairs(matches) do
-        match.label1 = labels[math.floor((m - 1) / #labels) + 1]
-        match.label2 = labels[(m - 1) % #labels + 1]
-        match.label = match.label1
+      local m = 0
+      for _, match in ipairs(matches) do
+        -- Folded words share one screen position, so do not assign them labels.
+        match.label = false
+        match.label1 = nil
+        match.label2 = nil
+        if not match.fold then
+          m = m + 1
+          match.label1 = labels[math.floor((m - 1) / #labels) + 1]
+          match.label2 = labels[(m - 1) % #labels + 1]
+          match.label = match.label1
+        end
       end
     end,
   })
