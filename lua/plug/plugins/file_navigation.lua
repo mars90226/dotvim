@@ -148,7 +148,7 @@ local file_navigation = {
   },
   -- Retain the predefined command menu; which-key serves keymap discovery.
   {
-    "LinArcX/telescope-command-palette.nvim",
+    "mars90226/telescope-command-palette.nvim",
     cond = choose.is_enabled_plugin("telescope.nvim"),
     keys = {
       -- Normal mode
