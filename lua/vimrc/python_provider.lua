@@ -25,21 +25,53 @@ local function stamp(path)
   )
 end
 
+-- Activated/project venvs belong to the project, not the editor host.
+local function editor_command(name)
+  local function eligible(path)
+    if not path or path == "" or path:sub(1, 1) ~= "/" then
+      return false
+    end
+    if name == "pynvim-python" then
+      return true
+    end
+    for _, prefix in ipairs({ vim.env.VIRTUAL_ENV or "", vim.env.CONDA_PREFIX or "" }) do
+      if prefix ~= "" and path:sub(1, #prefix + 1) == prefix .. "/" then
+        return false
+      end
+    end
+    local prefix = vim.fn.fnamemodify(path, ":h:h")
+    return vim.uv.fs_stat(prefix .. "/pyvenv.cfg") == nil
+  end
+  local path = vim.fn.exepath(name)
+  if eligible(path) then
+    return path
+  end
+  -- exepath sees the activated environment first; look beyond it without
+  -- changing this process's PATH or launching a shell.
+  for _, directory in ipairs(vim.split(vim.env.PATH or "", ":", { plain = true })) do
+    local candidate = directory .. "/" .. name
+    if eligible(candidate) and vim.fn.executable(candidate) == 1 then
+      return candidate
+    end
+  end
+  return ""
+end
+
 local function provider_context()
   local home = vim.env.HOME or ""
   local commands, key =
-    {}, { "provider-v1", vim.uv.os_gethostname(), home, vim.env.PYENV_VERSION or "", stamp(home .. "/.python-version") }
+    {}, { "provider-v2", vim.uv.os_gethostname(), home, vim.env.PYENV_VERSION or "", stamp(home .. "/.python-version") }
   for i, name in ipairs(python_commands) do
     if i == 2 then
       local home_python = home .. "/.venv/bin/python"
       commands[#commands + 1] = home_python
       key[#key + 1] = home_python .. ":" .. stamp(home_python) .. ":" .. stamp(home .. "/.venv/pyvenv.cfg")
     end
-    local path = vim.fn.exepath(name)
+    local path = editor_command(name)
     commands[#commands + 1] = path
     key[#key + 1] = name .. ":" .. path .. ":" .. stamp(path)
   end
-  local uv = vim.fn.exepath("uv")
+  local uv = editor_command("uv")
   key[#key + 1] = "uv:" .. uv .. ":" .. stamp(uv)
   return commands, uv, vim.fn.sha256(vim.json.encode(key))
 end
@@ -66,15 +98,35 @@ print(json.dumps({"path": sys.executable, "module": pynvim.__file__, "version": 
 local function run(command, deadline)
   local remaining = math.floor((deadline - vim.uv.hrtime()) / 1e6)
   if remaining <= 0 then
-    return
+    return nil, "timeout"
   end
-  local ok, result = pcall(function()
-    return vim.system(command, { text = true, cwd = vim.env.HOME }):wait(remaining)
+  local completed, result = false, nil
+  local ok, process = pcall(vim.system, command, { text = true, cwd = vim.env.HOME }, function(value)
+    completed, result = true, value
   end)
-  if ok and result.code == 0 then
+  if not ok then
+    return nil, "spawn"
+  end
+  -- SystemObj:wait(timeout) can wait twice and still return nil if a child
+  -- inherits the pipes. Use one bounded event wait for the shared deadline.
+  if not vim.wait(remaining, function()
+    return completed
+  end, 10, true) then
+    pcall(function()
+      process:kill(9)
+    end)
+    return nil, "timeout"
+  end
+  if type(result) ~= "table" then
+    return nil, "invalid-result"
+  end
+  if result.code == 0 then
     return result.stdout
   end
+  return nil, "exit"
 end
+
+local warned_failure = false
 
 provider.resolve_python_host = function(force)
   local commands, uv, key = provider_context()
@@ -87,7 +139,7 @@ provider.resolve_python_host = function(force)
     record = {}
   end
   local now = os.time()
-  local ttl = record.path and 86400 or 60
+  local ttl = record.path and 86400 or (record.failure and 5 or 60)
   if
     not force
     and record.key == key
@@ -103,19 +155,23 @@ provider.resolve_python_host = function(force)
         and record.module_stamp == stamp(record.module)
       )
     then
+      vim.g.python_provider_diagnostic = record.failure
       return record.path, record.version
     end
   end
 
   local deadline = vim.uv.hrtime() + 2e9
-  local seen = {}
+  local seen, failure = {}, nil
   local function probe(path)
     if not path or path == "" or seen[path] or vim.fn.executable(path) ~= 1 then
       return
     end
     seen[path] = true
     -- Ignore PYTHONPATH and cwd, but retain normal user-site installations.
-    local output = run({ path, "-B", "-E", "-c", probe_code }, deadline)
+    local output, reason = run({ path, "-B", "-E", "-c", probe_code }, deadline)
+    if reason and reason ~= "exit" then
+      failure = reason
+    end
     if not output then
       return
     end
@@ -128,7 +184,7 @@ provider.resolve_python_host = function(force)
       and type(found.version) == "string"
       and vim.fn.executable(found.path) == 1
     then
-      record = {
+      local found_record = {
         key = key,
         checked_at = now,
         path = found.path,
@@ -137,9 +193,11 @@ provider.resolve_python_host = function(force)
         python_stamp = stamp(found.path),
         module_stamp = stamp(found.module),
       }
-      save_provider(record)
+      save_provider(found_record)
+      vim.g.python_provider_diagnostic = nil
       return found.path, found.version
     end
+    failure = "invalid-output"
   end
 
   for _, path in ipairs(commands) do
@@ -150,7 +208,7 @@ provider.resolve_python_host = function(force)
   end
   if uv ~= "" then
     -- Only on a cache miss: exclude project/activated venvs and all downloads.
-    local output = run({
+    local output, reason = run({
       uv,
       "--offline",
       "--no-python-downloads",
@@ -161,6 +219,9 @@ provider.resolve_python_host = function(force)
       "--no-project",
       "python3",
     }, deadline)
+    if reason and reason ~= "exit" then
+      failure = reason
+    end
     if output then
       local host, version = probe(vim.trim(output))
       if host then
@@ -168,7 +229,15 @@ provider.resolve_python_host = function(force)
       end
     end
   end
-  save_provider({ key = key, checked_at = now, version = "" })
+  save_provider({ key = key, checked_at = now, version = "", failure = failure })
+  vim.g.python_provider_diagnostic = failure
+  if failure and not warned_failure then
+    warned_failure = true
+    vim.notify(
+      "Python provider discovery failed (" .. failure .. "); retry after 5 seconds or set g:python3_host_prog",
+      vim.log.levels.WARN
+    )
+  end
 end
 
 return provider

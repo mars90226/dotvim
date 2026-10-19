@@ -52,12 +52,13 @@ function M.in_nvim_terminal()
   return vim.env.NVIM ~= nil
 end
 
---- Get the Python version.
---- @param force boolean? Optional: force re-detection.
+--- Get the selected provider version; an unavailable provider always returns empty.
+--- Non-forced queries persist newly detected versions through the provider module.
+--- @param force boolean? Re-query an available provider; never override unavailable.
 --- @return string The detected Python version (or empty if not found).
 function M.python_version(force)
   force = force or false
-  if not force and vim.g.python_provider_unavailable then
+  if vim.g.python_provider_unavailable then
     return ""
   end
   if force or not vim.g.python_version or vim.g.python_version == "" then

@@ -7,7 +7,7 @@ basic.setup_python_host = function(defer_discovery)
   if vim.g.python3_host_prog ~= nil then
     vim.g.python_provider_unavailable = false
   end
-  -- Explicit/local hosts win. Other Linux hosts are validated once and cached;
+  -- Explicit/local hosts win. Other Linux hosts use a validated cache with expiry;
   -- discovery is independent of the current project directory.
   if check.os_is("Linux") and check.os_is("synology") then
     -- Preserve the legacy DSM defaults without overriding an explicit host.
