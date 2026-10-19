@@ -61,6 +61,10 @@ function M.python_version(force)
   if vim.g.python_provider_unavailable then
     return ""
   end
+  -- The empty host identifies native discovery after an override is removed.
+  if vim.g.python_version_host ~= (vim.g.python3_host_prog or "") then
+    vim.g.python_version = ""
+  end
   if force or not vim.g.python_version or vim.g.python_version == "" then
     local version = ""
     if vim.fn.has("python3") == 1 then

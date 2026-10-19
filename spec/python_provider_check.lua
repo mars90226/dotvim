@@ -399,6 +399,32 @@ end
 selected, count = start()
 expect(selected == "/usr/local/bin/python3" and count == 0, "old DSM default preserved")
 plugin_utils.get_kernel_version = kernel
+for _, platform in ipairs({ "Darwin test", "windows test" }) do
+  fresh("removed-override")
+  os_name = platform
+  cache.set({ python_version = "3.10.1", python_version_host = "/fixture/old-explicit-python" })
+  selected, count = start()
+  expect(selected == nil and count == 0, "native platform does not run automatic discovery")
+  local queries = 0
+  vim.fn.has = function(name)
+    return name == "python3" and 1 or 0
+  end
+  vim.fn.execute = function()
+    queries = queries + 1
+    return "3.12.9"
+  end
+  expect(check.python_version() == "3.12.9" and queries == 1, "removed override queries native version")
+  expect(vim.g.python_version_host == "", "native version bound to empty host")
+  selected, count = start()
+  vim.fn.has = function()
+    error("cached native version must not initialize the provider")
+  end
+  expect(
+    count == 0 and check.python_version() == "3.12.9" and queries == 1,
+    "native binding persists without repeated queries"
+  )
+  vim.fn.has, vim.fn.execute = original_has, original_execute
+end
 -- Run the actual probe against a disposable, offline venv with fixture modules.
 fresh("real-probe")
 local python = vim.fn.executable("/usr/bin/python3") == 1 and "/usr/bin/python3" or saved.exepath("python3")
