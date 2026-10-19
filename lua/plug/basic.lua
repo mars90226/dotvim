@@ -43,6 +43,7 @@ basic.setup_python_host = function(defer_discovery)
     if host then
       vim.g.python3_host_prog = host
       vim.g.python_version = version
+      vim.g.python_version_host = host
     end
   end
 end

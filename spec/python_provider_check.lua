@@ -232,6 +232,20 @@ expect(
   "force does not persist outside collector"
 )
 vim.fn.has, vim.fn.execute = original_has, original_execute
+-- Removing an explicit Linux host may reuse a still-valid automatic record.
+for attempt = 1, 2 do
+  selected, count = start()
+  expect(selected == host and count == 0, "automatic record survives explicit override: " .. attempt)
+  expect(vim.g.python_version_host == host, "automatic version bound to selected host: " .. attempt)
+  vim.fn.has = function()
+    error("restored automatic version must not activate builtin provider")
+  end
+  vim.fn.execute = function()
+    error("restored automatic version must not execute Python")
+  end
+  expect(check.python_version() == "3.12.9", "automatic version remains warm: " .. attempt)
+  vim.fn.has, vim.fn.execute = original_has, original_execute
+end
 local query = check.python_version
 check.python_version = function()
   return "3.12.9"
