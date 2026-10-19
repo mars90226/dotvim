@@ -31,9 +31,6 @@ local function editor_command(name)
     if not path or path == "" or path:sub(1, 1) ~= "/" then
       return false
     end
-    if name == "pynvim-python" then
-      return true
-    end
     for _, prefix in ipairs({ vim.env.VIRTUAL_ENV or "", vim.env.CONDA_PREFIX or "" }) do
       if prefix ~= "" and path:sub(1, #prefix + 1) == prefix .. "/" then
         return false
@@ -79,17 +76,27 @@ end
 local function save_provider(record)
   config_cache.set({
     python_version = record.version or "",
+    python_version_host = record.path or "",
     python_provider_cache_json = vim.json.encode(record),
   })
 end
 
 provider.save_python_version = function(version)
-  config_cache.set({ python_version = version })
+  config_cache.set({ python_version = version, python_version_host = vim.g.python3_host_prog or "" })
+end
+
+-- An explicit/local host must not inherit a version cached for another host.
+provider.use_explicit_host = function(host)
+  if config_cache.get("python_version_host") ~= host then
+    vim.g.python_version = ""
+  end
+  vim.g.python_provider_unavailable = false
 end
 
 local probe_code = [[
-import json, sys
+import sys
 sys.path = [p for p in sys.path if p != ""]
+import json
 import pynvim, neovim
 assert sys.version_info >= (3, 9)
 print(json.dumps({"path": sys.executable, "module": pynvim.__file__, "version": ".".join(map(str, sys.version_info[:3]))}))
@@ -234,7 +241,9 @@ provider.resolve_python_host = function(force)
   if failure and not warned_failure then
     warned_failure = true
     vim.notify(
-      "Python provider discovery failed (" .. failure .. "); retry after 5 seconds or set g:python3_host_prog",
+      "Python provider discovery failed ("
+        .. failure
+        .. "); set g:python3_host_prog before restarting Neovim, or restart after 5 seconds",
       vim.log.levels.WARN
     )
   end

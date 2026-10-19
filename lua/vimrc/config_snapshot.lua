@@ -13,6 +13,7 @@ snapshot.collect = function(initializing)
     os = os,
     distro = distro,
     python_version = version,
+    python_version_host = vim.g.python_version_host or "",
     is_executable_cache_json = vim.json.encode(plugin_utils.is_executable_cache or {}),
     -- A manual snapshot refresh invalidates discovery for the next startup.
     python_provider_cache_json = "{}",

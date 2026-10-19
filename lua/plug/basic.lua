@@ -4,8 +4,12 @@ local plugin_utils = require("vimrc.plugin_utils")
 local basic = {}
 
 basic.setup_python_host = function(defer_discovery)
+  if vim.g.loaded_python3_provider == 0 then
+    vim.g.python_provider_unavailable = true
+    return
+  end
   if vim.g.python3_host_prog ~= nil then
-    vim.g.python_provider_unavailable = false
+    require("vimrc.python_provider").use_explicit_host(vim.g.python3_host_prog)
   end
   -- Explicit/local hosts win. Other Linux hosts use a validated cache with expiry;
   -- discovery is independent of the current project directory.
@@ -25,6 +29,11 @@ basic.setup_python_host = function(defer_discovery)
   elseif not defer_discovery and check.os_is("Linux") and vim.g.python3_host_prog == nil then
     local host, version = require("vimrc.python_provider").resolve_python_host()
     vim.g.python_provider_unavailable = host == nil
+    if not host then
+      -- Do not let builtin detection bypass the failed, bounded discovery.
+      -- A configured host or another attempt takes effect in a new session.
+      vim.g.loaded_python3_provider = 0
+    end
     if host then
       vim.g.python3_host_prog = host
       vim.g.python_version = version

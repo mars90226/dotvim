@@ -124,7 +124,7 @@ local function fresh(label)
   mapping, responses, calls = {}, {}, {}
   hostname, os_name = "fixture-machine", "Linux test"
   package.loaded["vimrc.localconfig"], package.loaded["vimrc.secret"] = nil, nil
-  vim.g.python_host_prog, vim.g.python_version = nil, ""
+  vim.g.python_host_prog, vim.g.python_version, vim.g.python_version_host = nil, "", nil
   vim.g.python_provider_cache_json, vim.g.python_provider_unavailable = nil, nil
 end
 local function candidate(name)
@@ -136,6 +136,7 @@ end
 local function start(explicit)
   calls = {}
   vim.g.python3_host_prog, vim.g.python_provider_unavailable = explicit, nil
+  vim.g.loaded_python3_provider = nil -- start() models a new Neovim process.
   vim.g.python_provider_cache_json = nil
   setup()
   basic.setup()
@@ -149,12 +150,16 @@ end
 fresh("positive")
 local host, module = candidate("python3")
 mapping.python3 = host
+local original_has = vim.fn.has
+vim.fn.has = function()
+  error("initial snapshot must not query builtin provider")
+end
 local selected, count = start()
+vim.fn.has = original_has
 expect(selected == host and count == 1, "cold discovery validates provider")
 selected, count = start()
 expect(selected == host and count == 0, "warm cache without processes")
 expect(vim.g.python_version == "3.12.9", "cached version restored")
-local original_has = vim.fn.has
 vim.fn.has = function()
   error("warm version must not query builtin provider")
 end
@@ -173,6 +178,9 @@ expect(selected == host and count == 1, "positive expiry revalidates")
 file(module, "# changed module contents", false)
 selected, count = start()
 expect(selected == host and count == 1, "module stamp invalidates")
+file(host, "#!/bin/sh\nexit 0 # replaced interpreter", true)
+selected, count = start()
+expect(selected == host and count == 1, "interpreter stamp invalidates")
 record(function(r)
   r.path = home .. "/missing-python"
 end)
@@ -197,6 +205,30 @@ vim.env.PATH = ""
 local explicit = candidate("explicit")
 selected, count = start(explicit)
 expect(selected == explicit and count == 0, "explicit host wins")
+expect(vim.g.python_version == "", "different explicit host discards automatic version")
+local original_execute = vim.fn.execute
+vim.fn.has = function(name)
+  return name == "python3" and 1 or 0
+end
+vim.fn.execute = function()
+  return "3.10.1"
+end
+expect(check.python_version() == "3.10.1", "explicit host version queried")
+expect(vim.g.python_version_host == explicit, "version bound to explicit host")
+selected, count = start(explicit)
+vim.fn.execute = function()
+  error("cached explicit version must not query provider")
+end
+expect(check.python_version() == "3.10.1" and count == 0, "explicit version persists without processes")
+vim.fn.execute = function()
+  return "3.11.2"
+end
+expect(check.python_version(true) == "3.11.2", "force queries selected provider")
+expect(
+  not table.concat(vim.fn.readfile(cache.path), "\n"):find("3.11.2", 1, true),
+  "force does not persist outside collector"
+)
+vim.fn.has, vim.fn.execute = original_has, original_execute
 local query = check.python_version
 check.python_version = function()
   return "3.12.9"
@@ -217,6 +249,19 @@ host = candidate("launcher")
 mapping["pynvim-python"] = host
 selected, count = start()
 expect(selected == host and count == 1, "pynvim-python discovery")
+local project_launcher = file(home .. "/project/.venv/bin/pynvim-python", "#!/bin/sh\nexit 1", true)
+file(home .. "/project/.venv/pyvenv.cfg", "home = /fixture", false)
+-- The stable tool entry is outside an environment, even when it is a symlink.
+file(home .. "/stable/pynvim-python", "#!/bin/sh\nexit 0", true)
+responses[home .. "/stable/pynvim-python"] = responses[host]
+mapping["pynvim-python"] = home .. "/stable/pynvim-python"
+selected, count = start()
+expect(selected == host and count == 1, "new stable launcher revalidates")
+vim.env.PATH = home .. "/project/.venv/bin:" .. home .. "/stable"
+vim.env.VIRTUAL_ENV = home .. "/project/.venv"
+mapping["pynvim-python"] = project_launcher
+selected, count = start()
+expect(selected == host and count == 0, "project pynvim launcher cannot bypass venv filter")
 fresh("home-venv")
 host, module = candidate("venv")
 file(home .. "/.venv/bin/python", "#!/bin/sh\nexit 0", true)
@@ -238,6 +283,7 @@ mapping.python3 = candidate("missing-package")
 responses[mapping.python3] = { code = 1, stdout = "" }
 selected, count = start()
 expect(selected == nil and count == 1, "no invalid fallback host")
+expect(vim.g.loaded_python3_provider == 0, "failed discovery suppresses builtin fallback")
 selected, count = start()
 expect(selected == nil and count == 0, "short negative cache")
 expect(check.python_version() == "" and #calls == 0, "version honors negative cache")
@@ -265,6 +311,10 @@ responses[mapping.python3] = "nil"
 selected, count = start()
 expect(selected == nil and count == 1, "nil result cannot crash startup")
 expect(vim.g.python_provider_diagnostic == "invalid-result", "failed probe diagnosed")
+expect(
+  #notifications == 1 and notifications[1]:find("restarting Neovim", 1, true),
+  "failure notification describes restart recovery"
+)
 fresh("timeout")
 mapping.python3 = candidate("slow")
 responses[mapping.python3] = "timeout"
@@ -273,6 +323,7 @@ selected, count = start()
 local elapsed = (vim.uv.hrtime() - timeout_start) / 1e6
 expect(selected == nil and count == 1 and killed and elapsed < 2400, "single two-second deadline and kill")
 expect(vim.g.python_provider_diagnostic == "timeout", "timeout distinguished from unavailable")
+expect(#notifications == 0, "failure warning only once in this Neovim process")
 selected, count = start()
 expect(selected == nil and count == 0, "failed probe briefly cached")
 record(function(r)
@@ -281,6 +332,13 @@ end)
 responses[mapping.python3] = { code = 1, stdout = "" }
 selected, count = start()
 expect(selected == nil and count == 1, "failure cache expires after five seconds")
+fresh("disabled")
+mapping.python3 = candidate("unused-disabled")
+setup()
+vim.g.loaded_python3_provider = 0
+vim.g.python3_host_prog = nil
+basic.setup()
+expect(#calls == 0 and vim.g.python_provider_unavailable, "user-disabled provider skips discovery")
 fresh("malformed")
 host = candidate("python3")
 mapping.python3 = host
@@ -325,6 +383,7 @@ local created = vim
   :wait(10000)
 expect(created and created.code == 0, "offline fixture venv created")
 local site = vim.fn.glob(home .. "/.venv/lib/python*/site-packages")
+file(home .. "/json.py", 'raise RuntimeError("HOME module must not shadow stdlib")', false)
 local pynvim = file(site .. "/pynvim/__init__.py", "# offline probe fixture", false)
 file(site .. "/neovim/__init__.py", "# offline probe fixture", false)
 selected, count = start()
@@ -339,6 +398,7 @@ vim.env.PATH, vim.env.VIRTUAL_ENV, vim.env.CONDA_PREFIX = saved.path, saved.virt
 vim.fn.has, vim.notify = saved.has, saved.notify
 local integration = vim.env.PYTHON_PROVIDER_TEST_HOST
 if integration and integration ~= "" then
+  vim.g.loaded_python3_provider = nil
   vim.g.python3_host_prog = integration
   vim.cmd("python3 import pynvim")
   vim.cmd('python3 vim.vars["provider_spec_rpc"] = "OK"')

@@ -77,6 +77,7 @@ function M.python_version(force)
       version = (parts[1] or "")
     end
     vim.g.python_version = version
+    vim.g.python_version_host = vim.g.python3_host_prog or ""
     if not force and version ~= "" then
       require("vimrc.python_provider").save_python_version(version)
     end
