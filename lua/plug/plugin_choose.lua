@@ -158,8 +158,11 @@ plugin_choose.setup_file_explorer = function()
   -- oil.nvim, defx.nvim
   choose.disable_plugins({ "defx.nvim" })
 
+  if utils.is_light_vim_mode() then
+    return
+  end
   local python_version = check.python_version()
-  if not utils.is_light_vim_mode() and python_version ~= "" and vim.version.cmp(python_version, "3.6.1") >= 0 then
+  if python_version ~= "" and vim.version.cmp(python_version, "3.6.1") >= 0 then
     choose.enable_plugin("defx.nvim")
   end
   -- Always use oil.nvim
@@ -290,7 +293,7 @@ plugin_choose.setup_misc = function()
 
   -- Choose resolved plugin
   -- resolved.nvim
-  if not plugin_utils.is_executable('gh') then
+  if not plugin_utils.is_executable("gh") then
     choose.disable_plugin("resolved.nvim")
   end
 end

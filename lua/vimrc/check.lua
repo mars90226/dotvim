@@ -52,11 +52,19 @@ function M.in_nvim_terminal()
   return vim.env.NVIM ~= nil
 end
 
---- Get the Python version.
---- @param force boolean? Optional: force re-detection.
+--- Get the selected provider version; an unavailable provider always returns empty.
+--- Non-forced queries persist newly detected versions through the provider module.
+--- @param force boolean? Re-query an available provider; never override unavailable.
 --- @return string The detected Python version (or empty if not found).
 function M.python_version(force)
   force = force or false
+  if vim.g.python_provider_unavailable then
+    return ""
+  end
+  -- The empty host identifies native discovery after an override is removed.
+  if vim.g.python_version_host ~= (vim.g.python3_host_prog or "") then
+    vim.g.python_version = ""
+  end
   if force or not vim.g.python_version or vim.g.python_version == "" then
     local version = ""
     if vim.fn.has("python3") == 1 then
@@ -67,10 +75,16 @@ function M.python_version(force)
     if version ~= "" then
       local parts = vim.split(version, "%s+")
       -- Filter empty parts and take the first part as the version.
-      parts = vim.tbl_filter(function(part) return part ~= "" end, parts)
+      parts = vim.tbl_filter(function(part)
+        return part ~= ""
+      end, parts)
       version = (parts[1] or "")
     end
     vim.g.python_version = version
+    vim.g.python_version_host = vim.g.python3_host_prog or ""
+    if not force and version ~= "" then
+      require("vimrc.python_provider").save_python_version(version)
+    end
   end
   return vim.g.python_version
 end

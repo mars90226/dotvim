@@ -1,66 +1,49 @@
 local check = require("vimrc.check")
 local plugin_utils = require("vimrc.plugin_utils")
+local utils = require("vimrc.utils")
 
 local basic = {}
 
-basic.setup_python_host = function()
-  -- Python & Python3 setting for Windows & Synology should be in local vim
-  -- config
-  if check.os_is("Linux") then
-    if check.os_is("synology") then
+basic.setup_python_host = function(defer_discovery)
+  if vim.g.loaded_python3_provider == 0 then
+    vim.g.python_provider_unavailable = true
+    return
+  end
+  if vim.g.python3_host_prog ~= nil then
+    require("vimrc.python_provider").use_explicit_host(vim.g.python3_host_prog)
+  end
+  -- Explicit/local hosts win. Other Linux hosts use a validated cache with expiry;
+  -- discovery is independent of the current project directory.
+  if check.os_is("Linux") and check.os_is("synology") then
+    -- Preserve the legacy DSM defaults without overriding an explicit host.
+    if vim.g.python_host_prog == nil then
+      vim.g.python_host_prog = "/bin/python"
+    end
+    if vim.g.python3_host_prog == nil then
       local kernel_version = plugin_utils.get_kernel_version()
-
       if kernel_version > plugin_utils.KERNEL_VERSIONS.SYNOLOGY_DSM_7 then
-        vim.g.python_host_prog = "/bin/python"
         vim.g.python3_host_prog = "/bin/python3"
       else
-        vim.g.python_host_prog = "/bin/python"
         vim.g.python3_host_prog = "/usr/local/bin/python3"
       end
-    else
-      -- Detect asdf
-      -- TODO: asdf is disabled
-      -- if plugin_utils.file_readable(vim.env.HOME .. "/.asdf/shims/python") then
-      --   vim.g.python_host_prog = vim.env.HOME .. "/.asdf/shims/python"
-      -- end
-      -- if plugin_utils.file_readable(vim.env.HOME .. "/.asdf/shims/python3") then
-      --   vim.g.python3_host_prog = vim.env.HOME .. "/.asdf/shims/python3"
-      -- end
-
-      -- -- Detect pyenv
-      -- -- TODO: Add function to change python host program
-      -- if plugin_utils.file_readable(vim.env.HOME .. "/.pyenv/shims/python") then
-      --   vim.g.python_host_prog = vim.env.HOME .. "/.pyenv/shims/python"
-      -- end
-      -- if plugin_utils.file_readable(vim.env.HOME .. "/.pyenv/shims/python3") then
-      --   vim.g.python3_host_prog = vim.env.HOME .. "/.pyenv/shims/python3"
-      -- end
-
-      -- Detect uv
-      -- NOTE: Need to monitor if this breaks
-      -- This Neovim PR add detection for pynvim-python added in pynvim 0.6.0 and recommend using uv
-      -- for python virtual environment.
-      -- Ref: https://github.com/neovim/neovim/pull/35273
-      if plugin_utils.is_executable("uv") then
-        local result = vim.system({"uv", "python", "find", "python"}):wait()
-        if result and result.code == 0 then
-          vim.g.python_host_prog = vim.trim(result.stdout)
-        end
-      end
-      if plugin_utils.is_executable("uv") then
-        local result = vim.system({"uv", "python", "find", "python3"}):wait()
-        if result and result.code == 0 then
-          vim.g.python3_host_prog = vim.trim(result.stdout)
-        end
-      end
-
-      -- Use default Python & Python3
-      if vim.g.python_host_prog == nil then
-        vim.g.python_host_prog = "/usr/bin/python"
-      end
-      if vim.g.python3_host_prog == nil then
-        vim.g.python3_host_prog = "/usr/bin/python3"
-      end
+    end
+  elseif
+    not defer_discovery
+    and not utils.is_light_vim_mode()
+    and check.os_is("Linux")
+    and vim.g.python3_host_prog == nil
+  then
+    local host, version = require("vimrc.python_provider").resolve_python_host()
+    vim.g.python_provider_unavailable = host == nil
+    if not host then
+      -- Do not let builtin detection bypass the failed, bounded discovery.
+      -- A configured host or another attempt takes effect in a new session.
+      vim.g.loaded_python3_provider = 0
+    end
+    if host then
+      vim.g.python3_host_prog = host
+      vim.g.python_version = version
+      vim.g.python_version_host = host
     end
   end
 end
@@ -81,7 +64,7 @@ basic.setup_local = function()
 end
 
 basic.setup = function()
-  basic.setup_python_host()
+  basic.setup_python_host(true)
 
   -- disable builtin plugin
   basic.disable_builtin_plugin()
@@ -91,6 +74,9 @@ basic.setup = function()
 
   -- plugin local
   basic.setup_local()
+
+  -- Machine-local/explicit settings take precedence over automatic discovery.
+  basic.setup_python_host()
 end
 
 return basic
