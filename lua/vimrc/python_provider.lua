@@ -25,7 +25,9 @@ local function stamp(path)
   )
 end
 
--- Activated/project venvs belong to the project, not the editor host.
+-- Ignore activated environments and conventional .venv/venv project paths.
+-- Dedicated named venvs on an absolute PATH, the HOME venv and explicit hosts
+-- remain supported without tying discovery to the current working directory.
 local function editor_command(name)
   local function eligible(path)
     if not path or path == "" or path:sub(1, 1) ~= "/" then
@@ -37,17 +39,27 @@ local function editor_command(name)
       end
     end
     local prefix = vim.fn.fnamemodify(path, ":h:h")
-    return vim.uv.fs_stat(prefix .. "/pyvenv.cfg") == nil
+    local name = vim.fn.fnamemodify(prefix, ":t")
+    return not ((name == ".venv" or name == "venv") and vim.uv.fs_stat(prefix .. "/pyvenv.cfg"))
   end
   local path = vim.fn.exepath(name)
-  if eligible(path) then
+  local relative_match = false
+  for _, directory in ipairs(vim.split(vim.env.PATH or "", ":", { plain = true })) do
+    if directory:sub(1, 1) ~= "/" then
+      local candidate = vim.fn.fnamemodify((directory == "" and "." or directory) .. "/" .. name, ":p")
+      if candidate == path then
+        relative_match = true
+      end
+    end
+  end
+  if not relative_match and eligible(path) then
     return path
   end
   -- exepath sees the activated environment first; look beyond it without
   -- changing this process's PATH or launching a shell.
   for _, directory in ipairs(vim.split(vim.env.PATH or "", ":", { plain = true })) do
     local candidate = directory .. "/" .. name
-    if eligible(candidate) and vim.fn.executable(candidate) == 1 then
+    if directory:sub(1, 1) == "/" and eligible(candidate) and vim.fn.executable(candidate) == 1 then
       return candidate
     end
   end
@@ -108,7 +120,7 @@ local function run(command, deadline)
     return nil, "timeout"
   end
   local completed, result = false, nil
-  local ok, process = pcall(vim.system, command, { text = true, cwd = vim.env.HOME }, function(value)
+  local ok, process = pcall(vim.system, command, { text = true, cwd = vim.env.HOME, detach = true }, function(value)
     completed, result = true, value
   end)
   if not ok then
@@ -119,6 +131,11 @@ local function run(command, deadline)
   if not vim.wait(remaining, function()
     return completed
   end, 10, true) then
+    -- A pynvim-python launcher uses subprocess.run rather than exec.
+    -- detach creates a private process group; terminate its interpreter too.
+    if type(process.pid) == "number" and process.pid > 0 then
+      pcall(vim.uv.kill, -process.pid, 9)
+    end
     pcall(function()
       process:kill(9)
     end)
@@ -127,13 +144,28 @@ local function run(command, deadline)
   if type(result) ~= "table" then
     return nil, "invalid-result"
   end
-  if result.code == 0 then
+  if result.code == 0 and result.stdout and result.stdout ~= "" then
     return result.stdout
   end
   return nil, "exit"
 end
 
 local warned_failure = false
+local function diagnose(record)
+  local reason = record.failure or (not record.path and "not-found" or nil)
+  vim.g.python_provider_diagnostic = reason
+  if reason and not warned_failure then
+    warned_failure = true
+    local detail = reason == "not-found" and "no Python >= 3.9 with pynvim/neovim imports" or reason
+    vim.notify(
+      "Python provider unavailable ("
+        .. detail
+        .. "); set g:python3_host_prog before restarting Neovim. "
+        .. "Automatic discovery retries after cache expiry (60s missing provider, 5s transient failure).",
+      vim.log.levels.WARN
+    )
+  end
+end
 
 provider.resolve_python_host = function(force)
   local commands, uv, key = provider_context()
@@ -162,7 +194,7 @@ provider.resolve_python_host = function(force)
         and record.module_stamp == stamp(record.module)
       )
     then
-      vim.g.python_provider_diagnostic = record.failure
+      diagnose(record)
       return record.path, record.version
     end
   end
@@ -237,16 +269,7 @@ provider.resolve_python_host = function(force)
     end
   end
   save_provider({ key = key, checked_at = now, version = "", failure = failure })
-  vim.g.python_provider_diagnostic = failure
-  if failure and not warned_failure then
-    warned_failure = true
-    vim.notify(
-      "Python provider discovery failed ("
-        .. failure
-        .. "); set g:python3_host_prog before restarting Neovim, or restart after 5 seconds",
-      vim.log.levels.WARN
-    )
-  end
+  diagnose({ failure = failure })
 end
 
 return provider

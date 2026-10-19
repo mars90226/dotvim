@@ -86,7 +86,7 @@ vim.notify = function(message)
 end
 vim.system = function(command, opts, on_exit)
   calls[#calls + 1] = command
-  expect(opts.cwd == home, "probe cwd is HOME")
+  expect(opts.cwd == home and opts.detach == true, "probe cwd is HOME with private process group")
   if command[1] == mapping.uv then
     expect(
       table
@@ -136,7 +136,7 @@ end
 local function start(explicit)
   calls = {}
   vim.g.python3_host_prog, vim.g.python_provider_unavailable = explicit, nil
-  vim.g.loaded_python3_provider = nil -- start() models a new Neovim process.
+  vim.g.loaded_python3_provider = nil -- Reset provider globals; the warning guard remains process-local.
   vim.g.python_provider_cache_json = nil
   setup()
   basic.setup()
@@ -251,7 +251,7 @@ selected, count = start()
 expect(selected == host and count == 1, "pynvim-python discovery")
 local project_launcher = file(home .. "/project/.venv/bin/pynvim-python", "#!/bin/sh\nexit 1", true)
 file(home .. "/project/.venv/pyvenv.cfg", "home = /fixture", false)
--- The stable tool entry is outside an environment, even when it is a symlink.
+-- This fixture models a stable tool entry outside an environment.
 file(home .. "/stable/pynvim-python", "#!/bin/sh\nexit 0", true)
 responses[home .. "/stable/pynvim-python"] = responses[host]
 mapping["pynvim-python"] = home .. "/stable/pynvim-python"
@@ -262,6 +262,24 @@ vim.env.VIRTUAL_ENV = home .. "/project/.venv"
 mapping["pynvim-python"] = project_launcher
 selected, count = start()
 expect(selected == host and count == 0, "project pynvim launcher cannot bypass venv filter")
+fresh("relative-path")
+host = candidate("stable-python")
+local project_python = file(home .. "/project/python3", "#!/bin/sh\nexit 0", true)
+vim.cmd.cd(home .. "/project")
+vim.env.PATH = ".:" .. home .. "/absolute"
+file(home .. "/absolute/python3", "#!/bin/sh\nexit 0", true)
+responses[home .. "/absolute/python3"] = responses[host]
+mapping.python3 = project_python
+selected, count = start()
+expect(selected == host and count == 1, "relative PATH entry cannot become editor host")
+fresh("dedicated-venv")
+host = candidate("dedicated-host")
+local dedicated = file(home .. "/editor-python/bin/python3", "#!/bin/sh\nexit 0", true)
+file(home .. "/editor-python/pyvenv.cfg", "home = /fixture", false)
+mapping.python3 = dedicated
+responses[dedicated] = responses[host]
+selected, count = start()
+expect(selected == host and count == 1, "unactivated dedicated named venv remains discoverable")
 fresh("home-venv")
 host, module = candidate("venv")
 file(home .. "/.venv/bin/python", "#!/bin/sh\nexit 0", true)
@@ -284,6 +302,8 @@ responses[mapping.python3] = { code = 1, stdout = "" }
 selected, count = start()
 expect(selected == nil and count == 1, "no invalid fallback host")
 expect(vim.g.loaded_python3_provider == 0, "failed discovery suppresses builtin fallback")
+expect(vim.g.python_provider_diagnostic == "not-found", "missing import has a diagnostic")
+expect(#notifications == 1 and notifications[1]:find("pynvim", 1, true), "missing import warns with dependency reason")
 selected, count = start()
 expect(selected == nil and count == 0, "short negative cache")
 expect(check.python_version() == "" and #calls == 0, "version honors negative cache")
@@ -305,16 +325,21 @@ host = candidate("new-launcher")
 mapping["pynvim-python"] = host
 selected, count = start()
 expect(selected == host and count == 1, "later installation discovered")
+fresh("empty-wrapper")
+mapping.python3 = candidate("empty")
+responses[mapping.python3] = { code = 0, stdout = "" }
+selected, count = start()
+expect(
+  selected == nil and vim.g.python_provider_diagnostic == "not-found",
+  "empty wrapper output is not a successful probe"
+)
 fresh("invalid-result")
 mapping.python3 = candidate("nil-result")
 responses[mapping.python3] = "nil"
 selected, count = start()
 expect(selected == nil and count == 1, "nil result cannot crash startup")
 expect(vim.g.python_provider_diagnostic == "invalid-result", "failed probe diagnosed")
-expect(
-  #notifications == 1 and notifications[1]:find("restarting Neovim", 1, true),
-  "failure notification describes restart recovery"
-)
+expect(#notifications == 0, "failure notification is once per real Neovim process")
 fresh("timeout")
 mapping.python3 = candidate("slow")
 responses[mapping.python3] = "timeout"
@@ -392,6 +417,30 @@ expect(vim.g.python_version:match("^3%.%d+%.%d+$") ~= nil, "actual probe parses 
 vim.fn.delete(pynvim)
 selected, count = start()
 expect(selected == nil and vim.g.python_provider_unavailable, "actual import failure rejects provider")
+-- Exercise the real private-group timeout used for subprocess-based launchers.
+fresh("real-wrapper-timeout")
+local pidfile = home .. "/child.pid"
+local wrapper = file(
+  home .. "/bin/python3",
+  "#!/usr/bin/python3 -B\nimport subprocess\nchild = subprocess.Popen(['/usr/bin/python3', '-B', '-c', 'import time; time.sleep(30)'])\nopen("
+    .. string.format("%q", pidfile)
+    .. ", 'w').write(str(child.pid))\nchild.wait()",
+  true
+)
+mapping.python3 = wrapper
+local before_timeout = vim.uv.hrtime()
+selected, count = start()
+expect(selected == nil and (vim.uv.hrtime() - before_timeout) / 1e6 < 2500, "real wrapper timeout stays bounded")
+expect(vim.g.python_provider_diagnostic == "timeout", "real wrapper timeout diagnosed")
+local child_pid = tonumber(vim.fn.readfile(pidfile)[1])
+local stopped = vim.wait(1000, function()
+  if not vim.uv.fs_stat("/proc/" .. child_pid .. "/stat") then
+    return true
+  end
+  local line = vim.fn.readfile("/proc/" .. child_pid .. "/stat")[1]
+  return line:match("%)%s+(%a)") == "Z"
+end, 10)
+expect(stopped, "wrapper interpreter child has stopped after group kill")
 vim.env.HOME, vim.system, vim.fn.exepath, vim.uv.os_gethostname =
   saved.home, saved.system, saved.exepath, saved.hostname
 vim.env.PATH, vim.env.VIRTUAL_ENV, vim.env.CONDA_PREFIX = saved.path, saved.virtual_env, saved.conda
