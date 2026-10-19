@@ -1,5 +1,6 @@
 local check = require("vimrc.check")
 local plugin_utils = require("vimrc.plugin_utils")
+local utils = require("vimrc.utils")
 
 local basic = {}
 
@@ -26,7 +27,12 @@ basic.setup_python_host = function(defer_discovery)
         vim.g.python3_host_prog = "/usr/local/bin/python3"
       end
     end
-  elseif not defer_discovery and check.os_is("Linux") and vim.g.python3_host_prog == nil then
+  elseif
+    not defer_discovery
+    and not utils.is_light_vim_mode()
+    and check.os_is("Linux")
+    and vim.g.python3_host_prog == nil
+  then
     local host, version = require("vimrc.python_provider").resolve_python_host()
     vim.g.python_provider_unavailable = host == nil
     if not host then

@@ -12,6 +12,7 @@ local saved = {
   conda = vim.env.CONDA_PREFIX,
   has = vim.fn.has,
   notify = vim.notify,
+  vim_mode = vim.env.VIM_MODE,
 }
 local checks = 0
 local function expect(value, message)
@@ -118,6 +119,8 @@ local function fresh(label)
   home = root .. "/" .. number .. "-" .. label
   vim.fn.mkdir(home .. "/.vim", "p")
   vim.env.HOME = home
+  vim.env.VIM_MODE = nil
+  vim.g.loaded_reader_mode, vim.g.loaded_gitcommit_mode = nil, nil
   vim.env.PATH, vim.env.VIRTUAL_ENV, vim.env.CONDA_PREFIX = "", nil, nil
   killed, notifications = false, {}
   cache.path = home .. "/.vim/.config_cache"
@@ -378,6 +381,31 @@ host = candidate("local")
 file(home .. "/.vim_local.lua", "vim.g.python3_host_prog = " .. vim.inspect(host), false)
 selected, count = start()
 expect(selected == host and count == 0, "machine-local override wins")
+for _, mode in ipairs({ "reader", "gitcommit" }) do
+  fresh("light-mode")
+  vim.env.VIM_MODE = mode
+  mapping.python3 = candidate("unused-light")
+  local get_version = check.python_version
+  check.python_version = function()
+    error("light file-explorer setup must not query Python version")
+  end
+  vim.fn.has = function()
+    error("light startup must not initialize Python provider")
+  end
+  selected, count = start()
+  require("plug.plugin_choose").setup_file_explorer()
+  expect(selected == nil and count == 0, "light startup skips automatic discovery")
+  expect(
+    vim.g.loaded_python3_provider == nil and not vim.g.python_provider_unavailable,
+    "light mode retains on-demand provider support"
+  )
+  expect(require("vimrc.choose").is_disabled_plugin("defx.nvim"), "Defx remains disabled in light mode")
+  local explicit_light = candidate("explicit-light")
+  selected, count = start(explicit_light)
+  require("plug.plugin_choose").setup_file_explorer()
+  expect(selected == explicit_light and count == 0, "light mode preserves explicit host without queries")
+  check.python_version, vim.fn.has = get_version, original_has
+end
 fresh("platform")
 os_name = "Darwin test"
 mapping.python3 = candidate("unused")
@@ -471,6 +499,7 @@ vim.env.HOME, vim.system, vim.fn.exepath, vim.uv.os_gethostname =
   saved.home, saved.system, saved.exepath, saved.hostname
 vim.env.PATH, vim.env.VIRTUAL_ENV, vim.env.CONDA_PREFIX = saved.path, saved.virtual_env, saved.conda
 vim.fn.has, vim.notify = saved.has, saved.notify
+vim.env.VIM_MODE = saved.vim_mode
 local integration = vim.env.PYTHON_PROVIDER_TEST_HOST
 if integration and integration ~= "" then
   vim.g.loaded_python3_provider = nil
