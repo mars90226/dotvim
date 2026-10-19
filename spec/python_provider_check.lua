@@ -474,11 +474,22 @@ expect(selected == nil and vim.g.python_provider_unavailable, "actual import fai
 -- Exercise the real private-group timeout used for subprocess-based launchers.
 fresh("real-wrapper-timeout")
 local pidfile = home .. "/child.pid"
+local interpreter_marker = home .. "/interpreter-used"
+local interpreter = file(
+  home .. "/resolved-python",
+  "#!/bin/sh\nprintf used > "
+    .. vim.fn.shellescape(interpreter_marker)
+    .. "\nexec "
+    .. vim.fn.shellescape(python)
+    .. ' "$@"',
+  true
+)
+local wrapper_code = "import subprocess, sys\nchild = subprocess.Popen([sys.executable, '-B', '-c', 'import time; time.sleep(30)'])\nopen("
+  .. string.format("%q", pidfile)
+  .. ", 'w').write(str(child.pid))\nchild.wait()"
 local wrapper = file(
   home .. "/bin/python3",
-  "#!/usr/bin/python3 -B\nimport subprocess\nchild = subprocess.Popen(['/usr/bin/python3', '-B', '-c', 'import time; time.sleep(30)'])\nopen("
-    .. string.format("%q", pidfile)
-    .. ", 'w').write(str(child.pid))\nchild.wait()",
+  "#!/bin/sh\nexec " .. vim.fn.shellescape(interpreter) .. " -B -c " .. vim.fn.shellescape(wrapper_code),
   true
 )
 mapping.python3 = wrapper
@@ -486,6 +497,7 @@ local before_timeout = vim.uv.hrtime()
 selected, count = start()
 expect(selected == nil and (vim.uv.hrtime() - before_timeout) / 1e6 < 2500, "real wrapper timeout stays bounded")
 expect(vim.g.python_provider_diagnostic == "timeout", "real wrapper timeout diagnosed")
+expect(vim.fn.filereadable(interpreter_marker) == 1, "timeout wrapper uses the resolved interpreter")
 local child_pid = tonumber(vim.fn.readfile(pidfile)[1])
 local stopped = vim.wait(1000, function()
   if not vim.uv.fs_stat("/proc/" .. child_pid .. "/stat") then
