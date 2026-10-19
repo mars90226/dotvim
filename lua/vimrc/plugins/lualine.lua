@@ -64,7 +64,15 @@ lualine.default_option = {
         end,
       }, "sidekick.nvim"),
     }),
-    lualine_x = { "encoding", "fileformat", "filetype" },
+    lualine_x = {
+      -- Temporary workaround for vim.opt:get() in nomodifiable buffers.
+      -- https://github.com/neovim/neovim/issues/42393
+      function()
+        return vim.bo.fileencoding
+      end,
+      "fileformat",
+      "filetype",
+    },
     lualine_y = { "progress" },
     lualine_z = { "location" },
   },
