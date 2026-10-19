@@ -252,6 +252,7 @@ oil.setup_config = function()
         desc = "Open the command line with the current directory as an argument",
       },
       ["y<C-G>"] = "actions.copy_entry_path",
+      ["ygr"] = "actions.copy_entry_path",
 
       -- Terminal
       ["<C-/>"] = "actions.open_terminal",
