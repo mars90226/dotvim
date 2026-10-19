@@ -663,6 +663,9 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         enabled = false,
       },
       cli = {
+        -- fork-only config
+        primary_backend = "herdr",
+        discovery = { herdr = true, tmux = true },
         win = {
           split = {
             width = 100,
@@ -679,6 +682,10 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         mux = {
           backend = "tmux",
           enabled = true,
+          herdr = {
+            session = "default", -- Must name an existing running server.
+            create = { enabled = true, workspace = "new" },
+          },
         },
         tools = {
           -- TODO: Need to add new tools to explicitly create new codex session
