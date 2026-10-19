@@ -1,0 +1,21 @@
+local check = require("vimrc.check")
+local plugin_utils = require("vimrc.plugin_utils")
+
+local snapshot = {}
+
+-- Application values for the existing config snapshot, including manual refresh.
+snapshot.collect = function(initializing)
+  local os = check.get_os(true)
+  local distro = check.get_distro(true)
+  -- Select a host before the first provider/version query on a new machine.
+  local version = initializing and (vim.g.python_version or "") or check.python_version(true)
+  return {
+    os = os,
+    distro = distro,
+    python_version = version,
+    is_executable_cache_json = vim.json.encode(plugin_utils.is_executable_cache or {}),
+    python_provider_cache_json = "{}",
+  }
+end
+
+return snapshot

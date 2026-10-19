@@ -57,6 +57,9 @@ end
 --- @return string The detected Python version (or empty if not found).
 function M.python_version(force)
   force = force or false
+  if not force and vim.g.python_provider_unavailable then
+    return ""
+  end
   if force or not vim.g.python_version or vim.g.python_version == "" then
     local version = ""
     if vim.fn.has("python3") == 1 then
@@ -67,10 +70,15 @@ function M.python_version(force)
     if version ~= "" then
       local parts = vim.split(version, "%s+")
       -- Filter empty parts and take the first part as the version.
-      parts = vim.tbl_filter(function(part) return part ~= "" end, parts)
+      parts = vim.tbl_filter(function(part)
+        return part ~= ""
+      end, parts)
       version = (parts[1] or "")
     end
     vim.g.python_version = version
+    if not force and version ~= "" then
+      require("vimrc.python_provider").save_python_version(version)
+    end
   end
   return vim.g.python_version
 end
