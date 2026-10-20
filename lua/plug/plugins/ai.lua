@@ -664,6 +664,13 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
       },
       cli = {
         -- fork-only config
+        -- TODO: Deferred 2026-10-20: herdr 0.9.5 issues, not .vim configuration errors.
+        -- Ctrl-D from agent to shell, then terminal EOF can warn: clean and failed
+        -- terminal exits both yield attach status 1. No public exit code is available
+        -- to safely silence only clean exits; await herdr exit-status protocol support.
+        -- New takes ~4s, with 3.53-3.62s in agent start/readiness: overlapping 3s
+        -- managed-start settle and 3s process-acquisition grace, plus 100ms polling.
+        -- Await herdr readiness improvements; reducing timeout does not speed this up.
         primary_backend = "herdr",
         discovery = { herdr = true, tmux = true },
         win = {
