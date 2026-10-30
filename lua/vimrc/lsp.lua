@@ -273,13 +273,13 @@ lsp.servers = {
       return lsp_opts
     end,
   },
-  -- TODO: Add recommended config from nvim-lspconfig.
-  -- Ref: https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/lua_ls.lua
-  lua_ls = {
+  -- NOTE: Use emmylua_ls instead of lua_ls for lower memory usage. Library is provided by lazydev.nvim
+  -- through `vimrc.plugins.lazydev`.
+  emmylua_ls = {
     -- TODO: Refine condition
     condition = check.has_linux_build_env(),
     settings = {
-      Lua = {
+      emmylua = {
         runtime = {
           version = "LuaJIT",
         },

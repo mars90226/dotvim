@@ -303,6 +303,10 @@ local lsp = {
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
       },
     },
+    config = function(_, opts)
+      require("lazydev").setup(opts)
+      require("vimrc.plugins.lazydev").setup_emmylua_bridge()
+    end,
   },
   { "b0o/schemastore.nvim", ft = { "json", "yaml" } },
   {
