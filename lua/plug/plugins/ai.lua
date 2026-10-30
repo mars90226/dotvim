@@ -662,6 +662,14 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
       nes = {
         enabled = false,
       },
+      -- NOTE: Copilot completions come from copilot.lua. Don't attach sidekick's status handler to
+      -- copilot.lua's client, which notified every status change (e.g. "Completions limit reached"
+      -- on each request).
+      copilot = {
+        status = {
+          enabled = false,
+        },
+      },
       cli = {
         -- fork-only config
         -- TODO: Deferred 2026-10-20: herdr 0.9.5 issues, not .vim configuration errors.
