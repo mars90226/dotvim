@@ -299,6 +299,7 @@ local git = {
   -- GitLab
   {
     "harrisoncramer/gitlab.nvim",
+    branch = "develop",
     cond = choose.is_enabled_plugin("gitlab.nvim"),
     dependencies = {
       "MunifTanjim/nui.nvim",
