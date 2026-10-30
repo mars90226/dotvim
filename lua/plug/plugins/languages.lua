@@ -126,23 +126,7 @@ local languages = {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = { "VeryLazy" },
     config = function()
-      -- TODO: Move to nvim_treesitter.lua
-      local hlargs = require("hlargs")
-
-      hlargs.setup()
-
-      local hlargs_augroup_id = vim.api.nvim_create_augroup("hlargs_settings", {})
-      vim.api.nvim_create_autocmd({ "OptionSet" }, {
-        group = hlargs_augroup_id,
-        pattern = "diff",
-        callback = function()
-          if vim.api.nvim_get_option_value("diff", {}) then
-            hlargs.disable()
-          else
-            hlargs.enable()
-          end
-        end,
-      })
+      require("vimrc.plugins.hlargs").setup()
     end,
   },
 
