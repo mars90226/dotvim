@@ -216,6 +216,10 @@ lsp.servers = {
   },
   harper_ls = {
     condition = check.has_linux_build_env(),
+    -- NOTE: nvim-lspconfig attaches harper_ls to most programming languages to check comments, which
+    -- keeps it running in most sessions. Only start it for prose by default, and use
+    -- `:LspEnableHarperForCode` to restore nvim-lspconfig's filetypes.
+    filetypes = { "asciidoc", "gitcommit", "jjdescription", "markdown", "tex", "typst" },
     capabilities = {
       workspace = {
         didChangeWatchedFiles = {
@@ -577,6 +581,18 @@ lsp.setup_commands = function()
   vim.api.nvim_create_user_command("LspStopOptionalServers", function()
     vim.lsp.enable({ "harper_ls", "marksman" }, false)
   end, { desc = "Stop optional LSP servers and disable automatic startup for this session" })
+
+  vim.api.nvim_create_user_command("LspEnableHarperForCode", function()
+    if not lsp.get_servers().harper_ls then
+      vim.notify("harper_ls is not available in this environment", vim.log.levels.WARN)
+      return
+    end
+
+    local default_config = dofile(vim.api.nvim_get_runtime_file("lsp/harper_ls.lua", false)[1])
+    vim.lsp.config("harper_ls", { filetypes = default_config.filetypes })
+    -- Also attaches to already loaded buffers
+    vim.lsp.enable("harper_ls")
+  end, { desc = "Enable harper_ls for all filetypes supported by nvim-lspconfig in this session" })
 
   vim.api.nvim_create_user_command("LspStopIdleServers", function()
     for _, client in ipairs(vim.lsp.get_clients()) do
