@@ -80,6 +80,66 @@ blink_cmp.setup_ripgrep_gitgrep_flags = function()
   gitgrep_command._vimrc_flags_wrapped = true
 end
 
+local ripgrep_parser_source_pattern = "/blink%-ripgrep/backends/[%w_]+/[%w_]+_parser%.lua$"
+
+local wrap_ripgrep_parser = function(module_name, function_name)
+  local ok, parser = pcall(require, module_name)
+  if not ok or parser._vimrc_lazy_language then
+    return
+  end
+
+  local parse = parser[function_name]
+  parser[function_name] = function(...)
+    local filetype_match = vim.filetype.match
+    -- Parsing is synchronous, but only skip calls from the parsers themselves in case that changes.
+    vim.filetype.match = function(args, ...)
+      if debug.getinfo(2, "S").source:find(ripgrep_parser_source_pattern) then
+        return nil
+      end
+      return filetype_match(args, ...)
+    end
+    local parse_ok, output = pcall(parse, ...)
+    vim.filetype.match = filetype_match
+    if not parse_ok then
+      error(output, 0)
+    end
+
+    for _, file in pairs(output.files) do
+      file.language = nil
+    end
+    return output
+  end
+  parser._vimrc_lazy_language = true
+end
+
+-- NOTE: blink-ripgrep parsers call `vim.filetype.match` (~35µs) for every matched file on every
+-- keystroke, which blocks typing for 50-260ms in large repos. The result is only used by the
+-- documentation preview, which calls `vim.filetype.match` again anyway. Skip it while parsing and
+-- compute the language lazily when an item's documentation is rendered. This wraps internal
+-- modules of blink-ripgrep.nvim, recheck after updating it.
+blink_cmp.setup_ripgrep_lazy_language = function()
+  wrap_ripgrep_parser("blink-ripgrep.backends.git_grep.git_grep_parser", "parse_output")
+  wrap_ripgrep_parser("blink-ripgrep.backends.ripgrep.ripgrep_parser", "parse")
+
+  local ok, documentation = pcall(require, "blink-ripgrep.documentation")
+  if not ok or documentation._vimrc_lazy_language then
+    return
+  end
+
+  local render = documentation.render_item_documentation
+  documentation.render_item_documentation = function(config, draw_opts, file, match)
+    if file.language == nil then
+      -- Same fallback chain as blink-ripgrep's parsers
+      local ext = vim.fn.fnamemodify(file.path, ":e")
+      file.language = vim.filetype.match({ filename = file.path })
+        or vim.treesitter.language.get_lang(ext or "text")
+        or ext
+    end
+    return render(config, draw_opts, file, match)
+  end
+  documentation._vimrc_lazy_language = true
+end
+
 blink_cmp.setup = function()
   local blink = require("blink.cmp")
 
@@ -376,6 +436,11 @@ blink_cmp.setup = function()
       },
     },
   })
+
+  -- NOTE: After blink.setup(), as blink-ripgrep.documentation reads blink config when loaded
+  if choose.is_enabled_plugin("blink-ripgrep.nvim") then
+    blink_cmp.setup_ripgrep_lazy_language()
+  end
 end
 
 return blink_cmp
