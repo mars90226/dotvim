@@ -57,6 +57,11 @@ local appearance = {
     event = { "VeryLazy" },
     opts = {
       preset = "modern",
+      -- which-key caches a keymap tree per entered buffer until it is wiped. Diffview keeps
+      -- every visited revision buffer (buftype=nowrite) loaded, which grows memory unbounded.
+      disable = {
+        bt = { "nowrite" },
+      },
     },
     keys = {
       -- NOTE: Some key mappings cannot be triggered when using which-key menu triggered by key
