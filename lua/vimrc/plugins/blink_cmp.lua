@@ -47,44 +47,11 @@ blink_cmp.with_suspended = function(callback)
   return result
 end
 
--- Flags for blink-ripgrep's git grep backend, matching `additional_rg_options` of ripgrep backend.
--- `--max-count` limits matches per file, which reduces the output parsed on every keystroke.
-blink_cmp.ripgrep_gitgrep_flags = { "--threads=2", "--max-count=10" }
-
--- NOTE: blink-ripgrep appends `additional_gitgrep_options` after the search pattern because it's
--- meant for pathspecs, so git grep rejects flags there ("option must come before non-option
--- arguments"). Insert flags before the pattern instead. This wraps an internal module of
--- blink-ripgrep.nvim, recheck after updating it.
-blink_cmp.setup_ripgrep_gitgrep_flags = function()
-  local ok, gitgrep_command = pcall(require, "blink-ripgrep.backends.git_grep.gitgrep_command")
-  if not ok or gitgrep_command._vimrc_flags_wrapped then
-    return
-  end
-
-  local get_command = gitgrep_command.get_command
-  gitgrep_command.get_command = function(prefix, config)
-    local command, err = get_command(prefix, config)
-    if command then
-      local pattern = prefix .. "[\\w_-]+"
-      for i, arg in ipairs(command.command) do
-        if arg == pattern then
-          for j, flag in ipairs(blink_cmp.ripgrep_gitgrep_flags) do
-            table.insert(command.command, i + j - 1, flag)
-          end
-          break
-        end
-      end
-    end
-    return command, err
-  end
-  gitgrep_command._vimrc_flags_wrapped = true
-end
-
 blink_cmp.setup = function()
   local blink = require("blink.cmp")
 
   if choose.is_enabled_plugin("blink-ripgrep.nvim") then
-    blink_cmp.setup_ripgrep_gitgrep_flags()
+    require("vimrc.plugins.blink_ripgrep").setup_gitgrep_flags()
   end
 
   blink.setup({
@@ -306,7 +273,7 @@ blink_cmp.setup = function()
                 ignore_paths = { "/", "/tmp", "/var/tmp", vim.env.HOME },
               },
               gitgrep = {
-                -- NOTE: Only pathspecs work here. Flags are set by `blink_cmp.ripgrep_gitgrep_flags`.
+                -- NOTE: Only pathspecs work here. Flags are set by `vimrc.plugins.blink_ripgrep`.
                 -- additional_gitgrep_options = {},
               },
             }
@@ -376,6 +343,11 @@ blink_cmp.setup = function()
       },
     },
   })
+
+  -- NOTE: After blink.setup(), as blink-ripgrep.documentation reads blink config when loaded
+  if choose.is_enabled_plugin("blink-ripgrep.nvim") then
+    require("vimrc.plugins.blink_ripgrep").setup_lazy_language()
+  end
 end
 
 return blink_cmp
