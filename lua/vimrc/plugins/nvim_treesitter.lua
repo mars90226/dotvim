@@ -214,40 +214,51 @@ nvim_treesitter.setup_filetype_autocmd = function()
     enabled_langs[lang] = true
   end
 
+  local enable_for_buf = function(buf)
+    local ft = vim.bo[buf].filetype
+    local lang = vim.treesitter.language.get_lang(ft)
+
+    -- Skip if no treesitter language mapping for this filetype
+    if not lang then
+      return
+    end
+
+    -- Skip if language is not in our ensure_installed list
+    if not enabled_langs[lang] then
+      return
+    end
+
+    -- Skip if parser is not installed
+    if not vim.treesitter.get_parser(buf, nil, { error = false }) then
+      return
+    end
+
+    -- Skip if force-disabled or filetype-disabled
+    if base_disable_check(ft, buf) then
+      return
+    end
+
+    -- Syntax highlighting
+    vim.treesitter.start(buf)
+
+    -- Indentation
+    vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end
+
   vim.api.nvim_create_autocmd("FileType", {
     group = augroup_id,
     callback = function(args)
-      local buf = args.buf
-      local ft = vim.bo[buf].filetype
-      local lang = vim.treesitter.language.get_lang(ft)
-
-      -- Skip if no treesitter language mapping for this filetype
-      if not lang then
-        return
-      end
-
-      -- Skip if language is not in our ensure_installed list
-      if not enabled_langs[lang] then
-        return
-      end
-
-      -- Skip if parser is not installed
-      if not vim.treesitter.get_parser(buf, nil, { error = false }) then
-        return
-      end
-
-      -- Skip if force-disabled or filetype-disabled
-      if base_disable_check(ft, buf) then
-        return
-      end
-
-      -- Syntax highlighting
-      vim.treesitter.start(buf)
-
-      -- Indentation
-      vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      enable_for_buf(args.buf)
     end,
   })
+
+  -- NOTE: nvim-treesitter is loaded on VeryLazy, so buffers opened on startup (e.g. `nvim file.cpp`
+  -- or session restore) have already missed FileType.
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].filetype ~= "" then
+      enable_for_buf(buf)
+    end
+  end
 end
 
 nvim_treesitter.setup_textobjects = function()
