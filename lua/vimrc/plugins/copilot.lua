@@ -5,7 +5,6 @@ my_copilot.attach_filters = {}
 -- TODO: Better naming
 
 my_copilot.default_model = "gpt-5.4"
-my_copilot.default_github_model = "gpt-5.4"
 my_copilot.default_free_model = "gpt-5-mini"
 my_copilot.default_fast_model = "gpt-5.4-mini"
 my_copilot.default_think_model = "gpt-5.4"
@@ -126,7 +125,6 @@ my_copilot.models = {
     max_tokens = 128000,
   },
 }
-my_copilot.github_models = vim.tbl_extend("force", my_copilot.models, {})
 
 my_copilot.attach = function()
   -- Make buffer valid for copilot
