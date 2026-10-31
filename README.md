@@ -82,7 +82,7 @@ Well, these plugins are hard to categorize, but they are gems. You will need the
 
 ### Neovim
 
-- [neovim](https://neovim.io/) 0.11.4+ (stable), 0.12.0+ (nightly)
+- [neovim](https://neovim.io/) 0.13.0-dev (nightly, mainly tested), 0.12.0+ (stable, not regularly tested)
 - [python](https://www.python.org/) 3.6.1+ (optional, for Python provider / pynvim / Defx.nvim)
 - [universal-ctags](https://github.com/universal-ctags/ctags) (required by fzf)
 - C compiler and libstdc++ (required by nvim-treesitter)

@@ -143,7 +143,7 @@ oil.execute = function(path, action, cmd)
     return
   end
 
-  vim.fn["vimrc#tui#run"](action, oil._get_command(cmd, path), 1)
+  vim.fn["vimrc#tui#run"](action, oil._get_command(command, path), 1)
 end
 
 oil.setup_config = function()
