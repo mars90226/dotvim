@@ -279,12 +279,6 @@ local ai = {
             local copilot_model = require("vimrc.plugins.codecompanion").get_copilot_model()
             return require("codecompanion.adapters").extend("copilot", copilot_model)
           end,
-          githubmodels = function()
-            -- NOTE: Need to use `require("codecompanion.adapters").extend()` to get `CodeCompanion.Adapter`.
-            -- But it also means we have to merge the model configs, not just override it.
-            local github_model = require("vimrc.plugins.codecompanion").get_github_model()
-            return require("codecompanion.adapters").extend("githubmodels", github_model)
-          end,
         },
         acp = {
           -- TODO: Not working yet
@@ -414,7 +408,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
             {
               role = "user",
               content = function(context)
-                local code = require("codecompanion.helpers.actions").get_code(context.start_line, context.end_line)
+                local code = require("codecompanion.helpers.code").get_code(context.start_line, context.end_line)
 
                 return string.format(
                   [[Please review this code from buffer %d:
@@ -647,9 +641,6 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
           end,
         },
       }
-
-      -- Required for `opts.auto_reload`
-      vim.opt.autoread = true
     end,
   },
   {

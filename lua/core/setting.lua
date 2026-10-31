@@ -33,6 +33,7 @@ settings.setup_options = function()
   vim.opt.cursorline = true
   vim.opt.ruler = true -- show the cursor position all the time
   vim.opt.spell = true
+  vim.opt.autoread = true -- NOTE: Default in Neovim, set explicitly as agents (OpenCode, Sidekick) edit files externally
 
   vim.go.timeout = true
   vim.go.timeoutlen = 300
