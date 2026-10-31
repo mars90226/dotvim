@@ -281,14 +281,16 @@ local ai = {
           end,
         },
         acp = {
-          -- TODO: Not working yet
-          claude_code = function()
-            return require("codecompanion.adapters").extend("claude_code", {
-              env = {
-                CLAUDE_CODE_OAUTH_TOKEN = "CLAUDE_CODE_OAUTH_TOKEN",
+          -- NOTE: Requires codex-acp (@agentclientprotocol/codex-acp), uses the ChatGPT login of codex
+          codex = function()
+            return require("codecompanion.adapters").extend("codex", {
+              defaults = {
+                auth_method = "chat-gpt", -- "api-key" | "chat-gpt"
               },
             })
           end,
+          -- NOTE: claude_code is not configured. Anthropic doesn't endorse using Claude subscription
+          -- through third-party ACP adapters, use the official claude CLI via sidekick.nvim instead.
           gemini_cli = function()
             return require("codecompanion.adapters").extend("gemini_cli", {
               commands = {
@@ -318,7 +320,8 @@ local ai = {
       },
       interactions = {
         chat = {
-          adapter = "copilot",
+          -- NOTE: ACP adapters only work in chat, inline/agent need an HTTP adapter
+          adapter = "codex",
           -- TODO: Refactor this to apply to all slash commands
           slash_commands = {
             ["file"] = {
@@ -460,7 +463,9 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
               duplicate = { n = "<C-y>", i = "<C-y>" },
             },
             ---Automatically generate titles for new chats
-            auto_generate_title = true,
+            -- NOTE: Title generation doesn't support ACP adapters (chat uses codex), and using copilot
+            -- "auto" for it failed on 2026-10-31
+            auto_generate_title = false,
             title_generation_opts = {
               ---Adapter for generating titles (defaults to current chat adapter)
               adapter = nil, -- "copilot"
