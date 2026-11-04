@@ -290,7 +290,13 @@ lsp.servers = {
       },
     },
   },
-  marksman = {},
+  marksman = {
+    -- NOTE: marksman can grow without bound and push the machine into swap thrashing before the
+    -- kernel OOM killer reacts. Cap the .NET GC heap at 1 GiB so marksman fails alone instead.
+    cmd_env = {
+      DOTNET_GCHeapHardLimit = "0x40000000",
+    },
+  },
   neocmake = {
     condition = check.has_linux_build_env(),
   },
