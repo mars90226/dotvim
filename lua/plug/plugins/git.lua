@@ -304,7 +304,7 @@ local git = {
     -- "harrisoncramer/gitlab.nvim",
     -- branch = "develop",
     "mars90226/gitlab.nvim",
-    branch = "fix/server-settings-env-20261104",
+    branch = "develop",
     cond = choose.is_enabled_plugin("gitlab.nvim"),
     dependencies = {
       "MunifTanjim/nui.nvim",
