@@ -298,8 +298,13 @@ local git = {
 
   -- GitLab
   {
-    "harrisoncramer/gitlab.nvim",
-    branch = "develop",
+    -- NOTE: Use our fork to pass the auth token through the environment instead of the
+    -- server's command-line arguments, which every user can read via ps.
+    -- Ref: https://github.com/harrisoncramer/gitlab.nvim/issues/583
+    -- "harrisoncramer/gitlab.nvim",
+    -- branch = "develop",
+    "mars90226/gitlab.nvim",
+    branch = "fix/server-settings-env-20261104",
     cond = choose.is_enabled_plugin("gitlab.nvim"),
     dependencies = {
       "MunifTanjim/nui.nvim",
