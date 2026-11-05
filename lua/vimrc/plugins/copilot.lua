@@ -2,127 +2,20 @@ local my_copilot = {}
 
 my_copilot.attach_filters = {}
 
--- TODO: Better naming
+-- NOTE: Copilot Free doesn't offer model choice (all models have `model_picker_enabled` = false).
+-- CodeCompanion sends "auto" by omitting `model`, which Copilot rejects with "model_not_supported",
+-- so use a model whose policy is enabled instead.
+my_copilot.default_model = "gpt-4.1"
 
-my_copilot.default_model = "gpt-5.4"
-my_copilot.default_free_model = "gpt-5-mini"
-my_copilot.default_fast_model = "gpt-5.4-mini"
-my_copilot.default_think_model = "gpt-5.4"
-
--- NOTE: Use the model info from Copilot using CopilotChat.nvim
+-- NOTE: To list the models of a plan, use `:CopilotChatModels`. Don't enable CopilotChat debug
+-- logging for this, as it logs request headers including the GitHub OAuth token.
+-- NOTE: CodeCompanion v20 copilot adapter only uses `model`, so don't add other parameters.
 my_copilot.models = {
-  ["gpt-5.5"] = {
-    model = "gpt-5.5",
-    max_tokens = 128000,
-    reasoning_effort = "medium",
-  },
-  ["gpt-5.5-xhigh"] = {
-    model = "gpt-5.5",
-    max_tokens = 128000,
-    reasoning_effort = "xhigh",
-  },
-  ["gpt-5.4"] = {
-    model = "gpt-5.4",
-    max_tokens = 128000,
-    reasoning_effort = "medium",
-  },
-  ["gpt-5.4-xhigh"] = {
-    model = "gpt-5.4",
-    max_tokens = 128000,
-    reasoning_effort = "xhigh",
-  },
-  ["gpt-5.4-mini"] = {
-    model = "gpt-5.4-mini",
-    max_tokens = 128000,
-    reasoning_effort = "medium",
-  },
-  ["gpt-5.4-mini-xhigh"] = {
-    model = "gpt-5.4-mini",
-    max_tokens = 128000,
-    reasoning_effort = "xhigh",
-  },
-  ["gpt-5.2"] = {
-    model = "gpt-5.2",
-    max_tokens = 128000,
-    reasoning_effort = "medium",
-  },
-  ["gpt-5.2-xhigh"] = {
-    model = "gpt-5.2",
-    max_tokens = 128000,
-    reasoning_effort = "xhigh",
-  },
-  ["gpt-5.3-codex"] = {
-    model = "gpt-5.3-codex",
-    max_tokens = 272000,
-    reasoning_effort = "medium",
-  },
-  ["gpt-5.3-codex-xhigh"] = {
-    model = "gpt-5.3-codex",
-    max_tokens = 272000,
-    reasoning_effort = "xhigh",
-  },
-  ["gpt-5.2-codex"] = {
-    model = "gpt-5.2-codex",
-    max_tokens = 272000,
-    reasoning_effort = "medium",
-  },
-  ["gpt-5.2-codex-xhigh"] = {
-    model = "gpt-5.2-codex",
-    max_tokens = 272000,
-    reasoning_effort = "xhigh",
-  },
-  ["gpt-5.1-codex-mini"] = {
-    model = "gpt-5.1-codex-mini",
-    max_tokens = 128000,
-    reasoning_effort = "medium",
-  },
-  ["gpt-5-mini"] = {
-    model = "gpt-5-mini",
-    max_tokens = 128000,
-  },
   ["gpt-4.1"] = {
     model = "gpt-4.1",
-    max_tokens = 128000,
-  },
-  ["gemini-3-pro-preview"] = {
-    model = "gemini-3-pro-preview",
-    max_tokens = 128000,
-  },
-  ["gemini-3.1-pro-preview"] = {
-    model = "gemini-3.1-pro-preview",
-    max_tokens = 128000,
-  },
-  ["gemini-3-flash-preview"] = {
-    model = "gemini-3-flash-preview",
-    max_tokens = 128000,
   },
   ["claude-haiku-4.5"] = {
     model = "claude-haiku-4.5",
-    max_tokens = 128000,
-  },
-  ["claude-sonnet-4.5"] = {
-    model = "claude-sonnet-4.5",
-    max_tokens = 128000,
-  },
-  ["claude-sonnet-4.6"] = {
-    model = "claude-sonnet-4.6",
-    max_tokens = 128000,
-  },
-  ["claude-opus-4.5"] = {
-    model = "claude-opus-4.5",
-    max_tokens = 128000,
-  },
-  ["claude-opus-4.6"] = {
-    model = "claude-opus-4.6",
-    max_tokens = 168000,
-  },
-  ["claude-opus-4.7"] = {
-    model = "claude-opus-4.7",
-    max_tokens = 128000,
-  },
-  ["grok-code-fast-1"] = {
-    model = "grok-code-fast-1",
-    max_tokens = 128000,
   },
 }
 
