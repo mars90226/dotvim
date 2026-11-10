@@ -247,28 +247,6 @@ local utility = {
     end,
   },
 
-  -- Focus
-  {
-    "hoschi/yode-nvim",
-    keys = {
-      { "<Leader>yc", [[<Cmd>YodeCreateSeditorFloating<CR>]], desc = "Yode - create editor in float" },
-      { "<Leader>yr", [[<Cmd>YodeCreateSeditorReplace<CR>]], desc = "Yode - create editor in current window" },
-    },
-    config = function()
-      require("yode-nvim").setup({})
-
-      vim.keymap.set("n", "<Leader>bd", [[:YodeBufferDelete<CR>]])
-
-      vim.keymap.set("n", "<C-W>r", [[<Cmd>YodeLayoutShiftWinDown<CR>]])
-      vim.keymap.set("n", "<C-W>R", [[<Cmd>YodeLayoutShiftWinUp<CR>]])
-      vim.keymap.set("n", "<C-W>J", [[<Cmd>YodeLayoutShiftWinBottom<CR>]])
-      vim.keymap.set("n", "<C-W>K", [[<Cmd>YodeLayoutShiftWinTop<CR>]])
-
-      -- For no gap between floating windows
-      vim.go.showtabline = 2
-    end,
-  },
-
   -- Code Runner
   {
     "tpope/vim-dispatch",
