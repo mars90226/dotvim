@@ -291,7 +291,7 @@ local utility = {
     cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
     keys = {
       -- Open compiler
-      { "<Leader>pc", "<Cmd>CompilerOpen<CR>", silent = true, desc = "Comiler.nvim - open compiler" },
+      { "<Leader>pc", "<Cmd>CompilerOpen<CR>", silent = true, desc = "Compiler.nvim - open compiler" },
       {
         "<Leader>pl",
         "<Cmd>CompilerStop<CR>" .. "<Cmd>CompilerRedo<CR>",
