@@ -272,7 +272,7 @@ local lsp = {
   {
     "mrcjkb/rustaceanvim",
     cond = choose.is_enabled_plugin("rustaceanvim"),
-    version = "^6", -- Recommended
+    version = "^9", -- Recommended
     ft = { "rust" },
     config = function()
       -- NOTE: rustaceanvim use ftplugin to load config.
