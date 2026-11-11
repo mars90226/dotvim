@@ -552,6 +552,12 @@ local file_navigation = {
         vim.g.gutentags_ctags_exclude =
           utils.table_concat(vim.g.gutentags_ctags_exclude, vim.g.gutentags_secret_ctags_exclude)
       end
+
+      -- Only index files git knows about, as a recursive scan also walks ignored build outputs and
+      -- copies (e.g. `.tmp/`), which can take minutes in large repositories
+      vim.g.gutentags_file_list_command = {
+        markers = { [".git"] = "git ls-files --cached --others --exclude-standard" },
+      }
     end,
   },
 
