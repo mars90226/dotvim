@@ -554,9 +554,10 @@ local file_navigation = {
       end
 
       -- Only index files git knows about, as a recursive scan also walks ignored build outputs and
-      -- copies (e.g. `.tmp/`), which can take minutes in large repositories
+      -- copies (e.g. `.tmp/`), which can take minutes in large repositories.
+      -- Disable path quoting so that `ctags -L` receives literal non-ASCII filenames.
       vim.g.gutentags_file_list_command = {
-        markers = { [".git"] = "git ls-files --cached --others --exclude-standard" },
+        markers = { [".git"] = "git -c core.quotePath=false ls-files --cached --others --exclude-standard" },
       }
     end,
   },
