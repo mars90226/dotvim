@@ -1,4 +1,7 @@
+vim.opt.runtimepath:remove(vim.fn.stdpath("config"))
+vim.opt.runtimepath:remove(vim.fn.stdpath("config") .. "/after")
 vim.opt.runtimepath:prepend(vim.fn.getcwd())
+vim.opt.runtimepath:append(vim.fn.getcwd() .. "/after")
 
 local temp = vim.fn.tempname()
 local project = temp .. "/project"
@@ -23,6 +26,8 @@ package.loaded.codesettings = {
       config.settings.validate = { "javascript", "typescript" }
       config.settings.format = { enable = false }
       config.settings.codeActionsOnSave = { mode = "problems" }
+    elseif name == "yamlls" then
+      config.settings.yaml = { format = { enable = true } }
     end
   end,
 }
@@ -66,8 +71,49 @@ assert(not ok and err:find("settings load failed", 1, true), "settings errors sh
 assert(original_called, "the server's before_init should run even when loading settings fails")
 load_error = false
 
+local captured = {}
+local client_config = vim.deepcopy(vim.lsp.config.codesettings_fixture)
+client_config.name = "yamlls"
+client_config.root_dir = project
+client_config.cmd = function(dispatchers)
+  return {
+    request = function(method, _, callback)
+      if method == "initialize" then
+        vim.schedule(function()
+          callback(nil, { capabilities = {} })
+        end)
+      end
+      return true, 1
+    end,
+    notify = function(method, params)
+      if method == "workspace/didChangeConfiguration" then
+        captured.settings = params.settings
+      elseif method == "exit" then
+        dispatchers.on_exit(0, 15)
+      end
+      return true
+    end,
+    is_closing = function()
+      return false
+    end,
+    terminate = function() end,
+  }
+end
+local client_id = vim.lsp.start(client_config, { attach = false })
+assert(client_id, "the fake language server should start")
+assert(
+  vim.wait(1000, function()
+    return captured.settings ~= nil
+  end),
+  "project settings should reach a server with no explicit settings"
+)
+assert(captured.settings.yaml.format.enable, "the client should notify the server of project settings")
+vim.lsp.get_client_by_id(client_id):stop(true)
+
 local schema = vim.json.decode(table.concat(vim.fn.readfile("after/codesettings-schemas/harper_ls.json"), "\n"))
 assert(schema.properties["harper-ls"].type == "object", "Harper project settings should be selectable")
+local schema_paths = vim.api.nvim_get_runtime_file("after/codesettings-schemas/harper_ls.json", true)
+assert(#schema_paths == 1 and schema_paths[1] == vim.fn.getcwd() .. "/after/codesettings-schemas/harper_ls.json")
 
 local plugin_dir = vim.fn.stdpath("data") .. "/lazy/codesettings.nvim"
 if vim.fn.isdirectory(plugin_dir) == 1 then
@@ -90,14 +136,24 @@ if vim.fn.isdirectory(plugin_dir) == 1 then
     ["eslint.format.enable"] = false,
     ["eslint.rules.customizations"] = { { rule = "example", severity = "warn" } },
     ["eslint.workingDirectories"] = { { mode = "location" } },
+    ["harper.userDictPath"] = "/tmp/vscode-dictionary",
+    ["harper.workspaceDictPath"] = "${workspaceFolder}/workspace-dictionary",
+    ["harper.dialect"] = "British",
     ["rust-analyzer.procMacro.enable"] = false,
+    ["rust-analyzer.cargo.extraArgs"] = { "--locked" },
     ["yaml.format.enable"] = true,
   }
   vim.fn.writefile({ vim.json.encode(vscode_settings) }, project .. "/.vscode/settings.json")
 
   local harper = { name = "harper_ls", root_dir = nested, settings = {} }
+  vim.api.nvim_buf_set_name(0, other .. "/file.md")
   adapter.before_init({}, harper)
-  assert(harper.settings["harper-ls"].userDictPath == "/tmp/dictionary", "Harper settings should reach the client")
+  assert(harper.settings["harper-ls"].userDictPath == "/tmp/dictionary", "neoconf should take precedence over VS Code")
+  assert(harper.settings["harper-ls"].dialect == "British", "VS Code Harper settings should reach the client")
+  assert(
+    harper.settings["harper-ls"].workspaceDictPath == project .. "/workspace-dictionary",
+    "VS Code variables should use the client's project, not the current buffer"
+  )
   local real_eslint = { name = "eslint", root_dir = nested, settings = { format = true } }
   adapter.before_init({}, real_eslint)
   assert(real_eslint.settings.format == false, "ESLint's VS Code setting should reach the client")
@@ -128,50 +184,14 @@ if vim.fn.isdirectory(plugin_dir) == 1 then
   vscode_settings["eslint.workingDirectories"] = { { mode = "location" } }
   vim.fn.writefile({ vim.json.encode(vscode_settings) }, project .. "/.vscode/settings.json")
   local rust_params = {}
-  adapter.before_init(rust_params, { name = "rust-analyzer", root_dir = nested, settings = {} })
+  local rust_config = { name = "rust-analyzer", root_dir = nested, settings = {} }
+  adapter.before_init(rust_params, rust_config)
+  adapter.before_init(rust_params, rust_config)
   assert(
     rust_params.initializationOptions.procMacro.enable == false,
     "Rust project options should reach initialization"
   )
-
-  local captured = {}
-  local client_config = vim.deepcopy(vim.lsp.config.codesettings_fixture)
-  client_config.name = "yamlls"
-  client_config.root_dir = project
-  client_config.cmd = function(dispatchers)
-    return {
-      request = function(method, _, callback)
-        if method == "initialize" then
-          vim.schedule(function()
-            callback(nil, { capabilities = {} })
-          end)
-        end
-        return true, 1
-      end,
-      notify = function(method, params)
-        if method == "workspace/didChangeConfiguration" then
-          captured.settings = params.settings
-        elseif method == "exit" then
-          dispatchers.on_exit(0, 15)
-        end
-        return true
-      end,
-      is_closing = function()
-        return false
-      end,
-      terminate = function() end,
-    }
-  end
-  local client_id = vim.lsp.start(client_config, { attach = false })
-  assert(client_id, "the fake language server should start")
-  assert(
-    vim.wait(1000, function()
-      return captured.settings ~= nil
-    end),
-    "project settings should reach a server with no explicit settings"
-  )
-  assert(captured.settings.yaml.format.enable, "the client should notify the server of project settings")
-  vim.lsp.get_client_by_id(client_id):stop(true)
+  assert(#rust_config.settings["rust-analyzer"].cargo.extraArgs == 1, "restart should not duplicate project lists")
   print("codesettings plugin and Harper schema integration checks passed")
 else
   print("codesettings plugin integration skipped: plugin is not installed")

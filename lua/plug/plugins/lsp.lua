@@ -44,7 +44,9 @@ local lsp = {
         cmd = "Codesettings",
         opts = {
           config_file_paths = { ".vscode/settings.json", "codesettings.json", "lspsettings.json", ".neoconf.json" },
-          loader_extensions = { "codesettings.extensions.vscode", "codesettings.extensions.neoconf" },
+          loader_extensions = require("vimrc.plugins.codesettings").loader_extensions(),
+          merge_lists = "replace",
+          lua_ls_integration = false,
         },
       },
     },

@@ -1,5 +1,23 @@
 local codesettings = {}
 
+codesettings.loader_extensions = function(root)
+  return {
+    function()
+      return require("codesettings.extensions.vscode")({ root = root })
+    end,
+    "codesettings.extensions.neoconf",
+    {
+      object = function(node, context)
+        if #context.path == 0 and type(node.harper) == "table" then
+          node["harper-ls"] = vim.tbl_deep_extend("force", node.harper, node["harper-ls"] or {})
+          node.harper = nil
+        end
+        return require("codesettings.extensions").Control.CONTINUE
+      end,
+    },
+  }
+end
+
 codesettings.before_init = function(params, config)
   local root = config.root_dir
   if type(root) == "string" then
@@ -8,7 +26,11 @@ codesettings.before_init = function(params, config)
   end
 
   local eslint_settings = config.name == "eslint" and vim.deepcopy(config.settings or {})
-  require("codesettings").with_local_settings(config.name, config, { root_dir = root })
+  require("codesettings").with_local_settings(config.name, config, {
+    root_dir = root,
+    loader_extensions = codesettings.loader_extensions(root),
+    merge_lists = "replace",
+  })
 
   if eslint_settings then
     -- VS Code's ESLint extension uses different types and names than the server.
