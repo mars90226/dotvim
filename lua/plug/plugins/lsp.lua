@@ -285,7 +285,15 @@ local lsp = {
       local server = require("vimrc.lsp").calculate_server_opts("rustaceanvim", {})
       local overrides = server.settings
       server.settings = function(root, defaults)
-        return require("vimrc.plugins.codesettings").rust_settings(root, defaults, overrides)
+        local ok, settings = pcall(require("vimrc.plugins.codesettings").rust_settings, root, defaults, overrides)
+        if ok then
+          return settings
+        end
+        vim.notify(
+          "codesettings: failed to load Rust settings for " .. tostring(root) .. ": " .. settings,
+          vim.log.levels.WARN
+        )
+        return vim.tbl_deep_extend("force", vim.deepcopy(defaults or {}), vim.deepcopy(overrides or {}))
       end
       vim.g.rustaceanvim = {
         server = server,

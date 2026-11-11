@@ -1,5 +1,6 @@
 local codesettings = {}
 local rust_bases = {}
+local rust_loaded = {}
 
 codesettings.loader_extensions = function(root)
   return {
@@ -9,7 +10,7 @@ codesettings.loader_extensions = function(root)
     "codesettings.extensions.neoconf",
     {
       object = function(node, context)
-        if #context.path == 0 and type(node.harper) == "table" then
+        if #context.path == 0 and type(node.harper) == "table" and type(node["harper-ls"] or {}) == "table" then
           node["harper-ls"] = vim.tbl_deep_extend("force", node.harper, node["harper-ls"] or {})
           node.harper = nil
         end
@@ -53,11 +54,16 @@ codesettings.apply = function(config)
   end
   local eslint_settings = config.name == "eslint" and vim.deepcopy(config.settings or {})
   local json_schemas = config.name == "jsonls" and vim.deepcopy(vim.tbl_get(config.settings, "json", "schemas") or {})
-  require("codesettings").with_local_settings(config.name, config, {
-    root_dir = root,
-    loader_extensions = codesettings.loader_extensions(root),
-    merge_lists = "replace",
-  })
+  -- codesettings currently appends lists when it combines files internally.
+  -- Load each file in order so the configured replace policy applies between files too.
+  for _, path in ipairs(require("codesettings.config").config_file_paths) do
+    require("codesettings").with_local_settings(config.name, config, {
+      root_dir = root,
+      config_file_paths = { path },
+      loader_extensions = codesettings.loader_extensions(root),
+      merge_lists = "replace",
+    })
+  end
 
   if eslint_settings then
     -- VS Code's ESLint extension uses different types and names than the server.
@@ -133,18 +139,67 @@ local function remove_settings(target, settings)
   end
 end
 
+-- Keep changes made by rustaceanvim or its commands across project reloads.
+local function record_changes(previous, current, changes)
+  for key in pairs(previous) do
+    if current[key] == nil then
+      changes[key] = { changed = true }
+    end
+  end
+  for key, value in pairs(current) do
+    local old = previous[key]
+    local old_map = old == nil or (type(old) == "table" and (not vim.islist(old) or next(old) == nil))
+    local value_map = type(value) == "table" and (not vim.islist(value) or next(value) == nil)
+    if not vim.deep_equal(old, value) then
+      if old_map and value_map then
+        local child = changes[key]
+        if not child or child.changed then
+          child = { children = {} }
+          changes[key] = child
+        end
+        record_changes(old or {}, value, child.children)
+        if next(child.children) == nil then
+          changes[key] = nil
+        end
+      else
+        changes[key] = { changed = true, value = vim.deepcopy(value) }
+      end
+    end
+  end
+end
+
+local function apply_changes(settings, changes)
+  for key, change in pairs(changes) do
+    if change.changed then
+      settings[key] = vim.deepcopy(change.value)
+    else
+      if type(settings[key]) ~= "table" then
+        settings[key] = {}
+      end
+      apply_changes(settings[key], change.children)
+    end
+  end
+end
+
 codesettings.before_init = function(params, config)
   if config.name == "rust-analyzer" then
     local previous = vim.deepcopy(vim.tbl_get(config.settings or {}, "rust-analyzer") or {})
+    local last = config._codesettings_rust_last or rust_loaded[config.root_dir] or config.settings or {}
+    local changes = config._codesettings_rust_changes or {}
+    record_changes(last, config.settings or {}, changes)
     if rust_bases[config.root_dir] then
       config._codesettings_base_settings = vim.deepcopy(rust_bases[config.root_dir])
     end
     codesettings.apply(config)
+    apply_changes(config.settings, changes)
+    config._codesettings_rust_changes = changes
+    config._codesettings_rust_last = vim.deepcopy(config.settings)
     -- Rustaceanvim restarts reuse initialization options from the previous client.
     local options = vim.deepcopy(params.initializationOptions or {})
     remove_settings(options, previous)
     params.initializationOptions =
       vim.tbl_deep_extend("force", options, vim.tbl_get(config.settings, "rust-analyzer") or {})
+    config.init_options = vim.deepcopy(params.initializationOptions)
   else
     codesettings.apply(config)
   end
@@ -159,6 +214,7 @@ codesettings.rust_settings = function(root, defaults, overrides)
   codesettings.apply(config)
   if root then
     rust_bases[root] = vim.deepcopy(config._codesettings_base_settings)
+    rust_loaded[root] = vim.deepcopy(config.settings)
   end
   return config.settings
 end

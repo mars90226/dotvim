@@ -135,10 +135,14 @@ if vim.fn.isdirectory(plugin_dir) == 1 then
   end
   assert(opts, "codesettings plugin options should be available")
   require("codesettings").setup(opts)
-  vim.fn.writefile(
-    { vim.json.encode({ lspconfig = { harper_ls = { ["harper-ls.userDictPath"] = "/tmp/dictionary" } } }) },
-    project .. "/.neoconf.json"
-  )
+  vim.fn.writefile({
+    vim.json.encode({
+      lspconfig = {
+        harper_ls = { ["harper-ls.userDictPath"] = "/tmp/dictionary" },
+        rust_analyzer = { ["rust-analyzer.cargo.extraArgs"] = { "--offline" } },
+      },
+    }),
+  }, project .. "/.neoconf.json")
   local vscode_settings = {
     ["eslint.format.enable"] = false,
     ["eslint.rules.customizations"] = { { rule = "example", severity = "warn" } },
@@ -162,6 +166,13 @@ if vim.fn.isdirectory(plugin_dir) == 1 then
     harper.settings["harper-ls"].workspaceDictPath == project .. "/workspace-dictionary",
     "VS Code variables should use the client's project, not the current buffer"
   )
+  vscode_settings["harper-ls"] = true
+  vim.fn.writefile({ vim.json.encode(vscode_settings) }, project .. "/.vscode/settings.json")
+  local invalid_harper = { name = "yamlls", root_dir = nested, settings = {} }
+  adapter.before_init({}, invalid_harper)
+  assert(invalid_harper.settings.yaml.format.enable, "an invalid Harper value should not block other servers")
+  vscode_settings["harper-ls"] = nil
+  vim.fn.writefile({ vim.json.encode(vscode_settings) }, project .. "/.vscode/settings.json")
   local real_eslint = { name = "eslint", root_dir = nested, settings = { format = true } }
   adapter.before_init({}, real_eslint)
   assert(real_eslint.settings.format == false, "ESLint's VS Code setting should reach the client")
@@ -193,29 +204,52 @@ if vim.fn.isdirectory(plugin_dir) == 1 then
   vim.fn.writefile({ vim.json.encode(vscode_settings) }, project .. "/.vscode/settings.json")
   local first_rust = adapter.rust_settings(nested, { ["rust-analyzer"] = { procMacro = { enable = true } } })
   assert(first_rust["rust-analyzer"].procMacro.enable == false, "Rust project options should reach the client")
-  assert(#first_rust["rust-analyzer"].cargo.extraArgs == 1, "Rust project lists should reach the client")
+  assert(
+    vim.deep_equal(first_rust["rust-analyzer"].cargo.extraArgs, { "--offline" }),
+    "later project files should replace earlier lists"
+  )
   local rust_config = { name = "rust-analyzer", root_dir = nested, settings = vim.deepcopy(first_rust) }
-  local rust_params = {
-    initializationOptions = vim.tbl_deep_extend(
-      "force",
-      { detachedFiles = { "untitled.rs" } },
-      vim.deepcopy(first_rust["rust-analyzer"])
-    ),
-  }
+  rust_config.settings["rust-analyzer"].files = { watcher = "server" }
+  rust_config.init_options = vim.tbl_deep_extend(
+    "force",
+    { detachedFiles = { "untitled.rs" } },
+    vim.deepcopy(rust_config.settings["rust-analyzer"])
+  )
+  local held_settings = rust_config.settings
+  local rust_params = { initializationOptions = vim.deepcopy(rust_config.init_options) }
   adapter.before_init(rust_params, rust_config)
+  assert(rust_config.settings == held_settings, "Rust initialization should preserve the settings table")
+  assert(rust_params.initializationOptions.files.watcher == "server", "Rust should retain the file watcher")
+  rust_config.settings["rust-analyzer"].cargo.target = "wasm32-unknown-unknown"
   vscode_settings["rust-analyzer.procMacro.enable"] = nil
   vscode_settings["rust-analyzer.cargo.extraArgs"] = nil
+  vim.fn.writefile(
+    { vim.json.encode({ lspconfig = { harper_ls = { ["harper-ls.userDictPath"] = "/tmp/dictionary" } } }) },
+    project .. "/.neoconf.json"
+  )
   vscode_settings["eslint.format.enable"] = nil
   vim.fn.writefile({ vim.json.encode(vscode_settings) }, project .. "/.vscode/settings.json")
   local reloaded_rust = adapter.rust_settings(nested, { ["rust-analyzer"] = { procMacro = { enable = true } } })
   assert(reloaded_rust["rust-analyzer"].procMacro.enable, "Rust reload should restore removed project settings")
+  rust_params = { initializationOptions = vim.deepcopy(rust_config.init_options) }
   adapter.before_init(rust_params, rust_config)
   assert(rust_params.initializationOptions.procMacro.enable, "Rust restart should restore removed project settings")
-  assert(rust_params.initializationOptions.cargo == nil, "Rust restart should remove old project options")
+  assert(rust_params.initializationOptions.cargo.extraArgs == nil, "Rust restart should remove old project options")
+  assert(
+    rust_params.initializationOptions.cargo.target == "wasm32-unknown-unknown",
+    "Rust target should survive restart"
+  )
   assert(
     rust_params.initializationOptions.detachedFiles[1] == "untitled.rs",
     "Rust restart should preserve other options"
   )
+  rust_params = { initializationOptions = vim.deepcopy(rust_config.init_options) }
+  adapter.before_init(rust_params, rust_config)
+  assert(
+    rust_params.initializationOptions.cargo.extraArgs == nil,
+    "Rust options should stay removed after a second restart"
+  )
+  assert(rust_params.initializationOptions.cargo.target == "wasm32-unknown-unknown", "Rust target should persist")
   local rust_plugin_dir = vim.fn.stdpath("data") .. "/lazy/rustaceanvim"
   if vim.fn.isdirectory(rust_plugin_dir) == 1 then
     vim.opt.runtimepath:append(rust_plugin_dir)
@@ -224,6 +258,20 @@ if vim.fn.isdirectory(plugin_dir) == 1 then
         spec.config()
       end
     end
+    local original_rust_settings = adapter.rust_settings
+    local original_notify = vim.notify
+    local settings_warning
+    adapter.rust_settings = function()
+      error("settings fixture failure")
+    end
+    vim.notify = function(message)
+      settings_warning = message
+    end
+    local fallback = vim.g.rustaceanvim.server.settings(nested, { ["rust-analyzer"] = { fixture = true } })
+    adapter.rust_settings = original_rust_settings
+    vim.notify = original_notify
+    assert(fallback["rust-analyzer"].fixture, "Rust should retain defaults when loading settings fails")
+    assert(settings_warning:find("settings fixture failure", 1, true), "Rust settings failure should be reported")
     local rust_analyzer = require("rustaceanvim.rust_analyzer")
     local original_clients = rust_analyzer.get_active_rustaceanvim_clients
     local client = { config = { root_dir = nested }, notify = function() end }
@@ -239,6 +287,8 @@ if vim.fn.isdirectory(plugin_dir) == 1 then
     require("rustaceanvim.lsp").reload_settings(0)
     assert(client.settings["rust-analyzer"].procMacro.enable, "Rust reload should restore the default")
     rust_analyzer.get_active_rustaceanvim_clients = original_clients
+  else
+    print("rustaceanvim integration skipped: plugin is not installed")
   end
   adapter.before_init({}, real_eslint)
   assert(real_eslint.settings.format, "restart should restore removed project settings")
