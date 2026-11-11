@@ -29,6 +29,25 @@ codesettings.before_init = function(params, config)
         vim.tbl_deep_extend("force", settings.codeActionOnSave or {}, settings.codeActionsOnSave)
       settings.codeActionsOnSave = nil
     end
+    if type(settings.rules) == "table" and type(settings.rules.customizations) == "table" then
+      settings.rulesCustomizations = settings.rules.customizations
+      settings.rules.customizations = nil
+      if next(settings.rules) == nil then
+        settings.rules = nil
+      end
+    end
+    if type(settings.workingDirectories) == "table" then
+      local directories = settings.workingDirectories
+      if #directories == 1 and type(directories[1]) == "table" and directories[1].mode then
+        settings.workingDirectory = { mode = directories[1].mode }
+      else
+        vim.notify_once(
+          "codesettings: ESLint workingDirectories supports only a single mode entry",
+          vim.log.levels.WARN
+        )
+      end
+      settings.workingDirectories = nil
+    end
   end
 
   if config.name == "rust-analyzer" then

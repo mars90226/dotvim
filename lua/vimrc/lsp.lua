@@ -13,6 +13,7 @@ lsp.config = {
 
 lsp.servers = {
   ["*"] = {
+    settings = {},
     before_init = function(params, config)
       require("vimrc.plugins.codesettings").before_init(params, config)
     end,
@@ -548,8 +549,11 @@ lsp.setup_server = function(server, custom_opts)
   if before_init and before_init ~= lsp.servers["*"].before_init then
     vim.lsp.config(server, {
       before_init = function(params, config)
-        lsp.servers["*"].before_init(params, config)
+        local ok, err = pcall(lsp.servers["*"].before_init, params, config)
         before_init(params, config)
+        if not ok then
+          error(err, 0)
+        end
       end,
     })
   end
