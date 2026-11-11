@@ -226,13 +226,6 @@ local utility = {
       end
     end,
   },
-  -- NOTE: Also as dependency of nvim-lspconfig
-  {
-    "folke/neoconf.nvim",
-    cmd = "Neoconf",
-    opts = {},
-  },
-
   -- Quickfix
   { "kevinhwang91/nvim-bqf", ft = { "qf" } },
   { "thinca/vim-qfreplace", ft = { "qf" } },

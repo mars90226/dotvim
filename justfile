@@ -8,3 +8,4 @@ test:
 	@XDG_STATE_HOME="$(mktemp -d /tmp/nvim-fzf-sync.XXXXXX)" nvim --headless -u NONE -i NONE -S spec/fzf_sync_spec.vim
 	@XDG_STATE_HOME="$(mktemp -d /tmp/nvim-palette.XXXXXX)" timeout 10 nvim --headless -u NONE -i NONE -c 'luafile spec/command_palette_check.lua'
 	@XDG_STATE_HOME="$(mktemp -d /tmp/nvim-provider.XXXXXX)" timeout 30 nvim -u NONE -i NONE -n --headless -l spec/python_provider_check.lua
+	@XDG_STATE_HOME="$(mktemp -d /tmp/nvim-codesettings.XXXXXX)" timeout 30 nvim -u NONE -i NONE -n --headless -l spec/codesettings_check.lua
