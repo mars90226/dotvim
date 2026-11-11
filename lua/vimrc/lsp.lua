@@ -13,6 +13,10 @@ lsp.config = {
 
 lsp.servers = {
   ["*"] = {
+    settings = {},
+    before_init = function(params, config)
+      require("vimrc.plugins.codesettings").before_init(params, config)
+    end,
     capabilities = (function(override)
       -- Enable some language servers with the additional completion capabilities offered by blink.cmp
       return vim.tbl_deep_extend(
@@ -541,6 +545,18 @@ lsp.setup_server = function(server, custom_opts)
   end
 
   vim.lsp.config(server, lsp_opts)
+  local before_init = vim.lsp.config[server].before_init
+  if before_init and before_init ~= lsp.servers["*"].before_init then
+    vim.lsp.config(server, {
+      before_init = function(params, config)
+        local ok, err = pcall(lsp.servers["*"].before_init, params, config)
+        before_init(params, config)
+        if not ok then
+          error(err, 0)
+        end
+      end,
+    })
+  end
 end
 
 lsp.init_mason_map = function()
@@ -621,7 +637,6 @@ end
 
 -- TODO: project level notify
 -- TODO: Improve notify settings
--- See [neoconf.nvimluaneoconfpluginslspconfig.lua at 4a36457c389fab927c885d53fba6e07f4eedf1f4 · folkeneoconf.nvim](https://github.com/folke/neoconf.nvim/blob/4a36457c389fab927c885d53fba6e07f4eedf1f4/lua/neoconf/plugins/lspconfig.lua#L67) as reference
 lsp.notify_settings = function(server, settings)
   for _, lsp_client in ipairs(vim.lsp.get_clients({ name = server })) do
     lsp_client.config.settings = vim.tbl_deep_extend("force", lsp_client.config.settings or {}, settings)

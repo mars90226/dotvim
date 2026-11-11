@@ -38,12 +38,16 @@ local lsp = {
       -- TODO: mason-lspconfig.nvim has `ensure_installed` now, and we only use
       -- mason-tool-installer.nvim to install LSPs. So we can remove this plugin.
       "WhoIsSethDaniel/mason-tool-installer.nvim",
-      -- NOTE: Currently not support neovim 0.11 + vim.lsp.config
-      -- Ref: https://github.com/folke/neoconf.nvim/issues/116
       {
-        "folke/neoconf.nvim",
-        cmd = "Neoconf",
-        opts = {},
+        "mrjones2014/codesettings.nvim",
+        version = "^1",
+        cmd = "Codesettings",
+        opts = {
+          config_file_paths = { ".vscode/settings.json", "codesettings.json", "lspsettings.json", ".neoconf.json" },
+          loader_extensions = require("vimrc.plugins.codesettings").loader_extensions(),
+          merge_lists = "replace",
+          lua_ls_integration = false,
+        },
       },
     },
     config = function()
@@ -278,8 +282,21 @@ local lsp = {
       -- NOTE: rustaceanvim use ftplugin to load config.
       -- The lazy.nvim will add rustaceanvim's path to 'runtimepath', and load config function afterward.
       -- So this config function is loaded before rustaceanvim's ftplugin.
+      local server = require("vimrc.lsp").calculate_server_opts("rustaceanvim", {})
+      local overrides = server.settings
+      server.settings = function(root, defaults)
+        local ok, settings = pcall(require("vimrc.plugins.codesettings").rust_settings, root, defaults, overrides)
+        if ok then
+          return settings
+        end
+        vim.notify(
+          "codesettings: failed to load Rust settings for " .. tostring(root) .. ": " .. settings,
+          vim.log.levels.WARN
+        )
+        return vim.tbl_deep_extend("force", vim.deepcopy(defaults or {}), vim.deepcopy(overrides or {}))
+      end
       vim.g.rustaceanvim = {
-        server = require("vimrc.lsp").calculate_server_opts("rustaceanvim", {}),
+        server = server,
         -- TODO: Add dap config
       }
     end,
