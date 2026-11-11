@@ -1,4 +1,5 @@
 local codesettings = {}
+local rust_bases = {}
 
 codesettings.loader_extensions = function(root)
   return {
@@ -18,14 +19,40 @@ codesettings.loader_extensions = function(root)
   }
 end
 
-codesettings.before_init = function(params, config)
+codesettings.apply = function(config)
   local root = config.root_dir
   if type(root) == "string" then
-    root = vim.fs.root(root, { { ".vscode", ".neoconf.json", "codesettings.json", "lspsettings.json", ".git", ".jj" } })
-      or root
+    local paths = require("codesettings.config").config_file_paths
+    root = vim.fs.root(root, function(name, path)
+      if name == ".git" or name == ".jj" then
+        return true
+      end
+      for _, relative in ipairs(paths) do
+        if name == relative:match("^[^/]+") then
+          local stat = vim.uv.fs_stat(vim.fs.joinpath(path, relative))
+          if stat and stat.type == "file" then
+            return true
+          end
+        end
+      end
+      return false
+    end) or root
   end
 
+  config.settings = config.settings or {}
+  if config._codesettings_base_settings then
+    -- Restarts reuse the merged config, while client.settings retains this table.
+    for key in pairs(config.settings) do
+      config.settings[key] = nil
+    end
+    for key, value in pairs(vim.deepcopy(config._codesettings_base_settings)) do
+      config.settings[key] = value
+    end
+  else
+    config._codesettings_base_settings = vim.deepcopy(config.settings)
+  end
   local eslint_settings = config.name == "eslint" and vim.deepcopy(config.settings or {})
+  local json_schemas = config.name == "jsonls" and vim.deepcopy(vim.tbl_get(config.settings, "json", "schemas") or {})
   require("codesettings").with_local_settings(config.name, config, {
     root_dir = root,
     loader_extensions = codesettings.loader_extensions(root),
@@ -36,6 +63,10 @@ codesettings.before_init = function(params, config)
     -- VS Code's ESLint extension uses different types and names than the server.
     local settings = config.settings
     if type(settings.validate) == "table" then
+      vim.notify_once(
+        "codesettings: ESLint validate language list is ignored in " .. (root or "unknown root"),
+        vim.log.levels.WARN
+      )
       settings.validate = eslint_settings.validate or "on"
     end
     if type(settings.format) == "table" then
@@ -64,7 +95,9 @@ codesettings.before_init = function(params, config)
         settings.workingDirectory = { mode = directories[1].mode }
       else
         vim.notify_once(
-          "codesettings: ESLint workingDirectories supports only a single mode entry",
+          "codesettings: ESLint workingDirectories is ignored in "
+            .. (root or "unknown root")
+            .. "; only a single mode entry is supported",
           vim.log.levels.WARN
         )
       end
@@ -72,13 +105,62 @@ codesettings.before_init = function(params, config)
     end
   end
 
-  if config.name == "rust-analyzer" then
-    params.initializationOptions = vim.tbl_deep_extend(
-      "force",
-      params.initializationOptions or {},
-      vim.tbl_get(config.settings, "rust-analyzer") or {}
-    )
+  local project_schemas = config.name == "jsonls" and vim.tbl_get(config.settings, "json", "schemas")
+  if project_schemas and not vim.deep_equal(project_schemas, json_schemas) then
+    for _, schema in ipairs(project_schemas) do
+      if
+        not vim.iter(json_schemas):any(function(existing)
+          return vim.deep_equal(existing, schema)
+        end)
+      then
+        table.insert(json_schemas, schema)
+      end
+    end
+    config.settings.json.schemas = json_schemas
   end
+end
+
+local function remove_settings(target, settings)
+  for key, value in pairs(settings) do
+    if type(value) == "table" and not vim.islist(value) and type(target[key]) == "table" then
+      remove_settings(target[key], value)
+      if next(target[key]) == nil then
+        target[key] = nil
+      end
+    else
+      target[key] = nil
+    end
+  end
+end
+
+codesettings.before_init = function(params, config)
+  if config.name == "rust-analyzer" then
+    local previous = vim.deepcopy(vim.tbl_get(config.settings or {}, "rust-analyzer") or {})
+    if rust_bases[config.root_dir] then
+      config._codesettings_base_settings = vim.deepcopy(rust_bases[config.root_dir])
+    end
+    codesettings.apply(config)
+    -- Rustaceanvim restarts reuse initialization options from the previous client.
+    local options = vim.deepcopy(params.initializationOptions or {})
+    remove_settings(options, previous)
+    params.initializationOptions =
+      vim.tbl_deep_extend("force", options, vim.tbl_get(config.settings, "rust-analyzer") or {})
+  else
+    codesettings.apply(config)
+  end
+end
+
+codesettings.rust_settings = function(root, defaults, overrides)
+  local config = {
+    name = "rust-analyzer",
+    root_dir = root,
+    settings = vim.tbl_deep_extend("force", vim.deepcopy(defaults or {}), vim.deepcopy(overrides or {})),
+  }
+  codesettings.apply(config)
+  if root then
+    rust_bases[root] = vim.deepcopy(config._codesettings_base_settings)
+  end
+  return config.settings
 end
 
 return codesettings

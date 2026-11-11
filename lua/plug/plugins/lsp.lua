@@ -282,8 +282,13 @@ local lsp = {
       -- NOTE: rustaceanvim use ftplugin to load config.
       -- The lazy.nvim will add rustaceanvim's path to 'runtimepath', and load config function afterward.
       -- So this config function is loaded before rustaceanvim's ftplugin.
+      local server = require("vimrc.lsp").calculate_server_opts("rustaceanvim", {})
+      local overrides = server.settings
+      server.settings = function(root, defaults)
+        return require("vimrc.plugins.codesettings").rust_settings(root, defaults, overrides)
+      end
       vim.g.rustaceanvim = {
-        server = require("vimrc.lsp").calculate_server_opts("rustaceanvim", {}),
+        server = server,
         -- TODO: Add dap config
       }
     end,

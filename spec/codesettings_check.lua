@@ -7,12 +7,20 @@ local temp = vim.fn.tempname()
 local project = temp .. "/project"
 local nested = project .. "/src"
 local other = project .. "/other"
+local unrelated = temp .. "/unrelated"
 vim.fn.mkdir(nested, "p")
 vim.fn.mkdir(other .. "/.git", "p")
+vim.fn.mkdir(unrelated .. "/.git", "p")
 vim.fn.mkdir(project .. "/.vscode", "p")
+vim.fn.mkdir(nested .. "/.vscode", "p")
+vim.fn.writefile({ "{}" }, project .. "/.vscode/settings.json")
+vim.fn.writefile({ "{}" }, nested .. "/.vscode/launch.json")
 
 local observed
 local load_error
+package.loaded["codesettings.config"] = {
+  config_file_paths = { ".vscode/settings.json", "codesettings.json", "lspsettings.json", ".neoconf.json" },
+}
 package.loaded.codesettings = {
   with_local_settings = function(name, config, opts)
     if load_error then
@@ -33,11 +41,9 @@ package.loaded.codesettings = {
 }
 
 local adapter = require("vimrc.plugins.codesettings")
-local params = { initializationOptions = { retained = true, procMacro = { enable = true } } }
-adapter.before_init(params, { name = "rust-analyzer", root_dir = nested })
+local rust_settings = adapter.rust_settings(nested, { ["rust-analyzer"] = { procMacro = { enable = true } } })
 assert(observed == project, "settings should resolve at the nearest project marker")
-assert(params.initializationOptions.retained, "existing initialization options should survive")
-assert(params.initializationOptions.procMacro.enable == false, "Rust project options should reach initialization")
+assert(rust_settings["rust-analyzer"].procMacro.enable == false, "Rust project options should reach the client")
 
 adapter.before_init({}, { name = "harper_ls", root_dir = other })
 assert(observed == other, "a nested repository should not inherit the parent project's settings")
@@ -119,6 +125,7 @@ local plugin_dir = vim.fn.stdpath("data") .. "/lazy/codesettings.nvim"
 if vim.fn.isdirectory(plugin_dir) == 1 then
   vim.opt.runtimepath:append(plugin_dir)
   package.loaded.codesettings = nil
+  package.loaded["codesettings.config"] = nil
   local specs = require("plug.plugins.lsp")
   local opts
   for _, dependency in ipairs(specs[1].dependencies) do
@@ -142,11 +149,12 @@ if vim.fn.isdirectory(plugin_dir) == 1 then
     ["rust-analyzer.procMacro.enable"] = false,
     ["rust-analyzer.cargo.extraArgs"] = { "--locked" },
     ["yaml.format.enable"] = true,
+    ["json.schemas"] = { { fileMatch = { "project.json" }, url = "project-schema" } },
   }
   vim.fn.writefile({ vim.json.encode(vscode_settings) }, project .. "/.vscode/settings.json")
 
   local harper = { name = "harper_ls", root_dir = nested, settings = {} }
-  vim.api.nvim_buf_set_name(0, other .. "/file.md")
+  vim.api.nvim_buf_set_name(0, unrelated .. "/file.md")
   adapter.before_init({}, harper)
   assert(harper.settings["harper-ls"].userDictPath == "/tmp/dictionary", "neoconf should take precedence over VS Code")
   assert(harper.settings["harper-ls"].dialect == "British", "VS Code Harper settings should reach the client")
@@ -183,15 +191,61 @@ if vim.fn.isdirectory(plugin_dir) == 1 then
   )
   vscode_settings["eslint.workingDirectories"] = { { mode = "location" } }
   vim.fn.writefile({ vim.json.encode(vscode_settings) }, project .. "/.vscode/settings.json")
-  local rust_params = {}
-  local rust_config = { name = "rust-analyzer", root_dir = nested, settings = {} }
+  local first_rust = adapter.rust_settings(nested, { ["rust-analyzer"] = { procMacro = { enable = true } } })
+  assert(first_rust["rust-analyzer"].procMacro.enable == false, "Rust project options should reach the client")
+  assert(#first_rust["rust-analyzer"].cargo.extraArgs == 1, "Rust project lists should reach the client")
+  local rust_config = { name = "rust-analyzer", root_dir = nested, settings = vim.deepcopy(first_rust) }
+  local rust_params = {
+    initializationOptions = vim.tbl_deep_extend(
+      "force",
+      { detachedFiles = { "untitled.rs" } },
+      vim.deepcopy(first_rust["rust-analyzer"])
+    ),
+  }
   adapter.before_init(rust_params, rust_config)
+  vscode_settings["rust-analyzer.procMacro.enable"] = nil
+  vscode_settings["rust-analyzer.cargo.extraArgs"] = nil
+  vscode_settings["eslint.format.enable"] = nil
+  vim.fn.writefile({ vim.json.encode(vscode_settings) }, project .. "/.vscode/settings.json")
+  local reloaded_rust = adapter.rust_settings(nested, { ["rust-analyzer"] = { procMacro = { enable = true } } })
+  assert(reloaded_rust["rust-analyzer"].procMacro.enable, "Rust reload should restore removed project settings")
   adapter.before_init(rust_params, rust_config)
+  assert(rust_params.initializationOptions.procMacro.enable, "Rust restart should restore removed project settings")
+  assert(rust_params.initializationOptions.cargo == nil, "Rust restart should remove old project options")
   assert(
-    rust_params.initializationOptions.procMacro.enable == false,
-    "Rust project options should reach initialization"
+    rust_params.initializationOptions.detachedFiles[1] == "untitled.rs",
+    "Rust restart should preserve other options"
   )
-  assert(#rust_config.settings["rust-analyzer"].cargo.extraArgs == 1, "restart should not duplicate project lists")
+  local rust_plugin_dir = vim.fn.stdpath("data") .. "/lazy/rustaceanvim"
+  if vim.fn.isdirectory(rust_plugin_dir) == 1 then
+    vim.opt.runtimepath:append(rust_plugin_dir)
+    for _, spec in ipairs(specs) do
+      if spec[1] == "mrcjkb/rustaceanvim" then
+        spec.config()
+      end
+    end
+    local rust_analyzer = require("rustaceanvim.rust_analyzer")
+    local original_clients = rust_analyzer.get_active_rustaceanvim_clients
+    local client = { config = { root_dir = nested }, notify = function() end }
+    rust_analyzer.get_active_rustaceanvim_clients = function()
+      return { client }
+    end
+    vscode_settings["rust-analyzer.procMacro.enable"] = false
+    vim.fn.writefile({ vim.json.encode(vscode_settings) }, project .. "/.vscode/settings.json")
+    require("rustaceanvim.lsp").reload_settings(0)
+    assert(client.settings["rust-analyzer"].procMacro.enable == false, "Rust reload should load project settings")
+    vscode_settings["rust-analyzer.procMacro.enable"] = nil
+    vim.fn.writefile({ vim.json.encode(vscode_settings) }, project .. "/.vscode/settings.json")
+    require("rustaceanvim.lsp").reload_settings(0)
+    assert(client.settings["rust-analyzer"].procMacro.enable, "Rust reload should restore the default")
+    rust_analyzer.get_active_rustaceanvim_clients = original_clients
+  end
+  adapter.before_init({}, real_eslint)
+  assert(real_eslint.settings.format, "restart should restore removed project settings")
+  local json = { name = "jsonls", root_dir = nested, settings = { json = { schemas = { { url = "base-schema" } } } } }
+  adapter.before_init({}, json)
+  adapter.before_init({}, json)
+  assert(#json.settings.json.schemas == 2, "project schemas should extend defaults without duplicating on restart")
   print("codesettings plugin and Harper schema integration checks passed")
 else
   print("codesettings plugin integration skipped: plugin is not installed")
