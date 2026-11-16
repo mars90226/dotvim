@@ -260,14 +260,6 @@ local ai = {
       -- "folke/snacks.nvim", -- Optional: Improves the default Neovim UI
       -- TODO: Use snacks.nvim
       "nvim-telescope/telescope.nvim", -- Optional: For using slash commands
-      -- Optional: For using tools from the MCP Servers
-      {
-        -- NOTE: Use fork for codecompanion v19 compatibility
-        -- Ref: https://github.com/ravitemer/mcphub.nvim/pull/279
-        -- "ravitemer/mcphub.nvim",
-        "bahaaza/mcphub.nvim",
-        cond = choose.is_enabled_plugin("mcphub.nvim"),
-      },
       "ravitemer/codecompanion-history.nvim",
     },
     opts = {
@@ -433,14 +425,6 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         },
       },
       extensions = {
-        mcphub = {
-          callback = "mcphub.extensions.codecompanion",
-          opts = {
-            make_vars = true,
-            make_slash_commands = true,
-            show_result_in_chat = true,
-          },
-        },
         history = {
           enabled = true,
           opts = {
@@ -929,29 +913,6 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
       vim.api.nvim_create_user_command("SidekickNewTool", function(args)
         require("vimrc.plugins.sidekick").create_new_tools(unpack(args.fargs))
       end, { nargs = '+' })
-    end,
-  },
-
-  -- MCP
-  {
-    -- NOTE: Use fork for codecompanion v19 compatibility
-    -- Ref: https://github.com/ravitemer/mcphub.nvim/pull/279
-    -- "ravitemer/mcphub.nvim",
-    "bahaaza/mcphub.nvim",
-    cond = choose.is_enabled_plugin("mcphub.nvim"),
-    dependencies = {
-      "nvim-lua/plenary.nvim", -- Required for Job and HTTP requests
-    },
-    cmd = "MCPHub", -- lazily start the hub when `MCPHub` is called
-    -- NOTE: Use `pnpm` to install in user's home directory to avoid permission issues
-    build = "pnpm add -g mcp-hub@latest", -- Installs required mcp-hub npm module
-    config = function()
-      -- NOTE: Cannot install MCP servers in WSL for now
-      require("mcphub").setup({
-        -- Required options
-        port = 9527, -- Port for MCP Hub server
-        config = vim.fn.expand("~/.config/mcphub/servers.json"), -- Absolute path to config file
-      })
     end,
   },
 }
