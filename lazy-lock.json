@@ -47,7 +47,7 @@
   "devdocs.nvim": { "branch": "main", "commit": "5d3690ea29179ede67ae661669f0434bc8b80339" },
   "dial.nvim": { "branch": "master", "commit": "f2634758455cfa52a8acea6f142dcd6271a1bf57" },
   "diffview.nvim": { "branch": "main", "commit": "3aba39f4d1704cc7aa26af487ab5579b5c614437" },
-  "dropbar.nvim": { "branch": "fix-event", "commit": "4d28d568d1807dd9513c712059e1f1fbdcaeffed" },
+  "dropbar.nvim": { "branch": "master", "commit": "75df03973f3a06a85300bc8ca1f9f68e935cb78e" },
   "emmet-vim": { "branch": "master", "commit": "92ef2f74f4093edc99db5e9e4cf7e40116a85bd6" },
   "eraseSubword": { "branch": "master", "commit": "0e7f473175fe047bf7aac3e999a6b1b41211eb59" },
   "fff.nvim": { "branch": "main", "commit": "9edf195c8fe71f1ab8f84e863fb27b469d2342bf" },
