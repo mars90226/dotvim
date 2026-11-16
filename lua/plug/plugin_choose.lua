@@ -145,12 +145,6 @@ plugin_choose.setup_ai = function()
   if check.is_resource_limited() then
     choose.disable_plugin("sidekick.nvim")
   end
-
-  -- Choose MCP
-  -- mcphub.nvim
-  if choose.is_disabled_plugin("copilot.lua") then
-    choose.disable_plugin("mcphub.nvim")
-  end
 end
 
 plugin_choose.setup_file_explorer = function()
