@@ -760,14 +760,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
             return require("vimrc.plugins.sidekick").get_selected_git_branch()
           end,
         },
-        prompts = {
-          git_branch = "{git_branch}",
-          git_branch_selected = "{git_branch_selected}",
-          review_from_base = "/review review base `tmp-review-base`, 請用繁體中文回答",
-          review_unique = "/review review base `tmp-review-base`, 請用繁體中文回答。請先用 `glab mr view --comments`（不指定編號，會使用目前 branch 對應的 MR）讀取 MR 的討論，排除已經修正、已 resolve，或已回覆決定不修正的 issue，只列出新的問題。若找到的 MR 已 merge 或 close，請先跟我確認",
-          rebase_from_base = "OK，沒有更多 review 意見了，我們可以 rebase 了，請將 `tmp-review-base..@` 的 commit 重新 rebase",
-          chinese = "請用繁體中文回答",
-        }
+        prompts = require("vimrc.plugins.sidekick").prompts,
       },
     },
     -- stylua: ignore
