@@ -52,7 +52,7 @@
   "eraseSubword": { "branch": "master", "commit": "0e7f473175fe047bf7aac3e999a6b1b41211eb59" },
   "fff.nvim": { "branch": "main", "commit": "9edf195c8fe71f1ab8f84e863fb27b469d2342bf" },
   "fidget.nvim": { "branch": "main", "commit": "9e0201673e08e997e7cf52afca5565c70bd117f3" },
-  "flash.nvim": { "branch": "fix/neovim-0.13-search-state", "commit": "c92888d432bebeb145dad09c07ab65cc7c577184" },
+  "flash.nvim": { "branch": "main", "commit": "5f0f270fdc7c5b0c21d903ee85b9cb06f2ac636a" },
   "friendly-snippets": { "branch": "main", "commit": "b2ea5c41a150ba72fb656eedb4ed0a86d138d945" },
   "fugitive-gitlab.vim": { "branch": "master", "commit": "effc1fcb81803aa9c1322b089c7f7a2b53cf3dcc" },
   "fzf": { "branch": "master", "commit": "26ff936df038b6a62ec42cf18db27b2ea2bb8ec3" },
