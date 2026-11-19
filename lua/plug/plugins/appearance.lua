@@ -60,6 +60,9 @@ local appearance = {
         bt = { "nowrite" },
       },
     },
+    config = function(_, opts)
+      require("vimrc.plugins.which_key").setup(opts)
+    end,
     keys = {
       -- NOTE: Some key mappings cannot be triggered when using which-key menu triggered by key
       -- mapping prefix. But those are actually working when using which-key show command.
