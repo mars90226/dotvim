@@ -376,11 +376,40 @@ local file_navigation = {
       { "<Space><CR>", [[<Cmd>Telescope smart_open<CR>]], desc = "Telescope smart_open" },
     },
     config = function()
-      require("telescope").load_extension("smart_open")
+      local telescope = require("telescope")
+      local history = require("telescope._extensions.smart_open.history")
+      local handle_open = history.handle_open
+      -- smart-open 0.2.x imports oldfiles without checking for virtual buffers such as man://.
+      history.handle_open = function(self, filepath, batch_mode, now)
+        if batch_mode and filepath:match("^%a[%w+.-]+://") then
+          return
+        end
+        return handle_open(self, filepath, batch_mode, now)
+      end
+      telescope.load_extension("smart_open")
     end,
     dependencies = {
-      -- TODO: Check if sqlite3 is installed
-      "kkharji/sqlite.lua",
+      {
+        "kkharji/sqlite.lua",
+        config = function()
+          if vim.g.sqlite_clib_path or vim.env.LIBSQLITE then
+            return
+          end
+
+          local os = vim.uv.os_uname()
+          if os.sysname ~= "Darwin" or os.machine ~= "x86_64" then
+            return
+          end
+
+          -- sqlite.lua defaults to this legacy Homebrew path on Intel Macs.
+          if vim.uv.fs_stat("/usr/local/opt/sqlite3/lib/libsqlite3.dylib") then
+            return
+          end
+
+          local brew_sqlite = (vim.env.HOMEBREW_PREFIX or "/usr/local") .. "/opt/sqlite/lib/libsqlite3.dylib"
+          vim.g.sqlite_clib_path = vim.uv.fs_stat(brew_sqlite) and brew_sqlite or "/usr/lib/libsqlite3.dylib"
+        end,
+      },
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         cond = choose.is_enabled_plugin("telescope-fzf-native.nvim"),
