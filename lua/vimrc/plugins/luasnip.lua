@@ -9,7 +9,15 @@ local luasnip = {}
 
 -- Ref: https://github.com/L3MON4D3/LuaSnip/wiki/Misc#choicenode-popup
 local current_nsid = vim.api.nvim_create_namespace("LuaSnipChoiceListSelections")
-local current_win = nil
+---@class LuaSnipChoicePopup
+---@field win_id integer
+---@field extmark integer
+---@field buf integer
+---@field node LuaSnip.ChoiceNode
+---@field prev LuaSnipChoicePopup?
+
+---@type LuaSnipChoicePopup?
+local current_win
 
 local function window_for_choice_node(choice_node)
   local buf = vim.api.nvim_create_buf(false, true)
@@ -84,7 +92,7 @@ luasnip.choice_popup = function(choice_node)
 end
 
 luasnip.update_choice_popup = function(choice_node)
-  if luasnip.is_exclude_filetype(vim.bo.ft) then
+  if not current_win or luasnip.is_exclude_filetype(vim.bo.ft) then
     return
   end
 
@@ -97,7 +105,7 @@ luasnip.update_choice_popup = function(choice_node)
 end
 
 luasnip.choice_popup_close = function()
-  if luasnip.is_exclude_filetype(vim.bo.ft) then
+  if not current_win or luasnip.is_exclude_filetype(vim.bo.ft) then
     return
   end
 

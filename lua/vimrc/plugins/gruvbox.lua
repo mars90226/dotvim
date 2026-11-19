@@ -144,7 +144,7 @@ end
 gruvbox.toggle_error_inverse = function()
   gruvbox.config.error_inverse = not gruvbox.config.error_inverse
 
-  local palette = require("gruvbox.palette").colors
+  local palette = require("gruvbox").palette
 
   local overrides = {
     Error = { fg = palette.bright_red, bold = gruvbox.config.bold, reverse = gruvbox.config.error_inverse },

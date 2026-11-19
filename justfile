@@ -10,3 +10,4 @@ test:
 	@XDG_STATE_HOME="$(mktemp -d /tmp/nvim-provider.XXXXXX)" timeout 30 nvim -u NONE -i NONE -n --headless -l spec/python_provider_check.lua
 	@XDG_STATE_HOME="$(mktemp -d /tmp/nvim-codesettings.XXXXXX)" timeout 30 nvim -u NONE -i NONE -n --headless -l spec/codesettings_check.lua
 	@XDG_STATE_HOME="$(mktemp -d /tmp/nvim-which-key.XXXXXX)" timeout 10 nvim -u NONE -i NONE -n --headless -l spec/which_key_timeout_check.lua
+	@XDG_STATE_HOME="$(mktemp -d /tmp/nvim-emmylua.XXXXXX)" timeout 10 nvim -u NONE -i NONE -n --headless -l spec/emmylua_bridge_check.lua
