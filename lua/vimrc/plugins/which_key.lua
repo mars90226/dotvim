@@ -3,6 +3,7 @@ local my_which_key = {}
 my_which_key.setup = function(opts)
   require("which-key").setup(opts)
 
+  ---@type integer?
   local previous_timeoutlen
   local function update_timeoutlen()
     if vim.bo.buftype == "nowrite" then

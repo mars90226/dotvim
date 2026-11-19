@@ -123,24 +123,10 @@ local ai = {
       { "<Space>c`", "<Cmd>CopilotChatToggle<CR>", desc = "CopilotChat - Toggle" },
       { "<Space>cs", "<Cmd>CopilotChatStop<CR>", desc = "CopilotChat - Stop current copilot output" },
 
-      -- Telescope integration
-      {
-        "<Space>ch",
-        function()
-          local actions = require("CopilotChat.actions")
-          require("CopilotChat.integrations.telescope").pick(actions.help_actions())
-        end,
-        desc = "CopilotChat - Help actions",
-      },
+      { "<Space>ch", "<Cmd>help CopilotChat-usage<CR>", desc = "CopilotChat - Usage help" },
       {
         "<Space>cp",
-        function()
-          local actions = require("CopilotChat.actions")
-          local select = require("CopilotChat.select")
-          require("CopilotChat.integrations.telescope").pick(actions.prompt_actions({
-            selection = select.visual,
-          }))
-        end,
+        ":<C-U>CopilotChatPrompts<CR>",
         mode = { "n", "x" },
         desc = "CopilotChat - Prompt actions",
       },
@@ -168,24 +154,6 @@ local ai = {
 
       -- Custom Prompts
       { "<Space>cW", "<Cmd>CopilotChatWording<CR>", mode = { "n", "x" }, desc = "CopilotChat - Improve wording" },
-
-      -- Integration
-      {
-        "<Space>ch",
-        function()
-          local actions = require("CopilotChat.actions")
-          require("CopilotChat.integrations.fzflua").pick(actions.help_actions())
-        end,
-        desc = "CopilotChat - Help actions",
-      },
-      {
-        "<Space>cp",
-        function()
-          local actions = require("CopilotChat.actions")
-          require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
-        end,
-        desc = "CopilotChat - Help actions",
-      },
     },
     config = function(_, opts)
       require("CopilotChat").setup(opts)
@@ -598,7 +566,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
       {
         "<Leader>o;",
         function()
-          require("opencode.input").input("app_help", function(value)
+          vim.ui.input({ prompt = "OpenCode command: " }, function(value)
             if value and value ~= "" then
               require("opencode").command(value)
             end

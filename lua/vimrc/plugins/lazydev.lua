@@ -3,6 +3,12 @@
 
 local lazydev = {}
 
+-- Test bootstrap files replace the built-in assert in EmmyLua's global index.
+local library_ignore_globs = {
+  ["lazy.nvim"] = { "**/lazy/minit.lua" },
+  ["plenary.nvim"] = { "**/plenary/busted.lua" },
+}
+
 -- NOTE: emmylua_ls only requests the `emmylua` configuration section, but lazydev only injects its
 -- dynamic library into the `Lua` section. Answer `emmylua` with lazydev's library.
 -- Remove after https://github.com/folke/lazydev.nvim/pull/141 is merged.
@@ -33,6 +39,10 @@ lazydev.setup_emmylua_bridge = function()
           local library = vim.tbl_filter(function(path)
             return path ~= ws.root and not vim.startswith(path, ws.root .. "/")
           end, vim.tbl_get(ws.settings, "Lua", "workspace", "library") or {})
+          library = vim.tbl_map(function(path)
+            local ignore_globs = library_ignore_globs[path:match("/([^/]+)/lua$")]
+            return ignore_globs and { path = path, ignoreGlobs = ignore_globs } or path
+          end, library)
           value = vim.tbl_deep_extend("force", vim.deepcopy(value or {}), { workspace = { library = library } })
         end
       end

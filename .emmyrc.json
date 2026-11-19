@@ -1,0 +1,34 @@
+{
+  "workspace": {
+    "ignoreGlobs": [
+      ".git/**",
+      ".tmp/review-loop/**"
+    ]
+  },
+  "diagnostics": {
+    "globals": [
+      "vim",
+      "map",
+      "nmap",
+      "imap",
+      "xmap",
+      "vmap",
+      "smap",
+      "omap",
+      "tmap",
+      "cmap",
+      "noremap",
+      "nnoremap",
+      "inoremap",
+      "xnoremap",
+      "vnoremap",
+      "snoremap",
+      "onoremap",
+      "tnoremap",
+      "cnoremap",
+      "cmd",
+      "MiniFiles",
+      "Snacks"
+    ]
+  }
+}
