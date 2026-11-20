@@ -583,7 +583,7 @@ local function get_mason_packages()
   return ensure_installed
 end
 
-local function install_cached_mason_packages(registry, names)
+local function install_mason_startup_packages(registry, names)
   local pending, attempted = {}, {}
   for _, name in ipairs(names) do
     if registry.has_package(name) then
@@ -605,7 +605,7 @@ local function install_cached_mason_packages(registry, names)
     return
   end
 
-  -- Keep mason-tool-installer's event contract when bypassing its registry refresh.
+  -- Keep startup event data separate from any manual installer batch.
   vim.schedule(function()
     vim.api.nvim_exec_autocmds("User", { pattern = "MasonToolsStartingInstall" })
   end)
@@ -631,34 +631,52 @@ lsp.setup_lsp_install = function()
   local ensure_installed = get_mason_packages()
   local refresh_pending, startup_pending = true, vim.v.vim_did_enter == 0
 
-  local function install_sync(update)
+  local function packages_ready()
     -- The pinned installer does not count an already running install as completed.
-    local ready = vim.wait(0x7FFFFFFF, function()
-      if refresh_pending then
-        return false
-      end
-      for _, name in ipairs(ensure_installed) do
-        if registry.has_package(name) then
-          local package = registry.get_package(name)
-          if package:is_installing() or package:is_uninstalling() then
-            return false
-          end
+    if refresh_pending then
+      return false
+    end
+    for _, name in ipairs(ensure_installed) do
+      if registry.has_package(name) then
+        local package = registry.get_package(name)
+        if package:is_installing() or package:is_uninstalling() then
+          return false
         end
       end
-      return true
-    end)
-    if ready and #ensure_installed > 0 then
-      -- A synchronous command can run before our VimEnter callback.
+    end
+    return true
+  end
+
+  local function install_manual(update, sync)
+    if sync then
+      if not vim.wait(0x7FFFFFFF, packages_ready) then
+        return
+      end
+    elseif not packages_ready() then
       startup_pending = false
-      mason_tool_installer.check_install(update, true)
+      vim.defer_fn(function()
+        install_manual(update, false)
+      end, 50)
+      return
+    end
+    if #ensure_installed > 0 then
+      -- A manual command can take over before our VimEnter callback.
+      startup_pending = false
+      mason_tool_installer.check_install(update, sync)
     end
   end
 
+  vim.api.nvim_create_user_command("MasonToolsInstall", function()
+    install_manual(false, false)
+  end, { force = true })
   vim.api.nvim_create_user_command("MasonToolsInstallSync", function()
-    install_sync(false)
+    install_manual(false, true)
+  end, { force = true })
+  vim.api.nvim_create_user_command("MasonToolsUpdate", function()
+    install_manual(true, false)
   end, { force = true })
   vim.api.nvim_create_user_command("MasonToolsUpdateSync", function()
-    install_sync(true)
+    install_manual(true, true)
   end, { force = true })
 
   -- Manual installer commands need the cached list even while a refresh is pending.
@@ -678,13 +696,7 @@ lsp.setup_lsp_install = function()
         return
       end
       startup_pending = false
-      if success then
-        mason_tool_installer.check_install()
-        return
-      end
-
-      -- The tool installer would retry the failed refresh before using the cached list.
-      install_cached_mason_packages(registry, ensure_installed)
+      install_mason_startup_packages(registry, ensure_installed)
     end
 
     -- A startup command can process the registry callback before VimEnter.

@@ -13,6 +13,7 @@ local installer_opts = { run_on_start = true }
 local install_checks = 0
 local cached_installs = {}
 local sync_updates = {}
+local async_updates = {}
 local install_events = {}
 vim.api.nvim_create_autocmd("User", {
   pattern = { "MasonToolsStartingInstall", "MasonToolsUpdateCompleted" },
@@ -63,6 +64,7 @@ package.loaded["mason-tool-installer"] = {
       table.insert(sync_updates, update)
     else
       install_checks = install_checks + 1
+      table.insert(async_updates, update)
     end
   end,
 }
@@ -177,10 +179,19 @@ vim.api.nvim_create_autocmd("VimEnter", {
     assert(#sync_updates == 3, "do not run a synchronous batch with no packages")
 
     lsp.setup_lsp_install()
+    vim.cmd.MasonToolsInstall()
+    assert(install_checks == 0, "manual async installation waits for the refreshed list")
     mappings = { harper_ls = "harper-ls" }
     finish_refresh(true, { "registry" })
     assert(vim.deep_equal(installer_opts.ensure_installed, { "harper-ls" }), "late setup populates the manual list")
-    assert(install_checks == 0, "do not start automatic installation when setup begins after VimEnter")
+    assert(
+      vim.wait(1000, function()
+        return install_checks == 1
+      end),
+      "launch the waiting manual command"
+    )
+    vim.cmd.MasonToolsUpdate()
+    assert(vim.deep_equal(async_updates, { false, true }), "run only the requested nonblocking install and update")
     print("PASS: Mason LSP installs follow registry readiness and the VimEnter boundary")
     vim.cmd("qa!")
   end,
