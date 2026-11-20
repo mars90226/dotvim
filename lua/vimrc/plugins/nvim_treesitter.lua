@@ -325,6 +325,8 @@ end
 
 nvim_treesitter.setup_extensions = function()
   -- nvim-treesitter-context
+  -- Upstream defers rendering until after textlock during LSP detach.
+  -- https://github.com/nvim-treesitter/nvim-treesitter-context/commit/8ebcf62cf48dd97b3d121884ecb6bc4c00f1b069
   local context_default_enable = choose.is_enabled_plugin("nvim-treesitter-context")
   local context_enable = utils.ternary(context_default_enable, not current_buffer_base_highlight_disable_check(), false)
   require("treesitter-context").setup({
@@ -350,20 +352,6 @@ nvim_treesitter.setup_extensions = function()
       else
         vim.schedule(function()
           local ts_context = require("treesitter-context")
-          -- FIXME: Should check if current buffer is supported by treesitter
-          -- || Error detected while processing DiagnosticChanged Autocommands for "*":
-          -- || Error executing lua callback: ...vim-treesitter-context/lua/treesitter-context/render.lua:43: E565: Not allowed to change text or change window
-          -- || stack traceback:
-          -- || 	[C]: in function 'nvim_open_win'
-          -- || 	...vim-treesitter-context/lua/treesitter-context/render.lua:43: in function 'display_window'
-          -- || 	...vim-treesitter-context/lua/treesitter-context/render.lua:401: in function 'open'
-          -- || 	.../lazy/nvim-treesitter-context/lua/treesitter-context.lua:98: in function 'f'
-          -- || 	.../lazy/nvim-treesitter-context/lua/treesitter-context.lua:29: in function 'update_single_context'
-          -- || 	.../lazy/nvim-treesitter-context/lua/treesitter-context.lua:116: in function <.../lazy/nvim-treesitter-context/lua/treesitter-context.lua:102>
-          -- || 	[C]: in function 'nvim_exec_autocmds'
-          -- || 	/usr/local/share/nvim/runtime/lua/vim/diagnostic.lua:2055: in function 'reset'
-          -- || 	/usr/local/share/nvim/runtime/lua/vim/lsp.lua:532: in function 'buf_detach_client'
-          -- || 	/usr/local/share/nvim/runtime/lua/vim/lsp.lua:611: in function </usr/local/share/nvim/runtime/lua/vim/lsp.lua:608>
           if context_default_enable and not get_context_force_disable(vim.fn.bufnr()) and not ts_context.enabled() then
             ts_context.enable()
           end
