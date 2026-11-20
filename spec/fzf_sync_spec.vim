@@ -103,6 +103,54 @@ for s:helper in s:helpers
     call assert_equal(s:code == 0 ? s:helper[3] : '', call(s:helper[0], s:helper[1]), s:helper[0])
   endfor
 endfor
+
+" Commit pickers reserve Ctrl-S for sorting.
+let g:fzf_action = {'ctrl-s': 'split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit'}
+let g:fzf_test_code = 0
+let g:fzf_test_accept_key = 'ctrl-y'
+let g:fzf_test_selection = 'abcdef12 subject'
+edit justfile
+for s:buffer_local in [0, 1]
+  call assert_equal('abcdef12', vimrc#fzf#git#commits_in_commandline(s:buffer_local, []))
+  call assert_true(index(g:fzf_test_options, '--bind=ctrl-s:toggle-sort') >= 0)
+  let s:expect = filter(copy(g:fzf_test_options), { _, option -> option =~# '^--expect=' })
+  call assert_equal(1, len(s:expect))
+  let s:keys = split(strpart(get(s:expect, 0, ''), len('--expect=')), ',')
+  call assert_equal(s:buffer_local ? ['ctrl-d', 'ctrl-v', 'ctrl-x', 'ctrl-y']
+        \ : ['ctrl-v', 'ctrl-x', 'ctrl-y'], sort(s:keys))
+  call assert_equal('split', g:fzf_action['ctrl-s'])
+endfor
+
+lua require("vimrc.plugins.fzf").setup_command()
+let s:actions = copy(g:fzf_action)
+let s:commit_actions = {'ctrl-x': 'split', 'ctrl-v': 'vsplit'}
+call cursor(4, 3)
+let s:view = winsaveview()
+unlet! g:fzf_test_commits
+Commits --max-count=2
+call assert_equal([0, 1, line('$'), '--max-count=2', {'placeholder': ''}, 0, s:commit_actions, s:view],
+      \ get(g:, 'fzf_test_commits', []))
+call assert_equal(s:actions, g:fzf_action)
+
+let s:view = winsaveview()
+unlet! g:fzf_test_commits
+2,3BCommits! --all
+call assert_equal([1, 2, 3, '--all', {'placeholder': ''}, 1, s:commit_actions, s:view],
+      \ get(g:, 'fzf_test_commits', []))
+call assert_equal(s:actions, g:fzf_action)
+
+let g:fzf_test_commits_fail = 1
+let s:view = winsaveview()
+unlet! g:fzf_test_commits
+try
+  BCommits
+  call assert_report('Expected commit picker launch failure')
+catch /commit picker launch failed/
+endtry
+call assert_equal([1, 1, line('$'), '', {'placeholder': ''}, 0, s:commit_actions, s:view],
+      \ get(g:, 'fzf_test_commits', []))
+call assert_equal(s:actions, g:fzf_action)
+
 call delete(g:neomru#file_mru_path)
 call delete(g:neomru#directory_mru_path)
 
