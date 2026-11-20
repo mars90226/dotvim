@@ -1,5 +1,4 @@
 local fzf_lua = require("fzf-lua")
-local defaults = require("fzf-lua.defaults").defaults
 local actions = require("fzf-lua.actions")
 local utils = require("fzf-lua.utils")
 
@@ -8,10 +7,26 @@ local plugin_utils = require("vimrc.plugin_utils")
 local my_fzf_lua = {}
 
 my_fzf_lua.config = {
-  fzf_lua_opts = {
-    -- NOTE: This is the default option in fzf-lua
-    -- TODO: Customize this
-    rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+  grep = {
+    rg_defaults = "--color=always --smart-case",
+    rg_max_columns = "--max-columns=4096",
+    -- fzf-lua parses each result as filename:line:column:match.
+    rg_location = "--with-filename --no-heading --line-number --column",
+    rg_string_options = {
+      ["--replace"] = true,
+      ["--glob"] = true,
+      ["--iglob"] = true,
+      ["--regexp"] = true,
+      ["--file"] = true,
+      ["--ignore-file"] = true,
+      ["--pre"] = true,
+      ["--pre-glob"] = true,
+      ["--hostname-bin"] = true,
+      ["--context-separator"] = true,
+      ["--field-context-separator"] = true,
+      ["--field-match-separator"] = true,
+      ["--path-separator"] = true,
+    },
   },
   project_word = {
     loaded = false,
@@ -69,8 +84,97 @@ my_fzf_lua.add_project_words = function(words)
   vim.list_extend(my_fzf_lua.sources.project_word, words)
 end
 
+local function split_grep_separator(extra, rg_string_options)
+  local lpeg = vim.lpeg
+  local P, S, C, Cp, Cs = lpeg.P, lpeg.S, lpeg.C, lpeg.Cp, lpeg.Cs
+  local space = S(" \t\r\n")
+  local continuation = P("\\\n") / ""
+  local escaped = continuation + (P("\\") / "") * P(1)
+  local single_quote = P("'") / ""
+  local single_quoted = single_quote * (1 - P("'")) ^ 0 * single_quote
+  local double_quote = P('"') / ""
+  local double_escape = continuation + (P("\\") / "") * S('\\"$`')
+  local double_quoted = double_quote * (double_escape + (1 - P('"'))) ^ 0 * double_quote
+  local plain = 1 - S(" \t\r\n\\'\"")
+  local word = Cp() * space ^ 0 * Cp() * Cs((escaped + single_quoted + double_quoted + plain) ^ 1) * Cp()
+  local end_of_options = space ^ 0 * -P(1)
+
+  -- Break textual " -e " matches without changing literal shell arguments.
+  local protect_single = C(single_quoted) / function(raw)
+    return (raw:gsub("(%s)%-e%f[%s]", "%1''-e"))
+  end
+  local nested_expansion = P("$(") + P("${") + P("`")
+  local has_nested_expansion = (P("\\") * P(1) + (1 - nested_expansion)) ^ 0 * nested_expansion
+  local protect_double = C(double_quoted)
+    / function(raw)
+      -- Splitting a nested shell expansion would change the argument.
+      if has_nested_expansion:match(raw) then
+        return raw
+      end
+      return (raw:gsub("(%s)%-e%f[%s]", '%1""-e'))
+    end
+  local protect_escape = P("\\") * space * (P("-") / "\\-") * P("e")
+  local protect_word = Cs((protect_single + protect_double + protect_escape + P("\\") * P(1) + P(1)) ^ 0)
+
+  local position = 1
+  local pending = 1
+  local parts = {}
+  local takes_value = false
+  while true do
+    local start, arg_start, arg, next_position = word:match(extra, position)
+    if not start then
+      parts[#parts + 1] = extra:sub(pending)
+      return table.concat(parts), "-e"
+    end
+
+    local terminal = end_of_options:match(extra, next_position)
+    local is_separator = arg == "--" or arg == "-e" or arg == "--regexp"
+    if not takes_value and is_separator and terminal then
+      parts[#parts + 1] = extra:sub(pending, start - 1)
+      return table.concat(parts), arg == "--" and "--" or "-e"
+    end
+    local raw = extra:sub(arg_start, next_position - 1)
+    local protected = raw
+    if (arg == "-e" or arg == "--") and raw == arg then
+      -- fzf-lua inserts filename/glob flags using textual separator matches.
+      protected = vim.fn.shellescape(arg)
+    elseif raw:find("%s%-e") then
+      protected = protect_word:match(raw)
+    end
+    if protected ~= raw then
+      parts[#parts + 1] = extra:sub(pending, arg_start - 1) .. protected
+      pending = next_position
+    end
+
+    if takes_value then
+      takes_value = false
+    elseif arg:match("^%-[%a%d.]") then
+      -- The first short flag taking a value consumes the rest of the cluster.
+      local value_flag = arg:find("[ABCEMTdefgjmrt]", 2)
+      takes_value = value_flag == #arg
+      if takes_value and terminal and arg:sub(value_flag) == "e" then
+        parts[#parts + 1] = extra:sub(pending, arg_start - 1) .. arg:sub(1, -2)
+        return table.concat(parts), "-e"
+      end
+    else
+      takes_value = rg_string_options[arg] == true
+    end
+    position = next_position
+  end
+end
+
 my_fzf_lua.wrap_opts = function(opts)
-  return vim.tbl_deep_extend("force", my_fzf_lua.config.fzf_lua_opts, opts)
+  local grep = my_fzf_lua.config.grep
+  local extra, separator = split_grep_separator(opts.rg_opts or "", grep.rg_string_options)
+  local rg_opts = grep.rg_defaults
+  if opts.rg_opts == nil then
+    rg_opts = rg_opts .. " " .. grep.rg_max_columns
+  elseif vim.trim(extra) ~= "" then
+    rg_opts = rg_opts .. " " .. extra
+  end
+  -- fzf-lua appends the query after the trailing separator.
+  opts.rg_opts = rg_opts .. " " .. grep.rg_location .. " " .. separator
+  return opts
 end
 
 my_fzf_lua.setup_config = function()
@@ -82,9 +186,9 @@ my_fzf_lua.setup_config = function()
     defaults = {
       actions = my_fzf_lua.global_actions,
     },
-    grep = {
+    grep = my_fzf_lua.wrap_opts({
       no_esc = true,
-    },
+    }),
     oldfiles = {
       include_current_session = true, -- include bufs from current session
     },
@@ -159,7 +263,7 @@ my_fzf_lua.setup_mapping = function()
   vim.keymap.set("n", fzf_lua_prefix .. [[r]], [[<Cmd>FzfLua grep<CR>]], { desc = "FzfLua grep" })
   vim.keymap.set("x", fzf_lua_prefix .. [[r]], [[<Cmd>FzfLua grep_visual<CR>]], { desc = "FzfLua grep_visual" })
   vim.keymap.set("n", fzf_lua_prefix .. [[R]], function()
-    fzf_lua.grep({ rg_opts = "--no-ignore --hidden " .. defaults.grep.rg_opts  })
+    fzf_lua.grep(my_fzf_lua.wrap_opts({ rg_opts = my_fzf_lua.config.grep.rg_max_columns .. " --no-ignore --hidden" }))
   end, { desc = "FzfLua grep all" })
   vim.keymap.set("n", fzf_lua_prefix .. [[<C-R>]], [[<Cmd>FzfLua grep_project<CR>]], { desc = "FzfLua grep_project" })
   vim.keymap.set("n", fzf_lua_prefix .. [[s]], [[<Cmd>FzfLua git_status<CR>]], { desc = "FzfLua git_status" })
@@ -216,7 +320,6 @@ my_fzf_lua.setup_mapping = function()
   -- Grep
   -- TODO: Add key mapping to grep all files including hidden files
   vim.keymap.set("n", fzf_lua_prefix .. "e", function()
-    -- FIXME: fzf_lua.grep() does not correctly parse line & column number
     fzf_lua.grep(my_fzf_lua.wrap_opts({
       cwd = vim.fn.input("Grep in directory: ", ".", "dir"),
       rg_opts = vim.fn.input("Grep options: "),
