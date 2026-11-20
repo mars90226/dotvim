@@ -151,6 +151,25 @@ call assert_equal([1, 1, line('$'), '', {'placeholder': ''}, 0, s:commit_actions
       \ get(g:, 'fzf_test_commits', []))
 call assert_equal(s:actions, g:fzf_action)
 
+" CustomFiles defaults omitted fields and keeps colons inside the pattern.
+let s:fd_command = 'fd --no-ignore --hidden --follow'
+for [s:command, s:folder, s:option, s:pattern, s:bang] in [
+      \ ['CustomFiles', '', '', '', 0],
+      \ ['CustomFiles nested folder', 'nested folder', '', '', 0],
+      \ ['CustomFiles nested:--type f', 'nested', '--type f', '', 0],
+      \ ["CustomFiles ::a:b's pattern", '', '', "a:b's pattern", 0],
+      \ ['CustomFiles! nested:--type f:a:b', 'nested', '--type f', 'a:b', 1]]
+  let g:fzf_test_file_calls = []
+  try
+    execute s:command
+    call assert_equal([[s:folder, {'source': s:fd_command . ' ' . s:option . ' ' . shellescape(s:pattern)}, s:bang]],
+          \ g:fzf_test_file_calls, s:command)
+  catch
+    call assert_report(s:command . ': ' . v:exception)
+  endtry
+endfor
+unlet g:fzf_test_file_calls
+
 " DirectoryFiles must chain after fzf's callback even if no DirChanged fires.
 lua << EOF
 package.loaded["vimrc.plugins.oil"] = {
