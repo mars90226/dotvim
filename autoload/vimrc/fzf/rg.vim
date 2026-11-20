@@ -37,11 +37,12 @@ function! vimrc#fzf#rg#get_fzf_all_command_fmt() abort
 endfunction
 
 " Rg
-function! vimrc#fzf#rg#grep(query, bang) abort
+function! vimrc#fzf#rg#grep(query, bang, ...) abort
+  let options = extend(vimrc#fzf#get_tabstop_options(), get(a:000, 0, {}))
   call fzf#vim#grep(
         \ a:bang ? vimrc#fzf#rg#get_all_command().' -- '.shellescape(a:query)
         \        : vimrc#fzf#rg#get_command().' -- '.shellescape(a:query), 1,
-        \ vimrc#fzf#preview#with_preview(vimrc#fzf#get_tabstop_options(), a:bang),
+        \ vimrc#fzf#preview#with_preview(options, a:bang),
         \ a:bang)
 endfunction
 

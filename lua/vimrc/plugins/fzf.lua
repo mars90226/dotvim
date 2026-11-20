@@ -79,11 +79,32 @@ fzf.setup_config = function()
   }
 end
 
+fzf.open_files = function(path, bang, directory_win)
+  local function open()
+    local options = vim.empty_dict()
+    if directory_win then
+      options.exit = function(code)
+        vim.fn["vimrc#fzf#dir#after_picker_exit"](directory_win, path, code)
+      end
+    end
+    vim.fn["vimrc#fzf#files"](path, options, bang)
+  end
+  if choose.is_enabled_plugin("oil.nvim") then
+    require("vimrc.plugins.oil").use_oil_fzf_action(open)
+  elseif choose.is_enabled_plugin("defx.nvim") then
+    vim.fn["vimrc#fzf#defx#use_defx_fzf_action"](open)
+  else
+    open()
+  end
+end
+
 fzf.setup_command = function()
   -- stylua: ignore start
   -- fzf functions & commands {{{
   vim.cmd([[command! -bar  -bang                  Helptags call vimrc#fzf#helptags(<bang>0)]])
-  vim.cmd([[command! -bang -nargs=? -complete=dir Files    call vimrc#fzf#files(<q-args>, <bang>0)]])
+  vim.api.nvim_create_user_command("Files", function(opts)
+    fzf.open_files(opts.args, opts.bang)
+  end, { bang = true, nargs = "?", complete = "dir" })
   vim.cmd([[command! -bang -nargs=?               GFiles   call vimrc#fzf#gitfiles(<q-args>, <bang>0)]])
   vim.cmd([[command! -bang -nargs=+ -complete=dir Locate   call vimrc#fzf#locate(<q-args>, <bang>0)]])
   vim.cmd([[command! -bang -nargs=*               History  call vimrc#fzf#history(<q-args>, <bang>0)]])
@@ -220,11 +241,6 @@ fzf.setup_command = function()
   vim.cmd([[command! -bang -nargs=? WorkTreeFiles call vimrc#fzf#work_tree_files(<bang>0)]])
 
   if choose.is_enabled_plugin('oil.nvim') then
-    vim.api.nvim_create_user_command("Files", function(opts)
-      require("vimrc.plugins.oil").use_oil_fzf_action(function()
-        vim.fn["vimrc#fzf#files"](opts.args, opts.bang)
-      end)
-    end, { bang = true, nargs = "?", complete = "dir" })
     vim.api.nvim_create_user_command("GFiles", function(opts)
       require("vimrc.plugins.oil").use_oil_fzf_action(function()
         vim.fn["vimrc#fzf#gitfiles"](opts.args, opts.bang)
@@ -267,7 +283,6 @@ fzf.setup_command = function()
       end)
     end, { bang = true, nargs = "?" })
   elseif choose.is_enabled_plugin('defx.nvim') then
-    vim.cmd([[command! -bang -nargs=? -complete=dir Files        call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#files(<q-args>, <bang>0) })]])
     vim.cmd([[command! -bang -nargs=?               GFiles       call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#gitfiles(<q-args>, <bang>0) })]])
     vim.cmd([[command! -bang -nargs=+ -complete=dir Locate       call vimrc#fzf#defx#use_defx_fzf_action({ -> vimrc#fzf#locate(<q-args>, <bang>0) })]])
 

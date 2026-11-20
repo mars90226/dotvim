@@ -151,6 +151,69 @@ call assert_equal([1, 1, line('$'), '', {'placeholder': ''}, 0, s:commit_actions
       \ get(g:, 'fzf_test_commits', []))
 call assert_equal(s:actions, g:fzf_action)
 
+" DirectoryFiles must chain after fzf's callback even if no DirChanged fires.
+lua << EOF
+package.loaded["vimrc.plugins.oil"] = {
+  use_oil_fzf_action = function(open)
+    vim.g.fzf_test_oil_files = true
+    open()
+  end,
+}
+EOF
+let g:fzf_test_file_calls = []
+let s:original_cwd = getcwd()
+let s:cwd = tempname()
+let s:selected = s:cwd . '/selected folder'
+call mkdir(s:selected, 'p')
+execute 'lcd ' . fnameescape(s:cwd)
+DirectoryFiles
+let s:first_picker = get(g:fzf_test_file_calls, 0, [])
+call assert_equal(simplify(s:cwd . '/'), get(s:first_picker, 0, ''))
+call s:first_picker[1].sinklist([])
+call s:first_picker[1].sinklist(['other folder', 'selected folder'])
+call assert_equal(1, len(g:fzf_test_file_calls))
+call assert_equal(0, wait(1000, { -> len(g:fzf_test_file_calls) == 2 }))
+if v:lua.require('vimrc.choose').is_enabled_plugin('oil.nvim')
+  call assert_true(get(g:, 'fzf_test_oil_files', v:false))
+endif
+let s:second_picker = get(g:fzf_test_file_calls, 1, [])
+call assert_equal(s:selected, get(s:second_picker, 0, ''))
+call assert_equal(s:cwd, getcwd())
+if has_key(get(s:second_picker, 1, {}), 'exit')
+  call s:second_picker[1].exit(130)
+  call assert_equal(s:cwd, getcwd())
+  let s:source_win = win_getid()
+  call s:second_picker[1].exit(0)
+  execute 'lcd ' . fnameescape(s:selected)
+  execute 'split ' . fnameescape(s:selected . '/result')
+  execute 'lcd ' . fnameescape(s:cwd)
+  call assert_equal(0, wait(1000, { -> getcwd() ==# s:selected }))
+  call assert_equal(s:cwd, getcwd(win_id2win(s:source_win)))
+  close
+  let s:global_cwd = getcwd(-1, -1)
+  execute 'tcd ' . fnameescape(s:cwd)
+  call s:second_picker[1].exit(0)
+  execute 'lcd ' . fnameescape(s:selected)
+  " A symlink match can open a buffer whose resolved path is outside the picker directory.
+  execute 'split ' . fnameescape(s:cwd . '/external result')
+  execute 'tcd ' . fnameescape(s:cwd)
+  call assert_equal(0, wait(1000, { -> getcwd() ==# s:selected }))
+  call assert_equal(s:cwd, getcwd(win_id2win(s:source_win)))
+  call assert_equal(1, haslocaldir(-1))
+  call assert_equal(s:global_cwd, getcwd(-1, -1))
+  close
+else
+  call assert_report('Missing DirectoryFiles exit callback')
+endif
+execute 'lcd ' . fnameescape(fnamemodify(s:cwd, ':h'))
+call assert_equal(2, len(g:fzf_test_file_calls))
+call vimrc#fzf#dir#directory_files_sink(0, s:selected)
+call assert_equal(s:selected, get(get(g:fzf_test_file_calls, 2, []), 0, ''))
+execute 'lcd ' . fnameescape(s:original_cwd)
+call delete(s:selected, 'd')
+call delete(s:cwd, 'd')
+unlet g:fzf_test_file_calls
+
 call delete(g:neomru#file_mru_path)
 call delete(g:neomru#directory_mru_path)
 

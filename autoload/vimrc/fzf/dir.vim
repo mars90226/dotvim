@@ -21,113 +21,73 @@ function! vimrc#fzf#dir#directory_ancestors_source(path) abort
 endfunction
 
 " Sinks
-function! vimrc#fzf#dir#directory_sink(original_cwd, path, Func, directory) abort
-  " Avoid fzf_popd autocmd that break further fzf commands that require
-  " current changed working directory.
-  " See s:dopopd() in fzf/plugin/fzf.vim
-  "
-  " Flow:
-  "   fzf command -> fzf pushd -> fzf callback -> fzf popd
-  "
-  " Pushing second fzf function to DirChanged callback to ignore first fzf
-  " command popd.
-
-  " Change working directory of original file to orignal directory
-  if exists('w:fzf_pushd')
-    let w:directory_sink_popd = {
-          \ 'original_cwd': a:original_cwd,
-          \ 'bufname': w:fzf_pushd.bufname
-          \ }
+function! s:open_selected_directory(winid, Func, directory, timer) abort
+  if win_getid() == a:winid
+    call a:Func(a:directory)
+    if &buftype ==# 'terminal' && &filetype ==# 'fzf'
+      " Re-enter terminal mode after the first picker's BufLeave stopinsert.
+      call feedkeys("\<Plug>(fzf-insert)", 'i')
+    endif
   endif
-
-  " Execute second fzf function in callback
-  let w:directory_sink_directory = simplify(vimrc#fzf#dir#get_start_directory(a:original_cwd, a:path).'/'.a:directory)
-  let w:DirectorySinkFunc = a:Func
-
-  augroup directory_sink_chdir_callback
-    autocmd!
-    autocmd DirChanged * call vimrc#fzf#dir#directory_sink_chdir_callback(w:DirectorySinkFunc, w:directory_sink_directory)
-  augroup END
 endfunction
 
-function! vimrc#fzf#dir#directory_files_sink(chdir, directory) abort
-  if a:chdir
-    execute 'lcd ' . a:directory
-    Files
-  else
-    execute 'Files ' . a:directory
+function! vimrc#fzf#dir#directory_sink(winid, base, Func, selections) abort
+  if empty(a:selections)
+    return
   endif
-
-  " To enter terminal mode, this is a workaround that autocommand exit the
-  " terminal mode when previous fzf session end.
-  call feedkeys('i')
+  let directory = simplify(a:base . '/' . a:selections[-1])
+  " Let fzf finish restoring the first picker's window and directory.
+  call timer_start(0, function('s:open_selected_directory', [a:winid, a:Func, directory]))
 endfunction
 
-function! vimrc#fzf#dir#directory_rg_sink(chdir, directory) abort
-  if a:chdir
-    execute 'lcd ' . a:directory
-    execute 'RgWithOption ::' . input('Rg: ')
-  else
-    execute 'RgWithOption ' . a:directory . '::' . input('Rg: ')
+function! s:keep_selected_directory(winid, bufnr, directory, original_cwd, restore_cmd, timer) abort
+  let directory = fnamemodify(resolve(a:directory), ':p')
+  let [tabnr, winnr] = win_id2tabwin(a:winid)
+  if win_getid() != a:winid && tabnr != 0
+        \ && fnamemodify(resolve(getcwd(winnr, tabnr)), ':p') ==# directory
+    call win_execute(a:winid, a:restore_cmd . ' ' . fnameescape(a:original_cwd))
   endif
+  if &buftype ==# '' && !empty(bufname())
+        \ && (win_getid() != a:winid || bufnr() != a:bufnr
+        \     || stridx(resolve(expand('%:p')), directory) == 0)
+        \ && isdirectory(directory)
+    execute 'lcd ' . fnameescape(a:directory)
+  endif
+endfunction
 
-  " To enter terminal mode, this is a workaround that autocommand exit the
-  " terminal mode when previous fzf session end.
-  call feedkeys('i')
+function! vimrc#fzf#dir#after_picker_exit(winid, directory, code) abort
+  if a:code == 0 && win_getid() == a:winid
+    " Apply the directory in the result window after fzf handles the action.
+    let restore_cmd = haslocaldir() ? 'lcd' : (haslocaldir(-1) ? 'tcd' : 'cd')
+    call timer_start(0, function('s:keep_selected_directory',
+          \ [a:winid, bufnr(), a:directory, getcwd(), restore_cmd]))
+  endif
+endfunction
+
+function! vimrc#fzf#dir#directory_files_sink(deferred, directory) abort
+  if a:deferred
+    call v:lua.require('vimrc.plugins.fzf').open_files(a:directory, v:false, win_getid())
+  else
+    call v:lua.require('vimrc.plugins.fzf').open_files(a:directory, v:false)
+    call feedkeys('i')
+  endif
+endfunction
+
+function! vimrc#fzf#dir#directory_rg_sink(deferred, directory) abort
+  let query = input('Rg: ')
+  if a:deferred
+    call vimrc#fzf#rg#grep(query, 0, {
+          \ 'dir': a:directory,
+          \ 'exit': function('vimrc#fzf#dir#after_picker_exit', [win_getid(), a:directory]),
+          \ })
+  else
+    execute 'RgWithOption ' . a:directory . '::' . query
+    call feedkeys('i')
+  endif
 endfunction
 
 function! vimrc#fzf#dir#directory_ancestors_sink(line) abort
   execute 'lcd ' . a:line
-endfunction
-
-" Callbacks
-function! vimrc#fzf#dir#directory_sink_chdir_callback(Func, directory) abort
-  " Set callback in fzf sink to switch original buffer to original cwd.
-  " Avoid invoke popd_callback callback too early.
-
-  autocmd! directory_sink_chdir_callback
-
-  augroup directory_sink_second_sink_callback
-    autocmd!
-    autocmd User VimrcFzfSink call vimrc#fzf#dir#directory_sink_second_sink_callback()
-  augroup END
-
-  call a:Func(a:directory)
-endfunction
-
-function! vimrc#fzf#dir#directory_sink_second_sink_callback() abort
-  " Invoke popd_callback in WinEnter callback
-
-  autocmd! directory_sink_second_sink_callback
-
-  augroup directory_sink_popd_callback
-    autocmd!
-    autocmd WinEnter * call vimrc#fzf#dir#directory_sink_popd_callback()
-  augroup END
-endfunction
-
-" FIXME This may have race condition that cannot find w:directory_sink_popd
-" Error messages:
-" || Error detected while processing function
-" || 778[30]
-" || <SNR>127_callback[21]
-" || Vim(let):E5555: API call: Vim(let):E121: Undefined variable: w:directory_sink_popd
-function! vimrc#fzf#dir#directory_sink_popd_callback() abort
-  if !exists('w:directory_sink_popd')
-    return
-  endif
-
-  " Check if current buffer is the original buffer
-  let original_bufname = w:directory_sink_popd.original_cwd . '/' . w:directory_sink_popd.bufname
-  if fnamemodify(original_bufname, ':p') !=# fnamemodify(bufname(''), ':p')
-    unlet w:directory_sink_popd
-    autocmd! directory_sink_popd_callback
-    return
-  endif
-
-  execute 'lcd ' . w:directory_sink_popd.original_cwd
-  unlet w:directory_sink_popd
-  autocmd! directory_sink_popd_callback
 endfunction
 
 " Commands
@@ -166,16 +126,20 @@ function! vimrc#fzf#dir#directories(path, bang, ...) abort
   if empty(Sink)
     call fzf#vim#files(path, args, a:bang)
   else
-    call fzf#vim#files(path, extend(args, { 'sink': Sink }), a:bang)
+    call fzf#vim#files(path, extend(args, { 'sinklist': Sink }), a:bang)
   endif
 endfunction
 
 function! vimrc#fzf#dir#directory_files(path, bang) abort
-  call vimrc#fzf#dir#directories(a:path, a:bang, function('vimrc#fzf#dir#directory_sink', [getcwd(), a:path, function('vimrc#fzf#dir#directory_files_sink', [1])]))
+  let base = vimrc#fzf#dir#get_start_directory(getcwd(), a:path)
+  let Sink = function('vimrc#fzf#dir#directory_files_sink', [1])
+  call vimrc#fzf#dir#directories(a:path, a:bang, function('vimrc#fzf#dir#directory_sink', [win_getid(), base, Sink]))
 endfunction
 
 function! vimrc#fzf#dir#directory_rg(path, bang) abort
-  call vimrc#fzf#dir#directories(a:path, a:bang, function('vimrc#fzf#dir#directory_sink', [getcwd(), a:path, function('vimrc#fzf#dir#directory_rg_sink', [1])]))
+  let base = vimrc#fzf#dir#get_start_directory(getcwd(), a:path)
+  let Sink = function('vimrc#fzf#dir#directory_rg_sink', [1])
+  call vimrc#fzf#dir#directories(a:path, a:bang, function('vimrc#fzf#dir#directory_sink', [win_getid(), base, Sink]))
 endfunction
 
 function! vimrc#fzf#dir#directory_ancestors() abort
