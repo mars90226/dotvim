@@ -6,6 +6,8 @@ update_plugins:
 test:
 	@busted
 	@XDG_STATE_HOME="$(mktemp -d /tmp/nvim-fzf-sync.XXXXXX)" timeout 15 nvim --headless -u NONE -i NONE -S spec/fzf_sync_spec.vim
+	@XDG_STATE_HOME="$(mktemp -d /tmp/nvim-fzf-lua-grep.XXXXXX)" timeout 10 nvim --headless -u NONE -i NONE -n -l spec/fzf_lua_grep_check.lua
+	@state="$(mktemp -d /tmp/nvim-fzf-lua-integration.XXXXXX)" && XDG_STATE_HOME="$state" XDG_RUNTIME_DIR="$state" timeout 15 nvim --headless -u NONE -i NONE -n -l spec/fzf_lua_grep_integration.lua
 	@XDG_STATE_HOME="$(mktemp -d /tmp/nvim-palette.XXXXXX)" timeout 10 nvim --headless -u NONE -i NONE -c 'luafile spec/command_palette_check.lua'
 	@XDG_STATE_HOME="$(mktemp -d /tmp/nvim-provider.XXXXXX)" timeout 30 nvim -u NONE -i NONE -n --headless -l spec/python_provider_check.lua
 	@XDG_STATE_HOME="$(mktemp -d /tmp/nvim-codesettings.XXXXXX)" timeout 30 nvim -u NONE -i NONE -n --headless -l spec/codesettings_check.lua
