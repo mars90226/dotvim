@@ -116,6 +116,10 @@ fzf.setup_command = function()
   vim.cmd([[command! -bang -nargs=* -complete=dir GitDiffFiles call vimrc#fzf#git#diff_tree(<bang>0, <f-args>)]])
   vim.cmd([[command! -bang -nargs=* -complete=dir RgGitDiffFiles call vimrc#fzf#git#rg_diff(<bang>0, <f-args>)]])
 
+  -- Mirror the command definitions in fzf.vim's plugin/fzf.vim.
+  vim.cmd([[command! -bar -bang -nargs=* -range=% -complete=file Commits let b:fzf_winview = winsaveview() | <line1>,<line2>call vimrc#fzf#git#commits(0, <q-args>, <bang>0)]])
+  vim.cmd([[command! -bar -bang -nargs=* -range=% BCommits let b:fzf_winview = winsaveview() | <line1>,<line2>call vimrc#fzf#git#commits(1, <q-args>, <bang>0)]])
+
   -- Mru
   vim.cmd([[command! Mru        call vimrc#fzf#mru#mru()]])
   vim.cmd([[command! ProjectMru call vimrc#fzf#mru#project_mru()]])

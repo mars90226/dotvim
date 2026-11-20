@@ -412,6 +412,18 @@ function! vimrc#fzf#git#keywords_by_me(keyword) abort
 endfunction
 " }}}
 
+function! vimrc#fzf#git#commits(buffer_local, args, bang) range abort
+  let action = g:fzf_action
+  " fzf.vim builds --expect from the action table, taking precedence over toggle-sort.
+  let g:fzf_action = filter(copy(action), { key, _ -> key !=# 'ctrl-s' })
+  try
+    let picker = a:buffer_local ? 'fzf#vim#buffer_commits' : 'fzf#vim#commits'
+    execute a:firstline.','.a:lastline.'call '.picker.'(a:args, fzf#vim#with_preview({"placeholder": ""}), a:bang)'
+  finally
+    let g:fzf_action = action
+  endtry
+endfunction
+
 " Intend to be mapped in command mode
 function! vimrc#fzf#git#commits_in_commandline(buffer_local, args) abort
   let s:git_root = vimrc#fzf#get_git_root()
@@ -440,14 +452,15 @@ function! vimrc#fzf#git#commits_in_commandline(buffer_local, args) abort
 
   let command = a:buffer_local ? 'BCommits' : 'Commits'
   let results = []
-  " FIXME: ctrl-s toggle-sort not working due to g:fzf_action also expect ctrl-s
+  " --expect takes precedence over --bind, so reserve ctrl-s for sorting here.
+  let expect = ['ctrl-y'] + filter(keys(g:fzf_action), { _, key -> key !=# 'ctrl-s' })
   let options = {
         \ 'source':  source,
         \ 'sink*':   function('vimrc#fzf#git#commits_in_commandline_sink', [results]),
         \ 'options': ['--ansi', '--tiebreak=index',
         \   '--prompt', command.'> ', '--bind=ctrl-s:toggle-sort',
         \   '--header', ':: Press '.vimrc#fzf#magenta('CTRL-S', 'Special').' to toggle sort, '.vimrc#fzf#magenta('CTRL-Y', 'Special').' to yank commit hashes',
-        \   '--expect=ctrl-y,'.vimrc#fzf#expect_keys()]
+        \   '--expect='.join(expect, ',')]
         \ }
 
   if a:buffer_local
