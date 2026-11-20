@@ -696,6 +696,7 @@ lsp.setup_lsp_install = function()
   local ensure_installed = ok and cached_packages or {}
   local startup_pending = vim.v.vim_did_enter == 0
   local refreshing, running = false, false
+  local registry_unavailable
   local manual_requests = {}
 
   local function start_next()
@@ -723,14 +724,22 @@ lsp.setup_lsp_install = function()
     if #ensure_installed > 0 then
       running = true
       install_mason_packages(registry, ensure_installed, request, complete)
-    elseif request.manual then
-      complete({})
+    else
+      if registry_unavailable then
+        request.error = "Mason registry refresh failed and no configured packages are available locally"
+        if not request.sync then
+          vim.notify(request.error, vim.log.levels.ERROR)
+        end
+      end
+      if request.manual then
+        complete({})
+      end
     end
   end
 
   local function refresh()
     refreshing = true
-    local on_refresh = vim.schedule_wrap(function()
+    local on_refresh = vim.schedule_wrap(function(success)
       -- Another registry caller may have updated the local mappings.
       local ok, packages = pcall(get_mason_packages, registry, true)
       if ok then
@@ -739,19 +748,20 @@ lsp.setup_lsp_install = function()
       else
         vim.notify("Mason package mappings unavailable: " .. tostring(packages), vim.log.levels.ERROR)
       end
+      registry_unavailable = not success and #ensure_installed == 0 and next(lsp.get_servers(true)) ~= nil
       refreshing = false
       start_next()
     end)
     local ok, err = pcall(registry.refresh, on_refresh)
     if not ok then
-      on_refresh()
+      on_refresh(false)
       vim.notify("Mason registry refresh failed: " .. tostring(err), vim.log.levels.ERROR)
     end
   end
 
   local function install_manual(update, sync)
     startup_pending = false
-    local request = { manual = true, update = update }
+    local request = { manual = true, update = update, sync = sync }
     table.insert(manual_requests, request)
     -- Requests arriving during a refresh or batch already have a registry result
     -- to use. In particular, a failed refresh should not make them retry it.
@@ -762,6 +772,9 @@ lsp.setup_lsp_install = function()
       return request.done
     end) then
       error("Stopped waiting before the Mason batch completed", 0)
+    end
+    if sync and request.error then
+      error(request.error, 0)
     end
   end
 

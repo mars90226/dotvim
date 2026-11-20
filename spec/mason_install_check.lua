@@ -305,6 +305,14 @@ vim.api.nvim_create_autocmd("VimEnter", {
       vim.cmd.MasonToolsInstall()
       finish_refresh(false)
       assert_completion(17, {})
+      assert(notifications[#notifications].message:find("no configured packages", 1, true))
+
+      vim.defer_fn(function()
+        finish_refresh(false)
+      end, 20)
+      local unavailable_ok, unavailable_error = pcall(vim.cmd.MasonToolsInstallSync)
+      assert(not unavailable_ok and unavailable_error:find("no configured packages", 1, true))
+      assert_completion(18, {})
 
       mappings = { harper_ls = harper }
       installed[harper] = nil
@@ -313,12 +321,12 @@ vim.api.nvim_create_autocmd("VimEnter", {
       assert(active[harper], "use new local mappings even if refresh fails")
       active[harper](true)
       flush_scheduled()
-      assert_completion(19, { harper })
+      assert_completion(20, { harper })
 
       vim.cmd.MasonToolsInstall()
       mapping_error = "cache read failed"
       finish_refresh(false)
-      assert_completion(20, {})
+      assert_completion(21, {})
       assert(vim.deep_equal(installer_opts.ensure_installed, { harper }))
       assert(notifications[#notifications].message:find(mapping_error, 1, true))
     end, debug.traceback)
