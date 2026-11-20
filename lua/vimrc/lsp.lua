@@ -559,40 +559,257 @@ lsp.setup_server = function(server, custom_opts)
   end
 end
 
-lsp.init_mason_map = function()
-  -- mason-lspconfig.nvim 2.1.0 filetype mappings
-  -- Ref: https://github.com/mason-org/mason-lspconfig.nvim/pull/555
-  lsp.mason_map = require("mason-lspconfig.mappings").get_all()
-end
-
 lsp.setup_servers = function()
   vim.lsp.config("*", lsp.servers["*"] or {})
 
   for server, _ in pairs(lsp.get_servers()) do
-    -- NOTE: We delegate install to mason-tool-installer.nvim and do not try
-    -- to install LSP on filetype. Because it seems a little hard to wait for
-    -- installation finished.
+    -- Mason installs tools separately from filetype-based LSP activation.
     lsp.setup_server(server, {})
     vim.lsp.enable(server)
   end
 end
 
-lsp.setup_lsp_install = function()
-  local mason_tool_installer = require("mason-tool-installer")
-
-  local lspconfig_servers = vim.tbl_keys(lsp.get_servers(true))
-  -- TODO: Check if this can be precompiled to improve startup time
-  local mason_package_servers = {}
-
-  -- TODO: Use mason-lspconfig api
-  -- FIXME: This may have a bug that causing 'harper_ls' not installed
-  for _, lspconfig_server in ipairs(lspconfig_servers) do
-    table.insert(mason_package_servers, lsp.mason_map.lspconfig_to_package[lspconfig_server])
+local function get_mason_packages(registry, refresh_index)
+  local packages = {}
+  for _, spec in ipairs(registry.get_all_package_specs()) do
+    local server = vim.tbl_get(spec, "neovim", "lspconfig")
+    if server then
+      packages[server] = spec
+    end
   end
 
-  mason_tool_installer.setup({
-    ensure_installed = mason_package_servers,
-  })
+  local ensure_installed = {}
+  local stale_index = false
+  for server in pairs(lsp.get_servers(true)) do
+    local spec = packages[server]
+    if spec then
+      table.insert(ensure_installed, spec.name)
+      if refresh_index and not stale_index then
+        local ok, package = pcall(registry.get_package, spec.name)
+        stale_index = not ok or not vim.deep_equal(package.spec, spec)
+      end
+    end
+  end
+  if stale_index then
+    -- A different Neovim can update the files without reloading Mason's
+    -- in-process GitHub package objects. Reload preserves active handles.
+    local github_source = require("mason-registry.sources.github")
+    for source in registry.sources:iterate() do
+      if getmetatable(source) == github_source then
+        source:reload()
+      end
+    end
+  end
+
+  return ensure_installed
+end
+
+local function install_mason_package(registry, name, request, on_start, on_finish)
+  local finished = false
+  local function finish(success, err)
+    if finished then
+      return
+    end
+    finished = true
+    on_finish()
+    if success then
+      vim.notify("Mason installed " .. name)
+    elseif success == false then
+      vim.notify(("Mason failed to install %s: %s"):format(name, tostring(err)), vim.log.levels.ERROR)
+    end
+  end
+
+  local function attempt()
+    local ok, err = pcall(function()
+      if not registry.has_package(name) then
+        finish()
+        return
+      end
+
+      local package = registry.get_package(name)
+      local handle
+      if package:is_installing() then
+        handle = package:get_install_handle()
+      elseif package:is_uninstalling() then
+        handle = package:get_uninstall_handle()
+      end
+      if handle then
+        if request.manual then
+          handle:get_or_throw():once("closed", vim.schedule_wrap(attempt))
+        else
+          finish()
+        end
+        return
+      end
+
+      local version
+      if package:is_installed() then
+        if request.update then
+          version = package:get_latest_version()
+        end
+        if not version or version == package:get_installed_version() then
+          finish()
+          return
+        end
+      end
+
+      on_start(name)
+      package:install({ version = version }, vim.schedule_wrap(finish))
+    end)
+    if not ok then
+      finish(false, err)
+    end
+  end
+
+  attempt()
+end
+
+local function install_mason_packages(registry, names, request, on_done)
+  local remaining, attempted = #names, {}
+  local function on_start(name)
+    if #attempted == 0 then
+      vim.schedule(function()
+        vim.api.nvim_exec_autocmds("User", { pattern = "MasonToolsStartingInstall" })
+      end)
+    end
+    table.insert(attempted, name)
+  end
+
+  local function on_finish()
+    remaining = remaining - 1
+    if remaining == 0 then
+      vim.schedule(function()
+        on_done(attempted)
+      end)
+    end
+  end
+
+  for _, name in ipairs(names) do
+    install_mason_package(registry, name, request, on_start, on_finish)
+  end
+end
+
+lsp.setup_lsp_install = function()
+  local mason_tool_installer = require("mason-tool-installer")
+  local registry = require("mason-registry")
+  local ok, cached_packages = pcall(get_mason_packages, registry, false)
+  local ensure_installed = ok and cached_packages or {}
+  local startup_pending = vim.v.vim_did_enter == 0
+  local refreshing, running = false, false
+  local registry_error
+  local manual_requests = {}
+
+  local function start_next()
+    if refreshing or running then
+      return
+    end
+
+    local request = table.remove(manual_requests, 1)
+    if not request then
+      if not startup_pending or vim.v.vim_did_enter == 0 then
+        return
+      end
+      startup_pending = false
+      request = {}
+    end
+    local function complete(attempted)
+      running = false
+      request.done = true
+      if #manual_requests > 0 then
+        vim.schedule(start_next)
+      end
+      vim.api.nvim_exec_autocmds("User", { pattern = "MasonToolsUpdateCompleted", data = attempted })
+    end
+
+    if #ensure_installed > 0 then
+      running = true
+      install_mason_packages(registry, ensure_installed, request, complete)
+    else
+      request.error = registry_error
+      if request.error and not request.sync then
+        vim.notify(request.error, vim.log.levels.ERROR)
+      end
+      if request.manual then
+        complete({})
+      end
+    end
+  end
+
+  local function refresh()
+    refreshing = true
+    local refresh_exception
+    local on_refresh = vim.schedule_wrap(function(success)
+      -- Another registry caller may have updated the local mappings.
+      local ok, packages = pcall(get_mason_packages, registry, true)
+      if ok then
+        mason_tool_installer.setup({ ensure_installed = packages })
+        ensure_installed = packages
+      else
+        vim.notify("Mason package mappings unavailable: " .. tostring(packages), vim.log.levels.ERROR)
+      end
+      refreshing = false
+      registry_error = nil
+      if not success and #ensure_installed == 0 and next(lsp.get_servers(true)) ~= nil then
+        registry_error = "Mason registry refresh failed and no configured packages are available locally"
+        if refresh_exception then
+          registry_error = registry_error .. ": " .. tostring(refresh_exception)
+        end
+        if not startup_pending and #manual_requests == 0 then
+          vim.notify(registry_error, vim.log.levels.ERROR)
+        end
+      elseif refresh_exception then
+        vim.notify("Mason registry refresh failed: " .. tostring(refresh_exception), vim.log.levels.ERROR)
+      end
+      start_next()
+    end)
+    local ok, err = pcall(registry.refresh, on_refresh)
+    if not ok then
+      refresh_exception = err
+      on_refresh(false)
+    end
+  end
+
+  local function install_manual(update, sync)
+    startup_pending = false
+    local request = { manual = true, update = update, sync = sync }
+    table.insert(manual_requests, request)
+    -- Requests arriving during a refresh or batch already have a registry result
+    -- to use. In particular, a failed refresh should not make them retry it.
+    if not refreshing and not running and #manual_requests == 1 then
+      refresh()
+    end
+    if sync and not vim.wait(10 * 60 * 1000, function()
+      return request.done
+    end) then
+      error("Stopped waiting before the Mason batch completed", 0)
+    end
+    if sync and request.error then
+      error(request.error, 0)
+    end
+  end
+
+  for _, command in ipairs({ "Install", "Update" }) do
+    local update = command == "Update"
+    vim.api.nvim_create_user_command("MasonTools" .. command, function()
+      install_manual(update, false)
+    end, { force = true })
+    vim.api.nvim_create_user_command("MasonTools" .. command .. "Sync", function()
+      install_manual(update, true)
+    end, { force = true })
+  end
+
+  if startup_pending then
+    vim.api.nvim_create_autocmd("VimEnter", {
+      once = true,
+      callback = function()
+        vim.schedule(start_next)
+      end,
+    })
+  end
+
+  -- Keep the native clean command's list ready even while refresh is pending.
+  mason_tool_installer.setup({ run_on_start = false, ensure_installed = ensure_installed })
+  refresh()
 end
 
 lsp.setup_plugins = function()
@@ -628,7 +845,6 @@ end
 lsp.setup = function(settings)
   lsp.config = vim.tbl_extend("force", lsp.config, settings)
 
-  lsp.init_mason_map()
   lsp.setup_lsp_install()
   lsp.setup_servers()
   lsp.setup_plugins()
