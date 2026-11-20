@@ -99,12 +99,11 @@ function! vimrc#fzf#dir#all_files(folder, bang) abort
         \ a:bang)
 endfunction
 
-" Custom files, using ':' to separate folder and option and pattern
-" TODO Review arguments
+" CustomFiles [folder[:fd-options[:pattern]]]
 function! vimrc#fzf#dir#custom_files(command, bang) abort
   let command_parts = split(a:command, ':', 1)
-  let folder = command_parts[0]
-  let option = command_parts[1]
+  let folder = get(command_parts, 0, '')
+  let option = get(command_parts, 1, '')
   let pattern = join(command_parts[2:], ':')
   let cmd = s:fd_command.' '.option.' '.shellescape(pattern)
   let options = {
