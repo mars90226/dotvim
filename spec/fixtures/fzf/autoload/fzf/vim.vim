@@ -1,8 +1,12 @@
-function! fzf#vim#with_preview(opts) abort
-  return copy(a:opts)
+function! fzf#vim#with_preview(...) abort
+  return copy(get(a:000, 0, {}))
 endfunction
 
 function! fzf#vim#files(dir, opts, bang) abort
+  if exists('g:fzf_test_file_calls')
+    call add(g:fzf_test_file_calls, [a:dir, a:opts, a:bang])
+    return
+  endif
   return fzf#run(a:opts)
 endfunction
 
