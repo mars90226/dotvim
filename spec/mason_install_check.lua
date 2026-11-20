@@ -99,6 +99,13 @@ local function finish_refresh(success, updated_registries)
   flush_scheduled()
 end
 
+vim.api.nvim_create_autocmd("VimEnter", {
+  once = true,
+  callback = function()
+    vim.cmd.MasonToolsInstallSync()
+  end,
+})
+
 lsp.setup({})
 assert(servers_set_up, "LSP setup must finish while the registry is pending")
 assert(not installer_opts.run_on_start, "the installer's VimEnter check must be disabled before registry readiness")
@@ -122,13 +129,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
   once = true,
   callback = function()
     assert(vim.v.vim_did_enter == 1)
-    assert(
-      vim.wait(1000, function()
-        return install_checks == 1
-      end),
-      "VimEnter should trigger startup installation"
-    )
     flush_scheduled()
+    assert(vim.deep_equal(sync_updates, { false }), "an earlier VimEnter handler can install synchronously")
+    assert(install_checks == 0, "skip startup installation after the synchronous command takes over")
     assert(#install_events == 1 and install_events[1].pattern == "MasonToolsStartingInstall")
     assert(cached_installs["yaml-language-server"] and cached_installs["bash-language-server"])
     local yaml_done = cached_installs["yaml-language-server"]
@@ -143,7 +146,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end, 20)
     vim.cmd.MasonToolsInstallSync()
     vim.cmd.MasonToolsUpdateSync()
-    assert(vim.deep_equal(sync_updates, { false, true }), "preserve the native sync install and update modes")
+    assert(vim.deep_equal(sync_updates, { false, false, true }), "preserve the native sync install and update modes")
     flush_scheduled()
     assert(#install_events == 2 and install_events[2].pattern == "MasonToolsUpdateCompleted")
     table.sort(install_events[2].data)
@@ -171,13 +174,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
     finish_refresh(false)
     assert(#installer_opts.ensure_installed == 0, "skip installation without package mappings")
     vim.cmd.MasonToolsInstallSync()
-    assert(#sync_updates == 2, "do not run a synchronous batch with no packages")
+    assert(#sync_updates == 3, "do not run a synchronous batch with no packages")
 
     lsp.setup_lsp_install()
     mappings = { harper_ls = "harper-ls" }
     finish_refresh(true, { "registry" })
     assert(vim.deep_equal(installer_opts.ensure_installed, { "harper-ls" }), "late setup populates the manual list")
-    assert(install_checks == 1, "do not start automatic installation when setup begins after VimEnter")
+    assert(install_checks == 0, "do not start automatic installation when setup begins after VimEnter")
     print("PASS: Mason LSP installs follow registry readiness and the VimEnter boundary")
     vim.cmd("qa!")
   end,

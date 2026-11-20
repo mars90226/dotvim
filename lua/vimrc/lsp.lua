@@ -629,13 +629,12 @@ lsp.setup_lsp_install = function()
   local mason_tool_installer = require("mason-tool-installer")
   local registry = require("mason-registry")
   local ensure_installed = get_mason_packages()
-  local install_on_start = vim.v.vim_did_enter == 0
-  local refresh_pending, startup_pending = true, install_on_start
+  local refresh_pending, startup_pending = true, vim.v.vim_did_enter == 0
 
   local function install_sync(update)
     -- The pinned installer does not count an already running install as completed.
     local ready = vim.wait(0x7FFFFFFF, function()
-      if refresh_pending or (vim.v.vim_did_enter == 1 and startup_pending) then
+      if refresh_pending then
         return false
       end
       for _, name in ipairs(ensure_installed) do
@@ -649,6 +648,8 @@ lsp.setup_lsp_install = function()
       return true
     end)
     if ready and #ensure_installed > 0 then
+      -- A synchronous command can run before our VimEnter callback.
+      startup_pending = false
       mason_tool_installer.check_install(update, true)
     end
   end
@@ -668,12 +669,14 @@ lsp.setup_lsp_install = function()
       mason_tool_installer.setup({ ensure_installed = ensure_installed })
     end
     refresh_pending = false
-    if not install_on_start or #ensure_installed == 0 then
-      startup_pending = false
+    if not startup_pending or #ensure_installed == 0 then
       return
     end
 
     local function install()
+      if not startup_pending then
+        return
+      end
       startup_pending = false
       if success then
         mason_tool_installer.check_install()
