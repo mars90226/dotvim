@@ -46,7 +46,9 @@ lsp.setup_servers = function()
 end
 
 local function finish_refresh(success, updated_registries)
-  registry_ready(success, updated_registries)
+  local callback = assert(registry_ready, "registry refresh was not requested")
+  registry_ready = nil
+  callback(success, updated_registries)
   local done = false
   vim.schedule(function()
     done = true
@@ -86,18 +88,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
     lsp.setup_lsp_install()
     assert(
       vim.deep_equal(installer_opts.ensure_installed, { "harper-ls" }),
-      "manual commands need the cached list while a refresh is pending"
+      "manual commands need the cached list immediately"
     )
-    finish_refresh(false)
-    assert(
-      vim.deep_equal(installer_opts.ensure_installed, { "harper-ls" }),
-      "keep cached mappings after refresh failure"
-    )
-
-    lsp.setup_lsp_install()
-    local cached_reads = mapping_reads
-    finish_refresh(true, {})
-    assert(mapping_reads == cached_reads, "reuse cached mappings if no registry changed")
+    assert(installer_opts.run_on_start, "keep the installer's startup check for cached packages")
+    assert(not registry_ready, "let the installer own the refresh when packages are cached")
 
     mappings = {}
     lsp.setup_lsp_install()

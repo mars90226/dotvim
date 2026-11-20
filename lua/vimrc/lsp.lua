@@ -590,13 +590,20 @@ lsp.setup_lsp_install = function()
   local ensure_installed = get_mason_packages()
   local install_on_start = vim.v.vim_did_enter == 0
 
-  -- Manual installer commands need the cached list even while a refresh is pending.
-  mason_tool_installer.setup({ run_on_start = false, ensure_installed = ensure_installed })
-  require("mason-registry").refresh(vim.schedule_wrap(function(success, updated_registries)
-    if success and #updated_registries > 0 then
-      ensure_installed = get_mason_packages()
-      mason_tool_installer.setup({ ensure_installed = ensure_installed })
+  -- With a cached list, the installer's VimEnter check handles registry refresh itself.
+  local has_cached_packages = #ensure_installed > 0
+  mason_tool_installer.setup({ run_on_start = has_cached_packages, ensure_installed = ensure_installed })
+  if has_cached_packages then
+    return
+  end
+
+  require("mason-registry").refresh(vim.schedule_wrap(function(success)
+    if not success then
+      return
     end
+
+    ensure_installed = get_mason_packages()
+    mason_tool_installer.setup({ ensure_installed = ensure_installed })
     if not install_on_start or #ensure_installed == 0 then
       return
     end
