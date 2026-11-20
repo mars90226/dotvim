@@ -329,6 +329,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
       assert_completion(21, {})
       assert(vim.deep_equal(installer_opts.ensure_installed, { harper }))
       assert(notifications[#notifications].message:find(mapping_error, 1, true))
+
+      mapping_error = nil
+      mappings = {}
+      lsp.setup_lsp_install()
+      finish_refresh(false)
+      assert(#events == 21 and not next(active), "do not start an install batch after VimEnter")
+      assert(notifications[#notifications].message:find("no configured packages", 1, true))
     end, debug.traceback)
     if not ok then
       vim.api.nvim_err_writeln(err)

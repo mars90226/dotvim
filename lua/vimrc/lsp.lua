@@ -697,6 +697,7 @@ lsp.setup_lsp_install = function()
   local startup_pending = vim.v.vim_did_enter == 0
   local refreshing, running = false, false
   local registry_unavailable
+  local no_registry_message = "Mason registry refresh failed and no configured packages are available locally"
   local manual_requests = {}
 
   local function start_next()
@@ -726,7 +727,7 @@ lsp.setup_lsp_install = function()
       install_mason_packages(registry, ensure_installed, request, complete)
     else
       if registry_unavailable then
-        request.error = "Mason registry refresh failed and no configured packages are available locally"
+        request.error = no_registry_message
         if not request.sync then
           vim.notify(request.error, vim.log.levels.ERROR)
         end
@@ -750,6 +751,9 @@ lsp.setup_lsp_install = function()
       end
       registry_unavailable = not success and #ensure_installed == 0 and next(lsp.get_servers(true)) ~= nil
       refreshing = false
+      if registry_unavailable and not startup_pending and #manual_requests == 0 then
+        vim.notify(no_registry_message, vim.log.levels.ERROR)
+      end
       start_next()
     end)
     local ok, err = pcall(registry.refresh, on_refresh)
