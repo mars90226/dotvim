@@ -336,6 +336,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
       finish_refresh(false)
       assert(#events == 21 and not next(active), "do not start an install batch after VimEnter")
       assert(notifications[#notifications].message:find("no configured packages", 1, true))
+
+      local previous_notifications = #notifications
+      refresh_error = "malformed registry timestamp"
+      lsp.setup_lsp_install()
+      flush_scheduled()
+      assert(#notifications == previous_notifications + 1, "report the same refresh failure only once")
+      assert(notifications[#notifications].message:find(refresh_error, 1, true))
     end, debug.traceback)
     if not ok then
       vim.api.nvim_err_writeln(err)

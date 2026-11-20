@@ -696,8 +696,7 @@ lsp.setup_lsp_install = function()
   local ensure_installed = ok and cached_packages or {}
   local startup_pending = vim.v.vim_did_enter == 0
   local refreshing, running = false, false
-  local registry_unavailable
-  local no_registry_message = "Mason registry refresh failed and no configured packages are available locally"
+  local registry_error
   local manual_requests = {}
 
   local function start_next()
@@ -726,11 +725,9 @@ lsp.setup_lsp_install = function()
       running = true
       install_mason_packages(registry, ensure_installed, request, complete)
     else
-      if registry_unavailable then
-        request.error = no_registry_message
-        if not request.sync then
-          vim.notify(request.error, vim.log.levels.ERROR)
-        end
+      request.error = registry_error
+      if request.error and not request.sync then
+        vim.notify(request.error, vim.log.levels.ERROR)
       end
       if request.manual then
         complete({})
@@ -740,6 +737,7 @@ lsp.setup_lsp_install = function()
 
   local function refresh()
     refreshing = true
+    local refresh_exception
     local on_refresh = vim.schedule_wrap(function(success)
       -- Another registry caller may have updated the local mappings.
       local ok, packages = pcall(get_mason_packages, registry, true)
@@ -749,17 +747,25 @@ lsp.setup_lsp_install = function()
       else
         vim.notify("Mason package mappings unavailable: " .. tostring(packages), vim.log.levels.ERROR)
       end
-      registry_unavailable = not success and #ensure_installed == 0 and next(lsp.get_servers(true)) ~= nil
       refreshing = false
-      if registry_unavailable and not startup_pending and #manual_requests == 0 then
-        vim.notify(no_registry_message, vim.log.levels.ERROR)
+      registry_error = nil
+      if not success and #ensure_installed == 0 and next(lsp.get_servers(true)) ~= nil then
+        registry_error = "Mason registry refresh failed and no configured packages are available locally"
+        if refresh_exception then
+          registry_error = registry_error .. ": " .. tostring(refresh_exception)
+        end
+        if not startup_pending and #manual_requests == 0 then
+          vim.notify(registry_error, vim.log.levels.ERROR)
+        end
+      elseif refresh_exception then
+        vim.notify("Mason registry refresh failed: " .. tostring(refresh_exception), vim.log.levels.ERROR)
       end
       start_next()
     end)
     local ok, err = pcall(registry.refresh, on_refresh)
     if not ok then
+      refresh_exception = err
       on_refresh(false)
-      vim.notify("Mason registry refresh failed: " .. tostring(err), vim.log.levels.ERROR)
     end
   end
 
