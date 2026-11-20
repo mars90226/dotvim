@@ -563,9 +563,7 @@ lsp.setup_servers = function()
   vim.lsp.config("*", lsp.servers["*"] or {})
 
   for server, _ in pairs(lsp.get_servers()) do
-    -- NOTE: We delegate install to mason-tool-installer.nvim and do not try
-    -- to install LSP on filetype. Because it seems a little hard to wait for
-    -- installation finished.
+    -- Mason installs tools separately from filetype-based LSP activation.
     lsp.setup_server(server, {})
     vim.lsp.enable(server)
   end
@@ -587,37 +585,48 @@ end
 
 lsp.setup_lsp_install = function()
   local mason_tool_installer = require("mason-tool-installer")
+  local registry = require("mason-registry")
   local ensure_installed = get_mason_packages()
   local install_on_start = vim.v.vim_did_enter == 0
 
-  -- With a cached list, the installer's VimEnter check handles registry refresh itself.
-  local has_cached_packages = #ensure_installed > 0
-  mason_tool_installer.setup({ run_on_start = has_cached_packages, ensure_installed = ensure_installed })
-  if has_cached_packages then
-    return
-  end
-
-  require("mason-registry").refresh(vim.schedule_wrap(function(success)
-    if not success then
-      return
+  -- Manual installer commands need the cached list even while a refresh is pending.
+  mason_tool_installer.setup({ run_on_start = false, ensure_installed = ensure_installed })
+  registry.refresh(vim.schedule_wrap(function(success, updated_registries)
+    if success and #updated_registries > 0 then
+      ensure_installed = get_mason_packages()
+      mason_tool_installer.setup({ ensure_installed = ensure_installed })
     end
-
-    ensure_installed = get_mason_packages()
-    mason_tool_installer.setup({ ensure_installed = ensure_installed })
     if not install_on_start or #ensure_installed == 0 then
       return
     end
 
+    local function install()
+      if success then
+        mason_tool_installer.check_install()
+        return
+      end
+
+      -- The tool installer would retry the failed refresh before using the cached list.
+      for _, name in ipairs(ensure_installed) do
+        if registry.has_package(name) then
+          local package = registry.get_package(name)
+          if not package:is_installed() and not package:is_installing() then
+            require("mason-lspconfig.install").install(package)
+          end
+        end
+      end
+    end
+
     -- A startup command can process the registry callback before VimEnter.
     if vim.v.vim_did_enter == 1 then
-      mason_tool_installer.check_install()
+      install()
       return
     end
 
     vim.api.nvim_create_autocmd("VimEnter", {
       once = true,
       callback = function()
-        vim.schedule(mason_tool_installer.check_install)
+        vim.schedule(install)
       end,
     })
   end))
