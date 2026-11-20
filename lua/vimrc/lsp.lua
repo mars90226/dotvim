@@ -559,12 +559,6 @@ lsp.setup_server = function(server, custom_opts)
   end
 end
 
-lsp.init_mason_map = function()
-  -- mason-lspconfig.nvim 2.1.0 filetype mappings
-  -- Ref: https://github.com/mason-org/mason-lspconfig.nvim/pull/555
-  lsp.mason_map = require("mason-lspconfig.mappings").get_all()
-end
-
 lsp.setup_servers = function()
   vim.lsp.config("*", lsp.servers["*"] or {})
 
@@ -577,22 +571,49 @@ lsp.setup_servers = function()
   end
 end
 
-lsp.setup_lsp_install = function()
-  local mason_tool_installer = require("mason-tool-installer")
+local function get_mason_packages()
+  local packages = require("mason-lspconfig").get_mappings().lspconfig_to_package
+  local ensure_installed = {}
 
-  local lspconfig_servers = vim.tbl_keys(lsp.get_servers(true))
-  -- TODO: Check if this can be precompiled to improve startup time
-  local mason_package_servers = {}
-
-  -- TODO: Use mason-lspconfig api
-  -- FIXME: This may have a bug that causing 'harper_ls' not installed
-  for _, lspconfig_server in ipairs(lspconfig_servers) do
-    table.insert(mason_package_servers, lsp.mason_map.lspconfig_to_package[lspconfig_server])
+  for server in pairs(lsp.get_servers(true)) do
+    local package = packages[server]
+    if package then
+      table.insert(ensure_installed, package)
+    end
   end
 
-  mason_tool_installer.setup({
-    ensure_installed = mason_package_servers,
-  })
+  return ensure_installed
+end
+
+lsp.setup_lsp_install = function()
+  local mason_tool_installer = require("mason-tool-installer")
+  local ensure_installed = get_mason_packages()
+  local install_on_start = vim.v.vim_did_enter == 0
+
+  -- Manual installer commands need the cached list even while a refresh is pending.
+  mason_tool_installer.setup({ run_on_start = false, ensure_installed = ensure_installed })
+  require("mason-registry").refresh(vim.schedule_wrap(function(success, updated_registries)
+    if success and #updated_registries > 0 then
+      ensure_installed = get_mason_packages()
+      mason_tool_installer.setup({ ensure_installed = ensure_installed })
+    end
+    if not install_on_start or #ensure_installed == 0 then
+      return
+    end
+
+    -- A startup command can process the registry callback before VimEnter.
+    if vim.v.vim_did_enter == 1 then
+      mason_tool_installer.check_install()
+      return
+    end
+
+    vim.api.nvim_create_autocmd("VimEnter", {
+      once = true,
+      callback = function()
+        vim.schedule(mason_tool_installer.check_install)
+      end,
+    })
+  end))
 end
 
 lsp.setup_plugins = function()
@@ -628,7 +649,6 @@ end
 lsp.setup = function(settings)
   lsp.config = vim.tbl_extend("force", lsp.config, settings)
 
-  lsp.init_mason_map()
   lsp.setup_lsp_install()
   lsp.setup_servers()
   lsp.setup_plugins()
