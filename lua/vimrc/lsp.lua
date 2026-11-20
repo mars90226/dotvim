@@ -630,6 +630,35 @@ lsp.setup_lsp_install = function()
   local registry = require("mason-registry")
   local ensure_installed = get_mason_packages()
   local install_on_start = vim.v.vim_did_enter == 0
+  local refresh_pending, startup_pending = true, install_on_start
+
+  local function install_sync(update)
+    -- The pinned installer does not count an already running install as completed.
+    local ready = vim.wait(0x7FFFFFFF, function()
+      if refresh_pending or (vim.v.vim_did_enter == 1 and startup_pending) then
+        return false
+      end
+      for _, name in ipairs(ensure_installed) do
+        if registry.has_package(name) then
+          local package = registry.get_package(name)
+          if package:is_installing() or package:is_uninstalling() then
+            return false
+          end
+        end
+      end
+      return true
+    end)
+    if ready and #ensure_installed > 0 then
+      mason_tool_installer.check_install(update, true)
+    end
+  end
+
+  vim.api.nvim_create_user_command("MasonToolsInstallSync", function()
+    install_sync(false)
+  end, { force = true })
+  vim.api.nvim_create_user_command("MasonToolsUpdateSync", function()
+    install_sync(true)
+  end, { force = true })
 
   -- Manual installer commands need the cached list even while a refresh is pending.
   mason_tool_installer.setup({ run_on_start = false, ensure_installed = ensure_installed })
@@ -638,11 +667,14 @@ lsp.setup_lsp_install = function()
       ensure_installed = get_mason_packages()
       mason_tool_installer.setup({ ensure_installed = ensure_installed })
     end
+    refresh_pending = false
     if not install_on_start or #ensure_installed == 0 then
+      startup_pending = false
       return
     end
 
     local function install()
+      startup_pending = false
       if success then
         mason_tool_installer.check_install()
         return

@@ -12,6 +12,7 @@ local mapping_reads = 0
 local installer_opts = { run_on_start = true }
 local install_checks = 0
 local cached_installs = {}
+local sync_updates = {}
 local install_events = {}
 vim.api.nvim_create_autocmd("User", {
   pattern = { "MasonToolsStartingInstall", "MasonToolsUpdateCompleted" },
@@ -35,7 +36,7 @@ package.loaded["mason-registry"] = {
         return false
       end,
       is_installing = function()
-        return false
+        return cached_installs[name] ~= nil
       end,
       is_uninstalling = function()
         return false
@@ -56,8 +57,13 @@ package.loaded["mason-tool-installer"] = {
   setup = function(opts)
     installer_opts = vim.tbl_extend("force", installer_opts, opts)
   end,
-  check_install = function()
-    install_checks = install_checks + 1
+  check_install = function(update, sync)
+    if sync then
+      assert(not next(cached_installs), "the synchronous installer must wait for pending packages")
+      table.insert(sync_updates, update)
+    else
+      install_checks = install_checks + 1
+    end
   end,
 }
 
@@ -125,10 +131,19 @@ vim.api.nvim_create_autocmd("VimEnter", {
     flush_scheduled()
     assert(#install_events == 1 and install_events[1].pattern == "MasonToolsStartingInstall")
     assert(cached_installs["yaml-language-server"] and cached_installs["bash-language-server"])
-    cached_installs["yaml-language-server"](true)
+    local yaml_done = cached_installs["yaml-language-server"]
+    cached_installs["yaml-language-server"] = nil
+    yaml_done(true)
     flush_scheduled()
     assert(#install_events == 1, "wait for every cached package to finish")
-    cached_installs["bash-language-server"](true)
+    vim.defer_fn(function()
+      local bash_done = cached_installs["bash-language-server"]
+      cached_installs["bash-language-server"] = nil
+      bash_done(true)
+    end, 20)
+    vim.cmd.MasonToolsInstallSync()
+    vim.cmd.MasonToolsUpdateSync()
+    assert(vim.deep_equal(sync_updates, { false, true }), "preserve the native sync install and update modes")
     flush_scheduled()
     assert(#install_events == 2 and install_events[2].pattern == "MasonToolsUpdateCompleted")
     table.sort(install_events[2].data)
@@ -155,6 +170,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
     lsp.setup_lsp_install()
     finish_refresh(false)
     assert(#installer_opts.ensure_installed == 0, "skip installation without package mappings")
+    vim.cmd.MasonToolsInstallSync()
+    assert(#sync_updates == 2, "do not run a synchronous batch with no packages")
 
     lsp.setup_lsp_install()
     mappings = { harper_ls = "harper-ls" }
