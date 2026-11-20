@@ -583,6 +583,48 @@ local function get_mason_packages()
   return ensure_installed
 end
 
+local function install_cached_mason_packages(registry, names)
+  local pending, attempted = {}, {}
+  for _, name in ipairs(names) do
+    if registry.has_package(name) then
+      local package = registry.get_package(name)
+      if not package:is_installed() and not package:is_installing() and not package:is_uninstalling() then
+        table.insert(pending, package)
+        table.insert(attempted, name)
+      end
+    end
+  end
+
+  local remaining = #pending
+  local function complete()
+    vim.api.nvim_exec_autocmds("User", { pattern = "MasonToolsUpdateCompleted", data = attempted })
+  end
+
+  if remaining == 0 then
+    complete()
+    return
+  end
+
+  -- Keep mason-tool-installer's event contract when bypassing its registry refresh.
+  vim.schedule(function()
+    vim.api.nvim_exec_autocmds("User", { pattern = "MasonToolsStartingInstall" })
+  end)
+  for _, package in ipairs(pending) do
+    local on_install = vim.schedule_wrap(function(success)
+      if success then
+        vim.notify("Mason installed " .. package.name)
+      else
+        vim.notify("Mason failed to install " .. package.name, vim.log.levels.ERROR)
+      end
+      remaining = remaining - 1
+      if remaining == 0 then
+        complete()
+      end
+    end)
+    package:install({}, on_install)
+  end
+end
+
 lsp.setup_lsp_install = function()
   local mason_tool_installer = require("mason-tool-installer")
   local registry = require("mason-registry")
@@ -607,14 +649,7 @@ lsp.setup_lsp_install = function()
       end
 
       -- The tool installer would retry the failed refresh before using the cached list.
-      for _, name in ipairs(ensure_installed) do
-        if registry.has_package(name) then
-          local package = registry.get_package(name)
-          if not package:is_installed() and not package:is_installing() then
-            require("mason-lspconfig.install").install(package)
-          end
-        end
-      end
+      install_cached_mason_packages(registry, ensure_installed)
     end
 
     -- A startup command can process the registry callback before VimEnter.
