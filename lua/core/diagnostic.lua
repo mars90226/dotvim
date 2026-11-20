@@ -8,12 +8,6 @@ diagnostic.config = {
     current_line = false,
   },
   virtual_lines = {
-    -- TODO: Still have 2 issues:
-    -- 1. Doesn't update when the file is first loaded.
-    -- 2. After reload by `:edit`, if there's diagnostic on the current line, that virtual lines
-    -- will not be hidden when cursor is moved to another line.
-    -- These issues seems to related to the LSP. And the first seems to happen when LSP finishes
-    -- loading.
     current_line = true,
   },
 }
