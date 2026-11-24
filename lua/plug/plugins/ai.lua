@@ -627,6 +627,10 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
         },
         tools = {
           antigravity = { cmd = { "agy" }, url = "https://antigravity.google/docs/cli/getting-started" },
+          antigravity_resume = {
+            cmd = { "agy", "--continue" },
+            url = "https://antigravity.google/docs/cli/getting-started",
+          },
           -- TODO: Need to add new tools to explicitly create new codex session
           codex_new = { cmd = { "codex" }, url = "https://github.com/openai/codex" },
           codex_review = { cmd = { "codex", "-p", "review" }, url = "https://github.com/openai/codex" },
