@@ -222,10 +222,21 @@ local git = {
       { "<Leader>gh", "<Cmd>DiffviewFileHistory %<CR>", desc = "Diffview file history" },
     },
     config = function()
+      local actions = require("diffview.actions")
       require("diffview").setup({
         file_panel = {
           win_config = {
             width = vim.g.left_sidebar_width,
+          },
+        },
+        keymaps = {
+          view = {
+            ["gl"] = false,
+            { "n", "gL", actions.toggle_lfs_smudge, { desc = "Toggle git-LFS smudge" } },
+          },
+          file_panel = {
+            ["gl"] = false,
+            { "n", "gL", actions.toggle_lfs_smudge, { desc = "Toggle git-LFS smudge" } },
           },
         },
       })
