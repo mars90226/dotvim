@@ -251,31 +251,6 @@ local ai = {
           end,
           -- NOTE: claude_code is not configured. Anthropic doesn't endorse using Claude subscription
           -- through third-party ACP adapters, use the official claude CLI via sidekick.nvim instead.
-          gemini_cli = function()
-            return require("codecompanion.adapters").extend("gemini_cli", {
-              commands = {
-                flash = {
-                  "gemini",
-                  "--experimental-acp",
-                  "-m",
-                  "gemini-2.5-flash",
-                  "-i",
-                },
-                pro = {
-                  "gemini",
-                  "--experimental-acp",
-                  "-m",
-                  "gemini-2.5-pro",
-                  "-i",
-                },
-              },
-              defaults = {
-                -- auth_method = "gemini-api-key", -- "oauth-personal" | "gemini-api-key" | "vertex-ai"
-                auth_method = "oauth-personal",
-                -- auth_method = "vertex-ai",
-              },
-            })
-          end,
         },
       },
       interactions = {
@@ -651,6 +626,7 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
           },
         },
         tools = {
+          antigravity = { cmd = { "agy" }, url = "https://antigravity.google/docs/cli/getting-started" },
           -- TODO: Need to add new tools to explicitly create new codex session
           codex_new = { cmd = { "codex" }, url = "https://github.com/openai/codex" },
           codex_review = { cmd = { "codex", "-p", "review" }, url = "https://github.com/openai/codex" },
@@ -848,8 +824,8 @@ line=11-15: Deep nesting reduces readability; consider refactoring.
       },
       {
         "<Leader>ag",
-        function() require("sidekick.cli").toggle({ name = "gemini", focus = true }) end,
-        desc = "Sidekick Gemini Toggle",
+        function() require("sidekick.cli").toggle({ name = "antigravity", focus = true }) end,
+        desc = "Sidekick Antigravity Toggle",
         mode = { "n", "v" },
       },
       {
