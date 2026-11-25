@@ -62,12 +62,18 @@ package.loaded["blink.cmp"] = {
 local lsp = require("vimrc.lsp")
 vim.lsp.config("*", lsp.servers["*"])
 local original_called = false
+local function server_attach() end
 vim.lsp.config("codesettings_fixture", {
+  on_attach = server_attach,
   before_init = function(_, config)
     original_called = config.settings ~= nil
   end,
 })
 lsp.setup_server("codesettings_fixture", {})
+assert(
+  vim.deep_equal(vim.lsp.config.codesettings_fixture.on_attach, { lsp.servers["*"].on_attach, server_attach }),
+  "server-specific on_attach should run alongside the shared callback"
+)
 vim.lsp.config.codesettings_fixture.before_init({}, { name = "codesettings_fixture", root_dir = nested })
 assert(original_called and observed == project, "the server's before_init and project settings should both run")
 original_called = false
