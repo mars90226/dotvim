@@ -545,7 +545,18 @@ lsp.setup_server = function(server, custom_opts)
   end
 
   vim.lsp.config(server, lsp_opts)
-  local before_init = vim.lsp.config[server].before_init
+  local resolved = vim.lsp.config[server]
+  local common_attach = lsp.servers["*"].on_attach
+  local server_attach = resolved.on_attach
+  if server_attach and server_attach ~= common_attach then
+    -- A server's on_attach replaces the wildcard callback during config resolution.
+    local callbacks = type(server_attach) == "table" and server_attach or { server_attach }
+    if not vim.tbl_contains(callbacks, common_attach) then
+      vim.lsp.config(server, { on_attach = vim.list_extend({ common_attach }, callbacks) })
+    end
+  end
+
+  local before_init = resolved.before_init
   if before_init and before_init ~= lsp.servers["*"].before_init then
     vim.lsp.config(server, {
       before_init = function(params, config)
