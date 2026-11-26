@@ -11,5 +11,29 @@
     "prefix": ["cb"],
     "body": [ "```${1:language}", "$0", "```" ],
     "description": "Insert fenced code block"
+  },
+  "Codex review": {
+    "prefix": "cxr",
+    "body": ["codex review: $0"]
+  },
+  "Codex detail review": {
+    "prefix": "cxdr",
+    "body": ["codex detail review: $0"]
+  },
+  "Codex readability & performance review": {
+    "prefix": "cxrpr",
+    "body": ["codex readability & performance review: $0"]
+  },
+  "Claude review": {
+    "prefix": "clr",
+    "body": ["claude review: $0"]
+  },
+  "Gemini review": {
+    "prefix": "gmr",
+    "body": ["gemini review: $0"]
+  },
+  "Astra 評估方向": {
+    "prefix": "ae",
+    "body": ["Astra 評估方向: $0"]
   }
 }
