@@ -223,6 +223,8 @@ local git = {
     },
     config = function()
       local actions = require("diffview.actions")
+      local jump_to_other_diff = require("vimrc.plugins.diffview").open_other_diff
+      local other_diff = { "n", "<Leader>oo", jump_to_other_diff, { desc = "Jump to paired diff" } }
       require("diffview").setup({
         file_panel = {
           win_config = {
@@ -233,10 +235,12 @@ local git = {
           view = {
             ["gl"] = false,
             { "n", "gL", actions.toggle_lfs_smudge, { desc = "Toggle git-LFS smudge" } },
+            other_diff,
           },
           file_panel = {
             ["gl"] = false,
             { "n", "gL", actions.toggle_lfs_smudge, { desc = "Toggle git-LFS smudge" } },
+            other_diff,
           },
         },
       })

@@ -2,6 +2,31 @@ local utils = require("vimrc.utils")
 
 local other = {}
 
+function other.wildcard_target_patterns(path, options)
+  local patterns = {}
+  for _, mapping in ipairs(options.mappings) do
+    -- The configured wildcard rules use * for a single directory component.
+    if type(mapping.pattern) == "string" and mapping.target:find("/*/", 1, true) then
+      local match = { path:find(mapping.pattern) }
+      if match[1] then
+        local transform = options.transformers[mapping.transformer]
+        local parts = vim.split(mapping.target, "/*/", { plain = true })
+        for index, part in ipairs(parts) do
+          local target = part:gsub("%%(%d)", function(index_string)
+            local capture = match[tonumber(index_string) + 2] or ""
+            return transform and transform(capture) or capture
+          end)
+          parts[index] = vim.pesc(target)
+        end
+        local prefix = vim.pesc(path:sub(1, match[1] - 1))
+        local suffix = vim.pesc(path:sub(match[2] + 1))
+        patterns[#patterns + 1] = "^" .. prefix .. table.concat(parts, "/[^/.][^/]*/") .. suffix .. "$"
+      end
+    end
+  end
+  return patterns
+end
+
 local function generate_table(template)
   local result = {}
 
