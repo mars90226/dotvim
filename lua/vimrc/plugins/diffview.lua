@@ -3,6 +3,60 @@ local utils = require("vimrc.utils")
 
 local diffview = {}
 
+function diffview.open_other_diff()
+  local view = diffview_lib.get_current_view()
+  local DiffView = require("diffview.scene.views.diff.diff_view").DiffView
+  if not (view and view:instanceof(DiffView)) then
+    vim.cmd.Other()
+    return
+  end
+
+  local current = view:infer_cur_file()
+  if not current then
+    vim.notify("No file selected in Diffview", vim.log.levels.WARN)
+    return
+  end
+
+  local other = require("other-nvim")
+  local other_paths = {}
+  for _, match in ipairs(other.findOther(current.absolute_path)) do
+    -- A deleted file can still have a diff even when other.nvim marks it missing.
+    other_paths[match.filename] = true
+  end
+
+  -- Resolve wildcard targets against this diff as well as the working tree.
+  local wildcard_targets =
+    require("vimrc.plugins.other").wildcard_target_patterns(current.absolute_path, other.getOptions())
+  local entries = {}
+  for _, entry in view.files:iter() do
+    if
+      other_paths[entry.absolute_path]
+      or vim.iter(wildcard_targets):any(function(pattern)
+        return entry.absolute_path:match(pattern) ~= nil
+      end)
+    then
+      entries[#entries + 1] = entry
+    end
+  end
+
+  if #entries == 0 then
+    vim.notify("No paired file in this Diffview", vim.log.levels.INFO)
+  elseif #entries == 1 then
+    view:set_file(entries[1], true, true)
+  else
+    vim.ui.select(entries, {
+      prompt = "Jump to paired diff",
+      format_item = function(entry)
+        return ("%s (%s)"):format(entry.path, entry.kind)
+      end,
+    }, function(entry)
+      if entry and diffview_lib.get_current_view() == view then
+        view:set_file(entry, true, true)
+      end
+    end)
+  end
+end
+
 diffview.history_view = {}
 
 local history_panel_get_item = function(history_panel, line)
@@ -54,7 +108,7 @@ diffview.history_view.get_all_visual_shas = function()
   end
 
   for key, _ in pairs(visual_sha_map) do
-    visual_shas[#visual_shas+1] = key
+    visual_shas[#visual_shas + 1] = key
   end
 
   return visual_shas

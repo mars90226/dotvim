@@ -14,3 +14,6 @@ test:
 	@XDG_STATE_HOME="$(mktemp -d /tmp/nvim-which-key.XXXXXX)" timeout 10 nvim -u NONE -i NONE -n --headless -l spec/which_key_timeout_check.lua
 	@XDG_STATE_HOME="$(mktemp -d /tmp/nvim-emmylua.XXXXXX)" timeout 10 nvim -u NONE -i NONE -n --headless -l spec/emmylua_bridge_check.lua
 	@XDG_STATE_HOME="$(mktemp -d /tmp/nvim-smart-open.XXXXXX)" nvim -u NONE -i NONE -n --headless -l spec/smart_open_sqlite_check.lua
+	@diffview_test_home="$(mktemp -d /tmp/nvim-diffview-other.XXXXXX)" && \
+	  XDG_STATE_HOME="$diffview_test_home/state" XDG_CACHE_HOME="$diffview_test_home/cache" \
+	  timeout -k 2 15 nvim --headless -u NONE -i NONE -n -l spec/diffview_other_check.lua
