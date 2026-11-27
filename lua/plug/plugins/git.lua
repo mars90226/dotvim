@@ -333,7 +333,7 @@ local git = {
       require("gitlab.server").build(true)
     end, -- Builds the Go binary
     -- TODO: Fill complete gitlab.nvim keys
-    keys = { "gls", "glS", "glc", "glrc" },
+    keys = { "gls", "glS", "glc", "glrc", "glo" },
     config = function()
       require("vimrc.plugins.gitlab").setup()
     end,

@@ -1,7 +1,10 @@
 local gitlab = require("gitlab")
 local gitlab_server = require("gitlab.server")
+local gitlab_utils = require("gitlab.utils")
 
+local check = require("vimrc.check")
 local my_copilot = require("vimrc.plugins.copilot")
+local open_in_system_browser = gitlab_utils.open_in_browser
 
 local my_gitlab = {}
 
@@ -21,6 +24,16 @@ my_gitlab.reset_discussion = function()
 end
 
 my_gitlab.setup_config = function()
+  gitlab_utils.open_in_browser = function(url)
+    if not check.has_ssh_host_client() or vim.env.OPEN_URL_FORCE_LOCAL == "1" then
+      return open_in_system_browser(url)
+    end
+
+    -- SSH passes this command to the client shell, which must see the URL as one argument.
+    local quoted_url = "'" .. url:gsub("'", [['"'"']]) .. "'"
+    vim.fn.jobstart({ "ssh", "--", vim.env.SSH_CLIENT_HOST, "firefox " .. quoted_url })
+  end
+
   gitlab.setup({
     debug = { go_request = false, go_response = false },
   })
@@ -51,7 +64,7 @@ my_gitlab.setup_mapping = function()
 end
 
 my_gitlab.setup_autocmd = function()
--- Trick to make copilot.lua & blink.cmp work with gitlab.nvim's popup
+  -- Trick to make copilot.lua & blink.cmp work with gitlab.nvim's popup
   my_copilot.add_attach_filter(function()
     -- Check if popup is gitlab.nvim's comment popup or note popup
     if my_gitlab.is_comment_popup(vim.api.nvim_get_current_buf()) then
